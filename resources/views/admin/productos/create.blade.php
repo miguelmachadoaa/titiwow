@@ -12,6 +12,16 @@ Nuevo Producto
     
     <link href="{{ asset('assets/vendors/acc-wizard/acc-wizard.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/pages/accordionformwizard.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/dropzone/css/dropzone.css') }}" rel="stylesheet" type="text/css" />
+
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
+
+    <style>
+        .dropzone .dz-preview .dz-image img {
+            width :100%;
+        }
+    </style>
     
 @stop
 
@@ -34,6 +44,7 @@ Nuevo Producto
                     <li class="active">Nuevo Producto</li>
                 </ol>
             </section>
+
             <!--section ends-->
 <section class="content paddingleft_right15">
     <!--main content-->
@@ -50,7 +61,7 @@ Nuevo Producto
                         </span>
             </div>
             <div class="panel-body">
-            {!! Form::open(['url' => 'admin\productos', 'class' => 'form-horizontal']) !!}
+            {!! Form::open(['url' => 'admin\productos', 'class' => 'form-horizontal', 'id' => 'productosForm', 'name' => 'productosForm']) !!}
 
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
@@ -67,10 +78,10 @@ Nuevo Producto
                                 <a href="#addwizard">Descripción</a>
                             </li>
                             <li class="acc-wizard-todo">
-                                <a href="#adjusthtml">Adjust HTML</a>
+                                <a href="#adjusthtml">Ajustes SEO</a>
                             </li>
                             <li class="acc-wizard-todo">
-                                <a href="#viewpage">Release</a>
+                                <a href="#viewpage">Caracteristicas Producto</a>
                             </li>
                         </ol>
                     </div>
@@ -96,9 +107,9 @@ Nuevo Producto
                                                     <input id="referencia_producto" name="referencia_producto" type="text" placeholder="Your email" class="form-control"></div>
                                             </div>
                                             <div class="form-group clearfix">
-                                                <label class="col-md-3 control-label" for="referencia_producto">Referencia</label>
+                                                <label class="col-md-3 control-label" for="referencia_producto">Referencia Sap</label>
                                                 <div class="col-md-9">
-                                                    <input id="referencia_producto" name="referencia_producto" type="text" placeholder="Your email" class="form-control"></div>
+                                                    <input id="referencia_producto_sap" name="referencia_producto_sap" type="text" placeholder="Your email" class="form-control"></div>
                                             </div>
                                             <div class="acc-wizard-step"></div>
                                         </form>
@@ -128,6 +139,20 @@ Nuevo Producto
                                                 <textarea class="form-control resize_vertical" id="descripcion_larga" name="descripcion_larga" placeholder="Please enter your message here..." rows="5"></textarea>
                                             </div>
                                         </div>
+
+                                        <!-- Carga de imagenes -->
+                                        <div class="row">   
+                                         <div class="col-md-12" style="padding:30px;">
+                                            {!! Form::open(array('url' => URL::to('admin/file/create'), 'method' => 'post', 'id'=>'myDropzone','class' => 'dropzone', 'files'=> true)) !!}
+                                            <div class="fallback">
+                                                <input name="file" type="file" multiple />
+                                            </div>
+                                            {!! Form::close() !!}
+                                        </div>
+                                        </div>
+
+
+
                                             <div class="acc-wizard-step"></div>
                                         </form>
                                     </div>
@@ -137,68 +162,27 @@ Nuevo Producto
                             <div class="panel panel-warning">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a href="#adjusthtml" data-parent="#accordion-demo" data-toggle="collapse">Adjust HTML Markup</a>
+                                        <a href="#adjusthtml" data-parent="#accordion-demo" data-toggle="collapse">Ajustes SEO</a>
                                     </h4>
                                 </div>
                                 <div id="adjusthtml" class="panel-collapse collapse" style="height: 36.400001525878906px;">
                                     <div class="panel-body">
-                                        <form id="form-adjusthtml">
-                                            <p>
-                                                Now you can modify your HTML markup to activate the accordion wizard. There are two parts to the markup—the collapsible accordion itself and the task list. I prefer putting both in the same
-                                                <code>.row</code>
-                                                with the task list taking up a
-                                                <code>.col-md-3</code>
-                                                and the accordion panels in a
-                                                <code>.col-md-9</code>
-                                                , but that's not a requirement.
-                                            </p>
-                                            <p>
-                                                The accordion panel can be exactly as documented in the
-                                                <a href="http://getbootstrap.com/javascript/#collapse-examples">Bootstrap example</a>
-                                                , but I think there's a problem with the Bootstrap implementation. Specifically, the Bootstrap example only adds the class
-                                                <code>.in</code>
-                                                to one of the accordion panels. That class marks the panel as visible by default. The problem with only having one panel visible by default is that users without javascript will
-                                                <strong>never</strong>
-                                                be able to see the other panels. Sure, that's a minority of users, but why make your pages unworkable even for a small minority. Instead, I suggest adding
-                                                <code>.in</code>
-                                                to all your
-                                                <code>.collapse</code>
-                                                elements and have javascript code select only one to make visible when it runs. The accordion wizard javascript will handle that for you if you choose to use that approach.
-                                            </p>
-                                            <p>
-                                                The sidebar task list is nothing but a standard HTML ordered list. The only required additions are adding the
-                                                <code>.acc-wizard-sidebar</code>
-                                                class to the
-                                                <code>&lt;ol&gt;</code>
-                                                element and
-                                                <code>.acc-wizard-todo</code>
-                                                to the individual list items. If you want to indicate that some steps are already complete, you can instead add the
-                                                <code>.acc-wizard-completed</code>
-                                                class to the corresponding
-                                                <code>&lt;li&gt;</code>
-                                                elements.
-                                            </p>
-                                                        <pre>&lt;ol class="acc-wizard-sidebar"&gt;
-                                                              &lt;li class="acc-wizard-todo"&gt;&lt;a href="#prerequisites"&gt;Install Bootstrap and jQuery&lt;/a&gt;&lt;/li&gt;
-                                                              &lt;li class="acc-wizard-todo"&gt;&lt;a href="#addwizard"&gt;Add Accordion Wizard&lt;/a&gt;&lt;/li&gt;
-                                                              &lt;li class="acc-wizard-todo"&gt;&lt;a href="#adjusthtml"&gt;Adjust Your HTML Markup&lt;/a&gt;&lt;/li&gt;
-                                                              &lt;li class="acc-wizard-todo"&gt;&lt;a href="#viewpage"&gt;Test Your Page&lt;/a&gt;&lt;/li&gt;
-                                                                &lt;/ol&gt;
-                                                        </pre>
-                                            <p>
-                                                Finally, you'll want to active the wizard in your javascript. That's nothing more than simply calling the plugin on an appropriate selection.
-                                            </p>
-                                                        <pre>&lt;script&gt;
-                                                            $(window).load(function() {
-                                                                $(".acc-wizard").accwizard();
-                                                            });
-                                                            &lt;/script&gt;
-                                                        </pre>
-                                            <p>
-                                                The default options are probably fine for most uses, but there are many customizations you can use when you activate the wizard. Check out the documentation on
-                                                <a href="https://github.com/sathomas/acc-wizard">github</a>
-                                                for the details.
-                                            </p>
+                                          <form id="form-divbasicos" class="form-horizontal">
+                                            <div class="form-group clearfix">
+                                                <label class="col-md-3 control-label" for="nombre_producto">Seo Titulo</label>
+                                                <div class="col-md-9">
+                                                    <input id="seo_titulo" name="seo_titulo" type="text" placeholder="Seo Titulo" class="form-control"></div>
+                                            </div>
+                                            <div class="form-group clearfix">
+                                                <label class="col-md-3 control-label" for="referencia_producto">Seo Descripcion</label>
+                                                <div class="col-md-9">
+                                                    <input id="seo_descripcion" name="seo_descripcion" type="text" placeholder="Seo Descripcion" class="form-control"></div>
+                                            </div>
+                                            <div class="form-group clearfix">
+                                                <label class="col-md-3 control-label" for="referencia_producto">Seo Url</label>
+                                                <div class="col-md-9">
+                                                    <input id="seo_url" name="seo_url" type="text" placeholder="Seo Url" class="form-control"></div>
+                                            </div>
                                             <div class="acc-wizard-step"></div>
                                         </form>
                                     </div>
@@ -208,16 +192,47 @@ Nuevo Producto
                             <div class="panel panel-danger">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a href="#viewpage" data-parent="#accordion-demo" data-toggle="collapse">Test Your Page</a>
+                                        <a href="#viewpage" data-parent="#accordion-demo" data-toggle="collapse">Caracteristicas Producto</a>
                                     </h4>
                                 </div>
                                 <div id="viewpage" class="panel-collapse collapse" style="height: 36.400001525878906px;">
                                     <div class="panel-body">
                                         <form id="form-viewpage">
-                                            <p>
-                                                Naturally, the last thing you'll want to do is test your page with the accordion wizard. Once you've confirmed that it's working as expected, release it on the world. Your users will definitely appreciate the feedback and guidance it gives to multi-step and complex tasks on your web site.
-                                            </p>
-                                            <div class="acc-wizard-step"></div>
+
+                                            <div class="form-group">
+                                                <label for="select21" class="col-md-3 control-label">
+                                                    Categoria por Defecto
+                                                </label>
+                                                <div class="col-md-9">   
+                                                 <select id="id_categoria_default" name="id_categoria_default" class="form-control select2">
+                                                    <option value="">Select value...</option>
+                                                        <option value="1">Primera</option>
+                                                        <option value="2">Segunda</option>
+                                                        <option value="3">Tercera</option>
+                                                </select>
+                                                </div>
+                                               
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="select21" class="col-md-3 control-label">
+                                                    Marca
+                                                </label>
+                                                <div class="col-md-9" >
+                                                    <select id="id_marca" name="id_marca" class="form-control select2">
+                                                        <option value="">Select value...</option>
+                                                        <option value="1">Primera</option>
+                                                        <option value="2">Segunda</option>
+                                                        <option value="3">Tercera</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                        
+                                           
+                                            <div class="acc-wizard-step">
+                                                
+                                            </div>
+                                            <li class="btn btn-danger finish" ><a href="javascript:;">Finish</a></li>
                                         </form>
                                     </div>
                                     <!--/.panel-body --> </div>
@@ -238,5 +253,96 @@ Nuevo Producto
     
     <script src="{{ asset('assets/vendors/acc-wizard/acc-wizard.min.js') }}" ></script>
     <script src="{{ asset('assets/js/pages/accordionformwizard.js') }}"  type="text/javascript"></script>
+
+     <script type="text/javascript" src="{{ asset('assets/vendors/dropzone/js/dropzone.js') }}" ></script>
+
+    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/select2/js/select2.js') }}"></script>
+
+    <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+
+
+    <script src="{{ asset('assets/js/pages/addproductos.js') }}"></script>
+
+
+
+
+
+    <script>
+
+    $('#rootwizard .finish').click(function () {
+    var $validator = $('#commentForm').data('bootstrapValidator').validate();
+    if ($validator.isValid()) {
+        document.getElementById("commentForm").submit();
+    }
+
+});
+// $('#activate').on('ifChanged', function(event){
+//     $('#commentForm').bootstrapValidator('revalidateField', $('#activate'));
+// });
+$('#commentForm').keypress(
+    function(event){
+        if (event.which == '13') {
+            event.preventDefault();
+        }
+    });
+
+
+
+
+    $(document).ready(function(){
+        $('.select2').select2({
+            placeholder: "select",
+            theme:"bootstrap"
+        });
+    })
+        
+
+
+        var FormDropzone = function() {
+            return {
+                //main function to initiate the module
+                init: function() {
+                    Dropzone.options.myDropzone = {
+                        init: function() {
+                            this.on("success", function(file,responseText) {
+                                var obj = jQuery.parseJSON(responseText);
+                                file.id = obj.id;
+                                file.filename = obj.filename;
+                                // Create the remove button
+                                var removeButton = Dropzone.createElement("<button style='margin: 10px 0 0 15px;'>Remove file</button>");
+
+                                // Capture the Dropzone instance as closure.
+                                var _this = this;
+
+                                // Listen to the click event
+                                removeButton.addEventListener("click", function(e) {
+                                    // Make sure the button click doesn't submit the form:
+                                    e.preventDefault();
+                                    e.stopPropagation();
+
+                                    $.ajax({
+                                        url: "file/delete",
+                                        type: "DELETE",
+                                        data: { "id" : file.id, "_token": '{{ csrf_token() }}' }
+                                    });
+                                    // Remove the file preview.
+                                    _this.removeFile(file);
+                                });
+
+                                // Add the button to the file preview element.
+                                file.previewElement.appendChild(removeButton);
+
+                            });
+
+                        }
+                    }
+                }
+            };
+        }();
+        jQuery(document).ready(function() {
+
+            FormDropzone.init();
+        });
+    </script>
     
 @stop
