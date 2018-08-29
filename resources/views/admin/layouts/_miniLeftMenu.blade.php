@@ -721,6 +721,14 @@
             <span class="mm-text">Fixed Menu</span>
         </a>
     </li>
+     <li {!! (Request::is('admin/productos') ? 'class="active"' : '') !!}>
+        <a href="{{  URL::to('admin/productos') }}">
+            <i class="livicon" data-name="list-ul" data-size="18" data-c="#1DA1F2" data-hc="#1DA1F2"
+               data-loop="true"></i>
+            <span class="mm-text">Catalogo</span>
+        </a>
+    </li>
+
     <li {!! (Request::is('admin/invoice') || Request::is('admin/blank')  ? 'class="active menu-dropdown"' : 'class="menu-dropdown"') !!}>
         <a href="#">
             <i class="livicon menu-icon" data-name="flag" data-c="#418bca" data-hc="#418bca" data-size="18"

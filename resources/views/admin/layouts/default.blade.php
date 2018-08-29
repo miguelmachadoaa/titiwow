@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>
         @section('title')
-            | Josh Admin Template
+            | Alpina
         @show
     </title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
@@ -31,7 +31,7 @@
 <body class="skin-josh">
 <header class="header">
     <a href="{{ route('admin.dashboard') }}" class="logo">
-        <img src="{{ asset('assets/img/logo.png') }}" alt="logo">
+        <img src="{{ asset('assets/img/logo_alpina.png') }}" alt="logo">
     </a>
     <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
