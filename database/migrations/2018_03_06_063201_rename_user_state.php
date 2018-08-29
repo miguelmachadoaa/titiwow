@@ -13,9 +13,9 @@ class RenameUserState extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+       /* Schema::table('users', function (Blueprint $table) {
             $table->renameColumn('state', 'user_state');
-        });
+        });*/
     }
 
     /**
@@ -25,8 +25,8 @@ class RenameUserState extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+      /*  Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('user_state');
-        });
+        });*/
     }
 }
