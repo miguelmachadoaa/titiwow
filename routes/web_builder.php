@@ -26,9 +26,23 @@ Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses'
 
 
 	Route::group(['prefix' => 'categorias'], function () {
+
         Route::get('{categoria}/delete', 'admin\AlpCategoriasController@destroy')->name('categorias.delete');
+
         Route::get('{categoria}/confirm-delete', 'admin\AlpCategoriasController@getModalDelete')->name('categorias.confirm-delete');
+
         Route::get('{categoria}/restore', 'admin\AlpCategoriasController@getRestore')->name('categorias.restore');
+
+        Route::get('{categoria}/detalle', 'admin\AlpCategoriasController@detalle')->name('categorias.detalle');
+
+        Route::post('{categoria}/storeson', 'admin\AlpCategoriasController@storeson')->name('categorias.storeson');
+
+        Route::get('{categoria}/editson', 'admin\AlpCategoriasController@editson')->name('categorias.editson');
+
+        Route::post('{categoria}/updson', 'admin\AlpCategoriasController@updson')->name('categorias.updson');
+
+
+
  	});
 
     Route::resource('categorias', 'admin\AlpCategoriasController');
