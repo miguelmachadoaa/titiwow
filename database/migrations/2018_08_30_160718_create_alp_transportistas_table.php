@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAlpFormasEnviosTable extends Migration
+class CreateAlpTransportistasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateAlpFormasEnviosTable extends Migration
      */
     public function up()
     {
-        Schema::create('alp_formas_envios', function (Blueprint $table) {
+        Schema::create('alp_transportistas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre_forma_envios');
-            $table->text('descripcion_forma_envios')->nullable();
+            $table->string('nombre_transportista');
+            $table->text('descripcion_transportista')->nullable();
             $table->integer('estado_registro')->default(1);
             $table->integer('id_user');
             $table->timestamps();
@@ -31,6 +31,6 @@ class CreateAlpFormasEnviosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('alp_formas_envios');
+        Schema::dropIfExists('alp_transportistas');
     }
 }

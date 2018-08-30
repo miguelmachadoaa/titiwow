@@ -22,6 +22,7 @@ class CreateAlpSedesTable extends Migration
             $table->integer('estado_registro')->default(1);
             $table->integer('id_user');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

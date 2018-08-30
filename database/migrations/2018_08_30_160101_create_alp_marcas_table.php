@@ -15,7 +15,12 @@ class CreateAlpMarcasTable extends Migration
     {
         Schema::create('alp_marcas', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('nombre_marca');
+            $table->text('descripcion_marca')->nullable();
+            $table->integer('estado_registro')->default(1);
+            $table->integer('id_user');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
