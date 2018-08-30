@@ -32,9 +32,6 @@ class AlpProductos extends Model
         'id_marca',
         'estado_registro',
         'id_user'
-
-
-
     ];
 
     /**

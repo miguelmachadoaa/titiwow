@@ -10,12 +10,22 @@ Route::get('productos', ['as'=> 'productos.index', 'uses' => 'admin\AlpProductos
 Route::post('productos', ['as'=> 'productos.store', 'uses' => 'admin\AlpProductosController@store']);
 
 Route::get('productos/create', ['as'=> 'productos.create', 'uses' => 'admin\AlpProductosController@create']);
-Route::put('productos/{alpProductos}', ['as'=> 'alpProductos.update', 'uses' => 'AlpProductosController@update']);
-Route::patch('productos/{alpProductos}', ['as'=> 'alpProductos.update', 'uses' => 'AlpProductosController@update']);
-Route::get('alpProductos/{id}/delete', array('as' => 'alpProductos.delete', 'uses' => 'AlpProductosController@getDelete'));
-Route::get('alpProductos/{id}/confirm-delete', array('as' => 'alpProductos.confirm-delete', 'uses' => 'AlpProductosController@getModalDelete'));
-Route::get('alpProductos/{alpProductos}', ['as'=> 'alpProductos.show', 'uses' => 'AlpProductosController@show']);
-Route::get('alpProductos/{alpProductos}/edit', ['as'=> 'alpProductos.edit', 'uses' => 'AlpProductosController@edit']);
+Route::put('productos/{alpProductos}', ['as'=> 'productos.update', 'uses' => 'admin\AlpProductosController@update']);
+
+Route::patch('productos/{alpProductos}', ['as'=> 'productos.update', 'uses' => 'admin\AlpProductosController@update']);
+
+Route::get('productos/{id}/delete', array('as' => 'productos.delete', 'uses' => 'admin\AlpProductosController@getDelete'));
+
+Route::get('productos/{id}/confirm-delete', array('as' => 'productos.confirm-delete', 'uses' => 'admin\AlpProductosController@getModalDelete'));
+
+Route::get('productos/{alpProductos}', ['as'=> 'productos.show', 'uses' => 'admin\AlpProductosController@show']);
+
+Route::get('productos/{alpProductos}/edit', ['as'=> 'productos.edit', 'uses' => 'admin\AlpProductosController@edit']);
+
+Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses' => 'admin\AlpProductosController@destroy']);
+
+
+
 
 });
 

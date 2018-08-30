@@ -1,7 +1,7 @@
 @extends('admin/layouts/default')
 
 @section('title')
-AlpProductos
+Productos
 @parent
 @stop
 
@@ -28,11 +28,88 @@ AlpProductos
             </h4>
         </div>
             <div class="panel-body">
-                @include('admin.alpProductos.show_fields')
+
+
+                    <div class="form-group">
+                        {!! Form::label('id', 'Id:') !!}
+                        <p>{!! $producto->id !!}</p>
+                        <hr>
+                    </div>
+
+                    <!-- Undefined Field -->
+                    <div class="form-group">
+                        {!! Form::label('undefined', 'Nombre:') !!}
+                        <p>{!! $producto->nombre_producto !!}</p>
+                        <hr>
+                    </div>
+
+                    <!-- Name Producto Field -->
+                    <div class="form-group">
+                        {!! Form::label('name_producto', 'referencia:') !!}
+                        <p>{!! $producto->referencia_producto !!}</p>
+                        <hr>
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::label('name_producto', 'Referencia Sap:') !!}
+                        <p>{!! $producto->referencia_producto_sap !!}</p>
+                        <hr>
+                    </div>
+
+                      <div class="form-group">
+                        {!! Form::label('name_producto', 'Descripcion Corta:') !!}
+                        <p>{!! $producto->descripcion_corta !!}</p>
+                        <hr>
+                    </div>
+
+                     <div class="form-group">
+                        {!! Form::label('name_producto', 'Descripcion Larga:') !!}
+                        <p>{!! $producto->descripcion_larga !!}</p>
+                        <hr>
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::label('name_producto', 'Imagen Producto:') !!}
+                        <p>{!! $producto->imagen_producto !!}</p>
+                        <hr>
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::label('name_producto', 'Seo Titulo:') !!}
+                        <p>{!! $producto->seo_titulo !!}</p>
+                        <hr>
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::label('name_producto', 'Seo Descripcion:') !!}
+                        <p>{!! $producto->seo_descripcion !!}</p>
+                        <hr>
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::label('name_producto', 'Seo Url:') !!}
+                        <p>{!! $producto->seo_url !!}</p>
+                        <hr>
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::label('name_producto', 'Id Categoria:') !!}
+                        <p>{!! $producto->id_categoria_default !!}</p>
+                        <hr>
+                    </div>
+
+                      <div class="form-group">
+                        {!! Form::label('name_producto', 'Id Marca:') !!}
+                        <p>{!! $producto->id_marca !!}</p>
+                        <hr>
+                    </div>
+
+
+
             </div>
         </div>
     <div class="form-group">
-           <a href="{!! route('admin.alpProductos.index') !!}" class="btn btn-default">Back</a>
+           <a href="{!! route('admin.productos.index') !!}" class="btn btn-default">Back</a>
     </div>
   </div>
 </section>

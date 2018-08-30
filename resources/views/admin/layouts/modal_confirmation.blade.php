@@ -1,17 +1,17 @@
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-  <h4 class="modal-title" id="user_delete_confirm_title">@lang($model.'/modal.title')</h4>
+  <h4 class="modal-title" id="user_delete_confirm_title">Eliminar</h4>
 </div>
 <div class="modal-body">
     @if($error)
         <div>{!! $error !!}</div>
     @else
-        @lang($model.'/modal.body')
+       <p> ¿Esta seguro que desea eliminar el Registro?</p>
     @endif
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-default" data-dismiss="modal">@lang($model.'/modal.cancel')</button>
+  <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
   @if(!$error)
-    <a href="{{ $confirm_route }}" type="button" class="btn btn-danger">@lang($model.'/modal.confirm')</a>
+    <a href="{{ $confirm_route }}" type="button" class="btn btn-danger">Confirmar</a>
   @endif
 </div>

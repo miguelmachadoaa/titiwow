@@ -95,7 +95,7 @@ Nuevo Producto
                                 </div>
                                 <div id="divbasicos" class="panel-collapse collapse in">
                                     <div class="panel-body">
-                                        <form id="form-divbasicos" class="form-horizontal">
+                                        
                                             <div class="form-group clearfix">
                                                 <label class="col-md-3 control-label" for="nombre_producto">Nombre del Producto</label>
                                                 <div class="col-md-9">
@@ -112,7 +112,7 @@ Nuevo Producto
                                                     <input id="referencia_producto_sap" name="referencia_producto_sap" type="text" placeholder="Your email" class="form-control"></div>
                                             </div>
                                             <div class="acc-wizard-step"></div>
-                                        </form>
+                                        
                                     </div>
                                     <!--/.panel-body --> </div>
                                 <!-- /#prerequisites --> </div>
@@ -126,7 +126,7 @@ Nuevo Producto
                                 </div>
                                 <div id="addwizard" class="panel-collapse collapse awd-h" style="height: 36.400001525878906px;">
                                     <div class="panel-body">
-                                        <form id="form-addwizard">
+                                        
                                         <div class="form-group clearfix">
                                             <label class="col-md-3 control-label" for="descripcion_corta">Descripción Corta</label>
                                             <div class="col-md-9">
@@ -143,22 +143,19 @@ Nuevo Producto
                                         <!-- Carga de imagenes -->
                                         <div class="row">   
                                          <div class="col-md-12" style="padding:30px;">
-                                            {!! Form::open(array('url' => URL::to('admin/file/create'), 'method' => 'post', 'id'=>'myDropzone','class' => 'dropzone', 'files'=> true)) !!}
-                                            <div class="fallback">
-                                                <input name="file" type="file" multiple />
-                                            </div>
-                                            {!! Form::close() !!}
+                                        
                                         </div>
                                         </div>
 
 
 
                                             <div class="acc-wizard-step"></div>
-                                        </form>
+                                        
                                     </div>
                                     <!--/.panel-body --> </div>
                                 <!-- /#addwizard --> </div>
                             <!-- /.panel.panel-default -->
+
                             <div class="panel panel-warning">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
@@ -167,7 +164,7 @@ Nuevo Producto
                                 </div>
                                 <div id="adjusthtml" class="panel-collapse collapse" style="height: 36.400001525878906px;">
                                     <div class="panel-body">
-                                          <form id="form-divbasicos" class="form-horizontal">
+                                          
                                             <div class="form-group clearfix">
                                                 <label class="col-md-3 control-label" for="nombre_producto">Seo Titulo</label>
                                                 <div class="col-md-9">
@@ -184,11 +181,12 @@ Nuevo Producto
                                                     <input id="seo_url" name="seo_url" type="text" placeholder="Seo Url" class="form-control"></div>
                                             </div>
                                             <div class="acc-wizard-step"></div>
-                                        </form>
+                                        
                                     </div>
                                     <!--/.panel-body --> </div>
                                 <!-- /#adjusthtml --> </div>
                             <!-- /.panel.panel-default -->
+
                             <div class="panel panel-danger">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
@@ -197,7 +195,7 @@ Nuevo Producto
                                 </div>
                                 <div id="viewpage" class="panel-collapse collapse" style="height: 36.400001525878906px;">
                                     <div class="panel-body">
-                                        <form id="form-viewpage">
+                                        
 
                                             <div class="form-group">
                                                 <label for="select21" class="col-md-3 control-label">
@@ -206,9 +204,9 @@ Nuevo Producto
                                                 <div class="col-md-9">   
                                                  <select id="id_categoria_default" name="id_categoria_default" class="form-control select2">
                                                     <option value="">Select value...</option>
-                                                        <option value="1">Primera</option>
-                                                        <option value="2">Segunda</option>
-                                                        <option value="3">Tercera</option>
+                                                        <option value="1" >Primera</option>
+                                                        <option value="2" >Segunda</option>
+                                                        <option value="3" >Tercera</option>
                                                 </select>
                                                 </div>
                                                
@@ -221,9 +219,9 @@ Nuevo Producto
                                                 <div class="col-md-9" >
                                                     <select id="id_marca" name="id_marca" class="form-control select2">
                                                         <option value="">Select value...</option>
-                                                        <option value="1">Primera</option>
-                                                        <option value="2">Segunda</option>
-                                                        <option value="3">Tercera</option>
+                                                        <option value="1" >Primera</option>
+                                                        <option value="2" >Segunda</option>
+                                                        <option value="3" >Tercera</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -232,8 +230,9 @@ Nuevo Producto
                                             <div class="acc-wizard-step">
                                                 
                                             </div>
-                                            <li class="btn btn-danger finish" ><a href="javascript:;">Finish</a></li>
-                                        </form>
+                                            
+                                            <button type="button" class="btn btn-danger finish">Finish</button>
+                                        
                                     </div>
                                     <!--/.panel-body --> </div>
                                 <!-- /#adjusthtml --> </div>
@@ -269,34 +268,10 @@ Nuevo Producto
 
     <script>
 
-    $('#rootwizard .finish').click(function () {
-    var $validator = $('#commentForm').data('bootstrapValidator').validate();
-    if ($validator.isValid()) {
-        document.getElementById("commentForm").submit();
-    }
-
-});
+   
 // $('#activate').on('ifChanged', function(event){
 //     $('#commentForm').bootstrapValidator('revalidateField', $('#activate'));
 // });
-$('#commentForm').keypress(
-    function(event){
-        if (event.which == '13') {
-            event.preventDefault();
-        }
-    });
-
-
-
-
-    $(document).ready(function(){
-        $('.select2').select2({
-            placeholder: "select",
-            theme:"bootstrap"
-        });
-    })
-        
-
 
         var FormDropzone = function() {
             return {

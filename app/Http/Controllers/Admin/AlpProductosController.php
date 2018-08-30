@@ -56,13 +56,37 @@ class AlpProductosController extends JoshController
     public function store(Request $request)
     {
 
+        $user_id = Sentinel::getUser()->id;
+
+        //$input = $request->all();
+
+        //var_dump($input);
+
         $data = array(
             'nombre_producto' => $request->nombre_producto, 
             'referencia_producto' => $request->referencia_producto, 
             'referencia_producto_sap' =>$request->referencia_producto_sap, 
+            'descripcion_corta' =>$request->descripcion_corta, 
+            'descripcion_larga' =>$request->descripcion_larga, 
+            'seo_titulo' =>$request->seo_titulo, 
+            'seo_descripcion' =>$request->seo_descripcion, 
+            'seo_url' =>$request->seo_url, 
+            'id_categoria_default' =>$request->id_categoria_default, 
+            'id_marca' =>$request->id_marca, 
+            'id_user' =>$user_id
         );
          
-        AlpProductos::create($data);
+        $producto=AlpProductos::create($data);
+
+        if ($producto->id) {
+
+            return redirect('admin/productos');
+
+        } else {
+            return Redirect::route('admin/productos')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+        }
+
+
 
        /* $blog = new Blog($request->except('files','image','tags'));
         $message=$request->get('content');
@@ -126,11 +150,11 @@ class AlpProductosController extends JoshController
      * @param  Blog $blog
      * @return view
      */
-    public function show(Blog $blog)
+    public function show($id)
     {
-        $comments = Blog::find($blog->id)->comments;
+        $producto = AlpProductos::find($id);
 
-        return view('admin.blog.show', compact('blog', 'comments', 'tags'));
+        return view('admin.productos.show', compact('producto'));
     }
 
     /**
@@ -139,10 +163,13 @@ class AlpProductosController extends JoshController
      * @param  Blog $blog
      * @return view
      */
-    public function edit(Blog $blog)
+    public function edit($id)
     {
-        $blogcategory = BlogCategory::pluck('title', 'id');
-        return view('admin.blog.edit', compact('blog', 'blogcategory'));
+       
+
+        $producto = AlpProductos::find($id);
+
+        return view('admin.productos.edit', compact('producto'));
     }
 
     /**
@@ -151,55 +178,42 @@ class AlpProductosController extends JoshController
      * @param  Blog $blog
      * @return Response
      */
-    public function update(BlogRequest $request, Blog $blog)
+    public function update(Request $request, $id)
     {
-        $message=$request->get('content');
-        libxml_use_internal_errors(true);
-        $dom = new DomDocument();
-        $dom->loadHtml($message, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-        $images = $dom->getElementsByTagName('img');
-        // foreach <img> in the submited message
-        foreach($images as $img){
-            $src = $img->getAttribute('src');
-            // if the img source is 'data-url'
-            if(preg_match('/data:image/', $src)){
-                // get the mimetype
-                preg_match('/data:image\/(?<mime>.*?)\;/', $src, $groups);
-                $mimetype = $groups['mime'];
-                // Generating a random filename
-                $filename = uniqid();
-                info($filename);
-                $filepath = "uploads/blog/$filename.$mimetype";
-                // @see http://image.intervention.io/api/
-                $image = Image::make($src)
-                    ->encode($mimetype, 100)  // encode file to the specified mimetype
-                    ->save(public_path($filepath));
-                $new_src = asset($filepath);
-            } // <!--endif
-            else{
-                $new_src=$src;
-            }
-            $img->removeAttribute('src');
-            $img->setAttribute('src', $new_src);
-        } // <!-
-        $blog->content = $dom->saveHTML();
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $extension = $file->extension()?: 'png';
-            $picture = str_random(10) . '.' . $extension;
-            $destinationPath = public_path() . '/uploads/blog';
-            $file->move($destinationPath, $picture);
-            $blog->image = $picture;
-        }
+
+        $producto = AlpProductos::find($id);
 
 
-        $blog->retag($request->tags?$request->tags:'');
 
-        if ($blog->update($request->except('content','image','files','_method', 'tags'))) {
-            return redirect('admin/blog')->with('success', trans('blog/message.success.update'));
+        //$input = $request->all();
+
+        //var_dump($input);
+
+        $data = array(
+            'nombre_producto' => $request->nombre_producto, 
+            'referencia_producto' => $request->referencia_producto, 
+            'referencia_producto_sap' =>$request->referencia_producto_sap, 
+            'descripcion_corta' =>$request->descripcion_corta, 
+            'descripcion_larga' =>$request->descripcion_larga, 
+            'seo_titulo' =>$request->seo_titulo, 
+            'seo_descripcion' =>$request->seo_descripcion, 
+            'seo_url' =>$request->seo_url, 
+            'id_categoria_default' =>$request->id_categoria_default, 
+            'id_marca' =>$request->id_marca
+        );
+         
+        $producto->update($data);
+
+        if ($producto->id) {
+
+            return redirect('admin/productos');
+
         } else {
-            return Redirect::route('admin/blog')->withInput()->with('error', trans('blog/message.error.update'));
+            return Redirect::route('admin/productos')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
         }
+
+
+      
     }
 
     /**
@@ -208,16 +222,16 @@ class AlpProductosController extends JoshController
      * @param Blog $blog
      * @return Response
      */
-    public function getModalDelete(Blog $blog)
+    public function getModalDelete(AlpProductos $producto)
     {
-        $model = 'blog';
+        $model = 'AlpProductos';
         $confirm_route = $error = null;
         try {
-            $confirm_route = route('admin.blog.delete', ['id' => $blog->id]);
+            $confirm_route = route('admin.productos.delete', ['id' => $producto->id]);
             return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
         } catch (GroupNotFoundException $e) {
 
-            $error = trans('blog/message.error.destroy', compact('id'));
+            $error = trans('Error al eliminar Registro', compact('id'));
             return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
         }
     }
@@ -228,12 +242,12 @@ class AlpProductosController extends JoshController
      * @param  Blog $blog
      * @return Response
      */
-    public function destroy(Blog $blog)
+    public function destroy(AlpProductos $producto)
     {
-        if ($blog->delete()) {
-            return redirect('admin/blog')->with('success', trans('blog/message.success.delete'));
+        if ($producto->delete()) {
+            return redirect('admin/productos')->with('success', trans('Registro Eliminado Satisfactoriamente'));
         } else {
-            return Redirect::route('admin/blog')->withInput()->with('error', trans('blog/message.error.delete'));
+            return Redirect::route('admin/productos')->withInput()->with('error', trans('Error al eliminar Registro'));
         }
     }
 

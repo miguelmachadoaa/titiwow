@@ -22,13 +22,13 @@
             <td>{!! $alpProductos->id !!}</td>
             <td>{!! $alpProductos->estado_registro !!}</td>
             <td>
-                 <a href="{{ route('admin.alpProductos.show', collect($alpProductos)->first() ) }}">
+                 <a href="{{ route('admin.productos.show', collect($alpProductos)->first() ) }}">
                      <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view alpProductos"></i>
                  </a>
-                 <a href="{{ route('admin.alpProductos.edit', collect($alpProductos)->first() ) }}">
+                 <a href="{{ route('admin.productos.edit', collect($alpProductos)->first() ) }}">
                      <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="edit alpProductos"></i>
                  </a>
-                 <a href="{{ route('admin.alpProductos.confirm-delete', collect($alpProductos)->first() ) }}" data-toggle="modal" data-target="#delete_confirm">
+                 <a href="{{ route('admin.productos.confirm-delete', collect($alpProductos)->first() ) }}" data-toggle="modal" data-target="#delete_confirm">
                      <i class="livicon" data-name="remove-alt" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="delete alpProductos"></i>
                  </a>
             </td>
