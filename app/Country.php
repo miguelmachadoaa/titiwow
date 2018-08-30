@@ -10,7 +10,15 @@ class Country extends Model
     use Eloquence;
 
 
-    protected $table = 'countries';
+    protected $table = 'config_countries';
     protected $guarded  = ['id'];
-    protected $searchableColumns = ['name'];
+    protected $searchableColumns = ['country_name'];
+
+    public $fillable = [
+        'id',
+        'sortname',
+        'country_name',
+        'estado_registro',
+        'id_user'
+    ];
 }
