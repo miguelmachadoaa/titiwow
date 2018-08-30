@@ -16,10 +16,7 @@
     <link href="{{ asset('assets/vendors/iCheck/css/all.css') }}"  rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/pages/wizard.css') }}" rel="stylesheet">
     <!--end of page level css-->
-
 @stop
-
-
 {{-- Page content --}}
 @section('content')
     <section class="content-header">

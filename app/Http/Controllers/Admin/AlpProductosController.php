@@ -84,62 +84,7 @@ class AlpProductosController extends JoshController
 
         } else {
             return Redirect::route('admin/productos')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
-        }
-
-
-
-       /* $blog = new Blog($request->except('files','image','tags'));
-        $message=$request->get('content');
-        $dom = new DomDocument();
-        $dom->loadHtml($message, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-        $images = $dom->getElementsByTagName('img');
-
-        // foreach <img> in the submited message
-        foreach($images as $img){
-
-            $src = $img->getAttribute('src');
-            // if the img source is 'data-url'
-            if(preg_match('/data:image/', $src)){
-                // get the mimetype
-                preg_match('/data:image\/(?<mime>.*?)\;/', $src, $groups);
-                $mimetype = $groups['mime'];
-                // Generating a random filename
-                $filename = uniqid();
-                $filepath = "uploads/blog/$filename.$mimetype";
-                // @see http://image.intervention.io/api/
-                $image = Image::make($src)
-                    // resize if required
-                    /* ->resize(300, 200) */
-            /*        ->encode($mimetype, 100)  // encode file to the specified mimetype
-                    ->save(public_path($filepath));
-                $new_src = asset($filepath);
-                $img->removeAttribute('src');
-                $img->setAttribute('src', $new_src);
-            } // <!--endif
-        } // <!-
-        $blog->content = $dom->saveHTML();
-
-        $picture = "";
-
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $extension = $file->extension()?: 'png';
-            $picture = str_random(10) . '.' . $extension;
-            $destinationPath = public_path() . '/uploads/blog/';
-            $file->move($destinationPath, $picture);
-            $blog->image = $picture;
-
-        }
-        $blog->user_id = Sentinel::getUser()->id;
-        $blog->save();
-
-        $blog->tag($request->tags?$request->tags:'');
-
-        if ($blog->id) {
-            return redirect('admin/blog')->with('success', trans('blog/message.success.create'));
-        } else {
-            return Redirect::route('admin/blog')->withInput()->with('error', trans('blog/message.error.create'));
-        }*/
+        }       
 
     }
 
