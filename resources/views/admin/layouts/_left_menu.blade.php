@@ -21,17 +21,6 @@
                     Productos
                 </a>
             </li>
-        </ul>
-    </li>
-
-    <li class="{{ Request::is('admin/categorias*') ? 'active' : '' }}">
-        <a href="#">
-            <i class="livicon" data-name="shoppingcart" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
-               data-loop="true"></i>
-            <span class="title">Categorias</span>
-            <span class="fa arrow"></span>
-        </a>
-        <ul class="sub-menu">
             <li {!! (Request::is('admin/categorias*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.categorias.index') !!}">
                     <i class="fa fa-angle-double-right"></i>
@@ -40,6 +29,25 @@
             </li>
         </ul>
     </li>
+
+    <li class="{{ Request::is('admin/formaspago*') ? 'active' : '' }}">
+        <a href="#">
+            <i class="livicon" data-name="shoppingcart" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
+               data-loop="true"></i>
+            <span class="title">Configuraciones</span>
+            <span class="fa arrow"></span>
+        </a>
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/formaspago*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.formaspago.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Formas de Pago
+                </a>
+            </li>
+        </ul>
+    </li>
+
+   
     <li {!! (Request::is('admin/activity_log') ? 'class="active"' : '') !!}>
         <a href="{{  URL::to('admin/activity_log') }}">
             <i class="livicon" data-name="eye-open" data-size="18" data-c="#F89A14" data-hc="#F89A14"
