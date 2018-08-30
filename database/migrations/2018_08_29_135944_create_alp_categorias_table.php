@@ -19,6 +19,8 @@ class CreateAlpCategoriasTable extends Migration
             $table->text('descripcion_categoria')->nullable();
             $table->string('imagen_categoria');
             $table->integer('id_categoria_parent')->nullable();
+            $table->integer('estado_registro')->default(1);
+            $table->integer('id_user');
             $table->timestamps();
         });
     }

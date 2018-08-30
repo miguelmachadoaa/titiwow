@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAlpConfiguracionGeneralTable extends Migration
+class CreateAlpMarcasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateAlpConfiguracionGeneralTable extends Migration
      */
     public function up()
     {
-        Schema::create('alp_configuracion_general', function (Blueprint $table) {
+        Schema::create('alp_marcas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre_tienda');
-            $table->integer('estado_registro')->default(1);
-            $table->integer('id_user');
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ class CreateAlpConfiguracionGeneralTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('alp_configuracion_general');
+        Schema::dropIfExists('alp_marcas');
     }
 }

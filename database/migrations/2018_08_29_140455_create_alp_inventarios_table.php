@@ -18,6 +18,7 @@ class CreateAlpInventariosTable extends Migration
             $table->integer('id_producto');
             $table->integer('cantidad');
             $table->integer('operacion');
+            $table->integer('estado_registro')->default(1);
             $table->integer('id_user');
             $table->timestamps();
         });

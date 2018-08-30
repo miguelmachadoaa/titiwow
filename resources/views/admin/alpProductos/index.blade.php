@@ -1,21 +1,21 @@
 @extends('admin/layouts/default')
 
 @section('title')
-AlpProductos
+Productos
 @parent
 @stop
 
 {{-- Page content --}}
 @section('content')
 <section class="content-header">
-    <h1>AlpProductos</h1>
+    <h1>Productos</h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
-                Dashboard
+                Escritorio
             </a>
         </li>
-        <li>AlpProductos</li>
+        <li>Productos</li>
         <li class="active">AlpProductos List</li>
     </ol>
 </section>

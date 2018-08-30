@@ -18,6 +18,7 @@ class CreateAlpPreciosGruposTable extends Migration
             $table->integer('id_producto');
             $table->integer('id_role');
             $table->decimal('precio');
+            $table->integer('estado_registro')->default(1);
             $table->integer('id_user');
             $table->timestamps();
         });
