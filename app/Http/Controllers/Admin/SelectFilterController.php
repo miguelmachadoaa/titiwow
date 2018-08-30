@@ -40,9 +40,9 @@ class SelectFilterController extends Controller
         if (is_numeric($val)){
            return false;
         }
-        $check = Country::where('name',$request->newTag)->first();
+        $check = Country::where('country_name',$request->newTag)->first();
         if ($check === null) {
-            $country->name = $request->newTag;
+            $country->country_name = $request->newTag;
             $country->countri_id = $request->newTag;
             $country->save();
         }

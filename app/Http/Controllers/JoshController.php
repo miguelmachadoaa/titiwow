@@ -398,15 +398,15 @@ class JoshController extends Controller {
             ->groupByMonth( 2017, true);
 
 
-        $countries = DB::table('users')->where('deleted_at', null)
-            ->leftJoin('countries', 'countries.sortname', '=', 'users.country')
-            ->select('countries.name')
+        $countries = DB::table('users')->where('users.deleted_at', null)
+            ->leftJoin('config_countries', 'config_countries.sortname', '=', 'users.country')
+            ->select('config_countries.country_name')
             ->get();
         $geo = Charts::database($countries, 'geo', 'google')
             ->dimensions(0,250)
             ->responsive(true)
 
-            ->groupBy('name');
+            ->groupBy('country_name');
 
         $roles = DB::table('role_users')
             ->join('users','users.id','=','role_users.user_id')->wherenull('deleted_at')
