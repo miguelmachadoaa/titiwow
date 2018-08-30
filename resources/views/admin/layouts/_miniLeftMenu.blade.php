@@ -1,18 +1,13 @@
 <ul class=" navigation">
     <li {!! (Request::is('admin') ? 'class="active"' : '') !!}>
-        <a href="{{ route('admin.dashboard') }}">
-            <i class="livicon menu-icon" data-name="dashboard" data-size="18" data-c="#418BCA" data-hc="#418BCA"
-               data-loop="true"></i>
-            <span class="mm-text">Dashboard 1</span>
-        </a>
-    </li>
-    <li {!! (Request::is('admin') ? 'class="active"' : '') !!}>
         <a href="{{ URL::to('admin/index1') }}">
             <i class="livicon menu-icon" data-name="dashboard" data-size="18" data-c="#EF6F6C" data-hc="#EF6F6C"
                data-loop="true"></i>
             <span class="mm-text">Dashboard 2</span>
         </a>
     </li>
+
+
     <li {!! (Request::is('admin/log_viewers') || Request::is('admin/log_viewers/logs')  ? 'class="active" ' : '') !!}>
 
         <a href="{{  URL::to('admin/log_viewers') }}">
