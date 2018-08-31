@@ -62,12 +62,44 @@ class AlpProductosController extends JoshController
 
         //var_dump($input);
 
+        $imagen='0';
+
+         $picture = "";
+
+        
+        if ($request->hasFile('image')) {
+            
+            $file = $request->file('image');
+
+            #echo $file.'<br>';
+            
+            $extension = $file->extension()?: 'png';
+            
+
+            $picture = str_random(10) . '.' . $extension;
+
+            #echo $picture.'<br>';
+
+            $destinationPath = public_path() . '/uploads/blog/';
+
+            #echo $destinationPath.'<br>';
+
+            
+            $file->move($destinationPath, $picture);
+            
+            $imagen = $picture;
+
+        }
+
+
+
         $data = array(
             'nombre_producto' => $request->nombre_producto, 
             'referencia_producto' => $request->referencia_producto, 
             'referencia_producto_sap' =>$request->referencia_producto_sap, 
             'descripcion_corta' =>$request->descripcion_corta, 
             'descripcion_larga' =>$request->descripcion_larga, 
+            'imagen_producto' =>$imagen, 
             'seo_titulo' =>$request->seo_titulo, 
             'seo_descripcion' =>$request->seo_descripcion, 
             'seo_url' =>$request->seo_url, 
@@ -134,18 +166,70 @@ class AlpProductosController extends JoshController
 
         //var_dump($input);
 
-        $data = array(
-            'nombre_producto' => $request->nombre_producto, 
-            'referencia_producto' => $request->referencia_producto, 
-            'referencia_producto_sap' =>$request->referencia_producto_sap, 
-            'descripcion_corta' =>$request->descripcion_corta, 
-            'descripcion_larga' =>$request->descripcion_larga, 
-            'seo_titulo' =>$request->seo_titulo, 
-            'seo_descripcion' =>$request->seo_descripcion, 
-            'seo_url' =>$request->seo_url, 
-            'id_categoria_default' =>$request->id_categoria_default, 
-            'id_marca' =>$request->id_marca
-        );
+
+        $imagen='0';
+
+         $picture = "";
+
+        
+        if ($request->hasFile('image')) {
+            
+            $file = $request->file('image');
+
+            #echo $file.'<br>';
+            
+            $extension = $file->extension()?: 'png';
+            
+
+            $picture = str_random(10) . '.' . $extension;
+
+            #echo $picture.'<br>';
+
+            $destinationPath = public_path() . '/uploads/blog/';
+
+            #echo $destinationPath.'<br>';
+
+            
+            $file->move($destinationPath, $picture);
+            
+            $imagen = $picture;
+
+             $data = array(
+                'nombre_producto' => $request->nombre_producto, 
+                'referencia_producto' => $request->referencia_producto, 
+                'referencia_producto_sap' =>$request->referencia_producto_sap, 
+                'descripcion_corta' =>$request->descripcion_corta, 
+                'descripcion_larga' =>$request->descripcion_larga, 
+                'imagen_producto' =>$imagen, 
+                'seo_titulo' =>$request->seo_titulo, 
+                'seo_descripcion' =>$request->seo_descripcion, 
+                'seo_url' =>$request->seo_url, 
+                'id_categoria_default' =>$request->id_categoria_default, 
+                'id_marca' =>$request->id_marca
+                );
+
+        }else{
+
+                  $data = array(
+                'nombre_producto' => $request->nombre_producto, 
+                'referencia_producto' => $request->referencia_producto, 
+                'referencia_producto_sap' =>$request->referencia_producto_sap, 
+                'descripcion_corta' =>$request->descripcion_corta, 
+                'descripcion_larga' =>$request->descripcion_larga, 
+                'seo_titulo' =>$request->seo_titulo, 
+                'seo_descripcion' =>$request->seo_descripcion, 
+                'seo_url' =>$request->seo_url, 
+                'id_categoria_default' =>$request->id_categoria_default, 
+                'id_marca' =>$request->id_marca
+                );
+
+        }
+
+
+
+
+
+       
          
         $producto->update($data);
 

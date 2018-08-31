@@ -9,16 +9,18 @@ Productos
     
     <link href="{{ asset('assets/vendors/acc-wizard/acc-wizard.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/pages/accordionformwizard.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/vendors/dropzone/css/dropzone.css') }}" rel="stylesheet" type="text/css" />
 
     <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
 
-    <style>
-        .dropzone .dz-preview .dz-image img {
-            width :100%;
-        }
-    </style>
+     <!-- stilos para la carga de imagen  -->
+    <link href="{{ asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
+
+    <!-- fin stilos para la carga de imagen  -->
     
 @stop
 
@@ -48,7 +50,7 @@ Productos
         <div class="panel-body">
        
 
-        {!! Form::model($producto, ['url' => URL::to('admin/productos/'. $producto->id.''), 'method' => 'put', 'id'=>'productosForm']) !!}
+        {!! Form::model($producto, ['url' => URL::to('admin/productos/'. $producto->id.''), 'method' => 'put', 'id'=>'productosForm', 'files'=> true]) !!}
 
       
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
@@ -122,7 +124,7 @@ Productos
 
                                                 <div class="col-md-9">
 
-                                                    <input id="referencia_producto_sap" name="referencia_producto_sap" type="text" placeholder="Your email" class="form-control  {{ $errors->first('referencia_producto_sap', 'has-error') }}" value="{!! old('Referencia Sap', $producto->referencia_producto_sap) !!}">
+                                                    <input id="referencia_producto_sap" name="referencia_producto_sap" type="text" placeholder="Referencia Sap" class="form-control  {{ $errors->first('referencia_producto_sap', 'has-error') }}" value="{!! old('Referencia Sap', $producto->referencia_producto_sap) !!}">
 
                                                 </div>
 
@@ -159,7 +161,7 @@ Productos
 
                                             <div class="col-md-9">
 
-                                                <textarea class="form-control {{ $errors->first('descripcion_corta', 'has-error') }}  resize_vertical" id="descripcion_corta" name="descripcion_corta" placeholder="Please enter your message here..." rows="5">{!! old('Descripción Corta', $producto->descripcion_corta) !!}</textarea>
+                                                <textarea class="form-control {{ $errors->first('descripcion_corta', 'has-error') }}  resize_vertical" id="descripcion_corta" name="descripcion_corta" placeholder="Descripcion Corta" rows="5">{!! old('Descripción Corta', $producto->descripcion_corta) !!}</textarea>
 
                                             </div>
 
@@ -173,7 +175,7 @@ Productos
 
                                             <div class="col-md-9">
 
-                                                <textarea class="form-control  {{ $errors->first('descripcion_larga', 'has-error') }} resize_vertical" id="descripcion_larga" name="descripcion_larga" placeholder="Please enter your message here..." rows="5">{!! old('Descripción Larga', $producto->descripcion_larga) !!}</textarea>
+                                                <textarea class="form-control  {{ $errors->first('descripcion_larga', 'has-error') }} resize_vertical" id="descripcion_larga" name="descripcion_larga" placeholder="Descripcion Larga" rows="5">{!! old('Descripción Larga', $producto->descripcion_larga) !!}</textarea>
 
                                             </div>
 
@@ -183,19 +185,87 @@ Productos
 
                                         <!-- Carga de imagenes -->
 
-                                        <div class="row">   
+                                        
 
-                                         <div class="col-md-12" style="padding:30px;">
 
-                                           <!-- {!! Form::open(array('url' => URL::to('admin/file/create'), 'method' => 'post', 'id'=>'myDropzone','class' => 'dropzone', 'files'=> true)) !!}
-                                            <div class="fallback">
-                                                <input name="file" type="file" multiple />
-                                            </div>
-                                            {!! Form::close() !!}-->
 
-                                        </div>
 
-                                        </div>
+
+
+                        <div class="form-group clearfix">
+
+                            <label for="title" class="col-md-3 control-label">Imagen de Producto</label>
+
+
+                            <div class="col-md-9">
+
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+
+                                <div class="fileinput-new thumbnail" style="max-width: 200px; max-height: 200px;">
+
+                                    @if($producto->imagen_producto!='0')
+
+                                        <img src="{{URL::to('uploads/blog/'.$producto->imagen_producto)}}" class="img-responsive" alt="Image">
+
+                                    @else
+                                        
+                                        <img src="{{ asset('assets/images/authors/no_avatar.jpg') }}" alt="..."
+                                             class="img-responsive"/>
+
+                                    @endif
+
+                                </div>
+
+                                <div class="fileinput-preview fileinput-exists thumbnail"
+                                     style="max-width: 200px; max-height: 150px;">
+                                         
+                                </div>
+
+                                <div>
+                                    <span class="btn btn-primary btn-file">
+
+                                        <span class="fileinput-new">Seleccione Imagen </span>
+
+                                        <span class="fileinput-exists">Cambiar</span>
+
+                                        <input type="file" name="image" id="pic" accept="image/*"/>
+
+                                    </span>
+                                   
+                                    <span class="btn btn-primary fileinput-exists"
+                                          data-dismiss="fileinput">Eliminar</span>
+
+                                </div>
+
+                            </div>
+                            </div>
+
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                                             <div class="acc-wizard-step"></div>
                                         
@@ -377,7 +447,6 @@ Productos
 
     <script src="{{ asset('assets/js/pages/accordionformwizard.js') }}"  type="text/javascript"></script>
 
-     <script type="text/javascript" src="{{ asset('assets/vendors/dropzone/js/dropzone.js') }}" ></script>
 
     <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/select2/js/select2.js') }}"></script>
 
@@ -389,59 +458,20 @@ Productos
 
 
 
+    <!-- js para la carga de imahenes  -->
+        <script src="{{ asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
 
-    <script>
+<script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
 
-   
-// $('#activate').on('ifChanged', function(event){
-//     $('#commentForm').bootstrapValidator('revalidateField', $('#activate'));
-// });
+<script src="{{ asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
 
-        var FormDropzone = function() {
-            return {
-                //main function to initiate the module
-                init: function() {
-                    Dropzone.options.myDropzone = {
-                        init: function() {
-                            this.on("success", function(file,responseText) {
-                                var obj = jQuery.parseJSON(responseText);
-                                file.id = obj.id;
-                                file.filename = obj.filename;
-                                // Create the remove button
-                                var removeButton = Dropzone.createElement("<button style='margin: 10px 0 0 15px;'>Remove file</button>");
+<script type="text/javascript" src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
 
-                                // Capture the Dropzone instance as closure.
-                                var _this = this;
+<script src="{{ asset('assets/js/pages/add_newblog.js') }}" type="text/javascript"></script>
 
-                                // Listen to the click event
-                                removeButton.addEventListener("click", function(e) {
-                                    // Make sure the button click doesn't submit the form:
-                                    e.preventDefault();
-                                    e.stopPropagation();
+    <!-- fin  js para la carga de imahenes  -->
 
-                                    $.ajax({
-                                        url: "file/delete",
-                                        type: "DELETE",
-                                        data: { "id" : file.id, "_token": '{{ csrf_token() }}' }
-                                    });
-                                    // Remove the file preview.
-                                    _this.removeFile(file);
-                                });
 
-                                // Add the button to the file preview element.
-                                file.previewElement.appendChild(removeButton);
 
-                            });
-
-                        }
-                    }
-                }
-            };
-        }();
-        jQuery(document).ready(function() {
-
-            FormDropzone.init();
-        });
-    </script>
     
 @stop

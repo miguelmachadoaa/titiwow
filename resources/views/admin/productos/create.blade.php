@@ -12,10 +12,21 @@ Nuevo Producto
     
     <link href="{{ asset('assets/vendors/acc-wizard/acc-wizard.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/pages/accordionformwizard.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/vendors/dropzone/css/dropzone.css') }}" rel="stylesheet" type="text/css" />
+    
 
     <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
+
+    <!-- stilos para la carga de imagen  -->
+    <link href="{{ asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
+
+    <!-- fin stilos para la carga de imagen  -->
+
+    <!--end of page level css-->
 
     <style>
         .dropzone .dz-preview .dz-image img {
@@ -61,7 +72,7 @@ Nuevo Producto
                         </span>
             </div>
             <div class="panel-body">
-            {!! Form::open(['url' => 'admin\productos', 'class' => 'form-horizontal', 'id' => 'productosForm', 'name' => 'productosForm']) !!}
+            {!! Form::open(['url' => 'admin\productos', 'class' => 'form-horizontal', 'id' => 'productosForm', 'name' => 'productosForm', 'files'=> true]) !!}
 
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
@@ -99,17 +110,17 @@ Nuevo Producto
                                             <div class="form-group clearfix">
                                                 <label class="col-md-3 control-label" for="nombre_producto">Nombre del Producto</label>
                                                 <div class="col-md-9">
-                                                    <input id="nombre_producto" name="nombre_producto" type="text" placeholder="Your name" class="form-control"></div>
+                                                    <input id="nombre_producto" name="nombre_producto" type="text" placeholder="Nombre del Producto" class="form-control"></div>
                                             </div>
                                             <div class="form-group clearfix">
                                                 <label class="col-md-3 control-label" for="referencia_producto">Referencia</label>
                                                 <div class="col-md-9">
-                                                    <input id="referencia_producto" name="referencia_producto" type="text" placeholder="Your email" class="form-control"></div>
+                                                    <input id="referencia_producto" name="referencia_producto" type="text" placeholder="Referencia del PRoducto" class="form-control"></div>
                                             </div>
                                             <div class="form-group clearfix">
                                                 <label class="col-md-3 control-label" for="referencia_producto">Referencia Sap</label>
                                                 <div class="col-md-9">
-                                                    <input id="referencia_producto_sap" name="referencia_producto_sap" type="text" placeholder="Your email" class="form-control"></div>
+                                                    <input id="referencia_producto_sap" name="referencia_producto_sap" type="text" placeholder="Referencia Sap" class="form-control"></div>
                                             </div>
                                             <div class="acc-wizard-step"></div>
                                         
@@ -130,15 +141,75 @@ Nuevo Producto
                                         <div class="form-group clearfix">
                                             <label class="col-md-3 control-label" for="descripcion_corta">Descripción Corta</label>
                                             <div class="col-md-9">
-                                                <textarea class="form-control resize_vertical" id="descripcion_corta" name="descripcion_corta" placeholder="Please enter your message here..." rows="5"></textarea>
+                                                <textarea class="form-control resize_vertical" id="descripcion_corta" name="descripcion_corta" placeholder="Descripcion Corta" rows="5"></textarea>
                                             </div>
                                         </div>
                                         <div class="form-group clearfix">
                                             <label class="col-md-3 control-label" for="descripcion_larga">Descripción Larga</label>
                                             <div class="col-md-9">
-                                                <textarea class="form-control resize_vertical" id="descripcion_larga" name="descripcion_larga" placeholder="Please enter your message here..." rows="5"></textarea>
+                                                <textarea class="form-control resize_vertical" id="descripcion_larga" name="descripcion_larga" placeholder="Descripcion Larga" rows="5"></textarea>
                                             </div>
                                         </div>
+
+
+
+
+                        <div class="form-group clearfix">
+
+                            <label for="title" class="col-md-3 control-label">Imagen de Producto</label>
+
+
+                            <div class="col-md-9">
+
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+
+                                <div class="fileinput-new thumbnail" style="max-width: 200px; max-height: 200px;">
+
+                                    <img src="{{ asset('assets/images/authors/no_avatar.jpg') }}" alt="..."class="img-responsive"/>
+
+                                </div>
+
+                                <div class="fileinput-preview fileinput-exists thumbnail"
+                                     style="max-width: 200px; max-height: 150px;">
+                                         
+                                </div>
+
+                                <div>
+                                    <span class="btn btn-primary btn-file">
+
+                                        <span class="fileinput-new">Seleccione Imagen </span>
+
+                                        <span class="fileinput-exists">Cambiar</span>
+
+                                        <input type="file" name="image" id="pic" accept="image/*"/>
+
+                                    </span>
+                                   
+                                    <span class="btn btn-primary fileinput-exists"
+                                          data-dismiss="fileinput">Eliminar</span>
+
+                                </div>
+
+                            </div>
+                            </div>
+
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                                         <!-- Carga de imagenes -->
                                         <div class="row">   
@@ -249,12 +320,25 @@ Nuevo Producto
 
 {{-- page level scripts --}}
 @section('footer_scripts')
+
+    <!-- js para la carga de imahenes  -->
+        <script src="{{ asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
+
+<script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
+
+<script src="{{ asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
+
+<script type="text/javascript" src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
+
+<script src="{{ asset('assets/js/pages/add_newblog.js') }}" type="text/javascript"></script>
+
+    <!-- fin  js para la carga de imahenes  -->
+
     
     <script src="{{ asset('assets/vendors/acc-wizard/acc-wizard.min.js') }}" ></script>
     <script src="{{ asset('assets/js/pages/accordionformwizard.js') }}"  type="text/javascript"></script>
 
-     <script type="text/javascript" src="{{ asset('assets/vendors/dropzone/js/dropzone.js') }}" ></script>
-
+    
     <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/select2/js/select2.js') }}"></script>
 
     <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
@@ -264,60 +348,4 @@ Nuevo Producto
 
 
 
-
-
-    <script>
-
-   
-// $('#activate').on('ifChanged', function(event){
-//     $('#commentForm').bootstrapValidator('revalidateField', $('#activate'));
-// });
-
-        var FormDropzone = function() {
-            return {
-                //main function to initiate the module
-                init: function() {
-                    Dropzone.options.myDropzone = {
-                        init: function() {
-                            this.on("success", function(file,responseText) {
-                                var obj = jQuery.parseJSON(responseText);
-                                file.id = obj.id;
-                                file.filename = obj.filename;
-                                // Create the remove button
-                                var removeButton = Dropzone.createElement("<button style='margin: 10px 0 0 15px;'>Remove file</button>");
-
-                                // Capture the Dropzone instance as closure.
-                                var _this = this;
-
-                                // Listen to the click event
-                                removeButton.addEventListener("click", function(e) {
-                                    // Make sure the button click doesn't submit the form:
-                                    e.preventDefault();
-                                    e.stopPropagation();
-
-                                    $.ajax({
-                                        url: "file/delete",
-                                        type: "DELETE",
-                                        data: { "id" : file.id, "_token": '{{ csrf_token() }}' }
-                                    });
-                                    // Remove the file preview.
-                                    _this.removeFile(file);
-                                });
-
-                                // Add the button to the file preview element.
-                                file.previewElement.appendChild(removeButton);
-
-                            });
-
-                        }
-                    }
-                }
-            };
-        }();
-        jQuery(document).ready(function() {
-
-            FormDropzone.init();
-        });
-    </script>
-    
 @stop
