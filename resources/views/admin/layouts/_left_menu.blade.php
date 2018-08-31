@@ -27,6 +27,12 @@
                     Categorias
                 </a>
             </li>
+            <li {!! (Request::is('admin/marcas*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.marcas.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Marcas
+                </a>
+            </li>
         </ul>
     </li>
 
@@ -50,15 +56,6 @@
                 <a href="{!! route('admin.formasenvio.index') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Formas de Envio
-                </a>
-            </li>
-        </ul>
-
-        <ul class="sub-menu">
-            <li {!! (Request::is('admin/marcas*') ? 'class="active"' : '') !!}>
-                <a href="{!! route('admin.marcas.index') !!}">
-                    <i class="fa fa-angle-double-right"></i>
-                    Marcas
                 </a>
             </li>
         </ul>
