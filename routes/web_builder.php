@@ -51,7 +51,7 @@ Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses'
 
     Route::group(['prefix' => 'formaspago'], function () {
 
-        Route::get('{id}/delete', 'admin\AlpFormaspagoController@destroy')->name('formaspago.delete');
+        Route::get('{id}/delete', 'admin\AlpFormasenvioController@destroy')->name('formaspago.delete');
 
         Route::get('{id}/confirm-delete', 'admin\AlpFormaspagoController@getModalDelete')->name('formaspago.confirm-delete');
 
@@ -60,6 +60,19 @@ Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses'
  	});
 
     Route::resource('formaspago', 'admin\AlpFormaspagoController');
+
+
+    Route::group(['prefix' => 'formasenvio'], function () {
+
+        Route::get('{id}/delete', 'admin\AlpFormasenvioController@destroy')->name('formasenvio.delete');
+
+        Route::get('{id}/confirm-delete', 'admin\AlpFormasenvioController@getModalDelete')->name('formasenvio.confirm-delete');
+
+        Route::get('{id}/restore', 'admin\AlpFormasenvioController@getRestore')->name('formasenvio.restore');
+
+ 	});
+
+    Route::resource('formasenvio', 'admin\AlpFormasenvioController');
 
 
 
