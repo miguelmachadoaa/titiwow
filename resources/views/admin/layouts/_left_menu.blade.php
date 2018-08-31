@@ -53,6 +53,15 @@
                 </a>
             </li>
         </ul>
+
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/marcas*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.marcas.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Marcas
+                </a>
+            </li>
+        </ul>
     </li>
 
    

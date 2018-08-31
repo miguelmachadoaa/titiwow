@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Editar Forma de Pago
+Editar Marca
 @parent
 @stop
 
@@ -10,7 +10,7 @@ Editar Forma de Pago
 @section('content')
 <section class="content-header">
     <h1>
-        Editar Forma de Pago
+        Editar Marca
     </h1>
     <ol class="breadcrumb">
         <li>
@@ -19,7 +19,7 @@ Editar Forma de Pago
                 Inicio
             </a>
         </li>
-        <li>Forma de Pagos</li>
+        <li>Marcas</li>
         <li class="active">Editar</li>
     </ol>
 </section>
@@ -31,46 +31,46 @@ Editar Forma de Pago
             <div class="panel panel-primary ">
                 <div class="panel-heading">
                     <h4 class="panel-title"> <i class="livicon" data-name="wrench" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Editar Forma de Pago
+                       Editar Marca
                     </h4>
                 </div>
                 <div class="panel-body">
                     
-                        {!! Form::model($forma, ['url' => URL::to('admin/formaspago/'. $forma->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($marca, ['url' => URL::to('admin/marcas/'. $marca->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                           
                              <div class="form-group {{ $errors->
-                            first('nombre_forma_pago', 'has-error') }}">
+                            first('nombre_marca', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Nombre Forma de Pago
+                                Nombre Marca
                             </label>
                             <div class="col-sm-5">
-                                <input type="text" id="nombre_forma_pago" name="nombre_forma_pago" class="form-control" placeholder="Nombre de Forma de Pago"
-                                       value="{!! old('nombre_forma_pago', $forma->nombre_forma_pago) !!}">
+                                <input type="text" id="nombre_marca" name="nombre_marca" class="form-control" placeholder="Nombre de Marca"
+                                       value="{!! old('nombre_marca', $marca->nombre_marca) !!}">
                             </div>
                             <div class="col-sm-4">
-                                {!! $errors->first('nombre_forma_pago', '<span class="help-block">:message</span> ') !!}
+                                {!! $errors->first('nombre_marca', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
 
                         <div class="form-group {{ $errors->
-                            first('descripcion_forma_pago', 'has-error') }}">
+                            first('descripcion_marca', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Descaripcion Forma de Pago
+                                Descaripcion Marca
                             </label>
                             <div class="col-sm-5">
                                 
 
-                                <textarea class="form-control resize_vertical" id="descripcion_forma_pago" name="descripcion_forma_pago" placeholder="Descripcion Forma de Pago" rows="5">{!! old('descripcion_forma_pago', $formaspago->descripcion_forma_pago) !!}</textarea>
+                                <textarea class="form-control resize_vertical" id="descripcion_marca" name="descripcion_marca" placeholder="Descripcion Marca" rows="5">{!! old('descripcion_marca', $marca->descripcion_marca) !!}</textarea>
                             </div>
                             <div class="col-sm-4">
-                                {!! $errors->first('descripcion_forma_pago', '<span class="help-block">:message</span> ') !!}
+                                {!! $errors->first('descripcion_marca', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
-                                <a class="btn btn-danger" href="{{ route('admin.formaspago.index') }}">
+                                <a class="btn btn-danger" href="{{ route('admin.marcas.index') }}">
                                     Cancelar
                                 </a>
                                 <button type="submit" class="btn btn-success">
