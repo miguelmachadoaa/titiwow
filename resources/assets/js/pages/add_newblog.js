@@ -1,5 +1,7 @@
 $(document).ready(function() {
+    
     $('.form-group input[type=file]').attr("accept","image/*");
+    
     $('.textarea').summernote({
         placeholder: 'write content here...',
         fontNames: ['Lato', 'Arial', 'Courier New'],

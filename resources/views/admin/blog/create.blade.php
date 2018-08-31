@@ -64,28 +64,44 @@
                         <div class="form-group">
                             {!! Form::text('tags', null, array('class' => 'form-control input-lg', 'data-role'=>"tagsinput", 'placeholder'=>trans('blog/form.tags'))) !!}
                         </div>
+                        
                         <label>@lang('blog/form.lb-featured-img')</label>
+
                         <div class="form-group">
 
-
                             <div class="fileinput fileinput-new" data-provides="fileinput">
+
                                 <div class="fileinput-new thumbnail" style="max-width: 200px; max-height: 200px;">
-                                    <img src="{{ asset('assets/images/authors/no_avatar.jpg') }}" alt="..."
-                                         class="img-responsive"/>
+
+                                    <img src="{{ asset('assets/images/authors/no_avatar.jpg') }}" alt="..."class="img-responsive"/>
+
                                 </div>
+
                                 <div class="fileinput-preview fileinput-exists thumbnail"
-                                     style="max-width: 200px; max-height: 150px;"></div>
+                                     style="max-width: 200px; max-height: 150px;">
+                                         
+                                </div>
+
                                 <div>
-                                            <span class="btn btn-primary btn-file">
-                                                <span class="fileinput-new">Select image</span>
-                                                <span class="fileinput-exists">Change</span>
-                                                <input type="file" name="image" id="pic" accept="image/*"/>
-                                            </span>
+                                    <span class="btn btn-primary btn-file">
+
+                                        <span class="fileinput-new">Select image</span>
+
+                                        <span class="fileinput-exists">Change</span>
+
+                                        <input type="file" name="image" id="pic" accept="image/*"/>
+
+                                    </span>
+                                   
                                     <span class="btn btn-primary fileinput-exists"
                                           data-dismiss="fileinput">Remove</span>
+
                                 </div>
+
                             </div>
+
                         </div>
+
                         <div class="form-group">
                             <button type="submit" class="btn btn-success">@lang('blog/form.publish')</button>
                             <a href="{!! URL::to('admin/blog/create') !!}"
@@ -105,8 +121,13 @@
 <!-- begining of page level js -->
 <!--edit blog-->
 <script src="{{ asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
+
 <script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
+
 <script src="{{ asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
+
 <script type="text/javascript" src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
+
 <script src="{{ asset('assets/js/pages/add_newblog.js') }}" type="text/javascript"></script>
+
 @stop

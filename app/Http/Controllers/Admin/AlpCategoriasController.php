@@ -5,8 +5,11 @@ use App\Models\AlpCategorias;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Redirect;
+use Response;
 use Sentinel;
 use View;
+use Intervention\Image\Facades\Image;
+use DOMDocument;
 
 
 class AlpCategoriasController extends JoshController
@@ -51,18 +54,46 @@ class AlpCategoriasController extends JoshController
         
          $user_id = Sentinel::getUser()->id;
 
-        //$input = $request->all();
 
-        //var_dump($input);
+         $imagen='0';
+
+         $picture = "";
+
+        
+        if ($request->hasFile('image')) {
+            
+            $file = $request->file('image');
+
+            #echo $file.'<br>';
+            
+            $extension = $file->extension()?: 'png';
+            
+
+            $picture = str_random(10) . '.' . $extension;
+
+            #echo $picture.'<br>';
+
+            $destinationPath = public_path() . '/uploads/blog/';
+
+            #echo $destinationPath.'<br>';
+
+            
+            $file->move($destinationPath, $picture);
+            
+            $imagen = $picture;
+
+        }
 
         $data = array(
             'nombre_categoria' => $request->nombre_categoria, 
             'descripcion_categoria' => $request->descripcion_categoria, 
             'referencia_producto_sap' =>$request->referencia_producto_sap, 
-            'imagen_categoria' =>' ', 
+            'imagen_categoria' =>$imagen, 
             'id_categoria_parent' =>'0', 
             'id_user' =>$user_id
         );
+
+
          
         $categoria=AlpCategorias::create($data);
 
@@ -72,7 +103,7 @@ class AlpCategoriasController extends JoshController
 
         } else {
             return Redirect::route('admin/categorias')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
-        }  
+        } 
 
     }
 
@@ -99,13 +130,57 @@ class AlpCategoriasController extends JoshController
      */
     public function update(Request $request, $id)
     {
-       $data = array(
+      
+
+        $imagen='0';
+
+        $picture = "";
+
+        
+        if ($request->hasFile('image')) {
+            
+            $file = $request->file('image');
+
+            #echo $file.'<br>';
+            
+            $extension = $file->extension()?: 'png';
+            
+
+            $picture = str_random(10) . '.' . $extension;
+
+            #echo $picture.'<br>';
+
+            $destinationPath = public_path() . '/uploads/blog/';
+
+            #echo $destinationPath.'<br>';
+
+            
+            $file->move($destinationPath, $picture);
+            
+            $imagen = $picture;
+
+             $data = array(
             'nombre_categoria' => $request->nombre_categoria, 
             'descripcion_categoria' => $request->descripcion_categoria, 
             'referencia_producto_sap' =>$request->referencia_producto_sap, 
-            'imagen_categoria' =>' ', 
+            'imagen_categoria' =>$imagen, 
             'id_categoria_parent' =>'0'
-        );
+            );
+
+        }else{
+
+            $data = array(
+                'nombre_categoria' => $request->nombre_categoria, 
+                'descripcion_categoria' => $request->descripcion_categoria, 
+                'referencia_producto_sap' =>$request->referencia_producto_sap
+            );
+
+
+        }
+
+
+
+       
          
        $categoria = AlpCategorias::find($id);
     
@@ -201,11 +276,40 @@ class AlpCategoriasController extends JoshController
 
         //var_dump($input);
 
+          $imagen='0';
+
+         $picture = "";
+
+        
+        if ($request->hasFile('image')) {
+            
+            $file = $request->file('image');
+
+            #echo $file.'<br>';
+            
+            $extension = $file->extension()?: 'png';
+            
+
+            $picture = str_random(10) . '.' . $extension;
+
+            #echo $picture.'<br>';
+
+            $destinationPath = public_path() . '/uploads/blog/';
+
+            #echo $destinationPath.'<br>';
+
+            
+            $file->move($destinationPath, $picture);
+            
+            $imagen = $picture;
+
+        }
+
         $data = array(
             'nombre_categoria' => $request->nombre_categoria, 
             'descripcion_categoria' => $request->descripcion_categoria, 
             'referencia_producto_sap' =>$request->referencia_producto_sap, 
-            'imagen_categoria' =>' ', 
+            'imagen_categoria' =>$imagen, 
             'id_categoria_parent' =>$padre, 
             'id_user' =>$user_id
         );
@@ -244,14 +348,54 @@ class AlpCategoriasController extends JoshController
      */
     public function updson(Request $request, $id)
     {
-       $data = array(
+       
+         $imagen='0';
+
+         $picture = "";
+
+        
+        if ($request->hasFile('image')) {
+            
+            $file = $request->file('image');
+
+            #echo $file.'<br>';
+            
+            $extension = $file->extension()?: 'png';
+            
+
+            $picture = str_random(10) . '.' . $extension;
+
+            #echo $picture.'<br>';
+
+            $destinationPath = public_path() . '/uploads/blog/';
+
+            #echo $destinationPath.'<br>';
+
+            
+            $file->move($destinationPath, $picture);
+            
+            $imagen = $picture;
+
+            $data = array(
             'nombre_categoria' => $request->nombre_categoria, 
             'descripcion_categoria' => $request->descripcion_categoria, 
             'referencia_producto_sap' =>$request->referencia_producto_sap, 
-            'imagen_categoria' =>' ', 
+            'imagen_categoria' =>$imagen, 
             'id_categoria_parent' =>$request->id_categoria_parent
-        );
-         
+                );
+
+        }else{
+
+                $data = array(
+            'nombre_categoria' => $request->nombre_categoria, 
+            'descripcion_categoria' => $request->descripcion_categoria, 
+            'referencia_producto_sap' =>$request->referencia_producto_sap, 
+            'id_categoria_parent' =>$request->id_categoria_parent
+                );
+
+        }
+
+
        $categoria = AlpCategorias::find($id);
     
         $categoria->update($data);
