@@ -371,13 +371,13 @@ Productos
 
                                                  <select id="id_categoria_default" name="id_categoria_default" class="form-control select2  {{ $errors->first('id_categoria_default', 'has-error') }} ">
 
-                                                    <option value="">Select value...</option>
+                                                    <option value="">Seleccione</option>
 
-                                                        <option value="1" @if($producto->id_categoria_default === '1') selected="selected" @endif  >Primera</option>
-
-                                                        <option value="2" @if($producto->id_categoria_default === '2') selected="selected" @endif >Segunda</option>
-
-                                                        <option value="3" @if($producto->id_categoria_default === '3') selected="selected" @endif >Tercera</option>
+                                                         @foreach($categorias as $cat)
+                                                        <option value="{{ $cat->id }}"
+                                                                @if($cat->id == $producto->id_categoria_default)) selected="selected" @endif >{{ $cat->nombre_categoria}}</option>
+                                                        @endforeach
+                                                </select>
 
                                                     </select>
 
@@ -398,10 +398,11 @@ Productos
 
                                                     <select id="id_marca" name="id_marca" class="form-control select2 {{ $errors->first('id_marca', 'has-error') }}  ">
 
-                                                        <option value="">Select value...</option>
-                                                        <option value="1" @if($producto->id_marca === '1') selected="selected" @endif >Primera</option>
-                                                        <option value="2" @if($producto->id_marca === '2') selected="selected" @endif >Segunda</option>
-                                                        <option value="3" @if($producto->id_marca === '3') selected="selected" @endif >Tercera</option>
+                                                        <option value="">Seleccione</option>
+                                                         @foreach($marcas as $marca)
+                                                        <option value="{{ $marca->id }}"
+                                                                @if($marca->id == $producto->id_marca) selected="selected" @endif >{{ $marca->nombre_marca}}</option>
+                                                        @endforeach
 
                                                     </select>
 
@@ -410,6 +411,15 @@ Productos
                                                 {!! $errors->first('id_marca', '<span class="help-block">:message</span>') !!}
                                                 
                                             </div>
+
+                                            <div class="form-group clearfix">
+
+                                                <label class="col-md-3 control-label" for="referencia_producto">Inventario Incial </label>
+
+                                                <div class="col-md-9">
+                                                    <input id="inventario_inicial" name="inventario_inicial" type="number" placeholder="Inventario Inicial" class="form-control" value="{{$producto->inventario_inicial}}" readonly="true" ></div>
+                                            </div>
+
                                            
                                             <div class="acc-wizard-step">
                                                 

@@ -26,7 +26,24 @@ Nuevo Producto
 
     <!-- fin stilos para la carga de imagen  -->
 
+
+<!-- stilos para arbol de categorias -->
+
+    <link href="{{ asset('assets/vendors/jstree/css/style.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/vendors/iCheck/css/all.css') }}" rel="stylesheet" type="text/css" />
+    
+    <link href="{{ asset('assets/vendors/treeview/css/bootstrap-treeview.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/pages/treeview_jstree.css') }}" rel="stylesheet" type="text/css"/>
+
+    <!-- fin stilos para arbol de categorias -->
+
     <!--end of page level css-->
+
+
+
+
+
+
 
     <style>
         .dropzone .dz-preview .dz-image img {
@@ -94,6 +111,10 @@ Nuevo Producto
                             <li class="acc-wizard-todo">
                                 <a href="#viewpage">Caracteristicas Producto</a>
                             </li>
+
+                            
+
+                            
                         </ol>
                     </div>
                     <div class="col-md-9 pd-r">
@@ -274,10 +295,12 @@ Nuevo Producto
                                                 </label>
                                                 <div class="col-md-9">   
                                                  <select id="id_categoria_default" name="id_categoria_default" class="form-control select2">
-                                                    <option value="">Select value...</option>
-                                                        <option value="1" >Primera</option>
-                                                        <option value="2" >Segunda</option>
-                                                        <option value="3" >Tercera</option>
+                                                    <option value="">Seleccione</option>
+                                                        
+                                                         @foreach($categorias as $cat)
+                                                        <option value="{{ $cat->id }}"
+                                                                @if($cat->id == old('id_marca')) selected="selected" @endif >{{ $cat->nombre_categoria}}</option>
+                                                        @endforeach
                                                 </select>
                                                 </div>
                                                
@@ -289,12 +312,25 @@ Nuevo Producto
                                                 </label>
                                                 <div class="col-md-9" >
                                                     <select id="id_marca" name="id_marca" class="form-control select2">
-                                                        <option value="">Select value...</option>
-                                                        <option value="1" >Primera</option>
-                                                        <option value="2" >Segunda</option>
-                                                        <option value="3" >Tercera</option>
+                                                        <option value="">Seleccione</option>
+                                                       
+                                                        @foreach($marcas as $marca)
+                                                        <option value="{{ $marca->id }}"
+                                                                @if($marca->id == old('id_marca')) selected="selected" @endif >{{ $marca->nombre_marca}}</option>
+                                                        @endforeach
+
+
+
+                                                      
                                                     </select>
                                                 </div>
+                                            </div>
+
+
+                                            <div class="form-group clearfix">
+                                                <label class="col-md-3 control-label" for="referencia_producto">Inventario Incial </label>
+                                                <div class="col-md-9">
+                                                    <input id="inventario_inicial" name="inventario_inicial" type="number" placeholder="Inventario Inicial" class="form-control"></div>
                                             </div>
                         
                                            
@@ -307,6 +343,11 @@ Nuevo Producto
                                     </div>
                                     <!--/.panel-body --> </div>
                                 <!-- /#adjusthtml --> </div>
+
+
+
+
+
                             <!-- /.panel.panel-default --> </div>
                     </div>
                 </div>
@@ -347,5 +388,56 @@ Nuevo Producto
     <script src="{{ asset('assets/js/pages/addproductos.js') }}"></script>
 
 
+     <!-- Arbol de categorias -->
+    <script src="{{ asset('assets/vendors/jstree/js/jstree.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/treeview/js/bootstrap-treeview.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}" type="text/javascript"></script>
+   <!-- <script src="{{ asset('assets/js/pages/treeview_jstree.js') }}" type="text/javascript"></script>-->
+
+    <script type="text/javascript">
+        
+
+          function verificarCategorias (){
+
+              $(".node-checked").each(function(){
+                    alert($(this).text())
+                });
+              
+        }
+
+        $(document).ready(function(){
+
+        defaultData=$("#tree").val();
+
+        var $checkableTree = $('#treeview-checkable').treeview({
+            data: defaultData,
+            showIcon: false,
+            showCheckbox: true,
+            onNodeChecked: function(event, node) {
+                $('#checkable-output').prepend('<p>' + node.text + ' was checked</p>');
+
+
+                $(".node-checked").each(function(){
+                    alert($(this).text())
+                });
+
+            },
+            onNodeUnchecked: function(event, node) {
+                $('#checkable-output').prepend('<p>' + node.text + ' was unchecked</p>');
+
+              $(".node-checked").each(function(){
+                    alert($(this).text())
+                });
+
+               
+
+            }
+        });
+
+        });
+
+    </script>
+
+    <!--Fin  Arbol de categorias -->
 
 @stop

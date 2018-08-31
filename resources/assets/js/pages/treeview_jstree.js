@@ -171,11 +171,28 @@ $(document).ready(function() {
             showCheckbox: true,
             onNodeChecked: function(event, node) {
                 $('#checkable-output').prepend('<p>' + node.text + ' was checked</p>');
+
+
+                $(".node-checked").each(function(){
+                    alert($(this).text())
+                });
+
             },
             onNodeUnchecked: function(event, node) {
                 $('#checkable-output').prepend('<p>' + node.text + ' was unchecked</p>');
+
+              $(".node-checked").each(function(){
+                    alert($(this).text())
+                });
+
+               
+
             }
         });
+
+
+
+
 
         var findCheckableNodess = function() {
             return $checkableTree.treeview('search', [$('#input-check-node option:selected').text(), { ignoreCase: false, exactMatch: false }]);

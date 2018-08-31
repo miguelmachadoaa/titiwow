@@ -238,6 +238,9 @@
                                     </div>
                                 </div>
                             </div>
+                            
+
+
                             <div class="col-md-12">
                                 <div class="panel panel-info">
                                     <div class="panel-heading">
@@ -286,15 +289,25 @@
                                                 </div>
                                             </div>
                                             <button type="button" class="btn btn-danger" id="btn-uncheck-all">Uncheck All</button>
+
+                                            <button type="button" class="btn btn-danger" onclick="verificarCategorias();" id="">Verificar Categorias </button>
+
+
                                         </div>
+                                        
+
                                         <div class="col-sm-4">
                                             <label>Tree</label>
                                             <div id="treeview-checkable" class=""></div>
                                         </div>
+
+
                                         <div class="col-sm-4">
                                             <label>Events</label>
                                             <div id="checkable-output"></div>
                                         </div>
+
+
                                     </div>
                                 </div>
                             </div>
@@ -314,5 +327,18 @@
     <script src="{{ asset('assets/vendors/treeview/js/bootstrap-treeview.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/pages/treeview_jstree.js') }}" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        
+
+          function verificarCategorias (){
+
+              $(".node-checked").each(function(){
+                    alert($(this).text())
+                });
+              
+        }
+        
+    </script>
 
 @stop

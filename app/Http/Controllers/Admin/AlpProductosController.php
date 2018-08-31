@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\JoshController;
 use App\Models\AlpProductos;
+use App\Models\AlpCategorias;
+use App\Models\AlpInventario;
+use App\Models\AlpMarcas;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Response;
@@ -44,8 +47,23 @@ class AlpProductosController extends JoshController
      */
     public function create()
     {
-        //$blogcategory = BlogCategory::pluck('title', 'id');
-        return view('admin.productos.create', compact(''));
+        $categorias = AlpCategorias::all();
+
+        $arbol = array();
+
+        foreach ($categorias as $cat) {
+
+            $arbol[$cat->id_categoria_parent][$cat->id]=$cat->id.'-'.$cat->nombre_categoria;
+
+        }
+
+        $tree=json_encode($arbol);
+        #$marcas = AlpMarcas::pluck('nombre_marca', 'id');
+        $marcas = AlpMarcas::all();
+
+
+
+        return view('admin.productos.create', compact('categorias', 'marcas', 'tree'));
     }
 
     /**
@@ -110,6 +128,18 @@ class AlpProductosController extends JoshController
          
         $producto=AlpProductos::create($data);
 
+
+        $data_inventario = array(
+            'id_producto' => $producto->id, 
+            'cantidad' => $request->inventario_inicial, 
+            'operacion' => '1', //1: credito, 2: dedito
+            'id_user' =>$user_id
+
+        );
+
+        $inventario=AlpInventario::create($data_inventario);
+
+
         if ($producto->id) {
 
             return redirect('admin/productos');
@@ -142,11 +172,19 @@ class AlpProductosController extends JoshController
      */
     public function edit($id)
     {
+        $inventario=AlpInventario::where('id_producto', $id)->firstOrFail();
+
        
+        $categorias = AlpCategorias::all();
+        #$marcas = AlpMarcas::pluck('nombre_marca', 'id');
+        $marcas = AlpMarcas::all();
 
         $producto = AlpProductos::find($id);
 
-        return view('admin.productos.edit', compact('producto'));
+
+        $producto['inventario_inicial']=$inventario->cantidad;
+
+        return view('admin.productos.edit', compact('producto', 'categorias', 'marcas'));
     }
 
     /**
