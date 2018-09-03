@@ -108,3 +108,12 @@ Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses'
 
 });
 
+
+
+/* Rutas el Frontend Publico */
+
+Route::get('producto/{slug}', ['as' => 'producto', 'uses' => 'frontend\ProductosFrontController@show']);
+
+Route::get('productos', 'frontend\ProductosFrontController@index');
+
+/* Fin Rutas Frontend Publico */

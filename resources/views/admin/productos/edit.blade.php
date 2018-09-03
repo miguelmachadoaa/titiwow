@@ -32,11 +32,11 @@ Productos
      <ol class="breadcrumb">
          <li>
              <a href="{{ route('admin.dashboard') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
-                 Dashboard
+                 Escritorio
              </a>
          </li>
          <li>Productos</li>
-         <li class="active">Edit Productos </li>
+         <li class="active">Editar Productos </li>
      </ol>
     </section>
     <section class="content paddingleft_right15">
@@ -322,15 +322,15 @@ Productos
 
                                             <div class="form-group clearfix">
 
-                                                <label class="col-md-3 control-label" for="referencia_producto">Seo Url</label>
+                                                <label class="col-md-3 control-label" for="referencia_producto">Slug</label>
 
                                                 <div class="col-md-9">
 
-                                                    <input id="seo_url" name="seo_url" type="text" placeholder="Seo Url" class="form-control  {{ $errors->first('seo_url', 'has-error') }}" value="{!! old('Seo Url', $producto->seo_url) !!}">
+                                                    <input id="slug" name="slug" type="text" placeholder="Seo Url" class="form-control  {{ $errors->first('seo_url', 'has-error') }}" value="{!! old('Seo Url', $producto->seo_url) !!}">
 
                                                 </div>
 
-                                                 {!! $errors->first('seo_url', '<span class="help-block">:message</span>') !!}
+                                                 {!! $errors->first('slug', '<span class="help-block">:message</span>') !!}
 
                                             </div>
 

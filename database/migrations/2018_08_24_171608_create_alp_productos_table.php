@@ -23,7 +23,7 @@ class CreateAlpProductosTable extends Migration
             $table->string('imagen_producto')->nullable();
             $table->string('seo_titulo')->nullable();
             $table->string('seo_descripcion')->nullable();
-            $table->string('seo_url')->nullable();
+            $table->string('slug')->unique();
             $table->integer('id_categoria_default');
             $table->integer('id_marca');
             $table->integer('estado_registro')->default(1);

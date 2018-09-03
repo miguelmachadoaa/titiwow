@@ -63,7 +63,7 @@ Nuevo Producto
                     <li>
                         <a href="{{ route('admin.dashboard') }}">
                             <i class="livicon" data-name="home" data-size="14" data-loop="true"></i>
-                            Dashboard
+                            Escritorio
                         </a>
                     </li>
                     <li>
@@ -268,9 +268,9 @@ Nuevo Producto
                                                     <input id="seo_descripcion" name="seo_descripcion" type="text" placeholder="Seo Descripcion" class="form-control"></div>
                                             </div>
                                             <div class="form-group clearfix">
-                                                <label class="col-md-3 control-label" for="referencia_producto">Seo Url</label>
+                                                <label class="col-md-3 control-label" for="referencia_producto">Slug</label>
                                                 <div class="col-md-9">
-                                                    <input id="seo_url" name="seo_url" type="text" placeholder="Seo Url" class="form-control"></div>
+                                                    <input id="slug" name="slug" type="text" placeholder="Seo Url" class="form-control"></div>
                                             </div>
                                             <div class="acc-wizard-step"></div>
                                         

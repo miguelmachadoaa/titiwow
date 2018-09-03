@@ -27,7 +27,7 @@ class AlpProductos extends Model
         'imagen_producto',
         'seo_titulo',
         'seo_descripcion',
-        'seo_url',
+        'slug',
         'id_categoria_default',
         'id_marca',
         'estado_registro',
@@ -40,7 +40,7 @@ class AlpProductos extends Model
      * @var array
      */
     protected $casts = [
-        'name_producto' => 'string'
+        'nombre_producto' => 'string'
     ];
 
     /**
@@ -49,6 +49,6 @@ class AlpProductos extends Model
      * @var array
      */
     public static $rules = [
-        'name_producto' => 'required'
+        'nombre_producto' => 'required'
     ];
 }

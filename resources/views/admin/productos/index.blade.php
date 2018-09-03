@@ -12,7 +12,7 @@ AlpProductos
     <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
-                Dashboard
+                Escritorio
             </a>
         </li>
         <li>Productos</li>

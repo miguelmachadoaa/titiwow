@@ -8,6 +8,7 @@ use App\Models\AlpCategorias;
 use App\Models\AlpInventario;
 use App\Models\AlpMarcas;
 use App\Http\Requests;
+use App\Http\Requests\ProductosRequest;
 use Illuminate\Http\Request;
 use Response;
 use Sentinel;
@@ -71,7 +72,7 @@ class AlpProductosController extends JoshController
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(ProductosRequest $request)
     {
 
         $user_id = Sentinel::getUser()->id;
@@ -120,7 +121,7 @@ class AlpProductosController extends JoshController
             'imagen_producto' =>$imagen, 
             'seo_titulo' =>$request->seo_titulo, 
             'seo_descripcion' =>$request->seo_descripcion, 
-            'seo_url' =>$request->seo_url, 
+            'slug' => $request->slug, 
             'id_categoria_default' =>$request->id_categoria_default, 
             'id_marca' =>$request->id_marca, 
             'id_user' =>$user_id
@@ -241,7 +242,7 @@ class AlpProductosController extends JoshController
                 'imagen_producto' =>$imagen, 
                 'seo_titulo' =>$request->seo_titulo, 
                 'seo_descripcion' =>$request->seo_descripcion, 
-                'seo_url' =>$request->seo_url, 
+                'slug' =>$request->slug, 
                 'id_categoria_default' =>$request->id_categoria_default, 
                 'id_marca' =>$request->id_marca
                 );
@@ -256,7 +257,7 @@ class AlpProductosController extends JoshController
                 'descripcion_larga' =>$request->descripcion_larga, 
                 'seo_titulo' =>$request->seo_titulo, 
                 'seo_descripcion' =>$request->seo_descripcion, 
-                'seo_url' =>$request->seo_url, 
+                'slug' =>$request->slug, 
                 'id_categoria_default' =>$request->id_categoria_default, 
                 'id_marca' =>$request->id_marca
                 );
