@@ -389,7 +389,7 @@ Nuevo Producto
 @section('footer_scripts')
 
     <!-- js para la carga de imahenes  -->
-        <script src="{{ asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
 
 <script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
 

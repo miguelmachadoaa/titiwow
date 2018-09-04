@@ -150,11 +150,7 @@ class AlpProductosController extends JoshController
             $imagen = $picture;
 
         }
-
-        
-
-
-        
+               
 
         $data = array(
             'nombre_producto' => $request->nombre_producto, 
@@ -242,21 +238,47 @@ class AlpProductosController extends JoshController
          $i=0;
 
         foreach ($cats as $cat) {
+
+        $catego = AlpCategorias::find($cat->id_categoria);
+
+        
+
+
             
             if ($i=0) {
-              $check=$check.$cat->id.'-'.$cat->nombre_categoria;
+              $check=$check.$cat->id_categoria.'-'.$catego->nombre_categoria;
             }else{
-                $check=$check.','.$cat->id.'-'.$cat->nombre_categoria;
+                $check=$check.','.$cat->id_categoria.'-'.$catego->nombre_categoria;
             }
 
             $i++;
 
         }
 
-       
-
-       
         $categorias = AlpCategorias::all();
+
+        $arbol = array();
+
+        foreach ($categorias as $cat) {
+
+            if ($cat->id_categoria_parent=='0') {
+
+                  $elemento = array(
+                    'text' => $cat->id.'-'.$cat->nombre_categoria, 
+                    'href' => '#'.$cat->nombre_categoria, 
+                    'tags' => '0', 
+                    'nodes' => $this->recargaNodes($cat->id, $categorias), 
+
+                );
+
+                $arbol[]=$elemento;
+            }
+
+        }
+
+        $tree=json_encode($arbol);
+      
+        
         #$marcas = AlpMarcas::pluck('nombre_marca', 'id');
         $marcas = AlpMarcas::all();
 
@@ -265,7 +287,7 @@ class AlpProductosController extends JoshController
 
         $producto['inventario_inicial']=$inventario->cantidad;
 
-        return view('admin.productos.edit', compact('producto', 'categorias', 'marcas', 'check'));
+        return view('admin.productos.edit', compact('producto', 'categorias', 'marcas', 'check', 'tree'));
     }
 
     /**
@@ -280,11 +302,8 @@ class AlpProductosController extends JoshController
         $producto = AlpProductos::find($id);
 
 
-
-        //$input = $request->all();
-
-        //var_dump($input);
-
+        $user_id = Sentinel::getUser()->id;
+        
 
         $imagen='0';
 
@@ -348,20 +367,9 @@ class AlpProductosController extends JoshController
         $producto->update($data);
 
 
-        $producto=AlpProductos::create($data);
-
-
-        $data_inventario = array(
-            'id_producto' => $producto->id, 
-            'cantidad' => $request->inventario_inicial, 
-            'operacion' => '1', //1: credito, 2: dedito
-            'id_user' =>$user_id
-
-        );
-
+         
         
-        
-        
+
         $cats=explode(',', $request->categorias_prod);
 
          foreach ($cats as $cat ) {
