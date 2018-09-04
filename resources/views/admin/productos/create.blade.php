@@ -109,11 +109,14 @@ Nuevo Producto
                                 <a href="#adjusthtml">Ajustes SEO</a>
                             </li>
                             <li class="acc-wizard-todo">
+                                <a href="#prod_categoria">Categorias Producto</a>
+                            </li>
+
+                            <li class="acc-wizard-todo">
                                 <a href="#viewpage">Caracteristicas Producto</a>
                             </li>
 
-                            
-
+                        
                             
                         </ol>
                     </div>
@@ -279,6 +282,31 @@ Nuevo Producto
                                 <!-- /#adjusthtml --> </div>
                             <!-- /.panel.panel-default -->
 
+
+                            <div class="panel panel-danger">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a href="#prod_categoria" data-parent="#accordion-demo" data-toggle="collapse">Categorias Producto</a>
+                                    </h4>
+                                </div>
+                                <div id="prod_categoria" class="panel-collapse collapse" style="height: 36.400001525878906px;">
+                                    <div class="panel-body">
+
+                                        <input type="hidden" name="tree" id="tree" value="{{ $tree }}">
+                                        <input type="hidden" name="categorias_prod" id="categorias_prod" value="">
+                                        <input type="hidden" name="categorias_prod_check" id="categorias_prod_check" value="{{ $check }}">
+
+                                        <div class="col-sm-12">
+                                            <label>Tree</label>
+                                            <div id="treeview-checkable" class=""></div>
+                                        </div>
+                                        
+                                        
+                                    </div>
+                                    <!--/.panel-body --> </div>
+                                <!-- /#adjusthtml --> </div>
+
+
                             <div class="panel panel-danger">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
@@ -338,13 +366,11 @@ Nuevo Producto
                                                 
                                             </div>
                                             
-                                            <button type="button" class="btn btn-danger finish">Finish</button>
+                                            <button type="button" class="btn btn-danger finish">Enviar </button>
                                         
                                     </div>
                                     <!--/.panel-body --> </div>
                                 <!-- /#adjusthtml --> </div>
-
-
 
 
 
@@ -399,9 +425,19 @@ Nuevo Producto
 
           function verificarCategorias (){
 
-              $(".node-checked").each(function(){
-                    alert($(this).text())
-                });
+            cat='';            
+
+            $(".node-checked").each(function(){
+
+                    t=$(this).text().split('-', 1);  
+
+                    cat=cat+t+',';
+
+                });       
+
+            cat=cat.slice(0, -1);     
+
+            $('#categorias_prod').val(cat);               
               
         }
 
@@ -415,24 +451,29 @@ Nuevo Producto
             showCheckbox: true,
             onNodeChecked: function(event, node) {
                 $('#checkable-output').prepend('<p>' + node.text + ' was checked</p>');
-
-
-                $(".node-checked").each(function(){
-                    alert($(this).text())
-                });
-
             },
             onNodeUnchecked: function(event, node) {
                 $('#checkable-output').prepend('<p>' + node.text + ' was unchecked</p>');
 
-              $(".node-checked").each(function(){
-                    alert($(this).text())
-                });
-
-               
-
             }
         });
+
+
+        cc=$('#categorias_prod_check').val();
+
+        c=cc.split(',');
+
+            jQuery.each(c, function(i, val){
+
+
+                 b=$checkableTree.treeview('search', [val, { ignoreCase: false, exactMatch: false }]);
+
+               $checkableTree.treeview('checkNode', [b, { silent: $('#chk-check-silent').is(':checked') }]);
+
+
+            } );
+
+           
 
         });
 
@@ -537,6 +578,7 @@ $("#productosForm").bootstrapValidator({
 
 
 $('.finish').click(function () {
+    verificarCategorias();
     var $validator = $('#productosForm').data('bootstrapValidator').validate();
     if ($validator.isValid()) {
         document.getElementById("productosForm").submit();

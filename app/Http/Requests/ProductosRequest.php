@@ -26,7 +26,7 @@ class ProductosRequest extends FormRequest {
 		return [
             'nombre_producto' => 'required|min:3',
             'referencia_producto' => 'required|min:5',
-			'slug' => 'required|unique:alp_productos',
+			/*'slug' => 'required|unique:alp_productos',*/
 		];
 	}
 

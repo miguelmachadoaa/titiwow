@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\JoshController;
 use App\Models\AlpProductos;
 use App\Models\AlpCategorias;
+use App\Models\AlpCategoriasProductos;
 use App\Models\AlpInventario;
 use App\Models\AlpMarcas;
 use App\Http\Requests;
@@ -41,6 +42,33 @@ class AlpProductosController extends JoshController
         return view('admin.productos.index', compact('productos'));
     }
 
+
+     public function recargaNodes($id_padre, $categorias)
+    {
+        // Grab all the blogs
+        foreach ($categorias as $cat) {
+
+            $arbol=array();
+           
+            if ($cat->id_categoria_parent==$id_padre) {
+                
+                $elemento = array(
+                'text' => $cat->id.'-'.$cat->nombre_categoria, 
+                'href' => '#'.$cat->nombre_categoria, 
+                'tags' => '0', 
+                'nodes' => $this->recargaNodes($cat->id, $categorias), 
+
+                );
+
+                $arbol[]=$elemento;
+
+                return $arbol;
+
+            }
+
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -54,17 +82,30 @@ class AlpProductosController extends JoshController
 
         foreach ($categorias as $cat) {
 
-            $arbol[$cat->id_categoria_parent][$cat->id]=$cat->id.'-'.$cat->nombre_categoria;
+            if ($cat->id_categoria_parent=='0') {
+
+                  $elemento = array(
+                    'text' => $cat->id.'-'.$cat->nombre_categoria, 
+                    'href' => '#'.$cat->nombre_categoria, 
+                    'tags' => '0', 
+                    'nodes' => $this->recargaNodes($cat->id, $categorias), 
+
+                );
+
+                $arbol[]=$elemento;
+            }
 
         }
 
         $tree=json_encode($arbol);
+
+        $check='';
         #$marcas = AlpMarcas::pluck('nombre_marca', 'id');
         $marcas = AlpMarcas::all();
 
 
 
-        return view('admin.productos.create', compact('categorias', 'marcas', 'tree'));
+        return view('admin.productos.create', compact('categorias', 'marcas', 'tree', 'check'));
     }
 
     /**
@@ -110,7 +151,10 @@ class AlpProductosController extends JoshController
 
         }
 
+        
 
+
+        
 
         $data = array(
             'nombre_producto' => $request->nombre_producto, 
@@ -139,6 +183,22 @@ class AlpProductosController extends JoshController
         );
 
         $inventario=AlpInventario::create($data_inventario);
+
+        $cats=explode(',', $request->categorias_prod);
+
+         foreach ($cats as $cat ) {
+            
+            $data_cat = array(
+                'id_producto' => $producto->id, 
+                'id_categoria' => $cat, 
+                'id_user' => $user_id
+            );
+
+
+            AlpCategoriasProductos::create($data_cat);
+
+        }
+
 
 
         if ($producto->id) {
@@ -175,6 +235,26 @@ class AlpProductosController extends JoshController
     {
         $inventario=AlpInventario::where('id_producto', $id)->firstOrFail();
 
+        $cats=AlpCategoriasProductos::where('id_producto', $id)->get();
+
+         $check='';
+
+         $i=0;
+
+        foreach ($cats as $cat) {
+            
+            if ($i=0) {
+              $check=$check.$cat->id.'-'.$cat->nombre_categoria;
+            }else{
+                $check=$check.','.$cat->id.'-'.$cat->nombre_categoria;
+            }
+
+            $i++;
+
+        }
+
+       
+
        
         $categorias = AlpCategorias::all();
         #$marcas = AlpMarcas::pluck('nombre_marca', 'id');
@@ -185,7 +265,7 @@ class AlpProductosController extends JoshController
 
         $producto['inventario_inicial']=$inventario->cantidad;
 
-        return view('admin.productos.edit', compact('producto', 'categorias', 'marcas'));
+        return view('admin.productos.edit', compact('producto', 'categorias', 'marcas', 'check'));
     }
 
     /**
@@ -263,14 +343,42 @@ class AlpProductosController extends JoshController
                 );
 
         }
-
-
-
-
-
        
          
         $producto->update($data);
+
+
+        $producto=AlpProductos::create($data);
+
+
+        $data_inventario = array(
+            'id_producto' => $producto->id, 
+            'cantidad' => $request->inventario_inicial, 
+            'operacion' => '1', //1: credito, 2: dedito
+            'id_user' =>$user_id
+
+        );
+
+        
+        
+        
+        $cats=explode(',', $request->categorias_prod);
+
+         foreach ($cats as $cat ) {
+            
+            $data_cat = array(
+                'id_producto' => $producto->id, 
+                'id_categoria' => $cat, 
+                'id_user' => $user_id
+            );
+
+
+            AlpCategoriasProductos::create($data_cat);
+
+        }
+
+
+
 
         if ($producto->id) {
 
