@@ -3,7 +3,7 @@
 
 {{-- Page title --}}
 @section('title')
-Nuevo Producto
+ @lang('productos/title.add') :: @parent
 @parent
 @stop
 
@@ -58,7 +58,7 @@ Nuevo Producto
 
 <section class="content-header">
                 <!--section starts-->
-                <h1>Nuevo Producto</h1>
+                <h1>@lang('productos/title.add')</h1>
                 <ol class="breadcrumb">
                     <li>
                         <a href="{{ route('admin.dashboard') }}">
@@ -67,9 +67,9 @@ Nuevo Producto
                         </a>
                     </li>
                     <li>
-                        <a href="#">Productos</a>
+                        <a href="#">@lang('productos/title.title')</a>
                     </li>
-                    <li class="active">Nuevo Producto</li>
+                    <li class="active">@lang('productos/title.add')</li>
                 </ol>
             </section>
 
@@ -94,9 +94,12 @@ Nuevo Producto
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
                 <div class="row acc-wizard">
+
                     <div class="col-md-3 pd-2">
+
                         <p class="mar-2">
-                            Follow the steps below to add an accordion wizard to your web page.
+
+                           Pasos para la creacion de productos
                         </p>
                         <ol class="acc-wizard-sidebar">
                             <li class="acc-wizard-todo acc-wizard-active">
@@ -134,17 +137,17 @@ Nuevo Producto
                                             <div class="form-group clearfix">
                                                 <label class="col-md-3 control-label" for="nombre_producto">Nombre del Producto</label>
                                                 <div class="col-md-9">
-                                                    <input id="nombre_producto" name="nombre_producto" type="text" placeholder="Nombre del Producto" class="form-control"></div>
+                                                    <input id="nombre_producto" name="nombre_producto" type="text" placeholder="Nombre del Producto" class="form-control" value="{{ old('nombre_producto') }}"></div>
                                             </div>
                                             <div class="form-group clearfix">
                                                 <label class="col-md-3 control-label" for="referencia_producto">Referencia</label>
                                                 <div class="col-md-9">
-                                                    <input id="referencia_producto" name="referencia_producto" type="text" placeholder="Referencia del PRoducto" class="form-control"></div>
+                                                    <input id="referencia_producto" name="referencia_producto" type="text" placeholder="Referencia del PRoducto" class="form-control" value="{{ old('referencia_producto') }}"></div>
                                             </div>
                                             <div class="form-group clearfix">
                                                 <label class="col-md-3 control-label" for="referencia_producto">Referencia Sap</label>
                                                 <div class="col-md-9">
-                                                    <input id="referencia_producto_sap" name="referencia_producto_sap" type="text" placeholder="Referencia Sap" class="form-control"></div>
+                                                    <input id="referencia_producto_sap" name="referencia_producto_sap" type="text" placeholder="Referencia Sap" value="{{ old('referencia_producto_sap') }}" class="form-control"></div>
                                             </div>
                                             <div class="acc-wizard-step"></div>
                                         
@@ -165,13 +168,13 @@ Nuevo Producto
                                         <div class="form-group clearfix">
                                             <label class="col-md-3 control-label" for="descripcion_corta">Descripción Corta</label>
                                             <div class="col-md-9">
-                                                <textarea class="form-control resize_vertical" id="descripcion_corta" name="descripcion_corta" placeholder="Descripcion Corta" rows="5"></textarea>
+                                                <textarea class="form-control resize_vertical" id="descripcion_corta" name="descripcion_corta" placeholder="Descripcion Corta" rows="5">{{ old('descripcion_corta') }}</textarea>
                                             </div>
                                         </div>
                                         <div class="form-group clearfix">
                                             <label class="col-md-3 control-label" for="descripcion_larga">Descripción Larga</label>
                                             <div class="col-md-9">
-                                                <textarea class="form-control resize_vertical" id="descripcion_larga" name="descripcion_larga" placeholder="Descripcion Larga" rows="5"></textarea>
+                                                <textarea class="form-control resize_vertical" id="descripcion_larga" name="descripcion_larga" placeholder="Descripcion Larga" rows="5">{{ old('descripcion_corta') }}</textarea>
                                             </div>
                                         </div>
 
@@ -263,17 +266,17 @@ Nuevo Producto
                                             <div class="form-group clearfix">
                                                 <label class="col-md-3 control-label" for="nombre_producto">Seo Titulo</label>
                                                 <div class="col-md-9">
-                                                    <input id="seo_titulo" name="seo_titulo" type="text" placeholder="Seo Titulo" class="form-control"></div>
+                                                    <input id="seo_titulo" name="seo_titulo" type="text" placeholder="Seo Titulo" class="form-control" value="{{ old('seo_titulo') }}"></div>
                                             </div>
                                             <div class="form-group clearfix">
                                                 <label class="col-md-3 control-label" for="referencia_producto">Seo Descripcion</label>
                                                 <div class="col-md-9">
-                                                    <input id="seo_descripcion" name="seo_descripcion" type="text" placeholder="Seo Descripcion" class="form-control"></div>
+                                                    <input id="seo_descripcion" name="seo_descripcion" type="text" placeholder="Seo Descripcion" class="form-control" value="{{ old('seo_descripcion') }}"></div>
                                             </div>
                                             <div class="form-group clearfix">
                                                 <label class="col-md-3 control-label" for="referencia_producto">Slug</label>
                                                 <div class="col-md-9">
-                                                    <input id="slug" name="slug" type="text" placeholder="Seo Url" class="form-control"></div>
+                                                    <input id="slug" name="slug" type="text" placeholder="Seo Url" class="form-control" value="{{ old('slug') }}"></div>
                                             </div>
                                             <div class="acc-wizard-step"></div>
                                         
@@ -317,29 +320,29 @@ Nuevo Producto
                                     <div class="panel-body">
                                         
 
-                                            <div class="form-group">
+                                            <div class="form-group col-sm-12">
                                                 <label for="select21" class="col-md-3 control-label">
                                                     Categoria por Defecto
                                                 </label>
                                                 <div class="col-md-9">   
-                                                 <select id="id_categoria_default" name="id_categoria_default" class="form-control select2">
+                                                 <select id="id_categoria_default" name="id_categoria_default" class="form-control ">
                                                     <option value="">Seleccione</option>
                                                         
                                                          @foreach($categorias as $cat)
                                                         <option value="{{ $cat->id }}"
-                                                                @if($cat->id == old('id_marca')) selected="selected" @endif >{{ $cat->nombre_categoria}}</option>
+                                                                @if($cat->id == old('id_categoria_default')) selected="selected" @endif >{{ $cat->nombre_categoria}}</option>
                                                         @endforeach
                                                 </select>
                                                 </div>
                                                
                                             </div>
 
-                                            <div class="form-group">
+                                            <div class="form-group col-sm-12">
                                                 <label for="select21" class="col-md-3 control-label">
                                                     Marca
                                                 </label>
                                                 <div class="col-md-9" >
-                                                    <select id="id_marca" name="id_marca" class="form-control select2">
+                                                    <select id="id_marca" name="id_marca" class="form-control ">
                                                         <option value="">Seleccione</option>
                                                        
                                                         @foreach($marcas as $marca)
@@ -355,10 +358,10 @@ Nuevo Producto
                                             </div>
 
 
-                                            <div class="form-group clearfix">
+                                            <div class="form-group clearfix col-sm-12">
                                                 <label class="col-md-3 control-label" for="referencia_producto">Inventario Incial </label>
                                                 <div class="col-md-9">
-                                                    <input id="inventario_inicial" name="inventario_inicial" type="number" placeholder="Inventario Inicial" class="form-control"></div>
+                                                    <input id="inventario_inicial" name="inventario_inicial" type="number" placeholder="Inventario Inicial" class="form-control" value="{{ old('inventario_inicial') }}" ></div>
                                             </div>
                         
                                            
@@ -366,7 +369,7 @@ Nuevo Producto
                                                 
                                             </div>
                                             
-                                            <button type="button" class="btn btn-danger finish">Enviar </button>
+                                            <button type="button" class="btn btn-danger finish">@lang('productos/title.enviar') </button>
                                         
                                     </div>
                                     <!--/.panel-body --> </div>

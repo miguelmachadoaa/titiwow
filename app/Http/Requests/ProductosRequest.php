@@ -26,7 +26,15 @@ class ProductosRequest extends FormRequest {
 		return [
             'nombre_producto' => 'required|min:3',
             'referencia_producto' => 'required|min:5',
-			/*'slug' => 'required|unique:alp_productos',*/
+            'referencia_producto_sap' => 'required|min:5',
+            'descripcion_corta' => 'required|min:5',
+            'descripcion_larga' => 'required|min:5',
+            'seo_titulo' => 'required|min:5',
+            'seo_descripcion' => 'required|min:5',
+			'slug' => 'required|unique:alp_productos',
+            'id_categoria_default' => 'required',
+            'id_marca' => 'required',
+            'inventario_inicial' => 'required'
 		];
 	}
 

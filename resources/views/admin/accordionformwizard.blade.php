@@ -50,6 +50,7 @@ Accordian Form Wizard
             </div>
             <div class="panel-body">
                 <div class="row acc-wizard">
+
                     <div class="col-md-3 pd-2">
                         <p class="mar-2">
                             Follow the steps below to add an accordion wizard to your web page.
@@ -69,6 +70,7 @@ Accordian Form Wizard
                             </li>
                         </ol>
                     </div>
+
                     <div class="col-md-9 pd-r">
                         <div id="accordion-demo" class="panel-group">
                             <div class="panel panel-success">
@@ -79,7 +81,7 @@ Accordian Form Wizard
                                 </div>
                                 <div id="prerequisites" class="panel-collapse collapse in">
                                     <div class="panel-body">
-                                        <form id="form-prerequisites">
+                                        <div id="form-prerequisites">
                                             <p>
                                                 The accordion wizard depends on two other open source packages:
                                             </p>
@@ -111,7 +113,7 @@ Accordian Form Wizard
                                                         <pre>&lt;script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" type="text/javascript"&gt;&lt;/script&gt;
                                                         &lt;script src="js/bootstrap.min.js"&gt;&lt;/script&gt;</pre>
                                             <div class="acc-wizard-step"></div>
-                                        </form>
+                                        </div>
                                     </div>
                                     <!--/.panel-body --> </div>
                                 <!-- /#prerequisites --> </div>
@@ -125,7 +127,7 @@ Accordian Form Wizard
                                 </div>
                                 <div id="addwizard" class="panel-collapse collapse awd-h" style="height: 36.400001525878906px;">
                                     <div class="panel-body">
-                                        <form id="form-addwizard">
+                                        <div id="form-addwizard">
                                             <p>
                                                 If you haven't already found it, the source code for the accordion wizard is available on github
                                                 <a href="https://github.com/sathomas/acc-wizard">here</a>
@@ -165,7 +167,7 @@ Accordian Form Wizard
                                                 file.
                                             </p>
                                             <div class="acc-wizard-step"></div>
-                                        </form>
+                                        </div>
                                     </div>
                                     <!--/.panel-body --> </div>
                                 <!-- /#addwizard --> </div>
@@ -178,7 +180,7 @@ Accordian Form Wizard
                                 </div>
                                 <div id="adjusthtml" class="panel-collapse collapse" style="height: 36.400001525878906px;">
                                     <div class="panel-body">
-                                        <form id="form-adjusthtml">
+                                        <div id="form-adjusthtml">
                                             <p>
                                                 Now you can modify your HTML markup to activate the accordion wizard. There are two parts to the markup—the collapsible accordion itself and the task list. I prefer putting both in the same
                                                 <code>.row</code>
@@ -236,7 +238,7 @@ Accordian Form Wizard
                                                 for the details.
                                             </p>
                                             <div class="acc-wizard-step"></div>
-                                        </form>
+                                        </div>
                                     </div>
                                     <!--/.panel-body --> </div>
                                 <!-- /#adjusthtml --> </div>
@@ -249,12 +251,12 @@ Accordian Form Wizard
                                 </div>
                                 <div id="viewpage" class="panel-collapse collapse" style="height: 36.400001525878906px;">
                                     <div class="panel-body">
-                                        <form id="form-viewpage">
+                                        <div id="form-viewpage">
                                             <p>
                                                 Naturally, the last thing you'll want to do is test your page with the accordion wizard. Once you've confirmed that it's working as expected, release it on the world. Your users will definitely appreciate the feedback and guidance it gives to multi-step and complex tasks on your web site.
                                             </p>
                                             <div class="acc-wizard-step"></div>
-                                        </form>
+                                        </div>
                                     </div>
                                     <!--/.panel-body --> </div>
                                 <!-- /#adjusthtml --> </div>

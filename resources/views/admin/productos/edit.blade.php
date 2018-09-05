@@ -182,7 +182,7 @@ Productos
 
                                             <div class="col-md-9">
 
-                                                <textarea class="form-control {{ $errors->first('descripcion_corta', 'has-error') }}  resize_vertical" id="descripcion_corta" name="descripcion_corta" placeholder="Descripcion Corta" rows="5">{!! old('Descripción Corta', $producto->descripcion_corta) !!}</textarea>
+                                                <textarea class="form-control col-sm-12 {{ $errors->first('descripcion_corta', 'has-error') }}  resize_vertical" id="descripcion_corta" name="descripcion_corta" placeholder="Descripcion Corta" rows="5">{!! old('Descripción Corta', $producto->descripcion_corta) !!}</textarea>
 
                                             </div>
 
@@ -196,7 +196,7 @@ Productos
 
                                             <div class="col-md-9">
 
-                                                <textarea class="form-control  {{ $errors->first('descripcion_larga', 'has-error') }} resize_vertical" id="descripcion_larga" name="descripcion_larga" placeholder="Descripcion Larga" rows="5">{!! old('Descripción Larga', $producto->descripcion_larga) !!}</textarea>
+                                                <textarea class="form-control col-sm-12  {{ $errors->first('descripcion_larga', 'has-error') }} resize_vertical" id="descripcion_larga" name="descripcion_larga" placeholder="Descripcion Larga" rows="5">{!! old('Descripción Larga', $producto->descripcion_larga) !!}</textarea>
 
                                             </div>
 

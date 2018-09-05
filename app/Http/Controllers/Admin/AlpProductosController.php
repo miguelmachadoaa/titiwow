@@ -46,9 +46,13 @@ class AlpProductosController extends JoshController
      public function recargaNodes($id_padre, $categorias)
     {
         // Grab all the blogs
+
+        $arbol=array();
+
+        
         foreach ($categorias as $cat) {
 
-            $arbol=array();
+            
            
             if ($cat->id_categoria_parent==$id_padre) {
                 
@@ -62,11 +66,13 @@ class AlpProductosController extends JoshController
 
                 $arbol[]=$elemento;
 
-                return $arbol;
+               
 
             }
 
         }
+
+         return $arbol;
     }
 
     /**
@@ -76,11 +82,13 @@ class AlpProductosController extends JoshController
      */
     public function create()
     {
-        $categorias = AlpCategorias::all();
+        $categorias = AlpCategorias::where('id_categoria_parent','0')->get();
+
+        $categorias_todas = AlpCategorias::all();
 
         $arbol = array();
 
-        foreach ($categorias as $cat) {
+        foreach ($categorias_todas as $cat) {
 
             if ($cat->id_categoria_parent=='0') {
 
@@ -88,7 +96,7 @@ class AlpProductosController extends JoshController
                     'text' => $cat->id.'-'.$cat->nombre_categoria, 
                     'href' => '#'.$cat->nombre_categoria, 
                     'tags' => '0', 
-                    'nodes' => $this->recargaNodes($cat->id, $categorias), 
+                    'nodes' => $this->recargaNodes($cat->id, $categorias_todas), 
 
                 );
 
@@ -303,7 +311,7 @@ class AlpProductosController extends JoshController
 
 
         $user_id = Sentinel::getUser()->id;
-        
+
 
         $imagen='0';
 
