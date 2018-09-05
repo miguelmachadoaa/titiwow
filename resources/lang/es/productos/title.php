@@ -9,7 +9,7 @@ return array(
 	'title'			=> 'Productos',
 	'create' => 'Crear Nuevo Producto',
 	'edit' => 'Editar Producto',
-	'management' => 'Mantener Blog',
+	'management' => 'Mantener Producto',
 	'add' => 'Crear Nuevo Producto',
 	'blog' => 'Producto',
 	'blogs' => 'Productos',

@@ -20,9 +20,9 @@ class CreateAlpClientesTable extends Migration
             $table->string('doc_cliente');
             $table->integer('genero_cliente');
             $table->string('telefono_cliente')->nullable();
-            $table->date('fecha_nacimiento')->nullable();
             $table->integer('marketing_cliente')->default(0);
             $table->integer('habeas_cliente')->default(0);
+            $table->integer('estado_masterfile')->default(0);
             $table->integer('estado_registro')->default(1);
             $table->integer('id_user');
             $table->timestamps();
