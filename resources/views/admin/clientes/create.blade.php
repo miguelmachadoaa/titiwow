@@ -117,7 +117,7 @@
                                             <div class="col-sm-10">
                                                 <input id="dob" name="dob" type="text" class="form-control"
                                                        data-date-format="YYYY-MM-DD"
-                                                       placeholder="yyyy-mm-dd"/>
+                                                       placeholder="yyyy-mm-dd" value="{!! old('dob') !!}"/>
                                             </div>
                                             <span class="help-block">{{ $errors->first('dob', ':message') }}</span>
                                         </div>
@@ -205,15 +205,7 @@
 
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="habeas_cliente" class="col-sm-2 control-label"> Habeas Data *</label>
-                                            <div class="col-sm-10">
-                                                <input id="habeas_cliente" name="habeas_cliente[]" type="checkbox"
-                                                       class="pos-rel p-l-30 custom-checkbox required"
-                                                       value="1" @if(old('habeas_cliente')) checked="checked" @endif >
-                                                <span>¿Acepta nuestra politica de tratamiento de datos?</span></div>
-
-                                        </div>
+                                        
 
                                     </div>
                                     

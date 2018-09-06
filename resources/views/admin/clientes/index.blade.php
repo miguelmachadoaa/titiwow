@@ -63,14 +63,20 @@
                                     <td>{!! $row->email !!}</td>
                                     <td>{!! $row->telefono_cliente !!}</td>
                                     <td>{!! $row->name_role !!}</td>
-                                    <td>
+                                    <td class="text-center">
                                         @if($row->estado_masterfile == 1)
                                         <span class="label label-sm label-success">Activo</span>
                                         @else
                                         <span class="label label-sm label-warning">Inactivo</span>
                                         @endif
                                     </td>
-                                    <td>{!! $row->estado_registro !!}</td>
+                                    <td class="text-center">
+                                        @if($row->estado_registro == 1)
+                                        <span class="label label-sm label-success">Activo</span>
+                                        @elseif($row->estado_registro == 1)
+                                        <span class="label label-sm label-warning">Inactivo</span>
+                                        @endif
+                                    </td>
                                     <td>{!! $row->created_at->diffForHumans() !!}</td>
                                     <td>
                                         <a href="{{ route('admin.clientes.edit', $row->id) }}">

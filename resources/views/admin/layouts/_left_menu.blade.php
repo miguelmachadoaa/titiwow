@@ -141,7 +141,7 @@
     </li>
     <li {!! (Request::is('admin/clientes') || Request::is('admin/clientes/create') || Request::is('admin/user_profile') || Request::is('admin/clientes/*') || Request::is('admin/deleted_users') ? 'class="active"' : '') !!}>
         <a href="#">
-            <i class="livicon" data-name="user" data-size="18" data-c="#F89A14" data-hc="#F89A14"
+            <i class="livicon" data-name="users" data-size="18" data-c="#F89A14" data-hc="#F89A14"
                data-loop="true"></i>
             <span class="title">Clientes</span>
             <span class="fa arrow"></span>

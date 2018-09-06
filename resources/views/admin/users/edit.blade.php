@@ -140,7 +140,7 @@
                                                                         <img src="{{ $user->pic }}" alt="img"
                                                                              class="img-responsive"/>
                                                                     @else
-                                                                    <img src="{!! url('/').'/uploads/users/'.$user->pic !!}" alt="img"
+                                                                    <img src="{!! url('/').'/uploads/perfiles/'.$user->pic !!}" alt="img"
                                                                          class="img-responsive"/>
                                                                     @endif
                                                                 @elseif($user->gender === "male")

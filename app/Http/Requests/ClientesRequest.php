@@ -40,7 +40,6 @@ class ClientesRequest extends FormRequest
                     'id_type_doc' => 'required',
                     'doc_cliente' => 'required|min:3',
                     'telefono_cliente' => 'required|between:3,32',
-                    'habeas_cliente' => 'required'
                 ];
             }
             case 'PUT':
@@ -55,7 +54,6 @@ class ClientesRequest extends FormRequest
                     'id_type_doc' => 'required',
                     'doc_cliente' => 'required|min:3',
                     'telefono_cliente' => 'required|between:3,32',
-                    'habeas_cliente' => 'required'
                 ];
             }
             default:

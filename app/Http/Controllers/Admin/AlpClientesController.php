@@ -36,7 +36,7 @@ class AlpClientesController extends JoshController
     {
         // Grab all the groups
       
-        $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro')
+        $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente')
         ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
         ->join('role_users', 'users.id', '=', 'role_users.user_id')
         ->join('roles', 'role_users.role_id', '=', 'roles.id')
@@ -101,7 +101,7 @@ class AlpClientesController extends JoshController
                 'genero_cliente' =>$request->genero_cliente, 
                 'telefono_cliente' =>$request->telefono_cliente, 
                 'marketing_cliente' =>$request->marketing_cliente,
-                'habeas_cliente' =>$request->habeas_cliente[0],
+                'habeas_cliente' => 1,
                 'estado_masterfile' =>$request->activate,
                 'id_user' =>$user_id,               
             );
@@ -155,10 +155,22 @@ class AlpClientesController extends JoshController
      */
     public function edit($id)
     {
-       
-       $categoria = AlpCategorias::find($id);
+        $user = User::findOrFail($id);
+        $cliente = DB::table('alp_clientes')->where('alp_clientes.id_user_client', '=', $id)->get();
 
-        return view('admin.categorias.edit', compact('categoria'));
+        // Get this user groups
+        $userRoles = $user->getRoles()->pluck('name', 'id')->all();
+        // Get a list of all the available groups
+        $roles = Sentinel::getRoleRepository()->all();
+
+        $status = Activation::completed($user);
+
+        // Get all the available groups
+        $groups = DB::table('roles')->where('roles.id', '<>', 1)->get();
+
+        $tdocumento = AlpTDocumento::all();
+
+        return view('admin.clientes.edit', compact('groups','tdocumento','user','cliente','userRoles','roles','status'));
     }
 
     /**
