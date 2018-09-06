@@ -218,19 +218,19 @@
                                 </div>
                             </div>
 
-                        <div class="form-group {{ $errors->first('user_state', 'has-error') }}">
-                            <label class="col-lg-2 control-label" for="user_state">State:</label>
+                        <div class="form-group {{ $errors->first('state', 'has-error') }}">
+                            <label class="col-lg-2 control-label" for="state">State:</label>
                                 <div class="col-lg-6">
                                     <div class="input-group">
                                                         <span class="input-group-addon">
                         <i class="livicon" data-name="plus-alt" data-size="16" data-loop="true" data-c="#418bca" data-hc="#418bca"></i>
                                                         </span>
-                                        <input type="text" placeholder=" " id="user_state" class="form-control"
-                                               name="user_state"
-                                               value="{!! ($user->user_state) !!}"/>
+                                        <input type="text" placeholder=" " id="state" class="form-control"
+                                               name="state"
+                                               value="{!! ($user->state) !!}"/>
                                     </div>
                                 </div>
-                            <span class="help-block">{{ $errors->first('user_state', ':message') }}</span>
+                            <span class="help-block">{{ $errors->first('state', ':message') }}</span>
 
                             </div>
 

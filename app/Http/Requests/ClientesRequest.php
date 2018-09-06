@@ -31,6 +31,12 @@ class ClientesRequest extends FormRequest
             }
             case 'POST': {
                 return [
+                    'first_name' => 'required|min:3',
+                    'last_name' => 'required|min:3',
+                    'email' => 'required|email|unique:users,email',
+                    'password' => 'required|between:3,32',
+                    'password_confirm' => 'required|same:password',
+                    'pic_file' => 'mimes:jpg,jpeg,bmp,png,gif|max:10000',
                     'id_type_doc' => 'required',
                     'doc_cliente' => 'required|min:3',
                     'telefono_cliente' => 'required|between:3,32',
@@ -40,6 +46,12 @@ class ClientesRequest extends FormRequest
             case 'PUT':
             case 'PATCH': {
                 return [
+                    'first_name' => 'required|min:3',
+                    'last_name' => 'required|min:3',
+                    'email' => 'required|email|unique:users,email',
+                    'password' => 'required|between:3,32',
+                    'password_confirm' => 'required|same:password',
+                    'pic_file' => 'mimes:jpg,jpeg,bmp,png,gif|max:10000',
                     'id_type_doc' => 'required',
                     'doc_cliente' => 'required|min:3',
                     'telefono_cliente' => 'required|between:3,32',

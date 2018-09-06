@@ -9,7 +9,7 @@
     </li>
     <li class="{{ Request::is('admin/productos*') ? 'active' : '' }}">
         <a href="#">
-            <i class="livicon" data-name="shoppingcart" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
+            <i class="livicon" data-name="shopping-cart" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
                data-loop="true"></i>
             <span class="title">Catálogo</span>
             <span class="fa arrow"></span>
@@ -38,7 +38,7 @@
 
     <li class="{{ Request::is('admin/formaspago*') ? 'active' : '' }}">
         <a href="#">
-            <i class="livicon" data-name="shoppingcart" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
+            <i class="livicon" data-name="gear" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
                data-loop="true"></i>
             <span class="title">Configuraciones</span>
             <span class="fa arrow"></span>

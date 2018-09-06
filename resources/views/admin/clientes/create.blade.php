@@ -49,7 +49,7 @@
                     </div>
                     <div class="panel-body">
                         <!--main content-->
-                        <form id="commentForm" action="{{ route('admin.users.store') }}"
+                        <form id="commentForm" action="{{ route('admin.clientes.store') }}"
                               method="POST" enctype="multipart/form-data" class="form-horizontal">
                             <!-- CSRF Token -->
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />

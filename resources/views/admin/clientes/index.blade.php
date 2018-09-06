@@ -59,11 +59,17 @@
                                 @foreach ($clientes as $row)
                                 <tr>
                                     <td>{!! $row->id !!}</td>
-                                    <td>{!! $row->id !!}</td>
-                                    <td>{!! $row->id !!}</td>
+                                    <td>{!! $row->first_name !!} {!! $row->last_name !!}</td>
+                                    <td>{!! $row->email !!}</td>
                                     <td>{!! $row->telefono_cliente !!}</td>
-                                    <td>{!! $row->id !!}</td>
-                                    <td>{!! $row->estado_masterfile !!}</td>
+                                    <td>{!! $row->name_role !!}</td>
+                                    <td>
+                                        @if($row->estado_masterfile == 1)
+                                        <span class="label label-sm label-success">Activo</span>
+                                        @else
+                                        <span class="label label-sm label-warning">Inactivo</span>
+                                        @endif
+                                    </td>
                                     <td>{!! $row->estado_registro !!}</td>
                                     <td>{!! $row->created_at->diffForHumans() !!}</td>
                                     <td>

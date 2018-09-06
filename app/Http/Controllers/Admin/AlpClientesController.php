@@ -1,17 +1,28 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\JoshController;
+use Intervention\Image\Facades\Image;
+use DOMDocument;
+use App\Http\Requests\ClientesRequest;
+use App\Mail\Register;
+use App\Mail\Restore;
+use Cartalyst\Sentinel\Laravel\Facades\Activation;
 use App\Models\AlpClientes;
 use App\Models\AlpTDocumento;
-use App\Roles;
+use App\User;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Redirect;
 use Response;
 use Sentinel;
 use View;
-use Intervention\Image\Facades\Image;
-use DOMDocument;
+use DB;
+use File;
+use Hash;
+use Illuminate\Support\Facades\Mail;
+use URL;
+use Validator;
+use Yajra\DataTables\DataTables;
 
 
 class AlpClientesController extends JoshController
@@ -25,7 +36,11 @@ class AlpClientesController extends JoshController
     {
         // Grab all the groups
       
-        $clientes = AlpClientes::all();
+        $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro')
+        ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+        ->join('role_users', 'users.id', '=', 'role_users.user_id')
+        ->join('roles', 'role_users.role_id', '=', 'roles.id')
+        ->where('role_users.role_id', '<>', 1)->get();
 
 
         // Show the page
@@ -40,8 +55,7 @@ class AlpClientesController extends JoshController
     public function create()
     {
         // Get all the available groups
-        $groups = Roles::select('roles.*')
-        ->where('roles.id','<>', '1');
+        $groups = DB::table('roles')->where('roles.id', '<>', 1)->get();
 
         $tdocumento = AlpTDocumento::all();
 
@@ -56,60 +70,80 @@ class AlpClientesController extends JoshController
      */
     public function store(ClientesRequest $request)
     {
-        
-         $user_id = Sentinel::getUser()->id;
+        $user_id = Sentinel::getUser()->id;
 
-
-         $imagen='0';
-
-         $picture = "";
-
-        
-        if ($request->hasFile('image')) {
-            
-            $file = $request->file('image');
-
-            #echo $file.'<br>';
-            
+         //upload image
+        if ($file = $request->file('pic_file')) {
             $extension = $file->extension()?: 'png';
-            
-
-            $picture = str_random(10) . '.' . $extension;
-
-            #echo $picture.'<br>';
-
             $destinationPath = public_path() . '/uploads/perfiles/';
+            $safeName = str_random(10) . '.' . $extension;
+            $file->move($destinationPath, $safeName);
+            $request['pic'] = $safeName;
+        }
+        //check whether use should be activated by default or not
+        $activate = $request->get('activate') ? true : false;
 
-            #echo $destinationPath.'<br>';
+        try {
+            // Register the user
 
-            
-            $file->move($destinationPath, $picture);
-            
-            $imagen = $picture;
+            $cliente = Sentinel::register(
+            ['email' => $request->email, 
+            'first_name' => $request->first_name, 
+            'last_name' =>$request->last_name, 
+            'dob' =>$request->dob, 
+            'pic' =>$request->pic, 
+            'password' =>$request->password], $activate)->id;
 
+            $data = array(
+                'id_user_client' => $cliente, 
+                'id_type_doc' => $request->id_type_doc, 
+                'doc_cliente' =>$request->doc_cliente, 
+                'genero_cliente' =>$request->genero_cliente, 
+                'telefono_cliente' =>$request->telefono_cliente, 
+                'marketing_cliente' =>$request->marketing_cliente,
+                'habeas_cliente' =>$request->habeas_cliente[0],
+                'estado_masterfile' =>$request->activate,
+                'id_user' =>$user_id,               
+            );
+
+            AlpClientes::create($data);
+
+            $user = Sentinel::findUserById($cliente);
+
+            //add user to 'User' group
+            $role = Sentinel::findRoleById($request->get('group'));
+            if ($role) {
+                $role->users()->attach($user);
+            }
+            //check for activation and send activation mail if not activated by default
+            if (!$request->get('activate')) {
+                // Data to be used on the email view
+                $data =[
+                    'user_name' => $user->first_name .' '. $user->last_name,
+                    'activationUrl' => URL::route('activate', [$user->id, Activation::create($user)->code])
+                ];
+                // Send the activation code through email
+                /*Mail::to($user->email)
+                    ->send(new Register($data));*/
+            }
+            // Activity log for New user create
+            activity($user->full_name)
+                ->performedOn($user)
+                ->causedBy($user)
+                ->log('Nuevo usuario, creado por '.Sentinel::getUser()->full_name);
+            // Redirect to the home page with success menu
+            return Redirect::route('admin.clientes.index')->with('exito', trans('users/message.success.create'));
+
+        } catch (LoginRequiredException $e) {
+            $error = trans('admin/users/message.user_login_required');
+        } catch (PasswordRequiredException $e) {
+            $error = trans('admin/users/message.user_password_required');
+        } catch (UserExistsException $e) {
+            $error = trans('admin/users/message.user_exists');
         }
 
-        $data = array(
-            'nombre_categoria' => $request->nombre_categoria, 
-            'descripcion_categoria' => $request->descripcion_categoria, 
-            'referencia_producto_sap' =>$request->referencia_producto_sap, 
-            'imagen_categoria' =>$imagen, 
-            'id_categoria_parent' =>'0', 
-            'id_user' =>$user_id
-        );
-
-
-         
-        $categoria=AlpCategorias::create($data);
-
-        if ($categoria->id) {
-
-            return redirect('admin/categorias')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
-
-        } else {
-            return Redirect::route('admin/categorias')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
-        } 
-
+        // Redirect to the user creation page
+        return Redirect::back()->withInput()->with('error', $error);
     }
 
 
