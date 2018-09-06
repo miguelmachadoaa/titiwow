@@ -64,10 +64,10 @@
                                     <div class="tab-pane" id="tab1">
                                         <h2 class="hidden">&nbsp;</h2>
                                         <div class="form-group {{ $errors->first('first_name', 'has-error') }}">
-                                            <label for="first_name" class="col-sm-2 control-label">First Name *</label>
+                                            <label for="first_name" class="col-sm-2 control-label">Nombre *</label>
                                             <div class="col-sm-10">
                                                 <input id="first_name" name="first_name" type="text"
-                                                       placeholder="First Name" class="form-control required"
+                                                       placeholder="Nombre" class="form-control required"
                                                        value="{!! old('first_name') !!}"/>
 
                                                 {!! $errors->first('first_name', '<span class="help-block">:message</span>') !!}
@@ -75,9 +75,9 @@
                                         </div>
 
                                         <div class="form-group {{ $errors->first('last_name', 'has-error') }}">
-                                            <label for="last_name" class="col-sm-2 control-label">Last Name *</label>
+                                            <label for="last_name" class="col-sm-2 control-label">Apellido *</label>
                                             <div class="col-sm-10">
-                                                <input id="last_name" name="last_name" type="text" placeholder="Last Name"
+                                                <input id="last_name" name="last_name" type="text" placeholder="Apellido"
                                                        class="form-control required" value="{!! old('last_name') !!}"/>
 
                                                 {!! $errors->first('last_name', '<span class="help-block">:message</span>') !!}
@@ -94,19 +94,19 @@
                                         </div>
 
                                         <div class="form-group {{ $errors->first('password', 'has-error') }}">
-                                            <label for="password" class="col-sm-2 control-label">Password *</label>
+                                            <label for="password" class="col-sm-2 control-label">Contraseña *</label>
                                             <div class="col-sm-10">
-                                                <input id="password" name="password" type="password" placeholder="Password"
+                                                <input id="password" name="password" type="password" placeholder="Contraseña"
                                                        class="form-control required" value="{!! old('password') !!}"/>
                                                 {!! $errors->first('password', '<span class="help-block">:message</span>') !!}
                                             </div>
                                         </div>
 
                                         <div class="form-group {{ $errors->first('password_confirm', 'has-error') }}">
-                                            <label for="password_confirm" class="col-sm-2 control-label">Confirm Password *</label>
+                                            <label for="password_confirm" class="col-sm-2 control-label">Confirmar Contraseña *</label>
                                             <div class="col-sm-10">
                                                 <input id="password_confirm" name="password_confirm" type="password"
-                                                       placeholder="Confirm Password " class="form-control required"/>
+                                                       placeholder="Confirmar Contraseña " class="form-control required"/>
                                                 {!! $errors->first('password_confirm', '<span class="help-block">:message</span>') !!}
                                             </div>
                                         </div>
@@ -169,7 +169,7 @@
                                                        placeholder="Número Telefónico" class="form-control required"
                                                        value="{!! old('telefono_cliente') !!}"/>
 
-                                                {!! $errors->first('doc_cliente', '<span class="help-block">:message</span>') !!}
+                                                {!! $errors->first('telefono_cliente', '<span class="help-block">:message</span>') !!}
                                             </div>
                                         </div>
 
@@ -208,10 +208,10 @@
                                         <div class="form-group">
                                             <label for="habeas_cliente" class="col-sm-2 control-label"> Habeas Data *</label>
                                             <div class="col-sm-10">
-                                                <input id="habeas_cliente" name="habeas_cliente" type="checkbox"
+                                                <input id="habeas_cliente" name="habeas_cliente[]" type="checkbox"
                                                        class="pos-rel p-l-30 custom-checkbox required"
                                                        value="1" @if(old('habeas_cliente')) checked="checked" @endif >
-                                                <span>¿Acepata nuestra politica de tratamiento de datos?</span></div>
+                                                <span>¿Acepta nuestra politica de tratamiento de datos?</span></div>
 
                                         </div>
 
@@ -219,14 +219,16 @@
                                     
 
                                     <div class="tab-pane" id="tab4" disabled="disabled">
-                                        <p class="text-danger"><strong>Be careful with group selection, if you give admin access.. they can access admin section</strong></p>
-
+                                        <div class="alert alert-danger alert-dismissable margin5">
+                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                            <strong>Importante:</strong> Dede ser cuidadoso al seleccionar el grupo de usuarios, ya que el resultado se ve reflejado en los precios de la tienda.
+                                        </div>
                                         <div class="form-group required">
-                                            <label for="group" class="col-sm-2 control-label">Group *</label>
+                                            <label for="group" class="col-sm-2 control-label">Grupo de Usuarios *</label>
                                             <div class="col-sm-10">
-                                                <select class="form-control required" title="Select group..." name="group"
+                                                <select class="form-control required" title="Seleccionar grupo de usuarios..." name="group"
                                                         id="group">
-                                                    <option value="">Select</option>
+                                                    <option value="">Seleccionar Grupo de Usuarios</option>
                                                     @foreach($groups as $group)
                                                         <option value="{{ $group->id }}"
                                                                 @if($group->id == old('group')) selected="selected" @endif >{{ $group->name}}</option>
@@ -237,19 +239,19 @@
                                             <span class="help-block">{{ $errors->first('group', ':message') }}</span>
                                         </div>
                                         <div class="form-group">
-                                            <label for="activate" class="col-sm-2 control-label"> Activate User *</label>
+                                            <label for="activate" class="col-sm-2 control-label"> Activar Cliente *</label>
                                             <div class="col-sm-10">
                                                 <input id="activate" name="activate" type="checkbox"
                                                        class="pos-rel p-l-30 custom-checkbox"
                                                        value="1" @if(old('activate')) checked="checked" @endif >
-                                                <span>To activate user account automatically, click the check box</span></div>
+                                                <span>¿Desea Activar la cuenta del cliente de forma automática?</span></div>
 
                                         </div>
                                     </div>
                                     <ul class="pager wizard">
                                         <li class="previous"><a href="#">@lang('clientes/title.previous')</a></li>
                                         <li class="next"><a href="#">@lang('clientes/title.next')</a></li>
-                                        <li class="next finish" style="display:none;"><a href="javascript:;">Finish</a></li>
+                                        <li class="next finish" style="display:none;"><a href="javascript:;">Guardar</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -271,149 +273,7 @@
     <script src="{{ asset('assets/vendors/bootstrapwizard/jquery.bootstrap.wizard.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/datetimepicker/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
-    <script>
-        "use strict";
-        // bootstrap wizard//
-        $("#genero_cliente, #genero_cliente1").select2({
-            theme:"bootstrap",
-            placeholder:"",
-            width: '100%'
-        });
-        $('input[type="checkbox"].custom-checkbox, input[type="radio"].custom-radio').iCheck({
-            checkboxClass: 'icheckbox_minimal-blue',
-            radioClass: 'iradio_minimal-blue',
-            increaseArea: '20%'
-        });
-        $("#dob").datetimepicker({
-            format: 'YYYY-MM-DD',
-            widgetPositioning:{
-                vertical:'bottom'
-            },
-            keepOpen:false,
-            useCurrent: false,
-            maxDate: moment().add(1,'h').toDate()
-        });
-        $("#commentForm").bootstrapValidator({
-            fields: {
-                first_name: {
-                    validators: {
-                        notEmpty: {
-                            message: 'The first name is required'
-                        }
-                    },
-                    required: true,
-                    minlength: 3
-                },
-                last_name: {
-                    validators: {
-                        notEmpty: {
-                            message: 'The last name is required'
-                        }
-                    },
-                    required: true,
-                    minlength: 3
-                },
-                password: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Password is required'
-                        },
-                        different: {
-                            field: 'first_name,last_name',
-                            message: 'Password should not match first name'
-                        }
-                    }
-                },
-                password_confirm: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Confirm Password is required'
-                        },
-                        identical: {
-                            field: 'password'
-                        },
-                        different: {
-                            field: 'first_name,last_name',
-                            message: 'Confirm Password should match with password'
-                        }
-                    }
-                },
-                email: {
-                    validators: {
-                        notEmpty: {
-                            message: 'The email address is required'
-                        },
-                        emailAddress: {
-                            message: 'The input is not a valid email address'
-                        }
-                    }
-                },
-                bio: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Bio is required and cannot be empty'
-                        }
-                    },
-                    minlength: 20
-                },
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/es.js"></script>
+    <script src="{{ asset('assets/js/pages/addclientes.js') }}"></script>
 
-                gender: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Please select a gender'
-                        }
-                    }
-                },
-
-                group: {
-                    validators:{
-                        notEmpty:{
-                            message: 'You must select a group'
-                        }
-                    }
-                }
-            }
-        });
-
-        $('#rootwizard').bootstrapWizard({
-            'tabClass': 'nav nav-pills',
-            'onNext': function(tab, navigation, index) {
-                var $validator = $('#commentForm').data('bootstrapValidator').validate();
-                return $validator.isValid();
-            },
-            onTabClick: function(tab, navigation, index) {
-                return false;
-            },
-            onTabShow: function(tab, navigation, index) {
-                var $total = navigation.find('li').length;
-                var $current = index + 1;
-
-                // If it's the last tab then hide the last button and show the finish instead
-                if ($current >= $total) {
-                    $('#rootwizard').find('.pager .next').hide();
-                    $('#rootwizard').find('.pager .finish').show();
-                    $('#rootwizard').find('.pager .finish').removeClass('disabled');
-                } else {
-                    $('#rootwizard').find('.pager .next').show();
-                    $('#rootwizard').find('.pager .finish').hide();
-                }
-            }});
-
-        $('#rootwizard .finish').click(function () {
-            var $validator = $('#commentForm').data('bootstrapValidator').validate();
-            if ($validator.isValid()) {
-                document.getElementById("commentForm").submit();
-            }
-
-        });
-        // $('#activate').on('ifChanged', function(event){
-        //     $('#commentForm').bootstrapValidator('revalidateField', $('#activate'));
-        // });
-        $('#commentForm').keypress(
-            function(event){
-                if (event.which == '13') {
-                    event.preventDefault();
-                }
-            });
-    </script>
 @stop

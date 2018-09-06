@@ -188,13 +188,13 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="user_state" class="col-sm-2 control-label">State</label>
+                                            <label for="state" class="col-sm-2 control-label">State</label>
                                             <div class="col-sm-10">
-                                                <input id="user_state" name="user_state" type="text"
+                                                <input id="state" name="state" type="text"
                                                        class="form-control"
-                                                       value="{!! old('user_state') !!}"/>
+                                                       value="{!! old('state') !!}"/>
                                             </div>
-                                            <span class="help-block">{{ $errors->first('user_state', ':message') }}</span>
+                                            <span class="help-block">{{ $errors->first('state', ':message') }}</span>
                                         </div>
 
                                         <div class="form-group">

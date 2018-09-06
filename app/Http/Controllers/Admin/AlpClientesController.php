@@ -3,6 +3,7 @@
 use App\Http\Controllers\JoshController;
 use App\Models\AlpClientes;
 use App\Models\AlpTDocumento;
+use App\Roles;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Redirect;
@@ -39,7 +40,8 @@ class AlpClientesController extends JoshController
     public function create()
     {
         // Get all the available groups
-        $groups = Sentinel::getRoleRepository()->all();
+        $groups = Roles::select('roles.*')
+        ->where('roles.id','<>', '1');
 
         $tdocumento = AlpTDocumento::all();
 
