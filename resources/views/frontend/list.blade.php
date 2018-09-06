@@ -39,12 +39,15 @@ Products
 @section('content')
 <div class="container">
     <div class="row">
+        <a href="{{url('cart/show')}}"> ir al carro </a>
+        <h1>listado de productos</h1>
          <div class="col-md-10 col-md-offset-1">
 	     <table class="table table-striped">
                  <thead>
                      <tr>
                          <th>Title</th>
                          <th>Slug</th>
+                         <th>Agragar al carro</th>
                      </tr>
                  </thead>
                  <tbody>
@@ -52,6 +55,7 @@ Products
                         <tr>
                             <td><a href="{{ route('producto', [$producto->slug]) }}"> {{ $producto->nombre_producto }}</a></td>
                             <td>{{ $producto->slug }}</td>
+                            <td><a class="btn btn-primary" href="{{url('cart/add', [$producto->slug])}}">Agregar al carro</a></td>
                         </tr>
                      @endforeach
                  </tbody>

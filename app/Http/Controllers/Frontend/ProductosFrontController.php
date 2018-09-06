@@ -17,6 +17,8 @@ class ProductosFrontController extends Controller
     public function show($slug)
     {
         $producto = AlpProductos::where('slug','=', $slug)->firstOrFail();
+        
         return \View::make('frontend.producto_single', compact('producto'));
+
     }
 }

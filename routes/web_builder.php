@@ -110,6 +110,29 @@ Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses'
 
 
 
+//carrito  del video 
+
+Route::get('cart/show', ['as'=>'cart.show', 'uses'=>'admin\AlpCartController@show']);
+
+//inyeccion de dependencias
+Route::bind('product', function($slug){
+    return App\Models\AlpProductos::where('slug', $slug)->first();
+});
+
+//agregar item al carro
+Route::get('cart/add/{product}',['as'=>'cart.add', 'uses'=>'admin\AlpCartController@add']);
+//eliminar item del carro
+Route::get('cart/delete/{product}',['as'=>'cart.add', 'uses'=>'admin\AlpCartController@delete']);
+
+Route::get('cart/update/{product}/{cantidad}',['as'=>'cart.update', 'uses'=>'admin\AlpCartController@update']);
+
+Route::get('cart/vaciar/',['as'=>'cart.vaciar', 'uses'=>'admin\AlpCartController@vaciar']);
+
+
+
+
+
+
 /* Rutas el Frontend Publico */
 
 Route::get('producto/{slug}', ['as' => 'producto', 'uses' => 'frontend\ProductosFrontController@show']);
