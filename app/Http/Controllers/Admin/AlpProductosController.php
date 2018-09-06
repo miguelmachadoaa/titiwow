@@ -148,7 +148,7 @@ class AlpProductosController extends JoshController
 
             #echo $picture.'<br>';
 
-            $destinationPath = public_path() . '/uploads/blog/';
+            $destinationPath = public_path() . '/uploads/productos/';
 
             #echo $destinationPath.'<br>';
 
@@ -331,7 +331,7 @@ class AlpProductosController extends JoshController
 
             #echo $picture.'<br>';
 
-            $destinationPath = public_path() . '/uploads/blog/';
+            $destinationPath = public_path() . '/uploads/productos/';
 
             #echo $destinationPath.'<br>';
 

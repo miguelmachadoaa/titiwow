@@ -19,5 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(FPagoTableSeeder::class);
         $this->call(MarcasTableSeeder::class);
         $this->call(TDocumentosTableSeeder::class);
+        $this->call(CategoriasTableSeeder::class);
+        $this->call(ProductosTableSeeder::class);
     }
 }
