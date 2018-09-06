@@ -103,6 +103,21 @@ Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses'
 
     //fin direcioens marcas
 
+    //Inicio direcciones clientes
+
+    Route::group(['prefix' => 'clientes'], function () {
+
+        Route::get('{id}/delete', 'admin\AlpClientesController@destroy')->name('clientes.delete');
+
+        Route::get('{id}/confirm-delete', 'admin\AlpClientesController@getModalDelete')->name('clientes.confirm-delete');
+
+        Route::get('{id}/restore', 'admin\AlpClientesController@getRestore')->name('clientes.restore');
+
+        });
+
+    Route::resource('clientes', 'admin\AlpClientesController');
+
+    //fin direcioens clientes
 
 
 

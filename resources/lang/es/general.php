@@ -8,6 +8,7 @@ return array(
     'no'  			=> 'No',
     'noresults'  	=> 'Sin Resultados',
     'yes' 			=> 'Si',
-    'site_name'     => 'Nombre del Sitio'
+    'site_name'     => 'Alpina',
+    'dashboard'     => 'Escritorio'   
 
 );

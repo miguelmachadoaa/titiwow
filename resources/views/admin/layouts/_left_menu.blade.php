@@ -139,6 +139,28 @@
             </li>
         </ul>
     </li>
+    <li {!! (Request::is('admin/clientes') || Request::is('admin/clientes/create') || Request::is('admin/user_profile') || Request::is('admin/clientes/*') || Request::is('admin/deleted_users') ? 'class="active"' : '') !!}>
+        <a href="#">
+            <i class="livicon" data-name="user" data-size="18" data-c="#F89A14" data-hc="#F89A14"
+               data-loop="true"></i>
+            <span class="title">Clientes</span>
+            <span class="fa arrow"></span>
+        </a>
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/clientes') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ URL::to('admin/clientes') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Clientes
+                </a>
+            </li>
+            <li {!! (Request::is('admin/clientes/create') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ URL::to('admin/clientes/create') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Crear Nuevo Cliente
+                </a>
+            </li>
+        </ul>
+    </li>
     <li {!! (Request::is('admin/groups') || Request::is('admin/groups/create') || Request::is('admin/groups/*') ? 'class="active"' : '') !!}>
         <a href="#">
             <i class="livicon" data-name="users" data-size="18" data-c="#418BCA" data-hc="#418BCA"

@@ -1,0 +1,416 @@
+<?php namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\JoshController;
+use App\Models\AlpClientes;
+use App\Models\AlpTDocumento;
+use App\Http\Requests;
+use Illuminate\Http\Request;
+use Redirect;
+use Response;
+use Sentinel;
+use View;
+use Intervention\Image\Facades\Image;
+use DOMDocument;
+
+
+class AlpClientesController extends JoshController
+{
+    /**
+     * Show a list of all the groups.
+     *
+     * @return View
+     */
+    public function index()
+    {
+        // Grab all the groups
+      
+        $clientes = AlpClientes::all();
+
+
+        // Show the page
+        return view('admin.clientes.index', compact('clientes'));
+    }
+
+    /**
+     * Group create.
+     *
+     * @return View
+     */
+    public function create()
+    {
+        // Get all the available groups
+        $groups = Sentinel::getRoleRepository()->all();
+
+        $tdocumento = AlpTDocumento::all();
+
+        // Show the page
+        return view ('admin.clientes.create', compact('groups','tdocumento'));
+    }
+
+    /**
+     * Group create form processing.
+     *
+     * @return Redirect
+     */
+    public function store(ClientesRequest $request)
+    {
+        
+         $user_id = Sentinel::getUser()->id;
+
+
+         $imagen='0';
+
+         $picture = "";
+
+        
+        if ($request->hasFile('image')) {
+            
+            $file = $request->file('image');
+
+            #echo $file.'<br>';
+            
+            $extension = $file->extension()?: 'png';
+            
+
+            $picture = str_random(10) . '.' . $extension;
+
+            #echo $picture.'<br>';
+
+            $destinationPath = public_path() . '/uploads/perfiles/';
+
+            #echo $destinationPath.'<br>';
+
+            
+            $file->move($destinationPath, $picture);
+            
+            $imagen = $picture;
+
+        }
+
+        $data = array(
+            'nombre_categoria' => $request->nombre_categoria, 
+            'descripcion_categoria' => $request->descripcion_categoria, 
+            'referencia_producto_sap' =>$request->referencia_producto_sap, 
+            'imagen_categoria' =>$imagen, 
+            'id_categoria_parent' =>'0', 
+            'id_user' =>$user_id
+        );
+
+
+         
+        $categoria=AlpCategorias::create($data);
+
+        if ($categoria->id) {
+
+            return redirect('admin/categorias')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
+
+        } else {
+            return Redirect::route('admin/categorias')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+        } 
+
+    }
+
+
+    /**
+     * Group update.
+     *
+     * @param  int $id
+     * @return View
+     */
+    public function edit($id)
+    {
+       
+       $categoria = AlpCategorias::find($id);
+
+        return view('admin.categorias.edit', compact('categoria'));
+    }
+
+    /**
+     * Group update form processing page.
+     *
+     * @param  int $id
+     * @return Redirect
+     */
+    public function update(Request $request, $id)
+    {
+      
+
+        $imagen='0';
+
+        $picture = "";
+
+        
+        if ($request->hasFile('image')) {
+            
+            $file = $request->file('image');
+
+            #echo $file.'<br>';
+            
+            $extension = $file->extension()?: 'png';
+            
+
+            $picture = str_random(10) . '.' . $extension;
+
+            #echo $picture.'<br>';
+
+            $destinationPath = public_path() . '/uploads/blog/';
+
+            #echo $destinationPath.'<br>';
+
+            
+            $file->move($destinationPath, $picture);
+            
+            $imagen = $picture;
+
+             $data = array(
+            'nombre_categoria' => $request->nombre_categoria, 
+            'descripcion_categoria' => $request->descripcion_categoria, 
+            'referencia_producto_sap' =>$request->referencia_producto_sap, 
+            'imagen_categoria' =>$imagen, 
+            'id_categoria_parent' =>'0'
+            );
+
+        }else{
+
+            $data = array(
+                'nombre_categoria' => $request->nombre_categoria, 
+                'descripcion_categoria' => $request->descripcion_categoria, 
+                'referencia_producto_sap' =>$request->referencia_producto_sap
+            );
+
+
+        }
+
+
+
+       
+         
+       $categoria = AlpCategorias::find($id);
+    
+        $categoria->update($data);
+
+        if ($categoria->id) {
+
+            return redirect('admin/categorias')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
+
+        } else {
+            return Redirect::route('admin/categorias')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+        }  
+
+    }
+
+    /**
+     * Delete confirmation for the given group.
+     *
+     * @param  int $id
+     * @return View
+     */
+    public function getModalDelete($id = null)
+    {
+        $model = 'categorias';
+        $confirm_route = $error = null;
+        try {
+            // Get group information
+            
+            $categoria = AlpCategorias::find($id);
+
+            $confirm_route = route('admin.categorias.delete', ['id' => $categoria->id]);
+
+            return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
+        } catch (GroupNotFoundException $e) {
+            $error = trans('Ha ocurrido un error al eliminar registro');
+            return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
+        }
+    }
+
+    /**
+     * Delete the given group.
+     *
+     * @param  int $id
+     * @return Redirect
+     */
+    public function destroy($id)
+    {
+        try {
+            // Get group information
+           
+            $categoria = AlpCategorias::find($id);
+
+
+            // Delete the group
+            $categoria->delete();
+
+            // Redirect to the group management page
+            return Redirect::route('admin.categorias.index')->with('success', trans('Se ha eliminado el registro satisfactoriamente'));
+        } catch (GroupNotFoundException $e) {
+            // Redirect to the group management page
+            return Redirect::route('admin.categorias.index')->with('error', trans('Error al eliminar el registro'));
+        }
+    }
+
+    /**
+     * Group update.
+     *
+     * @param  int $id
+     * @return View
+     */
+    public function detalle($id)
+    {
+       
+       $categoria = AlpCategorias::find($id);
+
+      
+
+    $categorias = AlpCategorias::select('alp_categorias.*')
+        ->where('alp_categorias.id_categoria_parent',$id)->get(); 
+
+
+
+        return view('admin.categorias.detalle', compact('categoria', 'categorias'));
+
+    }
+
+    public function storeson(Request $request, $padre)
+    {
+        
+         $user_id = Sentinel::getUser()->id;
+
+        //$input = $request->all();
+
+        //var_dump($input);
+
+          $imagen='0';
+
+         $picture = "";
+
+        
+        if ($request->hasFile('image')) {
+            
+            $file = $request->file('image');
+
+            #echo $file.'<br>';
+            
+            $extension = $file->extension()?: 'png';
+            
+
+            $picture = str_random(10) . '.' . $extension;
+
+            #echo $picture.'<br>';
+
+            $destinationPath = public_path() . '/uploads/blog/';
+
+            #echo $destinationPath.'<br>';
+
+            
+            $file->move($destinationPath, $picture);
+            
+            $imagen = $picture;
+
+        }
+
+        $data = array(
+            'nombre_categoria' => $request->nombre_categoria, 
+            'descripcion_categoria' => $request->descripcion_categoria, 
+            'referencia_producto_sap' =>$request->referencia_producto_sap, 
+            'imagen_categoria' =>$imagen, 
+            'id_categoria_parent' =>$padre, 
+            'id_user' =>$user_id
+        );
+         
+        $categoria=AlpCategorias::create($data);
+
+        if ($categoria->id) {
+
+            return redirect('admin/categorias/'.$padre.'/detalle')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
+
+        } else {
+            return Redirect::route('admin/categorias/'.$padre.'/detalle')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+        }  
+
+    }
+
+    /**
+     * Group update.
+     *
+     * @param  int $id
+     * @return View
+     */
+    public function editson($id)
+    {
+       
+       $categoria = AlpCategorias::find($id);
+
+        return view('admin.categorias.editson', compact('categoria'));
+    }
+
+    /**
+     * Group update form processing page.
+     *
+     * @param  int $id
+     * @return Redirect
+     */
+    public function updson(Request $request, $id)
+    {
+       
+         $imagen='0';
+
+         $picture = "";
+
+        
+        if ($request->hasFile('image')) {
+            
+            $file = $request->file('image');
+
+            #echo $file.'<br>';
+            
+            $extension = $file->extension()?: 'png';
+            
+
+            $picture = str_random(10) . '.' . $extension;
+
+            #echo $picture.'<br>';
+
+            $destinationPath = public_path() . '/uploads/blog/';
+
+            #echo $destinationPath.'<br>';
+
+            
+            $file->move($destinationPath, $picture);
+            
+            $imagen = $picture;
+
+            $data = array(
+            'nombre_categoria' => $request->nombre_categoria, 
+            'descripcion_categoria' => $request->descripcion_categoria, 
+            'referencia_producto_sap' =>$request->referencia_producto_sap, 
+            'imagen_categoria' =>$imagen, 
+            'id_categoria_parent' =>$request->id_categoria_parent
+                );
+
+        }else{
+
+                $data = array(
+            'nombre_categoria' => $request->nombre_categoria, 
+            'descripcion_categoria' => $request->descripcion_categoria, 
+            'referencia_producto_sap' =>$request->referencia_producto_sap, 
+            'id_categoria_parent' =>$request->id_categoria_parent
+                );
+
+        }
+
+
+       $categoria = AlpCategorias::find($id);
+    
+        $categoria->update($data);
+
+        if ($categoria->id) {
+
+            return redirect('admin/categorias/'.$request->id_categoria_parent.'/detalle')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
+
+        } else {
+            return Redirect::route('admin/categorias/'.$request->id_categoria_parent.'/detalle')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+        }  
+
+    }
+
+}
