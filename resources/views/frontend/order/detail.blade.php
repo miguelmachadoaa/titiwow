@@ -47,7 +47,43 @@ Carro de Productos
         <h1>Carro de Compras</h1>
         @if(count($cart))
             
-        <a class="btn  btn-danger" href="{{url('cart/vaciar')}}">Vaciar</a>
+
+            <br>    
+
+            <h3>    Detalle de Cliente</h3>
+
+            <div class="col-md-10 col-md-offset-1 table-responsive">
+         <table class="table table-striped ">
+                 <thead>
+                     <tr>
+                         <th>ID</th>
+                         <th>Nombre</th>
+                         <th>Apellido</th>
+                         <th>Email</th>
+                         <th>Direccion</th>
+                       
+                     </tr>
+                 </thead>
+                 <tbody>
+                    
+                        <tr>
+                            <td>{{Sentinel::getUser()->id}}</td>
+                            <td>{{Sentinel::getUser()->first_name}}</td>
+                            <td>{{Sentinel::getUser()->last_name}}</td>
+                            <td>{{Sentinel::getUser()->email}}</td>
+                            <td>{{Sentinel::getUser()->address}}</td>
+                           
+                        </tr>
+                    
+
+                 </tbody>
+             </table>
+
+             <hr>
+
+             
+         </div>
+       
         <br>
          <div class="col-md-10 col-md-offset-1 table-responsive">
 	     <table class="table table-striped ">
@@ -68,23 +104,7 @@ Carro de Productos
                             <td>{{$row->nombre_producto}}</td>
                             <td>{{number_format($row->precio,2)}}</td>
                             <td>
-                                <input 
-                                class=" " 
-                                type="number" 
-                                name="producto_{{$row->id}}"
-                                id="producto_{{$row->id}}"
-                                min="1"
-                                max="100"
-                                value="{{ $row->cantidad }}" 
-                                >
-
-                                <a 
-                                href="#"
-                                class="btn btn-warning btn-update-item" 
-                                data-href="{{url('cart/update', [$row->slug])}}" 
-                                data-id="{{$row->id}}" 
-                                ><i class="fa fa-refresh"></i></a>
-                                
+                                {{ $row->cantidad }}
 
                             </td>
                             <td>{{ number_format($row->cantidad*$row->precio, 2) }}</td>
@@ -110,10 +130,7 @@ Carro de Productos
      @endif
 
      <hr>
-     <p>
-         <a class="btn btn-primary" href="{{url('productos')}}">Seguir Comprando </a>
-         <a class="btn btn-primary" href="{{url('order/detail')}}">Continuar</a>
-     </p>
+     
 </div>
 @endsection
 

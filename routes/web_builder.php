@@ -129,6 +129,13 @@ Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses'
 
 Route::get('cart/show', ['as'=>'cart.show', 'uses'=>'admin\AlpCartController@show']);
 
+Route::get(
+    'order/detail', 
+    [
+        'as'=>'order.detail', 
+        'uses'=>'admin\AlpCartController@orderDetail'
+    ]);
+
 //inyeccion de dependencias
 Route::bind('product', function($slug){
     return App\Models\AlpProductos::where('slug', $slug)->first();

@@ -49,6 +49,27 @@ class AlpCartController extends JoshController
       return view('frontend.cart', compact('cart', 'total'));
     }
 
+    public function orderDetail()
+    {
+       $cart= \Session::get('cart');
+
+       $total=$this->total();
+
+
+       if(count($cart)<=0){
+
+          return redirect('productos');
+
+       }else{
+
+          return view('frontend.order.detail', compact('cart', 'total'));
+
+
+       }
+
+
+    }
+
     public function add( AlpProductos $producto)
     {
        $cart= \Session::get('cart');
