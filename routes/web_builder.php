@@ -129,6 +129,8 @@ Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses'
 
 Route::get('cart/show', ['as'=>'cart.show', 'uses'=>'admin\AlpCartController@show']);
 
+Route::get('cart/mercadopago', ['as'=>'cart.mercadopago', 'uses'=>'admin\AlpCartController@mercadopago']);
+
 Route::get(
     'order/detail', 
     [

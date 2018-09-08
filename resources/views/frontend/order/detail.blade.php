@@ -130,6 +130,10 @@ Carro de Productos
      @endif
 
      <hr>
+     <p>
+         <a class="btn btn-primary" href="{{url('cart/mercadopago')}}">Pagar </a>
+         <a class="btn btn-primary" href="{{url('order/detail')}}">Continuar</a>
+     </p>
      
 </div>
 @endsection
