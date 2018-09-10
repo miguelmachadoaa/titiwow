@@ -111,8 +111,8 @@ Carro de Productos
 
      <hr>
      <p>
-         <a class="btn btn-primary" href="{{url('productos')}}">Seguir Comprando </a>
-         <a class="btn btn-primary" href="{{url('order/detail')}}">Continuar</a>
+         <a class="btn btn-default" href="{{url('productos')}}">Seguir Comprando </a>
+         <a class="btn btn-default" href="{{url('order/detail')}}">Continuar</a>
      </p>
 </div>
 @endsection

@@ -59,6 +59,24 @@
                 </a>
             </li>
         </ul>
+
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/rolenvios*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.rolenvios.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Formas de Envio para Roles
+                </a>
+            </li>
+        </ul>
+
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/rolpagos*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.rolpagos.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Formas de Pago para Roles
+                </a>
+            </li>
+        </ul>
     </li>
 
    

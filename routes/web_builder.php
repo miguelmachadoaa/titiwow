@@ -85,6 +85,9 @@ Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses'
 
     Route::resource('formasenvio', 'admin\AlpFormasenvioController');
 
+    Route::resource('rolpagos', 'admin\AlpRolpagosController');
+    Route::resource('rolenvios', 'admin\AlpRolEnviosController');
+
     //fin direcciones forma de envio 
 
     //Inicio direcciones marcas
@@ -134,6 +137,7 @@ Route::get('cart/mercadopago', ['as'=>'cart.mercadopago', 'uses'=>'admin\AlpCart
 Route::get(
     'order/detail', 
     [
+        //'middleware'=>'auth', 
         'as'=>'order.detail', 
         'uses'=>'admin\AlpCartController@orderDetail'
     ]);
@@ -145,12 +149,27 @@ Route::bind('product', function($slug){
 
 //agregar item al carro
 Route::get('cart/add/{product}',['as'=>'cart.add', 'uses'=>'admin\AlpCartController@add']);
+
+//responde json
+Route::get('cart/addtocart/{product}',['as'=>'cart.addtocart', 'uses'=>'admin\AlpCartController@addtocart']);
+
 //eliminar item del carro
 Route::get('cart/delete/{product}',['as'=>'cart.add', 'uses'=>'admin\AlpCartController@delete']);
 
+//actualizar la cantidad de producto en un carro
 Route::get('cart/update/{product}/{cantidad}',['as'=>'cart.update', 'uses'=>'admin\AlpCartController@update']);
 
+//vaciar un carro
 Route::get('cart/vaciar/',['as'=>'cart.vaciar', 'uses'=>'admin\AlpCartController@vaciar']);
+
+//agregar una direccion desde el detalle del pedido
+Route::post('cart/storedir/',['as'=>'cart.storedir', 'uses'=>'admin\AlpCartController@storedir']);
+
+Route::get('cart/setdir/{direccion}',['as'=>'cart.setdir', 'uses'=>'admin\AlpCartController@setdir']);
+
+Route::get('cart/deldir/{direccion}',['as'=>'cart.deldir', 'uses'=>'admin\AlpCartController@deldir']);
+
+
 
 
 

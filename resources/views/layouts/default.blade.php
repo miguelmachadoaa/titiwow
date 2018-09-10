@@ -53,6 +53,11 @@
                     </li>
                     <li class="pull-right">
                         <ul class="list-inline icon-position">
+                             <li>
+                                <a href="#"><i class="shopping-cart" data-name="ion-ios7-cart" data-size="18" data-loop="true" data-c="#fff" data-hc="#fff"></i></a>
+                                
+                                <label class="hidden-xs"><a id="detalle_carro_front" href="{{url('cart/show')}}" class="text-white">Carrito de Compra</a></label>
+                            </li>
                             <li>
                                 <a href="mailto:"><i class="livicon" data-name="mail" data-size="18" data-loop="true" data-c="#fff" data-hc="#fff"></i></a>
                                 <label class="hidden-xs"><a href="mailto:" class="text-white">info@joshadmin.com</a></label>
@@ -133,6 +138,8 @@
                     </li>
 
                     <li {!! (Request::is('blog') || Request::is('blogitem/*') ? 'class="active"' : '') !!}><a href="{{ URL::to('blog') }}"> Blog</a>
+                    </li>
+                     <li {!! (Request::is('productos')  ? 'class="active"' : '') !!}><a href="{{ URL::to('productos') }}"> Productos</a>
                     </li>
                     <li {!! (Request::is('contact') ? 'class="active"' : '') !!}><a href="{{ URL::to('contact') }}">Contact</a>
                     </li>

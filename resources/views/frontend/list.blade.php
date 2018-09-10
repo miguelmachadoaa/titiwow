@@ -55,7 +55,7 @@ Products
                         <tr>
                             <td><a href="{{ route('producto', [$producto->slug]) }}"> {{ $producto->nombre_producto }}</a></td>
                             <td>{{ $producto->slug }}</td>
-                            <td><a class="btn btn-primary" href="{{url('cart/add', [$producto->slug])}}">Agregar al carro</a></td>
+                            <td><a class="btn btn-primary addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a></td>
                         </tr>
                      @endforeach
                  </tbody>
@@ -72,5 +72,26 @@ Products
         jQuery(document).ready(function () {
             new WOW().init();
         });
+
+
+        $('.addtocart').on('click', function(e){
+
+            e.preventDefault();
+
+            url=$(this).attr('href');
+
+            $.get(url, {}, function(data) {
+
+                if (data.resultado) {
+
+                    $('#detalle_carro_front').html(data.contenido);
+                         
+                }
+
+            });
+
+        })
+
+
     </script>
 @stop
