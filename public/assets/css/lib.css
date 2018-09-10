@@ -15,7 +15,7 @@
 /*-----------------------------------------------------------------------------------*/
 
 body {
-    font-family    : 'Lato', sans-serif;
+    font-family: 'Oxygen', Verdana, sans-serif !important;
     height         : 100%;
     color          : #757b87;
     padding-bottom : 0 !important;
@@ -520,7 +520,7 @@ blockquote {
 /* ---------- Footer Section Css ---------- */
 
 footer {
-    background-color : #262626;
+    background-color : #203878;
 }
 footer h4 {
     color : #fff;
@@ -617,7 +617,7 @@ footer .btn-primary.text-white {
 /* ---------- Copy Right Section Css  ---------- */
 
 .copyright {
-    background-color : #1a1a1a;
+    background-color : #01143e;
 }
 .copyright p {
     color   : #fff;
@@ -730,3 +730,29 @@ footer .btn-primary.text-white {
 .nav>li>a{
     padding: 8px 13px !important;
 }
+/*Footer redes*/
+.redes_foot {
+    padding-left: 50px;
+}
+.div_deres {
+    float: left;
+    margin: 8px;
+}
+/*Fin footer redes*/
+/*Footer contacto*/
+.contacto_foot {
+    padding-left: 0px;
+    padding-top: 5px;
+}
+.div_contacto1 {
+    float: left;
+    width: 20%;
+}
+.div_contacto2 {
+    float: left;
+    width: 80%;
+    font-size: 14px;
+    text-align: justify;
+    margin-bottom: 5px;
+}
+/* Fin footer contacto*/

@@ -168,82 +168,294 @@ class AlpClientesController extends JoshController
         // Get all the available groups
         $groups = DB::table('roles')->where('roles.id', '<>', 1)->get();
 
-        $tdocumento = AlpTDocumento::all();
+        $tdocumento = AlpTDocumento::select(
+            DB::raw("CONCAT(nombre_tipo_documento,' - ', abrev_tipo_documento) AS nombre_tipo_documento"),'id')
+            ->pluck('nombre_tipo_documento', 'id');
 
         return view('admin.clientes.edit', compact('groups','tdocumento','user','cliente','userRoles','roles','status'));
     }
 
     /**
-     * Group update form processing page.
+     * Cliente update form processing page.
      *
      * @param  int $id
      * @return Redirect
      */
-    public function update(Request $request, $id)
+    /*public function update(User $id, ClientesRequest $request)
     {
-      
+        $user_id = Sentinel::getUser()->id;
 
-        $imagen='0';
+        try {
 
-        $picture = "";
-
-        
-        if ($request->hasFile('image')) {
-            
-            $file = $request->file('image');
-
-            #echo $file.'<br>';
-            
-            $extension = $file->extension()?: 'png';
-            
-
-            $picture = str_random(10) . '.' . $extension;
-
-            #echo $picture.'<br>';
-
-            $destinationPath = public_path() . '/uploads/blog/';
-
-            #echo $destinationPath.'<br>';
-
-            
-            $file->move($destinationPath, $picture);
-            
-            $imagen = $picture;
-
-             $data = array(
-            'nombre_categoria' => $request->nombre_categoria, 
-            'descripcion_categoria' => $request->descripcion_categoria, 
-            'referencia_producto_sap' =>$request->referencia_producto_sap, 
-            'imagen_categoria' =>$imagen, 
-            'id_categoria_parent' =>'0'
-            );
-
-        }else{
 
             $data = array(
-                'nombre_categoria' => $request->nombre_categoria, 
-                'descripcion_categoria' => $request->descripcion_categoria, 
-                'referencia_producto_sap' =>$request->referencia_producto_sap
+            
+                'id_user_client' => $id, 
+                'id_type_doc' => $request->id_type_doc, 
+                'doc_cliente' =>$request->doc_cliente, 
+                'genero_cliente' =>$request->genero_cliente, 
+                'telefono_cliente' =>$request->telefono_cliente, 
+                'marketing_cliente' =>$request->marketing_cliente,
+                'habeas_cliente' => 1,
+                'estado_masterfile' =>$request->activate,
+                'id_user' =>$user_id,  
             );
+            
+            $cliente = AlpClientes::findOrFail($request->id_user_client);
 
+            dd($cliente);
+            $cliente->update($data);
+    
+            $eluser = User::findOrFail($id);
+    
+            $eluser->update([
+                'first_name' => $request->first_name, 
+                'last_name' =>$request->last_name, 
+                'dob' =>$request->dob, 
+                'pic' =>$request->pic
+            ]);
 
+        
+            if ( !empty($request->password)) {
+                $user->password = Hash::make($request->password);
+
+                $data_upd = array(
+                    'password' => $user->password, 
+                );
+
+                //actualizar password
+                $eluser->update($data_upd);
+
+            }
+
+            // is new image uploaded?
+            if ($file = $request->file('pic_file')) {
+                $extension = $file->extension()?: 'png';
+                $destinationPath = public_path() . '/uploads/perfiles/';
+                $safeName = str_random(10) . '.' . $extension;
+                $file->move($destinationPath, $safeName);
+                //delete old pic if exists
+                if (File::exists($destinationPath . $user->pic)) {
+                    File::delete($destinationPath . $user->pic);
+                }
+                //save new file path into db
+                $user->pic = $safeName;
+                $data_upd_pic = array(
+                    'pic' => $user->pic, 
+                );
+
+                $eluser->update($data_upd_pic);
+            }
+
+            // Get the current user groups
+            $userRoles = $eluser->roles()->pluck('id')->all();
+
+            // Get the selected groups
+
+            $selectedRoles = $request->get('groups');
+
+            // Groups comparison between the groups the user currently
+            // have and the groups the user wish to have.
+            $rolesToAdd = array_diff($selectedRoles, $userRoles);
+            $rolesToRemove = array_diff($userRoles, $selectedRoles);
+
+            // Assign the user to groups
+
+            foreach ($rolesToAdd as $roleId) {
+                $role = Sentinel::findRoleById($roleId);
+                $role->users()->attach($eluser);
+            }
+
+            // Remove the user from groups
+            foreach ($rolesToRemove as $roleId) {
+                $role = Sentinel::findRoleById($roleId);
+                $role->users()->detach($eluser);
+            }
+
+            // Activate / De-activate user
+
+            $status = $activation = Activation::completed($eluser);
+
+            if ($request->get('activate') != $status) {
+                if ($request->get('activate')) {
+                    $activation = Activation::exists($eluser);
+                    if ($activation) {
+                        Activation::complete($user, $activation->code);
+                    }
+                } else {
+                    //remove existing activation record
+                    Activation::remove($eluser);
+                    //add new record
+                    Activation::create($eluser);
+                    //send activation mail
+                    $data=[
+                        'user_name' =>$eluser->first_name .' '. $eluser->last_name,
+                    'activationUrl' => URL::route('activate', [$user->id, Activation::exists($eluser)->code])
+                    ];
+                    // Send the activation code through email
+                   /* Mail::to($eluser->email)
+                        ->send(new Restore($data));
+
+                }
+            }
+
+            // Was the user updated?
+            if ($eluser->save()) {
+                // Prepare the success message
+                $success = trans('users/message.success.update');
+               //Activity log for user update
+                activity($user->full_name)
+                    ->performedOn($user)
+                    ->causedBy($user)
+                    ->log('Actualizado por '.Sentinel::getUser()->full_name);
+                // Redirect to the user page
+                return Redirect::route('admin.clientes.edit', $user)->with('success', $success);
+            }
+
+            // Prepare the error message
+            $error = trans('users/message.error.update');
+        } catch (UserNotFoundException $e) {
+            // Prepare the error message
+            $error = trans('users/message.user_not_found', compact('id'));
+
+            // Redirect to the user management page
+            return Redirect::route('admin.clientes.index')->with('error', $error);
         }
 
+        // Redirect to the user page
+        //return Redirect::route('admin.clientes.show', $user)->withInput()->with('error', $error);
+    }*/
+
+    public function update(User $user, ClientesRequest $request)
+    {
 
 
-       
-         
-       $categoria = AlpCategorias::find($id);
-    
-        $categoria->update($data);
+        try {
+            $user->update($request->except('email','pic_file','password','password_confirm','groups','activate'));
 
-        if ($categoria->id) {
+            if ( !empty($request->password)) {
+                $user->password = Hash::make($request->password);
+            }
 
-            return redirect('admin/categorias')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
+            // is new image uploaded?
+            if ($file = $request->file('pic_file')) {
+                $extension = $file->extension()?: 'png';
+                $destinationPath = public_path() . '/uploads/perfiles/';
+                $safeName = str_random(10) . '.' . $extension;
+                $file->move($destinationPath, $safeName);
+                //delete old pic if exists
+                if (File::exists($destinationPath . $user->pic)) {
+                    File::delete($destinationPath . $user->pic);
+                }
+                //save new file path into db
+                $user->pic = $safeName;
+            }
 
-        } else {
-            return Redirect::route('admin/categorias')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
-        }  
+            //save record
+            $user->save();
+
+            // Get the current user groups
+            $userRoles = $user->roles()->pluck('id')->all();
+
+            // Get the selected groups
+
+            $selectedRoles = $request->get('groups');
+
+            // Groups comparison between the groups the user currently
+            // have and the groups the user wish to have.
+            $rolesToAdd = array_diff($selectedRoles, $userRoles);
+            $rolesToRemove = array_diff($userRoles, $selectedRoles);
+
+            // Assign the user to groups
+
+            foreach ($rolesToAdd as $roleId) {
+                $role = Sentinel::findRoleById($roleId);
+                $role->users()->attach($user);
+            }
+
+            // Remove the user from groups
+            foreach ($rolesToRemove as $roleId) {
+                $role = Sentinel::findRoleById($roleId);
+                $role->users()->detach($user);
+            }
+
+            // Activate / De-activate user
+
+            $status = $activation = Activation::completed($user);
+
+            if ($request->get('activate') != $status) {
+                if ($request->get('activate')) {
+                    $activation = Activation::exists($user);
+                    if ($activation) {
+                        Activation::complete($user, $activation->code);
+                    }
+                } else {
+                    //remove existing activation record
+                    Activation::remove($user);
+                    //add new record
+                    Activation::create($user);
+                    //send activation mail
+                    $data=[
+                        'user_name' =>$user->first_name .' '. $user->last_name,
+                    'activationUrl' => URL::route('activate', [$user->id, Activation::exists($user)->code])
+                    ];
+                    // Send the activation code through email
+                    Mail::to($user->email)
+                        ->send(new Restore($data));
+
+                }
+            }
+
+            // Was the user updated?
+            if ($user->save()) {
+                // Prepare the success message
+                $success = trans('users/message.success.update');
+               //Activity log for user update
+                activity($user->full_name)
+                    ->performedOn($user)
+                    ->causedBy($user)
+                    ->log('User Updated by '.Sentinel::getUser()->full_name);
+                // Redirect to the user page
+                return Redirect::route('admin.clientes.edit', $user)->with('success', $success);
+            }
+
+            // Prepare the error message
+            $error = trans('users/message.error.update');
+        } catch (UserNotFoundException $e) {
+            // Prepare the error message
+            $error = trans('users/message.user_not_found', compact('id'));
+
+            // Redirect to the user management page
+            return Redirect::route('admin.clientes.index')->with('error', $error);
+        }
+
+        // Redirect to the user page
+        return Redirect::route('admin.clientes.edit', $user)->withInput()->with('error', $error);
+    }
+
+    /**
+     * Display specified user profile.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        try {
+            // Get the user information
+            $user = Sentinel::findUserById($id);
+            //get country name
+            if ($user->country) {
+                $user->country = $this->countries[$user->country];
+            }
+        } catch (UserNotFoundException $e) {
+            // Prepare the error message
+            $error = trans('users/message.user_not_found', compact('id'));
+            // Redirect to the user management page
+            return Redirect::route('admin.clientes.index')->with('error', $error);
+        }
+        // Show the page
+        return view('admin.clientes.show', compact('user'));
 
     }
 
@@ -294,171 +506,6 @@ class AlpClientesController extends JoshController
             // Redirect to the group management page
             return Redirect::route('admin.categorias.index')->with('error', trans('Error al eliminar el registro'));
         }
-    }
-
-    /**
-     * Group update.
-     *
-     * @param  int $id
-     * @return View
-     */
-    public function detalle($id)
-    {
-       
-       $categoria = AlpCategorias::find($id);
-
-      
-
-    $categorias = AlpCategorias::select('alp_categorias.*')
-        ->where('alp_categorias.id_categoria_parent',$id)->get(); 
-
-
-
-        return view('admin.categorias.detalle', compact('categoria', 'categorias'));
-
-    }
-
-    public function storeson(Request $request, $padre)
-    {
-        
-         $user_id = Sentinel::getUser()->id;
-
-        //$input = $request->all();
-
-        //var_dump($input);
-
-          $imagen='0';
-
-         $picture = "";
-
-        
-        if ($request->hasFile('image')) {
-            
-            $file = $request->file('image');
-
-            #echo $file.'<br>';
-            
-            $extension = $file->extension()?: 'png';
-            
-
-            $picture = str_random(10) . '.' . $extension;
-
-            #echo $picture.'<br>';
-
-            $destinationPath = public_path() . '/uploads/blog/';
-
-            #echo $destinationPath.'<br>';
-
-            
-            $file->move($destinationPath, $picture);
-            
-            $imagen = $picture;
-
-        }
-
-        $data = array(
-            'nombre_categoria' => $request->nombre_categoria, 
-            'descripcion_categoria' => $request->descripcion_categoria, 
-            'referencia_producto_sap' =>$request->referencia_producto_sap, 
-            'imagen_categoria' =>$imagen, 
-            'id_categoria_parent' =>$padre, 
-            'id_user' =>$user_id
-        );
-         
-        $categoria=AlpCategorias::create($data);
-
-        if ($categoria->id) {
-
-            return redirect('admin/categorias/'.$padre.'/detalle')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
-
-        } else {
-            return Redirect::route('admin/categorias/'.$padre.'/detalle')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
-        }  
-
-    }
-
-    /**
-     * Group update.
-     *
-     * @param  int $id
-     * @return View
-     */
-    public function editson($id)
-    {
-       
-       $categoria = AlpCategorias::find($id);
-
-        return view('admin.categorias.editson', compact('categoria'));
-    }
-
-    /**
-     * Group update form processing page.
-     *
-     * @param  int $id
-     * @return Redirect
-     */
-    public function updson(Request $request, $id)
-    {
-       
-         $imagen='0';
-
-         $picture = "";
-
-        
-        if ($request->hasFile('image')) {
-            
-            $file = $request->file('image');
-
-            #echo $file.'<br>';
-            
-            $extension = $file->extension()?: 'png';
-            
-
-            $picture = str_random(10) . '.' . $extension;
-
-            #echo $picture.'<br>';
-
-            $destinationPath = public_path() . '/uploads/blog/';
-
-            #echo $destinationPath.'<br>';
-
-            
-            $file->move($destinationPath, $picture);
-            
-            $imagen = $picture;
-
-            $data = array(
-            'nombre_categoria' => $request->nombre_categoria, 
-            'descripcion_categoria' => $request->descripcion_categoria, 
-            'referencia_producto_sap' =>$request->referencia_producto_sap, 
-            'imagen_categoria' =>$imagen, 
-            'id_categoria_parent' =>$request->id_categoria_parent
-                );
-
-        }else{
-
-                $data = array(
-            'nombre_categoria' => $request->nombre_categoria, 
-            'descripcion_categoria' => $request->descripcion_categoria, 
-            'referencia_producto_sap' =>$request->referencia_producto_sap, 
-            'id_categoria_parent' =>$request->id_categoria_parent
-                );
-
-        }
-
-
-       $categoria = AlpCategorias::find($id);
-    
-        $categoria->update($data);
-
-        if ($categoria->id) {
-
-            return redirect('admin/categorias/'.$request->id_categoria_parent.'/detalle')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
-
-        } else {
-            return Redirect::route('admin/categorias/'.$request->id_categoria_parent.'/detalle')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
-        }  
-
     }
 
 }

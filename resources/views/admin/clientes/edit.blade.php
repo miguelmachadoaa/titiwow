@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    @lang('clientes/title.add')
+    @lang('clientes/title.edit')
     @parent
 @stop
 
@@ -22,7 +22,7 @@
 {{-- Page content --}}
 @section('content')
     <section class="content-header">
-        <h1>@lang('clientes/title.add')</h1>
+        <h1>@lang('clientes/title.edit')</h1>
         <ol class="breadcrumb">
             <li>
                 <a href="{{ route('admin.dashboard') }}">
@@ -31,7 +31,7 @@
                 </a>
             </li>
             <li><a href="#"> @lang('clientes/title.clientes')</a></li>
-            <li class="active">@lang('clientes/title.add')</li>
+            <li class="active">@lang('clientes/title.edit')</li>
         </ol>
     </section>
     <section class="content">
@@ -41,7 +41,7 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">
                             <i class="livicon" data-name="user-add" data-size="18" data-c="#fff" data-hc="#fff" data-loop="true"></i>
-                            @lang('clientes/title.add')
+                            @lang('clientes/title.edit')
                         </h3>
                         <span class="pull-right">
                              <i class="glyphicon glyphicon-chevron-up clickable"></i>
@@ -86,7 +86,7 @@
                                             <label for="email" class="col-sm-2 control-label">Email *</label>
                                             <div class="col-sm-10">
                                                 <input id="email" name="email" placeholder="E-mail" type="text"
-                                                       class="form-control required email" value="{!! old('email', $user->email) !!}"/>
+                                                       class="form-control required email" value="{!! old('email', $user->email) !!}" readonly/>
                                                 {!! $errors->first('email', '<span class="help-block">:message</span>') !!}
                                             </div>
                                         </div>
@@ -138,16 +138,9 @@
                                         <div class="form-group required">
                                             <label for="id_type_doc" class="col-sm-2 control-label">Tipo de Documento *</label>
                                             <div class="col-sm-10">
-                                                <select class="form-control required" title="Selecciona Tipo de Documento..." name="id_type_doc"
-                                                        id="id_type_doc">
-                                                    <option value="">Selecciona el Tipo de Documento *</option>
-                                                    @foreach($tdocumento as $tdocument)
-                                                        @foreach($cliente as $clien)
-                                                        <option value="{{ $tdocument->id }}"
-                                                                @if($tdocument->id == old('id_type_doc', $clien->id_type_doc) selected="selected" @endif >{{ $tdocument->nombre_tipo_documento }} - {{ $tdocument->abrev_tipo_documento }}</option>
-                                                        @endforeach
-                                                    @endforeach
-                                                </select>
+                                            {!! Form::select('id_type_doc', $tdocumento,$clien->id_type_doc,array('class'=>'form-control required'));!!}
+
+                                                
                                                 {!! $errors->first('id_type_doc', '<span class="help-block">:message</span>') !!}
                                             </div>
                                             <span class="help-block">{{ $errors->first('group', ':message') }}</span>
@@ -158,7 +151,7 @@
                                             <div class="col-sm-10">
                                                 <input id="doc_cliente" name="doc_cliente" type="text"
                                                        placeholder="Número de Documento" class="form-control required"
-                                                       value="{!! old('doc_cliente') !!}"/>
+                                                       value="{!! old('doc_cliente', $clien->doc_cliente) !!}"/>
 
                                                 {!! $errors->first('doc_cliente', '<span class="help-block">:message</span>') !!}
                                             </div>
@@ -169,7 +162,7 @@
                                             <div class="col-sm-10">
                                                 <input id="telefono_cliente" name="telefono_cliente" type="number"
                                                        placeholder="Número Telefónico" class="form-control required"
-                                                       value="{!! old('telefono_cliente') !!}"/>
+                                                       value="{!! old('doc_cliente', $clien->doc_cliente) !!}"/>
 
                                                 {!! $errors->first('telefono_cliente', '<span class="help-block">:message</span>') !!}
                                             </div>
@@ -203,12 +196,12 @@
                                                     <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 200px;"></div>
                                                     <div>
                                             <span class="btn btn-default btn-file">
-                                                <span class="fileinput-new">Select image</span>
-                                                <span class="fileinput-exists">Change</span>
+                                                <span class="fileinput-new">Seleccionar Imagen</span>
+                                                <span class="fileinput-exists">Cambiae</span>
                                                 <input id="pic" name="pic_file" type="file"
                                                         class="form-control"/>
                                             </span>
-                                                        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput" style="color: black !important;">Remove</a>
+                                                        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput" style="color: black !important;">Eliminar</a>
                                                     </div>
                                                 </div>
                                                 {!! $errors->first('pic_file', '<span class="help-block">:message</span>') !!}
@@ -221,7 +214,7 @@
                                             <div class="col-sm-10">
                                                 <input id="marketing_cliente" name="marketing_cliente" type="checkbox"
                                                        class="pos-rel p-l-30 custom-checkbox "
-                                                       value="1" @if(old('marketing_cliente')) checked="checked" @endif >
+                                                       value="1" @if(old('marketing_cliente', $clien->marketing_cliente) ) checked="checked" @endif >
                                                 <span>¿Acepta recibir campañas de marketing en su email?</span></div>
 
                                         </div>
@@ -254,7 +247,7 @@
                                             <div class="col-sm-10">
                                                 <input id="activate" name="activate" type="checkbox"
                                                        class="pos-rel p-l-30 custom-checkbox"
-                                                       value="1" @if(old('activate')) checked="checked" @endif >
+                                                       value="1"  @if($status) checked="checked" @endif >
                                                 <span>¿Desea Activar la cuenta del cliente de forma automática?</span></div>
 
                                         </div>

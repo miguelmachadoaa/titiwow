@@ -202,15 +202,15 @@
                                                     {!! $errors->first('country', '<span class="help-block">:message</span>') !!}
                                                 </div>
 
-                                                <div class="form-group {{ $errors->first('user_state', 'has-error') }}">
-                                                    <label for="user_state"
+                                                <div class="form-group {{ $errors->first('state', 'has-error') }}">
+                                                    <label for="state"
                                                            class="col-sm-2 control-label">State </label>
                                                     <div class="col-sm-10">
-                                                        <input id="user_state" name="user_state" type="text"
+                                                        <input id="state" name="state" type="text"
                                                                class="form-control"
-                                                               value="{!! old('user_state', $user->user_state) !!}"/>
+                                                               value="{!! old('state', $user->state) !!}"/>
                                                     </div>
-                                                    {!! $errors->first('user_state', '<span class="help-block">:message</span>') !!}
+                                                    {!! $errors->first('state', '<span class="help-block">:message</span>') !!}
                                                 </div>
 
                                                 <div class="form-group {{ $errors->first('city', 'has-error') }}">

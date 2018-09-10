@@ -26,6 +26,7 @@ return array(
 	'edit' 					=> 'Editar Cliente',
 	'management' 			=> 'Mantener Cliente',
 	'add' 					=> 'Crear Nuevo Cliente',
+	'edit' 					=> 'Editar Cliente',
 	'cliente' 				=> 'Cliente',
 	'clientes' 				=> 'Clientes',
 	'lista_clientes' 		=> 'Lista de Clientes',
