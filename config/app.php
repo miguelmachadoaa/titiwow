@@ -197,7 +197,6 @@ return [
         \InfyOm\GeneratorBuilder\GeneratorBuilderServiceProvider::class,
         Sofa\Eloquence\BaseServiceProvider::class,
         Spatie\Analytics\AnalyticsServiceProvider::class,
-        CodemanCompany\LaravelMercadoPago\Providers\MercadoPagoServiceProvider::class,
     ],
 
     /*
@@ -259,7 +258,6 @@ return [
         'Flash' => Laracasts\Flash\Flash::class,
         'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
         'Analytics' => Spatie\Analytics\AnalyticsFacade::class,
-        'MP' => CodemanCompany\LaravelMercadoPago\Facades\MP::class,
 
     ],
 

@@ -18,7 +18,6 @@ use Response;
 use Sentinel;
 use Intervention\Image\Facades\Image;
 use DOMDocument;
-use MP;
 
 
 class AlpCartController extends JoshController
@@ -38,36 +37,7 @@ class AlpCartController extends JoshController
     }
 
 
-    public function generatePaymentGateway()
-    {
-        
-
-      
-        $mp = new MP ('7310103649683437', 'Uu5SD5VoVM7TbXOaqM8XDUkeBu45EZxK');
-
-        $current_user = Sentinel::getUser();
-
-       $cart= \Session::get('cart');
-
-       $preference_data = array (
-        "items" => array (
-              array (
-                  "title" => "Test",
-                  "quantity" => 1,
-                  "currency_id" => "USD",
-                  "unit_price" => 10.4
-              )
-          )
-      );
-
-        $preference = $mp::create_preference($preference_data);
-        // also you can use try-catch for create the preference, DB transaction for the whole generatePaymentGateway method, etc...
-
-        // finally return init point to be redirected - or
-        // sandbox_init_point
-        return $preference['response']['sandbox_init_point'];
-    }
-
+    
 
      /**
      * Display the specified resource.
@@ -84,23 +54,17 @@ class AlpCartController extends JoshController
       return view('frontend.cart', compact('cart', 'total'));
     }
 
-     public function mercadopago()
-    {
-             
-      return redirect()->to($this->generatePaymentGateway());
-
-    }
+     
 
     public function orderDetail()
     {
        $cart= \Session::get('cart');
 
-       $total=$this->total();
+      $total=$this->total();
 
       $user_id = Sentinel::getUser()->id;
-      $user = Sentinel::getUser();
 
-      print_r($user);
+      
 
       $direcciones = AlpDirecciones::where('id_client', $user_id)->get();
 
@@ -329,11 +293,5 @@ class AlpCartController extends JoshController
    
 
     }
-
-
-
-
-
-
     
 }
