@@ -26,7 +26,8 @@ class AlpRolEnviosController extends JoshController
 
         $formas = AlpFormasenvio::all();
 
-        $roles = Roles::all();
+        
+        $roles = DB::table('roles')->select('id', 'name')->get();
 
         $rolenvios=AlpRolenvio::all();
 
@@ -34,10 +35,11 @@ class AlpRolEnviosController extends JoshController
 
         foreach ($rolenvios as $rp) {
 
-        $data[$rp->id_rol][$rp->id_forma_pago]=1;
+        $data[$rp->id_rol][$rp->id_forma_envio]=1;
             
 
         }
+
        
         // Show the page
         return view('admin.rolenvios.create', compact('formas', 'roles', 'data'));
@@ -78,7 +80,7 @@ class AlpRolEnviosController extends JoshController
 
                  $data = array(
                 'id_rol' => $ele[0], 
-                'id_forma_pago' => $ele[1], 
+                'id_forma_envio' => $ele[1], 
                 'id_user' =>$user_id
                 );
 

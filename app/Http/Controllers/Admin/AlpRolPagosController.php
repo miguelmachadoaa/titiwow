@@ -26,7 +26,7 @@ class AlpRolPagosController extends JoshController
 
         $formas = AlpFormaspago::all();
 
-        $roles = Roles::all();
+        $roles = DB::table('roles')->select('id', 'name')->get();
 
         $rolpagos=AlpRolpago::all();
 
@@ -38,7 +38,6 @@ class AlpRolPagosController extends JoshController
             
 
         }
-       
         // Show the page
         return view('admin.rolpagos.create', compact('formas', 'roles', 'data'));
     }
