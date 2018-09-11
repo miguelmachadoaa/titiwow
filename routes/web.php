@@ -249,4 +249,6 @@ Route::get('news/{news}', 'NewsController@show')->name('news.show');
 
 
 Route::get('{name?}', 'FrontEndController@showFrontEndView');
+
+Route::get('menu', 'FrontEndController@menugeral')->name('menu');
 # End of frontend views

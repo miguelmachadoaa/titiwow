@@ -155,18 +155,28 @@ p label {
     padding-left : 0;
     margin-left  : 0;
 }
+@media (min-width : 951px) {
 .logo_position {
     position : relative;
     bottom   : 10px;
     padding: 0px 80px;
-}
+}}
+@media (max-width : 950px) {
+    .logo_position {
+        position : relative;
+        bottom   : 10px;
+        padding: 0px 0px;
+    }}
 .navbar-nav > li > a {
     font-size      : 14px;
     text-transform : uppercase;
     font-weight    : 400;
 }
-.navbar-default .navbar-nav > li > a:hover {
-    color : #01bc8c;
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav>.active>a {
+    color : #00aeef;
+    text-shadow: rgba(51, 51, 51, 0.298039) 0px 0px 0.5em;
+    background: #fafafa;
+    border-bottom: 4px solid #00aeef !important;
 }
 /* ---------- Navbar  Dropdown menu Css ---------- */
 
@@ -786,9 +796,16 @@ footer .btn-primary.text-white {
 
 /* bloque inicio fin*/
 /*Bloque Carrtito*/
-#cart_block_top {
-    margin-top: 20px;
-}
+@media (min-width : 951px) {
+    #cart_block_top {
+        margin-top: 20px;
+        float:right;
+    }}
+    @media (max-width : 950px) {
+        #cart_block_top {
+            margin-top: 35px;
+            vertical-align: middle;
+        }}
 #cart_block_top .btn.button-cart span {
     background: url(../../assets/img/carticon-1.png) no-repeat scroll center center rgba(0, 0, 0, 0);
     border: medium none;
@@ -805,3 +822,9 @@ footer .btn-primary.text-white {
     text-indent: -9999px;
 }
 /* Bloqure*/
+
+.menu_float{
+    float:left;
+    display: block;
+    position: relative;
+}
