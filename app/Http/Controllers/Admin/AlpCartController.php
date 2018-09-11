@@ -11,6 +11,11 @@ use App\Models\AlpInventario;
 use App\Models\AlpMarcas;
 use App\Models\AlpFormasenvio;
 use App\Models\AlpFormaspago;
+use App\Country;
+use App\State;
+use App\City;
+use App\Roles;
+use App\RoleUser;
 use App\Http\Requests;
 use App\Http\Requests\ProductosRequest;
 use Illuminate\Http\Request;
@@ -18,6 +23,7 @@ use Response;
 use Sentinel;
 use Intervention\Image\Facades\Image;
 use DOMDocument;
+use DB;
 
 
 class AlpCartController extends JoshController
@@ -35,9 +41,6 @@ class AlpCartController extends JoshController
         }
        
     }
-
-
-    
 
      /**
      * Display the specified resource.
@@ -62,28 +65,48 @@ class AlpCartController extends JoshController
 
       $total=$this->total();
 
-      $user_id = Sentinel::getUser()->id;
+      if (Sentinel::check()) {
 
-      
+          $user_id = Sentinel::getUser()->id;
 
-      $direcciones = AlpDirecciones::where('id_client', $user_id)->get();
+          $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
 
-      $formasenvio = AlpFormasenvio::all();
+        $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_countries.country_name as country_name')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->where('alp_direcciones.id_client', $user_id)->get();
 
-      $formaspago = AlpFormaspago::all();
-
-
-
-       if(count($cart)<=0){
-
-          return redirect('productos');
-
-       }else{
-
-          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago'));
+           $formasenvio = AlpFormasenvio::select('alp_formas_envios.*')
+          ->join('alp_rol_envio', 'alp_formas_envios.id', '=', 'alp_rol_envio.id_forma_envio')
+          ->where('alp_rol_envio.id_rol', $role->role_id)->get();
 
 
-       }
+          $formaspago = AlpFormaspago::select('alp_formas_pagos.*')
+          ->join('alp_rol_pago', 'alp_formas_pagos.id', '=', 'alp_rol_pago.id_forma_pago')
+          ->where('alp_rol_pago.id_rol', $role->role_id)->get();
+
+          $countries = Country::all();
+
+         if(count($cart)<=0){
+
+            return redirect('productos');
+
+         }else{
+
+            return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries'));
+
+
+         }
+
+      }else{
+
+          return redirect('login');
+
+
+    }
+
+
 
 
     }
@@ -279,19 +302,11 @@ class AlpCartController extends JoshController
 
       $user_id = Sentinel::getUser()->id;
 
-      
-
-
           $direccion= AlpDirecciones::find($id);
 
           $direccion->delete();
 
-       
-
           return redirect('order/detail');
-            
-   
-
     }
     
 }

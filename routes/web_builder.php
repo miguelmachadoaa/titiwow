@@ -170,8 +170,11 @@ Route::get('cart/setdir/{direccion}',['as'=>'cart.setdir', 'uses'=>'admin\AlpCar
 Route::get('cart/deldir/{direccion}',['as'=>'cart.deldir', 'uses'=>'admin\AlpCartController@deldir']);
 
 
+//configuracion controller para recuperar esados y ciudades 
 
-
+Route::get('configuracion/states/{id}',array('as'=>'configuracion.states','uses'=>'admin\AlpConfiguracionController@selectState'));
+       
+Route::get('configuracion/cities/{id}',array('as'=>'configuracion.cities','uses'=>'admin\AlpConfiguracionController@selectCity'));
 
 
 

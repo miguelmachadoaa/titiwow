@@ -57,11 +57,14 @@ Carro de Productos
     <div class="row">
         <h1>Carro de Compras</h1>
         @if(count($cart))
+
+
+
             
 
             <br>    
 
-            <h3>    Detalle de Cliente</h3>
+            <h3>Detalle de Cliente</h3>
 
             <div class="col-md-10 col-md-offset-1 table-responsive">
          <table class="table table-striped ">
@@ -115,7 +118,6 @@ Carro de Productos
                          <th>Precio</th>
                          <th>Cantidad</th>
                          <th>SubTotal</th>
-                         <th>Eliminar</th>
                      </tr>
                  </thead>
                  <tbody>
@@ -129,7 +131,6 @@ Carro de Productos
 
                             </td>
                             <td>{{ number_format($row->cantidad*$row->precio, 2) }}</td>
-                            <td><a class="btn btn-danger" href="{{url('cart/delete', [$row->slug])}}">X</a></td>
                         </tr>
                      @endforeach
 
@@ -157,7 +158,7 @@ Carro de Productos
                     
                     <div class="col-sm-3">
                         
-                         <div class="well <?php if ($direccion->default_address=='1'){ echo 'bg-primary';}else{ echo 'bg-default';} ?>" >
+                         <div class="well <?php if ($direccion->default_address=='1'){ echo 'bg-success';}else{ echo 'bg-default';} ?>" >
                              
                         
                             <p>
@@ -165,7 +166,7 @@ Carro de Productos
                                 Direccion: {{$direccion->calle_address.' '.$direccion->calle2_address}}<br>
                                 Codigo Postal: {{$direccion->codigo_postal_address}}<br>
                                 Telefono: {{$direccion->telefono_address}}<br>
-                                Ciudad: {{$direccion->city_id}}<br>
+                                {{$direccion->country_name.', '.$direccion->state_name.', '.$direccion->city_name}}<br>
 
                             </p>
 
@@ -257,46 +258,25 @@ Carro de Productos
 
                              <div class="form-group">
 
-                                <h3>    Formas de Pago</h3>
+                                <h3>    Formas de pago</h3>
 
-                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                 <?php $c="checked"; ?>     
 
-
-                                
-
-                                 <!-- Se construyen las opciones de envios -->      
-
-                                 <?php  $e='true'; ?>             
-                                 <?php  $c='in'; ?>             
+                                 <!-- Se construyen las opciones de envios -->                   
 
                                 @foreach($formaspago as $fp)
 
-                                    
-
-
-                                    
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading" role="tab" id="heading{{ $fp->id }}">
-                                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $fp->id }}" aria-expanded="{{ $e }}" aria-controls="collapseOne">
-                                                <h4 class="panel-title">{{$fp->nombre_forma_pago}}</h4>
-                                            </a>
-                                        </div>
-                                        <div id="collapse{{ $fp->id }}" class="panel-collapse collapse {{ $c }}" role="tabpanel" aria-labelledby="heading{{ $fp->id }}">
-                                            <div class="panel-body">
-                                                {{$fp->descripcion_forma_pago}}
-                                            </div>
-                                        </div>
+                                    <div class="radio">
+                                        <label>
+                                                <input type="radio" name="id_forma_pago" class="custom-radio" id="id_forma_pago" value="{{ $fp->id }}" {{ $c }}>&nbsp; {{ $fp->nombre_forma_pago.' , '.$fp->descripcion_forma_pago }}</label>
                                     </div>
-                                   
-                                    
-                                
-                                    <?php  $e='false'; ?> 
-                                    <?php  $c=''; ?> 
-                               
+
+
+                                 <?php $c=""; ?>  
 
                                 @endforeach 
 
-                                </div>
+
                                 
 
                                 
@@ -376,6 +356,8 @@ Carro de Productos
                         
                         <form method="POST" action="{{url('cart/storedir')}}" id="addDireccionForm" name="addDireccionForm" class="form-horizontal">
 
+                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
+
                             {{ csrf_field() }}
                             <div class="row">
 
@@ -386,6 +368,56 @@ Carro de Productos
                                         <input id="nickname_address" name="nickname_address" type="text" placeholder="Nickname Direccion" class="form-control">
                                     </div>
                                 </div>
+
+                               
+
+
+                                <div class="form-group col-sm-12">
+                                    <label for="select21" class="col-md-3 control-label">
+                                        Pais
+                                    </label>
+                                    <div class="col-md-8" >
+                                        <select id="country_id" name="country_id" class="form-control ">
+                                            <option value="">Seleccione</option>
+                                           
+                                            @foreach($countries as $pais)
+                                            <option value="{{ $pais->id }}"
+                                                    @if($pais->id == old('country_id')) selected="selected" @endif >{{ $pais->country_name}}</option>
+                                            @endforeach
+                                          
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-12">
+                                    <label for="select21" class="col-md-3 control-label">
+                                        Estado
+                                    </label>
+                                    <div class="col-md-8" >
+                                        <select id="state_id" name="state_id" class="form-control ">
+                                            <option value="">Seleccione</option>
+                                           
+                                            
+                                          
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-12">
+                                    <label for="select21" class="col-md-3 control-label">
+                                        Ciudad
+                                    </label>
+                                    <div class="col-md-8" >
+                                        <select id="city_id" name="city_id" class="form-control ">
+                                            <option value="">Seleccione</option>
+                                           
+                                            
+                                          
+                                        </select>
+                                    </div>
+                                </div>
+
+
 
                                 <div class="form-group clearfix">
                                     <label class="col-md-3 control-label" for="nombre_producto">Calle </label>
@@ -568,6 +600,65 @@ $('#addDireccionForm').keypress(
         });
     })
 
+    </script>
+
+
+
+<script type="text/javascript">
+        
+            $(document).ready(function(){
+        //Inicio select región
+                $('select[name="country_id"]').on('change', function() {
+                    $('select[name="city_id"]').empty();
+                var countryID = $(this).val();
+                var base = $('#base').val();
+                    if(countryID) {
+                        $.ajax({
+                            url: base+'/configuracion/states/'+countryID,
+                            type: "GET",
+                            dataType: "json",
+                            success:function(data) {
+
+                                
+                                $('select[name="state_id"]').empty();
+                                $.each(data, function(key, value) {
+                                    $('select[name="state_id"]').append('<option value="'+ key +'">'+ value +'</option>');
+                                });
+
+                            }
+                        });
+                    }else{
+                        $('select[name="state_id"]').empty();
+                    }
+                });
+            //fin select región
+
+            //inicio select ciudad
+            $('select[name="state_id"]').on('change', function() {
+                    var stateID = $(this).val();
+                var base = $('#base').val();
+
+                    if(stateID) {
+                        $.ajax({
+                            url: base+'/configuracion/cities/'+stateID,
+                            type: "GET",
+                            dataType: "json",
+                            success:function(data) {
+
+                                
+                                $('select[name="city_id"]').empty();
+                                $.each(data, function(key, value) {
+                                    $('select[name="city_id"]').append('<option value="'+ key +'">'+ value +'</option>');
+                                });
+
+                            }
+                        });
+                    }else{
+                        $('select[name="city_id"]').empty();
+                    }
+                });
+            //fin select ciudad
+        });
     </script>
 
 

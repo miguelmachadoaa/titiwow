@@ -64,7 +64,7 @@ Carro de Productos
                  <tbody>
                      @foreach($cart as $row)
                         <tr>
-                            <td><img height="60px" src="../uploads/blog/{{$row->imagen_producto}}"></td>
+                            <td><img height="60px" src="../uploads/productos/{{$row->imagen_producto}}"></td>
                             <td>{{$row->nombre_producto}}</td>
                             <td>{{number_format($row->precio,2)}}</td>
                             <td>
