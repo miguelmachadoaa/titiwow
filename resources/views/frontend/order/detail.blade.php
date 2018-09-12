@@ -55,19 +55,16 @@ Carro de Productos
 @section('content')
 <div class="container text-center">
     <div class="row">
-        <h1>Carro de Compras</h1>
+        <h1>Detalle del Pedido</h1>
         @if(count($cart))
-
-
-
             
 
             <br>    
 
-            <h3>Detalle de Cliente</h3>
+            <h3>Datos de Cliente</h3>
 
             <div class="col-md-10 col-md-offset-1 table-responsive">
-         <table class="table table-striped ">
+         <table class="table ">
                  <thead>
                      <tr>
                          <th>ID</th>
@@ -201,7 +198,7 @@ Carro de Productos
 
                     <hr>
 
-
+                    {!! Form::open(['url' => 'order/procesar', 'class' => 'form-horizontal', 'id' => 'procesarForm', 'name' => 'procesarForm', 'method'=>'POST']) !!}
                     @if(count($formasenvio))
 
                     <div class="row">
@@ -285,6 +282,8 @@ Carro de Productos
                         </div>
                     </div>
 
+
+
                     @else
 
                     <div class="row">
@@ -339,9 +338,12 @@ Carro de Productos
 
      <hr>
      <p>
-         <a class="btn btn-primary" href="{{url('#')}}">Pagar </a>
-         <a class="btn btn-primary" href="{{url('#')}}">Continuar</a>
+         <a class="btn btn-primary" href="{{url('/productos')}}">Cancelar </a>
+         <button class="btn btn-primary" type="submit"> Enviar Pedido  </button>
+
      </p>
+
+     {!! Form::close() !!}
      
 </div>
 

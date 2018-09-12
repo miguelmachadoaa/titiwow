@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class AlpProductos extends Model
+class AlpDetalles extends Model
 {
     use SoftDeletes;
 
-    public $table = 'alp_productos';
+    public $table = 'alp_ordenes_detalle';
     
 
     protected $dates = ['deleted_at'];
@@ -19,19 +19,11 @@ class AlpProductos extends Model
 
     public $fillable = [
         'id',
-        'nombre_producto',
-        'referencia_producto',
-        'referencia_producto_sap',
-        'descripcion_corta',
-        'descripcion_larga',
-        'imagen_producto',
-        'seo_titulo',
-        'seo_descripcion',
-        'slug',
-        'id_categoria_default',
-        'id_marca',
-        'precio',
-        'estado_registro',
+        'id_orden',
+        'id_producto',
+        'cantidad',
+        'precio_unitario',
+        'precio_total',
         'id_user'
     ];
 
@@ -41,7 +33,7 @@ class AlpProductos extends Model
      * @var array
      */
     protected $casts = [
-        'nombre_producto' => 'string'
+        'id_orden' => 'string'
     ];
 
     /**
@@ -50,6 +42,6 @@ class AlpProductos extends Model
      * @var array
      */
     public static $rules = [
-        'nombre_producto' => 'required'
+        'id_orden' => 'required'
     ];
 }

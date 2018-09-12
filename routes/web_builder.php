@@ -6,25 +6,33 @@
 
 Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.'), function () {
 
+
+    Route::resource('productos', 'admin\AlpProductosController');
+
+
+/*
 Route::get('productos', ['as'=> 'productos.index', 'uses' => 'admin\AlpProductosController@index']);
 
 Route::post('productos', ['as'=> 'productos.store', 'uses' => 'admin\AlpProductosController@store']);
 
 Route::get('productos/create', ['as'=> 'productos.create', 'uses' => 'admin\AlpProductosController@create']);
+
 Route::put('productos/{alpProductos}', ['as'=> 'productos.update', 'uses' => 'admin\AlpProductosController@update']);
 
 Route::patch('productos/{alpProductos}', ['as'=> 'productos.update', 'uses' => 'admin\AlpProductosController@update']);
 
 Route::get('productos/{id}/delete', array('as' => 'productos.delete', 'uses' => 'admin\AlpProductosController@getDelete'));
 
-Route::get('productos/{id}/confirm-delete', array('as' => 'productos.confirm-delete', 'uses' => 'admin\AlpProductosController@getModalDelete'));
+
 
 Route::get('productos/{alpProductos}', ['as'=> 'productos.show', 'uses' => 'admin\AlpProductosController@show']);
 
 Route::get('productos/{alpProductos}/edit', ['as'=> 'productos.edit', 'uses' => 'admin\AlpProductosController@edit']);
 
-Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses' => 'admin\AlpProductosController@destroy']);
+*/
+Route::get('productos/{id}/confirm-delete', array('as' => 'productos.confirm-delete', 'uses' => 'admin\AlpProductosController@getModalDelete'));
 
+Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses' => 'admin\AlpProductosController@destroy']);
 
 //fin direcciones productos 
 
@@ -134,12 +142,16 @@ Route::get('cart/show', ['as'=>'cart.show', 'uses'=>'admin\AlpCartController@sho
 
 Route::get('cart/mercadopago', ['as'=>'cart.mercadopago', 'uses'=>'admin\AlpCartController@mercadopago']);
 
-Route::get(
-    'order/detail', 
-    [
+Route::get(    'order/detail',     [
         //'middleware'=>'auth', 
         'as'=>'order.detail', 
         'uses'=>'admin\AlpCartController@orderDetail'
+    ]);
+
+Route::post(    'order/procesar',     [
+        //'middleware'=>'auth', 
+        'as'=>'order.procesar', 
+        'uses'=>'admin\AlpCartController@orderProcesar'
     ]);
 
 //inyeccion de dependencias

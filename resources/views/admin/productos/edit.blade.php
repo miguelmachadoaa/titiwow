@@ -92,6 +92,9 @@ Productos
                                 <a href="#adjusthtml">Ajustes SEO</a>
                             </li>
                             <li class="acc-wizard-todo">
+                                <a href="#prod_categoria">Categorias del Producto</a>
+                            </li>
+                            <li class="acc-wizard-todo">
                                 <a href="#viewpage">Caracteristicas Producto</a>
                             </li>
                         </ol>
@@ -154,6 +157,9 @@ Productos
 
                                             <div class="acc-wizard-step"></div>
 
+                                        <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">Siguiente</a>
+
+
                                         
                                     </div>
                                     <!--/.panel-body --> </div>
@@ -206,12 +212,6 @@ Productos
 
                                         <!-- Carga de imagenes -->
 
-                                        
-
-
-
-
-
 
                         <div class="form-group clearfix">
 
@@ -226,7 +226,7 @@ Productos
 
                                     @if($producto->imagen_producto!='0')
 
-                                        <img src="{{URL::to('uploads/blog/'.$producto->imagen_producto)}}" class="img-responsive" alt="Image">
+                                        <img src="{{URL::to('uploads/productos/'.$producto->imagen_producto)}}" class="img-responsive" alt="Image">
 
                                     @else
                                         
@@ -267,28 +267,14 @@ Productos
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                             <div class="acc-wizard-step"></div>
+
+
+                                        <a class="btn btn-default" href="#divbasicos" data-parent="#accordion-demo" data-toggle="collapse">Anterior</a>
+
+
+                                        <a class="btn btn-default" href="#adjusthtml" data-parent="#accordion-demo" data-toggle="collapse">Siguiente</a>
+
                                         
                                     </div>
                                     <!--/.panel-body --> </div>
@@ -347,7 +333,7 @@ Productos
 
                                                 <div class="col-md-9">
 
-                                                    <input id="slug" name="slug" type="text" placeholder="Seo Url" class="form-control  {{ $errors->first('seo_url', 'has-error') }}" value="{!! old('Seo Url', $producto->seo_url) !!}">
+                                                    <input id="slug" name="slug" type="text" placeholder="Seo Url" class="form-control  {{ $errors->first('seo_url', 'has-error') }}" value="{!! old('Seo Url', $producto->slug) !!}">
 
                                                 </div>
 
@@ -356,6 +342,12 @@ Productos
                                             </div>
 
                                             <div class="acc-wizard-step"></div>
+
+                                            
+                                            <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">Anterior</a>
+
+
+                                            <a class="btn btn-default" href="#prod_categoria" data-parent="#accordion-demo" data-toggle="collapse">Siguiente</a>
 
                                        
                                     </div>
@@ -383,8 +375,15 @@ Productos
                                         <input type="hidden" name="categorias_prod_check" id="categorias_prod_check" value="{{ $check }}">
 
                                         <div class="col-sm-12">
-                                            <label>Tree</label>
+                                            <label>Arbol de Categorias</label>
                                             <div id="treeview-checkable" class=""></div>
+
+                                            <!-- Botones anteriro y siguiente manuales -->
+                                            
+                                            <a class="btn btn-default" href="#adjusthtml" data-parent="#accordion-demo" data-toggle="collapse">Anterior</a>
+
+
+                                            <a class="btn btn-default" href="#viewpage" data-parent="#accordion-demo" data-toggle="collapse">Siguiente</a>
                                         </div>
                                         
                                         
@@ -420,7 +419,7 @@ Productos
 
                                                 <div class="col-md-9"> 
 
-                                                 <select id="id_categoria_default" name="id_categoria_default" class="form-control select2  {{ $errors->first('id_categoria_default', 'has-error') }} ">
+                                                 <select id="id_categoria_default" name="id_categoria_default" class="form-control   {{ $errors->first('id_categoria_default', 'has-error') }} ">
 
                                                     <option value="">Seleccione</option>
 
@@ -439,6 +438,9 @@ Productos
                                                
                                             </div>
 
+                                                <br>    
+
+
                                             <div class="form-group">
 
                                                 <label for="select21" class="col-md-3 control-label">
@@ -447,7 +449,7 @@ Productos
 
                                                 <div class="col-md-9" >
 
-                                                    <select id="id_marca" name="id_marca" class="form-control select2 {{ $errors->first('id_marca', 'has-error') }}  ">
+                                                    <select id="id_marca" name="id_marca" class="form-control  {{ $errors->first('id_marca', 'has-error') }}  ">
 
                                                         <option value="">Seleccione</option>
                                                          @foreach($marcas as $marca)
@@ -463,12 +465,25 @@ Productos
                                                 
                                             </div>
 
+                                                <br>    
+
+
                                             <div class="form-group clearfix">
 
                                                 <label class="col-md-3 control-label" for="referencia_producto">Inventario Incial </label>
 
                                                 <div class="col-md-9">
-                                                    <input id="inventario_inicial" name="inventario_inicial" type="number" placeholder="Inventario Inicial" class="form-control" value="{{$producto->inventario_inicial}}" readonly="true" ></div>
+                                                    <input id="inventario_inicial" name="inventario_inicial" type="number" placeholder="Inventario Inicial" class="form-control" value="{{$producto->inventario_inicial}}" readonly="true" >
+
+                                                </div>
+                                                <br>    
+
+                                                <div class="form-group clearfix ">
+                                                <label class="col-md-3 control-label" for="referencia_producto">Precio </label>
+                                                <div class="col-md-9">
+                                                    <input id="precio" step="0.01" name="precio" type="number" placeholder="Precio" class="form-control" value="{{$producto->precio}}" ></div>
+                                                </div>
+
                                             </div>
 
                                            
@@ -476,7 +491,10 @@ Productos
                                                 
                                             </div>
 
-                                            <button type="button" class="btn btn-danger finish">Finish</button>
+                                            <a class="btn btn-default" href="#prod_categoria" data-parent="#accordion-demo" data-toggle="collapse">Anterior</a>
+
+                                            <button type="button" class="btn btn-primary finish">Enviar </button>
+                                            
                                         
                                     </div>
 

@@ -37,7 +37,12 @@ class AlpProductosController extends JoshController
     public function index()
     {
         // Grab all the blogs
-        $productos = AlpProductos::all();
+        
+
+        $productos = AlpProductos::select('alp_productos.*', 'alp_categorias.nombre_categoria as nombre_categoria')
+          ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
+          ->get();
+
         // Show the page
         return view('admin.productos.index', compact('productos'));
     }
@@ -172,6 +177,7 @@ class AlpProductosController extends JoshController
             'slug' => $request->slug, 
             'id_categoria_default' =>$request->id_categoria_default, 
             'id_marca' =>$request->id_marca, 
+            'precio' =>$request->precio, 
             'id_user' =>$user_id
         );
          
@@ -245,14 +251,12 @@ class AlpProductosController extends JoshController
 
          $i=0;
 
+         //esto es para las categorias ya seleccionadas de productyi
+
         foreach ($cats as $cat) {
 
         $catego = AlpCategorias::find($cat->id_categoria);
 
-        
-
-
-            
             if ($i=0) {
               $check=$check.$cat->id_categoria.'-'.$catego->nombre_categoria;
             }else{
@@ -262,6 +266,8 @@ class AlpProductosController extends JoshController
             $i++;
 
         }
+
+        //esto es para montar el arbol de categorias 
 
         $categorias = AlpCategorias::all();
 
@@ -285,17 +291,19 @@ class AlpProductosController extends JoshController
         }
 
         $tree=json_encode($arbol);
-      
         
         #$marcas = AlpMarcas::pluck('nombre_marca', 'id');
+
+        $categorias = AlpCategorias::where('id_categoria_parent','0')->get();
+
         $marcas = AlpMarcas::all();
 
         $producto = AlpProductos::find($id);
 
-
         $producto['inventario_inicial']=$inventario->cantidad;
 
         return view('admin.productos.edit', compact('producto', 'categorias', 'marcas', 'check', 'tree'));
+
     }
 
     /**
@@ -351,7 +359,8 @@ class AlpProductosController extends JoshController
                 'seo_descripcion' =>$request->seo_descripcion, 
                 'slug' =>$request->slug, 
                 'id_categoria_default' =>$request->id_categoria_default, 
-                'id_marca' =>$request->id_marca
+                'id_marca' =>$request->id_marca,
+                'precio' =>$request->precio
                 );
 
         }else{
@@ -366,6 +375,7 @@ class AlpProductosController extends JoshController
                 'seo_descripcion' =>$request->seo_descripcion, 
                 'slug' =>$request->slug, 
                 'id_categoria_default' =>$request->id_categoria_default, 
+                'precio' =>$request->precio,
                 'id_marca' =>$request->id_marca
                 );
 
@@ -375,10 +385,9 @@ class AlpProductosController extends JoshController
         $producto->update($data);
 
 
-         
-        
-
         $cats=explode(',', $request->categorias_prod);
+
+        AlpCategoriasProductos::where('id_producto', $producto->id)->delete();
 
          foreach ($cats as $cat ) {
             
@@ -392,8 +401,6 @@ class AlpProductosController extends JoshController
             AlpCategoriasProductos::create($data_cat);
 
         }
-
-
 
 
         if ($producto->id) {

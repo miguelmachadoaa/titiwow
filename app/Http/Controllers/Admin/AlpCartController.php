@@ -11,6 +11,8 @@ use App\Models\AlpInventario;
 use App\Models\AlpMarcas;
 use App\Models\AlpFormasenvio;
 use App\Models\AlpFormaspago;
+use App\Models\AlpOrdenes;
+use App\Models\AlpDetalles;
 use App\Country;
 use App\State;
 use App\City;
@@ -67,9 +69,9 @@ class AlpCartController extends JoshController
 
       if (Sentinel::check()) {
 
-          $user_id = Sentinel::getUser()->id;
+        $user_id = Sentinel::getUser()->id;
 
-          $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
+        $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
 
         $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_countries.country_name as country_name')
           ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
@@ -106,6 +108,76 @@ class AlpCartController extends JoshController
 
     }
 
+    }
+
+
+
+    public function orderProcesar(Request $request)
+    {
+       $cart= \Session::get('cart');
+
+      $total=$this->total();
+
+      if (Sentinel::check()) {
+
+        $user_id = Sentinel::getUser()->id;
+
+        $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
+
+
+         $data_orden = array(
+            'referencia ' => time(), 
+            'id_cliente' => $user_id, 
+            'id_forma_envio' =>$request->id_forma_envio, 
+            'id_forma_pago' =>$request->id_forma_pago, 
+            'monto_total' =>$total,
+            'id_user' =>$user_id
+          );
+
+         $orden=AlpOrdenes::create($data_orden);
+
+
+         foreach ($cart as $detalle) {
+
+          $data_detalle = array(
+            'id_orden' => $orden->id, 
+            'id_producto' => $detalle->id, 
+            'cantidad' =>$detalle->cantidad, 
+            'precio_unitario' =>$detalle->precio, 
+            'precio_total' =>$detalle->cantidad*$detalle->precio,
+            'id_user' =>$user_id 
+          );
+
+          AlpDetalles::create($data_detalle);
+
+         }
+
+         $data_update = array('referencia' => 'ALP'.$orden->id );
+
+         $orden->update($data_update);
+
+         $datalles=AlpDetalles::where('id_orden', $orden->id)->get();
+
+
+
+         $cart= \Session::forget('cart');
+
+
+
+      return view('frontend.order.procesar', compact('order', 'datalles'));
+
+
+         
+
+      }else{
+
+          return redirect('login');
+
+
+    }
+
+    
+
 
 
 
@@ -117,7 +189,6 @@ class AlpCartController extends JoshController
 
        $producto->cantidad=1;
 
-       $producto->precio=rand ( 1 , 100 );
 
        $cart[$producto->slug]=$producto;
 
@@ -136,7 +207,6 @@ class AlpCartController extends JoshController
 
        $producto->cantidad=1;
 
-       $producto->precio=rand ( 1 , 100 );
 
        $cart[$producto->slug]=$producto;
 

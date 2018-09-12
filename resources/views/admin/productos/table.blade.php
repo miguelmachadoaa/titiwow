@@ -6,7 +6,7 @@
         <th>Referencia</th>
         <th>Imagen</th>
         <th>Categoria Principal</th>
-        <th>Inventario</th>
+        <th>Precio</th>
         <th>Estado</th>
         <th >Action</th>
      </tr>
@@ -17,9 +17,9 @@
             <td>{!! $alpProductos->id !!}</td>
             <td>{!! $alpProductos->nombre_producto !!}</td>
             <td>{!! $alpProductos->referencia_producto !!}</td>
-            <td>{!! $alpProductos->imagen_producto !!}</td>
-            <td>{!! $alpProductos->id_categoria_default !!}</td>
-            <td>{!! $alpProductos->id !!}</td>
+            <td><img src="../uploads/productos/{!! $alpProductos->imagen_producto !!}" height="60px"></td>
+            <td>{!! $alpProductos->nombre_categoria !!}</td>
+            <td>{!! number_format($alpProductos->precio,2) !!}</td>
             <td>{!! $alpProductos->estado_registro !!}</td>
             <td>
                  <a href="{{ route('admin.productos.show', collect($alpProductos)->first() ) }}">
