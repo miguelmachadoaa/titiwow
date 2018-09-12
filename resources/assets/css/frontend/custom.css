@@ -10,7 +10,13 @@ body {
 
 }
 .icon-section {
-    background-color : #203878;
+    background: rgb(20, 51, 114);
+    background: -moz-linear-gradient(left, rgba(20, 51, 114, 1) 1%, rgba(21, 75, 138, 1) 36%, rgba(24, 124, 188, 1) 69%, rgba(26, 154, 218, 1) 100%);
+    background: -webkit-linear-gradient(left, rgba(20, 51, 114, 1) 1%, rgba(21, 75, 138, 1) 36%, rgba(24, 124, 188, 1) 69%, rgba(26, 154, 218, 1) 100%);
+    background: linear-gradient(to right, rgba(20, 51, 114, 1) 1%, rgba(21, 75, 138, 1) 36%, rgba(24, 124, 188, 1) 69%, rgba(26, 154, 218, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#143372', endColorstr='#1a9ada', GradientType=1);
+    padding: 1rem 0 0.1rem;
+    z-index: 2;
     line-height      : 7px;
     padding-top      : 10px;
 
@@ -518,7 +524,13 @@ blockquote {
 /* ---------- Footer Section Css ---------- */
 
 footer {
-    background-color : #203878;
+    background: rgb(20, 51, 114);
+    background: -moz-linear-gradient(left, rgba(20, 51, 114, 1) 1%, rgba(21, 75, 138, 1) 36%, rgba(24, 124, 188, 1) 69%, rgba(26, 154, 218, 1) 100%);
+    background: -webkit-linear-gradient(left, rgba(20, 51, 114, 1) 1%, rgba(21, 75, 138, 1) 36%, rgba(24, 124, 188, 1) 69%, rgba(26, 154, 218, 1) 100%);
+    background: linear-gradient(to right, rgba(20, 51, 114, 1) 1%, rgba(21, 75, 138, 1) 36%, rgba(24, 124, 188, 1) 69%, rgba(26, 154, 218, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#143372', endColorstr='#1a9ada', GradientType=1);
+    padding: 1rem 0 1rem;
+    z-index: 2;
     font-family: 'Oswald', sans-serif;
 }
 footer h4 {
@@ -640,7 +652,14 @@ footer a:hover, footer a:active{
 /* ---------- Copy Right Section Css  ---------- */
 
 .copyright {
-    background-color : #01143e;
+    background: rgb(20, 51, 114);
+    background: -moz-linear-gradient(left, rgba(20, 51, 114, 1) 1%, rgba(21, 75, 138, 1) 36%, rgba(24, 124, 188, 1) 69%, rgba(26, 154, 218, 1) 100%);
+    background: -webkit-linear-gradient(left, rgba(20, 51, 114, 1) 1%, rgba(21, 75, 138, 1) 36%, rgba(24, 124, 188, 1) 69%, rgba(26, 154, 218, 1) 100%);
+    background: linear-gradient(to right, rgba(20, 51, 114, 1) 1%, rgba(21, 75, 138, 1) 36%, rgba(24, 124, 188, 1) 69%, rgba(26, 154, 218, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#143372', endColorstr='#1a9ada', GradientType=1);
+    padding: 1rem 0 1rem;
+    z-index: 2;
+    border-top: 1px solid #ffffff;
 }
 .copyright p {
     color   : #fff;
@@ -870,3 +889,44 @@ footer a:hover, footer a:active{
 .dropdown:hover .dropdown-menu {
     display: block;
 }
+/*Productos Listado Inicio*/
+.products{
+    margin: 30px 0px;
+}
+@media (min-width : 951px) {
+    .products img {
+        width: 245px;
+        height: 245px;
+        margin: 0px auto;
+}}
+@media (max-width : 950px) {
+    .products img {
+        width: 150px;
+        height: 150px;
+        margin: 0px auto;
+}}
+.products h1 {
+    font-size: 18px;
+    color:#333336;
+    text-align: center;
+    margin: 20px 0px 15px 0px;
+}
+#precio_prod{
+    text-align: center !important;
+    margin: 10px 0px;
+}
+.precio_base{
+    color:#203878;
+    font-size: 20px;
+}
+#precio_prod del{
+    color: #ef6f6c;
+    font-size: 18px;
+}
+.product_info a:link{
+    color:#ffffff;
+}
+.product_botones{
+    text-align: center;
+}
+/*Productos Listado Fin*/

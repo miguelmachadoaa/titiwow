@@ -3,7 +3,7 @@
 
 {{-- Page title --}}
 @section('title')
-Products
+Productos
 @parent
 @stop
 
@@ -19,16 +19,16 @@ Products
         <div class="container">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Dashboard
+                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Inicio
                     </a>
                 </li>
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
-                    <a href="#">Products</a>
+                    <a href="#">Productos</a>
                 </li>
             </ol>
             <div class="pull-right">
-                <i class="livicon icon3" data-name="edit" data-size="20" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i> Products
+                <i class="livicon icon3" data-name="edit" data-size="20" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i> Productos
             </div>
         </div>
     </div>
@@ -38,30 +38,29 @@ Products
 {{-- Page content --}}
 @section('content')
 <div class="container">
-    <div class="row">
-        <a href="{{url('cart/show')}}"> ir al carro </a>
-        <h1>listado de productos</h1>
-         <div class="col-md-10 col-md-offset-1">
-	     <table class="table table-striped">
-                 <thead>
-                     <tr>
-                         <th>Title</th>
-                         <th>Slug</th>
-                         <th>Agragar al carro</th>
-                     </tr>
-                 </thead>
-                 <tbody>
-                     @foreach($productos as $producto)
-                        <tr>
-                            <td><a href="{{ route('producto', [$producto->slug]) }}"> {{ $producto->nombre_producto }}</a></td>
-                            <td>{{ $producto->slug }}</td>
-                            <td><a class="btn btn-primary addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a></td>
-                        </tr>
-                     @endforeach
-                 </tbody>
-             </table>
-         </div>
-     </div>
+    <div class="products">
+        <div class="row">
+            @foreach($productos as $producto)
+                <div class="col-md-3 col-sm-6 col-xs-6 products">
+                    <div class="text-align:center;">
+                        <a href="{{ route('producto', [$producto->slug]) }}" ><img src="../uploads/productos/{{ $producto->imagen_producto }}" class="img-responsive"></a>
+                    </div>
+                    <a href="{{ route('producto', [$producto->slug]) }}" ><h1>{{ $producto->nombre_producto }}</h1></a>
+                    <div class="product_info">
+                        <p id="precio_prod"><del class="hidden">${{ $producto->precio_base }}</del>&nbsp;<span class="precio_base">${{ $producto->precio_base }}</span></p>
+                        <p class="product_botones">
+                            <a class="btn btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
+                            <a class="btn btn-primary" href="{{ route('producto', [$producto->slug]) }}">Ver Más</a>
+                        </p>
+                    </div>
+                </div>
+                @if ($loop->iteration % 4 == 0)
+                    </div>
+                    <div class="row">
+                @endif
+            @endforeach
+        </div>
+    </div>
 </div>
 @endsection
 

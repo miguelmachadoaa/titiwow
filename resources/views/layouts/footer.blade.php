@@ -2,7 +2,7 @@
  <footer>
         <div class="container footer-text">
             <!-- Mi cuenta Section Start -->
-            <div class="col-sm-3">
+            <div class="col-sm-3 clearfix">
                 <h4>Mi Cuenta</h4>
                 <p>
                     <ul id="menu-principal-1" class="menu_footer"><li id="menu-item-8915" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-16 current_page_item menu-item-8915"><a href="http://www.centrodechapas.com.ar/">Inicio</a></li>
@@ -15,7 +15,7 @@
             </div>
             <!-- //Mi cuenta Section End -->
             <!-- Categorias Section Start -->
-            <div class="col-sm-3">
+            <div class="col-sm-3 clearfix">
                 <h4>Categorías</h4>
                 <p>
                     <ul id="menu-principal-1" class="menu_footer"><li id="menu-item-8915" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-16 current_page_item menu-item-8915"><a href="http://www.centrodechapas.com.ar/">Inicio</a></li>
@@ -28,7 +28,7 @@
             </div>
             <!-- //Categorias Section End -->
             <!-- Redes Section Start -->
-                        <div class="col-sm-3">
+            <div class="col-sm-3 clearfix">
                 <h4>Mi Cuenta</h4>
                 <p>
                 <div class="redes_foot">
@@ -37,13 +37,14 @@
                     <div style="clear: both;"></div>
                     <div class="div_deres"><a title="Síguenos en Twitter" href="https://www.facebook.com/" target="_blank" rel="noopener"><img src="{{ asset('assets/img/twitter.png') }}" border="0"></a></div>
                     <div class="div_deres"><a title="Síguenos en Youtube" href="https://www.instagram.com/" target="_blank" rel="noopener"><img src="{{ asset('assets/img/youtube.png') }}" border="0"></a></div>
+                    <div style="clear: both;"></div>
                 </div>
                 </p>
                 
             </div>
             <!-- //redes Section End -->
             <!-- Contacto Section Start -->
-            <div class="col-sm-3">
+            <div class="col-sm-3 clearfix">
                 <h4>Atención al Cliente</h4>
                     <div class="contacto_foot">
                         <div class="div_contacto1"><img src="{{ asset('assets/img/location.png') }}" border="0"></div>

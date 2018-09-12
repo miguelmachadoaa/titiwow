@@ -26,6 +26,9 @@ class CreateAlpProductosTable extends Migration
             $table->string('slug')->unique();
             $table->integer('id_categoria_default');
             $table->integer('id_marca');
+            $table->decimal('precio_base')->nullable();
+            $table->integer('id_impuesto');
+            $table->decimal('pum')->nullable();
             $table->integer('estado_registro')->default(1);
             $table->integer('id_user');
             $table->timestamps();

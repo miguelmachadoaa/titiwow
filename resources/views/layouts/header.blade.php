@@ -13,7 +13,7 @@
     <![endif]-->
     <title>
     	@section('title')
-        | Welcome to Josh Frontend
+        | Alpina
         @show
     </title>
     <!--global css starts-->
