@@ -18,7 +18,7 @@
     </title>
     <!--global css starts-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/lib.css') }}">
-    <!--end of global css-->
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa|Oswald" rel="stylesheet">    <!--end of global css-->
     <!--page level css-->
     @yield('header_styles')
     <!--end of page level css-->
@@ -100,10 +100,10 @@
             </div>
         </div>
         <!-- //logo Section End -->
+<nav class="navbar navbar-default container">
 
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="collapse navbar-collapse">
+<div class="collapse navbar-collapse" id="collapse">
+    <ul class="nav navbar-nav navbar-left">
             <ul class="nav navbar-nav">
                 @foreach ($menus as $key => $item)
                     @if ($item['parent'] != 0)
@@ -112,7 +112,6 @@
                     @include('layouts.menu', ['item' => $item])
                 @endforeach
             </ul>
-        </div>
     </div>
 </nav>
 

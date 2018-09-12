@@ -237,9 +237,9 @@ p label {
     text-decoration : none;
 }
 .breadcum {
-    background-color : #DBD6D6;
-    border-top       : 2px solid #b7b0b0;
-    border-bottom    : 2px solid #b7b0b0;
+    background-color : #f2f2f2;
+    border-top       : 1px solid #c8c4c4;
+    border-bottom    : 1px solid #c8c4c4;
     padding          : 0 2%;
 }
 .breadcum .pull-right {
@@ -249,7 +249,7 @@ p label {
     padding          : 8px 15px;
     margin-bottom    : 0;
     list-style       : none;
-    background-color : #DBD6D6;
+    background-color : #f2f2f2;
     border-radius    : 4px;
     float            : left;
 }
@@ -315,16 +315,16 @@ blockquote {
 /* ---------- Menu Section Css ---------- */
 
 .menu > li {
-    border  : 1px solid #f89a14;
-    padding : 10px 13px;
+    padding : 2px 5px;
     margin  : 0 10px;
+    display: list-item;
 }
 .menu {
     margin-top : 20px;
 }
 .menu > li:hover,
 .menu li .active {
-    background-color : #01bc8c;
+   color : #00aeef;
 }
 /* ---------- //Menu Section Css End ---------- */
 
@@ -531,19 +531,44 @@ blockquote {
 
 footer {
     background-color : #203878;
+    font-family: 'Oswald', sans-serif;
 }
 footer h4 {
     color : #fff;
+    font-family: 'Comfortaa', cursive;
+    text-transform: uppercase;
+    border-bottom: 3px solid #00aeef;
+    padding-bottom: 10px; 
+    margin-bottom: 10px;
 }
 .footer-text {
-    color   : #ababab;
+    color   : #ffffff;
     padding : 30px 0;
 }
 footer img {
-    width : 50px;
+
 }
 footer .btn-primary.text-white {
     margin-top : 2%;
+}
+footer a:link{
+    color:#ffffff;
+    font-size: 16px;
+}
+footer a:hover, footer a:active{
+    color:#00aeef;
+}
+.menu_footer li:before {
+    position: absolute;
+    top: 9px;
+    left: 0;
+    border-width: 3px;
+    border-style: solid;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    content: "";
+    border-color: #00aeef;
 }
 /* ---------- //Footer Section Css End ---------- */
 
