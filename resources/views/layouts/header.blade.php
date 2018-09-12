@@ -100,7 +100,22 @@
             </div>
         </div>
         <!-- //logo Section End -->
-        
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                @foreach ($menus as $key => $item)
+                    @if ($item['parent'] != 0)
+                        @break
+                    @endif
+                    @include('layouts.menu', ['item' => $item])
+                @endforeach
+            </ul>
+        </div>
+    </div>
+</nav>
+
         <!-- Nav bar End -->
     </header>
     <!-- //Header End -->

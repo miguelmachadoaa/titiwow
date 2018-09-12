@@ -11,7 +11,7 @@ use App\Mail\ContactUser;
 use App\Mail\ForgotPassword;
 use App\Mail\Register;
 use App\User;
-use Models\AlpMenuDetalle;
+use App\Models\AlpMenuDetalle;
 use Cartalyst\Sentinel\Checkpoints\NotActivatedException;
 use Cartalyst\Sentinel\Checkpoints\ThrottlingException;
 use File;
@@ -379,14 +379,6 @@ class FrontEndController extends JoshController
         }
     }
 
-    public function menugeral()
-    {
-        $menu = AlpMenuDetalle::all();
-        dd($menu);
-
-
-        return \View::make('layouts.menu', compact('menu'));
-    }
 
 
 

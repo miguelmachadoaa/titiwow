@@ -13,19 +13,16 @@ class CreateAlpMenuDetalleTable extends Migration
      */
     public function up()
     {
-        Schema::create('alp_menu_detalle', function (Blueprint $table) {
+        Schema::create('alp_menu_detalles', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('titulo_menu');
-            $table->string('url_menu');
-            $table->string('imagen_menu')->nullable();
-            $table->integer('id_menu_parent')->nullable();
-            $table->integer('estado_registro')->default(1);
-            $table->integer('orden');
+            $table->string('name', 150);
+            $table->string('slug', 150)->unique();
+            $table->unsignedInteger('parent')->default(0);
+            $table->smallInteger('order')->default(0);
+            $table->boolean('enabled')->default(1);
             $table->integer('id_menu');
-            $table->integer('id_user');
             $table->timestamps();
-            $table->softDeletes();
-        });
+        }); 
     }
 
     /**
@@ -35,6 +32,6 @@ class CreateAlpMenuDetalleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('alp_menu_detalle');
+        Schema::dropIfExists('alp_menu_detalles');
     }
 }
