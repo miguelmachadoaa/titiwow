@@ -77,6 +77,15 @@
                 </a>
             </li>
         </ul>
+
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/estatus*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.estatus.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Estatus Envios
+                </a>
+            </li>
+        </ul>
     </li>
 
    

@@ -130,6 +130,22 @@ Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses'
 
     //fin direcioens clientes
 
+    //Inicio direcciones clientes
+
+    Route::group(['prefix' => 'estatus'], function () {
+
+        Route::get('{id}/delete', 'admin\AlpEstatusOrdenesController@destroy')->name('estatus.delete');
+
+        Route::get('{id}/confirm-delete', 'admin\AlpEstatusOrdenesController@getModalDelete')->name('estatus.confirm-delete');
+
+        Route::get('{id}/restore', 'admin\AlpEstatusOrdenesController@getRestore')->name('estatus.restore');
+
+        });
+
+    Route::resource('estatus', 'admin\AlpEstatusOrdenesController');
+
+    //fin direcioens clientes
+
 
 
 });
