@@ -86,6 +86,15 @@
                 </a>
             </li>
         </ul>
+
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/transportistas*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.transportistas.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Transportistas
+                </a>
+            </li>
+        </ul>
     </li>
 
    

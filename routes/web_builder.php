@@ -146,6 +146,18 @@ Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses'
 
     //fin direcioens clientes
 
+    Route::group(['prefix' => 'transportistas'], function () {
+
+        Route::get('{id}/delete', 'admin\AlpTransportistasController@destroy')->name('transportistas.delete');
+
+        Route::get('{id}/confirm-delete', 'admin\AlpTransportistasController@getModalDelete')->name('transportistas.confirm-delete');
+
+        Route::get('{id}/restore', 'admin\AlpTransportistasController@getRestore')->name('transportistas.restore');
+
+        });
+
+    Route::resource('transportistas', 'admin\AlpTransportistasController');
+
 
 
 });
