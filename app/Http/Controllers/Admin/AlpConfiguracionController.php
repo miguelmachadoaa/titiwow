@@ -3,14 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\JoshController;
-use App\Models\AlpProductos;
-use App\Models\AlpDirecciones;
-use App\Models\AlpCategorias;
-use App\Models\AlpCategoriasProductos;
-use App\Models\AlpInventario;
-use App\Models\AlpMarcas;
-use App\Models\AlpFormasenvio;
-use App\Models\AlpFormaspago;
+use App\Models\AlpConfiguracion;
 use App\Country;
 use App\State;
 use App\City;
@@ -26,6 +19,47 @@ use DB;
 
 class AlpConfiguracionController extends JoshController
 {
+
+    public function index()
+    {
+        // Grab all the groups
+      
+
+        $configuracion = AlpConfiguracion::where('id', '1')->first();
+       
+
+
+        // Show the page
+        return view('admin.configuracion.edit', compact('configuracion'));
+        
+    }
+
+    /**
+     * Group update form processing page.
+     *
+     * @param  int $id
+     * @return Redirect
+     */
+    public function update(Request $request, $id)
+    {
+       $data = array(
+            'nombre_tienda' => $request->nombre_tienda, 
+        );
+         
+       $configuracion = AlpConfiguracion::find($id);
+    
+        $configuracion->update($data);
+
+        if ($configuracion->id) {
+
+            return redirect('admin/configuracion')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
+
+        } else {
+            return Redirect::route('admin/configuracion')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+        }  
+
+    }
+
 
 
     /**

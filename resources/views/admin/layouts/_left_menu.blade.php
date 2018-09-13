@@ -44,6 +44,14 @@
             <span class="fa arrow"></span>
         </a>
         <ul class="sub-menu">
+            <li {!! (Request::is('admin/configuracion*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.configuracion.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Configuracion General 
+                </a>
+            </li>
+        </ul>
+        <ul class="sub-menu">
             <li {!! (Request::is('admin/formaspago*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.formaspago.index') !!}">
                     <i class="fa fa-angle-double-right"></i>

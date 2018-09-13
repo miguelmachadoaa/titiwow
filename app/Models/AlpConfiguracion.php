@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class AlpTrasportistas extends Model
+class AlpConfiguracion extends Model
 {
     use SoftDeletes;
 
-    public $table = 'alp_transportistas';
+    public $table = 'alp_configuracion_general';
     
 
     protected $dates = ['deleted_at'];
@@ -19,8 +19,7 @@ class AlpTrasportistas extends Model
 
     public $fillable = [
         'id',
-        'nombre_transportista',
-        'descripcion_transportista',
+        'nombre_tienda',
         'estado_registro',
         'id_user'
     ];
@@ -31,7 +30,7 @@ class AlpTrasportistas extends Model
      * @var array
      */
     protected $casts = [
-        'nombre_transportista' => 'string'
+        'nombre_tienda' => 'string'
     ];
 
     /**
@@ -40,6 +39,6 @@ class AlpTrasportistas extends Model
      * @var array
      */
     public static $rules = [
-        'nombre_transportista' => 'required'
+        'nombre_tienda' => 'required'
     ];
 }

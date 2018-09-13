@@ -186,6 +186,8 @@ Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses'
 
     Route::resource('impuestos', 'admin\AlpImpuestosController');
 
+    Route::resource('configuracion', 'admin\AlpConfiguracionController');
+
 
 
 });
@@ -240,9 +242,14 @@ Route::get('cart/deldir/{direccion}',['as'=>'cart.deldir', 'uses'=>'admin\AlpCar
 
 //configuracion controller para recuperar esados y ciudades 
 
+
 Route::get('configuracion/states/{id}',array('as'=>'configuracion.states','uses'=>'admin\AlpConfiguracionController@selectState'));
        
 Route::get('configuracion/cities/{id}',array('as'=>'configuracion.cities','uses'=>'admin\AlpConfiguracionController@selectCity'));
+
+
+
+
 
 
 
