@@ -43,7 +43,7 @@ Productos
             @foreach($productos as $producto)
                 <div class="col-md-3 col-sm-6 col-xs-6 products">
                     <div class="text-align:center;">
-                        <a href="{{ route('producto', [$producto->slug]) }}" ><img src="../uploads/productos/{{ $producto->imagen_producto }}" class="img-responsive"></a>
+                        <a href="{{ route('producto', [$producto->slug]) }}" ><img src="../public/uploads/productos/{{ $producto->imagen_producto }}" class="img-responsive"></a>
                     </div>
                     <a href="{{ route('producto', [$producto->slug]) }}" ><h1>{{ $producto->nombre_producto }}</h1></a>
                     <div class="product_info">

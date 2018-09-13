@@ -170,7 +170,21 @@ Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses'
 
         });
 
-    Route::resource('documentos', 'admin\AlpTipoDocumentosController');
+    Route::resource('documentos', 'admin\AlpImpuestosController');
+
+    //crud impuestos
+
+    Route::group(['prefix' => 'impuestos'], function () {
+
+        Route::get('{id}/delete', 'admin\AlpImpuestosController@destroy')->name('impuestos.delete');
+
+        Route::get('{id}/confirm-delete', 'admin\AlpImpuestosController@getModalDelete')->name('impuestos.confirm-delete');
+
+        Route::get('{id}/restore', 'admin\AlpImpuestosController@getRestore')->name('impuestos.restore');
+
+        });
+
+    Route::resource('impuestos', 'admin\AlpImpuestosController');
 
 
 

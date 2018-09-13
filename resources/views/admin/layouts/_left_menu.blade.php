@@ -104,6 +104,15 @@
                 </a>
             </li>
         </ul>
+
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/impuestos*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.impuestos.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Impuestos
+                </a>
+            </li>
+        </ul>
     </li>
 
    
