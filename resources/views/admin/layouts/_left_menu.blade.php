@@ -95,6 +95,15 @@
                 </a>
             </li>
         </ul>
+
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/documentos*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.documentos.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Tipos de Documentos
+                </a>
+            </li>
+        </ul>
     </li>
 
    

@@ -158,6 +158,20 @@ Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses'
 
     Route::resource('transportistas', 'admin\AlpTransportistasController');
 
+    //tipos de documentos
+
+    Route::group(['prefix' => 'documentos'], function () {
+
+        Route::get('{id}/delete', 'admin\AlpTipoDocumentosController@destroy')->name('documentos.delete');
+
+        Route::get('{id}/confirm-delete', 'admin\AlpTipoDocumentosController@getModalDelete')->name('documentos.confirm-delete');
+
+        Route::get('{id}/restore', 'admin\AlpTipoDocumentosController@getRestore')->name('documentos.restore');
+
+        });
+
+    Route::resource('documentos', 'admin\AlpTipoDocumentosController');
+
 
 
 });
