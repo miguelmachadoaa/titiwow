@@ -67,7 +67,7 @@ Carro de Productos
                         <tr>
                             <td><img height="60px" src="../uploads/productos/{{$row->imagen_producto}}"></td>
                             <td>{{$row->nombre_producto}}</td>
-                            <td>{{number_format($row->precio,2)}}</td>
+                            <td>{{number_format($row->precio_base,2)}}</td>
                             <td>
                                 <input 
                                 class=" " 
@@ -88,7 +88,7 @@ Carro de Productos
                                 
 
                             </td>
-                            <td>{{ number_format($row->cantidad*$row->precio, 2) }}</td>
+                            <td>{{ number_format($row->cantidad*$row->precio_base, 2) }}</td>
                             <td><a class="btn btn-danger" href="{{url('cart/delete', [$row->slug])}}">X</a></td>
                         </tr>
                      @endforeach

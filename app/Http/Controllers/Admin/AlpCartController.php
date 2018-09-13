@@ -143,7 +143,7 @@ class AlpCartController extends JoshController
             'id_orden' => $orden->id, 
             'id_producto' => $detalle->id, 
             'cantidad' =>$detalle->cantidad, 
-            'precio_unitario' =>$detalle->precio, 
+            'precio_unitario' =>$detalle->precio_base, 
             'precio_total' =>$detalle->cantidad*$detalle->precio,
             'id_user' =>$user_id 
           );
@@ -275,7 +275,7 @@ class AlpCartController extends JoshController
 
       foreach($cart as $row) {
 
-        $total=$total+($row->cantidad*$row->precio);
+        $total=$total+($row->cantidad*$row->precio_base);
 
       }
 

@@ -122,12 +122,12 @@ Carro de Productos
                         <tr>
                             <td><img height="60px" src="../uploads/productos/{{$row->imagen_producto}}"></td>
                             <td>{{$row->nombre_producto}}</td>
-                            <td>{{number_format($row->precio,2)}}</td>
+                            <td>{{number_format($row->precio_base,2)}}</td>
                             <td>
                                 {{ $row->cantidad }}
 
                             </td>
-                            <td>{{ number_format($row->cantidad*$row->precio, 2) }}</td>
+                            <td>{{ number_format($row->cantidad*$row->precio_base, 2) }}</td>
                         </tr>
                      @endforeach
 
@@ -237,7 +237,7 @@ Carro de Productos
 
                     <div class="row">
                         <div class="col-sm-12">
-                            <h3>No hay Formas de envios para seste grupo de usuarios</h3>
+                            <h3>No hay Formas de envios para este grupo de usuarios</h3>
                         </div>  
 
                     </div>
@@ -288,7 +288,7 @@ Carro de Productos
 
                     <div class="row">
                         <div class="col-sm-12">
-                            <h3>No hay Formas de envios para seste grupo de usuarios</h3>
+                            <h3>No hay Formas de envios para este grupo de usuarios</h3>
                         </div>  
 
                     </div>

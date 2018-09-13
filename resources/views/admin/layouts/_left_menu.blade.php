@@ -51,6 +51,16 @@
                 </a>
             </li>
         </ul>
+
+         <ul class="sub-menu">
+            <li {!! (Request::is('admin/estatus*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.estatus.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Estatus Envios
+                </a>
+            </li>
+        </ul>
+
         <ul class="sub-menu">
             <li {!! (Request::is('admin/formaspago*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.formaspago.index') !!}">
@@ -87,19 +97,19 @@
         </ul>
 
         <ul class="sub-menu">
-            <li {!! (Request::is('admin/estatus*') ? 'class="active"' : '') !!}>
-                <a href="{!! route('admin.estatus.index') !!}">
+            <li {!! (Request::is('admin/impuestos*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.impuestos.index') !!}">
                     <i class="fa fa-angle-double-right"></i>
-                    Estatus Envios
+                    Impuestos
                 </a>
             </li>
         </ul>
 
         <ul class="sub-menu">
-            <li {!! (Request::is('admin/transportistas*') ? 'class="active"' : '') !!}>
-                <a href="{!! route('admin.transportistas.index') !!}">
+            <li {!! (Request::is('admin/marcas*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.marcas.index') !!}">
                     <i class="fa fa-angle-double-right"></i>
-                    Transportistas
+                    Marcas
                 </a>
             </li>
         </ul>
@@ -111,16 +121,20 @@
                     Tipos de Documentos
                 </a>
             </li>
-        </ul>
+        </ul>       
 
         <ul class="sub-menu">
-            <li {!! (Request::is('admin/impuestos*') ? 'class="active"' : '') !!}>
-                <a href="{!! route('admin.impuestos.index') !!}">
+            <li {!! (Request::is('admin/transportistas*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.transportistas.index') !!}">
                     <i class="fa fa-angle-double-right"></i>
-                    Impuestos
+                    Transportistas
                 </a>
             </li>
         </ul>
+
+        
+
+        
     </li>
 
    
