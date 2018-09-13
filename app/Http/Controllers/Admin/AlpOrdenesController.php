@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\JoshController;
 use App\Models\AlpOrdenes;
-use App\Models\AlpOrdenes;
 use App\Models\AlpDetalles;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -25,13 +24,17 @@ class AlpOrdenesController extends JoshController
     {
         // Grab all the groups
       
-
         $ordenes = AlpOrdenes::all();
+
+         $ordenes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
+          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
+          ->get();
        
-
-
         // Show the page
         return view('admin.ordenes.index', compact('ordenes'));
+
     }
 
     /**
@@ -53,59 +56,7 @@ class AlpOrdenesController extends JoshController
     public function store(Request $request)
     {
         
-         $user_id = Sentinel::getUser()->id;
-
-
-         $imagen='0';
-
-         $picture = "";
-
-        
-        if ($request->hasFile('image')) {
-            
-            $file = $request->file('image');
-
-            #echo $file.'<br>';
-            
-            $extension = $file->extension()?: 'png';
-            
-
-            $picture = str_random(10) . '.' . $extension;
-
-            #echo $picture.'<br>';
-
-            $destinationPath = public_path() . '/uploads/blog/';
-
-            #echo $destinationPath.'<br>';
-
-            
-            $file->move($destinationPath, $picture);
-            
-            $imagen = $picture;
-
-        }
-
-        $data = array(
-            'nombre_categoria' => $request->nombre_categoria, 
-            'descripcion_categoria' => $request->descripcion_categoria, 
-            'referencia_producto_sap' =>$request->referencia_producto_sap, 
-            'imagen_categoria' =>$imagen, 
-            'id_categoria_parent' =>'0', 
-            'id_user' =>$user_id
-        );
-
-
-         
-        $categoria=AlpOrdenes::create($data);
-
-        if ($categoria->id) {
-
-            return redirect('admin/ordenes')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
-
-        } else {
-            return Redirect::route('admin/ordenes')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
-        } 
-
+       
     }
 
 
@@ -117,10 +68,7 @@ class AlpOrdenesController extends JoshController
      */
     public function edit($id)
     {
-       
-       $categoria = AlpOrdenes::find($id);
-
-        return view('admin.ordenes.edit', compact('categoria'));
+     
     }
 
     /**
@@ -133,68 +81,7 @@ class AlpOrdenesController extends JoshController
     {
       
 
-        $imagen='0';
-
-        $picture = "";
-
-        
-        if ($request->hasFile('image')) {
-            
-            $file = $request->file('image');
-
-            #echo $file.'<br>';
-            
-            $extension = $file->extension()?: 'png';
-            
-
-            $picture = str_random(10) . '.' . $extension;
-
-            #echo $picture.'<br>';
-
-            $destinationPath = public_path() . '/uploads/blog/';
-
-            #echo $destinationPath.'<br>';
-
-            
-            $file->move($destinationPath, $picture);
-            
-            $imagen = $picture;
-
-             $data = array(
-            'nombre_categoria' => $request->nombre_categoria, 
-            'descripcion_categoria' => $request->descripcion_categoria, 
-            'referencia_producto_sap' =>$request->referencia_producto_sap, 
-            'imagen_categoria' =>$imagen, 
-            'id_categoria_parent' =>'0'
-            );
-
-        }else{
-
-            $data = array(
-                'nombre_categoria' => $request->nombre_categoria, 
-                'descripcion_categoria' => $request->descripcion_categoria, 
-                'referencia_producto_sap' =>$request->referencia_producto_sap
-            );
-
-
-        }
-
-
-
        
-         
-       $categoria = AlpOrdenes::find($id);
-    
-        $categoria->update($data);
-
-        if ($categoria->id) {
-
-            return redirect('admin/ordenes')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
-
-        } else {
-            return Redirect::route('admin/ordenes')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
-        }  
-
     }
 
     /**
@@ -255,160 +142,20 @@ class AlpOrdenesController extends JoshController
     public function detalle($id)
     {
        
-       $categoria = AlpOrdenes::find($id);
+       $orden = AlpOrdenes::find($id);
 
       
 
-    $ordenes = AlpOrdenes::select('alp_ordenes.*')
-        ->where('alp_ordenes.id_categoria_parent',$id)->get(); 
+    $detalles = AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto')
+          ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
+          ->where('alp_ordenes_detalle.id_orden', $id)
+          ->get();
 
 
 
-        return view('admin.ordenes.detalle', compact('categoria', 'ordenes'));
-
-    }
-
-    public function storeson(Request $request, $padre)
-    {
-        
-         $user_id = Sentinel::getUser()->id;
-
-        //$input = $request->all();
-
-        //var_dump($input);
-
-          $imagen='0';
-
-         $picture = "";
-
-        
-        if ($request->hasFile('image')) {
-            
-            $file = $request->file('image');
-
-            #echo $file.'<br>';
-            
-            $extension = $file->extension()?: 'png';
-            
-
-            $picture = str_random(10) . '.' . $extension;
-
-            #echo $picture.'<br>';
-
-            $destinationPath = public_path() . '/uploads/blog/';
-
-            #echo $destinationPath.'<br>';
-
-            
-            $file->move($destinationPath, $picture);
-            
-            $imagen = $picture;
-
-        }
-
-        $data = array(
-            'nombre_categoria' => $request->nombre_categoria, 
-            'descripcion_categoria' => $request->descripcion_categoria, 
-            'referencia_producto_sap' =>$request->referencia_producto_sap, 
-            'imagen_categoria' =>$imagen, 
-            'id_categoria_parent' =>$padre, 
-            'id_user' =>$user_id
-        );
-         
-        $categoria=AlpOrdenes::create($data);
-
-        if ($categoria->id) {
-
-            return redirect('admin/ordenes/'.$padre.'/detalle')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
-
-        } else {
-            return Redirect::route('admin/ordenes/'.$padre.'/detalle')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
-        }  
+        return view('admin.ordenes.detalle', compact('detalles', 'orden'));
 
     }
 
-    /**
-     * Group update.
-     *
-     * @param  int $id
-     * @return View
-     */
-    public function editson($id)
-    {
-       
-       $categoria = AlpOrdenes::find($id);
-
-        return view('admin.ordenes.editson', compact('categoria'));
-    }
-
-    /**
-     * Group update form processing page.
-     *
-     * @param  int $id
-     * @return Redirect
-     */
-    public function updson(Request $request, $id)
-    {
-       
-         $imagen='0';
-
-         $picture = "";
-
-        
-        if ($request->hasFile('image')) {
-            
-            $file = $request->file('image');
-
-            #echo $file.'<br>';
-            
-            $extension = $file->extension()?: 'png';
-            
-
-            $picture = str_random(10) . '.' . $extension;
-
-            #echo $picture.'<br>';
-
-            $destinationPath = public_path() . '/uploads/blog/';
-
-            #echo $destinationPath.'<br>';
-
-            
-            $file->move($destinationPath, $picture);
-            
-            $imagen = $picture;
-
-            $data = array(
-            'nombre_categoria' => $request->nombre_categoria, 
-            'descripcion_categoria' => $request->descripcion_categoria, 
-            'referencia_producto_sap' =>$request->referencia_producto_sap, 
-            'imagen_categoria' =>$imagen, 
-            'id_categoria_parent' =>$request->id_categoria_parent
-                );
-
-        }else{
-
-                $data = array(
-            'nombre_categoria' => $request->nombre_categoria, 
-            'descripcion_categoria' => $request->descripcion_categoria, 
-            'referencia_producto_sap' =>$request->referencia_producto_sap, 
-            'id_categoria_parent' =>$request->id_categoria_parent
-                );
-
-        }
-
-
-       $categoria = AlpOrdenes::find($id);
-    
-        $categoria->update($data);
-
-        if ($categoria->id) {
-
-            return redirect('admin/ordenes/'.$request->id_categoria_parent.'/detalle')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
-
-        } else {
-            return Redirect::route('admin/ordenes/'.$request->id_categoria_parent.'/detalle')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
-        }  
-
-    }
 
 }

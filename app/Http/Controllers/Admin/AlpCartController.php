@@ -144,7 +144,7 @@ class AlpCartController extends JoshController
             'id_producto' => $detalle->id, 
             'cantidad' =>$detalle->cantidad, 
             'precio_unitario' =>$detalle->precio_base, 
-            'precio_total' =>$detalle->cantidad*$detalle->precio,
+            'precio_total' =>$detalle->cantidad*$detalle->precio_base,
             'id_user' =>$user_id 
           );
 
