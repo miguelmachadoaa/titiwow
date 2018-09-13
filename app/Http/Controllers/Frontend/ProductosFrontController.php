@@ -10,7 +10,7 @@ class ProductosFrontController extends Controller
 {
     public function index()
     {
-        $productos = AlpProductos::all();
+        $productos = AlpProductos::paginate(8);
         return \View::make('frontend.list', compact('productos'));
     }
  
