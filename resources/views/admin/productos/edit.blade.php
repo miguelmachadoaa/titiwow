@@ -481,7 +481,7 @@ Productos
                                                 <div class="form-group clearfix ">
                                                 <label class="col-md-3 control-label" for="referencia_producto">Precio </label>
                                                 <div class="col-md-9">
-                                                    <input id="precio" step="0.01" name="precio" type="number" placeholder="Precio" class="form-control" value="{{$producto->precio}}" ></div>
+                                                    <input id="precio_base" step="0.01" name="precio_base" type="number" placeholder="Precio" class="form-control" value="{{$producto->precio_base}}" ></div>
                                                 </div>
 
                                             </div>

@@ -206,6 +206,32 @@ Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses'
 
 
 
+    Route::resource('menus', 'admin\AlpMenuController');
+
+    Route::group(['prefix' => 'menus'], function () {
+
+        Route::get('{menu}/delete', 'admin\AlpMenuController@destroy')->name('menus.delete');
+
+        Route::get('{menu}/confirm-delete', 'admin\AlpMenuController@getModalDelete')->name('menus.confirm-delete');
+
+        Route::get('{menu}/restore', 'admin\AlpMenuController@getRestore')->name('menus.restore');
+
+        Route::get('{menu}/detalle', 'admin\AlpMenuController@detalle')->name('menus.detalle');
+
+        Route::post('{menu}/storeson', 'admin\AlpMenuController@storeson')->name('menus.storeson');
+
+        Route::get('{menu}/editson', 'admin\AlpMenuController@editson')->name('menus.editson');
+
+        Route::post('{menu}/updson', 'admin\AlpMenuController@updson')->name('menus.updson');
+
+
+
+    });
+
+    
+
+
+
 
 });
 

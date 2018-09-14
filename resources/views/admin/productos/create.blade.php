@@ -150,6 +150,8 @@
                                                     <input id="referencia_producto_sap" name="referencia_producto_sap" type="text" placeholder="Referencia Sap" value="{{ old('referencia_producto_sap') }}" class="form-control"></div>
                                             </div>
                                             <div class="acc-wizard-step"></div>
+
+                                             <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">Siguiente</a>
                                         
                                     </div>
                                     <!--/.panel-body --> </div>
@@ -248,6 +250,11 @@
 
 
                                             <div class="acc-wizard-step"></div>
+
+                                            <a class="btn btn-default" href="#divbasicos" data-parent="#accordion-demo" data-toggle="collapse">Anterior</a>
+
+
+                                        <a class="btn btn-default" href="#adjusthtml" data-parent="#accordion-demo" data-toggle="collapse">Siguiente</a>
                                         
                                     </div>
                                     <!--/.panel-body --> </div>
@@ -279,6 +286,11 @@
                                                     <input id="slug" name="slug" type="text" placeholder="Seo Url" class="form-control" value="{{ old('slug') }}"></div>
                                             </div>
                                             <div class="acc-wizard-step"></div>
+
+                                            <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">Anterior</a>
+
+
+                                            <a class="btn btn-default" href="#prod_categoria" data-parent="#accordion-demo" data-toggle="collapse">Siguiente</a>
                                         
                                     </div>
                                     <!--/.panel-body --> </div>
@@ -300,8 +312,15 @@
                                         <input type="hidden" name="categorias_prod_check" id="categorias_prod_check" value="{{ $check }}">
 
                                         <div class="col-sm-12">
-                                            <label>Tree</label>
+                                            <label>Arbol de Categorias </label>
                                             <div id="treeview-checkable" class=""></div>
+
+                                            <a class="btn btn-default" href="#adjusthtml" data-parent="#accordion-demo" data-toggle="collapse">Anterior</a>
+
+
+                                            <a class="btn btn-default" href="#viewpage" data-parent="#accordion-demo" data-toggle="collapse">Siguiente</a>
+
+
                                         </div>
                                         
                                         
@@ -367,13 +386,15 @@
                                             <div class="form-group clearfix col-sm-12">
                                                 <label class="col-md-3 control-label" for="referencia_producto">Precio </label>
                                                 <div class="col-md-9">
-                                                    <input id="precio" step="0.01" name="precio" type="number" placeholder="Precio" class="form-control" value="{{ old('precio') }}" ></div>
+                                                    <input id="precio_base" step="0.01" name="precio_base" type="number" placeholder="Precio" class="form-control" value="{{ old('precio_base') }}" ></div>
                                             </div>
                         
                                            
                                             <div class="acc-wizard-step">
                                                 
                                             </div>
+
+                                            <a class="btn btn-default" href="#prod_categoria" data-parent="#accordion-demo" data-toggle="collapse">Anterior</a>
                                             
                                             <button type="button" class="btn btn-danger finish">@lang('productos/title.enviar') </button>
                                         
