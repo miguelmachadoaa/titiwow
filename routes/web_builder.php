@@ -303,4 +303,7 @@ Route::get('producto/{slug}', ['as' => 'producto', 'uses' => 'frontend\Productos
 
 Route::get('productos', 'frontend\ProductosFrontController@index');
 
+Route::get('categoria/{slug}', ['as' => 'categoria', 'uses' => 'frontend\ProductosFrontController@categorias']);
+
+
 /* Fin Rutas Frontend Publico */

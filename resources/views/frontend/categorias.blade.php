@@ -3,7 +3,9 @@
 
 {{-- Page title --}}
 @section('title')
-Productos
+@foreach($cataname as $catana)
+{{ $catana->nombre_categoria }}
+@endforeach
 @parent
 @stop
 
@@ -28,7 +30,10 @@ Productos
                 </li>
             </ol>
             <div class="pull-right">
-                <i class="livicon icon3" data-name="edit" data-size="20" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i> Productos
+                <i class="livicon icon3" data-name="edit" data-size="20" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i> 
+                @foreach($cataname as $catana)
+                    {{ $catana->nombre_categoria }}
+                @endforeach
             </div>
         </div>
     </div>
@@ -60,7 +65,7 @@ Productos
                     <div class="row">
                 @endif
             @endforeach
-            @else
+        @else
             <div class="alert alert-danger">
                 <strong>Lo Sentimos!</strong> No Existen productos en esta categoría.
             </div>
