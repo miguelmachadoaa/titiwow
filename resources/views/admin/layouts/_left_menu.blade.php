@@ -36,6 +36,24 @@
         </ul>
     </li>
 
+     <li class="{{ Request::is('admin/ordenes*') ? 'active' : '' }}">
+        <a href="#">
+            <i class="livicon" data-name="shopping-cart" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
+               data-loop="true"></i>
+            <span class="title">Ordenes</span>
+            <span class="fa arrow"></span>
+        </a>
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.ordenes.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Ordenes
+                </a>
+            </li>
+           
+        </ul>
+    </li>
+
     <li class="{{ Request::is('admin/formaspago*') ? 'active' : '' }}">
         <a href="#">
             <i class="livicon" data-name="gear" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"

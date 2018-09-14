@@ -188,6 +188,23 @@ Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses'
 
     Route::resource('configuracion', 'admin\AlpConfiguracionController');
 
+    Route::resource('ordenes', 'admin\AlpOrdenesController');
+
+    
+
+    Route::group(['prefix' => 'ordenes'], function () {
+
+        Route::get('{id}/delete', 'admin\AlpOrdenesController@destroy')->name('ordenes.delete');
+
+        Route::get('{id}/detalle', 'admin\AlpOrdenesController@detalle')->name('ordenes.detalle');
+
+        Route::get('{id}/confirm-delete', 'admin\AlpOrdenesController@getModalDelete')->name('ordenes.confirm-delete');
+
+        Route::get('{id}/restore', 'admin\AlpOrdenesController@getRestore')->name('ordenes.restore');
+
+        });
+
+
 
 
 });
