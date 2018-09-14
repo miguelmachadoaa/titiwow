@@ -930,3 +930,20 @@ footer a:hover, footer a:active{
     text-align: center;
 }
 /*Productos Listado Fin*/
+/*Vista de producto inicio*/
+.box-info-product{
+    background: #ffffff;
+    padding: 40px;
+    vertical-align: middle;
+    width: 100% !important;
+    margin-bottom: 8px;
+    position: relative;
+    border:1px solid #e5e5e5;
+}
+.descripcion,.producto_atributos{
+    margin: 30px 0px ;
+}
+#titulo_single{
+    margin: 30px 0px 0px 0px;
+}
+/* Vista de producto fin*/

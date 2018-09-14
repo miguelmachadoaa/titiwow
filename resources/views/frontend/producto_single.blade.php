@@ -49,47 +49,39 @@
                 <div class="col-md-4">
                     <div class="row">
                         <div class="product_wrapper">
-                            <img id="zoom_09" src="/uploads/blog/{{$producto->imagen_producto}}" data-zoom-image="/uploads/blog/{{$producto->imagen_producto}}" class="img-responsive" />
+                            <img id="zoom_09" src="/uploads/productos/{{$producto->imagen_producto}}" data-zoom-image="/uploads/productos/{{$producto->imagen_producto}}" class="img-responsive" />
                         </div>
                     </div>
-                    <!--div class="row">
-                        <div id="gal1">
-                            <a href="#" data-image="{{ asset('assets/images/cart/small/1.jpg') }}" data-zoom-image="{{ asset('assets/images/cart/big/1.jpg') }}">
-                                <img id="img_01" src="{{ asset('assets/images/cart/small/1.jpg') }}" class="img-responsive" />
-                            </a>
-                            <a href="#" data-image="{{ asset('assets/images/cart/small/2.jpg') }}" data-zoom-image="{{ asset('assets/images/cart/big/2.jpg') }}">
-                                <img id="img_01" src="{{ asset('assets/images/cart/small/2.jpg') }}" class="img-responsive" />
-                            </a>
-                            <a href="#" data-image="{{ asset('assets/images/cart/small/3.jpg') }}" data-zoom-image="{{ asset('assets/images/cart/big/3.jpg') }}">
-                                <img id="img_01" src="{{ asset('assets/images/cart/small/3.jpg') }}" class="img-responsive" />
-                            </a>
-                            <a href="#" data-image="{{ asset('assets/images/cart/small/4.jpg') }}" data-zoom-image="{{ asset('assets/images/cart/big/4.jpg') }}">
-                                <img id="img_01" src="{{ asset('assets/images/cart/small/4.jpg') }}" class="img-responsive" />
-                            </a>
-                        </div>
-                    </div-->
                 </div>
                 <!--individual product description-->
                 <div class="col-md-8">
-                    <h2 class="text-primary">{{ $producto->nombre_producto}} </h2>
-                    <i class="fa fa-star text-primary"></i>
-                    <i class="fa fa-star text-primary"></i>
-                    <i class="fa fa-star text-primary"></i>
-                    <i class="fa fa-star text-primary"></i>
-                    <i class="fa fa-star-o text-primary"></i>
-                    <!--h5>5 Review(s) | Add your Review</h5-->
-                    <p>{{ $producto->descripcion_corta}}</p>
-                    <div class="text-big3">
-                        <del>$1000</del>
-                    </div>
-                    <div class="text-big4">$750</div>
-                    <a href="#" class="btn btn-primary btn-lg text-white">Agregar al Carrito</a>
-                    <h4>Cantidad</h4>
-                    <form>
-                        <div class="form-group">
-                            <input type="number" class="form-control" min="1" style="width:70px;">
+                    <h2 class="text-primary" id="titulo_single">{{ $producto->nombre_producto}} </h2>
+                    <p class="descripcion">{{ $producto->descripcion_corta}}</p>
+                    <div class="producto_atributos">
+                        <div class="row">
+                                <div class="col-md-4 text-right">
+                                    <h4>Cantidad</h4>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="number" class="form-control" min="1" style="width:70px;">
+                                </div>
                         </div>
-                    </form>
+                    </div>
+                    <div class="box-info-product"> 
+                        <div class="row">
+                            <div class="col-md-4">
+                            <div class="text-big3">
+                                <del>$1000</del>
+                            </div>
+                            <div class="text-big4">$750</div>
+                            <span>IVA incluido</span>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="#" class="btn btn-primary btn-lg text-white">Agregar al Carrito</a>        
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -107,10 +99,7 @@
                                 <a href="#tab_default_1" data-toggle="tab">
                                 Descripción </a>
                             </li>
-                            <!--li>
-                                <a href="#tab_default_2" data-toggle="tab">
-                                Reviews </a>
-                            </li-->
+                           
                         </ul>
                         <!-- //Nav Nav-tabs End -->
                         <!-- Tab-content Start -->
@@ -118,63 +107,7 @@
                             <div class="tab-pane active" id="tab_default_1">
                                 <p>{{ $producto->descripcion_larga}}</p>
                             </div>
-                            <!--div class="tab-pane" id="tab_default_2">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <form>
-                                            <div class="form-group">
-                                                <label>Name:</label>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Email:</label>
-                                                <input type="email" class="form-control">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Review</label>
-                                                <textarea class="form-control" rows="3" id="resize_vert"></textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="username" class="uname">Your Ratings:</label>
-                                                <input type="hidden" id="rating3" class="rating form-control" data-filled="fa fa-star fa-1x" data-empty="fa fa-star-o fa-1x" />
-                                            </div>
-                                            <div class="form-group">
-                                                <a href="#" class="btn btn-primary text-white">Submit</a>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <h3 class="text-primary">Reviews</h3>
-                                        <i class="fa fa-star text-primary"></i>
-                                        <i class="fa fa-star text-primary"></i>
-                                        <i class="fa fa-star text-primary"></i>
-                                        <i class="fa fa-star text-primary"></i>
-                                        <i class="fa fa-star-o text-primary"></i>
-                                        <h6>Jim J. Platz</h6>
-                                        <h6>jan 31, 2015</h6>
-                                        <strong>Trout Burrowing</strong>
-                                        <p>Burbot yellow-eye mullet sailback scorpionfish sandroller snake mudhead limia sea chub Asiatic glassfish marblefish pikehead snook. Atlantic eel Rio Grande perch stingray longjaw mudsucker albacore northern sea robin spotted dogfish northern sea robin river stingray. </p>
-                                        <i class="fa fa-star text-primary"></i>
-                                        <i class="fa fa-star text-primary"></i>
-                                        <i class="fa fa-star text-primary"></i>
-                                        <i class="fa fa-star-half-empty text-primary"></i>
-                                        <i class="fa fa-star-o text-primary"></i>
-                                        <h6>Jim J. Platz</h6>
-                                        <h6>feb 6, 2015</h6>
-                                        <strong>Trout Burrowing</strong>
-                                        <p>Burbot yellow-eye mullet sailback scorpionfish sandroller snake mudhead limia sea chub Asiatic glassfish marblefish pikehead snook. Atlantic eel Rio Grande perch stingray longjaw mudsucker albacore northern sea robin spotted dogfish northern sea robin river stingray. </p>
-                                        <nav class="pull-right">
-                                            <ul class="pagination">
-                                                <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                                                <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                                                <li><a href="#">2 <span class="sr-only">(current)</span></a></li>
-                                                <li><a href="#">3 <span class="sr-only">(current)</span></a></li>
-                                                <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                </div>
-                            </div-->
+                            
                             <!-- Tab-content End -->
                         </div>
                         <!-- //Tabbable-line End -->
@@ -186,7 +119,7 @@
         <!--item desciption end-->
         <!--recently view item-->
         <div class="row">
-            <h2 class="text-primary"> Recently Viewed</h2>
+            <h2 class="text-primary">Nuevos Productos</h2>
             <div class="divider"></div>
             <div class="flip-3d">
                 <figure>
