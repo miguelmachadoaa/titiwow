@@ -177,7 +177,7 @@ class AlpProductosController extends JoshController
             'slug' => $request->slug, 
             'id_categoria_default' =>$request->id_categoria_default, 
             'id_marca' =>$request->id_marca, 
-            'precio' =>$request->precio, 
+            'precio_base' =>$request->precio_base, 
             'id_user' =>$user_id
         );
          
@@ -360,7 +360,7 @@ class AlpProductosController extends JoshController
                 'slug' =>$request->slug, 
                 'id_categoria_default' =>$request->id_categoria_default, 
                 'id_marca' =>$request->id_marca,
-                'precio' =>$request->precio
+                'precio_base' =>$request->precio_base
                 );
 
         }else{
@@ -375,7 +375,7 @@ class AlpProductosController extends JoshController
                 'seo_descripcion' =>$request->seo_descripcion, 
                 'slug' =>$request->slug, 
                 'id_categoria_default' =>$request->id_categoria_default, 
-                'precio' =>$request->precio,
+                'precio_base' =>$request->precio_base,
                 'id_marca' =>$request->id_marca
                 );
 
