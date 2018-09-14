@@ -21,4 +21,13 @@ class ProductosFrontController extends Controller
         return \View::make('frontend.producto_single', compact('producto'));
 
     }
+
+    public function categorias($slug)
+    {
+        $producto = AlpProductos::where('slug','=', $slug)->firstOrFail();
+        
+        return \View::make('frontend.producto_single', compact('producto'));
+
+    }
+
 }

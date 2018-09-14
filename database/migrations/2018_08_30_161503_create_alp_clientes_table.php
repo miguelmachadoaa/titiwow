@@ -24,6 +24,7 @@ class CreateAlpClientesTable extends Migration
             $table->integer('habeas_cliente')->default(0);
             $table->integer('estado_masterfile')->default(0);
             $table->integer('estado_registro')->default(1);
+            $table->integer('id_empresa')->default(0);
             $table->integer('id_user');
             $table->timestamps();
             $table->softDeletes();
