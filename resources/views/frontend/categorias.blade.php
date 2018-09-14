@@ -66,7 +66,7 @@
                 @endif
             @endforeach
         @else
-            <div class="alert alert-warning">
+            <div class="alert alert-danger">
                 <strong>Lo Sentimos!</strong> No Existen productos en esta categoría.
             </div>
         @endif

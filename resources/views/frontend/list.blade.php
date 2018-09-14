@@ -40,6 +40,7 @@ Productos
 <div class="container">
     <div class="products">
         <div class="row">
+        @if(!$productos->isEmpty())
             @foreach($productos as $producto)
                 <div class="col-md-3 col-sm-6 col-xs-6 products">
                     <div class="text-align:center;">
@@ -59,6 +60,11 @@ Productos
                     <div class="row">
                 @endif
             @endforeach
+            @else
+            <div class="alert alert-danger">
+                <strong>Lo Sentimos!</strong> No Existen productos en esta categoría.
+            </div>
+        @endif
         </div>
         <div class="row">
             <div class="col-md-12 text-right">
