@@ -150,6 +150,15 @@
             </li>
         </ul>
 
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/sedes*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.sedes.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Sedes
+                </a>
+            </li>
+        </ul>
+
         
 
         
