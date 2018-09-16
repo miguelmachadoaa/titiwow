@@ -49,7 +49,7 @@
                 <div class="col-md-4">
                     <div class="row">
                         <div class="product_wrapper">
-                            <img id="zoom_09" src="/uploads/productos/{{$producto->imagen_producto}}" data-zoom-image="/uploads/productos/{{$producto->imagen_producto}}" class="img-responsive" />
+                            <img id="zoom_09" src="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" data-zoom-image="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive" />
                         </div>
                     </div>
                 </div>

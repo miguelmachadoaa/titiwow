@@ -53,12 +53,92 @@ Carro de Productos
 
 {{-- Page content --}}
 @section('content')
-<div class="container ">
-
+<div class="container text-center">
     <div class="row">
-        
+        <h1>Detalle del Pedido</h1>
         @if(count($cart))
-          
+            
+
+            <br>    
+
+            <h3>Datos de Cliente</h3>
+
+            <div class="col-md-10 col-md-offset-1 table-responsive">
+         <table class="table ">
+                 <thead>
+                     <tr>
+                         <th>ID</th>
+                         <th>Nombre</th>
+                         <th>Apellido</th>
+                         <th>Email</th>
+                         <th>Direccion</th>
+                       
+                     </tr>
+                 </thead>
+                 <tbody>
+                    
+                        <tr>
+                            <td>{{Sentinel::getUser()->id}}</td>
+                            <td>{{Sentinel::getUser()->first_name}}</td>
+                            <td>{{Sentinel::getUser()->last_name}}</td>
+                            <td>{{Sentinel::getUser()->email}}</td>
+                            <td>{{Sentinel::getUser()->address}}</td>
+                           
+                        </tr>
+                    
+
+                 </tbody>
+             </table>
+
+             <hr>
+
+             
+         </div>
+
+       
+        <br>
+            <div class="row">   
+                <div class="col-sm-12">  
+                        <h3>    Detalle de Pedido</h3>
+                 </div>
+                
+            </div>
+
+        <br>    
+
+         <div class="col-md-10 col-md-offset-1 table-responsive">
+	     <table class="table table-striped ">
+                 <thead>
+                     <tr>
+                         <th>Imagen</th>
+                         <th>Producto</th>
+                         <th>Precio</th>
+                         <th>Cantidad</th>
+                         <th>SubTotal</th>
+                     </tr>
+                 </thead>
+                 <tbody>
+                     @foreach($cart as $row)
+                        <tr>
+                            <td><img height="60px" src="../uploads/productos/{{$row->imagen_producto}}"></td>
+                            <td>{{$row->nombre_producto}}</td>
+                            <td>{{number_format($row->precio_base,2)}}</td>
+                            <td>
+                                {{ $row->cantidad }}
+
+                            </td>
+                            <td>{{ number_format($row->cantidad*$row->precio_base, 2) }}</td>
+                        </tr>
+                     @endforeach
+
+                 </tbody>
+             </table>
+
+             <hr>
+
+             <h3><span class="label label-success">Total: {{number_format($total, 2)}}</span></h3>
+         </div>
+
          <br>
             <div class="row">   
                 <div class="col-sm-10 col-sm-offset-1">  
@@ -116,7 +196,7 @@ Carro de Productos
 
                 </div>
 
-                <div class="col-sm-12" style="text-align: center;">
+                <div class="col-sm-12">
 
                     <button class="btn btn-raised btn-primary md-trigger addDireccionModal" data-toggle="modal" data-target="#modal-21">Agregar Nueva Direccion </button>
 
@@ -132,11 +212,11 @@ Carro de Productos
                     {!! Form::open(['url' => 'order/procesar', 'class' => 'form-horizontal', 'id' => 'procesarForm', 'name' => 'procesarForm', 'method'=>'POST']) !!}
                     @if(count($formasenvio))
 
-                       
+                    <div class="row">
 
                         <div class="col-sm-10 col-sm-offset-1">
 
-                             <div class="form-group col-sm-10 col-sm-offset-1">
+                             <div class="form-group">
 
                                 <h3>    Formas de Envios</h3>
 
@@ -160,21 +240,19 @@ Carro de Productos
                             
                         </div> <!-- End Col -->
 
-                       
-
-                    
+                    </div> <!-- End Row -->
 
                     @else
 
-                  
+                    <div class="row">
 
                         <div class="col-sm-10 col-sm-offset-1">
 
                             <h3>No hay Formas de envios para este grupo de usuarios</h3>
-
+                            
                         </div>  
 
-                  
+                    </div>
 
                     @endif  <!-- End formas de pago -->
 
@@ -184,11 +262,11 @@ Carro de Productos
 
                     @if(count($formaspago))
 
-                   
+                    <div class="row">
 
                         <div class="col-sm-10 col-sm-offset-1">
 
-                             <div class="form-group col-sm-10 col-sm-offset-1 ">
+                             <div class="form-group">
 
                                 <h3>    Formas de pago</h3>
 
@@ -215,7 +293,7 @@ Carro de Productos
                             </div>
                             
                         </div>
-                    
+                    </div>
 
 
 
@@ -245,6 +323,8 @@ Carro de Productos
                         <button class="btn btn-raised btn-primary md-trigger addDireccionModal" >Agregar Nueva Direccion </button>
                     
                     </div>
+
+                
                 
 
                 @endif 
@@ -254,6 +334,9 @@ Carro de Productos
                 
             </div>
 
+            
+
+      
 
         <br>    
      </div>
@@ -267,10 +350,8 @@ Carro de Productos
      @endif
 
      <hr>
-     <p style="text-align: center;">
-        
-         <a class="btn btn-default" href="{{url('/productos')}}">Cancelar </a>
-
+     <p>
+         <a class="btn btn-primary" href="{{url('/productos')}}">Cancelar </a>
          <button class="btn btn-primary" type="submit"> Enviar Pedido  </button>
 
      </p>

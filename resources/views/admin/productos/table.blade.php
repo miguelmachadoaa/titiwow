@@ -19,7 +19,7 @@
             <td>{!! $alpProductos->referencia_producto !!}</td>
             <td><img src="../uploads/productos/{!! $alpProductos->imagen_producto !!}" height="60px"></td>
             <td>{!! $alpProductos->nombre_categoria !!}</td>
-            <td>{!! number_format($alpProductos->precio,2) !!}</td>
+            <td>{!! number_format($alpProductos->precio_base,2) !!}</td>
             <td>{!! $alpProductos->estado_registro !!}</td>
             <td>
                  <a href="{{ route('admin.productos.show', collect($alpProductos)->first() ) }}">

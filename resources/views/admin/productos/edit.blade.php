@@ -513,6 +513,8 @@ Productos
 
         {!! Form::close() !!}
 
+        <a class="btn btn-default" href="{{ url('/admin/productos') }}">Volver al listado</a>
+
         </div>
 
       </div>
