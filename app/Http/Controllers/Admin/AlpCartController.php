@@ -26,6 +26,7 @@ use Sentinel;
 use Intervention\Image\Facades\Image;
 use DOMDocument;
 use DB;
+use View;
 
 
 class AlpCartController extends JoshController
@@ -317,10 +318,27 @@ class AlpCartController extends JoshController
          
         $direccion=AlpDirecciones::create($input);
 
+        $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_countries.country_name as country_name')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->where('alp_direcciones.id_client', $user_id)->get();
+
 
         if ($direccion->id) {
 
-          return redirect('order/detail');
+          //return redirect('order/detail');
+          
+        
+
+          $view= View::make('frontend.order.direcciones', compact('direcciones'));
+
+          $data=$view->render();
+
+          $res = array('data' => $data);
+
+        //  return json_encode($res);
+          return $data;
             
 
         } else {

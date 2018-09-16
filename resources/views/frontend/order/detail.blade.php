@@ -66,7 +66,7 @@ Carro de Productos
                  </div>
             </div>
 
-            <div class="row" style="text-align: left;">
+            <div class="row direcciones" style="text-align: left;">
 
                 <div class="col-sm-12">
 
@@ -116,16 +116,21 @@ Carro de Productos
 
                 </div>
 
+                </div>
+
+                <div class="row">
+
                 <div class="col-sm-12" style="text-align: center;">
 
                     <button class="btn btn-raised btn-primary md-trigger addDireccionModal" data-toggle="modal" data-target="#modal-21">Agregar Nueva Direccion </button>
 
                 </div>
 
+                </div>
+
 
                 <hr>
 
-            </div>
 
             <div class="row">
 
@@ -268,7 +273,7 @@ Carro de Productos
 
      <hr>
      <p style="text-align: center;">
-        
+
          <a class="btn btn-default" href="{{url('/productos')}}">Cancelar </a>
 
          <button class="btn btn-primary" type="submit"> Enviar Pedido  </button>
@@ -492,13 +497,13 @@ $("#addDireccionForm").bootstrapValidator({
             minlength: 20
         },
 
-       /* id_marca: {
+        city_id: {
             validators:{
                 notEmpty:{
-                    message: 'You must select a id_marca'
+                    message: 'Debe seleccionar una ciudad'
                 }
             }
-        }*/
+        }
     }
 });
 
@@ -507,11 +512,45 @@ $("#addDireccionForm").bootstrapValidator({
 $('.sendDireccion').click(function () {
     
     var $validator = $('#addDireccionForm').data('bootstrapValidator').validate();
+
     if ($validator.isValid()) {
 
+        nickname_address=$("#nickname_address").val();
+        city_id=$("#city_id").val();
+        calle_address=$("#calle_address").val();
+        calle2_address=$("#calle2_address").val();
+        codigo_postal_address=$("#codigo_postal_address").val();
+        telefono_address=$("#telefono_address").val();
+        notas=$("#notas").val();
+        var base = $('#base').val();
+
+        $.ajax({
+            type: "POST",
+            data:{nickname_address, city_id, calle_address, calle2_address, codigo_postal_address, telefono_address, notas},
+            url: base+"/cart/storedir",
+                
+            complete: function(datos){     
+
+                $(".direcciones").html(datos.responseText);
+
+                $('#addDireccionModal').modal('hide');
+
+               $("#nickname_address").val('');
+                $("#city_id").val('');
+                $("#calle_address").val('');
+                $("#calle2_address").val('');
+                $("#codigo_postal_address").val('');
+               $("#telefono_address").val('');
+                $("#notas").val('');
+        
+            
+            }
+        });
 
 
-        document.getElementById("addDireccionForm").submit();
+        //document.getElementById("addDireccionForm").submit();
+
+
     }
 
 });
