@@ -1,8 +1,10 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\JoshController;
+use App\Http\Requests\TransportistasRequest;
 use App\Models\AlpTransportistas;
 use App\Http\Requests;
+use App\Http\Requests\TransportistaRequest;
 use Illuminate\Http\Request;
 use Redirect;
 use Sentinel;
@@ -45,7 +47,7 @@ class AlpTransportistasController extends JoshController
      *
      * @return Redirect
      */
-    public function store(Request $request)
+    public function store(TransportistaRequest $request)
     {
         
          $user_id = Sentinel::getUser()->id;
@@ -93,7 +95,7 @@ class AlpTransportistasController extends JoshController
      * @param  int $id
      * @return Redirect
      */
-    public function update(Request $request, $id)
+    public function update(TransportistaRequest $request, $id)
     {
        $data = array(
             'nombre_transportista' => $request->nombre_transportista, 

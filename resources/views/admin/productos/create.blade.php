@@ -63,7 +63,7 @@
                     <li>
                         <a href="{{ route('admin.dashboard') }}">
                             <i class="livicon" data-name="home" data-size="14" data-loop="true"></i>
-                            Escritorio
+                            @lang('general.dashboard')
                         </a>
                     </li>
                     <li>
@@ -81,7 +81,7 @@
             <div class="panel-heading">
                 <h3 class="panel-title">
                     <i class="livicon" data-name="gear" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                    Specials
+                    @lang('productos/title.add')
                 </h3>
                 <span class="pull-right">
                              <i class="glyphicon glyphicon-chevron-up clickable"></i>
@@ -99,24 +99,24 @@
 
                         <p class="mar-2">
 
-                           Pasos para la creacion de productos
+                           @lang('productos/title.pasos')
                         </p>
                         <ol class="acc-wizard-sidebar">
                             <li class="acc-wizard-todo acc-wizard-active">
-                                <a href="#divbasicos">Datos Basicos</a>
+                                <a href="#divbasicos">@lang('productos/title.basic')</a>
                             </li>
                             <li class="acc-wizard-todo">
-                                <a href="#addwizard">Descripción</a>
+                                <a href="#addwizard">@lang('productos/title.description')</a>
                             </li>
                             <li class="acc-wizard-todo">
-                                <a href="#adjusthtml">Ajustes SEO</a>
+                                <a href="#adjusthtml">@lang('productos/title.seo_ajuste')</a>
                             </li>
                             <li class="acc-wizard-todo">
-                                <a href="#prod_categoria">Categorias Producto</a>
+                                <a href="#prod_categoria">@lang('productos/title.categorias')</a>
                             </li>
 
                             <li class="acc-wizard-todo">
-                                <a href="#viewpage">Caracteristicas Producto</a>
+                                <a href="#viewpage">@lang('productos/title.caracteristica')</a>
                             </li>
 
                         
@@ -135,23 +135,23 @@
                                     <div class="panel-body">
                                         
                                             <div class="form-group clearfix">
-                                                <label class="col-md-3 control-label" for="nombre_producto">Nombre del Producto</label>
+                                                <label class="col-md-3 control-label" for="nombre_producto">@lang('productos/title.name')</label>
                                                 <div class="col-md-9">
                                                     <input id="nombre_producto" name="nombre_producto" type="text" placeholder="Nombre del Producto" class="form-control" value="{{ old('nombre_producto') }}"></div>
                                             </div>
                                             <div class="form-group clearfix">
-                                                <label class="col-md-3 control-label" for="referencia_producto">Referencia</label>
+                                                <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.reference')</label>
                                                 <div class="col-md-9">
                                                     <input id="referencia_producto" name="referencia_producto" type="text" placeholder="Referencia del PRoducto" class="form-control" value="{{ old('referencia_producto') }}"></div>
                                             </div>
                                             <div class="form-group clearfix">
-                                                <label class="col-md-3 control-label" for="referencia_producto">Referencia Sap</label>
+                                                <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.reference_sap')</label>
                                                 <div class="col-md-9">
                                                     <input id="referencia_producto_sap" name="referencia_producto_sap" type="text" placeholder="Referencia Sap" value="{{ old('referencia_producto_sap') }}" class="form-control"></div>
                                             </div>
                                             <div class="acc-wizard-step"></div>
 
-                                             <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">Siguiente</a>
+                                             <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
                                         
                                     </div>
                                     <!--/.panel-body --> </div>
@@ -161,20 +161,20 @@
                             <div class="panel panel-info">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">Descripción</a>
+                                        <a href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('productos/title.description')</a>
                                     </h4>
                                 </div>
                                 <div id="addwizard" class="panel-collapse collapse awd-h" style="height: 36.400001525878906px;">
                                     <div class="panel-body">
                                         
                                         <div class="form-group clearfix">
-                                            <label class="col-md-3 control-label" for="descripcion_corta">Descripción Corta</label>
+                                            <label class="col-md-3 control-label" for="descripcion_corta">@lang('productos/title.description_sort')</label>
                                             <div class="col-md-9">
                                                 <textarea class="form-control resize_vertical" id="descripcion_corta" name="descripcion_corta" placeholder="Descripcion Corta" rows="5">{{ old('descripcion_corta') }}</textarea>
                                             </div>
                                         </div>
                                         <div class="form-group clearfix">
-                                            <label class="col-md-3 control-label" for="descripcion_larga">Descripción Larga</label>
+                                            <label class="col-md-3 control-label" for="descripcion_larga">@lang('productos/title.description_large')</label>
                                             <div class="col-md-9">
                                                 <textarea class="form-control resize_vertical" id="descripcion_larga" name="descripcion_larga" placeholder="Descripcion Larga" rows="5">{{ old('descripcion_corta') }}</textarea>
                                             </div>
@@ -225,21 +225,6 @@
                         </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                         <!-- Carga de imagenes -->
                                         <div class="row">   
                                          <div class="col-md-12" style="padding:30px;">
@@ -251,10 +236,10 @@
 
                                             <div class="acc-wizard-step"></div>
 
-                                            <a class="btn btn-default" href="#divbasicos" data-parent="#accordion-demo" data-toggle="collapse">Anterior</a>
+                                            <a class="btn btn-default" href="#divbasicos" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.previous')</a>
 
 
-                                        <a class="btn btn-default" href="#adjusthtml" data-parent="#accordion-demo" data-toggle="collapse">Siguiente</a>
+                                        <a class="btn btn-default" href="#adjusthtml" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
                                         
                                     </div>
                                     <!--/.panel-body --> </div>
@@ -264,33 +249,33 @@
                             <div class="panel panel-warning">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a href="#adjusthtml" data-parent="#accordion-demo" data-toggle="collapse">Ajustes SEO</a>
+                                        <a href="#adjusthtml" data-parent="#accordion-demo" data-toggle="collapse">@lang('productos/title.seo_ajuste')</a>
                                     </h4>
                                 </div>
                                 <div id="adjusthtml" class="panel-collapse collapse" style="height: 36.400001525878906px;">
                                     <div class="panel-body">
                                           
                                             <div class="form-group clearfix">
-                                                <label class="col-md-3 control-label" for="nombre_producto">Seo Titulo</label>
+                                                <label class="col-md-3 control-label" for="nombre_producto">@lang('productos/title.seo_title')</label>
                                                 <div class="col-md-9">
                                                     <input id="seo_titulo" name="seo_titulo" type="text" placeholder="Seo Titulo" class="form-control" value="{{ old('seo_titulo') }}"></div>
                                             </div>
                                             <div class="form-group clearfix">
-                                                <label class="col-md-3 control-label" for="referencia_producto">Seo Descripcion</label>
+                                                <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.seo_des')</label>
                                                 <div class="col-md-9">
                                                     <input id="seo_descripcion" name="seo_descripcion" type="text" placeholder="Seo Descripcion" class="form-control" value="{{ old('seo_descripcion') }}"></div>
                                             </div>
                                             <div class="form-group clearfix">
-                                                <label class="col-md-3 control-label" for="referencia_producto">Slug</label>
+                                                <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.slug')</label>
                                                 <div class="col-md-9">
                                                     <input id="slug" name="slug" type="text" placeholder="Seo Url" class="form-control" value="{{ old('slug') }}"></div>
                                             </div>
                                             <div class="acc-wizard-step"></div>
 
-                                            <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">Anterior</a>
+                                            <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.previous')</a>
 
 
-                                            <a class="btn btn-default" href="#prod_categoria" data-parent="#accordion-demo" data-toggle="collapse">Siguiente</a>
+                                            <a class="btn btn-default" href="#prod_categoria" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
                                         
                                     </div>
                                     <!--/.panel-body --> </div>
@@ -301,7 +286,7 @@
                             <div class="panel panel-danger">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a href="#prod_categoria" data-parent="#accordion-demo" data-toggle="collapse">Categorias Producto</a>
+                                        <a href="#prod_categoria" data-parent="#accordion-demo" data-toggle="collapse">@lang('productos/title.categorias')</a>
                                     </h4>
                                 </div>
                                 <div id="prod_categoria" class="panel-collapse collapse" style="height: 36.400001525878906px;">
@@ -312,13 +297,13 @@
                                         <input type="hidden" name="categorias_prod_check" id="categorias_prod_check" value="{{ $check }}">
 
                                         <div class="col-sm-12">
-                                            <label>Arbol de Categorias </label>
+                                            <label>@lang('productos/title.tree') </label>
                                             <div id="treeview-checkable" class=""></div>
 
-                                            <a class="btn btn-default" href="#adjusthtml" data-parent="#accordion-demo" data-toggle="collapse">Anterior</a>
+                                            <a class="btn btn-default" href="#adjusthtml" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.previous')</a>
 
 
-                                            <a class="btn btn-default" href="#viewpage" data-parent="#accordion-demo" data-toggle="collapse">Siguiente</a>
+                                            <a class="btn btn-default" href="#viewpage" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
 
 
                                         </div>
@@ -332,7 +317,7 @@
                             <div class="panel panel-danger">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a href="#viewpage" data-parent="#accordion-demo" data-toggle="collapse">Caracteristicas Producto</a>
+                                        <a href="#viewpage" data-parent="#accordion-demo" data-toggle="collapse">@lang('productos/title.caracteristica')</a>
                                     </h4>
                                 </div>
                                 <div id="viewpage" class="panel-collapse collapse" style="height: 36.400001525878906px;">
@@ -341,7 +326,7 @@
 
                                             <div class="form-group col-sm-12">
                                                 <label for="select21" class="col-md-3 control-label">
-                                                    Categoria por Defecto
+                                                    @lang('productos/title.category_default')
                                                 </label>
                                                 <div class="col-md-9">   
                                                  <select id="id_categoria_default" name="id_categoria_default" class="form-control ">
@@ -358,7 +343,7 @@
 
                                             <div class="form-group col-sm-12">
                                                 <label for="select21" class="col-md-3 control-label">
-                                                    Marca
+                                                    @lang('productos/title.marca')
                                                 </label>
                                                 <div class="col-md-9" >
                                                     <select id="id_marca" name="id_marca" class="form-control ">
@@ -378,13 +363,13 @@
 
 
                                             <div class="form-group clearfix col-sm-12">
-                                                <label class="col-md-3 control-label" for="referencia_producto">Inventario Incial </label>
+                                                <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.inventary') </label>
                                                 <div class="col-md-9">
                                                     <input id="inventario_inicial" name="inventario_inicial" type="number" placeholder="Inventario Inicial" class="form-control" value="{{ old('inventario_inicial') }}" ></div>
                                             </div>
 
                                             <div class="form-group clearfix col-sm-12">
-                                                <label class="col-md-3 control-label" for="referencia_producto">Precio </label>
+                                                <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.price') </label>
                                                 <div class="col-md-9">
                                                     <input id="precio_base" step="0.01" name="precio_base" type="number" placeholder="Precio" class="form-control" value="{{ old('precio_base') }}" ></div>
                                             </div>
@@ -394,7 +379,7 @@
                                                 
                                             </div>
 
-                                            <a class="btn btn-default" href="#prod_categoria" data-parent="#accordion-demo" data-toggle="collapse">Anterior</a>
+                                            <a class="btn btn-default" href="#prod_categoria" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.previous')</a>
                                             
                                             <button type="button" class="btn btn-danger finish">@lang('productos/title.enviar') </button>
                                         
@@ -408,6 +393,8 @@
                     </div>
                 </div>
             {!! Form::close() !!}
+
+             <a class="btn btn-default" href="{{ url('/admin/productos') }}">@lang('button.back')</a>
             </div>
         </div>
     </div>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\JoshController;
 use App\Models\AlpEstatusOrdenes;
 use App\Http\Requests;
+use App\Http\Requests\EstatusOrdenesRequest;
 use Illuminate\Http\Request;
 use Redirect;
 use Sentinel;
@@ -45,7 +46,7 @@ class AlpEstatusOrdenesController extends JoshController
      *
      * @return Redirect
      */
-    public function store(Request $request)
+    public function store(EstatusOrdenesRequest $request)
     {
         
          $user_id = Sentinel::getUser()->id;
@@ -93,7 +94,7 @@ class AlpEstatusOrdenesController extends JoshController
      * @param  int $id
      * @return Redirect
      */
-    public function update(Request $request, $id)
+    public function update(EstatusOrdenesRequest $request, $id)
     {
        $data = array(
             'estatus_nombre' => $request->estatus_nombre, 

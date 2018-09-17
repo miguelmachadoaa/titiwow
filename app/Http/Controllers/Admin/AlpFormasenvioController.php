@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\JoshController;
 use App\Models\AlpFormasenvio;
+use App\Http\Requests\FormaenvioRequest;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Redirect;
@@ -45,7 +46,7 @@ class AlpFormasenvioController extends JoshController
      *
      * @return Redirect
      */
-    public function store(Request $request)
+    public function store(FormaenvioRequest $request)
     {
         
          $user_id = Sentinel::getUser()->id;
@@ -93,7 +94,7 @@ class AlpFormasenvioController extends JoshController
      * @param  int $id
      * @return Redirect
      */
-    public function update(Request $request, $id)
+    public function update(FormaenvioRequest $request, $id)
     {
        $data = array(
             'nombre_forma_envios' => $request->nombre_forma_envios, 

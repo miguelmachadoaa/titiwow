@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\JoshController;
+use App\Http\Requests\OrdenesRequest;
 use App\Models\AlpOrdenes;
 use App\Models\AlpDetalles;
 use App\Http\Requests;

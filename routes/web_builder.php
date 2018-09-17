@@ -170,7 +170,7 @@ Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses'
 
         });
 
-    Route::resource('documentos', 'admin\AlpImpuestosController');
+    Route::resource('documentos', 'admin\AlpTipoDocumentosController');
 
     //crud impuestos
 

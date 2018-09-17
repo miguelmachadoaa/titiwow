@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\JoshController;
+use App\Http\Requests\SedeRequest;
 use App\Models\AlpSedes;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -45,7 +46,7 @@ class AlpSedesController extends JoshController
      *
      * @return Redirect
      */
-    public function store(Request $request)
+    public function store(SedeRequest $request)
     {
         
          $user_id = Sentinel::getUser()->id;
@@ -99,7 +100,7 @@ class AlpSedesController extends JoshController
      * @param  int $id
      * @return Redirect
      */
-    public function update(Request $request, $id)
+    public function update(SedeRequest $request, $id)
     {
 
 

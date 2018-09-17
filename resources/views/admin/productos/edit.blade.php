@@ -1,7 +1,7 @@
 @extends('admin/layouts/default')
 
 @section('title')
-Productos 
+@lang('productos/title.edit') :: @parent
 @parent
 @stop
 
@@ -49,15 +49,15 @@ Productos
 @section('content')
   @include('core-templates::common.errors')
     <section class="content-header">
-     <h1>Productos Edit</h1>
+     <h1>@lang('productos/title.edit')</h1>
      <ol class="breadcrumb">
          <li>
              <a href="{{ route('admin.dashboard') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
-                 Escritorio
+                 @lang('general.dashboard')
              </a>
          </li>
-         <li>Productos</li>
-         <li class="active">Editar Productos </li>
+         <li>@lang('productos/title.title')</li>
+         <li class="active">@lang('productos/title.edit') </li>
      </ol>
     </section>
     <section class="content paddingleft_right15">
@@ -65,7 +65,7 @@ Productos
       <div class="panel panel-primary">
             <div class="panel-heading">
                 <h4 class="panel-title"> <i class="livicon" data-name="user" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                    Editar  Producto
+                    @lang('productos/title.edit')
                 </h4></div>
             <br />
         <div class="panel-body">
@@ -79,23 +79,23 @@ Productos
                 <div class="row acc-wizard">
                     <div class="col-md-3 pd-2">
                         <p class="mar-2">
-                            Follow the steps below to add an accordion wizard to your web page.
+                            @lang('productos/title.pasos')
                         </p>
                         <ol class="acc-wizard-sidebar">
                             <li class="acc-wizard-todo acc-wizard-active">
-                                <a href="#divbasicos">Datos Basicos</a>
+                                <a href="#divbasicos">@lang('productos/title.basic')</a>
                             </li>
                             <li class="acc-wizard-todo">
-                                <a href="#addwizard">Descripción</a>
+                                <a href="#addwizard">@lang('productos/title.description')</a>
                             </li>
                             <li class="acc-wizard-todo">
-                                <a href="#adjusthtml">Ajustes SEO</a>
+                                <a href="#adjusthtml">@lang('productos/title.seo_ajuste')</a>
                             </li>
                             <li class="acc-wizard-todo">
-                                <a href="#prod_categoria">Categorias del Producto</a>
+                                <a href="#prod_categoria">@lang('productos/title.categorias')</a>
                             </li>
                             <li class="acc-wizard-todo">
-                                <a href="#viewpage">Caracteristicas Producto</a>
+                                <a href="#viewpage">@lang('productos/title.caracteristica')</a>
                             </li>
                         </ol>
                     </div>
@@ -109,7 +109,7 @@ Productos
 
                                     <h4 class="panel-title">
 
-                                        <a href="#divbasicos" data-parent="#accordion-demo" data-toggle="collapse">Datos Básicos</a>
+                                        <a href="#divbasicos" data-parent="#accordion-demo" data-toggle="collapse">@lang('productos/title.basic')</a>
 
                                     </h4>
 
@@ -121,7 +121,7 @@ Productos
 
                                             <div class="form-group clearfix {{ $errors->first('nombre_producto', 'has-error') }} ">
 
-                                                <label class="col-md-3 control-label" for="nombre_producto">Nombre del Producto</label>
+                                                <label class="col-md-3 control-label" for="nombre_producto">@lang('productos/title.name')</label>
 
                                                 <div class="col-md-9">
 
@@ -133,7 +133,7 @@ Productos
 
                                             <div class="form-group clearfix">
 
-                                                <label class="col-md-3 control-label" for="referencia_producto">Referencia</label>
+                                                <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.reference')</label>
 
                                                 <div class="col-md-9">
 
@@ -144,7 +144,7 @@ Productos
 
                                             <div class="form-group clearfix">
 
-                                                <label class="col-md-3 control-label" for="referencia_producto">Referencia Sap</label>
+                                                <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.reference_sap')</label>
 
                                                 <div class="col-md-9">
 
@@ -157,7 +157,7 @@ Productos
 
                                             <div class="acc-wizard-step"></div>
 
-                                        <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">Siguiente</a>
+                                        <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
 
 
                                         
@@ -172,7 +172,7 @@ Productos
 
                                     <h4 class="panel-title">
 
-                                        <a href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">Descripción</a>
+                                        <a href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('productos/title.description')</a>
 
                                     </h4>
 
@@ -184,7 +184,7 @@ Productos
 
                                         <div class="form-group clearfix">
 
-                                            <label class="col-md-3 control-label" for="descripcion_corta">Descripción Corta</label>
+                                            <label class="col-md-3 control-label" for="descripcion_corta">@lang('productos/title.description_sort')</label>
 
                                             <div class="col-md-9">
 
@@ -198,7 +198,7 @@ Productos
 
                                         <div class="form-group clearfix">
 
-                                            <label class="col-md-3 control-label" for="descripcion_larga">Descripción Larga</label>
+                                            <label class="col-md-3 control-label" for="descripcion_larga">@lang('productos/title.description_large')</label>
 
                                             <div class="col-md-9">
 
@@ -270,10 +270,10 @@ Productos
                                             <div class="acc-wizard-step"></div>
 
 
-                                        <a class="btn btn-default" href="#divbasicos" data-parent="#accordion-demo" data-toggle="collapse">Anterior</a>
+                                        <a class="btn btn-default" href="#divbasicos" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.previous')</a>
 
 
-                                        <a class="btn btn-default" href="#adjusthtml" data-parent="#accordion-demo" data-toggle="collapse">Siguiente</a>
+                                        <a class="btn btn-default" href="#adjusthtml" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
 
                                         
                                     </div>
@@ -289,7 +289,7 @@ Productos
 
                                     <h4 class="panel-title">
 
-                                        <a href="#adjusthtml" data-parent="#accordion-demo" data-toggle="collapse">Ajustes SEO</a>
+                                        <a href="#adjusthtml" data-parent="#accordion-demo" data-toggle="collapse">@lang('productos/title.seo_ajuste')</a>
 
                                     </h4>
 
@@ -301,7 +301,7 @@ Productos
 
                                             <div class="form-group clearfix">
 
-                                                <label class="col-md-3 control-label" for="nombre_producto">Seo Titulo</label>
+                                                <label class="col-md-3 control-label" for="nombre_producto">@lang('productos/title.seo_title')</label>
 
                                                 <div class="col-md-9">
 
@@ -315,7 +315,7 @@ Productos
 
                                             <div class="form-group clearfix">
 
-                                                <label class="col-md-3 control-label" for="referencia_producto">Seo Descripcion</label>
+                                                <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.seo_des')</label>
 
                                                 <div class="col-md-9">
 
@@ -329,7 +329,7 @@ Productos
 
                                             <div class="form-group clearfix">
 
-                                                <label class="col-md-3 control-label" for="referencia_producto">Slug</label>
+                                                <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.slug')</label>
 
                                                 <div class="col-md-9">
 
@@ -344,10 +344,10 @@ Productos
                                             <div class="acc-wizard-step"></div>
 
                                             
-                                            <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">Anterior</a>
+                                            <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.previous')</a>
 
 
-                                            <a class="btn btn-default" href="#prod_categoria" data-parent="#accordion-demo" data-toggle="collapse">Siguiente</a>
+                                            <a class="btn btn-default" href="#prod_categoria" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
 
                                        
                                     </div>
@@ -364,7 +364,7 @@ Productos
                             <div class="panel panel-danger">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a href="#prod_categoria" data-parent="#accordion-demo" data-toggle="collapse">Categorias Producto</a>
+                                        <a href="#prod_categoria" data-parent="#accordion-demo" data-toggle="collapse">@lang('productos/title.categorias')</a>
                                     </h4>
                                 </div>
                                 <div id="prod_categoria" class="panel-collapse collapse" style="height: 36.400001525878906px;">
@@ -375,15 +375,15 @@ Productos
                                         <input type="hidden" name="categorias_prod_check" id="categorias_prod_check" value="{{ $check }}">
 
                                         <div class="col-sm-12">
-                                            <label>Arbol de Categorias</label>
+                                            <label>@lang('productos/title.tree')</label>
                                             <div id="treeview-checkable" class=""></div>
 
                                             <!-- Botones anteriro y siguiente manuales -->
                                             
-                                            <a class="btn btn-default" href="#adjusthtml" data-parent="#accordion-demo" data-toggle="collapse">Anterior</a>
+                                            <a class="btn btn-default" href="#adjusthtml" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.previous')</a>
 
 
-                                            <a class="btn btn-default" href="#viewpage" data-parent="#accordion-demo" data-toggle="collapse">Siguiente</a>
+                                            <a class="btn btn-default" href="#viewpage" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
                                         </div>
                                         
                                         
@@ -401,7 +401,7 @@ Productos
 
                                     <h4 class="panel-title">
 
-                                        <a href="#viewpage" data-parent="#accordion-demo" data-toggle="collapse">Caracteristicas Producto</a>
+                                        <a href="#viewpage" data-parent="#accordion-demo" data-toggle="collapse">@lang('productos/title.caracteristica')</a>
 
                                     </h4>
 
@@ -414,7 +414,7 @@ Productos
                                             <div class="form-group">
 
                                                 <label for="select21" class="col-md-3 control-label">
-                                                    Categoria por Defecto
+                                                    @lang('productos/title.category_default')
                                                 </label>
 
                                                 <div class="col-md-9"> 
@@ -444,7 +444,7 @@ Productos
                                             <div class="form-group">
 
                                                 <label for="select21" class="col-md-3 control-label">
-                                                    Marca
+                                                    @lang('productos/title.marca')
                                                 </label>
 
                                                 <div class="col-md-9" >
@@ -470,7 +470,7 @@ Productos
 
                                             <div class="form-group clearfix">
 
-                                                <label class="col-md-3 control-label" for="referencia_producto">Inventario Incial </label>
+                                                <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.inventary') </label>
 
                                                 <div class="col-md-9">
                                                     <input id="inventario_inicial" name="inventario_inicial" type="number" placeholder="Inventario Inicial" class="form-control" value="{{$producto->inventario_inicial}}" readonly="true" >
@@ -479,7 +479,7 @@ Productos
                                                 <br>    
 
                                                 <div class="form-group clearfix ">
-                                                <label class="col-md-3 control-label" for="referencia_producto">Precio </label>
+                                                <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.price') </label>
                                                 <div class="col-md-9">
                                                     <input id="precio_base" step="0.01" name="precio_base" type="number" placeholder="Precio" class="form-control" value="{{$producto->precio_base}}" ></div>
                                                 </div>
@@ -491,9 +491,9 @@ Productos
                                                 
                                             </div>
 
-                                            <a class="btn btn-default" href="#prod_categoria" data-parent="#accordion-demo" data-toggle="collapse">Anterior</a>
+                                            <a class="btn btn-default" href="#prod_categoria" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.previous')</a>
 
-                                            <button type="button" class="btn btn-primary finish">Enviar </button>
+                                            <button type="button" class="btn btn-primary finish">@lang('productos/title.enviar') </button>
                                             
                                         
                                     </div>
@@ -513,7 +513,7 @@ Productos
 
         {!! Form::close() !!}
 
-        <a class="btn btn-default" href="{{ url('/admin/productos') }}">Volver al listado</a>
+        <a class="btn btn-default" href="{{ url('/admin/productos') }}">@lang('button.back')</a>
 
         </div>
 

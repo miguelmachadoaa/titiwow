@@ -18,6 +18,8 @@ return array(
     'forgotpassword' 	=> 'Olvide mi contraseña',
     'rememberme'		=> 'Recordarme',
     'signup'			=> 'Registrarse',
-    'update'			=> 'Actualizar',
+    'update'            => 'Actualizar',
+    'next'            => 'Siguiente',
+    'previous'			=> 'Anterior'
 
 );

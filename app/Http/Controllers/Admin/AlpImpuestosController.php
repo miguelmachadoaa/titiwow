@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\JoshController;
+use App\Http\Requests\ImpuestoRequest;
 use App\Models\AlpImpuestos;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -45,7 +46,7 @@ class AlpImpuestosController extends JoshController
      *
      * @return Redirect
      */
-    public function store(Request $request)
+    public function store(ImpuestoRequest $request)
     {
         
          $user_id = Sentinel::getUser()->id;
@@ -93,7 +94,7 @@ class AlpImpuestosController extends JoshController
      * @param  int $id
      * @return Redirect
      */
-    public function update(Request $request, $id)
+    public function update(ImpuestoRequest $request, $id)
     {
        $data = array(
             'nombre_impuesto' => $request->nombre_impuesto, 
