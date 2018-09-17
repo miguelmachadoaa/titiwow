@@ -20,15 +20,28 @@ class AdminSeeder extends DatabaseSeeder {
 			'last_name'   => 'Doe',
 		));
 
+		$masterfile = Sentinel::registerAndActivate(array(
+			'email'       => 'crearemosweb@gmail.com',
+			'password'    => "123456",
+			'first_name'  => 'Orangel',
+			'last_name'   => 'Barrera',
+		));
+
 		$adminRole = Sentinel::getRoleRepository()->createModel()->create([
 			'name' => 'Admin',
 			'slug' => 'admin',
 			'permissions' => array('admin' => 1),
 		]);
 
+		$masterfileRole = Sentinel::getRoleRepository()->createModel()->create([
+			'name' => 'Masterfile',
+			'slug' => 'masterfile',
+			'permissions' => array('masterfile' => 1),
+		]);
+
         $userRole = Sentinel::getRoleRepository()->createModel()->create([
-			'name'  => 'User',
-			'slug'  => 'user',
+			'name'  => 'Cliente',
+			'slug'  => 'cliente',
 		]);
 
 		$alpinistaRole = Sentinel::getRoleRepository()->createModel()->create([
@@ -36,8 +49,19 @@ class AdminSeeder extends DatabaseSeeder {
 			'slug'  => 'alpinista',
 		]);
 
+		$referidoRole = Sentinel::getRoleRepository()->createModel()->create([
+			'name'  => 'Referido',
+			'slug'  => 'referido',
+		]);
+
+		$corporativoRole = Sentinel::getRoleRepository()->createModel()->create([
+			'name'  => 'Corporativo',
+			'slug'  => 'corporativo',
+		]);
+
 
 		$admin->roles()->attach($adminRole);
+		$masterfile->roles()->attach($masterfileRole);
 
 		$this->command->info('Admin User created with username admin@admin.com and password admin');
 	}
