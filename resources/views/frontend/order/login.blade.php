@@ -36,7 +36,7 @@
                                     <br>Log In</h3>
                                     <!-- CSRF Token -->
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                                    <input type="hidden" name="back" id="back" value="0">
+                                    <input type="hidden" name="back" id="back" value="order.detail">
                                     
                                 <div class="form-group {{ $errors->first('email', 'has-error') }}">
                                     <label style="margin-bottom:0px;" for="email" class="uname control-label"> <i class="livicon" data-name="mail" data-size="16" data-loop="true" data-c="#3c8dbc" data-hc="#3c8dbc"></i>
@@ -84,7 +84,7 @@
                                     <br>Sign Up</h3>
                                     <!-- CSRF Token -->
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                                    <input type="hidden" name="back" id="back" value="0">
+                                    <input type="hidden" name="back" id="back" value="order.detail">
 
                                     <div class="form-group {{ $errors->first('first_name', 'has-error') }}">
                                         <label style="margin-bottom:0px;" for="first_name" class="youmail">

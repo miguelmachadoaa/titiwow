@@ -55,7 +55,15 @@ class AuthController extends JoshController
                     ->causedBy($user)
                     ->log('LoggedIn');
                 //activity log ends
-                return Redirect::route("admin.dashboard")->with('success', trans('auth/message.signin.success'));
+                if ($request->back=='0') {
+
+                    return Redirect::route("admin.dashboard")->with('success', trans('auth/message.signin.success'));
+                   
+                }else{
+
+                    return Redirect::route($request->back)->with('success', trans('auth/message.signin.success'));
+
+                }
             }
 
             $this->messageBag->add('email', trans('auth/message.account_not_found'));
@@ -103,7 +111,17 @@ class AuthController extends JoshController
                 ->log('Registered');
             //activity log ends
             // Redirect to the home page with success menu
-            return Redirect::route("admin.dashboard")->with('success', trans('auth/message.signup.success'));
+           // return Redirect::route("admin.dashboard")->with('success', trans('auth/message.signup.success'));
+
+             if ($request->back=='0') {
+
+                    return Redirect::route("admin.dashboard")->with('success', trans('auth/message.signin.success'));
+                   
+                }else{
+
+                    return Redirect::route($request->back)->with('success', trans('auth/message.signin.success'));
+                    
+                }
 
         } catch (UserExistsException $e) {
             $this->messageBag->add('email', trans('auth/message.account_already_exists'));
