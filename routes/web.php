@@ -56,7 +56,6 @@ Route::group(['prefix' => 'admin', 'namespace'=>'Admin'], function () {
     Route::get('activate/{userId}/{activationCode}', 'AuthController@getActivate')->name('activate');
 });
 
-
 Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], function () {
     # GUI Crud Generator
     Route::get('generator_builder', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@builder')->name('generator_builder');

@@ -74,7 +74,7 @@
             <li {!! (Request::is('admin/estatus*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.estatus.index') !!}">
                     <i class="fa fa-angle-double-right"></i>
-                    Estatus Envios
+                    Estatus Ordenes
                 </a>
             </li>
         </ul>
@@ -100,7 +100,7 @@
             <li {!! (Request::is('admin/rolenvios*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.rolenvios.index') !!}">
                     <i class="fa fa-angle-double-right"></i>
-                    Formas de Envio para Roles
+                    Roles - Envios
                 </a>
             </li>
         </ul>
@@ -109,7 +109,7 @@
             <li {!! (Request::is('admin/rolpagos*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.rolpagos.index') !!}">
                     <i class="fa fa-angle-double-right"></i>
-                    Formas de Pago para Roles
+                    Roles - Pagos
                 </a>
             </li>
         </ul>
