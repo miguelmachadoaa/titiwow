@@ -90,6 +90,7 @@ class AlpCategoriasController extends JoshController
             'referencia_producto_sap' =>$request->referencia_producto_sap, 
             'imagen_categoria' =>$imagen, 
             'id_categoria_parent' =>'0', 
+            'slug' => $request->slug,
             'id_user' =>$user_id
         );
 
@@ -162,9 +163,9 @@ class AlpCategoriasController extends JoshController
              $data = array(
             'nombre_categoria' => $request->nombre_categoria, 
             'descripcion_categoria' => $request->descripcion_categoria, 
-            'referencia_producto_sap' =>$request->referencia_producto_sap, 
             'imagen_categoria' =>$imagen, 
-            'id_categoria_parent' =>'0'
+            'id_categoria_parent' =>'0',
+            'slug' => $request->slug
             );
 
         }else{
@@ -172,7 +173,9 @@ class AlpCategoriasController extends JoshController
             $data = array(
                 'nombre_categoria' => $request->nombre_categoria, 
                 'descripcion_categoria' => $request->descripcion_categoria, 
-                'referencia_producto_sap' =>$request->referencia_producto_sap
+                'imagen_categoria' =>$imagen, 
+                'id_categoria_parent' =>'0',
+                'slug' => $request->slug
             );
 
 
@@ -311,6 +314,7 @@ class AlpCategoriasController extends JoshController
             'referencia_producto_sap' =>$request->referencia_producto_sap, 
             'imagen_categoria' =>$imagen, 
             'id_categoria_parent' =>$padre, 
+            'slug' => $request->slug,
             'id_user' =>$user_id
         );
          
@@ -381,7 +385,8 @@ class AlpCategoriasController extends JoshController
             'descripcion_categoria' => $request->descripcion_categoria, 
             'referencia_producto_sap' =>$request->referencia_producto_sap, 
             'imagen_categoria' =>$imagen, 
-            'id_categoria_parent' =>$request->id_categoria_parent
+            'id_categoria_parent' =>$request->id_categoria_parent,
+            'slug' => $request->slug
                 );
 
         }else{
@@ -390,7 +395,8 @@ class AlpCategoriasController extends JoshController
             'nombre_categoria' => $request->nombre_categoria, 
             'descripcion_categoria' => $request->descripcion_categoria, 
             'referencia_producto_sap' =>$request->referencia_producto_sap, 
-            'id_categoria_parent' =>$request->id_categoria_parent
+            'id_categoria_parent' =>$request->id_categoria_parent,
+            'slug' => $request->slug
                 );
 
         }
