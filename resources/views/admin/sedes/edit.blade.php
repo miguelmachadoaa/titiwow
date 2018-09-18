@@ -69,19 +69,14 @@ Editar Sedes
                             </div>
                         </div>
 
-                         <div class="col-sm-12">
-
                             <div class="form-group col-sm-12">
-                                <label for="cedula"  class="col-sm-2 control-label">Selecciona Ubicacion de la sede
+                                <label for="coords"  class="col-sm-2 control-label">Ubicación
                                 </label>
                                 <div class="col-sm-5">
-                                    <input class="form-control" type="text" name="coords" id="coords" value="({{ $sedes->latitud_sede.','.$sedes->longitud_sede }})">
+                                    <input class="form-control" type="text" name="coords" id="coords" placeholder="(Longitud, Latitud)" value="({{ $sedes->latitud_sede.','.$sedes->longitud_sede }})">
                                 </div>
-                              
                             </div>
-
-                             
-                              
+                            <div class="form-group col-sm-12">
                               <div id="map" style="height: 400px; width: 100%; "></div>
 
 

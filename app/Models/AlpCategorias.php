@@ -23,6 +23,7 @@ class AlpCategorias extends Model
         'descripcion_categoria',
         'imagen_categoria',
         'id_categoria_parent',
+        'slug',
         'id_user'
     ];
 

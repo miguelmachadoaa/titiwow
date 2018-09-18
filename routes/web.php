@@ -34,6 +34,8 @@ Route::group(['prefix' => 'admin', 'namespace'=>'Admin'], function () {
     Route::get('login2', function () {
         return view('admin/login2');
     });
+
+
 //    Route::get('{provider}', 'AuthController@redirectToProvider');
 //    Route::get('{provider}/callback', 'AuthController@handleProviderCallback');
 
@@ -56,6 +58,28 @@ Route::group(['prefix' => 'admin', 'namespace'=>'Admin'], function () {
     Route::get('activate/{userId}/{activationCode}', 'AuthController@getActivate')->name('activate');
 });
 
+Route::group(['prefix' => 'masterfile', 'namespace'=>'Admin'], function () {
+
+    # Error pages should be shown without requiring login
+    Route::get('404', function () {
+        return view('admin/404');
+    });
+    Route::get('500', function () {
+        return view('admin/500');
+    });
+    # Lock screen
+    Route::get('{id}/lockscreen', 'UsersController@lockscreen')->name('lockscreen');
+    Route::post('{id}/lockscreen', 'UsersController@postLockscreen')->name('lockscreen');
+    # All basic routes defined here
+    Route::get('login', 'AuthController@getSignin')->name('login');
+    Route::get('signin', 'AuthController@getSignin')->name('signin');
+    Route::post('signin', 'AuthController@postSignin')->name('postSignin');
+    Route::post('signup', 'AuthController@postSignup')->name('admin.signup');
+    Route::post('forgot-password', 'AuthController@postForgotPassword')->name('forgot-password');
+    Route::get('login2', function () {
+        return view('admin/login2');
+    });
+});
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], function () {
     # GUI Crud Generator

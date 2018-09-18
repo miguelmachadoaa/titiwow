@@ -132,19 +132,18 @@ Categoria {{$categoria->id}}
 
                         </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+                        <div class="form-group {{ $errors->first('slug', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Slug Categoria
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="text" id="slug" name="slug" class="form-control" placeholder="Slug Categoria"
+                                       value="{!! old('slug') !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('slug', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                 <a class="btn btn-danger" href="{{ route('admin.categorias.index') }}">

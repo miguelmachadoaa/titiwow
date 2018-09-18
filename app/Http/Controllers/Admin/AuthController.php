@@ -28,6 +28,7 @@ class AuthController extends JoshController
      */
     public function getSignin()
     {
+
         // Is the user logged in?
         if (Sentinel::check()) {
             return Redirect::route('admin.dashboard');
@@ -56,7 +57,7 @@ class AuthController extends JoshController
                     ->log('LoggedIn');
                 //activity log ends
                 if ($request->back=='0') {
-
+ 
                     return Redirect::route("admin.dashboard")->with('success', trans('auth/message.signin.success'));
                    
                 }else{

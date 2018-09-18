@@ -83,19 +83,14 @@
 
                         <!--  ubicacion de la sede  -->
 
-                        <div class="col-sm-12">
-
                             <div class="form-group col-sm-12">
-                                <label for="cedula"  class="col-sm-2 control-label">Selecciona Ubicacion de la sede
+                                <label for="coords"  class="col-sm-2 control-label">Ubicación
                                 </label>
                                 <div class="col-sm-5">
-                                    <input class="form-control" type="text" name="coords" id="coords">
+                                    <input class="form-control" type="text" name="coords" id="coords" placeholder="(Longitud, Latitud)">
                                 </div>
-                              
                             </div>
-
-                             
-                              
+                            <div class="form-group col-sm-12">
                               <div id="map" style="height: 400px; width: 100%; "></div>
 
 
@@ -106,7 +101,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
-                                <a class="btn btn-danger" href="{{ route('admin.formasenvio.index') }}">
+                                <a class="btn btn-danger" href="{{ route('admin.sedes.index') }}">
                                     Cancelar
                                 </a>
                                 <button type="submit" class="btn btn-success">
