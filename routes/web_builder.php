@@ -237,7 +237,11 @@ Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses'
 
         Route::get('{menu}/detalle', 'admin\AlpMenuController@detalle')->name('menus.detalle');
 
+        Route::get('{menu}/submenu', 'admin\AlpMenuController@submenu')->name('menus.submenu');
+
         Route::post('{menu}/storeson', 'admin\AlpMenuController@storeson')->name('menus.storeson');
+
+        Route::post('{menu}/storesub', 'admin\AlpMenuController@storesub')->name('menus.storesub');
 
         Route::get('{menu}/editson', 'admin\AlpMenuController@editson')->name('menus.editson');
 

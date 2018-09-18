@@ -133,6 +133,15 @@
         </ul>
 
         <ul class="sub-menu">
+            <li {!! (Request::is('admin/menus*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.menus.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Menus
+                </a>
+            </li>
+        </ul>
+
+        <ul class="sub-menu">
             <li {!! (Request::is('admin/documentos*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.documentos.index') !!}">
                     <i class="fa fa-angle-double-right"></i>
@@ -159,11 +168,7 @@
             </li>
         </ul>
 
-        
-
-        
     </li>
-
    
     <li {!! (Request::is('admin/activity_log') ? 'class="active"' : '') !!}>
         <a href="{{  URL::to('admin/activity_log') }}">

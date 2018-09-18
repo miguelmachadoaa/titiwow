@@ -13,7 +13,7 @@ use Intervention\Image\Facades\Image;
 use DOMDocument;
 
 
-class AlpMeuController extends JoshController
+class AlpMenuController extends JoshController
 {
     /**
      * Show a list of all the groups.
@@ -59,7 +59,7 @@ class AlpMeuController extends JoshController
         
 
         $data = array(
-            'nombre_menu' => $request->nombre_menu
+            'nombre_menu' => $request->nombre_menu,
             'id_user' =>$user_id
         );
 
@@ -184,18 +184,17 @@ class AlpMeuController extends JoshController
        
        $menu = AlpMenu::find($id);
 
-      
-
-    $detalles = AlpMenu::select('alp_menu_detalles.*')
-        ->where('alp_menu_detalles.id_menu',$id)->get(); 
-
-
+    $detalles = AlpDetallesMenu::select('alp_menu_detalles.*')
+        ->where('alp_menu_detalles.id_menu',$id) 
+        ->where('alp_menu_detalles.parent','0')->get(); 
 
         return view('admin.menus.detalle', compact('menu', 'detalles'));
 
     }
 
-    public function storeson(Request $request, $padre)
+
+
+    public function storeson(Request $request, $id_menu)
     {
         
          $user_id = Sentinel::getUser()->id;
@@ -203,30 +202,29 @@ class AlpMeuController extends JoshController
         //$input = $request->all();
 
         //var_dump($input);
-
-
-        
        
 
         $data = array(
             'name' => $request->name, 
             'slug' => $request->slug, 
-            'parent' =>$padre, 
+            'parent' =>'0', 
             'order' =>0, 
-            'id_menu' =>$padre
+            'id_menu' =>$id_menu
         );
          
         $detalle=AlpDetallesMenu::create($data);
 
         if ($detalle->id) {
 
-            return redirect('admin/menus/'.$padre.'/detalle')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
+            return redirect('admin/menus/'.$id_menu.'/detalle')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
 
         } else {
-            return Redirect::route('admin/menus/'.$padre.'/detalle')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+            return Redirect::route('admin/menus/'.$id_menu.'/detalle')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
         }  
 
     }
+
+
 
     /**
      * Group update.
@@ -237,9 +235,9 @@ class AlpMeuController extends JoshController
     public function editson($id)
     {
        
-       $categoria = AlpMenu::find($id);
+       $detalle = AlpDetallesMenu::find($id);
 
-        return view('admin.menus.editson', compact('categoria'));
+        return view('admin.menus.editson', compact('detalle'));
     }
 
     /**
@@ -254,26 +252,70 @@ class AlpMeuController extends JoshController
        
 
                 $data = array(
-            'nombre_categoria' => $request->nombre_categoria, 
-            'descripcion_categoria' => $request->descripcion_categoria, 
-            'referencia_producto_sap' =>$request->referencia_producto_sap, 
-            'id_categoria_parent' =>$request->id_categoria_parent
+            'name' => $request->name, 
+            'slug' => $request->slug, 
+            'parent' =>$request->parent
                 );
 
-        
+        $detalle = AlpDetallesMenu::find($id);
 
 
-     /*  $categoria = AlpMenu::find($id);
+       
     
-        $categoria->update($data);
+        $detalle->update($data);
 
-        if ($categoria->id) {
+        if ($detalle->id) {
 
-            return redirect('admin/menus/'.$request->id_categoria_parent.'/detalle')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
+            return redirect('admin/menus/'.$detalle->id_menu.'/detalle')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
 
         } else {
-            return Redirect::route('admin/menus/'.$request->id_categoria_parent.'/detalle')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
-        }  */
+            return Redirect::route('admin/menus/'.$detalle->id_menu.'/detalle')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+        }  
+
+    }
+
+     public function submenu($id)
+    {
+       
+        $detalle = AlpDetallesMenu::find($id);
+
+        $detalles = AlpDetallesMenu::select('alp_menu_detalles.*')
+        ->where('alp_menu_detalles.parent',$id)->get(); 
+
+        return view('admin.menus.submenu', compact('detalle', 'detalles'));
+
+    }
+
+    public function storesub(Request $request, $id_detalle)
+    {
+        
+         $user_id = Sentinel::getUser()->id;
+
+        $detalle = AlpDetallesMenu::find($id_detalle);
+
+
+        //$input = $request->all();
+
+        //var_dump($input);
+       
+
+        $data = array(
+            'name' => $request->name, 
+            'slug' => $request->slug, 
+            'parent' =>$request->parent, 
+            'order' =>0, 
+            'id_menu' =>$detalle->id_menu
+        );
+         
+        $detalle=AlpDetallesMenu::create($data);
+
+        if ($detalle->id) {
+
+            return redirect('admin/menus/'.$id_detalle.'/submenu')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
+
+        } else {
+            return Redirect::route('admin/menus/'.$id_detalle.'/submenu')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+        }  
 
     }
 
