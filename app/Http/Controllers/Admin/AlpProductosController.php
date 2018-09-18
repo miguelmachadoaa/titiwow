@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\JoshController;
+use App\Http\Requests\ProductosRequest;
 use App\Models\AlpProductos;
 use App\Models\AlpCategorias;
 use App\Models\AlpCategoriasProductos;
@@ -11,7 +12,6 @@ use App\Models\AlpPrecioGrupo;
 use App\Roles;
 use App\Models\AlpMarcas;
 use App\Http\Requests;
-use App\Http\Requests\ProductosRequest;
 use Illuminate\Http\Request;
 use Response;
 use Sentinel;
@@ -129,7 +129,7 @@ class AlpProductosController extends JoshController
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(ProductosRequest $request)
     {
 
         $user_id = Sentinel::getUser()->id;
@@ -383,7 +383,7 @@ class AlpProductosController extends JoshController
      * @param  Blog $blog
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductosRequest $request, $id)
     {
 
         $producto = AlpProductos::find($id);

@@ -22,6 +22,7 @@ class CreateAlpMenuDetalleTable extends Migration
             $table->boolean('enabled')->default(1);
             $table->integer('id_menu');
             $table->timestamps();
+            $table->softDeletes();
         }); 
     }
 

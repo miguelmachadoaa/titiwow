@@ -62,7 +62,7 @@ Editar Forma de Pago
                             <div class="col-sm-5">
                                 
 
-                                <textarea class="form-control resize_vertical" id="descripcion_forma_pago" name="descripcion_forma_pago" placeholder="Descripcion Forma de Pago" rows="5">{!! old('descripcion_forma_pago', $formaspago->descripcion_forma_pago) !!}</textarea>
+                                <textarea class="form-control resize_vertical" id="descripcion_forma_pago" name="descripcion_forma_pago" placeholder="Descripcion Forma de Pago" rows="5">{!! old('descripcion_forma_pago', $forma->descripcion_forma_pago) !!}</textarea>
                             </div>
                             <div class="col-sm-4">
                                 {!! $errors->first('descripcion_forma_pago', '<span class="help-block">:message</span> ') !!}

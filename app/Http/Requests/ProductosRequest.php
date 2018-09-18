@@ -34,7 +34,7 @@ class ProductosRequest extends FormRequest {
 			'slug' => 'required|unique:alp_productos',
             'id_categoria_default' => 'required',
             'id_marca' => 'required',
-            'inventario_inicial' => 'required'
+            'inventario_inicial' => 'required',
             'precio_base' => 'required'
 		];
 	}
