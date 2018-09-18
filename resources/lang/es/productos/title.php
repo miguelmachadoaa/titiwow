@@ -20,6 +20,7 @@ return array(
 	'enviar' => 'Enviar',
 	'pasos' => 'Pasos para la creacion de productos',
 	'price' => 'Precio',
+	'prices' => 'Precios del Producto',
 	'inventary' => 'Inventario Incial',
 	'category_default' => 'Categoria por Defecto',
 	'caracteristica' => 'Caracteristica del Producto',

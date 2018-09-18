@@ -9,30 +9,10 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
     Route::resource('productos', 'admin\AlpProductosController');
 
+    Route::get('productos/{id}/confirm-delete', array('as' => 'productos.confirm-delete', 'uses' => 'admin\AlpProductosController@getModalDelete'));
 
-/*
-Route::get('productos', ['as'=> 'productos.index', 'uses' => 'admin\AlpProductosController@index']);
-
-Route::post('productos', ['as'=> 'productos.store', 'uses' => 'admin\AlpProductosController@store']);
-
-Route::get('productos/create', ['as'=> 'productos.create', 'uses' => 'admin\AlpProductosController@create']);
-
-Route::put('productos/{alpProductos}', ['as'=> 'productos.update', 'uses' => 'admin\AlpProductosController@update']);
-
-Route::patch('productos/{alpProductos}', ['as'=> 'productos.update', 'uses' => 'admin\AlpProductosController@update']);
-
-Route::get('productos/{id}/delete', array('as' => 'productos.delete', 'uses' => 'admin\AlpProductosController@getDelete'));
-
-
-
-Route::get('productos/{alpProductos}', ['as'=> 'productos.show', 'uses' => 'admin\AlpProductosController@show']);
-
-Route::get('productos/{alpProductos}/edit', ['as'=> 'productos.edit', 'uses' => 'admin\AlpProductosController@edit']);
-
-*/
-Route::get('productos/{id}/confirm-delete', array('as' => 'productos.confirm-delete', 'uses' => 'admin\AlpProductosController@getModalDelete'));
-
-Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses' => 'admin\AlpProductosController@destroy']);
+    Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses' => 'admin\AlpProductosController@destroy']);
+    
 
 //fin direcciones productos 
 

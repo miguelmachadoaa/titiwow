@@ -7,6 +7,8 @@ use App\Models\AlpProductos;
 use App\Models\AlpCategorias;
 use App\Models\AlpCategoriasProductos;
 use App\Models\AlpInventario;
+use App\Models\AlpPrecioGrupo;
+use App\Roles;
 use App\Models\AlpMarcas;
 use App\Http\Requests;
 use App\Http\Requests\ProductosRequest;
@@ -15,6 +17,7 @@ use Response;
 use Sentinel;
 use Intervention\Image\Facades\Image;
 use DOMDocument;
+use DB;
 
 
 class AlpProductosController extends JoshController
@@ -116,9 +119,9 @@ class AlpProductosController extends JoshController
         #$marcas = AlpMarcas::pluck('nombre_marca', 'id');
         $marcas = AlpMarcas::all();
 
+        $roles = DB::table('roles')->select('id', 'name')->get();
 
-
-        return view('admin.productos.create', compact('categorias', 'marcas', 'tree', 'check'));
+        return view('admin.productos.create', compact('categorias', 'marcas', 'tree', 'check', 'roles'));
     }
 
     /**
@@ -126,12 +129,12 @@ class AlpProductosController extends JoshController
      *
      * @return Response
      */
-    public function store(ProductosRequest $request)
+    public function store(Request $request)
     {
 
         $user_id = Sentinel::getUser()->id;
 
-        //$input = $request->all();
+        $input = $request->all();
 
         //var_dump($input);
 
@@ -183,6 +186,8 @@ class AlpProductosController extends JoshController
          
         $producto=AlpProductos::create($data);
 
+        /*se guarda inventario*/
+
 
         $data_inventario = array(
             'id_producto' => $producto->id, 
@@ -193,6 +198,8 @@ class AlpProductosController extends JoshController
         );
 
         $inventario=AlpInventario::create($data_inventario);
+
+        /*se cargan las categorias seleccionadas*/
 
         $cats=explode(',', $request->categorias_prod);
 
@@ -205,11 +212,32 @@ class AlpProductosController extends JoshController
             );
 
 
-            AlpCategoriasProductos::create($data_cat);
+           AlpCategoriasProductos::create($data_cat);
 
         }
 
+        /*Se crean los precios por rol */
 
+        foreach ($input as $key => $value) {
+
+          if (substr($key, 0, 9)=='rolprecio') {
+
+           // echo $key.':'.$value.'<br>';
+
+            $par=explode('_', $key);
+
+            $data_precio = array(
+              'id_producto' => $producto->id, 
+              'id_role' => $par[1], 
+              'precio' => $value, 
+              'id_user' => $user_id
+            );
+
+            AlpPrecioGrupo::create($data_precio);
+            
+          }
+
+        }
 
         if ($producto->id) {
 
@@ -217,7 +245,7 @@ class AlpProductosController extends JoshController
 
         } else {
             return Redirect::route('admin/productos')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
-        }       
+        }    
 
     }
 
@@ -302,7 +330,50 @@ class AlpProductosController extends JoshController
 
         $producto['inventario_inicial']=$inventario->cantidad;
 
-        return view('admin.productos.edit', compact('producto', 'categorias', 'marcas', 'check', 'tree'));
+
+
+        $roles = DB::table('roles')->select('id', 'name')->get();
+
+        $precioGrupo = AlpPrecioGrupo::where('id_producto', $id)->get();
+
+        $drole = array();
+        $dprecio = array();
+
+        /*se rellena un arra con los precios por roles con el key igual al id del rol */
+
+         foreach ($precioGrupo as $pre) {
+                
+          $dprecio[$pre->id_role]=$pre;
+
+        }
+
+        /* se carga el precio en cada vuelta al rol si existe sino se carga 0, esto para cuando se crean roles nuevos **/
+
+        foreach ($roles as $rol) {
+                
+          $drole[$rol->id]=$rol;
+
+          if (isset($dprecio[$rol->id])) {
+            
+            $drole[$rol->id]->precio=$dprecio[$rol->id]['precio'];
+
+          }else{
+
+            $drole[$rol->id]['precio']=0;
+
+          }
+
+        }
+
+
+        $roles=$drole;
+
+
+       // dd($roles);
+
+
+
+        return view('admin.productos.edit', compact('producto', 'categorias', 'marcas', 'check', 'tree', 'roles'));
 
     }
 
@@ -319,6 +390,9 @@ class AlpProductosController extends JoshController
 
 
         $user_id = Sentinel::getUser()->id;
+
+        $input = $request->all();
+
 
 
         $imagen='0';
@@ -387,7 +461,7 @@ class AlpProductosController extends JoshController
 
         $cats=explode(',', $request->categorias_prod);
 
-        AlpCategoriasProductos::where('id_producto', $producto->id)->delete();
+        AlpCategoriasProductos::where('id_producto', $id)->delete();
 
          foreach ($cats as $cat ) {
             
@@ -401,6 +475,33 @@ class AlpProductosController extends JoshController
             AlpCategoriasProductos::create($data_cat);
 
         }
+
+
+        /*Se crean los precios por rol */
+
+        AlpPrecioGrupo::where('id_producto', $id)->delete();
+
+        foreach ($input as $key => $value) {
+
+          if (substr($key, 0, 9)=='rolprecio') {
+
+           // echo $key.':'.$value.'<br>';
+
+            $par=explode('_', $key);
+
+            $data_precio = array(
+              'id_producto' => $producto->id, 
+              'id_role' => $par[1], 
+              'precio' => $value, 
+              'id_user' => $user_id
+            );
+
+            AlpPrecioGrupo::create($data_precio);
+            
+          }
+
+        }
+
 
 
         if ($producto->id) {

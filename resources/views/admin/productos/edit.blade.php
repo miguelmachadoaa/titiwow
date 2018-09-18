@@ -97,6 +97,9 @@
                             <li class="acc-wizard-todo">
                                 <a href="#viewpage">@lang('productos/title.caracteristica')</a>
                             </li>
+                            <li class="acc-wizard-todo">
+                                <a href="#price_page">@lang('productos/title.prices')</a>
+                            </li>
                         </ol>
                     </div>
                     <div class="col-md-9 pd-r">
@@ -478,11 +481,7 @@
                                                 </div>
                                                 <br>    
 
-                                                <div class="form-group clearfix ">
-                                                <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.price') </label>
-                                                <div class="col-md-9">
-                                                    <input id="precio_base" step="0.01" name="precio_base" type="number" placeholder="Precio" class="form-control" value="{{$producto->precio_base}}" ></div>
-                                                </div>
+                                              
 
                                             </div>
 
@@ -491,15 +490,60 @@
                                                 
                                             </div>
 
-                                            <a class="btn btn-default" href="#prod_categoria" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.previous')</a>
+                                           <a class="btn btn-default" href="#prod_categoria" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.previous')</a>
 
-                                            <button type="button" class="btn btn-primary finish">@lang('productos/title.enviar') </button>
+                                            <a class="btn btn-default" href="#price_page" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
                                             
                                         
                                     </div>
 
                                     <!--/.panel-body --> </div>
 
+                                <!-- /#adjusthtml --> </div>
+
+
+                                <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a href="#price_page" data-parent="#accordion-demo" data-toggle="collapse">@lang('productos/title.prices')</a>
+                                    </h4>
+                                </div>
+                                <div id="price_page" class="panel-collapse collapse" style="height: 36.400001525878906px;">
+                                    <div class="panel-body">
+                                        
+                                            <div class="form-group clearfix col-sm-12">
+                                                <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.price') </label>
+                                                <div class="col-md-9">
+                                                    <input id="precio_base" step="0.01" name="precio_base" type="number" placeholder="Precio" class="form-control" value="{{$producto->precio_base}}" onblur="setprecio();" ></div>
+                                            </div>
+
+                                            <!--  precios por roles-->
+
+                                            @foreach($roles as $rol)
+
+                                                <div class="form-group clearfix col-sm-12">
+                                                <label class="col-md-3 control-label" for="referencia_producto">Precio para {{ $rol->name }} </label>
+                                                <div class="col-md-9">
+                                                    <input id="rolprecio_{{ $rol->id }}" step="0.01" name="rolprecio_{{ $rol->id }}" type="number" placeholder="Precio" class="form-control rolprecio" value="{{$rol->precio}}" ></div>
+                                            </div>
+                                                        
+                                            @endforeach
+
+
+
+                                            <!--  Botons anterior sguiente-->
+                        
+                                           
+                                            <div class="acc-wizard-step">
+                                                
+                                            </div>
+
+                                            <a class="btn btn-default" href="#viewpage" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.previous')</a>
+                                            
+                                            <button type="button" class="btn btn-danger finish">@lang('productos/title.enviar') </button>
+                                        
+                                    </div>
+                                    <!--/.panel-body --> </div>
                                 <!-- /#adjusthtml --> </div>
 
                             <!-- /.panel.panel-default --> </div>
@@ -743,6 +787,19 @@ $('#productosForm').keypress(
             theme:"bootstrap"
         });
     })
+
+
+     function setprecio(){
+
+        var precio=$('#precio_base').val();
+
+        $('.rolprecio').each(function(){
+
+            $(this).val(precio);
+
+        });
+
+    }
 
     </script>
 
