@@ -757,6 +757,69 @@
    <!-- <script src="{{ asset('assets/js/pages/treeview_jstree.js') }}" type="text/javascript"></script>-->
 
     <script type="text/javascript">
+
+
+        
+        function addPriceRolEstate(){
+
+            role=$('#role_precio').val();
+
+            state=$('#state_id').val();
+
+            city=$('#city_id').val();
+
+            precio_base=$('#precio_base').val();
+
+
+            if (role=='' || role==undefined || state=='' || state==undefined || city=='' || city==undefined )  {
+
+                alert('todos los campos son requeridos ');
+
+            }else{
+
+                role_separado=role.split('_');
+
+                state_separado=state.split('_');
+
+                city_separado=city.split('_');
+
+
+                if ( $('#rolprecio_'+role_separado[0]+'_'+city_separado[0]+'').length ) {
+
+                     alert('Ya existe esta opcion');
+
+                }else{
+
+
+                    ele=$('.producto_element').clone();
+
+                    ele.removeClass('producto_element');
+
+                    ele.find('label').html('Precio para el '+role_separado[1]+' '+city_separado[1]+'');
+                    
+                    ele.find('input').attr('id', 'rolprecio_'+role_separado[0]+'_'+city_separado[0]+'');
+                    
+                    ele.find('input').attr('name', 'rolprecio_'+role_separado[0]+'_'+city_separado[0]+'');
+
+                    ele.find('select').attr('name', 'select_'+role_separado[0]+'_'+city_separado[0]+'');
+
+                    ele.find('select').attr('id', 'select_'+role_separado[0]+'_'+city_separado[0]+'');
+                                   
+                    $('#div_productos').append(ele);
+
+                 }
+
+                
+
+
+
+
+            }
+
+
+           
+           
+        }
         
 
           function verificarCategorias (){
