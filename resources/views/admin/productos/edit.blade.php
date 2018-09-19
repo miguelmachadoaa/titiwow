@@ -86,6 +86,7 @@
 
       
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+         <input type="hidden" name="base" id="base" value="{{ url('/') }}">
 
                 <div class="row acc-wizard">
                     <div class="col-md-3 pd-2">
@@ -139,34 +140,34 @@
 
                                                 <div class="col-md-9">
 
-                                                    <input id="nombre_producto" name="nombre_producto" type="text" placeholder="Nombre del producto" class="form-control  {{ $errors->first('nombre_producto', 'has-error') }}" value="{!! old('nombre_producto', $producto->nombre_producto) !!}">
+                                                    <input id="nombre_producto" name="nombre_producto" type="text" placeholder="Nombre del producto" class="form-control  {{ $errors->first('nombre_producto', 'has-error') }}" value="{!! old('nombre_producto', $producto->nombre_producto) !!}">{!! $errors->first('nombre_producto', '<span class="help-block">:message</span>') !!}
                                                 </div>
-                                                 {!! $errors->first('nombre_producto', '<span class="help-block">:message</span>') !!}
+                                                 
 
                                             </div>
 
-                                            <div class="form-group clearfix">
+                                            <div class="form-group clearfix {{ $errors->first('referencia_producto', 'has-error') }}" >
 
                                                 <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.reference')</label>
 
                                                 <div class="col-md-9">
 
-                                                    <input id="referencia_producto" name="referencia_producto" type="text" placeholder="Referencia" class="form-control  {{ $errors->first('referencia_producto', 'has-error') }}" value="{!! old('Referencia Sap', $producto->referencia_producto_sap) !!}" value="{!! old('referencia', $producto->referencia_producto) !!}" >
+                                                    <input id="referencia_producto" name="referencia_producto" type="text" placeholder="Referencia" class="form-control  {{ $errors->first('referencia_producto', 'has-error') }}" value="{!! old('Referencia Sap', $producto->referencia_producto_sap) !!}" value="{!! old('referencia', $producto->referencia_producto) !!}" >  {!! $errors->first('referencia_producto', '<span class="help-block">:message</span>') !!}
                                                 </div>
-                                                 {!! $errors->first('referencia_producto', '<span class="help-block">:message</span>') !!}
+                                               
                                             </div>
 
-                                            <div class="form-group clearfix">
+                                            <div class="form-group clearfix {{ $errors->first('referencia_producto_sap', 'has-error') }}">
 
                                                 <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.reference_sap')</label>
 
                                                 <div class="col-md-9">
 
-                                                    <input id="referencia_producto_sap" name="referencia_producto_sap" type="text" placeholder="Referencia Sap" class="form-control  {{ $errors->first('referencia_producto_sap', 'has-error') }}" value="{!! old('Referencia Sap', $producto->referencia_producto_sap) !!}">
+                                                    <input id="referencia_producto_sap" name="referencia_producto_sap" type="text" placeholder="Referencia Sap" class="form-control  {{ $errors->first('referencia_producto_sap', 'has-error') }}" value="{!! old('Referencia Sap', $producto->referencia_producto_sap) !!}"> {!! $errors->first('referencia_producto_sap', '<span class="help-block">:message</span>') !!}
 
                                                 </div>
 
-                                                {!! $errors->first('referencia_producto_sap', '<span class="help-block">:message</span>') !!}
+                                               
                                             </div>
 
                                             <div class="acc-wizard-step"></div>
@@ -196,31 +197,31 @@
 
                                     <div class="panel-body">
 
-                                        <div class="form-group clearfix">
+                                        <div class="form-group clearfix {{ $errors->first('descripcion_corta', 'has-error') }}">
 
                                             <label class="col-md-3 control-label" for="descripcion_corta">@lang('productos/title.description_sort')</label>
 
                                             <div class="col-md-9">
 
-                                                <textarea class="form-control col-sm-12 {{ $errors->first('descripcion_corta', 'has-error') }}  resize_vertical" id="descripcion_corta" name="descripcion_corta" placeholder="Descripcion Corta" rows="5">{!! old('Descripción Corta', $producto->descripcion_corta) !!}</textarea>
+                                                <textarea class="form-control col-sm-12 {{ $errors->first('descripcion_corta', 'has-error') }}  resize_vertical" id="descripcion_corta" name="descripcion_corta" placeholder="Descripcion Corta" rows="5">{!! old('Descripción Corta', $producto->descripcion_corta) !!}</textarea>{!! $errors->first('descripcion_corta', '<span class="help-block">:message</span>') !!}
 
                                             </div>
 
-                                            {!! $errors->first('descripcion_corta', '<span class="help-block">:message</span>') !!}
+                                            
 
                                         </div>
 
-                                        <div class="form-group clearfix">
+                                        <div class="form-group clearfix {{ $errors->first('descripcion_larga', 'has-error') }}">
 
                                             <label class="col-md-3 control-label" for="descripcion_larga">@lang('productos/title.description_large')</label>
 
                                             <div class="col-md-9">
 
-                                                <textarea class="form-control col-sm-12  {{ $errors->first('descripcion_larga', 'has-error') }} resize_vertical" id="descripcion_larga" name="descripcion_larga" placeholder="Descripcion Larga" rows="5">{!! old('Descripción Larga', $producto->descripcion_larga) !!}</textarea>
+                                                <textarea class="form-control col-sm-12  {{ $errors->first('descripcion_larga', 'has-error') }} resize_vertical" id="descripcion_larga" name="descripcion_larga" placeholder="Descripcion Larga" rows="5">{!! old('Descripción Larga', $producto->descripcion_larga) !!}</textarea>{!! $errors->first('descripcion_larga', '<span class="help-block">:message</span>') !!}
 
                                             </div>
 
-                                            {!! $errors->first('descripcion_larga', '<span class="help-block">:message</span>') !!}
+                                            
 
                                         </div>
 
@@ -313,45 +314,45 @@
 
                                     <div class="panel-body">
 
-                                            <div class="form-group clearfix">
+                                            <div class="form-group clearfix {{ $errors->first('seo_titulo', 'has-error') }}">
 
                                                 <label class="col-md-3 control-label" for="nombre_producto">@lang('productos/title.seo_title')</label>
 
                                                 <div class="col-md-9">
 
-                                                    <input id="seo_titulo" name="seo_titulo" type="text" placeholder="Seo Titulo" class="form-control  {{ $errors->first('seo_titulo', 'has-error') }}" value="{!! old('Seo Titulo', $producto->seo_titulo) !!}">
+                                                    <input id="seo_titulo" name="seo_titulo" type="text" placeholder="Seo Titulo" class="form-control  {{ $errors->first('seo_titulo', 'has-error') }}" value="{!! old('Seo Titulo', $producto->seo_titulo) !!}">{!! $errors->first('seo_titulo', '<span class="help-block">:message</span>') !!}
 
                                                 </div>
 
-                                                {!! $errors->first('seo_titulo', '<span class="help-block">:message</span>') !!}
+                                                
 
                                             </div> 
 
-                                            <div class="form-group clearfix">
+                                            <div class="form-group clearfix {{ $errors->first('seo_descripcion', 'has-error') }}">
 
                                                 <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.seo_des')</label>
 
                                                 <div class="col-md-9">
 
-                                                    <input id="seo_descripcion" name="seo_descripcion" type="text" placeholder="Seo Descripcion" class="form-control   {{ $errors->first('seo_descripcion', 'has-error') }}" value="{!! old('Seo Titulo', $producto->seo_titulo) !!}">
+                                                    <input id="seo_descripcion" name="seo_descripcion" type="text" placeholder="Seo Descripcion" class="form-control   {{ $errors->first('seo_descripcion', 'has-error') }}" value="{!! old('Seo Titulo', $producto->seo_titulo) !!}">{!! $errors->first('seo_descripcion', '<span class="help-block">:message</span>') !!}
 
                                                 </div>
 
-                                                 {!! $errors->first('seo_descripcion', '<span class="help-block">:message</span>') !!}
+                                                 
 
                                             </div>
 
-                                            <div class="form-group clearfix">
+                                            <div class="form-group clearfix {{ $errors->first('slug', 'has-error') }}">
 
                                                 <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.slug')</label>
 
                                                 <div class="col-md-9">
 
-                                                    <input id="slug" name="slug" type="text" placeholder="Seo Url" class="form-control  {{ $errors->first('seo_url', 'has-error') }}" value="{!! old('Seo Url', $producto->slug) !!}">
+                                                    <input id="slug" name="slug" type="text" placeholder="Seo Url" class="form-control  {{ $errors->first('seo_url', 'has-error') }}" value="{!! old('Seo Url', $producto->slug) !!}"> {!! $errors->first('slug', '<span class="help-block">:message</span>') !!}
 
                                                 </div>
 
-                                                 {!! $errors->first('slug', '<span class="help-block">:message</span>') !!}
+                                                
 
                                             </div>
 
@@ -425,7 +426,7 @@
 
                                     <div class="panel-body">                                   
 
-                                            <div class="form-group">
+                                            <div class="form-group {{ $errors->first('id_categoria_default', 'has-error') }}">
 
                                                 <label for="select21" class="col-md-3 control-label">
                                                     @lang('productos/title.category_default')
@@ -444,10 +445,10 @@
                                                 </select>
 
                                                     </select>
-
+                                                        {!! $errors->first('id_categoria_default', '<span class="help-block">:message</span>') !!}
                                                 </div>
 
-                                                {!! $errors->first('id_categoria_default', '<span class="help-block">:message</span>') !!}
+                                               
 
                                                
                                             </div>
@@ -455,7 +456,7 @@
                                                 <br>    
 
 
-                                            <div class="form-group">
+                                            <div class="form-group {{ $errors->first('id_marca', 'has-error') }}">
 
                                                 <label for="select21" class="col-md-3 control-label">
                                                     @lang('productos/title.marca')
@@ -472,22 +473,24 @@
                                                         @endforeach
 
                                                     </select>
-
+                                                        {!! $errors->first('id_marca', '<span class="help-block">:message</span>') !!}
                                                 </div>
 
-                                                {!! $errors->first('id_marca', '<span class="help-block">:message</span>') !!}
+                                               
                                                 
                                             </div>
 
                                                 <br>    
 
 
-                                            <div class="form-group clearfix">
+                                            <div class="form-group clearfix {{ $errors->first('inventario_inicial', 'has-error') }}">
 
                                                 <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.inventary') </label>
 
                                                 <div class="col-md-9">
                                                     <input id="inventario_inicial" name="inventario_inicial" type="number" placeholder="Inventario Inicial" class="form-control" value="{{$producto->inventario_inicial}}" readonly="true" >
+
+                                                     {!! $errors->first('inventario_inicial', '<span class="help-block">:message</span> ') !!}
 
                                                 </div>
                                                 <br>    
@@ -522,10 +525,15 @@
                                 <div id="price_page" class="panel-collapse collapse" style="height: 36.400001525878906px;">
                                     <div class="panel-body">
                                         
-                                            <div class="form-group clearfix col-sm-12">
+                                            <div class="form-group clearfix col-sm-12 {{ $errors->first('precio_base', 'has-error') }}">
                                                 <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.price') </label>
                                                 <div class="col-md-9">
-                                                    <input id="precio_base" step="0.01" name="precio_base" type="number" placeholder="Precio" class="form-control" value="{{$producto->precio_base}}" onblur="setprecio();" ></div>
+                                                    <input id="precio_base" step="0.01" name="precio_base" type="number" placeholder="Precio" class="form-control" value="{{$producto->precio_base}}" onblur="setprecio();" >
+
+                                                     {!! $errors->first('precio_base', '<span class="help-block">:message</span> ') !!}
+
+
+                                                </div>
                                             </div>
 
                                             <!--  precios por roles-->
@@ -611,7 +619,7 @@
 
                                         @foreach($precio_grupo as $pg)
 
-                                            <div class="form-group clearfix col-sm-12 producto_element">
+                                            <div class="form-group clearfix col-sm-12 ">
                                                 <label class="col-md-3 control-label producto_label" for="referencia_producto">
                                                     {{ 'Precio para el '.$pg->role_name.' '.$pg->city_name }}
                                                  </label>
@@ -759,7 +767,7 @@
     <script type="text/javascript">
 
 
-        
+
         function addPriceRolEstate(){
 
             role=$('#role_precio').val();
@@ -1015,6 +1023,39 @@ $('#productosForm').keypress(
         });
 
     }
+
+
+
+     $(document).ready(function(){
+        //Inicio select región
+                
+
+            //inicio select ciudad
+            $('select[name="state_id"]').on('change', function() {
+                    var stateID = $(this).val();
+                var base = $('#base').val();
+
+                    if(stateID) {
+                        $.ajax({
+                            url: base+'/configuracion/cities/'+stateID,
+                            type: "GET",
+                            dataType: "json",
+                            success:function(data) {
+
+                                
+                                $('select[name="city_id"]').empty();
+                                $.each(data, function(key, value) {
+                                    $('select[name="city_id"]').append('<option value="'+ key+'_'+value +'">'+ value +'</option>');
+                                });
+
+                            }
+                        });
+                    }else{
+                        $('select[name="city_id"]').empty();
+                    }
+                });
+            //fin select ciudad
+        });
 
     </script>
 
