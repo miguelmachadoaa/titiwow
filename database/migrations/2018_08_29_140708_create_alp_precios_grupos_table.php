@@ -17,6 +17,8 @@ class CreateAlpPreciosGruposTable extends Migration
             $table->increments('id');
             $table->integer('id_producto');
             $table->integer('id_role');
+            $table->integer('city_id');
+            $table->integer('operacion')->comment('1: dejar precio base, 2 porcentaje de descuento, 3 precio fijo');
             $table->decimal('precio');
             $table->integer('estado_registro')->default(1);
             $table->integer('id_user');
