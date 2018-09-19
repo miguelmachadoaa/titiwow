@@ -570,13 +570,13 @@
                                                
                                                     <div class="" >
 
-                                                        <select id="test_precio" name="test_precio" class="form-control ">
+                                                        <select id="test_precio" name="test_precio" class="form-control selectprecio">
 
                                                             <option value="1" Selected>Dejar Precio Base</option>
                                                             <option value="2">Porcentaje Descuento</option>
                                                             <option value="3">Valor Fijo</option>
 
-                                                        </select>
+                                                        </select>       
                                                     </div>
 
                                                 </div>
@@ -584,7 +584,7 @@
 
                                                 
                                                 <div class="col-md-4">
-                                                    <input id="test_precio" step="0.01" name="test_precio" type="number" placeholder="Valor" class="form-control" value="{{ old('precio_role') }}"  >
+                                                    <input id="test_precio" step="0.01" name="test_precio" type="number" placeholder="Valor" class="form-control" disabled="true" value="{{ old('precio_role') }}"  >
                                                 </div>
                                             </div>
 
@@ -605,7 +605,7 @@
 
                                             <a class="btn btn-default" href="#viewpage" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.previous')</a>
                                             
-                                            <button type="button" class="btn btn-danger finish">@lang('productos/title.enviar') </button>
+                                            <button type="button" class="btn btn-primary finish">@lang('button.save') </button>
                                         
                                     </div>
                                     <!--/.panel-body --> </div>
@@ -663,6 +663,35 @@
 
     <script type="text/javascript">
 
+        $('.selectprecio').on('change', function(){
+
+            valor=$(this).val();
+            rc=$(this).data('rc');
+
+            if (valor==1) {
+
+                $('#rolprecio_'+rc+'').attr('disabled','true');
+               
+
+            }
+
+            if (valor==2) {
+
+                $('#rolprecio_'+rc+'').attr('disabled','false');
+               
+
+            }
+
+             if (valor==3) {
+
+                $('#rolprecio_'+rc+'').attr('disabled','false');
+               
+
+            }
+
+
+        });
+
         function addPriceRolEstate(){
 
             role=$('#role_precio').val();
@@ -707,20 +736,14 @@
                     ele.find('select').attr('name', 'select_'+role_separado[0]+'_'+city_separado[0]+'');
 
                     ele.find('select').attr('id', 'select_'+role_separado[0]+'_'+city_separado[0]+'');
+
+                    ele.find('select').attr('data-rc', role_separado[0]+'_'+city_separado[0]+'');
                                    
                     $('#div_productos').append(ele);
 
                  }
 
-                
-
-
-
-
             }
-
-
-           
            
         }
         

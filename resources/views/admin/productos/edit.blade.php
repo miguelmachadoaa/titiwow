@@ -700,7 +700,7 @@
 
                                             <a class="btn btn-default" href="#viewpage" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.previous')</a>
                                             
-                                            <button type="button" class="btn btn-danger finish">@lang('productos/title.enviar') </button>
+                                            <button type="button" class="btn btn-primary finish">@lang('button.save') </button>
                                         
                                     </div>
                                     <!--/.panel-body --> </div>
