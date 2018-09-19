@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\JoshController;
 use App\Http\Requests\ProductosRequest;
+use App\Http\Requests\ProductosUpdateRequest;
 use App\Models\AlpProductos;
 use App\Models\AlpCategorias;
 use App\Models\AlpCategoriasProductos;
 use App\Models\AlpInventario;
 use App\Models\AlpPrecioGrupo;
+use App\State;
+use App\City;
 use App\Roles;
 use App\Models\AlpMarcas;
 use App\Http\Requests;
@@ -119,9 +122,11 @@ class AlpProductosController extends JoshController
         #$marcas = AlpMarcas::pluck('nombre_marca', 'id');
         $marcas = AlpMarcas::all();
 
+        $states = State::where('country_id','47')->get();
+
         $roles = DB::table('roles')->select('id', 'name')->get();
 
-        return view('admin.productos.create', compact('categorias', 'marcas', 'tree', 'check', 'roles'));
+        return view('admin.productos.create', compact('categorias', 'marcas', 'tree', 'check', 'roles', 'states'));
     }
 
     /**
@@ -145,7 +150,7 @@ class AlpProductosController extends JoshController
         
         if ($request->hasFile('image')) {
             
-            $file = $request->file('image');
+            $file = $request->file('image');    
 
             #echo $file.'<br>';
             
@@ -188,7 +193,6 @@ class AlpProductosController extends JoshController
 
         /*se guarda inventario*/
 
-
         $data_inventario = array(
             'id_producto' => $producto->id, 
             'cantidad' => $request->inventario_inicial, 
@@ -216,7 +220,31 @@ class AlpProductosController extends JoshController
 
         }
 
+        $select = array();
+
+        foreach ($input as $key => $value) {
+
+          //echo substr($key, 0, 6).'<br>';
+
+          if (substr($key, 0, 6)=='select') {
+
+            //echo $key.':'.$value.'<br>';
+
+            $par=explode('_', $key);
+
+            $select[$par[1]][$par[2]]=$value;            
+            
+          }
+
+        }
+
+       // echo "  Selects <br>";
+
+       // print_r($select).'<br>';
+
         /*Se crean los precios por rol */
+
+       // echo "  precios <br>";
 
         foreach ($input as $key => $value) {
 
@@ -229,11 +257,15 @@ class AlpProductosController extends JoshController
             $data_precio = array(
               'id_producto' => $producto->id, 
               'id_role' => $par[1], 
+              'city_id' => $par[2], 
+              'operacion' => $select[$par[1]][$par[2]], 
               'precio' => $value, 
               'id_user' => $user_id
             );
 
             AlpPrecioGrupo::create($data_precio);
+
+           // print_r($data_precio).'<br>';
             
           }
 
@@ -245,7 +277,7 @@ class AlpProductosController extends JoshController
 
         } else {
             return Redirect::route('admin/productos')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
-        }    
+        }   
 
     }
 
@@ -341,39 +373,36 @@ class AlpProductosController extends JoshController
 
         /*se rellena un arra con los precios por roles con el key igual al id del rol */
 
+          $precio_grupo = array();
+
          foreach ($precioGrupo as $pre) {
                 
           $dprecio[$pre->id_role]=$pre;
 
-        }
+         
+          $nr = DB::table('roles')->select('id', 'name')->where('id',$pre->id_role)->first();
+          $nc=City::where('id',$pre->city_id)->first();
 
-        /* se carga el precio en cada vuelta al rol si existe sino se carga 0, esto para cuando se crean roles nuevos **/
+          $pre->role_name=$nr->name;
+          $pre->city_name=$nc->city_name;
 
-        foreach ($roles as $rol) {
-                
-          $drole[$rol->id]=$rol;
-
-          if (isset($dprecio[$rol->id])) {
-            
-            $drole[$rol->id]->precio=$dprecio[$rol->id]['precio'];
-
-          }else{
-
-            $drole[$rol->id]['precio']=0;
-
-          }
+          $precio_grupo[]=$pre;
 
         }
 
+     
 
-        $roles=$drole;
+        $states = State::where('country_id','47')->get();
+
+
+        $roles = DB::table('roles')->select('id', 'name')->get();
 
 
        // dd($roles);
 
 
 
-        return view('admin.productos.edit', compact('producto', 'categorias', 'marcas', 'check', 'tree', 'roles'));
+        return view('admin.productos.edit', compact('producto', 'categorias', 'marcas', 'check', 'tree', 'roles',  'precio_grupo', 'states'));
 
     }
 
@@ -383,7 +412,7 @@ class AlpProductosController extends JoshController
      * @param  Blog $blog
      * @return Response
      */
-    public function update(ProductosRequest $request, $id)
+    public function update(ProductosUpdateRequest $request, $id)
     {
 
         $producto = AlpProductos::find($id);
@@ -431,7 +460,6 @@ class AlpProductosController extends JoshController
                 'imagen_producto' =>$imagen, 
                 'seo_titulo' =>$request->seo_titulo, 
                 'seo_descripcion' =>$request->seo_descripcion, 
-                'slug' =>$request->slug, 
                 'id_categoria_default' =>$request->id_categoria_default, 
                 'id_marca' =>$request->id_marca,
                 'precio_base' =>$request->precio_base
@@ -447,7 +475,6 @@ class AlpProductosController extends JoshController
                 'descripcion_larga' =>$request->descripcion_larga, 
                 'seo_titulo' =>$request->seo_titulo, 
                 'seo_descripcion' =>$request->seo_descripcion, 
-                'slug' =>$request->slug, 
                 'id_categoria_default' =>$request->id_categoria_default, 
                 'precio_base' =>$request->precio_base,
                 'id_marca' =>$request->id_marca
@@ -481,6 +508,33 @@ class AlpProductosController extends JoshController
 
         AlpPrecioGrupo::where('id_producto', $id)->delete();
 
+        
+          $select = array();
+
+        foreach ($input as $key => $value) {
+
+          //echo substr($key, 0, 6).'<br>';
+
+          if (substr($key, 0, 6)=='select') {
+
+            //echo $key.':'.$value.'<br>';
+
+            $par=explode('_', $key);
+
+            $select[$par[1]][$par[2]]=$value;            
+            
+          }
+
+        }
+
+       // echo "  Selects <br>";
+
+       // print_r($select).'<br>';
+
+        /*Se crean los precios por rol */
+
+       // echo "  precios <br>";
+
         foreach ($input as $key => $value) {
 
           if (substr($key, 0, 9)=='rolprecio') {
@@ -492,15 +546,20 @@ class AlpProductosController extends JoshController
             $data_precio = array(
               'id_producto' => $producto->id, 
               'id_role' => $par[1], 
+              'city_id' => $par[2], 
+              'operacion' => $select[$par[1]][$par[2]], 
               'precio' => $value, 
               'id_user' => $user_id
             );
 
             AlpPrecioGrupo::create($data_precio);
+
+           // print_r($data_precio).'<br>';
             
           }
 
         }
+
 
 
 

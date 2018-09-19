@@ -21,6 +21,8 @@ class AlpPrecioGrupo extends Model
         'id',
         'id_producto',
         'id_role',
+        'city_id',
+        'operacion',
         'precio',
         'estado_registro',
         'id_user'

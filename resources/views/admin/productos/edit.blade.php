@@ -69,6 +69,17 @@
                 </h4></div>
             <br />
         <div class="panel-body">
+
+
+             @if (count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
        
 
         {!! Form::model($producto, ['url' => URL::to('admin/productos/'. $producto->id.''), 'method' => 'put', 'id'=>'productosForm', 'files'=> true]) !!}
@@ -519,17 +530,158 @@
 
                                             <!--  precios por roles-->
 
-                                            @foreach($roles as $rol)
+                                            
 
-                                                <div class="form-group clearfix col-sm-12">
-                                                <label class="col-md-3 control-label" for="referencia_producto">Precio para {{ $rol->name }} </label>
-                                                <div class="col-md-9">
-                                                    <input id="rolprecio_{{ $rol->id }}" step="0.01" name="rolprecio_{{ $rol->id }}" type="number" placeholder="Precio" class="form-control rolprecio" value="{{$rol->precio}}" ></div>
+                                    <div class="row">
+
+                                        <h4>    Definir precios especificos 
+                                        </h4>
+                                        
+                                        <div class="col-sm-12">
+                                        
+                                            <!-- Select role -->
+
+                                            <div class="form-group col-sm-3" style="margin: 0 0 15px 0;">
+
+                                                <label for="select21" class=" control-label">
+                                                    @lang('productos/title.roles')
+                                                </label>
+
+                                                <div class="" >
+
+                                                    <select id="role_precio" name="role_precio" class="form-control ">
+                                                        <option value="">Seleccione</option>
+                                                       
+                                                        @foreach($roles as $rol)
+                                                        <option value="{{ $rol->id.'_'.$rol->name }}"
+                                                                @if($rol->id == old('role_precio')) selected="selected" @endif >{{ $rol->name}}</option>
+                                                        @endforeach
+                                                      
+                                                    </select>
+                                                </div>
                                             </div>
+
+                                            <!-- Select State -->
+
+                                            <div class="form-group col-sm-3" style="margin: 0 0 15px 0;">
+                                                <label for="select21" class=" control-label">
+                                                    Estado
+                                                </label>
+                                                <div class="" >
+                                                    <select id="state_id" name="state_id" class="form-control ">
+                                                        <option value="">Seleccione</option>
                                                         
-                                            @endforeach
+                                                        @foreach($states as $state)
+
+                                                        <option value="{{ $state->id.'_'.$state->state_name }}"
+                                                                @if($state->id == old('state_id')) selected="selected" @endif >{{ $state->state_name}}</option>
+                                                        @endforeach
+                                                        
+                                                      
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-sm-3" style="margin: 0 0 15px 0;">
+                                                <label for="select21" class=" control-label">
+                                                    Ciudad
+                                                </label>
+                                                <div class="" >
+                                                    <select id="city_id" name="city_id" class="form-control ">
+                                                        <option value="">Seleccione</option>
+                                                       
+                                                        
+                                                      
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-sm-3" style="margin: 0 0 15px 0;">
+                                                <br>
+                                                <button type="button" class="btn btn-default" onclick="addPriceRolEstate();"> Agregar    </button>
+                                            </div>
 
 
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row" id="div_productos">   
+
+                                        @foreach($precio_grupo as $pg)
+
+                                            <div class="form-group clearfix col-sm-12 producto_element">
+                                                <label class="col-md-3 control-label producto_label" for="referencia_producto">
+                                                    {{ 'Precio para el '.$pg->role_name.' '.$pg->city_name }}
+                                                 </label>
+                                                    
+
+                                                <div class="form-group col-sm-4" style="margin: 0 0 15px 0;">
+                                               
+                                                    <div class="" >
+
+                                                        <select id="{{ 'select_'.$pg->id_role.'_'.$pg->city_id }}" name="{{ 'select_'.$pg->id_role.'_'.$pg->city_id }}" class="form-control ">
+
+                                                            <option value="1"  @if($pg->operacion == '1') selected="selected" @endif  >Dejar Precio Base</option>
+                                                            <option value="2" @if($pg->operacion == '2') selected="selected" @endif  >Porcentaje Descuento</option>
+                                                            <option value="3" @if($pg->operacion == '3') selected="selected" @endif  >Valor Fijo</option>
+
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+
+
+                                                
+                                                <div class="col-md-4">
+                                                    <input id="{{ 'rolprecio_'.$pg->id_role.'_'.$pg->city_id }}" step="0.01" name="{{ 'rolprecio_'.$pg->id_role.'_'.$pg->city_id }}" type="number" placeholder="Valor" class="form-control" value="{{ $pg->precio }}"  >
+                                                </div>
+                                            </div>
+
+
+                                        @endforeach
+
+
+
+
+
+
+                                    </div>
+
+                                            <!--  modelo a clonar-->
+
+                                            <div class="col-sm-12 hidden">  
+
+                                                <div class="form-group clearfix col-sm-12 producto_element">
+                                                <label class="col-md-3 control-label producto_label" for="referencia_producto">@lang('productos/title.price') </label>
+
+                                                <div class="form-group col-sm-4" style="margin: 0 0 15px 0;">
+                                               
+                                                    <div class="" >
+
+                                                        <select id="test_precio" name="test_precio" class="form-control ">
+
+                                                            <option value="1" Selected>Dejar Precio Base</option>
+                                                            <option value="2">Porcentaje Descuento</option>
+                                                            <option value="3">Valor Fijo</option>
+
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+
+
+                                                
+                                                <div class="col-md-4">
+                                                    <input id="test_precio" step="0.01" name="test_precio" type="number" placeholder="Valor" class="form-control" value="{{ old('precio_role') }}"  >
+                                                </div>
+                                            </div>
+
+
+
+
+                                             </div>
 
                                             <!--  Botons anterior sguiente-->
                         

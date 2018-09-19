@@ -89,9 +89,23 @@
                         </span>
             </div>
             <div class="panel-body">
+
+                     @if (count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+
             {!! Form::open(['url' => 'admin\productos', 'class' => 'form-horizontal', 'id' => 'productosForm', 'name' => 'productosForm', 'files'=> true]) !!}
 
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+
+            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
 
                 <div class="row acc-wizard">
 
@@ -399,24 +413,127 @@
                                 <div id="price_page" class="panel-collapse collapse" style="height: 36.400001525878906px;">
                                     <div class="panel-body">
                                         
-                                            <div class="form-group clearfix col-sm-12">
-                                                <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.price') </label>
+                                            <div class="form-group clearfix col-sm-12 ">
+                                                <label class="col-md-3 control-label producto_label" for="referencia_producto">@lang('productos/title.price') </label>
                                                 <div class="col-md-9">
                                                     <input id="precio_base" step="0.01" name="precio_base" type="number" placeholder="Precio" class="form-control" value="{{ old('precio_base') }}" onblur="setprecio();" ></div>
                                             </div>
 
-                                            <!--  precios por roles-->
 
-                                            @foreach($roles as $rol)
+                                    <div class="row">
 
-                                                <div class="form-group clearfix col-sm-12">
-                                                <label class="col-md-3 control-label" for="referencia_producto">Precio para {{ $rol->name }} </label>
-                                                <div class="col-md-9">
-                                                    <input id="rolprecio_{{ $rol->id }}" step="0.01" name="rolprecio_{{ $rol->id }}" type="number" placeholder="Precio" class="form-control rolprecio" value="{{ old('precio_base') }}" ></div>
+                                        <h4>    Definir precios especificos 
+                                        </h4>
+                                        
+                                        <div class="col-sm-12">
+                                        
+                                            <!-- Select role -->
+
+                                            <div class="form-group col-sm-3" style="margin: 0 0 15px 0;">
+
+                                                <label for="select21" class=" control-label">
+                                                    @lang('productos/title.roles')
+                                                </label>
+
+                                                <div class="" >
+
+                                                    <select id="role_precio" name="role_precio" class="form-control ">
+                                                        <option value="">Seleccione</option>
+                                                       
+                                                        @foreach($roles as $rol)
+                                                        <option value="{{ $rol->id.'_'.$rol->name }}"
+                                                                @if($rol->id == old('role_precio')) selected="selected" @endif >{{ $rol->name}}</option>
+                                                        @endforeach
+                                                      
+                                                    </select>
+                                                </div>
                                             </div>
-                                                        
-                                            @endforeach
 
+                                            <!-- Select State -->
+
+                                            <div class="form-group col-sm-3" style="margin: 0 0 15px 0;">
+                                                <label for="select21" class=" control-label">
+                                                    Estado
+                                                </label>
+                                                <div class="" >
+                                                    <select id="state_id" name="state_id" class="form-control ">
+                                                        <option value="">Seleccione</option>
+                                                        
+                                                        @foreach($states as $state)
+
+                                                        <option value="{{ $state->id.'_'.$state->state_name }}"
+                                                                @if($state->id == old('state_id')) selected="selected" @endif >{{ $state->state_name}}</option>
+                                                        @endforeach
+                                                        
+                                                      
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-sm-3" style="margin: 0 0 15px 0;">
+                                                <label for="select21" class=" control-label">
+                                                    Ciudad
+                                                </label>
+                                                <div class="" >
+                                                    <select id="city_id" name="city_id" class="form-control ">
+                                                        <option value="">Seleccione</option>
+                                                       
+                                                        
+                                                      
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-sm-3" style="margin: 0 0 15px 0;">
+                                                <br>
+                                                <button type="button" class="btn btn-default" onclick="addPriceRolEstate();"> Agregar    </button>
+                                            </div>
+
+
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row" id="div_productos">   
+
+                                    </div>
+
+                                            <!--  modelo a clonar-->
+
+                                            <div class="col-sm-12 hidden">  
+
+                                                <div class="form-group clearfix col-sm-12 producto_element">
+                                                <label class="col-md-3 control-label producto_label" for="referencia_producto">@lang('productos/title.price') </label>
+
+                                                <div class="form-group col-sm-4" style="margin: 0 0 15px 0;">
+                                               
+                                                    <div class="" >
+
+                                                        <select id="test_precio" name="test_precio" class="form-control ">
+
+                                                            <option value="1" Selected>Dejar Precio Base</option>
+                                                            <option value="2">Porcentaje Descuento</option>
+                                                            <option value="3">Valor Fijo</option>
+
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+
+
+                                                
+                                                <div class="col-md-4">
+                                                    <input id="test_precio" step="0.01" name="test_precio" type="number" placeholder="Valor" class="form-control" value="{{ old('precio_role') }}"  >
+                                                </div>
+                                            </div>
+
+
+
+
+                                             </div>
+
+                                           
 
 
                                             <!--  Botons anterior sguiente-->
@@ -485,6 +602,67 @@
    <!-- <script src="{{ asset('assets/js/pages/treeview_jstree.js') }}" type="text/javascript"></script>-->
 
     <script type="text/javascript">
+
+        function addPriceRolEstate(){
+
+            role=$('#role_precio').val();
+
+            state=$('#state_id').val();
+
+            city=$('#city_id').val();
+
+            precio_base=$('#precio_base').val();
+
+
+            if (role=='' || role==undefined || state=='' || state==undefined || city=='' || city==undefined )  {
+
+                alert('todos los campos son requeridos ');
+
+            }else{
+
+                role_separado=role.split('_');
+
+                state_separado=state.split('_');
+
+                city_separado=city.split('_');
+
+
+                if ( $('#rolprecio_'+role_separado[0]+'_'+city_separado[0]+'').length ) {
+
+                     alert('Ya existe esta opcion');
+
+                }else{
+
+
+                    ele=$('.producto_element').clone();
+
+                    ele.removeClass('producto_element');
+
+                    ele.find('label').html('Precio para el '+role_separado[1]+' '+city_separado[1]+'');
+                    
+                    ele.find('input').attr('id', 'rolprecio_'+role_separado[0]+'_'+city_separado[0]+'');
+                    
+                    ele.find('input').attr('name', 'rolprecio_'+role_separado[0]+'_'+city_separado[0]+'');
+
+                    ele.find('select').attr('name', 'select_'+role_separado[0]+'_'+city_separado[0]+'');
+
+                    ele.find('select').attr('id', 'select_'+role_separado[0]+'_'+city_separado[0]+'');
+                                   
+                    $('#div_productos').append(ele);
+
+                 }
+
+                
+
+
+
+
+            }
+
+
+           
+           
+        }
         
 
           function verificarCategorias (){
@@ -679,8 +857,42 @@ $('#productosForm').keypress(
         });
 
     }
-    </script>
+    
 
-    <!--Fin  Arbol de categorias -->
+  
+
+     $(document).ready(function(){
+        //Inicio select región
+                
+
+            //inicio select ciudad
+            $('select[name="state_id"]').on('change', function() {
+                    var stateID = $(this).val();
+                var base = $('#base').val();
+
+                    if(stateID) {
+                        $.ajax({
+                            url: base+'/configuracion/cities/'+stateID,
+                            type: "GET",
+                            dataType: "json",
+                            success:function(data) {
+
+                                
+                                $('select[name="city_id"]').empty();
+                                $.each(data, function(key, value) {
+                                    $('select[name="city_id"]').append('<option value="'+ key+'_'+value +'">'+ value +'</option>');
+                                });
+
+                            }
+                        });
+                    }else{
+                        $('select[name="city_id"]').empty();
+                    }
+                });
+            //fin select ciudad
+        });
+
+     </script>
+
 
 @stop

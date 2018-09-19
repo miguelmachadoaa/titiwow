@@ -37,7 +37,8 @@ return array(
 	'name' => 'Nombre del Producto',
 	'reference' => 'Referencia',
 	'reference_sap' => 'Referencia Sap',
-	'basic' => 'Datos Basicos'
+	'basic' => 'Datos Basicos',
+	'roles' => 'Roles',
 
 
 
