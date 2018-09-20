@@ -619,23 +619,21 @@
 
                                         @foreach($precio_grupo as $pg)
 
-                                            <div class="form-group clearfix col-sm-12 ">
-                                                <label class="col-md-3 control-label producto_label" for="referencia_producto">
-                                                    {{ 'Precio para el '.$pg->role_name.' '.$pg->city_name }}
-                                                 </label>
-                                                    
+
+                                         <div class="form-group clearfix col-sm-12  {{ 'element_'.$pg->id_role.'_'.$pg->city_id }}">
+                                                <label class="col-md-3 control-label producto_label" for="referencia_producto">{{ 'Precio para el '.$pg->role_name.' '.$pg->city_name }} </label>
 
                                                 <div class="form-group col-sm-4" style="margin: 0 0 15px 0;">
                                                
                                                     <div class="" >
 
-                                                        <select id="{{ 'select_'.$pg->id_role.'_'.$pg->city_id }}" name="{{ 'select_'.$pg->id_role.'_'.$pg->city_id }}" class="form-control ">
+                                                        <select id="{{ 'select_'.$pg->id_role.'_'.$pg->city_id }}" name="{{ 'select_'.$pg->id_role.'_'.$pg->city_id }}" data-rc="{{ $pg->id_role.'_'.$pg->city_id }}" class="form-control selectprecio">
 
                                                             <option value="1"  @if($pg->operacion == '1') selected="selected" @endif  >Dejar Precio Base</option>
                                                             <option value="2" @if($pg->operacion == '2') selected="selected" @endif  >Porcentaje Descuento</option>
                                                             <option value="3" @if($pg->operacion == '3') selected="selected" @endif  >Valor Fijo</option>
 
-                                                        </select>
+                                                        </select>       
                                                     </div>
 
                                                 </div>
@@ -643,9 +641,16 @@
 
                                                 
                                                 <div class="col-md-4">
-                                                    <input id="{{ 'rolprecio_'.$pg->id_role.'_'.$pg->city_id }}" step="0.01" name="{{ 'rolprecio_'.$pg->id_role.'_'.$pg->city_id }}" type="number" placeholder="Valor" class="form-control" value="{{ $pg->precio }}"  >
+                                                    <input id="{{ 'rolprecio_'.$pg->id_role.'_'.$pg->city_id }}" step="0.01" name="{{ 'rolprecio_'.$pg->id_role.'_'.$pg->city_id }}" data-rc="{{ $pg->id_role.'_'.$pg->city_id }}" type="number" placeholder="Valor" class="form-control rolprecio" @if($pg->operacion == '1') readonly="" @endif  value="{{ $pg->precio }}"  >
+
+                                                    <h3><span class="label label-success {{ 'spanprecio_'.$pg->id_role.'_'.$pg->city_id }}">Precio para la seleccion: {{ $pg->precio_seleccion }}  </span></h3>
+                                                </div>
+
+                                                <div class="col-md-1">
+                                                    <button data-rc="{{ $pg->id_role.'_'.$pg->city_id }}" class="btn btn-xs btn-danger delprecio">x</button>
                                                 </div>
                                             </div>
+
 
 
                                         @endforeach
@@ -659,7 +664,7 @@
 
                                             <!--  modelo a clonar-->
 
-                                            <div class="col-sm-12 hidden">  
+                                           <div class="col-sm-12 hidden">  
 
                                                 <div class="form-group clearfix col-sm-12 producto_element">
                                                 <label class="col-md-3 control-label producto_label" for="referencia_producto">@lang('productos/title.price') </label>
@@ -668,13 +673,13 @@
                                                
                                                     <div class="" >
 
-                                                        <select id="test_precio" name="test_precio" class="form-control ">
+                                                        <select id="test_precio" name="test_precio" class="form-control">
 
                                                             <option value="1" Selected>Dejar Precio Base</option>
                                                             <option value="2">Porcentaje Descuento</option>
                                                             <option value="3">Valor Fijo</option>
 
-                                                        </select>
+                                                        </select>       
                                                     </div>
 
                                                 </div>
@@ -682,7 +687,13 @@
 
                                                 
                                                 <div class="col-md-4">
-                                                    <input id="test_precio" step="0.01" name="test_precio" type="number" placeholder="Valor" class="form-control" value="{{ old('precio_role') }}"  >
+                                                    <input id="test_precio" step="0.01" name="test_precio" type="number" placeholder="Valor" class="form-control" readonly="" value="{{ old('precio_role') }}"  >
+
+                                                    <h3><span class="label label-success ">Precio  </span></h3>
+                                                </div>
+
+                                                <div class="col-md-1">
+                                                    <button class="btn btn-xs btn-danger">x</button>
                                                 </div>
                                             </div>
 
@@ -690,7 +701,6 @@
 
 
                                              </div>
-
                                             <!--  Botons anterior sguiente-->
                         
                                            
@@ -766,7 +776,107 @@
 
     <script type="text/javascript">
 
+          $(document).ready(function(){
 
+                $(document).on('change', '.selectprecio', function(e) {
+
+                    precio_base=$('#precio_base').val();
+
+                    ele=$(this);
+
+                    valor=ele.val();
+
+                    rc=ele.data('rc');
+                    
+
+                    if (valor==1) {
+
+                        $('#rolprecio_'+rc+'').attr('readonly','true');
+                        $('.spanprecio_'+rc+'').html('Precio para la seleccion: '+precio_base);
+                       
+
+                    }
+
+                    if (valor==2) {
+
+                        $('#rolprecio_'+rc+'').removeAttr('readonly');
+                       
+
+                    }
+
+                     if (valor==3) {
+
+                        $('#rolprecio_'+rc+'').removeAttr('readonly','false');
+                       
+
+                    }
+
+
+                });
+
+                $(document).on('blur', '.rolprecio', function(e) {
+
+                    precio_base=$('#precio_base').val();
+
+                    ele=$(this);
+
+                    valor=ele.val();
+
+                    rc=ele.data('rc');
+
+                    valor_select=$('#select_'+rc+'').val();
+                    
+
+                    if (valor_select==1) {
+
+                        $('#rolprecio_'+rc+'').attr('readonly','true');
+                        $('.spanprecio_'+rc+'').html('Precio para la seleccion: '+precio_base);
+                       
+
+                    }
+
+                    if (valor_select==2) {
+
+                        $('#rolprecio_'+rc+'').removeAttr('readonly');
+
+                        let total=precio_base*(1-(valor/100));
+
+                        $('.spanprecio_'+rc+'').html('Precio para la seleccion: '+total);
+
+                       
+
+                    }
+
+                     if (valor_select==3) {
+
+                        $('#rolprecio_'+rc+'').removeAttr('readonly','false');
+
+                        $('.spanprecio_'+rc+'').html('Precio para la seleccion: '+valor);
+
+                       
+
+                    }
+
+
+                });
+
+                 $(document).on('click', '.delprecio', function(e) {
+
+                    ele=$(this);
+
+                    rc=ele.data('rc');                    
+                    
+                    $('.element_'+rc+'').remove();
+                   
+                });
+
+
+
+            });
+
+            //alert('alerta');
+
+           // valor=$(this).val();
 
         function addPriceRolEstate(){
 
@@ -803,29 +913,40 @@
 
                     ele.removeClass('producto_element');
 
+                    ele.addClass('element_'+role_separado[0]+'_'+city_separado[0]+'');
+
                     ele.find('label').html('Precio para el '+role_separado[1]+' '+city_separado[1]+'');
                     
                     ele.find('input').attr('id', 'rolprecio_'+role_separado[0]+'_'+city_separado[0]+'');
                     
                     ele.find('input').attr('name', 'rolprecio_'+role_separado[0]+'_'+city_separado[0]+'');
 
+                    ele.find('input').attr('data-rc', role_separado[0]+'_'+city_separado[0]+'');
+
+                    ele.find('input').addClass('rolprecio');
+
                     ele.find('select').attr('name', 'select_'+role_separado[0]+'_'+city_separado[0]+'');
 
                     ele.find('select').attr('id', 'select_'+role_separado[0]+'_'+city_separado[0]+'');
+
+                    ele.find('select').attr('data-rc', role_separado[0]+'_'+city_separado[0]+'');
+
+                    ele.find('select').addClass('selectprecio');
+
+                    ele.find('span').addClass('spanprecio_'+role_separado[0]+'_'+city_separado[0]+'');
+
+                    ele.find('span').html('Precio para la seleccion: '+precio_base);
+
+                    ele.find('button').addClass('delprecio');
+
+                    ele.find('button').attr('data-rc', role_separado[0]+'_'+city_separado[0]+'');
+
                                    
                     $('#div_productos').append(ele);
 
                  }
 
-                
-
-
-
-
             }
-
-
-           
            
         }
         

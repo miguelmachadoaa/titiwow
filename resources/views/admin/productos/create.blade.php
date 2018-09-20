@@ -570,7 +570,7 @@
                                                
                                                     <div class="" >
 
-                                                        <select id="test_precio" name="test_precio" class="form-control selectprecio">
+                                                        <select id="test_precio" name="test_precio" class="form-control">
 
                                                             <option value="1" Selected>Dejar Precio Base</option>
                                                             <option value="2">Porcentaje Descuento</option>
@@ -585,6 +585,12 @@
                                                 
                                                 <div class="col-md-4">
                                                     <input id="test_precio" step="0.01" name="test_precio" type="number" placeholder="Valor" class="form-control" disabled="true" value="{{ old('precio_role') }}"  >
+
+                                                    <h3><span class="label label-success ">Precio  </span></h3>
+                                                </div>
+
+                                                <div class="col-md-1">
+                                                    <button class="btn btn-xs btn-danger">x</button>
                                                 </div>
                                             </div>
 
@@ -663,34 +669,117 @@
 
     <script type="text/javascript">
 
-        $('.selectprecio').on('change', function(){
+       
+        
+            $(document).ready(function(){
 
-            valor=$(this).val();
-            rc=$(this).data('rc');
+                $(document).on('change', '.selectprecio', function(e) {
 
-            if (valor==1) {
+                    precio_base=$('#precio_base').val();
 
-                $('#rolprecio_'+rc+'').attr('disabled','true');
-               
+                    ele=$(this);
 
-            }
+                    valor=ele.val();
 
-            if (valor==2) {
+                    rc=ele.data('rc');
+                    
 
-                $('#rolprecio_'+rc+'').attr('disabled','false');
-               
+                    if (valor==1) {
 
-            }
+                        $('#rolprecio_'+rc+'').attr('readonly','true');
+                        $('.spanprecio_'+rc+'').html('Precio para la seleccion: '+precio_base);
+                       
 
-             if (valor==3) {
+                    }
 
-                $('#rolprecio_'+rc+'').attr('disabled','false');
-               
+                    if (valor==2) {
 
-            }
+                        $('#rolprecio_'+rc+'').removeAttr('readonly');
+                       
+
+                    }
+
+                     if (valor==3) {
+
+                        $('#rolprecio_'+rc+'').removeAttr('readonly','false');
+                       
+
+                    }
 
 
-        });
+                });
+
+                $(document).on('blur', '.rolprecio', function(e) {
+
+                    precio_base=$('#precio_base').val();
+
+                    ele=$(this);
+
+                    valor=ele.val();
+
+                    rc=ele.data('rc');
+
+                    valor_select=$('#select_'+rc+'').val();
+                    
+
+                    if (valor_select==1) {
+
+                        $('#rolprecio_'+rc+'').attr('readonly','true');
+                        $('.spanprecio_'+rc+'').html('Precio para la seleccion: '+precio_base);
+                       
+
+                    }
+
+                    if (valor_select==2) {
+
+                        $('#rolprecio_'+rc+'').removeAttr('readonly');
+
+                        let total=precio_base*(1-(valor/100));
+
+                        $('.spanprecio_'+rc+'').html('Precio para la seleccion: '+total);
+
+                       
+
+                    }
+
+                     if (valor_select==3) {
+
+                        $('#rolprecio_'+rc+'').removeAttr('readonly','false');
+
+                        $('.spanprecio_'+rc+'').html('Precio para la seleccion: '+valor);
+
+                       
+
+                    }
+
+
+                });
+
+                $(document).on('click', '.delprecio', function(e) {
+
+                   
+
+                    ele=$(this);
+
+                    rc=ele.data('rc');                    
+                    
+                    $('.element_'+rc+'').remove();
+
+                   
+                });
+
+
+            });
+
+            //alert('alerta');
+
+           // valor=$(this).val();
+
+           
+       
+
+
+      
 
         function addPriceRolEstate(){
 
@@ -727,17 +816,34 @@
 
                     ele.removeClass('producto_element');
 
+                    ele.addClass('element_'+role_separado[0]+'_'+city_separado[0]+'');
+
                     ele.find('label').html('Precio para el '+role_separado[1]+' '+city_separado[1]+'');
                     
                     ele.find('input').attr('id', 'rolprecio_'+role_separado[0]+'_'+city_separado[0]+'');
                     
                     ele.find('input').attr('name', 'rolprecio_'+role_separado[0]+'_'+city_separado[0]+'');
 
+                    ele.find('input').attr('data-rc', role_separado[0]+'_'+city_separado[0]+'');
+
+                    ele.find('input').addClass('rolprecio');
+
                     ele.find('select').attr('name', 'select_'+role_separado[0]+'_'+city_separado[0]+'');
 
                     ele.find('select').attr('id', 'select_'+role_separado[0]+'_'+city_separado[0]+'');
 
                     ele.find('select').attr('data-rc', role_separado[0]+'_'+city_separado[0]+'');
+
+                    ele.find('select').addClass('selectprecio');
+
+                    ele.find('span').addClass('spanprecio_'+role_separado[0]+'_'+city_separado[0]+'');
+
+                    ele.find('span').html('Precio para la seleccion: '+precio_base);
+
+                    ele.find('button').addClass('delprecio');
+
+                    ele.find('button').attr('data-rc', role_separado[0]+'_'+city_separado[0]+'');
+
                                    
                     $('#div_productos').append(ele);
 

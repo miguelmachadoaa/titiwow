@@ -124,7 +124,10 @@ class AlpProductosController extends JoshController
 
         $states = State::where('country_id','47')->get();
 
-        $roles = DB::table('roles')->select('id', 'name')->get();
+       // $roles = DB::table('roles')->select('id', 'name')->get();
+
+        $roles = DB::table('roles')->select('id', 'name')->where('roles.id', '<>', 1)->where('roles.id', '<>', 2)->get();
+
 
         return view('admin.productos.create', compact('categorias', 'marcas', 'tree', 'check', 'roles', 'states'));
     }
@@ -362,8 +365,6 @@ class AlpProductosController extends JoshController
 
         $producto['inventario_inicial']=$inventario->cantidad;
 
-
-
         $roles = DB::table('roles')->select('id', 'name')->get();
 
         $precioGrupo = AlpPrecioGrupo::where('id_producto', $id)->get();
@@ -375,32 +376,44 @@ class AlpProductosController extends JoshController
 
           $precio_grupo = array();
 
+         # print_r($precioGrupo);
+
          foreach ($precioGrupo as $pre) {
                 
-          $dprecio[$pre->id_role]=$pre;
-
-         
+                  
           $nr = DB::table('roles')->select('id', 'name')->where('id',$pre->id_role)->first();
+
           $nc=City::where('id',$pre->city_id)->first();
 
           $pre->role_name=$nr->name;
+
           $pre->city_name=$nc->city_name;
+
+          if ($pre->operacion==1) {
+            $pre->precio_seleccion=$producto->precio_base;
+            
+          }
+
+          if ($pre->operacion==2) {
+            $pre->precio_seleccion=$producto->precio_base*(1-($pre->precio/100));
+            
+          }
+
+          if ($pre->operacion==3) {
+            $pre->precio_seleccion=$pre->precio;
+            
+          }
 
           $precio_grupo[]=$pre;
 
         }
 
-     
+        //print_r($precio_grupo);
 
         $states = State::where('country_id','47')->get();
 
 
-        $roles = DB::table('roles')->select('id', 'name')->get();
-
-
-       // dd($roles);
-
-
+        $roles = DB::table('roles')->select('id', 'name')->where('roles.id', '<>', 1)->where('roles.id', '<>', 2)->get();
 
         return view('admin.productos.edit', compact('producto', 'categorias', 'marcas', 'check', 'tree', 'roles',  'precio_grupo', 'states'));
 
@@ -504,20 +517,20 @@ class AlpProductosController extends JoshController
         }
 
 
-        /*Se crean los precios por rol */
+        
 
         AlpPrecioGrupo::where('id_producto', $id)->delete();
 
         
-          $select = array();
+        $select = array();
 
         foreach ($input as $key => $value) {
 
-          //echo substr($key, 0, 6).'<br>';
+         # echo substr($key, 0, 6).'<br>';
 
           if (substr($key, 0, 6)=='select') {
 
-            //echo $key.':'.$value.'<br>';
+            #echo $key.':'.$value.'<br>';
 
             $par=explode('_', $key);
 
@@ -527,19 +540,18 @@ class AlpProductosController extends JoshController
 
         }
 
-       // echo "  Selects <br>";
+       # print_r($select).'<br><br><br>';
 
-       // print_r($select).'<br>';
-
-        /*Se crean los precios por rol */
-
-       // echo "  precios <br>";
+      
 
         foreach ($input as $key => $value) {
 
+         # echo substr($key, 0, 9).'<br>';
+
+
           if (substr($key, 0, 9)=='rolprecio') {
 
-           // echo $key.':'.$value.'<br>';
+           # echo $key.':'.$value.'<br>';
 
             $par=explode('_', $key);
 
@@ -554,7 +566,7 @@ class AlpProductosController extends JoshController
 
             AlpPrecioGrupo::create($data_precio);
 
-           // print_r($data_precio).'<br>';
+            #print_r($data_precio).'<br>';
             
           }
 
