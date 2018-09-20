@@ -424,7 +424,37 @@
 
                                 <div id="viewpage" class="panel-collapse collapse" style="height: 36.400001525878906px;">
 
-                                    <div class="panel-body">                                   
+                                    <div class="panel-body">  
+
+                                            <div class="form-group {{ $errors->first('id_impuesto', 'has-error') }}">
+
+                                                <label for="select21" class="col-md-3 control-label">
+                                                    @lang('productos/title.tax')
+                                                </label>
+
+                                                <div class="col-md-9"> 
+
+                                                 <select id="id_impuesto" name="id_impuesto" class="form-control   {{ $errors->first('id_impuesto', 'has-error') }} ">
+
+                                                    <option value="">Seleccione</option>
+
+                                                         @foreach($impuestos as $imp)
+                                                        <option value="{{ $imp->id }}"
+                                                                @if($imp->id == $producto->id_impuesto)) selected="selected" @endif >{{ $imp->nombre_impuesto}}</option>
+                                                        @endforeach
+                                                </select>
+
+                                                    </select>
+                                                        {!! $errors->first('id_impuesto', '<span class="help-block">:message</span>') !!}
+                                                </div>
+
+                                               
+
+                                               
+                                            </div>
+
+
+
 
                                             <div class="form-group {{ $errors->first('id_categoria_default', 'has-error') }}">
 

@@ -376,6 +376,26 @@
                                 </div>
                                 <div id="viewpage" class="panel-collapse collapse" style="height: 36.400001525878906px;">
                                     <div class="panel-body">
+
+                                        <div class="form-group col-sm-12 {{ $errors->
+                            first('id_impuesto', 'has-error') }}">
+                                                <label for="select21" class="col-md-3 control-label">
+                                                    @lang('productos/title.tax')
+                                                </label>
+                                                <div class="col-md-9">   
+                                                 <select id="id_impuesto" name="id_impuesto" class="form-control ">
+                                                    <option value="">Seleccione</option>
+                                                        
+                                                         @foreach($impuestos as $imp)
+                                                        <option value="{{ $imp->id }}"
+                                                                @if($imp->id == old('id_impuesto')) selected="selected" @endif >{{ $imp->nombre_impuesto}}</option>
+                                                        @endforeach
+                                                </select>
+
+                                                  {!! $errors->first('id_impuesto', '<span class="help-block">:message</span> ') !!}
+                                                </div>
+                                               
+                                            </div>
                                         
 
                                             <div class="form-group col-sm-12 {{ $errors->
@@ -584,7 +604,7 @@
 
                                                 
                                                 <div class="col-md-4">
-                                                    <input id="test_precio" step="0.01" name="test_precio" type="number" placeholder="Valor" class="form-control" disabled="true" value="{{ old('precio_role') }}"  >
+                                                    <input id="test_precio" step="0.01" name="test_precio" type="number" placeholder="Valor" class="form-control" readonly="true" value="{{ old('precio_role') }}"  >
 
                                                     <h3><span class="label label-success ">Precio  </span></h3>
                                                 </div>
@@ -670,8 +690,7 @@
     <script type="text/javascript">
 
        
-        
-            $(document).ready(function(){
+        $(document).ready(function(){
 
                 $(document).on('change', '.selectprecio', function(e) {
 
@@ -755,18 +774,16 @@
 
                 });
 
-                $(document).on('click', '.delprecio', function(e) {
-
-                   
+                 $(document).on('click', '.delprecio', function(e) {
 
                     ele=$(this);
 
                     rc=ele.data('rc');                    
                     
                     $('.element_'+rc+'').remove();
-
                    
                 });
+
 
 
             });
@@ -774,12 +791,6 @@
             //alert('alerta');
 
            // valor=$(this).val();
-
-           
-       
-
-
-      
 
         function addPriceRolEstate(){
 

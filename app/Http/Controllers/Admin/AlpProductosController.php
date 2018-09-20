@@ -10,6 +10,7 @@ use App\Models\AlpCategorias;
 use App\Models\AlpCategoriasProductos;
 use App\Models\AlpInventario;
 use App\Models\AlpPrecioGrupo;
+use App\Models\AlpImpuestos;
 use App\State;
 use App\City;
 use App\Roles;
@@ -128,8 +129,10 @@ class AlpProductosController extends JoshController
 
         $roles = DB::table('roles')->select('id', 'name')->where('roles.id', '<>', 1)->where('roles.id', '<>', 2)->get();
 
+         $impuestos = AlpImpuestos::all();
 
-        return view('admin.productos.create', compact('categorias', 'marcas', 'tree', 'check', 'roles', 'states'));
+
+        return view('admin.productos.create', compact('categorias', 'marcas', 'tree', 'check', 'roles', 'states', 'impuestos'));
     }
 
     /**
@@ -188,6 +191,7 @@ class AlpProductosController extends JoshController
             'slug' => $request->slug, 
             'id_categoria_default' =>$request->id_categoria_default, 
             'id_marca' =>$request->id_marca, 
+            'id_impuesto' =>$request->id_impuesto, 
             'precio_base' =>$request->precio_base, 
             'id_user' =>$user_id
         );
@@ -412,10 +416,12 @@ class AlpProductosController extends JoshController
 
         $states = State::where('country_id','47')->get();
 
+        $impuestos = AlpImpuestos::all();
+
 
         $roles = DB::table('roles')->select('id', 'name')->where('roles.id', '<>', 1)->where('roles.id', '<>', 2)->get();
 
-        return view('admin.productos.edit', compact('producto', 'categorias', 'marcas', 'check', 'tree', 'roles',  'precio_grupo', 'states'));
+        return view('admin.productos.edit', compact('producto', 'categorias', 'marcas', 'check', 'tree', 'roles',  'precio_grupo', 'states', 'impuestos'));
 
     }
 
@@ -475,6 +481,7 @@ class AlpProductosController extends JoshController
                 'seo_descripcion' =>$request->seo_descripcion, 
                 'id_categoria_default' =>$request->id_categoria_default, 
                 'id_marca' =>$request->id_marca,
+                'id_impuesto' =>$request->id_impuesto,
                 'precio_base' =>$request->precio_base
                 );
 
@@ -490,6 +497,7 @@ class AlpProductosController extends JoshController
                 'seo_descripcion' =>$request->seo_descripcion, 
                 'id_categoria_default' =>$request->id_categoria_default, 
                 'precio_base' =>$request->precio_base,
+                'id_impuesto' =>$request->id_impuesto,
                 'id_marca' =>$request->id_marca
                 );
 

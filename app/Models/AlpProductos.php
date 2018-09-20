@@ -29,6 +29,7 @@ class AlpProductos extends Model
         'seo_descripcion',
         'slug',
         'id_categoria_default',
+        'id_impuesto',
         'id_marca',
         'precio_base',
         'estado_registro',

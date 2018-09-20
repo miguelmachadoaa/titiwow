@@ -39,6 +39,7 @@ return array(
 	'reference_sap' => 'Referencia Sap',
 	'basic' => 'Datos Basicos',
 	'roles' => 'Roles',
+	'tax' => 'Impuesto',
 
 
 

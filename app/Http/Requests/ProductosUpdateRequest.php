@@ -33,6 +33,7 @@ class ProductosUpdateRequest extends FormRequest {
             'seo_descripcion' => 'required|min:5',
             'id_categoria_default' => 'required',
             'id_marca' => 'required',
+            'id_impuesto' => 'required',
             'inventario_inicial' => 'required',
             'precio_base' => 'required'
 		];
