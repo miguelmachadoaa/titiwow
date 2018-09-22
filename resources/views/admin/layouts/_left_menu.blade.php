@@ -7,6 +7,9 @@
             Escritorio
         </a>
     </li>
+
+    @if (Sentinel::getUser()->hasAnyAccess(['productos.*']) || Sentinel::getUser()->hasAnyAccess(['categorias.*']) ||Sentinel::getUser()->hasAnyAccess(['marcas.*']))
+
     <li class="{{ Request::is('admin/productos*') ? 'active' : '' }}">
         <a href="#">
             <i class="livicon" data-name="shopping-cart" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
@@ -14,27 +17,46 @@
             <span class="title">Catálogo</span>
             <span class="fa arrow"></span>
         </a>
+
         <ul class="sub-menu">
+            @if (Sentinel::getUser()->hasAnyAccess(['productos.*']))
+
             <li {!! (Request::is('admin/productos*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.productos.index') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Productos
                 </a>
             </li>
+            @endif
+            @if (Sentinel::getUser()->hasAnyAccess(['categorias.*']))
+
+            
+
             <li {!! (Request::is('admin/categorias*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.categorias.index') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Categorias
                 </a>
             </li>
+            @endif
+            @if (Sentinel::getUser()->hasAnyAccess(['marcas.*']))
+
+            
+
             <li {!! (Request::is('admin/marcas*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.marcas.index') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Marcas
                 </a>
             </li>
+            @endif
         </ul>
     </li>
+
+    @endif
+
+    
+    @if (Sentinel::getUser()->hasAnyAccess(['ordenes.*']))
 
      <li class="{{ Request::is('admin/ordenes*') ? 'active' : '' }}">
         <a href="#">
@@ -54,6 +76,12 @@
         </ul>
     </li>
 
+    @endif
+
+    @if (Sentinel::getUser()->hasAnyAccess(['formaspago.*']) || Sentinel::getUser()->hasAnyAccess(['configuracion.*']) || Sentinel::getUser()->hasAnyAccess(['estatus.*']) || Sentinel::getUser()->hasAnyAccess(['formasenvio.*']) || Sentinel::getUser()->hasAnyAccess(['rolenvios.*']) || Sentinel::getUser()->hasAnyAccess(['rolpagos.*']) || Sentinel::getUser()->hasAnyAccess(['impuestos.*']) || Sentinel::getUser()->hasAnyAccess(['marcas.*']) || Sentinel::getUser()->hasAnyAccess(['menus.*']) || Sentinel::getUser()->hasAnyAccess(['transportistas.*']) || Sentinel::getUser()->hasAnyAccess(['sedes.*'])  )
+
+
+
     <li class="{{ Request::is('admin/formaspago*') ? 'active' : '' }}">
         <a href="#">
             <i class="livicon" data-name="gear" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
@@ -61,16 +89,20 @@
             <span class="title">Configuraciones</span>
             <span class="fa arrow"></span>
         </a>
+        
+    @if (Sentinel::getUser()->hasAnyAccess(['configuracion.*']))
         <ul class="sub-menu">
             <li {!! (Request::is('admin/configuracion*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.configuracion.index') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Configuracion General 
                 </a>
-            </li>
+            </li> 
         </ul>
-
-         <ul class="sub-menu">
+    @endif
+        
+    @if (Sentinel::getUser()->hasAnyAccess(['estatus.*']))
+        <ul class="sub-menu">
             <li {!! (Request::is('admin/estatus*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.estatus.index') !!}">
                     <i class="fa fa-angle-double-right"></i>
@@ -78,7 +110,8 @@
                 </a>
             </li>
         </ul>
-
+    @endif
+    @if (Sentinel::getUser()->hasAnyAccess(['formaspago.*']))
         <ul class="sub-menu">
             <li {!! (Request::is('admin/formaspago*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.formaspago.index') !!}">
@@ -87,6 +120,9 @@
                 </a>
             </li>
         </ul>
+    @endif
+
+    @if (Sentinel::getUser()->hasAnyAccess(['formasenvio.*']))
         <ul class="sub-menu">
             <li {!! (Request::is('admin/formasenvio*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.formasenvio.index') !!}">
@@ -95,7 +131,9 @@
                 </a>
             </li>
         </ul>
-
+    @endif
+     
+    @if (Sentinel::getUser()->hasAnyAccess(['rolenvios.*']))
         <ul class="sub-menu">
             <li {!! (Request::is('admin/rolenvios*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.rolenvios.index') !!}">
@@ -104,7 +142,8 @@
                 </a>
             </li>
         </ul>
-
+    @endif
+    @if (Sentinel::getUser()->hasAnyAccess(['rolenvios.*']))
         <ul class="sub-menu">
             <li {!! (Request::is('admin/rolpagos*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.rolpagos.index') !!}">
@@ -113,7 +152,8 @@
                 </a>
             </li>
         </ul>
-
+    @endif
+    @if (Sentinel::getUser()->hasAnyAccess(['impuestos.*']))
         <ul class="sub-menu">
             <li {!! (Request::is('admin/impuestos*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.impuestos.index') !!}">
@@ -122,7 +162,8 @@
                 </a>
             </li>
         </ul>
-
+    @endif
+    @if (Sentinel::getUser()->hasAnyAccess(['marcas.*']))
         <ul class="sub-menu">
             <li {!! (Request::is('admin/marcas*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.marcas.index') !!}">
@@ -131,7 +172,8 @@
                 </a>
             </li>
         </ul>
-
+    @endif
+    @if (Sentinel::getUser()->hasAnyAccess(['menus.*']))
         <ul class="sub-menu">
             <li {!! (Request::is('admin/menus*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.menus.index') !!}">
@@ -140,7 +182,8 @@
                 </a>
             </li>
         </ul>
-
+    @endif
+    @if (Sentinel::getUser()->hasAnyAccess(['documentos.*']))
         <ul class="sub-menu">
             <li {!! (Request::is('admin/documentos*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.documentos.index') !!}">
@@ -150,6 +193,9 @@
             </li>
         </ul>       
 
+    @endif
+
+    @if (Sentinel::getUser()->hasAnyAccess(['transportistas.*']))
         <ul class="sub-menu">
             <li {!! (Request::is('admin/transportistas*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.transportistas.index') !!}">
@@ -158,7 +204,10 @@
                 </a>
             </li>
         </ul>
+    @endif
 
+
+    @if (Sentinel::getUser()->hasAnyAccess(['sedes.*']))
         <ul class="sub-menu">
             <li {!! (Request::is('admin/sedes*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.sedes.index') !!}">
@@ -167,8 +216,14 @@
                 </a>
             </li>
         </ul>
+    @endif
+
+        
 
     </li>
+
+    @endif
+
    
     <li {!! (Request::is('admin/activity_log') ? 'class="active"' : '') !!}>
         <a href="{{  URL::to('admin/activity_log') }}">

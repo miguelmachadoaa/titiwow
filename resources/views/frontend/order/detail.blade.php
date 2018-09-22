@@ -75,12 +75,7 @@ Carro de Productos
                     <div class="form-group col-sm-10 col-sm-offset-1">
 
                     @foreach($direcciones as $direccion)
-                               
-                        @if($direccion->default_address) 
-
-                        <?php $c='checked'; ?>
-
-                        @endif
+                     
 
                         <!-- Se construyen las opciones de envios -->
 
@@ -88,7 +83,7 @@ Carro de Productos
 
                             <label>
 
-                                <input type="radio" name="id_direccion" class="custom-radio" id="id_direccion" value="{{ $direccion->id }}" {{ $c }}>
+                                <input type="radio" name="id_direccion" class="custom-radio" id="id_direccion" value="{{ $direccion->id }}" @if($direccion->default_address) checked="true"  @endif>
 
                                 <p>
 
@@ -108,7 +103,7 @@ Carro de Productos
 
                         </div>
                    
-                        <?php $c=''; ?>
+                        
 
                     @endforeach  
 
@@ -220,12 +215,12 @@ Carro de Productos
 
                     @else
 
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h3>No hay Formas de envios para este grupo de usuarios</h3>
+                    
+                        <div class=" col-sm-10 col-sm-offset-1">
+                            <h3>No hay Formas de pago para este grupo de usuarios</h3>
                         </div>  
 
-                    </div>
+                   
 
                     @endif  
 

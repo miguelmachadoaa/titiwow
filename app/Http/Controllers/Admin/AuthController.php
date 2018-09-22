@@ -10,6 +10,8 @@ use Cartalyst\Sentinel\Checkpoints\ThrottlingException;
 use Cartalyst\Sentinel\Laravel\Facades\Activation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use App\Roles;
+use App\RoleUser;
 use Mail;
 use Reminder;
 use Sentinel;
@@ -56,6 +58,17 @@ class AuthController extends JoshController
                     ->causedBy($user)
                     ->log('LoggedIn');
                 //activity log ends
+
+                //se recupera el rol 
+
+                $user_id = Sentinel::getUser()->id;
+
+                
+
+
+
+
+
                 if ($request->back=='0') {
  
                     return Redirect::route("admin.dashboard")->with('success', trans('auth/message.signin.success'));

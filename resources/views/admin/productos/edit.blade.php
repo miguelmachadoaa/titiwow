@@ -89,7 +89,7 @@
          <input type="hidden" name="base" id="base" value="{{ url('/') }}">
 
                 <div class="row acc-wizard">
-                    <div class="col-md-3 pd-2">
+                    <div class="col-sm-3 col-xs-12 pd-2">
                         <p class="mar-2">
                             @lang('productos/title.pasos')
                         </p>
@@ -114,7 +114,7 @@
                             </li>
                         </ol>
                     </div>
-                    <div class="col-md-9 pd-r">
+                    <div class="col-sm-9 col-xs-12 pd-r">
 
                         <div id="accordion-demo" class="panel-group">
 
@@ -134,11 +134,11 @@
 
                                     <div class="panel-body">
 
-                                            <div class="form-group clearfix {{ $errors->first('nombre_producto', 'has-error') }} ">
+                                            <div class="form-group col-sm-12  clearfix {{ $errors->first('nombre_producto', 'has-error') }} ">
 
-                                                <label class="col-md-3 control-label" for="nombre_producto">@lang('productos/title.name')</label>
+                                                <label class="col-sm-3 col-xs-12 control-label" for="nombre_producto">@lang('productos/title.name')</label>
 
-                                                <div class="col-md-9">
+                                                <div class="col-sm-9 col-xs-12">
 
                                                     <input id="nombre_producto" name="nombre_producto" type="text" placeholder="Nombre del producto" class="form-control  {{ $errors->first('nombre_producto', 'has-error') }}" value="{!! old('nombre_producto', $producto->nombre_producto) !!}">{!! $errors->first('nombre_producto', '<span class="help-block">:message</span>') !!}
                                                 </div>
@@ -146,22 +146,22 @@
 
                                             </div>
 
-                                            <div class="form-group clearfix {{ $errors->first('referencia_producto', 'has-error') }}" >
+                                            <div class="form-group col-sm-12  clearfix {{ $errors->first('referencia_producto', 'has-error') }}" >
 
-                                                <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.reference')</label>
+                                                <label class="col-sm-3 col-xs-12 control-label" for="referencia_producto">@lang('productos/title.reference')</label>
 
-                                                <div class="col-md-9">
+                                                <div class="col-sm-9 col-xs-12">
 
                                                     <input id="referencia_producto" name="referencia_producto" type="text" placeholder="Referencia" class="form-control  {{ $errors->first('referencia_producto', 'has-error') }}" value="{!! old('Referencia Sap', $producto->referencia_producto_sap) !!}" value="{!! old('referencia', $producto->referencia_producto) !!}" >  {!! $errors->first('referencia_producto', '<span class="help-block">:message</span>') !!}
                                                 </div>
                                                
                                             </div>
 
-                                            <div class="form-group clearfix {{ $errors->first('referencia_producto_sap', 'has-error') }}">
+                                            <div class="form-group col-sm-12  clearfix {{ $errors->first('referencia_producto_sap', 'has-error') }}">
 
-                                                <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.reference_sap')</label>
+                                                <label class="col-sm-3 col-xs-12 control-label" for="referencia_producto">@lang('productos/title.reference_sap')</label>
 
-                                                <div class="col-md-9">
+                                                <div class="col-sm-9 col-xs-12">
 
                                                     <input id="referencia_producto_sap" name="referencia_producto_sap" type="text" placeholder="Referencia Sap" class="form-control  {{ $errors->first('referencia_producto_sap', 'has-error') }}" value="{!! old('Referencia Sap', $producto->referencia_producto_sap) !!}"> {!! $errors->first('referencia_producto_sap', '<span class="help-block">:message</span>') !!}
 
@@ -197,11 +197,11 @@
 
                                     <div class="panel-body">
 
-                                        <div class="form-group clearfix {{ $errors->first('descripcion_corta', 'has-error') }}">
+                                        <div class="form-group col-sm-12  clearfix {{ $errors->first('descripcion_corta', 'has-error') }}">
 
-                                            <label class="col-md-3 control-label" for="descripcion_corta">@lang('productos/title.description_sort')</label>
+                                            <label class="col-sm-3 col-xs-12 control-label" for="descripcion_corta">@lang('productos/title.description_sort')</label>
 
-                                            <div class="col-md-9">
+                                            <div class="col-sm-9 col-xs-12">
 
                                                 <textarea class="form-control col-sm-12 {{ $errors->first('descripcion_corta', 'has-error') }}  resize_vertical" id="descripcion_corta" name="descripcion_corta" placeholder="Descripcion Corta" rows="5">{!! old('Descripción Corta', $producto->descripcion_corta) !!}</textarea>{!! $errors->first('descripcion_corta', '<span class="help-block">:message</span>') !!}
 
@@ -211,11 +211,11 @@
 
                                         </div>
 
-                                        <div class="form-group clearfix {{ $errors->first('descripcion_larga', 'has-error') }}">
+                                        <div class="form-group col-sm-12  clearfix {{ $errors->first('descripcion_larga', 'has-error') }}">
 
-                                            <label class="col-md-3 control-label" for="descripcion_larga">@lang('productos/title.description_large')</label>
+                                            <label class="col-sm-3 col-xs-12 control-label" for="descripcion_larga">@lang('productos/title.description_large')</label>
 
-                                            <div class="col-md-9">
+                                            <div class="col-sm-9 col-xs-12">
 
                                                 <textarea class="form-control col-sm-12  {{ $errors->first('descripcion_larga', 'has-error') }} resize_vertical" id="descripcion_larga" name="descripcion_larga" placeholder="Descripcion Larga" rows="5">{!! old('Descripción Larga', $producto->descripcion_larga) !!}</textarea>{!! $errors->first('descripcion_larga', '<span class="help-block">:message</span>') !!}
 
@@ -228,12 +228,12 @@
                                         <!-- Carga de imagenes -->
 
 
-                        <div class="form-group clearfix">
+                        <div class="form-group col-sm-12  clearfix">
 
-                            <label for="title" class="col-md-3 control-label">Imagen de Producto</label>
+                            <label for="title" class="col-sm-3 col-xs-12 control-label">Imagen de Producto</label>
 
 
-                            <div class="col-md-9">
+                            <div class="col-sm-9 col-xs-12">
 
                             <div class="fileinput fileinput-new" data-provides="fileinput">
 
@@ -314,11 +314,11 @@
 
                                     <div class="panel-body">
 
-                                            <div class="form-group clearfix {{ $errors->first('seo_titulo', 'has-error') }}">
+                                            <div class="form-group col-sm-12  clearfix {{ $errors->first('seo_titulo', 'has-error') }}">
 
-                                                <label class="col-md-3 control-label" for="nombre_producto">@lang('productos/title.seo_title')</label>
+                                                <label class="col-sm-3 col-xs-12 control-label" for="nombre_producto">@lang('productos/title.seo_title')</label>
 
-                                                <div class="col-md-9">
+                                                <div class="col-sm-9 col-xs-12">
 
                                                     <input id="seo_titulo" name="seo_titulo" type="text" placeholder="Seo Titulo" class="form-control  {{ $errors->first('seo_titulo', 'has-error') }}" value="{!! old('Seo Titulo', $producto->seo_titulo) !!}">{!! $errors->first('seo_titulo', '<span class="help-block">:message</span>') !!}
 
@@ -328,11 +328,11 @@
 
                                             </div> 
 
-                                            <div class="form-group clearfix {{ $errors->first('seo_descripcion', 'has-error') }}">
+                                            <div class="form-group col-sm-12  clearfix {{ $errors->first('seo_descripcion', 'has-error') }}">
 
-                                                <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.seo_des')</label>
+                                                <label class="col-sm-3 col-xs-12 control-label" for="referencia_producto">@lang('productos/title.seo_des')</label>
 
-                                                <div class="col-md-9">
+                                                <div class="col-sm-9 col-xs-12">
 
                                                     <input id="seo_descripcion" name="seo_descripcion" type="text" placeholder="Seo Descripcion" class="form-control   {{ $errors->first('seo_descripcion', 'has-error') }}" value="{!! old('Seo Titulo', $producto->seo_titulo) !!}">{!! $errors->first('seo_descripcion', '<span class="help-block">:message</span>') !!}
 
@@ -342,11 +342,11 @@
 
                                             </div>
 
-                                            <div class="form-group clearfix {{ $errors->first('slug', 'has-error') }}">
+                                            <div class="form-group col-sm-12  clearfix {{ $errors->first('slug', 'has-error') }}">
 
-                                                <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.slug')</label>
+                                                <label class="col-sm-3 col-xs-12 control-label" for="referencia_producto">@lang('productos/title.slug')</label>
 
-                                                <div class="col-md-9">
+                                                <div class="col-sm-9 col-xs-12">
 
                                                     <input id="slug" name="slug" type="text" placeholder="Seo Url" class="form-control  {{ $errors->first('seo_url', 'has-error') }}" value="{!! old('Seo Url', $producto->slug) !!}"> {!! $errors->first('slug', '<span class="help-block">:message</span>') !!}
 
@@ -426,13 +426,13 @@
 
                                     <div class="panel-body">  
 
-                                            <div class="form-group {{ $errors->first('id_impuesto', 'has-error') }}">
+                                            <div class="form-group col-sm-12  {{ $errors->first('id_impuesto', 'has-error') }}">
 
-                                                <label for="select21" class="col-md-3 control-label">
+                                                <label for="select21" class="col-sm-3 col-xs-12 control-label">
                                                     @lang('productos/title.tax')
                                                 </label>
 
-                                                <div class="col-md-9"> 
+                                                <div class="col-sm-9 col-xs-12"> 
 
                                                  <select id="id_impuesto" name="id_impuesto" class="form-control   {{ $errors->first('id_impuesto', 'has-error') }} ">
 
@@ -456,15 +456,15 @@
 
 
 
-                                            <div class="form-group {{ $errors->first('id_categoria_default', 'has-error') }}">
+                                            <div class="form-group  col-sm-12  {{ $errors->first('id_categoria_default', 'has-error') }}">
 
-                                                <label for="select21" class="col-md-3 control-label">
+                                                <label for="select21" class="col-sm-3 col-xs-12 control-label">
                                                     @lang('productos/title.category_default')
                                                 </label>
 
-                                                <div class="col-md-9"> 
+                                                <div class="col-sm-9 col-xs-12"> 
 
-                                                 <select id="id_categoria_default" name="id_categoria_default" class="form-control   {{ $errors->first('id_categoria_default', 'has-error') }} ">
+                                                 <select id="id_categoria_default" name="id_categoria_default" class="form-control  select2 {{ $errors->first('id_categoria_default', 'has-error') }} ">
 
                                                     <option value="">Seleccione</option>
 
@@ -486,15 +486,15 @@
                                                 <br>    
 
 
-                                            <div class="form-group {{ $errors->first('id_marca', 'has-error') }}">
+                                            <div class="form-group col-sm-12  {{ $errors->first('id_marca', 'has-error') }}">
 
-                                                <label for="select21" class="col-md-3 control-label">
+                                                <label for="select21" class="col-sm-3 col-xs-12 control-label">
                                                     @lang('productos/title.marca')
                                                 </label>
 
-                                                <div class="col-md-9" >
+                                                <div class="col-sm-9 col-xs-12" >
 
-                                                    <select id="id_marca" name="id_marca" class="form-control  {{ $errors->first('id_marca', 'has-error') }}  ">
+                                                    <select id="id_marca" name="id_marca" class="form-control select2  {{ $errors->first('id_marca', 'has-error') }}  ">
 
                                                         <option value="">Seleccione</option>
                                                          @foreach($marcas as $marca)
@@ -513,11 +513,11 @@
                                                 <br>    
 
 
-                                            <div class="form-group clearfix {{ $errors->first('inventario_inicial', 'has-error') }}">
+                                            <div class="form-group col-sm-12 clearfix {{ $errors->first('inventario_inicial', 'has-error') }}">
 
-                                                <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.inventary') </label>
+                                                <label class="col-sm-3 col-xs-12 control-label" for="referencia_producto">@lang('productos/title.inventary') </label>
 
-                                                <div class="col-md-9">
+                                                <div class="col-sm-9 col-xs-12">
                                                     <input id="inventario_inicial" name="inventario_inicial" type="number" placeholder="Inventario Inicial" class="form-control" value="{{$producto->inventario_inicial}}" readonly="true" >
 
                                                      {!! $errors->first('inventario_inicial', '<span class="help-block">:message</span> ') !!}
@@ -556,8 +556,8 @@
                                     <div class="panel-body">
                                         
                                             <div class="form-group clearfix col-sm-12 {{ $errors->first('precio_base', 'has-error') }}">
-                                                <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.price') </label>
-                                                <div class="col-md-9">
+                                                <label class="col-sm-3 col-xs-12 control-label" for="referencia_producto">@lang('productos/title.price') </label>
+                                                <div class="col-sm-9 col-xs-12">
                                                     <input id="precio_base" step="0.01" name="precio_base" type="number" placeholder="Precio" class="form-control" value="{{$producto->precio_base}}" onblur="setprecio();" >
 
                                                      {!! $errors->first('precio_base', '<span class="help-block">:message</span> ') !!}
@@ -579,7 +579,7 @@
                                         
                                             <!-- Select role -->
 
-                                            <div class="form-group col-sm-3" style="margin: 0 0 15px 0;">
+                                            <div class="form-group col-sm-3 col-xs-12" style="margin: 0 0 15px 0;">
 
                                                 <label for="select21" class=" control-label">
                                                     @lang('productos/title.roles')
@@ -587,7 +587,7 @@
 
                                                 <div class="" >
 
-                                                    <select id="role_precio" name="role_precio" class="form-control ">
+                                                    <select id="role_precio" name="role_precio" class="form-control select2">
                                                         <option value="">Seleccione</option>
                                                        
                                                         @foreach($roles as $rol)
@@ -601,12 +601,12 @@
 
                                             <!-- Select State -->
 
-                                            <div class="form-group col-sm-3" style="margin: 0 0 15px 0;">
+                                            <div class="form-group col-sm-3 col-xs-12" style="margin: 0 0 15px 0;">
                                                 <label for="select21" class=" control-label">
                                                     Estado
                                                 </label>
                                                 <div class="" >
-                                                    <select id="state_id" name="state_id" class="form-control ">
+                                                    <select id="state_id" name="state_id" class="form-control select2">
                                                         <option value="">Seleccione</option>
                                                         
                                                         @foreach($states as $state)
@@ -620,12 +620,12 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group col-sm-3" style="margin: 0 0 15px 0;">
+                                            <div class="form-group col-sm-3 col-xs-12" style="margin: 0 0 15px 0;">
                                                 <label for="select21" class=" control-label">
                                                     Ciudad
                                                 </label>
                                                 <div class="" >
-                                                    <select id="city_id" name="city_id" class="form-control ">
+                                                    <select id="city_id" name="city_id" class="form-control select2">
                                                         <option value="">Seleccione</option>
                                                        
                                                         
@@ -634,7 +634,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group col-sm-3" style="margin: 0 0 15px 0;">
+                                            <div class="form-group col-sm-3 col-xs-12" style="margin: 0 0 15px 0;">
                                                 <br>
                                                 <button type="button" class="btn btn-default" onclick="addPriceRolEstate();"> Agregar    </button>
                                             </div>
@@ -651,7 +651,7 @@
 
 
                                          <div class="form-group clearfix col-sm-12  {{ 'element_'.$pg->id_role.'_'.$pg->city_id }}">
-                                                <label class="col-md-3 control-label producto_label" for="referencia_producto">{{ 'Precio para el '.$pg->role_name.' '.$pg->city_name }} </label>
+                                                <label class="col-sm-3 col-xs-12 control-label producto_label" for="referencia_producto">{{ 'Precio para el '.$pg->role_name.' '.$pg->city_name }} </label>
 
                                                 <div class="form-group col-sm-4" style="margin: 0 0 15px 0;">
                                                
@@ -670,13 +670,13 @@
 
 
                                                 
-                                                <div class="col-md-4">
+                                                <div class="col-sm-4">
                                                     <input id="{{ 'rolprecio_'.$pg->id_role.'_'.$pg->city_id }}" step="0.01" name="{{ 'rolprecio_'.$pg->id_role.'_'.$pg->city_id }}" data-rc="{{ $pg->id_role.'_'.$pg->city_id }}" type="number" placeholder="Valor" class="form-control rolprecio" @if($pg->operacion == '1') readonly="" @endif  value="{{ $pg->precio }}"  >
 
                                                     <h3><span class="label label-success {{ 'spanprecio_'.$pg->id_role.'_'.$pg->city_id }}">Precio para la seleccion: {{ $pg->precio_seleccion }}  </span></h3>
                                                 </div>
 
-                                                <div class="col-md-1">
+                                                <div class="col-sm-1">
                                                     <button data-rc="{{ $pg->id_role.'_'.$pg->city_id }}" class="btn btn-xs btn-danger delprecio">x</button>
                                                 </div>
                                             </div>
@@ -697,7 +697,7 @@
                                            <div class="col-sm-12 hidden">  
 
                                                 <div class="form-group clearfix col-sm-12 producto_element">
-                                                <label class="col-md-3 control-label producto_label" for="referencia_producto">@lang('productos/title.price') </label>
+                                                <label class="col-sm-3 col-xs-12 control-label producto_label" for="referencia_producto">@lang('productos/title.price') </label>
 
                                                 <div class="form-group col-sm-4" style="margin: 0 0 15px 0;">
                                                
@@ -716,13 +716,13 @@
 
 
                                                 
-                                                <div class="col-md-4">
+                                                <div class="col-sm-4">
                                                     <input id="test_precio" step="0.01" name="test_precio" type="number" placeholder="Valor" class="form-control" readonly="" value="{{ old('precio_role') }}"  >
 
                                                     <h3><span class="label label-success ">Precio  </span></h3>
                                                 </div>
 
-                                                <div class="col-md-1">
+                                                <div class="col-sm-1">
                                                     <button class="btn btn-xs btn-danger">x</button>
                                                 </div>
                                             </div>
