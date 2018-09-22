@@ -143,7 +143,7 @@
             </li>
         </ul>
     @endif
-    @if (Sentinel::getUser()->hasAnyAccess(['rolenvios.*']))
+    @if (Sentinel::getUser()->hasAnyAccess(['rolpagos.*']))
         <ul class="sub-menu">
             <li {!! (Request::is('admin/rolpagos*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.rolpagos.index') !!}">
@@ -153,6 +153,18 @@
             </li>
         </ul>
     @endif
+
+    @if (Sentinel::getUser()->hasAnyAccess(['rolconfiguracion.*']))
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/rolconfiguracion*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.rolconfiguracion.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Roles - Pagos
+                </a>
+            </li>
+        </ul>
+    @endif
+
     @if (Sentinel::getUser()->hasAnyAccess(['impuestos.*']))
         <ul class="sub-menu">
             <li {!! (Request::is('admin/impuestos*') ? 'class="active"' : '') !!}>

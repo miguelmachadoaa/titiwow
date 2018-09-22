@@ -102,6 +102,7 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
     Route::resource('rolpagos', 'admin\AlpRolpagosController');
     Route::resource('rolenvios', 'admin\AlpRolEnviosController');
+    Route::resource('rolconfiguracion', 'admin\AlpRolConfiguracionController');
 
     //fin direcciones forma de envio 
 
