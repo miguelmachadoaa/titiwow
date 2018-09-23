@@ -10,6 +10,7 @@ use App\Mail\Contact;
 use App\Mail\ContactUser;
 use App\Mail\ForgotPassword;
 use App\Mail\Register;
+use App\Models\AlpClientes;
 use App\User;
 use App\Models\AlpMenuDetalle;
 use Cartalyst\Sentinel\Checkpoints\NotActivatedException;
@@ -33,7 +34,7 @@ class FrontEndController extends JoshController
      * $user_activation set to false makes the user activation via user registered email
      * and set to true makes user activated while creation
      */
-    private $user_activation = false;
+    private $user_activation = true;
 
     /**
      * Account sign in.
@@ -67,7 +68,18 @@ class FrontEndController extends JoshController
                     ->causedBy($user)
                     ->log('LoggedIn');
 
-                return Redirect::route("my-account")->with('success', trans('auth/message.login.success'));
+                if ($request->back=='0') {
+ 
+                   
+                    return Redirect::route("my-account")->with('success', trans('auth/message.login.success'));
+                   
+                }else{
+
+                    return Redirect::route($request->back)->with('success', trans('auth/message.signin.success'));
+
+                }
+
+                
             } else {
                 return redirect('login')->with('error', 'Email or password is incorrect.');
                 //return Redirect::back()->withInput()->withErrors($validator);
@@ -407,6 +419,77 @@ class FrontEndController extends JoshController
             return redirect('admin/signin')->with('error', 'You must be login!');
         }
 
+    }
+
+    public function postRegisterEmbajador(UserRequest $request)
+    {
+
+        /*$input=$request->all();
+
+        print_r($input);*/
+
+        $activate = $this->user_activation; //make it false if you don't want to activate user automatically it is declared above as global variable
+        try {
+            // Register the user
+            $user = Sentinel::register($request->only(['first_name', 'last_name', 'email', 'password', 'gender']), $activate);
+
+
+           if ($request->gender=='male') {
+               $genero=2;
+           }else{
+                $genero=1;
+           }
+
+             $data = array(
+                'id_user_client' => $user->id, 
+                'id_type_doc' => '1', 
+                'doc_cliente' =>'', 
+                'genero_cliente' =>$genero, 
+                'habeas_cliente' => 0,
+                'estado_masterfile' =>0,
+                'id_empresa' =>'0',               
+                'id_referido' =>$request->referido,               
+                'id_user' =>$user->id,               
+            );
+
+            AlpClientes::create($data);
+
+
+            //add user to 'User' group
+            $role = Sentinel::findRoleById(5);
+            $role->users()->attach($user);
+            //if you set $activate=false above then user will receive an activation mail
+            if (!$activate) {
+                // Data to be used on the email view
+
+                $data=[
+                    'user_name' => $user->first_name .' '. $user->last_name,
+                    'activationUrl' => URL::route('activate', [$user->id, Activation::create($user)->code]),
+                ];
+                // Send the activation code through email
+                Mail::to($user->email)
+                    ->send(new Register($data));
+                //Redirect to login page
+                return redirect('login')->with('success', trans('auth/message.signup.success'));
+            }
+            // login user automatically
+            Sentinel::login($user, false);
+            //Activity log for new account
+            activity($user->full_name)
+                ->performedOn($user)
+                ->causedBy($user)
+                ->log('New Account created');
+
+
+            // Redirect to the home page with success menu
+            return Redirect::route("my-account")->with('success', trans('auth/message.signup.success'));
+
+        } catch (UserExistsException $e) {
+            $this->messageBag->add('email', trans('auth/message.account_already_exists'));
+        }
+
+        // Ooops.. something went wrong
+        return Redirect::back()->withInput()->withErrors($this->messageBag);
     }
 
 

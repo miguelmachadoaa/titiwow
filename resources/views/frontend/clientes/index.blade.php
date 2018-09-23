@@ -40,7 +40,8 @@ Mir Referidos
 <div class="container">
     <div class="products">
 
-
+        <h3>    Mis referidos </h3>
+        <a class="btn btn-info" href="{{ url('registroembajadores/'.'ALP'.$user->id) }}">Registrar Embajador</a>
 
         <div class="row">
         @if(!$referidos->isEmpty())
@@ -69,7 +70,7 @@ Mir Referidos
                             {{ $referido->email }}
                         </td>
                         <td>
-                            0
+                            {{ $referido->puntos }}
                         </td>
                         <td>
                             {{ $referido->created_at }}
@@ -77,8 +78,8 @@ Mir Referidos
 
                         <td>    
                                 <a href="{{ route('clientes.index', $referido->id) }}">
-                                                <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar categoria"></i>
-                                            </a>
+                                    <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar categoria"></i>
+                                 </a>
 
 
 

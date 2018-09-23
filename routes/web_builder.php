@@ -28,10 +28,16 @@
 
 //inicio direcciones productos 
 
-
+Route::post('signupembajador', 'admin\AuthController@postSignupEmbajador')->name('admin.signupembajador');
+    
+Route::get('registroembajadores/{id}', 'Frontend\ClientesFrontController@embajadores')->name('frontend.clientes.registro');
 
 
 Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.'), function () {
+
+
+
+
 
 
     Route::resource('productos', 'admin\AlpProductosController');

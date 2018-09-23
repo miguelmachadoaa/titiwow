@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Roles;
 use App\RoleUser;
+use App\Models\AlpClientes;
 use Mail;
 use Reminder;
 use Sentinel;
@@ -62,11 +63,6 @@ class AuthController extends JoshController
                 //se recupera el rol 
 
                 $user_id = Sentinel::getUser()->id;
-
-                
-
-
-
 
 
                 if ($request->back=='0') {
@@ -144,6 +140,8 @@ class AuthController extends JoshController
         // Ooops.. something went wrong
         return Redirect::back()->withInput()->withErrors($this->messageBag);
     }
+
+
 
     /**
      * User account activation page.
@@ -318,6 +316,9 @@ class AuthController extends JoshController
             // Log the user in
             Sentinel::login($user, false);
 
+           
+
+
             // Redirect to the home page with success menu
             return Redirect::route("admin.dashboard")->with('success', trans('auth/message.signup.success'));
 
@@ -328,5 +329,87 @@ class AuthController extends JoshController
         // Ooops.. something went wrong
         return Redirect::back()->withInput()->withErrors($this->messageBag);
     }
+
+    /**
+     * Account sign up form processing.
+     *
+     * @return Redirect
+     */
+    public function postSignupEmbajador(UserRequest $request)
+    {
+
+        $input=$request->all();
+
+        print_r($input);
+
+        try {
+            // Register the user
+            $user = Sentinel::registerAndActivate([
+                'first_name' => $request->get('first_name'),
+                'last_name' => $request->get('last_name'),
+                'email' => $request->get('email'),
+                'password' => $request->get('password'),
+            ]);
+
+            //add user to 'User' group
+            $role = Sentinel::findRoleById(5);
+            $role->users()->attach($user);
+
+
+            // Log the user in
+            $name = Sentinel::login($user, false);
+            //Activity log
+
+            activity($name->full_name)
+                ->performedOn($user)
+                ->causedBy($user)
+                ->log('Registered');
+
+
+             $referido = substr($request->referido, 3);  
+
+             //echo 'Referido: '.$referido.'<br>';
+
+
+             $data = array(
+                'id_user_client' => $user->id, 
+                'id_type_doc' => '1', 
+                'doc_cliente' =>'', 
+                'genero_cliente' =>'1', 
+                'habeas_cliente' => 0,
+                'estado_masterfile' =>0,
+                'id_empresa' =>'0',               
+                'id_referido' =>trim($referido),               
+                'id_user' =>$user->id,               
+            );
+
+             //print_r($data);
+
+            AlpClientes::create($data);
+
+
+
+            //activity log ends
+            // Redirect to the home page with success menu
+           // return Redirect::route("admin.dashboard")->with('success', trans('auth/message.signup.success'));
+
+            if ($request->back=='0') {
+
+                    return Redirect::route("admin.dashboard")->with('success', trans('auth/message.signin.success'));
+                   
+                }else{
+
+                    return Redirect::route($request->back)->with('success', trans('auth/message.signin.success'));
+                    
+                }
+
+        } catch (UserExistsException $e) {
+            $this->messageBag->add('email', trans('auth/message.account_already_exists'));
+        }
+
+        // Ooops.. something went wrong
+        return Redirect::back()->withInput()->withErrors($this->messageBag);
+    }
+
 
 }

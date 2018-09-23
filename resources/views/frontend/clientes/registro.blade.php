@@ -27,9 +27,11 @@
             <div id="notific">
             @include('notifications')
             </div>
-            <form action="{{ route('register') }}" method="POST" id="reg_form">
+            <form action="{{ route('registerembajador') }}" method="POST" id="reg_form">
                 <!-- CSRF Token -->
                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                <input type="hidden" name="back" id="back" value="0">
+                <input type="hidden" name="referido" id="referido" value="{{ substr($id, 3)}}">
 
                 <div class="form-group {{ $errors->first('first_name', 'has-error') }}">
                     <label class="sr-only"> First Name</label>

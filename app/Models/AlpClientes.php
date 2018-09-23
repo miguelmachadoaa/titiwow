@@ -28,6 +28,8 @@ class AlpClientes extends Model
         'habeas_cliente',
         'estado_masterfile',
         'estado_registro',
+        'id_empresa',
+        'id_referido',
         'id_user'
     ];
 

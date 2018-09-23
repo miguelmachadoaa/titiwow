@@ -6,11 +6,7 @@
 
     @foreach($direcciones as $direccion)
                
-        @if($direccion->default_address) 
-
-        <?php $c='checked'; ?>
-
-        @endif
+        @if($direccion->default_address)     checked     @endif
 
         <!-- Se construyen las opciones de envios -->
 
@@ -18,7 +14,7 @@
 
             <label>
 
-                <input type="radio" name="id_direccion" class="custom-radio" id="id_direccion" value="{{ $direccion->id }}" {{ $c }}>
+                <input type="radio" name="id_direccion" class="custom-radio" id="id_direccion" value="{{ $direccion->id }}" @if($direccion->default_address)     checked     @endif>
 
                 <p>
 
@@ -38,7 +34,7 @@
 
         </div>
    
-        <?php $c=''; ?>
+        
 
     @endforeach  
 

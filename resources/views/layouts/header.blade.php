@@ -46,6 +46,8 @@
                                     <a href="#"><i class="shopping-cart" data-name="ion-ios7-cart" data-size="18" data-loop="true" data-c="#fff" data-hc="#fff"></i></a>
                                     
                                     <label class="hidden-xs"><a id="detalle_carro_front" href="{{url('cart/show')}}" class="text-white">Carrito de Compra</a></label>
+
+                                    <label class="hidden-xs"><a id="detalle_carro_front" href="{{url('clientes')}}" class="text-white">Area de Clientes</a></label>
                                 </li>
         
                             {{--based on anyone login or not display menu items--}}

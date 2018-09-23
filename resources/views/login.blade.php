@@ -32,6 +32,7 @@
                 </div>
                 <form action="{{ route('login') }}" class="omb_loginForm"  autocomplete="off" method="POST">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="back" id="back" value="0">
                     <div class="form-group {{ $errors->first('email', 'has-error') }}">
                         <label class="sr-only">Email</label>
                         <input type="email" class="form-control" name="email" placeholder="Email"

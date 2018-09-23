@@ -227,6 +227,8 @@ Route::get('login', 'FrontEndController@getLogin')->name('login');
 Route::post('login', 'FrontEndController@postLogin')->name('login');
 Route::get('register', 'FrontEndController@getRegister')->name('register');
 Route::post('register','FrontEndController@postRegister')->name('register');
+Route::post('registerembajador','FrontEndController@postRegisterEmbajador')->name('registerembajador');
+
 Route::get('activate/{userId}/{activationCode}','FrontEndController@getActivate')->name('activate');
 Route::get('forgot-password','FrontEndController@getForgotPassword')->name('forgot-password');
 Route::post('forgot-password', 'FrontEndController@postForgotPassword');
