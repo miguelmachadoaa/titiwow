@@ -379,7 +379,7 @@ class AuthController extends JoshController
                 'habeas_cliente' => 0,
                 'estado_masterfile' =>0,
                 'id_empresa' =>'0',               
-                'id_referido' =>trim($referido),               
+                'id_embajador' =>trim($referido),               
                 'id_user' =>$user->id,               
             );
 

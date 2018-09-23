@@ -448,7 +448,7 @@ class FrontEndController extends JoshController
                 'habeas_cliente' => 0,
                 'estado_masterfile' =>0,
                 'id_empresa' =>'0',               
-                'id_referido' =>$request->referido,               
+                'id_embajador' =>$request->referido,               
                 'id_user' =>$user->id,               
             );
 
@@ -467,6 +467,7 @@ class FrontEndController extends JoshController
                     'activationUrl' => URL::route('activate', [$user->id, Activation::create($user)->code]),
                 ];
                 // Send the activation code through email
+                
                 Mail::to($user->email)
                     ->send(new Register($data));
                 //Redirect to login page

@@ -29,7 +29,7 @@ class AlpClientes extends Model
         'estado_masterfile',
         'estado_registro',
         'id_empresa',
-        'id_referido',
+        'id_embajador',
         'id_user'
     ];
 

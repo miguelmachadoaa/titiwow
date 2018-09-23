@@ -24,7 +24,7 @@ class ClientesFrontController extends Controller
             ->join('users','alp_clientes.id_user_client' , '=', 'users.id')
             ->leftJoin('alp_ordenes','users.id' , '=', 'alp_ordenes.id_cliente')
             ->groupBy('alp_clientes.id')
-            ->where('alp_clientes.id_referido', $user_id)->get();
+            ->where('alp_clientes.id_embajador', $user_id)->get();
 
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
 
