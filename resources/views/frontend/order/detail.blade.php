@@ -107,6 +107,19 @@ Carro de Productos
 
                     @endforeach  
 
+                @else
+
+                    <div class="col-sm-12">
+                        
+                        <h3>Debe agregar una direccion de envio  </h3>
+
+                        <button class="btn btn-raised btn-primary md-trigger addDireccionModal" >Agregar Nueva Direccion </button>
+                    
+                    </div>
+                
+
+                @endif 
+
                     </div>
 
                 </div>
@@ -230,18 +243,7 @@ Carro de Productos
 
 
 
-                @else
-
-                    <div class="col-sm-12">
-                        
-                        <h3>Debe agregar una direccion de envio  </h3>
-
-                        <button class="btn btn-raised btn-primary md-trigger addDireccionModal" >Agregar Nueva Direccion </button>
-                    
-                    </div>
-                
-
-                @endif 
+              
 
                 </div>
 

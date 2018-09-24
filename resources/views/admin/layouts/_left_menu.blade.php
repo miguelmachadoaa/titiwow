@@ -159,7 +159,7 @@
             <li {!! (Request::is('admin/rolconfiguracion*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.rolconfiguracion.index') !!}">
                     <i class="fa fa-angle-double-right"></i>
-                    Roles - Pagos
+                    Roles - Configuracion
                 </a>
             </li>
         </ul>
