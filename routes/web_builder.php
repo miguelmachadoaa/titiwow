@@ -9,11 +9,11 @@
     Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.'), function () {
 
 
-    Route::resource('productos', 'admin\AlpProductosController');
+    Route::resource('productos', 'Admin\AlpProductosController');
 
-    Route::get('productos/{id}/confirm-delete', array('as' => 'productos.confirm-delete', 'uses' => 'admin\AlpProductosController@getModalDelete'));
+    Route::get('productos/{id}/confirm-delete', array('as' => 'productos.confirm-delete', 'uses' => 'Admin\AlpProductosController@getModalDelete'));
 
-    Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses' => 'admin\AlpProductosController@destroy']);
+    Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses' => 'Admin\AlpProductosController@destroy']);
 
     });
 
@@ -28,7 +28,7 @@
 
 //inicio direcciones productos 
 
-Route::post('signupembajador', 'admin\AuthController@postSignupEmbajador')->name('admin.signupembajador');
+Route::post('signupembajador', 'Admin\AuthController@postSignupEmbajador')->name('admin.signupembajador');
     
 Route::get('registroembajadores/{id}', 'Frontend\ClientesFrontController@embajadores')->name('frontend.clientes.registro');
 
@@ -40,11 +40,11 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
 
 
-    Route::resource('productos', 'admin\AlpProductosController');
+    Route::resource('productos', 'Admin\AlpProductosController');
 
-    Route::get('productos/{id}/confirm-delete', array('as' => 'productos.confirm-delete', 'uses' => 'admin\AlpProductosController@getModalDelete'));
+    Route::get('productos/{id}/confirm-delete', array('as' => 'productos.confirm-delete', 'uses' => 'Admin\AlpProductosController@getModalDelete'));
 
-    Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses' => 'admin\AlpProductosController@destroy']);
+    Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses' => 'Admin\AlpProductosController@destroy']);
     
 
 //fin direcciones productos 
@@ -54,25 +54,25 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
 	Route::group(['prefix' => 'categorias'], function () {
 
-        Route::get('{categoria}/delete', 'admin\AlpCategoriasController@destroy')->name('categorias.delete');
+        Route::get('{categoria}/delete', 'Admin\AlpCategoriasController@destroy')->name('categorias.delete');
 
-        Route::get('{categoria}/confirm-delete', 'admin\AlpCategoriasController@getModalDelete')->name('categorias.confirm-delete');
+        Route::get('{categoria}/confirm-delete', 'Admin\AlpCategoriasController@getModalDelete')->name('categorias.confirm-delete');
 
-        Route::get('{categoria}/restore', 'admin\AlpCategoriasController@getRestore')->name('categorias.restore');
+        Route::get('{categoria}/restore', 'Admin\AlpCategoriasController@getRestore')->name('categorias.restore');
 
-        Route::get('{categoria}/detalle', 'admin\AlpCategoriasController@detalle')->name('categorias.detalle');
+        Route::get('{categoria}/detalle', 'Admin\AlpCategoriasController@detalle')->name('categorias.detalle');
 
-        Route::post('{categoria}/storeson', 'admin\AlpCategoriasController@storeson')->name('categorias.storeson');
+        Route::post('{categoria}/storeson', 'Admin\AlpCategoriasController@storeson')->name('categorias.storeson');
 
-        Route::get('{categoria}/editson', 'admin\AlpCategoriasController@editson')->name('categorias.editson');
+        Route::get('{categoria}/editson', 'Admin\AlpCategoriasController@editson')->name('categorias.editson');
 
-        Route::post('{categoria}/updson', 'admin\AlpCategoriasController@updson')->name('categorias.updson');
+        Route::post('{categoria}/updson', 'Admin\AlpCategoriasController@updson')->name('categorias.updson');
 
 
 
  	});
 
-    Route::resource('categorias', 'admin\AlpCategoriasController');
+    Route::resource('categorias', 'Admin\AlpCategoriasController');
 
     //fin direcciones categorias
 
@@ -80,15 +80,15 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
     Route::group(['prefix' => 'formaspago'], function () {
 
-        Route::get('{id}/delete', 'admin\AlpFormasenvioController@destroy')->name('formaspago.delete');
+        Route::get('{id}/delete', 'Admin\AlpFormasenvioController@destroy')->name('formaspago.delete');
 
-        Route::get('{id}/confirm-delete', 'admin\AlpFormaspagoController@getModalDelete')->name('formaspago.confirm-delete');
+        Route::get('{id}/confirm-delete', 'Admin\AlpFormaspagoController@getModalDelete')->name('formaspago.confirm-delete');
 
-        Route::get('{id}/restore', 'admin\AlpFormaspagoController@getRestore')->name('formaspago.restore');
+        Route::get('{id}/restore', 'Admin\AlpFormaspagoController@getRestore')->name('formaspago.restore');
 
  	});
 
-    Route::resource('formaspago', 'admin\AlpFormaspagoController');
+    Route::resource('formaspago', 'Admin\AlpFormaspagoController');
 
     //fin direcciones forma de pago
 
@@ -96,19 +96,19 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
     Route::group(['prefix' => 'formasenvio'], function () {
 
-        Route::get('{id}/delete', 'admin\AlpFormasenvioController@destroy')->name('formasenvio.delete');
+        Route::get('{id}/delete', 'Admin\AlpFormasenvioController@destroy')->name('formasenvio.delete');
 
-        Route::get('{id}/confirm-delete', 'admin\AlpFormasenvioController@getModalDelete')->name('formasenvio.confirm-delete');
+        Route::get('{id}/confirm-delete', 'Admin\AlpFormasenvioController@getModalDelete')->name('formasenvio.confirm-delete');
 
-        Route::get('{id}/restore', 'admin\AlpFormasenvioController@getRestore')->name('formasenvio.restore');
+        Route::get('{id}/restore', 'Admin\AlpFormasenvioController@getRestore')->name('formasenvio.restore');
 
  	});
 
-    Route::resource('formasenvio', 'admin\AlpFormasenvioController');
+    Route::resource('formasenvio', 'Admin\AlpFormasenvioController');
 
-    Route::resource('rolpagos', 'admin\AlpRolpagosController');
-    Route::resource('rolenvios', 'admin\AlpRolEnviosController');
-    Route::resource('rolconfiguracion', 'admin\AlpRolConfiguracionController');
+    Route::resource('rolpagos', 'Admin\AlpRolpagosController');
+    Route::resource('rolenvios', 'Admin\AlpRolEnviosController');
+    Route::resource('rolconfiguracion', 'Admin\AlpRolConfiguracionController');
 
     //fin direcciones forma de envio 
 
@@ -116,15 +116,15 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
     Route::group(['prefix' => 'marcas'], function () {
 
-        Route::get('{id}/delete', 'admin\AlpMarcasController@destroy')->name('marcas.delete');
+        Route::get('{id}/delete', 'Admin\AlpMarcasController@destroy')->name('marcas.delete');
 
-        Route::get('{id}/confirm-delete', 'admin\AlpMarcasController@getModalDelete')->name('marcas.confirm-delete');
+        Route::get('{id}/confirm-delete', 'Admin\AlpMarcasController@getModalDelete')->name('marcas.confirm-delete');
 
-        Route::get('{id}/restore', 'admin\AlpMarcasController@getRestore')->name('marcas.restore');
+        Route::get('{id}/restore', 'Admin\AlpMarcasController@getRestore')->name('marcas.restore');
 
  	});
 
-    Route::resource('marcas', 'admin\AlpMarcasController');
+    Route::resource('marcas', 'Admin\AlpMarcasController');
 
     //fin direcioens marcas
 
@@ -132,15 +132,15 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
     Route::group(['prefix' => 'clientes'], function () {
 
-        Route::get('{id}/delete', 'admin\AlpClientesController@destroy')->name('clientes.delete');
+        Route::get('{id}/delete', 'Admin\AlpClientesController@destroy')->name('clientes.delete');
 
-        Route::get('{id}/confirm-delete', 'admin\AlpClientesController@getModalDelete')->name('clientes.confirm-delete');
+        Route::get('{id}/confirm-delete', 'Admin\AlpClientesController@getModalDelete')->name('clientes.confirm-delete');
 
-        Route::get('{id}/restore', 'admin\AlpClientesController@getRestore')->name('clientes.restore');
+        Route::get('{id}/restore', 'Admin\AlpClientesController@getRestore')->name('clientes.restore');
 
         });
 
-    Route::resource('clientes', 'admin\AlpClientesController');
+    Route::resource('clientes', 'Admin\AlpClientesController');
 
     //fin direcioens clientes
 
@@ -148,118 +148,118 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
     Route::group(['prefix' => 'estatus'], function () {
 
-        Route::get('{id}/delete', 'admin\AlpEstatusOrdenesController@destroy')->name('estatus.delete');
+        Route::get('{id}/delete', 'Admin\AlpEstatusOrdenesController@destroy')->name('estatus.delete');
 
-        Route::get('{id}/confirm-delete', 'admin\AlpEstatusOrdenesController@getModalDelete')->name('estatus.confirm-delete');
+        Route::get('{id}/confirm-delete', 'Admin\AlpEstatusOrdenesController@getModalDelete')->name('estatus.confirm-delete');
 
-        Route::get('{id}/restore', 'admin\AlpEstatusOrdenesController@getRestore')->name('estatus.restore');
+        Route::get('{id}/restore', 'Admin\AlpEstatusOrdenesController@getRestore')->name('estatus.restore');
 
         });
 
-    Route::resource('estatus', 'admin\AlpEstatusOrdenesController');
+    Route::resource('estatus', 'Admin\AlpEstatusOrdenesController');
 
     //fin direcioens clientes
 
     Route::group(['prefix' => 'transportistas'], function () {
 
-        Route::get('{id}/delete', 'admin\AlpTransportistasController@destroy')->name('transportistas.delete');
+        Route::get('{id}/delete', 'Admin\AlpTransportistasController@destroy')->name('transportistas.delete');
 
-        Route::get('{id}/confirm-delete', 'admin\AlpTransportistasController@getModalDelete')->name('transportistas.confirm-delete');
+        Route::get('{id}/confirm-delete', 'Admin\AlpTransportistasController@getModalDelete')->name('transportistas.confirm-delete');
 
-        Route::get('{id}/restore', 'admin\AlpTransportistasController@getRestore')->name('transportistas.restore');
+        Route::get('{id}/restore', 'Admin\AlpTransportistasController@getRestore')->name('transportistas.restore');
 
         });
 
-    Route::resource('transportistas', 'admin\AlpTransportistasController');
+    Route::resource('transportistas', 'Admin\AlpTransportistasController');
 
     //tipos de documentos
 
     Route::group(['prefix' => 'documentos'], function () {
 
-        Route::get('{id}/delete', 'admin\AlpTipoDocumentosController@destroy')->name('documentos.delete');
+        Route::get('{id}/delete', 'Admin\AlpTipoDocumentosController@destroy')->name('documentos.delete');
 
-        Route::get('{id}/confirm-delete', 'admin\AlpTipoDocumentosController@getModalDelete')->name('documentos.confirm-delete');
+        Route::get('{id}/confirm-delete', 'Admin\AlpTipoDocumentosController@getModalDelete')->name('documentos.confirm-delete');
 
-        Route::get('{id}/restore', 'admin\AlpTipoDocumentosController@getRestore')->name('documentos.restore');
+        Route::get('{id}/restore', 'Admin\AlpTipoDocumentosController@getRestore')->name('documentos.restore');
 
         });
 
-    Route::resource('documentos', 'admin\AlpTipoDocumentosController');
+    Route::resource('documentos', 'Admin\AlpTipoDocumentosController');
 
     //crud impuestos
 
     Route::group(['prefix' => 'impuestos'], function () {
 
-        Route::get('{id}/delete', 'admin\AlpImpuestosController@destroy')->name('impuestos.delete');
+        Route::get('{id}/delete', 'Admin\AlpImpuestosController@destroy')->name('impuestos.delete');
 
-        Route::get('{id}/confirm-delete', 'admin\AlpImpuestosController@getModalDelete')->name('impuestos.confirm-delete');
+        Route::get('{id}/confirm-delete', 'Admin\AlpImpuestosController@getModalDelete')->name('impuestos.confirm-delete');
 
-        Route::get('{id}/restore', 'admin\AlpImpuestosController@getRestore')->name('impuestos.restore');
+        Route::get('{id}/restore', 'Admin\AlpImpuestosController@getRestore')->name('impuestos.restore');
 
         });
 
 
 
-    Route::resource('impuestos', 'admin\AlpImpuestosController');
+    Route::resource('impuestos', 'Admin\AlpImpuestosController');
 
 
     //crud impuestos
 
     Route::group(['prefix' => 'sedes'], function () {
 
-        Route::get('{id}/delete', 'admin\AlpSedesController@destroy')->name('sedes.delete');
+        Route::get('{id}/delete', 'Admin\AlpSedesController@destroy')->name('sedes.delete');
 
-        Route::get('{id}/confirm-delete', 'admin\AlpSedesController@getModalDelete')->name('sedes.confirm-delete');
+        Route::get('{id}/confirm-delete', 'Admin\AlpSedesController@getModalDelete')->name('sedes.confirm-delete');
 
-        Route::get('{id}/restore', 'admin\AlpSedesController@getRestore')->name('sedes.restore');
+        Route::get('{id}/restore', 'Admin\AlpSedesController@getRestore')->name('sedes.restore');
 
         });
 
-    Route::resource('sedes', 'admin\AlpSedesController');
+    Route::resource('sedes', 'Admin\AlpSedesController');
 
 
 
-    Route::resource('configuracion', 'admin\AlpConfiguracionController');
+    Route::resource('configuracion', 'Admin\AlpConfiguracionController');
 
-    Route::resource('ordenes', 'admin\AlpOrdenesController');
+    Route::resource('ordenes', 'Admin\AlpOrdenesController');
 
     
 
     Route::group(['prefix' => 'ordenes'], function () {
 
-        Route::get('{id}/delete', 'admin\AlpOrdenesController@destroy')->name('ordenes.delete');
+        Route::get('{id}/delete', 'Admin\AlpOrdenesController@destroy')->name('ordenes.delete');
 
-        Route::get('{id}/detalle', 'admin\AlpOrdenesController@detalle')->name('ordenes.detalle');
+        Route::get('{id}/detalle', 'Admin\AlpOrdenesController@detalle')->name('ordenes.detalle');
 
-        Route::get('{id}/confirm-delete', 'admin\AlpOrdenesController@getModalDelete')->name('ordenes.confirm-delete');
+        Route::get('{id}/confirm-delete', 'Admin\AlpOrdenesController@getModalDelete')->name('ordenes.confirm-delete');
 
-        Route::get('{id}/restore', 'admin\AlpOrdenesController@getRestore')->name('ordenes.restore');
+        Route::get('{id}/restore', 'Admin\AlpOrdenesController@getRestore')->name('ordenes.restore');
 
         });
 
 
 
-    Route::resource('menus', 'admin\AlpMenuController');
+    Route::resource('menus', 'Admin\AlpMenuController');
 
     Route::group(['prefix' => 'menus'], function () {
 
-        Route::get('{menu}/delete', 'admin\AlpMenuController@destroy')->name('menus.delete');
+        Route::get('{menu}/delete', 'Admin\AlpMenuController@destroy')->name('menus.delete');
 
-        Route::get('{menu}/confirm-delete', 'admin\AlpMenuController@getModalDelete')->name('menus.confirm-delete');
+        Route::get('{menu}/confirm-delete', 'Admin\AlpMenuController@getModalDelete')->name('menus.confirm-delete');
 
-        Route::get('{menu}/restore', 'admin\AlpMenuController@getRestore')->name('menus.restore');
+        Route::get('{menu}/restore', 'Admin\AlpMenuController@getRestore')->name('menus.restore');
 
-        Route::get('{menu}/detalle', 'admin\AlpMenuController@detalle')->name('menus.detalle');
+        Route::get('{menu}/detalle', 'Admin\AlpMenuController@detalle')->name('menus.detalle');
 
-        Route::get('{menu}/submenu', 'admin\AlpMenuController@submenu')->name('menus.submenu');
+        Route::get('{menu}/submenu', 'Admin\AlpMenuController@submenu')->name('menus.submenu');
 
-        Route::post('{menu}/storeson', 'admin\AlpMenuController@storeson')->name('menus.storeson');
+        Route::post('{menu}/storeson', 'Admin\AlpMenuController@storeson')->name('menus.storeson');
 
-        Route::post('{menu}/storesub', 'admin\AlpMenuController@storesub')->name('menus.storesub');
+        Route::post('{menu}/storesub', 'Admin\AlpMenuController@storesub')->name('menus.storesub');
 
-        Route::get('{menu}/editson', 'admin\AlpMenuController@editson')->name('menus.editson');
+        Route::get('{menu}/editson', 'Admin\AlpMenuController@editson')->name('menus.editson');
 
-        Route::post('{menu}/updson', 'admin\AlpMenuController@updson')->name('menus.updson');
+        Route::post('{menu}/updson', 'Admin\AlpMenuController@updson')->name('menus.updson');
 
 
 
@@ -276,20 +276,20 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
 //carrito  del video 
 
-Route::get('cart/show', ['as'=>'cart.show', 'uses'=>'admin\AlpCartController@show']);
+Route::get('cart/show', ['as'=>'cart.show', 'uses'=>'Admin\AlpCartController@show']);
 
-Route::get('cart/mercadopago', ['as'=>'cart.mercadopago', 'uses'=>'admin\AlpCartController@mercadopago']);
+Route::get('cart/mercadopago', ['as'=>'cart.mercadopago', 'uses'=>'Admin\AlpCartController@mercadopago']);
 
 Route::get(    'order/detail',     [
         //'middleware'=>'auth', 
         'as'=>'order.detail', 
-        'uses'=>'admin\AlpCartController@orderDetail'
+        'uses'=>'Admin\AlpCartController@orderDetail'
     ]);
 
 Route::post(    'order/procesar',     [
         //'middleware'=>'auth', 
         'as'=>'order.procesar', 
-        'uses'=>'admin\AlpCartController@orderProcesar'
+        'uses'=>'Admin\AlpCartController@orderProcesar'
     ]);
 
 //inyeccion de dependencias
@@ -298,34 +298,34 @@ Route::bind('product', function($slug){
 });
 
 //agregar item al carro
-Route::get('cart/add/{product}',['as'=>'cart.add', 'uses'=>'admin\AlpCartController@add']);
+Route::get('cart/add/{product}',['as'=>'cart.add', 'uses'=>'Admin\AlpCartController@add']);
 
 //responde json
-Route::get('cart/addtocart/{product}',['as'=>'cart.addtocart', 'uses'=>'admin\AlpCartController@addtocart']);
+Route::get('cart/addtocart/{product}',['as'=>'cart.addtocart', 'uses'=>'Admin\AlpCartController@addtocart']);
 
 //eliminar item del carro
-Route::get('cart/delete/{product}',['as'=>'cart.add', 'uses'=>'admin\AlpCartController@delete']);
+Route::get('cart/delete/{product}',['as'=>'cart.add', 'uses'=>'Admin\AlpCartController@delete']);
 
 //actualizar la cantidad de producto en un carro
-Route::get('cart/update/{product}/{cantidad}',['as'=>'cart.update', 'uses'=>'admin\AlpCartController@update']);
+Route::get('cart/update/{product}/{cantidad}',['as'=>'cart.update', 'uses'=>'Admin\AlpCartController@update']);
 
 //vaciar un carro
-Route::get('cart/vaciar/',['as'=>'cart.vaciar', 'uses'=>'admin\AlpCartController@vaciar']);
+Route::get('cart/vaciar/',['as'=>'cart.vaciar', 'uses'=>'Admin\AlpCartController@vaciar']);
 
 //agregar una direccion desde el detalle del pedido
-Route::post('cart/storedir/',['as'=>'cart.storedir', 'uses'=>'admin\AlpCartController@storedir']);
+Route::post('cart/storedir/',['as'=>'cart.storedir', 'uses'=>'Admin\AlpCartController@storedir']);
 
-Route::get('cart/setdir/{direccion}',['as'=>'cart.setdir', 'uses'=>'admin\AlpCartController@setdir']);
+Route::get('cart/setdir/{direccion}',['as'=>'cart.setdir', 'uses'=>'Admin\AlpCartController@setdir']);
 
-Route::get('cart/deldir/{direccion}',['as'=>'cart.deldir', 'uses'=>'admin\AlpCartController@deldir']);
+Route::get('cart/deldir/{direccion}',['as'=>'cart.deldir', 'uses'=>'Admin\AlpCartController@deldir']);
 
 
 //configuracion controller para recuperar esados y ciudades 
 
 
-Route::get('configuracion/states/{id}',array('as'=>'configuracion.states','uses'=>'admin\AlpConfiguracionController@selectState'));
+Route::get('configuracion/states/{id}',array('as'=>'configuracion.states','uses'=>'Admin\AlpConfiguracionController@selectState'));
        
-Route::get('configuracion/cities/{id}',array('as'=>'configuracion.cities','uses'=>'admin\AlpConfiguracionController@selectCity'));
+Route::get('configuracion/cities/{id}',array('as'=>'configuracion.cities','uses'=>'Admin\AlpConfiguracionController@selectCity'));
 
 
 
@@ -336,13 +336,13 @@ Route::get('configuracion/cities/{id}',array('as'=>'configuracion.cities','uses'
 
 /* Rutas el Frontend Publico */
 
-Route::get('producto/{slug}', ['as' => 'producto', 'uses' => 'frontend\ProductosFrontController@show']);
+Route::get('producto/{slug}', ['as' => 'producto', 'uses' => 'Frontend\ProductosFrontController@show']);
 
-Route::get('productos', 'frontend\ProductosFrontController@index');
+Route::get('productos', 'Frontend\ProductosFrontController@index');
 
 
-Route::get('categoria/{slug}', ['as' => 'categoria', 'uses' => 'frontend\ProductosFrontController@categorias']);
+Route::get('categoria/{slug}', ['as' => 'categoria', 'uses' => 'Frontend\ProductosFrontController@categorias']);
 
 
 /* Fin Rutas Frontend Publico */
-Route::resource('clientes', 'frontend\ClientesFrontController');
+Route::resource('clientes', 'Frontend\ClientesFrontController');
