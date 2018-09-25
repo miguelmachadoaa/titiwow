@@ -27,7 +27,7 @@ use Intervention\Image\Facades\Image;
 use DOMDocument;
 use DB;
 use View;
-
+use MP;
 
 class AlpCartController extends JoshController
 {
@@ -63,27 +63,26 @@ class AlpCartController extends JoshController
     public function mercadopago()
     {
 
-      $config = MercadoPago\MercadoPagoSdk::config(); 
+      $MP=new MP();
 
-      $config->set('7310103649683437', 'Uu5SD5VoVM7TbXOaqM8XDUkeBu45EZxK');
-  
-      $preference = new MercadoPago\Preference();
-      
-      # Building an item
-      
-      $item = new MercadoPago\Item();
-      $item->id = "00001";
-      $item->title = "Test"; 
-      $item->quantity = 1;
-      $item->unit_price = 100;
-      
-      $preference->items = array($item);
-      
-      $preference->save(); # Save the preference and send the HTTP Request to create
-      
-      # Return the HTML code for button
-      
-      echo "<a href='$preference->sandbox_init_point'> Pagar </a>";
+      $preference_data = [
+      "items" => [
+        [
+          "id" => '1234',
+          "title" => 'Titulo del articulo',
+          "description" => 'Descripcion del articulo',
+          "picture_url" => 'Imagen del articulo',
+          "quantity" => 1,
+          "currency_id" => 'COP',
+          "unit_price" => 10.00
+           ]
+      ],
+      "payer" => [
+        "email" => 'miguelmachadoaa@gmail.com'
+      ]
+    ];
+    $preference = MP::post("/checkout/preferences",$preference_data);
+    return dd($preference);
 
 
     }
