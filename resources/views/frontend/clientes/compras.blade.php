@@ -22,9 +22,16 @@ Compras Mis Referidos
                     <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Inicio
                     </a>
                 </li>
+
+
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
-                    <a href="#">Area Cliente </a>
+                    <a href="{{ url('clientes') }}">Area Cliente </a>
+                </li>
+
+                <li class="hidden-xs">
+                    <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
+                    <a href="{{ url('clientes/miscompras') }}">Mis Compras </a>
                 </li>
             </ol>
             <div class="pull-right">
