@@ -7,7 +7,7 @@ use Sentinel;
 use View;
 
 
-class GroupsController extends JoshController
+class CategoriasController extends JoshController
 {
     /**
      * Show a list of all the groups.

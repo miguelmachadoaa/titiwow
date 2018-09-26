@@ -3,7 +3,7 @@
 
 {{-- Page title --}}
 @section('title')
-Mis Referidos 
+Compras Mis Referidos 
 @parent
 @stop
 
@@ -28,7 +28,7 @@ Mis Referidos
                 </li>
             </ol>
             <div class="pull-right">
-                <i class="livicon icon3" data-name="edit" data-size="20" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i> Mis Referidos 
+                <i class="livicon icon3" data-name="edit" data-size="20" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i> Compra de Referido 
             </div>
         </div>
     </div>
@@ -40,52 +40,53 @@ Mis Referidos
 <div class="container">
     <div class="products">
 
-        <h3>    Mis referidos </h3>
-        <a class="btn btn-info" href="{{ url('registroembajadores/'.'ALP'.$user->id) }}">Registrar Embajador</a>
+        <h3>    Compras del Embajador {{ $user->first_name.' '.$user->last_name }}  </h3>
+        
+        <br>    
 
         <div class="row">
-        @if(!$referidos->isEmpty())
+        @if(!$compras->isEmpty())
 
              <table class="table table-responsive">
                     <tr>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Email</th>
-                        <th>Puntos</th>
+                        <th>Id</th>
+                        <th>Nombre Cliente</th>
+                        <th>Forma Envio</th>
+                        <th>Forma de Pago </th>
+                        <th>Monto Total </th>
                         <th>Creado</th>
                         <th>Acciones</th>
                     </tr>
 
 
-            @foreach($referidos as $referido)
+            @foreach($compras as $row)
 
                     <tr>
                         <td>
-                            {{ $referido->first_name }}
+                            {{ $row->id }}
                         </td>
                         <td>
-                            {{ $referido->last_name }}
+                            {{ $row->first_name.' '.$row->last_name }}
                         </td>
                         <td>
-                            {{ $referido->email }}
+                            {{ $row->nombre_forma_envios }}
                         </td>
                         <td>
-                            {{ $referido->puntos }}
+                            {{ $row->nombre_forma_pago }}
                         </td>
                         <td>
-                            {{ $referido->created_at }}
+                            {{ $row->monto_total }}
+                        </td>
+                        <td>
+                            {{ $row->created_at }}
                         </td>
 
                         <td>    
-                                <a href="{{ route('clientes.index', $referido->id) }}">
-                                    <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar categoria"></i>
-                                 </a>
+                               
 
-                                  <a href="{{ url('clientes/'.$referido->id_user_client.'/compras') }}">
-                                    <i class="livicon" data-name="eye" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Ver Compras"></i>
-                                 </a>
-
-
+                                  <button class="btn btn-info btn-xs seeDetalle" data-url="{{ url('clientes/'.$row->id.'/detalle') }}" data-id="{{ $row->id }}" href="{{ url('clientes/'.$row->id.'/detalle') }}">
+                                    <i class="livicon "  data-name="eye" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Ver Detalle"></i>
+                                 </button>
 
                                             <!-- let's not delete 'Admin' group by accident -->
                                             
@@ -105,6 +106,36 @@ Mis Referidos
         
     </div>
 </div>
+
+
+<!-- Modal Detalle -->
+ <div class="modal fade" id="detalleModal" role="dialog" aria-labelledby="modalLabeldanger">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h4 class="modal-title" id="modalLabeldanger">Detalle de Compra</h4>
+                    </div>
+                    <div class="modal-body">
+
+                         <table class="table table-responsive" id="tbDetalle"> 
+
+                        </table>
+                        
+                        
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- Modal Direccion -->
+
+
+
 @endsection
 
 {{-- page level scripts --}}
@@ -129,6 +160,23 @@ Mis Referidos
                     $('#detalle_carro_front').html(data.contenido);
                          
                 }
+
+            });
+
+        });
+
+
+        $('.seeDetalle').on('click', function(){
+
+            $('#detalleModal').modal('show');
+
+            id=$(this).data('id');
+
+            url=$(this).data('url');
+
+            $.get(url, {}, function(data) {
+
+                $('#tbDetalle').html(data);
 
             });
 

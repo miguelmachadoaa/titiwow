@@ -34,7 +34,7 @@ class AlpMercadopagoController extends JoshController
     public function mercadopago()
     {
 
-      
+     
 
       $preference_data = [
       "items" => [

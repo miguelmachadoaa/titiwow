@@ -295,7 +295,7 @@ Carro de Productos
                                     <label class="col-md-3 control-label" for="nombre_producto">Nickname Direccion</label>
 
                                     <div class="col-sm-8">
-                                        <input id="nickname_address" name="nickname_address" type="text" placeholder="Nickname Direccion" class="form-control">
+                                        <input style="margin: 4px 0;" id="nickname_address" name="nickname_address" type="text" placeholder="Nickname Direccion" class="form-control">
                                     </div>
                                 </div>
 
@@ -307,7 +307,7 @@ Carro de Productos
                                         Pais
                                     </label>
                                     <div class="col-md-8" >
-                                        <select id="country_id" name="country_id" class="form-control ">
+                                        <select style="margin: 4px 0;" id="country_id" name="country_id" class="form-control ">
                                             <option value="">Seleccione</option>
                                            
                                             @foreach($countries as $pais)
@@ -324,7 +324,7 @@ Carro de Productos
                                         Estado
                                     </label>
                                     <div class="col-md-8" >
-                                        <select id="state_id" name="state_id" class="form-control ">
+                                        <select style="margin: 4px 0;" id="state_id" name="state_id" class="form-control ">
                                             <option value="">Seleccione</option>
                                            
                                             
@@ -338,7 +338,7 @@ Carro de Productos
                                         Ciudad
                                     </label>
                                     <div class="col-md-8" >
-                                        <select id="city_id" name="city_id" class="form-control ">
+                                        <select style="margin: 4px 0;" id="city_id" name="city_id" class="form-control ">
                                             <option value="">Seleccione</option>
                                            
                                             
@@ -353,7 +353,7 @@ Carro de Productos
                                     <label class="col-md-3 control-label" for="nombre_producto">Calle </label>
 
                                     <div class="col-sm-8">
-                                        <input id="calle_address" name="calle_address" type="text" placeholder="Calle" class="form-control">
+                                        <input style="margin: 4px 0;" id="calle_address" name="calle_address" type="text" placeholder="Calle" class="form-control">
                                     </div>
                                 </div>
 
@@ -361,7 +361,7 @@ Carro de Productos
                                     <label class="col-md-3 control-label" for="nombre_producto">Calle </label>
 
                                     <div class="col-sm-8">
-                                        <input id="calle2_address" name="calle2_address" type="text" placeholder="" class="form-control">
+                                        <input style="margin: 4px 0;" id="calle2_address" name="calle2_address" type="text" placeholder="" class="form-control">
                                     </div>
                                 </div>
 
@@ -369,7 +369,7 @@ Carro de Productos
                                     <label class="col-md-3 control-label" for="nombre_producto">Codigo Postal</label>
 
                                     <div class="col-sm-8">
-                                        <input id="codigo_postal_address" name="codigo_postal_address" type="text" placeholder="Codigo Postal" class="form-control">
+                                        <input style="margin: 4px 0;" id="codigo_postal_address" name="codigo_postal_address" type="text" placeholder="Codigo Postal" class="form-control">
                                     </div>
                                 </div>
 
@@ -377,7 +377,7 @@ Carro de Productos
                                     <label class="col-md-3 control-label" for="nombre_producto">Telefono</label>
 
                                     <div class="col-sm-8">
-                                        <input id="telefono_address" name="telefono_address" type="text" placeholder="Telefono" class="form-control">
+                                        <input style="margin: 4px 0;" id="telefono_address" name="telefono_address" type="text" placeholder="Telefono" class="form-control">
                                     </div>
                                 </div>
 
@@ -385,7 +385,7 @@ Carro de Productos
                                     <label class="col-md-3 control-label" for="nombre_producto">Notas</label>
 
                                     <div class="col-sm-8">
-                                        <textarea id="notas" name="notas" type="text" placeholder="Notas" class="form-control"></textarea>
+                                        <textarea style="margin: 4px 0;" id="notas" name="notas" type="text" placeholder="Notas" class="form-control"></textarea>
                                     </div>
                                 </div>
 
@@ -396,7 +396,7 @@ Carro de Productos
 
                     </div>
                     <div class="modal-footer">
-                        <button  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
                         <button type="button" class="btn  btn-primary sendDireccion" >Agregar</button>
                     </div>
                 </div>

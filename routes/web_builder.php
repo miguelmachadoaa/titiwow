@@ -349,3 +349,8 @@ Route::get('categoria/{slug}', ['as' => 'categoria', 'uses' => 'Frontend\Product
 
 /* Fin Rutas Frontend Publico */
 Route::resource('clientes', 'Frontend\ClientesFrontController');
+
+Route::get('clientes/{id}/compras', 'Frontend\ClientesFrontController@compras')->name('frontend.clientes.compras');
+
+Route::get('clientes/{id}/detalle', 'Frontend\ClientesFrontController@detalle')->name('frontend.clientes.detalle');
+
