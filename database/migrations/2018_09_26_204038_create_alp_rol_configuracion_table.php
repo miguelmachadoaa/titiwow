@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAlpOrdenesTable extends Migration
+class CreateAlpRolConfiguracionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateAlpOrdenesTable extends Migration
      */
     public function up()
     {
-        Schema::create('alp_ordenes', function (Blueprint $table) {
+        Schema::create('alp_rol_configuracion', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('referencia');
-            $table->integer('id_cliente');
-            $table->integer('id_forma_envio');
-            $table->integer('id_forma_pago');
-            $table->decimal('monto_total');
-            $table->string('cod_oracle_pedido')->nullable();
+            $table->integer('id_rol');
+            $table->integer('precio');
+            $table->integer('referido');
+            $table->integer('empresa');
+            $table->integer('estado_registro')->default(1);
             $table->integer('id_user');
             $table->timestamps();
             $table->softDeletes();
@@ -34,6 +33,6 @@ class CreateAlpOrdenesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('alp_ordenes');
+        Schema::dropIfExists('alp_rol_configuracion');
     }
 }
