@@ -38,11 +38,13 @@ Productos
 {{-- Page content --}}
 @section('content')
 <div class="container">
+<div class="row">
+<div class="col-md-9">
     <div class="products">
         <div class="row">
         @if(!$productos->isEmpty())
             @foreach($productos as $producto)
-                <div class="col-md-3 col-sm-6 col-xs-6 products">
+                <div class="col-md-4 col-sm-6 col-xs-6 products">
                     <div class="text-align:center;">
                         <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive"></a>
                     </div>
@@ -55,7 +57,7 @@ Productos
                         </p>
                     </div>
                 </div>
-                @if ($loop->iteration % 4 == 0)
+                @if ($loop->iteration % 3 == 0)
                     </div>
                     <div class="row">
                 @endif
@@ -72,6 +74,11 @@ Productos
             </div>
         </div>
     </div>
+</div>
+<div class="col-md-3">
+    <h3>Categorias</h3>
+</div>
+</div>
 </div>
 @endsection
 
