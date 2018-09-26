@@ -42,7 +42,7 @@ Mis Referidos
 
 {{-- Page content --}}
 @section('content')
-<div class="container">
+<div class="container contain_body">
     <div class="products">
 
         <h3>    Mis referidos </h3>

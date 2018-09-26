@@ -44,7 +44,7 @@ Compras Mis Referidos
 
 {{-- Page content --}}
 @section('content')
-<div class="container">
+<div class="container contain_body">
     <div class="products">
 
         <h3>    Compras del Embajador {{ $user->first_name.' '.$user->last_name }}  </h3>

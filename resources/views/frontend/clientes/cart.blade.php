@@ -42,7 +42,7 @@ Carro de Productos
 
 {{-- Page content --}}
 @section('content')
-<div class="container text-center">
+<div class="container text-center ">
     <div class="row">
         <h1>Carro de Compras</h1>
         <a class="btn  btn-link" href="{{url('cart/vaciar')}}">Vaciar</a>
