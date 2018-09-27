@@ -40,6 +40,8 @@ return array(
 	'basic' => 'Datos Basicos',
 	'roles' => 'Roles',
 	'tax' => 'Impuesto',
+	'pum' => 'Pum',
+	'medida' => 'Medida',
 
 
 

@@ -529,6 +529,38 @@
 
                                             </div>
 
+                                            <div class="form-group col-sm-12 clearfix {{ $errors->first('pum', 'has-error') }}">
+
+                                                <label class="col-sm-3 col-xs-12 control-label" for="referencia_producto">@lang('productos/title.pum') </label>
+
+                                                <div class="col-sm-9 col-xs-12">
+                                                    <input id="pum" name="pum" type="text" placeholder="Pum" class="form-control" value="{{$producto->pum}}" readonly="true" >
+
+                                                     {!! $errors->first('pum', '<span class="help-block">:message</span> ') !!}
+
+                                                </div>
+                                                <br>    
+
+                                              
+
+                                            </div>
+
+                                            <div class="form-group col-sm-12 clearfix {{ $errors->first('medida', 'has-error') }}">
+
+                                                <label class="col-sm-3 col-xs-12 control-label" for="referencia_producto">@lang('productos/title.inventary') </label>
+
+                                                <div class="col-sm-9 col-xs-12">
+                                                    <input id="medida" name="medida" type="text" placeholder="Medida" class="form-control" value="{{$producto->medida}}" readonly="true" >
+
+                                                     {!! $errors->first('medida', '<span class="help-block">:message</span> ') !!}
+
+                                                </div>
+                                                <br>    
+
+                                              
+
+                                            </div>
+
                                            
                                             <div class="acc-wizard-step">
                                                 

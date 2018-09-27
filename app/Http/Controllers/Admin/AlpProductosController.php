@@ -193,7 +193,9 @@ class AlpProductosController extends JoshController
             'id_categoria_default' =>$request->id_categoria_default, 
             'id_marca' =>$request->id_marca, 
             'id_impuesto' =>$request->id_impuesto, 
-            'precio_base' =>$request->precio_base, 
+            'precio_base' =>$request->precio_base,             
+                'pum' =>$request->pum,
+                'medida' =>$request->medida,
             'id_user' =>$user_id
         );
          
@@ -499,6 +501,8 @@ class AlpProductosController extends JoshController
                 'id_categoria_default' =>$request->id_categoria_default, 
                 'id_marca' =>$request->id_marca,
                 'id_impuesto' =>$request->id_impuesto,
+                'pum' =>$request->pum,
+                'medida' =>$request->medida,
                 'precio_base' =>$request->precio_base
                 );
 
@@ -514,7 +518,9 @@ class AlpProductosController extends JoshController
                 'seo_descripcion' =>$request->seo_descripcion, 
                 'id_categoria_default' =>$request->id_categoria_default, 
                 'precio_base' =>$request->precio_base,
-                'id_impuesto' =>$request->id_impuesto,
+                'id_impuesto' =>$request->id_impuesto,                
+                'pum' =>$request->pum,
+                'medida' =>$request->medida,
                 'id_marca' =>$request->id_marca
                 );
 
@@ -598,8 +604,6 @@ class AlpProductosController extends JoshController
         }
 
 
-
-
         if ($producto->id) {
 
             return redirect('admin/productos');
@@ -673,7 +677,7 @@ class AlpProductosController extends JoshController
 
         $data = array('destacado' => $request->destacado );
 
-        
+
 
         $producto->update($data);
 

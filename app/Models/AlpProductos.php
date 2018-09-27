@@ -32,6 +32,8 @@ class AlpProductos extends Model
         'id_impuesto',
         'id_marca',
         'precio_base',
+        'pum',
+        'medida',
         'destacado',
         'orden',
         'estado_registro',

@@ -26,7 +26,7 @@ class ProductosRequest extends FormRequest {
 		return [
             'nombre_producto' => 'required|min:3',
             'referencia_producto' => 'required|min:5',
-            'referencia_producto_sap' => 'required|min:5',
+            'referencia_producto_sap' => 'required|min:2',
             'descripcion_corta' => 'required|min:5',
             'descripcion_larga' => 'required|min:5',
             'seo_titulo' => 'required|min:5',
