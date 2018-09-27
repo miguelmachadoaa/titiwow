@@ -8,6 +8,7 @@
         <th>Categoria Principal</th>
         <th>Precio</th>
         <th>Estado</th>
+        <th>Destacado</th>
         <th >Action</th>
      </tr>
     </thead>
@@ -21,6 +22,20 @@
             <td>{!! $alpProductos->nombre_categoria !!}</td>
             <td>{!! number_format($alpProductos->precio_base,2) !!}</td>
             <td>{!! $alpProductos->estado_registro !!}</td>
+            <td id="td_{{ $alpProductos->id }}">
+                
+                    @if($alpProductos->destacado=='1')
+
+                        <button data-url="{{ url('productos/destacado') }}" data-destacado="0" data-id="{{ $alpProductos->id  }}"   class="btn btn-xs btn-danger destacado">  Destacado   </button>
+
+
+                    @else
+
+                        <button data-url="{{ url('productos/destacado') }}" data-destacado="1" data-id="{{ $alpProductos->id  }}"   class="btn btn-xs btn-primary destacado">  Normal   </button>
+
+                    @endif
+
+            </td>
             <td>
                  <a href="{{ route('admin.productos.show', collect($alpProductos)->first() ) }}">
                      <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view alpProductos"></i>
@@ -52,6 +67,25 @@
  <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}" ></script>
 
     <script>
+
+
+
+         $('#alpProductos-table').on('click', '.destacado', function(){
+
+
+            var id=$(this).data('id');
+            var destacado=$(this).data('destacado');
+            var url=$(this).data('url');
+
+
+            $.post(url, {id, destacado}, function(data) {
+
+                    $('#td_'+id).html(data);
+
+            });
+           
+        });
+
         $('#alpProductos-table').DataTable({
                       responsive: true,
                       pageLength: 10,
@@ -62,6 +96,8 @@
                            $('.livicon').updateLivicon();
                      },500);
                   } );
+
+
 
        </script>
 

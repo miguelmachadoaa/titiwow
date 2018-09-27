@@ -24,6 +24,9 @@ class AlpCategorias extends Model
         'imagen_categoria',
         'id_categoria_parent',
         'slug',
+        'destacado',
+        'orden',
+        'css',
         'id_user'
     ];
 

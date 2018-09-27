@@ -40,13 +40,14 @@ Categorias
                     @if ($categorias->count() >= 1)
                         <div class="table-responsive">
 
-                        <table class="table table-bordered">
+                        <table class="table table-bordered" id="categoriastable">
                             <thead>
                                 <tr>
                                     <th>Id</th>
                                     <th>Nombre</th>
                                     <th>Descripcion</th>
                                     <th>Creado</th>
+                                    <th>Destacado</th>
                                     <th>Accion</th>
                                 </tr>
                             </thead>
@@ -58,6 +59,19 @@ Categorias
                                     <td>{!! $row->nombre_categoria!!}</td>
                                     <td>{!! $row->descripcion_categoria !!}</td>
                                     <td>{!! $row->created_at->diffForHumans() !!}</td>
+                                    <td id="td_{{ $row->id }}">
+                
+                                            @if($row->destacado=='1')
+
+                                                <button data-url="{{ url('categorias/destacado') }}" data-destacado="0" data-id="{{ $row->id  }}"   class="btn btn-xs btn-danger destacado">  Destacado   </button>
+
+                                            @else
+
+                                                <button data-url="{{ url('categorias/destacado') }}" data-destacado="1" data-id="{{ $row->id  }}"   class="btn btn-xs btn-primary destacado">  Normal   </button>
+
+                                            @endif
+
+                                    </td>
                                     <td>
                                             
                                              <a href="{{ route('admin.categorias.detalle', $row->id) }}">
@@ -125,10 +139,33 @@ Categorias
     </div>
 </div>
 <script>
+
+    $('#categoriastable').on('click', '.destacado', function(){
+
+
+            var id=$(this).data('id');
+            var destacado=$(this).data('destacado');
+            var url=$(this).data('url');
+
+
+            $.post(url, {id, destacado}, function(data) {
+
+                    $('#td_'+id).html(data);
+
+            });
+           
+        });
+
+
+
     $(function () {$('body').on('hidden.bs.modal', '.modal', function () {$(this).removeData('bs.modal');});});
     $(document).on("click", ".users_exists", function () {
 
         var group_name = $(this).data('name');
         $(".modal-header h4").text( group_name+" Group" );
-    });</script>
+    });
+
+
+
+</script>
 @stop

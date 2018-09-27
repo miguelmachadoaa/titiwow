@@ -418,4 +418,28 @@ class AlpCategoriasController extends JoshController
 
     }
 
+
+    public function destacado(Request $request)
+    {
+
+        $input = $request->all();
+
+        $categoria=AlpCategorias::find($request->id);
+
+        $data = array('destacado' => $request->destacado );
+
+        
+
+        $categoria->update($data);
+
+        $categoria=AlpCategorias::find($request->id);
+
+
+        $view= View::make('admin.categorias.destacado', compact('categoria'));
+
+        $data=$view->render();
+        
+        return $data;
+    }
+
 }

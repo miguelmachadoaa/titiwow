@@ -48,6 +48,8 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
     Route::get('productos/{id}/confirm-delete', array('as' => 'productos.confirm-delete', 'uses' => 'Admin\AlpProductosController@getModalDelete'));
 
     Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses' => 'Admin\AlpProductosController@destroy']);
+
+    
     
 
 //fin direcciones productos 
@@ -360,4 +362,12 @@ Route::get('clientes/{id}/detalle', 'Frontend\ClientesFrontController@detalle')-
 Route::get('emailU', function(){
         return new \App\Mail\WelcomeUser('Miguel Machado');
 });
+
+
+Route::post('productos/destacado', ['as'=> 'productos.destacado', 'uses' => 'Admin\AlpProductosController@destacado']);
+
+Route::post('categorias/destacado', ['as'=> 'categorias.destacado', 'uses' => 'Admin\AlpCategoriasController@destacado']);
+
+
+
 

@@ -21,6 +21,7 @@ use Response;
 use Sentinel;
 use Intervention\Image\Facades\Image;
 use DOMDocument;
+use View;
 use DB;
 
 
@@ -660,5 +661,29 @@ class AlpProductosController extends JoshController
         $blogcooment->blog_id = $blog->id;
         $blogcooment->save();
         return redirect('admin/blog/' . $blog->id );
+    }
+
+
+    public function destacado(Request $request)
+    {
+
+        $input = $request->all();
+
+        $producto=AlpProductos::find($request->id);
+
+        $data = array('destacado' => $request->destacado );
+
+        
+
+        $producto->update($data);
+
+        $producto=AlpProductos::find($request->id);
+
+
+        $view= View::make('admin.productos.destacado', compact('producto'));
+
+        $data=$view->render();
+        
+        return $data;
     }
 }
