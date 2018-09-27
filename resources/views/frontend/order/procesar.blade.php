@@ -57,17 +57,78 @@ Carro de Productos
     <div class="row">
 
         <div class="col-sm-12">
+
             <h3>Gracias por su compra, recibira un correo con el detalle de su pedido</h3>
 
-            <p>De igual forma puede consultar la informacion y estatus de su pedido en su area de cliente </p>
+            <h5>Su forma de Pago fue {{ $compra->nombre_forma_pago }} </h5>
 
+            <h5>ha seleccionado enviar en pedido con {{ $compra->nombre_forma_envios }} y sera entregado {{ $compra->descripcion_forma_envios }}</h5>
+
+            <h5>De igual forma puede consultar la informacion y estatus de su pedido en su area de cliente </h5>
+
+
+
+        <div class="row">
+        <h1>Detalle de Su Pedido</h1>
+        
+      
+            
+        
+        <br>
+         <div class="col-md-10 col-md-offset-1 table-responsive">
+         <table class="table  ">
+                 <thead style="border-top: 1px solid rgba(0,0,0,0.1);">
+                     <tr>
+                         <th>Imagen</th>
+                         <th>Producto</th>
+                         <th>Precio</th>
+                         <th>Cantidad</th>
+                         <th>SubTotal</th>
+                     </tr>
+                 </thead>
+                 <tbody>
+                     @foreach($detalles as $row)
+                        <tr>
+                            <td><img height="60px" src="../uploads/productos/{{$row->imagen_producto}}"></td>
+                            <td>{{$row->nombre_producto}}</td>
+                            <td>{{number_format($row->precio_unitario,2)}}</td>
+                            <td> {{ $row->cantidad }} </td>
+                            <td>{{ number_format($row->precio_total, 2) }}</td>
+                        </tr>
+                     @endforeach
+                     <tr>
+                         <td colspan="4" style="text-align: right;">
+                             Total: 
+                         </td>
+                         <td>
+                             {{number_format($compra->monto_total, 2)}}
+                         </td>
+                     </tr>
+
+                 </tbody>
+             </table>
+
+             <hr>
+
+         </div>
+     </div>
+
+
+     <div class="row">
+         <div class="col-md-10 col-md-offset-1 table-responsive">
+             
             <a class="btn btn-default"  href="{{ url('/productos') }}">Seguir Comprando </a>
+         </div>
+     </div>
+
+
+
         </div>
        
     </div>
 </div>
 
-<!-- Modal Direccion -->
+
 
 
 
