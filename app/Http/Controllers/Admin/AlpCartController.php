@@ -276,7 +276,6 @@ class AlpCartController extends JoshController
 
        $cart[$producto->slug]->cantidad=$cantidad;
        
-
       // return $cart;
 
        \Session::put('cart', $cart);

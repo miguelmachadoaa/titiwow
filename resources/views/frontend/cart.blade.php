@@ -70,8 +70,11 @@ Carro de Productos
                             <td>{{number_format($row->precio_base,2)}}</td>
                             <td>
                                 <input 
-                                class=" " 
+                                style="text-align: center;" 
+                                class="cantidad" 
                                 type="number" 
+                                data-id="{{$row->id}}" 
+                                data-href="{{url('cart/update', [$row->slug])}}"
                                 name="producto_{{$row->id}}"
                                 id="producto_{{$row->id}}"
                                 min="1"
@@ -148,6 +151,16 @@ Carro de Productos
         $('.btn-update-item').on('click', function(e){
 
             e.preventDefault();
+
+            var id=$(this).data('id');
+            var href=$(this).data('href');
+            var cantidad=$('#producto_'+id).val();
+
+            window.location.href=href+'/'+cantidad;
+        });
+
+        $('.cantidad').on('blur', function(){
+
 
             var id=$(this).data('id');
             var href=$(this).data('href');
