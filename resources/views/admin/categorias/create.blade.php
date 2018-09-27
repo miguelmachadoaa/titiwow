@@ -160,6 +160,36 @@
                                 {!! $errors->first('slug', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
+
+                        <div class="form-group {{ $errors->
+                            first('css_categoria', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Clase Css de la Categoria
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="text" id="css_categoria" name="css_categoria" class="form-control" placeholder="Nombre de Categoria"
+                                       value="{!! old('css_categoria') !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('css_categoria', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+                        <div class="form-group {{ $errors->
+                            first('order', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Posicion de la Categoria
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="number" min="0" step="1" id="order" name="order" class="form-control" placeholder="Posicion de la Categoria"
+                                       value="{!! old('order') !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('order', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                 <a class="btn btn-danger" href="{{ route('admin.categorias.index') }}">

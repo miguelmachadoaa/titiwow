@@ -25,8 +25,8 @@ class AlpCategorias extends Model
         'id_categoria_parent',
         'slug',
         'destacado',
-        'orden',
-        'css',
+        'order',
+        'css_categoria',
         'id_user'
     ];
 

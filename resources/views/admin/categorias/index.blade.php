@@ -46,6 +46,8 @@ Categorias
                                     <th>Id</th>
                                     <th>Nombre</th>
                                     <th>Descripcion</th>
+                                    <th>Clase Css</th>
+                                    <th>Orden</th>
                                     <th>Creado</th>
                                     <th>Destacado</th>
                                     <th>Accion</th>
@@ -58,6 +60,8 @@ Categorias
                                     <td>{!! $row->id !!}</td>
                                     <td>{!! $row->nombre_categoria!!}</td>
                                     <td>{!! $row->descripcion_categoria !!}</td>
+                                    <td>{!! $row->css_categoria !!}</td>
+                                    <td>{!! $row->order !!}</td>
                                     <td>{!! $row->created_at->diffForHumans() !!}</td>
                                     <td id="td_{{ $row->id }}">
                 

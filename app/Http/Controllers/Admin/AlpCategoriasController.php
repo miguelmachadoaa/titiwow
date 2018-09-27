@@ -89,7 +89,8 @@ class AlpCategoriasController extends JoshController
         $data = array(
             'nombre_categoria' => $request->nombre_categoria, 
             'descripcion_categoria' => $request->descripcion_categoria, 
-            'referencia_producto_sap' =>$request->referencia_producto_sap, 
+            'css_categoria' =>$request->css_categoria, 
+            'order' =>$request->order, 
             'imagen_categoria' =>$imagen, 
             'id_categoria_parent' =>'0', 
             'slug' => $request->slug,
@@ -164,7 +165,9 @@ class AlpCategoriasController extends JoshController
 
              $data = array(
             'nombre_categoria' => $request->nombre_categoria, 
-            'descripcion_categoria' => $request->descripcion_categoria, 
+            'descripcion_categoria' => $request->descripcion_categoria,             
+            'css_categoria' =>$request->css_categoria, 
+            'order' =>$request->order, 
             'imagen_categoria' =>$imagen, 
             'id_categoria_parent' =>'0',
             'slug' => $request->slug
@@ -174,7 +177,9 @@ class AlpCategoriasController extends JoshController
 
             $data = array(
                 'nombre_categoria' => $request->nombre_categoria, 
-                'descripcion_categoria' => $request->descripcion_categoria, 
+                'descripcion_categoria' => $request->descripcion_categoria,                 
+            'css_categoria' =>$request->css_categoria, 
+            'order' =>$request->order, 
                 'imagen_categoria' =>$imagen, 
                 'id_categoria_parent' =>'0',
                 'slug' => $request->slug
