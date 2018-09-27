@@ -18,7 +18,7 @@
     </title>
     <!--global css starts-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/lib.css') }}">
-    <link href="https://fonts.googleapis.com/css?family=Comfortaa|Oswald" rel="stylesheet">    <!--end of global css-->
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa|Oswald|Montserrat:300,400,600" rel="stylesheet">    <!--end of global css-->
     <!--page level css-->
     @yield('header_styles')
     <!--end of page level css-->
@@ -37,32 +37,40 @@
                             </a></span>
                         </button>
                     </div>
+                    <div class="pull-left">
+                        <ul class="list-inline icon-position">
+                            <li><a href="https://www.facebook.com/alpina" target="_blank"><i class="fa fa-facebook-f color-top" ></i></a></li>
+                            <li><a href="https://www.instagram.com/alpinacol/" target="_blank"><i class="fa fa-instagram color-top" ></i></a></li>
+                            <li><a href="https://www.linkedin.com/company/alpina/?trk=vsrp_companies_res_name&trkInfo=VSRPsearchId%3A3286542181450727911739%2CVSRPtargetId%3A48174%2CVSRPcmpt%3Aprimary" target="_blank"><i class="fa fa-linkedin-square color-top" ></i></a></li>
+                            <li><a href="https://twitter.com/Alpina" target="_blank"><i class="fa fa-twitter color-top" ></i></a></li>
+                            <li><a href="https://www.youtube.com/user/AlpinaSA" target="_blank"><i class="fa fa-youtube-play color-top" ></i></a></li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="col-md-8 col-sm-8" >
                     <ul class="list-inline">
-                        <li class="pull-right">
+                        <li class="pull-right menu-top">
                             <ul class="list-inline icon-position">
                                 <li>
                                     <a href="#"><i class="shopping-cart" data-name="ion-ios7-cart" data-size="18" data-loop="true" data-c="#fff" data-hc="#fff"></i></a>
                                     
-                                    <label class="hidden-xs"><a id="detalle_carro_front" href="{{url('cart/show')}}" class="text-white">Carrito de Compra</a></label>
+                                    <label class="hidden-xs"><a id="detalle_carro_front" href="{{url('cart/show')}}" >Carrito de Compra</a></label>
 
-                                    <label class="hidden-xs"><a id="detalle_carro_front" href="{{url('clientes')}}" class="text-white">Area de Clientes</a></label>
+                                    <label class="hidden-xs"><a id="detalle_carro_front" href="{{url('clientes')}}">Area de Clientes</a></label>
                                 </li>
         
                             {{--based on anyone login or not display menu items--}}
                             @if(Sentinel::guest())
                                 <li>
                                     <a href="#"><i class="shopping-cart" data-name="ion-ios7-cart" data-size="18" data-loop="true" data-c="#fff" data-hc="#fff"></i></a>               
-                                    <label ><a id="detalle_carro_front" href="{{url('login')}}" class="text-white">Iniciar Sesión</a></label>    
+                                    <label ><a id="detalle_carro_front" href="{{url('login')}}" >Iniciar Sesión</a></label>    
                                 </li>
                                 <li>
                                     <a href="#"><i class="shopping-cart" data-name="ion-ios7-cart" data-size="18" data-loop="true" data-c="#fff" data-hc="#fff"></i></a>               
-                                    <label ><a id="detalle_carro_front" href="{{url('register')}}" class="text-white">Registrarse</a></label>    
+                                    <label ><a id="detalle_carro_front" href="{{url('register')}}" >Registrarse</a></label>    
                                 </li>
                             @else
-                                <li {{ (Request::is('my-account') ? 'class=active' : '') }}><a href="{{ URL::to('my-account') }}">My Account</a>
-                                </li>
+                                <li {{ (Request::is('my-account') ? 'class=active' : '') }}><a href="{{ URL::to('my-account') }}">Mi Cuenta
                                 <li><a href="{{ URL::to('logout') }}">Cerrar Sesión</a>
                                 </li>
                             @endif
