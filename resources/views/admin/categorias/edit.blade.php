@@ -154,7 +154,7 @@ Editar Categoria
                                 Clase Css de la Categoria
                             </label>
                             <div class="col-sm-5">
-                                <input type="text" id="css_categoria" name="css_categoria" class="form-control" placeholder="Nombre de Categoria"
+                                <input type="text" id="css_categoria" name="css_categoria" class="form-control" placeholder="Clase Css de la Categoria"
                                        value="{!! old('css_categoria', $categoria->css_categoria) !!}">
                             </div>
                             <div class="col-sm-4">
