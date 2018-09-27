@@ -8,7 +8,6 @@
         <th>Categoria Principal</th>
         <th>Precio</th>
         <th>Estado</th>
-        <th>Destacado</th>
         <th >Action</th>
      </tr>
     </thead>
@@ -22,20 +21,7 @@
             <td>{!! $alpProductos->nombre_categoria !!}</td>
             <td>{!! number_format($alpProductos->precio_base,2) !!}</td>
             <td>{!! $alpProductos->estado_registro !!}</td>
-            <td id="td_{{ $alpProductos->id }}">
-                
-                    @if($alpProductos->destacado=='1')
-
-                        <button data-url="{{ url('productos/destacado') }}" data-destacado="0" data-id="{{ $alpProductos->id  }}"   class="btn btn-xs btn-danger destacado">  Destacado   </button>
-
-
-                    @else
-
-                        <button data-url="{{ url('productos/destacado') }}" data-destacado="1" data-id="{{ $alpProductos->id  }}"   class="btn btn-xs btn-primary destacado">  Normal   </button>
-
-                    @endif
-
-            </td>
+           
             <td>
                  <a href="{{ route('admin.productos.show', collect($alpProductos)->first() ) }}">
                      <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view alpProductos"></i>
@@ -43,6 +29,23 @@
                  <a href="{{ route('admin.productos.edit', collect($alpProductos)->first() ) }}">
                      <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="edit alpProductos"></i>
                  </a>
+
+                  <div style="  display: inline-block; padding: 0; margin: 0; id="td_{{ $alpProductos->id }}">
+                
+                    @if($alpProductos->destacado=='1')
+
+                        <button title="Destacado" data-url="{{ url('productos/destacado') }}" data-destacado="0" data-id="{{ $alpProductos->id  }}"   class="btn btn-link  destacado">  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>   </button>
+
+
+                    @else
+
+                        <button title="Normal" data-url="{{ url('productos/destacado') }}" data-destacado="1" data-id="{{ $alpProductos->id  }}"   class="btn btn-link  destacado">  <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>   </button>
+
+                    @endif
+
+            </div>
+
+
                  <a href="{{ route('admin.productos.confirm-delete', collect($alpProductos)->first() ) }}" data-toggle="modal" data-target="#delete_confirm">
                      <i class="livicon" data-name="remove-alt" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="delete alpProductos"></i>
                  </a>

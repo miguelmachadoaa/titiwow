@@ -49,7 +49,6 @@ Categorias
                                     <th>Clase Css</th>
                                     <th>Orden</th>
                                     <th>Creado</th>
-                                    <th>Destacado</th>
                                     <th>Accion</th>
                                 </tr>
                             </thead>
@@ -63,19 +62,7 @@ Categorias
                                     <td>{!! $row->css_categoria !!}</td>
                                     <td>{!! $row->order !!}</td>
                                     <td>{!! $row->created_at->diffForHumans() !!}</td>
-                                    <td id="td_{{ $row->id }}">
-                
-                                            @if($row->destacado=='1')
-
-                                                <button data-url="{{ url('categorias/destacado') }}" data-destacado="0" data-id="{{ $row->id  }}"   class="btn btn-xs btn-danger destacado">  Destacado   </button>
-
-                                            @else
-
-                                                <button data-url="{{ url('categorias/destacado') }}" data-destacado="1" data-id="{{ $row->id  }}"   class="btn btn-xs btn-primary destacado">  Normal   </button>
-
-                                            @endif
-
-                                    </td>
+                                  
                                     <td>
                                             
                                              <a href="{{ route('admin.categorias.detalle', $row->id) }}">
@@ -87,6 +74,20 @@ Categorias
                                             <a href="{{ route('admin.categorias.edit', $row->id) }}">
                                                 <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar categoria"></i>
                                             </a>
+
+                                              <div style="     display: inline-block; padding: 0; margin: 0;" id="td_{{ $row->id }}">
+                
+                                            @if($row->destacado=='1')
+
+                                                <button title="Destacado" data-url="{{ url('categorias/destacado') }}" data-destacado="0" data-id="{{ $row->id  }}"   class="btn btn-xs btn-link     destacado">  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>   </button>
+
+                                            @else
+
+                                                <button title="Normal" data-url="{{ url('categorias/destacado') }}" data-destacado="1" data-id="{{ $row->id  }}"   class="btn btn-xs btn-link    destacado">  <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>   </button>
+
+                                            @endif
+
+                                    </div>
 
 
 
