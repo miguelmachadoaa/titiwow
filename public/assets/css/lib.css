@@ -21,6 +21,7 @@ body {
     padding-bottom : 0 !important;
 
 }
+
 .icon-section {
     background: rgb(20, 51, 114);
     background: -moz-linear-gradient(left, rgba(20, 51, 114, 1) 1%, rgba(21, 75, 138, 1) 36%, rgba(24, 124, 188, 1) 69%, rgba(26, 154, 218, 1) 100%);
@@ -189,6 +190,7 @@ p label {
     font-size      : 14px;
     text-transform : uppercase;
     font-weight    : 400;
+    font-family: 'Montserrat', sans-serif;
 }
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav>.active>a {
     color : #00aeef;
@@ -819,6 +821,11 @@ footer a:hover, footer a:active{
     min-height: 155px;
     padding: 32px;
 }
+.menu-top{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    text-transform: uppercase;
+}
 /* Header fin*/
 /*bloque buscar inicio*/
 #search_block_top{
@@ -963,4 +970,17 @@ footer a:hover, footer a:active{
 .contain_body {
     min-height: 500px;
 }
+}
+
+.color-top{
+    font-size:20px !important;
+    color:#9fdcf7 !important;
+}
+.pull-right a{
+    color:#9fdcf7;
+    font-weight: 300;
+    font-size:13px;
+}
+.pull-right a:hover{
+    color:#009fe3;
 }
