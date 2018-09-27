@@ -25,8 +25,8 @@ class MenusTableSeeder extends Seeder
             'id_menu' => 1,
         ]);
         DB::table('alp_menu_detalles')->insert([
-            'name' => 'Padre1',
-            'slug' => 'categoria/padre1',
+            'name' => 'Lácteos',
+            'slug' => 'categoria/lacteos',
             'parent' => 0,
             'order' => 2,
             'id_menu' => 1,

@@ -47,7 +47,7 @@ Inicio
                             <div class="col-md-4 col-sm-12 col-xs-12"  id="caja_categoria">
                                 <div class="{{ $categoria->css_categoria }}">
                                     <div class="text-align:center;" id="contenido_cat">
-                                        <h2>{{ $categoria->css_categoria }}</h2>
+                                        <h2>{{ $categoria->nombre_categoria }}</h2>
                                         <a href="{{ route('categoria', [$categoria->slug]) }}">VER TODOS</a>                                
                                     </div>
                                 </div>
