@@ -30,16 +30,16 @@
                      <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="edit alpProductos"></i>
                  </a>
 
-                  <div style="  display: inline-block; padding: 0; margin: 0; id="td_{{ $alpProductos->id }}">
+                  <div style=" display: inline-block; padding: 0; margin: 0;" id="td_{{ $alpProductos->id }}">
                 
                     @if($alpProductos->destacado=='1')
 
-                        <button title="Destacado" data-url="{{ url('productos/destacado') }}" data-destacado="0" data-id="{{ $alpProductos->id  }}"   class="btn btn-link  destacado">  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>   </button>
+                        <button title="Destacado" data-url="{{ url('productos/destacado') }}" data-destacado="0" data-id="{{ $alpProductos->id  }}"   class="btn btn-xs btn-link  destacado">  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>   </button>
 
 
                     @else
 
-                        <button title="Normal" data-url="{{ url('productos/destacado') }}" data-destacado="1" data-id="{{ $alpProductos->id  }}"   class="btn btn-link  destacado">  <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>   </button>
+                        <button title="Normal" data-url="{{ url('productos/destacado') }}" data-destacado="1" data-id="{{ $alpProductos->id  }}"   class="btn btn-xs btn-link  destacado">  <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>   </button>
 
                     @endif
 

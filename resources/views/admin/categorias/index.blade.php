@@ -75,19 +75,19 @@ Categorias
                                                 <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar categoria"></i>
                                             </a>
 
-                                              <div style="     display: inline-block; padding: 0; margin: 0;" id="td_{{ $row->id }}">
+                                              <div style="display: inline-block; padding: 0; margin: 0;" id="td_{{ $row->id }}">
                 
-                                            @if($row->destacado=='1')
+                                                @if($row->destacado=='1')
 
-                                                <button title="Destacado" data-url="{{ url('categorias/destacado') }}" data-destacado="0" data-id="{{ $row->id  }}"   class="btn btn-xs btn-link     destacado">  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>   </button>
+                                                    <button title="Destacado" data-url="{{ url('categorias/destacado') }}" data-destacado="0" data-id="{{ $row->id  }}"   class="btn btn-xs btn-link     destacado">  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>   </button>
 
-                                            @else
+                                                @else
 
-                                                <button title="Normal" data-url="{{ url('categorias/destacado') }}" data-destacado="1" data-id="{{ $row->id  }}"   class="btn btn-xs btn-link    destacado">  <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>   </button>
+                                                    <button title="Normal" data-url="{{ url('categorias/destacado') }}" data-destacado="1" data-id="{{ $row->id  }}"   class="btn btn-xs btn-link    destacado">  <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>   </button>
 
-                                            @endif
+                                                @endif
 
-                                    </div>
+                                            </div>
 
 
 
