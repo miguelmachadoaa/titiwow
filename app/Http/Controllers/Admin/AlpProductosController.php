@@ -318,21 +318,37 @@ class AlpProductosController extends JoshController
 
          $i=0;
 
+         //print_r($cats);
+
          //esto es para las categorias ya seleccionadas de productyi
 
-        foreach ($cats as $cat) {
+         if (!$cats->isEmpty()) {
+           # code...
+         
+          foreach ($cats as $cat) {
 
-        $catego = AlpCategorias::find($cat->id_categoria);
+            if ($cat->id_categoria!=0) {
 
-            if ($i=0) {
-              $check=$check.$cat->id_categoria.'-'.$catego->nombre_categoria;
-            }else{
-                $check=$check.','.$cat->id_categoria.'-'.$catego->nombre_categoria;
-            }
+              $catego = AlpCategorias::find($cat->id_categoria);
 
-            $i++;
+                if ($i==0) {
+
+                  $check=$check.$cat->id_categoria.'-'.$catego->nombre_categoria;
+
+                }else{
+
+                  $check=$check.','.$cat->id_categoria.'-'.$catego->nombre_categoria;
+
+                }
+
+              $i++;
+
+          }
 
         }
+        
+        }
+
 
         //esto es para montar el arbol de categorias 
 
