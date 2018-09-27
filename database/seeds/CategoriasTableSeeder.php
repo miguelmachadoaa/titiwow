@@ -22,7 +22,7 @@ class CategoriasTableSeeder extends Seeder
             ['nombre_categoria' => 'Línea Finesse','descripcion_categoria' => 'Todos los Productos de Nuestra Línea Finesse','slug' => 'finesse','id_categoria_parent' => 0,'destacado' => 1,'order' => 7,'imagen_categoria' => 'aRPTi0Cidz.jpeg','css_categoria' => 'categoria7','id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
             ['nombre_categoria' => 'Alpina Baby','descripcion_categoria' => 'Línea Alpina Baby, Más Grandecitos y Complementarios','slug' => 'alpina-baby','id_categoria_parent' => 0,'destacado' => 1,'order' => 8,'imagen_categoria' => 'EmJ4eyq9S8.jpeg','css_categoria' => 'categoria8','id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
             ['nombre_categoria' => 'No Lácteos','descripcion_categoria' => 'Productos que no contienen Láctosa','slug' => 'no-lacteos','id_categoria_parent' => 0,'destacado' => 1,'order' => 9,'imagen_categoria' => '6XBY6txvRs.jpeg','css_categoria' => 'categoria9','id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-
+            ['nombre_categoria' => 'Avena Alpina','descripcion_categoria' => 'Productos de Avena Alpina','slug' => 'avena-alpina','id_categoria_parent' => 2,'destacado' => NULL,'order' => NULL,'imagen_categoria' => NULL,'css_categoria' => NULL,'id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
             ]);
     }
 }
