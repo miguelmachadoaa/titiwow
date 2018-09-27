@@ -462,7 +462,7 @@
                                                 <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.pum') </label>
                                                 
                                                 <div class="col-md-9">
-                                                    <input id="pum" name="pum" type="number" placeholder="Pum" class="form-control" value="{{ old('pum') }}" >
+                                                    <input id="pum" name="pum" type="text" placeholder="Pum" class="form-control" value="{{ old('pum') }}" >
 
                                                     {!! $errors->first('pum', '<span class="help-block">:message</span> ') !!}
 
@@ -477,7 +477,7 @@
                                                 <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.medida') </label>
                                                 
                                                 <div class="col-md-9">
-                                                    <input id="medida" name="medida" type="number" placeholder="Medida" class="form-control" value="{{ old('medida') }}" >
+                                                    <input id="medida" name="medida" type="text" placeholder="Medida" class="form-control" value="{{ old('medida') }}" >
 
                                                     {!! $errors->first('medida', '<span class="help-block">:message</span> ') !!}
 

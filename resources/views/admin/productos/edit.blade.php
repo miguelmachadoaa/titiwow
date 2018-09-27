@@ -152,7 +152,7 @@
 
                                                 <div class="col-sm-9 col-xs-12">
 
-                                                    <input id="referencia_producto" name="referencia_producto" type="text" placeholder="Referencia" class="form-control  {{ $errors->first('referencia_producto', 'has-error') }}" value="{!! old('Referencia Sap', $producto->referencia_producto_sap) !!}" value="{!! old('referencia', $producto->referencia_producto) !!}" >  {!! $errors->first('referencia_producto', '<span class="help-block">:message</span>') !!}
+                                                    <input id="referencia_producto" name="referencia_producto" type="text" placeholder="Referencia" class="form-control  {{ $errors->first('referencia_producto', 'has-error') }}" value="{!! old('Referencia Sap', $producto->referencia_producto) !!}" value="{!! old('referencia', $producto->referencia_producto) !!}" >  {!! $errors->first('referencia_producto', '<span class="help-block">:message</span>') !!}
                                                 </div>
                                                
                                             </div>
@@ -534,7 +534,7 @@
                                                 <label class="col-sm-3 col-xs-12 control-label" for="referencia_producto">@lang('productos/title.pum') </label>
 
                                                 <div class="col-sm-9 col-xs-12">
-                                                    <input id="pum" name="pum" type="text" placeholder="Pum" class="form-control" value="{{$producto->pum}}" readonly="true" >
+                                                    <input id="pum" name="pum" type="text" placeholder="Pum" class="form-control" value="{{$producto->pum}}"  >
 
                                                      {!! $errors->first('pum', '<span class="help-block">:message</span> ') !!}
 
@@ -547,10 +547,10 @@
 
                                             <div class="form-group col-sm-12 clearfix {{ $errors->first('medida', 'has-error') }}">
 
-                                                <label class="col-sm-3 col-xs-12 control-label" for="referencia_producto">@lang('productos/title.inventary') </label>
+                                                <label class="col-sm-3 col-xs-12 control-label" for="referencia_producto">@lang('productos/title.medida') </label>
 
                                                 <div class="col-sm-9 col-xs-12">
-                                                    <input id="medida" name="medida" type="text" placeholder="Medida" class="form-control" value="{{$producto->medida}}" readonly="true" >
+                                                    <input id="medida" name="medida" type="text" placeholder="Medida" class="form-control" value="{{$producto->medida}}"  >
 
                                                      {!! $errors->first('medida', '<span class="help-block">:message</span> ') !!}
 
