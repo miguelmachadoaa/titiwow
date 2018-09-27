@@ -533,13 +533,13 @@ footer {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#143372', endColorstr='#1a9ada', GradientType=1);
     padding: 1rem 0 1rem;
     z-index: 2;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 footer h4 {
     color : #fff;
-    font-family: 'Comfortaa', cursive;
+    font-family: 'Montserrat', sans-serif;
     text-transform: uppercase;
-    border-bottom: 3px solid #00aeef;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
     padding-bottom: 10px; 
     margin-bottom: 10px;
 }
@@ -560,7 +560,7 @@ footer a:link{
 footer a:hover, footer a:active{
     color:#00aeef;
 }
-.menu_footer li:before {
+.menu_footer ul li a:before {
     position: absolute;
     top: 9px;
     left: 0;
@@ -661,12 +661,14 @@ footer a:hover, footer a:active{
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#143372', endColorstr='#1a9ada', GradientType=1);
     padding: 1rem 0 1rem;
     z-index: 2;
-    border-top: 1px solid #ffffff;
+    border-top:2px solid rgba(255, 255, 255, 0.2)
 }
 .copyright p {
-    color   : #fff;
+    color   : #9fdcf7;
     padding : 0.5% 0;
     margin  : 0.5% 0;
+    font-size: 12px;
+    font-weight: 300;
 }
 /* ---------- //Copy Right Section Css  ---------- */
 /* ---------- Advanced Features Css ---------- */
@@ -776,7 +778,7 @@ footer a:hover, footer a:active{
 }
 /*Footer redes*/
 .redes_foot {
-    padding-left: 50px;
+    padding: 30px 0px 30px 10px;
 }
 .div_deres {
     float: left;
@@ -964,6 +966,10 @@ footer a:hover, footer a:active{
     font-size:20px !important;
     color:#9fdcf7 !important;
 }
+.color-foot{
+    font-size:35px !important;
+    color:#9fdcf7 !important;
+}
 .pull-right a{
     color:#9fdcf7;
     font-weight: 300;
@@ -972,3 +978,122 @@ footer a:hover, footer a:active{
 .pull-right a:hover{
     color:#009fe3;
 }
+
+/* Css categorias del home*/
+
+#caja_categoria{
+    height:200px;
+    margin: 10px 0px;
+}
+#contenido_cat{
+    padding: 50px;
+}
+  .categoria1 {
+    width: 100%;
+    height: 100%;
+    margin: 0 1%;
+    display: inline-block;
+    background-image: url(../../assets/img/categorias/leche.png);
+    background-position: center;
+    background-size: 110%;
+    transition: 0.5s all;
+    position: relative;
+    text-align: center;
+  }
+  .categoria2 {
+    width: 100%;
+    height: 100%;
+    margin: 0 1%;
+    display: inline-block;
+    background-image: url(../../assets/img/categorias/lacteos.jpg);
+    background-position: center;
+    background-size: 110%;
+    transition: 0.5s all;
+    position: relative;
+    text-align: center;
+  }
+  .categoria3 {
+    width: 100%;
+    height: 100%;
+    margin: 0 1%;
+    display: inline-block;
+    background-image: url(../../assets/img/categorias/quesos.jpg);
+    background-position: center;
+    background-size: 110%;
+    transition: 0.5s all;
+    position: relative;
+    text-align: center;
+  }
+  .categoria4 {
+    width: 100%;
+    height: 100%;
+    margin: 0 1%;
+    display: inline-block;
+    background-image: url(../../assets/img/categorias/postres.jpg);
+    background-position: center;
+    background-size: 110%;
+    transition: 0.5s all;
+    position: relative;
+    text-align: center;
+  }
+  .categoria5 {
+    width: 100%;
+    height: 100%;
+    margin: 0 1%;
+    display: inline-block;
+    background-image: url(../../assets/img/categorias/esparcibles.jpg);
+    background-position: center;
+    background-size: 110%;
+    transition: 0.5s all;
+    position: relative;
+    text-align: center;
+  }
+  .categoria6 {
+    width: 100%;
+    height: 100%;
+    margin: 0 1%;
+    display: inline-block;
+    background-image: url(../../assets/img/categorias/jugos.jpg);
+    background-position: center;
+    background-size: 110%;
+    transition: 0.5s all;
+    position: relative;
+    text-align: center;
+  }
+  .categoria7 {
+    width: 100%;
+    height: 100%;
+    margin: 0 1%;
+    display: inline-block;
+    background-image: url(../../assets/img/categorias/finness.jpg);
+    background-position: center;
+    background-size: 110%;
+    transition: 0.5s all;
+    position: relative;
+    text-align: center;
+  }
+  .categoria8 {
+    width: 100%;
+    height: 100%;
+    margin: 0 1%;
+    display: inline-block;
+    background-image: url(../../assets/img/categorias/baby.jpg);
+    background-position: center;
+    background-size: 110%;
+    transition: 0.5s all;
+    position: relative;
+    text-align: center;
+  }
+  .categoria9 {
+    width: 100%;
+    height: 100%;
+    margin: 0 1%;
+    display: inline-block;
+    background-image: url(../../assets/img/categorias/no-lacteos.jpg);
+    background-position: center;
+    background-size: 110%;
+    transition: 0.5s all;
+    position: relative;
+    text-align: center;
+  }
+/* Css categorias del footer*/

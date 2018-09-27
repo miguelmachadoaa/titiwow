@@ -11,6 +11,7 @@ use App\Mail\ContactUser;
 use App\Mail\ForgotPassword;
 use App\Mail\Register;
 use App\Models\AlpClientes;
+use App\Models\AlpCategorias;
 use App\User;
 use App\Models\AlpMenuDetalle;
 use Cartalyst\Sentinel\Checkpoints\NotActivatedException;
@@ -25,11 +26,18 @@ use Sentinel;
 use URL;
 use Validator;
 use View;
+use DB; 
 
 
 class FrontEndController extends JoshController
 {
+    public function home()
+    {
 
+        $categorias = DB::table('alp_categorias')->select('alp_categorias.*')->where('destacado','=', 1)->orderBy('order', 'asc')->limit(9)->get();
+
+        return view('index',compact('categorias'));
+    }
     /*
      * $user_activation set to false makes the user activation via user registered email
      * and set to true makes user activated while creation

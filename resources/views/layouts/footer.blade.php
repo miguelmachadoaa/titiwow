@@ -29,14 +29,14 @@
             <!-- //Categorias Section End -->
             <!-- Redes Section Start -->
             <div class="col-sm-3 clearfix">
-                <h4>Mi Cuenta</h4>
+                <h4>SÍguenos en</h4>
                 <p>
                 <div class="redes_foot">
-                    <div class="div_deres"><a title="Síguenos en Facebook" href="https://www.facebook.com/" target="_blank" rel="noopener"><img src="{{ asset('assets/img/facebook.png') }}" border="0"></a></div>
-                    <div class="div_deres"><a title="Síguenos en Instagram" href="https://www.instagram.com/" target="_blank" rel="noopener"><img src="{{ asset('assets/img/instagram.png') }}" border="0"></a></div>
-                    <div style="clear: both;"></div>
-                    <div class="div_deres"><a title="Síguenos en Twitter" href="https://www.facebook.com/" target="_blank" rel="noopener"><img src="{{ asset('assets/img/twitter.png') }}" border="0"></a></div>
-                    <div class="div_deres"><a title="Síguenos en Youtube" href="https://www.instagram.com/" target="_blank" rel="noopener"><img src="{{ asset('assets/img/youtube.png') }}" border="0"></a></div>
+                    <div class="div_deres"><a href="https://www.facebook.com/alpina" target="_blank"><i class="fa fa-facebook-f color-foot" ></i></a></div>
+                    <div class="div_deres"><a href="https://www.instagram.com/alpinacol/" target="_blank"><i class="fa fa-instagram color-foot" ></i></a></div>
+                    <div class="div_deres"><a href="https://www.linkedin.com/company/alpina/?trk=vsrp_companies_res_name&trkInfo=VSRPsearchId%3A3286542181450727911739%2CVSRPtargetId%3A48174%2CVSRPcmpt%3Aprimary" target="_blank"><i class="fa fa-linkedin-square color-foot" ></i></a></div>
+                    <div class="div_deres"><a href="https://twitter.com/Alpina" target="_blank"><i class="fa fa-twitter color-foot" ></i></a></div>
+                    <div class="div_deres"><a href="https://www.youtube.com/user/AlpinaSA" target="_blank"><i class="fa fa-youtube-play color-foot" ></i></a></div>
                     <div style="clear: both;"></div>
                 </div>
                 </p>

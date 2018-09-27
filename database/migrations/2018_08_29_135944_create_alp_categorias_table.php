@@ -20,6 +20,9 @@ class CreateAlpCategoriasTable extends Migration
             $table->string('imagen_categoria')->nullable();
             $table->integer('id_categoria_parent')->nullable();
             $table->string('slug')->unique();
+            $table->integer('destacado')->nullable();
+            $table->integer('order')->nullable();
+            $table->string('css_categoria')->nullable();
             $table->integer('estado_registro')->default(1);
             $table->integer('id_user');
             $table->timestamps();
