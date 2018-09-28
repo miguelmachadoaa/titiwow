@@ -20,7 +20,7 @@ class CreateAlpProductosTable extends Migration
             $table->string('referencia_producto_sap')->nullable();
             $table->string('descripcion_corta')->nullable();
             $table->text('descripcion_larga')->nullable();
-            $table->string('imagen_producto')->nullable();
+            $table->string('imagen_producto')->default('default.png');
             $table->string('seo_titulo')->nullable();
             $table->string('seo_descripcion')->nullable();
             $table->string('slug')->unique();

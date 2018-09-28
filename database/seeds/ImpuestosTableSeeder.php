@@ -14,6 +14,8 @@ class ImpuestosTableSeeder extends Seeder
     {
         DB::table('alp_impuestos')->insert([
             ['nombre_impuesto' => 'IVA','valor_impuesto' => 0.19, 'id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-        ]);
+            ['nombre_impuesto' => 'Sin IVA','valor_impuesto' => 0, 'id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+
+            ]);
     }
 }
