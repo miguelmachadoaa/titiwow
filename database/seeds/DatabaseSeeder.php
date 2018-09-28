@@ -25,5 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(MenusTableSeeder::class);
         $this->call(ImpuestosTableSeeder::class);
         $this->call(ProductosCategoriasTableSeeder::class);
+        $this->call(InventarioTableSeeder::class);
+        $this->call(PreciosRolTableSeeder::class);
     }
 }
