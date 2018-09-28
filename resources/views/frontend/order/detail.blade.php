@@ -109,11 +109,11 @@ Carro de Productos
 
                 @else
 
-                    <div class="col-sm-12">
+                    <div class="col-sm-10 col-sm-offset-1">
                         
                         <h3>Debe agregar una direccion de envio  </h3>
 
-                        <button class="btn btn-raised btn-primary md-trigger addDireccionModal" >Agregar Nueva Direccion </button>
+                        
                     
                     </div>
                 

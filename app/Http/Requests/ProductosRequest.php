@@ -35,6 +35,8 @@ class ProductosRequest extends FormRequest {
             'id_categoria_default' => 'required',
             'id_marca' => 'required',
             'id_impuesto' => 'required',
+            'pum' => 'required',
+            'medida' => 'required',
             'inventario_inicial' => 'required',
             'precio_base' => 'required'
 		];

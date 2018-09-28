@@ -351,10 +351,18 @@ Route::resource('clientes', 'Frontend\ClientesFrontController');
 
 
 
+
 Route::get('clientes/{id}/compras', 'Frontend\ClientesFrontController@compras')->name('frontend.clientes.compras');
 
 
-Route::get('clientes/miscompras', 'Frontend\ClientesFrontController@miscompras')->name('frontend.clientes.miscompras');
+Route::get('amigos', 'Frontend\ClientesFrontController@amigos')->name('frontend.clientes.amigos');
+
+Route::post('storeamigo', 'Frontend\ClientesFrontController@storeamigo')->name('frontend.clientes.storeamigo');
+
+Route::post('delamigo', 'Frontend\ClientesFrontController@delamigo')->name('frontend.clientes.delamigo');
+
+
+Route::get('miscompras', 'Frontend\ClientesFrontController@miscompras')->name('frontend.clientes.miscompras');
 
 
 Route::get('clientes/{id}/detalle', 'Frontend\ClientesFrontController@detalle')->name('frontend.clientes.detalle');
