@@ -1,19 +1,25 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts/default')
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>404 page | Welcome to Josh Frontend</title>
-    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <!-- global level css-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
-    <!-- end of globallevel css-->
-    <!-- page level styles-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/404.css') }}" />
-    <!-- end of page level styles-->
-</head>
+{{-- Page title --}}
+@section('title')
+Página No Encontrada
+@parent
+@stop
 
-<body>
+{{-- page level styles --}}
+@section('header_styles')
+    <!--page level css starts-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/tabbular.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/animate/animate.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/jquery.circliful.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/owl_carousel/css/owl.carousel.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/owl_carousel/css/owl.theme.css') }}">
+
+    <!--end of page level css-->
+@stop
+
+{{-- content --}}
+@section('content')
 
     <div id="animate" class="row">
         <div class="number">4</div>
@@ -28,7 +34,10 @@
             <button type="button" class="btn btn-primary button-alignment">Home</button>
         </a>
     </div>
-    <!-- global js -->
+    @stop
+{{-- footer scripts --}}
+@section('footer_scripts')
+    <!-- page level js starts-->
     <script src="{{ asset('assets/js/jquery-1.11.1.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}" type="text/javascript"></script>
     <!--livicons-->
@@ -37,6 +46,5 @@
     <!-- end of global js -->
     <!-- begining of page level js-->
     <script src="{{ asset('assets/js/frontend/404.js') }}"></script>
-    <!-- end of page level js-->
-</body>
-</html>
+    <!--page level js ends-->
+@stop

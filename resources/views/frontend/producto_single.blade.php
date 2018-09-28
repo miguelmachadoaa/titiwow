@@ -71,9 +71,9 @@
                         <div class="row">
                             <div class="col-md-4">
                             <div class="text-big3">
-                                <del>$1000</del>
+                                <del>${{ number_format($producto->precio_base,2,",",".") }}</del>
                             </div>
-                            <div class="text-big4">$750</div>
+                            <div class="text-big4">${{ number_format($producto->precio_base,2,",",".") }}</div>
                             <span>IVA incluido</span>
                             </div>
                             <div class="col-md-4">
@@ -118,7 +118,7 @@
         </div>
         <!--item desciption end-->
         <!--recently view item-->
-        <div class="row">
+        <!--div class="row">
             <h2 class="text-primary">Nuevos Productos</h2>
             <div class="divider"></div>
             <div class="flip-3d">
@@ -173,7 +173,7 @@
                     </figcaption>
                 </figure>
             </div>
-        </div>
+        </div-->
         <!--recently view item end-->
     </div>
     <!-- //Container Section End -->

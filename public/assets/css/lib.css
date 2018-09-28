@@ -911,8 +911,11 @@ footer a:hover, footer a:active{
     display: block;
 }
 /*Productos Listado Inicio*/
-.products{
+.productos{
     margin: 30px 0px;
+    border: 1px solid #dcdcdc;
+    -webkit-border-radius: 10px 10px;  /* Safari  */
+    -moz-border-radius: 10px 10px;     /* Firefox */
 }
 @media (min-width : 951px) {
     .products img {
@@ -995,10 +998,39 @@ footer a:hover, footer a:active{
 
 #caja_categoria{
     height:200px;
+    width: 390px;
     margin: 10px 0px;
 }
+.botones_cat {
+    border: none;
+    color: #ffffff !important;
+    padding: 6px 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+.boton_cat {
+    background-color: none; 
+    color: #ffffff !important; 
+    border: 2px solid #ffffff;
+    border-radius: 8px;
+}
+
+.boton_cat:hover {
+    background-color: #ffffff;
+    color: #777777 !important;
+}
+.cont_categorias{
+    margin: 15px auto 30px auto;
+}
 #contenido_cat{
-    padding: 50px;
+    padding: 40px;
+    color:#ffffff;
 }
   .categoria1 {
     width: 100%;
@@ -1011,7 +1043,16 @@ footer a:hover, footer a:active{
     transition: 0.5s all;
     position: relative;
     text-align: center;
+    transition: all .5s;
   }
+  .categoria1 .layercat {
+    background-color: rgba(0, 144, 196, 0.70);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
   .categoria2 {
     width: 100%;
     height: 100%;
@@ -1024,6 +1065,14 @@ footer a:hover, footer a:active{
     position: relative;
     text-align: center;
   }
+  .categoria2 .layercat {
+    background-color: rgba(5, 4, 41, 0.70);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
   .categoria3 {
     width: 100%;
     height: 100%;
@@ -1036,6 +1085,14 @@ footer a:hover, footer a:active{
     position: relative;
     text-align: center;
   }
+  .categoria3 .layercat {
+    background-color: rgba(36, 157, 174, 0.70);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
   .categoria4 {
     width: 100%;
     height: 100%;
@@ -1048,6 +1105,14 @@ footer a:hover, footer a:active{
     position: relative;
     text-align: center;
   }
+  .categoria4 .layercat {
+    background-color: rgba(144, 223, 98, 0.70);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
   .categoria5 {
     width: 100%;
     height: 100%;
@@ -1060,6 +1125,17 @@ footer a:hover, footer a:active{
     position: relative;
     text-align: center;
   }
+  .categoria5 .layercat {
+    background-color: rgba(5, 4, 41, 0.70);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.categoria5 #contenido_cat{
+    padding: 30px !important;
+}
   .categoria6 {
     width: 100%;
     height: 100%;
@@ -1072,6 +1148,14 @@ footer a:hover, footer a:active{
     position: relative;
     text-align: center;
   }
+  .categoria6 .layercat {
+    background-color: rgba(36, 157, 174, 0.70);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
   .categoria7 {
     width: 100%;
     height: 100%;
@@ -1084,6 +1168,14 @@ footer a:hover, footer a:active{
     position: relative;
     text-align: center;
   }
+  .categoria7 .layercat {
+    background-color: rgba(144, 223, 98, 0.70);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
   .categoria8 {
     width: 100%;
     height: 100%;
@@ -1096,6 +1188,14 @@ footer a:hover, footer a:active{
     position: relative;
     text-align: center;
   }
+  .categoria8 .layercat {
+    background-color: rgba(5, 4, 41, 0.70);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
   .categoria9 {
     width: 100%;
     height: 100%;
@@ -1107,5 +1207,71 @@ footer a:hover, footer a:active{
     transition: 0.5s all;
     position: relative;
     text-align: center;
+  }
+  .categoria9 .layercat {
+    background-color: rgba(144, 223, 98, 0.70);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+#caja_categoria:hover .categoria1,
+#caja_categoria:focus .categoria1,
+#caja_categoria:hover .categoria2,
+#caja_categoria:focus .categoria2,
+#caja_categoria:hover .categoria3,
+#caja_categoria:focus .categoria3,
+#caja_categoria:hover .categoria4,
+#caja_categoria:focus .categoria4,
+#caja_categoria:hover .categoria5,
+#caja_categoria:focus .categoria5,
+#caja_categoria:hover .categoria6,
+#caja_categoria:focus .categoria6,
+#caja_categoria:hover .categoria7,
+#caja_categoria:focus .categoria7,
+#caja_categoria:hover .categoria8,
+#caja_categoria:focus .categoria8,
+#caja_categoria:hover .categoria9,
+#caja_categoria:focus .categoria9 {
+  transform: scale(1.1);
+}
+.categoria1::after,
+.categoria2::after,
+.categoria3::after,
+.categoria4::after,
+.categoria5::after,
+.categoria6::after,
+.categoria7::after,
+.categoria8::after,
+.categoria9::after{
+    content: "";
+    display: none;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  #caja_categoria:hover .categoria1:before,
+  #caja_categoria:focus .categoria1:before,
+  #caja_categoria:hover .categoria2:before,
+  #caja_categoria:focus .categoria2:before,
+  #caja_categoria:hover .categoria3:before,
+  #caja_categoria:focus .categoria3:before,
+  #caja_categoria:hover .categoria4:before,
+  #caja_categoria:focus .categoria4:before,
+  #caja_categoria:hover .categoria5:before,
+  #caja_categoria:focus .categoria5:before,
+  #caja_categoria:hover .categoria6:before,
+  #caja_categoria:focus .categoria6:before,
+  #caja_categoria:hover .categoria7:before,
+  #caja_categoria:focus .categoria7:before,
+  #caja_categoria:hover .categoria8:before,
+  #caja_categoria:focus .categoria8:before,
+  #caja_categoria:hover .categoria9:before,
+  #caja_categoria:focus .categoria9:before {
+    display: block;
   }
 /* Css categorias del footer*/
