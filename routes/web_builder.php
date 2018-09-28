@@ -348,12 +348,16 @@ Route::get('categoria/{slug}', ['as' => 'categoria', 'uses' => 'Frontend\Product
 
 /* Fin Rutas Frontend Publico */
 
+
+/* Ruta privada de amigos */
 Route::group(['prefix' => 'clientes', 'namespace'=>'Frontend'], function () {
 
     Route::get('amigos', 'ClientesFrontController@amigos')->name('amigos');
 
 
 });
+
+/* Fin ruta amigos */
 Route::resource('clientes', 'Frontend\ClientesFrontController');
 
 Route::get('clientes/{id}/compras', 'Frontend\ClientesFrontController@compras')->name('frontend.clientes.compras');
