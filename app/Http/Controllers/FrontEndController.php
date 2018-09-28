@@ -36,7 +36,9 @@ class FrontEndController extends JoshController
 
         $categorias = DB::table('alp_categorias')->select('alp_categorias.*')->where('destacado','=', 1)->orderBy('order', 'asc')->limit(9)->get();
 
-        return view('index',compact('categorias'));
+        $productos = DB::table('alp_productos')->select('alp_productos.*')->where('destacado','=', 1)->orderBy('order', 'asc')->limit(8)->get();
+       
+        return view('index',compact('categorias','productos'));
     }
     /*
      * $user_activation set to false makes the user activation via user registered email

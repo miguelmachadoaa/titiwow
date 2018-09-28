@@ -49,17 +49,19 @@
         <div class="row">
         @if(!$productos->isEmpty())
             @foreach($productos as $producto)
-                <div class="col-md-4 col-sm-6 col-xs-6 products">
-                    <div class="text-align:center;">
-                        <a href="{{ route('producto', [$producto->slug]) }}" ><img src="../uploads/productos/{{ $producto->imagen_producto }}" class="img-responsive"></a>
-                    </div>
-                    <a href="{{ route('producto', [$producto->slug]) }}" ><h1>{{ $producto->nombre_producto }}</h1></a>
-                    <div class="product_info">
-                        <p id="precio_prod"><del class="hidden">${{ $producto->precio_base }}</del>&nbsp;<span class="precio_base">${{ $producto->precio_base }}</span></p>
-                        <p class="product_botones">
-                            <a class="btn btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
-                            <a class="btn btn-primary" href="{{ route('producto', [$producto->slug]) }}">Ver Más</a>
-                        </p>
+                <div class="col-md-4 col-sm-6 col-xs-6">
+                    <div class="productos">
+                        <div class="text-align:center;">
+                            <a href="{{ route('producto', [$producto->slug]) }}" ><img src="../uploads/productos/{{ $producto->imagen_producto }}" class="img-responsive"></a>
+                        </div>
+                        <a href="{{ route('producto', [$producto->slug]) }}" ><h1>{{ $producto->nombre_producto }}</h1></a>
+                        <div class="product_info">
+                            <p id="precio_prod"><del class="hidden">${{ number_format($producto->precio_base,2,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base,2,",",".") }}</span></p>
+                            <p class="product_botones">
+                                <a class="btn btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
+                                <a class="btn btn-primary" href="{{ route('producto', [$producto->slug]) }}">Ver Más</a>
+                            </p>
+                        </div>
                     </div>
                 </div>
                 @if ($loop->iteration % 3 == 0)
