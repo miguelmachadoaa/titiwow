@@ -89,7 +89,7 @@ Mis Invitaciones a Amigos
                             {{ $row->nombre_amigo }}
                         </td>
                         <td>
-                            {{ $row->apellid_amigoo }}
+                            {{ $row->apellid_amigo }}
                         </td>
                         <td>
                             {{ $row->email_amigo }}

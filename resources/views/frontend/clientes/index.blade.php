@@ -46,7 +46,6 @@ Mis Referidos
     <div class="products">
 
         <h3>    Mis referidos </h3>
-        <a class="btn btn-info" href="{{ url('registroembajadores/'.'ALP'.$user->id) }}">Registrar Embajador</a>
 
         <div class="row">
         @if(!$referidos->isEmpty())
