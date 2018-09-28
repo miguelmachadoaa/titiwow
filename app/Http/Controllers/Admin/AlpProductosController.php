@@ -150,7 +150,7 @@ class AlpProductosController extends JoshController
 
         //var_dump($input);
 
-        $imagen='0';
+        $imagen='default.png';
 
          $picture = "";
 
@@ -194,8 +194,8 @@ class AlpProductosController extends JoshController
             'id_marca' =>$request->id_marca, 
             'id_impuesto' =>$request->id_impuesto, 
             'precio_base' =>$request->precio_base,             
-                'pum' =>$request->pum,
-                'medida' =>$request->medida,
+            'pum' =>$request->pum,
+            'medida' =>$request->medida,
             'id_user' =>$user_id
         );
          
