@@ -65,9 +65,12 @@ Ordenes
                                     <td>{!! number_format($row->monto_total,2) !!}</td>
                                     <td>{!! $row->created_at->diffForHumans() !!}</td>
                                     <td>
+
                                             <a href="{{ route('admin.ordenes.detalle', $row->id) }}">
                                                 <i class="livicon" data-name="plus" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Detalle"></i>
                                             </a>
+
+                                            <button data-id="{{ $row->id }}" class="btn btn-xs btn-info confirmar" > Confirmar </button>
 
 
                                     </td>
@@ -84,6 +87,116 @@ Ordenes
         </div>
     </div>    <!-- row-->
 </section>
+
+
+
+<!-- Modal Detalle -->
+
+
+  
+<!-- Modal Direccion -->
+ <div class="modal fade" id="confirmarOrdenModal" role="dialog" aria-labelledby="modalLabeldanger">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h4 class="modal-title" id="modalLabeldanger">Confirmar Orden</h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <form method="POST" action="{{url('ordenes/confirmar')}}" id="confirmarOrdenForm" name="confirmarOrdenForm" class="form-horizontal">
+
+                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
+
+                            {{ csrf_field() }}
+                            <div class="row">
+
+                                <div class="form-group clearfix">
+                                    <label class="col-md-3 control-label" for="nombre_producto">Nickname Direccion</label>
+
+                                    <div class="col-sm-8">
+                                        <input style="margin: 4px 0;" id="nickname_address" name="nickname_address" type="text" placeholder="Nickname Direccion" class="form-control">
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group col-sm-12">
+                                    <label for="select21" class="col-md-3 control-label">
+                                        Estatus Ordenes
+                                    </label>
+                                    <div class="col-md-8" >
+                                        <select style="margin: 4px 0;" id="country_id" name="country_id" class="form-control ">
+                                            <option value="">Seleccione</option>
+                                           
+                                            @foreach($estatus_ordenes as $est)
+                                            <option value="{{ $est->id }}"
+                                                    @if($est->id == old('country_id')) selected="selected" @endif >{{ $est->estatus_nombre}}</option>
+                                            @endforeach
+                                          
+                                        </select>
+                                    </div>
+                                </div>
+
+                                            </select>
+                                    </div>
+                                </div>
+
+                                
+
+
+
+                                
+                                
+
+                                <div class="form-group clearfix">
+                                    <label class="col-md-3 control-label" for="nombre_producto">Calle </label>
+
+                                    <div class="col-sm-8">
+                                        <input style="margin: 4px 0;" id="calle2_address" name="calle2_address" type="text" placeholder="" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group clearfix">
+                                    <label class="col-md-3 control-label" for="nombre_producto">Codigo Postal</label>
+
+                                    <div class="col-sm-8">
+                                     <input style="margin: 4px 0;" id="codigo_postal_address" name="codigo_postal_address" type="text" placeholder="Codigo Postal" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group clearfix">
+                                    <label class="col-md-3 control-label" for="nombre_producto">Telefono</label>
+
+                                    <div class="col-sm-8">
+                                        <input style="margin: 4px 0;" id="telefono_address" name="telefono_address" type="text" placeholder="Telefono" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group clearfix">
+                                    <label class="col-md-3 control-label" for="nombre_producto">Notas</label>
+
+                                    <div class="col-sm-8">
+                                        <textarea style="margin: 4px 0;" id="notas" name="notas" type="text" placeholder="Notas" class="form-control"></textarea>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </form>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn  btn-primary sendDireccion" >Agregar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- Modal Direccion -->
+
+
+<!-- Modal Direccion -->
 
 
 

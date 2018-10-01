@@ -111,6 +111,18 @@
             </li>
         </ul>
     @endif
+
+    @if (Sentinel::getUser()->hasAnyAccess(['estatuspagos.*']))
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/estatuspagos*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.estatuspagos.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Estatus Pagos
+                </a>
+            </li>
+        </ul>
+    @endif
+
     @if (Sentinel::getUser()->hasAnyAccess(['formaspago.*']))
         <ul class="sub-menu">
             <li {!! (Request::is('admin/formaspago*') ? 'class="active"' : '') !!}>
@@ -121,6 +133,8 @@
             </li>
         </ul>
     @endif
+
+
 
     @if (Sentinel::getUser()->hasAnyAccess(['formasenvio.*']))
         <ul class="sub-menu">

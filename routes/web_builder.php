@@ -38,12 +38,10 @@ Route::get('registroembajadores/{id}', 'Frontend\ClientesFrontController@embajad
 
 Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.'), function () {
 
-
-
-
-
-
     Route::resource('productos', 'Admin\AlpProductosController');
+
+    Route::get('productos/{id}/confirmar', array('as' => 'productos.confirmar', 'uses' => 'Admin\AlpProductosController@confirmar'));
+
 
     Route::get('productos/{id}/confirm-delete', array('as' => 'productos.confirm-delete', 'uses' => 'Admin\AlpProductosController@getModalDelete'));
 
@@ -95,9 +93,6 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
     Route::resource('formaspago', 'Admin\AlpFormaspagoController');
 
-    //fin direcciones forma de pago
-
-    //inicio direcciones froma de envio 
 
     Route::group(['prefix' => 'formasenvio'], function () {
 
@@ -109,10 +104,13 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
  	});
 
+
     Route::resource('formasenvio', 'Admin\AlpFormasenvioController');
 
     Route::resource('rolpagos', 'Admin\AlpRolpagosController');
+
     Route::resource('rolenvios', 'Admin\AlpRolEnviosController');
+
     Route::resource('rolconfiguracion', 'Admin\AlpRolConfiguracionController');
 
     //fin direcciones forma de envio 
@@ -162,6 +160,20 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
         });
 
     Route::resource('estatus', 'Admin\AlpEstatusOrdenesController');
+
+
+
+       Route::group(['prefix' => 'estatuspagos'], function () {
+
+        Route::get('{id}/delete', 'Admin\AlpEstatusPagosController@destroy')->name('estatuspagos.delete');
+
+        Route::get('{id}/confirm-delete', 'Admin\AlpEstatusPagosController@getModalDelete')->name('estatuspagos.confirm-delete');
+
+        Route::get('{id}/restore', 'Admin\AlpEstatusPagosController@getRestore')->name('estatuspagos.restore');
+
+        });
+
+    Route::resource('estatuspagos', 'Admin\AlpEstatusPagosController');
 
     //fin direcioens clientes
 
@@ -228,7 +240,6 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
     Route::resource('ordenes', 'Admin\AlpOrdenesController');
 
-    
 
     Route::group(['prefix' => 'ordenes'], function () {
 
@@ -240,7 +251,7 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
         Route::get('{id}/restore', 'Admin\AlpOrdenesController@getRestore')->name('ordenes.restore');
 
-        });
+    });
 
 
 
@@ -378,6 +389,7 @@ Route::get('emailU', function(){
 
 
 Route::post('productos/destacado', ['as'=> 'productos.destacado', 'uses' => 'Admin\AlpProductosController@destacado']);
+
 
 Route::post('categorias/destacado', ['as'=> 'categorias.destacado', 'uses' => 'Admin\AlpCategoriasController@destacado']);
 

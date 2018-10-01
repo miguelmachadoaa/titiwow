@@ -3,6 +3,7 @@
 use App\Http\Controllers\JoshController;
 use App\Http\Requests\OrdenesRequest;
 use App\Models\AlpOrdenes;
+use App\Models\AlpEstatusOrdenes;
 use App\Models\AlpDetalles;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -27,6 +28,8 @@ class AlpOrdenesController extends JoshController
       
         $ordenes = AlpOrdenes::all();
 
+        $estatus_ordenes = AlpEstatusOrdenes::all();
+
          $ordenes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago')
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
           ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
@@ -34,7 +37,7 @@ class AlpOrdenesController extends JoshController
           ->get();
        
         // Show the page
-        return view('admin.ordenes.index', compact('ordenes'));
+        return view('admin.ordenes.index', compact('ordenes', 'estatus_ordenes'));
 
     }
 
