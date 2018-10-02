@@ -14,14 +14,56 @@ class AdminSeeder extends DatabaseSeeder {
 		DB::table('activations')->truncate();
 
 		$admin = Sentinel::registerAndActivate(array(
-			'email'       => 'obarrerafranco@gmail.com',
+			'email'       => 'admin@gmail.com',
 			'password'    => "123456",
 			'first_name'  => 'John',
 			'last_name'   => 'Doe',
 		));
 
+		$shopmanager = Sentinel::registerAndActivate(array(
+			'email'       => 'shopmanager@gmail.com',
+			'password'    => "123456",
+			'first_name'  => 'Orangel',
+			'last_name'   => 'Barrera',
+		));
+
+		$shopmanagercorp = Sentinel::registerAndActivate(array(
+			'email'       => 'shopmanagercorp@gmail.com',
+			'password'    => "123456",
+			'first_name'  => 'Orangel',
+			'last_name'   => 'Barrera',
+		));
+
 		$masterfile = Sentinel::registerAndActivate(array(
-			'email'       => 'crearemosweb@gmail.com',
+			'email'       => 'masterfile@gmail.com',
+			'password'    => "123456",
+			'first_name'  => 'Orangel',
+			'last_name'   => 'Barrera',
+		));
+
+		$sac = Sentinel::registerAndActivate(array(
+			'email'       => 'sac@gmail.com',
+			'password'    => "123456",
+			'first_name'  => 'Orangel',
+			'last_name'   => 'Barrera',
+		));
+
+		$cedi = Sentinel::registerAndActivate(array(
+			'email'       => 'cedi@gmail.com',
+			'password'    => "123456",
+			'first_name'  => 'Orangel',
+			'last_name'   => 'Barrera',
+		));
+
+		$logistica = Sentinel::registerAndActivate(array(
+			'email'       => 'logistica@gmail.com',
+			'password'    => "123456",
+			'first_name'  => 'Orangel',
+			'last_name'   => 'Barrera',
+		));
+
+		$finanzas = Sentinel::registerAndActivate(array(
+			'email'       => 'finanzas@gmail.com',
 			'password'    => "123456",
 			'first_name'  => 'Orangel',
 			'last_name'   => 'Barrera',
@@ -107,7 +149,13 @@ class AdminSeeder extends DatabaseSeeder {
 
 
 		$admin->roles()->attach($adminRole);
+		$shopmanager->roles()->attach($shopmanagerRole);
+		$shopmanagercorp->roles()->attach($shopmanagercorpRole);
 		$masterfile->roles()->attach($masterfileRole);
+		$sac->roles()->attach($sacRole);
+		$cedi->roles()->attach($cediRole);
+		$logistica->roles()->attach($logisticaRole);
+		$finanzas->roles()->attach($finanzasRole);
 
 		$this->command->info('Admin User created with username admin@admin.com and password admin');
 	}
