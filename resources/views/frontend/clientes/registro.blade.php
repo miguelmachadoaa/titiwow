@@ -21,8 +21,8 @@
     <!--Content Section Start -->
     <div class="row">
         <div class="box animation flipInX">
-            <img src="{{ asset('assets/images/josh-new.png') }}" alt="logo" class="img-responsive mar">
-            <h3 class="text-primary">Sign Up</h3>
+            <img src="{{ asset('assets/img/logo_alpina.png') }}" alt="AlpinaGO">
+            <h3 class="text-primary">Registro de Amigos</h3>
             <!-- Notifications -->
             <div id="notific">
             @include('notifications')

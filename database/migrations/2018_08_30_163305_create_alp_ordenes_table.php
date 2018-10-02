@@ -21,6 +21,8 @@ class CreateAlpOrdenesTable extends Migration
             $table->integer('id_forma_pago');
             $table->decimal('monto_total');
             $table->string('cod_oracle_pedido')->nullable();
+            $table->integer('estatus');
+            $table->integer('estatus_pago');
             $table->integer('id_user');
             $table->timestamps();
             $table->softDeletes();

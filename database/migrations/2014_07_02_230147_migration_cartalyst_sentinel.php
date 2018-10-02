@@ -64,6 +64,7 @@ class MigrationCartalystSentinel extends Migration
             $table->increments('id');
             $table->string('slug');
             $table->string('name');
+            $table->integer('tipo')->default(2)->comment('1: Backend, 2:Frontend ');
             $table->text('permissions')->nullable();
             $table->timestamps();
 
