@@ -16,6 +16,9 @@ class CreateAlpConfiguracionGeneralTable extends Migration
         Schema::create('alp_configuracion_general', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre_tienda');
+            $table->string('limite_amigos');
+            $table->string('id_mercadopago');
+            $table->string('key_mercadopago');
             $table->integer('estado_registro')->default(1);
             $table->integer('id_user');
             $table->timestamps();

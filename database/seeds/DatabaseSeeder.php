@@ -31,5 +31,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RolEnvioTableSeeder::class);
         $this->call(RolPagoTableSeeder::class);
         $this->call(OrdenesEstatusTableSeeder::class);
+        $this->call(ConfGralTableSeeder::class);
     }
 }

@@ -43,7 +43,10 @@ class AlpConfiguracionController extends JoshController
     public function update(Request $request, $id)
     {
        $data = array(
-            'nombre_tienda' => $request->nombre_tienda, 
+            'nombre_tienda' => $request->nombre_tienda,
+            'limite_amigos' => $request->limite_amigos,
+            'id_mercadopago' => $request->id_mercadopago,
+            'key_mercadopago' => $request->key_mercadopago, 
         );
          
        $configuracion = AlpConfiguracion::find($id);

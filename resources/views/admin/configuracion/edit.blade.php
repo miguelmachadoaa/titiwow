@@ -40,20 +40,56 @@ Editar Configuracion
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                           
-                             <div class="form-group {{ $errors->
-                            first('nombre_tienda', 'has-error') }}">
-                            <label for="title" class="col-sm-2 control-label">
-                                Nombre Tienda
-                            </label>
-                            <div class="col-sm-5">
-                                <input type="text" id="nombre_tienda" name="nombre_tienda" class="form-control" placeholder="Nombre Tienda"
-                                       value="{!! old('nombre_tienda', $configuracion->nombre_tienda) !!}">
+                            <div class="form-group {{ $errors->first('nombre_tienda', 'has-error') }}">
+                                <label for="title" class="col-sm-2 control-label">
+                                    Nombre Tienda
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="nombre_tienda" name="nombre_tienda" class="form-control" placeholder="Nombre Tienda"
+                                        value="{!! old('nombre_tienda', $configuracion->nombre_tienda) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('nombre_tienda', '<span class="help-block">:message</span> ') !!}
+                                </div>
                             </div>
-                            <div class="col-sm-4">
-                                {!! $errors->first('nombre_tienda', '<span class="help-block">:message</span> ') !!}
+                            <hr />
+                            <div class="form-group {{ $errors->first('limite_amigos', 'has-error') }}">
+                                <label for="title" class="col-sm-2 control-label">
+                                    Limite de Amigos Alpina
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="limite_amigos" name="limite_amigos" class="form-control" placeholder="Limite de Amigos Alpina"
+                                        value="{!! old('limite_amigos', $configuracion->limite_amigos) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('limite_amigos', '<span class="help-block">:message</span> ') !!}
+                                </div>
                             </div>
-                        </div>
-
+                            <hr />
+                            <div class="form-group {{ $errors->first('id_mercadopago', 'has-error') }}">
+                                <label for="title" class="col-sm-2 control-label">
+                                    ID Mercadopago
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="id_mercadopago" name="id_mercadopago" class="form-control" placeholder="ID Mercadopago"
+                                        value="{!! old('id_mercadopago', $configuracion->id_mercadopago) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('id_mercadopago', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+                            <div class="form-group {{ $errors->first('key_mercadopago', 'has-error') }}">
+                                <label for="title" class="col-sm-2 control-label">
+                                    Key Mercadopago
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="key_mercadopago" name="key_mercadopago" class="form-control" placeholder="Key Mercadopago"
+                                        value="{!! old('key_mercadopago', $configuracion->key_mercadopago) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('key_mercadopago', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
                       
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
