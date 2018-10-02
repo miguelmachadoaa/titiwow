@@ -70,7 +70,12 @@ Ordenes
                                                 <i class="livicon" data-name="plus" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Detalle"></i>
                                             </a>
 
-                                            <button data-id="{{ $row->id }}" class="btn btn-xs btn-info confirmar" > Confirmar </button>
+                                            <div style="display: inline-block;" class="estatus_{{ $row->id }}">
+                                            <button data-id="{{ $row->id }}"  data-codigo="{{ $row->cod_oracle_pedido }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-info confirmar" > {{ $row->estatus_nombre }} </button></div>
+
+                                            <div style="display: inline-block;" class="pago_{{ $row->id }}">  
+
+                                            <button data-id="{{ $row->id }}" class="btn btn-xs btn-success pago" > {{ $row->estatus_pago_nombre }} </button></div>
 
 
                                     </td>
@@ -106,70 +111,39 @@ Ordenes
                         <form method="POST" action="{{url('ordenes/confirmar')}}" id="confirmarOrdenForm" name="confirmarOrdenForm" class="form-horizontal">
 
                             <input type="hidden" name="base" id="base" value="{{ url('/') }}">
+                            <input type="hidden" name="confirm_id" id="confirm_id" value="">
 
                             {{ csrf_field() }}
                             <div class="row">
 
-                                <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Nickname Direccion</label>
-
-                                    <div class="col-sm-8">
-                                        <input style="margin: 4px 0;" id="nickname_address" name="nickname_address" type="text" placeholder="Nickname Direccion" class="form-control">
-                                    </div>
-                                </div>
-
+                                
 
                                 <div class="form-group col-sm-12">
                                     <label for="select21" class="col-md-3 control-label">
                                         Estatus Ordenes
                                     </label>
                                     <div class="col-md-8" >
-                                        <select style="margin: 4px 0;" id="country_id" name="country_id" class="form-control ">
+                                        <select style="margin: 4px 0;" id="id_status" name="id_status" class="form-control ">
                                             <option value="">Seleccione</option>
                                            
                                             @foreach($estatus_ordenes as $est)
                                             <option value="{{ $est->id }}"
-                                                    @if($est->id == old('country_id')) selected="selected" @endif >{{ $est->estatus_nombre}}</option>
+                                                    @if($est->id == old('id_status')) selected="selected" @endif >{{ $est->estatus_nombre}}</option>
                                             @endforeach
                                           
                                         </select>
                                     </div>
                                 </div>
 
-                                            </select>
-                                    </div>
-                                </div>
-
-                                
-
-
-
-                                
-                                
 
                                 <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Calle </label>
+                                    <label class="col-md-3 control-label" for="nombre_producto">Codigo Oracle Pedido </label>
 
                                     <div class="col-sm-8">
-                                        <input style="margin: 4px 0;" id="calle2_address" name="calle2_address" type="text" placeholder="" class="form-control">
+                                        <input style="margin: 4px 0;" id="cod_oracle_pedido" name="cod_oracle_pedido" type="text" placeholder="" class="form-control">
                                     </div>
                                 </div>
-
-                                <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Codigo Postal</label>
-
-                                    <div class="col-sm-8">
-                                     <input style="margin: 4px 0;" id="codigo_postal_address" name="codigo_postal_address" type="text" placeholder="Codigo Postal" class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Telefono</label>
-
-                                    <div class="col-sm-8">
-                                        <input style="margin: 4px 0;" id="telefono_address" name="telefono_address" type="text" placeholder="Telefono" class="form-control">
-                                    </div>
-                                </div>
+                               
 
                                 <div class="form-group clearfix">
                                     <label class="col-md-3 control-label" for="nombre_producto">Notas</label>
@@ -187,7 +161,7 @@ Ordenes
                     </div>
                     <div class="modal-footer">
                         <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn  btn-primary sendDireccion" >Agregar</button>
+                        <button type="button" class="btn  btn-primary sendConfirmar" >Agregar</button>
                     </div>
                 </div>
             </div>
@@ -195,53 +169,106 @@ Ordenes
 
 <!-- Modal Direccion -->
 
-
-<!-- Modal Direccion -->
-
-
-
-
 @stop
 
 {{-- Body Bottom confirm modal --}}
 @section('footer_scripts')
-<div class="modal fade" id="delete_confirm" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="users_exists" tabindex="-2" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-            </div>
-            <div class="modal-body">
-                @lang('groups/message.users_exists')
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-    $(function () {$('body').on('hidden.bs.modal', '.modal', function () {$(this).removeData('bs.modal');});});
-    $(document).on("click", ".users_exists", function () {
-
-        var group_name = $(this).data('name');
-        $(".modal-header h4").text( group_name+" Group" );
-    });</script>
 
 
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/buttons.bootstrap.css') }}"/>
 
-
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/buttons.bootstrap.css') }}"/>
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}"/>
+
  <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/buttons.bootstrap.css') }}">
+
 <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/jquery.dataTables.js') }}" ></script>
+ 
  <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}" ></script>
 
+  <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+
     <script>
+
+
+
+$("#confirmarOrdenForm").bootstrapValidator({
+    fields: {
+        cod_oracle_pedido: {
+            validators: {
+                notEmpty: {
+                    message: 'Codigo Oracle  es Requerido'
+                }
+            },
+            required: true,
+            minlength: 3
+        },
+        id_status: {
+            validators:{
+                notEmpty:{
+                    message: 'Debe seleccionar un estatus'
+                }
+            }
+        }
+    }
+});
+
+
+ $('#tbOrdenes').on('click','.confirmar', function(){
+
+        $('#confirm_id').val($(this).data('id'));
+
+        $('#cod_oracle_pedido').val($(this).data('codigo'));
+
+        $('#id_status').val($(this).data('estatus'));
+
+            $("#confirmarOrdenModal").modal('show');
+        });
+
+
+ $('.sendConfirmar').click(function () {
+    
+    var $validator = $('#confirmarOrdenForm').data('bootstrapValidator').validate();
+
+    if ($validator.isValid()) {
+
+        base=$('#base').val();
+        confirm_id=$('#confirm_id').val();
+        id_status=$('#id_status').val();
+        cod_oracle_pedido=$('#cod_oracle_pedido').val();
+        notas=$('#notas').val();
+
+
+        $.ajax({
+            type: "POST",
+            data:{ base, confirm_id, id_status, cod_oracle_pedido, notas },
+            url: base+"/admin/ordenes/storeconfirm",
+                
+            complete: function(datos){     
+
+                $(".estatus_"+confirm_id+'').html(datos.responseText);
+
+                $('#confirmarOrdenModal').modal('hide');
+
+                
+                $('#confirm_id').val('');
+                $('#id_status').val('');
+                $('#cod_oracle_pedido').val('');
+                $('#notas').val('');
+        
+            
+            }
+        });
+
+
+        //document.getElementById("addDireccionForm").submit();
+
+
+    }
+
+});
+
+
+
         $('#tbOrdenes').DataTable({
                       responsive: true,
                       pageLength: 10

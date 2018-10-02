@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class AlpOrdenes extends Model
+class AlpOrdenesHistory extends Model
 {
     use SoftDeletes;
 
-    public $table = 'alp_ordenes';
+    public $table = 'alp_ordenes_history';
     
 
     protected $dates = ['deleted_at'];
@@ -19,14 +19,9 @@ class AlpOrdenes extends Model
 
     public $fillable = [
         'id',
-        'referencia',
-        'id_cliente',
-        'id_forma_envio',
-        'id_forma_pago',
-        'monto_total',
-        'cod_oracle_pedido',
-        'estatus',
-        'estatus_pago',
+        'id_orden',
+        'id_status',
+        'notas',
         'id_user'
     ];
 
@@ -36,7 +31,7 @@ class AlpOrdenes extends Model
      * @var array
      */
     protected $casts = [
-        'referencia' => 'string'
+        'id_orden' => 'string'
     ];
 
     /**
@@ -45,6 +40,6 @@ class AlpOrdenes extends Model
      * @var array
      */
     public static $rules = [
-        'referencia' => 'required'
+        'id_orden' => 'required'
     ];
 }

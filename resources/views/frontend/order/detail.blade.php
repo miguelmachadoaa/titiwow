@@ -16,7 +16,9 @@ Carro de Productos
      <!--<link href="{{ asset('assets/vendors/modal/css/component.css') }}" rel="stylesheet"/>-->
 
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/shopping.css') }}">
+    
     <link href="{{ asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
+
 
     <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
 
@@ -49,7 +51,6 @@ Carro de Productos
         </div>
     </div>
 @stop
-
 
 {{-- Page content --}}
 @section('content')
@@ -102,8 +103,6 @@ Carro de Productos
                             </label>
 
                         </div>
-                   
-                        
 
                     @endforeach  
 
@@ -112,11 +111,8 @@ Carro de Productos
                     <div class="col-sm-10 col-sm-offset-1">
                         
                         <h3>Debe agregar una direccion de envio  </h3>
-
-                        
                     
                     </div>
-                
 
                 @endif 
 
@@ -136,16 +132,12 @@ Carro de Productos
 
                 </div>
 
-
                 <hr>
-
 
             <div class="row">
 
                     {!! Form::open(['url' => 'order/procesar', 'class' => 'form-horizontal', 'id' => 'procesarForm', 'name' => 'procesarForm', 'method'=>'POST']) !!}
                     @if(count($formasenvio))
-
-                       
 
                         <div class="col-sm-10 col-sm-offset-1">
 
@@ -181,8 +173,6 @@ Carro de Productos
 
                         </div>  
 
-                  
-
                     @endif  <!-- End formas de pago -->
 
 
@@ -214,10 +204,6 @@ Carro de Productos
                                  <?php $c=""; ?>  
 
                                 @endforeach 
-
-
-                                
-
                                 
                             </div>
                             
@@ -233,23 +219,13 @@ Carro de Productos
                             <h3>No hay Formas de pago para este grupo de usuarios</h3>
                         </div>  
 
-                   
-
                     @endif  
 
                     <!-- End formas de pago -->
 
-
-
-
-
-              
-
                 </div>
-
                 
             </div>
-
 
         <br>    
      </div>
@@ -274,7 +250,7 @@ Carro de Productos
      {!! Form::close() !!}
      
 </div>
-
+   
 <!-- Modal Direccion -->
  <div class="modal fade" id="addDireccionModal" role="dialog" aria-labelledby="modalLabeldanger">
             <div class="modal-dialog modal-lg" role="document">
@@ -369,7 +345,7 @@ Carro de Productos
                                     <label class="col-md-3 control-label" for="nombre_producto">Codigo Postal</label>
 
                                     <div class="col-sm-8">
-                                        <input style="margin: 4px 0;" id="codigo_postal_address" name="codigo_postal_address" type="text" placeholder="Codigo Postal" class="form-control">
+                                     <input style="margin: 4px 0;" id="codigo_postal_address" name="codigo_postal_address" type="text" placeholder="Codigo Postal" class="form-control">
                                     </div>
                                 </div>
 
