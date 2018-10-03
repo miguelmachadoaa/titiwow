@@ -8,6 +8,7 @@ use App\Mail\Register;
 use App\Mail\Restore;
 use Cartalyst\Sentinel\Laravel\Facades\Activation;
 use App\Models\AlpClientes;
+use App\Models\AlpDirecciones;
 use App\Models\AlpTDocumento;
 use App\User;
 use App\Http\Requests;
@@ -174,6 +175,8 @@ class AlpClientesController extends JoshController
 
         return view('admin.clientes.edit', compact('groups','tdocumento','user','cliente','userRoles','roles','status'));
     }
+
+
 
     /**
      * Cliente update form processing page.
@@ -506,6 +509,24 @@ class AlpClientesController extends JoshController
             // Redirect to the group management page
             return Redirect::route('admin.categorias.index')->with('error', trans('Error al eliminar el registro'));
         }
+    }
+
+
+    public function direcciones($id)
+    {
+        $user = User::findOrFail($id);
+
+        $cliente = DB::table('alp_clientes')->where('alp_clientes.id_user_client', '=', $id)->get();
+
+
+        $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_countries.country_name as country_name')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->where('alp_direcciones.id_client', $id)->get();
+
+
+        return view('admin.clientes.direcciones', compact('user','cliente','direcciones'));
     }
 
 }
