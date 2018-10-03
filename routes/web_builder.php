@@ -164,6 +164,21 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
     Route::resource('estatus', 'Admin\AlpEstatusOrdenesController');
 
 
+    
+
+    Route::group(['prefix' => 'empresas'], function () {
+
+        Route::get('{id}/delete', 'Admin\AlpEmpresasController@destroy')->name('empresas.delete');
+
+        Route::get('{id}/confirm-delete', 'Admin\AlpEmpresasController@getModalDelete')->name('empresas.confirm-delete');
+
+        Route::get('{id}/restore', 'Admin\AlpEmpresasController@getRestore')->name('empresas.restore');
+
+        });
+
+    Route::resource('empresas', 'Admin\AlpEmpresasController');
+
+
 
        Route::group(['prefix' => 'estatuspagos'], function () {
 
