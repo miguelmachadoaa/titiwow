@@ -200,8 +200,34 @@ class FrontEndController extends JoshController
         try {
             // Register the user
             $user = Sentinel::register($request->only(['first_name', 'last_name', 'email', 'password', 'gender']), $activate);
-            //add user to 'User' group
-            $role = Sentinel::findRoleByName('User');
+
+            //crear registro en la tabla clientes 
+
+            if ($request->gender=='male') {
+               $genero=2;
+           }else{
+                $genero=1;
+           }
+
+             $data = array(
+                'id_user_client' => $user->id, 
+                'id_type_doc' => '1', 
+                'doc_cliente' =>'', 
+                'genero_cliente' =>$genero, 
+                'habeas_cliente' => 0,
+                'estado_masterfile' =>0,
+                'id_empresa' =>'0',               
+                'id_embajador' =>'0',               
+                'id_user' =>$user->id,               
+            );
+
+            AlpClientes::create($data);
+
+
+
+            //add user to 'Cliente' group
+            $role = Sentinel::findRoleById(9);
+
             $role->users()->attach($user);
             //if you set $activate=false above then user will receive an activation mail
             if (!$activate) {
@@ -234,6 +260,50 @@ class FrontEndController extends JoshController
         // Ooops.. something went wrong
         return Redirect::back()->withInput()->withErrors($this->messageBag);
     }
+
+    public function postRegisterOld(UserRequest $request)
+    {
+
+        $activate = $this->user_activation; //make it false if you don't want to activate user automatically it is declared above as global variable
+        try {
+            // Register the user
+            $user = Sentinel::register($request->only(['first_name', 'last_name', 'email', 'password', 'gender']), $activate);
+            //add user to 'User' group
+            $role = Sentinel::findRoleByName('User');
+            
+            $role->users()->attach($user);
+            //if you set $activate=false above then user will receive an activation mail
+            if (!$activate) {
+                // Data to be used on the email view
+
+                $data=[
+                    'user_name' => $user->first_name .' '. $user->last_name,
+                    'activationUrl' => URL::route('activate', [$user->id, Activation::create($user)->code]),
+                ];
+                // Send the activation code through email
+                Mail::to($user->email)
+                    ->send(new Register($data));
+                //Redirect to login page
+                return redirect('login')->with('success', trans('auth/message.signup.success'));
+            }
+            // login user automatically
+            Sentinel::login($user, false);
+            //Activity log for new account
+            activity($user->full_name)
+                ->performedOn($user)
+                ->causedBy($user)
+                ->log('New Account created');
+            // Redirect to the home page with success menu
+            return Redirect::route("my-account")->with('success', trans('auth/message.signup.success'));
+
+        } catch (UserExistsException $e) {
+            $this->messageBag->add('email', trans('auth/message.account_already_exists'));
+        }
+
+        // Ooops.. something went wrong
+        return Redirect::back()->withInput()->withErrors($this->messageBag);
+    }
+
 
     /**
      * User account activation page.
