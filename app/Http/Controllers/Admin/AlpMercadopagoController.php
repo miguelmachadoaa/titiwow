@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\JoshController;
+use App\Models\AlpConfiguracion;
 use DB;
 use View;
 use MP;
@@ -34,7 +35,20 @@ class AlpMercadopagoController extends JoshController
     public function mercadopago()
     {
 
-     
+     $configuracion = AlpConfiguracion::where('id', '1')->first();
+
+      //echo $configuracion->id_mercadopago;
+      //echo "<br>";
+      //echo $configuracion->key_mercadopago;
+
+      $mp = new MP ();
+
+      $mp::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+
+      $access_token = $mp::getAccessToken();
+
+      // dd($access_token);
+      // MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
       $preference_data = [
       "items" => [
@@ -42,9 +56,9 @@ class AlpMercadopagoController extends JoshController
           "id" => '1234',
           "title" => 'Titulo del articulo',
           "description" => 'Descripcion del articulo',
-          "picture_url" => 'Imagen del articulo',
+          "picture_url" => 'uno.png',
           "quantity" => 1,
-          "currency_id" => 'COP',
+          "currency_id" => 'USD',
           "unit_price" => 10.00
            ]
       ],
@@ -52,8 +66,8 @@ class AlpMercadopagoController extends JoshController
         "email" => 'miguelmachadoaa@gmail.com'
       ]
     ];
-    $preference = MP::post("/checkout/preferences",$preference_data);
-    return dd($preference);
+    $preference = $mp::post("/checkout/preferences",$preference_data);
+     dd($preference);
 
 
     }

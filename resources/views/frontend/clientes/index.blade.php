@@ -3,7 +3,7 @@
 
 {{-- Page title --}}
 @section('title')
-Mis Referidos 
+Area clientes   
 @parent
 @stop
 
@@ -11,6 +11,44 @@ Mis Referidos
 @section('header_styles')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/shopping.css') }}">
     <link href="{{ asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
+
+    <style type="text/css">
+        
+        .btn-large {
+            height: 180px;
+            line-height: 150px;
+            width: 180px;
+            margin: 1em;
+                display: inline-block;
+
+                 border: 1px solid rgba(0,0,0,0.1);
+    background: #fff !important; 
+    box-shadow: 2px 2px 2px #ddd;
+    border-radius: 1em;
+        }
+
+
+
+
+        .btn-large {
+            text-decoration: none;
+            color: #000;
+            background-color: #26a69a;
+            text-align: center;
+            letter-spacing: .5px;
+            transition: .2s ease-out;
+            cursor: pointer;
+        }
+
+
+        .btn-large i {
+            font-size: 4.6rem;
+        }
+
+
+
+
+    </style>
 @stop
 
 {{-- breadcrumb --}}
@@ -43,71 +81,46 @@ Mis Referidos
 {{-- Page content --}}
 @section('content')
 <div class="container contain_body">
-    <div class="products">
-
-        <h3>    Mis referidos </h3>
-
-        <div class="row">
-        @if(!$referidos->isEmpty())
-
-             <table class="table table-responsive">
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Email</th>
-                        <th>Puntos</th>
-                        <th>Creado</th>
-                        <th>Acciones</th>
-                    </tr>
-
-
-            @foreach($referidos as $referido)
-
-                    <tr>
-                        <td>
-                            {{ $referido->first_name }}
-                        </td>
-                        <td>
-                            {{ $referido->last_name }}
-                        </td>
-                        <td>
-                            {{ $referido->email }}
-                        </td>
-                        <td>
-                            {{ $referido->puntos }}
-                        </td>
-                        <td>
-                            {{ $referido->created_at }}
-                        </td>
-
-                        <td>    
-                                <a href="{{ route('clientes.index', $referido->id) }}">
-                                    <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar categoria"></i>
-                                 </a>
-
-                                  <a href="{{ url('clientes/'.$referido->id_user_client.'/compras') }}">
-                                    <i class="livicon" data-name="eye" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Ver Compras"></i>
-                                 </a>
-
-
-
-                                            <!-- let's not delete 'Admin' group by accident -->
-                                            
-                                          
-
-                        </td>
-                    </tr>
-                
-            @endforeach
-             </table>
-            @else
-            <div class="alert alert-danger">
-                <strong>Lo Sentimos!</strong> No Existen Referidos aun.
-            </div>
-        @endif
-        </div>
+    <div class="row">
         
+        <div class="col-sm-12">
+            
+
+            <a  href="{{ url('misamigos') }}" class=" btn-large ">
+                <div class="row">
+                <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-user"></i></div>
+                <div class="col-sm-12">Mis Amigos</div>
+                </div>
+        
+
+            </a>
+            
+            <a href="{{ url('miscompras') }}" class=" btn-large ">
+                <div class="row">
+                <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-shopping-cart"></i></div>
+                <div class="col-sm-12">Mis Compras</div>
+                </div>
+        
+
+            </a>
+
+            <a href="{{ url('clientes/amigos') }}" class=" btn-large ">
+                <div class="row">
+                <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-send"></i></div>
+                <div class="col-sm-12">Mis Invitaciones</div>
+                </div>
+        
+
+            </a>
+
+            
+
+        </div>
+
     </div>
+
+    
+    
 </div>
 @endsection
 
@@ -120,23 +133,7 @@ Mis Referidos
         });
 
 
-        $('.addtocart').on('click', function(e){
-
-            e.preventDefault();
-
-            url=$(this).attr('href');
-
-            $.get(url, {}, function(data) {
-
-                if (data.resultado) {
-
-                    $('#detalle_carro_front').html(data.contenido);
-                         
-                }
-
-            });
-
-        })
+        
 
 
     </script>

@@ -50,6 +50,40 @@ class ClientesFrontController extends Controller
        
     }
 
+    public function misamigos()
+    {
+
+        if (Sentinel::check()) {
+
+            $user_id = Sentinel::getUser()->id;
+
+            $referidos =  DB::table('alp_clientes')->select('alp_clientes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email', DB::raw("SUM(alp_ordenes.monto_total) as puntos"))
+            ->join('users','alp_clientes.id_user_client' , '=', 'users.id')
+            ->leftJoin('alp_ordenes','users.id' , '=', 'alp_ordenes.id_cliente')
+            ->groupBy('alp_clientes.id')
+            ->where('alp_clientes.id_embajador', $user_id)->get();
+
+            $cliente = AlpClientes::where('id_user_client', $user_id )->first();
+
+            $user = User::where('id', $user_id )->first();
+
+            return view('frontend.clientes.misamigos', compact('referidos', 'cliente', 'user'));
+    
+
+            }else{
+
+
+                $url='clientes.index';
+
+                  //return redirect('login');
+                return view('frontend.order.login', compact('url'));
+
+
+        }
+
+       
+    }
+
     public function storeamigo(Request $request)
     {
 

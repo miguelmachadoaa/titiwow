@@ -13,6 +13,7 @@ use App\Models\AlpFormasenvio;
 use App\Models\AlpFormaspago;
 use App\Models\AlpOrdenes;
 use App\Models\AlpDetalles;
+use App\Models\AlpConfiguracion;
 use App\Country;
 use App\State;
 use App\City;
@@ -63,25 +64,32 @@ class AlpCartController extends JoshController
     public function mercadopago()
     {
 
-      $MP=new MP();
+      $configuracion = AlpConfiguracion::where('id', '1')->first();
 
-      $preference_data = [
+
+      echo $configuracion->id_mercadopago;
+      echo "------------------------";
+      echo $configuracion->key_mercadopago;
+
+      $mp=new MP($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+
+     $preference_data = [
       "items" => [
         [
           "id" => '1234',
           "title" => 'Titulo del articulo',
           "description" => 'Descripcion del articulo',
-          "picture_url" => 'Imagen del articulo',
+          "picture_url" => 'uno.jpg',
           "quantity" => 1,
-          "currency_id" => 'COP',
-          "unit_price" => 10.00
-           ]
+          "currency_id" => 'USD',
+          "unit_price" => 10
+        ]
       ],
       "payer" => [
-        "email" => 'miguelmachadoaa@gmail.com'
+        "email" => 'correo@gmail.com'
       ]
     ];
-    $preference = MP::post("/checkout/preferences",$preference_data);
+    $preference = $mp::post("/checkout/preferences",$preference_data);
     return dd($preference);
 
 
