@@ -179,7 +179,6 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
     Route::resource('empresas', 'Admin\AlpEmpresasController');
 
 
-
        Route::group(['prefix' => 'estatuspagos'], function () {
 
         Route::get('{id}/delete', 'Admin\AlpEstatusPagosController@destroy')->name('estatuspagos.delete');

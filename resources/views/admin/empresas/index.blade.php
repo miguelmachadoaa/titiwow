@@ -60,15 +60,9 @@ Empresa
                                     <td>{!! $row->created_at->diffForHumans() !!}</td>
                                     <td>
                                             
-                                            
-
-
-
                                             <a href="{{ route('admin.empresas.edit', $row->id) }}">
                                                 <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar categoria"></i>
                                             </a>
-
-
 
                                             <!-- let's not delete 'Admin' group by accident -->
                                             
