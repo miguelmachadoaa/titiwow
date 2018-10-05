@@ -315,9 +315,9 @@
         };
         var demo = new CountUp("myTargetElement1", 12.52, {{ $pageVisits }}, 0, 6, options);
         demo.start();
-        var demo = new CountUp("myTargetElement2", 1, {{ $ordenes_mes->count_row }}, 0, 6, options);
+        var demo = new CountUp("myTargetElement2", 1, 0, 0, 6, options);
         demo.start();
-        var demo = new CountUp("myTargetElement3", 24.02, {{ $ordenes_hoy->count_row }}, 0, 6, options);
+        var demo = new CountUp("myTargetElement3", 24.02, 0, 0, 6, options);
         demo.start();
         var demo = new CountUp("myTargetElement4", 125, {{ $user_count }}, 0, 6, options);
         demo.start();
