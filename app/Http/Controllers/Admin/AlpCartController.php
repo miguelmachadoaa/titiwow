@@ -304,6 +304,30 @@ class AlpCartController extends JoshController
       
     }
 
+    public function updatecart(Request $request)
+    {
+       $cart= \Session::get('cart');
+
+       $cart[$request->slug]->cantidad=$request->cantidad;
+       
+      // return $cart;
+
+       \Session::put('cart', $cart);
+
+
+
+       $total=$this->total();
+
+
+        $view= View::make('frontend.listcart', compact('cart', 'total'));
+
+        $data=$view->render();
+
+        return $data;
+
+      
+    }
+
     public function vaciar( )
     {
        $cart= \Session::forget('cart');

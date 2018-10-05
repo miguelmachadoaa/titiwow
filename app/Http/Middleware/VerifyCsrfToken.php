@@ -15,6 +15,7 @@ class VerifyCsrfToken extends Middleware
        'cart/storedir', //
        'storeamigo', //
        'clientes/deleteamigo', //
+       'cart/updatecart', //
        'delamigo' //
     ];
 }

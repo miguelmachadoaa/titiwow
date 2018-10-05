@@ -340,6 +340,9 @@ Route::get('cart/delete/{product}',['as'=>'cart.add', 'uses'=>'Admin\AlpCartCont
 //actualizar la cantidad de producto en un carro
 Route::get('cart/update/{product}/{cantidad}',['as'=>'cart.update', 'uses'=>'Admin\AlpCartController@update']);
 
+Route::post('cart/updatecart/',['as'=>'cart.updatecart', 'uses'=>'Admin\AlpCartController@updatecart']);
+
+
 //vaciar un carro
 Route::get('cart/vaciar/',['as'=>'cart.vaciar', 'uses'=>'Admin\AlpCartController@vaciar']);
 

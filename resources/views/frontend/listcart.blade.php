@@ -1,49 +1,3 @@
-
-@extends('layouts/default')
-
-{{-- Page title --}}
-@section('title')
-Carro de Productos 
-@parent
-@stop
-
-{{-- page level styles --}}
-@section('header_styles')
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/shopping.css') }}">
-    <link href="{{ asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
-@stop
-
-{{-- breadcrumb --}}
-@section('top')
-    <div class="breadcum">
-        <div class="container">
-            <ol class="breadcrumb">
-                <li>
-                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Dashboard
-                    </a>
-                </li>
-                <li class="hidden-xs">
-                    <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
-                    <a href="#">Carrito de Compra</a>
-                </li>
-
-                <li class="hidden-xs">
-                    <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
-                    <a href="{{url('productos')}}">Productos</a>
-                </li>
-            </ol>
-            <div class="pull-right">
-                <i class="livicon icon3" data-name="edit" data-size="20" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i> Products
-            </div>
-        </div>
-    </div>
-@stop
-
-
-{{-- Page content --}}
-@section('content')
-<div class="container text-center" id="table_detalle">
-
     <div class="row">
 
         <h1>Carro de Compras</h1>
@@ -103,7 +57,6 @@ Carro de Productos
                                     value="{{ $row->cantidad }}" 
                                     >
 
-                                   
                                     
 
                                 </td>
@@ -152,40 +105,3 @@ Carro de Productos
      @endif
 
      <hr>
-     
-</div>
-
-</div>
-@endsection
-
-{{-- page level scripts --}}
-@section('footer_scripts')
-    <script src="{{ asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
-    <script>
-        jQuery(document).ready(function () {
-            new WOW().init();
-        });
-
-
-        
-
-        $('#table_detalle').on('blur', '.cantidad', function(){
-
-            var id=$(this).data('id');
-
-            var slug=$(this).data('slug');
-
-            var url=$(this).data('url');
-
-            var cantidad=$('#producto_'+id).val();
-
-            $.post(url, { slug, id, cantidad}, function(data) {
-
-                    $('#table_detalle').html(data);
-                         
-            });
-
-          //  window.location.href=href+'/'+cantidad;
-        });
-    </script>
-@stop
