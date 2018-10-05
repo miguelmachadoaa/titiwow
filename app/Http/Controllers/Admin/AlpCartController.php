@@ -14,6 +14,8 @@ use App\Models\AlpFormaspago;
 use App\Models\AlpOrdenes;
 use App\Models\AlpDetalles;
 use App\Models\AlpConfiguracion;
+use App\Models\AlpClientes;
+use App\Models\AlpEmpresas;
 use App\Country;
 use App\State;
 use App\City;
@@ -234,7 +236,37 @@ class AlpCartController extends JoshController
     {
        $cart= \Session::get('cart');
 
+
+       $descuento='1'; 
+
+        if (Sentinel::check()) {
+
+            $user_id = Sentinel::getUser()->id;
+
+            $cliente = AlpClientes::where('id_user_client', $user_id )->first();
+
+            if (isset($cliente->id_empresa) ) {
+
+                if ($cliente->id_empresa!=0) {
+                    
+                     $empresa=AlpEmpresas::find($cliente->id_empresa);
+
+                    $cliente['nombre_empresa']=$empresa->nombre_empresa;
+
+                    $descuento=(1-($empresa->descuento_empresa/100));
+                }
+
+               
+               
+            }
+
+        }
+
+
+
        $producto->cantidad=1;
+
+       $producto->precio_base=$producto->precio_base*$descuento;
 
 
        $cart[$producto->slug]=$producto;
@@ -252,7 +284,37 @@ class AlpCartController extends JoshController
     {
        $cart= \Session::get('cart');
 
+
+       $descuento='1'; 
+
+        if (Sentinel::check()) {
+
+            $user_id = Sentinel::getUser()->id;
+
+            $cliente = AlpClientes::where('id_user_client', $user_id )->first();
+
+            if (isset($cliente->id_empresa) ) {
+
+                if ($cliente->id_empresa!=0) {
+                    
+                     $empresa=AlpEmpresas::find($cliente->id_empresa);
+
+                    $cliente['nombre_empresa']=$empresa->nombre_empresa;
+
+                    $descuento=(1-($empresa->descuento_empresa/100));
+                }
+
+               
+               
+            }
+
+        }
+
+
+
        $producto->cantidad=1;
+
+       $producto->precio_base=$producto->precio_base*$descuento;
 
 
        $cart[$producto->slug]=$producto;
