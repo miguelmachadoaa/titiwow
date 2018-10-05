@@ -72,7 +72,7 @@
                     </label>
                 </div>
                 <button type="submit" class="btn btn-block btn-primary">Entrar</button>
-                Aun no tiene una cuenta? Por favor <a href="{{ route('login') }}"> Ingresar</a>
+                Si ya tiene cuenta, por favor Inicie Sesión <a href="{{ route('login') }}"> Ingresar</a>
             </form>
         </div>
     </div>

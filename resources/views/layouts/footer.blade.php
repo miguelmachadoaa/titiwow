@@ -6,10 +6,10 @@
                 <h4>Mi Cuenta</h4>
                 <p>
                     <ul id="menu-principal-1" class="menu_footer"><li id="menu-item-8915" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-16 current_page_item menu-item-8915"><a href="http://www.centrodechapas.com.ar/">Inicio</a></li>
-                        <li id="menu-item-9224" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9224"><a href="http://www.centrodechapas.com.ar/empresa/">Empresa</a></li>
-                        <li id="menu-item-9050" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9050"><a href="http://www.centrodechapas.com.ar/productos/">Productos</a></li>
-                        <li id="menu-item-9174" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9174"><a href="http://www.centrodechapas.com.ar/servicios/">Servicios</a></li>
-                        <li id="menu-item-9051" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9051"><a href="http://www.centrodechapas.com.ar/contacto/">Contacto</a></li>
+                        <li id="menu-item-9224" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9224"><a href="#">Empresa</a></li>
+                        <li id="menu-item-9050" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9050"><a href="#">Productos</a></li>
+                        <li id="menu-item-9174" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9174"><a href="#">Servicios</a></li>
+                        <li id="menu-item-9051" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9051"><a href="#">Contacto</a></li>
                     </ul>
                 </p>
             </div>
@@ -19,10 +19,10 @@
                 <h4>Categorías</h4>
                 <p>
                     <ul id="menu-principal-1" class="menu_footer"><li id="menu-item-8915" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-16 current_page_item menu-item-8915"><a href="http://www.centrodechapas.com.ar/">Inicio</a></li>
-                        <li id="menu-item-9224" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9224"><a href="http://www.centrodechapas.com.ar/empresa/">Empresa</a></li>
-                        <li id="menu-item-9050" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9050"><a href="http://www.centrodechapas.com.ar/productos/">Productos</a></li>
-                        <li id="menu-item-9174" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9174"><a href="http://www.centrodechapas.com.ar/servicios/">Servicios</a></li>
-                        <li id="menu-item-9051" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9051"><a href="http://www.centrodechapas.com.ar/contacto/">Contacto</a></li>
+                        <li id="menu-item-9224" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9224"><a href="#">Empresa</a></li>
+                        <li id="menu-item-9050" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9050"><a href="#">Productos</a></li>
+                        <li id="menu-item-9174" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9174"><a href="#">Servicios</a></li>
+                        <li id="menu-item-9051" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9051"><a href="#">Contacto</a></li>
                     </ul>
                 </p>
             </div>

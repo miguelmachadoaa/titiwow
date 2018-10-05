@@ -73,8 +73,8 @@
                         <input type="checkbox" name="subscribed" > Acepto los <a href="#"> Terminos y Condiciones</a>
                     </label>
                 </div>
-                <button type="submit" class="btn btn-block btn-primary">Sign Up</button>
-                Already have an account? Please <a href="{{ route('login') }}"> Log In</a>
+                <button type="submit" class="btn btn-block btn-primary">Registrar</button>
+                Si ya tiene cuenta, por favor Inicie Sesión <a href="{{ route('login') }}">Iniciar Sesión</a>
             </form>
         </div>
     </div>
