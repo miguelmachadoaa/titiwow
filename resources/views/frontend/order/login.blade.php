@@ -50,7 +50,7 @@
                         </label>
 
                     </div>
-                    <input type="submit" class="btn btn-block btn-primary" value="Log In">
+                    <input type="submit" class="btn btn-block btn-primary" value="Iniciar Sesión">
                     Aun sin cuenta? <a href="{{ route('register') }}"><strong> Registrarse</strong></a>
                 </form>
                 <br/>
