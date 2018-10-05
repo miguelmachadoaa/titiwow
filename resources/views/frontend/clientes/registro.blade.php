@@ -34,48 +34,43 @@
                 <input type="hidden" name="referido" id="referido" value="{{ substr($id, 3)}}">
 
                 <div class="form-group {{ $errors->first('first_name', 'has-error') }}">
-                    <label class="sr-only"> First Name</label>
-                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name"
+                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Nombre"
                            value="{!! old('first_name') !!}" >
                     {!! $errors->first('first_name', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="form-group {{ $errors->first('last_name', 'has-error') }}">
-                    <label class="sr-only"> Last Name</label>
-                    <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name"
+                    <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Apellido"
                            value="{!! old('last_name') !!}" >
                     {!! $errors->first('last_name', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="form-group {{ $errors->first('email', 'has-error') }}">
-                    <label class="sr-only"> Email</label>
                     <input type="email" class="form-control" id="Email" name="email" placeholder="Email"
                            value="{!! old('Email') !!}" >
                     {!! $errors->first('email', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="form-group {{ $errors->first('password', 'has-error') }}">
-                    <label class="sr-only"> Password</label>
-                    <input type="password" class="form-control" id="Password1" name="password" placeholder="Password">
+                    <input type="password" class="form-control" id="Password1" name="password" placeholder="Contraseña">
                     {!! $errors->first('password', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="form-group {{ $errors->first('password_confirm', 'has-error') }}">
-                    <label class="sr-only"> Confirm Password</label>
                     <input type="password" class="form-control" id="Password2" name="password_confirm"
-                           placeholder="Confirm Password">
+                           placeholder="Confirmar Contraseña">
                     {!! $errors->first('password_confirm', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="clearfix"></div>
                 <div class="form-group {{ $errors->first('gender', 'has-error') }}">
-                    <label class="sr-only">Gender</label>
+                    <label class="sr-only">Genero</label>
                     <label class="radio-inline">
-                        <input type="radio" name="gender" id="inlineRadio1" value="male"> Male
+                        <input type="radio" name="gender" id="inlineRadio1" value="male"> Masculino
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="gender" id="inlineRadio2" value="female"> Female
+                        <input type="radio" name="gender" id="inlineRadio2" value="female"> Femenino
                     </label>
                     {!! $errors->first('gender', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="subscribed" >  I accept <a href="#"> Terms and Conditions</a>
+                        <input type="checkbox" name="subscribed" > Acepto los <a href="#"> Terminos y Condiciones</a>
                     </label>
                 </div>
                 <button type="submit" class="btn btn-block btn-primary">Sign Up</button>

@@ -81,17 +81,17 @@
                             <form action="{{ route('admin.signup') }}" autocomplete="on" method="post" role="form" id="register_here">
                                 <h3 class="black_bg">
                                     <img src="{{ asset('assets/img/logo.png') }}" alt="josh logo">
-                                    <br>Sign Up</h3>
+                                    <br>Registrarse</h3>
                                     <!-- CSRF Token -->
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                     <input type="hidden" name="back" id="back" value="0">
 
                                     <div class="form-group {{ $errors->first('first_name', 'has-error') }}">
-                                        <label style="margin-bottom:0px;" for="first_name" class="youmail">
-                                            <i class="livicon" data-name="user" data-size="16" data-loop="true" data-c="#3c8dbc" data-hc="#3c8dbc"></i>
-                                            First Name
-                                        </label>
-                                        <input id="first_name" name="first_name" required type="text" placeholder="John"
+                                            <label style="margin-bottom:0px;" for="first_name" class="youmail">
+                                                <i class="livicon" data-name="user" data-size="16" data-loop="true" data-c="#3c8dbc" data-hc="#3c8dbc"></i>
+                                                Nombre
+                                            </label>
+                                        <input id="first_name" name="first_name" required type="text" placeholder="Nombre"
                                                value="{!! old('first_name') !!}"/>
                                         <div class="col-sm-12">
                                             {!! $errors->first('first_name', '<span class="help-block">:message</span>') !!}
@@ -101,9 +101,9 @@
                                     <div class="form-group {{ $errors->first('last_name', 'has-error') }}">
                                         <label style="margin-bottom:0px;" for="last_name" class="youmail">
                                             <i class="livicon" data-name="user" data-size="16" data-loop="true" data-c="#3c8dbc" data-hc="#3c8dbc"></i>
-                                            Last Name
+                                            Apellido
                                         </label>
-                                        <input id="last_name" name="last_name" required type="text" placeholder="Doe"
+                                        <input id="last_name" name="last_name" required type="text" placeholder="Apellido"
                                                value="{!! old('last_name') !!}"/>
                                         <div class="col-sm-12">
                                             {!! $errors->first('last_name', '<span class="help-block">:message</span>') !!}
@@ -116,7 +116,7 @@
                                             E-mail
                                         </label>
                                         <input id="email" name="email" value="{!! old('email') !!}" required type="email"
-                                               placeholder="mysupermail@mail.com"/>
+                                               placeholder="Email"/>
                                         <div class="col-sm-12">
                                             {!! $errors->first('email', '<span class="help-block">:message</span>') !!}
                                         </div>
@@ -128,7 +128,7 @@
                                             Confirm E-mail
                                         </label>
                                         <input id="email_confirm" name="email_confirm" required type="email"
-                                               placeholder="mysupermail@mail.com" value="{!! old('email_confirm') !!}"/>
+                                               placeholder="Confirmar Email" value="{!! old('email_confirm') !!}"/>
                                         <div class="col-sm-12">
                                             {!! $errors->first('email_confirm', '<span class="help-block">:message</span>') !!}
                                         </div>
@@ -137,9 +137,9 @@
                                     <div class="form-group {{ $errors->first('password', 'has-error') }}">
                                         <label style="margin-bottom:0px;" for="password" class="youpasswd">
                                             <i class="livicon" data-name="key" data-size="16" data-loop="true" data-c="#3c8dbc" data-hc="#3c8dbc"></i>
-                                            Password
+                                            Contraseña
                                         </label>
-                                        <input id="password" name="password" required type="password" placeholder="Password" />
+                                        <input id="password" name="password" required type="password" placeholder="Contraseña" />
                                         <div class="col-sm-12">
                                             {!! $errors->first('password', '<span class="help-block">:message</span>') !!}
                                         </div>
@@ -148,9 +148,9 @@
                                     <div class="form-group {{ $errors->first('password_confirm', 'has-error') }}">
                                         <label style="margin-bottom:0px;" for="passwor_confirm" class="youpasswd">
                                             <i class="livicon" data-name="key" data-size="16" data-loop="true" data-c="#3c8dbc" data-hc="#3c8dbc"></i>
-                                            Confirm Password
+                                            Confirmar Contraseña
                                         </label>
-                                        <input id="password_confirm" name="password_confirm" required type="password" placeholder="Confirm Password" />
+                                        <input id="password_confirm" name="password_confirm" required type="password" placeholder="Confirmar Contraseña" />
                                         <div class="col-sm-12">
                                             {!! $errors->first('password_confirm', '<span class="help-block">:message</span>') !!}
                                         </div>
@@ -160,7 +160,7 @@
                                 </p>
                                 <p class="change_link">
                                     <a href="#tologin" class="to_register">
-                                        <button type="button" class="btn btn-responsive botton-alignment btn-warning btn-sm">Back</button>
+                                        <button type="button" class="btn btn-responsive botton-alignment btn-warning btn-sm">Volver</button>
                                     </a>
                                 </p>
                             </form>
@@ -168,9 +168,10 @@
                         <div id="forgot" class="animate form">
                             <form action="{{ url('admin/forgot-password') }}" autocomplete="on" method="post" role="form" id="reset_pw">
                                 <h3 class="black_bg">
-                                    <img src="{{ asset('assets/img/logo.png') }}" alt="josh logo"><br>Forgot Password</h3>
+                                    <img src="{{ asset('assets/img/logo.png') }}" alt="josh logo"><br>Orvidaste Tu Contraseña</h3>
                                 <p>
-                                    Enter your email address below and we'll send a special reset password link to your inbox.
+                                    
+                                        Ingrese su dirección de correo electrónico a continuación y le enviaremos un enlace de restablecimiento de contraseña  a su bandeja de entrada
                                 </p>
 
                                 <!-- CSRF Token -->
@@ -179,9 +180,9 @@
                                 <div class="form-group {{ $errors->first('email', 'has-error') }}">
                                     <label style="margin-bottom:0px;" for="emailsignup1" class="youmai">
                                         <i class="livicon" data-name="mail" data-size="16" data-loop="true" data-c="#3c8dbc" data-hc="#3c8dbc"></i>
-                                        Your email
+                                        Su Email
                                     </label>
-                                    <input id="email" name="email" required type="email" placeholder="your@mail.com"
+                                    <input id="email" name="email" required type="email" placeholder="Email"
                                            value="{!! old('email') !!}"/>
                                     <div class="col-sm-12">
                                         {!! $errors->first('email', '<span class="help-block">:message</span>') !!}
@@ -192,7 +193,7 @@
                                 </p>
                                 <p class="change_link">
                                     <a href="#tologin" class="to_register">
-                                        <button type="button" class="btn btn-responsive botton-alignment btn-warning btn-sm">Back</button>
+                                        <button type="button" class="btn btn-responsive botton-alignment btn-warning btn-sm">Volver</button>
                                     </a>
                                 </p>
                             </form>

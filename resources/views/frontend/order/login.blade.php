@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login | Welcome to Josh Frontend</title>
+    <title>Login | Alpina</title>
     <!--global css starts-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
@@ -24,8 +24,8 @@
     <div class="row">
         <div class="box animation flipInX">
             <div class="box1">
-            <img src="{{ asset('assets/images/josh-new.png') }}" alt="logo" class="img-responsive mar">
-            <h3 class="text-primary">Log In</h3>
+            <img src="{{ asset('assets/img/logo_alpina.png') }}" alt="logo" class="img-responsive mar">
+            <h3 class="text-primary">Area de Clientes </h3>
                 <!-- Notifications -->
                 <div id="notific">
                 @include('notifications')
@@ -34,28 +34,29 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="back" id="back" value="{{ $url }}">
                     <div class="form-group {{ $errors->first('email', 'has-error') }}">
-                        <label class="sr-only">Email</label>
+                       
                         <input type="email" class="form-control" name="email" placeholder="Email"
                                value="{!! old('email') !!}">
                     </div>
                     <span class="help-block">{{ $errors->first('email', ':message') }}</span>
                     <div class="form-group {{ $errors->first('password', 'has-error') }}">
-                        <label class="sr-only">Password</label>
-                        <input type="password" class="form-control" name="password" placeholder="Password">
+                       
+                        <input type="password" class="form-control" name="password" placeholder="Contraseña">
                     </div>
                     <span class="help-block">{{ $errors->first('password', ':message') }}</span>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox"> Remember Password
+                            <input type="checkbox"> Recordar Usuario
                         </label>
 
                     </div>
                     <input type="submit" class="btn btn-block btn-primary" value="Log In">
-                    Don't have an account? <a href="{{ route('register') }}"><strong> Sign Up</strong></a>
+                    Aun sin cuenta? <a href="{{ route('register') }}"><strong> Registrarse</strong></a>
                 </form>
                 <br/>
-                <div class="text-center">
+             <!--<div class="text-center">
                     <p>--OR--</p>
+
                     <p>Login with</p>
                     <a href="{{ url('/facebook') }}" class="social"><i class=" fa fa-facebook"></i> Facebook</a>
 
@@ -64,12 +65,12 @@
                     {{--<a href="{{ url('/twitter') }}" class="social"><i class=" fa fa-twitter"></i> Twitter</a>--}}
 
                     <a href="{{ url('/linkedin') }}" class="social"><i class=" fa fa-linkedin"></i> LinkedIn</a>
-                </div>
+                </div>-->
 
             </div>
             <br>
         <div class="bg-light animation flipInX">
-            <a href="{{ route('forgot-password') }}" id="forgot_pwd_title">Forgot Password?</a>
+            <a href="{{ route('forgot-password') }}" id="forgot_pwd_title">Olvidaste tu clave?</a>
         </div>
         </div>
     </div>
