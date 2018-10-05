@@ -297,7 +297,7 @@ Carro de Productos
 
                                 <div class="form-group col-sm-12">
                                     <label for="select21" class="col-md-3 control-label">
-                                        Estado
+                                        Departamento
                                     </label>
                                     <div class="col-md-8" >
                                         <select style="margin: 4px 0;" id="state_id" name="state_id" class="form-control ">
@@ -332,14 +332,7 @@ Carro de Productos
                                         <input style="margin: 4px 0;" id="calle_address" name="calle_address" type="text" placeholder="Calle" class="form-control">
                                     </div>
                                 </div>
-
-                                <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Calle </label>
-
-                                    <div class="col-sm-8">
-                                        <input style="margin: 4px 0;" id="calle2_address" name="calle2_address" type="text" placeholder="" class="form-control">
-                                    </div>
-                                </div>
+                                
 
                                 <div class="form-group clearfix">
                                     <label class="col-md-3 control-label" for="nombre_producto">Codigo Postal</label>
@@ -446,15 +439,7 @@ $("#addDireccionForm").bootstrapValidator({
             required: true,
             minlength: 3
         },
-        codigo_postal_address: {
-            validators: {
-                notEmpty: {
-                    message: 'Codigo Postal es Requerido'
-                }
-            },
-            required: true,
-            minlength: 3
-        },
+        
         telefono_address: {
             validators: {
                 notEmpty: {
