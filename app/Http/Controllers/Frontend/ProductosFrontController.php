@@ -25,7 +25,7 @@ class ProductosFrontController extends Controller
 
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
 
-            if (isset($cliente->id_empresa) ) {
+            if (isset($cliente) ) {
 
                 if ($cliente->id_empresa!=0) {
                     
@@ -50,7 +50,7 @@ class ProductosFrontController extends Controller
     public function show($slug)
     {
 
-        $descuento='1'; 
+       $descuento='1'; 
 
         if (Sentinel::check()) {
 
@@ -58,7 +58,7 @@ class ProductosFrontController extends Controller
 
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
 
-            if (isset($cliente->id_empresa) ) {
+            if (isset($cliente) ) {
 
                 if ($cliente->id_empresa!=0) {
                     
@@ -95,7 +95,7 @@ class ProductosFrontController extends Controller
 
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
 
-            if (isset($cliente->id_empresa) ) {
+            if (isset($cliente) ) {
 
                 if ($cliente->id_empresa!=0) {
                     

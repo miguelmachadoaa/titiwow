@@ -83,9 +83,19 @@ Area clientes
 <div class="container contain_body">
     <div class="row">
 
-        @if($cliente->id_empresa!=0)
+        @if(isset($cliente))
 
-            <h4>Cliente afiliado por la empresa {{ $cliente->nombre_empresa }}</h4>
+            @if($cliente->id_empresa!=0)
+
+                <h4>Cliente afiliado por la empresa {{ $cliente->nombre_empresa }}</h4>
+
+            @endif
+
+            @if($cliente->id_embajador!=0)
+
+                <h4>Usted es parte de los amigos alpina de {{ $cliente->nombre_embajador }}</h4>
+
+            @endif
 
         @endif
 

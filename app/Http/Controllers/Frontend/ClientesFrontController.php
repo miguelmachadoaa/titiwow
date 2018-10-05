@@ -30,14 +30,29 @@ class ClientesFrontController extends Controller
 
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
 
-            if ($cliente->id_empresa!=0) {
+                if (!is_null($cliente)) {
 
-                $empresa=AlpEmpresas::find($cliente->id_empresa);
+                    if ($cliente->id_empresa!=0) {
+                        
+                        $empresa=AlpEmpresas::find($cliente->id_empresa);
 
-                $cliente['nombre_empresa']=$empresa->nombre_empresa;
-               
+                        $cliente['nombre_empresa']=$empresa->nombre_empresa;
 
-            }
+                    }
+
+                    if ($cliente->id_embajador!=0) {
+                        
+                        $user_embajador = User::where('id', $cliente->id_embajador )->first();
+
+
+                        $cliente['nombre_embajador']=$user_embajador->first_name.' '.$user_embajador->last_name;
+                        
+                    }
+
+                   
+                   
+
+                }
 
            
 
