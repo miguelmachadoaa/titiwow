@@ -42,7 +42,7 @@ class ProductosFrontController extends Controller
 
         }
 
-        $productos = AlpProductos::paginate(8);
+        $productos = AlpProductos::paginate(9);
 
         return \View::make('frontend.list', compact('productos', 'descuento'));
     }
@@ -120,7 +120,7 @@ class ProductosFrontController extends Controller
 
         $productos =  DB::table('alp_productos')->select('alp_productos.*','alp_productos_category.*')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
-        ->where('alp_productos_category.id_categoria','=', $categoria->id)->paginate(8); 
+        ->where('alp_productos_category.id_categoria','=', $categoria->id)->paginate(9); 
 
         return \View::make('frontend.categorias', compact('productos','cataname','slug', 'descuento'));
 

@@ -3,6 +3,7 @@
 use Faker\Factory;
 use App\User;
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class AdminSeeder extends DatabaseSeeder {
 
@@ -16,58 +17,102 @@ class AdminSeeder extends DatabaseSeeder {
 		$admin = Sentinel::registerAndActivate(array(
 			'email'       => 'admin@gmail.com',
 			'password'    => "123456",
-			'first_name'  => 'John',
-			'last_name'   => 'Doe',
+			'first_name'  => 'Nombre',
+			'last_name'   => 'Apellido',
 		));
 
 		$shopmanager = Sentinel::registerAndActivate(array(
 			'email'       => 'shopmanager@gmail.com',
 			'password'    => "123456",
-			'first_name'  => 'Orangel',
-			'last_name'   => 'Barrera',
+			'first_name'  => 'Nombre',
+			'last_name'   => 'Apellido',
 		));
 
 		$shopmanagercorp = Sentinel::registerAndActivate(array(
 			'email'       => 'shopmanagercorp@gmail.com',
 			'password'    => "123456",
-			'first_name'  => 'Orangel',
-			'last_name'   => 'Barrera',
+			'first_name'  => 'Nombre',
+			'last_name'   => 'Apellido',
 		));
 
 		$masterfile = Sentinel::registerAndActivate(array(
 			'email'       => 'masterfile@gmail.com',
 			'password'    => "123456",
-			'first_name'  => 'Orangel',
-			'last_name'   => 'Barrera',
+			'first_name'  => 'Nombre',
+			'last_name'   => 'Apellido',
 		));
 
 		$sac = Sentinel::registerAndActivate(array(
 			'email'       => 'sac@gmail.com',
 			'password'    => "123456",
-			'first_name'  => 'Orangel',
-			'last_name'   => 'Barrera',
+			'first_name'  => 'Nombre',
+			'last_name'   => 'Apellido',
 		));
 
 		$cedi = Sentinel::registerAndActivate(array(
 			'email'       => 'cedi@gmail.com',
 			'password'    => "123456",
-			'first_name'  => 'Orangel',
-			'last_name'   => 'Barrera',
+			'first_name'  => 'Nombre',
+			'last_name'   => 'Apellido',
 		));
 
 		$logistica = Sentinel::registerAndActivate(array(
 			'email'       => 'logistica@gmail.com',
 			'password'    => "123456",
-			'first_name'  => 'Orangel',
-			'last_name'   => 'Barrera',
+			'first_name'  => 'Nombre',
+			'last_name'   => 'Apellido',
 		));
 
 		$finanzas = Sentinel::registerAndActivate(array(
 			'email'       => 'finanzas@gmail.com',
 			'password'    => "123456",
-			'first_name'  => 'Orangel',
-			'last_name'   => 'Barrera',
+			'first_name'  => 'Nombre',
+			'last_name'   => 'Apellido',
 		));
+
+		$cliente = Sentinel::registerAndActivate(array(
+			'email'       => 'cliente@gmail.com',
+			'password'    => "123456",
+			'first_name'  => 'Nombre',
+			'last_name'   => 'Apellido',
+		));
+
+		DB::table('alp_clientes')->insert([
+            ['id_user_client' => 9,'id_type_doc' => 1,'doc_cliente' => '123456','genero_cliente' => 1, 'telefono_cliente' => '23333322','marketing_cliente' => 1,'habeas_cliente' => 1,'cod_oracle_cliente' => 'GFGD3433','estado_masterfile' => 1, 'id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+		]);
+		
+		$embajador = Sentinel::registerAndActivate(array(
+			'email'       => 'embajador@gmail.com',
+			'password'    => "123456",
+			'first_name'  => 'Nombre',
+			'last_name'   => 'Apellido',
+		));
+
+		DB::table('alp_clientes')->insert([
+            ['id_user_client' => 10,'id_type_doc' => 1,'doc_cliente' => '345678','genero_cliente' => 2, 'telefono_cliente' => '23432422','marketing_cliente' => 0,'habeas_cliente' => 1,'cod_oracle_cliente' => 'FSDFDSSS','estado_masterfile' => 1, 'id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+		]);
+
+		$amigo = Sentinel::registerAndActivate(array(
+			'email'       => 'amigo@gmail.com',
+			'password'    => "123456",
+			'first_name'  => 'Nombre',
+			'last_name'   => 'Apellido',
+		));
+
+		DB::table('alp_clientes')->insert([
+            ['id_user_client' => 11,'id_type_doc' => 1,'doc_cliente' => '3452243678','genero_cliente' => 1, 'telefono_cliente' => '444444','marketing_cliente' => 1,'habeas_cliente' => 1,'cod_oracle_cliente' => 'SFSDSD','estado_masterfile' => 1,'id_embajador' => 10, 'id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+		]);
+
+		$corporativo = Sentinel::registerAndActivate(array(
+			'email'       => 'corporativo@gmail.com',
+			'password'    => "123456",
+			'first_name'  => 'Nombre',
+			'last_name'   => 'Apellido',
+		));
+
+		DB::table('alp_clientes')->insert([
+            ['id_user_client' => 12,'id_type_doc' => 1,'doc_cliente' => '332222','genero_cliente' => 2, 'telefono_cliente' => '232332','marketing_cliente' => 1,'habeas_cliente' => 1,'cod_oracle_cliente' => 'SFSDSD','estado_masterfile' => 1,'id_empresa' => 1, 'id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+		]);
 
 		$adminRole = Sentinel::getRoleRepository()->createModel()->create([
 			'name' => 'Admin',
@@ -156,6 +201,11 @@ class AdminSeeder extends DatabaseSeeder {
 		$cedi->roles()->attach($cediRole);
 		$logistica->roles()->attach($logisticaRole);
 		$finanzas->roles()->attach($finanzasRole);
+
+		$cliente->roles()->attach($userRole);
+		$embajador->roles()->attach($embajadorRole);
+		$amigo->roles()->attach($amigosRole);
+		$corporativo->roles()->attach($corporativoRole);
 
 		$this->command->info('Admin User created with username admin@admin.com and password admin');
 	}
