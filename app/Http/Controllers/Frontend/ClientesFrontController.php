@@ -372,20 +372,25 @@ class ClientesFrontController extends Controller
 
         $user = User::where('id', $id )->first();
 
-        $role_user = RoleUser::where('user_id', $id )->first();
+        
+        
 
+        $role = Sentinel::findRoleById(11);
+                $role->users()->detach($user);
 
-        /*se cambia el usuario de rol */
+        $role = Sentinel::findRoleById(9);
+                $role->users()->attach($user);
 
-        $data_update_user = array(
-            'role_id' => 9, 
-        );
 
         /*se eliminar la relacion cliente -> amigo */
 
         $data_update_clinete = array(
             'id_embajador' => 0, 
         );
+
+        
+
+       
 
         $cliente->update($data_update_clinete);
 
