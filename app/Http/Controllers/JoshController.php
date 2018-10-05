@@ -13,6 +13,7 @@ use Yajra\DataTables\DataTables;
 use Charts;
 use App\Datatable;
 use App\User;
+use App\Models\AlpOrdenes;
 use Illuminate\Support\Facades\DB;
 use Spatie\Analytics\Period;
 use Illuminate\Support\Carbon;
@@ -336,6 +337,7 @@ class JoshController extends Controller {
     public function showHome()
     {
         $storagePath = storage_path().'/app/analytics/';
+
         if (File::exists($storagePath . 'service-account-credentials.json')) {
             //Last week visitors statistics
             $month_visits = Analytics::fetchTotalVisitorsAndPageViews(Period::days(7))->groupBy(function (array $visitorStatistics) {
@@ -387,10 +389,23 @@ class JoshController extends Controller {
         $blogs = Blog::orderBy('id','desc')->take(5)->get()->load('category','author');
         $users = User::orderBy('id', 'desc')->take(6)->get();
 
+        $ordenes_mes = AlpOrdenes::select(DB::raw( "COUNT(monto_total) as count_row"))
+            ->orderBy("created_at")
+            ->groupBy(DB::raw("month(created_at)"))
+            ->first();
+
+        $ordenes_hoy = AlpOrdenes::select(DB::raw( "COUNT(monto_total) as count_row"))
+            ->orderBy("created_at")
+            ->groupBy(DB::raw("day(created_at)"))
+            ->first();
+
+
+
         $chart_data = User::select(DB::raw( "COUNT(*) as count_row"))
             ->orderBy("created_at")
             ->groupBy(DB::raw("month(created_at)"))
             ->get();
+
         $db_chart =  Charts::database(User::all(), 'area', 'morris')
             ->elementLabel("Users")
             ->dimensions(0, 250)
@@ -424,7 +439,7 @@ class JoshController extends Controller {
             ->groupByMonth( 2017, true);
 
         if(Sentinel::check())
-            return view('admin.index',[ 'analytics_error'=>$analytics_error,'chart_data'=>$chart_data, 'blog_count'=>$blog_count,'user_count'=>$user_count,'users'=>$users,'db_chart'=>$db_chart,'geo'=>$geo,'user_roles'=>$user_roles,'blogs'=>$blogs,'visitors'=>$visitors,'pageVisits'=>$pageVisits,'line_chart'=>$line_chart,'month_visits'=>$month_visits,'year_visits'=>$year_visits] );
+            return view('admin.index',[ 'analytics_error'=>$analytics_error,'chart_data'=>$chart_data, 'blog_count'=>$blog_count,'user_count'=>$user_count,'users'=>$users,'db_chart'=>$db_chart,'geo'=>$geo,'user_roles'=>$user_roles,'blogs'=>$blogs,'visitors'=>$visitors,'pageVisits'=>$pageVisits,'line_chart'=>$line_chart,'month_visits'=>$month_visits,'year_visits'=>$year_visits, 'ordenes_mes'=>$ordenes_mes, 'ordenes_hoy'=>$ordenes_hoy] );
         else
             return redirect('admin/signin')->with('error', 'You must be logged in!');
     }

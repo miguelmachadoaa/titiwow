@@ -174,9 +174,19 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
         Route::get('{id}/restore', 'Admin\AlpEmpresasController@getRestore')->name('empresas.restore');
 
+
+        Route::get('{id}/afiliados', 'Admin\AlpEmpresasController@afiliados')->name('empresas.afiliados');
+
         });
 
     Route::resource('empresas', 'Admin\AlpEmpresasController');
+
+    Route::get('empresas/{id}/invitaciones', 'Admin\AlpEmpresasController@invitaciones')->name('empresas.invitaciones');
+
+    Route::post('empresas/storeamigo', 'Admin\AlpEmpresasController@storeamigo')->name('empresas.storeamigo');
+
+    Route::post('empresas/delamigo', 'Admin\AlpEmpresasController@delamigo')->name('empresas.delamigo');
+
 
 
        Route::group(['prefix' => 'estatuspagos'], function () {

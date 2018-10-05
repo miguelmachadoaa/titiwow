@@ -1,121 +1,90 @@
+@extends('admin/layouts/default')
 
-@extends('layouts/default')
-
-{{-- Page title --}}
+{{-- Web site Title --}}
 @section('title')
-Mis Invitaciones a Amigos 
+Empresa - Invitaciones
 @parent
 @stop
 
-{{-- page level styles --}}
-@section('header_styles')
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/shopping.css') }}">
-    <link href="{{ asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
-
-     <link href="{{ asset('assets/css/pages/advmodals.css') }}" rel="stylesheet"/>
-
-     <!--<link href="{{ asset('assets/vendors/modal/css/component.css') }}" rel="stylesheet"/>-->
-
-
-    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
-
-    <link href="{{ asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
-
-@stop
-
-{{-- breadcrumb --}}
-@section('top')
-    <div class="breadcum">
-        <div class="container">
-            <ol class="breadcrumb">
-                <li>
-                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Inicio
-                    </a>
-                </li>
-                <li class="hidden-xs">
-                    <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
-                    <a href="{{ url('clientes') }}">Area Cliente </a>
-                </li>
-
-                <li class="hidden-xs">
-                    <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
-                    <a href="{{ url('clientes/miscompras') }}">Mis Compras </a>
-                </li>
-
-                <li class="hidden-xs">
-                    <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
-                    <a href="{{ url('clientes/amigos') }}">Mis Invitaciones </a>
-                </li>
-            </ol>
-            <div class="pull-right">
-                <i class="livicon icon3" data-name="edit" data-size="20" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i> Mis Referidos 
-            </div>
-        </div>
-    </div>
-@stop
-
-
-{{-- Page content --}}
+{{-- Content --}}
 @section('content')
-<div class="container contain_body">
-    <div class="products">
-        <div class="row">   
+<section class="content-header">
+    <h1>Empresa</h1>
+    <ol class="breadcrumb">
+        <li>
+            <a href="{{ route('admin.dashboard') }}">
+                <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
+               Inicio
+            </a>
+        </li>
+        <li><a href="#"> Empresa </a></li>
+        <li class="active">Index</li>
+    </ol>
+</section>
 
-                <div class="col-sm-8">  <h3>   Mis Invitaciones a Amigos  </h3> </div>
-                <div class="col-sm-4">  <a class="btn btn-info addAmigo" href="{{ url('registroembajadores/'.'ALP'.$user->id) }}">Registrar Amigo</a> </div>
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary ">
+                <div class="panel-heading clearfix">
+                    <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                       Empresa
+                    </h4>
+                    <div class="pull-right">
+                    <a href="#" data-id="{{ $empresa->id }}"  class="btn btn-sm btn-default addAmigo"><span class="glyphicon glyphicon-plus"></span> Agregar Invitacion</a>
+                    </div>
+                </div>
+                <br />
+                <div class="panel-body">
+                    @if ($invitaciones->count() >= 1)
+                        <div class="table-responsive" id="table_amigos">
 
-        </div>  
-        
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Email</th>
+                                    <th>Accion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-        
+                                @foreach ($invitaciones as $row)
+                                <tr>
+                                    <td>{!! $row->id !!}</td>
+                                    <td>{!! $row->nombre_amigo!!}</td>
+                                    <td>{!! $row->apellido_amigo !!}</td>
+                                    <td>{!! $row->email_amigo !!}</td>
+                                    <td>
+                                            
+                                            <a class="delAmigo"  data-id="{{ $row->id }}" data-url="{{ url('admin/empresas/delamigo') }}" href="#" data-toggle="modal" >
+                                            <i class="fa fa-trash"></i>
+                                           
+                                             </a>
 
-        <div class="row amigosList">
-        @if(!$amigos->isEmpty())
 
-             <table class="table table-responsive">
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Email</th>
-                        <th>Creado</th>
-                        <th>Acciones</th>
-                    </tr>
+                                              
 
-
-            @foreach($amigos as $row)
-
-                    <tr>
-                        <td>
-                            {{ $row->nombre_amigo }}
-                        </td>
-                        <td>
-                            {{ $row->apellido_amigo }}
-                        </td>
-                        <td>
-                            {{ $row->email_amigo }}
-                        </td>
-                        
-                        <td>
-                            {{ $row->created_at }}
-                        </td>
-
-                        <td>    
-                                <button data-id="{{ $row->id }}" data-url="{{ url('delamigo') }}"  class="btn btn-danger delAmigo">Eliminar</button>
-
-                        </td>
-                    </tr>
-                
-            @endforeach
-             </table>
-            @else
-            <div class="alert alert-danger">
-                <strong>Lo Sentimos!</strong> No Existen Invitaciones aun.
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        </div>
+                    @else
+                        No se encontraron registros
+                    @endif   
+                </div>
             </div>
-        @endif
         </div>
-        
-    </div>
-</div>
+    </div>    <!-- row-->
+</section>
+
+
+
 
 <div class="modal fade" id="addAmigoModal" role="dialog" aria-labelledby="modalLabeldanger">
             <div class="modal-dialog modal-lg" role="document">
@@ -128,6 +97,7 @@ Mis Invitaciones a Amigos
                         <form method="POST" action="{{url('storeamigo')}}" id="addAmigoForm" name="addAmigoForm" class="form-horizontal">
 
                             <input type="hidden" name="base" id="base" value="{{ url('/') }}">
+                            <input type="hidden" name="id_empresa" id="id_empresa" value="">
 
                             {{ csrf_field() }}
 
@@ -156,10 +126,6 @@ Mis Invitaciones a Amigos
                                         <input style="margin: 4px 0;" id="email" name="email" type="text" placeholder="Email" class="form-control">
                                     </div>
                                 </div>
-
-
-
-
 
                             </div>
                         </form>
@@ -199,26 +165,49 @@ Mis Invitaciones a Amigos
         </div>
 
 
-@endsection
 
-{{-- page level scripts --}}
+
+@stop
+
+{{-- Body Bottom confirm modal --}}
 @section('footer_scripts')
-    <script src="{{ asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
+<div class="modal fade" id="delete_confirm" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="users_exists" tabindex="-2" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                @lang('groups/message.users_exists')
+            </div>
+        </div>
+    </div>
+</div>
 
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/select2/js/select2.js') }}"></script>
+<script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
-    <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+<script>
+    $(function () {$('body').on('hidden.bs.modal', '.modal', function () {$(this).removeData('bs.modal');});});
+    $(document).on("click", ".users_exists", function () {
+
+        var group_name = $(this).data('name');
+        $(".modal-header h4").text( group_name+" Group" );
+    });
 
 
-    <script>
-        jQuery(document).ready(function () {
-            new WOW().init();
-        });
-
-        $(document).on('click', '.addAmigo', function(e){
+    $(document).on('click', '.addAmigo', function(e){
             e.preventDefault();
 
-                $("#addAmigoModal").modal('show');
+            $('#id_empresa').val($(this).data('id'));
+
+            $("#addAmigoModal").modal('show');
 
         });
 
@@ -277,6 +266,7 @@ $('.sendAmigo').click(function () {
 
     if ($validator.isValid()) {
 
+        id_empresa=$("#id_empresa").val();
         nombre=$("#nombre").val();
         apellido=$("#apellido").val();
         email=$("#email").val();
@@ -285,12 +275,12 @@ $('.sendAmigo').click(function () {
 
         $.ajax({
             type: "POST",
-            data:{nombre, apellido, email},
-            url: base+"/storeamigo",
+            data:{nombre, apellido, email, id_empresa},
+            url: base+"/admin/empresas/storeamigo",
                 
             complete: function(datos){     
 
-                $(".amigosList").html(datos.responseText);
+                $("#table_amigos").html(datos.responseText);
 
                 $('#addAmigoModal').modal('hide');
 
@@ -312,9 +302,6 @@ $('.sendAmigo').click(function () {
 
 $('.deleteAmigo').click(function () {
     
-    
-
-
         id=$("#del_id").val();
         url=$("#del_url").val();
                
@@ -327,7 +314,7 @@ $('.deleteAmigo').click(function () {
                 
             complete: function(datos){     
 
-                $(".amigosList").html(datos.responseText);
+                $("#table_amigos").html(datos.responseText);
 
                 $('#delAmigoModal').modal('hide');
             
@@ -337,5 +324,14 @@ $('.deleteAmigo').click(function () {
 });
 
 
-    </script>
+
+
+
+
+
+
+
+
+
+</script>
 @stop

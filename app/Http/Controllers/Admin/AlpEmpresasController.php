@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\JoshController;
 use App\Models\AlpEmpresas;
+use App\Models\AlpAmigos;
 use App\Http\Requests\EmpresaRequest;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -31,6 +32,9 @@ class AlpEmpresasController extends JoshController
         // Show the page
         return view('admin.empresas.index', compact('empresas'));
     }
+
+
+  
 
     /**
      * Group create.
@@ -164,6 +168,80 @@ class AlpEmpresasController extends JoshController
             // Redirect to the group management page
             return Redirect::route('admin.empresas.index')->with('error', trans('Error al eliminar el registro'));
         }
+    }
+
+     public function invitaciones($id)
+    {
+        // Grab all the groups
+      
+        $empresa = AlpEmpresas::find($id);
+
+        $invitaciones = AlpAmigos::where('id_cliente', 'E'.$id)->get();
+       
+
+
+        // Show the page
+        return view('admin.empresas.invitaciones', compact('empresa','invitaciones'));
+    }
+
+
+
+    public function storeamigo(Request $request)
+    {
+
+        if (Sentinel::check()) {
+
+            $user_id = Sentinel::getUser()->id;
+
+            $data = array(
+                'id_cliente' => 'E'.$request->id_empresa, 
+                'nombre_amigo' => $request->nombre, 
+                'apellido_amigo' => $request->apellido, 
+                'email_amigo' => $request->email, 
+                'id_user' => $user_id
+            );
+
+            AlpAmigos::create($data);
+
+            $invitaciones=AlpAmigos::where('id_cliente', 'E'.$request->id_empresa)->get();
+
+            $empresa = AlpEmpresas::find($request->id_empresa);
+
+
+            $view= View::make('admin.empresas.listamigo', compact('invitaciones', 'empresa'));
+
+            $data=$view->render();
+
+            return $data;
+
+            }
+
+       
+    }
+
+    public function delamigo(Request $request)
+    {
+
+            $user_id = Sentinel::getUser()->id;
+
+            $amigo=AlpAmigos::find($request->id);
+
+            $empresa=$amigo->id_cliente;
+
+            $amigo->delete();
+
+            $invitaciones=AlpAmigos::where('id_cliente', $empresa)->get();
+
+            $empresa = AlpEmpresas::find($request->id_empresa);
+
+            $view= View::make('admin.empresas.listamigo', compact('invitaciones', 'empresa'));
+
+            $data=$view->render();
+
+            return $data;
+            
+
+       
     }
 
     

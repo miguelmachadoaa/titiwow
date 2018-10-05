@@ -47,7 +47,7 @@
                         <div class="col-xs-12 pull-left nopadmar">
                             <div class="row">
                                 <div class="square_box col-xs-7 text-right">
-                                    <span>Visitors</span>
+                                    <span>Ventas Hoy </span>
 
                                     <div class="number" id="myTargetElement3"></div>
                                 </div>
@@ -69,7 +69,7 @@
                         <div class="col-xs-12 pull-left nopadmar">
                             <div class="row">
                                 <div class="square_box col-xs-7 text-right">
-                                    <span>Users</span>
+                                    <span>Usuarios </span>
 
                                     <div class="number" id="myTargetElement4"></div>
                                 </div>
@@ -91,7 +91,7 @@
                         <div class="col-xs-12 pull-left nopadmar">
                             <div class="row">
                                 <div class="square_box col-xs-7 text-right">
-                                    <span>Page Views</span>
+                                    <span>Visitas </span>
 
                                     <div class="number" id="myTargetElement1"></div>
                                 </div>
@@ -113,7 +113,7 @@
                         <div class="col-xs-12 pull-left nopadmar">
                             <div class="row">
                                 <div class="square_box col-xs-7 text-right">
-                                    <span>Articles</span>
+                                    <span>Ventas Mes</span>
 
                                     <div class="number" id="myTargetElement2"></div>
                                 </div>
@@ -315,9 +315,9 @@
         };
         var demo = new CountUp("myTargetElement1", 12.52, {{ $pageVisits }}, 0, 6, options);
         demo.start();
-        var demo = new CountUp("myTargetElement2", 1, {{ $blog_count }}, 0, 6, options);
+        var demo = new CountUp("myTargetElement2", 1, {{ $ordenes_mes->count_row }}, 0, 6, options);
         demo.start();
-        var demo = new CountUp("myTargetElement3", 24.02, {{ $visitors }}, 0, 6, options);
+        var demo = new CountUp("myTargetElement3", 24.02, {{ $ordenes_hoy->count_row }}, 0, 6, options);
         demo.start();
         var demo = new CountUp("myTargetElement4", 125, {{ $user_count }}, 0, 6, options);
         demo.start();
