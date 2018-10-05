@@ -9,6 +9,7 @@ use App\Models\AlpClientes;
 use App\Models\AlpDirecciones;
 use App\Models\AlpAmigos;
 use App\User;
+use App\RoleUser;
 use App\Models\AlpCategorias;
 use Sentinel;
 use View;
@@ -19,15 +20,12 @@ class ClientesFrontController extends Controller
     public function index()
     {
 
+        /*solo muestra el menu de opciones del cliente 
+        verifi si esta logueado        */
+
         if (Sentinel::check()) {
 
             $user_id = Sentinel::getUser()->id;
-
-            $referidos =  DB::table('alp_clientes')->select('alp_clientes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email', DB::raw("SUM(alp_ordenes.monto_total) as puntos"))
-            ->join('users','alp_clientes.id_user_client' , '=', 'users.id')
-            ->leftJoin('alp_ordenes','users.id' , '=', 'alp_ordenes.id_cliente')
-            ->groupBy('alp_clientes.id')
-            ->where('alp_clientes.id_embajador', $user_id)->get();
 
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
 
@@ -50,6 +48,8 @@ class ClientesFrontController extends Controller
 
        
     }
+
+    /*mmuestra el listado de direcciones del cliente logueado */
 
     public function misdirecciones()
     {
@@ -85,6 +85,8 @@ class ClientesFrontController extends Controller
        
     }
 
+    /*muestra los amigos del clientes */
+
     public function misamigos()
     {
 
@@ -118,6 +120,8 @@ class ClientesFrontController extends Controller
 
        
     }
+
+    /**/
 
     public function storeamigo(Request $request)
     {
@@ -154,6 +158,8 @@ class ClientesFrontController extends Controller
        
     }
 
+    /*elimina una invitacion a amigos del cliente  del cliente */
+
     public function delamigo(Request $request)
     {
 
@@ -181,7 +187,7 @@ class ClientesFrontController extends Controller
        
     }
 
-
+    /*muestra un listado de las invitaciones enviadas */
     public function amigos()
     {
 
@@ -216,6 +222,8 @@ class ClientesFrontController extends Controller
        
     }
 
+    /*muestra el total de las compras de sus amigos */
+
     public function compras($id)
     {
 
@@ -245,6 +253,8 @@ class ClientesFrontController extends Controller
 
        
     }
+
+    /*muestra un liistado con mis compras*/
 
     public function miscompras()
     {
@@ -277,6 +287,8 @@ class ClientesFrontController extends Controller
 
        
     }
+
+    /*muestra el detalle de una compra*/
 
     public function detalle($id)
     {
@@ -313,6 +325,8 @@ class ClientesFrontController extends Controller
        
     }
 
+    /*muetra el formulario para registro de embajadores */
+
     public function embajadores($id)
     {
                 
@@ -320,6 +334,8 @@ class ClientesFrontController extends Controller
         
 
     }
+
+    /*- no tiene uso */
  
     public function show($slug)
     {
@@ -328,6 +344,8 @@ class ClientesFrontController extends Controller
         return \View::make('frontend.producto_single', compact('producto', 'cliente'));
 
     }
+
+    /*tampoco */
 
     public function categorias($slug)
     {
@@ -342,5 +360,55 @@ class ClientesFrontController extends Controller
         return \View::make('frontend.categorias', compact('productos','cataname','slug'));
 
     }
+
+    /*elimina uno de los amigos del cliente logeuado */
+
+     public function deleteamigo(Request $request)
+    {
+
+        $id=$request->id;
+
+        $cliente = AlpClientes::where('id_user_client', $id )->first();
+
+        $user = User::where('id', $id )->first();
+
+        $role_user = RoleUser::where('user_id', $id )->first();
+
+
+        /*se cambia el usuario de rol */
+
+        $data_update_user = array(
+            'role_id' => 9, 
+        );
+
+        /*se eliminar la relacion cliente -> amigo */
+
+        $data_update_clinete = array(
+            'id_embajador' => 0, 
+        );
+
+        $cliente->update($data_update_clinete);
+
+        /*se recupera el usuario logueado para devolver la lista de amigos */
+
+        $user_id = Sentinel::getUser()->id;
+
+
+
+        $referidos =  DB::table('alp_clientes')->select('alp_clientes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email', DB::raw("SUM(alp_ordenes.monto_total) as puntos"))
+            ->join('users','alp_clientes.id_user_client' , '=', 'users.id')
+            ->leftJoin('alp_ordenes','users.id' , '=', 'alp_ordenes.id_cliente')
+            ->groupBy('alp_clientes.id')
+            ->where('alp_clientes.id_embajador', $user_id)->get();
+
+
+        $view= View::make('frontend.clientes.listamigos', compact('referidos'));
+
+        $data=$view->render();
+
+          return $data;
+            
+    }
+
 
 }

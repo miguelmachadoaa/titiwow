@@ -3,7 +3,7 @@
 
 {{-- Page title --}}
 @section('title')
-Mis Referidos 
+Mis Amigos 
 @parent
 @stop
 
@@ -29,7 +29,7 @@ Mis Referidos
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
-                    <a href="{{ url('clientes/miscompras') }}">Mis Compras </a>
+                    <a href="{{ url('clientes/misamigos') }}">Mis Amigos </a>
                 </li>
             </ol>
             <div class="pull-right">
@@ -45,12 +45,13 @@ Mis Referidos
 <div class="container contain_body">
     <div class="products">
 
-        <h3>    Mis referidos </h3>
+        <h3>    Mis Amigos </h3>
 
-        <div class="row">
+        <div class="row" id="table_amigos">
         @if(!$referidos->isEmpty())
 
-             <table class="table table-responsive">
+             <table class="table table-responsive" id="tbAmigos">
+                <thead>
                     <tr>
                         <th>Nombre</th>
                         <th>Apellido</th>
@@ -59,7 +60,8 @@ Mis Referidos
                         <th>Creado</th>
                         <th>Acciones</th>
                     </tr>
-
+                </thead>
+                <tbody>
 
             @foreach($referidos as $referido)
 
@@ -81,24 +83,22 @@ Mis Referidos
                         </td>
 
                         <td>    
-                                <a href="{{ route('clientes.index', $referido->id) }}">
+                                <a class="btn btn-xs" href="{{ route('clientes.index', $referido->id) }}">
                                     <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar categoria"></i>
                                  </a>
 
-                                  <a href="{{ url('clientes/'.$referido->id_user_client.'/compras') }}">
+                                  <a class="btn btn-xs" href="{{ url('clientes/'.$referido->id_user_client.'/compras') }}">
                                     <i class="livicon" data-name="eye" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Ver Compras"></i>
                                  </a>
 
+                                 <button class="btn btn-xs btn-danger eliminarAmigo" data-id="{{ $referido->id_user_client }}"> <i class="fa fa-trash"> </i>  </button>
 
-
-                                            <!-- let's not delete 'Admin' group by accident -->
-                                            
-                                          
 
                         </td>
                     </tr>
                 
             @endforeach
+            </tbody>
              </table>
             @else
             <div class="alert alert-danger">
@@ -109,6 +109,35 @@ Mis Referidos
         
     </div>
 </div>
+
+
+<!-- Modal Direccion -->
+ <div class="modal fade" id="delAmigoModal" role="dialog" aria-labelledby="modalLabeldanger">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h4 class="modal-title" id="modalLabeldanger">Eliminar Amigo</h4>
+                    </div>
+                    <div class="modal-body">
+                      
+                           <input type="hidden" name="url" id="url" value="{{ url('clientes/deleteamigo') }}">
+
+                            <input type="hidden" name="del_id" id="del_id" value="">
+
+                            <h3> Esta seguro de eliminar su Amigo?</h3>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button"  class="btn  btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn  btn-danger sendEliminar" >Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- Modal Direccion -->
+
 @endsection
 
 {{-- page level scripts --}}
@@ -120,20 +149,31 @@ Mis Referidos
         });
 
 
-        $('.addtocart').on('click', function(e){
+        $('#tbAmigos').on('click', '.eliminarAmigo',  function(e){
 
             e.preventDefault();
 
-            url=$(this).attr('href');
+            $('#del_id').val($(this).data('id'));
 
-            $.get(url, {}, function(data) {
+            $('#delAmigoModal').modal('show');
 
-                if (data.resultado) {
+        });
 
-                    $('#detalle_carro_front').html(data.contenido);
+        $('.sendEliminar').on('click',  function(e){
+
+            e.preventDefault();
+
+            id=$('#del_id').val();
+
+            url=$('#url').val();
+
+            $.post(url, {id}, function(data) {
+
+                    $('#table_amigos').html(data);
+
+            $('#delAmigoModal').modal('hide');
+
                          
-                }
-
             });
 
         })

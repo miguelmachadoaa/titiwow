@@ -397,6 +397,8 @@ Route::post('storeamigo', 'Frontend\ClientesFrontController@storeamigo')->name('
 
 Route::post('delamigo', 'Frontend\ClientesFrontController@delamigo')->name('frontend.clientes.delamigo');
 
+Route::post('clientes/deleteamigo', 'Frontend\ClientesFrontController@deleteamigo')->name('frontend.clientes.deleteamigo');
+
 
 Route::get('miscompras', 'Frontend\ClientesFrontController@miscompras')->name('frontend.clientes.miscompras');
 

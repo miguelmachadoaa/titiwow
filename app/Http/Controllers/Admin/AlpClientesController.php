@@ -157,6 +157,7 @@ class AlpClientesController extends JoshController
     public function edit($id)
     {
         $user = User::findOrFail($id);
+
         $cliente = DB::table('alp_clientes')->where('alp_clientes.id_user_client', '=', $id)->get();
 
         // Get this user groups
@@ -334,6 +335,7 @@ class AlpClientesController extends JoshController
 
 
         try {
+            
             $user->update($request->except('email','pic_file','password','password_confirm','groups','activate'));
 
             if ( !empty($request->password)) {
