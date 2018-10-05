@@ -32,5 +32,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RolPagoTableSeeder::class);
         $this->call(OrdenesEstatusTableSeeder::class);
         $this->call(ConfGralTableSeeder::class);
+        $this->call(EmpresasTableSeeder::class);
     }
 }
