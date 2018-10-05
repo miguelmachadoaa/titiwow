@@ -46,7 +46,6 @@ Empresa
                                     <th>Id</th>
                                     <th>Nombre</th>
                                     <th>Descripcion</th>
-                                    <th>Creado</th>
                                     <th>Accion</th>
                                 </tr>
                             </thead>
@@ -57,7 +56,6 @@ Empresa
                                     <td>{!! $row->id !!}</td>
                                     <td>{!! $row->nombre_empresa!!}</td>
                                     <td>{!! $row->descripcion_empresa !!}</td>
-                                    <td>{!! $row->created_at->diffForHumans() !!}</td>
                                     <td>
                                             
                                             <a href="{{ route('admin.empresas.edit', $row->id) }}">

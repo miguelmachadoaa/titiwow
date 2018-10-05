@@ -86,6 +86,24 @@ Area clientes
         <div class="col-sm-12">
             
 
+            <a href="{{ url('miscompras') }}" class=" btn-large ">
+                <div class="row">
+                <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-shopping-cart"></i></div>
+                <div class="col-sm-12">Mis Compras</div>
+                </div>
+        
+
+            </a>
+
+            <a href="{{ url('misdirecciones') }}" class=" btn-large ">
+                <div class="row">
+                <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-location"></i></div>
+                <div class="col-sm-12">Mis direcciones</div>
+                </div>
+        
+
+            </a>
+
             <a  href="{{ url('misamigos') }}" class=" btn-large ">
                 <div class="row">
                 <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-user"></i></div>
@@ -95,14 +113,7 @@ Area clientes
 
             </a>
             
-            <a href="{{ url('miscompras') }}" class=" btn-large ">
-                <div class="row">
-                <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-shopping-cart"></i></div>
-                <div class="col-sm-12">Mis Compras</div>
-                </div>
-        
-
-            </a>
+            
 
             <a href="{{ url('clientes/amigos') }}" class=" btn-large ">
                 <div class="row">

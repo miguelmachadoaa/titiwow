@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\AlpProductos;
 use App\Models\AlpClientes;
+use App\Models\AlpDirecciones;
 use App\Models\AlpAmigos;
 use App\User;
 use App\Models\AlpCategorias;
@@ -34,6 +35,40 @@ class ClientesFrontController extends Controller
 
 
             return \View::make('frontend.clientes.index', compact('referidos', 'cliente', 'user'));
+    
+
+            }else{
+
+
+                $url='clientes.index';
+
+                  //return redirect('login');
+                return view('frontend.order.login', compact('url'));
+
+
+        }
+
+       
+    }
+
+    public function misdirecciones()
+    {
+
+        if (Sentinel::check()) {
+
+            $user_id = Sentinel::getUser()->id;
+
+             $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_countries.country_name as country_name')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->where('alp_direcciones.id_client', $user_id)->get();
+
+            $cliente = AlpClientes::where('id_user_client', $user_id )->first();
+
+            $user = User::where('id', $user_id )->first();
+
+            return view('frontend.clientes.misdirecciones', compact('direcciones', 'cliente', 'user'));
     
 
             }else{

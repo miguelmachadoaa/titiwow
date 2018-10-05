@@ -402,6 +402,8 @@ Route::get('miscompras', 'Frontend\ClientesFrontController@miscompras')->name('f
 
 Route::get('misamigos', 'Frontend\ClientesFrontController@misamigos')->name('frontend.clientes.misamigos');
 
+Route::get('misdirecciones', 'Frontend\ClientesFrontController@misdirecciones')->name('frontend.clientes.misdirecciones');
+
 
 Route::get('clientes/{id}/detalle', 'Frontend\ClientesFrontController@detalle')->name('frontend.clientes.detalle');
 
