@@ -36,6 +36,12 @@ Route::post('signupembajador', 'Admin\AuthController@postSignupEmbajador')->name
 Route::get('registroembajadores/{id}', 'Frontend\ClientesFrontController@embajadores')->name('frontend.clientes.registro');
 
 
+Route::post('signupafiliado', 'Admin\AuthController@postSignupAfiliado')->name('admin.signupafiliado');
+    
+    Route::get('registroafiliado/{id}', 'Admin\AlpEmpresasController@afiliado')->name('frontend.empresas.registro');
+
+
+
 Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.'), function () {
 
     Route::resource('productos', 'Admin\AlpProductosController');
@@ -186,6 +192,10 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
     Route::post('empresas/storeamigo', 'Admin\AlpEmpresasController@storeamigo')->name('empresas.storeamigo');
 
     Route::post('empresas/delamigo', 'Admin\AlpEmpresasController@delamigo')->name('empresas.delamigo');
+
+    /*proceso para registro de afiliado a una empresa */
+
+    
 
 
 

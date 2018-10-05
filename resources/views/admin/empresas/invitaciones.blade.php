@@ -37,6 +37,8 @@ Empresa - Invitaciones
                 </div>
                 <br />
                 <div class="panel-body">
+                    <h3>Url Invitacion: {{ url('registroafiliado/emp') }}{{ $empresa->id }}</h3>
+                    <br>
                     @if ($invitaciones->count() >= 1)
                         <div class="table-responsive" id="table_amigos">
 

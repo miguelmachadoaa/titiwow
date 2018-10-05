@@ -244,6 +244,15 @@ class AlpEmpresasController extends JoshController
        
     }
 
+
+     public function afiliado($id)
+    {
+                
+        return view('frontend.empresas.registro',  compact('id'));
+        
+
+    }
+
     
 
 }

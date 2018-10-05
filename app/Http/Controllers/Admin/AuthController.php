@@ -366,7 +366,7 @@ class AuthController extends JoshController
                 ->log('Registered');
 
 
-             $referido = substr($request->referido, 3);  
+            
 
              //echo 'Referido: '.$referido.'<br>';
 
@@ -379,7 +379,7 @@ class AuthController extends JoshController
                 'habeas_cliente' => 0,
                 'estado_masterfile' =>0,
                 'id_empresa' =>'0',               
-                'id_embajador' =>trim($referido),               
+                'id_embajador' =>trim($request->referido),               
                 'id_user' =>$user->id,               
             );
 
@@ -388,6 +388,78 @@ class AuthController extends JoshController
             AlpClientes::create($data);
 
 
+
+            //activity log ends
+            // Redirect to the home page with success menu
+           // return Redirect::route("admin.dashboard")->with('success', trans('auth/message.signup.success'));
+
+            if ($request->back=='0') {
+
+                    return Redirect::route("admin.dashboard")->with('success', trans('auth/message.signin.success'));
+                   
+                }else{
+
+                    return Redirect::route($request->back)->with('success', trans('auth/message.signin.success'));
+                    
+                }
+
+        } catch (UserExistsException $e) {
+            $this->messageBag->add('email', trans('auth/message.account_already_exists'));
+        }
+
+        // Ooops.. something went wrong
+        return Redirect::back()->withInput()->withErrors($this->messageBag);
+    }
+
+    public function postSignupAfiliado(UserRequest $request)
+    {
+
+        $input=$request->all();
+
+        print_r($input);
+
+        try {
+            // Register the user
+            $user = Sentinel::registerAndActivate([
+                'first_name' => $request->get('first_name'),
+                'last_name' => $request->get('last_name'),
+                'email' => $request->get('email'),
+                'password' => $request->get('password'),
+            ]);
+
+            //add user to 'User' group
+            $role = Sentinel::findRoleById(12);
+            $role->users()->attach($user);
+
+
+            // Log the user in
+            $name = Sentinel::login($user, false);
+            //Activity log
+
+            activity($name->full_name)
+                ->performedOn($user)
+                ->causedBy($user)
+                ->log('Registered');
+
+
+             //echo 'Referido: '.$referido.'<br>';
+
+
+             $data = array(
+                'id_user_client' => $user->id, 
+                'id_type_doc' => '1', 
+                'doc_cliente' =>'', 
+                'genero_cliente' =>'1', 
+                'habeas_cliente' => 0,
+                'estado_masterfile' =>0,
+                'id_empresa' =>trim($request->empresa),               
+                'id_embajador' =>'0',               
+                'id_user' =>$user->id,               
+            );
+
+             //print_r($data);
+
+            AlpClientes::create($data);
 
             //activity log ends
             // Redirect to the home page with success menu
