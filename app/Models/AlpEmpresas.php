@@ -21,6 +21,7 @@ class AlpEmpresas extends Model
         'id',
         'nombre_empresa',
         'descripcion_empresa',
+        'descuento_empresa',
         'estado_registro',
         'id_user'
     ];

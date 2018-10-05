@@ -64,6 +64,7 @@ class AlpEmpresasController extends JoshController
         $data = array(
             'nombre_empresa' => $request->nombre_empresa, 
             'descripcion_empresa' => $request->descripcion_empresa, 
+            'descuento_empresa' => $request->descuento_empresa, 
             'id_user' =>$user_id
         );
          
@@ -104,7 +105,8 @@ class AlpEmpresasController extends JoshController
     {
        $data = array(
             'nombre_empresa' => $request->nombre_empresa, 
-            'descripcion_empresa' => $request->descripcion_empresa
+            'descripcion_empresa' => $request->descripcion_empresa,
+            'descuento_empresa' => $request->descuento_empresa
         );
          
        $empresas = AlpEmpresas::find($id);

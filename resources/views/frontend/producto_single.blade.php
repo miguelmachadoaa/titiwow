@@ -71,9 +71,9 @@
                         <div class="row">
                             <div class="col-md-4">
                             <div class="text-big3">
-                                <del>${{ number_format($producto->precio_base,2,",",".") }}</del>
+                               @if($descuento!=1) <del>${{ number_format($producto->precio_base,2,",",".") }}</del>@endif
                             </div>
-                            <div class="text-big4">${{ number_format($producto->precio_base,2,",",".") }}</div>
+                            <div class="text-big4">${{ number_format($producto->precio_base*$descuento,2,",",".") }}</div>
                             <span>IVA incluido</span>
                             </div>
                             <div class="col-md-4">

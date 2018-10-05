@@ -51,7 +51,7 @@ Productos
                         </div>
                         <a href="{{ route('producto', [$producto->slug]) }}" ><h1>{{ $producto->nombre_producto }}</h1></a>
                         <div class="product_info">
-                            <p id="precio_prod"><del class="hidden">${{ number_format($producto->precio_base, 2) }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base,2,",",".") }}</span></p>
+                            <p id="precio_prod"><del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base, 2) }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*$descuento,2,",",".") }}</span></p>
                             <p class="product_botones">
                                 <a class="btn btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
                                 <a class="btn btn-primary" href="{{ route('producto', [$producto->slug]) }}">Ver Más</a>

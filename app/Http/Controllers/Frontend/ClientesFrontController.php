@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\AlpProductos;
 use App\Models\AlpClientes;
+use App\Models\AlpEmpresas;
 use App\Models\AlpDirecciones;
 use App\Models\AlpAmigos;
 use App\User;
@@ -28,6 +29,17 @@ class ClientesFrontController extends Controller
             $user_id = Sentinel::getUser()->id;
 
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
+
+            if ($cliente->id_empresa!=0) {
+
+                $empresa=AlpEmpresas::find($cliente->id_empresa);
+
+                $cliente['nombre_empresa']=$empresa->nombre_empresa;
+               
+
+            }
+
+           
 
             $user = User::where('id', $user_id )->first();
 

@@ -81,6 +81,20 @@
                             </div>
                         </div>
 
+                        <div class="form-group {{ $errors->
+                            first('descuento_empresa', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Descuento  Empresa
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="number" min="0" max="100" step="0.01" id="descuento_empresa" name="descuento_empresa" class="form-control" placeholder="Nombre de Empresa"
+                                       value="{!! old('descuento_empresa') !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('descuento_empresa', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
 
 
 
