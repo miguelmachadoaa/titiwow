@@ -15,7 +15,7 @@ class CreateAlpAmigosTable extends Migration
     {
         Schema::create('alp_amigos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_cliente');
+            $table->string('id_cliente');
             $table->string('nombre_amigo');
             $table->string('apellido_amigo');
             $table->string('email_amigo')->unique();

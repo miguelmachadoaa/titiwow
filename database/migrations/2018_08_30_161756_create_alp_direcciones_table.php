@@ -20,7 +20,7 @@ class CreateAlpDireccionesTable extends Migration
             $table->string('nickname_address');
             $table->string('calle_address');
             $table->string('calle2_address')->nullable();
-            $table->string('codigo_postal_address');
+            $table->string('codigo_postal_address')->nullable();
             $table->string('telefono_address');
             $table->text('notas')->nullable();
             $table->integer('default_address')->default(0);
