@@ -91,9 +91,9 @@ Carro de Productos
                         <tr>
                             <td><img height="60px" src="../uploads/productos/{{$row->imagen_producto}}"></td>
                             <td>{{$row->nombre_producto}}</td>
-                            <td>{{number_format($row->precio_unitario,2)}}</td>
+                            <td>{{number_format($row->precio_unitario,2,",",".")}}</td>
                             <td> {{ $row->cantidad }} </td>
-                            <td>{{ number_format($row->precio_total, 2) }}</td>
+                            <td>{{ number_format($row->precio_total, 2,",",".") }}</td>
                         </tr>
                      @endforeach
                      <tr>
@@ -101,7 +101,7 @@ Carro de Productos
                              Total: 
                          </td>
                          <td>
-                             {{number_format($compra->monto_total, 2)}}
+                             {{number_format($compra->monto_total, 2,",",".")}}
                          </td>
                      </tr>
 
