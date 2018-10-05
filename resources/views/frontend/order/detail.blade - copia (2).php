@@ -36,24 +36,6 @@ Carro de Productos
     line-height: 4em;
         }
 
-        .pointer{
-            cursor: pointer;
-        }
-
-        .dl-horizontal dd {
-            margin-left: 110px;
-        }
-
-        .dl-horizontal dt {
-            float: left;
-            width: 100px;
-            overflow: hidden;
-            clear: left;
-            text-align: right;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
     </style>
 
 @stop
@@ -104,62 +86,37 @@ Carro de Productos
                 <div class="col-sm-12">
 
                 @if(count($direcciones))
-
-                {!! Form::open(['url' => 'order/procesar', 'class' => 'form-horizontal', 'id' => 'procesarForm', 'name' => 'procesarForm', 'method'=>'POST']) !!}
                 
                     <div class="form-group col-sm-10 col-sm-offset-1">
 
                     @foreach($direcciones as $direccion)
-
-
-
-                <div class="col-md-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">
-                                <input type="radio" name="id_direccion" class="custom-radio" id="id_direccion" value="{{ $direccion->id }}" @if($direccion->default_address) checked="true"  @endif>  {{ $direccion->nickname_address }}
-                            </h3>
-                            
-                        </div>
-                        <div class="panel-body">
-                            <div class="box-body">
-                                <dl class="dl-horizontal">
-
-                                    <dt>Pais</dt>
-                                    <dd>{{ $direccion->country_name }}</dd>
-
-                                    <dt>Departamento</dt>
-                                    <dd>{{ $direccion->state_name }}</dd>
-
-                                    <dt>Ciudad</dt>
-                                    <dd>{{ $direccion->city_name }}</dd>
-
-                                    <dt>Direccion</dt>
-                                    <dd>
-                                       {{ $direccion->calle_address.' '.$direccion->calle2_address }}
-                                    </dd>
-
-                                    <dt>Codigo Postal</dt>
-                                    <dd>{{ $direccion->codigo_postal_address }}</dd>
-
-                                    <dt>Telefono</dt>
-                                    <dd>{{ $direccion->telefono_address }}</dd>
-
-                                    <dt>Notas</dt>
-                                    <dd>{{ $direccion->notas }}</dd>
-
-                                    
-                                </dl>
-                            </div>
-                            <!-- /.box-body -->
-                        </div>
-                    </div>
-                </div>
                      
 
                         <!-- Se construyen las opciones de envios -->
 
-                       
+                        <div class="radio">
+
+                            <label>
+
+                                <input type="radio" name="id_direccion" class="custom-radio" id="id_direccion" value="{{ $direccion->id }}" @if($direccion->default_address) checked="true"  @endif>
+
+                                <p>
+
+                                    <b>{{$direccion->nickname_address}}</b><br>
+
+                                    Direccion: {{$direccion->calle_address.' '.$direccion->calle2_address}}<br>
+
+                                    Codigo Postal: {{$direccion->codigo_postal_address}}<br>
+
+                                    Telefono: {{$direccion->telefono_address}}<br>
+
+                                    {{$direccion->country_name.', '.$direccion->state_name.', '.$direccion->city_name}}<br>
+
+                                </p>
+
+                            </label>
+
+                        </div>
 
                     @endforeach  
 
@@ -193,7 +150,7 @@ Carro de Productos
 
             <div class="row">
 
-                    
+                    {!! Form::open(['url' => 'order/procesar', 'class' => 'form-horizontal', 'id' => 'procesarForm', 'name' => 'procesarForm', 'method'=>'POST']) !!}
                     @if(count($formasenvio))
 
                         <div class="col-sm-10 col-sm-offset-1">
@@ -269,36 +226,16 @@ Carro de Productos
 
                                 <h3>    Formas de pago</h3>
 
-                                <input type="hidden" name="id_forma_pago" id="id_forma_pago" value="">
-
                                  <?php $c="checked"; ?>     
 
                                  <!-- Se construyen las opciones de envios -->                   
 
                                 @foreach($formaspago as $fp)
 
-                                    <div data-id={{ $fp->id }} class="row forma border pointer procesar">
-                                        
-                                        <div class="col-sm-2 ">
-                                            
-                                            <i class="fa fa-money"></i>
-
-                                        </div>
-                                        <div class="col-sm-8 ">
-
-                                            {{ $fp->nombre_forma_pago.' , '.$fp->descripcion_forma_pago }}
-
-                                        </div>
-
-                                        <div class="col-sm-2 " style="text-align: right;">
-
-                                            <i class="fa  fa-chevron-right"></i>
-
-                                        </div>
-
+                                    <div class="radio">
+                                        <label>
+                                                <input type="radio" name="id_forma_pago" class="custom-radio" id="id_forma_pago" value="{{ $fp->id }}" {{ $c }}>&nbsp; {{ $fp->nombre_forma_pago.' , '.$fp->descripcion_forma_pago }}</label>
                                     </div>
-
-                                    
 
 
                                  <?php $c=""; ?>  
@@ -491,36 +428,6 @@ Carro de Productos
 
 
     <script>
-
-
-        $('.procesar').click(function (){
-
-
-
-            id_direccion= $("input[name='id_direccion']:checked").val(); 
-            
-            id_forma_envio=$("input[name='id_forma_envio']:checked").val(); 
-            
-            id_forma_pago=$(this).data('id');
-
-
-            if (id_forma_envio==undefined || id_direccion==undefined || id_forma_pago==undefined) {
-
-                alert('Todos los capos son obligatorios');
-
-            }else{
-
-                $('#id_forma_pago').val(id_forma_pago);
-
-                $('#procesarForm').submit();
-
-            }
-
-
-            
-
-
-        });
 
 
 

@@ -169,6 +169,7 @@ class AlpCartController extends JoshController
             'referencia ' => time(), 
             'id_cliente' => $user_id, 
             'id_forma_envio' =>$request->id_forma_envio, 
+            'id_address' =>$request->id_address, 
             'id_forma_pago' =>$request->id_forma_pago, 
             'monto_total' =>$total,
             'id_user' =>$user_id
@@ -214,9 +215,7 @@ class AlpCartController extends JoshController
          //$cart= \Session::forget('cart');
 
 
-
-      return view('frontend.order.procesar', compact('compra', 'detalles'));
-
+          return view('frontend.order.procesar', compact('compra', 'detalles'));
 
          
 
@@ -384,6 +383,7 @@ class AlpCartController extends JoshController
 
         $input['id_user']=$user_id;
         $input['id_client']=$user_id;
+        $input['default_address']=1;
                
          
         $direccion=AlpDirecciones::create($input);

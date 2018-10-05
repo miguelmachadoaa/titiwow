@@ -6,33 +6,52 @@
 
     @foreach($direcciones as $direccion)
                
-        @if($direccion->default_address)     checked     @endif
+        
 
         <!-- Se construyen las opciones de envios -->
 
-        <div class="radio">
+       <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <input type="radio" name="id_direccion" class="custom-radio" id="id_direccion" value="{{ $direccion->id }}" @if($direccion->default_address) checked  @endif>  {{ $direccion->nickname_address }}
+                            </h3>
+                            
+                        </div>
+                        <div class="panel-body">
+                            <div class="box-body">
+                                <dl class="dl-horizontal">
 
-            <label>
+                                    <dt>Pais</dt>
+                                    <dd>{{ $direccion->country_name }}</dd>
 
-                <input type="radio" name="id_direccion" class="custom-radio" id="id_direccion" value="{{ $direccion->id }}" @if($direccion->default_address)     checked     @endif>
+                                    <dt>Departamento</dt>
+                                    <dd>{{ $direccion->state_name }}</dd>
 
-                <p>
+                                    <dt>Ciudad</dt>
+                                    <dd>{{ $direccion->city_name }}</dd>
 
-                    <b>{{$direccion->nickname_address}}</b><br>
+                                    <dt>Direccion</dt>
+                                    <dd>
+                                       {{ $direccion->calle_address.' '.$direccion->calle2_address }}
+                                    </dd>
 
-                    Direccion: {{$direccion->calle_address.' '.$direccion->calle2_address}}<br>
+                                    <dt>Codigo Postal</dt>
+                                    <dd>{{ $direccion->codigo_postal_address }}</dd>
 
-                    Codigo Postal: {{$direccion->codigo_postal_address}}<br>
+                                    <dt>Telefono</dt>
+                                    <dd>{{ $direccion->telefono_address }}</dd>
 
-                    Telefono: {{$direccion->telefono_address}}<br>
+                                    <dt>Notas</dt>
+                                    <dd>{{ $direccion->notas }}</dd>
 
-                    {{$direccion->country_name.', '.$direccion->state_name.', '.$direccion->city_name}}<br>
-
-                </p>
-
-            </label>
-
-        </div>
+                                    
+                                </dl>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                    </div>
+                </div>
    
         
 
