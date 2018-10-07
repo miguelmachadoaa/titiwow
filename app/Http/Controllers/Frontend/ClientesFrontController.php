@@ -10,6 +10,9 @@ use App\Models\AlpEmpresas;
 use App\Models\AlpDirecciones;
 use App\Models\AlpAmigos;
 use App\User;
+use App\Country;
+use App\State;
+use App\City;
 use App\RoleUser;
 use App\Models\AlpCategorias;
 use Sentinel;
@@ -95,7 +98,9 @@ class ClientesFrontController extends Controller
 
             $user = User::where('id', $user_id )->first();
 
-            return view('frontend.clientes.misdirecciones', compact('direcciones', 'cliente', 'user'));
+            $countries = Country::all();
+
+            return view('frontend.clientes.misdirecciones', compact('direcciones', 'cliente', 'user', 'countries'));
     
 
             }else{
@@ -432,6 +437,18 @@ class ClientesFrontController extends Controller
 
           return $data;
             
+    }
+
+    public function deldir( $id)
+    {
+
+      $user_id = Sentinel::getUser()->id;
+
+          $direccion= AlpDirecciones::find($id);
+
+          $direccion->delete();
+
+          return redirect('order/detail');
     }
 
 

@@ -65,13 +65,10 @@ Area clientes
                     <a href="{{ url('clientes') }}">Area Cliente </a>
                 </li>
 
-                <li class="hidden-xs">
-                    <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
-                    <a href="{{ url('clientes/miscompras') }}">Mis Compras </a>
-                </li>
+                
             </ol>
             <div class="pull-right">
-                <i class="livicon icon3" data-name="edit" data-size="20" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i> Mis Referidos 
+                <i class="livicon icon3" data-name="edit" data-size="20" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i> Area Cliente
             </div>
         </div>
     </div>
@@ -106,7 +103,7 @@ Area clientes
             <a href="{{ url('miscompras') }}" class=" btn-large ">
                 <div class="row">
                 <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-shopping-cart"></i></div>
-                <div class="col-sm-12">Mis Compras</div>
+                <div class="col-sm-12">Compras</div>
                 </div>
         
 
@@ -124,7 +121,7 @@ Area clientes
             <a  href="{{ url('misamigos') }}" class=" btn-large ">
                 <div class="row">
                 <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-user"></i></div>
-                <div class="col-sm-12">Mis Amigos</div>
+                <div class="col-sm-12">Amigos</div>
                 </div>
         
 
@@ -135,7 +132,7 @@ Area clientes
             <a href="{{ url('clientes/amigos') }}" class=" btn-large ">
                 <div class="row">
                 <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-send"></i></div>
-                <div class="col-sm-12">Mis Invitaciones</div>
+                <div class="col-sm-12">Invitaciones</div>
                 </div>
         
 

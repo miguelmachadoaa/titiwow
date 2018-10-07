@@ -32,9 +32,7 @@ Mis Amigos
                     <a href="{{ url('clientes/misamigos') }}">Mis Amigos </a>
                 </li>
             </ol>
-            <div class="pull-right">
-                <i class="livicon icon3" data-name="edit" data-size="20" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i> Mis Referidos 
-            </div>
+            
         </div>
     </div>
 @stop

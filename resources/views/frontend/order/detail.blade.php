@@ -86,7 +86,7 @@ Carro de Productos
 
 {{-- Page content --}}
 @section('content')
-<div class="container ">
+<div class="container contain_body ">
 
     <div class="row">
         
@@ -100,6 +100,8 @@ Carro de Productos
             </div>
 
              {!! Form::open(['url' => 'order/procesar', 'class' => 'form-horizontal', 'id' => 'procesarForm', 'name' => 'procesarForm', 'method'=>'POST']) !!}
+
+
 
             <div class="row direcciones" style="text-align: left;">
 
@@ -177,6 +179,9 @@ Carro de Productos
 
                     </div>
 
+                </div>
+
+                <div class="res_dir">  
                 </div>
 
                 </div>
@@ -329,7 +334,9 @@ Carro de Productos
                 
             </div>
 
-        <br>    
+        <br>  
+
+         <div class=" res_env">  </div>  
      </div>
 
      @else
@@ -346,6 +353,8 @@ Carro de Productos
          <a class="btn btn-default" href="{{url('/productos')}}">Cancelar </a>
 
      </p>
+
+    
 
      {!! Form::close() !!}
      
@@ -505,7 +514,10 @@ Carro de Productos
 
             if (id_forma_envio==undefined || id_direccion==undefined || id_forma_pago==undefined) {
 
-                alert('Todos los capos son obligatorios');
+               // alert('Todos los capos son obligatorios');
+
+                $('.res_env').html('<div class="alert alert-danger" role="alert">Todos los campos son obligatorios</div>');
+
 
             }else{
 
@@ -529,7 +541,7 @@ Carro de Productos
 
         $('.addDireccionModal').on('click', function(){
             $("#addDireccionModal").modal('show');
-        })
+        });
 
 
     </script>
