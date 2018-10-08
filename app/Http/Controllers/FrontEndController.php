@@ -56,7 +56,7 @@ class FrontEndController extends JoshController
         // Is the user logged in?
         if (Sentinel::check()) {
             
-            return Redirect::route('my-account');
+            return Redirect::route('clientes');
         }
         // Show the login page
         return view('login');
@@ -82,7 +82,7 @@ class FrontEndController extends JoshController
                 if ($request->back=='0') {
  
                    
-                    return Redirect::route("my-account")->with('success', trans('auth/message.login.success'));
+                    return Redirect::route("clientes")->with('success', trans('auth/message.login.success'));
                    
                 }else{
 
@@ -165,7 +165,7 @@ class FrontEndController extends JoshController
                 ->causedBy($user)
                 ->log('User Updated successfully');
             // Redirect to the user page
-            return Redirect::route('my-account')->with('success', $success);
+            return Redirect::route('clientes')->with('success', $success);
         }
 
         // Prepare the error message
@@ -173,7 +173,7 @@ class FrontEndController extends JoshController
 
 
         // Redirect to the user page
-        return Redirect::route('my-account')->withInput()->with('error', $error);
+        return Redirect::route('clientes')->withInput()->with('error', $error);
 
 
     }
@@ -252,7 +252,7 @@ class FrontEndController extends JoshController
                 ->causedBy($user)
                 ->log('New Account created');
             // Redirect to the home page with success menu
-            return Redirect::route("my-account")->with('success', trans('auth/message.signup.success'));
+            return Redirect::route("clientes")->with('success', trans('auth/message.signup.success'));
 
         } catch (UserExistsException $e) {
             $this->messageBag->add('email', trans('auth/message.account_already_exists'));
@@ -295,7 +295,7 @@ class FrontEndController extends JoshController
                 ->causedBy($user)
                 ->log('New Account created');
             // Redirect to the home page with success menu
-            return Redirect::route("my-account")->with('success', trans('auth/message.signup.success'));
+            return Redirect::route("clientes")->with('success', trans('auth/message.signup.success'));
 
         } catch (UserExistsException $e) {
             $this->messageBag->add('email', trans('auth/message.account_already_exists'));
@@ -317,7 +317,7 @@ class FrontEndController extends JoshController
     {
         // Is the user logged in?
         if (Sentinel::check()) {
-            return Redirect::route('my-account');
+            return Redirect::route('clientes');
         }
 
         $user = Sentinel::findById($userId);
@@ -564,7 +564,7 @@ class FrontEndController extends JoshController
 
 
             // Redirect to the home page with success menu
-            return Redirect::route("my-account")->with('success', trans('auth/message.signup.success'));
+            return Redirect::route("clientes")->with('success', trans('auth/message.signup.success'));
 
         } catch (UserExistsException $e) {
             $this->messageBag->add('email', trans('auth/message.account_already_exists'));

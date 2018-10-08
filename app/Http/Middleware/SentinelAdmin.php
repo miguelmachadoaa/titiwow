@@ -20,7 +20,7 @@ class SentinelAdmin
         if(!Sentinel::check())
             return redirect('admin/signin')->with('info', 'You must be logged in!');
         elseif(!(Sentinel::inRole('admin') || (Sentinel::inRole('masterfile'))))
-            return redirect('my-account');
+            return redirect('clientes');
 
         $tasks_count = Task::where('user_id', Sentinel::getUser()->id)->count();
         $request->attributes->add(['tasks_count' => $tasks_count]);

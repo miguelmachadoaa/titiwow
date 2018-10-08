@@ -417,7 +417,7 @@ Route::group(['prefix' => 'clientes', 'namespace'=>'Frontend'], function () {
 });
 
 /* Fin ruta amigos */
-Route::resource('clientes', 'Frontend\ClientesFrontController');
+Route::get('clientes', 'Frontend\ClientesFrontController@index')->name('clientes');
 
 Route::get('clientes/{id}/compras', 'Frontend\ClientesFrontController@compras')->name('frontend.clientes.compras');
 
