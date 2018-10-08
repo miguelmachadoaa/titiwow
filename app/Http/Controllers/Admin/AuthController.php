@@ -362,7 +362,7 @@ class AuthController extends JoshController
             ]);
 
             //add user to 'User' group
-            $role = Sentinel::findRoleById(5);
+            $role = Sentinel::findRoleById(11);
             $role->users()->attach($user);
 
 
