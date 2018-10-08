@@ -55,6 +55,7 @@ class FrontEndController extends JoshController
     {
         // Is the user logged in?
         if (Sentinel::check()) {
+            
             return Redirect::route('my-account');
         }
         // Show the login page

@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    User Account
+    Mi Cuenta
     @parent
 @stop
 
@@ -24,7 +24,7 @@
     <hr class="content-header-sep">
     <div class="container">
         <div class="welcome">
-            <h3>My Account</h3>
+            <h3>Mi Cuenta</h3>
         </div>
         <hr>
         <div class="row margin_right_left">
@@ -38,13 +38,13 @@
                         </div>
 
                         <div>
-                            <h3 class="text-primary" id="title">Personal Information </h3>
+                            <h3 class="text-primary" id="title">Informacion Personal </h3>
                         </div>
                         {!! Form::model($user, ['url' => URL::to('my-account'), 'method' => 'put', 'class' => 'form-horizontal','enctype'=>"multipart/form-data"]) !!}
 
                         {{ csrf_field() }}
                             <div class="form-group {{ $errors->first('pic', 'has-error') }}">
-                                <label class="col-md-2 control-label">Avatar:</label>
+                                <label class="col-md-2 control-label">Iagen:</label>
                                 <div class="col-md-10">
                                     <div class="fileinput fileinput-new" data-provides="fileinput">
                                         <div class="fileinput-new thumbnail" style="max-width: 200px; max-height: 200px;">
@@ -82,7 +82,7 @@
                             </div>
                             <div class="form-group {{ $errors->first('first_name', 'has-error') }}">
                                 <label class="col-lg-2 control-label">
-                                    First Name:
+                                    Nombre:
                                     <span class='require'>*</span>
                                 </label>
                                 <div class="col-lg-6">
@@ -100,7 +100,7 @@
 
                             <div class="form-group {{ $errors->first('last_name', 'has-error') }}">
                                 <label class="col-lg-2 control-label">
-                                    Last Name:
+                                    Apellido:
                                     <span class='require'>*</span>
                                 </label>
                                 <div class="col-lg-6">
@@ -135,7 +135,7 @@
                             <div class="form-group {{ $errors->first('password', 'has-error') }}">
                                 <p class="text-warning col-md-offset-2"><strong>If you don't want to change password... please leave them empty</strong></p>
                                 <label class="col-lg-2 control-label">
-                                    Password:
+                                    Contraseña:
                                     <span class='require'>*</span>
                                 </label>
                                 <div class="col-lg-6">
@@ -150,7 +150,7 @@
 
                             <div class="form-group {{ $errors->first('password_confirm', 'has-error') }}">
                                 <label class="col-lg-2 control-label">
-                                    Confirm Password:
+                                    Confirmar Contraseña:
                                     <span class='require'>*</span>
                                 </label>
                                 <div class="col-lg-6">
@@ -164,30 +164,30 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-lg-2 control-label">Gender: </label>
+                                <label class="col-lg-2 control-label">Genero: </label>
                                 <div class="col-lg-6">
                                     <div class="radio">
                                         <label>
                                             <input type="radio" name="gender" value="male" @if($user->gender === "male") checked="checked" @endif />
-                                            Male
+                                            Masculino
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
                                             <input type="radio" name="gender" value="female" @if($user->gender === "female") checked="checked" @endif />
-                                            Female
+                                            Femanino
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
                                             <input type="radio" name="gender" value="other" @if($user->gender === "other") checked="checked" @endif />
-                                            Other
+                                            Otro
                                         </label>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group  {{ $errors->first('bio', 'has-error') }}">
-                                <label for="" class="col-lg-2 control-label">Bio <small>(brief intro):</small></label>
+                                <label for="" class="col-lg-2 control-label">Biografia <small>(Pequeña Introduccion):</small></label>
                                 <div class="col-lg-6">
                                             <textarea name="bio" id="bio" class="form-control resize_vertical"
                                                       rows="4">{!! old('bio', $user->bio) !!}</textarea>
@@ -196,12 +196,12 @@
                             </div>
 
                             <div>
-                                <h3 class="text-primary" id="title">Contact: </h3>
+                                <h3 class="text-primary" id="title">Contacto: </h3>
                             </div>
 
                             <div class="form-group {{ $errors->first('address', 'has-error') }}">
                                 <label class="col-lg-2 control-label">
-                                    Address:
+                                    Direccion:
                                 </label>
                                 <div class="col-lg-6">
                                             <textarea rows="5" cols="30" class="form-control resize_vertical" id="add1"
@@ -211,7 +211,7 @@
                             </div>
 
                             <div class="form-group {{ $errors->first('country', 'has-error') }}">
-                                <label class="control-label  col-lg-2">Select Country: </label>
+                                <label class="control-label  col-lg-2">Seleccione Pais: </label>
                                 <div class="col-lg-6">
                                     {!! Form::select('country', $countries, $user->country,['class' => 'form-control select2', 'id' => 'countries']) !!}
                                     <span class="help-block">{{ $errors->first('country', ':message') }}</span>
@@ -219,7 +219,7 @@
                             </div>
 
                         <div class="form-group {{ $errors->first('state', 'has-error') }}">
-                            <label class="col-lg-2 control-label" for="state">State:</label>
+                            <label class="col-lg-2 control-label" for="state">Departamento:</label>
                                 <div class="col-lg-6">
                                     <div class="input-group">
                                                         <span class="input-group-addon">
@@ -235,7 +235,7 @@
                             </div>
 
                             <div class="form-group {{ $errors->first('city', 'has-error') }}">
-                                <label class="col-lg-2 control-label" for="city">City:</label>
+                                <label class="col-lg-2 control-label" for="city">Ciudad:</label>
                                 <div class="col-lg-6">
                                     <div class="input-group">
                                                         <span class="input-group-addon">
@@ -249,7 +249,7 @@
                             </div>
 
                             <div class="form-group {{ $errors->first('postal', 'has-error') }}">
-                                <label class="col-lg-2 control-label" for="postal">Postal:</label>
+                                <label class="col-lg-2 control-label" for="postal">Codigo Postal:</label>
                                 <div class="col-lg-6">
                                     <div class="input-group">
                                                         <span class="input-group-addon">
@@ -264,7 +264,7 @@
 
                             <div class="form-group {{ $errors->first('dob', 'has-error') }}">
                                 <label class="col-lg-2 control-label">
-                                    DOB:
+                                    Fecha de Nacimiento:
                                 </label>
                                 <div class="col-lg-6">
                                     <div class="input-group">
@@ -285,7 +285,7 @@
 
                             <div class="form-group">
                                 <div class="col-lg-offset-2 col-lg-10">
-                                    <button class="btn btn-primary" type="submit">Save</button>
+                                    <button class="btn btn-primary" type="submit">Guardar</button>
                                 </div>
                             </div>
 

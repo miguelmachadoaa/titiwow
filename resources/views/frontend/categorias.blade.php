@@ -88,6 +88,42 @@
 
 </div>
 </div>
+
+
+
+
+
+
+
+        <!-- Modal Direccion -->
+ <div class="modal fade" id="detailCartModal" role="dialog" aria-labelledby="modalLabeldanger">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-sucess">
+                        <h4 class="modal-title" id="modalLabeldanger">Producto Agregado a su carro de compras</h4>
+                    </div>
+                    <div class="modal-body cartcontenido">
+
+                        
+
+                      
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  class="btn  btn-default" data-dismiss="modal">Continuar Comprando</button>
+                        <a href="{{ url('order/detail') }}" class="btn  btn-info " >Proceder a Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- Modal Direccion -->
+
+
+
+
+
 @endsection
 
 {{-- page level scripts --}}
@@ -105,6 +141,24 @@
 
             url=$(this).attr('href');
 
+         
+
+            $.get(url, {}, function(data) {
+
+               /* if (data.resultado) {
+
+                    $('#detalle_carro_front').html(data.contenido);
+                         
+                }*/
+
+                $('.cartcontenido').html(data);
+
+                $('#detailCartModal').modal('show');
+
+                $('#detalle_carro_front').html($('#modal_cantidad').val()+' '+'Items');
+
+            });
+
             $.get(url, {}, function(data) {
 
                 if (data.resultado) {
@@ -115,8 +169,9 @@
 
             });
 
-        })
 
+
+        })
 
     </script>
 @stop

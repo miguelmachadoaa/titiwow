@@ -284,7 +284,6 @@ class AlpCartController extends JoshController
     {
        $cart= \Session::get('cart');
 
-
        $descuento='1'; 
 
         if (Sentinel::check()) {
@@ -311,7 +310,6 @@ class AlpCartController extends JoshController
         }
 
 
-
        $producto->cantidad=1;
 
        $producto->precio_base=$producto->precio_base*$descuento;
@@ -324,13 +322,25 @@ class AlpCartController extends JoshController
        \Session::put('cart', $cart);
 
        $cantidad=$this->cantidad();
+       $total=$this->total();
 
-       $data = array(
+      /* $data = array(
         'resultado' => 1, 
         'contenido' => $cantidad.' Items'
       );
 
-       return $data;
+
+
+       return $data;*/
+
+       $view= View::make('frontend.order.cartdetail', compact('producto', 'cantidad', 'total'));
+
+        $data=$view->render();
+
+        $res = array('data' => $data);
+
+        //  return json_encode($res);
+        return $data;
       
     }
 
@@ -340,8 +350,6 @@ class AlpCartController extends JoshController
 
       unset( $cart[$producto->slug]);
        
-
-      // return $cart;
 
        \Session::put('cart', $cart);
 

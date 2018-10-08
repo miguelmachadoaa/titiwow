@@ -98,6 +98,15 @@ Area clientes
 
         
         <div class="col-sm-12">
+
+            <a href="{{ url('my-account') }}" class=" btn-large ">
+                <div class="row">
+                <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-user"></i></div>
+                <div class="col-sm-12">Mi Cuenta</div>
+                </div>
+        
+
+            </a>
             
 
             <a href="{{ url('miscompras') }}" class=" btn-large ">
@@ -120,7 +129,7 @@ Area clientes
 
             <a  href="{{ url('misamigos') }}" class=" btn-large ">
                 <div class="row">
-                <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-user"></i></div>
+                <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-users"></i></div>
                 <div class="col-sm-12">Amigos</div>
                 </div>
         
