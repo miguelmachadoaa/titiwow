@@ -149,6 +149,8 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
         Route::get('{id}/direcciones', 'Admin\AlpClientesController@direcciones')->name('clientes.direcciones');
 
+        Route::get('/empresas/list', 'Admin\AlpClientesController@empresas')->name('clientes.empresas');
+
         });
 
     Route::resource('clientes', 'Admin\AlpClientesController');

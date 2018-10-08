@@ -360,6 +360,15 @@
                     Clientes
                 </a>
             </li>
+
+            <li {!! (Request::is('admin/clientes') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ URL::to('admin/clientes/empresas/list') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Clientes Empresas
+                </a>
+            </li>
+
+
             <li {!! (Request::is('admin/clientes/create') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ URL::to('admin/clientes/create') }}">
                     <i class="fa fa-angle-double-right"></i>
