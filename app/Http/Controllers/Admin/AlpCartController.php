@@ -69,11 +69,11 @@ class AlpCartController extends JoshController
       $configuracion = AlpConfiguracion::where('id', '1')->first();
 
 
-      echo $configuracion->id_mercadopago;
-      echo "------------------------";
-      echo $configuracion->key_mercadopago;
+      //echo $configuracion->id_mercadopago;
+      //echo "------------------------";
+      //echo $configuracion->key_mercadopago;
 
-      $mp=new MP($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+      //$mp=new MP($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
      $preference_data = [
       "items" => [
@@ -91,7 +91,7 @@ class AlpCartController extends JoshController
         "email" => 'correo@gmail.com'
       ]
     ];
-    $preference = $mp::post("/checkout/preferences",$preference_data);
+    $preference = MP::post("/checkout/preferences",$preference_data);
     return dd($preference);
 
 
@@ -134,6 +134,33 @@ class AlpCartController extends JoshController
             return redirect('productos');
 
          }else{
+
+          $items = array();
+
+            foreach ($cart as $row) {
+
+              $items["id"]=$row->id;
+              $items["title"]=$row->nombre_producto;
+              $items["description"]=$row->descripcion_corta;
+              $items["picture_url"]= url('/').'/uploads/productos/'.$row->imagen_producto;
+              $items["quantity"]=$row->cantidad;
+              $items["currency_id"]='COP';
+              $items["unit_price"]=$row->precio_base;
+              
+            }
+
+            $preference_data = [
+              "items" => $items,
+              "payer" => [
+                "email" => 'correo@gmail.com'
+              ]
+            ];
+
+            //print_r($preference_data);
+           // $preference = MP::post("/checkout/preferences",$preference_data);
+
+
+
 
             return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries'));
 

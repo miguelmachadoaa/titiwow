@@ -9,6 +9,7 @@ use App\Models\AlpClientes;
 use App\Models\AlpEmpresas;
 use App\Models\AlpDirecciones;
 use App\Models\AlpAmigos;
+use App\Models\AlpConfiguracion;
 use App\User;
 use App\Country;
 use App\State;
@@ -228,6 +229,8 @@ class ClientesFrontController extends Controller
 
         if (Sentinel::check()) {
 
+            $configuracion=AlpConfiguracion::where('id', 1)->first();
+
             $user_id = Sentinel::getUser()->id;
 
             $amigos=AlpAmigos::where('id_cliente', $user_id)->get();
@@ -237,7 +240,7 @@ class ClientesFrontController extends Controller
             $user = User::where('id', $user_id )->first();
 
 
-            return \View::make('frontend.clientes.amigos', compact('amigos', 'cliente', 'user'));
+            return \View::make('frontend.clientes.amigos', compact('amigos', 'cliente', 'user', 'configuracion'));
 
 
 
