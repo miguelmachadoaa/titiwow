@@ -550,13 +550,7 @@ Carro de Productos
             $("#addDireccionModal").modal('show');
         });
 
-        $('body').on('click', '.deldir', function(){
-
-            $('#del_id').val($(this).data('id'));
-
-            $("#delDireccionModal").modal('show');
-
-        });
+       
 
 
 
