@@ -173,6 +173,8 @@ class AlpCartController extends JoshController
             'id_forma_envio' =>$request->id_forma_envio, 
             'id_address' =>$request->id_address, 
             'id_forma_pago' =>$request->id_forma_pago, 
+            'estatus' =>'1', 
+            'estatus_pago' =>'1', 
             'monto_total' =>$total,
             'id_user' =>$user_id
           );
