@@ -168,8 +168,10 @@ class ClientesFrontController extends Controller
                 'nombre_amigo' => $request->nombre, 
                 'apellido_amigo' => $request->apellido, 
                 'email_amigo' => $request->email, 
+                'token' => substr(md5(time()), 0, 10), 
                 'id_user' => $user_id
             );
+        
 
             AlpAmigos::create($data);
 
@@ -362,6 +364,19 @@ class ClientesFrontController extends Controller
 
     public function embajadores($id)
     {
+
+         $amigo=AlpAmigos::where('token', $id)->first();
+
+        
+
+        if (!isset($amigo->id)) {
+
+                $mensaje="Su enlace de registro a vencido, solicite uno nuevo o registrese como cliente";
+
+                return view('frontend.clientes.aviso',  compact('mensaje'));
+
+
+        }
                 
         return view('frontend.clientes.registro',  compact('id'));
         

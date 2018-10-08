@@ -127,6 +127,8 @@ Area clientes
 
             </a>
 
+            @if (Sentinel::getUser()->hasAnyAccess(['clientes.misamigos']))
+ 
             <a  href="{{ url('misamigos') }}" class=" btn-large ">
                 <div class="row">
                 <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-users"></i></div>
@@ -135,8 +137,11 @@ Area clientes
         
 
             </a>
+
+            @endif
+
             
-            
+            @if (Sentinel::getUser()->hasAnyAccess(['clientes.amigos']))
 
             <a href="{{ url('clientes/amigos') }}" class=" btn-large ">
                 <div class="row">
@@ -146,6 +151,8 @@ Area clientes
         
 
             </a>
+
+            @endif
 
             
 

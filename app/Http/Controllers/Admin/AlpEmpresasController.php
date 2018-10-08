@@ -175,8 +175,13 @@ class AlpEmpresasController extends JoshController
      public function invitaciones($id)
     {
         // Grab all the groups
+
+
       
         $empresa = AlpEmpresas::find($id);
+
+
+
 
         $invitaciones = AlpAmigos::where('id_cliente', 'E'.$id)->get();
        
@@ -200,6 +205,7 @@ class AlpEmpresasController extends JoshController
                 'nombre_amigo' => $request->nombre, 
                 'apellido_amigo' => $request->apellido, 
                 'email_amigo' => $request->email, 
+                'token' => substr(md5(time()), 0, 10), 
                 'id_user' => $user_id
             );
 
@@ -249,6 +255,19 @@ class AlpEmpresasController extends JoshController
 
      public function afiliado($id)
     {
+
+        $amigo=AlpAmigos::where('token', $id)->first();
+
+        
+
+        if (!isset($amigo->id)) {
+
+                $mensaje="Su enlace de registro a vencido, solicite uno nuevo o registrese como cliente";
+
+                return view('frontend.clientes.aviso',  compact('mensaje'));
+
+
+        }
                 
         return view('frontend.empresas.registro',  compact('id'));
         
