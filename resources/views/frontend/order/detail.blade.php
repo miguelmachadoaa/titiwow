@@ -157,6 +157,7 @@ Carro de Productos
                             </div>
                             <!-- /.box-body -->
                         </div>
+
                     </div>
                 </div>
                      
@@ -484,6 +485,12 @@ Carro de Productos
 <!-- Modal Direccion -->
 
 
+  
+
+
+
+
+
 
 @endsection
 
@@ -542,6 +549,15 @@ Carro de Productos
         $('.addDireccionModal').on('click', function(){
             $("#addDireccionModal").modal('show');
         });
+
+        $('body').on('click', '.deldir', function(){
+
+            $('#del_id').val($(this).data('id'));
+
+            $("#delDireccionModal").modal('show');
+
+        });
+
 
 
     </script>

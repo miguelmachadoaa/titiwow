@@ -43,6 +43,7 @@ Mis Direcciones
 <div class="container contain_body">
 
     <div class="row">
+        <br>
 
         <div class="col-sm-12" style="text-align: right;">
 
@@ -58,8 +59,7 @@ Mis Direcciones
 
     <div class="col-sm-12 direcciones">   
 
-        <div class="form-group col-sm-10 col-sm-offset-1">
-
+        
         <br>    
 
             @if ($direcciones->count() >= 1)
@@ -106,6 +106,12 @@ Mis Direcciones
                             <!-- /.box-body -->
                         </div>
 
+                          <div class="panel-footer " style="text-align: right;">
+
+                            <button data-id="{{ $row->id }}" type="button" class="btn btn-danger btn-xs deldir"><i class="fa fa-trash"></i></button>
+                              
+                          </div>
+
                         
                     </div>
                 </div>
@@ -118,7 +124,7 @@ Mis Direcciones
                     </div>
             @endif   
              
-        </div>
+      
 
         </div>
     
@@ -247,6 +253,33 @@ Mis Direcciones
             </div>
         </div>
 
+
+        <!-- Modal Direccion -->
+ <div class="modal fade" id="delDireccionModal" role="dialog" aria-labelledby="modalLabeldanger">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger">
+                        <h4 class="modal-title" id="modalLabeldanger">Eliminar Direccion</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <input type="hidden" name="del_id" id="del_id">
+
+                        <h3>Esta seguro que desar eliminar esta direccion</h3>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  class="btn  btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn  btn-danger delDireccion" >Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- Modal Direccion -->
+
+
 <!-- Modal Direccion -->
 @endsection
 
@@ -348,7 +381,7 @@ $('.sendDireccion').click(function () {
         $.ajax({
             type: "POST",
             data:{nickname_address, city_id, calle_address, calle2_address, codigo_postal_address, telefono_address, notas},
-            url: base+"/cart/storedir",
+            url: base+"/clientes/storedir",
                 
             complete: function(datos){     
 
@@ -378,6 +411,41 @@ $('#addDireccionForm').keypress(
             event.preventDefault();
         }
     });
+
+ $('body').on('click', '.deldir', function(){
+
+            $('#del_id').val($(this).data('id'));
+
+            $("#delDireccionModal").modal('show');
+
+        });
+
+
+
+$('.delDireccion').click(function () {
+    
+        id=$("#del_id").val();
+        var base = $('#base').val();
+
+        $.ajax({
+            type: "POST",
+            data:{id},
+            url: base+"/clientes/deldir",
+                
+            complete: function(datos){     
+
+                $(".direcciones").html(datos.responseText);
+
+                $('#delDireccionModal').modal('hide');
+
+               $("#del_id").val('');
+            
+            }
+        });
+
+});
+
+
 
 </script>
 

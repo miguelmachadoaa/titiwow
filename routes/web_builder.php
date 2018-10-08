@@ -369,6 +369,7 @@ Route::get('cart/vaciar/',['as'=>'cart.vaciar', 'uses'=>'Admin\AlpCartController
 //agregar una direccion desde el detalle del pedido
 Route::post('cart/storedir/',['as'=>'cart.storedir', 'uses'=>'Admin\AlpCartController@storedir']);
 
+
 Route::get('cart/setdir/{direccion}',['as'=>'cart.setdir', 'uses'=>'Admin\AlpCartController@setdir']);
 
 Route::get('cart/deldir/{direccion}',['as'=>'cart.deldir', 'uses'=>'Admin\AlpCartController@deldir']);
@@ -418,9 +419,15 @@ Route::get('clientes/{id}/compras', 'Frontend\ClientesFrontController@compras')-
 
 Route::post('storeamigo', 'Frontend\ClientesFrontController@storeamigo')->name('frontend.clientes.storeamigo');
 
+
+
 Route::post('delamigo', 'Frontend\ClientesFrontController@delamigo')->name('frontend.clientes.delamigo');
 
 Route::post('clientes/deleteamigo', 'Frontend\ClientesFrontController@deleteamigo')->name('frontend.clientes.deleteamigo');
+
+Route::post('clientes/storedir/',['as'=>'clientes.storedir', 'uses'=>'Frontend\ClientesFrontController@storedir']);
+Route::post('clientes/deldir/',['as'=>'clientes.deldir', 'uses'=>'Frontend\ClientesFrontController@deldir']);
+
 
 
 Route::get('miscompras', 'Frontend\ClientesFrontController@miscompras')->name('frontend.clientes.miscompras');

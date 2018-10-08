@@ -21,6 +21,7 @@ use DB;
 
 class ClientesFrontController extends Controller
 {
+
     public function index()
     {
 
@@ -439,8 +440,10 @@ class ClientesFrontController extends Controller
             
     }
 
-    public function deldir( $id)
+    public function deldir(Request $request)
     {
+
+        $id=$request->id;
 
       $user_id = Sentinel::getUser()->id;
 
@@ -448,7 +451,66 @@ class ClientesFrontController extends Controller
 
           $direccion->delete();
 
-          return redirect('order/detail');
+        $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_countries.country_name as country_name')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->where('alp_direcciones.id_client', $user_id)->get();
+
+        $view= View::make('frontend.clientes.direcciones', compact('direcciones'));
+
+        $data=$view->render();
+
+        $res = array('data' => $data);
+
+        //  return json_encode($res);
+        return $data;
+          
+    }
+
+     public function storedir(Request $request)
+    {
+
+        $user_id = Sentinel::getUser()->id;
+
+        $input = $request->all();
+
+        //var_dump($input);
+
+        $input['id_user']=$user_id;
+        $input['id_client']=$user_id;
+        $input['default_address']=1;
+               
+         
+        $direccion=AlpDirecciones::create($input);
+
+        $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_countries.country_name as country_name')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->where('alp_direcciones.id_client', $user_id)->get();
+
+
+        if ($direccion->id) {
+
+          //return redirect('order/detail');
+                 
+
+          $view= View::make('frontend.clientes.direcciones', compact('direcciones'));
+
+          $data=$view->render();
+
+          $res = array('data' => $data);
+
+        //  return json_encode($res);
+          return $data;
+            
+
+        } else {
+
+            return Redirect::route('order/detail')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+        }       
+
     }
 
 
