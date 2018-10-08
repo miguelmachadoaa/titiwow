@@ -9,7 +9,11 @@ use App\Models\AlpClientes;
 use App\Models\AlpEmpresas;
 use App\Models\AlpDirecciones;
 use App\Models\AlpAmigos;
+use App\Models\AlpConfiguracion;
 use App\User;
+use App\Country;
+use App\State;
+use App\City;
 use App\RoleUser;
 use App\Models\AlpCategorias;
 use Sentinel;
@@ -18,6 +22,7 @@ use DB;
 
 class ClientesFrontController extends Controller
 {
+
     public function index()
     {
 
@@ -95,7 +100,9 @@ class ClientesFrontController extends Controller
 
             $user = User::where('id', $user_id )->first();
 
-            return view('frontend.clientes.misdirecciones', compact('direcciones', 'cliente', 'user'));
+            $countries = Country::all();
+
+            return view('frontend.clientes.misdirecciones', compact('direcciones', 'cliente', 'user', 'countries'));
     
 
             }else{
@@ -162,8 +169,10 @@ class ClientesFrontController extends Controller
                 'nombre_amigo' => $request->nombre, 
                 'apellido_amigo' => $request->apellido, 
                 'email_amigo' => $request->email, 
+                'token' => substr(md5(time()), 0, 10), 
                 'id_user' => $user_id
             );
+        
 
             AlpAmigos::create($data);
 
@@ -220,6 +229,8 @@ class ClientesFrontController extends Controller
 
         if (Sentinel::check()) {
 
+            $configuracion=AlpConfiguracion::where('id', 1)->first();
+
             $user_id = Sentinel::getUser()->id;
 
             $amigos=AlpAmigos::where('id_cliente', $user_id)->get();
@@ -229,7 +240,7 @@ class ClientesFrontController extends Controller
             $user = User::where('id', $user_id )->first();
 
 
-            return \View::make('frontend.clientes.amigos', compact('amigos', 'cliente', 'user'));
+            return \View::make('frontend.clientes.amigos', compact('amigos', 'cliente', 'user', 'configuracion'));
 
 
 
@@ -356,6 +367,19 @@ class ClientesFrontController extends Controller
 
     public function embajadores($id)
     {
+
+         $amigo=AlpAmigos::where('token', $id)->first();
+
+        
+
+        if (!isset($amigo->id)) {
+
+                $mensaje="Su enlace de registro a vencido, solicite uno nuevo o registrese como cliente";
+
+                return view('frontend.clientes.aviso',  compact('mensaje'));
+
+
+        }
                 
         return view('frontend.clientes.registro',  compact('id'));
         
@@ -432,6 +456,79 @@ class ClientesFrontController extends Controller
 
           return $data;
             
+    }
+
+    public function deldir(Request $request)
+    {
+
+        $id=$request->id;
+
+      $user_id = Sentinel::getUser()->id;
+
+          $direccion= AlpDirecciones::find($id);
+
+          $direccion->delete();
+
+        $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_countries.country_name as country_name')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->where('alp_direcciones.id_client', $user_id)->get();
+
+        $view= View::make('frontend.clientes.direcciones', compact('direcciones'));
+
+        $data=$view->render();
+
+        $res = array('data' => $data);
+
+        //  return json_encode($res);
+        return $data;
+          
+    }
+
+     public function storedir(Request $request)
+    {
+
+        $user_id = Sentinel::getUser()->id;
+
+        $input = $request->all();
+
+        //var_dump($input);
+
+        $input['id_user']=$user_id;
+        $input['id_client']=$user_id;
+        $input['default_address']=1;
+               
+         
+        $direccion=AlpDirecciones::create($input);
+
+        $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_countries.country_name as country_name')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->where('alp_direcciones.id_client', $user_id)->get();
+
+
+        if ($direccion->id) {
+
+          //return redirect('order/detail');
+                 
+
+          $view= View::make('frontend.clientes.direcciones', compact('direcciones'));
+
+          $data=$view->render();
+
+          $res = array('data' => $data);
+
+        //  return json_encode($res);
+          return $data;
+            
+
+        } else {
+
+            return Redirect::route('order/detail')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+        }       
+
     }
 
 

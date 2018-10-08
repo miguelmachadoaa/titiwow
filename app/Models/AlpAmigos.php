@@ -23,6 +23,7 @@ class AlpAmigos extends Model
         'nombre_amigo',
         'apellido_amigo',
         'email_amigo',
+        'token',
         'estado_registro',
         'id_user'
     ];

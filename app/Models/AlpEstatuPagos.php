@@ -11,7 +11,7 @@ class AlpEstatusPagos extends Model
 {
     use SoftDeletes;
 
-    public $table = 'alp_pagos_estatus';
+    public $table = 'alp_pagos_status';
     
 
     protected $dates = ['deleted_at'];

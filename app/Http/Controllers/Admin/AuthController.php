@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Roles;
 use App\RoleUser;
 use App\Models\AlpClientes;
+use App\Models\AlpAmigos;
 use Mail;
 use Reminder;
 use Sentinel;
@@ -340,7 +341,16 @@ class AuthController extends JoshController
 
         $input=$request->all();
 
-        print_r($input);
+        //print_r($input);
+
+
+        $amigo=AlpAmigos::where('token', $request->referido)->first();
+
+       // print_r($amigo);
+
+        if (isset($amigo->id)) {
+            # code...
+        
 
         try {
             // Register the user
@@ -379,7 +389,7 @@ class AuthController extends JoshController
                 'habeas_cliente' => 0,
                 'estado_masterfile' =>0,
                 'id_empresa' =>'0',               
-                'id_embajador' =>trim($request->referido),               
+                'id_embajador' =>trim($amigo->id_cliente),               
                 'id_user' =>$user->id,               
             );
 
@@ -404,11 +414,22 @@ class AuthController extends JoshController
                 }
 
         } catch (UserExistsException $e) {
+
             $this->messageBag->add('email', trans('auth/message.account_already_exists'));
+
         }
 
         // Ooops.. something went wrong
         return Redirect::back()->withInput()->withErrors($this->messageBag);
+
+        }else{
+
+            
+
+            return Redirect::back()->withInput()->withErrors('Su enlace ha vencido, solicite uno nuevo o registrese como cliente ');
+
+
+        }
     }
 
     public function postSignupAfiliado(UserRequest $request)
@@ -417,6 +438,13 @@ class AuthController extends JoshController
         $input=$request->all();
 
         print_r($input);
+
+         $amigo=AlpAmigos::where('token', $request->empresa)->first();
+
+        print_r($amigo);
+
+        if (isset($amigo->id)) {
+
 
         try {
             // Register the user
@@ -452,7 +480,7 @@ class AuthController extends JoshController
                 'genero_cliente' =>'1', 
                 'habeas_cliente' => 0,
                 'estado_masterfile' =>0,
-                'id_empresa' =>trim($request->empresa),               
+                'id_empresa' =>substr($amigo->id_cliente,1),               
                 'id_embajador' =>'0',               
                 'id_user' =>$user->id,               
             );
@@ -481,6 +509,15 @@ class AuthController extends JoshController
 
         // Ooops.. something went wrong
         return Redirect::back()->withInput()->withErrors($this->messageBag);
+
+         }else{
+
+            
+        return Redirect::back()->withInput()->withErrors($this->messageBag);
+
+
+
+        }
     }
 
 

@@ -31,12 +31,10 @@ Compras Mis Referidos
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
-                    <a href="{{ url('clientes/miscompras') }}">Mis Compras </a>
+                    <a href="{{ url('clientes/miscompras') }}">Compras  </a>
                 </li>
             </ol>
-            <div class="pull-right">
-                <i class="livicon icon3" data-name="edit" data-size="20" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i> Compra de Referido 
-            </div>
+            s
         </div>
     </div>
 @stop
@@ -47,7 +45,7 @@ Compras Mis Referidos
 <div class="container contain_body">
     <div class="products">
 
-        <h3>    Compras del Embajador {{ $user->first_name.' '.$user->last_name }}  </h3>
+        <h3>    Compras del Embajador  {{ $user->first_name.' '.$user->last_name }}  </h3>
         
         <br>    
 

@@ -77,7 +77,7 @@
                             <span>IVA incluido</span>
                             </div>
                             <div class="col-md-4">
-                                <a href="#" class="btn btn-primary btn-lg text-white">Agregar al Carrito</a>        
+                                <a class="btn btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Añadir al Carrito</a>        
                             </div>
                         </div>
                     </div>
@@ -177,6 +177,39 @@
         <!--recently view item end-->
     </div>
     <!-- //Container Section End -->
+
+
+
+
+
+        <!-- Modal Direccion -->
+ <div class="modal fade" id="detailCartModal" role="dialog" aria-labelledby="modalLabeldanger">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-sucess">
+                        <h4 class="modal-title" id="modalLabeldanger">Producto Agregado a su carro de compras</h4>
+                    </div>
+                    <div class="modal-body cartcontenido">
+
+                        
+
+                      
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  class="btn  btn-default" data-dismiss="modal">Continuar Comprando</button>
+                        <a href="{{ url('order/detail') }}" class="btn  btn-info " >Proceder a Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- Modal Direccion -->
+
+
+
+
 @stop
 
 {{-- page level scripts --}}
@@ -186,5 +219,51 @@
     <script type="text/javascript" src="{{ asset('assets/vendors/bootstrap-rating/bootstrap-rating.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/frontend/cart.js') }}"></script>
     <!--page level js start-->
+
+    <script src="{{ asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
+    <script>
+        jQuery(document).ready(function () {
+            new WOW().init();
+        });
+
+
+       $('.addtocart').on('click', function(e){
+
+            e.preventDefault();
+
+            url=$(this).attr('href');
+
+            $.get(url, {}, function(data) {
+
+               /* if (data.resultado) {
+
+                    $('#detalle_carro_front').html(data.contenido);
+                         
+                }*/
+
+                $('.cartcontenido').html(data);
+
+                $('#detailCartModal').modal('show');
+
+                $('#detalle_carro_front').html($('#modal_cantidad').val()+' '+'Items');
+
+            });
+
+            $.get(url, {}, function(data) {
+
+                if (data.resultado) {
+
+                    $('#detalle_carro_front').html(data.contenido);
+                         
+                }
+
+            });
+
+
+
+        })
+
+
+    </script>
 
 @stop

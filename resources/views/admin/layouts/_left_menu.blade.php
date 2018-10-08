@@ -72,6 +72,13 @@
                     Ordenes
                 </a>
             </li>
+
+            <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.ordenes.empresas') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Ordenes Empresas
+                </a>
+            </li>
            
         </ul>
     </li>
@@ -353,6 +360,15 @@
                     Clientes
                 </a>
             </li>
+
+            <li {!! (Request::is('admin/clientes') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ URL::to('admin/clientes/empresas/list') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Clientes Empresas
+                </a>
+            </li>
+
+
             <li {!! (Request::is('admin/clientes/create') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ URL::to('admin/clientes/create') }}">
                     <i class="fa fa-angle-double-right"></i>

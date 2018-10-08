@@ -56,21 +56,29 @@
                                     
                                     <label class="hidden-xs"><a id="detalle_carro_front" href="{{url('cart/show')}}" >Carrito de Compra</a></label>
 
-                                    <label class="hidden-xs"><a id="detalle_carro_front" href="{{url('clientes')}}">Area de Clientes</a></label>
+                                   
                                 </li>
         
                             {{--based on anyone login or not display menu items--}}
                             @if(Sentinel::guest())
+
+
                                 <li>
                                     <a href="#"><i class="shopping-cart" data-name="ion-ios7-cart" data-size="18" data-loop="true" data-c="#fff" data-hc="#fff"></i></a>               
                                     <label ><a id="detalle_carro_front" href="{{url('login')}}" >Iniciar Sesión</a></label>    
                                 </li>
+                                
                                 <li>
                                     <a href="#"><i class="shopping-cart" data-name="ion-ios7-cart" data-size="18" data-loop="true" data-c="#fff" data-hc="#fff"></i></a>               
                                     <label ><a id="detalle_carro_front" href="{{url('register')}}" >Registrarse</a></label>    
                                 </li>
                             @else
-                                <li {{ (Request::is('my-account') ? 'class=active' : '') }}><a href="{{ URL::to('my-account') }}">Mi Cuenta
+                               <!-- <li {{ (Request::is('my-account') ? 'class=active' : '') }}><a href="{{ URL::to('my-account') }}">Mi Cuenta</li>-->
+
+                                <li {{ (Request::is('clientes') ? 'class=active' : '') }}><a href="{{ URL::to('clientes') }}">Area Cliente</li>
+
+                                
+
                                 <li><a href="{{ URL::to('logout') }}">Cerrar Sesión</a>
                                 </li>
                             @endif

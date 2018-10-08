@@ -86,7 +86,7 @@ Carro de Productos
 
 {{-- Page content --}}
 @section('content')
-<div class="container ">
+<div class="container contain_body ">
 
     <div class="row">
         
@@ -99,13 +99,17 @@ Carro de Productos
                  </div>
             </div>
 
+             {!! Form::open(['url' => 'order/procesar', 'class' => 'form-horizontal', 'id' => 'procesarForm', 'name' => 'procesarForm', 'method'=>'POST']) !!}
+
+
+
             <div class="row direcciones" style="text-align: left;">
 
                 <div class="col-sm-12">
 
                 @if(count($direcciones))
 
-                {!! Form::open(['url' => 'order/procesar', 'class' => 'form-horizontal', 'id' => 'procesarForm', 'name' => 'procesarForm', 'method'=>'POST']) !!}
+               
                 
                     <div class="form-group col-sm-10 col-sm-offset-1">
 
@@ -153,6 +157,7 @@ Carro de Productos
                             </div>
                             <!-- /.box-body -->
                         </div>
+
                     </div>
                 </div>
                      
@@ -177,13 +182,16 @@ Carro de Productos
 
                 </div>
 
+                <div class="res_dir">  
+                </div>
+
                 </div>
 
                 <div class="row">
 
                 <div class="col-sm-12" style="text-align: center;">
 
-                    <button class="btn btn-raised btn-primary md-trigger addDireccionModal" data-toggle="modal" data-target="#modal-21">Agregar Nueva Direccion </button>
+                    <button type="button" class="btn btn-raised btn-primary md-trigger addDireccionModal" data-toggle="modal" data-target="#modal-21">Agregar Nueva Direccion </button>
 
                 </div>
 
@@ -327,7 +335,9 @@ Carro de Productos
                 
             </div>
 
-        <br>    
+        <br>  
+
+         <div class=" res_env">  </div>  
      </div>
 
      @else
@@ -343,9 +353,9 @@ Carro de Productos
 
          <a class="btn btn-default" href="{{url('/productos')}}">Cancelar </a>
 
-         <button class="btn btn-primary" type="submit"> Enviar Pedido  </button>
-
      </p>
+
+    
 
      {!! Form::close() !!}
      
@@ -475,6 +485,12 @@ Carro de Productos
 <!-- Modal Direccion -->
 
 
+  
+
+
+
+
+
 
 @endsection
 
@@ -493,8 +509,7 @@ Carro de Productos
     <script>
 
 
-        $('.procesar').click(function (){
-
+        $('body').on('click', '.procesar', function (){
 
 
             id_direccion= $("input[name='id_direccion']:checked").val(); 
@@ -506,7 +521,10 @@ Carro de Productos
 
             if (id_forma_envio==undefined || id_direccion==undefined || id_forma_pago==undefined) {
 
-                alert('Todos los capos son obligatorios');
+               // alert('Todos los capos son obligatorios');
+
+                $('.res_env').html('<div class="alert alert-danger" role="alert">Todos los campos son obligatorios</div>');
+
 
             }else{
 
@@ -530,7 +548,10 @@ Carro de Productos
 
         $('.addDireccionModal').on('click', function(){
             $("#addDireccionModal").modal('show');
-        })
+        });
+
+       
+
 
 
     </script>
