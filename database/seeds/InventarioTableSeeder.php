@@ -15,6 +15,7 @@ class InventarioTableSeeder extends Seeder
     {
         DB::table('alp_inventarios')->insert([
             ['id_producto' => 1,'cantidad' => 9999,'operacion' => 1, 'id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+             ['id_producto' => 2,'cantidad' => 9999,'operacion' => 1, 'id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
         ]);
     }
 }

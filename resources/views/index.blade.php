@@ -113,6 +113,42 @@ Inicio
 
     </div>
     <!-- //Container End -->
+
+
+
+
+
+
+        <!-- Modal Direccion -->
+ <div class="modal fade" id="detailCartModal" role="dialog" aria-labelledby="modalLabeldanger">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-sucess">
+                        <h4 class="modal-title" id="modalLabeldanger">Producto Agregado a su carro de compras</h4>
+                    </div>
+                    <div class="modal-body cartcontenido">
+
+                        
+
+                      
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  class="btn  btn-default" data-dismiss="modal">Continuar Comprando</button>
+                        <a href="{{ url('order/detail') }}" class="btn  btn-info " >Proceder a Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- Modal Direccion -->
+
+
+
+
+
+    
 @stop
 {{-- footer scripts --}}
 @section('footer_scripts')
@@ -122,5 +158,53 @@ Inicio
     <script type="text/javascript" src="{{ asset('assets/vendors/owl_carousel/js/owl.carousel.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/frontend/carousel.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/frontend/index.js') }}"></script>
+
+      <script>
+        jQuery(document).ready(function () {
+            new WOW().init();
+        });
+
+
+        $('.addtocart').on('click', function(e){
+
+            e.preventDefault();
+
+            url=$(this).attr('href');
+
+            
+
+            $.get(url, {}, function(data) {
+
+               /* if (data.resultado) {
+
+                    $('#detalle_carro_front').html(data.contenido);
+                         
+                }*/
+
+                $('.cartcontenido').html(data);
+
+                $('#detailCartModal').modal('show');
+
+                $('#detalle_carro_front').html($('#modal_cantidad').val()+' '+'Items');
+
+            });
+
+            $.get(url, {}, function(data) {
+
+                if (data.resultado) {
+
+                    $('#detalle_carro_front').html(data.contenido);
+                         
+                }
+
+            });
+
+
+
+        });
+
+
+    </script>
+
     <!--page level js ends-->
 @stop

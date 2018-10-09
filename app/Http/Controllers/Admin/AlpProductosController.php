@@ -313,7 +313,7 @@ class AlpProductosController extends JoshController
      */
     public function edit($id)
     {
-        $inventario=AlpInventario::where('id_producto', $id)->firstOrFail();
+        $inventario=AlpInventario::where('id_producto', $id)->first();
 
         $cats=AlpCategoriasProductos::where('id_producto', $id)->get();
 
