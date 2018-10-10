@@ -1,6 +1,14 @@
-<div class="col-sm-12">
+
+
+    <input type="hidden" name="cantidad" id="cantidad" value="{{ $cantidad }}">
+    <input type="hidden" name="limite" id="limite" value="{{ $configuracion->limite_amigos }}">
+
+        <h3>Solo te quedan {{ $configuracion->limite_amigos-$cantidad }} invitaciones disponibles por enviar</h3>
+
 
 @if(count($amigos))
+
+
 
     <div class="form-group col-sm-10 col-sm-offset-1">
 
@@ -40,15 +48,9 @@
                 
             @endforeach
              </table>
- 
 
     </div>
 
 @endif
-
-</div>
-
-
-
 
 <hr>

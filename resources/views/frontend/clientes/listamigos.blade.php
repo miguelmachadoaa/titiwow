@@ -1,5 +1,7 @@
 @if(!$referidos->isEmpty())
 
+        <input type="text" name="cantidad" id="cantidad" value="{{ $cantidad }}">
+
      <table class="table table-responsive" id="tbAmigos">
         <thead>
             <tr>

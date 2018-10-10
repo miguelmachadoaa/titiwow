@@ -81,9 +81,6 @@ Mis Amigos
                         </td>
 
                         <td>    
-                                <a class="btn btn-xs" href="{{ route('clientes.index', $referido->id) }}">
-                                    <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar categoria"></i>
-                                 </a>
 
                                   <a class="btn btn-xs" href="{{ url('clientes/'.$referido->id_user_client.'/compras') }}">
                                     <i class="livicon" data-name="eye" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Ver Compras"></i>

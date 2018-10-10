@@ -54,27 +54,18 @@ class ClientesFrontController extends Controller
                         
                     }
 
-                   
-                   
-
                 }
-
-           
 
             $user = User::where('id', $user_id )->first();
 
-
             return \View::make('frontend.clientes.index', compact('referidos', 'cliente', 'user'));
     
-
             }else{
-
 
                 $url='clientes.index';
 
                   //return redirect('login');
                 return view('frontend.order.login', compact('url'));
-
 
         }
 
@@ -182,8 +173,21 @@ class ClientesFrontController extends Controller
 
             $user = User::where('id', $user_id )->first();
 
+            
+            $clientes_amigos=AlpClientes::where('id_embajador',$user_id )->selectRaw('count(*) as cantidad')->first();
 
-            $view= View::make('frontend.clientes.listamigo', compact('amigos', 'cliente', 'user'));
+            $amigos_amigos=AlpAmigos::where('id_cliente',$user_id )->selectRaw('count(*) as cantidad')->first();
+
+
+            $cantidad=$clientes_amigos->cantidad+$amigos_amigos->cantidad;
+
+
+            $configuracion = AlpConfiguracion::where('id', '1')->first();
+
+
+
+
+            $view= View::make('frontend.clientes.listamigo', compact('amigos', 'cliente', 'user', 'cantidad', 'configuracion'));
 
             $data=$view->render();
 
@@ -211,8 +215,18 @@ class ClientesFrontController extends Controller
 
             $user = User::where('id', $user_id )->first();
 
+             $clientes_amigos=AlpClientes::where('id_embajador',$user_id )->selectRaw('count(*) as cantidad')->first();
 
-            $view= View::make('frontend.clientes.listamigo', compact('amigos', 'cliente', 'user'));
+            $amigos_amigos=AlpAmigos::where('id_cliente',$user_id )->selectRaw('count(*) as cantidad')->first();
+
+
+            $cantidad=$clientes_amigos->cantidad+$amigos_amigos->cantidad;
+
+
+            $configuracion = AlpConfiguracion::where('id', '1')->first();
+
+
+            $view= View::make('frontend.clientes.listamigo', compact('amigos', 'cliente', 'user', 'cantidad', 'configuracion'));
 
             $data=$view->render();
 
@@ -227,6 +241,8 @@ class ClientesFrontController extends Controller
     public function amigos()
     {
 
+
+
         if (Sentinel::check()) {
 
             $configuracion=AlpConfiguracion::where('id', 1)->first();
@@ -240,7 +256,17 @@ class ClientesFrontController extends Controller
             $user = User::where('id', $user_id )->first();
 
 
-            return \View::make('frontend.clientes.amigos', compact('amigos', 'cliente', 'user', 'configuracion'));
+            $configuracion = AlpConfiguracion::where('id', '1')->first();
+
+            $clientes_amigos=AlpClientes::where('id_embajador',$user_id )->selectRaw('count(*) as cantidad')->first();
+
+            $amigos_amigos=AlpAmigos::where('id_cliente',$user_id )->selectRaw('count(*) as cantidad')->first();
+
+
+            $cantidad=$clientes_amigos->cantidad+$amigos_amigos->cantidad;
+
+
+            return \View::make('frontend.clientes.amigos', compact('amigos', 'cliente', 'user', 'configuracion', 'cantidad', 'configuracion'));
 
 
 
@@ -252,7 +278,7 @@ class ClientesFrontController extends Controller
                 $url='clientes.index';
 
                   //return redirect('login');
-                return view('frontend.order.login', compact('url'));
+                return view('frontend.order.login', compact('url', 'configuracion'));
 
 
         }

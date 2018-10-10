@@ -61,10 +61,25 @@ Mis Invitaciones a Amigos
 
         </div>  
         
+        <div class="row">   
 
+            <div class="col-sm-12">  
+
+                <div class="res">   </div>
+
+             </div> 
+
+        </div>  
         
 
         <div class="row amigosList">
+
+        <input type="hidden" name="cantidad" id="cantidad" value="{{ $cantidad }}">
+        <input type="hidden" name="limite" id="limite" value="{{ $configuracion->limite_amigos }}">
+
+        <h3>Solo te quedan {{ $configuracion->limite_amigos-$cantidad }} invitaciones disponibles por enviar</h3>
+
+
         @if(!$amigos->isEmpty())
 
              <table class="table table-responsive">
@@ -213,11 +228,22 @@ Mis Invitaciones a Amigos
         $(document).on('click', '.addAmigo', function(e){
             e.preventDefault();
 
+            if ($('#cantidad').val()<=$('#limite').val()){
+
+                $('.res').html('<div class="alert alert-danger">Usted alcanzo el limite de sus amigos</div>');
+
+            }else{
+
                 $("#addAmigoModal").modal('show');
+
+
+            }
+
 
         });
 
-        $(document).on('click', '.delAmigo', function(e){
+        $('html').on('click', '.delAmigo', function(e){
+
             e.preventDefault();
 
             $('#del_id').val($(this).data('id'));
