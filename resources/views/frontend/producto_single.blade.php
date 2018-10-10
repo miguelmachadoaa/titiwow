@@ -71,9 +71,48 @@
                         <div class="row">
                             <div class="col-md-4">
                             <div class="text-big3">
-                               @if($descuento!=1) <del>${{ number_format($producto->precio_base,2,",",".") }}</del>@endif
-                            </div>
-                            <div class="text-big4">${{ number_format($producto->precio_base*$descuento,2,",",".") }}</div>
+                               
+                                @if($descuento==1)
+
+                                @if(isset($precio[$producto->id]))
+
+                                    @switch($precio[$producto->id]['operacion'])
+
+                                        @case(1)
+
+                                            <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,2,",",".") }}</span></p>
+                                            
+                                            @break
+
+                                        @case(2)
+
+                                            <p id="precio_prod"><del class="">${{ number_format($producto->precio_base, 2) }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*(1-($precio[$producto->id]['precio']/100)),2,",",".") }}</span></p>
+                                            @break
+
+                                        @case(3)
+
+                                            <p id="precio_prod"><del class="">${{ number_format($producto->precio_base, 2) }}</del>&nbsp;<span class="precio_base">${{ number_format($precio[$producto->id]['precio'],2,",",".") }}</span></p>
+                                            @break
+
+                                        
+                                    @endswitch
+
+                                @else
+
+                                    <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,2,",",".") }}</span></p>
+
+                                @endif
+
+
+                               
+
+                            @else
+
+                                <p id="precio_prod"><del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base, 2).' -'.$producto->operacion }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*$descuento,2,",",".").' -'.$producto->operacion }}</span></p>
+
+                            @endif
+
+                               </div>
                             <span>IVA incluido</span>
                             </div>
                             <div class="col-md-4">

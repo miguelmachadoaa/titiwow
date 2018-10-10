@@ -42,7 +42,7 @@ Productos
 <div class="col-md-9">
     <div class="products">
         <div class="row">
-        @if(!$productos->isEmpty())
+        @if(count($productos)>0)
             @foreach($productos as $producto)
                 <div class="col-md-4 col-sm-6 col-xs-6">
                     <div class="productos">
@@ -51,7 +51,51 @@ Productos
                         </div>
                         <a href="{{ route('producto', [$producto->slug]) }}" ><h1>{{ $producto->nombre_producto }}</h1></a>
                         <div class="product_info">
-                            <p id="precio_prod"><del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base, 2) }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*$descuento,2,",",".") }}</span></p>
+                            
+                            @if($descuento==1)
+
+                                @if(isset($precio[$producto->id]))
+
+                                    @switch($precio[$producto->id]['operacion'])
+
+                                        @case(1)
+
+                                            <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,2,",",".") }}</span></p>
+                                            
+                                            @break
+
+                                        @case(2)
+
+                                            <p id="precio_prod"><del class="">${{ number_format($producto->precio_base, 2) }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*(1-($precio[$producto->id]['precio']/100)),2,",",".") }}</span></p>
+                                            @break
+
+                                        @case(3)
+
+                                            <p id="precio_prod"><del class="">${{ number_format($producto->precio_base, 2) }}</del>&nbsp;<span class="precio_base">${{ number_format($precio[$producto->id]['precio'],2,",",".") }}</span></p>
+                                            @break
+
+                                        
+                                    @endswitch
+
+                                @else
+
+                                    <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,2,",",".") }}</span></p>
+
+                                @endif
+
+
+                               
+
+                            @else
+
+                                <p id="precio_prod"><del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base, 2).' -'.$producto->operacion }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*$descuento,2,",",".").' -'.$producto->operacion }}</span></p>
+
+                            @endif
+
+
+                            
+
+
                             <p class="product_botones">
                                 <a class="btn btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
                                 <a class="btn btn-primary" href="{{ route('producto', [$producto->slug]) }}">Ver Más</a>
@@ -166,7 +210,7 @@ Productos
 
 
 
-        })
+        });
 
 
     </script>
