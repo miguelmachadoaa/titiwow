@@ -253,6 +253,14 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
     Route::resource('configuracion', 'Admin\AlpConfiguracionController');
 
+    Route::post('configuracion/storecity', 'Admin\AlpConfiguracionController@storecity')->name('configuracion.storecity');
+    Route::post('configuracion/delcity', 'Admin\AlpConfiguracionController@delcity')->name('configuracion.delcity');
+
+
+
+
+
+
     Route::resource('ordenes', 'Admin\AlpOrdenesController');
 
 

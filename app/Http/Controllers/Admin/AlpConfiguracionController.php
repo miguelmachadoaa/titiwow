@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\JoshController;
 use App\Models\AlpConfiguracion;
+use App\Models\AlpDespachoCiudad;
 use App\Country;
 use App\State;
 use App\City;
@@ -15,6 +16,7 @@ use Sentinel;
 use Intervention\Image\Facades\Image;
 use DOMDocument;
 use DB;
+use View;
 
 
 class AlpConfiguracionController extends JoshController
@@ -26,11 +28,21 @@ class AlpConfiguracionController extends JoshController
       
 
         $configuracion = AlpConfiguracion::where('id', '1')->first();
+
+        $ciudades=AlpDespachoCiudad::select('alp_despacho_ciudad.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name')
+        ->join('config_cities','alp_despacho_ciudad.id_ciudad' , '=', 'config_cities.id')
+        ->join('config_states','config_cities.state_id' , '=', 'config_states.id')
+        ->where('config_states.country_id', '47')->get();
+
+        $states=State::where('config_states.country_id', '47')->get();
+
+         $cities = AlpDespachoCiudad::select('alp_despacho_ciudad.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name')
+          ->join('config_cities', 'alp_despacho_ciudad.id_ciudad', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->get();
        
-
-
         // Show the page
-        return view('admin.configuracion.edit', compact('configuracion'));
+        return view('admin.configuracion.edit', compact('configuracion', 'ciudades', 'states', 'cities'));
         
     }
 
@@ -91,6 +103,60 @@ class AlpConfiguracionController extends JoshController
                     ->pluck("city_name","id")->all();
         $states['0'] = 'Seleccione Ciudad';
         return json_encode($cities);
+    }
+
+
+    public function storecity(Request $request)
+    {
+        
+        $user_id = Sentinel::getUser()->id;
+
+        $ciudad=explode('_', $request->city_id);
+
+        $data = array(
+            'id_ciudad' => $ciudad[0] ,
+            'id_user' => $user_id 
+        );
+
+        AlpDespachoCiudad::create($data);
+
+        $cities = AlpDespachoCiudad::select('alp_despacho_ciudad.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name')
+          ->join('config_cities', 'alp_despacho_ciudad.id_ciudad', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->get();
+
+        $view= View::make('admin.configuracion.ciudades', compact('cities'));
+
+        $data=$view->render();
+
+        return $data;
+
+    }
+
+    public function delcity(Request $request)
+    {
+        
+        $user_id = Sentinel::getUser()->id;
+
+        
+
+        $city=AlpDespachoCiudad::find($request->id);
+
+        $city->delete();
+
+       
+
+        $cities = AlpDespachoCiudad::select('alp_despacho_ciudad.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name')
+          ->join('config_cities', 'alp_despacho_ciudad.id_ciudad', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->get();
+
+        $view= View::make('admin.configuracion.ciudades', compact('cities'));
+
+        $data=$view->render();
+
+        return $data;
+
     }
 
 

@@ -157,12 +157,9 @@ class AlpCartController extends JoshController
             ];
 
             //print_r($preference_data);
-           // $preference = MP::post("/checkout/preferences",$preference_data);
+            $preference = MP::post("/checkout/preferences",$preference_data);
 
-
-
-
-            return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries'));
+            return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'preferene'));
 
 
          }
