@@ -115,7 +115,10 @@ Productos
         @endif
         </div>
         <div class="row">
-            <div class="col-md-12 text-right">
+        <div class="col-md-3 text-left align-bottom">Productos {{($productos->currentpage()-1)*$productos->perpage()+1}} a {{$productos->currentpage()*$productos->perpage()}}
+            de  {{$productos->total()}}
+        </div>
+            <div class="col-md-9 text-right">
                 {{ $productos->links() }}
             </div>
         </div>
