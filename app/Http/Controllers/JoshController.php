@@ -394,15 +394,12 @@ class JoshController extends Controller {
             ->groupBy(DB::raw("month(created_at)"))
             ->first();
 
-
-
         $ordenes_hoy = AlpOrdenes::select(DB::raw( "COUNT(monto_total) as count_row"))
             ->orderBy("created_at")
             ->groupBy(DB::raw("day(created_at)"))
             ->first();
 
-
-        
+   
 
 
         $chart_data = User::select(DB::raw( "COUNT(*) as count_row"))

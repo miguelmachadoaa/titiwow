@@ -60,19 +60,17 @@ Carro de Productos
 
             <h3>Gracias por su compra, recibira un correo con el detalle de su pedido</h3>
 
-            <h5>Su forma de Pago fue {{ $compra->nombre_forma_pago }} </h5>
+            <h5>Su forma de Pago fue <b>{{ $compra->nombre_forma_pago }}</b> </h5>
 
-            <h5>ha seleccionado enviar en pedido con {{ $compra->nombre_forma_envios }} y sera entregado {{ $compra->descripcion_forma_envios }}</h5>
+            <h5>ha seleccionado enviar en pedido con <b>{{ $compra->nombre_forma_envios }}</b> y sera entregado {{ $compra->descripcion_forma_envios }}</h5>
 
             <h5>De igual forma puede consultar la informacion y estatus de su pedido en su area de cliente </h5>
 
 
 
         <div class="row">
-        <h1>Detalle de Su Pedido</h1>
-        
-      
             
+        <h1>Detalle de Su Pedido</h1>
         
         <br>
          <div class="col-md-10 col-md-offset-1 table-responsive">
