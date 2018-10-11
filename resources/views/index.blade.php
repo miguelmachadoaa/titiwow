@@ -66,6 +66,7 @@ Inicio
 
             </div>
         </div>
+    </div>
         <!-- //Seccion categoria Fin -->
 
         <!-- Seccion productos destacados Inicio -->
