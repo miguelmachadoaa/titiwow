@@ -155,12 +155,14 @@ class ClientesFrontController extends Controller
 
             $user_id = Sentinel::getUser()->id;
 
+            $toke=substr(md5(time()), 0, 10);
+
             $data = array(
                 'id_cliente' => $user_id, 
                 'nombre_amigo' => $request->nombre, 
                 'apellido_amigo' => $request->apellido, 
                 'email_amigo' => $request->email, 
-                'token' => substr(md5(time()), 0, 10), 
+                'token' => $token, 
                 'id_user' => $user_id
             );
         
@@ -183,6 +185,8 @@ class ClientesFrontController extends Controller
 
 
             $configuracion = AlpConfiguracion::where('id', '1')->first();
+
+            Mail::to($request->email)->send(new \App\Mail\NotificacionAmigo($request->nombre, $request->apellido, $token, $user->first_name.' '.$user->last_name));
 
 
 

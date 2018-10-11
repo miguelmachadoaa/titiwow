@@ -4,11 +4,11 @@
 
  Bienvenido a alpina {{ $name.' '.$lastname }}
 
-Se te ha enviado una invitacion para registrarte como afiliado por la empresa {{ $empresa }}
+Se te ha enviado una invitacion para registrarte como afiliado por  {{ $embajador }}
 
 Sigue el enlace para registrarte.
 
-@component('mail::button', ['url' => url('/registroafiliado/'.$token)])
+@component('mail::button', ['url' => url('/registroembajadores/'.$token)])
 Registro 
 @endcomponent
 

@@ -13,16 +13,22 @@ class NotificacionAfiliado extends Mailable
 
 
     public $name;
+    public $lastname;
+    public $token;
+    public $empresa;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($name)
+    public function __construct($name, $lastname, $token, $empresa)
     {
         //
         $this->name=$name;
+        $this->lastname=$lastname;
+        $this->token=$token;
+        $this->empresa=$empresa;
     }
 
     /**

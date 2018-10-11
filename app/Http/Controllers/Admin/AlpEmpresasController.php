@@ -200,12 +200,14 @@ class AlpEmpresasController extends JoshController
 
             $user_id = Sentinel::getUser()->id;
 
+            $token=substr(md5(time()), 0, 10);
+
             $data = array(
                 'id_cliente' => 'E'.$request->id_empresa, 
                 'nombre_amigo' => $request->nombre, 
                 'apellido_amigo' => $request->apellido, 
                 'email_amigo' => $request->email, 
-                'token' => substr(md5(time()), 0, 10), 
+                'token' => $token, 
                 'id_user' => $user_id
             );
 
@@ -214,6 +216,9 @@ class AlpEmpresasController extends JoshController
             $invitaciones=AlpAmigos::where('id_cliente', 'E'.$request->id_empresa)->get();
 
             $empresa = AlpEmpresas::find($request->id_empresa);
+
+
+            Mail::to($request->email)->send(new \App\Mail\NotificacionAfiliado($request->nombre, $request->apellido, $token, $empresa->nombre_empresa));
 
 
             $view= View::make('admin.empresas.listamigo', compact('invitaciones', 'empresa'));

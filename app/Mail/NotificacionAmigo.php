@@ -7,24 +7,28 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class WelcomeUser extends Mailable
+class NotificacionAmigo extends Mailable
 {
     use Queueable, SerializesModels;
 
 
     public $name;
     public $lastname;
+    public $token;
+    public $embajador;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($name, $lastname)
+    public function __construct($name, $lastname, $token, $embajador)
     {
         //
         $this->name=$name;
         $this->lastname=$lastname;
+        $this->token=$token;
+        $this->embajador=$embajador;
     }
 
     /**
@@ -34,6 +38,6 @@ class WelcomeUser extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.welcome');
+        return $this->markdown('emails.amigo');
     }
 }

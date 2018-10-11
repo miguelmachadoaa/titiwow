@@ -463,9 +463,7 @@ Route::get('misdirecciones', 'Frontend\ClientesFrontController@misdirecciones')-
 
 Route::get('clientes/{id}/detalle', 'Frontend\ClientesFrontController@detalle')->name('frontend.clientes.detalle');
 
-Route::get('emailU', function(){
-        return new \App\Mail\WelcomeUser('Miguel Machado');
-});
+
 
 
 Route::post('productos/destacado', ['as'=> 'productos.destacado', 'uses' => 'Admin\AlpProductosController@destacado']);
@@ -474,5 +472,16 @@ Route::post('productos/destacado', ['as'=> 'productos.destacado', 'uses' => 'Adm
 Route::post('categorias/destacado', ['as'=> 'categorias.destacado', 'uses' => 'Admin\AlpCategoriasController@destacado']);
 
 
+Route::get('emailU', function(){
+        return new \App\Mail\WelcomeUser('Miguel Machado');
+});
+
+Route::get('emailAfiliado', function(){
+        return new \App\Mail\NotificacionAfiliado('Miguel', 'Machado', 'sdklfjasfasdfasdklfasf', 'Empresa');
+});
+
+Route::get('emailAmigo', function(){
+        return new \App\Mail\NotificacionAmigo('Miguel', 'Machado', 'sdklfjasfasdfasdklfasf', 'Embajador Embajador');
+});
 
 

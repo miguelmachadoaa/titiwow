@@ -124,6 +124,8 @@ class AuthController extends JoshController
             // Redirect to the home page with success menu
            // return Redirect::route("admin.dashboard")->with('success', trans('auth/message.signup.success'));
 
+             Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name));
+
              if ($request->back=='0') {
 
                     return Redirect::route("admin.dashboard")->with('success', trans('auth/message.signin.success'));
@@ -397,7 +399,7 @@ class AuthController extends JoshController
 
             AlpClientes::create($data);
 
-
+             Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name));
 
             //activity log ends
             // Redirect to the home page with success menu
@@ -486,6 +488,8 @@ class AuthController extends JoshController
             );
 
              //print_r($data);
+
+             Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name));
 
             AlpClientes::create($data);
 
