@@ -268,14 +268,20 @@
 
     @endif
 
+            @if (Sentinel::getUser()->hasAnyAccess(['activity_log.*']))
+                <li {!! (Request::is('admin/activity_log') ? 'class="active"' : '') !!}>
+                        <a href="{{  URL::to('admin/activity_log') }}">
+                            <i class="livicon" data-name="eye-open" data-size="18" data-c="#F89A14" data-hc="#F89A14"
+                               data-loop="true"></i>
+                           Log de Actividades
+                        </a>
+                    </li>
+            @endif
    
-    <li {!! (Request::is('admin/activity_log') ? 'class="active"' : '') !!}>
-        <a href="{{  URL::to('admin/activity_log') }}">
-            <i class="livicon" data-name="eye-open" data-size="18" data-c="#F89A14" data-hc="#F89A14"
-               data-loop="true"></i>
-           Log de Actividades
-        </a>
-    </li>
+            @if (Sentinel::getUser()->hasAnyAccess(['inbox.*']))
+
+            
+    
     <li {!! (Request::is('admin/inbox') || Request::is('admin/compose') || Request::is('admin/view_mail') ? 'class="active"' : '') !!}>
         <a href="#">
             <i class="livicon" data-name="mail" data-size="18" data-c="#67C5DF" data-hc="#67C5DF"
@@ -304,49 +310,65 @@
             </li>
         </ul>
     </li>
-    <li {!! (Request::is('admin/tasks') ? 'class="active"' : '') !!}>
-        <a href="{{ URL::to('admin/tasks') }}">
-            <i class="livicon" data-c="#EF6F6C" data-hc="#EF6F6C" data-name="list-ul" data-size="18"
-               data-loop="true"></i>
-            Tareas
-            <span class="badge badge-danger" id="taskcount">{{ Request::get('tasks_count') }}</span>
-        </a>
-    </li>
-    <li {!! (Request::is('admin/users') || Request::is('admin/users/create') || Request::is('admin/user_profile') || Request::is('admin/users/*') || Request::is('admin/deleted_users') ? 'class="active"' : '') !!}>
-        <a href="#">
-            <i class="livicon" data-name="user" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
-               data-loop="true"></i>
-            <span class="title">Usuarios</span>
-            <span class="fa arrow"></span>
-        </a>
-        <ul class="sub-menu">
-            <li {!! (Request::is('admin/users') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/users') }}">
-                    <i class="fa fa-angle-double-right"></i>
-                    Usuarios
-                </a>
-            </li>
-            <li {!! (Request::is('admin/users/create') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/users/create') }}">
-                    <i class="fa fa-angle-double-right"></i>
-                    Crear Nuevo Usuario
-                </a>
-            </li>
-            <li {!! ((Request::is('admin/users/*')) && !(Request::is('admin/users/create')) ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::route('admin.users.show',Sentinel::getUser()->id) }}">
-                    <i class="fa fa-angle-double-right"></i>
-                    Ver Perfil
-                </a>
-            </li>
-            <li {!! (Request::is('admin/deleted_users') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/deleted_users') }}">
-                    <i class="fa fa-angle-double-right"></i>
-                    Usuarios Eliminados
-                </a>
-            </li>
-        </ul>
-    </li>
-    <li {!! (Request::is('admin/clientes') || Request::is('admin/clientes/create') || Request::is('admin/user_profile') || Request::is('admin/clientes/*') || Request::is('admin/deleted_users') ? 'class="active"' : '') !!}>
+
+    @endif
+
+    @if (Sentinel::getUser()->hasAnyAccess(['tasks.*']))
+
+        <li {!! (Request::is('admin/tasks') ? 'class="active"' : '') !!}>
+            <a href="{{ URL::to('admin/tasks') }}">
+                <i class="livicon" data-c="#EF6F6C" data-hc="#EF6F6C" data-name="list-ul" data-size="18"
+                   data-loop="true"></i>
+                Tareas
+                <span class="badge badge-danger" id="taskcount">{{ Request::get('tasks_count') }}</span>
+            </a>
+        </li>
+
+    @endif
+
+
+    @if (Sentinel::getUser()->hasAnyAccess(['users.*']))
+
+        <li {!! (Request::is('admin/users') || Request::is('admin/users/create') || Request::is('admin/user_profile') || Request::is('admin/users/*') || Request::is('admin/deleted_users') ? 'class="active"' : '') !!}>
+            <a href="#">
+                <i class="livicon" data-name="user" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
+                   data-loop="true"></i>
+                <span class="title">Usuarios</span>
+                <span class="fa arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li {!! (Request::is('admin/users') ? 'class="active" id="active"' : '') !!}>
+                    <a href="{{ URL::to('admin/users') }}">
+                        <i class="fa fa-angle-double-right"></i>
+                        Usuarios
+                    </a>
+                </li>
+                <li {!! (Request::is('admin/users/create') ? 'class="active" id="active"' : '') !!}>
+                    <a href="{{ URL::to('admin/users/create') }}">
+                        <i class="fa fa-angle-double-right"></i>
+                        Crear Nuevo Usuario
+                    </a>
+                </li>
+                <li {!! ((Request::is('admin/users/*')) && !(Request::is('admin/users/create')) ? 'class="active" id="active"' : '') !!}>
+                    <a href="{{ URL::route('admin.users.show',Sentinel::getUser()->id) }}">
+                        <i class="fa fa-angle-double-right"></i>
+                        Ver Perfil
+                    </a>
+                </li>
+                <li {!! (Request::is('admin/deleted_users') ? 'class="active" id="active"' : '') !!}>
+                    <a href="{{ URL::to('admin/deleted_users') }}">
+                        <i class="fa fa-angle-double-right"></i>
+                        Usuarios Eliminados
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+    @endif
+
+    @if (Sentinel::getUser()->hasAnyAccess(['clientes.*']))
+
+     <li {!! (Request::is('admin/clientes') || Request::is('admin/clientes/create') || Request::is('admin/user_profile') || Request::is('admin/clientes/*') || Request::is('admin/deleted_users') ? 'class="active"' : '') !!}>
         <a href="#">
             <i class="livicon" data-name="users" data-size="18" data-c="#F89A14" data-hc="#F89A14"
                data-loop="true"></i>
@@ -377,6 +399,11 @@
             </li>
         </ul>
     </li>
+
+    @endif
+
+    @if (Sentinel::getUser()->hasAnyAccess(['groups.*']))
+
     <li {!! (Request::is('admin/groups') || Request::is('admin/groups/create') || Request::is('admin/groups/*') ? 'class="active"' : '') !!}>
         <a href="#">
             <i class="livicon" data-name="users" data-size="18" data-c="#418BCA" data-hc="#418BCA"
@@ -399,6 +426,13 @@
             </li>
         </ul>
     </li>
+
+    @endif
+
+
+    @if (Sentinel::getUser()->hasAnyAccess(['blog.*']))
+
+     
     <li {!! ((Request::is('admin/blogcategory') || Request::is('admin/blogcategory/create') || Request::is('admin/blog') ||  Request::is('admin/blog/create')) || Request::is('admin/blog/*') || Request::is('admin/blogcategory/*') ? 'class="active"' : '') !!}>
         <a href="#">
             <i class="livicon" data-name="comment" data-c="#F89A14" data-hc="#F89A14" data-size="18"
@@ -427,6 +461,12 @@
             </li>
         </ul>
     </li>
+
+    @endif
+    
+   
+   
+   
     <!-- Menus generated by CRUD generator -->
     @include('admin/layouts/menu')
 </ul>

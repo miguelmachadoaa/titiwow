@@ -19,6 +19,16 @@ Route::post('signupafiliado', 'Admin\AuthController@postSignupAfiliado')->name('
 
 
 
+
+
+
+
+
+
+
+
+
+
 Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.'), function () {
 
     Route::resource('productos', 'Admin\AlpProductosController');
@@ -308,6 +318,19 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 Route::get('mercadopago', ['as'=>'frontend.mercadopago', 'uses'=>'Admin\AlpMercadoPagoController@mercadopago']);

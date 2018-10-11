@@ -124,27 +124,27 @@ class AdminSeeder extends DatabaseSeeder {
 			'name' => 'Shop Manager',
 			'slug' => 'shopmanager',
 			'tipo' => 1,
-			'permissions' => array('shopmanager' => 1),
+			'permissions' => array('productos.index'=>true,'productos.create'=>true,'productos.store'=>true,'productos.show'=>true,'productos.edit'=>true,'productos.update'=>true,'productos.destroy'=>true,'categorias.index'=>true,'categorias.create'=>true,'categorias.store'=>true,'categorias.show'=>true,'categorias.edit'=>true,'categorias.update'=>true,'categorias.destroy'=>true,'ordenes.index'=>true,'ordenes.create'=>true,'ordenes.store'=>true,'ordenes.show'=>true,'ordenes.edit'=>true,'ordenes.update'=>true,'ordenes.destroy'=>true,'shopmanager' => 1),
 		]);
 		$shopmanagercorpRole = Sentinel::getRoleRepository()->createModel()->create([
 			'name' => 'Shop Manager Corporativo',
 			'slug' => 'shopmanagercorp',
 			'tipo' => 1,
-			'permissions' => array('shopmanagercorp' => 1),
+			'permissions' => array('ordenes.empresas'=>true,'clientes.empresas'=>true,'empresas.index'=>true,'empresas.create'=>true,'empresas.store'=>true,'empresas.show'=>true,'empresas.edit'=>true,'empresas.update'=>true,'empresas.destroy'=>true, 'shopmanagercorp' => 1),
 		]);
 
 		$masterfileRole = Sentinel::getRoleRepository()->createModel()->create([
 			'name' => 'Masterfile',
 			'slug' => 'masterfile',
 			'tipo' => 1,
-			'permissions' => array('masterfile' => 1),
+			'permissions' => array('clientes.index'=>true,'clientes.create'=>true,'clientes.store'=>true,'clientes.show'=>true,'clientes.edit'=>true,'clientes.update'=>true,'clientes.destroy'=>true,'clientes.misamigos'=>true,'clientes.amigos'=>true,'masterfile' => 1),
 		]);
 
 		$sacRole = Sentinel::getRoleRepository()->createModel()->create([
 			'name' => 'SAC',
 			'slug' => 'sac',
 			'tipo' => 1,
-			'permissions' => array('sac' => 1),
+			'permissions' => array('ordenes.index'=>true,'ordenes.create'=>true,'ordenes.store'=>true,'ordenes.show'=>true,'ordenes.edit'=>true,'ordenes.update'=>true,'ordenes.destroy'=>true,'sac' => 1),
 		]);
 
 		$cediRole = Sentinel::getRoleRepository()->createModel()->create([
@@ -165,7 +165,7 @@ class AdminSeeder extends DatabaseSeeder {
 			'name' => 'Finanzas',
 			'slug' => 'finanzas',
 			'tipo' => 1,
-			'permissions' => array('finanzas' => 1),
+			'permissions' => array('ordenes.index'=>true,'ordenes.create'=>true,'ordenes.store'=>true,'ordenes.show'=>true,'ordenes.edit'=>true,'ordenes.update'=>true,'ordenes.destroy'=>true,'finanzas' => 1),
 		]);
 
         $userRole = Sentinel::getRoleRepository()->createModel()->create([

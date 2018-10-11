@@ -19,7 +19,7 @@ class SentinelAdmin
     {
         if(!Sentinel::check())
             return redirect('admin/signin')->with('info', 'You must be logged in!');
-        elseif(!(Sentinel::inRole('admin') || (Sentinel::inRole('masterfile'))))
+        elseif(!(Sentinel::inRole('admin') || (Sentinel::inRole('masterfile')) || (Sentinel::inRole('shopmanager')) || (Sentinel::inRole('shopmanagercorp')) || (Sentinel::inRole('sac')) || (Sentinel::inRole('cedi')) || (Sentinel::inRole('logistica')) || (Sentinel::inRole('finanzas')) ))
             return redirect('clientes');
 
         $tasks_count = Task::where('user_id', Sentinel::getUser()->id)->count();
