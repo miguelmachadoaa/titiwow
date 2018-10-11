@@ -137,6 +137,8 @@ class AlpCartController extends JoshController
 
           $items = array();
 
+          $list=array();
+
             foreach ($cart as $row) {
 
               $items["id"]=$row->id;
@@ -146,20 +148,30 @@ class AlpCartController extends JoshController
               $items["quantity"]=$row->cantidad;
               $items["currency_id"]='COP';
               $items["unit_price"]=$row->precio_base;
+
+              $list[]=$items;
               
             }
 
             $preference_data = [
-              "items" => $items,
+              "items" => $list,
               "payer" => [
                 "email" => 'correo@gmail.com'
-              ]
+              ],
+              "back_urls" => [
+                "success" => url('/order/success'),
+                "failure" => url('/order/failure')
+              ],
+              "notification_url" =>url('/order/mercadopago'),
+              "external_reference" =>'123456'
             ];
 
             //print_r($preference_data);
             $preference = MP::post("/checkout/preferences",$preference_data);
 
-            return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'preferene'));
+            print_r($preference);
+
+            return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'preference'));
 
 
          }
@@ -173,6 +185,110 @@ class AlpCartController extends JoshController
 
 
         }
+
+    }
+
+     public function failure(Request $request)
+    {
+       
+       echo $request->collection_id;
+       echo $request->collection_status;
+       echo $request->preference_id;
+       echo $request->external_reference;
+       echo $request->payment_type;
+       echo $request->merchant_order_id;
+
+       if ($request->collection_status=='null') {
+         
+
+           $cart= \Session::get('cart');
+
+      $total=$this->total();
+
+      if (Sentinel::check()) {
+
+        $user_id = Sentinel::getUser()->id;
+
+        $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
+
+        $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_countries.country_name as country_name')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->where('alp_direcciones.id_client', $user_id)->get();
+
+           $formasenvio = AlpFormasenvio::select('alp_formas_envios.*')
+          ->join('alp_rol_envio', 'alp_formas_envios.id', '=', 'alp_rol_envio.id_forma_envio')
+          ->where('alp_rol_envio.id_rol', $role->role_id)->get();
+
+
+          $formaspago = AlpFormaspago::select('alp_formas_pagos.*')
+          ->join('alp_rol_pago', 'alp_formas_pagos.id', '=', 'alp_rol_pago.id_forma_pago')
+          ->where('alp_rol_pago.id_rol', $role->role_id)->get();
+
+          $countries = Country::all();
+
+         if(count($cart)<=0){
+
+            return redirect('productos');
+
+         }else{
+
+          $items = array();
+
+          $list=array();
+
+            foreach ($cart as $row) {
+
+              $items["id"]=$row->id;
+              $items["title"]=$row->nombre_producto;
+              $items["description"]=$row->descripcion_corta;
+              $items["picture_url"]= url('/').'/uploads/productos/'.$row->imagen_producto;
+              $items["quantity"]=$row->cantidad;
+              $items["currency_id"]='COP';
+              $items["unit_price"]=$row->precio_base;
+
+              $list[]=$items;
+              
+            }
+
+            $preference_data = [
+              "items" => $list,
+              "payer" => [
+                "email" => 'correo@gmail.com'
+              ],
+              "back_urls" => [
+                "success" => url('/order/success'),
+                "failure" => url('/order/failure')
+              ],
+              "notification_url" =>url('/order/mercadopago'),
+              "external_reference" =>'123456'
+            ];
+
+            //print_r($preference_data);
+            $preference = MP::post("/checkout/preferences",$preference_data);
+
+            print_r($preference);
+
+            return view('frontend.order.failure', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'preference'));
+
+
+         }
+
+      }
+
+
+       }
+
+    }
+
+
+
+      public function success(Request $request)
+    {
+       
+       dd($request);
+
 
     }
 

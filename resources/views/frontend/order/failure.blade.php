@@ -337,7 +337,10 @@ Carro de Productos
 
                                 @endforeach 
 
-
+                                <div class="col-sm-12">
+                                    
+                                    <div class="alert alert-danger">Algo fallo en el proceso de pago pro favor intenta de nuevo!!</div>
+                                </div>
                                 
                             </div>
                             

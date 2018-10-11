@@ -326,8 +326,20 @@ Route::get(    'order/detail',     [
         'uses'=>'Admin\AlpCartController@orderDetail'
     ]);
 
-Route::post(    'order/procesar',     [
+Route::get(   'order/failure/',     [
         //'middleware'=>'auth', 
+        'as'=>'order.failure', 
+        'uses'=>'Admin\AlpCartController@failure'
+    ]);
+
+Route::get(   'order/success/',     [
+        //'middleware'=>'auth', 
+        'as'=>'order.success', 
+        'uses'=>'Admin\AlpCartController@success'
+    ]);
+
+
+Route::post(    'order/procesar',     [ 
         'as'=>'order.procesar', 
         'uses'=>'Admin\AlpCartController@orderProcesar'
     ]);
