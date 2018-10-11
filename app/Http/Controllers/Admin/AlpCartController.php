@@ -16,6 +16,7 @@ use App\Models\AlpDetalles;
 use App\Models\AlpConfiguracion;
 use App\Models\AlpClientes;
 use App\Models\AlpEmpresas;
+use App\Models\AlpPuntos;
 use App\Country;
 use App\State;
 use App\City;
@@ -145,7 +146,7 @@ class AlpCartController extends JoshController
               $items["title"]=$row->nombre_producto;
               $items["description"]=$row->descripcion_corta;
               $items["picture_url"]= url('/').'/uploads/productos/'.$row->imagen_producto;
-              $items["quantity"]=$row->cantidad;
+              $items["quantity"]=intval($row->cantidad);
               $items["currency_id"]='COP';
               $items["unit_price"]=$row->precio_base;
 
@@ -244,7 +245,7 @@ class AlpCartController extends JoshController
               $items["title"]=$row->nombre_producto;
               $items["description"]=$row->descripcion_corta;
               $items["picture_url"]= url('/').'/uploads/productos/'.$row->imagen_producto;
-              $items["quantity"]=$row->cantidad;
+              $items["quantity"]=intval($row->cantidad);
               $items["currency_id"]='COP';
               $items["unit_price"]=$row->precio_base;
 
@@ -265,8 +266,11 @@ class AlpCartController extends JoshController
               "external_reference" =>'123456'
             ];
 
-            //print_r($preference_data);
+            print_r($preference_data);
+            
             $preference = MP::post("/checkout/preferences",$preference_data);
+
+            //$preference=null;
 
             //print_r($preference);
 
@@ -336,6 +340,30 @@ class AlpCartController extends JoshController
           AlpDetalles::create($data_detalle);
 
          }
+
+         $cliente=AlpClientes::where('id_user_client', $user_id)->first();
+
+         if (isset($cliente)) {
+           
+            if ($cliente->id_embajador!=0) {
+             
+                $data_puntos = array(
+                  'id_orden' => $orden->id,
+                  'id_cliente' => $cliente->id_embajador,
+                  'tipo' => '1',//agregar
+                  'cantidad' =>$total ,
+                  'id_user' =>$user_id                   
+                );
+
+
+                AlpPuntos::create($data_puntos);
+
+
+            }
+
+         }
+
+         
 
          $data_update = array('referencia' => 'ALP'.$orden->id );
 
