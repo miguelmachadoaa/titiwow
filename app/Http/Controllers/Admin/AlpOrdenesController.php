@@ -59,7 +59,7 @@ class AlpOrdenesController extends JoshController
           ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
           ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
           ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
-          ->leftJoin('alp_empresas', 'alp_clientes.id_empresa', '=', 'alp_empresas.id')
+          ->Join('alp_empresas', 'alp_clientes.id_empresa', '=', 'alp_empresas.id')
           ->get();
        
         // Show the page

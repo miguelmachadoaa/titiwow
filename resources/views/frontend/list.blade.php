@@ -152,7 +152,7 @@ Productos
                     </div>
                     <div class="modal-footer">
                         <button type="button"  class="btn  btn-default" data-dismiss="modal">Continuar Comprando</button>
-                        <a href="{{ url('order/detail') }}" class="btn  btn-info " >Proceder a Cancelar</a>
+                        <a href="{{ url('cart/show') }}" class="btn  btn-info " >Proceder a Cancelar</a>
                     </div>
                 </div>
             </div>

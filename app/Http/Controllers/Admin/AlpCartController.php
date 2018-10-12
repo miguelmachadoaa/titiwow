@@ -174,11 +174,11 @@ class AlpCartController extends JoshController
             ];
 
             //print_r($preference_data);
-            $preference = MP::post("/checkout/preferences",$preference_data);
+            //$preference = MP::post("/checkout/preferences",$preference_data);
 
             //print_r($preference);
 
-            return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'preference'));
+            return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries'));
 
 
          }
@@ -272,7 +272,7 @@ class AlpCartController extends JoshController
               "external_reference" =>'123456'
             ];
 
-            print_r($preference_data);
+            //print_r($preference_data);
             
             //$preference = MP::post("/checkout/preferences",$preference_data);
 
@@ -280,7 +280,7 @@ class AlpCartController extends JoshController
 
             //print_r($preference);
 
-            return view('frontend.order.failure', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'preference'));
+            return view('frontend.order.failure', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries'));
 
 
          }
