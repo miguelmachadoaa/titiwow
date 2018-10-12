@@ -388,7 +388,9 @@ class AlpCartController extends JoshController
           ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
 
 
-         //$cart= \Session::forget('cart');
+         $cart= \Session::forget('cart');
+
+
 
 
           return view('frontend.order.procesar', compact('compra', 'detalles'));

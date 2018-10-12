@@ -15,6 +15,7 @@ use App\Country;
 use App\State;
 use App\City;
 use App\RoleUser;
+use Illuminate\Support\Facades\Mail;
 use App\Models\AlpCategorias;
 use Sentinel;
 use View;
@@ -155,7 +156,7 @@ class ClientesFrontController extends Controller
 
             $user_id = Sentinel::getUser()->id;
 
-            $toke=substr(md5(time()), 0, 10);
+            $token=substr(md5(time()), 0, 10);
 
             $data = array(
                 'id_cliente' => $user_id, 

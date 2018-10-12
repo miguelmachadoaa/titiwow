@@ -228,7 +228,9 @@ Mis Invitaciones a Amigos
         $(document).on('click', '.addAmigo', function(e){
             e.preventDefault();
 
-            if ($('#cantidad').val()<=$('#limite').val()){
+           // alert('cantidad:'+$('#cantidad').val()+' limite:'+$('#limite').val());
+
+            if (parseInt($('#limite').val())<parseInt($('#cantidad').val())){
 
                 $('.res').html('<div class="alert alert-danger">Usted alcanzo el limite de sus amigos</div>');
 
