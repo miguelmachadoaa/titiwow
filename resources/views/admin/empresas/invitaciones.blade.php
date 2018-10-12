@@ -39,8 +39,9 @@ Empresa - Invitaciones
                 <div class="panel-body">
                     
                     <br>
+                    <div class="table-responsive" id="table_amigos">
                     @if ($invitaciones->count() >= 1)
-                        <div class="table-responsive" id="table_amigos">
+                        
 
                         <table class="table table-bordered">
                             <thead>
@@ -75,10 +76,12 @@ Empresa - Invitaciones
                                 @endforeach
                             </tbody>
                         </table>
-                        </div>
+                        
                     @else
                         No se encontraron registros
-                    @endif   
+                    @endif  
+                    </div> 
+                    </div>
                 </div>
             </div>
         </div>
