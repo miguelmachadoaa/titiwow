@@ -24,7 +24,7 @@ class ProductosFrontController extends Controller
         $precio = array();
 
         $productos = AlpProductos::paginate(9);
-
+        
 
         if (Sentinel::check()) {
 
@@ -48,7 +48,6 @@ class ProductosFrontController extends Controller
             }
 
             if ($role->role_id) {
-
                
                 foreach ($productos as  $row) {
                     
@@ -137,7 +136,7 @@ class ProductosFrontController extends Controller
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
         ->where('alp_productos_category.id_categoria','=', $categoria->id)->paginate(9); 
 
-        if (Sentinel::check()) {
+         if (Sentinel::check()) {
 
             $user_id = Sentinel::getUser()->id;
 
@@ -159,7 +158,6 @@ class ProductosFrontController extends Controller
             }
 
             if ($role->role_id) {
-
                
                 foreach ($productos as  $row) {
                     
@@ -177,6 +175,7 @@ class ProductosFrontController extends Controller
             }
 
         }
+
 
 
 
