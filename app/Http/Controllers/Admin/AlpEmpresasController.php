@@ -219,7 +219,7 @@ class AlpEmpresasController extends JoshController
             $empresa = AlpEmpresas::find($request->id_empresa);
 
 
-            Mail::to($request->email)->send(new \App\Mail\NotificacionAfiliado($request->nombre, $request->apellido, $token, $empresa->nombre_empresa));
+           /* Mail::to($request->email)->send(new \App\Mail\NotificacionAfiliado($request->nombre, $request->apellido, $token, $empresa->nombre_empresa));*/
 
 
             $view= View::make('admin.empresas.listamigo', compact('invitaciones', 'empresa'));

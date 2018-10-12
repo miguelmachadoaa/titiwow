@@ -187,7 +187,7 @@ class ClientesFrontController extends Controller
 
             $configuracion = AlpConfiguracion::where('id', '1')->first();
 
-            Mail::to($request->email)->send(new \App\Mail\NotificacionAmigo($request->nombre, $request->apellido, $token, $user->first_name.' '.$user->last_name));
+         /*   Mail::to($request->email)->send(new \App\Mail\NotificacionAmigo($request->nombre, $request->apellido, $token, $user->first_name.' '.$user->last_name));*/
 
 
 
