@@ -1,4 +1,4 @@
-<li class="dropdown messages-menu">
+<!--li class="dropdown messages-menu">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="livicon"
                                                                    data-name="message-flag"
                                                                    data-loop="true" data-color="#42aaca"
@@ -78,4 +78,4 @@
             <a href="#">View all</a>
         </li>
     </ul>
-</li>
+</li-->

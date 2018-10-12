@@ -28,8 +28,8 @@ Página No Encontrada
         <div class="number">4</div>
     </div>
     <div class="hgroup">
-        <h1>Page Not Found</h1>
-        <h2>It seems that page you are looking for no longer exists.</h2>
+        <h1>Página No Encontrada</h1>
+        <h2>Al parecer la página que busca no se encontró.</h2>
         <a href="{{ route('home') }}">
             <button type="button" class="btn btn-primary button-alignment">Home</button>
         </a>

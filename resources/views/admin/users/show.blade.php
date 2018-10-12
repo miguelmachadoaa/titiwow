@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    View User Details
+    Ver Perfil
     @parent
 @stop
 
@@ -20,18 +20,18 @@
 @section('content')
     <section class="content-header">
         <!--section starts-->
-        <h1>User Profile</h1>
+        <h1>Perfil de Usuario</h1>
         <ol class="breadcrumb">
             <li>
                 <a href="{{ route('admin.dashboard') }}">
                     <i class="livicon" data-name="home" data-size="14" data-loop="true"></i>
-                    Dashboard
+                    Escritorio
                 </a>
             </li>
             <li>
-                <a href="#">Users</a>
+                <a href="#">Usuarios</a>
             </li>
-            <li class="active">User Profile</li>
+            <li class="active">Perfil de Usuario</li>
         </ol>
     </section>
     <!--section ends-->
@@ -42,17 +42,12 @@
                     <li class="active">
                         <a href="#tab1" data-toggle="tab">
                             <i class="livicon" data-name="user" data-size="16" data-c="#000" data-hc="#000" data-loop="true"></i>
-                            User Profile</a>
+                            Perfil de Usuario</a>
                     </li>
                     <li>
                         <a href="#tab2" data-toggle="tab">
                             <i class="livicon" data-name="key" data-size="16" data-loop="true" data-c="#000" data-hc="#000"></i>
-                            Change Password</a>
-                    </li>
-                    <li>
-                        <a href="{{ URL::to('admin/user_profile') }}" >
-                            <i class="livicon" data-name="gift" data-size="16" data-loop="true" data-c="#000" data-hc="#000"></i>
-                            Advanced User Profile</a>
+                            Cambiar Contraseña</a>
                     </li>
 
                 </ul>
@@ -64,7 +59,7 @@
                                     <div class="panel-heading">
                                         <h3 class="panel-title">
 
-                                            User Profile
+                                            Perfil de Usuario
                                         </h3>
 
                                     </div>
@@ -201,7 +196,7 @@
                                         <div class="form-group">
                                             {{ csrf_field() }}
                                             <label for="inputpassword" class="col-md-3 control-label">
-                                                Password
+                                                Contraseña
                                                 <span class='require'>*</span>
                                             </label>
                                             <div class="col-md-9">
@@ -209,14 +204,14 @@
                                                             <span class="input-group-addon">
                                                                 <i class="livicon" data-name="key" data-size="16" data-loop="true" data-c="#000" data-hc="#000"></i>
                                                             </span>
-                                                    <input type="password" id="password" placeholder="Password" name="password"
+                                                    <input type="password" id="password" placeholder="Contraseña" name="password"
                                                            class="form-control"/>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="inputnumber" class="col-md-3 control-label">
-                                                Confirm Password
+                                                Confirmar Contraseña
                                                 <span class='require'>*</span>
                                             </label>
                                             <div class="col-md-9">
@@ -224,7 +219,7 @@
                                                             <span class="input-group-addon">
                                                                 <i class="livicon" data-name="key" data-size="16" data-loop="true" data-c="#000" data-hc="#000"></i>
                                                             </span>
-                                                    <input type="password" id="password-confirm" placeholder="Confirm Password" name="confirm_password"
+                                                    <input type="password" id="password-confirm" placeholder="Confirmar Contraseña" name="confirm_password"
                                                            class="form-control"/>
                                                 </div>
                                             </div>
@@ -232,10 +227,10 @@
                                     </div>
                                     <div class="form-actions">
                                         <div class="col-md-offset-3 col-md-9">
-                                            <button type="submit" class="btn btn-primary" id="change-password">Submit
+                                            <button type="submit" class="btn btn-primary" id="change-password">Cambiar
                                             </button>
                                             &nbsp;
-                                            <input type="reset" class="btn btn-default" value="Reset"></div>
+                                            <input type="reset" class="btn btn-default" value="Cancelar"></div>
                                     </div>
                                 </form>
                             </div>
