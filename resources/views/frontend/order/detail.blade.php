@@ -288,7 +288,7 @@ Carro de Productos
                                     @if($fp->id==2)
 
                                         
-                                        <a href="{{ $preference['response']['sandbox_init_point'] }}">
+                                      
                                         <div data-id={{ $fp->id }} class="row forma border pointer procesar">
                                             
                                             <div class="col-sm-2 ">
@@ -308,7 +308,7 @@ Carro de Productos
 
                                             </div>
 
-                                        </div></a>
+                                        </div>
 
                                     @else
 

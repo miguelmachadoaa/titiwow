@@ -66,26 +66,36 @@
             <span class="fa arrow"></span>
         </a>
         <ul class="sub-menu">
-            <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
+            @if (Sentinel::getUser()->hasAnyAccess(['ordenes.index']))
+                <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.ordenes.index') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Ordenes
                 </a>
             </li>
+            @endif
 
-            <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
+            @if (Sentinel::getUser()->hasAnyAccess(['ordenes.empresas']))
+                <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.ordenes.empresas') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Ordenes Empresas
                 </a>
             </li>
+            @endif
+
+
+
+            
+
+            
            
         </ul>
     </li>
 
     @endif
 
-    @if (Sentinel::getUser()->hasAnyAccess(['formaspago.*']) || Sentinel::getUser()->hasAnyAccess(['configuracion.*']) || Sentinel::getUser()->hasAnyAccess(['estatus.*']) || Sentinel::getUser()->hasAnyAccess(['formasenvio.*']) || Sentinel::getUser()->hasAnyAccess(['rolenvios.*']) || Sentinel::getUser()->hasAnyAccess(['rolpagos.*']) || Sentinel::getUser()->hasAnyAccess(['impuestos.*']) || Sentinel::getUser()->hasAnyAccess(['marcas.*']) || Sentinel::getUser()->hasAnyAccess(['menus.*']) || Sentinel::getUser()->hasAnyAccess(['transportistas.*']) || Sentinel::getUser()->hasAnyAccess(['sedes.*'])  )
+    @if (Sentinel::getUser()->hasAnyAccess(['formaspago.*']) || Sentinel::getUser()->hasAnyAccess(['configuracion.*']) || Sentinel::getUser()->hasAnyAccess(['estatus.*']) || Sentinel::getUser()->hasAnyAccess(['formasenvio.*']) || Sentinel::getUser()->hasAnyAccess(['rolenvios.*']) || Sentinel::getUser()->hasAnyAccess(['rolpagos.*']) || Sentinel::getUser()->hasAnyAccess(['impuestos.*']) || Sentinel::getUser()->hasAnyAccess(['marcas.*']) || Sentinel::getUser()->hasAnyAccess(['menus.*']) || Sentinel::getUser()->hasAnyAccess(['transportistas.*']) || Sentinel::getUser()->hasAnyAccess(['sedes.*']) || Sentinel::getUser()->hasAnyAccess(['empresas.*'])  )
 
 
 
@@ -376,27 +386,42 @@
             <span class="fa arrow"></span>
         </a>
         <ul class="sub-menu">
-            <li {!! (Request::is('admin/clientes') ? 'class="active" id="active"' : '') !!}>
+
+            @if (Sentinel::getUser()->hasAnyAccess(['clientes.index']))
+                <li {!! (Request::is('admin/clientes') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ URL::to('admin/clientes') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Clientes
                 </a>
             </li>
+            @endif
 
-            <li {!! (Request::is('admin/clientes') ? 'class="active" id="active"' : '') !!}>
+
+            @if (Sentinel::getUser()->hasAnyAccess(['clientes.empresas']))
+                <li {!! (Request::is('admin/clientes') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ URL::to('admin/clientes/empresas/list') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Clientes Empresas
                 </a>
             </li>
 
+            @endif
 
-            <li {!! (Request::is('admin/clientes/create') ? 'class="active" id="active"' : '') !!}>
+            @if (Sentinel::getUser()->hasAnyAccess(['clientes.create']))
+
+             <li {!! (Request::is('admin/clientes/create') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ URL::to('admin/clientes/create') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Crear Nuevo Cliente
                 </a>
             </li>
+            @endif
+
+            
+
+            
+
+           
         </ul>
     </li>
 

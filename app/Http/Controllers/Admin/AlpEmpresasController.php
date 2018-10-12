@@ -7,6 +7,7 @@ use App\Models\AlpEmpresas;
 use App\Models\AlpAmigos;
 use App\Http\Requests\EmpresaRequest;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Redirect;
 use Sentinel;
