@@ -17,6 +17,7 @@ use App\Models\AlpConfiguracion;
 use App\Models\AlpClientes;
 use App\Models\AlpEmpresas;
 use App\Models\AlpPuntos;
+use App\Models\AlpPrecioGrupo;
 use App\Country;
 use App\State;
 use App\City;
@@ -425,8 +426,6 @@ class AlpCartController extends JoshController
 
                     $descuento=(1-($empresa->descuento_empresa/100));
                 }
-
-               
                
             }
 
@@ -456,9 +455,15 @@ class AlpCartController extends JoshController
 
        $descuento='1'; 
 
+       $precio = array();
+
         if (Sentinel::check()) {
 
             $user_id = Sentinel::getUser()->id;
+
+            $role=RoleUser::where('user_id', $user_id)->first();
+
+
 
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
 
@@ -472,9 +477,27 @@ class AlpCartController extends JoshController
 
                     $descuento=(1-($empresa->descuento_empresa/100));
                 }
+               
+            }
+            
 
-               
-               
+             if ($role->role_id) {
+                    
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $role->role_id)->first();
+
+
+
+                    if (isset($pregiogrupo->id)) {
+                       
+                        $precio[$producto->id]['precio']=$pregiogrupo->precio;
+                        $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
+
+                    }
+
+                   
+
+                
+                
             }
 
         }
@@ -482,7 +505,51 @@ class AlpCartController extends JoshController
 
        $producto->cantidad=1;
 
+       if ($descuento=='1') {
+
+        if (isset($precio[$producto->id])) {
+          # code...
+        
+         
+          switch ($precio[$producto->id]['operacion']) {
+            case 1:
+
+              $producto->precio_base=$producto->precio_base*$descuento;
+
+              break;
+
+            case 2:
+
+              $producto->precio_base=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
+              
+              break;
+
+            case 3:
+
+              $producto->precio_base=$precio[$producto->id]['precio'];
+              
+              break;
+            
+            default:
+            
+             $producto->precio_base=$producto->precio_base*$descuento;
+              # code...
+              break;
+          }
+
+        }else{
+
+          $producto->precio_base=$producto->precio_base*$descuento;
+
+        }
+
+
+       }else{
+
        $producto->precio_base=$producto->precio_base*$descuento;
+
+       }
+
 
 
        $cart[$producto->slug]=$producto;

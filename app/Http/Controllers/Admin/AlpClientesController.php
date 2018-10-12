@@ -374,7 +374,7 @@ class AlpClientesController extends JoshController
             }
 
             //save record
-            $user->save();
+            $user->update();
 
             // Get the current user groups
             $userRoles = $user->roles()->pluck('id')->all();
@@ -429,7 +429,7 @@ class AlpClientesController extends JoshController
             }
 
             // Was the user updated?
-            if ($user->save()) {
+            if ($user->update()) {
                 // Prepare the success message
                 $success = trans('users/message.success.update');
                //Activity log for user update

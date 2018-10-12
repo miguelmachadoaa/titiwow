@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    Josh Admin Template
+    Dashboard
     @parent
 @stop
 
