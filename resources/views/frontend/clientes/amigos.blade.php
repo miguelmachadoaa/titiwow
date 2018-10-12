@@ -88,6 +88,7 @@ Mis Invitaciones a Amigos
                         <th>Apellido</th>
                         <th>Email</th>
                         <th>Creado</th>
+                        <th>Enlace</th>
                         <th>Acciones</th>
                     </tr>
 
@@ -107,6 +108,10 @@ Mis Invitaciones a Amigos
                         
                         <td>
                             {{ $row->created_at }}
+                        </td>
+
+                        <td>
+                            <a href=" {!! url('/').'/registroembajadores/'.$row->token  !!}  ">Enlace</a>
                         </td>
 
                         <td>    

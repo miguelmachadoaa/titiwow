@@ -50,6 +50,7 @@ Empresa - Invitaciones
                                     <th>Nombre</th>
                                     <th>Apellido</th>
                                     <th>Email</th>
+                                    <th>Enlace</th>
                                     <th>Accion</th>
                                 </tr>
                             </thead>
@@ -61,6 +62,7 @@ Empresa - Invitaciones
                                     <td>{!! $row->nombre_amigo!!}</td>
                                     <td>{!! $row->apellido_amigo !!}</td>
                                     <td>{!! $row->email_amigo !!}</td>
+                                    <td><a href=" {!! url('/').'/registroafiliado/'.$row->token  !!}  ">Enlace</a></td>
                                     <td>
                                             
                                             <a class="delAmigo"  data-id="{{ $row->id }}" data-url="{{ url('admin/empresas/delamigo') }}" href="#" data-toggle="modal" >
