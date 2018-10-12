@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Lock Screen | Josh Admin Template</title>
+    <title>Pantalla Bloqueada | ALpinaGo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="_token" content="{{ csrf_token() }}">
     <!-- global level css -->
@@ -44,8 +44,8 @@
             <form method="POST" name="screen">
                 <div class="form">
                     <p class="form-control-static user_name_max">{{Sentinel::getUser()->first_name}}</p>
-                    <input type="password" name="user"  id="password" class="form-control" placeholder="Password">
-                    <button class="btn btn-info btn-block login" id="index" type="submit">GO</button>
+                    <input type="password" name="user"  id="password" class="form-control" placeholder="Contraseña">
+                    <button class="btn btn-info btn-block login" id="index" type="submit">Vamos!</button>
                 </div>
             </form>
         </div>

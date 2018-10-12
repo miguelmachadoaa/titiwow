@@ -77,12 +77,12 @@
                                 </p>
                             </form>
                         </div>
-                        <div id="register" class="animate form">
+                        <!--div id="register" class="animate form">
                             <form action="{{ route('admin.signup') }}" autocomplete="on" method="post" role="form" id="register_here">
                                 <h3 class="black_bg">
                                     <img src="{{ asset('assets/img/logo.png') }}" alt="josh logo">
                                     <br>Registrarse</h3>
-                                    <!-- CSRF Token -->
+
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                     <input type="hidden" name="back" id="back" value="0">
 
@@ -164,11 +164,11 @@
                                     </a>
                                 </p>
                             </form>
-                        </div>
+                        </div-->
                         <div id="forgot" class="animate form">
                             <form action="{{ url('admin/forgot-password') }}" autocomplete="on" method="post" role="form" id="reset_pw">
                                 <h3 class="black_bg">
-                                    <img src="{{ asset('assets/img/logo.png') }}" alt="josh logo"><br>Orvidaste Tu Contraseña</h3>
+                                <img src="{{ asset('assets/img/logo_alpina.png') }}" alt="Alpina"><br>Olvidaste Tu Contraseña</h3>
                                 <p>
                                     
                                         Ingrese su dirección de correo electrónico a continuación y le enviaremos un enlace de restablecimiento de contraseña  a su bandeja de entrada
@@ -189,7 +189,7 @@
                                     </div>
                                 </div>
                                 <p class="login button">
-                                    <input type="submit" value="Reset Password" class="btn btn-success" />
+                                    <input type="submit" value="Cambiar Contraseña" class="btn btn-success" />
                                 </p>
                                 <p class="change_link">
                                     <a href="#tologin" class="to_register">

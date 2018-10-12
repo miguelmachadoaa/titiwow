@@ -95,14 +95,14 @@
                         <li>
                             <a href="{{ URL::route('admin.users.show',Sentinel::getUser()->id) }}">
                                 <i class="livicon" data-name="user" data-s="18"></i>
-                                My Profile
+                                Mi Perfil
                             </a>
                         </li>
                         <li role="presentation"></li>
                         <li>
                             <a href="{{ route('admin.users.edit', Sentinel::getUser()->id) }}">
                                 <i class="livicon" data-name="gears" data-s="18"></i>
-                                Account Settings
+                                Ajustes
                             </a>
                         </li>
                         <!-- Menu Footer-->
@@ -110,13 +110,13 @@
                             <div class="pull-left">
                                 <a href="{{ URL::route('lockscreen',Sentinel::getUser()->id) }}">
                                     <i class="livicon" data-name="lock" data-size="16" data-c="#555555" data-hc="#555555" data-loop="true"></i>
-                                    Lock
+                                    Bloquear
                                 </a>
                             </div>
                             <div class="pull-right">
                                 <a href="{{ URL::to('admin/logout') }}">
                                     <i class="livicon" data-name="sign-out" data-s="15"></i>
-                                    Logout
+                                    Salir
                                 </a>
                             </div>
                         </li>
@@ -179,10 +179,10 @@
     </aside>
     <!-- right-side -->
 </div>
-<a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Return to top"
+<!--a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Return to top"
    data-toggle="tooltip" data-placement="left">
     <i class="livicon" data-name="plane-up" data-size="18" data-loop="true" data-c="#fff" data-hc="white"></i>
-</a>
+</a-->
 <!-- global js -->
 <script src="{{ asset('assets/js/app.js') }}" type="text/javascript"></script>
 <!-- end of global js -->

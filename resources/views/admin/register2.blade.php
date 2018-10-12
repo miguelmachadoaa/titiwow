@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Register | Josh Admin Template</title>
+    <title>Register | Alpina Go</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- global level css -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
@@ -20,7 +20,7 @@
         <div class=" col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3  col-md-5 col-md-offset-4 col-lg-4 col-lg-offset-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title text-center">Register</h3>
+                    <h3 class="panel-title text-center">Registro</h3>
                 </div>
                 <div class="panel-body">
                     <!-- display all errors here -->
