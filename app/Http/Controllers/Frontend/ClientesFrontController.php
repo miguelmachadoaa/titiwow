@@ -63,7 +63,7 @@ class ClientesFrontController extends Controller
     
             }else{
 
-                $url='clientes.index';
+                $url='clientes';
 
                   //return redirect('login');
                 return view('frontend.order.login', compact('url'));
@@ -100,7 +100,7 @@ class ClientesFrontController extends Controller
             }else{
 
 
-                $url='clientes.index';
+                $url='clientes';
 
                   //return redirect('login');
                 return view('frontend.order.login', compact('url'));
@@ -136,7 +136,7 @@ class ClientesFrontController extends Controller
             }else{
 
 
-                $url='clientes.index';
+                $url='clientes';
 
                   //return redirect('login');
                 return view('frontend.order.login', compact('url'));
@@ -280,7 +280,7 @@ class ClientesFrontController extends Controller
             }else{
 
 
-                $url='clientes.index';
+                $url='clientes';
 
                   //return redirect('login');
                 return view('frontend.order.login', compact('url', 'configuracion'));
@@ -313,7 +313,7 @@ class ClientesFrontController extends Controller
 
             }else{
 
-                $url='clientes.index';
+                $url='clientes';
 
                   //return redirect('login');
                 return view('frontend.order.login', compact('url'));
@@ -347,7 +347,7 @@ class ClientesFrontController extends Controller
 
             }else{
 
-                $url='clientes.index';
+                $url='clientes';
 
                   //return redirect('login');
                 return view('frontend.order.login', compact('url'));
@@ -383,7 +383,7 @@ class ClientesFrontController extends Controller
             }else{
 
 
-                $url='clientes.index';
+                $url='clientes';
 
                   //return redirect('login');
                 return view('frontend.order.login', compact('url'));

@@ -12,7 +12,10 @@ use App\Mail\ForgotPassword;
 use App\Mail\Register;
 use App\Models\AlpClientes;
 use App\Models\AlpCategorias;
+use App\Models\AlpEmpresas;
+use App\Models\AlpPrecioGrupo;
 use App\User;
+use App\RoleUser;
 use App\Models\AlpMenuDetalle;
 use Cartalyst\Sentinel\Checkpoints\NotActivatedException;
 use Cartalyst\Sentinel\Checkpoints\ThrottlingException;
@@ -33,12 +36,56 @@ class FrontEndController extends JoshController
 {
     public function home()
     {
+        $descuento='1'; 
+
+        $precio = array();
 
         $categorias = DB::table('alp_categorias')->select('alp_categorias.*')->where('destacado','=', 1)->orderBy('order', 'asc')->limit(9)->get();
 
         $productos = DB::table('alp_productos')->select('alp_productos.*')->where('destacado','=', 1)->orderBy('order', 'asc')->limit(8)->get();
+
+        if (Sentinel::check()) {
+
+            $user_id = Sentinel::getUser()->id;
+
+            $role=RoleUser::where('user_id', $user_id)->first();
+
+            $cliente = AlpClientes::where('id_user_client', $user_id )->first();
+
+            if (isset($cliente) ) {
+
+                if ($cliente->id_empresa!=0) {
+                    
+                     $empresa=AlpEmpresas::find($cliente->id_empresa);
+
+                    $cliente['nombre_empresa']=$empresa->nombre_empresa;
+
+                    $descuento=(1-($empresa->descuento_empresa/100));
+                }
+               
+            }
+
+            if ($role->role_id) {
+
+               
+                foreach ($productos as  $row) {
+                    
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $role->role_id)->first();
+
+                    if (isset($pregiogrupo->id)) {
+                       
+                        $precio[$row->id]['precio']=$pregiogrupo->precio;
+                        $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+
+                    }
+
+                }
+                
+            }
+
+        }
        
-        return view('index',compact('categorias','productos'));
+        return view('index',compact('categorias','productos', 'descuento', 'precio'));
     }
     /*
      * $user_activation set to false makes the user activation via user registered email
