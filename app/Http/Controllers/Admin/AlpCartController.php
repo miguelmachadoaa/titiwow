@@ -58,9 +58,12 @@ class AlpCartController extends JoshController
      */
     public function show()
     {
-       $cart= \Session::get('cart');
 
-       $total=$this->total();
+      $cart=$this->reloadCart();
+
+      // $cart= \Session::get('cart');
+
+      $total=$this->total();
 
       return view('frontend.cart', compact('cart', 'total'));
     }
@@ -104,7 +107,9 @@ class AlpCartController extends JoshController
 
     public function orderDetail()
     {
-       $cart= \Session::get('cart');
+       //$cart= \Session::get('cart');
+
+      $cart=$this->reloadCart();
 
       $total=$this->total();
 
@@ -149,7 +154,7 @@ class AlpCartController extends JoshController
               $items["picture_url"]= url('/').'/uploads/productos/'.$row->imagen_producto;
               $items["quantity"]=intval($row->cantidad);
               $items["currency_id"]='COP';
-              $items["unit_price"]=$row->precio_base;
+              $items["unit_price"]=doubleval($row->precio_base);
 
               $list[]=$items;
               
@@ -248,7 +253,7 @@ class AlpCartController extends JoshController
               $items["picture_url"]= url('/').'/uploads/productos/'.$row->imagen_producto;
               $items["quantity"]=intval($row->cantidad);
               $items["currency_id"]='COP';
-              $items["unit_price"]=$row->precio_base;
+              $items["unit_price"]=intval($row->precio_base);
 
               $list[]=$items;
               
@@ -269,7 +274,7 @@ class AlpCartController extends JoshController
 
             print_r($preference_data);
             
-            $preference = MP::post("/checkout/preferences",$preference_data);
+            //$preference = MP::post("/checkout/preferences",$preference_data);
 
             //$preference=null;
 
@@ -372,8 +377,6 @@ class AlpCartController extends JoshController
 
        //  $datalles=AlpDetalles::where('id_orden', $orden->id)->get();
 
-
-
         $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago')
             ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
             ->join('alp_formas_envios','alp_ordenes.id_forma_envio' , '=', 'alp_formas_envios.id')
@@ -463,8 +466,6 @@ class AlpCartController extends JoshController
 
             $role=RoleUser::where('user_id', $user_id)->first();
 
-
-
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
 
             if (isset($cliente->id_empresa) ) {
@@ -479,13 +480,10 @@ class AlpCartController extends JoshController
                 }
                
             }
-            
 
              if ($role->role_id) {
                     
                     $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $role->role_id)->first();
-
-
 
                     if (isset($pregiogrupo->id)) {
                        
@@ -493,10 +491,6 @@ class AlpCartController extends JoshController
                         $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
 
                     }
-
-                   
-
-                
                 
             }
 
@@ -509,7 +503,6 @@ class AlpCartController extends JoshController
 
         if (isset($precio[$producto->id])) {
           # code...
-        
          
           switch ($precio[$producto->id]['operacion']) {
             case 1:
@@ -565,7 +558,6 @@ class AlpCartController extends JoshController
         'resultado' => 1, 
         'contenido' => $cantidad.' Items'
       );
-
 
 
        return $data;*/
@@ -661,6 +653,10 @@ class AlpCartController extends JoshController
       
     }
 
+
+
+
+
     private function cantidad()
     {
        $cart= \Session::get('cart');
@@ -677,6 +673,124 @@ class AlpCartController extends JoshController
 
       
     }
+
+
+    private function reloadCart()
+    {
+       $cart= \Session::get('cart');
+
+      $total=0;
+
+      
+
+      $descuento='1'; 
+
+      $precio = array();
+
+        if (Sentinel::check()) {
+
+            $user_id = Sentinel::getUser()->id;
+
+            $role=RoleUser::where('user_id', $user_id)->first();
+
+            $cliente = AlpClientes::where('id_user_client', $user_id )->first();
+
+            if (isset($cliente->id_empresa) ) {
+
+                if ($cliente->id_empresa!=0) {
+                    
+                     $empresa=AlpEmpresas::find($cliente->id_empresa);
+
+                    $cliente['nombre_empresa']=$empresa->nombre_empresa;
+
+                    $descuento=(1-($empresa->descuento_empresa/100));
+                }
+               
+            }
+
+             if ($role->role_id) {
+                    
+                    
+                foreach ($cart as $producto ) {
+
+                  $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $role->role_id)->first();
+
+                  if (isset($pregiogrupo->id)) {
+                     
+                      $precio[$producto->id]['precio']=$pregiogrupo->precio;
+                      $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
+
+                  }
+
+                }
+                
+            }
+
+        }
+
+
+        $cart2 = array();
+
+
+      foreach ($cart as $producto) {
+
+      if ($descuento=='1') {
+
+        if (isset($precio[$producto->id])) {
+          # code...
+         
+          switch ($precio[$producto->id]['operacion']) {
+            case 1:
+
+              $producto->precio_base=$producto->precio_base*$descuento;
+
+              break;
+
+            case 2:
+
+              $producto->precio_base=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
+              
+              break;
+
+            case 3:
+
+              $producto->precio_base=$precio[$producto->id]['precio'];
+              
+              break;
+            
+            default:
+            
+             $producto->precio_base=$producto->precio_base*$descuento;
+              # code...
+              break;
+          }
+
+        }else{
+
+          $producto->precio_base=$producto->precio_base*$descuento;
+
+        }
+
+
+       }else{
+
+       $producto->precio_base=$producto->precio_base*$descuento;
+
+       }
+
+
+       $cart2[$producto->slug]=$producto;
+
+       
+      }
+
+
+       return $cart2;
+
+      
+    }
+
+
 
 
      public function storedir(Request $request)
@@ -705,8 +819,6 @@ class AlpCartController extends JoshController
         if ($direccion->id) {
 
           //return redirect('order/detail');
-          
-        
 
           $view= View::make('frontend.order.direcciones', compact('direcciones'));
 
@@ -716,7 +828,6 @@ class AlpCartController extends JoshController
 
         //  return json_encode($res);
           return $data;
-            
 
         } else {
 
@@ -739,7 +850,6 @@ class AlpCartController extends JoshController
           $dir_upd = AlpDirecciones::find($dir->id);
 
           $dir_upd->update($data);
-
 
         }
 
