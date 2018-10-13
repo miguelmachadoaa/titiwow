@@ -91,7 +91,7 @@ class FrontEndController extends JoshController
      * $user_activation set to false makes the user activation via user registered email
      * and set to true makes user activated while creation
      */
-    private $user_activation = true;
+    private $user_activation = false;
 
     /**
      * Account sign in.

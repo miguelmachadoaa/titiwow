@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Mail;
 use Redirect;
 use Sentinel;
 use URL;
+use DB;
 use Validator;
 use View;
 use Yajra\DataTables\DataTables;
@@ -79,6 +80,7 @@ class UsersController extends JoshController
     {
         // Get all the available groups
         $groups = Sentinel::getRoleRepository()->all();
+        $groups = DB::table('roles')->whereIn('roles.id', [2,3,4,5,6,7,8])->get();
 
         $countries = $this->countries;
         // Show the page

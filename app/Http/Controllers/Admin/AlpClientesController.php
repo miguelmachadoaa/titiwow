@@ -73,7 +73,7 @@ class AlpClientesController extends JoshController
     public function create()
     {
         // Get all the available groups
-        $groups = DB::table('roles')->where('roles.id', '<>', 1)->get();
+        $groups = DB::table('roles')->whereIn('roles.id', [9, 10, 11])->get();
 
         $tdocumento = AlpTDocumento::all();
 
@@ -120,7 +120,7 @@ class AlpClientesController extends JoshController
                 'telefono_cliente' =>$request->telefono_cliente, 
                 'marketing_cliente' =>$request->marketing_cliente,
                 'habeas_cliente' => 1,
-                'estado_masterfile' =>$request->activate,
+                'estado_masterfile' =>0,
                 'id_user' =>$user_id,               
             );
 

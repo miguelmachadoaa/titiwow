@@ -230,7 +230,7 @@
                                             </div>
                                             <span class="help-block">{{ $errors->first('group', ':message') }}</span>
                                         </div>
-                                        <div class="form-group">
+                                        <!--div class="form-group">
                                             <label for="activate" class="col-sm-2 control-label"> Activar Cliente *</label>
                                             <div class="col-sm-10">
                                                 <input id="activate" name="activate" type="checkbox"
@@ -238,7 +238,7 @@
                                                        value="1" @if(old('activate')) checked="checked" @endif >
                                                 <span>¿Desea Activar la cuenta del cliente de forma automática?</span></div>
 
-                                        </div>
+                                        </div-->
                                     </div>
                                     <ul class="pager wizard">
                                         <li class="previous"><a href="#">@lang('clientes/title.previous')</a></li>
