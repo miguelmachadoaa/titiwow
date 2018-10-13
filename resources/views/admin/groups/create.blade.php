@@ -65,6 +65,60 @@
                                 {!! $errors->first('name', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
+                        <div style="overflow-x:auto;">
+                            <table class="table table-striped table-responsive">
+                                    <tr>
+                                        <th colspan="8" class="text-center">Conceder Permisos</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">Módulo</th>
+                                        <th class="text-center">Index</th>
+                                        <th class="text-center">Create</th>
+                                        <th class="text-center">Store</th>
+                                        <th class="text-center">Show</th>
+                                        <th class="text-center">Edit</th>
+                                        <th class="text-center">Update</th>
+                                        <th class="text-center">Destroy</th>
+                                    </tr>
+                                
+                                    @foreach($modulos as $modulo)
+                                                <tr>
+                                                    <td class="text-center"><input type="text" name="permissions[]"
+                                                               value="{{ $modulo->nombre_modulo }}" readonly></td>
+
+                                                    <td class="text-center">
+                                                        <input type="checkbox" name="permissions[]"
+                                                               value="index">
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <input type="checkbox"  name="permissions[]"
+                                                               value="create">
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <input type="checkbox"  name="permissions[]"
+                                                               value="store">
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <input type="checkbox"  name="permissions[]"
+                                                               value="show">
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <input type="checkbox"  name="permissions[]"
+                                                               value="edit">
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <input type="checkbox"  name="permissions[]"
+                                                               value="update">
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <input type="checkbox"  name="permissions[]"
+                                                               value="destroy">
+                                                    </td>
+                                                </tr>
+                                    @endforeach
+                                    
+                                </table>
+                            </div>
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
@@ -84,3 +138,4 @@
     <!-- row-->
 </section>
 @stop
+

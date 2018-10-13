@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\JoshController;
 use App\Http\Requests\GroupRequest;
+use App\Models\AlpModulos;
 use Redirect;
 use Sentinel;
 use View;
@@ -32,8 +33,9 @@ class GroupsController extends JoshController
      */
     public function create()
     {
+        $modulos = AlpModulos::all();
         // Show the page
-        return view ('admin.groups.create');
+        return view ('admin.groups.create', compact('modulos'));
     }
 
     /**
@@ -48,6 +50,14 @@ class GroupsController extends JoshController
             'slug' => str_slug($request->get('name'))
         ])
         ) {
+            dd($request->all());
+            if ($request->has('permissions')) {
+                foreach ($request->permissions as $permission_name) {
+
+                }
+
+            } 
+
             // Redirect to the new group page
             return Redirect::route('admin.groups.index')->with('success', trans('groups/message.success.create'));
         }
