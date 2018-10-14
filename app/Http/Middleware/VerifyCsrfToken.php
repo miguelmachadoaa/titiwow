@@ -20,6 +20,7 @@ class VerifyCsrfToken extends Middleware
        'clientes/deleteamigo', //
        'empresas/delamigo', //
        'cart/updatecart', //
+       'formasenvio/storecity', //
        'configuracion/storecity', //
        'configuracion/delcity', //
        'delamigo' //

@@ -32,7 +32,7 @@ Formas de Envio
                        Formas de Envio
                     </h4>
                     <div class="pull-right">
-                    <a href="{{ route('admin.formasenvio.create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Formas de Envio</a>
+                       <a href="{{ route('admin.formasenvio.create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear </a>
                     </div>
                 </div>
                 <br />
@@ -61,7 +61,7 @@ Formas de Envio
                                     <td>
                                             
                                             
-
+                                            <a  href="{{ url('admin/formasenvio').'/'.$row->id.'/ubicacion' }}"><i class="fa fa-map-marker"></i></a>
 
 
                                             <a href="{{ route('admin.formasenvio.edit', $row->id) }}">
@@ -103,30 +103,35 @@ Formas de Envio
 
 {{-- Body Bottom confirm modal --}}
 @section('footer_scripts')
+
+
+
+
+
+
+
 <div class="modal fade" id="delete_confirm" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
     </div>
   </div>
 </div>
-<div class="modal fade" id="users_exists" tabindex="-2" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-            </div>
-            <div class="modal-body">
-                @lang('groups/message.users_exists')
-            </div>
-        </div>
-    </div>
-</div>
+
+
+
 <script>
+    
+
+
+
     $(function () {$('body').on('hidden.bs.modal', '.modal', function () {$(this).removeData('bs.modal');});});
     $(document).on("click", ".users_exists", function () {
 
         var group_name = $(this).data('name');
         $(".modal-header h4").text( group_name+" Group" );
     });</script>
+
+
+
+
 @stop
