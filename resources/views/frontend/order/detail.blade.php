@@ -557,8 +557,31 @@ Carro de Productos
             }else{
 
                 $('#id_forma_pago').val(id_forma_pago);
+                base=$('#base').val();
 
-                $('#procesarForm').submit();
+
+                $.ajax({
+                    type: "POST",
+                    data:{id_forma_envio, id_direccion},
+                    url: base+"/cart/verificarDireccion",
+                        
+                    complete: function(datos){     
+
+                       if(datos.responseText=='true'){
+
+                            $('#procesarForm').submit()
+
+                       }else{
+
+                            $('.res_env').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+
+                       }
+                    
+                    }
+                });
+
+
+              //  $('#procesarForm').submit();
 
             }
 

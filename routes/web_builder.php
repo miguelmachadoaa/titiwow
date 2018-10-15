@@ -97,6 +97,7 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
         Route::get('{id}/ubicacion', 'Admin\AlpFormasenvioController@ubicacion')->name('formasenvio.ubicacion');
         Route::post('/storecity', 'Admin\AlpFormasenvioController@storecity')->name('formasenvio.storecity');
+        Route::post('/delcity', 'Admin\AlpFormasenvioController@delcity')->name('formasenvio.delcity');
 
 
  	});
@@ -396,6 +397,8 @@ Route::get('cart/vaciar/',['as'=>'cart.vaciar', 'uses'=>'Admin\AlpCartController
 
 //agregar una direccion desde el detalle del pedido
 Route::post('cart/storedir/',['as'=>'cart.storedir', 'uses'=>'Admin\AlpCartController@storedir']);
+
+Route::post('cart/verificarDireccion/',['as'=>'cart.verificarDireccion', 'uses'=>'Admin\AlpCartController@verificarDireccion']);
 
 
 Route::get('cart/setdir/{direccion}',['as'=>'cart.setdir', 'uses'=>'Admin\AlpCartController@setdir']);

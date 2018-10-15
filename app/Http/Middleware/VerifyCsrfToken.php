@@ -13,6 +13,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
        'cart/storedir', //
+       'cart/verificarDireccion', //
        'clientes/storedir', //
        'clientes/deldir', //
        'storeamigo', //
@@ -21,6 +22,7 @@ class VerifyCsrfToken extends Middleware
        'empresas/delamigo', //
        'cart/updatecart', //
        'formasenvio/storecity', //
+       'formasenvio/delcity', //
        'configuracion/storecity', //
        'configuracion/delcity', //
        'delamigo' //

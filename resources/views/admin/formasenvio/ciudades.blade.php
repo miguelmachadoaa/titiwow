@@ -24,7 +24,7 @@
                                             
                                             
 
-                                        <button type="button" class=" btn btn-danger delCiudad"><i class="fa fa-trash"></i></button>
+                                        <button data-id="{{ $row->id }}" type="button" class=" btn btn-danger delciudad"><i class="fa fa-trash"></i></button>
 
                                             <!-- let's not delete 'Admin' group by accident -->
                                               

@@ -10,6 +10,7 @@ use App\Models\AlpCategoriasProductos;
 use App\Models\AlpInventario;
 use App\Models\AlpMarcas;
 use App\Models\AlpFormasenvio;
+use App\Models\AlpFormaCiudad;
 use App\Models\AlpFormaspago;
 use App\Models\AlpOrdenes;
 use App\Models\AlpDetalles;
@@ -173,15 +174,10 @@ class AlpCartController extends JoshController
               "external_reference" =>'123456'
             ];
 
-            //print_r($preference_data);
-            //$preference = MP::post("/checkout/preferences",$preference_data);
-
-            //print_r($preference);
-
             return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries'));
 
-
          }
+
 
       }else{
 
@@ -884,6 +880,34 @@ class AlpCartController extends JoshController
           $direccion->delete();
 
           return redirect('order/detail');
+    }
+
+    public function verificarDireccion( Request $request)
+    {
+
+      $user_id = Sentinel::getUser()->id;
+
+      $direccion=AlpDirecciones::where('id', $request->id_direccion)->first();
+
+     # print_r($direccion);
+
+      $ciudad=AlpFormaCiudad::where('id_forma', $request->id_forma_envio)->where('id_ciudad', $direccion->city_id)->first();
+
+      #echo '<br>'."ciudad: ".'<br>';
+
+     # print_r($ciudad);
+
+
+      if (isset($ciudad->id)) {
+
+        return 'true';
+
+      }else{
+
+        return 'false';
+      }
+
+        
     }
     
 }

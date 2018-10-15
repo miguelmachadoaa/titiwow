@@ -221,6 +221,33 @@ class AlpFormasenvioController extends JoshController
 
     }
 
+    public function delcity(Request $request)
+    {
+        
+        $user_id = Sentinel::getUser()->id;
+
+         
+        $formas=AlpFormaCiudad::where('id', $request->id)->first();
+
+        $id_forma=$formas->id_forma;
+
+        $formas->delete();
+
+         $ciudades=AlpFormaCiudad::select('alp_forma_ciudad.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name')
+        ->join('config_cities','alp_forma_ciudad.id_ciudad' , '=', 'config_cities.id')
+        ->join('config_states','config_cities.state_id' , '=', 'config_states.id')
+        ->where('alp_forma_ciudad.id_forma', $id_forma)->get();
+
+
+        $view= View::make('admin.formasenvio.ciudades', compact('ciudades', 'forma'));
+
+          $data=$view->render();
+
+
+         return $data;
+
+    }
+
     
 
 }

@@ -74,7 +74,7 @@ Ciudades de envio
                                             
                                             
 
-                                        <button type="button" class=" btn btn-danger delCiudad"><i class="fa fa-trash"></i></button>
+                                        <button data-id="{{ $row->id }}" type="button" class=" btn btn-danger delciudad"><i class="fa fa-trash"></i></button>
 
                                             <!-- let's not delete 'Admin' group by accident -->
                                               
@@ -209,6 +209,30 @@ Ciudades de envio
 
 <!-- Modal Direccion -->
 
+      <!-- Modal Direccion -->
+ <div class="modal fade" id="delCiudadModal" role="dialog" aria-labelledby="modalLabeldanger">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger">
+                        <h4 class="modal-title" id="modalLabeldanger">Eliminar Ciudad</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <input type="hidden" name="del_id" id="del_id">
+
+                        <h3>Esta seguro que desar eliminar esta direccion</h3>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  class="btn  btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn  btn-danger delCiudad" >Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- Modal Direccion -->
 
 
 
@@ -218,6 +242,39 @@ Ciudades de envio
     $("#hora").datetimepicker({
     format: 'HH:mm'
 }).parent().css("position :relative");
+
+    $('body').on('click', '.delciudad', function(){
+
+            $('#del_id').val($(this).data('id'));
+
+            $("#delCiudadModal").modal('show');
+
+        });
+
+
+
+$('.delCiudad').click(function () {
+    
+        id=$("#del_id").val();
+        var base = $('#base').val();
+
+        $.ajax({
+            type: "POST",
+            data:{id},
+            url: base+"/admin/formasenvio/delcity",
+                
+            complete: function(datos){     
+
+                $(".ciudades").html(datos.responseText);
+
+                $('#delCiudadModal').modal('hide');
+
+               $("#del_id").val('');
+            
+            }
+        });
+
+});
 
 
     
