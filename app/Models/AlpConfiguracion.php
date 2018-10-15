@@ -20,6 +20,10 @@ class AlpConfiguracion extends Model
     public $fillable = [
         'id',
         'nombre_tienda',
+        'limite_amigos',
+        'id_mercadopago',
+        'key_mercadopago',
+        'minimo_compra',
         'estado_registro',
         'id_user'
     ];
