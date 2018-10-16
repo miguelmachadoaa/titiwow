@@ -10,6 +10,7 @@ use App\Models\AlpCategoriasProductos;
 use App\Models\AlpInventario;
 use App\Models\AlpMarcas;
 use App\Models\AlpFormasenvio;
+use App\Models\AlpFormaCiudad;
 use App\Models\AlpFormaspago;
 use App\Models\AlpOrdenes;
 use App\Models\AlpDetalles;
@@ -29,6 +30,7 @@ use Illuminate\Http\Request;
 use Response;
 use Sentinel;
 use Intervention\Image\Facades\Image;
+use Carbon\Carbon;
 use DOMDocument;
 use DB;
 use View;
@@ -173,15 +175,10 @@ class AlpCartController extends JoshController
               "external_reference" =>'123456'
             ];
 
-            //print_r($preference_data);
-            //$preference = MP::post("/checkout/preferences",$preference_data);
-
-            //print_r($preference);
-
             return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries'));
 
-
          }
+
 
       }else{
 
@@ -314,6 +311,28 @@ class AlpCartController extends JoshController
 
         $user_id = Sentinel::getUser()->id;
 
+        $direccion=AlpDirecciones::where('id', $request->id_direccion)->first();
+
+     # print_r($direccion);
+
+      $ciudad_forma=AlpFormaCiudad::where('id_forma', $request->id_forma_envio)->where('id_ciudad', $direccion->city_id)->first();
+
+
+      $date = Carbon::now();
+
+      $hora=$date->format('hi');
+
+      $hora_base=str_replace(':', '', $ciudad_forma->hora);
+
+      if (intval($hora)>intval($hora_base)) {
+        $ciudad_forma->dias=$ciudad_forma->dias+1;
+      }
+
+
+
+      $fecha_entrega=$date->addDays($ciudad_forma->dias)->format('d-m-Y');;
+
+
         $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
 
 
@@ -321,7 +340,7 @@ class AlpCartController extends JoshController
             'referencia ' => time(), 
             'id_cliente' => $user_id, 
             'id_forma_envio' =>$request->id_forma_envio, 
-            'id_address' =>$request->id_address, 
+            'id_address' =>$request->id_direccion, 
             'id_forma_pago' =>$request->id_forma_pago, 
             'estatus' =>'1', 
             'estatus_pago' =>'1', 
@@ -393,7 +412,7 @@ class AlpCartController extends JoshController
 
 
 
-          return view('frontend.order.procesar', compact('compra', 'detalles'));
+          return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entrega'));
 
          
 
@@ -884,6 +903,34 @@ class AlpCartController extends JoshController
           $direccion->delete();
 
           return redirect('order/detail');
+    }
+
+    public function verificarDireccion( Request $request)
+    {
+
+      $user_id = Sentinel::getUser()->id;
+
+      $direccion=AlpDirecciones::where('id', $request->id_direccion)->first();
+
+     # print_r($direccion);
+
+      $ciudad=AlpFormaCiudad::where('id_forma', $request->id_forma_envio)->where('id_ciudad', $direccion->city_id)->first();
+
+      #echo '<br>'."ciudad: ".'<br>';
+
+     # print_r($ciudad);
+
+
+      if (isset($ciudad->id)) {
+
+        return 'true';
+
+      }else{
+
+        return 'false';
+      }
+
+        
     }
     
 }

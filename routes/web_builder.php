@@ -65,7 +65,6 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
         Route::post('{categoria}/updson', 'Admin\AlpCategoriasController@updson')->name('categorias.updson');
 
 
-
  	});
 
     Route::resource('categorias', 'Admin\AlpCategoriasController');
@@ -76,11 +75,12 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
     Route::group(['prefix' => 'formaspago'], function () {
 
-        Route::get('{id}/delete', 'Admin\AlpFormasenvioController@destroy')->name('formaspago.delete');
+        Route::get('{id}/delete', 'Admin\AlpFormaspagoController@destroy')->name('formaspago.delete');
 
         Route::get('{id}/confirm-delete', 'Admin\AlpFormaspagoController@getModalDelete')->name('formaspago.confirm-delete');
 
         Route::get('{id}/restore', 'Admin\AlpFormaspagoController@getRestore')->name('formaspago.restore');
+
 
  	});
 
@@ -94,6 +94,11 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
         Route::get('{id}/confirm-delete', 'Admin\AlpFormasenvioController@getModalDelete')->name('formasenvio.confirm-delete');
 
         Route::get('{id}/restore', 'Admin\AlpFormasenvioController@getRestore')->name('formasenvio.restore');
+
+        Route::get('{id}/ubicacion', 'Admin\AlpFormasenvioController@ubicacion')->name('formasenvio.ubicacion');
+        Route::post('/storecity', 'Admin\AlpFormasenvioController@storecity')->name('formasenvio.storecity');
+        Route::post('/delcity', 'Admin\AlpFormasenvioController@delcity')->name('formasenvio.delcity');
+
 
  	});
 
@@ -392,6 +397,8 @@ Route::get('cart/vaciar/',['as'=>'cart.vaciar', 'uses'=>'Admin\AlpCartController
 
 //agregar una direccion desde el detalle del pedido
 Route::post('cart/storedir/',['as'=>'cart.storedir', 'uses'=>'Admin\AlpCartController@storedir']);
+
+Route::post('cart/verificarDireccion/',['as'=>'cart.verificarDireccion', 'uses'=>'Admin\AlpCartController@verificarDireccion']);
 
 
 Route::get('cart/setdir/{direccion}',['as'=>'cart.setdir', 'uses'=>'Admin\AlpCartController@setdir']);

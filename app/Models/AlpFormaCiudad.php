@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class AlpConfiguracion extends Model
+class AlpFormaCiudad extends Model
 {
     use SoftDeletes;
 
-    public $table = 'alp_configuracion_general';
+    public $table = 'alp_forma_ciudad';
     
 
     protected $dates = ['deleted_at'];
@@ -19,11 +19,10 @@ class AlpConfiguracion extends Model
 
     public $fillable = [
         'id',
-        'nombre_tienda',
-        'limite_amigos',
-        'id_mercadopago',
-        'key_mercadopago',
-        'minimo_compra',
+        'id_forma',       
+        'id_ciudad',       
+        'dias',       
+        'hora',       
         'estado_registro',
         'id_user'
     ];
@@ -34,7 +33,7 @@ class AlpConfiguracion extends Model
      * @var array
      */
     protected $casts = [
-        'nombre_tienda' => 'string'
+        'id_forma' => 'string'
     ];
 
     /**
@@ -43,6 +42,6 @@ class AlpConfiguracion extends Model
      * @var array
      */
     public static $rules = [
-        'nombre_tienda' => 'required'
+        'id_forma' => 'required'
     ];
 }

@@ -59,6 +59,7 @@ class AlpConfiguracionController extends JoshController
             'limite_amigos' => $request->limite_amigos,
             'id_mercadopago' => $request->id_mercadopago,
             'key_mercadopago' => $request->key_mercadopago, 
+            'minimo_compra' => $request->minimo_compra, 
         );
          
        $configuracion = AlpConfiguracion::find($id);

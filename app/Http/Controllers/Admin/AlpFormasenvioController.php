@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\JoshController;
 use App\Models\AlpFormasenvio;
+use App\Models\AlpFormaCiudad;
+use App\State;
 use App\Http\Requests\FormaenvioRequest;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -24,11 +26,12 @@ class AlpFormasenvioController extends JoshController
 
         $formas = AlpFormasenvio::all();
        
-
-
         // Show the page
         return view('admin.formasenvio.index', compact('formas'));
     }
+
+    
+
 
     /**
      * Group create.
@@ -162,6 +165,87 @@ class AlpFormasenvioController extends JoshController
             // Redirect to the group management page
             return Redirect::route('admin.formasenvio.index')->with('error', trans('Error al eliminar el registro'));
         }
+    }
+
+     public function ubicacion($id)
+    {
+        // Grab all the groups
+
+        $formas = AlpFormasenvio::where('id', $id)->first();
+
+        
+         $ciudades=AlpFormaCiudad::select('alp_forma_ciudad.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name')
+        ->join('config_cities','alp_forma_ciudad.id_ciudad' , '=', 'config_cities.id')
+        ->join('config_states','config_cities.state_id' , '=', 'config_states.id')
+        ->where('alp_forma_ciudad.id_forma', $id)->get();
+
+        $states=State::where('config_states.country_id', '47')->get();
+
+        // Show the page
+        return view('admin.formasenvio.ubicacion', compact('formas', 'ciudades', 'states'));
+
+    }
+
+
+
+    public function storecity(Request $request)
+    {
+        
+         $user_id = Sentinel::getUser()->id;
+
+       
+         
+
+        $data = array(
+            'id_forma' => $request->id_forma, 
+            'id_ciudad' => $request->city_id, 
+            'dias' => $request->dias, 
+            'hora' => $request->hora, 
+            'id_user' =>$user_id
+        );
+         
+        $formas=AlpFormaCiudad::create($data);
+
+         $ciudades=AlpFormaCiudad::select('alp_forma_ciudad.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name')
+        ->join('config_cities','alp_forma_ciudad.id_ciudad' , '=', 'config_cities.id')
+        ->join('config_states','config_cities.state_id' , '=', 'config_states.id')
+        ->where('alp_forma_ciudad.id_forma', $request->id_forma)->get();
+
+
+        $view= View::make('admin.formasenvio.ciudades', compact('ciudades', 'forma'));
+
+          $data=$view->render();
+
+
+         return $data;
+
+    }
+
+    public function delcity(Request $request)
+    {
+        
+        $user_id = Sentinel::getUser()->id;
+
+         
+        $formas=AlpFormaCiudad::where('id', $request->id)->first();
+
+        $id_forma=$formas->id_forma;
+
+        $formas->delete();
+
+         $ciudades=AlpFormaCiudad::select('alp_forma_ciudad.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name')
+        ->join('config_cities','alp_forma_ciudad.id_ciudad' , '=', 'config_cities.id')
+        ->join('config_states','config_cities.state_id' , '=', 'config_states.id')
+        ->where('alp_forma_ciudad.id_forma', $id_forma)->get();
+
+
+        $view= View::make('admin.formasenvio.ciudades', compact('ciudades', 'forma'));
+
+          $data=$view->render();
+
+
+         return $data;
+
     }
 
     

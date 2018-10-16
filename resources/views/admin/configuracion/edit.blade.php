@@ -68,6 +68,19 @@ Editar Configuracion
                                     {!! $errors->first('limite_amigos', '<span class="help-block">:message</span> ') !!}
                                 </div>
                             </div>
+
+                            <div class="form-group {{ $errors->first('minimo_compra', 'has-error') }}">
+                                <label for="title" class="col-sm-2 control-label">
+                                    Minimo de Compra
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="number" step="0.01" min="0"  id="minimo_compra" name="minimo_compra" class="form-control" placeholder="Minimo Compra"
+                                        value="{!! old('minimo_compra', $configuracion->minimo_compra) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('minimo_compra', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
                             <hr />
                             <div class="form-group {{ $errors->first('id_mercadopago', 'has-error') }}">
                                 <label for="title" class="col-sm-2 control-label">

@@ -62,7 +62,7 @@ Carro de Productos
 
             <h5>Su forma de Pago fue <b>{{ $compra->nombre_forma_pago }}</b> </h5>
 
-            <h5>ha seleccionado enviar en pedido con <b>{{ $compra->nombre_forma_envios }}</b> y sera entregado {{ $compra->descripcion_forma_envios }}</h5>
+            <h5>ha seleccionado enviar en pedido con <b>{{ $compra->nombre_forma_envios }}</b> y sera entregado {{ $fecha_entrega }}</h5>
 
             <h5>De igual forma puede consultar la informacion y estatus de su pedido en su area de cliente </h5>
 
