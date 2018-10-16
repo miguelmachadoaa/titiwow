@@ -16,6 +16,7 @@
         | Alpina
         @show
     </title>
+    @yield('meta_tags')
     <!--global css starts-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/lib.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Comfortaa|Oswald|Montserrat:300,400,600|Roboto" rel="stylesheet">    <!--end of global css-->

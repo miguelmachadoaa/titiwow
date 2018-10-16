@@ -5,9 +5,19 @@
 @section('title')
 @foreach($cataname as $catana)
 {{ $catana->nombre_categoria }}
-@endforeach
-@parent
+@endforeach @parent
 @stop
+@section('meta_tags')
+@php 
+    foreach($cataname as $catana)
+        $catego = $catana->nombre_categoria;
+        $categodes = $catana->descripcion_categoria
+@endphp
+<meta property="og:title" content="{{$catego}} | AlpinaGo">
+<meta property="og:description" content="{{$categodes}}">
+<meta property="og:robots" content="index, follow">
+<meta property="og:revisit-after" content="3 days">
+@endsection
 
 {{-- page level styles --}}
 @section('header_styles')

@@ -130,7 +130,7 @@ class ProductosFrontController extends Controller
 
         $categoria = AlpCategorias::where('slug','=', $slug)->firstOrFail();
 
-        $cataname = DB::table('alp_categorias')->select('nombre_categoria')->where('id','=', $categoria->id)->where('estado_registro','=', 1)->get();
+        $cataname = DB::table('alp_categorias')->select('nombre_categoria','descripcion_categoria')->where('id','=', $categoria->id)->where('estado_registro','=', 1)->get();
 
         $productos =  DB::table('alp_productos')->select('alp_productos.*','alp_productos_category.*')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')

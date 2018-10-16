@@ -2,9 +2,14 @@
 
 {{-- Page title --}}
 @section('title')
-Inicio
-@parent
+Inicio @parent
 @stop
+@section('meta_tags')
+<meta property="og:title" content="Inicio | AlpinaGo">
+<meta property="og:description" content="Bienvenidos a AlpinaGo">
+<meta property="og:robots" content="index, follow">
+<meta property="og:revisit-after" content="3 days">
+@endsection
 
 {{-- page level styles --}}
 @section('header_styles')
