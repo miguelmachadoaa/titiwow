@@ -49,6 +49,10 @@ class AlpCartController extends JoshController
         if (!\Session::has('cart')) {
           \Session::put('cart', array());
         }
+
+        if (!\Session::has('user')) {
+          \Session::put('user', '0');
+        }
        
     }
 
@@ -63,11 +67,14 @@ class AlpCartController extends JoshController
 
       $cart=$this->reloadCart();
 
+      $configuracion=AlpConfiguracion::where('id', '1')->first();
+
+
       // $cart= \Session::get('cart');
 
       $total=$this->total();
 
-      return view('frontend.cart', compact('cart', 'total'));
+      return view('frontend.cart', compact('cart', 'total', 'configuracion'));
     }
 
     public function mercadopago()
@@ -105,8 +112,6 @@ class AlpCartController extends JoshController
     }
 
 
-     
-
     public function orderDetail()
     {
        //$cart= \Session::get('cart');
@@ -118,6 +123,8 @@ class AlpCartController extends JoshController
       if (Sentinel::check()) {
 
         $user_id = Sentinel::getUser()->id;
+
+        $configuracion=AlpConfiguracion::where('id', '1')->first();
 
         $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
 
@@ -175,7 +182,7 @@ class AlpCartController extends JoshController
               "external_reference" =>'123456'
             ];
 
-            return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries'));
+            return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion'));
 
          }
 
@@ -313,9 +320,7 @@ class AlpCartController extends JoshController
 
         $direccion=AlpDirecciones::where('id', $request->id_direccion)->first();
 
-     # print_r($direccion);
-
-      $ciudad_forma=AlpFormaCiudad::where('id_forma', $request->id_forma_envio)->where('id_ciudad', $direccion->city_id)->first();
+        $ciudad_forma=AlpFormaCiudad::where('id_forma', $request->id_forma_envio)->where('id_ciudad', $direccion->city_id)->first();
 
 
       $date = Carbon::now();
@@ -628,7 +633,10 @@ class AlpCartController extends JoshController
        $cart= \Session::get('cart');
 
        $cart[$request->slug]->cantidad=$request->cantidad;
-       
+
+       $configuracion=AlpConfiguracion::where('id', '1')->first();
+
+
       // return $cart;
 
        \Session::put('cart', $cart);
@@ -638,7 +646,7 @@ class AlpCartController extends JoshController
        $total=$this->total();
 
 
-        $view= View::make('frontend.listcart', compact('cart', 'total'));
+        $view= View::make('frontend.listcart', compact('cart', 'total', 'configuracion'));
 
         $data=$view->render();
 
@@ -700,7 +708,11 @@ class AlpCartController extends JoshController
     {
        $cart= \Session::get('cart');
 
+       $s_user= \Session::get('user');
+
       $total=0;
+
+      $cambio=0;
 
       
 
@@ -711,6 +723,14 @@ class AlpCartController extends JoshController
         if (Sentinel::check()) {
 
             $user_id = Sentinel::getUser()->id;
+
+            if ($user_id!=$s_user) {
+
+              $cambio=1;
+
+              \Session::put('user', $user_id);
+
+            }
 
             $role=RoleUser::where('user_id', $user_id)->first();
 
@@ -747,10 +767,19 @@ class AlpCartController extends JoshController
                 
             }
 
+
+
+
+
         }
 
 
         $cart2 = array();
+
+
+      
+    if ($cambio==1) {
+
 
 
       foreach ($cart as $producto) {
@@ -807,6 +836,12 @@ class AlpCartController extends JoshController
 
 
        return $cart2;
+
+    }else{
+
+      return $cart;
+
+    }
 
       
     }

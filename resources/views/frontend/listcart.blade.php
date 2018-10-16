@@ -69,7 +69,14 @@
                             
                             <td colspan="5" style="text-align: right;">Total: </td>
                             
-                            <td>{{number_format($total, 2,",",".")}}</td>
+                            <td>
+
+                                {{number_format($total, 2,",",".")}}
+
+                                <input type="hidden" name="total_orden" id="total_orden" value="{{ $total }}">
+                                <input type="hidden" name="limite_orden" id="limite_orden" value="{{ $configuracion->minimo_compra }}">
+
+                            </td>
 
                          </tr>
 
@@ -85,7 +92,7 @@
     <p style="text-align: center;">
         <a class="btn btn-default" href="{{url('productos')}}">Seguir Comprando </a>
 
-         <a class="btn btn-default" href="{{url('order/detail')}}">Continuar</a>
+         <a class="btn btn-default sendDetail" href="{{url('order/detail')}}">Continuar</a>
      </p> 
 
 

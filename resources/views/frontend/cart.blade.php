@@ -42,7 +42,9 @@ Carro de Productos
 
 {{-- Page content --}}
 @section('content')
-<div class="container text-center" id="table_detalle">
+<div class="container text-center" id="">
+
+    <div class="row" id="table_detalle">
 
     <div class="row">
 
@@ -117,7 +119,12 @@ Carro de Productos
                             
                             <td colspan="5" style="text-align: right;">Total: </td>
                             
-                            <td>{{number_format($total, 2,",",".")}}</td>
+                            <td>{{number_format($total, 2,",",".")}} 
+
+                                <input type="hidden" name="total_orden" id="total_orden" value="{{ $total }}">
+                                <input type="hidden" name="limite_orden" id="limite_orden" value="{{ $configuracion->minimo_compra }}">
+
+                            </td>
 
                          </tr>
 
@@ -133,8 +140,10 @@ Carro de Productos
     <p style="text-align: center;">
         <a class="btn btn-default" href="{{url('productos')}}">Seguir Comprando </a>
 
-         <a class="btn btn-default" href="{{url('order/detail')}}">Continuar</a>
+         <a class="btn btn-default sendDetail" href="{{url('order/detail')}}">Continuar</a>
      </p> 
+
+    
 
 
      @else
@@ -153,8 +162,19 @@ Carro de Productos
      @endif
 
      <hr>
+
+      </div>
+
+     <div class="row">
+         
+         <div class="col-sm-12">
+             
+             <div class="res"></div>
+         </div>
+     </div>
      
 </div>
+
 
 </div>
 @endsection
@@ -166,6 +186,22 @@ Carro de Productos
         jQuery(document).ready(function () {
             new WOW().init();
         });
+
+
+        $(document).on('click', '.sendDetail',function(e){
+            e.preventDefault();
+
+            url=$(this).attr('href');
+
+            if (parseInt($('#total_orden').val())>=parseInt($('#limite_orden').val())) {
+
+                window.location=url;
+
+            }else{
+
+                $('.res').html('<div class="alert alert-danger" role="alert">El monto minimo de compra es de '+ $('#limite_orden').val() + '</div>');
+            }
+        })
 
 
         
