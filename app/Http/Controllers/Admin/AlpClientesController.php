@@ -350,13 +350,27 @@ class AlpClientesController extends JoshController
     public function update(User $user, ClientesRequest $request)
     {
 
+        $user_id = Sentinel::getUser()->id;
 
         try {
+
+            $user=User::where('id', $request->id_cliente)->first();
+
+            $data_user = array(
+                'first_name' => $request->first_name, 
+                'last_name' => $request->last_name, 
+                'dob' => $request->dob, 
+            );
             
-            $user->update($request->except('email','pic_file','password','password_confirm','groups','activate'));
+            $user->update($data_user);
 
             if ( !empty($request->password)) {
-                $user->password = Hash::make($request->password);
+
+                $data_user = array(
+                'password' => Hash::make($request->password)                 
+                );
+                
+                $user->update($data_user);
             }
 
             // is new image uploaded?
@@ -370,24 +384,44 @@ class AlpClientesController extends JoshController
                     File::delete($destinationPath . $user->pic);
                 }
                 //save new file path into db
-                $user->pic = $safeName;
+                $pic = $safeName;
+
+                 $data_user = array(
+                'pic' => $safeName                 
+                );
+                
+                $user->update($data_user);
             }
 
-            //save record
-            $user->update();
 
+            $cliente=AlpClientes::where('id_user_client', $user->id)->first();
+
+            $data_cliente = array(
+                'genero_cliente' => $request->genero_cliente, 
+                'id_type_doc' => $request->id_type_doc, 
+                'doc_cliente' => $request->doc_cliente, 
+                'telefono_cliente' => $request->telefono_cliente,
+                'marketing_cliente' =>$request->marketing_cliente,
+                'estado_masterfile' =>$request->activate,
+                'id_user' =>$user_id, 
+            );
+
+            $cliente->update($data_cliente);
+
+            //save record
+           
             // Get the current user groups
             $userRoles = $user->roles()->pluck('id')->all();
 
 
             // Get the selected groups
 
-            $selectedRoles = $request->get('groups');
+           // $selectedRoles = $request->get('groups');
 
             // Groups comparison between the groups the user currently
             // have and the groups the user wish to have.
-            $rolesToAdd = array_diff($selectedRoles, $userRoles);
-            $rolesToRemove = array_diff($userRoles, $selectedRoles);
+           // $rolesToAdd = array_diff($selectedRoles, $userRoles);
+           // $rolesToRemove = array_diff($userRoles, $selectedRoles);
 
             // Assign the user to groups
 
@@ -403,17 +437,19 @@ class AlpClientesController extends JoshController
             }*/
 
 
-            $roleusuario=RoleUser::where('user_id', $user->id)->first();
+            $roleusuario=RoleUser::where('user_id', $request->id_cliente)->first();
 
-            print_r($roleusuario);
+          //  print_r($roleusuario);
+
+           // print_r($request->groups);
 
 
 
-           /* $role = Sentinel::findRoleById($roleusuario->role_id);
-                $role->users()->detach($user);
+            $role = Sentinel::findRoleById($roleusuario->role_id);
+                $role->users()->detach($request->id_cliente);
 
-            $role = Sentinel::findRoleById($request->group);
-                $role->users()->attach($user);*/
+            $role = Sentinel::findRoleById($request->groups);
+                $role->users()->attach($request->id_cliente);
 
             // Activate / De-activate user
 
@@ -452,11 +488,11 @@ class AlpClientesController extends JoshController
                     ->causedBy($user)
                     ->log('User Updated by '.Sentinel::getUser()->full_name);
                 // Redirect to the user page
-                return Redirect::route('admin.clientes.edit', $user->id)->with('success', $success);
+                return Redirect::route('admin.clientes.index')->with('success', $success);
             //}
 
             // Prepare the error message
-           // $error = trans('users/message.error.update');
+            $error = trans('users/message.error.update');
 
         } catch (UserNotFoundException $e) {
             // Prepare the error message
@@ -467,7 +503,7 @@ class AlpClientesController extends JoshController
         }
 
         // Redirect to the user page
-        return Redirect::route('admin.clientes.edit', $user->id)->withInput()->with('error', $error);
+        return Redirect::route('admin.clientes.edit', $request->id_cliente)->withInput()->with('error', $error);
     }
 
     /**

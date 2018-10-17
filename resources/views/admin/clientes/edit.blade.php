@@ -52,6 +52,8 @@
                         {!! Form::model($user, ['url' => URL::to('admin/clientes/'. $user->id.''), 'method' => 'put', 'class' => 'form-horizontal','id'=>'commentForm', 'enctype'=>'multipart/form-data','files'=> true]) !!}
                             {{ csrf_field() }}
 
+                            <input type="hidden" name="id_cliente" id="id_cliente" value="{{ $user->id }}">
+
                             <div id="rootwizard">
                                 <ul>
                                     <li><a href="#tab1" data-toggle="tab">@lang('clientes/title.tab1')</a></li>
@@ -232,7 +234,7 @@
                                         <div class="form-group required">
                                             <label for="group" class="col-sm-2 control-label">Grupo de Usuarios *</label>
                                             <div class="col-sm-10">
-                                                <select class="form-control " title="Seleccionar grupo de usuarios..." name="groups[]" id="groups" required>
+                                                <select class="form-control " title="Seleccionar grupo de usuarios..." name="groups" id="groups" required>
                                                     <option value="">Seleccionar Grupo de Usuarios</option>
                                                     @foreach($roles as $role)
                                                         <option value="{!! $role->id !!}" {{ (array_key_exists($role->id, $userRoles) ? ' selected="selected"' : '') }}>{{ $role->name }}</option>
