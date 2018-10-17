@@ -12,6 +12,7 @@ use App\Models\AlpDirecciones;
 use App\Models\AlpTDocumento;
 use App\Models\AlpEmpresas;
 use App\User;
+use App\RoleUser;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Redirect;
@@ -25,7 +26,6 @@ use Illuminate\Support\Facades\Mail;
 use URL;
 use Validator;
 use Yajra\DataTables\DataTables;
-
 
 class AlpClientesController extends JoshController
 {
@@ -379,6 +379,7 @@ class AlpClientesController extends JoshController
             // Get the current user groups
             $userRoles = $user->roles()->pluck('id')->all();
 
+
             // Get the selected groups
 
             $selectedRoles = $request->get('groups');
@@ -390,7 +391,7 @@ class AlpClientesController extends JoshController
 
             // Assign the user to groups
 
-            foreach ($rolesToAdd as $roleId) {
+           /* foreach ($rolesToAdd as $roleId) {
                 $role = Sentinel::findRoleById($roleId);
                 $role->users()->attach($user);
             }
@@ -399,7 +400,20 @@ class AlpClientesController extends JoshController
             foreach ($rolesToRemove as $roleId) {
                 $role = Sentinel::findRoleById($roleId);
                 $role->users()->detach($user);
-            }
+            }*/
+
+
+            $roleusuario=RoleUser::where('user_id', $user->id)->first();
+
+            print_r($roleusuario);
+
+
+
+           /* $role = Sentinel::findRoleById($roleusuario->role_id);
+                $role->users()->detach($user);
+
+            $role = Sentinel::findRoleById($request->group);
+                $role->users()->attach($user);*/
 
             // Activate / De-activate user
 
@@ -429,7 +443,7 @@ class AlpClientesController extends JoshController
             }
 
             // Was the user updated?
-            if ($user->update()) {
+            //if ($user->update()) {
                 // Prepare the success message
                 $success = trans('users/message.success.update');
                //Activity log for user update
@@ -438,11 +452,12 @@ class AlpClientesController extends JoshController
                     ->causedBy($user)
                     ->log('User Updated by '.Sentinel::getUser()->full_name);
                 // Redirect to the user page
-                return Redirect::route('admin.clientes.edit', $user)->with('success', $success);
-            }
+                return Redirect::route('admin.clientes.edit', $user->id)->with('success', $success);
+            //}
 
             // Prepare the error message
-            $error = trans('users/message.error.update');
+           // $error = trans('users/message.error.update');
+
         } catch (UserNotFoundException $e) {
             // Prepare the error message
             $error = trans('users/message.user_not_found', compact('id'));
@@ -452,7 +467,7 @@ class AlpClientesController extends JoshController
         }
 
         // Redirect to the user page
-        return Redirect::route('admin.clientes.edit', $user)->withInput()->with('error', $error);
+        return Redirect::route('admin.clientes.edit', $user->id)->withInput()->with('error', $error);
     }
 
     /**

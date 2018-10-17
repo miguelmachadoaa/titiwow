@@ -42,7 +42,7 @@ Carro de Productos
 
 {{-- Page content --}}
 @section('content')
-<div class="container text-center" id="">
+<div class="container contain_body text-center" id="">
 
     <div class="row" id="table_detalle">
 

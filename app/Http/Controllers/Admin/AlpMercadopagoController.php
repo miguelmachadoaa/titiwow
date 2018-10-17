@@ -43,14 +43,16 @@ class AlpMercadopagoController extends JoshController
 
       $mp = new MP ();
 
-      $mp::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+     // $mp::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
-      $access_token = $mp::getAccessToken();
+     // $access_token = $mp::getAccessToken();
 
-      // dd($access_token);
+     //dd($access_token);
       // MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
-      $preference_data = [
+
+
+     /* $preference_data = [
       "items" => [
         [
           "id" => '1234',
@@ -65,8 +67,19 @@ class AlpMercadopagoController extends JoshController
       "payer" => [
         "email" => 'miguelmachadoaa@gmail.com'
       ]
-    ];
-    $preference = $mp::post("/checkout/preferences",$preference_data);
+    ];*/
+
+
+
+    $body = array(
+      "json_data" => array(
+        "siteId" => "MCO"
+      )
+    );
+
+
+
+    $preference = MP::post('/users/test_user', $body);
      dd($preference);
 
 

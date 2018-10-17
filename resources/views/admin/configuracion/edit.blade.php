@@ -25,7 +25,7 @@ Editar Configuracion
 </section>
 
 <!-- Main content -->
-<section class="content">
+<section class="content contain_body">
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-primary ">

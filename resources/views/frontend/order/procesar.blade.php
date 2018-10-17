@@ -53,7 +53,7 @@ Carro de Productos
 
 {{-- Page content --}}
 @section('content')
-<div class="container text-center">
+<div class="container contain_body text-center">
     <div class="row">
 
         <div class="col-sm-12">
