@@ -3,9 +3,14 @@
 
 {{-- Page title --}}
 @section('title')
-Productos
-@parent
+Productos @parent
 @stop
+@section('meta_tags')
+<meta property="og:title" content="Productos | AlpinaGo">
+<meta property="og:description" content="Productos de AlpinaGo">
+<meta property="og:robots" content="index, follow">
+<meta property="og:revisit-after" content="3 days">
+@endsection
 
 {{-- page level styles --}}
 @section('header_styles')

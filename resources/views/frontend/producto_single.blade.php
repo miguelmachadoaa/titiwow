@@ -2,9 +2,14 @@
 
 {{-- Page title --}}
 @section('title')
-{{ $producto->nombre_producto}}
-@parent
+{{ $producto->nombre_producto}} @parent
 @stop
+@section('meta_tags')
+<meta property="og:title" content="{{ $producto->seo_titulo }} | AlpinaGo">
+<meta property="og:description" content="{{ $producto->seo_descripcion }}">
+<meta property="og:robots" content="index, follow">
+<meta property="og:revisit-after" content="3 days">
+@endsection
 
 {{-- page level styles --}}
 @section('header_styles')
@@ -14,6 +19,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/tabbular.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/bootstrap-rating/bootstrap-rating.css') }}">
     <!--end of page level css-->
+
+
 @stop
 
 {{-- breadcrumb --}}
