@@ -193,7 +193,7 @@ class AlpEnviosController extends JoshController
 
     }
 
-    public function storeconfirm(Request $request)
+    public function updatestatus(Request $request)
     {
 
         $user_id = Sentinel::getUser()->id;
@@ -203,47 +203,46 @@ class AlpEnviosController extends JoshController
         //var_dump($input);
 
         $data_history = array(
-            'id_orden' => $input['confirm_id'], 
-            'id_status' => $input['id_status'], 
-            'notas' => $input['notas'], 
+            'id_envio' => $input['envio_id'], 
+            'estatus_envio' => $input['id_status'], 
+            'nota' => $input['notas'], 
             'id_user' => $user_id 
         );
 
-        $data_update_orden = array(
-            'cod_oracle_pedido' =>$input['cod_oracle_pedido'], 
+        $data_update_envio = array(
             'estatus' =>$input['id_status']
         );
 
          
-        $history=AlpOrdenesHistory::create($data_history);
+        $history=AlpEnviosHistory::create($data_history);
 
-        $orden=AlpOrdenes::find($input['confirm_id']);
-
-
-        $orden->update($data_update_orden);
+        $envio=AlpEnvios::find($input['envio_id']);
 
 
-        $orden = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre')
+        $envio->update($data_update_envio);
+
+
+         $envio = AlpEnvios::select('alp_envios.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios',   'config_cities.city_name as city_name', 'config_states.state_name as state_name', 'alp_envios_status.estatus_envio_nombre as estatus_envio_nombre')
+          ->join('alp_envios_status', 'alp_envios.estatus', '=', 'alp_envios_status.id')
+          ->join('alp_ordenes', 'alp_envios.id_orden', '=', 'alp_ordenes.id')
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
           ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
-          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
-          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
-          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
-          ->where('alp_ordenes.id', $input['confirm_id'])
+          ->join('alp_direcciones', 'alp_ordenes.id_address', '=', 'alp_direcciones.id')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->where('alp_envios.id', $input['envio_id'])
           ->first();
 
 
-        if ($orden->id) {
+        if ($envio->id) {
 
           //return redirect('order/detail');
           
         
 
-          $view= View::make('admin.envios.storeconfirm', compact('orden'));
+          $view= View::make('admin.envios.updatestatus', compact('envio'));
 
           $data=$view->render();
-
-          $res = array('data' => $data);
 
         //  return json_encode($res);
           return $data;

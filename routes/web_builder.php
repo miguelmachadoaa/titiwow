@@ -325,7 +325,7 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
         Route::get('{id}/restore', 'Admin\AlpEnviosController@getRestore')->name('envios.restore');
 
-        Route::post('/storeconfirm', 'Admin\AlpEnviosController@storeconfirm')->name('envios.storeconfirm');
+        Route::post('/updatestatus', 'Admin\AlpEnviosController@updatestatus')->name('envios.updatestatus');
 
         Route::get('/empresas/list', 'Admin\AlpEnviosController@empresas')->name('envios.empresas');
 

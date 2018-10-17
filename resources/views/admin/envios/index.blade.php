@@ -72,14 +72,7 @@ Envios
 
                                             <div style="display: inline-block;" class="estatus_{{ $row->id }}">
                                             
-                                                <button data-id="{{ $row->id }}"  data-codigo="{{ $row->cod_oracle_pedido }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-info confirmar" > {{ $row->estatus_nombre }} </button>
-
-                                            </div>
-
-
-                                            <div style="display: inline-block;" class="pago_{{ $row->id }}">  
-
-                                                <button data-id="{{ $row->id }}" class="btn btn-xs btn-success pago" > {{ $row->estatus_pago_nombre }} </button>
+                                                <button data-id="{{ $row->id }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-info updateStatus" > {{ $row->estatus_envio_nombre }} </button>
 
                                             </div>
 
@@ -106,7 +99,7 @@ Envios
 
   
 <!-- Modal Direccion -->
- <div class="modal fade" id="confirmarOrdenModal" role="dialog" aria-labelledby="modalLabeldanger">
+ <div class="modal fade" id="estatusEnviosModal" role="dialog" aria-labelledby="modalLabeldanger">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-primary">
@@ -114,10 +107,10 @@ Envios
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{url('envios/confirmar')}}" id="confirmarOrdenForm" name="confirmarOrdenForm" class="form-horizontal">
+                        <form method="POST" action="{{url('envios/confirmar')}}" id="estatusEnviosForm" name="estatusEnviosForm" class="form-horizontal">
 
                             <input type="hidden" name="base" id="base" value="{{ url('/') }}">
-                            <input type="hidden" name="confirm_id" id="confirm_id" value="">
+                            <input type="hidden" name="envio_id" id="envio_id" value="">
 
                             {{ csrf_field() }}
                             <div class="row">
@@ -158,7 +151,7 @@ Envios
                     </div>
                     <div class="modal-footer">
                         <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn  btn-primary sendConfirmar" >Agregar</button>
+                        <button type="button" class="btn  btn-primary sendEstatus" >Agregar</button>
                     </div>
                 </div>
             </div>
@@ -188,7 +181,7 @@ Envios
 
 
 
-$("#confirmarOrdenForm").bootstrapValidator({
+$("#estatusEnviosForm").bootstrapValidator({
     fields: {
         
         id_status: {
@@ -202,46 +195,41 @@ $("#confirmarOrdenForm").bootstrapValidator({
 });
 
 
- $('#tbOrdenes').on('click','.confirmar', function(){
+ $('#tbOrdenes').on('click','.updateStatus', function(){
 
-        $('#confirm_id').val($(this).data('id'));
-
-        $('#cod_oracle_pedido').val($(this).data('codigo'));
+        $('#envio_id').val($(this).data('id'));
 
         $('#id_status').val($(this).data('estatus'));
 
-            $("#confirmarOrdenModal").modal('show');
+            $("#estatusEnviosModal").modal('show');
         });
 
 
- $('.sendConfirmar').click(function () {
+ $('.sendEstatus').click(function () {
     
-    var $validator = $('#confirmarOrdenForm').data('bootstrapValidator').validate();
+    var $validator = $('#estatusEnviosForm').data('bootstrapValidator').validate();
 
     if ($validator.isValid()) {
 
         base=$('#base').val();
-        confirm_id=$('#confirm_id').val();
+        envio_id=$('#envio_id').val();
         id_status=$('#id_status').val();
-        cod_oracle_pedido=$('#cod_oracle_pedido').val();
         notas=$('#notas').val();
 
 
         $.ajax({
             type: "POST",
-            data:{ base, confirm_id, id_status, cod_oracle_pedido, notas },
-            url: base+"/admin/ordenes/storeconfirm",
+            data:{  envio_id, id_status, notas },
+            url: base+"/admin/envios/updatestatus",
                 
             complete: function(datos){     
 
-                $(".estatus_"+confirm_id+'').html(datos.responseText);
+                $(".estatus_"+envio_id+'').html(datos.responseText);
 
-                $('#confirmarOrdenModal').modal('hide');
-
+                $('#estatusEnviosModal').modal('hide');
                 
-                $('#confirm_id').val('');
+                $('#envio_id').val('');
                 $('#id_status').val('');
-                $('#cod_oracle_pedido').val('');
                 $('#notas').val('');
         
             
