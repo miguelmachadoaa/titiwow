@@ -34,5 +34,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ConfGralTableSeeder::class);
         $this->call(EmpresasTableSeeder::class);
         $this->call(ModulosTableSeeder::class);
+        $this->call(EnviosStatusTableSeeder::class);
     }
 }
