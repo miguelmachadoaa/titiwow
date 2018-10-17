@@ -66,8 +66,8 @@ Envios
                                     <td>{!! $row->created_at->diffForHumans() !!}</td>
                                     <td>
 
-                                            <a href="{{ route('admin.envios.detalle', $row->id) }}">
-                                                <i class="livicon" data-name="plus" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Detalle"></i>
+                                            <a class="btn btn-xs btn-default" href="{{ route('admin.envios.detalle', $row->id) }}">
+                                                <i class="fa fa-eye"></i>
                                             </a>
 
                                             <div style="display: inline-block;" class="estatus_{{ $row->id }}">

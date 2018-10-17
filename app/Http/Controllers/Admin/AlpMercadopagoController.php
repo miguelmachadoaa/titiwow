@@ -69,6 +69,7 @@ class AlpMercadopagoController extends JoshController
       ]
     ];*/
 
+    $mp = new MP ('TEST-8070538380314059-092518-cdecd433d6d7253ead0520424d7c08e6-353183830');
 
 
     $body = array(

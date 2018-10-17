@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\JoshController;
 use App\Models\AlpEnvios;
+use App\Models\AlpOrdenes;
 use App\Models\AlpEnviosEstatus;
 use App\Models\AlpEnviosHistory;
 use App\Models\AlpDetalles;
@@ -180,16 +181,35 @@ class AlpEnviosController extends JoshController
        
        $orden = AlpOrdenes::find($id);
 
-      
+        $envio = AlpEnvios::select('alp_envios.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios',   'config_cities.city_name as city_name', 'config_states.state_name as state_name', 'alp_envios_status.estatus_envio_nombre as estatus_envio_nombre', 'alp_direcciones.calle_address as calle_address', 'alp_direcciones.calle2_address as calle2_address', 'alp_direcciones.codigo_postal_address as codigo_postal_address', 'alp_direcciones.telefono_address as telefono_address')
+          ->join('alp_envios_status', 'alp_envios.estatus', '=', 'alp_envios_status.id')
+          ->join('alp_ordenes', 'alp_envios.id_orden', '=', 'alp_ordenes.id')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
+          ->join('alp_direcciones', 'alp_ordenes.id_address', '=', 'alp_direcciones.id')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->where('alp_envios.id', $id)
+          ->first();
 
-    $detalles = AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto')
+
+        $history = AlpEnviosHistory::select('alp_envios_history.*', 'alp_envios_status.estatus_envio_nombre as estatus_envio_nombre', 'users.first_name as first_name', 'users.last_name as last_name' )
+          ->join('alp_envios_status', 'alp_envios_history.estatus_envio', '=', 'alp_envios_status.id')
+          ->join('users', 'alp_envios_history.id_user', '=', 'users.id')
+          ->where('alp_envios_history.id_envio', $id)
+          ->get();
+
+          $orden = AlpOrdenes::find($envio->id_orden);
+
+
+        $detalles = AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto')
           ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
-          ->where('alp_ordenes_detalle.id_orden', $id)
+          ->where('alp_ordenes_detalle.id_orden', $envio->id_orden)
           ->get();
 
 
 
-        return view('admin.envios.detalle', compact('detalles', 'orden'));
+        return view('admin.envios.detalle', compact('detalles', 'envio', 'history', 'orden'));
 
     }
 
