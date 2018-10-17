@@ -95,6 +95,32 @@
 
     @endif
 
+
+    @if (Sentinel::getUser()->hasAnyAccess(['envios.*']))
+
+     <li class="{{ Request::is('admin/envios*') ? 'active' : '' }}">
+        <a href="#">
+            <i class="livicon" data-name="shopping-cart" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
+               data-loop="true"></i>
+            <span class="title">Envios</span>
+            <span class="fa arrow"></span>
+        </a>
+        <ul class="sub-menu">
+            @if (Sentinel::getUser()->hasAnyAccess(['envios.index']))
+                <li {!! (Request::is('admin/envios*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.envios.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Envios
+                </a>
+            </li>
+            @endif
+            
+           
+        </ul>
+    </li>
+
+    @endif
+
     @if (Sentinel::getUser()->hasAnyAccess(['formaspago.*']) || Sentinel::getUser()->hasAnyAccess(['configuracion.*']) || Sentinel::getUser()->hasAnyAccess(['estatus.*']) || Sentinel::getUser()->hasAnyAccess(['formasenvio.*']) || Sentinel::getUser()->hasAnyAccess(['rolenvios.*']) || Sentinel::getUser()->hasAnyAccess(['rolpagos.*']) || Sentinel::getUser()->hasAnyAccess(['impuestos.*']) || Sentinel::getUser()->hasAnyAccess(['marcas.*']) || Sentinel::getUser()->hasAnyAccess(['menus.*']) || Sentinel::getUser()->hasAnyAccess(['transportistas.*']) || Sentinel::getUser()->hasAnyAccess(['sedes.*']) || Sentinel::getUser()->hasAnyAccess(['empresas.*'])  )
 
 

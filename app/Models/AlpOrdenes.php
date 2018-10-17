@@ -21,6 +21,7 @@ class AlpOrdenes extends Model
         'id',
         'referencia',
         'id_cliente',
+        'id_address',
         'id_forma_envio',
         'id_forma_pago',
         'monto_total',

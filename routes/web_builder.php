@@ -310,6 +310,29 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
 
 
+
+
+     Route::resource('envios', 'Admin\AlpEnviosController');
+
+
+    Route::group(['prefix' => 'envios'], function () {
+
+        Route::get('{id}/delete', 'Admin\AlpEnviosController@destroy')->name('envios.delete');
+
+        Route::get('{id}/detalle', 'Admin\AlpEnviosController@detalle')->name('envios.detalle');
+
+        Route::get('{id}/confirm-delete', 'Admin\AlpEnviosController@getModalDelete')->name('envios.confirm-delete');
+
+        Route::get('{id}/restore', 'Admin\AlpEnviosController@getRestore')->name('envios.restore');
+
+        Route::post('/storeconfirm', 'Admin\AlpEnviosController@storeconfirm')->name('envios.storeconfirm');
+
+        Route::get('/empresas/list', 'Admin\AlpEnviosController@empresas')->name('envios.empresas');
+
+    });
+
+
+
     Route::resource('menus', 'Admin\AlpMenuController');
 
     Route::group(['prefix' => 'menus'], function () {

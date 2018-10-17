@@ -316,6 +316,10 @@ class AlpCartController extends JoshController
 
       $total=$this->total();
 
+      #$input=$request->all();
+
+      #dd($input);
+
       if (Sentinel::check()) {
 
         $user_id = Sentinel::getUser()->id;

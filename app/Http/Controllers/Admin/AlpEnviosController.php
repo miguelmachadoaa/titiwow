@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\JoshController;
-use App\Http\Requests\OrdenesRequest;
-use App\Models\AlpOrdenes;
-use App\Models\AlpEstatusOrdenes;
-use App\Models\AlpOrdenesHistory;
+use App\Models\AlpEnvios;
+use App\Models\AlpEnviosEstatus;
+use App\Models\AlpEnviosHistory;
 use App\Models\AlpDetalles;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -18,7 +17,7 @@ use Intervention\Image\Facades\Image;
 use DOMDocument;
 
 
-class AlpOrdenesController extends JoshController
+class AlpEnviosController extends JoshController
 {
     /**
      * Show a list of all the groups.
@@ -29,20 +28,24 @@ class AlpOrdenesController extends JoshController
     {
         // Grab all the groups
       
-        $ordenes = AlpOrdenes::all();
 
-        $estatus_ordenes = AlpEstatusOrdenes::all();
+        $estatus_envios = AlpEnviosEstatus::all();
 
-         $ordenes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre')
+
+        $envios = AlpEnvios::select('alp_envios.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios',   'config_cities.city_name as city_name', 'config_states.state_name as state_name', 'alp_envios_status.estatus_envio_nombre as estatus_envio_nombre')
+          ->join('alp_envios_status', 'alp_envios.estatus', '=', 'alp_envios_status.id')
+          ->join('alp_ordenes', 'alp_envios.id_orden', '=', 'alp_ordenes.id')
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
           ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
-          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
-          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
-          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+          ->join('alp_direcciones', 'alp_ordenes.id_address', '=', 'alp_direcciones.id')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
           ->get();
-       
+
+
+        
         // Show the page
-        return view('admin.ordenes.index', compact('ordenes', 'estatus_ordenes'));
+        return view('admin.envios.index', compact('envios', 'estatus_envios'));
 
     }
 
@@ -65,7 +68,7 @@ class AlpOrdenesController extends JoshController
           ->get();
        
         // Show the page
-        return view('admin.ordenes.empresas', compact('ordenes', 'estatus_ordenes'));
+        return view('admin.envios.empresas', compact('ordenes', 'estatus_ordenes'));
 
     }
 
@@ -78,7 +81,7 @@ class AlpOrdenesController extends JoshController
     public function create()
     {
         // Show the page
-        return view ('admin.ordenes.create');
+        return view ('admin.envios.create');
     }
 
     /**
@@ -132,7 +135,7 @@ class AlpOrdenesController extends JoshController
             
             $categoria = AlpOrdenes::find($id);
 
-            $confirm_route = route('admin.ordenes.delete', ['id' => $categoria->id]);
+            $confirm_route = route('admin.envios.delete', ['id' => $categoria->id]);
 
             return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
         } catch (GroupNotFoundException $e) {
@@ -159,10 +162,10 @@ class AlpOrdenesController extends JoshController
             $categoria->delete();
 
             // Redirect to the group management page
-            return Redirect::route('admin.ordenes.index')->with('success', trans('Se ha eliminado el registro satisfactoriamente'));
+            return Redirect::route('admin.envios.index')->with('success', trans('Se ha eliminado el registro satisfactoriamente'));
         } catch (GroupNotFoundException $e) {
             // Redirect to the group management page
-            return Redirect::route('admin.ordenes.index')->with('error', trans('Error al eliminar el registro'));
+            return Redirect::route('admin.envios.index')->with('error', trans('Error al eliminar el registro'));
         }
     }
 
@@ -186,7 +189,7 @@ class AlpOrdenesController extends JoshController
 
 
 
-        return view('admin.ordenes.detalle', compact('detalles', 'orden'));
+        return view('admin.envios.detalle', compact('detalles', 'orden'));
 
     }
 
@@ -236,7 +239,7 @@ class AlpOrdenesController extends JoshController
           
         
 
-          $view= View::make('admin.ordenes.storeconfirm', compact('orden'));
+          $view= View::make('admin.envios.storeconfirm', compact('orden'));
 
           $data=$view->render();
 
