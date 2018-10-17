@@ -205,6 +205,19 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
     Route::resource('estatuspagos', 'Admin\AlpEstatusPagosController');
 
+
+       Route::group(['prefix' => 'estatusenvios'], function () {
+
+        Route::get('{id}/delete', 'Admin\AlpEstatusEnviosController@destroy')->name('estatusenvios.delete');
+
+        Route::get('{id}/confirm-delete', 'Admin\AlpEstatusEnviosController@getModalDelete')->name('estatusenvios.confirm-delete');
+
+        Route::get('{id}/restore', 'Admin\AlpEstatusEnviosController@getRestore')->name('estatusenvios.restore');
+
+        });
+
+    Route::resource('estatusenvios', 'Admin\AlpEstatusEnviosController');
+
     //fin direcioens clientes
 
     Route::group(['prefix' => 'transportistas'], function () {

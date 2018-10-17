@@ -140,6 +140,17 @@
         </ul>
     @endif
 
+    @if (Sentinel::getUser()->hasAnyAccess(['estatusenvios.*']))
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/estatusenvios*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.estatusenvios.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Estatus Pagos
+                </a>
+            </li>
+        </ul>
+    @endif
+
     @if (Sentinel::getUser()->hasAnyAccess(['empresas.*']))
         <ul class="sub-menu">
             <li {!! (Request::is('admin/empresas*') ? 'class="active"' : '') !!}>

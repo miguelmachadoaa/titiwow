@@ -13,7 +13,14 @@ class ConfGralTableSeeder extends Seeder
     public function run()
     {
         DB::table('alp_configuracion_general')->insert([
-            ['nombre_tienda' => 'AlpinaGo','limite_amigos' => 10,'id_mercadopago' => 534534543534,'key_mercadopago' => '345345dfdgdfgdfgdfgdf','id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            [
+                'nombre_tienda' => 'AlpinaGo',
+                'limite_amigos' => 10,
+                'id_mercadopago' => 534534543534,
+                'key_mercadopago' => '345345dfdgdfgdfgdfgdf',
+                'minimo_compra' => 15000,
+                'id_user' => 1,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
         ]);
     }
 }

@@ -19,6 +19,8 @@ use App\Models\AlpClientes;
 use App\Models\AlpEmpresas;
 use App\Models\AlpPuntos;
 use App\Models\AlpPrecioGrupo;
+use App\Models\AlpEnvios;
+use App\Models\AlpEnviosHistory;
 use App\Country;
 use App\State;
 use App\City;
@@ -334,11 +336,10 @@ class AlpCartController extends JoshController
       }
 
 
+      $fecha_entrega=$date->addDays($ciudad_forma->dias)->format('d-m-Y');
 
-      $fecha_entrega=$date->addDays($ciudad_forma->dias)->format('d-m-Y');;
 
-
-        $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
+      $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
 
 
          $data_orden = array(
@@ -393,7 +394,28 @@ class AlpCartController extends JoshController
 
          }
 
-         
+        $data_envio = array(
+          'id_orden' => $orden->id, 
+          'fecha_envio' => $date->addDays($ciudad_forma->dias)->format('Y-m-d'),
+          'estatus' => 1, 
+          'id_user' =>$user_id                   
+
+        );
+
+
+        $envio=AlpEnvios::create($data_envio);
+
+        $data_envio_history = array(
+          'id_envio' => $envio->id, 
+          'estatus_envio' => 1, 
+          'nota' => 'Envio recibido', 
+          'estatus' => '1', 
+          'id_user' =>$user_id                   
+
+        );
+
+
+        AlpEnviosHistory::create($data_envio_history);
 
          $data_update = array('referencia' => 'ALP'.$orden->id );
 
