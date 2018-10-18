@@ -27,6 +27,7 @@ class CreateAlpClientesTable extends Migration
             $table->integer('estado_registro')->default(1);
             $table->integer('id_empresa')->default(0);
             $table->integer('id_embajador')->default(0);
+            $table->text('nota')->nullable();
             $table->integer('id_user');
             $table->timestamps();
             $table->softDeletes();

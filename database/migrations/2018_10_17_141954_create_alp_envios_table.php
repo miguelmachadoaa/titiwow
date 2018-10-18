@@ -17,7 +17,7 @@ class CreateAlpEnviosTable extends Migration
             $table->increments('id');
             $table->string('id_orden');
             $table->date('fecha_envio');
-            $table->integer('estado_registro')->default(1);
+            $table->integer('estatus')->default(1);
             $table->integer('id_user');
             $table->timestamps();
             $table->softDeletes();

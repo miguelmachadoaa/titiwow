@@ -49,6 +49,40 @@ class AlpClientesController extends JoshController
         return view('admin.clientes.index', compact('clientes'));
     }
 
+    public function inactivos()
+    {
+        // Grab all the groups
+      
+        $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente')
+        ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+        ->join('role_users', 'users.id', '=', 'role_users.user_id')
+        ->join('roles', 'role_users.role_id', '=', 'roles.id')
+        ->where('role_users.role_id', '<>', 1)
+        ->where('alp_clientes.estado_masterfile', '=', 0)
+        ->get();
+
+
+        // Show the page
+        return view('admin.clientes.inactivos', compact('clientes'));
+    }
+
+    public function rechazados()
+    {
+        // Grab all the groups
+      
+        $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente')
+        ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+        ->join('role_users', 'users.id', '=', 'role_users.user_id')
+        ->join('roles', 'role_users.role_id', '=', 'roles.id')
+        ->where('role_users.role_id', '<>', 1)
+        ->where('alp_clientes.deleted_at', '<>', NULL)
+        ->get();
+
+
+        // Show the page
+        return view('admin.clientes.rechazados', compact('clientes'));
+    }
+
     public function empresas()
     {
         // Grab all the groups
@@ -597,6 +631,91 @@ class AlpClientesController extends JoshController
 
 
         return view('admin.clientes.direcciones', compact('user','cliente','direcciones'));
+    }
+
+
+    public function rechazar(Request $request)
+    {
+        $user_id = Sentinel::getUser()->id;
+
+       try {
+
+
+            $user=User::where('id', $request->cliente_id)->first();
+            
+            Activation::remove($user);
+                        //add new record
+            Activation::create($user);
+
+
+            $data = array(
+                'nota' => $request->notas
+                 );
+
+            $cliente=AlpClientes::where('id_user_client', $request->cliente_id)->first();
+
+            $cliente->update($data);
+
+
+            $cliente->delete();
+
+            //$user->delete();
+
+            return 'true';
+            
+        } catch (Exception $e) {
+
+            return 'false';
+            
+        }
+
+        
+
+        
+          
+    }
+
+
+    public function activar(Request $request)
+    {
+        $user_id = Sentinel::getUser()->id;
+
+        $user=User::where('id', $request->cliente_id)->first();
+        
+        $activation = Activation::exists($user);
+
+        if ($activation) {
+
+            Activation::complete($user, $activation->code);
+
+        }
+
+        
+
+        $data = array(
+            'estado_masterfile' => 1,
+            'cod_oracle_cliente' => $request->cod_oracle_cliente
+             );
+
+        $cliente=AlpClientes::where('id_user_client', $request->cliente_id)->first();
+
+        $cliente->update($data);
+
+
+         $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente')
+        ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+        ->join('role_users', 'users.id', '=', 'role_users.user_id')
+        ->join('roles', 'role_users.role_id', '=', 'roles.id')
+        ->where('users.id', '=', $request->cliente_id)
+        ->first();
+
+
+        $view= View::make('admin.clientes.trcliente', compact('clientes'));
+
+        $data=$view->render();
+
+        return $data;
+          
     }
 
 }

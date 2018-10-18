@@ -444,6 +444,26 @@
 
             @endif
 
+            @if (Sentinel::getUser()->hasAnyAccess(['clientes.inactivos']))
+                <li {!! (Request::is('admin/clientes') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ URL::to('admin/clientes/inactivos') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Clientes Inactivo
+                </a>
+            </li>
+
+            @endif
+
+            @if (Sentinel::getUser()->hasAnyAccess(['clientes.rechazados']))
+                <li {!! (Request::is('admin/clientes') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ URL::to('admin/clientes/rechazados') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Clientes Rechazados
+                </a>
+            </li>
+
+            @endif
+
             @if (Sentinel::getUser()->hasAnyAccess(['clientes.create']))
 
              <li {!! (Request::is('admin/clientes/create') ? 'class="active" id="active"' : '') !!}>

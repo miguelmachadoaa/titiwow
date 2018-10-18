@@ -318,7 +318,7 @@ class AlpCartController extends JoshController
 
       #$input=$request->all();
 
-      #dd($input);
+     ## dd($cart);
 
       if (Sentinel::check()) {
 
@@ -413,7 +413,6 @@ class AlpCartController extends JoshController
           'id_envio' => $envio->id, 
           'estatus_envio' => 1, 
           'nota' => 'Envio recibido', 
-          'estatus' => '1', 
           'id_user' =>$user_id                   
 
         );
@@ -439,8 +438,6 @@ class AlpCartController extends JoshController
 
 
          $cart= \Session::forget('cart');
-
-
 
 
           return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entrega'));

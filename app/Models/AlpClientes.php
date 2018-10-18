@@ -26,10 +26,12 @@ class AlpClientes extends Model
         'telefono_cliente',
         'marketing_cliente',
         'habeas_cliente',
+        'cod_oracle_cliente',
         'estado_masterfile',
         'estado_registro',
         'id_empresa',
         'id_embajador',
+        'nota',
         'id_user'
     ];
 

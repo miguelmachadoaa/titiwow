@@ -143,6 +143,14 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
         Route::get('/empresas/list', 'Admin\AlpClientesController@empresas')->name('clientes.empresas');
 
+        Route::get('/inactivos', 'Admin\AlpClientesController@inactivos')->name('clientes.inactivos');
+
+        Route::get('/rechazados', 'Admin\AlpClientesController@rechazados')->name('clientes.rechazados');
+
+        Route::post('/activar', 'Admin\AlpClientesController@activar')->name('clientes.activar');
+
+        Route::post('/rechazar', 'Admin\AlpClientesController@rechazar')->name('clientes.rechazar');
+
         });
 
     Route::resource('clientes', 'Admin\AlpClientesController');
