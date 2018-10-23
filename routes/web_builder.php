@@ -481,6 +481,7 @@ Route::get('productos', 'Frontend\ProductosFrontController@index');
 
 Route::get('categoria/{slug}', ['as' => 'categoria', 'uses' => 'Frontend\ProductosFrontController@categorias']);
 
+Route::get("buscar","Frontend\ProductosFrontController@mySearch");
 
 /* Fin Rutas Frontend Publico */
 

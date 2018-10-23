@@ -5,11 +5,28 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 
 class AlpProductos extends Model
 {
     use SoftDeletes;
+    use Notifiable;
+    use SearchableTrait;
+
+     /**
+     * Searchable rules.
+     *
+     * @var array
+     */
+    protected $searchable = [
+        'columns' => [
+            'alp_productos.nombre_producto' => 10,
+            'alp_productos.referencia_producto' => 5,
+            'alp_productos.descripcion_corta' => 3,
+        ]
+    ];
 
     public $table = 'alp_productos';
     
@@ -57,4 +74,5 @@ class AlpProductos extends Model
     public static $rules = [
         'nombre_producto' => 'required'
     ];
+
 }

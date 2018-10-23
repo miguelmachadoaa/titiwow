@@ -106,9 +106,18 @@
                     <div class="row">
                         <div class="col-md-4 hidden-xs" >
                             <div id="search_block_top" class="pull-left">
-                                <button type="submit" name="submit_search" class="btn btn-default button-search">
-                                    <span>Buscar</span>
-                                </button>
+                                <form method="GET" action="{{ url('buscar') }}">
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <div class="input-group">
+                                                <input type="text" name="buscar"  id="buscar" class="form-control" placeholder="Buscar ..." value="{{ old('buscar') }}" autocomplete="off">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-success" >Buscar!</button>
+                                            </span>
+                                            </div><!-- /input-group -->
+                                        </div><!-- /.col-lg-6 -->
+                                    </div>  
+                                </form>
                             </div>
                         </div>
                         <div class="col-md-4 col-xs-8">

@@ -14,6 +14,7 @@ use App\Models\AlpClientes;
 use App\Models\AlpCategorias;
 use App\Models\AlpEmpresas;
 use App\Models\AlpPrecioGrupo;
+use App\Models\AlpProductos;
 use App\User;
 use App\State;
 use App\RoleUser;
@@ -623,6 +624,5 @@ class FrontEndController extends JoshController
         // Ooops.. something went wrong
         return Redirect::back()->withInput()->withErrors($this->messageBag);
     }
-
 
 }

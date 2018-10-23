@@ -177,12 +177,61 @@ class ProductosFrontController extends Controller
         }
 
 
-
-
-
-
-
         return \View::make('frontend.categorias', compact('productos','cataname','slug', 'descuento', 'precio'));
+
+    }
+
+    public function mySearch(Request $request)
+    {
+ 
+        $descuento='1'; 
+
+        $precio = array();
+
+        $productos = AlpProductos::search($request->get('buscar'))->where('alp_productos.estado_registro','=', 1)->orderBy('id', 'asc')->paginate(9); 	
+        $productos->appends(['buscar' => $request->get('buscar')]);
+
+        if (Sentinel::check()) {
+
+            $user_id = Sentinel::getUser()->id;
+
+            $role=RoleUser::where('user_id', $user_id)->first();
+
+            $cliente = AlpClientes::where('id_user_client', $user_id )->first();
+
+            if (isset($cliente) ) {
+
+                if ($cliente->id_empresa!=0) {
+                    
+                     $empresa=AlpEmpresas::find($cliente->id_empresa);
+
+                    $cliente['nombre_empresa']=$empresa->nombre_empresa;
+
+                    $descuento=(1-($empresa->descuento_empresa/100));
+                }
+               
+            }
+
+            if ($role->role_id) {
+               
+                foreach ($productos as  $row) {
+                    
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $role->role_id)->first();
+
+                    if (isset($pregiogrupo->id)) {
+                       
+                        $precio[$row->id]['precio']=$pregiogrupo->precio;
+                        $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+
+                    }
+
+                }
+                
+            }
+
+        }
+
+        return \View::make('frontend.buscar', compact('productos', 'descuento', 'precio'));
 
     }
 
