@@ -65,6 +65,7 @@
                             <a href="{{ route('producto', [$producto->slug]) }}" ><img src="../uploads/productos/{{ $producto->imagen_producto }}" class="img-responsive"></a>
                         </div>
                         <a href="{{ route('producto', [$producto->slug]) }}" ><h1>{{ $producto->nombre_producto }}</h1></a>
+                        <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="text-align:center;">{{ $producto->presentacion_producto }}</h6></a>
                         <div class="product_info">
                             
                             @if($descuento==1)
