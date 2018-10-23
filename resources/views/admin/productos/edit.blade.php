@@ -146,6 +146,15 @@
 
                                             </div>
 
+                                             <div class="form-group col-sm-12  clearfix {{ $errors->first('presentacion_producto', 'has-error') }} ">
+                                                <label class="col-sm-3 col-xs-12 control-label" for="presentacion_producto">@lang('productos/title.prese')</label>
+
+                                                <div class="col-sm-9 col-xs-12">
+
+                                                    <input id="presentacion_producto" name="presentacion_producto" type="text" placeholder="Presentación del producto" class="form-control  {{ $errors->first('presentacion_producto', 'has-error') }}" value="{!! old('presentacion_producto', $producto->presentacion_producto) !!}">{!! $errors->first('presentacion_producto', '<span class="help-block">:message</span>') !!}
+                                                </div>
+                                            </div>
+
                                             <div class="form-group col-sm-12  clearfix {{ $errors->first('referencia_producto', 'has-error') }}" >
 
                                                 <label class="col-sm-3 col-xs-12 control-label" for="referencia_producto">@lang('productos/title.reference')</label>

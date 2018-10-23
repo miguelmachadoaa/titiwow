@@ -16,6 +16,7 @@ class CreateAlpProductosTable extends Migration
         Schema::create('alp_productos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre_producto');
+            $table->string('presentacion_producto')->nullable();
             $table->string('referencia_producto')->nullable();
             $table->string('referencia_producto_sap')->nullable();
             $table->string('descripcion_corta')->nullable();

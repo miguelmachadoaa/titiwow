@@ -35,6 +35,7 @@ return array(
 	'description_sort' => 'Descripcion Corta',
 	'description_large' => 'Descripcion Larga',
 	'name' => 'Nombre del Producto',
+	'prese' => 'Presentación del Producto',
 	'reference' => 'Referencia',
 	'reference_sap' => 'Referencia Sap',
 	'basic' => 'Datos Basicos',

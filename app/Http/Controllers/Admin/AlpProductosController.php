@@ -182,6 +182,7 @@ class AlpProductosController extends JoshController
 
         $data = array(
             'nombre_producto' => $request->nombre_producto, 
+            'presentacion_producto' => $request->presentacion_producto,
             'referencia_producto' => $request->referencia_producto, 
             'referencia_producto_sap' =>$request->referencia_producto_sap, 
             'descripcion_corta' =>$request->descripcion_corta, 
@@ -491,6 +492,7 @@ class AlpProductosController extends JoshController
 
              $data = array(
                 'nombre_producto' => $request->nombre_producto, 
+                'presentacion_producto' => $request->presentacion_producto,
                 'referencia_producto' => $request->referencia_producto, 
                 'referencia_producto_sap' =>$request->referencia_producto_sap, 
                 'descripcion_corta' =>$request->descripcion_corta, 
@@ -510,6 +512,7 @@ class AlpProductosController extends JoshController
 
                   $data = array(
                 'nombre_producto' => $request->nombre_producto, 
+                'presentacion_producto' => $request->presentacion_producto,
                 'referencia_producto' => $request->referencia_producto, 
                 'referencia_producto_sap' =>$request->referencia_producto_sap, 
                 'descripcion_corta' =>$request->descripcion_corta, 

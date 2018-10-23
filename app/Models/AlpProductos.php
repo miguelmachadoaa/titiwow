@@ -24,6 +24,7 @@ class AlpProductos extends Model
         'columns' => [
             'alp_productos.nombre_producto' => 10,
             'alp_productos.referencia_producto' => 5,
+            'alp_productos.presentacion_producto' => 4,
             'alp_productos.descripcion_corta' => 3,
         ]
     ];
@@ -37,6 +38,7 @@ class AlpProductos extends Model
     public $fillable = [
         'id',
         'nombre_producto',
+        'presentacion_producto',
         'referencia_producto',
         'referencia_producto_sap',
         'descripcion_corta',

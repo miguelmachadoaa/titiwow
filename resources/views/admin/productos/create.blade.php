@@ -163,6 +163,16 @@
                                                 </div>
                                             </div>
                                             <div class="form-group clearfix {{ $errors->
+                            first('presentacion_producto', 'has-error') }}">
+                                                <label class="col-md-3 control-label" for="presentacion_producto">@lang('productos/title.prese')</label>
+                                                <div class="col-md-9">
+                                                    <input id="presentacion_producto" name="presentacion_producto" type="text" placeholder="Presentación del Producto" class="form-control" value="{{ old('presentacion_producto') }}">
+
+                                                    {!! $errors->first('presentacion_producto', '<span class="help-block">:message</span> ') !!}
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group clearfix {{ $errors->
                             first('referencia_producto', 'has-error') }}">
                                                 <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.reference')</label>
                                                 <div class="col-md-9">
