@@ -290,7 +290,11 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
     Route::resource('configuracion', 'Admin\AlpConfiguracionController');
 
     Route::post('configuracion/storecity', 'Admin\AlpConfiguracionController@storecity')->name('configuracion.storecity');
+
     Route::post('configuracion/delcity', 'Admin\AlpConfiguracionController@delcity')->name('configuracion.delcity');
+
+    
+
 
 
 
@@ -456,6 +460,8 @@ Route::get('cart/deldir/{direccion}',['as'=>'cart.deldir', 'uses'=>'Admin\AlpCar
 Route::get('configuracion/states/{id}',array('as'=>'configuracion.states','uses'=>'Admin\AlpConfiguracionController@selectState'));
        
 Route::get('configuracion/cities/{id}',array('as'=>'configuracion.cities','uses'=>'Admin\AlpConfiguracionController@selectCity'));
+
+Route::post('configuracion/verificarciudad', 'Admin\AlpConfiguracionController@verificarciudad')->name('configuracion.verificarciudad');
 
 
 

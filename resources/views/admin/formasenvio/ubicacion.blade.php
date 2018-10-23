@@ -134,9 +134,6 @@ Ciudades de envio
                             {{ csrf_field() }}
                             <div class="row">
 
-
-                                
-
                                 <div class="form-group col-sm-12">
                                     <label for="select21" class="col-md-3 control-label">
                                         Departamento
@@ -145,17 +142,12 @@ Ciudades de envio
                                         <select style="margin: 4px 0;" id="state_id" name="state_id" class="form-control ">
                                             <option value="">Seleccione</option>
 
-                                         
-                                                        
-                                                        @foreach($states as $state)
+                                                @foreach($states as $state)
 
-                                                        <option value="{{ $state->id }}">
-                                                                {{ $state->state_name}}</option>
-                                                        @endforeach
+                                                    <option value="{{ $state->id }}">
+                                                        {{ $state->state_name}}</option>
+                                                @endforeach
                                                         
-                                           
-                                            
-                                          
                                         </select>
                                     </div>
                                 </div>

@@ -329,21 +329,21 @@ class AlpCartController extends JoshController
         $ciudad_forma=AlpFormaCiudad::where('id_forma', $request->id_forma_envio)->where('id_ciudad', $direccion->city_id)->first();
 
 
-      $date = Carbon::now();
+        $date = Carbon::now();
 
-      $hora=$date->format('hi');
+        $hora=$date->format('hi');
 
-      $hora_base=str_replace(':', '', $ciudad_forma->hora);
+        $hora_base=str_replace(':', '', $ciudad_forma->hora);
 
-      if (intval($hora)>intval($hora_base)) {
-        $ciudad_forma->dias=$ciudad_forma->dias+1;
-      }
-
-
-      $fecha_entrega=$date->addDays($ciudad_forma->dias)->format('d-m-Y');
+        if (intval($hora)>intval($hora_base)) {
+          $ciudad_forma->dias=$ciudad_forma->dias+1;
+        }
 
 
-      $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
+       $fecha_entrega=$date->addDays($ciudad_forma->dias)->format('d-m-Y');
+
+
+        $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
 
 
          $data_orden = array(
@@ -372,7 +372,16 @@ class AlpCartController extends JoshController
             'id_user' =>$user_id 
           );
 
+          $data_inventario = array(
+            'id_producto' => $detalle->id, 
+            'cantidad' =>$detalle->cantidad, 
+            'operacion' =>'2', 
+            'id_user' =>$user_id 
+          );
+
           AlpDetalles::create($data_detalle);
+
+          AlpInventario::create($data_inventario);
 
          }
 
@@ -509,107 +518,33 @@ class AlpCartController extends JoshController
 
        $precio = array();
 
-        if (Sentinel::check()) {
-
-            $user_id = Sentinel::getUser()->id;
-
-            $role=RoleUser::where('user_id', $user_id)->first();
-
-            $cliente = AlpClientes::where('id_user_client', $user_id )->first();
-
-            if (isset($cliente->id_empresa) ) {
-
-                if ($cliente->id_empresa!=0) {
-                    
-                     $empresa=AlpEmpresas::find($cliente->id_empresa);
-
-                    $cliente['nombre_empresa']=$empresa->nombre_empresa;
-
-                    $descuento=(1-($empresa->descuento_empresa/100));
-                }
-               
-            }
-
-             if ($role->role_id) {
-                    
-                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $role->role_id)->first();
-
-                    if (isset($pregiogrupo->id)) {
-                       
-                        $precio[$producto->id]['precio']=$pregiogrupo->precio;
-                        $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
-
-                    }
-                
-            }
-
-        }
-
+        
 
        $producto->cantidad=1;
 
-       if ($descuento=='1') {
+       if ($cart[$producto->slug]) {
 
-        if (isset($precio[$producto->id])) {
-          # code...
-         
-          switch ($precio[$producto->id]['operacion']) {
-            case 1:
-
-              $producto->precio_base=$producto->precio_base*$descuento;
-
-              break;
-
-            case 2:
-
-              $producto->precio_base=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
-              
-              break;
-
-            case 3:
-
-              $producto->precio_base=$precio[$producto->id]['precio'];
-              
-              break;
-            
-            default:
-            
-             $producto->precio_base=$producto->precio_base*$descuento;
-              # code...
-              break;
-          }
-
-        }else{
-
-          $producto->precio_base=$producto->precio_base*$descuento;
-
-        }
-
+          $cart[$producto->slug]['cantidad']=$cart[$producto->slug]['cantidad']+1;
+        
 
        }else{
 
-       $producto->precio_base=$producto->precio_base*$descuento;
+       $cart[$producto->slug]=$producto;
+
 
        }
 
-
-
-       $cart[$producto->slug]=$producto;
+      $cart=$this->reloadCart();
 
       // return $cart;
+
+      $producto=$cart[$producto->slug];
 
        \Session::put('cart', $cart);
 
        $cantidad=$this->cantidad();
+
        $total=$this->total();
-
-      /* $data = array(
-        'resultado' => 1, 
-        'contenido' => $cantidad.' Items'
-      );
-
-
-       return $data;*/
 
        $view= View::make('frontend.order.cartdetail', compact('producto', 'cantidad', 'total'));
 
@@ -737,6 +672,36 @@ class AlpCartController extends JoshController
 
       $cambio=0;
 
+      $inventario = AlpInventario::select(DB::raw( "SUM(cantidad) as disponible"))
+            ->orderBy("id_producto")
+            ->groupBy("id_producto, operacion")
+            ->where("operacion",'1')
+            ->get();
+
+      $inv_producto = array();
+
+      foreach ($inventario as $row_inv) {
+
+        $inv_producto[$row->id]=$row_inv->disponible;
+
+      }
+
+     
+
+      $ventas = AlpInventario::select(DB::raw( "SUM(cantidad) as vendidas"))
+            ->orderBy("id_producto")
+            ->groupBy("id_producto, operacion")
+            ->where("operacion",'2')
+            ->get();
+
+      
+
+      foreach ($ventas as $row_ventas) {
+       
+        $inv_producto[$row_ventas]=$inv_producto[$row_ventas]-$row_ventas-$row_ventas->vendidas;
+        
+      }
+
       
 
       $descuento='1'; 
@@ -753,9 +718,7 @@ class AlpCartController extends JoshController
 
               \Session::put('user', $user_id);
 
-            }
-
-            $role=RoleUser::where('user_id', $user_id)->first();
+              $role=RoleUser::where('user_id', $user_id)->first();
 
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
 
@@ -790,20 +753,18 @@ class AlpCartController extends JoshController
                 
             }
 
+            }
 
+            
 
-
-
-        }
+        } //end sentinel check
 
 
         $cart2 = array();
 
-
+    //se verifica si hay modificacion en el perfil del usuario
       
     if ($cambio==1) {
-
-
 
       foreach ($cart as $producto) {
 
@@ -860,7 +821,9 @@ class AlpCartController extends JoshController
 
        return $cart2;
 
+
     }else{
+
 
       return $cart;
 

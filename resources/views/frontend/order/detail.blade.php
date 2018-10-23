@@ -182,7 +182,7 @@ Carro de Productos
 
                 </div>
 
-                <div class="res_dir">  
+                <div class=" col-sm-10 col-sm-offset-1 res_dir">  
                 </div>
 
                 </div>

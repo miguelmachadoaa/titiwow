@@ -52,6 +52,15 @@
                     <ul class="list-inline">
                         <li class="pull-right menu-top">
                             <ul class="list-inline icon-position">
+
+                                <li >
+                                   
+                                    
+                                    <label class="hidden-xs"><a id="ubicacion_header"  ></a></label>
+
+                                   
+                                </li>
+
                                 <li>
                                     <a href="#"><i class="shopping-cart" data-name="ion-ios7-cart" data-size="18" data-loop="true" data-c="#fff" data-hc="#fff"></i></a>
                                     
