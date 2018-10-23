@@ -25,6 +25,7 @@ class VerifyCsrfToken extends Middleware
        'formasenvio/delcity', //
        'configuracion/storecity', //
        'configuracion/delcity', //
+       'configuracion/verificarciudad', //
        'delamigo' //
     ];
 }

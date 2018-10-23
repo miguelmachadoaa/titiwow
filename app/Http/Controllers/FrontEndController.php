@@ -15,6 +15,7 @@ use App\Models\AlpCategorias;
 use App\Models\AlpEmpresas;
 use App\Models\AlpPrecioGrupo;
 use App\User;
+use App\State;
 use App\RoleUser;
 use App\Models\AlpMenuDetalle;
 use Cartalyst\Sentinel\Checkpoints\NotActivatedException;
@@ -84,8 +85,10 @@ class FrontEndController extends JoshController
             }
 
         }
+
+         $states=State::where('config_states.country_id', '47')->get();
        
-        return view('index',compact('categorias','productos', 'descuento', 'precio'));
+        return view('index',compact('categorias','productos', 'descuento', 'precio', 'states'));
     }
     /*
      * $user_activation set to false makes the user activation via user registered email
