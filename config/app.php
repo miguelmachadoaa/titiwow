@@ -196,7 +196,6 @@ return [
         \InfyOm\Generator\InfyOmGeneratorServiceProvider::class,
         \InfyOm\CoreTemplates\CoreTemplatesServiceProvider::class,
         \InfyOm\GeneratorBuilder\GeneratorBuilderServiceProvider::class,
-        Sofa\Eloquence\BaseServiceProvider::class,
         Spatie\Analytics\AnalyticsServiceProvider::class,
     ],
 

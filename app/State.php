@@ -3,12 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Sofa\Eloquence\Eloquence;
 
 class State extends Model
 {
-    use Eloquence;
-
 
     protected $table = 'config_states';
     protected $guarded  = ['id'];

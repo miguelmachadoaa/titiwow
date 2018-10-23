@@ -3,12 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Sofa\Eloquence\Eloquence;
 
 class City extends Model
 {
-    use Eloquence;
-
 
     protected $table = 'config_cities';
     protected $guarded  = ['id'];
