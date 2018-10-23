@@ -8,7 +8,7 @@
         <div class="col-sm-6">
             <h3 style="font-size: 1.3em;">{{ $producto->nombre_producto }}</h3>
             <p> <b>COP{{ number_format($producto->precio_base, 2, '.', ',')}}</b></p>
-            <p>Cantidad: 1</p>
+            <p>Cantidad: {{ $producto->cantidad }}</p>
         </div>
         
 
