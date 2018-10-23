@@ -64,6 +64,22 @@
                 <div class="col-md-8">
                     <h2 class="text-primary" id="titulo_single">{{ $producto->nombre_producto}} </h2>
                     <p class="descripcion">{{ $producto->descripcion_corta}}</p>
+                    <p class="descripcion">
+                        <b>Marca:</b> {{ $producto->nombre_marca}} <br />
+                        <b>Categorías:</b> 
+                        @foreach ($categos as $cats)
+                            @if($loop->last)
+                            <a href="{{ route('categoria', [$cats->categ_slug]) }}" >{{ $cats->nombre_categoria }}</a>.
+                            @else
+                            <a href="{{ route('categoria', [$cats->categ_slug]) }}" >{{ $cats->nombre_categoria }}</a>,
+                            @endif
+                        @endforeach
+                       <br />
+                        <b>Presentación del Producto:</b> {{ $producto->presentacion_producto}}<br />
+                        <b>PUM:</b> {{ $producto->pum}}<br />
+                        <b>Medida:</b> {{ $producto->medida}}<br />
+                        <b>Referencia:</b> {{ $producto->referencia_producto}}<br />
+                    </p>
                     <div class="producto_atributos">
                         <div class="row">
                                 <div class="col-md-4 text-right">

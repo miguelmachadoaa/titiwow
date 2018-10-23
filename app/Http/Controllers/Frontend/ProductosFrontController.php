@@ -77,7 +77,17 @@ class ProductosFrontController extends Controller
 
         $precio = array(); 
 
-        $producto = AlpProductos::where('slug','=', $slug)->first();
+
+        $producto =  DB::table('alp_productos')->select('alp_productos.*','alp_marcas.nombre_marca')
+        ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+        ->where('alp_productos.slug','=', $slug)->first(); 
+
+        $categos = DB::table('alp_categorias')->select('alp_categorias.nombre_categoria as nombre_categoria','alp_categorias.slug as categ_slug')
+        ->join('alp_productos_category','alp_categorias.id' , '=', 'alp_productos_category.id_categoria')
+        ->where('id_producto','=', $producto->id)->where('alp_categorias.estado_registro','=', 1)->groupBy('alp_categorias.id')->get();
+
+
+        //$producto = AlpProductos::where('slug','=', $slug)->first();
 
         if (Sentinel::check()) {
 
@@ -115,7 +125,7 @@ class ProductosFrontController extends Controller
 
         }
         
-        return \View::make('frontend.producto_single', compact('producto', 'descuento', 'precio'));
+        return \View::make('frontend.producto_single', compact('producto', 'descuento', 'precio','categos'));
 
     }
 

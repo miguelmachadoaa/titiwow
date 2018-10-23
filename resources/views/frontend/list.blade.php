@@ -150,11 +150,6 @@ Productos @parent
                     </div>
                     <div class="modal-body cartcontenido">
 
-                        
-
-                      
-
-
                     </div>
                     <div class="modal-footer">
                         <button type="button"  class="btn  btn-default" data-dismiss="modal">Continuar Comprando</button>
