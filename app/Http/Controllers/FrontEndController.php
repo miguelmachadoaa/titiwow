@@ -15,6 +15,8 @@ use App\Models\AlpCategorias;
 use App\Models\AlpEmpresas;
 use App\Models\AlpPrecioGrupo;
 use App\Models\AlpProductos;
+use App\Models\AlpTDocumento;
+use App\Models\AlpEstructuraAddress;
 use App\User;
 use App\State;
 use App\RoleUser;
@@ -236,8 +238,12 @@ class FrontEndController extends JoshController
      */
     public function getRegister()
     {
+        $states=State::where('config_states.country_id', '47')->get();
+        $t_documento = AlpTDocumento::where('estado_registro','=',1)->get();
+        $estructura = AlpEstructuraAddress::where('estado_registro','=',1)->get();
+
         // Show the page
-        return view('register');
+        return view('register', compact('states','t_documento','estructura'));
     }
 
     /**
@@ -251,26 +257,28 @@ class FrontEndController extends JoshController
         $activate = $this->user_activation; //make it false if you don't want to activate user automatically it is declared above as global variable
         try {
             // Register the user
-            $user = Sentinel::register($request->only(['first_name', 'last_name', 'email', 'password', 'gender']), $activate);
+            $user = Sentinel::register($request->only(['first_name', 'last_name', 'email', 'password']), $activate);
 
             //crear registro en la tabla clientes 
 
-            if ($request->gender=='male') {
+           /* if ($request->gender=='male') {
                $genero=2;
            }else{
                 $genero=1;
-           }
+           }*/
 
              $data = array(
                 'id_user_client' => $user->id, 
-                'id_type_doc' => '1', 
-                'doc_cliente' =>'', 
-                'genero_cliente' =>$genero, 
-                'habeas_cliente' => 0,
+                'id_type_doc' => $request->id_type_doc, 
+                'doc_cliente' =>$request->id_type_doc, 
+                'telefono_cliente' => $request->telefono_cliente,
+                'habeas_cliente' => $request->habeas_cliente,
+                'marketing_cliente' => $request->marketing_cliente,
                 'estado_masterfile' =>0,
+                'cod_alpinista'=> $request->cod_alpinista,
                 'id_empresa' =>'0',               
                 'id_embajador' =>'0',               
-                'id_user' =>$user->id,               
+                'id_user' =>0,               
             );
 
             AlpClientes::create($data);
@@ -290,8 +298,7 @@ class FrontEndController extends JoshController
                     'activationUrl' => URL::route('activate', [$user->id, Activation::create($user)->code]),
                 ];
                 // Send the activation code through email
-                Mail::to($user->email)
-                    ->send(new Register($data));
+                //Mail::to($user->email)->send(new Register($data));
                 //Redirect to login page
                 return redirect('login')->with('success', trans('auth/message.signup.success'));
             }
@@ -301,7 +308,7 @@ class FrontEndController extends JoshController
             activity($user->full_name)
                 ->performedOn($user)
                 ->causedBy($user)
-                ->log('New Account created');
+                ->log('Nueva Cuenta Creada');
             // Redirect to the home page with success menu
             return Redirect::route("clientes")->with('success', trans('auth/message.signup.success'));
 
@@ -624,5 +631,34 @@ class FrontEndController extends JoshController
         // Ooops.. something went wrong
         return Redirect::back()->withInput()->withErrors($this->messageBag);
     }
+
+     /**
+     * Get Ajax Request and restun Data
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function selectState($id)
+    {
+        $states = DB::table("config_states")
+                    ->where("country_id",$id)
+                    ->pluck("state_name","id")->all();
+        $states['0'] = 'Seleccione Departamento';
+        return json_encode($states);
+    }
+
+    /**
+     * Get Ajax Request and restun Data
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function selectCity($id)
+    {
+        $cities = DB::table("config_cities")
+                    ->where("state_id",$id)
+                    ->pluck("city_name","id")->all();
+        $states['0'] = 'Seleccione Ciudad';
+        return json_encode($cities);
+    }
+
 
 }

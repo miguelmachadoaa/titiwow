@@ -6,12 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-
-class AlpClientes extends Model
+class AlpEstructuraAddress extends Model
 {
     use SoftDeletes;
 
-    public $table = 'alp_clientes';
+    public $table = 'alp_direcciones_estructura';
     
 
     protected $dates = ['deleted_at'];
@@ -19,20 +18,7 @@ class AlpClientes extends Model
 
     public $fillable = [
         'id',
-        'id_user_client',
-        'id_type_doc',
-        'doc_cliente',
-        'genero_cliente',
-        'telefono_cliente',
-        'marketing_cliente',
-        'habeas_cliente',
-        'cod_oracle_cliente',
-        'cod_alpinista',
-        'estado_masterfile',
-        'estado_registro',
-        'id_empresa',
-        'id_embajador',
-        'nota',
+        'nombre_estructura',
         'id_user'
     ];
 
@@ -42,6 +28,7 @@ class AlpClientes extends Model
      * @var array
      */
     protected $casts = [
+        'nombre_estructura' => 'string'
     ];
 
     /**
@@ -50,5 +37,6 @@ class AlpClientes extends Model
      * @var array
      */
     public static $rules = [
+        'nombre_estructura' => 'required'
     ];
 }

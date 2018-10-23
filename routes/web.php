@@ -226,6 +226,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 Route::get('login', 'FrontEndController@getLogin')->name('login');
 Route::post('login', 'FrontEndController@postLogin')->name('login');
 Route::get('register', 'FrontEndController@getRegister')->name('register');
+Route::get('register/states/{id}',array('as'=>'register.states','uses'=>'FrontEndController@selectState'));
+Route::get('register/cities/{id}',array('as'=>'register.cities','uses'=>'FrontEndController@selectCity'));
 Route::post('register','FrontEndController@postRegister')->name('register');
 Route::post('registerembajador','FrontEndController@postRegisterEmbajador')->name('registerembajador');
 

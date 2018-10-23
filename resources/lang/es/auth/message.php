@@ -24,7 +24,7 @@ return array(
 
     'signup' => array(
         'error'   => 'Hubo un problema al crear su cuenta, intente nuevamente.',
-        'success' => 'Cuenta creada correctamente.',
+        'success' => 'Cuenta creada correctamente, En menos de 24 Horas la activaremos',
     ),
 
         'forgot-password' => array(

@@ -35,5 +35,7 @@ class DatabaseSeeder extends Seeder
         $this->call(EmpresasTableSeeder::class);
         $this->call(ModulosTableSeeder::class);
         $this->call(EnviosStatusTableSeeder::class);
+        $this->call(AlpinistasTableSeeder::class);
+        $this->call(EstrucAddressTableSeeder::class);
     }
 }

@@ -114,3 +114,13 @@ span.help-block{
         width:100% !important;
     }
 }
+
+/*Registro*/
+
+.size_input{
+    width: 60% !important;
+}
+.size_select{
+    width: 100% !important;
+}  
+/*Fin registro*/

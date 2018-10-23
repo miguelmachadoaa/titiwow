@@ -52,6 +52,7 @@ Inicio @parent
                                     <div class="layercat">
                                         <div class="text-align:center;" id="contenido_cat">
                                             <h2>{{ $categoria->nombre_categoria }}</h2>
+                                            <h5>{{ $categoria->descripcion_categoria }}</h5>
                                             <a href="{{ route('categoria', [$categoria->slug]) }}" class="botones_cat boton_cat">VER TODOS</a>                                
                                         </div>
                                     </div>
@@ -91,6 +92,7 @@ Inicio @parent
                                             <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive"></a>
                                         </div>
                                         <a href="{{ route('producto', [$producto->slug]) }}" ><h1>{{ $producto->nombre_producto }}</h1></a>
+                                        <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="text-align:center;">{{ $producto->presentacion_producto }}</h6></a>
                                         <div class="product_info">
                                         @if($descuento==1)
 
