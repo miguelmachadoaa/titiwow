@@ -18,24 +18,17 @@ class MenusTableSeeder extends Seeder
             'id_menu' => 1,
         ]);
         DB::table('alp_menu_detalles')->insert([
-            'name' => 'Productos',
+            'name' => 'Todos los Productos',
             'slug' => 'productos',
             'parent' => 0,
             'order' => 1,
             'id_menu' => 1,
         ]);
         DB::table('alp_menu_detalles')->insert([
-            'name' => 'Leche',
-            'slug' => 'categoria/leche',
+            'name' => 'Lácteos',
+            'slug' => '#',
             'parent' => 0,
             'order' => 2,
-            'id_menu' => 1,
-        ]);
-        DB::table('alp_menu_detalles')->insert([
-            'name' => 'Lácteos',
-            'slug' => 'categoria/lacteos',
-            'parent' => 0,
-            'order' => 3,
             'id_menu' => 1,
         ]);
         DB::table('alp_menu_detalles')->insert([
@@ -46,22 +39,22 @@ class MenusTableSeeder extends Seeder
             'id_menu' => 1,
         ]);
         DB::table('alp_menu_detalles')->insert([
-            'name' => 'Postres y Dulces',
-            'slug' => 'categoria/postres-dulces',
+            'name' => 'Línea Finesse',
+            'slug' => 'categoria/finesse',
             'parent' => 0,
             'order' => 5,
             'id_menu' => 1,
         ]);
         DB::table('alp_menu_detalles')->insert([
-            'name' => 'Esparcibles e Ingredientes',
-            'slug' => 'categoria/esparcibles-ingredientes',
+            'name' => 'Alpina Baby',
+            'slug' => 'categoria/alpina-baby',
             'parent' => 0,
             'order' => 6,
             'id_menu' => 1,
         ]);
         DB::table('alp_menu_detalles')->insert([
-            'name' => 'Bebidas de Fruta',
-            'slug' => 'categoria/bebidas-frutas',
+            'name' => 'Otros',
+            'slug' => '-',
             'parent' => 0,
             'order' => 7,
             'id_menu' => 1,
