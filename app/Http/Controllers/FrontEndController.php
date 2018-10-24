@@ -285,6 +285,12 @@ class FrontEndController extends JoshController
 
            if($request->chkalpinista == 1) {
 
+                if ($codalpin) {
+                    $masterfi=1;
+                }else{
+                    $masterfi=0;
+                }
+
                 $data = array(
                     'id_user_client' => $user->id, 
                     'id_type_doc' => $request->id_type_doc, 
@@ -292,7 +298,7 @@ class FrontEndController extends JoshController
                     'telefono_cliente' => $request->telefono_cliente,
                     'habeas_cliente' => $request->habeas_cliente,
                     'marketing_cliente' => $request->marketing_cliente,
-                    'estado_masterfile' =>0,
+                    'estado_masterfile' =>$masterfi,
                     'cod_alpinista'=> $request->cod_alpinista,
                     'id_empresa' =>'0',               
                     'id_embajador' =>'0',               
