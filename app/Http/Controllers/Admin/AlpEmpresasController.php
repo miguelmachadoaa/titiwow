@@ -275,7 +275,7 @@ class AlpEmpresasController extends JoshController
 
         }
                 
-        return view('frontend.empresas.registro',  compact('id'));
+        return view('frontend.empresas.registro',  compact('id', 'amigo'));
         
 
     }

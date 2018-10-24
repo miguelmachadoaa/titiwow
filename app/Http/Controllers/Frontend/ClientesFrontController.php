@@ -412,7 +412,7 @@ class ClientesFrontController extends Controller
 
         }
                 
-        return view('frontend.clientes.registro',  compact('id'));
+        return view('frontend.clientes.registro',  compact('id', 'amigo'));
         
 
     }

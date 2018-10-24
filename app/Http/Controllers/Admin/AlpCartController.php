@@ -522,7 +522,7 @@ class AlpCartController extends JoshController
 
        $producto->cantidad=1;
 
-       if ($cart[$producto->slug]) {
+       if ($cart[$producto->slug]!==undefined) {
 
           $cart[$producto->slug]['cantidad']=$cart[$producto->slug]['cantidad']+1;
         
@@ -672,9 +672,10 @@ class AlpCartController extends JoshController
 
       $cambio=0;
 
-      $inventario = AlpInventario::select(DB::raw( "SUM(cantidad) as disponible"))
+      $inventario = AlpInventario::select('alp_inventarios.*', DB::raw( "SUM(cantidad) as disponible"))
             ->orderBy("id_producto")
-            ->groupBy("id_producto, operacion")
+            ->groupBy("id_producto")
+            ->groupBy("operacion")
             ->where("operacion",'1')
             ->get();
 
@@ -682,15 +683,16 @@ class AlpCartController extends JoshController
 
       foreach ($inventario as $row_inv) {
 
-        $inv_producto[$row->id]=$row_inv->disponible;
+        $inv_producto[$row_inv->id_producto]=$row_inv->disponible;
 
       }
 
      
 
-      $ventas = AlpInventario::select(DB::raw( "SUM(cantidad) as vendidas"))
+      $ventas = AlpInventario::select('alp_inventarios.*',DB::raw( "SUM(cantidad) as vendidas"))
             ->orderBy("id_producto")
-            ->groupBy("id_producto, operacion")
+            ->groupBy("id_producto")
+            ->groupBy("operacion")
             ->where("operacion",'2')
             ->get();
 
@@ -698,8 +700,8 @@ class AlpCartController extends JoshController
 
       foreach ($ventas as $row_ventas) {
        
-        $inv_producto[$row_ventas]=$inv_producto[$row_ventas]-$row_ventas-$row_ventas->vendidas;
-        
+        $inv_producto[$row_ventas->id_producto]=$inv_producto[$row_ventas->id_producto]-$row_ventas->vendidas;
+
       }
 
       

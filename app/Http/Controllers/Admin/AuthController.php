@@ -355,8 +355,11 @@ class AuthController extends JoshController
         
 
         try {
+
+            
             // Register the user
-            $user = Sentinel::registerAndActivate([
+            //$user = Sentinel::registerAndActivate([
+            $user = Sentinel::register([
                 'first_name' => $request->get('first_name'),
                 'last_name' => $request->get('last_name'),
                 'email' => $request->get('email'),
@@ -369,13 +372,17 @@ class AuthController extends JoshController
 
 
             // Log the user in
-            $name = Sentinel::login($user, false);
+           /* $name = Sentinel::login($user, false);
+
+             Activation::remove($user);
+                    //add new record
+                    Activation::create($user);
             //Activity log
 
             activity($name->full_name)
                 ->performedOn($user)
                 ->causedBy($user)
-                ->log('Registered');
+                ->log('Registered');*/
 
 
             
@@ -407,7 +414,14 @@ class AuthController extends JoshController
 
             if ($request->back=='0') {
 
-                    return Redirect::route("admin.dashboard")->with('success', trans('auth/message.signin.success'));
+                   // return Redirect::route($request->back)->with('success', trans('auth/message.signin.success'));
+
+                 $mensaje="Ha sido registrado satisfactoriamente, debe esperar ser activado en un proceso interno y le sera notificado via email";
+
+                return view('frontend.clientes.aviso',  compact('mensaje'));
+
+
+                   // return Redirect::route("admin.dashboard")->with('success', trans('auth/message.signin.success'));
                    
                 }else{
 
@@ -439,23 +453,27 @@ class AuthController extends JoshController
 
         $input=$request->all();
 
-        print_r($input);
+        //print_r($input);
 
          $amigo=AlpAmigos::where('token', $request->empresa)->first();
 
-        print_r($amigo);
+        //print_r($amigo);
 
         if (isset($amigo->id)) {
 
 
         try {
             // Register the user
-            $user = Sentinel::registerAndActivate([
+            $user = Sentinel::register([
                 'first_name' => $request->get('first_name'),
                 'last_name' => $request->get('last_name'),
                 'email' => $request->get('email'),
                 'password' => $request->get('password'),
             ]);
+
+            // Activation::remove($user);
+                    //add new record
+          //  Activation::create($user);
 
             //add user to 'User' group
             $role = Sentinel::findRoleById(12);
@@ -463,13 +481,13 @@ class AuthController extends JoshController
 
 
             // Log the user in
-            $name = Sentinel::login($user, false);
+           /* $name = Sentinel::login($user, false);
             //Activity log
 
             activity($name->full_name)
                 ->performedOn($user)
                 ->causedBy($user)
-                ->log('Registered');
+                ->log('Registered');*/
 
 
              //echo 'Referido: '.$referido.'<br>';
@@ -499,7 +517,11 @@ class AuthController extends JoshController
 
             if ($request->back=='0') {
 
-                    return Redirect::route("admin.dashboard")->with('success', trans('auth/message.signin.success'));
+                    //return Redirect::route("admin.dashboard")->with('success', trans('auth/message.signin.success'));
+
+                     $mensaje="Ha sido registrado satisfactoriamente, debe esperar ser activado en un proceso interno y le sera notificado via email";
+
+                return view('frontend.clientes.aviso',  compact('mensaje'));
                    
                 }else{
 

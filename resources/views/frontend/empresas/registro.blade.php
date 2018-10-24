@@ -44,8 +44,8 @@
                     {!! $errors->first('last_name', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="form-group {{ $errors->first('email', 'has-error') }}">
-                    <input type="email" class="form-control" id="Email" name="email" placeholder="Email"
-                           value="{!! old('Email') !!}" >
+                    <input type="email" class="form-control" id="Email" name="email" readonly="true" placeholder="Email"
+                           value="{!! $amigo->email_amigo !!}" >
                     {!! $errors->first('email', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="form-group {{ $errors->first('password', 'has-error') }}">

@@ -27,7 +27,7 @@
            
             <form action="{{ url('signupembajador') }}" method="POST" id="reg_form">
 
-                <h3> Su enlace ha vencido, por favor solicite uno nuevo o registrese como cliente.</h3>
+                <h3> {{ $mensaje }}.</h3>
                 
                 <p> <a href="{{ route('register') }}"> Registrarse</a> - <a href="{{ url('/') }}"> Inicio</a></p> 
               
