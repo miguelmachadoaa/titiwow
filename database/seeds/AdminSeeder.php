@@ -78,7 +78,7 @@ class AdminSeeder extends DatabaseSeeder {
 		));
 
 		DB::table('alp_clientes')->insert([
-            ['id_user_client' => 9,'id_type_doc' => 1,'doc_cliente' => '123456','genero_cliente' => 1, 'telefono_cliente' => '23333322','marketing_cliente' => 1,'habeas_cliente' => 1,'cod_oracle_cliente' => 'GFGD3433','estado_masterfile' => 1, 'id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['id_user_client' => 9,'id_type_doc' => 1,'doc_cliente' => '123456','genero_cliente' => 1, 'telefono_cliente' => '23333322','marketing_cliente' => 1,'habeas_cliente' => 1,'cod_oracle_cliente' => '123456','estado_masterfile' => 1, 'id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
 		]);
 		
 		$embajador = Sentinel::registerAndActivate(array(
@@ -89,7 +89,7 @@ class AdminSeeder extends DatabaseSeeder {
 		));
 
 		DB::table('alp_clientes')->insert([
-            ['id_user_client' => 10,'id_type_doc' => 1,'doc_cliente' => '345678','genero_cliente' => 2, 'telefono_cliente' => '23432422','marketing_cliente' => 0,'habeas_cliente' => 1,'cod_oracle_cliente' => 'FSDFDSSS','estado_masterfile' => 1, 'id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['id_user_client' => 10,'id_type_doc' => 1,'doc_cliente' => '345678','genero_cliente' => 2, 'telefono_cliente' => '23432422','marketing_cliente' => 0,'habeas_cliente' => 1,'cod_oracle_cliente' => '7890123','estado_masterfile' => 1, 'id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
 		]);
 
 		$amigo = Sentinel::registerAndActivate(array(
@@ -100,7 +100,7 @@ class AdminSeeder extends DatabaseSeeder {
 		));
 
 		DB::table('alp_clientes')->insert([
-            ['id_user_client' => 11,'id_type_doc' => 1,'doc_cliente' => '3452243678','genero_cliente' => 1, 'telefono_cliente' => '444444','marketing_cliente' => 1,'habeas_cliente' => 1,'cod_oracle_cliente' => 'SFSDSD','estado_masterfile' => 1,'id_embajador' => 10, 'id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['id_user_client' => 11,'id_type_doc' => 1,'doc_cliente' => '3452243678','genero_cliente' => 1, 'telefono_cliente' => '444444','marketing_cliente' => 1,'habeas_cliente' => 1,'cod_oracle_cliente' => '4567891','estado_masterfile' => 1,'id_embajador' => 10, 'id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
 		]);
 
 		$corporativo = Sentinel::registerAndActivate(array(
@@ -111,7 +111,7 @@ class AdminSeeder extends DatabaseSeeder {
 		));
 
 		DB::table('alp_clientes')->insert([
-            ['id_user_client' => 12,'id_type_doc' => 1,'doc_cliente' => '332222','genero_cliente' => 2, 'telefono_cliente' => '232332','marketing_cliente' => 1,'habeas_cliente' => 1,'cod_oracle_cliente' => 'SFSDSD','estado_masterfile' => 1,'id_empresa' => 1, 'id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['id_user_client' => 12,'id_type_doc' => 1,'doc_cliente' => '332222','genero_cliente' => 2, 'telefono_cliente' => '232332','marketing_cliente' => 1,'habeas_cliente' => 1,'cod_oracle_cliente' => '2345667','estado_masterfile' => 1,'id_empresa' => 1, 'id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
 		]);
 
 		$adminRole = Sentinel::getRoleRepository()->createModel()->create([
