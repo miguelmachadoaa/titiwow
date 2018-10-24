@@ -17,6 +17,7 @@ use App\Models\AlpPrecioGrupo;
 use App\Models\AlpProductos;
 use App\Models\AlpTDocumento;
 use App\Models\AlpEstructuraAddress;
+use App\Models\AlpDirecciones;
 use App\User;
 use App\State;
 use App\RoleUser;
@@ -283,6 +284,25 @@ class FrontEndController extends JoshController
 
             AlpClientes::create($data);
 
+           /* $principal = (string)$request->principal_address;
+            $secundaria = (string) $request->secundaria_address;
+            $edificio = (string) $request->edificio_address;
+            $deatlle = (string) $request->detalle_address;
+            $barrio = (string) $request->barrio_address;*/
+
+            $direccion = array(
+                'id_client' => $user->id, 
+                'city_id' => $request->city_id, 
+                'id_estructura_address' => $request->id_estructura_address, 
+                'principal_address' => '147',
+                'secundaria_address' => '13',
+                'edificio_address' => '32',
+                'detalle_address' => '406',
+                'barrio_address'=> 'cedritos' ,             
+                'id_user' => 0,               
+            );
+
+            AlpDirecciones::create($direccion);
 
 
             //add user to 'Cliente' group

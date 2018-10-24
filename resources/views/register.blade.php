@@ -121,11 +121,11 @@
                     </div>
                         <span class="input-group-addon" style="width:0px; padding-left:0px; padding-right:0px; border:none;"></span>
 
-                        <input type="text" id="principal_address" name="principal_address" required="required" class="form-control">
+                        <input type="text" id="principal_address" name="principal_address" class="form-control">
                         <span class="input-group-addon">#</span>
-                        <input type="text" id="searchbygenerals_priceTo" name="searchbygenerals[priceTo]" required="required" class="form-control" >
+                        <input type="text" id="secundaria_address" name="secundaria_address[priceTo]" class="form-control" >
                         <span class="input-group-addon">-</span>
-                        <input type="text" id="searchbygenerals_priceTo" name="searchbygenerals[priceTo]" required="required" class="form-control">
+                        <input type="text" id="edificio_address" name="edificio_address" class="form-control">
 
                         <!-- insert this line -->
                         <span class="input-group-addon" style="width:0px; padding-left:0px; padding-right:0px; border:none;"></span>
@@ -199,7 +199,7 @@ $(document).ready(function(){
                                 
                                 $('select[name="city_id"]').empty();
                                 $.each(data, function(key, value) {
-                                    $('select[name="city_id"]').append('<option value="'+ key+'_'+value +'">'+ value +'</option>');
+                                    $('select[name="city_id"]').append('<option value="'+ key+'">'+ value +'</option>');
                                 });
 
                             }

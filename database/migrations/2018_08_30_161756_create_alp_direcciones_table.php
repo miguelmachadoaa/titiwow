@@ -18,7 +18,7 @@ class CreateAlpDireccionesTable extends Migration
             $table->integer('id_client');
             $table->integer('city_id');
             //$table->string('nickname_address');
-            $table->string('id_estructura_address');
+            $table->integer('id_estructura_address');
             $table->string('principal_address');
             $table->string('secundaria_address');
             $table->string('edificio_address');
