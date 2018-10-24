@@ -406,6 +406,8 @@ class AuthController extends JoshController
 
             AlpClientes::create($data);
 
+            $amigo->delete();
+
             /* Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name));*/
 
             //activity log ends
@@ -510,6 +512,8 @@ class AuthController extends JoshController
             /* Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name));*/
 
             AlpClientes::create($data);
+
+             $amigo->delete();
 
             //activity log ends
             // Redirect to the home page with success menu
