@@ -36,7 +36,15 @@ class UserRequest extends FormRequest
                     'email' => 'required|email|unique:users,email',
                     'password' => 'required|between:3,32',
                     'password_confirm' => 'required|same:password',
-                    'pic_file' => 'mimes:jpg,jpeg,bmp,png,gif|max:10000'
+                    'doc_cliente' => 'unique:alp_clientes,doc_cliente',
+                    'id_type_doc' => 'required',
+                    'telefono_cliente' => 'required|min:5',
+                    'habeas_cliente' => 'required',
+                    'id_estructura_address' => 'required',
+                    'principal_address' => 'required',
+                    'secundaria_address' => 'required',
+                    'edificio_address' => 'required',
+                    'detalle_address' => 'required|min:2'
                 ];
             }
             case 'PUT':
@@ -46,7 +54,15 @@ class UserRequest extends FormRequest
                     'last_name' => 'required|min:3',
                     'email' => 'required|unique:users,email,' . $this->user->id,
                     'password_confirm' => 'sometimes|same:password',
-                    'pic_file' => 'image|mimes:jpg,jpeg,bmp,png|max:10000'
+                    'doc_cliente' => 'unique:alp_clientes,doc_cliente',
+                    'id_type_doc' => 'required',
+                    'telefono_cliente' => 'required|min:5',
+                    'habeas_cliente' => 'required',
+                    'id_estructura_address' => 'required',
+                    'principal_address' => 'required',
+                    'secundaria_address' => 'required',
+                    'edificio_address' => 'required',
+                    'detalle_address' => 'required|min:2'
                 ];
             }
             default:

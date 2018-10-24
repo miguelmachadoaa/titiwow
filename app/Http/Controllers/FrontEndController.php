@@ -18,6 +18,7 @@ use App\Models\AlpProductos;
 use App\Models\AlpTDocumento;
 use App\Models\AlpEstructuraAddress;
 use App\Models\AlpDirecciones;
+use App\Models\AlpCodAlpinistas;
 use App\User;
 use App\State;
 use App\RoleUser;
@@ -255,8 +256,22 @@ class FrontEndController extends JoshController
     public function postRegister(UserRequest $request)
     {
 
-        $activate = $this->user_activation; //make it false if you don't want to activate user automatically it is declared above as global variable
+        //$activate = $this->user_activation; //make it false if you don't want to activate user automatically it is declared above as global variable
         try {
+
+            if($request->chkalpinista == 1) {
+
+                $codalpin = AlpCodAlpinistas::where('documento_alpi', $request->doc_cliente)->where('codigo_alpi', $request->cod_alpinista)->where('estatus_alpinista',1)->first();
+                if ($codalpin) {
+                    $activate=true;
+                }else{
+                    $activate=false;
+                }
+
+            }else{
+                $activate=false;
+            }
+
             // Register the user
             $user = Sentinel::register($request->only(['first_name', 'last_name', 'email', 'password']), $activate);
 
@@ -268,47 +283,96 @@ class FrontEndController extends JoshController
                 $genero=1;
            }*/
 
-             $data = array(
-                'id_user_client' => $user->id, 
-                'id_type_doc' => $request->id_type_doc, 
-                'doc_cliente' =>$request->id_type_doc, 
-                'telefono_cliente' => $request->telefono_cliente,
-                'habeas_cliente' => $request->habeas_cliente,
-                'marketing_cliente' => $request->marketing_cliente,
-                'estado_masterfile' =>0,
-                'cod_alpinista'=> $request->cod_alpinista,
-                'id_empresa' =>'0',               
-                'id_embajador' =>'0',               
-                'id_user' =>0,               
-            );
+           if($request->chkalpinista == 1) {
+
+                $data = array(
+                    'id_user_client' => $user->id, 
+                    'id_type_doc' => $request->id_type_doc, 
+                    'doc_cliente' =>$request->doc_cliente, 
+                    'telefono_cliente' => $request->telefono_cliente,
+                    'habeas_cliente' => $request->habeas_cliente,
+                    'marketing_cliente' => $request->marketing_cliente,
+                    'estado_masterfile' =>0,
+                    'cod_alpinista'=> $request->cod_alpinista,
+                    'id_empresa' =>'0',               
+                    'id_embajador' =>'0',               
+                    'id_user' =>0,               
+                );
+            }else{
+
+                $data = array(
+                    'id_user_client' => $user->id, 
+                    'id_type_doc' => $request->id_type_doc, 
+                    'doc_cliente' =>$request->doc_cliente, 
+                    'telefono_cliente' => $request->telefono_cliente,
+                    'habeas_cliente' => $request->habeas_cliente,
+                    'marketing_cliente' => $request->marketing_cliente,
+                    'estado_masterfile' =>0,
+                    'id_empresa' =>'0',               
+                    'id_embajador' =>'0',               
+                    'id_user' =>0,               
+                );
+                
+            }
 
             AlpClientes::create($data);
-
-           /* $principal = (string)$request->principal_address;
-            $secundaria = (string) $request->secundaria_address;
-            $edificio = (string) $request->edificio_address;
-            $deatlle = (string) $request->detalle_address;
-            $barrio = (string) $request->barrio_address;*/
 
             $direccion = array(
                 'id_client' => $user->id, 
                 'city_id' => $request->city_id, 
                 'id_estructura_address' => $request->id_estructura_address, 
-                'principal_address' => '147',
-                'secundaria_address' => '13',
-                'edificio_address' => '32',
-                'detalle_address' => '406',
-                'barrio_address'=> 'cedritos' ,             
+                'principal_address' => $request->principal_address,
+                'secundaria_address' => $request->secundaria_address,
+                'edificio_address' => $request->edificio_address,
+                'detalle_address' => $request->detalle_address,
+                'barrio_address'=> $request->barrio_address,             
                 'id_user' => 0,               
             );
 
             AlpDirecciones::create($direccion);
 
+            if($request->chkalpinista == 1) {
+                
+                if ($codalpin) {
 
-            //add user to 'Cliente' group
-            $role = Sentinel::findRoleById(9);
+                   $sialpin = array(
+                        'id_usuario_creado' => $user->id, 
+                        'estatus_alpinista' => 2    
+                    );
 
-            $role->users()->attach($user);
+                    AlpCodAlpinistas::where('id',$codalpin->id)->update($sialpin);
+
+                    $masterfile = array(
+                        'estado_masterfile' => 1 ,
+                        'nota' => 'Alpinista Registrado automaticamente'
+                    );
+
+                    AlpClientes::where('id',$user->id)->update($masterfile);
+
+                    //add user to 'Embajador' group
+                    $role = Sentinel::findRoleById(10);
+
+                    $role->users()->attach($user);
+                    
+                    $activation = Activation::exists($user);
+
+                    if ($activation) {
+
+                        Activation::complete($user, $activation->code);
+
+                    }
+                }
+            }else{
+
+                //add user to 'Cliente' group
+                $role = Sentinel::findRoleById(9);
+
+                $role->users()->attach($user);
+
+            }
+
+
+
             //if you set $activate=false above then user will receive an activation mail
             if (!$activate) {
                 // Data to be used on the email view

@@ -78,9 +78,10 @@
                            placeholder="Confirmar Contraseña">
                     {!! $errors->first('password_confirm', '<span class="help-block">:message</span>') !!}
                 </div>
+                <hr />
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="chkalpinista" id="chkalpinista"> ¡Soy Alpinista!</a>
+                        <input type="checkbox" name="chkalpinista" id="chkalpinista" value="1"> ¡Soy Alpinista!</a>
                     </label>
                 </div>
                 <div class="form-group {{ $errors->first('cod_alpinista', 'has-error') }}">
@@ -121,11 +122,11 @@
                     </div>
                         <span class="input-group-addon" style="width:0px; padding-left:0px; padding-right:0px; border:none;"></span>
 
-                        <input type="text" id="principal_address" name="principal_address" class="form-control">
+                        <input type="text" id="principal_address" name="principal_address" class="form-control" value="{!! old('principal_address') !!}" >
                         <span class="input-group-addon">#</span>
-                        <input type="text" id="secundaria_address" name="secundaria_address[priceTo]" class="form-control" >
+                        <input type="text" id="secundaria_address" name="secundaria_address" class="form-control" value="{!! old('secundaria_address') !!}" >
                         <span class="input-group-addon">-</span>
-                        <input type="text" id="edificio_address" name="edificio_address" class="form-control">
+                        <input type="text" id="edificio_address" name="edificio_address" class="form-control" value="{!! old('edificio_address') !!}" >
 
                         <!-- insert this line -->
                         <span class="input-group-addon" style="width:0px; padding-left:0px; padding-right:0px; border:none;"></span>
@@ -155,6 +156,7 @@
                     </label>
                 </div>
                 <button type="submit" class="btn btn-block btn-primary">Registrarme</button>
+                <br />
                 Si ya tiene cuenta, por favor Inicie Sesión <a href="{{ route('login') }}"> Ingresar</a>
             </form>
             <input type="hidden" name="base" id="base" value="{{ url('/') }}">
