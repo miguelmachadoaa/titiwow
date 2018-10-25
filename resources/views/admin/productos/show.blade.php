@@ -7,15 +7,15 @@ Productos
 
 @section('content')
 <section class="content-header">
-    <h1>AlpProductos View</h1>
+    <h1>Detalle de Producto</h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
-                Dashboard
+                Escritorio
             </a>
         </li>
-        <li>AlpProductos</li>
-        <li class="active">AlpProductos View</li>
+        <li>Productos</li>
+        <li class="active">Detalle de Producto</li>
     </ol>
 </section>
 
@@ -24,7 +24,7 @@ Productos
        <div class="panel panel-primary">
         <div class="panel-heading clearfix">
             <h4 class="panel-title"> <i class="livicon" data-name="list-ul" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                AlpProductos details
+                Detalles de Productos
             </h4>
         </div>
             <div class="panel-body">
@@ -88,7 +88,7 @@ Productos
 
                     <div class="form-group">
                         {!! Form::label('name_producto', 'Seo Url:') !!}
-                        <p>{!! $producto->seo_url !!}</p>
+                        <p>{!! $producto->slug !!}</p>
                         <hr>
                     </div>
 

@@ -1,7 +1,7 @@
 @extends('admin/layouts/default')
 
 @section('title')
-AlpProductos
+Productos
 @parent
 @stop
 

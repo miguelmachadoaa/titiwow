@@ -20,8 +20,13 @@
             <td><img src="../uploads/productos/{!! $alpProductos->imagen_producto !!}" height="60px"></td>
             <td>{!! $alpProductos->nombre_categoria !!}</td>
             <td>{!! number_format($alpProductos->precio_base,2) !!}</td>
-            <td>{!! $alpProductos->estado_registro !!}</td>
-           
+            <td id="acti_{{ $alpProductos->id }}">
+                @if($alpProductos->estado_registro == 1)
+                    <button type="button" data-url="{{ url('productos/desactivar') }}" data-desactivar="2" data-id="{{ $alpProductos->id  }}" class="btn btn-responsive button-alignment btn-success btn_sizes desactivar" style="font-size: 12px !important;" >Activo</button>
+                @elseif($alpProductos->estado_registro == 2)
+                    <button type="button" data-url="{{ url('productos/desactivar') }}" data-desactivar="1" data-id="{{ $alpProductos->id  }}" class="btn btn-responsive button-alignment btn-danger btn_sizes desactivar" style="font-size: 12px !important;">Inactivo</button>
+                @endif
+            </td>
             <td>
                  <a href="{{ route('admin.productos.show', collect($alpProductos)->first() ) }}">
                      <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view alpProductos"></i>
@@ -87,6 +92,17 @@
 
             });
            
+        });
+
+
+         $('#alpProductos-table').on('click', '.desactivar', function(){
+            var id=$(this).data('id');
+            var desactivar=$(this).data('desactivar');
+            var url=$(this).data('url');
+            $.post(url, {id, desactivar}, function(data) {
+                    $('#acti_'+id).html(data);
+            });
+
         });
 
         $('#alpProductos-table').DataTable({

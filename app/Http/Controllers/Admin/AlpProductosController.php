@@ -693,4 +693,27 @@ class AlpProductosController extends JoshController
         
         return $data;
     }
+
+    public function desactivar(Request $request)
+    {
+
+        $input = $request->all();
+        
+        $producto=AlpProductos::find($request->id);
+
+        $data = array('estado_registro' => $request->desactivar );
+
+
+
+        $producto->update($data);
+
+        $producto=AlpProductos::find($request->id);
+
+
+        $view= View::make('admin.productos.desactivar', compact('producto'));
+
+        $data=$view->render();
+        
+        return $data;
+    }
 }

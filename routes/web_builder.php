@@ -525,6 +525,7 @@ Route::get('clientes/{id}/detalle', 'Frontend\ClientesFrontController@detalle')-
 
 
 Route::post('productos/destacado', ['as'=> 'productos.destacado', 'uses' => 'Admin\AlpProductosController@destacado']);
+Route::post('productos/desactivar', ['as'=> 'productos.desactivar', 'uses' => 'Admin\AlpProductosController@desactivar']);
 
 
 Route::post('categorias/destacado', ['as'=> 'categorias.destacado', 'uses' => 'Admin\AlpCategoriasController@destacado']);
