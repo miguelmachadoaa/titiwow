@@ -7,7 +7,7 @@
         </div>
         <div class="col-sm-6">
             <h3 style="font-size: 1.3em;">{{ $producto->nombre_producto }}</h3>
-            <p> <b>COP{{ number_format($producto->precio_base, 2, '.', ',')}}</b></p>
+            <p> <b>COP{{ number_format($producto->precio_base, 0, '.', ',')}}</b></p>
             <p>Cantidad: {{ $producto->cantidad }}</p>
         </div>
         
@@ -19,9 +19,9 @@
 
        <p>Tienes un total de {{ $cantidad }} items en tu carro </p> 
 
-       <p>Sub Total: {{ number_format($total, 2, '.', ',') }}</p>
+       <p>Sub Total: {{ number_format($total, 0, '.', ',') }}</p>
 
-       <p> Total: {{ number_format($total, 2, '.', ',') }}</p>
+       <p> Total: {{ number_format($total, 0, '.', ',') }}</p>
         
     </div>
 

@@ -88,7 +88,7 @@ Carro de Productos
 
                                 <td><img height="60px" src="../uploads/productos/{{$row->imagen_producto}}"></td>
                                 <td>{{$row->nombre_producto}}</td>
-                                <td>{{number_format($row->precio_base,2,",",".")}}</td>
+                                <td>{{number_format($row->precio_base,0,",",".")}}</td>
                                 
                                 <td>
                                     <input 

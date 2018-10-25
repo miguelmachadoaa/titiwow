@@ -518,23 +518,19 @@ class AlpCartController extends JoshController
 
        $precio = array();
 
-        
-
        $producto->cantidad=1;
 
-       if ($cart[$producto->slug]!==undefined) {
+       if ( isset($cart[$producto->slug])) {
 
           $cart[$producto->slug]['cantidad']=$cart[$producto->slug]['cantidad']+1;
-        
 
        }else{
 
-       $cart[$producto->slug]=$producto;
-
+          $cart[$producto->slug]=$producto;
 
        }
 
-      $cart=$this->reloadCart();
+      //$cart=$this->reloadCart();
 
       // return $cart;
 

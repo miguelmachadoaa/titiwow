@@ -681,7 +681,12 @@ class AlpClientesController extends JoshController
         $user_id = Sentinel::getUser()->id;
 
         $user=User::where('id', $request->cliente_id)->first();
-        
+
+
+          Activation::remove($user);
+                        //add new record
+            Activation::create($user);
+
         $activation = Activation::exists($user);
 
         if ($activation) {
@@ -689,8 +694,6 @@ class AlpClientesController extends JoshController
             Activation::complete($user, $activation->code);
 
         }
-
-        
 
         $data = array(
             'estado_masterfile' => 1,
@@ -701,14 +704,12 @@ class AlpClientesController extends JoshController
 
         $cliente->update($data);
 
-
          $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente')
         ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
         ->join('role_users', 'users.id', '=', 'role_users.user_id')
         ->join('roles', 'role_users.role_id', '=', 'roles.id')
         ->where('users.id', '=', $request->cliente_id)
         ->first();
-
 
         $view= View::make('admin.clientes.trcliente', compact('clientes'));
 
