@@ -157,7 +157,7 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
     //fin direcioens clientes
 
-    //Inicio direcciones clientes
+    //Inicio estatus Ordenes 
 
     Route::group(['prefix' => 'estatus'], function () {
 
@@ -171,7 +171,16 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
     Route::resource('estatus', 'Admin\AlpEstatusOrdenesController');
 
+//fin estatus ordenes
 
+//Inicio Reportes generales
+
+   /* Route::get('reportes/registrados', 'Admin\AlpReportesController@registrados');
+    Route::get('reportes/registrados/registradosexcel', 'Admin\AlpReportesController@excelUserNew')->name('reportes.registrados.registradosexcel');*/
+
+    Route::get('reportes/', 'Admin\AlpReportesController@export');
+
+//Fin Reportes generales
     
 
     Route::group(['prefix' => 'empresas'], function () {
@@ -293,13 +302,6 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
     Route::post('configuracion/delcity', 'Admin\AlpConfiguracionController@delcity')->name('configuracion.delcity');
 
-    
-
-
-
-
-
-
 
     Route::resource('ordenes', 'Admin\AlpOrdenesController');
 
@@ -371,17 +373,6 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
 
 });
-
-
-
-
-
-
-
-
-
-
-
 
 
 
