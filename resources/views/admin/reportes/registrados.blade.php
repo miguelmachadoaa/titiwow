@@ -34,9 +34,32 @@ Reportes Clientes Registrados
                 </div>
                 <br />
                 <div class="panel-body">
-                    <a href="{{ url('reportes/registrados/registradosexcel') }}" class="btn btn-sm btn-primary">
-                        Descargar productos en Excel
-                    </a>
+                    <div class="form-group col-sm-10 ">
+                        <label for="select21" class="col-md-4 control-label text-right">
+                        Fecha de Registro                                                 
+                        </label>
+                        <div class="col-md-8">   
+                            <select id="fechas" name="fechas" class="form-control ">
+                                <option value="">Seleccione</option>
+                                <option id="1" value="1">Hoy</option>
+                                <option id="2" value="2">Ayer</option>
+                                <option id="2" value="2">Semana</option>
+                                <option id="2" value="2">Mes</option>
+                            </select>
+                        </div>           
+                    </div>
+
+                    <div class="form-group">
+                            <div class="col-sm-offset-4 col-sm-8">
+                                <a href="{{ url('admin/reportes/registrados/export') }}" class="btn btn-md btn-primary" id="generar_report" target="_blank">
+                                    Descargar productos en Excel
+                                </a>
+                                <a class="btn btn-md btn-danger" href="{{ route('admin.sedes.index') }}">
+                                    Cancelar
+                                </a>
+                            
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
@@ -50,11 +73,7 @@ Reportes Clientes Registrados
 @section('footer_scripts')
 
 <script>
-    $(function () {$('body').on('hidden.bs.modal', '.modal', function () {$(this).removeData('bs.modal');});});
-    $(document).on("click", ".users_exists", function () {
-
-        var group_name = $(this).data('name');
-        $(".modal-header h4").text( group_name+" Group" );
-    });
+        
+   
 </script>
 @stop

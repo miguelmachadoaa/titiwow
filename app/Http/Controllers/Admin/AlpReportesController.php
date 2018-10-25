@@ -7,6 +7,11 @@ use App\Http\Controllers\Controller;
 
 class AlpReportesController extends Controller 
 {
+    public function indexreg() 
+    {
+        return view('admin.reportes.registrados');
+    }
+
     public function export() 
     {
         return Excel::download(new UsersExport, 'users.xlsx');

@@ -178,7 +178,8 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
    /* Route::get('reportes/registrados', 'Admin\AlpReportesController@registrados');
     Route::get('reportes/registrados/registradosexcel', 'Admin\AlpReportesController@excelUserNew')->name('reportes.registrados.registradosexcel');*/
 
-    Route::get('reportes/', 'Admin\AlpReportesController@export');
+   Route::get('reportes/registrados', 'Admin\AlpReportesController@indexreg');
+   Route::get('reportes/registrados/export', 'Admin\AlpReportesController@export');
 
 //Fin Reportes generales
     
