@@ -59,5 +59,62 @@ class MenusTableSeeder extends Seeder
             'order' => 7,
             'id_menu' => 1,
         ]);
+                DB::table('alp_menu_detalles')->insert([
+                    'name' => 'Leche',
+                    'slug' => 'leche',
+                    'parent' => 3,
+                    'order' => 1,
+                    'id_menu' => 1,
+                ]);
+                DB::table('alp_menu_detalles')->insert([
+                    'name' => 'Derivados Lácteos',
+                    'slug' => 'lacteos',
+                    'parent' => 3,
+                    'order' => 2,
+                    'id_menu' => 1,
+                ]);
+                DB::table('alp_menu_detalles')->insert([
+                    'name' => 'Postres y Dulces',
+                    'slug' => 'postres-dulces',
+                    'parent' => 7,
+                    'order' => 1,
+                    'id_menu' => 1,
+                ]);
+                DB::table('alp_menu_detalles')->insert([
+                    'name' => 'Esparcibles e Ingredientes',
+                    'slug' => 'esparcibles-ingredientes',
+                    'parent' => 7,
+                    'order' => 2,
+                    'id_menu' => 1,
+                ]);
+                DB::table('alp_menu_detalles')->insert([
+                    'name' => 'No Lácteos',
+                    'slug' => 'no-lacteos',
+                    'parent' => 7,
+                    'order' => 3,
+                    'id_menu' => 1,
+                ]);
+                DB::table('alp_menu_detalles')->insert([
+                    'name' => 'Bebidas de Fruta',
+                    'slug' => 'bebidas-frutas',
+                    'parent' => 7,
+                    'order' => 4,
+                    'id_menu' => 1,
+                ]);
+                DB::table('alp_menu_detalles')->insert([
+                    'name' => 'Temporada',
+                    'slug' => 'Temporada',
+                    'parent' => 7,
+                    'order' => 5,
+                    'id_menu' => 1,
+                ]);
+                DB::table('alp_menu_detalles')->insert([
+                    'name' => 'Anchetas, Tablas y Otros',
+                    'slug' => 'anchetas-tablas',
+                    'parent' => 7,
+                    'order' => 6,
+                    'id_menu' => 1,
+                ]);
+
     }
 }
