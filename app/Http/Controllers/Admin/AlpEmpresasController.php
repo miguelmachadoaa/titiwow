@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\JoshController;
+use App\State;
+use App\Models\AlpTDocumento;
+use App\Models\AlpEstructuraAddress;
 use App\Models\AlpEmpresas;
 use App\Models\AlpAmigos;
 use App\Http\Requests\EmpresaRequest;
@@ -264,7 +267,12 @@ class AlpEmpresasController extends JoshController
 
         $amigo=AlpAmigos::where('token', $id)->first();
 
-        
+        $states=State::where('config_states.country_id', '47')->get();
+
+        $t_documento = AlpTDocumento::where('estado_registro','=',1)->get();
+
+        $estructura = AlpEstructuraAddress::where('estado_registro','=',1)->get();
+
 
         if (!isset($amigo->id)) {
 
@@ -272,12 +280,10 @@ class AlpEmpresasController extends JoshController
 
                 return view('frontend.clientes.aviso',  compact('mensaje'));
 
-
         }
                 
-        return view('frontend.empresas.registro',  compact('id', 'amigo'));
+        return view('frontend.empresas.registro',  compact('id', 'amigo', 'states','t_documento','estructura'));
         
-
     }
 
     

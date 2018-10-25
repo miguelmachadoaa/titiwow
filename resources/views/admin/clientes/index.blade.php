@@ -44,6 +44,7 @@
                             <thead>
                                 <tr>
                                     <th>Id</th>
+                                    <th>Codigo Oracle</th>
                                     <th>Nombre</th>
                                     <th>Email</th>
                                     <th>Teléfono</th>
@@ -59,6 +60,7 @@
                                 @foreach ($clientes as $row)
                                 <tr>
                                     <td>{!! $row->id !!}</td>
+                                    <td>{!! $row->cod_oracle_cliente !!}</td>
                                     <td>{!! $row->first_name !!} {!! $row->last_name !!}</td>
                                     <td>{!! $row->email !!}</td>
                                     <td>{!! $row->telefono_cliente !!}</td>

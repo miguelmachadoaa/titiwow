@@ -38,7 +38,7 @@ class AlpClientesController extends JoshController
     {
         // Grab all the groups
       
-        $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente')
+        $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista')
         ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
         ->join('role_users', 'users.id', '=', 'role_users.user_id')
         ->join('roles', 'role_users.role_id', '=', 'roles.id')

@@ -14,6 +14,7 @@ use App\Roles;
 use App\RoleUser;
 use App\Models\AlpClientes;
 use App\Models\AlpAmigos;
+use App\Models\AlpDirecciones;
 use Mail;
 use Reminder;
 use Sentinel;
@@ -390,21 +391,37 @@ class AuthController extends JoshController
              //echo 'Referido: '.$referido.'<br>';
 
 
-             $data = array(
-                'id_user_client' => $user->id, 
-                'id_type_doc' => '1', 
-                'doc_cliente' =>'', 
-                'genero_cliente' =>'1', 
-                'habeas_cliente' => 0,
-                'estado_masterfile' =>0,
-                'id_empresa' =>'0',               
-                'id_embajador' =>trim($amigo->id_cliente),               
-                'id_user' =>$user->id,               
-            );
+              $data = array(
+                    'id_user_client' => $user->id, 
+                    'id_type_doc' => $request->id_type_doc, 
+                    'doc_cliente' =>$request->doc_cliente, 
+                    'telefono_cliente' => $request->telefono_cliente,
+                    'habeas_cliente' => $request->habeas_cliente,
+                    'marketing_cliente' => $request->marketing_cliente,
+                    'estado_masterfile' =>0,
+                    'id_empresa' =>'0',               
+                    'id_embajador' =>'0',               
+                    'id_user' =>$user->id,               
+                );
 
              //print_r($data);
 
             AlpClientes::create($data);
+
+             $direccion = array(
+                'id_client' => $user->id, 
+                'city_id' => $request->city_id, 
+                'id_estructura_address' => $request->id_estructura_address, 
+                'principal_address' => $request->principal_address,
+                'secundaria_address' => $request->secundaria_address,
+                'edificio_address' => $request->edificio_address,
+                'detalle_address' => $request->detalle_address,
+                'barrio_address'=> $request->barrio_address,             
+                'id_user' => $user->id,               
+            );
+
+            AlpDirecciones::create($direccion);
+
 
             $amigo->delete();
 
@@ -495,23 +512,38 @@ class AuthController extends JoshController
              //echo 'Referido: '.$referido.'<br>';
 
 
-             $data = array(
-                'id_user_client' => $user->id, 
-                'id_type_doc' => '1', 
-                'doc_cliente' =>'', 
-                'genero_cliente' =>'1', 
-                'habeas_cliente' => 0,
-                'estado_masterfile' =>0,
-                'id_empresa' =>substr($amigo->id_cliente,1),               
-                'id_embajador' =>'0',               
-                'id_user' =>$user->id,               
-            );
+              $data = array(
+                    'id_user_client' => $user->id, 
+                    'id_type_doc' => $request->id_type_doc, 
+                    'doc_cliente' =>$request->doc_cliente, 
+                    'telefono_cliente' => $request->telefono_cliente,
+                    'habeas_cliente' => $request->habeas_cliente,
+                    'marketing_cliente' => $request->marketing_cliente,
+                    'estado_masterfile' =>0,
+                    'id_empresa' =>'0',               
+                    'id_embajador' =>'0',               
+                    'id_user' =>$user->id,               
+                );
 
              //print_r($data);
 
             /* Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name));*/
 
             AlpClientes::create($data);
+
+             $direccion = array(
+                'id_client' => $user->id, 
+                'city_id' => $request->city_id, 
+                'id_estructura_address' => $request->id_estructura_address, 
+                'principal_address' => $request->principal_address,
+                'secundaria_address' => $request->secundaria_address,
+                'edificio_address' => $request->edificio_address,
+                'detalle_address' => $request->detalle_address,
+                'barrio_address'=> $request->barrio_address,             
+                'id_user' => $user->id,               
+            );
+
+            AlpDirecciones::create($direccion);
 
              $amigo->delete();
 

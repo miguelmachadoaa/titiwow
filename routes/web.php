@@ -41,7 +41,7 @@ Route::group(['prefix' => 'admin', 'namespace'=>'Admin'], function () {
 
 
 
-    # Register2
+    # register2
     Route::get('register2', function () {
         return view('admin/register2');
     });

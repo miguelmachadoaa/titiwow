@@ -10,6 +10,8 @@ use App\Models\AlpEmpresas;
 use App\Models\AlpDirecciones;
 use App\Models\AlpAmigos;
 use App\Models\AlpConfiguracion;
+use App\Models\AlpTDocumento;
+use App\Models\AlpEstructuraAddress;
 use App\User;
 use App\Country;
 use App\State;
@@ -399,21 +401,23 @@ class ClientesFrontController extends Controller
     public function embajadores($id)
     {
 
-         $amigo=AlpAmigos::where('token', $id)->first();
+        $states=State::where('config_states.country_id', '47')->get();
 
-        
+        $t_documento = AlpTDocumento::where('estado_registro','=',1)->get();
+
+        $estructura = AlpEstructuraAddress::where('estado_registro','=',1)->get();
+
+        $amigo=AlpAmigos::where('token', $id)->first();
 
         if (!isset($amigo->id)) {
 
-                $mensaje="Su enlace de registro a vencido, solicite uno nuevo o registrese como cliente";
+            $mensaje="Su enlace de registro a vencido, solicite uno nuevo o registrese como cliente";
 
-                return view('frontend.clientes.aviso',  compact('mensaje'));
-
+            return view('frontend.clientes.aviso',  compact('mensaje'));
 
         }
                 
-        return view('frontend.clientes.registro',  compact('id', 'amigo'));
-        
+        return view('frontend.clientes.registro',  compact('id', 'amigo', 'states','t_documento','estructura'));
 
     }
 
