@@ -147,7 +147,9 @@ class ProductosFrontController extends Controller
         $productos =  DB::table('alp_productos')->select('alp_productos.*','alp_productos_category.*')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
         ->where('alp_productos_category.id_categoria','=', $categoria->id)
-        ->where('alp_productos.estado_registro','=',1)->paginate(9); 
+        ->where('alp_productos.estado_registro','=',1)
+        ->groupBy('alp_productos.id')
+        ->paginate(9); 
 
          if (Sentinel::check()) {
 
