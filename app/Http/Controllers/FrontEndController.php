@@ -46,9 +46,9 @@ class FrontEndController extends JoshController
 
         $precio = array();
 
-        $categorias = DB::table('alp_categorias')->select('alp_categorias.*')->where('destacado','=', 1)->orderBy('order', 'asc')->limit(9)->get();
+        $categorias = DB::table('alp_categorias')->select('alp_categorias.*')->where('destacado','=', 1)->where('alp_categorias.estado_registro','=',1)->orderBy('order', 'asc')->limit(9)->get();
 
-        $productos = DB::table('alp_productos')->select('alp_productos.*')->where('destacado','=', 1)->orderBy('order', 'asc')->limit(8)->get();
+        $productos = DB::table('alp_productos')->select('alp_productos.*')->where('destacado','=', 1)->where('alp_productos.estado_registro','=',1)->orderBy('order', 'asc')->limit(8)->get();
 
         if (Sentinel::check()) {
 

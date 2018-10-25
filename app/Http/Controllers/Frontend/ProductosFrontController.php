@@ -23,7 +23,7 @@ class ProductosFrontController extends Controller
 
         $precio = array();
 
-        $productos = AlpProductos::paginate(9);
+        $productos = AlpProductos::where('alp_productos.estado_registro','=',1)->paginate(9);
         
 
         if (Sentinel::check()) {
@@ -77,17 +77,19 @@ class ProductosFrontController extends Controller
 
         $precio = array(); 
 
+            $producto =  DB::table('alp_productos')->select('alp_productos.*','alp_marcas.nombre_marca')
+            ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+            ->where('alp_productos.estado_registro','=',1)
+            ->where('alp_productos.slug','=', $slug)->first(); 
 
-        $producto =  DB::table('alp_productos')->select('alp_productos.*','alp_marcas.nombre_marca')
-        ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
-        ->where('alp_productos.slug','=', $slug)->first(); 
+           if($producto){
+            $categos = DB::table('alp_categorias')->select('alp_categorias.nombre_categoria as nombre_categoria','alp_categorias.slug as categ_slug')
+            ->join('alp_productos_category','alp_categorias.id' , '=', 'alp_productos_category.id_categoria')
+            ->where('id_producto','=', $producto->id)->where('alp_categorias.estado_registro','=', 1)->groupBy('alp_categorias.id')->get();
 
-        $categos = DB::table('alp_categorias')->select('alp_categorias.nombre_categoria as nombre_categoria','alp_categorias.slug as categ_slug')
-        ->join('alp_productos_category','alp_categorias.id' , '=', 'alp_productos_category.id_categoria')
-        ->where('id_producto','=', $producto->id)->where('alp_categorias.estado_registro','=', 1)->groupBy('alp_categorias.id')->get();
-
-
-        //$producto = AlpProductos::where('slug','=', $slug)->first();
+           }else{
+            abort('404');
+           }
 
         if (Sentinel::check()) {
 
@@ -144,7 +146,8 @@ class ProductosFrontController extends Controller
 
         $productos =  DB::table('alp_productos')->select('alp_productos.*','alp_productos_category.*')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
-        ->where('alp_productos_category.id_categoria','=', $categoria->id)->paginate(9); 
+        ->where('alp_productos_category.id_categoria','=', $categoria->id)
+        ->where('alp_productos.estado_registro','=',1)->paginate(9); 
 
          if (Sentinel::check()) {
 
