@@ -317,13 +317,13 @@ var useOnComplete = false,
         decimal: '.' // character to use as a decimal
     };
 
-var demo = new CountUp("myTargetElement1", 12.52, 9500, 0, 6, options);
+var demo = new CountUp("myTargetElement1", 12.52, $('#input_clientes').val(), 0, 6, options);
 demo.start();
-var demo = new CountUp("myTargetElement2", 1, 100, 0, 6, options);
+var demo = new CountUp("myTargetElement2", 1, $('#input_ordenes').val(), 0, 6, options);
 demo.start();
-var demo = new CountUp("myTargetElement3", 24.02, 5000, 0, 6, options);
+var demo = new CountUp("myTargetElement3", 24.02, $('#input_productos').val(), 0, 6, options);
 demo.start();
-var demo = new CountUp("myTargetElement4", 1254, 8000, 0, 6, options);
+var demo = new CountUp("myTargetElement4", 1254, $('#input_usuarios').val(), 0, 6, options);
 demo.start();
 var demo = new CountUp("myTargetElement1.1", 1254, 98000, 0, 6, options);
 demo.start();

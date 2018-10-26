@@ -14,6 +14,8 @@ use Charts;
 use App\Datatable;
 use App\User;
 use App\Models\AlpOrdenes;
+use App\Models\AlpClientes;
+use App\Models\AlpProductos;
 use Illuminate\Support\Facades\DB;
 use Spatie\Analytics\Period;
 use Illuminate\Support\Carbon;
@@ -389,7 +391,8 @@ class JoshController extends Controller {
         $blogs = Blog::orderBy('id','desc')->take(5)->get()->load('category','author');
         $users = User::orderBy('id', 'desc')->take(6)->get();
 
-        $ordenes_mes = AlpOrdenes::select(DB::raw( "COUNT(monto_total) as count_row"))
+        
+        $ordenes_mes = AlpOrdenes::select(DB::raw( "SUM(monto_total) as count_row"))
             ->orderBy("created_at")
             ->groupBy(DB::raw("month(created_at)"))
             ->first();
@@ -399,7 +402,11 @@ class JoshController extends Controller {
             ->groupBy(DB::raw("day(created_at)"))
             ->first();
 
-   
+        $usuarios = User::count();
+
+        $clientes = AlpClientes::count();
+
+        $productos = AlpProductos::count();
 
 
         $chart_data = User::select(DB::raw( "COUNT(*) as count_row"))
@@ -442,7 +449,9 @@ class JoshController extends Controller {
         if(Sentinel::check())
            // return view('admin.index1');
 
-            return view('admin.index1',[ 'analytics_error'=>$analytics_error,'chart_data'=>$chart_data, 'blog_count'=>$blog_count,'user_count'=>$user_count,'users'=>$users,'db_chart'=>$db_chart,'geo'=>$geo,'user_roles'=>$user_roles,'blogs'=>$blogs,'visitors'=>$visitors,'pageVisits'=>$pageVisits,'line_chart'=>$line_chart,'month_visits'=>$month_visits,'year_visits'=>$year_visits, 'ordenes_mes'=>$ordenes_mes, 'ordenes_hoy'=>$ordenes_hoy] );
+           
+
+            return view('admin.index1',[ 'analytics_error'=>$analytics_error,'chart_data'=>$chart_data, 'blog_count'=>$blog_count,'user_count'=>$user_count,'users'=>$users,'db_chart'=>$db_chart,'geo'=>$geo,'user_roles'=>$user_roles,'blogs'=>$blogs,'visitors'=>$visitors,'pageVisits'=>$pageVisits,'line_chart'=>$line_chart,'month_visits'=>$month_visits,'year_visits'=>$year_visits, 'ordenes_mes'=>$ordenes_mes, 'ordenes_hoy'=>$ordenes_hoy, 'usuarios'=>$usuarios, 'clientes'=>$clientes, 'productos'=>$productos] );
         else
             return redirect('admin/signin')->with('error', 'You must be logged in!');
     }

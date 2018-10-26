@@ -92,9 +92,10 @@ class FrontEndController extends JoshController
         }
 
          $states=State::where('config_states.country_id', '47')->get();
+
        
         return view('index',compact('categorias','productos', 'descuento', 'precio', 'states'));
-        
+
     }
     /*
      * $user_activation set to false makes the user activation via user registered email

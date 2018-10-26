@@ -33,6 +33,13 @@
             </li>
         </ol>
     </section>
+
+    <input type="hidden" name="input_clientes" id="input_clientes" value="{{ $clientes  }}">
+    <input type="hidden" name="input_productos" id="input_productos" value="{{ $productos  }}">
+    <input type="hidden" name="input_usuarios" id="input_usuarios" value="{{ $usuarios  }}">
+    <input type="hidden" name="input_ordenes" id="input_ordenes" value="{{ $ordenes_mes->count_row  }}">
+
+
     <section class="content">
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6 margin_10 animated fadeInLeftBig">
@@ -42,7 +49,7 @@
                         <div class="col-xs-12 pull-left nopadmar">
                             <div class="row">
                                 <div class="square_box col-xs-7 text-right">
-                                    <span>Nuevos Registros</span>
+                                    <span> Clientes</span>
 
                                     <div class="number" id="myTargetElement1"></div>
                                 </div>
@@ -70,7 +77,7 @@
                         <div class="col-xs-12 pull-left nopadmar">
                             <div class="row">
                                 <div class="square_box col-xs-7 pull-left">
-                                    <span>Ventas del Día</span>
+                                    <span>Ventas</span>
 
                                     <div class="number" id="myTargetElement2"></div>
                                 </div>
@@ -98,7 +105,7 @@
                         <div class="col-xs-12 pull-left nopadmar">
                             <div class="row">
                                 <div class="square_box col-xs-7 pull-left">
-                                    <span>Pedidos</span>
+                                    <span>Productos</span>
 
                                     <div class="number" id="myTargetElement3"></div>
                                 </div>
@@ -126,7 +133,7 @@
                         <div class="col-xs-12 pull-left nopadmar">
                             <div class="row">
                                 <div class="square_box col-xs-7 pull-left">
-                                    <span>Registros</span>
+                                    <span>Usuarios</span>
 
                                     <div class="number" id="myTargetElement4"></div>
                                 </div>
