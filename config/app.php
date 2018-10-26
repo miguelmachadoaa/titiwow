@@ -166,6 +166,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
         MercadoPagoLaravel\Providers\MercadoPagoServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -246,6 +247,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'MP' => MercadoPagoLaravel\Facades\MP::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
         /*
          * Third party aliases
