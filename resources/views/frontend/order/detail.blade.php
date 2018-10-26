@@ -107,51 +107,33 @@ Carro de Productos
 
                 <div class="col-sm-12">
 
-                @if(count($direcciones))
+                @if($direcciones->id)
 
                
                 
-                    <div class="form-group col-sm-10 col-sm-offset-1">
+                    <div class="form-group ">
 
-                    @foreach($direcciones as $direccion)
+                    <input type="hidden" name="id_direccion"  id="id_direccion" value="{{ $direcciones->id }}" >  
 
 
-
-                <div class="col-md-4">
+                <div class="col-sm-10 col-sm-offset-1">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">
-                                <input type="radio" name="id_direccion" class="custom-radio" id="id_direccion" value="{{ $direccion->id }}" @if($direccion->default_address) checked="true"  @endif>  {{ $direccion->nickname_address }}
-                            </h3>
-                            
-                        </div>
+                        
                         <div class="panel-body">
                             <div class="box-body">
                                 <dl class="dl-horizontal">
 
-                                    <dt>Pais</dt>
-                                    <dd>{{ $direccion->country_name }}</dd>
+                                    <dt>Ubicacion</dt>
+                                    <dd>{{ $direcciones->country_name.', '.$direcciones->state_name.', '.$direcciones->city_name }}</dd>
 
-                                    <dt>Departamento</dt>
-                                    <dd>{{ $direccion->state_name }}</dd>
-
-                                    <dt>Ciudad</dt>
-                                    <dd>{{ $direccion->city_name }}</dd>
 
                                     <dt>Direccion</dt>
                                     <dd>
-                                       {{ $direccion->calle_address.' '.$direccion->calle2_address }}
+                                       {{ $direcciones->nombre_estructura.' '.$direcciones->principal_address.' - '.$direcciones->secundaria_address.' '.$direcciones->edificio_address.' '.$direcciones->detalle_address.' '.$direcciones->barrio_address }}
                                     </dd>
 
-                                    <dt>Codigo Postal</dt>
-                                    <dd>{{ $direccion->codigo_postal_address }}</dd>
-
-                                    <dt>Telefono</dt>
-                                    <dd>{{ $direccion->telefono_address }}</dd>
-
                                     <dt>Notas</dt>
-                                    <dd>{{ $direccion->notas }}</dd>
-
+                                    <dd>{{ $direcciones->notas }}</dd>
                                     
                                 </dl>
                             </div>
@@ -166,7 +148,7 @@ Carro de Productos
 
                        
 
-                    @endforeach  
+                  
 
                 @else
 
@@ -187,7 +169,7 @@ Carro de Productos
 
                 </div>
 
-                <div class="row">
+                <!---<div class="row">
 
                 <div class="col-sm-12" style="text-align: center;">
 
@@ -195,7 +177,7 @@ Carro de Productos
 
                 </div>
 
-                </div>
+                </div>-->
 
                 <hr>
 
@@ -540,7 +522,7 @@ Carro de Productos
         $('body').on('click', '.procesar', function (){
 
 
-            id_direccion= $("input[name='id_direccion']:checked").val(); 
+            id_direccion= $("#id_direccion").val(); 
             
             id_forma_envio=$("input[name='id_forma_envio']:checked").val(); 
             

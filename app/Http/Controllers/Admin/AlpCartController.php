@@ -130,11 +130,12 @@ class AlpCartController extends JoshController
 
         $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
 
-        $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_countries.country_name as country_name')
+        $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura')
           ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
           ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-          ->where('alp_direcciones.id_client', $user_id)->get();
+          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+          ->where('alp_direcciones.id_client', $user_id)->first();
 
            $formasenvio = AlpFormasenvio::select('alp_formas_envios.*')
           ->join('alp_rol_envio', 'alp_formas_envios.id', '=', 'alp_rol_envio.id_forma_envio')
@@ -518,7 +519,7 @@ class AlpCartController extends JoshController
 
        $precio = array();
 
-       $producto->cantidad=1;
+      // $producto->cantidad=1;
 
        if ( isset($cart[$producto->slug])) {
 
@@ -527,10 +528,13 @@ class AlpCartController extends JoshController
        }else{
 
           $cart[$producto->slug]=$producto;
+          $cart[$producto->slug]['cantidad']=1;
 
        }
 
-      //$cart=$this->reloadCart();
+      $cart=$this->reloadCart();
+
+
 
       // return $cart;
 

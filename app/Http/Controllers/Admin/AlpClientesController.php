@@ -627,7 +627,7 @@ class AlpClientesController extends JoshController
           ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
           ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-          ->where('alp_direcciones.id_client', $id)->get();
+          ->where('alp_direcciones.id_client', $id)->first();
 
 
         return view('admin.clientes.direcciones', compact('user','cliente','direcciones'));

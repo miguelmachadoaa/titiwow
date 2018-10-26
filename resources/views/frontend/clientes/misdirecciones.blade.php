@@ -45,11 +45,11 @@ Mis Direcciones
     <div class="row">
         <br>
 
-        <div class="col-sm-12" style="text-align: right;">
+        <!--<div class="col-sm-12" style="text-align: right;">
 
                     <button type="button" class="btn btn-raised btn-primary md-trigger addDireccionModal" data-toggle="modal" data-target="#modal-21">Agregar Nueva Direccion </button>
 
-        </div>
+        </div>-->
 
     </div>
 
@@ -62,61 +62,52 @@ Mis Direcciones
         
         <br>    
 
-            @if ($direcciones->count() >= 1)
+            @if (isset($direcciones->id))
 
-                @foreach ($direcciones as $row)
 
-                <div class="col-md-4">
+                  <input type="hidden" name="id_direccion"  id="id_direccion" value="{{ $direcciones->id }}" >  
+
+
+                <div class="col-sm-10 col-sm-offset-1">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">
-                                <i class="livicon" data-name="tasks" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i> {{ $row->nickname_address }}
-                            </h3>
-                            
-                        </div>
+                        
                         <div class="panel-body">
                             <div class="box-body">
                                 <dl class="dl-horizontal">
 
-                                    <dt>Pais</dt>
-                                    <dd>{{ $row->country_name }}</dd>
+                                    <dt>Ubicacion</dt>
+                                    <dd>{{ $direcciones->country_name.', '.$direcciones->state_name.', '.$direcciones->city_name }}</dd>
 
-                                    <dt>Departamento</dt>
-                                    <dd>{{ $row->state_name }}</dd>
-
-                                    <dt>Ciudad</dt>
-                                    <dd>{{ $row->city_name }}</dd>
 
                                     <dt>Direccion</dt>
                                     <dd>
-                                       {{ $row->calle_address.' '.$row->calle2_address }}
+                                       {{ $direcciones->nombre_estructura.' '.$direcciones->principal_address.' - '.$direcciones->secundaria_address.' '.$direcciones->edificio_address.' '.$direcciones->detalle_address.' '.$direcciones->barrio_address }}
                                     </dd>
 
-                                    <dt>Codigo Postal</dt>
-                                    <dd>{{ $row->codigo_postal_address }}</dd>
-
-                                    <dt>Telefono</dt>
-                                    <dd>{{ $row->telefono_address }}</dd>
-
                                     <dt>Notas</dt>
-                                    <dd>{{ $row->notas }}</dd>
-
+                                    <dd>{{ $direcciones->notas }}</dd>
+                                    
                                 </dl>
                             </div>
                             <!-- /.box-body -->
                         </div>
 
-                          <div class="panel-footer " style="text-align: right;">
-
-                            <button data-id="{{ $row->id }}" type="button" class="btn btn-danger btn-xs deldir"><i class="fa fa-trash"></i></button>
-                              
-                          </div>
-
-                        
                     </div>
                 </div>
 
-                @endforeach
+                <div class="col-sm-10 col-sm-offset-1">
+                    
+                    @if ($editar==1)
+
+                        <button class="btn btn-primary ">Editar Direccion</button>
+
+                    @else
+
+                        <div class="alert alert-danger">Debe Esperar 24 horas para editar la direccion</div>
+
+                    @endif
+                </div>
+                
 
             @else
                 <div class="alert alert-danger">

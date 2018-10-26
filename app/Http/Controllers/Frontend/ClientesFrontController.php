@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\AlpCategorias;
 use Sentinel;
 use View;
+use Carbon\Carbon;
 use DB;     
 
 class ClientesFrontController extends Controller
@@ -88,7 +89,27 @@ class ClientesFrontController extends Controller
           ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
           ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-          ->where('alp_direcciones.id_client', $user_id)->get();
+          ->where('alp_direcciones.id_client', $user_id)->first();
+
+
+        $editar=0;
+
+        if (isset($direcciones->updated_at)) {
+
+             $dt = new Carbon($direcciones->updated_at);
+
+            
+
+            if ($dt->diffInHours()>24) {
+
+                $editar=1;
+            }
+            # code...
+        }
+
+       
+
+
 
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
 
@@ -96,7 +117,7 @@ class ClientesFrontController extends Controller
 
             $countries = Country::all();
 
-            return view('frontend.clientes.misdirecciones', compact('direcciones', 'cliente', 'user', 'countries'));
+            return view('frontend.clientes.misdirecciones', compact('direcciones', 'cliente', 'user', 'countries',  'editar'));
     
 
             }else{
