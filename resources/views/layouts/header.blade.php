@@ -147,6 +147,38 @@
                         @include('layouts.menu-item', ['item' => $item])
                     @endforeach
                 </ul>
+
+                @if(Sentinel::guest())
+
+                @else
+
+                    <ul class="nav navbar-nav navbar-right">
+                        
+                        <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hola: {{ Sentinel::getUser()->first_name }}  <span class="caret"></span></a>
+                          <ul class="dropdown-menu">
+                            <li><a href="{{ url('clientes') }}">Mi Area</a></li>
+                            <li><a href="{{ url('my-account') }}">Mi Cuenta</a></li>
+                            <li><a href="{{ url('miscompras') }}">Mis Compras</a></li>
+                            <li><a href="{{ url('misdirecciones') }}">Mi Direccion</a></li>
+                           
+                            @if (Sentinel::getUser()->hasAnyAccess(['clientes.misamigos']))
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{ url('misamigos') }}">Mis Amigos</a></li>
+                            @endif
+                            
+
+
+                          </ul>
+                        </li>
+                      </ul>
+
+
+                @endif
+
+
+
+                
             </div>
         </nav>
 

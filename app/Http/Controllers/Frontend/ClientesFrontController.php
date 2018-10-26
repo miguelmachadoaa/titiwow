@@ -160,7 +160,13 @@ class ClientesFrontController extends Controller
 
             $user = User::where('id', $user_id )->first();
 
-            return view('frontend.clientes.misamigos', compact('referidos', 'cliente', 'user'));
+            $configuracion=AlpConfiguracion::where('id', 1)->first();
+            $amigos=AlpAmigos::where('id_cliente', $user_id)->get();
+            $clientes_amigos=AlpClientes::where('id_embajador',$user_id )->selectRaw('count(*) as cantidad')->first();
+            $amigos_amigos=AlpAmigos::where('id_cliente',$user_id )->selectRaw('count(*) as cantidad')->first();
+            $cantidad=$clientes_amigos->cantidad+$amigos_amigos->cantidad;
+
+            return view('frontend.clientes.misamigos', compact('referidos', 'cliente', 'user', 'configuracion', 'amigos', 'cantidad'));
     
 
             }else{
@@ -290,8 +296,6 @@ class ClientesFrontController extends Controller
 
             $user = User::where('id', $user_id )->first();
 
-
-            $configuracion = AlpConfiguracion::where('id', '1')->first();
 
             $clientes_amigos=AlpClientes::where('id_embajador',$user_id )->selectRaw('count(*) as cantidad')->first();
 

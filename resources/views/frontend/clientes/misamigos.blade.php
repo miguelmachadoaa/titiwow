@@ -43,9 +43,89 @@ Mis Amigos
 <div class="container contain_body">
     <div class="products">
 
-        <h3>    Mis Amigos </h3>
+        <div class="row">
+
+            <div class="col-sm-8">  <h3>   Mis  Invitaciones Enviadas  </h3> </div>
+                
+            <div class="col-sm-4"> <br> <a class="btn btn-info addAmigo" href="{{ url('registroembajadores/'.'ALP'.$user->id) }}">Enviar invitacion</a> </div>
+
+        </div>
+
+
+        <div class="row amigosList">
+
+         <input type="hidden" name="cantidad" id="cantidad" value="{{ $cantidad }}">
+        <input type="hidden" name="limite" id="limite" value="{{ $configuracion->limite_amigos }}">
+        
+        <div class="col-sm-12">
+            
+        <h3>Solo te quedan {{ $configuracion->limite_amigos-$cantidad }} invitaciones disponibles por enviar</h3>
+
+        </div>
+
+
+        @if(!$amigos->isEmpty())
+
+             <table class="table table-responsive">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Email</th>
+                        <th>Creado</th>
+                        <th>Enlace</th>
+                        <th>Acciones</th>
+                    </tr>
+
+
+            @foreach($amigos as $row)
+
+                    <tr>
+                        <td>
+                            {{ $row->nombre_amigo }}
+                        </td>
+                        <td>
+                            {{ $row->apellido_amigo }}
+                        </td>
+                        <td>
+                            {{ $row->email_amigo }}
+                        </td>
+                        
+                        <td>
+                            {{ $row->created_at }}
+                        </td>
+
+                        <td>
+                            <a href=" {!! url('/').'/registroembajadores/'.$row->token  !!}  ">Enlace</a>
+                        </td>
+
+                        <td>    
+                                <button data-id="{{ $row->id }}" data-url="{{ url('delamigo') }}"  class="btn btn-danger delAmigo">Eliminar</button>
+
+                        </td>
+                    </tr>
+                
+            @endforeach
+             </table>
+            @else
+            
+            <div class="col-sm-12">
+                
+                <div class="alert alert-danger">
+                <strong>Lo Sentimos!</strong> No Existen Invitaciones aun.
+            </div>
+            </div>
+            
+        @endif
+        </div>
+
+        <hr>
+
+
 
         <div class="row" id="table_amigos">
+
+            <div class="col-sm-8">  <h3>   Mis  Amigos Registrados  </h3> </div>
+
         @if(!$referidos->isEmpty())
 
              <table class="table table-responsive" id="tbAmigos">
@@ -106,6 +186,8 @@ Mis Amigos
 </div>
 
 
+
+
 <!-- Modal Direccion -->
  <div class="modal fade" id="delAmigoModal" role="dialog" aria-labelledby="modalLabeldanger">
             <div class="modal-dialog modal-lg" role="document">
@@ -131,6 +213,93 @@ Mis Amigos
             </div>
         </div>
 
+
+
+<div class="modal fade" id="addAmigoModal" role="dialog" aria-labelledby="modalLabeldanger">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h4 class="modal-title" id="modalLabeldanger">Agregar Amigo</h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <form method="POST" action="{{url('storeamigo')}}" id="addAmigoForm" name="addAmigoForm" class="form-horizontal">
+
+                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
+
+                            {{ csrf_field() }}
+
+                            <div class="row">
+
+                                <div class="form-group clearfix">
+                                    <label class="col-md-3 control-label" for="nombre_producto">Nombre</label>
+
+                                    <div class="col-sm-8">
+                                        <input style="margin: 4px 0;" id="nombre" name="nombre" type="text" placeholder="Nombre" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group clearfix">
+                                    <label class="col-md-3 control-label" for="nombre_producto">Apellido</label>
+
+                                    <div class="col-sm-8">
+                                        <input style="margin: 4px 0;" id="apellido" name="apellido" type="text" placeholder="Apellido" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group clearfix">
+                                    <label class="col-md-3 control-label" for="nombre_producto">Email</label>
+
+                                    <div class="col-sm-8">
+                                        <input style="margin: 4px 0;" id="email" name="email" type="text" placeholder="Email" class="form-control">
+                                    </div>
+                                </div>
+
+
+
+
+
+                            </div>
+                        </form>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn  btn-primary sendAmigo" >Agregar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <div class="modal fade" id="delAmigoAmigoModal" role="dialog" aria-labelledby="modalLabeldanger">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h4 class="modal-title" id="modalLabeldanger">Eliminar Amigo</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <input type="hidden" name="del_id" id="del_id" value="" >
+                        <input type="hidden" name="del_url" id="del_url" value="" >
+                        
+                        <h3> Esta Seguro de eliminar el registro?</h3>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn  btn-primary deleteAmigo" >Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
 <!-- Modal Direccion -->
 
 @endsection
@@ -138,6 +307,9 @@ Mis Amigos
 {{-- page level scripts --}}
 @section('footer_scripts')
     <script src="{{ asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
+     <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+
+
     <script>
         jQuery(document).ready(function () {
             new WOW().init();
@@ -164,14 +336,151 @@ Mis Amigos
 
             $.post(url, {id}, function(data) {
 
-                    $('#table_amigos').html(data);
+                $('#table_amigos').html(data);
 
-            $('#delAmigoModal').modal('hide');
+                $('#delAmigoModal').modal('hide');
 
                          
             });
 
-        })
+        });
+
+
+
+        $(document).on('click', '.addAmigo', function(e){
+            e.preventDefault();
+
+           // alert('cantidad:'+$('#cantidad').val()+' limite:'+$('#limite').val());
+
+            if (parseInt($('#limite').val())<parseInt($('#cantidad').val())){
+
+                $('.res').html('<div class="alert alert-danger">Usted alcanzo el limite de sus amigos</div>');
+
+            }else{
+
+                $("#addAmigoModal").modal('show');
+
+
+            }
+
+
+        });
+
+        $('html').on('click', '.delAmigo', function(e){
+
+            e.preventDefault();
+
+            $('#del_id').val($(this).data('id'));
+            $('#del_url').val($(this).data('url'));
+
+                $("#delAmigoAmigoModal").modal('show');
+
+        });
+
+
+
+
+
+$("#addAmigoForm").bootstrapValidator({
+    fields: {
+        nombre: {
+            validators: {
+                notEmpty: {
+                    message: 'Nombre es Requerido'
+                }
+            },
+            required: true,
+            minlength: 3
+        },
+        apellido: {
+            validators: {
+                notEmpty: {
+                    message: 'Apellido es Requerido'
+                }
+            },
+            required: true,
+            minlength: 3
+        },
+        email: {
+                validators: {
+                    emailAddress: {
+                        message: 'Ingrese Un Email Valido'
+                    }, 
+                    notEmpty: {
+                    message: 'Email es Requerido'
+                    }
+                }
+            }
+        
+    }
+});
+
+
+$('.sendAmigo').click(function () {
+    
+    var $validator = $('#addAmigoForm').data('bootstrapValidator').validate();
+
+    if ($validator.isValid()) {
+
+        nombre=$("#nombre").val();
+        apellido=$("#apellido").val();
+        email=$("#email").val();
+        
+        var base = $('#base').val();
+
+        $.ajax({
+            type: "POST",
+            data:{nombre, apellido, email},
+            url: base+"/storeamigo",
+                
+            complete: function(datos){     
+
+                $(".amigosList").html(datos.responseText);
+
+                $('#addAmigoModal').modal('hide');
+
+                $("#nombre").val('');
+
+                $("#apellido").val('');
+
+                $("#email").val('');
+
+            
+            }
+        });
+
+
+    }
+
+});
+
+
+$('.deleteAmigo').click(function () {
+    
+        id=$("#del_id").val();
+        url=$("#del_url").val();
+               
+        var base = $('#base').val();
+
+        $.ajax({
+            type: "POST",
+            data:{id},
+            url: url,
+                
+            complete: function(datos){     
+
+                $(".amigosList").html(datos.responseText);
+
+                $('#delAmigoAmigoModal').modal('hide');
+            
+            }
+        });
+
+});
+
+
+
+
 
 
     </script>

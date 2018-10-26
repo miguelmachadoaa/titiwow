@@ -57,6 +57,7 @@ Mis Invitaciones a Amigos
         <div class="row">   
 
                 <div class="col-sm-8">  <h3>   Mis Invitaciones a Amigos  </h3> </div>
+                
                 <div class="col-sm-4">  <a class="btn btn-info addAmigo" href="{{ url('registroembajadores/'.'ALP'.$user->id) }}">Registrar Amigo</a> </div>
 
         </div>  
@@ -77,7 +78,11 @@ Mis Invitaciones a Amigos
         <input type="hidden" name="cantidad" id="cantidad" value="{{ $cantidad }}">
         <input type="hidden" name="limite" id="limite" value="{{ $configuracion->limite_amigos }}">
 
-        <h3>Solo te quedan {{ $configuracion->limite_amigos-$cantidad }} invitaciones disponibles por enviar</h3>
+       
+        
+            <h3>Solo te quedan {{ $configuracion->limite_amigos-$cantidad }} invitaciones disponibles por enviar</h3>
+            
+       
 
 
         @if(!$amigos->isEmpty())
@@ -190,7 +195,7 @@ Mis Invitaciones a Amigos
         </div>
 
 
-    <div class="modal fade" id="delAmigoModal" role="dialog" aria-labelledby="modalLabeldanger">
+    <div class="modal fade" id="delAmigoAmigoModal" role="dialog" aria-labelledby="modalLabeldanger">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-primary">
@@ -256,7 +261,7 @@ Mis Invitaciones a Amigos
             $('#del_id').val($(this).data('id'));
             $('#del_url').val($(this).data('url'));
 
-                $("#delAmigoModal").modal('show');
+                $("#delAmigoAmigoModal").modal('show');
 
         });
 
@@ -340,9 +345,6 @@ $('.sendAmigo').click(function () {
 
 $('.deleteAmigo').click(function () {
     
-    
-
-
         id=$("#del_id").val();
         url=$("#del_url").val();
                

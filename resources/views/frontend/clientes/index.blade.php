@@ -112,7 +112,7 @@ Area clientes
             <a href="{{ url('miscompras') }}" class=" btn-large ">
                 <div class="row">
                 <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-shopping-cart"></i></div>
-                <div class="col-sm-12">Compras</div>
+                <div class="col-sm-12">Mis Compras</div>
                 </div>
         
 
@@ -121,7 +121,7 @@ Area clientes
             <a href="{{ url('misdirecciones') }}" class=" btn-large ">
                 <div class="row">
                 <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-map"></i></div>
-                <div class="col-sm-12">Mis direcciones</div>
+                <div class="col-sm-12">Mi direccion </div>
                 </div>
         
 
@@ -140,8 +140,17 @@ Area clientes
 
             @endif
 
+            <a href="{{ url('productos') }}" class=" btn-large ">
+                <div class="row">
+                <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-shopping-cart"></i></div>
+                <div class="col-sm-12">Comprar </div>
+                </div>
+        
+
+            </a>
+
             
-            @if (Sentinel::getUser()->hasAnyAccess(['clientes.amigos']))
+            <!--@if (Sentinel::getUser()->hasAnyAccess(['clientes.amigos']))
 
             <a href="{{ url('clientes/amigos') }}" class=" btn-large ">
                 <div class="row">
@@ -152,7 +161,7 @@ Area clientes
 
             </a>
 
-            @endif
+            @endif-->
 
             
 
