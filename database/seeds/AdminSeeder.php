@@ -151,14 +151,14 @@ class AdminSeeder extends DatabaseSeeder {
 			'name' => 'CEDI',
 			'slug' => 'cedi',
 			'tipo' => 1,
-			'permissions' => array('cedi' => 1),
+			'permissions' => array('ordenes.index'=>true,'ordenes.create'=>true,'ordenes.store'=>true,'ordenes.show'=>true,'ordenes.edit'=>true,'ordenes.update'=>true,'ordenes.destroy'=>true,'cedi' => 1),
 		]);
 
 		$logisticaRole = Sentinel::getRoleRepository()->createModel()->create([
 			'name' => 'Logística',
 			'slug' => 'logistica',
 			'tipo' => 1,
-			'permissions' => array('logistica' => 1),
+			'permissions' => array('ordenes.index'=>true,'ordenes.create'=>true,'ordenes.store'=>true,'ordenes.show'=>true,'ordenes.edit'=>true,'ordenes.update'=>true,'ordenes.destroy'=>true,'logistica' => 1),
 		]);
 
 		$finanzasRole = Sentinel::getRoleRepository()->createModel()->create([
