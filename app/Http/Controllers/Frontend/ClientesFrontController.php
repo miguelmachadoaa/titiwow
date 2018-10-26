@@ -85,10 +85,11 @@ class ClientesFrontController extends Controller
 
             $user_id = Sentinel::getUser()->id;
 
-             $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_countries.country_name as country_name')
+             $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
           ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
           ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
           ->where('alp_direcciones.id_client', $user_id)->first();
 
 
@@ -103,11 +104,17 @@ class ClientesFrontController extends Controller
             if ($dt->diffInHours()>24) {
 
                 $editar=1;
-            }
+            } 
             # code...
         }
 
-       
+            $states=State::where('config_states.country_id', '47')->get();
+
+            $cities=City::where('state_id', $direcciones->state_id)->get();
+
+            $t_documento = AlpTDocumento::where('estado_registro','=',1)->get();
+
+            $estructura = AlpEstructuraAddress::where('estado_registro','=',1)->get();
 
 
 
@@ -117,7 +124,7 @@ class ClientesFrontController extends Controller
 
             $countries = Country::all();
 
-            return view('frontend.clientes.misdirecciones', compact('direcciones', 'cliente', 'user', 'countries',  'editar'));
+            return view('frontend.clientes.misdirecciones', compact('direcciones', 'cliente', 'user', 'countries',  'editar', 'states', 't_documento', 'estructura', 'cities'));
     
 
             }else{
@@ -547,22 +554,38 @@ class ClientesFrontController extends Controller
 
         $user_id = Sentinel::getUser()->id;
 
+        /*address_id, city_id, estructura_id, principal_address, secundaria_address, edificio_address, detalle_address, barrio_address, notas*/
+
         $input = $request->all();
 
-        //var_dump($input);
+       // var_dump($input);
 
-        $input['id_user']=$user_id;
-        $input['id_client']=$user_id;
-        $input['default_address']=1;
-               
-         
-        $direccion=AlpDirecciones::create($input);
+        $direccion=AlpDirecciones::where('id', $input['address_id'])->first();
 
-        $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_countries.country_name as country_name')
+        $direccion->update($input);
+
+        $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
           ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
           ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-          ->where('alp_direcciones.id_client', $user_id)->get();
+          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+          ->where('alp_direcciones.id_client', $user_id)->first();
+
+
+          $editar=0;
+
+        if (isset($direcciones->updated_at)) {
+
+             $dt = new Carbon($direcciones->updated_at);
+
+            
+
+            if ($dt->diffInHours()>24) {
+
+                $editar=1;
+            } 
+            # code...
+        }
 
 
         if ($direccion->id) {
@@ -570,7 +593,7 @@ class ClientesFrontController extends Controller
           //return redirect('order/detail');
                  
 
-          $view= View::make('frontend.clientes.direcciones', compact('direcciones'));
+          $view= View::make('frontend.clientes.direcciones', compact('direcciones', 'editar'));
 
           $data=$view->render();
 
@@ -583,7 +606,7 @@ class ClientesFrontController extends Controller
         } else {
 
             return Redirect::route('order/detail')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
-        }       
+        }    
 
     }
 

@@ -1,63 +1,63 @@
+ <br>    
+
+            @if (isset($direcciones->id))
 
 
-        <br>    
+                  <input type="hidden" name="id_direccion"  id="id_direccion" value="{{ $direcciones->id }}" >  
 
-            @if ($direcciones->count() >= 1)
 
-                @foreach ($direcciones as $row)
-
-                <div class="col-md-4">
+                <div class="col-sm-10 col-sm-offset-1">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">
-                                <i class="livicon" data-name="tasks" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i> {{ $row->nickname_address }}
-                            </h3>
-                            
-                        </div>
+                        
                         <div class="panel-body">
                             <div class="box-body">
                                 <dl class="dl-horizontal">
 
-                                    <dt>Pais</dt>
-                                    <dd>{{ $row->country_name }}</dd>
+                                    <dt>Ubicacion</dt>
+                                    <dd>{{ $direcciones->country_name.', '.$direcciones->state_name.', '.$direcciones->city_name }}</dd>
 
-                                    <dt>Departamento</dt>
-                                    <dd>{{ $row->state_name }}</dd>
-
-                                    <dt>Ciudad</dt>
-                                    <dd>{{ $row->city_name }}</dd>
 
                                     <dt>Direccion</dt>
                                     <dd>
-                                       {{ $row->calle_address.' '.$row->calle2_address }}
+                                       {{ $direcciones->nombre_estructura.' '.$direcciones->principal_address.' - '.$direcciones->secundaria_address.' '.$direcciones->edificio_address.' '.$direcciones->detalle_address.' '.$direcciones->barrio_address }}
                                     </dd>
 
-                                    <dt>Codigo Postal</dt>
-                                    <dd>{{ $row->codigo_postal_address }}</dd>
-
-                                    <dt>Telefono</dt>
-                                    <dd>{{ $row->telefono_address }}</dd>
-
                                     <dt>Notas</dt>
-                                    <dd>{{ $row->notas }}</dd>
-
+                                    <dd>{{ $direcciones->notas }}</dd>
+                                    
                                 </dl>
                             </div>
                             <!-- /.box-body -->
                         </div>
 
-                        <div class="panel-footer " style="text-align: right;">
-
-                            <button data-id="{{ $row->id }}" type="button" class="btn btn-danger btn-xs deldir"><i class="fa fa-trash"></i></button>
-                              
-                          </div>
-
-
-                        
                     </div>
                 </div>
 
-                @endforeach
+                <div class="col-sm-10 col-sm-offset-1">
+                    
+                    @if ($editar==1)
+
+                        <button 
+                        data-address_id="{{ $direcciones->id }}"
+                        data-state_id="{{ $direcciones->state_id }}"
+                        data-city_id="{{ $direcciones->city_id }}"
+                        data-estructura_id="{{ $direcciones->estructura_id }}"
+                        data-principal_address="{{ $direcciones->principal_address }}"
+                        data-secundaria_address="{{ $direcciones->secundaria_address }}"
+                        data-edificio_address="{{ $direcciones->edificio_address }}"
+                        data-detalle_address="{{ $direcciones->detalle_address }}"
+                        data-barrio_address="{{ $direcciones->barrio_address }}"
+                        data-notas="{{ $direcciones->notas }}"
+
+                         class="btn btn-primary editAddress ">Editar Direccion</button>
+
+                    @else
+
+                        <div class="alert alert-danger">Debe Esperar 24 horas para editar la direccion</div>
+
+                    @endif
+                </div>
+                
 
             @else
                 <div class="alert alert-danger">
@@ -65,3 +65,4 @@
                     </div>
             @endif   
              
+      

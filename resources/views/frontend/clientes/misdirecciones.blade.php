@@ -99,7 +99,19 @@ Mis Direcciones
                     
                     @if ($editar==1)
 
-                        <button class="btn btn-primary ">Editar Direccion</button>
+                        <button 
+                        data-address_id="{{ $direcciones->id }}"
+                        data-state_id="{{ $direcciones->state_id }}"
+                        data-city_id="{{ $direcciones->city_id }}"
+                        data-estructura_id="{{ $direcciones->estructura_id }}"
+                        data-principal_address="{{ $direcciones->principal_address }}"
+                        data-secundaria_address="{{ $direcciones->secundaria_address }}"
+                        data-edificio_address="{{ $direcciones->edificio_address }}"
+                        data-detalle_address="{{ $direcciones->detalle_address }}"
+                        data-barrio_address="{{ $direcciones->barrio_address }}"
+                        data-notas="{{ $direcciones->notas }}"
+
+                         class="btn btn-primary editAddress ">Editar Direccion</button>
 
                     @else
 
@@ -124,151 +136,113 @@ Mis Direcciones
 
 
 <!-- Modal Direccion -->
- <div class="modal fade" id="addDireccionModal" role="dialog" aria-labelledby="modalLabeldanger">
+ <div class="modal fade" id="editDireccionModal" role="dialog" aria-labelledby="modalLabeldanger">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-primary">
-                        <h4 class="modal-title" id="modalLabeldanger">Agregar Direccion</h4>
+                        <h4 class="modal-title" id="modalLabeldanger">Editar Direccion</h4>
                     </div>
                     <div class="modal-body">
-                        
-                        <form method="POST" action="{{url('cart/storedir')}}" id="addDireccionForm" name="addDireccionForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
-
-                            {{ csrf_field() }}
-                            <div class="row">
-
-                                <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Nickname Direccion</label>
-
-                                    <div class="col-sm-8">
-                                        <input style="margin: 4px 0;" id="nickname_address" name="nickname_address" type="text" placeholder="Nickname Direccion" class="form-control">
-                                    </div>
-                                </div>
-
-                               
-
-
-                                <div class="form-group col-sm-12">
-                                    <label for="select21" class="col-md-3 control-label">
-                                        Pais
-                                    </label>
-                                    <div class="col-md-8" >
-                                        <select style="margin: 4px 0;" id="country_id" name="country_id" class="form-control ">
-                                            <option value="">Seleccione</option>
-                                           
-                                            @foreach($countries as $pais)
-                                            <option value="{{ $pais->id }}"
-                                                    @if($pais->id == old('country_id')) selected="selected" @endif >{{ $pais->country_name}}</option>
-                                            @endforeach
-                                          
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-sm-12">
-                                    <label for="select21" class="col-md-3 control-label">
-                                        Departamento
-                                    </label>
-                                    <div class="col-md-8" >
-                                        <select style="margin: 4px 0;" id="state_id" name="state_id" class="form-control ">
-                                            <option value="">Seleccione</option>
-                                           
-                                            
-                                          
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-sm-12">
-                                    <label for="select21" class="col-md-3 control-label">
-                                        Ciudad
-                                    </label>
-                                    <div class="col-md-8" >
-                                        <select style="margin: 4px 0;" id="city_id" name="city_id" class="form-control ">
-                                            <option value="">Seleccione</option>
-                                           
-                                            
-                                          
-                                        </select>
-                                    </div>
-                                </div>
-
-
-
-                                <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Calle </label>
-
-                                    <div class="col-sm-8">
-                                        <input style="margin: 4px 0;" id="calle_address" name="calle_address" type="text" placeholder="Calle" class="form-control">
-                                    </div>
-                                </div>
+                        <div class="row">
+                            
+                            <div class="col-sm-12">
                                 
 
-                                <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Codigo Postal</label>
+                           
+                        
+                        <form method="POST" action="{{url('cart/storedir')}}" id="editDireccionForm" name="editDireccionForm" class="form-horizontal">
 
-                                    <div class="col-sm-8">
-                                     <input style="margin: 4px 0;" id="codigo_postal_address" name="codigo_postal_address" type="text" placeholder="Codigo Postal" class="form-control">
-                                    </div>
+                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
+                            <input type="hidden" name="address_id" id="address_id" value="">
+
+                            {{ csrf_field() }}
+
+                            <div class="row">
+
+
+                                <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('cod_alpinista', 'has-error') }}">
+                                <div class="" >
+                                    <select id="state_id" name="state_id" class="form-control">
+                                        <option value="">Seleccione Departamento</option>     
+                                        @foreach($states as $state)
+                                        <option value="{{ $state->id }}">
+                                                {{ $state->state_name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
-
-                                <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Telefono</label>
-
-                                    <div class="col-sm-8">
-                                        <input style="margin: 4px 0;" id="telefono_address" name="telefono_address" type="text" placeholder="Telefono" class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Notas</label>
-
-                                    <div class="col-sm-8">
-                                        <textarea style="margin: 4px 0;" id="notas" name="notas" type="text" placeholder="Notas" class="form-control"></textarea>
-                                    </div>
-                                </div>
-
-
+                                {!! $errors->first('state_id', '<span class="help-block">:message</span>') !!}
                             </div>
+                            <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('city_id', 'has-error') }}">
+                                <div class="" >
+                                    <select id="city_id" name="city_id" class="form-control">
+                                        <option value="">Seleccione Ciudad</option>
+                                        @foreach($cities as $city)
+                                        <option value="{{ $city->id }}">
+                                                {{ $city->city_name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                {!! $errors->first('city_id', '<span class="help-block">:message</span>') !!}
+                            </div>
+                            <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('calle_address', 'has-error') }}">
+                                <div class="input-group">
+                                    <div class="" >
+                                    <select id="id_estructura_address" name="id_estructura_address" class="form-control">
+                                        @foreach($estructura as $estru)
+                                        <option value="{{ $estru->id }}">
+                                        {{ $estru->nombre_estructura}} </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                    <span class="input-group-addon" style="width:0px; padding-left:0px; padding-right:0px; border:none;"></span>
+
+                                    <input type="text" id="principal_address" name="principal_address" class="form-control" value="{!! old('principal_address') !!}" >
+                                    <span class="input-group-addon">#</span>
+                                    <input type="text" id="secundaria_address" name="secundaria_address" class="form-control" value="{!! old('secundaria_address') !!}" >
+                                    <span class="input-group-addon">-</span>
+                                    <input type="text" id="edificio_address" name="edificio_address" class="form-control" value="{!! old('edificio_address') !!}" >
+
+                                    <!-- insert this line -->
+                                    <span class="input-group-addon" style="width:0px; padding-left:0px; padding-right:0px; border:none;"></span>
+                                </div>
+                                {!! $errors->first('detalle_address', '<span class="help-block">:message</span>') !!}
+                            </div>
+                            <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('detalle_address', 'has-error') }}">
+                                <input type="text" class="form-control" id="detalle_address" name="detalle_address" placeholder="Apto, Puerta, Interior"
+                                       value="{!! old('detalle_address') !!}" >
+                                {!! $errors->first('detalle_address', '<span class="help-block">:message</span>') !!}
+                            </div>
+                            <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('barrio_address', 'has-error') }}">
+                                <input type="text" class="form-control" id="barrio_address" name="barrio_address" placeholder="Barrio"
+                                       value="{!! old('barrio_address') !!}" >
+                                {!! $errors->first('barrio_address', '<span class="help-block">:message</span>') !!}
+                            </div>
+
+                            <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('notas', 'has-error') }}">
+                                <textarea style="margin: 4px 0;" id="notas" name="notas" type="text" placeholder="Notas" class="form-control" ></textarea>
+
+                                {!! $errors->first('notas', '<span class="help-block">:message</span>') !!}
+                            </div>
+
+                           
+                            <div class="clearfix"></div>
+
                         </form>
 
+                         </div>
+                        </div>
 
                     </div>
                     <div class="modal-footer">
                         <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn  btn-primary sendDireccion" >Agregar</button>
+                        <button type="button" class="btn  btn-primary sendDireccion" >Actualizar</button>
                     </div>
                 </div>
             </div>
         </div>
 
 
-        <!-- Modal Direccion -->
- <div class="modal fade" id="delDireccionModal" role="dialog" aria-labelledby="modalLabeldanger">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header bg-danger">
-                        <h4 class="modal-title" id="modalLabeldanger">Eliminar Direccion</h4>
-                    </div>
-                    <div class="modal-body">
-
-                        <input type="hidden" name="del_id" id="del_id">
-
-                        <h3>Esta seguro que desar eliminar esta direccion</h3>
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button"  class="btn  btn-default" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn  btn-danger delDireccion" >Eliminar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-<!-- Modal Direccion -->
 
 
 <!-- Modal Direccion -->
@@ -305,23 +279,52 @@ Mis Direcciones
 
 
 
-
-
-$("#addDireccionForm").bootstrapValidator({
+$("#editDireccionForm").bootstrapValidator({
     fields: {
-        nickname_address: {
+        principal_address: {
             validators: {
                 notEmpty: {
-                    message: 'Nickname Direccion es Requerido'
+                    message: 'Principal es Requerido'
                 }
             },
             required: true,
             minlength: 3
         },
-        calle_address: {
+        secundaria_address: {
             validators: {
                 notEmpty: {
-                    message: 'Calle  es Requerido'
+                    message: 'Secundaria  es Requerido'
+                    
+                }
+            },
+            required: true,
+            minlength: 3
+        }, 
+        edificio_address: {
+            validators: {
+                notEmpty: {
+                    message: 'Edificio  es Requerido'
+                    
+                }
+            },
+            required: true,
+            minlength: 3
+        },
+         detalle_address: {
+            validators: {
+                notEmpty: {
+                    message: 'Edificio  es Requerido'
+                    
+                }
+            },
+            required: true,
+            minlength: 3
+        },
+
+        barrio_address: {
+            validators: {
+                notEmpty: {
+                    message: 'Edificio  es Requerido'
                     
                 }
             },
@@ -329,14 +332,7 @@ $("#addDireccionForm").bootstrapValidator({
             minlength: 3
         },
         
-        telefono_address: {
-            validators: {
-                notEmpty: {
-                    message: 'Telefono no puede esta vacion'
-                }
-            },
-            minlength: 20
-        },
+        
 
         city_id: {
             validators:{
@@ -344,48 +340,88 @@ $("#addDireccionForm").bootstrapValidator({
                     message: 'Debe seleccionar una ciudad'
                 }
             }
+        },
+
+        id_estructura_address: {
+            validators:{
+                notEmpty:{
+                    message: 'Debe seleccionar una ciudad'
+                }
+            }
         }
+
+
     }
 });
 
 
-$('.addDireccionModal').on('click', function(){
-            $("#addDireccionModal").modal('show');
+$('.editAddress').on('click', function(){
+
+            $('#address_id').val($(this).data('address_id'));
+
+            $('#state_id').val($(this).data('state_id'));
+
+            $('#city_id').val($(this).data('city_id'));
+
+            $('#id_estructura_address').val($(this).data('estructura_id'));
+
+            $('#principal_address').val($(this).data('principal_address'));
+
+            $('#secundaria_address').val($(this).data('secundaria_address'));
+
+            $('#edificio_address').val($(this).data('edificio_address'));
+
+            $('#detalle_address').val($(this).data('detalle_address'));
+
+            $('#barrio_address').val($(this).data('barrio_address'));
+
+            $('#notas').val($(this).data('notas'));
+
+
+            $("#editDireccionModal").modal('show');
+
         });
 
 
 $('.sendDireccion').click(function () {
     
-    var $validator = $('#addDireccionForm').data('bootstrapValidator').validate();
+    var $validator = $('#editDireccionForm').data('bootstrapValidator').validate();
 
     if ($validator.isValid()) {
 
-        nickname_address=$("#nickname_address").val();
+        address_id=$("#address_id").val();
         city_id=$("#city_id").val();
-        calle_address=$("#calle_address").val();
-        calle2_address=$("#calle2_address").val();
-        codigo_postal_address=$("#codigo_postal_address").val();
-        telefono_address=$("#telefono_address").val();
+        id_estructura_address=$("#id_estructura_address").val();
+        principal_address=$("#principal_address").val();
+        secundaria_address=$("#secundaria_address").val();
+        edificio_address=$("#edificio_address").val();
+        detalle_address=$("#detalle_address").val();
+        barrio_address=$("#barrio_address").val();
         notas=$("#notas").val();
+
         var base = $('#base').val();
 
         $.ajax({
             type: "POST",
-            data:{nickname_address, city_id, calle_address, calle2_address, codigo_postal_address, telefono_address, notas},
+            data:{address_id, city_id, id_estructura_address, principal_address, secundaria_address, edificio_address, detalle_address, barrio_address, notas},
+
             url: base+"/clientes/storedir",
                 
             complete: function(datos){     
 
                 $(".direcciones").html(datos.responseText);
 
-                $('#addDireccionModal').modal('hide');
+                $('#editDireccionModal').modal('hide');
 
-               $("#nickname_address").val('');
+               $("#address_id").val('');
                 $("#city_id").val('');
-                $("#calle_address").val('');
-                $("#calle2_address").val('');
-                $("#codigo_postal_address").val('');
-               $("#telefono_address").val('');
+                $("#estructura_id").val('');
+                $("#principal_address").val('');
+                $("#secundaria_address").val('');
+                $("#edificio_address").val('');
+                $("#detalle_address").val('');
+                $("#barrio_address").val('');
+        
                 $("#notas").val('');
         
             
