@@ -73,9 +73,238 @@
     <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Return to top" data-toggle="tooltip" data-placement="left">
         <i class="livicon" data-name="chevron-up" data-size="18" data-loop="true" data-c="#fff" data-hc="white"></i>
     </a>
+    
+
+
+
+
+        <!-- Modal Direccion -->
+    <div class="modal fade" id="ubicacionModal" role="dialog" aria-labelledby="modalLabeldanger">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-sucess">
+                        <h4 class="modal-title" id="modalLabeldanger">Indicanos desde donde estas visitando nuestra tienda </h4>
+                </div>
+                
+                <div class="modal-body ">
+                     <form method="POST" action="{{url('formasenvio/storeciudad')}}" id="addCiuadadForm" name="addCiuadadForm" class="form-horizontal">
+
+                        <input type="hidden" name="base" id="base" value="{{ url('/') }}">
+
+                        <div class="form-group col-sm-12">
+                                    <label for="select21" class="col-md-3 control-label">
+                                        Departamento
+                                    </label>
+                                    <div class="col-md-8" >
+                                        <select style="margin: 4px 0;" id="state_id_ubicacion" name="state_id_ubicacion" class="form-control ">
+                                            <option value="">Seleccione</option>
+                                                        
+                                                        @foreach($states as $state)
+
+                                                        <option value="{{ $state->id }}">
+                                                                {{ $state->state_name}}</option>
+                                                        @endforeach
+                                                        
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-12">
+                                    <label for="select21" class="col-md-3 control-label">
+                                        Ciudad
+                                    </label>
+                                    <div class="col-md-8" >
+                                        <select style="margin: 4px 0;" id="city_id_ubicacion" name="city_id_ubicacion" class="form-control ">
+                                            <option value="">Seleccione</option>
+                                           
+                                            
+                                          
+                                        </select>
+                                    </div>
+                                </div>
+
+                                 </form>
+
+
+                        
+                </div>
+                <div class="modal-footer">
+                    <button type="button"  class="btn  btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button"   class="btn  btn-primary saveubicacion" >Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Modal Direccion -->
+
+
+
+
+
     <!--global js starts-->
     <script type="text/javascript" src="{{ asset('assets/js/frontend/lib.js') }}"></script>
     <!--global js end-->
+
+    <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+
+
+
+    <!-- javascript para verificar y validar la ubicacion para la venta-->
+
+
+    <script type="text/javascript">
+
+
+        $(document).ready(function(){
+
+             $('.addtocart').addClass('hidden');
+
+
+            if (localStorage.getItem('ubicacion')) {
+
+                ubicacion=JSON.parse(localStorage.getItem('ubicacion'));
+
+                if (ubicacion.status=='true'){
+
+                    $('#ubicacion_header').html(ubicacion.city_name+' '+ubicacion.state_name);
+
+                                $('.addtocart').removeClass('hidden');
+
+                                
+
+
+                }else{
+
+                    $('#ubicacion_header').html(ubicacion.city_name+' '+ubicacion.state_name);
+
+                                
+
+                                $('.addtocart').addClass('hidden');
+
+
+                    $('#ubicacionModal').modal('show');
+
+                }
+
+            }else{
+
+                $('#ubicacionModal').modal('show');
+            }
+
+        });
+
+        $('#ubicacion_header').click(function(e){
+
+            e.preventDefault();
+
+            $('#ubicacionModal').modal('show');
+
+        });
+
+         $('.saveubicacion').click(function () {
+    
+            var $validator = $('#addCiuadadForm').data('bootstrapValidator').validate();
+
+            if ($validator.isValid()) {
+
+                base=$('#base').val();
+                city_id=$('#city_id_ubicacion').val();
+
+                $.ajax({
+                    type: "POST",
+                    data:{  city_id },
+                    url: base+"/configuracion/verificarciudad",
+                        
+                    complete: function(datos){     
+
+                            ubicacion=JSON.parse(datos.responseText);
+
+                            localStorage.setItem('ubicacion', datos.responseText);
+
+                             $('#ubicacionModal').modal('hide');
+
+
+                             if (ubicacion.status=='true') {
+
+                                $('#ubicacion_header').html(ubicacion.city_name+' '+ubicacion.state_name);
+
+                                $('.addtocart').removeClass('hidden');
+
+
+                            }else{
+
+                                $('#ubicacion_header').html(ubicacion.city_name+' '+ubicacion.state_name);
+
+                                $('.addtocart').addClass('hidden');
+                            }
+
+                    }
+                });
+
+                //document.getElementById("addDireccionForm").submit();
+
+            }
+
+        });
+        
+
+         $("#addCiuadadForm").bootstrapValidator({
+            fields: {
+                
+                city_id_ubicacion: {
+                    validators:{
+                        notEmpty:{
+                            message: 'Debe seleccionar una ciudad'
+                        }
+                    }
+                }
+            }
+        });
+
+
+
+         $('select[name="state_id_ubicacion"]').on('change', function() {
+            
+                var stateID = $(this).val();
+
+                var base = $('#base').val();
+
+                    if(stateID) {
+                        $.ajax({
+                            url: base+'/configuracion/cities/'+stateID,
+                            type: "GET",
+                            dataType: "json",
+                            success:function(data) {
+
+                                
+                                $('select[name="city_id_ubicacion"]').empty();
+                                $.each(data, function(key, value) {
+                                    $('select[name="city_id_ubicacion"]').append('<option value="'+ key +'">'+ value +'</option>');
+                                });
+
+                            }
+                        });
+                    }else{
+                        $('select[name="city_id_ubicacion"]').empty();
+                    }
+                });
+
+        </script>
+
+    <!--javascript para verificar y validar la ubicacion para la venta -->
+
+
+
+
+
+
+
+
+
+
+
+
     <!-- begin page level js -->
     @yield('footer_scripts')
     <!-- end page level js -->

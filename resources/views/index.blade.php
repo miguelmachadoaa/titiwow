@@ -188,70 +188,6 @@ Inicio @parent
 <!-- Modal Direccion -->
 
 
-        <!-- Modal Direccion -->
-    <div class="modal fade" id="ubicacionModal" role="dialog" aria-labelledby="modalLabeldanger">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-sucess">
-                        <h4 class="modal-title" id="modalLabeldanger">Indicanos desde donde estas visitando nuestra tienda </h4>
-                </div>
-                
-                <div class="modal-body ">
-                     <form method="POST" action="{{url('formasenvio/storeciudad')}}" id="addCiuadadForm" name="addCiuadadForm" class="form-horizontal">
-
-                        <input type="hidden" name="base" id="base" value="{{ url('/') }}">
-
-                        <div class="form-group col-sm-12">
-                                    <label for="select21" class="col-md-3 control-label">
-                                        Departamento
-                                    </label>
-                                    <div class="col-md-8" >
-                                        <select style="margin: 4px 0;" id="state_id" name="state_id" class="form-control ">
-                                            <option value="">Seleccione</option>
-
-                                         
-                                                        
-                                                        @foreach($states as $state)
-
-                                                        <option value="{{ $state->id }}">
-                                                                {{ $state->state_name}}</option>
-                                                        @endforeach
-                                                        
-                                           
-                                            
-                                          
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-sm-12">
-                                    <label for="select21" class="col-md-3 control-label">
-                                        Ciudad
-                                    </label>
-                                    <div class="col-md-8" >
-                                        <select style="margin: 4px 0;" id="city_id" name="city_id" class="form-control ">
-                                            <option value="">Seleccione</option>
-                                           
-                                            
-                                          
-                                        </select>
-                                    </div>
-                                </div>
-
-                                 </form>
-
-
-                        
-                </div>
-                <div class="modal-footer">
-                    <button type="button"  class="btn  btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="button"   class="btn  btn-primary saveubicacion" >Aceptar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-<!-- Modal Direccion -->
 
 
     
@@ -270,88 +206,6 @@ Inicio @parent
       <script>
         jQuery(document).ready(function () {
             new WOW().init();
-        });
-
-        $(document).ready(function(){
-
-            if (localStorage.getItem('ubicacion')) {
-
-                ubicacion=JSON.parse(localStorage.getItem('ubicacion'));
-
-
-                if (ubicacion.status=='true'){
-
-                    $('#ubicacion_header').html(ubicacion.city_name+' '+ubicacion.state_name);
-
-                }else{
-
-                    $('#ubicacionModal').modal('show');
-
-                }
-
-
-            }else{
-
-                $('#ubicacionModal').modal('show');
-            }
-            
-
-        });
-
-        $('#ubicacion_header').click(function(e){
-
-            e.preventDefault();
-
-            $('#ubicacionModal').modal('show');
-
-        });
-
-
-         $('.saveubicacion').click(function () {
-    
-            var $validator = $('#addCiuadadForm').data('bootstrapValidator').validate();
-
-            if ($validator.isValid()) {
-
-                base=$('#base').val();
-                city_id=$('#city_id').val();
-
-
-                $.ajax({
-                    type: "POST",
-                    data:{  city_id },
-                    url: base+"/configuracion/verificarciudad",
-                        
-                    complete: function(datos){     
-
-                            ubicacion=JSON.parse(datos.responseText);
-
-                            localStorage.setItem('ubicacion', datos.responseText);
-
-                             $('#ubicacionModal').modal('hide');
-
-
-                             if (ubicacion.status) {
-
-                                $('#ubicacion_header').html(ubicacion.city_name+' '+ubicacion.state_name);
-
-                            }else{
-
-                                $('#ubicacion_header').html();
-                            }
-
-
-
-
-                    }
-                });
-
-
-                //document.getElementById("addDireccionForm").submit();
-
-
-            }
-
         });
 
 
@@ -385,46 +239,6 @@ Inicio @parent
 
         });
 
-         $("#addCiuadadForm").bootstrapValidator({
-            fields: {
-                
-                city_id: {
-                    validators:{
-                        notEmpty:{
-                            message: 'Debe seleccionar una ciudad'
-                        }
-                    }
-                }
-            }
-        });
-
-
-
-         $('select[name="state_id"]').on('change', function() {
-            
-                var stateID = $(this).val();
-
-                var base = $('#base').val();
-
-                    if(stateID) {
-                        $.ajax({
-                            url: base+'/configuracion/cities/'+stateID,
-                            type: "GET",
-                            dataType: "json",
-                            success:function(data) {
-
-                                
-                                $('select[name="city_id"]').empty();
-                                $.each(data, function(key, value) {
-                                    $('select[name="city_id"]').append('<option value="'+ key +'">'+ value +'</option>');
-                                });
-
-                            }
-                        });
-                    }else{
-                        $('select[name="city_id"]').empty();
-                    }
-                });
 
 
     </script>

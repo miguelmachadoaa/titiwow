@@ -164,7 +164,7 @@ class AlpConfiguracionController extends JoshController
     public function verificarciudad(Request $request)
     {
         
-        $user_id = Sentinel::getUser()->id;
+       
 
         $cities = AlpDespachoCiudad::select('alp_despacho_ciudad.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name')
           ->join('config_cities', 'alp_despacho_ciudad.id_ciudad', '=', 'config_cities.id')
@@ -189,11 +189,15 @@ class AlpConfiguracionController extends JoshController
 
         }else{
 
+          $cities = City::select('config_cities.*', 'config_states.state_name as state_name')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->where('config_cities.id',$request->city_id)->first();
+
           $data = array(
             'status' => 'false', 
-            'city_name' => '', 
-            'state_name' => '', 
-            'id_ciudad' => ''
+            'city_name' =>  $cities->city_name, 
+            'state_name' => $cities->state_name,
+            'id_ciudad' => $request->city_id
           );
 
           return json_encode($data);
