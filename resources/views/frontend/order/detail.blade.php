@@ -107,7 +107,7 @@ Carro de Productos
 
                 <div class="col-sm-12">
 
-                @if($direcciones->id)
+                @if(isset($direcciones->id))
 
                
                 
@@ -270,8 +270,9 @@ Carro de Productos
                                     @if($fp->id==2)
 
                                         
-                                      
-                                        <div data-id={{ $fp->id }} class="row forma border pointer procesar">
+                                    <a href="{{ $preference['response']['sandbox_init_point'] }}">
+
+                                        <div data-id={{ $fp->id }} class="row forma border pointer ">
                                             
                                             <div class="col-sm-2 ">
                                                 
@@ -291,6 +292,7 @@ Carro de Productos
                                             </div>
 
                                         </div>
+                                    </a>
 
                                     @else
 
@@ -338,6 +340,11 @@ Carro de Productos
                         </div>  
 
                     @endif  
+
+                   <div class="row">
+                       
+                       {{ print_r($preference) }}
+                   </div>
 
                     <!-- End formas de pago -->
 

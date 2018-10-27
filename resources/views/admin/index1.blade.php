@@ -37,7 +37,7 @@
     <input type="hidden" name="input_clientes" id="input_clientes" value="{{ $clientes  }}">
     <input type="hidden" name="input_productos" id="input_productos" value="{{ $productos  }}">
     <input type="hidden" name="input_usuarios" id="input_usuarios" value="{{ $usuarios  }}">
-    <input type="hidden" name="input_ordenes" id="input_ordenes" value="{{ $ordenes_mes->count_row  }}">
+    <input type="hidden" name="input_ordenes" id="input_ordenes" value="@if(isset($ordenes_mes->count_row)) {{ $ordenes_mes->count_row  }} @else {{ 0 }} @endif">
 
 
     <section class="content">

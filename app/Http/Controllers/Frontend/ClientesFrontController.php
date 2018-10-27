@@ -62,7 +62,9 @@ class ClientesFrontController extends Controller
 
             $user = User::where('id', $user_id )->first();
 
-            return \View::make('frontend.clientes.index', compact('referidos', 'cliente', 'user'));
+            $states=State::where('config_states.country_id', '47')->get();
+
+            return \View::make('frontend.clientes.index', compact('referidos', 'cliente', 'user', 'states'));
     
             }else{
 
@@ -124,6 +126,8 @@ class ClientesFrontController extends Controller
 
             $countries = Country::all();
 
+
+
             return view('frontend.clientes.misdirecciones', compact('direcciones', 'cliente', 'user', 'countries',  'editar', 'states', 't_documento', 'estructura', 'cities'));
     
 
@@ -166,7 +170,10 @@ class ClientesFrontController extends Controller
             $amigos_amigos=AlpAmigos::where('id_cliente',$user_id )->selectRaw('count(*) as cantidad')->first();
             $cantidad=$clientes_amigos->cantidad+$amigos_amigos->cantidad;
 
-            return view('frontend.clientes.misamigos', compact('referidos', 'cliente', 'user', 'configuracion', 'amigos', 'cantidad'));
+
+            $states=State::where('config_states.country_id', '47')->get();
+
+            return view('frontend.clientes.misamigos', compact('referidos', 'cliente', 'user', 'configuracion', 'amigos', 'cantidad', 'states'));
     
 
             }else{
@@ -304,8 +311,10 @@ class ClientesFrontController extends Controller
 
             $cantidad=$clientes_amigos->cantidad+$amigos_amigos->cantidad;
 
+            $states=State::where('config_states.country_id', '47')->get();
 
-            return \View::make('frontend.clientes.amigos', compact('amigos', 'cliente', 'user', 'configuracion', 'cantidad', 'configuracion'));
+
+            return \View::make('frontend.clientes.amigos', compact('amigos', 'cliente', 'user', 'configuracion', 'cantidad', 'configuracion', 'states'));
 
 
 
@@ -343,7 +352,9 @@ class ClientesFrontController extends Controller
 
             $user = User::where('id', $id )->first();
 
-                return \View::make('frontend.clientes.compras', compact('compras', 'cliente', 'user'));
+            $states=State::where('config_states.country_id', '47')->get();
+
+                return \View::make('frontend.clientes.compras', compact('compras', 'cliente', 'user', 'states'));
 
             }else{
 
@@ -377,7 +388,9 @@ class ClientesFrontController extends Controller
 
             $user = User::where('id', $user_id )->first();
 
-            return \View::make('frontend.clientes.miscompras', compact('compras', 'cliente', 'user'));
+            $states=State::where('config_states.country_id', '47')->get();
+
+            return \View::make('frontend.clientes.miscompras', compact('compras', 'cliente', 'user', 'states'));
 
             }else{
 
@@ -445,7 +458,9 @@ class ClientesFrontController extends Controller
 
             $mensaje="Su enlace de registro a vencido, solicite uno nuevo o registrese como cliente";
 
-            return view('frontend.clientes.aviso',  compact('mensaje'));
+            $states=State::where('config_states.country_id', '47')->get();
+
+            return view('frontend.clientes.aviso',  compact('mensaje', 'states'));
 
         }
                 
@@ -458,8 +473,10 @@ class ClientesFrontController extends Controller
     public function show($slug)
     {
         $producto = AlpProductos::where('slug','=', $slug)->firstOrFail();
+
+        $states=State::where('config_states.country_id', '47')->get();
         
-        return \View::make('frontend.producto_single', compact('producto', 'cliente'));
+        return \View::make('frontend.producto_single', compact('producto', 'cliente', 'states'));
 
     }
 
@@ -475,7 +492,9 @@ class ClientesFrontController extends Controller
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
         ->where('alp_productos_category.id_categoria','=', $categoria->id)->paginate(8); 
 
-        return \View::make('frontend.categorias', compact('productos','cataname','slug'));
+        $states=State::where('config_states.country_id', '47')->get();
+
+        return \View::make('frontend.categorias', compact('productos','cataname','slug', 'states'));
 
     }
 

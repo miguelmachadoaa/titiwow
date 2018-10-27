@@ -107,51 +107,33 @@ Carro de Productos
 
                 <div class="col-sm-12">
 
-                @if(count($direcciones))
+                @if(isset($direcciones->id))
 
                
                 
-                    <div class="form-group col-sm-10 col-sm-offset-1">
+                    <div class="form-group ">
 
-                    @foreach($direcciones as $direccion)
+                    <input type="hidden" name="id_direccion"  id="id_direccion" value="{{ $direcciones->id }}" >  
 
 
-
-                <div class="col-md-4">
+                <div class="col-sm-10 col-sm-offset-1">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">
-                                <input type="radio" name="id_direccion" class="custom-radio" id="id_direccion" value="{{ $direccion->id }}" @if($direccion->default_address) checked="true"  @endif>  {{ $direccion->nickname_address }}
-                            </h3>
-                            
-                        </div>
+                        
                         <div class="panel-body">
                             <div class="box-body">
                                 <dl class="dl-horizontal">
 
-                                    <dt>Pais</dt>
-                                    <dd>{{ $direccion->country_name }}</dd>
+                                    <dt>Ubicacion</dt>
+                                    <dd>{{ $direcciones->country_name.', '.$direcciones->state_name.', '.$direcciones->city_name }}</dd>
 
-                                    <dt>Departamento</dt>
-                                    <dd>{{ $direccion->state_name }}</dd>
-
-                                    <dt>Ciudad</dt>
-                                    <dd>{{ $direccion->city_name }}</dd>
 
                                     <dt>Direccion</dt>
                                     <dd>
-                                       {{ $direccion->calle_address.' '.$direccion->calle2_address }}
+                                       {{ $direcciones->nombre_estructura.' '.$direcciones->principal_address.' - '.$direcciones->secundaria_address.' '.$direcciones->edificio_address.' '.$direcciones->detalle_address.' '.$direcciones->barrio_address }}
                                     </dd>
 
-                                    <dt>Codigo Postal</dt>
-                                    <dd>{{ $direccion->codigo_postal_address }}</dd>
-
-                                    <dt>Telefono</dt>
-                                    <dd>{{ $direccion->telefono_address }}</dd>
-
                                     <dt>Notas</dt>
-                                    <dd>{{ $direccion->notas }}</dd>
-
+                                    <dd>{{ $direcciones->notas }}</dd>
                                     
                                 </dl>
                             </div>
@@ -166,13 +148,14 @@ Carro de Productos
 
                        
 
-                    @endforeach  
+                  
 
                 @else
 
                     <div class="col-sm-10 col-sm-offset-1">
                         
                         <h3>Debe agregar una direccion de envio  </h3>
+                        <p><a href="{{ url('misdirecciones') }}">Mi Direccion</a></p>
                     
                     </div>
 
@@ -182,20 +165,12 @@ Carro de Productos
 
                 </div>
 
-                <div class="res_dir">  
+                <div class=" col-sm-10 col-sm-offset-1 res_dir">  
                 </div>
 
-                </div>
+            </div>
 
-                <div class="row">
-
-                <div class="col-sm-12" style="text-align: center;">
-
-                    <button type="button" class="btn btn-raised btn-primary md-trigger addDireccionModal" data-toggle="modal" data-target="#modal-21">Agregar Nueva Direccion </button>
-
-                </div>
-
-                </div>
+               
 
                 <hr>
 
@@ -339,7 +314,7 @@ Carro de Productos
 
                                 <div class="col-sm-12">
                                     
-                                    <div class="alert alert-danger">Algo fallo en el proceso de pago pro favor intenta de nuevo!!</div>
+                                    <div class="alert alert-danger">El pago no pudo ser procesado. Por favor, revisa los detalles del pago e inténtalo de nuevo.</div>
                                 </div>
                                 
                             </div>

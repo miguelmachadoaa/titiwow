@@ -25,6 +25,7 @@ use App\Country;
 use App\State;
 use App\City;
 use App\Roles;
+use App\User;
 use App\RoleUser;
 use App\Http\Requests;
 use App\Http\Requests\ProductosRequest;
@@ -67,6 +68,8 @@ class AlpCartController extends JoshController
     public function show()
     {
 
+      $states=State::where('config_states.country_id', '47')->get();
+
       $cart=$this->reloadCart();
 
       $configuracion=AlpConfiguracion::where('id', '1')->first();
@@ -76,7 +79,9 @@ class AlpCartController extends JoshController
 
       $total=$this->total();
 
-      return view('frontend.cart', compact('cart', 'total', 'configuracion'));
+
+
+      return view('frontend.cart', compact('cart', 'total', 'configuracion', 'states'));
     }
 
     public function mercadopago()
@@ -185,7 +190,16 @@ class AlpCartController extends JoshController
               "external_reference" =>'123456'
             ];
 
-            return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion'));
+            
+
+             $preference = MP::post("/checkout/preferences",$preference_data);
+            
+            //print_r($preference);
+
+            $states=State::where('config_states.country_id', '47')->get();
+
+
+            return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference'));
 
          }
 
@@ -223,13 +237,16 @@ class AlpCartController extends JoshController
 
         $user_id = Sentinel::getUser()->id;
 
+        $usuario=User::where('id', $user_id)->first();
+
         $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
 
-        $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_countries.country_name as country_name')
+        $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
           ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
           ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-          ->where('alp_direcciones.id_client', $user_id)->get();
+          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+          ->where('alp_direcciones.id_client', $user_id)->first();
 
            $formasenvio = AlpFormasenvio::select('alp_formas_envios.*')
           ->join('alp_rol_envio', 'alp_formas_envios.id', '=', 'alp_rol_envio.id_forma_envio')
@@ -269,7 +286,9 @@ class AlpCartController extends JoshController
             $preference_data = [
               "items" => $list,
               "payer" => [
-                "email" => 'correo@gmail.com'
+                "name" => $usuario->first_name,
+                "surname" => $usuario->last_name,
+                "email" => $usuario->email,
               ],
               "back_urls" => [
                 "success" => url('/order/success'),
@@ -281,13 +300,15 @@ class AlpCartController extends JoshController
 
             //print_r($preference_data);
             
-            //$preference = MP::post("/checkout/preferences",$preference_data);
+            $preference = MP::post("/checkout/preferences",$preference_data);
 
             //$preference=null;
 
-            //print_r($preference);
+            ///print_r($preference);
 
-            return view('frontend.order.failure', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries'));
+            $states=State::where('config_states.country_id', '47')->get();
+
+            return view('frontend.order.failure', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries','preference', 'states'));
 
 
          }
@@ -449,8 +470,10 @@ class AlpCartController extends JoshController
 
          $cart= \Session::forget('cart');
 
+         $states=State::where('config_states.country_id', '47')->get();
 
-          return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entrega'));
+
+          return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entrega', 'states'));
 
          
 
@@ -519,26 +542,15 @@ class AlpCartController extends JoshController
 
        $precio = array();
 
-      // $producto->cantidad=1;
+       $producto->cantidad=1;
 
-       if ( isset($cart[$producto->slug])) {
+        $cart[$producto->slug]=$producto;
 
-          $cart[$producto->slug]['cantidad']=$cart[$producto->slug]['cantidad']+1;
-
-       }else{
-
-          $cart[$producto->slug]=$producto;
-          $cart[$producto->slug]['cantidad']=1;
-
-       }
-
-      $cart=$this->reloadCart();
-
-
+     // $cart=$this->reloadCart();
 
       // return $cart;
 
-      $producto=$cart[$producto->slug];
+      //$producto=$cart[$producto->slug];
 
        \Session::put('cart', $cart);
 

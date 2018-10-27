@@ -10,6 +10,7 @@ use App\Models\AlpClientes;
 use App\Models\AlpEmpresas;
 use App\Models\AlpPrecioGrupo;
 use App\RoleUser;
+use App\State;
 use DB;
 use Sentinel;
 
@@ -66,8 +67,10 @@ class ProductosFrontController extends Controller
 
         }
 
+        $states=State::where('config_states.country_id', '47')->get();
 
-        return \View::make('frontend.list', compact('productos', 'descuento', 'precio'));
+
+        return \View::make('frontend.list', compact('productos', 'descuento', 'precio', 'states'));
     }
  
     public function show($slug)
@@ -126,8 +129,10 @@ class ProductosFrontController extends Controller
             }
 
         }
+
+         $states=State::where('config_states.country_id', '47')->get();
         
-        return \View::make('frontend.producto_single', compact('producto', 'descuento', 'precio','categos'));
+        return \View::make('frontend.producto_single', compact('producto', 'descuento', 'precio','categos', 'states'));
 
     }
 
@@ -191,8 +196,10 @@ class ProductosFrontController extends Controller
 
         }
 
+         $states=State::where('config_states.country_id', '47')->get();
 
-        return \View::make('frontend.categorias', compact('productos','cataname','slug', 'descuento', 'precio'));
+
+        return \View::make('frontend.categorias', compact('productos','cataname','slug', 'descuento', 'precio', 'states'));
 
     }
 
@@ -246,7 +253,9 @@ class ProductosFrontController extends Controller
 
         }
 
-        return \View::make('frontend.buscar', compact('productos', 'descuento', 'precio'));
+         $states=State::where('config_states.country_id', '47')->get();
+
+        return \View::make('frontend.buscar', compact('productos', 'descuento', 'precio', 'states'));
 
     }
 
