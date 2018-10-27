@@ -83,13 +83,12 @@
                                     <label ><a id="detalle_carro_front" href="{{url('register')}}" >Registrarse</a></label>    
                                 </li>
                             @else
-                               <!-- <li {{ (Request::is('my-account') ? 'class=active' : '') }}><a href="{{ URL::to('my-account') }}">Mi Cuenta</li>-->
+                                <li {{ (Request::is('clientes') ? 'class=active' : '') }}>
+                                    <label ><a href="{{ URL::to('clientes') }}">Mi Perfil</a></label>  
+                                </li>
 
-                                <li {{ (Request::is('clientes') ? 'class=active' : '') }}><a href="{{ URL::to('clientes') }}">Area Cliente</li>
-
-                                
-
-                                <li><a href="{{ URL::to('logout') }}">Cerrar Sesión</a>
+                                <li>
+                                    <label ><a href="{{ URL::to('logout') }}">Cerrar Sesión</a></label>  
                                 </li>
                             @endif
                             </ul>
@@ -128,7 +127,7 @@
                         <div class="col-md-4 col-xs-4" class="pull_left">
                             <div id="cart_block_top" class="pull-right">
                                 <button type="submit" name="submit_search" class="btn btn-default button-cart">
-                                    <span>Buscar</span>
+                                <a id="detalle_carro_front" href="http://alpinav2.local/cart/show"><span>Carrito de Compra</span></a>
                                 </button>
                             </div>
                         </div>
