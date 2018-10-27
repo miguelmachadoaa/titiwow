@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Register | Welcome to Josh Frontend </title>
+    <title>Register | Alpina Go</title>
     <!--global css starts-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
@@ -35,12 +35,12 @@
 
                 <div class="form-group {{ $errors->first('first_name', 'has-error') }}">
                     <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Nombre"
-                           value="{!! old('first_name') !!}" >
+                           value="{{ $amigo->nombre_amigo }}" >
                     {!! $errors->first('first_name', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="form-group {{ $errors->first('last_name', 'has-error') }}">
                     <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Apellido"
-                           value="{!! old('last_name') !!}" >
+                           value="{{ $amigo->apellido_amigo }}" >
                     {!! $errors->first('last_name', '<span class="help-block">:message</span>') !!}
                 </div>
 
@@ -163,16 +163,7 @@
 
 
                 <div class="clearfix"></div>
-                <div class="form-group {{ $errors->first('gender', 'has-error') }}">
-                    <label class="sr-only">Genero</label>
-                    <label class="radio-inline">
-                        <input type="radio" name="gender" id="inlineRadio1" value="male"> Masculino
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="gender" id="inlineRadio2" value="female"> Femenino
-                    </label>
-                    {!! $errors->first('gender', '<span class="help-block">:message</span>') !!}
-                </div>
+                
                <div class="clearfix"></div>
                 <div class="checkbox">
                     <label>

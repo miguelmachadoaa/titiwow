@@ -452,6 +452,7 @@ class JoshController extends Controller {
            
 
             return view('admin.index1',[ 'analytics_error'=>$analytics_error,'chart_data'=>$chart_data, 'blog_count'=>$blog_count,'user_count'=>$user_count,'users'=>$users,'db_chart'=>$db_chart,'geo'=>$geo,'user_roles'=>$user_roles,'blogs'=>$blogs,'visitors'=>$visitors,'pageVisits'=>$pageVisits,'line_chart'=>$line_chart,'month_visits'=>$month_visits,'year_visits'=>$year_visits, 'ordenes_mes'=>$ordenes_mes, 'ordenes_hoy'=>$ordenes_hoy, 'usuarios'=>$usuarios, 'clientes'=>$clientes, 'productos'=>$productos] );
+        
         else
             return redirect('admin/signin')->with('error', 'You must be logged in!');
     }
