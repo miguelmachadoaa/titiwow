@@ -177,7 +177,10 @@ class FrontEndController extends JoshController
     {
         $user = Sentinel::getUser();
         $countries = $this->countries;
-        return view('user_account', compact('user', 'countries'));
+
+
+        $states=State::where('config_states.country_id', '47')->get();
+        return view('user_account', compact('user', 'countries', 'states'));
     }
 
     /**
