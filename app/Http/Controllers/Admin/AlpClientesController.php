@@ -8,6 +8,7 @@ use App\Mail\Register;
 use App\Mail\Restore;
 use Cartalyst\Sentinel\Laravel\Facades\Activation;
 use App\Models\AlpClientes;
+use App\Models\AlpClientesHistory;
 use App\Models\AlpDirecciones;
 use App\Models\AlpTDocumento;
 use App\Models\AlpEmpresas;
@@ -98,6 +99,24 @@ class AlpClientesController extends JoshController
         // Show the page
         return view('admin.clientes.empresas', compact('clientes'));
     }
+
+    public function detalle($id)
+    {
+        // Grab all the groups
+        $user_id = Sentinel::getUser()->id;
+
+        $cliente=AlpClientes::where('id_user_client', $id)->first();
+
+        $history = AlpClientesHistory::select('alp_clientes_history.*', 'users.first_name as first_name', 'users.last_name as last_name' )
+          ->join('users', 'alp_clientes_history.id_user', '=', 'users.id')
+          ->where('alp_clientes_history.id_cliente', $id)
+          ->get();
+
+      
+        // Show the page
+        return view('admin.clientes.detalle', compact('history', 'cliente'));
+    }
+
 
     /**
      * Group create.
@@ -230,156 +249,6 @@ class AlpClientesController extends JoshController
 
 
 
-    /**
-     * Cliente update form processing page.
-     *
-     * @param  int $id
-     * @return Redirect
-     */
-    /*public function update(User $id, ClientesRequest $request)
-    {
-        $user_id = Sentinel::getUser()->id;
-
-        try {
-
-
-            $data = array(
-            
-                'id_user_client' => $id, 
-                'id_type_doc' => $request->id_type_doc, 
-                'doc_cliente' =>$request->doc_cliente, 
-                'genero_cliente' =>$request->genero_cliente, 
-                'telefono_cliente' =>$request->telefono_cliente, 
-                'marketing_cliente' =>$request->marketing_cliente,
-                'habeas_cliente' => 1,
-                'estado_masterfile' =>$request->activate,
-                'id_user' =>$user_id,  
-            );
-            
-            $cliente = AlpClientes::findOrFail($request->id_user_client);
-
-            dd($cliente);
-            $cliente->update($data);
-    
-            $eluser = User::findOrFail($id);
-    
-            $eluser->update([
-                'first_name' => $request->first_name, 
-                'last_name' =>$request->last_name, 
-                'dob' =>$request->dob, 
-                'pic' =>$request->pic
-            ]);
-
-        
-            if ( !empty($request->password)) {
-                $user->password = Hash::make($request->password);
-
-                $data_upd = array(
-                    'password' => $user->password, 
-                );
-
-                //actualizar password
-                $eluser->update($data_upd);
-
-            }
-
-            // is new image uploaded?
-            if ($file = $request->file('pic_file')) {
-                $extension = $file->extension()?: 'png';
-                $destinationPath = public_path() . '/uploads/perfiles/';
-                $safeName = str_random(10) . '.' . $extension;
-                $file->move($destinationPath, $safeName);
-                //delete old pic if exists
-                if (File::exists($destinationPath . $user->pic)) {
-                    File::delete($destinationPath . $user->pic);
-                }
-                //save new file path into db
-                $user->pic = $safeName;
-                $data_upd_pic = array(
-                    'pic' => $user->pic, 
-                );
-
-                $eluser->update($data_upd_pic);
-            }
-
-            // Get the current user groups
-            $userRoles = $eluser->roles()->pluck('id')->all();
-
-            // Get the selected groups
-
-            $selectedRoles = $request->get('groups');
-
-            // Groups comparison between the groups the user currently
-            // have and the groups the user wish to have.
-            $rolesToAdd = array_diff($selectedRoles, $userRoles);
-            $rolesToRemove = array_diff($userRoles, $selectedRoles);
-
-            // Assign the user to groups
-
-            foreach ($rolesToAdd as $roleId) {
-                $role = Sentinel::findRoleById($roleId);
-                $role->users()->attach($eluser);
-            }
-
-            // Remove the user from groups
-            foreach ($rolesToRemove as $roleId) {
-                $role = Sentinel::findRoleById($roleId);
-                $role->users()->detach($eluser);
-            }
-
-            // Activate / De-activate user
-
-            $status = $activation = Activation::completed($eluser);
-
-            if ($request->get('activate') != $status) {
-                if ($request->get('activate')) {
-                    $activation = Activation::exists($eluser);
-                    if ($activation) {
-                        Activation::complete($user, $activation->code);
-                    }
-                } else {
-                    //remove existing activation record
-                    Activation::remove($eluser);
-                    //add new record
-                    Activation::create($eluser);
-                    //send activation mail
-                    $data=[
-                        'user_name' =>$eluser->first_name .' '. $eluser->last_name,
-                    'activationUrl' => URL::route('activate', [$user->id, Activation::exists($eluser)->code])
-                    ];
-                    // Send the activation code through email
-                   /* Mail::to($eluser->email)
-                        ->send(new Restore($data));
-
-                }
-            }
-
-            // Was the user updated?
-            if ($eluser->save()) {
-                // Prepare the success message
-                $success = trans('users/message.success.update');
-               //Activity log for user update
-                activity($user->full_name)
-                    ->performedOn($user)
-                    ->causedBy($user)
-                    ->log('Actualizado por '.Sentinel::getUser()->full_name);
-                // Redirect to the user page
-                return Redirect::route('admin.clientes.edit', $user)->with('success', $success);
-            }
-
-            // Prepare the error message
-            $error = trans('users/message.error.update');
-        } catch (UserNotFoundException $e) {
-            // Prepare the error message
-            $error = trans('users/message.user_not_found', compact('id'));
-
-            // Redirect to the user management page
-            return Redirect::route('admin.clientes.index')->with('error', $error);
-        }
-
-        // Redirect to the user page
-        //return Redirect::route('admin.clientes.show', $user)->withInput()->with('error', $error);
-    }*/
 
     public function update(User $user, ClientesRequest $request)
     {
@@ -448,27 +317,6 @@ class AlpClientesController extends JoshController
             $userRoles = $user->roles()->pluck('id')->all();
 
 
-            // Get the selected groups
-
-           // $selectedRoles = $request->get('groups');
-
-            // Groups comparison between the groups the user currently
-            // have and the groups the user wish to have.
-           // $rolesToAdd = array_diff($selectedRoles, $userRoles);
-           // $rolesToRemove = array_diff($userRoles, $selectedRoles);
-
-            // Assign the user to groups
-
-           /* foreach ($rolesToAdd as $roleId) {
-                $role = Sentinel::findRoleById($roleId);
-                $role->users()->attach($user);
-            }
-
-            // Remove the user from groups
-            foreach ($rolesToRemove as $roleId) {
-                $role = Sentinel::findRoleById($roleId);
-                $role->users()->detach($user);
-            }*/
 
 
             $roleusuario=RoleUser::where('user_id', $request->id_cliente)->first();
@@ -648,6 +496,15 @@ class AlpClientesController extends JoshController
                         //add new record
             Activation::create($user);
 
+            $data_history = array(
+                'id_cliente' => $request->cliente_id, 
+                'estatus_cliente' => 'rechazado',
+                'notas' => $request->notas,
+                'id_user' => $user_id
+            );
+
+
+            AlpClientesHistory::create($data_history);
 
             $data = array(
                 'nota' => $request->notas
@@ -701,7 +558,19 @@ class AlpClientesController extends JoshController
             'cod_oracle_cliente' => $request->cod_oracle_cliente
              );
 
-        $cliente=AlpClientes::where('id_user_client', $request->cliente_id)->first();
+        $cliente=AlpClientes::where('id_user_client', $user->id)->withTrashed()->first();
+
+
+
+            $data_history = array(
+                'id_cliente' => $request->cliente_id, 
+                'estatus_cliente' => 'activado',
+                'notas' => $request->notas,
+                'id_user' => $user_id
+            );
+
+
+            AlpClientesHistory::create($data_history);
 
         $cliente->update($data);
 

@@ -183,7 +183,7 @@
                                 $('.addtocart').addClass('hidden');
 
 
-                    $('#ubicacionModal').modal('show');
+                    //$('#ubicacionModal').modal('show');
 
                 }
 
