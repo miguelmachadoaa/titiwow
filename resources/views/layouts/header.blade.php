@@ -157,7 +157,7 @@
                         <li class="dropdown">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hola: {{ Sentinel::getUser()->first_name }}  <span class="caret"></span></a>
                           <ul class="dropdown-menu">
-                            <li><a href="{{ url('clientes') }}">Mi Area</a></li>
+                            <li><a href="{{ url('clientes') }}">Mi Perfil</a></li>
                             <li><a href="{{ url('my-account') }}">Mi Cuenta</a></li>
                             <li><a href="{{ url('miscompras') }}">Mis Compras</a></li>
                             <li><a href="{{ url('misdirecciones') }}">Mi Direccion</a></li>

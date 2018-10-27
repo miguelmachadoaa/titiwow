@@ -181,7 +181,7 @@ class AlpEnviosController extends JoshController
        
        $orden = AlpOrdenes::find($id);
 
-        $envio = AlpEnvios::select('alp_envios.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios',   'config_cities.city_name as city_name', 'config_states.state_name as state_name', 'alp_envios_status.estatus_envio_nombre as estatus_envio_nombre', 'alp_direcciones.calle_address as calle_address', 'alp_direcciones.calle2_address as calle2_address', 'alp_direcciones.codigo_postal_address as codigo_postal_address', 'alp_direcciones.telefono_address as telefono_address')
+        $envio = AlpEnvios::select('alp_envios.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios',   'config_cities.city_name as city_name', 'config_states.state_name as state_name', 'alp_envios_status.estatus_envio_nombre as estatus_envio_nombre', 'alp_direcciones.principal_address as principal_address', 'alp_direcciones.secundaria_address as secundaria_address', 'alp_direcciones.edificio_address as edificio_address', 'alp_direcciones.detalle_address as detalle_address', 'alp_direcciones.barrio_address as barrio_address', 'alp_direcciones.notas as notas_address')
           ->join('alp_envios_status', 'alp_envios.estatus', '=', 'alp_envios_status.id')
           ->join('alp_ordenes', 'alp_envios.id_orden', '=', 'alp_ordenes.id')
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')

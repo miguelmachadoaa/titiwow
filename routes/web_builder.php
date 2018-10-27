@@ -135,6 +135,8 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
         Route::get('{id}/delete', 'Admin\AlpClientesController@destroy')->name('clientes.delete');
 
+        Route::get('{id}/detalle', 'Admin\AlpClientesController@detalle')->name('clientes.detalle');
+
         Route::get('{id}/confirm-delete', 'Admin\AlpClientesController@getModalDelete')->name('clientes.confirm-delete');
 
         Route::get('{id}/restore', 'Admin\AlpClientesController@getRestore')->name('clientes.restore');

@@ -49,6 +49,7 @@
                                     <th>Estado Masterfile</th>
                                     <th>Estado Registro</th>
                                     <th>Nota</th>
+                                    <th>Accion</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -75,6 +76,23 @@
                                         @endif
                                     </td>
                                     <td>{!! $row->nota !!}</td>
+
+                                    <td>
+
+                                        <div id="botones_{{ $row->id }}">
+
+                                       
+
+                                        <button type="button" data-id="{{ $row->id }}" class="btn btn-xs btn-primary activarUsuario" >Activar</button>
+
+                                        
+
+                                     
+
+                                        </div>
+
+                                        
+                                    </td>
                                    
                                 </tr>
                                 @endforeach
