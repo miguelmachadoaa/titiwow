@@ -47,22 +47,43 @@ Orden {{$orden->id}}
 
             <div class="col-sm-12">  
 
-                <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">
+               <div class="panel panel-default">
+                        
+                        <div class="panel-body">
+                            <div class="box-body">
+                                <dl class="dl-horizontal">
+
+                                    <dt>Departamento</dt>
+                                    <dd>{{ $envio->state_name }}</dd>
+
+                                    <dt>Ciudad</dt>
+                                    <dd>{{$envio->city_name }}</dd>
+
                                    
-                                    Direccion de Envio 
-                                </h3>
-                                
+                                    <dt>Direccion</dt>
+                                    <dd>
+                                       {{ $envio->nombre_estructura.' '.$envio->principal_address.' - '.$envio->secundaria_address }}
+                                    </dd>
+
+                                    <dt>Apto, Puerta Interior</dt>
+                                    <dd>
+                                       {{ $envio->edificio_address.' '.$envio->detalle_address }}
+                                    </dd>
+
+                                    <dt>Barrio</dt>
+                                    <dd>
+                                       {{ $envio->barrio_address }}
+                                    </dd>
+
+                                    <dt>Notas</dt>
+                                    <dd>{{ $envio->notas }}</dd>
+                                    
+                                </dl>
                             </div>
-                            <div class="panel-body">
-                                <p> Ubicacion:{{ $envio->state_name.' '.$envio->city_name }}</p>
-                                <p> Direccion:{{ $envio->calle_address.' '.$envio->calles_address }}</p>
-                                <p> Codigo Postal:{{ $envio->codigo_postal_address }}</p>
-                                <p> Telefono:{{ $envio->telefono_address }}</p>
-                                
-                            </div>
+                            <!-- /.box-body -->
                         </div>
+
+                    </div>
 
              </div>
     </div>  

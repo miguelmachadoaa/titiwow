@@ -42,7 +42,10 @@
             @if (isset($direcciones->id))
 
 
-                  <input type="hidden" name="id_direccion"  id="id_direccion" value="{{ $direcciones->id }}" >  
+                
+                    <div class="form-group ">
+
+                    <input type="hidden" name="id_direccion"  id="id_direccion" value="{{ $direcciones->id }}" >  
 
 
                 <div class="col-sm-10 col-sm-offset-1">
@@ -52,13 +55,26 @@
                             <div class="box-body">
                                 <dl class="dl-horizontal">
 
-                                    <dt>Ubicacion</dt>
-                                    <dd>{{ $direcciones->country_name.', '.$direcciones->state_name.', '.$direcciones->city_name }}</dd>
+                                    <dt>Departamento</dt>
+                                    <dd>{{ $direcciones->state_name }}</dd>
 
+                                    <dt>Ciudad</dt>
+                                    <dd>{{$direcciones->city_name }}</dd>
 
+                                   
                                     <dt>Direccion</dt>
                                     <dd>
-                                       {{ $direcciones->nombre_estructura.' '.$direcciones->principal_address.' - '.$direcciones->secundaria_address.' '.$direcciones->edificio_address.' '.$direcciones->detalle_address.' '.$direcciones->barrio_address }}
+                                       {{ $direcciones->nombre_estructura.' '.$direcciones->principal_address.' - '.$direcciones->secundaria_address }}
+                                    </dd>
+
+                                    <dt>Apto, Puerta Interior</dt>
+                                    <dd>
+                                       {{ $direcciones->edificio_address.' '.$direcciones->detalle_address }}
+                                    </dd>
+
+                                    <dt>Barrio</dt>
+                                    <dd>
+                                       {{ $direcciones->barrio_address }}
                                     </dd>
 
                                     <dt>Notas</dt>
@@ -71,8 +87,15 @@
 
                     </div>
                 </div>
+                     
 
-               
+                        <!-- Se construyen las opciones de envios -->
+
+                       
+
+
+                       
+
             @else
                 <div class="alert alert-danger">
                         <p>El Cliente aun no posee direcciones Registradas</p>
