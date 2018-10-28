@@ -16,7 +16,8 @@ class OrdenesEstatusTableSeeder extends Seeder
             ['estatus_nombre' => 'Recibido','descripcion_estatus' => 'Recibido', 'id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
             ['estatus_nombre' => 'Confirmado','descripcion_estatus' => 'Confirmado', 'id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
             ['estatus_nombre' => 'Entregado','descripcion_estatus' => 'Entregado', 'id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            ['estatus_nombre' => 'Cancelado','descripcion_estatus' => 'Cancelado', 'id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')]
+            ['estatus_nombre' => 'Cancelado','descripcion_estatus' => 'Cancelado', 'id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['estatus_nombre' => 'Aprobado','descripcion_estatus' => 'Aprobado', 'id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')]
         ]);
     }
 }

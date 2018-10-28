@@ -46,6 +46,29 @@ class AlpOrdenesController extends JoshController
 
     }
 
+    public function aprobados()
+    {
+        // Grab all the groups
+      
+        $ordenes = AlpOrdenes::all();
+
+        $estatus_ordenes = AlpEstatusOrdenes::all();
+
+         $ordenes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
+          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
+          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
+          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+          ->where('alp_ordenes.estatus', '5')
+          ->get();
+       
+        // Show the page
+        return view('admin.ordenes.aprobados', compact('ordenes', 'estatus_ordenes'));
+
+    }
+
+
      public function empresas()
     {
         // Grab all the groups
@@ -216,9 +239,7 @@ class AlpOrdenesController extends JoshController
 
         $orden=AlpOrdenes::find($input['confirm_id']);
 
-
         $orden->update($data_update_orden);
-
 
         $orden = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre')
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
@@ -229,12 +250,7 @@ class AlpOrdenesController extends JoshController
           ->where('alp_ordenes.id', $input['confirm_id'])
           ->first();
 
-
         if ($orden->id) {
-
-          //return redirect('order/detail');
-          
-        
 
           $view= View::make('admin.ordenes.storeconfirm', compact('orden'));
 
@@ -242,9 +258,7 @@ class AlpOrdenesController extends JoshController
 
           $res = array('data' => $data);
 
-        //  return json_encode($res);
           return $data;
-            
 
         } else {
 
@@ -252,6 +266,62 @@ class AlpOrdenesController extends JoshController
         }       
 
     }
+
+
+     public function aprobar(Request $request)
+    {
+
+        $user_id = Sentinel::getUser()->id;
+
+        $input = $request->all();
+
+        //var_dump($input);
+
+        $data_history = array(
+            'id_orden' => $input['id'], 
+            'id_status' => '5', 
+            'notas' => $input['notas'], 
+            'id_user' => $user_id 
+        );
+
+        $data_update_orden = array(
+            'ordencompra' =>$input['codigo'], 
+            'estatus' =>'5'
+        );
+
+         
+        $history=AlpOrdenesHistory::create($data_history);
+
+        $orden=AlpOrdenes::find($input['id']);
+
+        $orden->update($data_update_orden);
+
+        $orden = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
+          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
+          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
+          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+          ->where('alp_ordenes.id', $input['id'])
+          ->first();
+
+        if ($orden->id) {
+
+          $view= View::make('admin.ordenes.aprobar', compact('orden'));
+
+          $data=$view->render();
+
+          $res = array('data' => $data);
+
+          return $data;
+
+        } else {
+
+            return 0;
+        }       
+
+    }
+
 
 
 

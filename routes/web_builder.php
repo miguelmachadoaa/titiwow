@@ -21,14 +21,6 @@ Route::post('signupafiliado', 'Admin\AuthController@postSignupAfiliado')->name('
 
 
 
-
-
-
-
-
-
-
-
 Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.'), function () {
 
     Route::resource('productos', 'Admin\AlpProductosController');
@@ -321,7 +313,11 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
         Route::post('/storeconfirm', 'Admin\AlpOrdenesController@storeconfirm')->name('ordenes.storeconfirm');
 
+        Route::post('/aprobar', 'Admin\AlpOrdenesController@aprobar')->name('ordenes.aprobar');
+
         Route::get('/empresas/list', 'Admin\AlpOrdenesController@empresas')->name('ordenes.empresas');
+
+        Route::get('/aprobados/list', 'Admin\AlpOrdenesController@aprobados')->name('ordenes.aprobados');
 
     });
 
