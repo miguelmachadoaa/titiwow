@@ -304,7 +304,6 @@ class AlpOrdenesController extends JoshController
         );
 
         $data_update_orden = array(
-            'cod_oracle_pedido' =>$input['cod_oracle_pedido'], 
             'estatus' =>$input['id_status']
         );
 

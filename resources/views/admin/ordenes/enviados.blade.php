@@ -49,6 +49,9 @@ Ordenes
                                     <th>Forma de Envio</th>
                                     <th>Forma de Pago</th>
                                     <th>Total</th>
+                                    <th>Codigo Oracle</th>
+                                    <th>Factura</th>
+                                    <th>Tracking</th>
                                     <th>Creado</th>
                                     <th>Accion</th>
                                 </tr>
@@ -63,6 +66,10 @@ Ordenes
                                     <td>{!! $row->nombre_forma_envios !!}</td>
                                     <td>{!! $row->nombre_forma_pago !!}</td>
                                     <td>{!! number_format($row->monto_total,2) !!}</td>
+
+                                    <td>{!! $row->ordencompra!!}</td>
+                                    <td>{!! $row->factura!!}</td>
+                                    <td>{!! $row->tracking!!}</td>
                                     <td>{!! $row->created_at->diffForHumans() !!}</td>
                                     <td>
 

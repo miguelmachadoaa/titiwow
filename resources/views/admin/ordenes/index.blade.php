@@ -49,6 +49,9 @@ Ordenes
                                     <th>Forma de Envio</th>
                                     <th>Forma de Pago</th>
                                     <th>Total</th>
+                                    <th>Codigo Oracle</th>
+                                    <th>Factura</th>
+                                    <th>Tracking</th>
                                     <th>Creado</th>
                                     <th>Accion</th>
                                 </tr>
@@ -63,6 +66,10 @@ Ordenes
                                     <td>{!! $row->nombre_forma_envios !!}</td>
                                     <td>{!! $row->nombre_forma_pago !!}</td>
                                     <td>{!! number_format($row->monto_total,2) !!}</td>
+
+                                    <td>{!! $row->ordencompra!!}</td>
+                                    <td>{!! $row->factura!!}</td>
+                                    <td>{!! $row->tracking!!}</td>
                                     <td>{!! $row->created_at->diffForHumans() !!}</td>
                                     <td>
 
@@ -74,7 +81,7 @@ Ordenes
                                             <button data-id="{{ $row->id }}"  data-codigo="{{ $row->cod_oracle_pedido }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-info confirmar" > {{ $row->estatus_nombre }} </button></div>
 
                                             
-                                           @if($row->ordencompra=='')
+                                          <!-- @if($row->ordencompra=='')
 
                                             <div style="display: inline-block;" class="aprobar_{{ $row->id }}">
                                             <button data-id="{{ $row->id }}"  data-codigo="{{ $row->ordencompra }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-info aprobar" > Aprobar </button></div>
@@ -93,7 +100,7 @@ Ordenes
 
                                             <div style="display: inline-block;" class="pago_{{ $row->id }}">  
 
-                                            <button data-id="{{ $row->id }}" class="btn btn-xs btn-success pago" > {{ $row->estatus_pago_nombre }} </button></div>
+                                            <button data-id="{{ $row->id }}" class="btn btn-xs btn-success pago" > {{ $row->estatus_pago_nombre }} </button></div>-->
 
 
                                     </td>
@@ -143,24 +150,15 @@ Ordenes
                                     <div class="col-md-8" >
                                         <select style="margin: 4px 0;" id="id_status" name="id_status" class="form-control ">
                                             <option value="">Seleccione</option>
-                                           
-                                            @foreach($estatus_ordenes as $est)
-                                            <option value="{{ $est->id }}"
-                                                    @if($est->id == old('id_status')) selected="selected" @endif >{{ $est->estatus_nombre}}</option>
-                                            @endforeach
+                                            
+                                            <option value="4"
+                                                     selected="selected" >Cancelado</option>
                                           
                                         </select>
                                     </div>
                                 </div>
 
 
-                                <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Codigo Oracle Pedido </label>
-
-                                    <div class="col-sm-8">
-                                        <input style="margin: 4px 0;" id="cod_oracle_pedido" name="cod_oracle_pedido" type="text" placeholder="" class="form-control">
-                                    </div>
-                                </div>
                                
 
                                 <div class="form-group clearfix">
@@ -271,15 +269,7 @@ Ordenes
 
 $("#confirmarOrdenForm").bootstrapValidator({
     fields: {
-        cod_oracle_pedido: {
-            validators: {
-                notEmpty: {
-                    message: 'Codigo Oracle  es Requerido'
-                }
-            },
-            required: true,
-            minlength: 3
-        },
+        
         id_status: {
             validators:{
                 notEmpty:{

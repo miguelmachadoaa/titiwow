@@ -66,14 +66,7 @@
             <span class="fa arrow"></span>
         </a>
         <ul class="sub-menu">
-            @if (Sentinel::getUser()->hasAnyAccess(['ordenes.index']))
-                <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
-                <a href="{!! route('admin.ordenes.index') !!}">
-                    <i class="fa fa-angle-double-right"></i>
-                    Ordenes
-                </a>
-            </li>
-            @endif
+           
 
              @if (Sentinel::getUser()->hasAnyAccess(['ordenes.recibidos']))
                 <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
@@ -120,10 +113,14 @@
             </li>
             @endif
 
-
-
-            
-
+             @if (Sentinel::getUser()->hasAnyAccess(['ordenes.index']))
+                <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.ordenes.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Todas las Ordenes
+                </a>
+            </li>
+            @endif
             
            
         </ul>
