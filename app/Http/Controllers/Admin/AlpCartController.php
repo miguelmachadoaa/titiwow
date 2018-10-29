@@ -171,7 +171,7 @@ class AlpCartController extends JoshController
               $items["picture_url"]= url('/').'/uploads/productos/'.$row->imagen_producto;
               $items["quantity"]=intval($row->cantidad);
               $items["currency_id"]='COP';
-              $items["unit_price"]=doubleval($row->precio_base);
+              $items["unit_price"]=doubleval($row->precio_oferta);
 
               $list[]=$items;
               
@@ -277,7 +277,7 @@ class AlpCartController extends JoshController
               $items["picture_url"]= url('/').'/uploads/productos/'.$row->imagen_producto;
               $items["quantity"]=intval($row->cantidad);
               $items["currency_id"]='COP';
-              $items["unit_price"]=intval($row->precio_base);
+              $items["unit_price"]=intval($row->precio_oferta);
 
               $list[]=$items;
               
@@ -389,8 +389,8 @@ class AlpCartController extends JoshController
             'id_orden' => $orden->id, 
             'id_producto' => $detalle->id, 
             'cantidad' =>$detalle->cantidad, 
-            'precio_unitario' =>$detalle->precio_base, 
-            'precio_total' =>$detalle->cantidad*$detalle->precio_base,
+            'precio_unitario' =>$detalle->precio_oferta, 
+            'precio_total' =>$detalle->cantidad*$detalle->precio_oferta,
             'id_user' =>$user_id 
           );
 
@@ -542,15 +542,104 @@ class AlpCartController extends JoshController
 
        $precio = array();
 
-       $producto->cantidad=1;
 
-        $cart[$producto->slug]=$producto;
+       if (Sentinel::check()) {
 
-     // $cart=$this->reloadCart();
+            $user_id = Sentinel::getUser()->id;
+
+            $role=RoleUser::where('user_id', $user_id)->first();
+
+            $cliente = AlpClientes::where('id_user_client', $user_id )->first();
+
+            if (isset($cliente) ) {
+
+                if ($cliente->id_empresa!=0) {
+                    
+                     $empresa=AlpEmpresas::find($cliente->id_empresa);
+
+                    $cliente['nombre_empresa']=$empresa->nombre_empresa;
+
+                    $descuento=(1-($empresa->descuento_empresa/100));
+                }
+               
+            }
+
+            if ($role->role_id) {
+               
+                foreach ($cart as  $row) {
+                    
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $role->role_id)->first();
+
+                    if (isset($pregiogrupo->id)) {
+                       
+                        $precio[$row->id]['precio']=$pregiogrupo->precio;
+                        $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+
+                    }
+
+                }
+                
+            }
+
+        }
+
+
+        if ($descuento=='1') {
+
+        if (isset($precio[$producto->id])) {
+          # code...
+         
+          switch ($precio[$producto->id]['operacion']) {
+
+            case 1:
+
+              $producto->precio_oferta=$producto->precio_base*$descuento;
+
+              break;
+
+            case 2:
+
+              $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
+              
+              break;
+
+            case 3:
+
+              $producto->precio_oferta=$precio[$producto->id]['precio'];
+              
+              break;
+            
+            default:
+            
+             $producto->precio_oferta=$producto->precio_base*$descuento;
+              # code...
+              break;
+          }
+
+        }else{
+
+          $producto->precio_oferta=$producto->precio_base*$descuento;
+
+        }
+
+
+       }else{
+
+       $producto->precio_oferta=$producto->precio_base*$descuento;
+
+       }
+
+
+      $cart[$producto->slug]=$producto;
+
+      $producto->cantidad=1;
+
+
+      //$cart=$this->reloadCart();
 
       // return $cart;
 
-      //$producto=$cart[$producto->slug];
+     // $producto=$cart[$producto->slug];
 
        \Session::put('cart', $cart);
 
@@ -643,7 +732,7 @@ class AlpCartController extends JoshController
 
       foreach($cart as $row) {
 
-        $total=$total+($row->cantidad*$row->precio_base);
+        $total=$total+($row->cantidad*$row->precio_oferta);
 
       }
 
@@ -684,37 +773,7 @@ class AlpCartController extends JoshController
 
       $cambio=0;
 
-      $inventario = AlpInventario::select('alp_inventarios.*', DB::raw( "SUM(cantidad) as disponible"))
-            ->orderBy("id_producto")
-            ->groupBy("id_producto")
-            ->groupBy("operacion")
-            ->where("operacion",'1')
-            ->get();
-
-      $inv_producto = array();
-
-      foreach ($inventario as $row_inv) {
-
-        $inv_producto[$row_inv->id_producto]=$row_inv->disponible;
-
-      }
-
-     
-
-      $ventas = AlpInventario::select('alp_inventarios.*',DB::raw( "SUM(cantidad) as vendidas"))
-            ->orderBy("id_producto")
-            ->groupBy("id_producto")
-            ->groupBy("operacion")
-            ->where("operacion",'2')
-            ->get();
-
       
-
-      foreach ($ventas as $row_ventas) {
-       
-        $inv_producto[$row_ventas->id_producto]=$inv_producto[$row_ventas->id_producto]-$row_ventas->vendidas;
-
-      }
 
       
 
@@ -734,20 +793,20 @@ class AlpCartController extends JoshController
 
               $role=RoleUser::where('user_id', $user_id)->first();
 
-            $cliente = AlpClientes::where('id_user_client', $user_id )->first();
+              $cliente = AlpClientes::where('id_user_client', $user_id )->first();
 
-            if (isset($cliente->id_empresa) ) {
+              if (isset($cliente->id_empresa) ) {
 
-                if ($cliente->id_empresa!=0) {
-                    
-                     $empresa=AlpEmpresas::find($cliente->id_empresa);
+                  if ($cliente->id_empresa!=0) {
+                      
+                      $empresa=AlpEmpresas::find($cliente->id_empresa);
 
-                    $cliente['nombre_empresa']=$empresa->nombre_empresa;
+                      $cliente['nombre_empresa']=$empresa->nombre_empresa;
 
-                    $descuento=(1-($empresa->descuento_empresa/100));
-                }
-               
-            }
+                      $descuento=(1-($empresa->descuento_empresa/100));
+                  }
+                 
+              }
 
              if ($role->role_id) {
                     
@@ -759,6 +818,7 @@ class AlpCartController extends JoshController
                   if (isset($pregiogrupo->id)) {
                      
                       $precio[$producto->id]['precio']=$pregiogrupo->precio;
+
                       $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
 
                   }
@@ -767,14 +827,12 @@ class AlpCartController extends JoshController
                 
             }
 
-            }
-
-            
+          }
 
         } //end sentinel check
 
 
-        $cart2 = array();
+      //  $cart2 = array();
 
     //se verifica si hay modificacion en el perfil del usuario
       
@@ -788,56 +846,53 @@ class AlpCartController extends JoshController
           # code...
          
           switch ($precio[$producto->id]['operacion']) {
+
             case 1:
 
-              $producto->precio_base=$producto->precio_base*$descuento;
+              $producto->precio_oferta=$producto->precio_base*$descuento;
 
               break;
 
             case 2:
 
-              $producto->precio_base=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
+              $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
               
               break;
 
             case 3:
 
-              $producto->precio_base=$precio[$producto->id]['precio'];
+              $producto->precio_oferta=$precio[$producto->id]['precio'];
               
               break;
             
             default:
             
-             $producto->precio_base=$producto->precio_base*$descuento;
+             $producto->precio_oferta=$producto->precio_base*$descuento;
               # code...
               break;
           }
 
         }else{
 
-          $producto->precio_base=$producto->precio_base*$descuento;
+          $producto->precio_oferta=$producto->precio_base*$descuento;
 
         }
 
 
        }else{
 
-       $producto->precio_base=$producto->precio_base*$descuento;
+       $producto->precio_oferta=$producto->precio_base*$descuento;
 
        }
 
 
-       $cart2[$producto->slug]=$producto;
-
+       $cart[$producto->slug]=$producto;
        
       }
 
-
-       return $cart2;
-
+       return $cart;
 
     }else{
-
 
       return $cart;
 
