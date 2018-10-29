@@ -93,6 +93,15 @@
             </li>
             @endif
 
+             @if (Sentinel::getUser()->hasAnyAccess(['ordenes.facturados']))
+                <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.ordenes.facturados') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Ordenes Facturadas
+                </a>
+            </li>
+            @endif
+
             @if (Sentinel::getUser()->hasAnyAccess(['ordenes.empresas']))
                 <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.ordenes.empresas') !!}">

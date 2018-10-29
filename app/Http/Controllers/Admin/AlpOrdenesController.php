@@ -90,6 +90,28 @@ class AlpOrdenesController extends JoshController
 
     }
 
+    public function facturados()
+    {
+        // Grab all the groups
+      
+        $ordenes = AlpOrdenes::all();
+
+        $estatus_ordenes = AlpEstatusOrdenes::all();
+
+         $ordenes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
+          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
+          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
+          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+          ->where('alp_ordenes.estatus', '6')
+          ->get();
+       
+        // Show the page
+        return view('admin.ordenes.facturados', compact('ordenes', 'estatus_ordenes'));
+
+    }
+
 
      public function empresas()
     {
@@ -330,6 +352,60 @@ class AlpOrdenesController extends JoshController
         if ($orden->id) {
 
           $view= View::make('admin.ordenes.aprobar', compact('orden'));
+
+          $data=$view->render();
+
+          $res = array('data' => $data);
+
+          return $data;
+
+        } else {
+
+            return 0;
+        }       
+
+    }
+
+    public function facturar(Request $request)
+    {
+
+        $user_id = Sentinel::getUser()->id;
+
+        $input = $request->all();
+
+        //var_dump($input);
+
+        $data_history = array(
+            'id_orden' => $input['id'], 
+            'id_status' => '6', 
+            'notas' => $input['notas'], 
+            'id_user' => $user_id 
+        );
+
+        $data_update_orden = array(
+            'factura' =>$input['codigo'], 
+            'estatus' =>'5'
+        );
+
+         
+        $history=AlpOrdenesHistory::create($data_history);
+
+        $orden=AlpOrdenes::find($input['id']);
+
+        $orden->update($data_update_orden);
+
+        $orden = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
+          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
+          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
+          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+          ->where('alp_ordenes.id', $input['id'])
+          ->first();
+
+        if ($orden->id) {
+
+          $view= View::make('admin.ordenes.facturar', compact('orden'));
 
           $data=$view->render();
 

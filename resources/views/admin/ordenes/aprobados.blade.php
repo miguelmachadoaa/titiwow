@@ -70,30 +70,22 @@ Ordenes
                                                 <i class="livicon" data-name="plus" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Detalle"></i>
                                             </a>
 
-                                            <div style="display: inline-block;" class="estatus_{{ $row->id }}">
-                                            <button data-id="{{ $row->id }}"  data-codigo="{{ $row->cod_oracle_pedido }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-info confirmar" > {{ $row->estatus_nombre }} </button></div>
+                                            
 
                                             
-                                           @if($row->ordencompra=='')
+                                           @if($row->factura=='')
 
-                                            <div style="display: inline-block;" class="aprobar_{{ $row->id }}">
-                                            <button data-id="{{ $row->id }}"  data-codigo="{{ $row->ordencompra }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-info aprobar" > Aprobar </button></div>
+                                            <div style="display: inline-block;" class="facturar_{{ $row->id }}">
+                                            <button data-id="{{ $row->id }}"  data-codigo="{{ $row->factura }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-info facturar" > Facturar </button></div>
 
                                            @else
 
-                                            <div style="display: inline-block;" class="aprobar_{{ $row->id }}">
-                                            <button data-id="{{ $row->id }}"  data-codigo="{{ $row->ordencompra }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-success aprobar" > Aprobado </button></div>
+                                            <div style="display: inline-block;" class="facturar_{{ $row->id }}">
+                                            <button data-id="{{ $row->id }}"  data-codigo="{{ $row->ordencompra }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-success facturar" > Facturado </button></div>
 
 
                                            @endif
 
-                                            
-
-
-
-                                            <div style="display: inline-block;" class="pago_{{ $row->id }}">  
-
-                                            <button data-id="{{ $row->id }}" class="btn btn-xs btn-success pago" > {{ $row->estatus_pago_nombre }} </button></div>
 
 
                                     </td>
@@ -116,49 +108,32 @@ Ordenes
 <!-- Modal Detalle -->
 
 
+
+
   
 <!-- Modal Direccion -->
- <div class="modal fade" id="confirmarOrdenModal" role="dialog" aria-labelledby="modalLabeldanger">
+ <div class="modal fade" id="facturarOrdenModal" role="dialog" aria-labelledby="modalLabeldanger">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-primary">
-                        <h4 class="modal-title" id="modalLabeldanger">Confirmar Orden</h4>
+                        <h4 class="modal-title" id="modalLabeldanger">Facturar Orden</h4>
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{url('ordenes/confirmar')}}" id="confirmarOrdenForm" name="confirmarOrdenForm" class="form-horizontal">
+                        <form method="POST" action="{{url('ordenes/confirmar')}}" id="facturarOrdenForm" name="facturarOrdenForm" class="form-horizontal">
 
                             <input type="hidden" name="base" id="base" value="{{ url('/') }}">
-                            <input type="hidden" name="confirm_id" id="confirm_id" value="">
+                            <input type="hidden" name="facturar_id" id="facturar_id" value="">
 
                             {{ csrf_field() }}
                             <div class="row">
 
-                                
-
-                                <div class="form-group col-sm-12">
-                                    <label for="select21" class="col-md-3 control-label">
-                                        Estatus Ordenes
-                                    </label>
-                                    <div class="col-md-8" >
-                                        <select style="margin: 4px 0;" id="id_status" name="id_status" class="form-control ">
-                                            <option value="">Seleccione</option>
-                                           
-                                            @foreach($estatus_ordenes as $est)
-                                            <option value="{{ $est->id }}"
-                                                    @if($est->id == old('id_status')) selected="selected" @endif >{{ $est->estatus_nombre}}</option>
-                                            @endforeach
-                                          
-                                        </select>
-                                    </div>
-                                </div>
-
 
                                 <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Codigo Oracle Pedido </label>
+                                    <label class="col-md-3 control-label" for="nombre_producto">Numero Factura  </label>
 
                                     <div class="col-sm-8">
-                                        <input style="margin: 4px 0;" id="cod_oracle_pedido" name="cod_oracle_pedido" type="text" placeholder="" class="form-control">
+                                        <input style="margin: 4px 0;" id="num_factura" name="num_factura" type="text" placeholder="" class="form-control">
                                     </div>
                                 </div>
                                
@@ -179,61 +154,7 @@ Ordenes
                     </div>
                     <div class="modal-footer">
                         <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn  btn-primary sendConfirmar" >Agregar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-<!-- Modal Direccion -->
-
-
-
-  
-<!-- Modal Direccion -->
- <div class="modal fade" id="aprobarOrdenModal" role="dialog" aria-labelledby="modalLabeldanger">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header bg-primary">
-                        <h4 class="modal-title" id="modalLabeldanger">Aprobar Orden</h4>
-                    </div>
-                    <div class="modal-body">
-                        
-                        <form method="POST" action="{{url('ordenes/confirmar')}}" id="aprobarOrdenForm" name="aprobarOrdenForm" class="form-horizontal">
-
-                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
-                            <input type="hidden" name="aprobar_id" id="aprobar_id" value="">
-
-                            {{ csrf_field() }}
-                            <div class="row">
-
-
-                                <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Codigo Aprobacion Pedido </label>
-
-                                    <div class="col-sm-8">
-                                        <input style="margin: 4px 0;" id="cod_aprobar_pedido" name="cod_aprobar_pedido" type="text" placeholder="" class="form-control">
-                                    </div>
-                                </div>
-                               
-
-                                <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Notas</label>
-
-                                    <div class="col-sm-8">
-                                        <textarea style="margin: 4px 0;" id="notas" name="notas" type="text" placeholder="Notas" class="form-control"></textarea>
-                                    </div>
-                                </div>
-
-
-                            </div>
-                        </form>
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn  btn-primary sendAprobar" >Agregar</button>
+                        <button type="button" class="btn  btn-primary sendFacturar" >Agregar</button>
                     </div>
                 </div>
             </div>
@@ -269,30 +190,11 @@ Ordenes
 
 
 
-$("#confirmarOrdenForm").bootstrapValidator({
-    fields: {
-        cod_oracle_pedido: {
-            validators: {
-                notEmpty: {
-                    message: 'Codigo Oracle  es Requerido'
-                }
-            },
-            required: true,
-            minlength: 3
-        },
-        id_status: {
-            validators:{
-                notEmpty:{
-                    message: 'Debe seleccionar un estatus'
-                }
-            }
-        }
-    }
-});
 
-$("#aprobarOrdenForm").bootstrapValidator({
+
+$("#facturarOrdenForm").bootstrapValidator({
     fields: {
-        cod_aprobar_pedido: {
+        facturarOrdenForm: {
             validators: {
                 notEmpty: {
                     message: 'Codigo Aprobacion  es Requerido'
@@ -305,98 +207,49 @@ $("#aprobarOrdenForm").bootstrapValidator({
 });
 
 
- $('#tbOrdenes').on('click','.confirmar', function(){
+ 
 
-        $('#confirm_id').val($(this).data('id'));
-
-        $('#cod_oracle_pedido').val($(this).data('codigo'));
-
-        $('#id_status').val($(this).data('estatus'));
-
-            $("#confirmarOrdenModal").modal('show');
-        });
-
- $('#tbOrdenes').on('click','.aprobar', function(){
+ $('#tbOrdenes').on('click','.facturar', function(){
 
    
-        $('#aprobar_id').val($(this).data('id'));
+        $('#facturar_id').val($(this).data('id'));
 
-        $('#cod_aprobar_pedido').val($(this).data('codigo'));
+        $('#num_factura').val($(this).data('codigo'));
 
 
-            $("#aprobarOrdenModal").modal('show');
+            $("#facturarOrdenModal").modal('show');
         });
 
 
- $('.sendConfirmar').click(function () {
+
+
+
+
+ $('.sendFacturar').click(function () {
     
-    var $validator = $('#confirmarOrdenForm').data('bootstrapValidator').validate();
+    var $validator = $('#facturarOrdenForm').data('bootstrapValidator').validate();
 
     if ($validator.isValid()) {
 
         base=$('#base').val();
-        confirm_id=$('#confirm_id').val();
-        id_status=$('#id_status').val();
-        cod_oracle_pedido=$('#cod_oracle_pedido').val();
-        notas=$('#notas').val();
-
-
-        $.ajax({
-            type: "POST",
-            data:{ base, confirm_id, id_status, cod_oracle_pedido, notas },
-            url: base+"/admin/ordenes/storeconfirm",
-                
-            complete: function(datos){     
-
-                $(".estatus_"+confirm_id+'').html(datos.responseText);
-
-                $('#confirmarOrdenModal').modal('hide');
-
-                
-                $('#confirm_id').val('');
-                $('#id_status').val('');
-                $('#cod_oracle_pedido').val('');
-                $('#notas').val('');
-        
-            
-            }
-        });
-
-
-        //document.getElementById("addDireccionForm").submit();
-
-
-    }
-
-});
-
-
-
- $('.sendAprobar').click(function () {
-    
-    var $validator = $('#aprobarOrdenForm').data('bootstrapValidator').validate();
-
-    if ($validator.isValid()) {
-
-        base=$('#base').val();
-        id=$('#aprobar_id').val();
-        codigo=$('#cod_aprobar_pedido').val();
+        id=$('#facturar_id').val();
+        codigo=$('#num_factura').val();
         notas=$('#notas').val();
 
 
         $.ajax({
             type: "POST",
             data:{ base, id, codigo,  notas },
-            url: base+"/admin/ordenes/aprobar",
+            url: base+"/admin/ordenes/facturar",
                 
             complete: function(datos){     
 
-                $(".aprobar_"+id+'').html(datos.responseText);
+                $(".facturar_"+id+'').html(datos.responseText);
 
-                $('#aprobarOrdenModal').modal('hide');
+                $('#facturarOrdenModal').modal('hide');
                 
-                $('#aprobar_id').val('');
-                $('#cod_aprobar_pedido').val('');
+                $('#facturar_id').val('');
+                $('#num_factura').val('');
                 $('#notas').val('');
         
             

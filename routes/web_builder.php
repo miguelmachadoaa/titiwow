@@ -315,11 +315,15 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
         Route::post('/aprobar', 'Admin\AlpOrdenesController@aprobar')->name('ordenes.aprobar');
 
+        Route::post('/facturar', 'Admin\AlpOrdenesController@facturar')->name('ordenes.facturar');
+
         Route::get('/empresas/list', 'Admin\AlpOrdenesController@empresas')->name('ordenes.empresas');
 
         Route::get('/aprobados/list', 'Admin\AlpOrdenesController@aprobados')->name('ordenes.aprobados');
 
         Route::get('/recibidos/list', 'Admin\AlpOrdenesController@recibidos')->name('ordenes.recibidos');
+
+        Route::get('/facturados/list', 'Admin\AlpOrdenesController@facturados')->name('ordenes.facturados');
 
     });
 
