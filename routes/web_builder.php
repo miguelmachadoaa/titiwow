@@ -518,6 +518,8 @@ Route::get('miscompras', 'Frontend\ClientesFrontController@miscompras')->name('f
 
 Route::get('misamigos', 'Frontend\ClientesFrontController@misamigos')->name('frontend.clientes.misamigos');
 
+Route::get('miestatus', 'Frontend\ClientesFrontController@miestatus')->name('frontend.clientes.miestatus');
+
 Route::get('misdirecciones', 'Frontend\ClientesFrontController@misdirecciones')->name('frontend.clientes.misdirecciones');
 
 

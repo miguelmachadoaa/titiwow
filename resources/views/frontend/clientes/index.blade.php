@@ -140,6 +140,19 @@ Area clientes
 
             @endif
 
+            @if (Sentinel::getUser()->hasAnyAccess(['clientes.misamigos']))
+ 
+            <a  href="{{ url('miestatus') }}" class=" btn-large ">
+                <div class="row">
+                <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-users"></i></div>
+                <div class="col-sm-12">Mi Estatus </div>
+                </div>
+        
+
+            </a>
+
+            @endif
+
             <a href="{{ url('productos') }}" class=" btn-large ">
                 <div class="row">
                 <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-shopping-cart"></i></div>
