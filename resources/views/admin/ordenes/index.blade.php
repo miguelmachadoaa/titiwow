@@ -56,7 +56,7 @@ Ordenes
                             <tbody>
 
                                 @foreach ($ordenes as $row)
-                                <tr>
+                                <tr id="{!! $row->id !!}">
                                     <td>{!! $row->id !!}</td>
                                     <td>{!! $row->referencia!!}</td>
                                     <td>{!! $row->first_name.' '.$row->last_name !!}</td>

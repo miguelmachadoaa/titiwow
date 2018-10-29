@@ -27,6 +27,7 @@ class AlpOrdenes extends Model
         'monto_total',
         'cod_oracle_pedido',
         'ordencompra',
+        'tracking',
         'factura',
         'estatus',
         'estatus_pago',

@@ -52,7 +52,7 @@ Cliente
                             <div class="panel-heading">
                                 <h3 class="panel-title">
                                     <i class="livicon" data-name="share" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                                    Historia de Cambios del Envio 
+                                    Historia de Cambios
                                 </h3>
                                 
                             </div>

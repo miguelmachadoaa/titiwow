@@ -19,6 +19,8 @@ class VerifyCsrfToken extends Middleware
        'storeamigo', //
        'empresas/storeamigo', //
        'clientes/deleteamigo', //
+       'clientes/eliminar', //
+       'admin/clientes/eliminar', //
        'empresas/delamigo', //
        'cart/updatecart', //
        'formasenvio/storecity', //

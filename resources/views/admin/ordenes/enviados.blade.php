@@ -29,7 +29,7 @@ Ordenes
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Ordenes
+                       Ordenes Enviadas
                     </h4>
                     <div class="pull-right">
                   <!--  <a href="{{ route('admin.ordenes.create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear categoria</a>-->
@@ -70,22 +70,10 @@ Ordenes
                                                 <i class="livicon" data-name="plus" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Detalle"></i>
                                             </a>
 
-                                            
+                                           
 
                                             
-                                           @if($row->factura=='')
-
-                                            <div style="display: inline-block;" class="facturar_{{ $row->id }}">
-                                            <button data-id="{{ $row->id }}"  data-codigo="{{ $row->factura }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-info facturar" > Facturar </button></div>
-
-                                           @else
-
-                                            <div style="display: inline-block;" class="facturar_{{ $row->id }}">
-                                            <button data-id="{{ $row->id }}"  data-codigo="{{ $row->ordencompra }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-success facturar" > Facturado </button></div>
-
-
-                                           @endif
-
+                                          
 
 
                                     </td>
@@ -107,33 +95,30 @@ Ordenes
 
 <!-- Modal Detalle -->
 
-
-
-
   
 <!-- Modal Direccion -->
- <div class="modal fade" id="facturarOrdenModal" role="dialog" aria-labelledby="modalLabeldanger">
+ <div class="modal fade" id="enviarOrdenModal" role="dialog" aria-labelledby="modalLabeldanger">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-primary">
-                        <h4 class="modal-title" id="modalLabeldanger">Facturar Orden</h4>
+                        <h4 class="modal-title" id="modalLabeldanger">Enviar Orden</h4>
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{url('ordenes/confirmar')}}" id="facturarOrdenForm" name="facturarOrdenForm" class="form-horizontal">
+                        <form method="POST" action="{{url('ordenes/confirmar')}}" id="enviarOrdenForm" name="enviarOrdenForm" class="form-horizontal">
 
                             <input type="hidden" name="base" id="base" value="{{ url('/') }}">
-                            <input type="hidden" name="facturar_id" id="facturar_id" value="">
+                            <input type="hidden" name="enviar_id" id="enviar_id" value="">
 
                             {{ csrf_field() }}
                             <div class="row">
 
 
                                 <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Numero Factura  </label>
+                                    <label class="col-md-3 control-label" for="nombre_producto">Tracking </label>
 
                                     <div class="col-sm-8">
-                                        <input style="margin: 4px 0;" id="num_factura" name="num_factura" type="text" placeholder="" class="form-control">
+                                        <input style="margin: 4px 0;" id="tracking" name="tracking" type="text" placeholder="" class="form-control">
                                     </div>
                                 </div>
                                
@@ -154,7 +139,7 @@ Ordenes
                     </div>
                     <div class="modal-footer">
                         <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn  btn-primary sendFacturar" >Agregar</button>
+                        <button type="button" class="btn  btn-primary sendEnviar" >Agregar</button>
                     </div>
                 </div>
             </div>
@@ -190,14 +175,12 @@ Ordenes
 
 
 
-
-
-$("#facturarOrdenForm").bootstrapValidator({
+$("#enviarOrdenForm").bootstrapValidator({
     fields: {
-        facturarOrdenForm: {
+        tracking: {
             validators: {
                 notEmpty: {
-                    message: 'Codigo Aprobacion  es Requerido'
+                    message: 'Codigo Oracle  es Requerido'
                 }
             },
             required: true,
@@ -207,52 +190,50 @@ $("#facturarOrdenForm").bootstrapValidator({
 });
 
 
- 
 
- $('#tbOrdenes').on('click','.facturar', function(){
+
+
+
+ $('#tbOrdenes').on('click','.tracking', function(){
 
    
-        $('#facturar_id').val($(this).data('id'));
+        $('#enviar_id').val($(this).data('id'));
 
-        $('#num_factura').val($(this).data('codigo'));
+        $('#tracking').val($(this).data('codigo'));
 
 
-            $("#facturarOrdenModal").modal('show');
+            $("#enviarOrdenModal").modal('show');
         });
 
 
 
 
-
-
- $('.sendFacturar').click(function () {
+ $('.sendEnviar').click(function () {
     
-    var $validator = $('#facturarOrdenForm').data('bootstrapValidator').validate();
+    var $validator = $('#enviarOrdenForm').data('bootstrapValidator').validate();
 
     if ($validator.isValid()) {
 
         base=$('#base').val();
-        id=$('#facturar_id').val();
-        codigo=$('#num_factura').val();
+        id=$('#enviar_id').val();
+        codigo=$('#tracking').val();
         notas=$('#notas').val();
 
 
         $.ajax({
             type: "POST",
             data:{ base, id, codigo,  notas },
-            url: base+"/admin/ordenes/facturar",
+            url: base+"/admin/ordenes/enviar",
                 
             complete: function(datos){     
 
-                //$(".facturar_"+id+'').html(datos.responseText);
                 $("#"+id+'').remove();
 
-                $('#facturarOrdenModal').modal('hide');
+                $('#enviarOrdenModal').modal('hide');
                 
-                $('#facturar_id').val('');
-                $('#num_factura').val('');
+                $('#enviar_id').val('');
+                $('#tracking').val('');
                 $('#notas').val('');
-        
             
             }
         });
@@ -281,3 +262,4 @@ $("#facturarOrdenForm").bootstrapValidator({
 
 
 @stop
+

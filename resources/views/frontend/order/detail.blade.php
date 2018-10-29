@@ -354,16 +354,13 @@ Carro de Productos
 
                     @endif  
 
-                   <div class="row">
-                       
-                       {{ print_r($preference) }}
-                   </div>
+                   
 
                     <!-- End formas de pago -->
 
                 </div>
                 
-            </div>
+            </div> <!-- end Row -->
 
         <br>  
 

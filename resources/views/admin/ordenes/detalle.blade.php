@@ -11,6 +11,10 @@ Orden {{$orden->id}}
 @section('header_styles')
 
     <link href="{{ asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet" />
+
+    <link href="{{ asset('assets/css/pages/timeline.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/pages/timeline2.css') }}" rel="stylesheet" />
+    
     <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
@@ -100,6 +104,101 @@ Orden {{$orden->id}}
         </div>
     </div>
     <!-- row-->
+
+
+
+
+
+    <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <i class="livicon" data-name="share" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                                    Historia de Cambios
+                                </h3>
+                                
+                            </div>
+                            <div class="panel-body">
+                                <!--timeline-->
+                                <div class="row">
+                                    <ul class="timeline">
+
+
+                                         @foreach($history as $indexKey => $row)
+
+                                            @if($indexKey%2==0)
+
+                                            <li>
+                                            <div class="timeline-badge">
+                                                <i class="livicon" data-name="users" data-c="#fff" data-hc="#fff" data-size="18" data-loop="true"></i>
+                                            </div>
+                                            <div class="timeline-panel" style="display:inline-block;">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title">{{ ucwords($row->estatus_nombre) }}</h4>
+                                                    <p>
+                                                        <small class="text-muted">
+                                                            <i class="livicon" data-name="bell" data-c="#F89A14" data-hc="#F89A14" data-size="18" data-loop="true"></i>
+                                                            {!! $row->created_at->diffForHumans().' por  '.$row->first_name.' '.$row->last_name !!}
+                                                        </small>
+                                                    </p>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>
+                                                        {{ $row->notas }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                            @else
+
+                                             <li class="timeline-inverted">
+                                            <div class="timeline-badge">
+                                                <i class="livicon" data-name="users" data-c="#fff" data-hc="#fff" data-size="18" data-loop="true"></i>
+                                            </div>
+                                            <div class="timeline-panel" style="display:inline-block;">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title">{{ ucwords($row->estatus_nombre) }}</h4>
+                                                    <p>
+                                                        <small class="text-muted">
+                                                            <i class="livicon" data-name="bell" data-c="#F89A14" data-hc="#F89A14" data-size="18" data-loop="true"></i>
+                                                            {!! $row->created_at->diffForHumans().' por  '.$row->first_name.' '.$row->last_name !!}
+                                                        </small>
+                                                    </p>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>
+                                                        {{ $row->notas }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                            @endif
+                                         
+
+                                         @endforeach
+
+
+                                    </ul>
+                                </div>
+                                <!--timeline ends-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--timeline2-->
+
+
+
+
+
+
+
+
+
+
 </section>
 
 

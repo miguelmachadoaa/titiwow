@@ -145,6 +145,8 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
         Route::post('/rechazar', 'Admin\AlpClientesController@rechazar')->name('clientes.rechazar');
 
+        Route::post('/eliminar', 'Admin\AlpClientesController@eliminar')->name('clientes.eliminar');
+
         });
 
     Route::resource('clientes', 'Admin\AlpClientesController');
@@ -317,6 +319,8 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
         Route::post('/facturar', 'Admin\AlpOrdenesController@facturar')->name('ordenes.facturar');
 
+        Route::post('/enviar', 'Admin\AlpOrdenesController@enviar')->name('ordenes.enviar');
+
         Route::get('/empresas/list', 'Admin\AlpOrdenesController@empresas')->name('ordenes.empresas');
 
         Route::get('/aprobados/list', 'Admin\AlpOrdenesController@aprobados')->name('ordenes.aprobados');
@@ -324,6 +328,8 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
         Route::get('/recibidos/list', 'Admin\AlpOrdenesController@recibidos')->name('ordenes.recibidos');
 
         Route::get('/facturados/list', 'Admin\AlpOrdenesController@facturados')->name('ordenes.facturados');
+
+        Route::get('/enviados/list', 'Admin\AlpOrdenesController@enviados')->name('ordenes.enviados');
 
     });
 
