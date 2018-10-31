@@ -40,7 +40,7 @@ Inventario
                     @if ($productos->count() >= 1)
                         <div class="table-responsive">
 
-                        <table class="table table-bordered">
+                        <table class="table table-bordered" id="tbInventario">
                             <thead>
                                 <tr>
                                     <th>Id</th>
@@ -60,14 +60,9 @@ Inventario
                                     <td>{!! $row->created_at->diffForHumans() !!}</td>
                                     <td>
                                             
-                                            
-
                                             <a href="{{ route('admin.inventario.edit', $row->id) }}">
                                                 <i class="fa fa-plus"></i>
                                             </a>
-
-
-                                              
 
                                     </td>
                                 </tr>
@@ -110,11 +105,30 @@ Inventario
         </div>
     </div>
 </div>
+
+ <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/jquery.dataTables.js') }}" ></script>
+ 
+ <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}" ></script>
+
+ 
 <script>
+
+
+
+
+
     $(function () {$('body').on('hidden.bs.modal', '.modal', function () {$(this).removeData('bs.modal');});});
     $(document).on("click", ".users_exists", function () {
 
         var group_name = $(this).data('name');
         $(".modal-header h4").text( group_name+" Group" );
-    });</script>
+    });
+
+     $('#tbInventario').DataTable({
+                      responsive: true,
+                      pageLength: 10
+                  });
+
+
+</script>
 @stop

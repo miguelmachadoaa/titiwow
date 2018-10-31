@@ -102,23 +102,31 @@ class AlpInventarioController extends JoshController
      * @param  int $id
      * @return Redirect
      */
-    public function update(FormapagoRequest $request, $id)
+    public function update(Request $request, $id)
     {
+
+
+         $user_id = Sentinel::getUser()->id;
+
+
        $data = array(
-            'nombre_forma_pago' => $request->nombre_forma_pago, 
-            'descripcion_forma_pago' => $request->descripcion_forma_pago
+            'id_producto' => $id, 
+            'cantidad' => $request->cantidad, 
+            'operacion' => '1', 
+            'id_user' => '1', 
+            'descripcion_forma_pago' => $user_id
         );
          
-       $forma = AlpProductos::find($id);
+       $inventario = AlpInventario::create($data);
     
-        $forma->update($data);
+      
 
-        if ($forma->id) {
+        if ($inventario->id) {
 
-            return redirect('admin/formaspago')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
+            return redirect('admin/inventario')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
 
         } else {
-            return Redirect::route('admin/formaspago')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+            return Redirect::route('admin/inventario')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
         }  
 
     }
