@@ -20,7 +20,7 @@ class CreateAlpOrdenesTable extends Migration
             $table->integer('id_forma_envio');
             $table->integer('id_forma_pago');
             $table->integer('id_address');
-            $table->decimal('monto_total');
+            $table->decimal('monto_total',20,2);
             $table->string('cod_oracle_pedido')->nullable();
             $table->string('ordencompra')->nullable();
             $table->string('factura')->nullable();
