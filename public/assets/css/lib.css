@@ -962,7 +962,7 @@ footer a:hover, footer a:active{
 /*Productos Listado Inicio*/
 .productos{
     margin: 20px 0px;
-    min-height: 372px;
+    min-height: 399px;
     border: 1px solid #dcdcdc;
     -webkit-border-radius: 15px 15px;  /* Safari  */
     -moz-border-radius: 15px 15px;     /* Firefox */

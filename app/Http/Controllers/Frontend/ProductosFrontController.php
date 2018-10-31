@@ -202,6 +202,72 @@ class ProductosFrontController extends Controller
         return \View::make('frontend.categorias', compact('productos','cataname','slug', 'descuento', 'precio', 'states'));
 
     }
+    public function marcas($slug)
+    {
+
+
+        $descuento='1'; 
+
+        $precio = array();
+
+
+        $marca = AlpCategorias::where('slug','=', $slug)->firstOrFail();
+
+        $marcaname = DB::table('alp_marcas')->select('nombre_marca','descripcion_marca')->where('id','=', $marca->id)->where('estado_registro','=', 1)->get();
+
+        $productos =  DB::table('alp_productos')->select('alp_productos.*')
+        ->where('alp_productos.id_marca','=', $marca->id)
+        ->where('alp_productos.estado_registro','=',1)
+        ->groupBy('alp_productos.id')
+        ->paginate(12); 
+
+         if (Sentinel::check()) {
+
+            $user_id = Sentinel::getUser()->id;
+
+            $role=RoleUser::where('user_id', $user_id)->first();
+
+            $cliente = AlpClientes::where('id_user_client', $user_id )->first();
+
+            if (isset($cliente) ) {
+
+                if ($cliente->id_empresa!=0) {
+                    
+                     $empresa=AlpEmpresas::find($cliente->id_empresa);
+
+                    $cliente['nombre_empresa']=$empresa->nombre_empresa;
+
+                    $descuento=(1-($empresa->descuento_empresa/100));
+                }
+               
+            }
+
+            if ($role->role_id) {
+               
+                foreach ($productos as  $row) {
+                    
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $role->role_id)->first();
+
+                    if (isset($pregiogrupo->id)) {
+                       
+                        $precio[$row->id]['precio']=$pregiogrupo->precio;
+                        $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+
+                    }
+
+                }
+                
+            }
+
+        }
+
+         $states=State::where('config_states.country_id', '47')->get();
+
+
+        return \View::make('frontend.marcas', compact('productos','marcaname','slug', 'descuento', 'precio', 'states'));
+
+    }
+
 
     public function mySearch(Request $request)
     {
