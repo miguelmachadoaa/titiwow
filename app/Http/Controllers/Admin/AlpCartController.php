@@ -380,7 +380,7 @@ class AlpCartController extends JoshController
         echo "<br>";
 
        echo $request->merchant_order_id;
-        echo "<br>";*/
+        echo "<br>";*/  
 
 
         $input=$request->all();
@@ -531,7 +531,7 @@ class AlpCartController extends JoshController
 
          AlpPagos::create($data_pago);
 
-
+         $aviso_pago="Hemos recibido su pago satifactoriamente segun referencia".$request->preference_id." Le llegara un email con la descripcin de su pago. Muchas gracias!";
 
        //  $datalles=AlpDetalles::where('id_orden', $orden->id)->get();
 
@@ -551,7 +551,7 @@ class AlpCartController extends JoshController
          $states=State::where('config_states.country_id', '47')->get();
 
 
-          return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entrega', 'states'));
+          return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
 
          
 
@@ -588,6 +588,8 @@ class AlpCartController extends JoshController
        $cart= \Session::get('cart');
 
       $total=$this->total();
+
+      $aviso_pago='0';
 
       #$input=$request->all();
 
@@ -724,7 +726,7 @@ class AlpCartController extends JoshController
          $states=State::where('config_states.country_id', '47')->get();
 
 
-          return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entrega', 'states'));
+          return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
 
          
 
