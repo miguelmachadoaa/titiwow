@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Editar Forma de Pago
+Agregar Inventario
 @parent
 @stop
 
@@ -10,7 +10,7 @@ Editar Forma de Pago
 @section('content')
 <section class="content-header">
     <h1>
-        Editar Forma de Pago
+        Agregar Inventario
     </h1>
     <ol class="breadcrumb">
         <li>
@@ -19,8 +19,9 @@ Editar Forma de Pago
                 Inicio
             </a>
         </li>
-        <li>Forma de Pagos</li>
-        <li class="active">Editar</li>
+        <li>Agregar Inventario</li>
+
+        <li class="active">Agregar Inventario</li>
     </ol>
 </section>
 
@@ -31,46 +32,32 @@ Editar Forma de Pago
             <div class="panel panel-primary ">
                 <div class="panel-heading">
                     <h4 class="panel-title"> <i class="livicon" data-name="wrench" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Editar Forma de Pago
+                       Agregar Inventario
                     </h4>
                 </div>
                 <div class="panel-body">
                     
-                        {!! Form::model($forma, ['url' => URL::to('admin/formaspago/'. $forma->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($producto, ['url' => URL::to('admin/inventario/'. $producto->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                           
                              <div class="form-group {{ $errors->
-                            first('nombre_forma_pago', 'has-error') }}">
+                            first('cantidad', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Nombre Forma de Pago
+                                Cantidad
                             </label>
                             <div class="col-sm-5">
-                                <input type="text" id="nombre_forma_pago" name="nombre_forma_pago" class="form-control" placeholder="Nombre de Forma de Pago"
-                                       value="{!! old('nombre_forma_pago', $forma->nombre_forma_pago) !!}">
+                                <input required="true" type="text" id="cantidad" name="cantidad" class="form-control" placeholder="Cantidad"
+                                       value="{!! old('cantidad') !!}">
                             </div>
                             <div class="col-sm-4">
-                                {!! $errors->first('nombre_forma_pago', '<span class="help-block">:message</span> ') !!}
+                                {!! $errors->first('cantidad', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
 
-                        <div class="form-group {{ $errors->
-                            first('descripcion_forma_pago', 'has-error') }}">
-                            <label for="title" class="col-sm-2 control-label">
-                                Descaripcion Forma de Pago
-                            </label>
-                            <div class="col-sm-5">
-                                
-
-                                <textarea class="form-control resize_vertical" id="descripcion_forma_pago" name="descripcion_forma_pago" placeholder="Descripcion Forma de Pago" rows="5">{!! old('descripcion_forma_pago', $forma->descripcion_forma_pago) !!}</textarea>
-                            </div>
-                            <div class="col-sm-4">
-                                {!! $errors->first('descripcion_forma_pago', '<span class="help-block">:message</span> ') !!}
-                            </div>
-                        </div>
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
-                                <a class="btn btn-danger" href="{{ route('admin.formaspago.index') }}">
+                                <a class="btn btn-danger" href="{{ route('admin.inventario.index') }}">
                                     Cancelar
                                 </a>
                                 <button type="submit" class="btn btn-success">
