@@ -968,7 +968,13 @@ footer a:hover, footer a:active{
         width: 140px;
         height: 140px;
         margin: 0px auto;
-}}
+    }
+    .products img .cat{
+        width: 160px;
+        height: 160px;
+        margin: 0px auto;
+    }
+}
 @media (max-width : 950px) {
     .products img {
         width: 150px;

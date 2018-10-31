@@ -26,9 +26,7 @@ Resultado de la Búsqueda @parent
                     <a href="#">Busqueda</a>
                 </li>
             </ol>
-            <div class="pull-right">
-                <i class="livicon icon3" data-name="edit" data-size="20" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i> Resultado
-            </div>
+            
         </div>
     </div>
 @stop
@@ -38,18 +36,22 @@ Resultado de la Búsqueda @parent
 @section('content')
 <div class="container contain_body">
 <div class="row">
+<div class="col-md-3">
+    <h3>Categorias</h3>
+</div>
 <div class="col-md-9">
     <div class="products">
         <div class="row">
         @if(count($productos)>0)
             @foreach($productos as $producto)
-                <div class="col-md-4 col-sm-6 col-xs-6">
+                <div class="col-md-3 col-sm-6 col-xs-6">
                     <div class="productos">
                         <div class="text-align:center;">
                             <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive"></a>
                         </div>
-                        <a href="{{ route('producto', [$producto->slug]) }}" ><h1>{{ $producto->nombre_producto }}</h1></a>
+                        <a href="{{ route('producto', [$producto->slug]) }}" ><h3>{{ $producto->nombre_producto }}</h3></a>
                         <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="text-align:center;">{{ $producto->presentacion_producto }}</h6></a>
+                        <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
                         <div class="product_info">
                             
                             @if($descuento==1)
@@ -97,13 +99,13 @@ Resultado de la Búsqueda @parent
 
 
                             <p class="product_botones">
-                                <a class="btn btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
-                                <a class="btn btn-primary" href="{{ route('producto', [$producto->slug]) }}">Ver Más</a>
+                                <a class="btn btn-sm btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
+                                <a class="btn btn-sm btn-primary" href="{{ route('producto', [$producto->slug]) }}">Ver Más</a>
                             </p>
                         </div>
                     </div>
                 </div>
-                @if ($loop->iteration % 3 == 0)
+                @if ($loop->iteration % 4 == 0)
                     </div>
                     <div class="row">
                 @endif
@@ -142,9 +144,6 @@ Resultado de la Búsqueda @parent
         </div>
         @endif
     </div>
-</div>
-<div class="col-md-3">
-    <h3>Categorias</h3>
 </div>
 </div>
 </div>
