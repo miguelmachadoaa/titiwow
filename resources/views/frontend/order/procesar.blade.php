@@ -56,6 +56,15 @@ Carro de Productos
 <div class="container contain_body text-center">
     <div class="row">
 
+        @if($aviso_pago!='0')
+        <div class="col-sm-12">
+            <div class="alert alert-success" >
+                
+               <h3>{{ $aviso_pago }}</h3> 
+            </div>
+        </div>
+        @endif
+
         <div class="col-sm-12">
 
             <h3>Gracias por su compra, recibira un correo con el detalle de su pedido</h3>
