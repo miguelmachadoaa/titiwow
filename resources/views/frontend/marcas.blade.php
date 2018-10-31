@@ -9,7 +9,7 @@
 @stop
 @section('meta_tags')
 @php 
-    foreach($cataname as $catana)
+    foreach($marcaname as $catana)
         $catego = $catana->nombre_categoria;
         $categodes = $catana->descripcion_categoria
 @endphp
