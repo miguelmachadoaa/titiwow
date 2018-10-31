@@ -79,6 +79,21 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
     Route::resource('formaspago', 'Admin\AlpFormaspagoController');
 
 
+
+    Route::group(['prefix' => 'inventario'], function () {
+
+        Route::get('{id}/delete', 'Admin\AlpInventarioController@destroy')->name('inventario.delete');
+
+        Route::get('{id}/confirm-delete', 'Admin\AlpInventarioController@getModalDelete')->name('inventario.confirm-delete');
+
+        Route::get('{id}/restore', 'Admin\AlpInventarioController@getRestore')->name('inventario.restore');
+
+
+    });
+
+    Route::resource('inventario', 'Admin\AlpInventarioController');
+
+
     Route::group(['prefix' => 'formasenvio'], function () {
 
         Route::get('{id}/delete', 'Admin\AlpFormasenvioController@destroy')->name('formasenvio.delete');

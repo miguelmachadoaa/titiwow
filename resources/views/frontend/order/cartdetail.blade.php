@@ -2,6 +2,8 @@
     
     <div class="col-sm-6" style="border-right: 1px solid #ddd;">
 
+        @if($error=='0')
+
         <div class="col-sm-6">
             <img class="img img-responsive" src="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}">
         </div>
@@ -10,6 +12,14 @@
             <p> <b>COP{{ number_format($producto->precio_oferta, 0, '.', ',')}}</b></p>
             <p>Cantidad: {{ $producto->cantidad }}</p>
         </div>
+
+        @else
+
+        <h3>{{ $error }}</h3>
+
+        @endif
+
+        
         
 
     </div>

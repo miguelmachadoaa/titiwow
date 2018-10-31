@@ -80,8 +80,14 @@ class AlpCartController extends JoshController
       $total=$this->total();
 
 
+            
+     $inv=$this->inventario();
 
-      return view('frontend.cart', compact('cart', 'total', 'configuracion', 'states'));
+
+
+
+
+      return view('frontend.cart', compact('cart', 'total', 'configuracion', 'states', 'inv'));
     }
 
     public function mercadopago()
@@ -153,6 +159,33 @@ class AlpCartController extends JoshController
 
           $countries = Country::all();
 
+
+            $entradas = AlpInventario::select(DB::raw( "SUM(cantidad) as cantidad_total"))
+              ->groupBy('id_producto')
+              ->where('operacion', '1')
+              ->get();
+
+              $inv = array();
+
+              foreach ($entradas as $row) {
+                
+                $inv[$row->id_producto]=$row->cantidad_total;
+
+              }
+
+            $salidas = AlpInventario::select(DB::raw( "SUM(cantidad) as cantidad_total"))
+              ->groupBy('id_producto')
+              ->where('operacion', '1')
+              ->get();
+
+              foreach ($salidas as $row) {
+                
+                $inv[$row->id_producto]= $inv[$row->id_producto]-$row->cantidad_total;
+
+              }
+
+
+
          if(count($cart)<=0){
 
             return redirect('productos');
@@ -190,16 +223,18 @@ class AlpCartController extends JoshController
               "external_reference" =>'123456'
             ];
 
-            
+           $mp = new MP();
 
-             $preference = MP::post("/checkout/preferences",$preference_data);
-            
-            //print_r($preference);
+           $preference = $mp::post("/checkout/preferences",$preference_data);
+
+          /* $preference = array(
+            'response' =>  array(
+              'sandbox_init_point' => '#', ),
+          );*/
 
             $states=State::where('config_states.country_id', '47')->get();
 
-
-            return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference'));
+            return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv'));
 
          }
 
@@ -539,8 +574,13 @@ class AlpCartController extends JoshController
        $cart= \Session::get('cart');
 
        $descuento='1'; 
+       $error='0'; 
 
        $precio = array();
+
+       $inv=$this->inventario();
+
+       //dd($inv);
 
 
        if (Sentinel::check()) {
@@ -629,10 +669,21 @@ class AlpCartController extends JoshController
 
        }
 
-
-      $cart[$producto->slug]=$producto;
-
       $producto->cantidad=1;
+
+      
+      if($inv[$producto->id]>=$producto->cantidad){
+
+        $cart[$producto->slug]=$producto;
+
+      }else{
+
+        $error="No hay existencia suficiente de este producto";
+      }
+
+
+
+      
 
 
       //$cart=$this->reloadCart();
@@ -647,7 +698,7 @@ class AlpCartController extends JoshController
 
        $total=$this->total();
 
-       $view= View::make('frontend.order.cartdetail', compact('producto', 'cantidad', 'total'));
+       $view= View::make('frontend.order.cartdetail', compact('producto', 'cantidad', 'total', 'error'));
 
         $data=$view->render();
 
@@ -676,6 +727,9 @@ class AlpCartController extends JoshController
     {
        $cart= \Session::get('cart');
 
+
+
+
        $cart[$producto->slug]->cantidad=$cantidad;
        
       // return $cart;
@@ -691,7 +745,22 @@ class AlpCartController extends JoshController
     {
        $cart= \Session::get('cart');
 
-       $cart[$request->slug]->cantidad=$request->cantidad;
+
+       $inv=$this->inventario();
+
+       $error='0';
+
+
+       if($inv[$request->id]>=$request->cantidad){
+
+        $cart[$request->slug]->cantidad=$request->cantidad;
+
+      }else{
+
+        $error="No hay existencia suficiente de este producto";
+      }
+
+       
 
        $configuracion=AlpConfiguracion::where('id', '1')->first();
 
@@ -705,7 +774,7 @@ class AlpCartController extends JoshController
        $total=$this->total();
 
 
-        $view= View::make('frontend.listcart', compact('cart', 'total', 'configuracion'));
+        $view= View::make('frontend.listcart', compact('cart', 'total', 'configuracion', 'error'));
 
         $data=$view->render();
 
@@ -761,6 +830,55 @@ class AlpCartController extends JoshController
 
       
     }
+
+
+
+    private function inventario()
+    {
+       
+
+      $entradas = AlpInventario::groupBy('id_producto')
+              ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
+              ->where('alp_inventarios.operacion', '1')
+              ->get();
+
+              $inv = array();
+
+              foreach ($entradas as $row) {
+                
+                $inv[$row->id_producto]=$row->cantidad_total;
+
+              }
+
+
+            $salidas = AlpInventario::select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
+              ->groupBy('id_producto')
+              ->where('operacion', '2')
+              ->get();
+
+              foreach ($salidas as $row) {
+                
+                $inv[$row->id_producto]= $inv[$row->id_producto]-$row->cantidad_total;
+
+            }
+
+            return $inv;
+
+
+      
+    }
+
+
+
+
+
+
+    
+
+
+
+
+
 
 
     private function reloadCart()

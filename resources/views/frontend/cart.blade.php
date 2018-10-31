@@ -82,6 +82,8 @@ Carro de Productos
 
                     <tbody>
 
+
+
                         @foreach($cart as $row)
 
                             <tr>

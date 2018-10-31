@@ -4,6 +4,14 @@
 
         <a class="btn  btn-link" href="{{url('cart/vaciar')}}">Vaciar</a>
 
+        @if($error!='0')
+            <div class="col-md-10 col-md-offset-1 table-responsive" >
+                <div class="alert alert-danger">
+                    {{ $error }}
+                </div>
+            </div>
+        @endif
+
         @if(count($cart))
                    
             <br>
