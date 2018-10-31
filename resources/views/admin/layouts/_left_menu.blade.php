@@ -113,6 +113,15 @@
             </li>
             @endif
 
+            @if (Sentinel::getUser()->hasAnyAccess(['ordenes.consolidado']))
+                <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.ordenes.consolidado') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Ordenes Consolidado del Dia
+                </a>
+            </li>
+            @endif
+
              @if (Sentinel::getUser()->hasAnyAccess(['ordenes.index']))
                 <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.ordenes.index') !!}">

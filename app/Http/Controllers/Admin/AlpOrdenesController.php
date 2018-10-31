@@ -16,6 +16,8 @@ use Sentinel;
 use View;
 use Intervention\Image\Facades\Image;
 use DOMDocument;
+use Carbon\Carbon;
+
 
 
 class AlpOrdenesController extends JoshController
@@ -43,6 +45,50 @@ class AlpOrdenesController extends JoshController
        
         // Show the page
         return view('admin.ordenes.index', compact('ordenes', 'estatus_ordenes'));
+
+    }
+
+    public function consolidado()
+    {
+        // Grab all the groups
+
+      
+
+        $dt = Carbon::now();
+
+
+        $date_inicio = Carbon::create($dt->year, $dt->month, $dt->day, 5, 59, 0); 
+        $date_inicio->subDay();
+
+
+        $date_fin = Carbon::create($dt->year, $dt->month, $dt->day, 6, 0, 0); 
+
+         
+/*echo 'dt: '.$dt;
+echo '<br>inicio: '.$date_inicio;
+echo '<br>fin: '.$date_fin;*/
+
+
+
+      
+        $ordenes = AlpOrdenes::all();
+
+
+
+        $estatus_ordenes = AlpEstatusOrdenes::all();
+
+         $ordenes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
+          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
+          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
+          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+          ->where('alp_ordenes.created_at', '>=', $date_inicio)
+          ->where('alp_ordenes.created_at', '<=', $date_fin)
+          ->get();
+       
+        // Show the page
+        return view('admin.ordenes.consolidado', compact('ordenes', 'estatus_ordenes'));
 
     }
 

@@ -331,6 +331,8 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
         Route::get('/enviados/list', 'Admin\AlpOrdenesController@enviados')->name('ordenes.enviados');
 
+        Route::get('/consolidado/list', 'Admin\AlpOrdenesController@consolidado')->name('ordenes.consolidado');
+
     });
 
 
