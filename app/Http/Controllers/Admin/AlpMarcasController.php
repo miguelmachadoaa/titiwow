@@ -96,10 +96,48 @@ class AlpMarcasController extends JoshController
      */
     public function update(MarcaRequest $request, $id)
     {
-       $data = array(
+       $imagen='0';
+       $picture = "";
+
+       if ($request->hasFile('image')) {
+            
+        $file = $request->file('image');
+
+        #echo $file.'<br>';
+        
+        $extension = $file->extension()?: 'png';
+        
+
+        $picture = str_random(10) . '.' . $extension;
+
+        #echo $picture.'<br>';
+
+        $destinationPath = public_path() . '/uploads/marcas/';
+
+        #echo $destinationPath.'<br>';
+
+        
+        $file->move($destinationPath, $picture);
+        
+        $imagen = $picture;
+
+        $data = array(
             'nombre_marca' => $request->nombre_marca, 
-            'descripcion_marca' => $request->descripcion_marca
+            'descripcion_marca' => $request->descripcion_marca,
+            'imagen_marca' =>$imagen, 
         );
+
+    }else{
+
+        $data = array(
+            'nombre_marca' => $request->nombre_marca, 
+            'descripcion_marca' => $request->descripcion_marca,
+            'imagen_marca' =>'default.png',
+        );
+
+
+    }
+
          
        $marca = AlpMarcas::find($id);
     

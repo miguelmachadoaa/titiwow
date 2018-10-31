@@ -24,7 +24,7 @@ class ProductosFrontController extends Controller
 
         $precio = array();
 
-        $productos = AlpProductos::where('alp_productos.estado_registro','=',1)->paginate(9);
+        $productos = AlpProductos::where('alp_productos.estado_registro','=',1)->paginate(12);
         
 
         if (Sentinel::check()) {
@@ -154,7 +154,7 @@ class ProductosFrontController extends Controller
         ->where('alp_productos_category.id_categoria','=', $categoria->id)
         ->where('alp_productos.estado_registro','=',1)
         ->groupBy('alp_productos.id')
-        ->paginate(9); 
+        ->paginate(12); 
 
          if (Sentinel::check()) {
 
@@ -210,7 +210,7 @@ class ProductosFrontController extends Controller
 
         $precio = array();
 
-        $productos = AlpProductos::search($request->get('buscar'))->where('alp_productos.estado_registro','=', 1)->orderBy('id', 'asc')->paginate(9); 	
+        $productos = AlpProductos::search($request->get('buscar'))->where('alp_productos.estado_registro','=', 1)->orderBy('id', 'asc')->paginate(12); 	
         $productos->appends(['buscar' => $request->get('buscar')]);
 
         if (Sentinel::check()) {

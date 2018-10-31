@@ -48,7 +48,9 @@ class FrontEndController extends JoshController
 
         $categorias = DB::table('alp_categorias')->select('alp_categorias.*')->where('destacado','=', 1)->where('alp_categorias.estado_registro','=',1)->orderBy('order', 'asc')->limit(9)->get();
 
-        $productos = DB::table('alp_productos')->select('alp_productos.*')->where('destacado','=', 1)->where('alp_productos.estado_registro','=',1)->orderBy('order', 'asc')->limit(8)->get();
+        $productos = DB::table('alp_productos')->select('alp_productos.*')->where('destacado','=', 1)->where('alp_productos.estado_registro','=',1)->orderBy('order', 'asc')->limit(12)->get();
+
+        $marcas = DB::table('alp_marcas')->select('alp_marcas.*')->where('destacado','=', 1)->where('alp_marcas.estado_registro','=',1)->orderBy('order', 'asc')->limit(12)->get();
 
         if (Sentinel::check()) {
 
@@ -94,7 +96,7 @@ class FrontEndController extends JoshController
          $states=State::where('config_states.country_id', '47')->get();
 
        
-        return view('index',compact('categorias','productos', 'descuento', 'precio', 'states'));
+        return view('index',compact('categorias','productos','marcas','descuento','precio', 'states'));
 
     }
     /*

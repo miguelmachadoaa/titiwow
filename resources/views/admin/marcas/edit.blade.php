@@ -36,7 +36,7 @@ Editar Marca
                 </div>
                 <div class="panel-body">
                     
-                        {!! Form::model($marca, ['url' => URL::to('admin/marcas/'. $marca->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($marca, ['url' => URL::to('admin/marcas/'. $marca->id), 'method' => 'put', 'class' => 'form-horizontal', 'files'=> true]) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                           
@@ -68,6 +68,56 @@ Editar Marca
                                 {!! $errors->first('descripcion_marca', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
+                        <div class="form-group">
+
+                            <label for="title" class="col-sm-2 control-label">Imagen de Marca</label>
+
+
+                            <div class="col-sm-5">
+
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+
+                                <div class="fileinput-new thumbnail" style="max-width: 200px; max-height: 200px;">
+
+                                
+                                    @if($marca->imagen_marca!='0')
+
+                                        <img src="{{URL::to('uploads/marcas/'.$marca->imagen_marca)}}" class="img-responsive" alt="Image">
+
+                                    @else
+                                        
+                                        <img src="{{ asset('assets/images/authors/no_avatar.jpg') }}" alt="..."
+                                            class="img-responsive"/>
+
+                                    @endif
+
+                                </div>
+
+                                <div class="fileinput-preview fileinput-exists thumbnail"
+                                    style="max-width: 200px; max-height: 150px;">
+                                        
+                                </div>
+
+                                <div>
+                                    <span class="btn btn-primary btn-file">
+
+                                        <span class="fileinput-new">Select image</span>
+
+                                        <span class="fileinput-exists">Change</span>
+
+                                        <input type="file" name="image" id="pic" accept="image/*"/>
+
+                                    </span>
+                                
+                                    <span class="btn btn-primary fileinput-exists"
+                                        data-dismiss="fileinput">Remove</span>
+
+                                </div>
+
+                            </div>
+                            </div>
+
+                            </div>
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                 <a class="btn btn-danger" href="{{ route('admin.marcas.index') }}">

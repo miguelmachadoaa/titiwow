@@ -21,6 +21,10 @@ class AlpMarcas extends Model
         'id',
         'nombre_marca',
         'descripcion_marca',
+        'imagen_marca',
+        'slug',
+        'destacado',
+        'order',
         'estado_registro',
         'id_user'
     ];

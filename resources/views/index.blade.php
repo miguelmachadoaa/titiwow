@@ -43,6 +43,10 @@ Inicio @parent
     <!-- Seccion categoria Inicio -->
     <div class="container cont_categorias">
         <div class="row">
+            <div class="col-md-12 col-sm-12 text-center">
+                <h3 class="catego">Categorías</h3>
+                <div class="separador"></div>
+            </div>
             <div class="col-md-12 col-sm-12 wow slideInLeft" data-wow-duration="1.5s">
                 <div class="row">
                     @if(!$categorias->isEmpty())
@@ -52,7 +56,6 @@ Inicio @parent
                                     <div class="layercat">
                                         <div class="text-align:center;" id="contenido_cat">
                                             <h2>{{ $categoria->nombre_categoria }}</h2>
-                                            <h5>{{ $categoria->descripcion_categoria }}</h5>
                                             <a href="{{ route('categoria', [$categoria->slug]) }}" class="botones_cat boton_cat">VER TODOS</a>                                
                                         </div>
                                     </div>
@@ -79,20 +82,22 @@ Inicio @parent
         <div class="container cont_categorias">
             <div class="row">
                 <div class="col-md-12 col-sm-12 text-center">
-                    <h3>Productos Destacados</h3>
+                    <h3 class="catego">Productos Más Vendidos</h3>
+                    <div class="separador"></div>
                 </div>
                 <div class="col-md-12 col-sm-12 ">
                     <div class="products">
                         <div class="row">
                         @if(!$productos->isEmpty())
                             @foreach($productos as $producto)
-                                <div class="col-md-3 col-sm-6 col-xs-6 ">
+                                <div class="col-md-2 col-sm-6 col-xs-6 ">
                                     <div class="productos">
                                         <div class="text-align:center;">
                                             <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive"></a>
                                         </div>
-                                        <a href="{{ route('producto', [$producto->slug]) }}" ><h1>{{ $producto->nombre_producto }}</h1></a>
+                                        <a href="{{ route('producto', [$producto->slug]) }}" ><h3>{{ $producto->nombre_producto }}</h3></a>
                                         <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="text-align:center;">{{ $producto->presentacion_producto }}</h6></a>
+                                        <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
                                         <div class="product_info">
                                         @if($descuento==1)
 
@@ -134,13 +139,13 @@ Inicio @parent
 
                                             @endif
                                             <p class="product_botones">
-                                                <a class="btn btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
-                                                <a class="btn btn-primary" href="{{ route('producto', [$producto->slug]) }}">Ver Más</a>
+                                                <a class="btn btn-sm btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
+                                                <a class="btn btn-sm btn-primary" href="{{ route('producto', [$producto->slug]) }}">Ver Más</a>
                                             </p>
                                         </div>
                                     </div>
                                 </div>
-                                @if ($loop->iteration % 4 == 0)
+                                @if ($loop->iteration % 6 == 0)
                                     </div>
                                     <div class="row">
                                 @endif
@@ -156,6 +161,39 @@ Inicio @parent
             </div>
 </div>
             <!-- //Seccion productos destacados Fin -->
+            <!-- Seccion marcas Inicio -->
+            <div class="container cont_categorias">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 text-center">
+                        <h3 class="catego">Marcas</h3>
+                        <div class="separador"></div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 wow slideInLeft" data-wow-duration="1.5s"> 
+                        <div class="row">
+                            @if(!$marcas->isEmpty())
+                                @foreach($marcas as $marca)
+                                    <div class="col-md-2 col-sm-6 col-xs-6" >
+                                        <div class="brands">
+                                            <a href="{{ route('marcas', [$marca->slug]) }}" >
+                                                    <img src="{{ url('/').'/uploads/marcas/'.$marca->imagen_marca }}" class="img-responsive" title="{{ $marca->nombre_marca }}" alt="{{ $marca->nombre_marca }}">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    @if ($loop->iteration % 6 == 0)
+                                        </div>
+                                        <div class="row">
+                                    @endif
+                                @endforeach
+                            @else
+                            <div class="alert alert-danger">
+                                <strong>Lo Sentimos!</strong> No Existen Marcas para Mostrar.
+                            </div>
+                        @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- //Seccion marcas Fin -->
 
     </div>
     <!-- //Container End -->

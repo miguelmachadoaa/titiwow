@@ -17,6 +17,10 @@ class CreateAlpMarcasTable extends Migration
             $table->increments('id');
             $table->string('nombre_marca');
             $table->text('descripcion_marca')->nullable();
+            $table->string('imagen_marca')->nullable();
+            $table->string('slug')->unique();
+            $table->integer('destacado')->nullable();
+            $table->integer('order')->nullable();
             $table->integer('estado_registro')->default(1);
             $table->integer('id_user');
             $table->timestamps();
