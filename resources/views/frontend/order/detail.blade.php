@@ -283,9 +283,9 @@ Carro de Productos
                                     @if($fp->id==2)
 
                                         
-                                    <a href="{{ $preference['response']['sandbox_init_point'] }}">
+                                   <!-- <a href="{{ $preference['response']['sandbox_init_point'] }}">-->
 
-                                        <div data-id={{ $fp->id }} class="row forma border pointer ">
+                                        <div data-href="{{ $preference['response']['sandbox_init_point'] }}" data-id={{ $fp->id }} class="row forma border pointer mercadopago ">
                                             
                                             <div class="col-sm-2 ">
                                                 
@@ -305,7 +305,7 @@ Carro de Productos
                                             </div>
 
                                         </div>
-                                    </a>
+                                    <!--</a>-->
 
                                     @else
 
@@ -556,8 +556,8 @@ Carro de Productos
             }else{
 
                 $('#id_forma_pago').val(id_forma_pago);
-                base=$('#base').val();
 
+                base=$('#base').val();
 
                 $.ajax({
                     type: "POST",
@@ -579,14 +579,59 @@ Carro de Productos
                     }
                 });
 
-
-              //  $('#procesarForm').submit();
-
             }
 
+        });
 
+
+        $('body').on('click', '.mercadopago', function (){
+
+
+
+            id_direccion= $("#id_direccion").val(); 
             
+            id_forma_envio=$("input[name='id_forma_envio']:checked").val(); 
+            
+            id_forma_pago=$(this).data('id');
 
+            url=$(this).data('href');
+
+
+            if (id_forma_envio==undefined || id_direccion==undefined || id_forma_pago==undefined) {
+
+               // alert('Todos los capos son obligatorios');
+
+                $('.res_env').html('<div class="alert alert-danger" role="alert">Todos los campos son obligatorios</div>');
+
+
+            }else{
+
+                $('#id_forma_pago').val(id_forma_pago);
+
+                base=$('#base').val();
+
+                $.ajax({
+                    type: "POST",
+                    data:{id_forma_envio, id_direccion, id_forma_pago},
+
+                    url: base+"/cart/verificarDireccion",
+                        
+                    complete: function(datos){     
+
+                       if(datos.responseText=='true'){
+
+                            window.location.href = url;
+
+                       }else{
+
+                            $('.res_env').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+
+                       }
+                    
+                    }
+                });
+
+            }
 
         });
 
