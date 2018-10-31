@@ -38,5 +38,7 @@ class DatabaseSeeder extends Seeder
         $this->call(EnviosStatusTableSeeder::class);
         $this->call(AlpinistasTableSeeder::class);
         $this->call(EstrucAddressTableSeeder::class);
+        $this->call(EnviosCiudadTableSeeder::class);
+        $this->call(DespachoCiudadTableSeeder::class);
     }
 }
