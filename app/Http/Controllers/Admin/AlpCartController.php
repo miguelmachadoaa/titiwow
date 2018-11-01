@@ -205,7 +205,7 @@ class AlpCartController extends JoshController
               $items["picture_url"]= url('/').'/uploads/productos/'.$row->imagen_producto;
               $items["quantity"]=intval($row->cantidad);
               $items["currency_id"]='COP';
-              $items["unit_price"]=doubleval($row->precio_oferta);
+              $items["unit_price"]=intval($row->precio_oferta);
 
               $list[]=$items;
               
@@ -221,7 +221,7 @@ class AlpCartController extends JoshController
                 "failure" => url('/order/failure')
               ],
               "notification_url" =>url('/order/mercadopago'),
-              "external_reference" =>'123456'
+              "external_reference" =>time()
             ];
 
            $mp = new MP();
@@ -363,30 +363,8 @@ class AlpCartController extends JoshController
 
 
        if ($request->collection_status=='approved') {
-
-       /*
-        echo $request->collection_id;
-        echo "<br>";
-       echo $request->collection_status;
-        echo "<br>";
-
-       echo $request->preference_id;
-        echo "<br>";
-
-       echo $request->external_reference;
-        echo "<br>";
-
-       echo $request->payment_type;
-        echo "<br>";
-
-       echo $request->merchant_order_id;
-        echo "<br>";*/  
-
-
+     
         $input=$request->all();
-
-
-
 
         $cart= \Session::get('cart');
 
@@ -434,20 +412,26 @@ class AlpCartController extends JoshController
             'estatus' =>'1', 
             'estatus_pago' =>'2', 
             'monto_total' =>$total,
+            'monto_total_base' =>$total,
             'id_user' =>$user_id
           );
 
          $orden=AlpOrdenes::create($data_orden);
 
+         $monto_total_base=0;
 
          foreach ($cart as $detalle) {
+
+          $monto_total_base=$monto_total_base+($detalle->cantidad*$detalle->precio_base);
 
           $data_detalle = array(
             'id_orden' => $orden->id, 
             'id_producto' => $detalle->id, 
             'cantidad' =>$detalle->cantidad, 
             'precio_unitario' =>$detalle->precio_oferta, 
+            'precio_base' =>$detalle->precio_base, 
             'precio_total' =>$detalle->cantidad*$detalle->precio_oferta,
+            'precio_total_base' =>$detalle->cantidad*$detalle->precio_base,
             'id_user' =>$user_id 
           );
 
@@ -514,7 +498,10 @@ class AlpCartController extends JoshController
 
 
 
-         $data_update = array('referencia' => 'ALP'.$orden->id );
+         $data_update = array(
+          'referencia' => 'ALP'.$orden->id,
+          'monto_total_base' => $monto_total_base
+           );
 
          $orden->update($data_update);
 
@@ -552,8 +539,7 @@ class AlpCartController extends JoshController
 
 
           return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
-
-         
+        
 
       }else{
 
@@ -630,33 +616,42 @@ class AlpCartController extends JoshController
             'estatus' =>'1', 
             'estatus_pago' =>'1', 
             'monto_total' =>$total,
+            'monto_total_base' =>$total,
             'id_user' =>$user_id
           );
 
          $orden=AlpOrdenes::create($data_orden);
 
+         $monto_total_base=0;
+
 
          foreach ($cart as $detalle) {
 
-          $data_detalle = array(
-            'id_orden' => $orden->id, 
-            'id_producto' => $detalle->id, 
-            'cantidad' =>$detalle->cantidad, 
-            'precio_unitario' =>$detalle->precio_oferta, 
-            'precio_total' =>$detalle->cantidad*$detalle->precio_oferta,
-            'id_user' =>$user_id 
-          );
+          //dd($detalle);
 
-          $data_inventario = array(
-            'id_producto' => $detalle->id, 
-            'cantidad' =>$detalle->cantidad, 
-            'operacion' =>'2', 
-            'id_user' =>$user_id 
-          );
+            $monto_total_base=$monto_total_base+($detalle->cantidad*$detalle->precio_base);
 
-          AlpDetalles::create($data_detalle);
+            $data_detalle = array(
+              'id_orden' => $orden->id, 
+              'id_producto' => $detalle->id, 
+              'cantidad' =>$detalle->cantidad, 
+              'precio_base' =>$detalle->precio_base, 
+              'precio_total_base' =>$detalle->cantidad*$detalle->precio_base, 
+              'precio_unitario' =>$detalle->precio_oferta, 
+              'precio_total' =>$detalle->cantidad*$detalle->precio_oferta,
+              'id_user' =>$user_id 
+            );
 
-          AlpInventario::create($data_inventario);
+            $data_inventario = array(
+              'id_producto' => $detalle->id, 
+              'cantidad' =>$detalle->cantidad, 
+              'operacion' =>'2', 
+              'id_user' =>$user_id 
+            );
+
+            AlpDetalles::create($data_detalle);
+
+            AlpInventario::create($data_inventario);
 
          }
 
@@ -704,7 +699,10 @@ class AlpCartController extends JoshController
 
         AlpEnviosHistory::create($data_envio_history);
 
-         $data_update = array('referencia' => 'ALP'.$orden->id );
+         $data_update = array(
+          'referencia' => 'ALP'.$orden->id,
+          'monto_total_base' => $monto_total_base,
+        );
 
          $orden->update($data_update);
 
@@ -900,7 +898,7 @@ class AlpCartController extends JoshController
       }
 
 
-
+      //print_r($cart);
       
 
 
