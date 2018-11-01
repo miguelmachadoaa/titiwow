@@ -2,14 +2,14 @@
 
 {{-- Web site Title --}}
 @section('title')
-Ordenes
+Ordenes Corporativas
 @parent
 @stop
 
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1>Ordenes</h1>
+    <h1>Ordenes Corporativas</h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}">
@@ -17,7 +17,7 @@ Ordenes
                Inicio
             </a>
         </li>
-        <li><a href="#"> Ordenes</a></li>
+        <li><a href="#"> Ordenes Corporativas</a></li>
         <li class="active">Index</li>
     </ol>
 </section>
@@ -29,7 +29,7 @@ Ordenes
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Ordenes
+                       Ordenes Corporativas
                     </h4>
                     <div class="pull-right">
                   <!--  <a href="{{ route('admin.ordenes.create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear categoria</a>-->
@@ -40,7 +40,7 @@ Ordenes
                     @if ($ordenes->count() >= 1)
                         <div class="table-responsive">
 
-                        <table class="table table-bordered" id="tbOrdenes">
+                         <table class="table table-bordered" id="tbOrdenes">
                             <thead>
                                 <tr>
                                     <th>Id</th>
@@ -48,8 +48,11 @@ Ordenes
                                     <th>Cliente</th>
                                     <th>Forma de Envio</th>
                                     <th>Forma de Pago</th>
+                                    <th>Referencia</th>
                                     <th>Total</th>
-                                    <th>Empresa</th>
+                                    <th>Codigo Oracle</th>
+                                    <th>Factura</th>
+                                    <th>Tracking</th>
                                     <th>Creado</th>
                                     <th>Accion</th>
                                 </tr>
@@ -57,14 +60,25 @@ Ordenes
                             <tbody>
 
                                 @foreach ($ordenes as $row)
-                                <tr>
+                                <tr id="{!! $row->id !!}">
                                     <td>{!! $row->id !!}</td>
                                     <td>{!! $row->referencia!!}</td>
                                     <td>{!! $row->first_name.' '.$row->last_name !!}</td>
                                     <td>{!! $row->nombre_forma_envios !!}</td>
                                     <td>{!! $row->nombre_forma_pago !!}</td>
+                                    <td> 
+                                        
+                                        @if($row->json!=Null)
+                                            {{ json_decode($row->json)->preference_id }}
+
+                                        @endif
+
+                                         </td>
                                     <td>{!! number_format($row->monto_total,2) !!}</td>
-                                    <td>{!! $row->nombre_empresa !!}</td>
+
+                                    <td>{!! $row->ordencompra!!}</td>
+                                    <td>{!! $row->factura!!}</td>
+                                    <td>{!! $row->tracking!!}</td>
                                     <td>{!! $row->created_at->diffForHumans() !!}</td>
                                     <td>
 
@@ -75,9 +89,27 @@ Ordenes
                                             <div style="display: inline-block;" class="estatus_{{ $row->id }}">
                                             <button data-id="{{ $row->id }}"  data-codigo="{{ $row->cod_oracle_pedido }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-info confirmar" > {{ $row->estatus_nombre }} </button></div>
 
-                                            <div style="display: inline-block;" class="pago_{{ $row->id }}">  
+                                            
+                                         @if($row->ordencompra=='')
 
-                                            <button data-id="{{ $row->id }}" class="btn btn-xs btn-success pago" > {{ $row->estatus_pago_nombre }} </button></div>
+                                            <div style="display: inline-block;" class="aprobar_{{ $row->id }}">
+                                            <button data-id="{{ $row->id }}"  data-codigo="{{ $row->ordencompra }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-info aprobar" > Aprobar </button></div>
+
+                                           @else
+
+                                            <div style="display: inline-block;" class="aprobar_{{ $row->id }}">
+                                            <button data-id="{{ $row->id }}"  data-codigo="{{ $row->ordencompra }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-success aprobar" > Aprobado </button></div>
+
+
+                                           @endif
+
+                                            
+
+
+
+                                            <!--<div style="display: inline-block;" class="pago_{{ $row->id }}">  
+
+                                            <button data-id="{{ $row->id }}" class="btn btn-xs btn-success pago" > {{ $row->estatus_pago_nombre }} </button></div>-->
 
 
                                     </td>

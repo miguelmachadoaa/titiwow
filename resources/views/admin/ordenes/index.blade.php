@@ -48,6 +48,7 @@ Ordenes
                                     <th>Cliente</th>
                                     <th>Forma de Envio</th>
                                     <th>Forma de Pago</th>
+                                    <th>Referencia</th>
                                     <th>Total</th>
                                     <th>Codigo Oracle</th>
                                     <th>Factura</th>
@@ -65,6 +66,14 @@ Ordenes
                                     <td>{!! $row->first_name.' '.$row->last_name !!}</td>
                                     <td>{!! $row->nombre_forma_envios !!}</td>
                                     <td>{!! $row->nombre_forma_pago !!}</td>
+                                    <td> 
+                                        
+                                        @if($row->json!=Null)
+                                            {{ json_decode($row->json)->preference_id }}
+
+                                        @endif
+
+                                         </td>
                                     <td>{!! number_format($row->monto_total,2) !!}</td>
 
                                     <td>{!! $row->ordencompra!!}</td>
@@ -81,7 +90,7 @@ Ordenes
                                             <button data-id="{{ $row->id }}"  data-codigo="{{ $row->cod_oracle_pedido }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-info confirmar" > {{ $row->estatus_nombre }} </button></div>
 
                                             
-                                          <!-- @if($row->ordencompra=='')
+                                         @if($row->ordencompra=='')
 
                                             <div style="display: inline-block;" class="aprobar_{{ $row->id }}">
                                             <button data-id="{{ $row->id }}"  data-codigo="{{ $row->ordencompra }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-info aprobar" > Aprobar </button></div>
@@ -98,7 +107,7 @@ Ordenes
 
 
 
-                                            <div style="display: inline-block;" class="pago_{{ $row->id }}">  
+                                            <!--<div style="display: inline-block;" class="pago_{{ $row->id }}">  
 
                                             <button data-id="{{ $row->id }}" class="btn btn-xs btn-success pago" > {{ $row->estatus_pago_nombre }} </button></div>-->
 
@@ -407,7 +416,8 @@ $("#aprobarOrdenForm").bootstrapValidator({
                       responsive: true,
                       pageLength: 10
                   });
-                  $('#tbOrdenes').on( 'page.dt', function () {
+
+        $('#tbOrdenes').on( 'page.dt', function () {
                      setTimeout(function(){
                            $('.livicon').updateLivicon();
                      },500);
