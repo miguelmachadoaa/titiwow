@@ -176,7 +176,8 @@
 
                 }else{
 
-                    $('#ubicacion_header').html(ubicacion.city_name+' '+ubicacion.state_name);
+                    //$('#ubicacion_header').html(ubicacion.city_name+' '+ubicacion.state_name);
+                    $('#ubicacion_header').html('No Disponible para Despacho');
 
                                 
 
@@ -234,7 +235,9 @@
 
                             }else{
 
-                                $('#ubicacion_header').html(ubicacion.city_name+' '+ubicacion.state_name);
+                                //$('#ubicacion_header').html(ubicacion.city_name+' '+ubicacion.state_name);
+
+                                $('#ubicacion_header').html('No Disponible para Despacho');
 
                                 $('.addtocart').addClass('hidden');
                             }
