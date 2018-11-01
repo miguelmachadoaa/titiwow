@@ -609,14 +609,12 @@ class AlpClientesController extends JoshController
         $cliente=AlpClientes::where('id_user_client', $user->id)->withTrashed()->first();
 
 
-
             $data_history = array(
                 'id_cliente' => $request->cliente_id, 
                 'estatus_cliente' => 'activado',
                 'notas' => $request->notas,
                 'id_user' => $user_id
             );
-
 
             AlpClientesHistory::create($data_history);
 

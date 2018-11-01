@@ -6,6 +6,18 @@ Editar Marca
 @parent
 @stop
 
+
+{{-- page level styles --}}
+@section('header_styles')
+
+    <link href="{{ asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
+    <!--end of page level css-->
+@stop
+
 {{-- Content --}}
 @section('content')
 <section class="content-header">
@@ -36,7 +48,7 @@ Editar Marca
                 </div>
                 <div class="panel-body">
                     
-                        {!! Form::model($marca, ['url' => URL::to('admin/marcas/'. $marca->id), 'method' => 'put', 'class' => 'form-horizontal', 'files'=> true]) !!}
+                        {!! Form::model($marca, ['url' => URL::to('admin/marcas/'. $marca->id), 'method' => 'put', 'class' => 'form-horizontal', 'enctype'=>'multipart/form-data', 'files'=> true]) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                           
@@ -57,7 +69,7 @@ Editar Marca
                         <div class="form-group {{ $errors->
                             first('descripcion_marca', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Descaripcion Marca
+                                Descripcion Marca
                             </label>
                             <div class="col-sm-5">
                                 
@@ -118,6 +130,49 @@ Editar Marca
                             </div>
 
                             </div>
+
+
+                         <div class="form-group {{ $errors->first('slug', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Slug 
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="text" id="slug" name="slug" class="form-control" placeholder="Slug Marca"
+                                       value="{!! old('slug', $marca->slug) !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('slug', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
+                        <div class="form-group {{ $errors->
+                            first('order', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Posicion 
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="number" step="1" min="0" id="order" name="order" class="form-control" placeholder="Posicion de la Marca"
+                                       value="{!! old('order', $marca->order) !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('order', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="destacado" class="col-sm-2 control-label"> Marketing</label>
+                            <div class="col-sm-10">
+                                <input id="destacado" name="destacado" type="checkbox"
+                                       class="pos-rel p-l-30 custom-checkbox "
+                                       value="1" @if(old('destacado', $marca->destacado) ) checked="checked" @endif >
+                                <span>¿Destacado?</span></div>
+
+                        </div>
+
+
+
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                 <a class="btn btn-danger" href="{{ route('admin.marcas.index') }}">
@@ -138,3 +193,21 @@ Editar Marca
 </section>
 
 @stop
+
+
+{{-- page level scripts --}}
+@section('footer_scripts')
+<!-- begining of page level js -->
+<!--edit blog-->
+<script src="{{ asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
+
+<script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
+
+<script src="{{ asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
+
+<script type="text/javascript" src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
+
+<script src="{{ asset('assets/js/pages/add_newblog.js') }}" type="text/javascript"></script>
+
+@stop
+

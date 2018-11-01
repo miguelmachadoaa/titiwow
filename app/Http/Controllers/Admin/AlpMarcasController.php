@@ -55,9 +55,44 @@ class AlpMarcasController extends JoshController
 
         //var_dump($input);
 
+
+
+         $imagen='0';
+
+         $picture = "";
+
+        
+        if ($request->hasFile('image')) {
+            
+            $file = $request->file('image');
+
+            #echo $file.'<br>';
+            
+            $extension = $file->extension()?: 'png';
+            
+
+            $picture = str_random(10) . '.' . $extension;
+
+            #echo $picture.'<br>';
+
+            $destinationPath = public_path() . '/uploads/marcas/';
+
+            #echo $destinationPath.'<br>';
+
+            
+            $file->move($destinationPath, $picture);
+            
+            $imagen = $picture;
+
+        }
+
         $data = array(
             'nombre_marca' => $request->nombre_marca, 
             'descripcion_marca' => $request->descripcion_marca, 
+            'imagen_marca' => $imagen, 
+            'slug' => $request->slug, 
+            'order' => $request->order, 
+            'destacado' => $request->destacado, 
             'id_user' =>$user_id
         );
          
@@ -124,6 +159,9 @@ class AlpMarcasController extends JoshController
         $data = array(
             'nombre_marca' => $request->nombre_marca, 
             'descripcion_marca' => $request->descripcion_marca,
+            'destacado' => $request->destacado,
+            'order' => $request->order,
+            'slug' => $request->slug,
             'imagen_marca' =>$imagen, 
         );
 
@@ -132,7 +170,9 @@ class AlpMarcasController extends JoshController
         $data = array(
             'nombre_marca' => $request->nombre_marca, 
             'descripcion_marca' => $request->descripcion_marca,
-            'imagen_marca' =>'default.png',
+            'destacado' => $request->destacado,
+            'order' => $request->order,
+            'slug' => $request->slug,
         );
 
 

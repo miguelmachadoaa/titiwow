@@ -79,6 +79,13 @@
 
                                     <td>
 
+                                        <a  href="{{ url('admin/clientes/'.$row->id.'/detalle') }}">
+                                            <i class="fa fa-eye" title="Detalles" alt="Detalles"></i>
+                                        </a>
+                                        <a href="{{ url('admin/clientes/'.$row->id.'/direcciones') }}">
+                                            <i class="livicon" data-name="eye" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Direcciones del Cliente"></i>
+                                        </a>
+
                                         <div id="botones_{{ $row->id }}">
 
                                        

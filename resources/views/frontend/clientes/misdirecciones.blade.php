@@ -113,6 +113,8 @@ Mis Direcciones
 
                          class="btn btn-primary editAddress ">Editar Direccion</button>
 
+                         <div class="alert alert-danger">Al actualizar su direccion su usuario quedara desactivado temporalmente. </div>
+
                     @else
 
                         <div class="alert alert-danger">Debe Esperar 24 horas para editar la direccion</div>

@@ -294,7 +294,9 @@ Carro de Productos
                                             </div>
                                             <div class="col-sm-8 ">
 
-                                                {{ $fp->nombre_forma_pago.' , '.$fp->descripcion_forma_pago }}
+                                                <img src="{{ url('/uploads/files/mercado-pago.jpg') }}">
+
+                                                
 
                                             </div>
 

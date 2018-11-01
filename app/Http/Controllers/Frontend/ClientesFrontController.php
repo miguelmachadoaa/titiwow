@@ -12,6 +12,7 @@ use App\Models\AlpAmigos;
 use App\Models\AlpConfiguracion;
 use App\Models\AlpTDocumento;
 use App\Models\AlpEstructuraAddress;
+use App\Models\AlpClientesHistory;
 use App\User;
 use App\Country;
 use App\State;
@@ -22,6 +23,7 @@ use App\Models\AlpCategorias;
 use Sentinel;
 use View;
 use Carbon\Carbon;
+use Cartalyst\Sentinel\Laravel\Facades\Activation;
 use DB;     
 
 class ClientesFrontController extends Controller
@@ -108,6 +110,9 @@ class ClientesFrontController extends Controller
                 $editar=1;
             } 
             # code...
+        }else{
+
+            $editar=1;
         }
 
             $states=State::where('config_states.country_id', '47')->get();
@@ -624,11 +629,9 @@ class ClientesFrontController extends Controller
 
         $user_id = Sentinel::getUser()->id;
 
-        /*address_id, city_id, estructura_id, principal_address, secundaria_address, edificio_address, detalle_address, barrio_address, notas*/
+        $user=User::where('id', $user_id)->first();
 
         $input = $request->all();
-
-       // var_dump($input);
 
         $direccion=AlpDirecciones::where('id', $input['address_id'])->first();
 
@@ -641,37 +644,61 @@ class ClientesFrontController extends Controller
           ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
           ->where('alp_direcciones.id_client', $user_id)->first();
 
-
           $editar=0;
 
         if (isset($direcciones->updated_at)) {
 
              $dt = new Carbon($direcciones->updated_at);
 
-            
-
             if ($dt->diffInHours()>24) {
 
                 $editar=1;
             } 
-            # code...
         }
-
 
         if ($direccion->id) {
 
-          //return redirect('order/detail');
-                 
+
+            Activation::remove($user);
+                        //add new record
+            Activation::create($user);   
+
+
+
+            $data_history = array(
+                'id_cliente' => $user->id, 
+                'estatus_cliente' => 'Actualizacion de Direccion',
+                'notas' => 'Desactivado temporalmente por actualizacion de Direccion',
+                'id_user' => $user_id
+            );
+
+
+            AlpClientesHistory::create($data_history);
+
+            $data_cliente = array(
+            'estado_masterfile' => 0
+             );
+
+        $cliente=AlpClientes::where('id_user_client', $user->id)->withTrashed()->first();
+        
+        $cliente->update($data_cliente);
+
+
+         $user = Sentinel::getuser();
+            activity($user->full_name)
+                ->performedOn($user)
+                ->causedBy($user)
+                ->log('LoggedOut');
+            // Log the user out
+            Sentinel::logout();
+
+
 
           $view= View::make('frontend.clientes.direcciones', compact('direcciones', 'editar'));
 
           $data=$view->render();
 
-          $res = array('data' => $data);
-
-        //  return json_encode($res);
           return $data;
-            
 
         } else {
 
