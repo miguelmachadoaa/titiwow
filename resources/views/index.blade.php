@@ -89,7 +89,12 @@ Inicio @parent
                     <div class="products">
                         <div class="row">
                         @if(!$productos->isEmpty())
+
+                       
+
                             @foreach($productos as $producto)
+
+
                                 <div class="col-md-2 col-sm-6 col-xs-6 ">
                                     <div class="productos">
                                         <div class="text-align:center;">
@@ -98,6 +103,7 @@ Inicio @parent
                                         <a href="{{ route('producto', [$producto->slug]) }}" ><h3>{{ $producto->nombre_producto }}</h3></a>
                                         <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="text-align:center;">{{ $producto->presentacion_producto }}</h6></a>
                                         <div class="product_info">
+
                                         @if($descuento==1)
 
                                             @if(isset($precio[$producto->id]))
@@ -129,14 +135,12 @@ Inicio @parent
 
                                             @endif
 
-
-
-
-                                            @else
+                                        @else
 
                                             <p id="precio_prod"><del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base, 2)}}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
 
-                                            @endif
+                                        @endif
+
                                             <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
 
                                             <p class="product_botones">
