@@ -25,6 +25,7 @@ class MarcaRequest extends FormRequest {
 	{
 		return [
             'nombre_marca' => 'required|min:3',
+            'slug' => 'required|min:3',
             'descripcion_marca' => 'required|min:5'
 		];
 	}

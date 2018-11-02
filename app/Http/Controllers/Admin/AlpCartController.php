@@ -22,6 +22,8 @@ use App\Models\AlpPagos;
 use App\Models\AlpPrecioGrupo;
 use App\Models\AlpEnvios;
 use App\Models\AlpEnviosHistory;
+use App\Models\AlpCarrito;
+use App\Models\AlpCarritoDetalle;
 use App\Country;
 use App\State;
 use App\City;
@@ -57,6 +59,24 @@ class AlpCartController extends JoshController
         if (!\Session::has('user')) {
           \Session::put('user', '0');
         }
+
+        if (!\Session::has('carrito')) {
+
+          $referencia=time();
+
+          $ciudad= \Session::get('ciudad');
+
+          $data = array(
+            'referencia' => $referencia,
+            'id_city' => $ciudad,
+            'id_user' => '',
+          );
+
+          $carrito=AlpCarrito::create($data);
+
+          \Session::put('carrito', $carrito->id);
+
+        }
        
     }
 
@@ -75,18 +95,9 @@ class AlpCartController extends JoshController
 
       $configuracion=AlpConfiguracion::where('id', '1')->first();
 
-
-      // $cart= \Session::get('cart');
-
       $total=$this->total();
 
-
-            
      $inv=$this->inventario();
-
-
-
-
 
       return view('frontend.cart', compact('cart', 'total', 'configuracion', 'states', 'inv'));
     }
@@ -95,13 +106,6 @@ class AlpCartController extends JoshController
     {
 
       $configuracion = AlpConfiguracion::where('id', '1')->first();
-
-
-      //echo $configuracion->id_mercadopago;
-      //echo "------------------------";
-      //echo $configuracion->key_mercadopago;
-
-      //$mp=new MP($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
      $preference_data = [
       "items" => [
@@ -122,13 +126,12 @@ class AlpCartController extends JoshController
     $preference = MP::post("/checkout/preferences",$preference_data);
     return dd($preference);
 
-
     }
 
 
     public function orderDetail()
     {
-       //$cart= \Session::get('cart');
+       $carrito= \Session::get('carrito');
 
       $cart=$this->reloadCart();
 
@@ -228,10 +231,16 @@ class AlpCartController extends JoshController
 
            $preference = $mp::post("/checkout/preferences",$preference_data);
 
-          /* $preference = array(
-            'response' =>  array(
-              'sandbox_init_point' => '#', ),
-          );*/
+          /*actualizamos la data del carrito */
+
+          $carro=AlpCarrito::where('id', $carrito)->first();
+
+          $data_carrito = array(
+            'id_user' => $user_id );
+
+          $carro->update($data_carrito);
+
+          /*actualizamos la data del carrito */
 
             $states=State::where('config_states.country_id', '47')->get();
 
@@ -255,15 +264,7 @@ class AlpCartController extends JoshController
      public function failure(Request $request)
     {
        
-       echo $request->collection_id;
-       echo $request->collection_status;
-       echo $request->preference_id;
-       echo $request->external_reference;
-       echo $request->payment_type;
-       echo $request->merchant_order_id;
-
        if ($request->collection_status=='null') {
-         
 
            $cart= \Session::get('cart');
 
@@ -308,11 +309,17 @@ class AlpCartController extends JoshController
             foreach ($cart as $row) {
 
               $items["id"]=$row->id;
+             
               $items["title"]=$row->nombre_producto;
+              
               $items["description"]=$row->descripcion_corta;
+              
               $items["picture_url"]= url('/').'/uploads/productos/'.$row->imagen_producto;
+              
               $items["quantity"]=intval($row->cantidad);
+              
               $items["currency_id"]='COP';
+              
               $items["unit_price"]=intval($row->precio_oferta);
 
               $list[]=$items;
@@ -561,10 +568,6 @@ class AlpCartController extends JoshController
   }
 
 
-
-
-
-
     }
 
 
@@ -572,6 +575,8 @@ class AlpCartController extends JoshController
     public function orderProcesar(Request $request)
     {
        $cart= \Session::get('cart');
+
+       $carrito= \Session::get('carrito');
 
       $total=$this->total();
 
@@ -706,6 +711,31 @@ class AlpCartController extends JoshController
 
          $orden->update($data_update);
 
+
+         /*eliminamos el carrito*/
+
+         $carro=AlpCarrito::where('id', $carrito)->first();
+
+         $carro->delete();
+
+         $detalles_carrito=AlpCarritoDetalle::where('id_carrito', $carrito)->get();
+
+         $ids = array();
+
+         foreach ($detalles_carrito as $dc) {
+           
+          $ids[]=$dc->id;
+
+         }
+
+         AlpCarritoDetalle::destroy($ids);
+
+         $carrito= \Session::forget('carrito');
+
+
+         /*---------------- */
+
+
        //  $datalles=AlpDetalles::where('id_orden', $orden->id)->get();
 
         $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago')
@@ -742,7 +772,6 @@ class AlpCartController extends JoshController
     public function add( AlpProductos $producto)
     {
        $cart= \Session::get('cart');
-
 
        $descuento='1'; 
 
@@ -789,7 +818,10 @@ class AlpCartController extends JoshController
     {
        $cart= \Session::get('cart');
 
+       $carrito= \Session::get('carrito');
+
        $descuento='1'; 
+
        $error='0'; 
 
        $precio = array();
@@ -910,6 +942,19 @@ class AlpCartController extends JoshController
 
        \Session::put('cart', $cart);
 
+       /*guardar detalles en el carro */
+
+       $data_detalle = array(
+        'id_carrito' => $carrito, 
+        'id_producto' => $producto->id, 
+        'cantidad' => $producto->cantidad
+      );
+
+
+       AlpCarritoDetalle::create($data_detalle);
+
+       /*guardar detalles en el carro */
+
        $cantidad=$this->cantidad();
 
        $total=$this->total();
@@ -928,8 +973,13 @@ class AlpCartController extends JoshController
     public function delete( AlpProductos $producto)
     {
        $cart= \Session::get('cart');
+       $carrito= \Session::get('carrito');
 
       unset( $cart[$producto->slug]);
+
+      $detalle=AlpCarritoDetalle::where('id_carrito', $carrito)->where('id_producto', $producto->id)->first();
+
+      $detalle->delete();
        
 
        \Session::put('cart', $cart);
@@ -943,10 +993,17 @@ class AlpCartController extends JoshController
     {
        $cart= \Session::get('cart');
 
+       $carrito= \Session::get('carrito');
+
 
 
 
        $cart[$producto->slug]->cantidad=$cantidad;
+
+
+
+
+
        
       // return $cart;
 
@@ -961,6 +1018,7 @@ class AlpCartController extends JoshController
     {
        $cart= \Session::get('cart');
 
+       $carrito= \Session::get('carrito');
 
        $inv=$this->inventario();
 
@@ -975,6 +1033,14 @@ class AlpCartController extends JoshController
 
         $error="No hay existencia suficiente de este producto";
       }
+
+       $detalle=AlpCarritoDetalle::where('id_carrito', $carrito)->where('id_producto', $request->id)->first();
+
+      $data = array(
+        'cantidad' => $request->cantidad, 
+      );
+
+      $detalle->update($data);
 
        
 
@@ -1002,6 +1068,8 @@ class AlpCartController extends JoshController
     public function vaciar( )
     {
        $cart= \Session::forget('cart');
+
+       $carrito= \Session::forget('carrito');
 
       
        return redirect('cart/show');

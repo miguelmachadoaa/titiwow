@@ -264,7 +264,7 @@ Inicio @parent
 
             });
 
-            $.get(url, {}, function(data) {
+            /*$.get(url, {}, function(data) {
 
                 if (data.resultado) {
 
@@ -272,7 +272,7 @@ Inicio @parent
                          
                 }
 
-            });
+            });*/
 
 
 

@@ -5,6 +5,7 @@ use App\Http\Requests\UserRequest;
 use App\Mail\Register;
 use App\Mail\Restore;
 use App\User;
+use App\State;
 use Cartalyst\Sentinel\Laravel\Facades\Activation;
 use File;
 use Hash;
@@ -35,6 +36,33 @@ class UsersController extends JoshController
 //        return dd($activation);
         // Show the page
         return view('admin.users.index', compact('users'));
+    }
+
+    public function nofound()
+    {
+       
+
+         $states=State::where('config_states.country_id', '47')->get();
+
+         dd($states);
+
+       
+        return view('admin/404',compact('states'));
+
+    }
+
+    public function error()
+    {
+       
+
+         $states=State::where('config_states.country_id', '47')->get();
+
+         dd($states);
+         
+
+       
+        return view('admin/500',compact('states'));
+
     }
 
     /*

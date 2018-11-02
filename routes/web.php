@@ -19,6 +19,10 @@ Route::group(['prefix' => 'admin', 'namespace'=>'Admin'], function () {
     Route::get('404', function () {
         return view('admin/404');
     });
+
+
+
+
     Route::get('500', function () {
         return view('admin/500');
     });
@@ -67,6 +71,12 @@ Route::group(['prefix' => 'masterfile', 'namespace'=>'Admin'], function () {
     Route::get('500', function () {
         return view('admin/500');
     });
+
+
+   
+
+
+
     # Lock screen
     Route::get('{id}/lockscreen', 'UsersController@lockscreen')->name('lockscreen');
     Route::post('{id}/lockscreen', 'UsersController@postLockscreen')->name('lockscreen');

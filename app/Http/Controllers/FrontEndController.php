@@ -99,6 +99,29 @@ class FrontEndController extends JoshController
         return view('index',compact('categorias','productos','marcas','descuento','precio', 'states'));
 
     }
+
+
+    public function nofound()
+    {
+       
+
+         $states=State::where('config_states.country_id', '47')->get();
+
+       
+        return view('admin/404',compact('states'));
+
+    }
+
+    public function error()
+    {
+       
+
+         $states=State::where('config_states.country_id', '47')->get();
+
+       
+        return view('admin/500',compact('states'));
+
+    }
     /*
      * $user_activation set to false makes the user activation via user registered email
      * and set to true makes user activated while creation

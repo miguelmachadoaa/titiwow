@@ -179,12 +179,7 @@
                     //$('#ubicacion_header').html(ubicacion.city_name+' '+ubicacion.state_name);
                     $('#ubicacion_header').html('No Disponible para Despacho');
 
-                                
-
                                 $('.addtocart').addClass('hidden');
-
-
-                    //$('#ubicacionModal').modal('show');
 
                 }
 
@@ -266,7 +261,6 @@
         });
 
 
-
          $('select[name="state_id_ubicacion"]').on('change', function() {
             
                 var stateID = $(this).val();
@@ -298,22 +292,9 @@
     <!--javascript para verificar y validar la ubicacion para la venta -->
 
 
-
-
-
-
-
-
-
-
-
-
     <!-- begin page level js -->
     @yield('footer_scripts')
     <!-- end page level js -->
-
-    
-
 
     
 </body>
