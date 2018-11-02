@@ -83,7 +83,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-sucess">
-                        <h4 class="modal-title" id="modalLabeldanger">Indicanos desde donde estas visitando nuestra tienda </h4>
+                        <h4 class="modal-title" id="modalLabeldanger">Indícanos desde donde estas visitando nuestra tienda </h4>
                 </div>
                 
                 <div class="modal-body ">
@@ -91,38 +91,27 @@
 
                         <input type="hidden" name="base" id="base" value="{{ url('/') }}">
 
-                        <div class="form-group col-sm-12">
-                                    <label for="select21" class="col-md-3 control-label">
-                                        Departamento
-                                    </label>
-                                    <div class="col-md-8" >
-                                        <select style="margin: 4px 0;" id="state_id_ubicacion" name="state_id_ubicacion" class="form-control ">
-                                            <option value="">Seleccione</option>
-                                                        
-                                                       
-                                                        
-                                        </select>
-                                    </div>
+                            <div class="form-group col-sm-12">
+                                <label for="select21" class="col-md-3 control-label">
+                                    Departamento
+                                </label>
+                                <div class="col-md-8" >
+                                    <select style="margin: 4px 0;" id="state_id_ubicacion" name="state_id_ubicacion" class="form-control ">
+                                        <option value="">Seleccione Departamento</option>       
+                                    </select>
                                 </div>
-
-                                <div class="form-group col-sm-12">
-                                    <label for="select21" class="col-md-3 control-label">
-                                        Ciudad
-                                    </label>
-                                    <div class="col-md-8" >
-                                        <select style="margin: 4px 0;" id="city_id_ubicacion" name="city_id_ubicacion" class="form-control ">
-                                            <option value="">Seleccione</option>
-                                           
-                                            
-                                          
-                                        </select>
-                                    </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label for="select21" class="col-md-3 control-label">
+                                    Ciudad
+                                </label>
+                                <div class="col-md-8" >
+                                    <select style="margin: 4px 0;" id="city_id_ubicacion" name="city_id_ubicacion" class="form-control ">
+                                        <option value="">Seleccione Ciudad</option>
+                                    </select>
                                 </div>
-
-                                 </form>
-
-
-                        
+                            </div>
+                        </form>     
                 </div>
                 <div class="modal-footer">
                     <button type="button"  class="btn  btn-default" data-dismiss="modal">Cancelar</button>
@@ -218,7 +207,7 @@
 
                              if (ubicacion.status=='true') {
 
-                                $('#ubicacion_header').html(ubicacion.city_name+' '+ubicacion.state_name);
+                                $('#ubicacion_header').html(ubicacion.city_name+', '+ubicacion.state_name);
 
                                 $('.addtocart').removeClass('hidden');
 
