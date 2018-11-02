@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\AlpProductos;
 use App\Models\AlpCategorias;
+use App\Models\AlpMarcas;
 use App\Models\AlpClientes;
 use App\Models\AlpEmpresas;
 use App\Models\AlpPrecioGrupo;
@@ -211,9 +212,9 @@ class ProductosFrontController extends Controller
         $precio = array();
 
 
-        $marca = AlpCategorias::where('slug','=', $slug)->firstOrFail();
+        $marca = AlpMarcas::where('slug','=', $slug)->firstOrFail();
 
-        $marcaname = DB::table('alp_marcas')->select('nombre_marca','descripcion_marca')->where('id','=', $marca->id)->where('estado_registro','=', 1)->get();
+        $marcaname = DB::table('alp_marcas')->select('nombre_marca','descripcion_marca','slug')->where('id','=', $marca->id)->where('estado_registro','=', 1)->get();
 
         $productos =  DB::table('alp_productos')->select('alp_productos.*')
         ->where('alp_productos.id_marca','=', $marca->id)
@@ -276,6 +277,8 @@ class ProductosFrontController extends Controller
 
         $precio = array();
 
+        $termino = $request->get('buscar');
+
         $productos = AlpProductos::search($request->get('buscar'))->where('alp_productos.estado_registro','=', 1)->orderBy('id', 'asc')->paginate(12); 	
         $productos->appends(['buscar' => $request->get('buscar')]);
 
@@ -321,7 +324,7 @@ class ProductosFrontController extends Controller
 
          $states=State::where('config_states.country_id', '47')->get();
 
-        return \View::make('frontend.buscar', compact('productos', 'descuento', 'precio', 'states'));
+        return \View::make('frontend.buscar', compact('productos', 'descuento', 'precio', 'states','termino'));
 
     }
 

@@ -3,18 +3,18 @@
 
 {{-- Page title --}}
 @section('title')
-@foreach($cataname as $catana)
-{{ $catana->nombre_categoria }}
+@foreach($marcaname as $marca)
+{{ $marca->nombre_marca }}
 @endforeach @parent
 @stop
 @section('meta_tags')
 @php 
-    foreach($marcaname as $catana)
-        $catego = $catana->nombre_categoria;
-        $categodes = $catana->descripcion_categoria
+    foreach($marcaname as $marca)
+        $marcago = $marca->nombre_marca;
+        $marcades = $marca->descripcion_marca
 @endphp
-<meta property="og:title" content="{{$catego}} | AlpinaGo">
-<meta property="og:description" content="{{$categodes}}">
+<meta property="og:title" content="{{$marcago}} | AlpinaGo">
+<meta property="og:description" content="{{$marcades}}">
 <meta property="og:robots" content="index, follow">
 <meta property="og:revisit-after" content="3 days">
 @endsection
@@ -30,21 +30,27 @@
     <div class="breadcum">
         <div class="container">
             <ol class="breadcrumb">
-                <li>
+                <li class="hidden-xs">
                     <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Inicio
                     </a>
                 </li>
-                <li class="hidden-xs">
+                <li class="hidden-md hidden-lg">
+                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>
+                    </a>
+                </li>
+                <li>
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
-                    <a href="#">Productos</a>
+                    <a href="#">Marcas</a>
+                </li>
+                <li >
+                    <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
+                    @foreach($marcaname as $marca)
+                        <a href="{{ $marca->slug }} ">{{ $marca->nombre_marca }} </a>
+                    @endforeach
+                   
                 </li>
             </ol>
-            <div class="pull-right">
-                <i class="livicon icon3" data-name="edit" data-size="20" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i> 
-                @foreach($cataname as $catana)
-                    {{ $catana->nombre_categoria }}
-                @endforeach
-            </div>
+            
         </div>
     </div>
 @stop
@@ -54,17 +60,20 @@
 @section('content')
 <div class="container contain_body">
 <div class="row">
+<div class="col-md-3 hidden-xs">
+@include('layouts.sidebar')
+</div>
 <div class="col-md-9">
     <div class="products">
         <div class="row">
         @if(!$productos->isEmpty())
             @foreach($productos as $producto)
-                <div class="col-md-4 col-sm-6 col-xs-6">
+                <div class="col-md-3 col-sm-6 col-xs-6">
                     <div class="productos">
                         <div class="text-align:center;">
                             <a href="{{ route('producto', [$producto->slug]) }}" ><img src="../uploads/productos/{{ $producto->imagen_producto }}" class="img-responsive"></a>
                         </div>
-                        <a href="{{ route('producto', [$producto->slug]) }}" ><h1>{{ $producto->nombre_producto }}</h1></a>
+                        <a href="{{ route('producto', [$producto->slug]) }}" ><h3>{{ $producto->nombre_producto }}</h3></a>
                         <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="text-align:center;">{{ $producto->presentacion_producto }}</h6></a>
                         <div class="product_info">
                             
@@ -108,16 +117,16 @@
 
                             @endif
 
-
+                            <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a> 
                             
                             <p class="product_botones">
-                                <a class="btn btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
-                                <a class="btn btn-primary" href="{{ route('producto', [$producto->slug]) }}">Ver Más</a>
+                                <a class="btn btn-sm btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
+                                <a class="btn btn-sm btn-primary" href="{{ route('producto', [$producto->slug]) }}">Ver Más</a>
                             </p>
                         </div>
                     </div>
                 </div>
-                @if ($loop->iteration % 3 == 0)
+                @if ($loop->iteration % 4 == 0)
                     </div>
                     <div class="row">
                 @endif
@@ -137,9 +146,6 @@
             </div>
         </div>
     </div>
-    </div>
-    <div class="col-md-3">
-        <h3>Categorias</h3>
     </div>
 
 </div>

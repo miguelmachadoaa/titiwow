@@ -46,7 +46,7 @@ Productos @parent
         <div class="row">
         @if(count($productos)>0)
             @foreach($productos as $producto)
-                <div class="col-md-2 col-sm-6 col-xs-6">
+                <div class="col-md-3 col-sm-6 col-xs-6">
                     <div class="productos">
                         <div class="text-align:center;">
                             <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive"></a>
