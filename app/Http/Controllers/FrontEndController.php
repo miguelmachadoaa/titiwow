@@ -101,27 +101,7 @@ class FrontEndController extends JoshController
     }
 
 
-    public function nofound()
-    {
-       
-
-         $states=State::where('config_states.country_id', '47')->get();
-
-       
-        return view('admin/404',compact('states'));
-
-    }
-
-    public function error()
-    {
-       
-
-         $states=State::where('config_states.country_id', '47')->get();
-
-       
-        return view('admin/500',compact('states'));
-
-    }
+    
     /*
      * $user_activation set to false makes the user activation via user registered email
      * and set to true makes user activated while creation
@@ -201,11 +181,11 @@ class FrontEndController extends JoshController
     public function myAccount(User $user)
     {
         $user = Sentinel::getUser();
+
         $countries = $this->countries;
 
-
-        $states=State::where('config_states.country_id', '47')->get();
-        return view('user_account', compact('user', 'countries', 'states'));
+       
+        return view('user_account', compact('user', 'countries'));
     }
 
     /**

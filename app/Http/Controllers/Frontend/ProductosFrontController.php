@@ -106,6 +106,7 @@ class ProductosFrontController extends Controller
         ->take(4)
         ->get();
 
+        
         if (Sentinel::check()) {
 
             $user_id = Sentinel::getUser()->id;

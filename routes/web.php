@@ -263,10 +263,10 @@ Route::get('google/callback', 'Admin\GoogleAuthController@handleProviderCallback
 Route::post('forgot-password/{userId}/{passwordResetCode}', 'FrontEndController@postForgotPasswordConfirm');
 Route::get('forgot-password/{userId}/{passwordResetCode}', 'FrontEndController@getForgotPasswordConfirm')->name('forgot-password-confirm');
 # My account display and update details
-Route::group(['middleware' => 'user'], function () {
+//Route::group(['middleware' => 'user'], function () {
     Route::put('my-account', 'FrontEndController@update');
     Route::get('my-account', 'FrontEndController@myAccount')->name('my-account');
-});
+//});
 Route::get('logout', 'FrontEndController@getLogout')->name('logout');
 # contact form
 Route::post('contact', 'FrontEndController@postContact')->name('contact');
