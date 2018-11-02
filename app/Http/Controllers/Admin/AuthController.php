@@ -125,7 +125,7 @@ class AuthController extends JoshController
             // Redirect to the home page with success menu
            // return Redirect::route("admin.dashboard")->with('success', trans('auth/message.signup.success'));
 
-             /*Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name));*/
+             Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name));
 
              if ($request->back=='0') {
 
@@ -425,7 +425,7 @@ class AuthController extends JoshController
 
             $amigo->delete();
 
-            /* Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name));*/
+             Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name));
 
             //activity log ends
             // Redirect to the home page with success menu
@@ -527,7 +527,7 @@ class AuthController extends JoshController
 
              //print_r($data);
 
-            /* Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name));*/
+             Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name));
 
             AlpClientes::create($data);
 

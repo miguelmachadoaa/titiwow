@@ -107,6 +107,136 @@ Editar Configuracion
                                 </div>
                             </div>
 
+                            <div class="form-group {{ $errors->first('key_mercadopago', 'has-error') }}">
+                                <label for="title" class="col-sm-2 control-label">
+                                    Key Mercadopago
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="key_mercadopago" name="key_mercadopago" class="form-control" placeholder="Key Mercadopago"
+                                        value="{!! old('key_mercadopago', $configuracion->key_mercadopago) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('key_mercadopago', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+
+                            <fieldset>
+                                
+                                <legend>Correos para notificacion</legend>
+
+                                <div class="form-group {{ $errors->first('correo_admin', 'has-error') }}">
+                                    <label for="title" class="col-sm-2 control-label">
+                                        Correo Admin
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="correo_admin" name="correo_admin" class="form-control" placeholder="Correo Admin"
+                                            value="{!! old('correo_admin', $configuracion->correo_admin) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('correo_admin', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+                                <div class="form-group {{ $errors->first('correo_shopmanager', 'has-error') }}">
+                                    <label for="title" class="col-sm-2 control-label">
+                                        Correo Shop Manager
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="correo_shopmanager" name="correo_shopmanager" class="form-control" placeholder="Correo Shop Manager"
+                                            value="{!! old('correo_shopmanager', $configuracion->correo_shopmanager) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('correo_shopmanager', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group {{ $errors->first('correo_shopmanagercorp', 'has-error') }}">
+                                    <label for="title" class="col-sm-2 control-label">
+                                        Correo Shop Manager Corporativo
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="correo_shopmanagercorp" name="correo_shopmanagercorp" class="form-control" placeholder="Correo Shop Manager Corporativo"
+                                            value="{!! old('correo_shopmanagercorp', $configuracion->correo_shopmanagercorp) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('correo_shopmanagercorp', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+                                <div class="form-group {{ $errors->first('correo_masterfile', 'has-error') }}">
+                                    <label for="title" class="col-sm-2 control-label">
+                                        Correo Masterfile
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="correo_masterfile" name="correo_masterfile" class="form-control" placeholder="Correo Masterfile"
+                                            value="{!! old('correo_masterfile', $configuracion->correo_masterfile) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('correo_masterfile', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+                                <div class="form-group {{ $errors->first('correo_sac', 'has-error') }}">
+                                    <label for="title" class="col-sm-2 control-label">
+                                        Correo Sac
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="correo_sac" name="correo_sac" class="form-control" placeholder="Correo Sac"
+                                            value="{!! old('correo_sac', $configuracion->correo_sac) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('correo_sac', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+                                <div class="form-group {{ $errors->first('correo_cedi', 'has-error') }}">
+                                    <label for="title" class="col-sm-2 control-label">
+                                        Correo Cedi
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="correo_cedi" name="correo_cedi" class="form-control" placeholder="Correo Cedi"
+                                            value="{!! old('correo_cedi', $configuracion->correo_cedi) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('correo_cedi', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+                                <div class="form-group {{ $errors->first('correo_logistica', 'has-error') }}">
+                                    <label for="title" class="col-sm-2 control-label">
+                                        Correo Logistica
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="correo_logistica" name="correo_logistica" class="form-control" placeholder="Correo Logistica"
+                                            value="{!! old('correo_logistica', $configuracion->correo_logistica) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('correo_logistica', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group {{ $errors->first('correo_finanzas', 'has-error') }}">
+                                    <label for="title" class="col-sm-2 control-label">
+                                        Correo Finanzas
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="correo_finanzas" name="correo_finanzas" class="form-control" placeholder="Correo Finanzas"
+                                            value="{!! old('correo_finanzas', $configuracion->correo_finanzas) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('correo_finanzas', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+
+
+
+
+
+                            </fieldset>
+
                             <fieldset>  
 
                                 <legend>Ciudades Permitidas para compras</legend>
