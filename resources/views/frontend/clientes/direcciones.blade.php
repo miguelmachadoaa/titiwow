@@ -13,11 +13,11 @@
                             <div class="box-body">
                                 <dl class="dl-horizontal">
 
-                                    <dt>Ubicacion</dt>
+                                    <dt>Ubicación</dt>
                                     <dd>{{ $direcciones->country_name.', '.$direcciones->state_name.', '.$direcciones->city_name }}</dd>
 
 
-                                    <dt>Direccion</dt>
+                                    <dt>Dirección</dt>
                                     <dd>
                                        {{ $direcciones->nombre_estructura.' '.$direcciones->principal_address.' - '.$direcciones->secundaria_address.' '.$direcciones->edificio_address.' '.$direcciones->detalle_address.' '.$direcciones->barrio_address }}
                                     </dd>
@@ -49,11 +49,11 @@
                         data-barrio_address="{{ $direcciones->barrio_address }}"
                         data-notas="{{ $direcciones->notas }}"
 
-                         class="btn btn-primary editAddress ">Editar Direccion</button>
+                         class="btn btn-primary editAddress ">Editar Dirección</button>
 
                     @else
 
-                        <div class="alert alert-danger">Debe Esperar 24 horas para editar la direccion</div>
+                        <div class="alert alert-danger">Debe Esperar 24 horas para editar la dirección</div>
 
                     @endif
                 </div>

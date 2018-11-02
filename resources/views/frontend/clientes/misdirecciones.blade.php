@@ -67,6 +67,15 @@ Mis Direcciones
 
                   <input type="hidden" name="id_direccion"  id="id_direccion" value="{{ $direcciones->id }}" >  
 
+                <div class="col-sm-10 col-sm-offset-1">
+                         <div class="alert alert-warning">Al actualizar su dirección su usuario quedara desactivado temporalmente. </div>
+
+                    @else
+
+                        <div class="alert alert-danger">Debe Esperar 24 horas para editar la dirección</div>
+
+                    @endif
+                </div>
 
                 <div class="col-sm-10 col-sm-offset-1">
                     <div class="panel panel-default">
@@ -75,11 +84,11 @@ Mis Direcciones
                             <div class="box-body">
                                 <dl class="dl-horizontal">
 
-                                    <dt>Ubicacion</dt>
+                                    <dt>Ubicación</dt>
                                     <dd>{{ $direcciones->country_name.', '.$direcciones->state_name.', '.$direcciones->city_name }}</dd>
 
 
-                                    <dt>Direccion</dt>
+                                    <dt>Dirección</dt>
                                     <dd>
                                        {{ $direcciones->nombre_estructura.' '.$direcciones->principal_address.' - '.$direcciones->secundaria_address.' '.$direcciones->edificio_address.' '.$direcciones->detalle_address.' '.$direcciones->barrio_address }}
                                     </dd>
@@ -111,18 +120,8 @@ Mis Direcciones
                         data-barrio_address="{{ $direcciones->barrio_address }}"
                         data-notas="{{ $direcciones->notas }}"
 
-                         class="btn btn-primary editAddress ">Editar Direccion</button>
-
-                         <div class="alert alert-danger">Al actualizar su direccion su usuario quedara desactivado temporalmente. </div>
-
-                    @else
-
-                        <div class="alert alert-danger">Debe Esperar 24 horas para editar la direccion</div>
-
-                    @endif
+                         class="btn btn-primary editAddress ">Editar Dirección</button>
                 </div>
-                
-
             @else
                 <div class="alert alert-danger">
                         <p>El Cliente aun no posee direcciones Registradas</p>

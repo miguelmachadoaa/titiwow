@@ -121,7 +121,7 @@ Area clientes
             <a href="{{ url('misdirecciones') }}" class=" btn-large ">
                 <div class="row">
                 <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-map"></i></div>
-                <div class="col-sm-12">Mi direccion </div>
+                <div class="col-sm-12">Mi dirección </div>
                 </div>
         
 

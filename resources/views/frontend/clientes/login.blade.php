@@ -77,12 +77,12 @@
                                 </p>
                             </form>
                         </div>
-                        <div id="register" class="animate form">
+                        <!--div id="register" class="animate form">
                             <form action="{{ route('admin.signup') }}" autocomplete="on" method="post" role="form" id="register_here">
                                 <h3 class="black_bg">
                                     <img src="{{ asset('assets/img/logo.png') }}" alt="josh logo">
                                     <br>Sign Up</h3>
-                                    <!-- CSRF Token -->
+                  
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                     <input type="hidden" name="back" id="back" value="0">
 
@@ -164,7 +164,7 @@
                                     </a>
                                 </p>
                             </form>
-                        </div>
+                        </div-->
                         <div id="forgot" class="animate form">
                             <form action="{{ url('admin/forgot-password') }}" autocomplete="on" method="post" role="form" id="reset_pw">
                                 <h3 class="black_bg">
