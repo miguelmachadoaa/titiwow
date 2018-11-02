@@ -49,7 +49,7 @@
 {{-- Page content --}}
 @section('content')
     <!-- Container Section Start -->
-    <div class="container">
+    <div class="container contain_body">
         <!--item view start-->
         <div class="row">
             <div class="mart10">

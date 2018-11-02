@@ -30,15 +30,19 @@
     <div class="breadcum">
         <div class="container">
             <ol class="breadcrumb">
-                <li>
+                <li class="hidden-xs">
                     <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Inicio
                     </a>
                 </li>
-                <li class="hidden-xs">
+                <li class="hidden-md hidden-lg">
+                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>
+                    </a>
+                </li>
+                <li >
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
                     <a href="#">Categoría</a>
                 </li>
-                <li class="hidden-xs">
+                <li >
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
                     @foreach($cataname as $catana)
                     <a href="#">{{ $catana->nombre_categoria }}</a>
@@ -55,52 +59,8 @@
 @section('content')
 <div class="container contain_body">
 <div class="row">
-<div class="col-md-3">
-    <h3>Categorias</h3>
-    <div class="dd" id="nestable_list_1">
-                            <ol class="dd-list">
-                                <li class="dd-item" data-id="1">
-                                    <div class="dd-handle">Item 1</div>
-                                </li>
-                                <li class="dd-item dd-collapsed" data-id="2"><button data-action="collapse" type="button" style="display: none;">Collapse</button><button data-action="expand" type="button" style="display: block;">Expand</button>
-                                    <div class="dd-handle">Item 2</div>
-                                    <ol class="dd-list" style="display: none;">
-                                        <li class="dd-item" data-id="3">
-                                            <div class="dd-handle">Item 3</div>
-                                        </li>
-                                        <li class="dd-item" data-id="4">
-                                            <div class="dd-handle">Item 4</div>
-                                        </li>
-                                        <li class="dd-item" data-id="5"><button data-action="collapse" type="button">Collapse</button><button data-action="expand" type="button" style="display: none;">Expand</button>
-                                            <div class="dd-handle">Item 5</div>
-                                            <ol class="dd-list">
-                                                <li class="dd-item" data-id="6">
-                                                    <div class="dd-handle">Item 6</div>
-                                                </li>
-                                                <li class="dd-item" data-id="7">
-                                                    <div class="dd-handle">Item 7</div>
-                                                </li>
-                                                <li class="dd-item" data-id="8">
-                                                    <div class="dd-handle">Item 8</div>
-                                                </li>
-                                            </ol>
-                                        </li>
-                                        <li class="dd-item" data-id="9">
-                                            <div class="dd-handle">Item 9</div>
-                                        </li>
-                                        <li class="dd-item" data-id="10">
-                                            <div class="dd-handle">Item 10</div>
-                                        </li>
-                                    </ol>
-                                </li>
-                                <li class="dd-item" data-id="11">
-                                    <div class="dd-handle">Item 11</div>
-                                </li>
-                                <li class="dd-item" data-id="12">
-                                    <div class="dd-handle">Item 12</div>
-                                </li>
-                            </ol>
-                        </div>
+<div class="col-md-3 hidden-xs">
+    @include('layouts.sidebar')
 </div>
 <div class="col-md-9">
     <div class="products">
@@ -110,7 +70,7 @@
                 <div class="col-md-3 col-sm-6 col-xs-6">
                     <div class="productos">
                         <div class="text-align:center;">
-                            <a href="{{ route('producto', [$producto->slug]) }}" ><img src="../uploads/productos/{{ $producto->imagen_producto }}" class="img-responsive cat"></a>
+                            <a href="{{ route('producto', [$producto->slug]) }}" ><img src="../uploads/productos/{{ $producto->imagen_producto }}" class="img-responsive"></a>
                         </div>
                         <a href="{{ route('producto', [$producto->slug]) }}" ><h3>{{ $producto->nombre_producto }}</h3></a>
                         <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="text-align:center;">{{ $producto->presentacion_producto }}</h6></a>

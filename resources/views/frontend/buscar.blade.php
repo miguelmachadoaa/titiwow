@@ -17,14 +17,23 @@ Resultado de la Búsqueda @parent
     <div class="breadcum">
         <div class="container">
             <ol class="breadcrumb">
-                <li>
+                <li class="hidden-xs">
                     <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Inicio
                     </a>
                 </li>
-                <li class="hidden-xs">
+                <li class="hidden-md hidden-lg">
+                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>
+                    </a>
+                </li>
+                <li >
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
                     <a href="#">Busqueda</a>
                 </li>
+                <li >
+                    <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
+                    <a href="#">{{ $termino }}</a>
+                </li>
+                
             </ol>
             
         </div>
@@ -36,8 +45,8 @@ Resultado de la Búsqueda @parent
 @section('content')
 <div class="container contain_body">
 <div class="row">
-<div class="col-md-3">
-    <h3>Categorias</h3>
+<div class="col-md-3 hidden-xs">
+@include('layouts.sidebar')
 </div>
 <div class="col-md-9">
     <div class="products">
