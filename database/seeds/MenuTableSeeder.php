@@ -14,7 +14,8 @@ class MenuTableSeeder extends Seeder
     {
         DB::table('alp_menu')->insert([
             ['nombre_menu' => 'Principal','id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            ['nombre_menu' => 'Categorias','id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')]        
+            ['nombre_menu' => 'Categorias','id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['nombre_menu' => 'Marcas','id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')]         
         ]);
     }
 }

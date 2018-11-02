@@ -20,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
             view()->composer('layouts.header', function($view) {
-                $view->with('menus', AlpMenuDetalle::menus());
+                $view->with('menus', AlpMenuDetalle::menus(1));
             });
     }
 

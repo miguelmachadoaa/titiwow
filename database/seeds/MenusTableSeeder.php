@@ -10,6 +10,7 @@ class MenusTableSeeder extends Seeder
      */
 	public function run()
     {
+        /* Menu principal */
         DB::table('alp_menu_detalles')->insert([
             'name' => 'Inicio',
             'slug' => '/',
@@ -116,5 +117,27 @@ class MenusTableSeeder extends Seeder
                     'id_menu' => 1,
                 ]);
 
+        /* Menu Marcas */
+        DB::table('alp_menu_detalles')->insert([
+            'name' => 'Bon yurt',
+            'slug' => 'bon-yurt',
+            'parent' => 0,
+            'order' => 1,
+            'id_menu' => 3,
+        ]);
+        DB::table('alp_menu_detalles')->insert([
+            'name' => 'Bon yurt',
+            'slug' => 'bon-yurt2',
+            'parent' => 0,
+            'order' => 2,
+            'id_menu' => 3,
+        ]);
+        DB::table('alp_menu_detalles')->insert([
+            'name' => 'Bon yurt',
+            'slug' => 'bon-yurt3',
+            'parent' => 0,
+            'order' => 3,
+            'id_menu' => 3,
+        ]);
     }
 }

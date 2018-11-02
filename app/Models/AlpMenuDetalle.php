@@ -15,19 +15,20 @@ class AlpMenuDetalle extends Model
         }
         return $children;
     }
-    public function optionsMenu()
+    public function optionsMenu($id)
     {
         return $this->where('enabled', 1)
+            ->where('id_menu', $id)
             ->orderby('parent')
             ->orderby('order')
             ->orderby('name')
             ->get()
             ->toArray();
     }
-    public static function menus()
+    public static function menus($id)
     {
         $menus = new AlpMenuDetalle();
-        $data = $menus->optionsMenu();
+        $data = $menus->optionsMenu($id);
         $menuAll = [];
         foreach ($data as $line) {
             $item = [ array_merge($line, ['submenu' => $menus->getChildren($data, $line) ]) ];
