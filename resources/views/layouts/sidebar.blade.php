@@ -1,5 +1,5 @@
 <div class="row">
-    <h3>Categorias</h3>
+    <h3>Categorías</h3>
     <div class="dd" id="nestable_list_1">
         <ol class="dd-list">
             <li class="dd-item" data-id="1">

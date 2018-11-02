@@ -167,7 +167,7 @@
                 <div class="clearfix"></div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="habeas_cliente" value="1">  Acepto los <a href="#"> Terminos y Condiciones</a>
+                        <input type="checkbox" name="habeas_cliente" value="1">  Acepto los <a href="#"> Términos y Condiciones</a>
                     </label>
                 </div>
 

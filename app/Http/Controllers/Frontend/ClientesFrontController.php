@@ -667,8 +667,8 @@ class ClientesFrontController extends Controller
 
             $data_history = array(
                 'id_cliente' => $user->id, 
-                'estatus_cliente' => 'Actualizacion de Direccion',
-                'notas' => 'Desactivado temporalmente por actualizacion de Direccion',
+                'estatus_cliente' => 'Actualización de Dirección',
+                'notas' => 'Desactivado temporalmente por actualización de Dirección',
                 'id_user' => $user_id
             );
 

@@ -38,13 +38,13 @@
                         </div>
 
                         <div>
-                            <h3 class="text-primary" id="title">Informacion Personal </h3>
+                            <h3 class="text-primary" id="title">Información Personal </h3>
                         </div>
                         {!! Form::model($user, ['url' => URL::to('my-account'), 'method' => 'put', 'class' => 'form-horizontal','enctype'=>"multipart/form-data"]) !!}
 
                         {{ csrf_field() }}
                             <div class="form-group {{ $errors->first('pic', 'has-error') }}">
-                                <label class="col-md-2 control-label">Iagen:</label>
+                                <label class="col-md-2 control-label">Imagen:</label>
                                 <div class="col-md-10">
                                     <div class="fileinput fileinput-new" data-provides="fileinput">
                                         <div class="fileinput-new thumbnail" style="max-width: 200px; max-height: 200px;">
@@ -70,11 +70,11 @@
                                         <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
                                         <div>
                                             <span class="btn btn-primary btn-file">
-                                                <span class="fileinput-new">Select image</span>
-                                                <span class="fileinput-exists">Change</span>
+                                                <span class="fileinput-new">Seleccionar Imagen</span>
+                                                <span class="fileinput-exists">Cambiar</span>
                                                 <input type="file" name="pic" id="pic" />
                                             </span>
-                                            <span class="btn btn-primary fileinput-exists" data-dismiss="fileinput">Remove</span>
+                                            <span class="btn btn-primary fileinput-exists" data-dismiss="fileinput">Quitar</span>
                                         </div>
                                     </div>
                                     <span class="help-block">{{ $errors->first('pic', ':message') }}</span>
@@ -175,7 +175,7 @@
                                     <div class="radio">
                                         <label>
                                             <input type="radio" name="gender" value="female" @if($user->gender === "female") checked="checked" @endif />
-                                            Femanino
+                                            Femenino
                                         </label>
                                     </div>
                                     <div class="radio">
@@ -201,7 +201,7 @@
 
                             <div class="form-group {{ $errors->first('address', 'has-error') }}">
                                 <label class="col-lg-2 control-label">
-                                    Direccion:
+                                    Dirección:
                                 </label>
                                 <div class="col-lg-6">
                                             <textarea rows="5" cols="30" class="form-control resize_vertical" id="add1"
@@ -211,7 +211,7 @@
                             </div>
 
                             <div class="form-group {{ $errors->first('country', 'has-error') }}">
-                                <label class="control-label  col-lg-2">Seleccione Pais: </label>
+                                <label class="control-label  col-lg-2">Seleccione País: </label>
                                 <div class="col-lg-6">
                                     {!! Form::select('country', $countries, $user->country,['class' => 'form-control select2', 'id' => 'countries']) !!}
                                     <span class="help-block">{{ $errors->first('country', ':message') }}</span>
@@ -248,8 +248,8 @@
                                 <span class="help-block">{{ $errors->first('city', ':message') }}</span>
                             </div>
 
-                            <div class="form-group {{ $errors->first('postal', 'has-error') }}">
-                                <label class="col-lg-2 control-label" for="postal">Codigo Postal:</label>
+                            <!--div class="form-group {{ $errors->first('postal', 'has-error') }}">
+                                <label class="col-lg-2 control-label" for="postal">Código Postal:</label>
                                 <div class="col-lg-6">
                                     <div class="input-group">
                                                         <span class="input-group-addon">
@@ -260,7 +260,7 @@
                                     </div>
                                     <span class="help-block">{{ $errors->first('postal', ':message') }}</span>
                                 </div>
-                            </div>
+                            </div-->
 
                             <div class="form-group {{ $errors->first('dob', 'has-error') }}">
                                 <label class="col-lg-2 control-label">
