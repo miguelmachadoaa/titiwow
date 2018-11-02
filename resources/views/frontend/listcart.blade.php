@@ -1,6 +1,6 @@
     <div class="row">
 
-        <h1>Carro de Compras</h1>
+        <h1>Carrito de Compras</h1>
 
         <a class="btn  btn-link" href="{{url('cart/vaciar')}}">Vaciar</a>
 
@@ -107,7 +107,7 @@
      @else
 
 
-    <h1><span class="label label-primary">No hay productos en el carro</span></h1>
+    <h1><span class="label label-primary">Tu Carrito está Vacio</span></h1>
 
         <p style="text-align: center;">
            

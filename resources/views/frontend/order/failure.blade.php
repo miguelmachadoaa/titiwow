@@ -64,7 +64,7 @@ Carro de Productos
         <div class="container">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Dashboard
+                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Inicio
                     </a>
                 </li>
                 <li class="hidden-xs">
@@ -74,12 +74,9 @@ Carro de Productos
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
-                    <a href="{{url('productos')}}">Productos</a>
+                    <a href="{{url('productos')}}">Error en el Pago</a>
                 </li>
             </ol>
-            <div class="pull-right">
-                <i class="livicon icon3" data-name="edit" data-size="20" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i> Products
-            </div>
         </div>
     </div>
 @stop
@@ -95,7 +92,7 @@ Carro de Productos
          <br>
             <div class="row">   
                 <div class="col-sm-10 col-sm-offset-1">  
-                        <h3>    Direccion de Envio </h3>
+                        <h3>    Dirección de Envio </h3>
                  </div>
             </div>
 
@@ -123,11 +120,11 @@ Carro de Productos
                             <div class="box-body">
                                 <dl class="dl-horizontal">
 
-                                    <dt>Ubicacion</dt>
+                                    <dt>Ubicación</dt>
                                     <dd>{{ $direcciones->country_name.', '.$direcciones->state_name.', '.$direcciones->city_name }}</dd>
 
 
-                                    <dt>Direccion</dt>
+                                    <dt>Dirección</dt>
                                     <dd>
                                        {{ $direcciones->nombre_estructura.' '.$direcciones->principal_address.' - '.$direcciones->secundaria_address.' '.$direcciones->edificio_address.' '.$direcciones->detalle_address.' '.$direcciones->barrio_address }}
                                     </dd>
@@ -154,8 +151,8 @@ Carro de Productos
 
                     <div class="col-sm-10 col-sm-offset-1">
                         
-                        <h3>Debe agregar una direccion de envio  </h3>
-                        <p><a href="{{ url('misdirecciones') }}">Mi Direccion</a></p>
+                        <h3>Debe agregar una dirección de envio  </h3>
+                        <p><a href="{{ url('misdirecciones') }}">Mi Dirección</a></p>
                     
                     </div>
 
@@ -349,7 +346,7 @@ Carro de Productos
      @else
 
 
-     <h1><span class="label label-primary">No hay productos en el carro</span></h1>
+     <h1><span class="label label-primary">El Carrito está Vacio</span></h1>
         
 
      @endif
@@ -372,7 +369,7 @@ Carro de Productos
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-primary">
-                        <h4 class="modal-title" id="modalLabeldanger">Agregar Direccion</h4>
+                        <h4 class="modal-title" id="modalLabeldanger">Agregar Dirección</h4>
                     </div>
                     <div class="modal-body">
                         

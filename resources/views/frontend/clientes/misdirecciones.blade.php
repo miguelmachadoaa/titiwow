@@ -41,6 +41,10 @@ Mis Direcciones
 {{-- Page content --}}
 @section('content')
 <div class="container contain_body">
+        <div class="welcome">
+            <h3>Mi Dirección</h3>
+        </div>
+        <hr>
 
     <div class="row">
         <br>
@@ -124,7 +128,7 @@ Mis Direcciones
                 </div>
             @else
                 <div class="alert alert-danger">
-                        <p>El Cliente aun no posee direcciones Registradas</p>
+                        <p>El Cliente aún no posee direcciones Registradas</p>
                     </div>
             @endif   
              
@@ -134,7 +138,13 @@ Mis Direcciones
     
     </div>
 </div>
-
+<div class="container">
+    <div class="form-group">
+        <div class="col-lg-offset-5 col-lg-10" style="margin-bottom:20px;">
+            <a class="btn btn-danger" type="button" href="{{ url('clientes') }}">Regresar</a>
+        </div>
+    </div>
+</div>
 
 <!-- Modal Direccion -->
  <div class="modal fade" id="editDireccionModal" role="dialog" aria-labelledby="modalLabeldanger">
@@ -472,14 +482,6 @@ $('.delDireccion').click(function () {
         });
 
 });
-
-
-
-</script>
-
-
-
-<script type="text/javascript">
         
             $(document).ready(function(){
         //Inicio select región

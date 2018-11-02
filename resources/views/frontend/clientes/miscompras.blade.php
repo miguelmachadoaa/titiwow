@@ -32,9 +32,6 @@ Mis Compras
                     <a href="{{ url('miscompras/') }}">Compras </a>
                 </li>
             </ol>
-            <div class="pull-right">
-                <i class="livicon icon3" data-name="edit" data-size="20" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i> Mis Compras 
-            </div>
         </div>
     </div>
 @stop
@@ -43,11 +40,11 @@ Mis Compras
 {{-- Page content --}}
 @section('content')
 <div class="container contain_body">
+    <div class="welcome">
+            <h3>Mis Compras</h3>
+        </div>
+        <hr>
     <div class="products">
-
-        <h3>    Mis Compras  </h3>
-        
-        <br>    
 
         <div class="row">
         @if(!$compras->isEmpty())
@@ -104,14 +101,21 @@ Mis Compras
              </table>
             @else
             <div class="alert alert-danger">
-                <strong>Lo Sentimos!</strong> No Existen Compras aun.
+                <strong>Lo Sentimos!</strong> No Existen Compras aún.
             </div>
         @endif
         </div>
         
     </div>
-</div>
 
+</div>
+<div class="container">
+    <div class="form-group">
+        <div class="col-lg-offset-5 col-lg-10" style="margin-bottom:20px;">
+            <a class="btn btn-danger" type="button" href="{{ url('clientes') }}">Regresar</a>
+        </div>
+    </div>
+</div>
 
 <!-- Modal Detalle -->
  <div class="modal fade" id="detalleModal" role="dialog" aria-labelledby="modalLabeldanger">

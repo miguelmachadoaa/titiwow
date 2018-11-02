@@ -25,7 +25,14 @@ h3 {
     color: #418bca;
     margin-bottom: 15px;
 }
-
+.texto_pagho {
+    color: #ffffff !important;;
+    margin-bottom: 15px !important;;
+    font-size:22px !important;;
+}
+.alertita{
+    margin-top: 30px;
+}
 h5 a {
     color: #418bca !important;
     padding-bottom: 2%;

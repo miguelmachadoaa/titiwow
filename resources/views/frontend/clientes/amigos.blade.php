@@ -53,6 +53,10 @@ Mis Invitaciones a Amigos
 {{-- Page content --}}
 @section('content')
 <div class="container contain_body">
+<div class="welcome">
+            <h3>Mis Amigos</h3>
+        </div>
+        <hr>
     <div class="products">
         <div class="row">   
 
@@ -134,6 +138,13 @@ Mis Invitaciones a Amigos
         @endif
         </div>
         
+    </div>
+</div>
+<div class="container">
+    <div class="form-group">
+        <div class="col-lg-offset-5 col-lg-10" style="margin-bottom:20px;">
+            <a class="btn btn-danger" type="button" href="{{ url('clientes') }}">Regresar</a>
+        </div>
     </div>
 </div>
 

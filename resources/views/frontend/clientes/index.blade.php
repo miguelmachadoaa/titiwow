@@ -84,13 +84,13 @@ Area clientes
 
             @if($cliente->id_empresa!=0)
 
-                <h4>Cliente afiliado por la empresa {{ $cliente->nombre_empresa }}</h4>
+                <h4>Cliente afiliado por la empresa: {{ $cliente->nombre_empresa }}</h4>
 
             @endif
 
             @if($cliente->id_embajador!=0)
 
-                <h4>Usted es parte de los amigos alpina de {{ $cliente->nombre_embajador }}</h4>
+                <h4>Usted es parte de los amigos alpina de: {{ $cliente->nombre_embajador }}</h4>
 
             @endif
 
@@ -121,7 +121,7 @@ Area clientes
             <a href="{{ url('misdirecciones') }}" class=" btn-large ">
                 <div class="row">
                 <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-map"></i></div>
-                <div class="col-sm-12">Mi dirección </div>
+                <div class="col-sm-12">Mi Dirección </div>
                 </div>
         
 
