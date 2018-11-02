@@ -60,7 +60,17 @@ class AlpConfiguracionController extends JoshController
             'id_mercadopago' => $request->id_mercadopago,
             'key_mercadopago' => $request->key_mercadopago, 
             'minimo_compra' => $request->minimo_compra, 
+            'correo_admin' => $request->correo_admin, 
+            'correo_shopmanager' => $request->correo_shopmanager, 
+            'correo_shopmanagercorp' => $request->correo_shopmanagercorp, 
+            'correo_masterfile' => $request->correo_masterfile, 
+            'correo_sac' => $request->correo_sac, 
+            'correo_cedi' => $request->correo_cedi, 
+            'correo_logistica' => $request->correo_logistica, 
+            'correo_finanzas' => $request->correo_finanzas
         );
+
+
          
        $configuracion = AlpConfiguracion::find($id);
     

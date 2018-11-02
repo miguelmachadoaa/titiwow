@@ -20,12 +20,23 @@ class CreateAlpConfiguracionGeneralTable extends Migration
             $table->string('minimo_compra');
             $table->string('id_mercadopago');
             $table->string('key_mercadopago');
+            $table->string('correo_admin')->nullable();
+            $table->string('correo_shopmanager')->nullable();
+            $table->string('correo_shopmanagercorp')->nullable();
+            $table->string('correo_masterfile')->nullable();
+            $table->string('correo_sac')->nullable();
+            $table->string('correo_cedi')->nullable();
+            $table->string('correo_logistica')->nullable();
+            $table->string('correo_finanzas')->nullable();
+
             $table->integer('estado_registro')->default(1);
             $table->integer('id_user');
             $table->timestamps();
             $table->softDeletes();
         });
     }
+
+
 
     /**
      * Reverse the migrations.
