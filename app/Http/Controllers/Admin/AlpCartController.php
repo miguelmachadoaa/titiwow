@@ -58,9 +58,27 @@ class AlpCartController extends JoshController
 
         if (!\Session::has('user')) {
           \Session::put('user', '0');
+        }else{
+          $car= \Session::get('user');
+
+          echo "<br>user ".$car;
         }
 
-        if (!\Session::has('carrito')) {
+        if (!\Session::has('ciudad')) {
+         // \Session::put('user', '0');
+        }else{
+          $car= \Session::get('ciudad');
+
+          echo "<br>user ".$car;
+        }
+
+          
+
+        if (!\Session::has('cr')) {
+
+          \Session::put('cr', time());
+           
+
 
           $referencia=time();
 
@@ -72,12 +90,19 @@ class AlpCartController extends JoshController
             'id_user' => '',
           );
 
-          $carrito=AlpCarrito::create($data);
+          /*$carrito=AlpCarrito::create($data);
 
-          \Session::put('carrito', $carrito->id);
+          \Session::put('cr', $carrito->id);*/
 
-        }
+          \Session::put('cr', time());
+
+          $car= \Session::get('cr');
+
+          echo "se agrega la session".$car;
+
+        
        
+        } 
     }
 
      /**
@@ -131,7 +156,7 @@ class AlpCartController extends JoshController
 
     public function orderDetail()
     {
-       $carrito= \Session::get('carrito');
+       $carrito= \Session::get('cr');
 
       $cart=$this->reloadCart();
 
@@ -576,7 +601,7 @@ class AlpCartController extends JoshController
     {
        $cart= \Session::get('cart');
 
-       $carrito= \Session::get('carrito');
+       $carrito= \Session::get('cr');
 
       $total=$this->total();
 
@@ -730,7 +755,7 @@ class AlpCartController extends JoshController
 
          AlpCarritoDetalle::destroy($ids);
 
-         $carrito= \Session::forget('carrito');
+        // $carrito= \Session::forget('cr');
 
 
          /*---------------- */
@@ -818,7 +843,7 @@ class AlpCartController extends JoshController
     {
        $cart= \Session::get('cart');
 
-       $carrito= \Session::get('carrito');
+       $carrito= \Session::get('cr');
 
        $descuento='1'; 
 
@@ -973,7 +998,8 @@ class AlpCartController extends JoshController
     public function delete( AlpProductos $producto)
     {
        $cart= \Session::get('cart');
-       $carrito= \Session::get('carrito');
+
+       $carrito= \Session::get('cr');
 
       unset( $cart[$producto->slug]);
 
@@ -993,7 +1019,7 @@ class AlpCartController extends JoshController
     {
        $cart= \Session::get('cart');
 
-       $carrito= \Session::get('carrito');
+       $carrito= \Session::get('cr');
 
 
 
@@ -1018,7 +1044,7 @@ class AlpCartController extends JoshController
     {
        $cart= \Session::get('cart');
 
-       $carrito= \Session::get('carrito');
+       $carrito= \Session::get('cr');
 
        $inv=$this->inventario();
 
@@ -1069,7 +1095,7 @@ class AlpCartController extends JoshController
     {
        $cart= \Session::forget('cart');
 
-       $carrito= \Session::forget('carrito');
+       //$carrito= \Session::forget('cr');
 
       
        return redirect('cart/show');

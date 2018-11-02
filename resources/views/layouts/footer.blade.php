@@ -99,11 +99,7 @@
                                         <select style="margin: 4px 0;" id="state_id_ubicacion" name="state_id_ubicacion" class="form-control ">
                                             <option value="">Seleccione</option>
                                                         
-                                                        @foreach($states as $state)
-
-                                                        <option value="{{ $state->id }}">
-                                                                {{ $state->state_name}}</option>
-                                                        @endforeach
+                                                       
                                                         
                                         </select>
                                     </div>
@@ -161,7 +157,7 @@
              $('.addtocart').addClass('hidden');
 
 
-            if (localStorage.getItem('ubicacion')) {
+            if (localStorage.getItem('ubicacion')!=undefined) {
 
                 ubicacion=JSON.parse(localStorage.getItem('ubicacion'));
 
@@ -171,15 +167,13 @@
 
                                 $('.addtocart').removeClass('hidden');
 
-                                
-
 
                 }else{
 
                     //$('#ubicacion_header').html(ubicacion.city_name+' '+ubicacion.state_name);
                     $('#ubicacion_header').html('No Disponible para Despacho');
 
-                                $('.addtocart').addClass('hidden');
+                    $('.addtocart').addClass('hidden');
 
                 }
 
@@ -205,6 +199,7 @@
             if ($validator.isValid()) {
 
                 base=$('#base').val();
+
                 city_id=$('#city_id_ubicacion').val();
 
                 $.ajax({
@@ -286,6 +281,34 @@
                         $('select[name="city_id_ubicacion"]').empty();
                     }
                 });
+
+
+         $(document).ready(function(){
+
+
+                 var base = $('#base').val();
+                   
+                $.ajax({
+                    url: base+'/configuracion/states/47',
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+
+                        localStorage.setItem('states', data.responseText);
+
+                        $('select[name="state_id_ubicacion"]').empty();
+
+                        $.each(data, function(key, value) {
+                            $('select[name="state_id_ubicacion"]').append('<option value="'+ key +'">'+ value +'</option>');
+                        });
+
+                    }
+                });
+                
+           
+                    
+
+         });
 
         </script>
 

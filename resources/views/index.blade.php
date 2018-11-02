@@ -264,16 +264,6 @@ Inicio @parent
 
             });
 
-            /*$.get(url, {}, function(data) {
-
-                if (data.resultado) {
-
-                    $('#detalle_carro_front').html(data.contenido);
-                         
-                }
-
-            });*/
-
 
 
         });
