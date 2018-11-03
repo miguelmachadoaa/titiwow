@@ -133,7 +133,7 @@
                             </div>
 
                             <div class="form-group {{ $errors->first('password', 'has-error') }}">
-                                <p class="text-warning col-md-offset-2"><strong>If you don't want to change password... please leave them empty</strong></p>
+                                <p class="text-warning col-md-offset-2"><strong>Si no deseas cambiar la Contraseña, por favor dejar en blanco.</strong></p>
                                 <label class="col-lg-2 control-label">
                                     Contraseña:
                                     <span class='require'>*</span>
@@ -186,16 +186,16 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group  {{ $errors->first('bio', 'has-error') }}">
+                            <!--div class="form-group  {{ $errors->first('bio', 'has-error') }}">
                                 <label for="" class="col-lg-2 control-label">Biografia <small>(Pequeña Introduccion):</small></label>
                                 <div class="col-lg-6">
                                             <textarea name="bio" id="bio" class="form-control resize_vertical"
                                                       rows="4">{!! old('bio', $user->bio) !!}</textarea>
                                 </div>
                                 {!! $errors->first('bio', '<span class="help-block">:message</span>') !!}
-                            </div>
+                            </div-->
 
-                            <div>
+                            <!--div>
                                 <h3 class="text-primary" id="title">Contacto: </h3>
                             </div>
 
@@ -246,7 +246,7 @@
                                     </div>
                                 </div>
                                 <span class="help-block">{{ $errors->first('city', ':message') }}</span>
-                            </div>
+                            </div-->
 
                             <!--div class="form-group {{ $errors->first('postal', 'has-error') }}">
                                 <label class="col-lg-2 control-label" for="postal">Código Postal:</label>
@@ -286,6 +286,7 @@
                             <div class="form-group">
                                 <div class="col-lg-offset-2 col-lg-10">
                                     <button class="btn btn-primary" type="submit">Guardar</button>
+                                    <a class="btn btn-danger" type="button" href="{{ url('clientes') }}">Regresar</a>
                                 </div>
                             </div>
 

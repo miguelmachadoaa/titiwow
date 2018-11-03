@@ -19,7 +19,7 @@ Carro de Productos
         <div class="container">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Dashboard
+                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Inicio
                     </a>
                 </li>
                 <li class="hidden-xs">
@@ -32,9 +32,6 @@ Carro de Productos
                     <a href="{{url('productos')}}">Productos</a>
                 </li>
             </ol>
-            <div class="pull-right">
-                <i class="livicon icon3" data-name="edit" data-size="20" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i> Products
-            </div>
         </div>
     </div>
 @stop
@@ -44,7 +41,7 @@ Carro de Productos
 @section('content')
 <div class="container text-center ">
     <div class="row">
-        <h1>Carro de Compras</h1>
+        <h1>Carrito de Compras</h1>
         <a class="btn  btn-link" href="{{url('cart/vaciar')}}">Vaciar</a>
         @if(count($cart))
             
@@ -119,7 +116,7 @@ Carro de Productos
      @else
 
 
-    <h1><span class="label label-primary">No hay productos en el carro</span></h1>
+    <h1><span class="label label-primary">Tu Carrito está vacio</span></h1>
 
         <p style="text-align: center;">
            

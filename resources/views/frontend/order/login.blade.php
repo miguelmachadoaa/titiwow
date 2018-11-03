@@ -25,7 +25,7 @@
         <div class="box animation flipInX">
             <div class="box1">
             <img src="{{ asset('assets/img/logo_alpina.png') }}" alt="logo" class="img-responsive mar">
-            <h3 class="text-primary">Area de Clientes </h3>
+            <h3 class="text-primary">Mi Perfil</h3>
                 <!-- Notifications -->
                 <div id="notific">
                 @include('notifications')

@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-Carro de Productos 
+Carrito de Compras 
 @parent
 @stop
 
@@ -64,22 +64,20 @@ Carro de Productos
         <div class="container">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Dashboard
+                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Inicio
                     </a>
                 </li>
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
-                    <a href="#">Carrito de Compra</a>
+                    <a href="#">Carrito de Compras</a>
                 </li>
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
-                    <a href="{{url('productos')}}">Productos</a>
+                    <a href="{{url('productos')}}">Checkout</a>
                 </li>
             </ol>
-            <div class="pull-right">
-                <i class="livicon icon3" data-name="edit" data-size="20" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i> Products
-            </div>
+           
         </div>
     </div>
 @stop
@@ -95,7 +93,7 @@ Carro de Productos
          <br>
             <div class="row">   
                 <div class="col-sm-10 col-sm-offset-1">  
-                        <h3>    Direccion de Envio </h3>
+                        <h3>    Dirección de Envío </h3>
                  </div>
             </div>
 
@@ -130,7 +128,7 @@ Carro de Productos
                                     <dd>{{$direcciones->city_name }}</dd>
 
                                    
-                                    <dt>Direccion</dt>
+                                    <dt>Dirección</dt>
                                     <dd>
                                        {{ $direcciones->nombre_estructura.' '.$direcciones->principal_address.' - '.$direcciones->secundaria_address }}
                                     </dd>
@@ -167,7 +165,7 @@ Carro de Productos
 
                     <div class="col-sm-10 col-sm-offset-1">
                         
-                        <h3>Debe agregar una direccion de envio  </h3>
+                        <h3>Debe agregar una dirección de envío  </h3>
                     
                     </div>
 
@@ -372,7 +370,7 @@ Carro de Productos
      @else
 
 
-     <h1><span class="label label-primary">No hay productos en el carro</span></h1>
+     <h1><span class="label label-primary">Tu Carrito de Compras está Vacio</span></h1>
         
 
      @endif
@@ -395,7 +393,7 @@ Carro de Productos
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-primary">
-                        <h4 class="modal-title" id="modalLabeldanger">Agregar Direccion</h4>
+                        <h4 class="modal-title" id="modalLabeldanger">Agregar Dirección</h4>
                     </div>
                     <div class="modal-body">
                         
@@ -407,7 +405,7 @@ Carro de Productos
                             <div class="row">
 
                                 <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Nickname Direccion</label>
+                                    <label class="col-md-3 control-label" for="nombre_producto">Nickname Dirección</label>
 
                                     <div class="col-sm-8">
                                         <input style="margin: 4px 0;" id="nickname_address" name="nickname_address" type="text" placeholder="Nickname Direccion" class="form-control">
@@ -474,7 +472,7 @@ Carro de Productos
                                 
 
                                 <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Codigo Postal</label>
+                                    <label class="col-md-3 control-label" for="nombre_producto">Código Postal</label>
 
                                     <div class="col-sm-8">
                                      <input style="margin: 4px 0;" id="codigo_postal_address" name="codigo_postal_address" type="text" placeholder="Codigo Postal" class="form-control">
@@ -482,7 +480,7 @@ Carro de Productos
                                 </div>
 
                                 <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Telefono</label>
+                                    <label class="col-md-3 control-label" for="nombre_producto">Teléfono</label>
 
                                     <div class="col-sm-8">
                                         <input style="margin: 4px 0;" id="telefono_address" name="telefono_address" type="text" placeholder="Telefono" class="form-control">

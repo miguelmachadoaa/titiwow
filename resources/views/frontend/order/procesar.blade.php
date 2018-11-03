@@ -30,7 +30,7 @@ Carro de Productos
         <div class="container">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Dashboard
+                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Inicio
                     </a>
                 </li>
                 <li class="hidden-xs">
@@ -40,12 +40,9 @@ Carro de Productos
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
-                    <a href="{{url('productos')}}">Productos</a>
+                    <a href="{{url('productos')}}">Resumen del Pedido</a>
                 </li>
             </ol>
-            <div class="pull-right">
-                <i class="livicon icon3" data-name="edit" data-size="20" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i> Products
-            </div>
         </div>
     </div>
 @stop
@@ -58,22 +55,22 @@ Carro de Productos
 
         @if($aviso_pago!='0')
         <div class="col-sm-12">
-            <div class="alert alert-success" >
+            <div class="alert alert-success alertita" >
                 
-               <h3>{{ $aviso_pago }}</h3> 
+               <span class="texto_pagho">{{ $aviso_pago }}</span> 
             </div>
         </div>
         @endif
 
         <div class="col-sm-12">
 
-            <h3>Gracias por su compra, recibira un correo con el detalle de su pedido</h3>
+            <h3>Gracias por su compra, recibirá un correo con el detalle de su pedido</h3>
 
-            <h5>Su forma de Pago fue <b>{{ $compra->nombre_forma_pago }}</b> </h5>
+            <h5>Su forma de Pago fue: <b>{{ $compra->nombre_forma_pago }}</b> </h5>
 
-            <h5>ha seleccionado enviar en pedido con <b>{{ $compra->nombre_forma_envios }}</b> y sera entregado {{ $fecha_entrega }}</h5>
+            <h5>Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y será entregado {{ $fecha_entrega }}</h5>
 
-            <h5>De igual forma puede consultar la informacion y estatus de su pedido en su area de cliente </h5>
+            <h5>De igual forma puede consultar la información y estatus de su pedido en su</h5> <a class="btn btn-sm btn-info" href="{{url('clientes')}}">Perfil</a> 
 
 
 
@@ -122,7 +119,7 @@ Carro de Productos
 
 
      <div class="row">
-         <div class="col-md-10 col-md-offset-1 table-responsive">
+         <div class="col-md-10 col-md-offset-1 table-responsive" style="padding-bottom:20px;">
              
             <a class="btn btn-default"  href="{{ url('/productos') }}">Seguir Comprando </a>
          </div>

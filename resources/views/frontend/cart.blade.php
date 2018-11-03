@@ -3,7 +3,7 @@
 
 {{-- Page title --}}
 @section('title')
-Carro de Productos 
+Carrito de Compras
 @parent
 @stop
 
@@ -24,7 +24,7 @@ Carro de Productos
                 </li>
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
-                    <a href="#">Carrito de Compra</a>
+                    <a href="#">Carrito de Compras</a>
                 </li>
 
                 <li class="hidden-xs">
@@ -48,7 +48,7 @@ Carro de Productos
 
     <div class="row">
 
-        <h1>Carro de Compras</h1>
+        <h1>Carrito de Compras</h1>
 
         <a class="btn  btn-link" href="{{url('cart/vaciar')}}">Vaciar</a>
 
@@ -151,7 +151,7 @@ Carro de Productos
      @else
 
 
-    <h1><span class="label label-primary">No hay productos en el carro</span></h1>
+    <h1><span class="label label-primary">Tu Carrito está Vacio</span></h1>
 
         <p style="text-align: center;">
            

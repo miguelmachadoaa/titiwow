@@ -164,7 +164,7 @@ Resultado de la Búsqueda @parent
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-sucess">
-                        <h4 class="modal-title" id="modalLabeldanger">Producto Agregado a su carro de compras</h4>
+                        <h4 class="modal-title" id="modalLabeldanger">Producto Agregado a tu carrito de compras</h4>
                     </div>
                     <div class="modal-body cartcontenido">
 
@@ -176,7 +176,7 @@ Resultado de la Búsqueda @parent
                     </div>
                     <div class="modal-footer">
                         <button type="button"  class="btn  btn-default" data-dismiss="modal">Continuar Comprando</button>
-                        <a href="{{ url('cart/show') }}" class="btn  btn-info " >Proceder a Cancelar</a>
+                        <a href="{{ url('cart/show') }}" class="btn  btn-info " >Proceder a Pagar</a>
                     </div>
                 </div>
             </div>

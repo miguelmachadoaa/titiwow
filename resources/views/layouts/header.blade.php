@@ -31,7 +31,7 @@
         <!-- Icon Section Start -->
         <div class="icon-section">
             <div class="container">
-                <div class="col-sm-4 hidden-md" >
+                <div class="col-sm-3 hidden-md" >
                     <div class="navbar-header menu_float">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse">
                             <span><a href="#"><i class="livicon" data-name="responsive-menu" data-size="25" data-loop="false" data-c="#ffffff" data-hc="#ccc"></i>
@@ -48,7 +48,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-8 col-sm-8" >
+                <div class="col-md-9 col-sm-8" >
                     <ul class="list-inline">
                         <li class="pull-right menu-top">
                             <ul class="list-inline icon-position">
@@ -84,7 +84,10 @@
                                 </li>
                             @else
                                 <li {{ (Request::is('clientes') ? 'class=active' : '') }}>
-                                    <label ><a href="{{ URL::to('clientes') }}">Mi Perfil</a></label>  
+                                    <label >                          
+                                        <a  href="{{url('clientes')}}">
+                                            Hola: {{ Sentinel::getUser()->first_name }} {{ Sentinel::getUser()->last_name }}</a>
+                                    </label>  
                                 </li>
 
                                 <li>
@@ -147,7 +150,7 @@
                     @endforeach
                 </ul>
 
-                @if(Sentinel::guest())
+               <!-- @if(Sentinel::guest())
 
                 @else
 
@@ -173,7 +176,7 @@
                       </ul>
 
 
-                @endif
+                @endif-->
 
 
 

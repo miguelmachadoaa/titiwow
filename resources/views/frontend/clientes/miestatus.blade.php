@@ -29,7 +29,7 @@ Mi Estatus
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
-                    <a href="{{ url('clientes/miestatus') }}">Mi Estatus  </a>
+                    <a href="{{ url('miestatus') }}">Mi Estatus  </a>
                 </li>
             </ol>
             
@@ -41,9 +41,11 @@ Mi Estatus
 {{-- Page content --}}
 @section('content')
 <div class="container contain_body">
-    <div class="products">
-
+<div class="welcome">
+            <h3>Mi Estatus</h3>
+        </div>
         <hr>
+    <div class="products">
 
         <div class="row" id="table_amigos">
 
@@ -102,7 +104,13 @@ Mi Estatus
         
     </div>
 </div>
-
+<div class="container">
+    <div class="form-group">
+        <div class="col-lg-offset-5 col-lg-10" style="margin-bottom:20px;">
+            <a class="btn btn-danger" type="button" href="{{ url('clientes') }}">Regresar</a>
+        </div>
+    </div>
+</div>
 
 
 
