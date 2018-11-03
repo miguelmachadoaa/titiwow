@@ -566,4 +566,8 @@ Route::get('emailAmigo', function(){
         return new \App\Mail\NotificacionAmigo('Miguel', 'Machado', 'sdklfjasfasdfasdklfasf', 'Embajador Embajador');
 });
 
+Route::get('notificacion', function(){
+        return new \App\Mail\NotificacionOrden('12345', 'Se ha aprobado la orden');
+});
+
 

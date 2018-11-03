@@ -8,6 +8,7 @@ use App\Models\AlpOrdenes;
 use App\Models\AlpEstatusOrdenes;
 use App\Models\AlpOrdenesHistory;
 use App\Models\AlpDetalles;
+use App\Models\AlpConfiguracion;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Redirect;
@@ -402,6 +403,8 @@ echo '<br>fin: '.$date_fin;*/
 
         $input = $request->all();
 
+        $configuracion = AlpConfiguracion::where('id','1')->first();
+
         //var_dump($input);
 
         $data_history = array(
@@ -433,6 +436,15 @@ echo '<br>fin: '.$date_fin;*/
           ->first();
 
         if ($orden->id) {
+
+          $texto="La orden ".$orden->id." Ha sido aprobada y espera para ser facturada!"
+
+
+           Mail::to($configuracion->correo_cedi)->send(new \App\Mail\notificacionOrden($orden->id, $texto));
+
+
+
+
 
           $view= View::make('admin.ordenes.aprobar', compact('orden'));
 
@@ -488,6 +500,11 @@ echo '<br>fin: '.$date_fin;*/
 
         if ($orden->id) {
 
+          $texto="La orden ".$orden->id." Ha sido Facturada  y espera para ser Enviada!"
+
+          Mail::to($configuracion->correo_logistica)->send(new \App\Mail\notificacionOrden($orden->id, $texto));
+
+
           $view= View::make('admin.ordenes.facturar', compact('orden'));
 
           $data=$view->render();
@@ -542,6 +559,10 @@ echo '<br>fin: '.$date_fin;*/
           ->first();
 
         if ($orden->id) {
+
+          $texto="La orden ".$orden->id." Ha sido Enviada  !"
+
+          Mail::to($configuracion->correo_shopmanager)->send(new \App\Mail\notificacionOrden($orden->id, $texto));
 
           $view= View::make('admin.ordenes.enviar', compact('orden'));
 
