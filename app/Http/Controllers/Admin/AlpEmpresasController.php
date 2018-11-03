@@ -164,7 +164,6 @@ class AlpEmpresasController extends JoshController
            
             $empresas = AlpEmpresas::find($id);
 
-
             // Delete the group
             $empresas->delete();
 
@@ -178,19 +177,10 @@ class AlpEmpresasController extends JoshController
 
      public function invitaciones($id)
     {
-        // Grab all the groups
 
-
-      
         $empresa = AlpEmpresas::find($id);
 
-
-
-
         $invitaciones = AlpAmigos::where('id_cliente', 'E'.$id)->get();
-       
-
-
         // Show the page
         return view('admin.empresas.invitaciones', compact('empresa','invitaciones'));
     }
@@ -220,7 +210,6 @@ class AlpEmpresasController extends JoshController
             $invitaciones=AlpAmigos::where('id_cliente', 'E'.$request->id_empresa)->get();
 
             $empresa = AlpEmpresas::find($request->id_empresa);
-
 
             Mail::to($request->email)->send(new \App\Mail\NotificacionAfiliado($request->nombre, $request->apellido, $token, $empresa->nombre_empresa));
 
@@ -256,8 +245,6 @@ class AlpEmpresasController extends JoshController
             $data=$view->render();
 
             return $data;
-            
-
        
     }
 
@@ -286,6 +273,5 @@ class AlpEmpresasController extends JoshController
         
     }
 
-    
 
 }

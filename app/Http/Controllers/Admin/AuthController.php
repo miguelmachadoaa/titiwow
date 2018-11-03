@@ -547,15 +547,11 @@ class AuthController extends JoshController
 
              $amigo->delete();
 
-            //activity log ends
-            // Redirect to the home page with success menu
-           // return Redirect::route("admin.dashboard")->with('success', trans('auth/message.signup.success'));
+           
 
             if ($request->back=='0') {
 
-                    //return Redirect::route("admin.dashboard")->with('success', trans('auth/message.signin.success'));
-
-                     $mensaje="Ha sido registrado satisfactoriamente, debe esperar ser activado en un proceso interno y le sera notificado via email";
+                $mensaje="Ha sido registrado satisfactoriamente, debe esperar ser activado en un proceso interno y le sera notificado via email";
 
                 return view('frontend.clientes.aviso',  compact('mensaje'));
                    

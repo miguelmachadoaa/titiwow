@@ -86,8 +86,7 @@ Ordenes
                                                 <i class="livicon" data-name="plus" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Detalle"></i>
                                             </a>
 
-                                            <div style="display: inline-block;" class="estatus_{{ $row->id }}">
-                                            <button data-id="{{ $row->id }}"  data-codigo="{{ $row->cod_oracle_pedido }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-info confirmar" > {{ $row->estatus_nombre }} </button></div>
+                                           
 
                                             
                                          @if($row->ordencompra=='')

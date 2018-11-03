@@ -86,22 +86,21 @@ Ordenes Facturadas
                                                 <i class="livicon" data-name="plus" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Detalle"></i>
                                             </a>
 
-                                            <div style="display: inline-block;" class="estatus_{{ $row->id }}">
-                                            <button data-id="{{ $row->id }}"  data-codigo="{{ $row->cod_oracle_pedido }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-info confirmar" > {{ $row->estatus_nombre }} </button></div>
+                                           
 
                                             
-                                         @if($row->ordencompra=='')
+                                         @if($row->tracking=='')
 
-                                            <div style="display: inline-block;" class="aprobar_{{ $row->id }}">
-                                            <button data-id="{{ $row->id }}"  data-codigo="{{ $row->ordencompra }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-info aprobar" > Aprobar </button></div>
+                                            <div style="display: inline-block;" class="tracking_{{ $row->id }}">
+                                            <button data-id="{{ $row->id }}"  data-codigo="{{ $row->tracking }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-info tracking" > Enviar </button></div>
 
-                                           @else
+                                       @else
 
-                                            <div style="display: inline-block;" class="aprobar_{{ $row->id }}">
-                                            <button data-id="{{ $row->id }}"  data-codigo="{{ $row->ordencompra }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-success aprobar" > Aprobado </button></div>
+                                            <div style="display: inline-block;" class="tracking_{{ $row->id }}">
+                                            <button data-id="{{ $row->id }}"  data-codigo="{{ $row->tracking }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-success tracking" > Enviado </button></div>
 
+                                       @endif
 
-                                           @endif
 
                                             
 

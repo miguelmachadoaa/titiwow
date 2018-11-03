@@ -16,8 +16,8 @@ class CreateAlpCarritoTable extends Migration
         Schema::create('alp_carrito', function (Blueprint $table) {
             $table->increments('id');
             $table->string('referencia');
-            $table->integer('id_city');
-            $table->integer('id_user');
+            $table->integer('id_city')->nullable();;
+            $table->integer('id_user')->nullable();;
             $table->timestamps();
             $table->softDeletes();
         });

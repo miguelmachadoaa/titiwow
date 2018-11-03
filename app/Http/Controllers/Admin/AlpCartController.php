@@ -218,6 +218,8 @@ class AlpCartController extends JoshController
 
           $carro=AlpCarrito::where('id', $carrito)->first();
 
+         // dd($carrito);
+
           $data_carrito = array(
             'id_user' => $user_id );
 
@@ -804,7 +806,7 @@ class AlpCartController extends JoshController
 
         if (!\Session::has('cr')) {
 
-          \Session::put('cr', time());
+          \Session::put('cr', '0');
 
           $ciudad= \Session::get('ciudad');
 
