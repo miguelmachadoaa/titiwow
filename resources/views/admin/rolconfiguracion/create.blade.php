@@ -84,9 +84,9 @@
                                             name="{{ $rol->id.'-'.'precio' }}" 
                                             id="{{ $rol->id.'-'.'precio' }}" 
                                             type="checkbox" 
-                                            class="custom-checkbox @if ($data[$rol->id]['precio']==1) checked @endif " 
+                                            class="custom-checkbox @if (isset($data[$rol->id]['precio'])) checked @endif " 
                                             value="{{ $rol->id.'-'.'precio' }}"
-                                            @if ($data[$rol->id]['precio']==1) checked @endif
+                                            @if (isset($data[$rol->id]['precio'])) checked @endif
                                             >
                                             &nbsp; Precio
 
@@ -99,9 +99,9 @@
                                             name="{{ $rol->id.'-'.'referido' }}" 
                                             id="{{ $rol->id.'-'.'referido' }}" 
                                             type="checkbox" 
-                                            class="custom-checkbox @if ($data[$rol->id]['referido']==1) checked @endif " 
+                                            class="custom-checkbox @if (isset($data[$rol->id]['referido'])) checked @endif " 
                                             value="{{ $rol->id.'-'.'referido' }}"
-                                            @if ($data[$rol->id]['referido']==1) checked @endif
+                                            @if (isset($data[$rol->id]['referido'])) checked @endif
                                             >
                                             &nbsp; Referido
 
@@ -114,9 +114,9 @@
                                             name="{{ $rol->id.'-'.'empresa' }}" 
                                             id="{{ $rol->id.'-'.'empresa' }}" 
                                             type="checkbox" 
-                                            class="custom-checkbox @if ($data[$rol->id]['empresa'])==1 checked @endif " 
+                                            class="custom-checkbox @if (isset($data[$rol->id]['empresa'])) checked @endif " 
                                             value="{{ $rol->id.'-'.'empresa' }}"
-                                            @if ($data[$rol->id]['empresa']==1) checked @endif
+                                            @if (isset($data[$rol->id]['empresa'])) checked @endif
                                             >
                                             &nbsp; Empresa
 

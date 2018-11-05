@@ -150,21 +150,7 @@ Inicio @parent
                                                 <a class="btn btn-sm btn-primary" href="{{ route('producto', [$producto->slug]) }}">Ver Más</a>
 
                                                  
-
-                                                <div class="row">
-                                                  <div class="col-sm-12">
-                                                    <div class="input-group">
-                                                      <span class="input-group-btn">
-                                                        <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
-                                                      </span>
-                                                      <input type="number" min="1" step="1" class="form-control" placeholder="">
-                                                      <span class="input-group-btn">
-                                                        <button class="btn btn-default" type="button"><i class="fa fa-minus"></i></button>
-                                                      </span>
-                                                    </div><!-- /input-group -->
-                                                  </div><!-- /.col-lg-6 -->
-                                                 
-                                                </div><!-- /.row --> 
+                                                
                                             </p>
                                         </div>
                                     </div>
