@@ -407,7 +407,6 @@ class ProductosFrontController extends Controller
         ->groupBy('alp_productos.id')
         ->paginate(12); 
 
-
          if (Sentinel::check()) {
 
             $user_id = Sentinel::getUser()->id;
@@ -449,7 +448,6 @@ class ProductosFrontController extends Controller
         }
 
          $states=State::where('config_states.country_id', '47')->get();
-
 
         return \View::make('frontend.marcas', compact('productos','marcaname','slug', 'descuento', 'precio', 'states'));
 

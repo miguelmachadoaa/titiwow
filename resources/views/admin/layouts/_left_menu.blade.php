@@ -1,7 +1,7 @@
 <ul id="menu" class="page-sidebar-menu">
 
-    <li {!! (Request::is('admin/index1') ? 'class="active"' : '') !!}>
-        <a href="{{  URL::to('admin/index1') }}">
+    <li {!! (Request::is('admin') ? 'class="active"' : '') !!}>
+        <a href="{{  URL::to('admin') }}">
             <i class="livicon" data-name="dashboard" data-size="18" data-c="#EF6F6C" data-hc="#EF6F6C"
                data-loop="true"></i>
             Escritorio
