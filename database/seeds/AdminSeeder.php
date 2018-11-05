@@ -124,13 +124,13 @@ class AdminSeeder extends DatabaseSeeder {
 			'name' => 'Shop Manager',
 			'slug' => 'shopmanager',
 			'tipo' => 1,
-			'permissions' => array('productos.index'=>true,'productos.create'=>true,'productos.store'=>true,'productos.show'=>true,'productos.edit'=>true,'productos.update'=>true,'productos.destroy'=>true,'categorias.index'=>true,'categorias.create'=>true,'categorias.store'=>true,'categorias.show'=>true,'categorias.edit'=>true,'categorias.update'=>true,'categorias.destroy'=>true,'ordenes.index'=>true,'ordenes.create'=>true,'ordenes.store'=>true,'ordenes.show'=>true,'ordenes.edit'=>true,'ordenes.update'=>true,'ordenes.destroy'=>true,'ordenes.enviados'=>true,'shopmanager' => 1),
+			'permissions' => array('productos.index'=>true,'productos.create'=>true,'productos.store'=>true,'productos.show'=>true,'productos.edit'=>true,'productos.update'=>true,'productos.destroy'=>true,'categorias.index'=>true,'categorias.create'=>true,'categorias.store'=>true,'categorias.show'=>true,'categorias.edit'=>true,'categorias.update'=>true,'categorias.destroy'=>true,'ordenes.index'=>true,'ordenes.create'=>true,'ordenes.store'=>true,'ordenes.show'=>true,'ordenes.edit'=>true,'ordenes.update'=>true,'ordenes.destroy'=>true,'ordenes.enviados'=>true,'envios.index'=>true,'envios.create'=>true,'envios.store'=>true,'envios.show'=>true,'envios.edit'=>true,'envios.update'=>true,'envios.destroy'=>true,'shopmanager' => 1),
 		]);
 		$shopmanagercorpRole = Sentinel::getRoleRepository()->createModel()->create([
 			'name' => 'Shop Manager Corporativo',
 			'slug' => 'shopmanagercorp',
 			'tipo' => 1,
-			'permissions' => array('ordenes.empresas'=>true,'clientes.empresas'=>true,'empresas.index'=>true,'empresas.create'=>true,'empresas.store'=>true,'empresas.show'=>true,'empresas.edit'=>true,'empresas.update'=>true,'empresas.destroy'=>true, 'shopmanagercorp' => 1),
+			'permissions' => array('ordenes.empresas'=>true,'clientes.empresas'=>true,'empresas.index'=>true,'empresas.create'=>true,'empresas.store'=>true,'empresas.show'=>true,'empresas.edit'=>true,'empresas.update'=>true,'empresas.destroy'=>true, 'envios.index'=>true,'envios.create'=>true,'envios.store'=>true,'envios.show'=>true,'envios.edit'=>true,'envios.update'=>true,'envios.destroy'=>true,'shopmanagercorp' => 1),
 		]);
 
 		$masterfileRole = Sentinel::getRoleRepository()->createModel()->create([

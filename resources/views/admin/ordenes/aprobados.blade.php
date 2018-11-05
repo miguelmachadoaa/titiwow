@@ -68,7 +68,8 @@ Ordenes Aprobadas
                                     <td>{!! $row->nombre_forma_pago !!}</td>
                                     <td> 
                                         
-                                        @if($row->json!=Null)
+                                        @if(isset($row->json))
+                                            
                                             {{ json_decode($row->json)->merchant_order_id }}
 
                                         @endif
