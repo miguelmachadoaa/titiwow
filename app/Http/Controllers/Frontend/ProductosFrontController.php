@@ -251,10 +251,12 @@ class ProductosFrontController extends Controller
 
         }
 
+        $cart= \Session::get('cart');
+
         $states=State::where('config_states.country_id', '47')->get();
 
 
-        return \View::make('frontend.list', compact('leche','lacteos','quesos','postres','esparcibles','bebidas','finess','baby','nolacteos','descuento', 'precio', 'states'));
+        return \View::make('frontend.list', compact('leche','lacteos','quesos','postres','esparcibles','bebidas','finess','baby','nolacteos','descuento', 'precio', 'states', 'cart'));
     }
  
     public function show($slug)

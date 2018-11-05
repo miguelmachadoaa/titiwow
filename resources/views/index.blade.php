@@ -144,8 +144,27 @@ Inicio @parent
                                             <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
 
                                             <p class="product_botones">
+
                                                 <a class="btn btn-sm btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
+
                                                 <a class="btn btn-sm btn-primary" href="{{ route('producto', [$producto->slug]) }}">Ver Más</a>
+
+                                                 
+
+                                                <div class="row">
+                                                  <div class="col-sm-12">
+                                                    <div class="input-group">
+                                                      <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                                                      </span>
+                                                      <input type="number" min="1" step="1" class="form-control" placeholder="">
+                                                      <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button"><i class="fa fa-minus"></i></button>
+                                                      </span>
+                                                    </div><!-- /input-group -->
+                                                  </div><!-- /.col-lg-6 -->
+                                                 
+                                                </div><!-- /.row --> 
                                             </p>
                                         </div>
                                     </div>

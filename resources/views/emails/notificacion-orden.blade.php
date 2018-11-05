@@ -4,10 +4,10 @@
 
  {{ $texto }}
 <br>
- {{ $orden }}
+ 
 
-@component('mail::button', ['url' => url('#')])
-Registro 
+@component('mail::button', ['url' => url('/admin/ordenes')])
+Ver Ordenes
 @endcomponent
 
 Gracias,<br>

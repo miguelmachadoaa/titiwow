@@ -567,7 +567,7 @@ Route::get('emailAmigo', function(){
 });
 
 Route::get('notificacion', function(){
-        return new \App\Mail\NotificacionOrden('12345', 'Se ha aprobado la orden');
+        return new \App\Mail\NotificacionOrden('25', 'La orden 25 Ha sido Enviada  !');
 });
 
 
