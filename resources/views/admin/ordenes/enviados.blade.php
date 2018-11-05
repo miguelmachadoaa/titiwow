@@ -69,7 +69,7 @@ Ordenes Enviadas
                                     <td> 
                                         
                                         @if($row->json!=Null)
-                                            {{ json_decode($row->json)->preference_id }}
+                                            {{ json_decode($row->json)->merchant_order_id }}
 
                                         @endif
 

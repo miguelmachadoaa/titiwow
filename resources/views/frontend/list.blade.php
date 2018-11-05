@@ -104,10 +104,6 @@ Productos @parent
                                         @endif
                                     <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
 
-
-                                    
-
-
                                     <p class="product_botones">
                                         <a class="btn btn-sm btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
                                         <a class="btn btn-sm btn-primary" href="{{ route('producto', [$producto->slug]) }}">Ver Más</a>
@@ -128,7 +124,7 @@ Productos @parent
         <!-- Categoria 2 -->
         <div class="row">
             <div class="col-md-3">   
-                <div class="categoriaprod" id="cat2" style="background-image: url({{ url('/').'/assets/img/categorias/lacteos.jpg' }});"'>
+                <div class="categoriaprod" id="cat2" style="background-image: url({{ url('/').'/assets/img/categorias/lacteos.jpg' }});">
                     <div class="layercat">
                         <div class="text-align:center;" id="contenido_list">
                             <h2>Lácteos</h2>
@@ -179,8 +175,6 @@ Productos @parent
                                             <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
 
                                         @endif
-
-
                                     
 
                                     @else
@@ -189,9 +183,6 @@ Productos @parent
 
                                     @endif
                                     <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
-
-
-                                    
 
 
                                     <p class="product_botones">
@@ -265,8 +256,6 @@ Productos @parent
                                             <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
 
                                         @endif
-
-
                                     
 
                                     @else
@@ -275,10 +264,6 @@ Productos @parent
 
                                     @endif
                                     <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
-
-
-                                    
-
 
                                     <p class="product_botones">
                                         <a class="btn btn-sm btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
@@ -352,19 +337,12 @@ Productos @parent
 
                                         @endif
 
-
-                                    
-
                                     @else
 
                                         <p id="precio_prod"><del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base, 2) }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
 
                                     @endif
                                     <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
-
-
-                                    
-
 
                                     <p class="product_botones">
                                         <a class="btn btn-sm btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
@@ -438,19 +416,12 @@ Productos @parent
 
                                         @endif
 
-
-                                    
-
                                     @else
 
                                         <p id="precio_prod"><del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base, 2) }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
 
                                     @endif
                                     <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
-
-
-                                    
-
 
                                     <p class="product_botones">
                                         <a class="btn btn-sm btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
@@ -524,19 +495,12 @@ Productos @parent
 
                                         @endif
 
-
-                                    
-
                                     @else
 
                                         <p id="precio_prod"><del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base, 2) }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
 
                                     @endif
                                     <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
-
-
-                                    
-
 
                                     <p class="product_botones">
                                         <a class="btn btn-sm btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
@@ -600,7 +564,6 @@ Productos @parent
 
                                                     <p id="precio_prod"><del class="">${{ number_format($producto->precio_base, 2) }}</del>&nbsp;<span class="precio_base">${{ number_format($precio[$producto->id]['precio'],0,",",".") }}</span></p>
                                                     @break
-
                                                 
                                             @endswitch
 
@@ -610,19 +573,12 @@ Productos @parent
 
                                         @endif
 
-
-                                    
-
                                     @else
 
                                         <p id="precio_prod"><del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base, 2) }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
 
                                     @endif
                                     <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
-
-
-                                    
-
 
                                     <p class="product_botones">
                                         <a class="btn btn-sm btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
@@ -686,7 +642,6 @@ Productos @parent
 
                                                     <p id="precio_prod"><del class="">${{ number_format($producto->precio_base, 2) }}</del>&nbsp;<span class="precio_base">${{ number_format($precio[$producto->id]['precio'],0,",",".") }}</span></p>
                                                     @break
-
                                                 
                                             @endswitch
 
@@ -696,19 +651,12 @@ Productos @parent
 
                                         @endif
 
-
-                                    
-
                                     @else
 
                                         <p id="precio_prod"><del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base, 2) }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
 
                                     @endif
                                     <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
-
-
-                                    
-
 
                                     <p class="product_botones">
                                         <a class="btn btn-sm btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
@@ -772,7 +720,6 @@ Productos @parent
 
                                                     <p id="precio_prod"><del class="">${{ number_format($producto->precio_base, 2) }}</del>&nbsp;<span class="precio_base">${{ number_format($precio[$producto->id]['precio'],0,",",".") }}</span></p>
                                                     @break
-
                                                 
                                             @endswitch
 
@@ -782,18 +729,12 @@ Productos @parent
 
                                         @endif
 
-
-                                    
-
                                     @else
 
                                         <p id="precio_prod"><del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base, 2) }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
 
                                     @endif
                                     <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
-
-
-                                    
 
 
                                     <p class="product_botones">
@@ -817,10 +758,6 @@ Productos @parent
 </div>
 </div>
 </div>
-
-
-
-
 
 
         <!-- Modal Direccion -->
@@ -870,12 +807,7 @@ Productos @parent
 
             $.get(url, {}, function(data) {
 
-               /* if (data.resultado) {
-
-                    $('#detalle_carro_front').html(data.contenido);
-                         
-                }*/
-
+               
                 $('.cartcontenido').html(data);
 
                 $('#detailCartModal').modal('show');

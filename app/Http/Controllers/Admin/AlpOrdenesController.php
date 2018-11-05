@@ -8,6 +8,7 @@ use App\Models\AlpOrdenes;
 use App\Models\AlpEstatusOrdenes;
 use App\Models\AlpOrdenesHistory;
 use App\Models\AlpDetalles;
+use App\Models\AlpPagos;
 use App\Models\AlpConfiguracion;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -330,6 +331,11 @@ echo '<br>fin: '.$date_fin;*/
           ->where('alp_ordenes_detalle.id_orden', $id)
           ->get();
 
+    $pago = AlpPagos::select('alp_ordenes_pagos.*','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago')
+          ->join('alp_formas_pagos', 'alp_ordenes_pagos.id_forma_pago', '=', 'alp_formas_pagos.id')
+          ->where('alp_ordenes_pagos.id_orden', $id)
+          ->first();
+
 
     $history = AlpOrdenesHistory::select('alp_ordenes_history.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre' )
           ->join('alp_ordenes_estatus', 'alp_ordenes_history.id_status', '=', 'alp_ordenes_estatus.id')
@@ -339,7 +345,7 @@ echo '<br>fin: '.$date_fin;*/
 
 
 
-        return view('admin.ordenes.detalle', compact('detalles', 'orden', 'history'));
+        return view('admin.ordenes.detalle', compact('detalles', 'orden', 'history', 'pago'));
 
     }
 

@@ -106,6 +106,108 @@ Orden {{$orden->id}}
     <!-- row-->
 
 
+    @if(isset($pago->id))
+
+
+     <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary ">
+                <div class="panel-heading">
+                    <h4 class="panel-title"> <i class="livicon" data-name="wrench" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                       Detalle de pago 
+                    </h4>
+                </div>
+                <div class="panel-body">
+
+                     <br>
+                        <div class="row">   
+                            <div class="col-sm-12">  
+                                    <h3>    Detalle de la orden</h3>
+                             </div>
+                            
+                        </div>
+
+                    <br> 
+
+                   <table class="table table-striped ">
+                 
+                 <tbody>
+                   
+                        <tr>
+                            <td><b>Id Orden</b></td>
+                            <td>{{$pago->id_orden}}</td>
+                            
+                        </tr>
+
+                        <tr>
+                            <td>Forma de pago</td>
+                            <td>{{$pago->nombre_forma_pago}}</td>
+                            
+                        </tr>
+
+                        <tr>
+                            <td>Monto</td>
+                            <td>{{$pago->monto_pago}}</td>
+                            
+                        </tr>
+
+                        <tr>
+                            <td>collection_id</td>
+                            <td>{{json_decode($pago->json)->collection_id}}</td>
+                            
+                        </tr>
+
+                         <tr>
+                            <td>collection_status</td>
+                            <td>{{json_decode($pago->json)->collection_status}}</td>
+                            
+                        </tr>
+
+                         <tr>
+                            <td>collection_id</td>
+                            <td>{{json_decode($pago->json)->collection_id}}</td>
+                            
+                        </tr>
+
+                         <tr>
+                            <td>preference_id</td>
+                            <td>{{json_decode($pago->json)->preference_id}}</td>
+                            
+                        </tr>
+
+                         <tr>
+                            <td>external_reference</td>
+                            <td>{{json_decode($pago->json)->external_reference}}</td>
+                            
+                        </tr>
+
+                         <tr>
+                            <td>payment_type</td>
+                            <td>{{json_decode($pago->json)->payment_type}}</td>
+                            
+                        </tr>
+
+                        <tr>
+                            <td>merchant_order_id</td>
+                            <td>{{json_decode($pago->json)->merchant_order_id}}</td>
+                            
+                        </tr>
+                   
+
+                    
+
+                 </tbody>
+             </table>
+                    
+           
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- row-->
+
+    @endif
 
 
 
