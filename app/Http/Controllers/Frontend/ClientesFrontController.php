@@ -66,7 +66,9 @@ class ClientesFrontController extends Controller
 
             $states=State::where('config_states.country_id', '47')->get();
 
-            return \View::make('frontend.clientes.index', compact('referidos', 'cliente', 'user', 'states'));
+             $cart= \Session::get('cart');
+
+            return \View::make('frontend.clientes.index', compact('referidos', 'cliente', 'user', 'states', 'cart'));
     
             }else{
 
@@ -131,9 +133,11 @@ class ClientesFrontController extends Controller
 
             $countries = Country::all();
 
+             $cart= \Session::get('cart');
 
 
-            return view('frontend.clientes.misdirecciones', compact('direcciones', 'cliente', 'user', 'countries',  'editar', 'states', 't_documento', 'estructura', 'cities'));
+
+            return view('frontend.clientes.misdirecciones', compact('direcciones', 'cliente', 'user', 'countries',  'editar', 'states', 't_documento', 'estructura', 'cities', 'cart'));
     
 
             }else{
@@ -178,7 +182,9 @@ class ClientesFrontController extends Controller
 
             $states=State::where('config_states.country_id', '47')->get();
 
-            return view('frontend.clientes.misamigos', compact('referidos', 'cliente', 'user', 'configuracion', 'amigos', 'cantidad', 'states'));
+             $cart= \Session::get('cart');
+
+            return view('frontend.clientes.misamigos', compact('referidos', 'cliente', 'user', 'configuracion', 'amigos', 'cantidad', 'states', 'cart'));
     
 
             }else{
@@ -225,7 +231,9 @@ class ClientesFrontController extends Controller
 
             $states=State::where('config_states.country_id', '47')->get();
 
-            return view('frontend.clientes.miestatus', compact('referidos', 'cliente', 'user', 'configuracion', 'amigos', 'cantidad', 'states'));
+             $cart= \Session::get('cart');
+
+            return view('frontend.clientes.miestatus', compact('referidos', 'cliente', 'user', 'configuracion', 'amigos', 'cantidad', 'states', 'cart'));
     
 
             }else{
@@ -365,8 +373,10 @@ class ClientesFrontController extends Controller
 
             $states=State::where('config_states.country_id', '47')->get();
 
+             $cart= \Session::get('cart');
 
-            return \View::make('frontend.clientes.amigos', compact('amigos', 'cliente', 'user', 'configuracion', 'cantidad', 'configuracion', 'states'));
+
+            return \View::make('frontend.clientes.amigos', compact('amigos', 'cliente', 'user', 'configuracion', 'cantidad', 'configuracion', 'states', 'cart'));
 
 
 
@@ -406,7 +416,9 @@ class ClientesFrontController extends Controller
 
             $states=State::where('config_states.country_id', '47')->get();
 
-                return \View::make('frontend.clientes.compras', compact('compras', 'cliente', 'user', 'states'));
+             $cart= \Session::get('cart');
+
+                return \View::make('frontend.clientes.compras', compact('compras', 'cliente', 'user', 'states', 'cart'));
 
             }else{
 
@@ -442,7 +454,9 @@ class ClientesFrontController extends Controller
 
             $states=State::where('config_states.country_id', '47')->get();
 
-            return \View::make('frontend.clientes.miscompras', compact('compras', 'cliente', 'user', 'states'));
+             $cart= \Session::get('cart');
+
+            return \View::make('frontend.clientes.miscompras', compact('compras', 'cliente', 'user', 'states', 'cart'));
 
             }else{
 
@@ -512,7 +526,9 @@ class ClientesFrontController extends Controller
 
             $states=State::where('config_states.country_id', '47')->get();
 
-            return view('frontend.clientes.aviso',  compact('mensaje', 'states'));
+             $cart= \Session::get('cart');
+
+            return view('frontend.clientes.aviso',  compact('mensaje', 'states', 'cart'));
 
         }
                 
@@ -527,8 +543,11 @@ class ClientesFrontController extends Controller
         $producto = AlpProductos::where('slug','=', $slug)->firstOrFail();
 
         $states=State::where('config_states.country_id', '47')->get();
+
+        $cart= \Session::get('cart');
+
         
-        return \View::make('frontend.producto_single', compact('producto', 'cliente', 'states'));
+        return \View::make('frontend.producto_single', compact('producto', 'cliente', 'states', 'cart'));
 
     }
 
@@ -546,7 +565,9 @@ class ClientesFrontController extends Controller
 
         $states=State::where('config_states.country_id', '47')->get();
 
-        return \View::make('frontend.categorias', compact('productos','cataname','slug', 'states'));
+        $cart= \Session::get('cart');
+
+        return \View::make('frontend.categorias', compact('productos','cataname','slug', 'states', 'cart'));
 
     }
 

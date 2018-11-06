@@ -61,10 +61,30 @@
                                    
                                 </li>
 
-                                <li>
-                                    <a href="#"><i class="shopping-cart" data-name="ion-ios7-cart" data-size="18" data-loop="true" data-c="#fff" data-hc="#fff"></i></a>
+                                <li class="dropdown">
+                                    <a href="#"><i class="fa fa-shopping-cart"></i></a>
                                     
-                                    <label class="hidden-xs"><a id="detalle_carro_front" href="{{url('cart/show')}}" >Carrito de Compra</a></label>
+                                    <label class="hidden-xs"><a class="dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" id="detalle_carro_front" href="{{url('cart/show')}}" >Carrito de Compra</a></label>
+
+
+                                    <ul class="dropdown-menu cart-sub"  aria-labelledby="detalle_carro_front">
+
+                                        @foreach($cart as $row)
+                                        <li>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <img style="width: 30px;" src="{{ url('/').'/uploads/productos/'.$row->imagen_producto }}">
+                                                </div>
+                                                <div class="col-sm-9" style="font-size: 0.75em;">
+                                                    <p>{{ substr($row->nombre_producto, 0, 25) }}</p>
+                                                    <p>{{ $row->cantidad.'X'.$row->precio_oferta }}</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        @endforeach
+                                        
+                                        
+                                      </ul>
 
                                    
                                 </li>

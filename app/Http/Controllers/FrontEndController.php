@@ -187,8 +187,10 @@ class FrontEndController extends JoshController
 
         $countries = $this->countries;
 
+        $cart= \Session::get('cart');
+
        
-        return view('user_account', compact('user', 'countries'));
+        return view('user_account', compact('user', 'countries', 'cart'));
     }
 
     /**
