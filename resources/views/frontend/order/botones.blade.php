@@ -1,6 +1,8 @@
  
 @if(isset($producto->id))
 
+
+
    @if(isset($cart[$producto->slug]))
 
           <div class="row">

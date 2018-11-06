@@ -1299,9 +1299,14 @@ class AlpCartController extends JoshController
 
         $producto=AlpProductos::where('id', $request->id)->first();
 
+       //dd($producto);
+
+
         //print_r($producto->id);
 
        $cart= \Session::get('cart');
+
+       //print_r($cart);
 
         if (isset($producto->id)) {
 
@@ -1315,18 +1320,10 @@ class AlpCartController extends JoshController
 
           return $data;
 
-        } else {
+        } else{
 
-          $view= View::make('frontend.order.botones', compact('producto', 'cart'));
-
-          $data=$view->render();
-
-          $res = array('data' => $data);
-
-          return $data;
-
-            
-        }       
+          echo "No se encontro del prodcuto";
+        }   
 
     }
 
@@ -1340,6 +1337,8 @@ class AlpCartController extends JoshController
        $inv=$this->inventario();
 
        $producto=AlpProductos::where('id', $request->id)->first();
+
+       //dd(print_r($producto));
 
        $error='0';
 

@@ -25,7 +25,7 @@ class ProductosFrontController extends Controller
 
         $precio = array();
 
-        $leche =  DB::table('alp_productos')->select('alp_productos.*','alp_productos_category.*')
+        $leche =  DB::table('alp_productos')->select('alp_productos.*')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
         ->where('alp_productos_category.id_categoria','=', 1)
         ->where('alp_productos.estado_registro','=',1)
@@ -34,7 +34,7 @@ class ProductosFrontController extends Controller
         ->take(4)
         ->get();
 
-        $lacteos =  DB::table('alp_productos')->select('alp_productos.*','alp_productos_category.*')
+        $lacteos =  DB::table('alp_productos')->select('alp_productos.*')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
         ->where('alp_productos_category.id_categoria','=', 2)
         ->where('alp_productos.estado_registro','=',1)
@@ -43,7 +43,7 @@ class ProductosFrontController extends Controller
         ->take(4)
         ->get();
 
-        $quesos =  DB::table('alp_productos')->select('alp_productos.*','alp_productos_category.*')
+        $quesos =  DB::table('alp_productos')->select('alp_productos.*')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
         ->where('alp_productos_category.id_categoria','=', 3)
         ->where('alp_productos.estado_registro','=',1)
@@ -52,7 +52,7 @@ class ProductosFrontController extends Controller
         ->take(4)
         ->get();
 
-        $postres =  DB::table('alp_productos')->select('alp_productos.*','alp_productos_category.*')
+        $postres =  DB::table('alp_productos')->select('alp_productos.*')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
         ->where('alp_productos_category.id_categoria','=', 4)
         ->where('alp_productos.estado_registro','=',1)
@@ -61,7 +61,7 @@ class ProductosFrontController extends Controller
         ->take(4)
         ->get();
 
-        $esparcibles =  DB::table('alp_productos')->select('alp_productos.*','alp_productos_category.*')
+        $esparcibles =  DB::table('alp_productos')->select('alp_productos.*')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
         ->where('alp_productos_category.id_categoria','=', 5)
         ->where('alp_productos.estado_registro','=',1)
@@ -70,7 +70,7 @@ class ProductosFrontController extends Controller
         ->take(4)
         ->get();
 
-        $bebidas =  DB::table('alp_productos')->select('alp_productos.*','alp_productos_category.*')
+        $bebidas =  DB::table('alp_productos')->select('alp_productos.*')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
         ->where('alp_productos_category.id_categoria','=', 6)
         ->where('alp_productos.estado_registro','=',1)
@@ -79,7 +79,7 @@ class ProductosFrontController extends Controller
         ->take(4)
         ->get();
 
-        $finess =  DB::table('alp_productos')->select('alp_productos.*','alp_productos_category.*')
+        $finess =  DB::table('alp_productos')->select('alp_productos.*')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
         ->where('alp_productos_category.id_categoria','=', 7)
         ->where('alp_productos.estado_registro','=',1)
@@ -88,7 +88,7 @@ class ProductosFrontController extends Controller
         ->take(4)
         ->get();
 
-        $baby =  DB::table('alp_productos')->select('alp_productos.*','alp_productos_category.*')
+        $baby =  DB::table('alp_productos')->select('alp_productos.*')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
         ->where('alp_productos_category.id_categoria','=', 8)
         ->where('alp_productos.estado_registro','=',1)
@@ -97,7 +97,7 @@ class ProductosFrontController extends Controller
         ->take(4)
         ->get();
 
-        $nolacteos =  DB::table('alp_productos')->select('alp_productos.*','alp_productos_category.*')
+        $nolacteos =  DB::table('alp_productos')->select('alp_productos.*')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
         ->where('alp_productos_category.id_categoria','=', 9)
         ->where('alp_productos.estado_registro','=',1)
@@ -335,7 +335,7 @@ class ProductosFrontController extends Controller
 
         $cataname = DB::table('alp_categorias')->select('nombre_categoria','descripcion_categoria')->where('id','=', $categoria->id)->where('estado_registro','=', 1)->get();
 
-        $productos =  DB::table('alp_productos')->select('alp_productos.*','alp_productos_category.*')
+        $productos =  DB::table('alp_productos')->select('alp_productos.*')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
         ->where('alp_productos_category.id_categoria','=', $categoria->id)
         ->where('alp_productos.estado_registro','=',1)
