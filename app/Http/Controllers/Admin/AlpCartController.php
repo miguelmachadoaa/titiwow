@@ -824,10 +824,6 @@ class AlpCartController extends JoshController
        
         }
 
-
-
-
-
        $cart= \Session::get('cart');
 
        $carrito= \Session::get('cr');
@@ -839,9 +835,6 @@ class AlpCartController extends JoshController
        $precio = array();
 
        $inv=$this->inventario();
-
-       //dd($inv);
-
 
        if (Sentinel::check()) {
 
@@ -1298,6 +1291,107 @@ class AlpCartController extends JoshController
 
       
     }
+
+    public function botones(Request $request)
+    {
+
+        $input = $request->all();
+
+        $producto=AlpProductos::where('id', $request->id)->first();
+
+        //print_r($producto->id);
+
+       $cart= \Session::get('cart');
+
+        if (isset($producto->id)) {
+
+          //return redirect('order/detail');
+
+          $view= View::make('frontend.order.botones', compact('producto', 'cart'));
+
+          $data=$view->render();
+
+          $res = array('data' => $data);
+
+          return $data;
+
+        } else {
+
+          $view= View::make('frontend.order.botones', compact('producto', 'cart'));
+
+          $data=$view->render();
+
+          $res = array('data' => $data);
+
+          return $data;
+
+            
+        }       
+
+    }
+
+
+    public function updatecartbotones(Request $request)
+    {
+       $cart= \Session::get('cart');
+
+       $carrito= \Session::get('cr');
+
+       $inv=$this->inventario();
+
+       $producto=AlpProductos::where('id', $request->id)->first();
+
+       $error='0';
+
+       if ($request->cantidad>0) {
+         
+
+           if($inv[$request->id]>=$request->cantidad){
+
+            $cart[$request->slug]->cantidad=$request->cantidad;
+
+          }else{
+
+            $error="No hay existencia suficiente de este producto";
+          }
+
+       }else{
+
+        unset( $cart[$producto->slug]);
+
+
+       }
+
+       //dd($producto->slug.' - '.$producto->id.' - '.$request->id);
+
+
+
+       $detalle=AlpCarritoDetalle::where('id_carrito', $carrito)->where('id_producto', $producto->id)->first();
+
+       if (isset($detalle->id)) {
+
+        $data = array(
+        'cantidad' => $request->cantidad, 
+        );
+
+        $detalle->update($data);
+         
+       }
+
+
+
+       \Session::put('cart', $cart);
+
+
+        $view= View::make('frontend.order.botones', compact('producto', 'cart'));
+
+        $data=$view->render();
+
+        return $data;
+
+      
+    }
+
 
 
 

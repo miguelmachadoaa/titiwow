@@ -290,33 +290,7 @@
         });
 
 
-       $('.addtocart').on('click', function(e){
-
-            e.preventDefault();
-
-            url=$(this).attr('href');
-
-            $.get(url, {}, function(data) {
-
-               /* if (data.resultado) {
-
-                    $('#detalle_carro_front').html(data.contenido);
-                         
-                }*/
-
-                $('.cartcontenido').html(data);
-
-                $('#detailCartModal').modal('show');
-
-                $('#detalle_carro_front').html($('#modal_cantidad').val()+' '+'Items');
-
-            });
-
-           
-
-
-
-        })
+     
 
 
     </script>

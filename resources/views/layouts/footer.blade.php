@@ -140,7 +140,9 @@
 
     <script type="text/javascript">
 
+    /*funciones para crear ubicacion del comprador*/
 
+    
         $(document).ready(function(){
 
              $('.addtocart').addClass('hidden');
@@ -173,6 +175,8 @@
 
         });
 
+
+
         $('#ubicacion_header').click(function(e){
 
             e.preventDefault();
@@ -180,6 +184,8 @@
             $('#ubicacionModal').modal('show');
 
         });
+
+
 
          $('.saveubicacion').click(function () {
     
@@ -224,12 +230,10 @@
                     }
                 });
 
-                //document.getElementById("addDireccionForm").submit();
-
             }
 
         });
-        
+
 
          $("#addCiuadadForm").bootstrapValidator({
             fields: {
@@ -274,7 +278,6 @@
 
          $(document).ready(function(){
 
-
                  var base = $('#base').val();
                    
                 $.ajax({
@@ -293,11 +296,93 @@
 
                     }
                 });
-                
-           
-                    
 
          });
+
+
+
+
+
+
+
+
+
+
+
+         $('body').on('click','.addtocart', function(e){
+
+            e.preventDefault();
+
+            base=$('#base').val();
+
+            id=$(this).data('id');
+
+            url=$(this).attr('href');
+
+            $.get(url, {}, function(data) {
+
+                $('.cartcontenido').html(data);
+
+                $('#detailCartModal').modal('show');
+
+                $('#detalle_carro_front').html($('#modal_cantidad').val()+' '+'Items');
+
+                    $.post(base+'/cart/botones', {id}, function(data) {
+
+                        $('.boton_'+id+'').html(data);
+
+                    });
+
+            });
+
+
+
+        });
+
+        $('body').on('click','.updatecart', function(e){
+
+            e.preventDefault();
+
+            base=$('#base').val();
+
+            id=$(this).data('id');
+
+            tipo=$(this).data('tipo');
+
+            slug=$(this).data('slug');
+
+            cantidad=$('#cantidad_'+id+'').val();
+
+            if (tipo=='suma') {
+
+                cantidad=parseInt(cantidad);
+
+                cantidad++;
+
+            }else{
+
+                cantidad=cantidad-1;
+            }
+            
+                    $.post(base+'/cart/updatecartbotones', {id, slug, cantidad}, function(data) {
+
+                        $('.boton_'+id+'').html('');
+                        $('.boton_'+id+'').html(data);
+
+                    });
+
+        });
+
+
+
+
+
+
+
+
+
+
+
 
         </script>
 

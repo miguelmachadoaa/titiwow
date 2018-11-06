@@ -93,10 +93,13 @@ class FrontEndController extends JoshController
 
         }
 
-         $states=State::where('config_states.country_id', '47')->get();
+     
+
+       $cart= \Session::get('cart');
+
 
        
-        return view('index',compact('categorias','productos','marcas','descuento','precio', 'states'));
+        return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart'));
 
     }
 

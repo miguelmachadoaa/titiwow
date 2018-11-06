@@ -384,8 +384,10 @@ class ProductosFrontController extends Controller
 
          $states=State::where('config_states.country_id', '47')->get();
 
+         $cart= \Session::get('cart');
 
-        return \View::make('frontend.categorias', compact('productos','cataname','slug', 'descuento', 'precio', 'states'));
+
+        return \View::make('frontend.categorias', compact('productos','cataname','slug', 'descuento', 'precio', 'states', 'cart'));
 
     }
     public function marcas($slug)
@@ -447,9 +449,11 @@ class ProductosFrontController extends Controller
 
         }
 
+        $cart= \Session::get('cart');
+
          $states=State::where('config_states.country_id', '47')->get();
 
-        return \View::make('frontend.marcas', compact('productos','marcaname','slug', 'descuento', 'precio', 'states'));
+        return \View::make('frontend.marcas', compact('productos','marcaname','slug', 'descuento', 'precio', 'states', 'cart'));
 
     }
 
@@ -506,9 +510,11 @@ class ProductosFrontController extends Controller
 
         }
 
+        $cart= \Session::get('cart');
+
          $states=State::where('config_states.country_id', '47')->get();
 
-        return \View::make('frontend.buscar', compact('productos', 'descuento', 'precio', 'states','termino'));
+        return \View::make('frontend.buscar', compact('productos', 'descuento', 'precio', 'states','termino', 'cart'));
 
     }
 
