@@ -1128,7 +1128,7 @@ Productos @parent
 
                 $('.cartcontenido').html(data);
 
-                $('#detailCartModal').modal('show');
+                //$('#detailCartModal').modal('show');
 
                 $('#detalle_carro_front').html($('#modal_cantidad').val()+' '+'Items');
 
