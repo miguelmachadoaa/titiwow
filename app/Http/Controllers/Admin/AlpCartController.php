@@ -85,6 +85,21 @@ class AlpCartController extends JoshController
       return view('frontend.cart', compact('cart', 'total', 'configuracion', 'states', 'inv'));
     }
 
+    public function detalle()
+    {
+
+      $cart=$this->reloadCart();
+
+      $view= View::make('frontend.order.detalle', compact('cart'));
+
+      $data=$view->render();
+
+      
+
+      return $data;
+
+    }
+
     public function mercadopago()
     {
 

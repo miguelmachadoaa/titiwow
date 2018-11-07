@@ -299,14 +299,28 @@
 
          });
 
+         
 
 
+         $(document).ready(function(){
 
+                 var base = $('#base').val();
+                   
+                $.ajax({
+                    url: base+'/cart/detalle/',
+                    type: "GET",
+                    dataType: "json",
 
+                    success:function(data) {
 
+                        $('.cart_sub').empty();
+                        
+                        $('.cart_sub').html(data.responseText);
 
+                    }
+                });
 
-
+         });
 
 
 

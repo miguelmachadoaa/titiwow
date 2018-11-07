@@ -128,7 +128,7 @@ class AlpProductosController extends JoshController
 
        // $roles = DB::table('roles')->select('id', 'name')->get();
 
-        $roles = DB::table('roles')->select('id', 'name')->where('roles.id', '<>', 1)->where('roles.id', '<>', 2)->get();
+        $roles = DB::table('roles')->select('id', 'name')->where('roles.tipo', 2)->get();
 
          $impuestos = AlpImpuestos::all();
 
@@ -439,7 +439,7 @@ class AlpProductosController extends JoshController
         $impuestos = AlpImpuestos::all();
 
 
-        $roles = DB::table('roles')->select('id', 'name')->where('roles.id', '<>', 1)->where('roles.id', '<>', 2)->get();
+        $roles = DB::table('roles')->select('id', 'name')->where('roles.tipo', 2)->get();
 
         return view('admin.productos.edit', compact('producto', 'categorias', 'marcas', 'check', 'tree', 'roles',  'precio_grupo', 'states', 'impuestos'));
 

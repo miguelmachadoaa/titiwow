@@ -190,7 +190,7 @@ class AdminSeeder extends DatabaseSeeder {
 		$corporativoRole = Sentinel::getRoleRepository()->createModel()->create([
 			'name'  => 'Corporativo',
 			'slug'  => 'corporativo',
-			'tipo' => 2,
+			'tipo' => 1,
 		]);
 
 

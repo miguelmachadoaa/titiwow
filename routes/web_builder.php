@@ -468,6 +468,8 @@ Route::post('cart/updatecartbotones/',['as'=>'cart.updatecartbotones', 'uses'=>'
 //vaciar un carro
 Route::get('cart/vaciar/',['as'=>'cart.vaciar', 'uses'=>'Admin\AlpCartController@vaciar']);
 
+Route::get('cart/detalle/',['as'=>'cart.detalle', 'uses'=>'Admin\AlpCartController@detalle']);
+
 //agregar una direccion desde el detalle del pedido
 Route::post('cart/storedir/',['as'=>'cart.storedir', 'uses'=>'Admin\AlpCartController@storedir']);
 
