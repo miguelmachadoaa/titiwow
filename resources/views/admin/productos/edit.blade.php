@@ -692,9 +692,9 @@
 
 
                                          <div class="form-group clearfix col-sm-12  {{ 'element_'.$pg->id_role.'_'.$pg->city_id }}">
-                                                <label class="col-sm-3 col-xs-12 control-label producto_label" for="referencia_producto">{{ 'Precio para el '.$pg->role_name.' '.$pg->city_name }} </label>
+                                                <label class="col-sm-2 col-xs-12 control-label producto_label" for="referencia_producto">{{ 'Precio para el '.$pg->role_name.' '.$pg->city_name }} </label>
 
-                                                <div class="form-group col-sm-4" style="margin: 0 0 15px 0;">
+                                                <div class="form-group col-sm-3" style="margin: 0 0 15px 0;">
                                                
                                                     <div class="" >
 
@@ -711,10 +711,16 @@
 
 
                                                 
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3">
                                                     <input id="{{ 'rolprecio_'.$pg->id_role.'_'.$pg->city_id }}" step="0.01" name="{{ 'rolprecio_'.$pg->id_role.'_'.$pg->city_id }}" data-rc="{{ $pg->id_role.'_'.$pg->city_id }}" type="number" placeholder="Valor" class="form-control rolprecio" @if($pg->operacion == '1') readonly="" @endif  value="{{ $pg->precio }}"  >
 
                                                     <h3><span class="label label-success {{ 'spanprecio_'.$pg->id_role.'_'.$pg->city_id }}">Precio para la seleccion: {{ $pg->precio_seleccion }}  </span></h3>
+                                                </div>
+
+
+                                                <div class="col-sm-3">
+                                                    <input id="{{ 'rolpum'.$pg->id_role.'_'.$pg->city_id }}" step="0.01" name="{{ 'rolpum'.$pg->id_role.'_'.$pg->city_id }}" data-rc="{{ $pg->id_role.'_'.$pg->city_id }}" type="text" placeholder="PUM" class="form-control rolpum"   value="{{ $pg->pum }}"  >
+                                                    
                                                 </div>
 
                                                 <div class="col-sm-1">
@@ -738,13 +744,13 @@
                                            <div class="col-sm-12 hidden">  
 
                                                 <div class="form-group clearfix col-sm-12 producto_element">
-                                                <label class="col-sm-3 col-xs-12 control-label producto_label" for="referencia_producto">@lang('productos/title.price') </label>
+                                                <label class="col-sm-2 col-xs-12 control-label producto_label" for="referencia_producto">@lang('productos/title.price') </label>
 
-                                                <div class="form-group col-sm-4" style="margin: 0 0 15px 0;">
+                                                <div class="form-group col-sm-3" style="margin: 0 0 15px 0;">
                                                
                                                     <div class="" >
 
-                                                        <select id="test_precio" name="test_precio" class="form-control">
+                                                        <select id="test_tipo" name="test_tipo" class="form-control">
 
                                                             <option value="1" Selected>Dejar Precio Base</option>
                                                             <option value="2">Porcentaje Descuento</option>
@@ -757,11 +763,20 @@
 
 
                                                 
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3">
                                                     <input id="test_precio" step="0.01" name="test_precio" type="number" placeholder="Valor" class="form-control" readonly="" value="{{ old('precio_role') }}"  >
 
                                                     <h3><span class="label label-success ">Precio  </span></h3>
                                                 </div>
+
+                                                <div class="col-sm-3">
+                                                    <input id="test_pum"  name="test_pum" type="text" placeholder="PUM" class="form-control" value="{{ old('pum') }}"  >
+
+                                                    
+                                                </div>
+
+
+
 
                                                 <div class="col-sm-1">
                                                     <button class="btn btn-xs btn-danger">x</button>
@@ -988,13 +1003,15 @@
 
                     ele.find('label').html('Precio para el '+role_separado[1]+' '+city_separado[1]+'');
                     
-                    ele.find('input').attr('id', 'rolprecio_'+role_separado[0]+'_'+city_separado[0]+'');
                     
-                    ele.find('input').attr('name', 'rolprecio_'+role_separado[0]+'_'+city_separado[0]+'');
+                    ele.find('#test_precio').attr('name', 'rolprecio_'+role_separado[0]+'_'+city_separado[0]+'');
 
-                    ele.find('input').attr('data-rc', role_separado[0]+'_'+city_separado[0]+'');
+                    ele.find('#test_precio').attr('data-rc', role_separado[0]+'_'+city_separado[0]+'');
 
-                    ele.find('input').addClass('rolprecio');
+                    ele.find('#test_precio').addClass('rolprecio');
+                    
+                    ele.find('#test_precio').attr('id', 'rolprecio_'+role_separado[0]+'_'+city_separado[0]+'');
+
 
                     ele.find('select').attr('name', 'select_'+role_separado[0]+'_'+city_separado[0]+'');
 
@@ -1003,6 +1020,19 @@
                     ele.find('select').attr('data-rc', role_separado[0]+'_'+city_separado[0]+'');
 
                     ele.find('select').addClass('selectprecio');
+
+
+                    
+                    ele.find('#test_pum').attr('name', 'rolpum_'+role_separado[0]+'_'+city_separado[0]+'');
+
+                    ele.find('#test_pum').attr('data-rc', role_separado[0]+'_'+city_separado[0]+'');
+
+                    ele.find('#test_pum').addClass('rolpum');
+
+                    ele.find('#test_pum').attr('id', 'rolpum_'+role_separado[0]+'_'+city_separado[0]+'');
+
+
+
 
                     ele.find('span').addClass('spanprecio_'+role_separado[0]+'_'+city_separado[0]+'');
 

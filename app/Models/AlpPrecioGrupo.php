@@ -24,6 +24,7 @@ class AlpPrecioGrupo extends Model
         'city_id',
         'operacion',
         'precio',
+        'pum',
         'estado_registro',
         'id_user'
     ];

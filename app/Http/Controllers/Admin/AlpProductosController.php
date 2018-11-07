@@ -557,6 +557,7 @@ class AlpProductosController extends JoshController
 
         
         $select = array();
+        $pum = array();
 
         foreach ($input as $key => $value) {
 
@@ -569,6 +570,16 @@ class AlpProductosController extends JoshController
             $par=explode('_', $key);
 
             $select[$par[1]][$par[2]]=$value;            
+            
+          }
+
+          if (substr($key, 0, 6)=='rolpum') {
+
+            #echo $key.':'.$value.'<br>';
+
+            $par=explode('_', $key);
+
+            $pum[$par[1]][$par[2]]=$value;            
             
           }
 
@@ -595,6 +606,7 @@ class AlpProductosController extends JoshController
               'city_id' => $par[2], 
               'operacion' => $select[$par[1]][$par[2]], 
               'precio' => $value, 
+              'pum' => $pum[$par[1]][$par[2]],
               'id_user' => $user_id
             );
 
