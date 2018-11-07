@@ -18,7 +18,7 @@ class CreateAlpAmigosTable extends Migration
             $table->string('id_cliente');
             $table->string('nombre_amigo');
             $table->string('apellido_amigo');
-            $table->string('email_amigo')->unique();
+            $table->string('email_amigo');
             $table->string('token')->unique();
             $table->integer('estado_registro')->default(1);
             $table->integer('id_user');
