@@ -897,6 +897,7 @@ class AlpCartController extends JoshController
                        
                         $precio[$row->id]['precio']=$pregiogrupo->precio;
                         $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$row->id]['pum']=$pregiogrupo->pum;
 
                     }
 
@@ -1241,6 +1242,7 @@ class AlpCartController extends JoshController
                       $precio[$producto->id]['precio']=$pregiogrupo->precio;
 
                       $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
+                      $precio[$producto->id]['pum']=$pregiogrupo->pum;
 
                   }
 

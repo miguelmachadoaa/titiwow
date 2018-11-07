@@ -719,7 +719,7 @@
 
 
                                                 <div class="col-sm-3">
-                                                    <input id="{{ 'rolpum'.$pg->id_role.'_'.$pg->city_id }}" step="0.01" name="{{ 'rolpum'.$pg->id_role.'_'.$pg->city_id }}" data-rc="{{ $pg->id_role.'_'.$pg->city_id }}" type="text" placeholder="PUM" class="form-control rolpum"   value="{{ $pg->pum }}"  >
+                                                    <input id="{{ 'rolpum_'.$pg->id_role.'_'.$pg->city_id }}" step="0.01" name="{{ 'rolpum_'.$pg->id_role.'_'.$pg->city_id }}" data-rc="{{ $pg->id_role.'_'.$pg->city_id }}" type="text" placeholder="PUM" class="form-control rolpum"   value="{{ $pg->pum }}"  >
                                                     
                                                 </div>
 
@@ -1009,7 +1009,7 @@
                     ele.find('#test_precio').attr('data-rc', role_separado[0]+'_'+city_separado[0]+'');
 
                     ele.find('#test_precio').addClass('rolprecio');
-                    
+
                     ele.find('#test_precio').attr('id', 'rolprecio_'+role_separado[0]+'_'+city_separado[0]+'');
 
 
