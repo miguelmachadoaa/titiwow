@@ -88,7 +88,20 @@ class AlpCartController extends JoshController
     public function detalle()
     {
 
-      $cart=$this->reloadCart();
+      $cart= \Session::get('cart');
+
+      $view= View::make('frontend.order.detalle', compact('cart'));
+
+      $data=$view->render();
+
+      return $data;
+
+    }
+
+    public function detalle2()
+    {
+
+      $cart= \Session::get('cart');
 
       $view= View::make('frontend.order.detalle', compact('cart'));
 

@@ -305,6 +305,7 @@
          $(document).ready(function(){
 
                  var base = $('#base').val();
+                        console.log(base);                        
                    
                 $.ajax({
                     url: base+'/cart/detalle/',
@@ -313,14 +314,17 @@
 
                     success:function(data) {
 
-                        $('.cart_sub').empty();
-                        
-                        $('.cart_sub').html(data.responseText);
+                        $('#cartmenu').html('<li class="dropdown-item"><a href="http://localhost/laravel55/public/order/detail">Proceder a pagar</a></li>');
 
                     }
                 });
 
+
+
          });
+
+
+         
 
 
 

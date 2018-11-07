@@ -59,19 +59,7 @@
                                    
                                 </li>
 
-                                <li class="dropdown">
-                                    <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                                    
-                                    <label class="hidden-xs"><a class="dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" id="detalle_carro_front" href="{{url('cart/show')}}" >Carrito de Compra</a></label>
-
-
-                                    <ul class="dropdown-menu cart_sub "  aria-labelledby="detalle_carro_front">
-
-                                         <li>Carro Vacio</li>   
-                                        
-                                    </ul>
-                                   
-                                </li>
+                                
         
                             {{--based on anyone login or not display menu items--}}
                             @if(Sentinel::guest())
@@ -131,11 +119,20 @@
                                 <a  href="{{ route('home') }}"><img src="{{ asset('assets/images/logo_alpina.jpg') }}" alt="Alpina Market" class="logo_position"></a>
                             </div>
                         </div>
-                        <div class="col-md-4 col-xs-4" class="pull_left">
-                            <div id="cart_block_top" class="pull-right">
-                                <button type="submit" name="submit_search" class="btn btn-default button-cart">
-                                <a id="detalle_carro_front" href="http://alpinav2.local/cart/show"><span>Carrito de Compra</span></a>
+                        <div class="col-md-4 col-xs-4 navbar-nav" class="pull_left">
+                            <div id="cart_block_top" class="pull-right navbar-nav">
+                                <button type="button" name="submit_search" class="btn btn-default button-cart dropdown nav-item ">
+                                <a class="dropdown-toggle nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="detalle_carro_front" href="{{ url('cart/show') }}"><span>Carrito de Compra</span></a>
+
+                                        <div id="cartmenu" class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <li><a href="{{ url('cart/show') }}">Proceder a pagar</a></li>
+                                            
+                                            
+                                        </div>
                                 </button>
+
+
+                                
                             </div>
                         </div>
                     </div>
