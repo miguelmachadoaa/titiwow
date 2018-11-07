@@ -167,6 +167,8 @@ return [
         Laracasts\Flash\FlashServiceProvider::class,
         MercadoPagoLaravel\Providers\MercadoPagoServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Roumen\Sitemap\SitemapServiceProvider::class,
+
 
         /*
          * Package Service Providers...
