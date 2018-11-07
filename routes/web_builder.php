@@ -469,6 +469,7 @@ Route::post('cart/updatecartbotones/',['as'=>'cart.updatecartbotones', 'uses'=>'
 Route::get('cart/vaciar/',['as'=>'cart.vaciar', 'uses'=>'Admin\AlpCartController@vaciar']);
 
 Route::get('cart/detalle/',['as'=>'cart.detalle', 'uses'=>'Admin\AlpCartController@detalle']);
+Route::get('cart/detalle2/',['as'=>'cart.detalle2', 'uses'=>'Admin\AlpCartController@detalle2']);
 
 //agregar una direccion desde el detalle del pedido
 Route::post('cart/storedir/',['as'=>'cart.storedir', 'uses'=>'Admin\AlpCartController@storedir']);

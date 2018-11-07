@@ -88,7 +88,20 @@ class AlpCartController extends JoshController
     public function detalle()
     {
 
-      $cart=$this->reloadCart();
+      $cart= \Session::get('cart');
+
+      $view= View::make('frontend.order.detalle', compact('cart'));
+
+      $data=$view->render();
+
+      return $data;
+
+    }
+
+    public function detalle2()
+    {
+
+      $cart= \Session::get('cart');
 
       $view= View::make('frontend.order.detalle', compact('cart'));
 
@@ -227,7 +240,9 @@ class AlpCartController extends JoshController
 
            $mp = new MP();
 
-           $preference = $mp::post("/checkout/preferences",$preference_data);
+           //$preference = $mp::post("/checkout/preferences",$preference_data);
+
+           $preference = array('response' => array('sandbox_init_point' => '#', ), );
 
           /*actualizamos la data del carrito */
 
@@ -882,6 +897,7 @@ class AlpCartController extends JoshController
                        
                         $precio[$row->id]['precio']=$pregiogrupo->precio;
                         $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$row->id]['pum']=$pregiogrupo->pum;
 
                     }
 
@@ -1226,6 +1242,7 @@ class AlpCartController extends JoshController
                       $precio[$producto->id]['precio']=$pregiogrupo->precio;
 
                       $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
+                      $precio[$producto->id]['pum']=$pregiogrupo->pum;
 
                   }
 

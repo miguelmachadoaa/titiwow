@@ -138,6 +138,7 @@ class ProductosFrontController extends Controller
                        
                         $precio[$row->id]['precio']=$pregiogrupo->precio;
                         $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$row->id]['pum']=$pregiogrupo->pum;
 
                     }
 
@@ -151,6 +152,7 @@ class ProductosFrontController extends Controller
                        
                         $precio[$row->id]['precio']=$pregiogrupo->precio;
                         $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$row->id]['pum']=$pregiogrupo->pum;
 
                     }
 
@@ -164,6 +166,7 @@ class ProductosFrontController extends Controller
                        
                         $precio[$row->id]['precio']=$pregiogrupo->precio;
                         $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$row->id]['pum']=$pregiogrupo->pum;
 
                     }
 
@@ -177,6 +180,7 @@ class ProductosFrontController extends Controller
                        
                         $precio[$row->id]['precio']=$pregiogrupo->precio;
                         $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$row->id]['pum']=$pregiogrupo->pum;
 
                     }
 
@@ -190,6 +194,7 @@ class ProductosFrontController extends Controller
                        
                         $precio[$row->id]['precio']=$pregiogrupo->precio;
                         $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$row->id]['pum']=$pregiogrupo->pum;
 
                     }
 
@@ -203,6 +208,7 @@ class ProductosFrontController extends Controller
                        
                         $precio[$row->id]['precio']=$pregiogrupo->precio;
                         $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$row->id]['pum']=$pregiogrupo->pum;
 
                     }
 
@@ -216,6 +222,7 @@ class ProductosFrontController extends Controller
                        
                         $precio[$row->id]['precio']=$pregiogrupo->precio;
                         $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$row->id]['pum']=$pregiogrupo->pum;
 
                     }
 
@@ -229,6 +236,7 @@ class ProductosFrontController extends Controller
                        
                         $precio[$row->id]['precio']=$pregiogrupo->precio;
                         $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$row->id]['pum']=$pregiogrupo->pum;
 
                     }
 
@@ -242,6 +250,7 @@ class ProductosFrontController extends Controller
                        
                         $precio[$row->id]['precio']=$pregiogrupo->precio;
                         $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$row->id]['pum']=$pregiogrupo->pum;
 
                     }
 
@@ -373,6 +382,7 @@ class ProductosFrontController extends Controller
                        
                         $precio[$row->id]['precio']=$pregiogrupo->precio;
                         $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$row->id]['pum']=$pregiogrupo->pum;
 
                     }
 
@@ -440,6 +450,7 @@ class ProductosFrontController extends Controller
                        
                         $precio[$row->id]['precio']=$pregiogrupo->precio;
                         $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$row->id]['pum']=$pregiogrupo->pum;
 
                     }
 
@@ -501,6 +512,7 @@ class ProductosFrontController extends Controller
                        
                         $precio[$row->id]['precio']=$pregiogrupo->precio;
                         $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$row->id]['pum']=$pregiogrupo->pum;
 
                     }
 
