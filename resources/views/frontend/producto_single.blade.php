@@ -77,7 +77,20 @@
                         @endforeach
                        <br />
                         <b>Presentación del Producto:</b> {{ $producto->presentacion_producto}}<br />
-                        <b>PUM:</b> {{ $producto->pum}}<br />
+                        <b>PUM:</b> 
+                            @if(isset($precio[$producto->id]))
+
+                               {{ $precio[$producto->id]['pum'] }}
+
+                            @else
+
+                             {{ $producto->pum}}
+
+
+                            @endif
+
+
+                        <br />
                         <b>Medida:</b> {{ $producto->medida}}<br />
                         <b>Referencia:</b> {{ $producto->referencia_producto}}<br />
                     </p>

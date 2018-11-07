@@ -318,6 +318,7 @@ class ProductosFrontController extends Controller
                        
                         $precio[$producto->id]['precio']=$pregiogrupo->precio;
                         $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$producto->id]['pum']=$pregiogrupo->pum;
 
                     }
 
