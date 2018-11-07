@@ -13,7 +13,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        'App\Console\Commands\loggerLink'
+        'App\Console\Commands\loggerLink',
+        Commands\GenerateSitemap::class,
+
     ];
 
     /**
@@ -26,6 +28,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->command('generate:sitemap')->hourly();
     }
 
     /**

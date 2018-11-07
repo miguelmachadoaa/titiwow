@@ -291,3 +291,5 @@ Route::get('{name?}', 'FrontEndController@showFrontEndView');
 
 Route::get('menu', 'FrontEndController@menugeral')->name('menu');
 # End of frontend views
+
+
