@@ -87,9 +87,13 @@ Resultado de la Búsqueda @parent
                                         
                                     @endswitch
 
+                                    <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $precio[$producto->id]['pum'] }}</h6></a>
+
                                 @else
 
                                     <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,2,",",".") }}</span></p>
+
+                                    <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
 
                                 @endif
 
@@ -100,9 +104,11 @@ Resultado de la Búsqueda @parent
 
                                 <p id="precio_prod"><del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base, 2).' -'.$producto->operacion }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*$descuento,2,",",".").' -'.$producto->operacion }}</span></p>
 
+                                <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
+
                             @endif
                             
-                            <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
+                            
 
                             <div class="product_botones boton_{{ $producto->id }}">
 

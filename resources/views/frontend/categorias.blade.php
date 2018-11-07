@@ -108,9 +108,13 @@
                                                     
                                                 @endswitch
 
+                                                  <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $precio[$producto->id]['pum'] }}</h6></a> 
+
                                             @else
 
                                                 <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
+
+                                                  <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a> 
 
                                             @endif
 
@@ -118,9 +122,11 @@
 
                                             <p id="precio_prod"><del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base, 2)}}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
 
+                                              <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a> 
+
                                         @endif
 
-                            <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a> 
+                          
                             <div class="product_botones boton_{{ $producto->id }}">
 
                                                 @if(isset($cart[$producto->slug]))

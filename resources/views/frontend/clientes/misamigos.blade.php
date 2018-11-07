@@ -360,7 +360,7 @@ Mis Amigos
         $(document).on('click', '.addAmigo', function(e){
             e.preventDefault();
 
-           // alert('cantidad:'+$('#cantidad').val()+' limite:'+$('#limite').val());
+            alert('cantidad:'+$('#cantidad').val()+' limite:'+$('#limite').val());
 
             if (parseInt($('#limite').val())<parseInt($('#cantidad').val())){
 
