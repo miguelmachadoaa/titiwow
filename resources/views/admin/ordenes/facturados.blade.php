@@ -82,8 +82,8 @@ Ordenes Facturadas
                                     <td>{!! $row->created_at->diffForHumans() !!}</td>
                                     <td>
 
-                                            <a href="{{ route('admin.ordenes.detalle', $row->id) }}">
-                                                <i class="livicon" data-name="plus" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Detalle"></i>
+                                            <a class="btn btn-primary btn-xs" href="{{ route('admin.ordenes.detalle', $row->id) }}">
+                                                ver detalles
                                             </a>
 
                                            

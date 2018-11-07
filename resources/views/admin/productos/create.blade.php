@@ -624,6 +624,7 @@
                                             <div class="col-sm-12 hidden">  
 
                                                 <div class="form-group clearfix col-sm-12 producto_element">
+
                                                 <label class="col-md-3 control-label producto_label" for="referencia_producto">@lang('productos/title.price') </label>
 
                                                 <div class="form-group col-sm-4" style="margin: 0 0 15px 0;">
@@ -648,6 +649,8 @@
 
                                                     <h3><span class="label label-success ">Precio  </span></h3>
                                                 </div>
+
+                                                
 
                                                 <div class="col-md-1">
                                                     <button class="btn btn-xs btn-danger">x</button>
