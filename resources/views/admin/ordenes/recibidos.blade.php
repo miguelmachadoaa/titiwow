@@ -68,10 +68,10 @@ Ordenes
                                     <td>{!! $row->nombre_forma_pago !!}</td>
                                     <td> 
                                         
-                                        @if($row->json!=Null)
+                                         @if($row->json!=Null)
                                             {{ json_decode($row->json)->merchant_order_id }}
 
-                                        @endif
+                                        @endif      
 
                                          </td>
                                     <td>{!! number_format($row->monto_total,2) !!}</td>

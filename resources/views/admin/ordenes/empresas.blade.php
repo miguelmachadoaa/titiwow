@@ -68,8 +68,8 @@ Ordenes Corporativas
                                     <td>{!! $row->nombre_forma_pago !!}</td>
                                     <td> 
                                         
-                                        @if($row->json!=Null)
-                                            {{ json_decode($row->json)->preference_id }}
+                                          @if($row->json!=Null)
+                                            {{ json_decode($row->json)->merchant_order_id }}
 
                                         @endif
 

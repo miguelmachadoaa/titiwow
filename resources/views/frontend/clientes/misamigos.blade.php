@@ -358,9 +358,10 @@ Mis Amigos
 
 
         $(document).on('click', '.addAmigo', function(e){
+            
             e.preventDefault();
 
-            alert('cantidad:'+$('#cantidad').val()+' limite:'+$('#limite').val());
+            //alert('cantidad:'+$('#cantidad').val()+' limite:'+$('#limite').val());
 
             if (parseInt($('#limite').val())<parseInt($('#cantidad').val())){
 
@@ -370,9 +371,7 @@ Mis Amigos
 
                 $("#addAmigoModal").modal('show');
 
-
             }
-
 
         });
 
@@ -386,9 +385,6 @@ Mis Amigos
                 $("#delAmigoAmigoModal").modal('show');
 
         });
-
-
-
 
 
 $("#addAmigoForm").bootstrapValidator({

@@ -400,8 +400,8 @@ class ProductosFrontController extends Controller
 
         }
 
-        print_r($precio);
-        print_r($role->role_id);
+        //print_r($precio);
+       // print_r($role->role_id);
 
          $states=State::where('config_states.country_id', '47')->get();
 
