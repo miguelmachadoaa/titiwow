@@ -390,6 +390,7 @@ class ProductosFrontController extends Controller
                         $precio[$row->id]['precio']=$pregiogrupo->precio;
                         $precio[$row->id]['operacion']=$pregiogrupo->operacion;
                         $precio[$row->id]['pum']=$pregiogrupo->pum;
+                        $precio[$row->id]['role']=$pregiogrupo->id_role;
 
                     }
 
@@ -398,6 +399,9 @@ class ProductosFrontController extends Controller
             }
 
         }
+
+        print_r($precio);
+        print_r($role->role_id);
 
          $states=State::where('config_states.country_id', '47')->get();
 

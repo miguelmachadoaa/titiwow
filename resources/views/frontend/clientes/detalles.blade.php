@@ -20,7 +20,7 @@
         <!-- Se construyen las opciones de envios -->
 
                         <tr>
-                            <td><img height="60px" src="../../uploads/productos/{{$row->imagen_producto}}"></td>
+                            <td><img height="60px" src="{{ url('/') }}/uploads/productos/{{$row->imagen_producto}}"></td>
                             <td>{{$row->nombre_producto}}</td>
                             <td>{{number_format($row->precio_unitario,2)}}</td>
                             <td>{{ $row->cantidad }}</td>
