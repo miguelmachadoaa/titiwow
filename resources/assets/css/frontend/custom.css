@@ -1068,12 +1068,35 @@ footer a:hover, footer a:active{
 }
 
 /* Css categorias del home*/
+@media (min-width: 1200px){
+    #caja_categoria{
+        height:200px;
+        width: 390px;
+        margin: 10px 0px;
+    }
+    #contenido_cat{
+        padding: 30px;
+        color:#ffffff;
+    }
+    .categoria5 #contenido_cat{
+        padding: 30px !important;
+    }
+    }
+    @media (max-width: 1199px){
+        #caja_categoria{
+            height:150px;
+            width: 100%;
+            margin: 10px 0px;
+        }
+        #contenido_cat{
+            padding: 10px;
+            color:#ffffff;
+        }
+        .categoria5 #contenido_cat{
+            padding: 0px !important;
+        }
+        }
 
-#caja_categoria{
-    height:200px;
-    width: 390px;
-    margin: 10px 0px;
-}
 .botones_cat {
     border: none;
     color: #ffffff !important;
@@ -1100,10 +1123,6 @@ footer a:hover, footer a:active{
 }
 .cont_categorias{
     margin: 5px auto 20px auto;
-}
-#contenido_cat{
-    padding: 30px;
-    color:#ffffff;
 }
   .categoria1 {
     width: 100%;
@@ -1205,9 +1224,6 @@ footer a:hover, footer a:active{
     left: 0;
     width: 100%;
     height: 100%;
-}
-.categoria5 #contenido_cat{
-    padding: 30px !important;
 }
   .categoria6 {
     width: 100%;
