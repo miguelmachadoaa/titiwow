@@ -48,18 +48,18 @@ Editar Menu
                 </div>
                 <div class="panel-body">
                     
-                        {!! Form::model($detalle, ['url' => URL::to('admin/menus/'. $detalle->id), 'files'=> true, 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($menu, ['url' => URL::to('admin/menus/'. $menu->id), 'files'=> true, 'method' => 'put', 'class' => 'form-horizontal']) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                           
                              <div class="form-group {{ $errors->
                             first('nombre_menu', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Nombre Manu
+                                Nombre Menú
                             </label>
                             <div class="col-sm-5">
-                                <input type="text" id="nombre_menu" name="nombre_menu" class="form-control" placeholder="Nombre de Categoria"
-                                       value="{!! old('nombre_menu', $categoria->nombre_menu) !!}">
+                                <input type="text" id="nombre_menu" name="nombre_menu" class="form-control" placeholder="Nombre de Menú"
+                                       value="{!! old('nombre_menu', $menu->nombre_menu) !!}">
                             </div>
                             <div class="col-sm-4">
                                 {!! $errors->first('nombre_menu', '<span class="help-block">:message</span> ') !!}

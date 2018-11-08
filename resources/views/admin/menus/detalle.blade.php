@@ -74,9 +74,7 @@ Menu {{$menu->id}}
                                 Slug
                             </label>
                             <div class="col-sm-5">
-                                
-
-                                <textarea class="form-control resize_vertical" id="slug" name="slug" placeholder="Descripcion categoria" rows="5"></textarea>
+                                <input type="text" id="slug" name="slug" class="form-control" placeholder="Slug Sub Menu" value="">
                             </div>
                             <div class="col-sm-4">
                                 {!! $errors->first('slug', '<span class="help-block">:message</span> ') !!}

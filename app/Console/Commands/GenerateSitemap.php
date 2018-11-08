@@ -134,7 +134,7 @@ class GenerateSitemap extends Command
         // you need to check for unused items
         if (!empty($sitemap->model->getItems())) {
             // generate sitemap with last items
-            $sitemap->store('xml', 'sitemap-product-' . $sitemapCounter, 'public/sitemap-sn');
+            $sitemap->store('xml', 'sitemap-' . $sitemapCounter, 'public/sitemap-sn');
             // add sitemap to sitemaps array
             $sitemap->addSitemap($siteUrl . '/sitemap-sn/' . 'sitemap-product-' . $sitemapCounter . '.xml', date('Y-m-d H:i:s'));
             // reset items array

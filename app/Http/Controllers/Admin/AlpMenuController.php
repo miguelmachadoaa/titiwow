@@ -2,13 +2,14 @@
 
 use App\Http\Controllers\JoshController;
 use App\Models\AlpMenu;
-use App\Models\AlpDetallesMenu;
+use App\Models\AlpDetalleSubmenu;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Redirect;
 use Response;
 use Sentinel;
 use View;
+use DB;
 use Intervention\Image\Facades\Image;
 use DOMDocument;
 
@@ -184,9 +185,8 @@ class AlpMenuController extends JoshController
        
        $menu = AlpMenu::find($id);
 
-    $detalles = AlpDetallesMenu::select('alp_menu_detalles.*')
-        ->where('alp_menu_detalles.id_menu',$id) 
-        ->where('alp_menu_detalles.parent','0')->get(); 
+        $detalles = AlpDetalleSubmenu::where('alp_menu_detalles.id_menu',$id) 
+        ->where('alp_menu_detalles.parent','0')->get();
 
         return view('admin.menus.detalle', compact('menu', 'detalles'));
 
@@ -212,7 +212,7 @@ class AlpMenuController extends JoshController
             'id_menu' =>$id_menu
         );
          
-        $detalle=AlpDetallesMenu::create($data);
+        $detalle=AlpDetalleSubmenu::create($data);
 
         if ($detalle->id) {
 
@@ -235,7 +235,7 @@ class AlpMenuController extends JoshController
     public function editson($id)
     {
        
-       $detalle = AlpDetallesMenu::find($id);
+       $detalle = AlpDetalleSubmenu::find($id);
 
         return view('admin.menus.editson', compact('detalle'));
     }
@@ -257,7 +257,7 @@ class AlpMenuController extends JoshController
             'parent' =>$request->parent
                 );
 
-        $detalle = AlpDetallesMenu::find($id);
+        $detalle = AlpDetalleSubmenu::find($id);
 
 
        
@@ -277,9 +277,9 @@ class AlpMenuController extends JoshController
      public function submenu($id)
     {
        
-        $detalle = AlpDetallesMenu::find($id);
+        $detalle = AlpDetalleSubmenu::find($id);
 
-        $detalles = AlpDetallesMenu::select('alp_menu_detalles.*')
+        $detalles = DB::select('alp_menu_detalles.*')
         ->where('alp_menu_detalles.parent',$id)->get(); 
 
         return view('admin.menus.submenu', compact('detalle', 'detalles'));
@@ -291,7 +291,7 @@ class AlpMenuController extends JoshController
         
          $user_id = Sentinel::getUser()->id;
 
-        $detalle = AlpDetallesMenu::find($id_detalle);
+        $detalle = AlpDetalleSubmenu::find($id_detalle);
 
 
         //$input = $request->all();
@@ -307,7 +307,7 @@ class AlpMenuController extends JoshController
             'id_menu' =>$detalle->id_menu
         );
          
-        $detalle=AlpDetallesMenu::create($data);
+        $detalle=AlpDetalleSubmenu::create($data);
 
         if ($detalle->id) {
 

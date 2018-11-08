@@ -116,27 +116,153 @@ class MenusTableSeeder extends Seeder
                     'order' => 6,
                     'id_menu' => 1,
                 ]);
-
+         /* Menu Categorías */
+         DB::table('alp_menu_detalles')->insert([
+            'name' => 'Leche',
+            'slug' => 'categoria/leche',
+            'parent' => 0,
+            'order' => 1,
+            'id_menu' => 2,
+        ]);
+        DB::table('alp_menu_detalles')->insert([
+            'name' => 'Derivados Lácteos',
+            'slug' => 'categoria/lacteos',
+            'parent' => 0,
+            'order' => 2,
+            'id_menu' => 2,
+        ]); 
+        DB::table('alp_menu_detalles')->insert([
+            'name' => 'Quesos',
+            'slug' => 'categoria/quesos',
+            'parent' => 0,
+            'order' => 3,
+            'id_menu' => 2,
+        ]); 
+        DB::table('alp_menu_detalles')->insert([
+            'name' => 'Finesse',
+            'slug' => 'categoria/finesse',
+            'parent' => 0,
+            'order' => 4,
+            'id_menu' => 2,
+        ]); 
+        DB::table('alp_menu_detalles')->insert([
+            'name' => 'Alpina Baby',
+            'slug' => 'categoria/alpina-baby',
+            'parent' => 0,
+            'order' => 5,
+            'id_menu' => 2,
+        ]); 
+        DB::table('alp_menu_detalles')->insert([
+            'name' => 'Postres y Dulces',
+            'slug' => 'categoria/postres-dulces',
+            'parent' => 0,
+            'order' => 6,
+            'id_menu' => 2,
+        ]); 
+        DB::table('alp_menu_detalles')->insert([
+            'name' => 'Esparcibles e Ingredientes',
+            'slug' => 'categoria/esparcibles-ingredientes',
+            'parent' => 0,
+            'order' => 7,
+            'id_menu' => 2,
+        ]); 
+        DB::table('alp_menu_detalles')->insert([
+            'name' => 'No Lácteos',
+            'slug' => 'categoria/no-lacteos',
+            'parent' => 0,
+            'order' => 8,
+            'id_menu' => 2,
+        ]); 
+        DB::table('alp_menu_detalles')->insert([
+            'name' => 'Bebidas de Frutas',
+            'slug' => 'categoria/bebidas-frutas',
+            'parent' => 0,
+            'order' => 9,
+            'id_menu' => 2,
+        ]);  
+        DB::table('alp_menu_detalles')->insert([
+            'name' => 'Temporada',
+            'slug' => 'categoria/Temporada',
+            'parent' => 0,
+            'order' => 10,
+            'id_menu' => 2,
+        ]); 
+        DB::table('alp_menu_detalles')->insert([
+            'name' => 'Anchetas, Tablas y Otros',
+            'slug' => 'categoria/anchetas-tablas',
+            'parent' => 0,
+            'order' => 11,
+            'id_menu' => 2,
+        ]);                
         /* Menu Marcas */
         DB::table('alp_menu_detalles')->insert([
-            'name' => 'Bon yurt',
-            'slug' => 'bon-yurt',
+            'name' => 'Avena Alpina',
+            'slug' => 'marcas/avena_alpina',
             'parent' => 0,
             'order' => 1,
             'id_menu' => 3,
         ]);
         DB::table('alp_menu_detalles')->insert([
             'name' => 'Bon yurt',
-            'slug' => 'bon-yurt2',
+            'slug' => 'marcas/bon-yurt',
             'parent' => 0,
             'order' => 2,
             'id_menu' => 3,
         ]);
         DB::table('alp_menu_detalles')->insert([
-            'name' => 'Bon yurt',
-            'slug' => 'bon-yurt3',
+            'name' => 'Finesse',
+            'slug' => 'marcas/finesse',
             'parent' => 0,
             'order' => 3,
+            'id_menu' => 3,
+        ]);
+        DB::table('alp_menu_detalles')->insert([
+            'name' => 'Yogurt Griego',
+            'slug' => 'marcas/yogurt-griego',
+            'parent' => 0,
+            'order' => 4,
+            'id_menu' => 3,
+        ]);
+        DB::table('alp_menu_detalles')->insert([
+            'name' => 'Yox',
+            'slug' => 'marcas/yox',
+            'parent' => 0,
+            'order' => 5,
+            'id_menu' => 3,
+        ]);
+        DB::table('alp_menu_detalles')->insert([
+            'name' => 'Regeneris',
+            'slug' => 'marcas/regeneris',
+            'parent' => 0,
+            'order' => 6,
+            'id_menu' => 3,
+        ]);
+        DB::table('alp_menu_detalles')->insert([
+            'name' => 'Pudin',
+            'slug' => 'marcas/pudin',
+            'parent' => 0,
+            'order' => 7,
+            'id_menu' => 3,
+        ]);
+        DB::table('alp_menu_detalles')->insert([
+            'name' => 'Queso Sabana',
+            'slug' => 'marcas/queso-sabana',
+            'parent' => 0,
+            'order' => 8,
+            'id_menu' => 3,
+        ]);
+        DB::table('alp_menu_detalles')->insert([
+            'name' => 'Leche Alpina',
+            'slug' => 'marcas/leche-alpina',
+            'parent' => 0,
+            'order' => 9,
+            'id_menu' => 3,
+        ]);
+        DB::table('alp_menu_detalles')->insert([
+            'name' => 'Queso Parmesano',
+            'slug' => 'marcas/queso-parmesano',
+            'parent' => 0,
+            'order' => 10,
             'id_menu' => 3,
         ]);
     }

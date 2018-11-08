@@ -73,9 +73,7 @@ Editar Sub Menu
 
                             <label for="title" class="col-sm-2 control-label"> Slug </label>
                             <div class="col-sm-5">
-
-                                <textarea class="form-control resize_vertical" id="slug" name="slug" placeholder="Slug" rows="5">{!! old('slug', $detalle->slug) !!}</textarea>
-
+                                <input type="text" id="slug" name="slug" class="form-control" placeholder="Slug Sub Menu" value="{!! old('slug', $detalle->slug) !!}">
                             </div>
                             <div class="col-sm-4">
                                 {!! $errors->first('slug', '<span class="help-block">:message</span> ') !!}

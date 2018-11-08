@@ -385,6 +385,8 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
         Route::get('{menu}/restore', 'Admin\AlpMenuController@getRestore')->name('menus.restore');
 
+        Route::get('{menu}/edit', 'Admin\AlpMenuController@edit')->name('menus.edit');
+
         Route::get('{menu}/detalle', 'Admin\AlpMenuController@detalle')->name('menus.detalle');
 
         Route::get('{menu}/submenu', 'Admin\AlpMenuController@submenu')->name('menus.submenu');
