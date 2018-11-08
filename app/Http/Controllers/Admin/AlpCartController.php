@@ -878,11 +878,13 @@ class AlpCartController extends JoshController
 
                 if ($cliente->id_empresa!=0) {
                     
-                     $empresa=AlpEmpresas::find($cliente->id_empresa);
+                     /*$empresa=AlpEmpresas::find($cliente->id_empresa);
 
                     $cliente['nombre_empresa']=$empresa->nombre_empresa;
 
-                    $descuento=(1-($empresa->descuento_empresa/100));
+                    $descuento=(1-($empresa->descuento_empresa/100));*/
+
+                    $role->role_id='E'.$cliente->id_empresa.'';
                 }
                
             }
@@ -1177,13 +1179,6 @@ class AlpCartController extends JoshController
 
 
 
-    
-
-
-
-
-
-
 
     private function reloadCart()
     {
@@ -1221,11 +1216,13 @@ class AlpCartController extends JoshController
 
                   if ($cliente->id_empresa!=0) {
                       
-                      $empresa=AlpEmpresas::find($cliente->id_empresa);
+                     /* $empresa=AlpEmpresas::find($cliente->id_empresa);
 
                       $cliente['nombre_empresa']=$empresa->nombre_empresa;
 
-                      $descuento=(1-($empresa->descuento_empresa/100));
+                      $descuento=(1-($empresa->descuento_empresa/100));*/
+
+                      $role->role_id='E'.$cliente->id_empresa.'';
                   }
                  
               }
