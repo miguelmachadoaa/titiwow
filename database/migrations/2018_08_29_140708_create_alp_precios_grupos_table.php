@@ -16,7 +16,7 @@ class CreateAlpPreciosGruposTable extends Migration
         Schema::create('alp_precios_grupos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_producto');
-            $table->integer('id_role');
+            $table->string('id_role');
             $table->integer('city_id');
             $table->integer('operacion')->comment('1: dejar precio base, 2 porcentaje de descuento, 3 precio fijo');
             $table->decimal('precio')->nullable();
