@@ -50,6 +50,8 @@ Compras Mis Referidos
         <div class="row">
         @if(!$compras->isEmpty())
 
+         <div class="table-responsive">
+
              <table class="table table-responsive">
                     <tr>
                         <th>Id</th>
@@ -100,6 +102,8 @@ Compras Mis Referidos
                 
             @endforeach
              </table>
+
+         </div>
             @else
             <div class="alert alert-danger">
                 <strong>Lo Sentimos!</strong> No Existen Referidos aun.

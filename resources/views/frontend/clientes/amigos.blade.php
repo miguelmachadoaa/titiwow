@@ -91,6 +91,8 @@ Mis Invitaciones a Amigos
 
         @if(!$amigos->isEmpty())
 
+         <div class="table-responsive">
+
              <table class="table table-responsive">
                     <tr>
                         <th>Nombre</th>
@@ -131,6 +133,8 @@ Mis Invitaciones a Amigos
                 
             @endforeach
              </table>
+
+         </div>
             @else
             <div class="alert alert-danger">
                 <strong>Lo Sentimos!</strong> No Existen Invitaciones aun.

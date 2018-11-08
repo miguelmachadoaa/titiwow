@@ -2,6 +2,8 @@
 
 @if(count($detalles))
 
+ <div class="table-responsive">
+
    <table class="table table-responsive">
 
    
@@ -34,6 +36,8 @@
     @endforeach  
 
     </table>
+
+</div>
 
    
 

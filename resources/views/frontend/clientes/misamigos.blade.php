@@ -132,6 +132,8 @@ Mis Amigos
 
         @if(!$referidos->isEmpty())
 
+         <div class="table-responsive">
+
              <table class="table table-responsive" id="tbAmigos">
                 <thead>
                     <tr>
@@ -179,6 +181,8 @@ Mis Amigos
             @endforeach
             </tbody>
              </table>
+
+         </div>
             @else
             <div class="alert alert-danger">
                 <strong>Lo Sentimos!</strong> No Existen Referidos aún.
@@ -358,7 +362,7 @@ Mis Amigos
 
 
         $(document).on('click', '.addAmigo', function(e){
-            
+
             e.preventDefault();
 
             //alert('cantidad:'+$('#cantidad').val()+' limite:'+$('#limite').val());
