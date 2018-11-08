@@ -76,6 +76,8 @@ class AlpCartController extends JoshController
 
       $cart=$this->reloadCart();
 
+   
+
       $configuracion=AlpConfiguracion::where('id', '1')->first();
 
       $total=$this->total();
@@ -145,6 +147,9 @@ class AlpCartController extends JoshController
        $carrito= \Session::get('cr');
 
       $cart=$this->reloadCart();
+
+     
+
 
       $total=$this->total();
 
@@ -856,6 +861,9 @@ class AlpCartController extends JoshController
 
        $cart= \Session::get('cart');
 
+       
+
+
        $carrito= \Session::get('cr');
 
        $descuento='1'; 
@@ -874,6 +882,7 @@ class AlpCartController extends JoshController
 
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
 
+
             if (isset($cliente) ) {
 
                 if ($cliente->id_empresa!=0) {
@@ -888,6 +897,8 @@ class AlpCartController extends JoshController
                 }
                
             }
+
+
 
             if ($role->role_id) {
                
@@ -908,6 +919,10 @@ class AlpCartController extends JoshController
             }
 
         }
+          
+
+
+
 
 
         if ($descuento=='1') {
@@ -966,6 +981,9 @@ class AlpCartController extends JoshController
 
         $error="No hay existencia suficiente de este producto";
       }
+
+
+
 
 
 
@@ -1038,9 +1056,8 @@ class AlpCartController extends JoshController
 
     public function updatecart(Request $request)
     {
-       //$cart= \Session::get('cart');
+       $cart= \Session::get('cart');
 
-       $cart=$this->reloadCart();
 
        $carrito= \Session::get('cr');
 
@@ -1072,6 +1089,9 @@ class AlpCartController extends JoshController
 
 
       // return $cart;
+
+       $cart=$this->reloadCart();
+       
 
        \Session::put('cart', $cart);
 
@@ -1186,6 +1206,8 @@ class AlpCartController extends JoshController
     {
        $cart= \Session::get('cart');
 
+
+
        $s_user= \Session::get('user');
 
       $total=0;
@@ -1204,7 +1226,8 @@ class AlpCartController extends JoshController
 
             $user_id = Sentinel::getUser()->id;
 
-            if ($user_id!=$s_user) {
+            //if ($user_id!=$s_user) {
+            if (1) {
 
               $cambio=1;
 
@@ -1314,9 +1337,12 @@ class AlpCartController extends JoshController
 
        return $cart;
 
+
+
     }else{
 
       return $cart;
+
 
     }
 
@@ -1363,6 +1389,8 @@ class AlpCartController extends JoshController
     {
        $cart= \Session::get('cart');
 
+
+
        $carrito= \Session::get('cr');
 
        $inv=$this->inventario();
@@ -1408,9 +1436,12 @@ class AlpCartController extends JoshController
          
        }
 
+        $cart=$this->reloadCart();
 
 
        \Session::put('cart', $cart);
+
+      
 
 
         $view= View::make('frontend.order.botones', compact('producto', 'cart'));
