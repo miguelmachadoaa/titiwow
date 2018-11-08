@@ -631,10 +631,19 @@
                                                     <select id="role_precio" name="role_precio" class="form-control select2">
                                                         <option value="">Seleccione</option>
                                                        
+                                                          <optgroup label="Roles">
                                                         @foreach($roles as $rol)
                                                         <option value="{{ $rol->id.'_'.$rol->name }}"
                                                                 @if($rol->id == old('role_precio')) selected="selected" @endif >{{ $rol->name}}</option>
                                                         @endforeach
+                                                        </optgroup>
+
+                                                        <optgroup label="Corporativos">
+                                                        @foreach($empresas as $empresa)
+                                                        <option value="{{ 'E'.$empresa->id.'_'.$empresa->nombre_empresa }}"
+                                                                @if($empresa->id == old('role_precio')) selected="selected" @endif >{{ $empresa->nombre_empresa}}</option>
+                                                        @endforeach
+                                                        </optgroup>
                                                       
                                                     </select>
                                                 </div>
@@ -731,6 +740,8 @@
 
 
                                         @endforeach
+
+
 
 
 

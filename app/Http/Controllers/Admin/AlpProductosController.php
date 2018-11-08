@@ -11,6 +11,7 @@ use App\Models\AlpCategoriasProductos;
 use App\Models\AlpInventario;
 use App\Models\AlpPrecioGrupo;
 use App\Models\AlpImpuestos;
+use App\Models\AlpEmpresas;
 use App\State;
 use App\City;
 use App\Roles;
@@ -99,6 +100,8 @@ class AlpProductosController extends JoshController
 
         $categorias_todas = AlpCategorias::all();
 
+        $empresas = AlpEmpresas::all();
+
         $arbol = array();
 
         foreach ($categorias_todas as $cat) {
@@ -130,10 +133,13 @@ class AlpProductosController extends JoshController
 
         $roles = DB::table('roles')->select('id', 'name')->where('roles.tipo', 2)->get();
 
-         $impuestos = AlpImpuestos::all();
+        $empresas = AlpEmpresas::all();
 
 
-        return view('admin.productos.create', compact('categorias', 'marcas', 'tree', 'check', 'roles', 'states', 'impuestos'));
+        $impuestos = AlpImpuestos::all();
+
+
+        return view('admin.productos.create', compact('categorias', 'marcas', 'tree', 'check', 'roles', 'states', 'impuestos', 'empresas'));
     }
 
     /**
@@ -394,24 +400,21 @@ class AlpProductosController extends JoshController
         $precioGrupo = AlpPrecioGrupo::where('id_producto', $id)->get();
 
         $drole = array();
+
         $dprecio = array();
 
         /*se rellena un arra con los precios por roles con el key igual al id del rol */
 
           $precio_grupo = array();
 
+          $precio_grupo_corporativo = array();
+
          # print_r($precioGrupo);
 
          foreach ($precioGrupo as $pre) {
-                
-                  
-          $nr = DB::table('roles')->select('id', 'name')->where('id',$pre->id_role)->first();
 
           $nc=City::where('id',$pre->city_id)->first();
 
-          $pre->role_name=$nr->name;
-
-          $pre->city_name=$nc->city_name;
 
           if ($pre->operacion==1) {
             $pre->precio_seleccion=$producto->precio_base;
@@ -428,7 +431,38 @@ class AlpProductosController extends JoshController
             
           }
 
-          $precio_grupo[]=$pre;
+
+          if (substr($pre->id_role, 0, 1)=='E') {
+
+
+
+            $nr = DB::table('alp_empresas')->select('id', 'nombre_empresa')->where('id',substr($pre->id_role, 1))->first();
+
+            $pre->id_role='E'.$pre->id_rol;
+
+            $pre->role_name=$nr->nombre_empresa;
+
+            
+
+            
+
+
+           
+          }else{
+
+            $nr = DB::table('roles')->select('id', 'name')->where('id',$pre->id_role)->first();
+
+            $pre->role_name=$nr->name;
+
+           
+
+          }
+
+           $pre->city_name=$nc->city_name;
+
+            $precio_grupo[]=$pre;
+                
+          
 
         }
 
@@ -438,10 +472,13 @@ class AlpProductosController extends JoshController
 
         $impuestos = AlpImpuestos::all();
 
+        $empresas = AlpEmpresas::all();
+
+
 
         $roles = DB::table('roles')->select('id', 'name')->where('roles.tipo', 2)->get();
 
-        return view('admin.productos.edit', compact('producto', 'categorias', 'marcas', 'check', 'tree', 'roles',  'precio_grupo', 'states', 'impuestos'));
+        return view('admin.productos.edit', compact('producto', 'categorias', 'marcas', 'check', 'tree', 'roles',  'precio_grupo',  'precio_grupo_corporativo', 'states', 'impuestos', 'empresas'));
 
     }
 

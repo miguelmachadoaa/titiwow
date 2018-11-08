@@ -514,31 +514,22 @@
                                 <!-- /#adjusthtml --> </div>
 
 
-                                <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a href="#price_page" data-parent="#accordion-demo" data-toggle="collapse">@lang('productos/title.prices')</a>
-                                    </h4>
-                                </div>
-                                <div id="price_page" class="panel-collapse collapse" style="height: 36.400001525878906px;">
-                                    <div class="panel-body">
-                                        
-                                            <div class="form-group clearfix col-sm-12 {{ $errors->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a href="#price_page" data-parent="#accordion-demo" data-toggle="collapse">@lang('productos/title.prices')</a>
+                                </h4>
+                            </div>
+
+                            <div id="price_page" class="panel-collapse collapse" style="height: 36.400001525878906px;">
+                                <div class="panel-body">
+                                    <div class="form-group clearfix col-sm-12 {{ $errors->
                             first('precio_base', 'has-error') }}">
-                                                <label class="col-md-3 control-label producto_label" for="referencia_producto">@lang('productos/title.price') </label>
-                                                <div class="col-md-9">
-                                                    <input id="precio_base" step="0.01" name="precio_base" type="number" placeholder="Precio" class="form-control" value="{{ old('precio_base') }}" onblur="setprecio();" >
-
-                                                    {!! $errors->first('precio_base', '<span class="help-block">:message</span> ') !!}
-
-                                                
-                                                </div>
-
-                                              
-
-
-                                            </div>
-
+                                       <label class="col-md-3 control-label producto_label" for="referencia_producto">@lang('productos/title.price') </label>
+                                        <div class="col-md-9">
+                                            <input id="precio_base" step="0.01" name="precio_base" type="number" placeholder="Precio" class="form-control" value="{{ old('precio_base') }}" onblur="setprecio();" >{!! $errors->first('precio_base', '<span class="help-block">:message</span> ') !!}
+                                        </div>
+                                    </div>
 
                                     <div class="row">
 
@@ -552,18 +543,27 @@
                                             <div class="form-group col-sm-3" style="margin: 0 0 15px 0;">
 
                                                 <label for="select21" class=" control-label">
-                                                    @lang('productos/title.roles')
+                                                    @lang('productos/title.roles') o Corporativo
                                                 </label>
 
                                                 <div class="" >
 
                                                     <select id="role_precio" name="role_precio" class="form-control ">
                                                         <option value="">Seleccione</option>
-                                                       
+
+                                                       <optgroup label="Roles">
                                                         @foreach($roles as $rol)
                                                         <option value="{{ $rol->id.'_'.$rol->name }}"
                                                                 @if($rol->id == old('role_precio')) selected="selected" @endif >{{ $rol->name}}</option>
                                                         @endforeach
+                                                        </optgroup>
+
+                                                        <optgroup label="Corporativos">
+                                                        @foreach($empresas as $empresa)
+                                                        <option value="{{ 'E'.$empresa->id.'_'.$empresa->nombre_empresa }}"
+                                                                @if($empresa->id == old('role_precio')) selected="selected" @endif >{{ $empresa->nombre_empresa}}</option>
+                                                        @endforeach
+                                                        </optgroup>
                                                       
                                                     </select>
                                                 </div>
@@ -684,7 +684,17 @@
                                         
                                     </div>
                                     <!--/.panel-body --> </div>
-                                <!-- /#adjusthtml --> </div>
+                         </div><!-- end panel -->
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -925,7 +935,10 @@
             }
            
         }
-        
+
+
+
+
 
           function verificarCategorias (){
 
