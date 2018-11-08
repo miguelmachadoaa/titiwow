@@ -57,7 +57,7 @@ Editar Empresa
                         <div class="form-group {{ $errors->
                             first('descripcion_empresa', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Descaripcion Empresa
+                                Descripción Empresa
                             </label>
                             <div class="col-sm-5">
                                 

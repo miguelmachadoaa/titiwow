@@ -29,7 +29,7 @@ Mis Direcciones
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
-                    <a href="{{ url('clientes/misdirecciones') }}">Mis Direcciones </a>
+                    <a href="{{ url('misdirecciones') }}">Mi Dirección </a>
                 </li>
             </ol>
             
