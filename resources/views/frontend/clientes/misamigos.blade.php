@@ -76,7 +76,7 @@ Mis Amigos
                         <th>Apellido</th>
                         <th>Email</th>
                         <th>Creado</th>
-                        <th>Enlace</th>
+                        
                         <th>Acciones</th>
                     </tr>
 
@@ -98,9 +98,7 @@ Mis Amigos
                             {{ $row->created_at }}
                         </td>
 
-                        <td>
-                            <a href=" {!! url('/').'/registroembajadores/'.$row->token  !!}  ">Enlace</a>
-                        </td>
+                       
 
                         <td>    
                                 <button data-id="{{ $row->id }}" data-url="{{ url('delamigo') }}"  class="btn btn-danger delAmigo">Eliminar</button>
@@ -132,7 +130,7 @@ Mis Amigos
 
         @if(!$referidos->isEmpty())
 
-         <div class="table-responsive">
+        
 
              <table class="table table-responsive" id="tbAmigos">
                 <thead>
@@ -182,7 +180,7 @@ Mis Amigos
             </tbody>
              </table>
 
-         </div>
+        
             @else
             <div class="alert alert-danger">
                 <strong>Lo Sentimos!</strong> No Existen Referidos aún.
