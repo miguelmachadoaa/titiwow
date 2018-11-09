@@ -255,9 +255,45 @@ class ClientesFrontController extends Controller
     public function storeamigo(Request $request)
     {
 
+        $mensaje = array();
+
+        $user_id = Sentinel::getUser()->id;
+
         if (Sentinel::check()) {
 
-            $user_id = Sentinel::getUser()->id;
+
+            $user_email=User::where('email', $request->email)->first();
+
+            if (isset($user_email->id)) {
+
+
+                $mensaje['tipo']='danger';
+                $mensaje['mensaje']='El Correo ya esta registrado en nuestro sistema';
+
+
+                $amigos=AlpAmigos::where('id_cliente', $user_id)->get();
+
+                $cliente = AlpClientes::where('id_user_client', $user_id )->first();
+
+                $user = User::where('id', $user_id )->first();
+                
+                $clientes_amigos=AlpClientes::where('id_embajador',$user_id )->selectRaw('count(*) as cantidad')->first();
+
+                $amigos_amigos=AlpAmigos::where('id_cliente',$user_id )->selectRaw('count(*) as cantidad')->first();
+
+                $cantidad=$clientes_amigos->cantidad+$amigos_amigos->cantidad;
+
+            $configuracion = AlpConfiguracion::where('id', '1')->first();
+                
+
+               
+            }else{
+
+
+
+
+
+            
 
             $token=substr(md5(time()), 0, 10);
 
@@ -292,10 +328,15 @@ class ClientesFrontController extends Controller
 
             Mail::to($request->email)->send(new \App\Mail\NotificacionAmigo($request->nombre, $request->apellido, $token, $user->first_name.' '.$user->last_name));
 
+                $mensaje['tipo']='success';
+
+                $mensaje['mensaje']='Solicitud enviada.';
 
 
+        }
 
-            $view= View::make('frontend.clientes.listamigo', compact('amigos', 'cliente', 'user', 'cantidad', 'configuracion'));
+
+            $view= View::make('frontend.clientes.listamigo', compact('amigos', 'cliente', 'user', 'cantidad', 'configuracion', 'mensaje'));
 
             $data=$view->render();
 

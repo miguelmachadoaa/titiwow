@@ -70,6 +70,8 @@ Mis Amigos
 
         @if(!$amigos->isEmpty())
 
+        <div class="form-group col-sm-10 col-sm-offset-1">
+
              <table class="table table-responsive">
                     <tr>
                         <th>Nombre</th>
@@ -108,6 +110,8 @@ Mis Amigos
                 
             @endforeach
              </table>
+
+         </div>
             @else
             
             <div class="col-sm-12">
@@ -131,7 +135,7 @@ Mis Amigos
         @if(!$referidos->isEmpty())
 
         
-
+        <div class="form-group col-sm-10 col-sm-offset-1">
              <table class="table table-responsive" id="tbAmigos">
                 <thead>
                     <tr>
@@ -179,6 +183,8 @@ Mis Amigos
             @endforeach
             </tbody>
              </table>
+
+             </div>
 
         
             @else
