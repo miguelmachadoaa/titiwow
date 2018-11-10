@@ -9,6 +9,7 @@ use App\Models\AlpClientes;
 use App\Models\AlpEmpresas;
 use App\Models\AlpDirecciones;
 use App\Models\AlpAmigos;
+use App\Models\AlpPuntos;
 use App\Models\AlpConfiguracion;
 use App\Models\AlpTDocumento;
 use App\Models\AlpEstructuraAddress;
@@ -35,9 +36,18 @@ class ClientesFrontController extends Controller
         /*solo muestra el menu de opciones del cliente 
         verifi si esta logueado        */
 
+        $dt = Carbon::now(); 
+
+// These getters specifically return integers, ie intval()
+       //echo  $dt->year;                                         // int(2012)
+       // echo $dt->month;  
+
         if (Sentinel::check()) {
 
             $user_id = Sentinel::getUser()->id;
+
+            $role=RoleUser::where('user_id', $user_id)->first();
+
 
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
 
@@ -66,9 +76,57 @@ class ClientesFrontController extends Controller
 
             $states=State::where('config_states.country_id', '47')->get();
 
-             $cart= \Session::get('cart');
+            $cart= \Session::get('cart');
 
-            return \View::make('frontend.clientes.index', compact('referidos', 'cliente', 'user', 'states', 'cart'));
+            $puntos = array();
+
+
+            if ($role->role_id=='10') {
+
+            $puntos_cliente =  DB::table('alp_puntos')->select('alp_puntos.*', DB::raw("SUM(alp_puntos.cantidad) as puntos"))
+            ->whereYear('created_at', '=', $dt->year)
+            ->whereMonth('created_at', '=', $dt->month)
+            ->where('alp_puntos.id_cliente', $user_id)
+            ->groupBy('alp_puntos.id_cliente')
+            ->first();
+
+
+
+                if (isset($puntos_cliente->id)) {
+
+
+                    if ($puntos_cliente->puntos<250000) {
+                        $puntos['nivel']='1';
+                        $puntos['porcentaje']=0.02;
+
+
+                    }elseif(250000<$puntos_cliente->puntos && $puntos_cliente->puntos<750000){
+
+                        $puntos['nivel']='2';
+                        $puntos['porcentaje']=0.04;
+
+                    }elseif($puntos_cliente->puntos>750000){
+
+                        $puntos['nivel']='3';
+                        $puntos['porcentaje']=0.06;
+
+                    }
+                    
+                    $puntos['puntos']=$puntos_cliente->puntos;
+
+                }else{
+
+                    $puntos['nivel']='1';
+                    $puntos['porcentaje']=0.02;
+                    $puntos['puntos']='0';
+
+                }
+
+            }
+
+            //dd($puntos);
+
+            return \View::make('frontend.clientes.index', compact('referidos', 'cliente', 'user', 'states', 'cart', 'puntos'));
     
             }else{
 
@@ -255,9 +313,45 @@ class ClientesFrontController extends Controller
     public function storeamigo(Request $request)
     {
 
+        $mensaje = array();
+
+        $user_id = Sentinel::getUser()->id;
+
         if (Sentinel::check()) {
 
-            $user_id = Sentinel::getUser()->id;
+
+            $user_email=User::where('email', $request->email)->first();
+
+            if (isset($user_email->id)) {
+
+
+                $mensaje['tipo']='danger';
+                $mensaje['mensaje']='El Correo ya esta registrado en nuestro sistema';
+
+
+                $amigos=AlpAmigos::where('id_cliente', $user_id)->get();
+
+                $cliente = AlpClientes::where('id_user_client', $user_id )->first();
+
+                $user = User::where('id', $user_id )->first();
+                
+                $clientes_amigos=AlpClientes::where('id_embajador',$user_id )->selectRaw('count(*) as cantidad')->first();
+
+                $amigos_amigos=AlpAmigos::where('id_cliente',$user_id )->selectRaw('count(*) as cantidad')->first();
+
+                $cantidad=$clientes_amigos->cantidad+$amigos_amigos->cantidad;
+
+            $configuracion = AlpConfiguracion::where('id', '1')->first();
+
+
+               
+            }else{
+
+
+
+
+
+            
 
             $token=substr(md5(time()), 0, 10);
 
@@ -292,10 +386,15 @@ class ClientesFrontController extends Controller
 
             Mail::to($request->email)->send(new \App\Mail\NotificacionAmigo($request->nombre, $request->apellido, $token, $user->first_name.' '.$user->last_name));
 
+                $mensaje['tipo']='success';
+
+                $mensaje['mensaje']='Solicitud enviada.';
 
 
+        }
 
-            $view= View::make('frontend.clientes.listamigo', compact('amigos', 'cliente', 'user', 'cantidad', 'configuracion'));
+
+            $view= View::make('frontend.clientes.listamigo', compact('amigos', 'cliente', 'user', 'cantidad', 'configuracion', 'mensaje'));
 
             $data=$view->render();
 

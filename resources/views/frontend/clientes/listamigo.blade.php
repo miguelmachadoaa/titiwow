@@ -3,7 +3,7 @@
     <input type="hidden" name="cantidad" id="cantidad" value="{{ $cantidad }}">
     <input type="hidden" name="limite" id="limite" value="{{ $configuracion->limite_amigos }}">
 
-        <h3>Solo te quedan {{ $configuracion->limite_amigos-$cantidad }} invitaciones disponibles por enviar</h3>
+    <h3>Solo te quedan {{ $configuracion->limite_amigos-$cantidad }} invitaciones disponibles por enviar</h3>
 
 
 @if(count($amigos))
@@ -20,7 +20,6 @@
                         <th>Apellido</th>
                         <th>Email</th>
                         <th>Creado</th>
-                        <th>Enlace</th>
                         <th>Acciones</th>
                     </tr>
 
@@ -41,9 +40,7 @@
                             {{ $row->created_at }}
                         </td>
 
-                        <td>
-                            <a href=" {!! url('/').'/registroembajadores/'.$row->token  !!}  ">Enlace</a>
-                        </td>
+                        
 
                         <td>    
                                 <button data-id="{{ $row->id }}" data-url="{{ url('delamigo') }}"  class="btn btn-danger delAmigo">Eliminar</button>
@@ -57,5 +54,10 @@
     </div>
 
 @endif
+
+
+    <div class="form-group col-sm-10 col-sm-offset-1">
+        <div class="alert alert-{{ $mensaje['tipo'] }}">{{ $mensaje['mensaje'] }}</div>
+    </div>
 
 <hr>

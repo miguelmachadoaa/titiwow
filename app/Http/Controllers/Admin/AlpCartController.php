@@ -696,11 +696,20 @@ class AlpCartController extends JoshController
                   'id_user' =>$user_id                   
                 );
 
+            }else{
 
-                AlpPuntos::create($data_puntos);
-
+              $data_puntos = array(
+                  'id_orden' => $orden->id,
+                  'id_cliente' => $user_id,
+                  'tipo' => '1',//agregar
+                  'cantidad' =>$total,
+                  'id_user' =>$user_id                   
+                );
 
             }
+
+          AlpPuntos::create($data_puntos);
+
 
          }
 

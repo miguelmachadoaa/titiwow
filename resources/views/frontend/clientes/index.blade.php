@@ -77,6 +77,9 @@ Area clientes
 <div class="container contain_body">
     <div class="row">
 
+        
+        
+
         @if(isset($cliente))
 
             @if($cliente->id_empresa!=0)
@@ -90,6 +93,23 @@ Area clientes
                 <h4>Usted es parte de los amigos alpina de: {{ $cliente->nombre_embajador }}</h4>
 
             @endif
+
+        @endif
+
+
+        @if(isset($puntos['nivel']))
+
+            <div class="alert alert-default">
+                
+                <h3>Usted acumula compras este mes por  {{ $puntos['puntos'] }} COP</h3>
+
+                <h3>Lo que lo ubica en el nivel {{ $puntos['nivel'] }} con una comision de {{ $puntos['porcentaje']*100 }}%</h3>
+
+                <h3>Usted acumula una comision ganada de  {{ $puntos['puntos']*$puntos['porcentaje'] }} COP</h3>
+
+
+
+            </div>
 
         @endif
 

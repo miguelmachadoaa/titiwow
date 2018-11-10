@@ -1,4 +1,5 @@
-<?php namespace App\Http\Controllers\Admin;
+<?php 
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\JoshController;
 use App\Http\Requests\ConfirmPasswordRequest;
@@ -345,10 +346,10 @@ class AuthController extends JoshController
         $input=$request->all();
 
         //print_r($input);
-
+       // dd($input);
 
         $amigo=AlpAmigos::where('token', $request->referido)->first();
-
+          //  dd($amigo);
        // print_r($amigo);
 
         if (isset($amigo->id)) {
@@ -391,7 +392,7 @@ class AuthController extends JoshController
              //echo 'Referido: '.$referido.'<br>';
 
 
-              $data = array(
+             $data = array(
                     'id_user_client' => $user->id, 
                     'id_type_doc' => $request->id_type_doc, 
                     'doc_cliente' =>$request->doc_cliente, 
@@ -400,11 +401,11 @@ class AuthController extends JoshController
                     'marketing_cliente' => $request->marketing_cliente,
                     'estado_masterfile' =>0,
                     'id_empresa' =>'0',               
-                    'id_embajador' =>'0',               
+                    'id_embajador' =>$amigo->id_cliente,               
                     'id_user' =>$user->id,               
                 );
 
-             //print_r($data);
+             //dd($data);
 
             AlpClientes::create($data);
 
@@ -490,9 +491,7 @@ class AuthController extends JoshController
                 'password' => $request->get('password'),
             ]);
 
-            // Activation::remove($user);
-                    //add new record
-          //  Activation::create($user);
+
 
             //add user to 'User' group
             $role = Sentinel::findRoleById(12);
@@ -512,6 +511,8 @@ class AuthController extends JoshController
              //echo 'Referido: '.$referido.'<br>';
 
 
+
+
               $data = array(
                     'id_user_client' => $user->id, 
                     'id_type_doc' => $request->id_type_doc, 
@@ -520,7 +521,7 @@ class AuthController extends JoshController
                     'habeas_cliente' => $request->habeas_cliente,
                     'marketing_cliente' => $request->marketing_cliente,
                     'estado_masterfile' =>0,
-                    'id_empresa' =>'0',               
+                    'id_empresa' =>substr($amigo->id_cliente, 1),               
                     'id_embajador' =>'0',               
                     'id_user' =>$user->id,               
                 );
