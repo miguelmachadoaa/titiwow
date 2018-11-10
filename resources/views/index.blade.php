@@ -211,7 +211,7 @@ Inicio @parent
             <div class="container cont_categorias">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 text-center">
-                        <h3 class="catego">Marcas</h3>
+                        <h3 class="catego">Nuestras Marcas</h3>
                         <div class="separador"></div>
                     </div>
                     <div class="col-md-12 col-sm-12 wow slideInLeft" data-wow-duration="1.5s"> 
