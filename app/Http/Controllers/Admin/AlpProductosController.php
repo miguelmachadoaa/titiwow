@@ -438,9 +438,19 @@ class AlpProductosController extends JoshController
 
             $nr = DB::table('alp_empresas')->select('id', 'nombre_empresa')->where('id',substr($pre->id_role, 1))->first();
 
-            $pre->id_role='E'.$nr->id;
+            if (isset($nr->id)) {
 
-            $pre->role_name=$nr->nombre_empresa;
+              $pre->id_role='E'.$nr->id;
+
+              $pre->role_name=$nr->nombre_empresa;
+              
+            }else{
+
+              $pre->role_name='';
+
+            }
+
+            
 
             
 
