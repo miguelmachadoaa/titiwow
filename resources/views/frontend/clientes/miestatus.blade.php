@@ -41,15 +41,52 @@ Mi Estatus
 {{-- Page content --}}
 @section('content')
 <div class="container contain_body">
+
+
+    <div class="row">
+         @if(isset($puntos['nivel']))
+
+            <div class="alert alert-default">
+
+                <div class="row">
+                    
+                    <div class="col-sm-3">
+                        <img class="img img-responsive" src="{{ url('/').'/assets/images/'.$puntos['nivel'].'.png' }}">
+                    </div>
+                    <div class="col-sm-9">
+                        <h3>Usted acumula compras este mes por  {{ $puntos['puntos'] }} COP</h3>
+
+                        <h3>Lo que lo ubica en el nivel {{ $puntos['nivel'] }} con una comision de {{ $puntos['porcentaje']*100 }}%</h3>
+
+                        <h3>Usted acumula una comision ganada de  {{ $puntos['puntos']*$puntos['porcentaje'] }} COP</h3>
+                        
+                    </div>
+                </div>
+                
+                
+
+
+
+            </div>
+
+        @endif
+        </div>
+
+
+
 <div class="welcome">
             <h3>Mi Estatus</h3>
         </div>
         <hr>
     <div class="products">
 
+
+
+
+
         <div class="row" id="table_amigos">
 
-            <div class="col-sm-8">  <h3>   Mis  Puntos por Amigos  </h3> </div>
+            
 
         @if(!$referidos->isEmpty())
 

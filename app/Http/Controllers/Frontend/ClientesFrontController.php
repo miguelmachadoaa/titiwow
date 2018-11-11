@@ -221,6 +221,7 @@ class ClientesFrontController extends Controller
 
             $user_id = Sentinel::getUser()->id;
 
+
             $referidos =  DB::table('alp_clientes')->select('alp_clientes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email', DB::raw("SUM(alp_ordenes.monto_total) as puntos"))
             ->join('users','alp_clientes.id_user_client' , '=', 'users.id')
             ->leftJoin('alp_ordenes','users.id' , '=', 'alp_ordenes.id_cliente')
@@ -241,6 +242,23 @@ class ClientesFrontController extends Controller
             $states=State::where('config_states.country_id', '47')->get();
 
              $cart= \Session::get('cart');
+
+
+
+
+           
+
+
+
+
+
+
+
+
+
+
+
+
 
             return view('frontend.clientes.misamigos', compact('referidos', 'cliente', 'user', 'configuracion', 'amigos', 'cantidad', 'states', 'cart'));
     
@@ -263,9 +281,14 @@ class ClientesFrontController extends Controller
     public function miestatus()
     {
 
+        $dt = Carbon::now(); 
+
         if (Sentinel::check()) {
 
             $user_id = Sentinel::getUser()->id;
+
+             $role=RoleUser::where('user_id', $user_id)->first();
+
 
             $referidos =  DB::table('alp_clientes')->select('alp_clientes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email', DB::raw("SUM(alp_ordenes.monto_total) as puntos"))
             ->join('users','alp_clientes.id_user_client' , '=', 'users.id')
@@ -291,7 +314,58 @@ class ClientesFrontController extends Controller
 
              $cart= \Session::get('cart');
 
-            return view('frontend.clientes.miestatus', compact('referidos', 'cliente', 'user', 'configuracion', 'amigos', 'cantidad', 'states', 'cart'));
+
+
+                $puntos = array();
+
+
+            if ($role->role_id=='10') {
+
+            $puntos_cliente =  DB::table('alp_puntos')->select('alp_puntos.*', DB::raw("SUM(alp_puntos.cantidad) as puntos"))
+            ->whereYear('created_at', '=', $dt->year)
+            ->whereMonth('created_at', '=', $dt->month)
+            ->where('alp_puntos.id_cliente', $user_id)
+            ->groupBy('alp_puntos.id_cliente')
+            ->first();
+
+
+
+                if (isset($puntos_cliente->id)) {
+
+
+                    if ($puntos_cliente->puntos<250000) {
+                        $puntos['nivel']='1';
+                        $puntos['porcentaje']=0.02;
+
+
+                    }elseif(250000<$puntos_cliente->puntos && $puntos_cliente->puntos<750000){
+
+                        $puntos['nivel']='2';
+                        $puntos['porcentaje']=0.04;
+
+                    }elseif($puntos_cliente->puntos>750000){
+
+                        $puntos['nivel']='3';
+                        $puntos['porcentaje']=0.06;
+
+                    }
+                    
+                    $puntos['puntos']=$puntos_cliente->puntos;
+
+                }else{
+
+                    $puntos['nivel']='1';
+                    $puntos['porcentaje']=0.02;
+                    $puntos['puntos']='0';
+
+                }
+
+            }
+
+
+
+
+            return view('frontend.clientes.miestatus', compact('referidos', 'cliente', 'user', 'configuracion', 'amigos', 'cantidad', 'states', 'cart', 'puntos'));
     
 
             }else{
