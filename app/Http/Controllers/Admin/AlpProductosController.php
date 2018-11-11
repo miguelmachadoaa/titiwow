@@ -450,12 +450,6 @@ class AlpProductosController extends JoshController
 
             }
 
-            
-
-            
-
-            
-
 
            
           }else{
@@ -598,9 +592,18 @@ class AlpProductosController extends JoshController
         }
 
 
-        
+        $ids = array();
 
-        AlpPrecioGrupo::where('id_producto', $id)->delete();
+        $eliminar=AlpPrecioGrupo::where('id_producto', $id)->get();
+
+        foreach ($eliminar as $eli) {
+          
+          $ids[]=$eli->id;
+
+
+        }
+
+        AlpPrecioGrupo::destroy($ids);
 
         
         $select = array();
