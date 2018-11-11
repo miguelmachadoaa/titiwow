@@ -69,12 +69,12 @@ Editar Marca
                         <div class="form-group {{ $errors->
                             first('descripcion_marca', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Descripcion Marca
+                                Descripción Marca
                             </label>
                             <div class="col-sm-5">
                                 
 
-                                <textarea class="form-control resize_vertical" id="descripcion_marca" name="descripcion_marca" placeholder="Descripcion Marca" rows="5">{!! old('descripcion_marca', $marca->descripcion_marca) !!}</textarea>
+                                <textarea class="form-control resize_vertical" id="descripcion_marca" name="descripcion_marca" placeholder="Descripción Marca" rows="5">{!! old('descripcion_marca', $marca->descripcion_marca) !!}</textarea>
                             </div>
                             <div class="col-sm-4">
                                 {!! $errors->first('descripcion_marca', '<span class="help-block">:message</span> ') !!}
@@ -113,16 +113,16 @@ Editar Marca
                                 <div>
                                     <span class="btn btn-primary btn-file">
 
-                                        <span class="fileinput-new">Select image</span>
+                                        <span class="fileinput-new">Seleccionar Imagen</span>
 
-                                        <span class="fileinput-exists">Change</span>
+                                        <span class="fileinput-exists">Cambiar</span>
 
                                         <input type="file" name="image" id="pic" accept="image/*"/>
 
                                     </span>
                                 
                                     <span class="btn btn-primary fileinput-exists"
-                                        data-dismiss="fileinput">Remove</span>
+                                        data-dismiss="fileinput">Eliminar</span>
 
                                 </div>
 
@@ -149,7 +149,7 @@ Editar Marca
                         <div class="form-group {{ $errors->
                             first('order', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Posicion 
+                                Posicion de la Marca 
                             </label>
                             <div class="col-sm-5">
                                 <input type="number" step="1" min="0" id="order" name="order" class="form-control" placeholder="Posicion de la Marca"
@@ -162,7 +162,7 @@ Editar Marca
 
 
                         <div class="form-group">
-                            <label for="destacado" class="col-sm-2 control-label"> Marketing</label>
+                            <label for="destacado" class="col-sm-2 control-label"> Destacado</label>
                             <div class="col-sm-10">
                                 <input id="destacado" name="destacado" type="checkbox"
                                        class="pos-rel p-l-30 custom-checkbox "

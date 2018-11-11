@@ -79,7 +79,7 @@
                         <div class="form-group {{ $errors->
                             first('descripcion_marca', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Descripcion 
+                                Descripción 
                             </label>
                             <div class="col-sm-5">
                                 
@@ -96,7 +96,7 @@
 
                         <div class="form-group">
 
-                            <label for="title" class="col-sm-2 control-label">Imagen de Categoria</label>
+                            <label for="title" class="col-sm-2 control-label">Imagen de Categoría</label>
 
 
                             <div class="col-sm-5">
@@ -117,16 +117,16 @@
                                 <div>
                                     <span class="btn btn-primary btn-file">
 
-                                        <span class="fileinput-new">Select image</span>
+                                        <span class="fileinput-new">Seleccinar Imagen</span>
 
-                                        <span class="fileinput-exists">Change</span>
+                                        <span class="fileinput-exists">Cambiar</span>
 
                                         <input type="file" name="image" id="pic" accept="image/*"/>
 
                                     </span>
                                    
                                     <span class="btn btn-primary fileinput-exists"
-                                          data-dismiss="fileinput">Remove</span>
+                                          data-dismiss="fileinput">Eliminar</span>
 
                                 </div>
 
@@ -153,10 +153,10 @@
                         <div class="form-group {{ $errors->
                             first('order', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Posicion de la Marca
+                                Posición de la Marca
                             </label>
                             <div class="col-sm-5">
-                                <input type="number" min="0" step="1" id="order" name="order" class="form-control" placeholder="Posicion de la Marca"
+                                <input type="number" min="0" step="1" id="order" name="order" class="form-control" placeholder="Posición de la Marca"
                                        value="{!! old('order') !!}">
                             </div>
                             <div class="col-sm-4">

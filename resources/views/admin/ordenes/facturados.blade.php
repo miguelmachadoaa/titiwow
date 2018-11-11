@@ -285,7 +285,8 @@ $("#enviarOrdenForm").bootstrapValidator({
 
         $('#tbOrdenes').DataTable({
                       responsive: true,
-                      pageLength: 10
+                      pageLength: 10,
+                      "order": [[ 0, 'desc' ]]
                   });
                   $('#tbOrdenes').on( 'page.dt', function () {
                      setTimeout(function(){

@@ -19,6 +19,26 @@
 
 @stop
 
+{-- breadcrumb --}}
+@section('top')
+    <div class="breadcum">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Inicio
+                    </a>
+                </li>
+                <li>
+                    <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
+                    <a href="{{ url('clientes') }}">Mi Cuenta </a>
+                </li>
+
+                
+            </ol>
+        </div>
+    </div>
+@stop
+
 {{-- Page content --}}
 @section('content')
     <hr class="content-header-sep">
@@ -35,10 +55,6 @@
                         <!-- Notifications -->
                         <div id="notific">
                         @include('notifications')
-                        </div>
-
-                        <div>
-                            <h3 class="text-primary" id="title">Información Personal </h3>
                         </div>
                         {!! Form::model($user, ['url' => URL::to('my-account'), 'method' => 'put', 'class' => 'form-horizontal','enctype'=>"multipart/form-data"]) !!}
 

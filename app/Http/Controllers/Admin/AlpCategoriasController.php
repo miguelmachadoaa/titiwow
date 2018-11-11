@@ -75,7 +75,7 @@ class AlpCategoriasController extends JoshController
 
             #echo $picture.'<br>';
 
-            $destinationPath = public_path() . '/uploads/blog/';
+            $destinationPath = public_path() . '/uploads/categorias/';
 
             #echo $destinationPath.'<br>';
 
@@ -154,7 +154,7 @@ class AlpCategoriasController extends JoshController
 
             #echo $picture.'<br>';
 
-            $destinationPath = public_path() . '/uploads/blog/';
+            $destinationPath = public_path() . '/uploads/categorias/';
 
             #echo $destinationPath.'<br>';
 

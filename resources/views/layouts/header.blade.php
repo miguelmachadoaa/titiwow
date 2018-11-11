@@ -63,8 +63,10 @@
         
                             {{--based on anyone login or not display menu items--}}
                             @if(Sentinel::guest())
-
-
+                                <li>
+                                    <a href="#"><i class="shopping-cart" data-name="ion-ios7-cart" data-size="18" data-loop="true" data-c="#fff" data-hc="#fff"></i></a>               
+                                    <label ><a id="detalle_carro_front" href="{{url('cart/show')}}" >Mi Carrito</a></label>    
+                                </li>
                                 <li>
                                     <a href="#"><i class="shopping-cart" data-name="ion-ios7-cart" data-size="18" data-loop="true" data-c="#fff" data-hc="#fff"></i></a>               
                                     <label ><a id="detalle_carro_front" href="{{url('login')}}" >Iniciar Sesión</a></label>    
