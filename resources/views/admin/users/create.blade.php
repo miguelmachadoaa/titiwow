@@ -21,6 +21,22 @@
 
 {{-- Page content --}}
 @section('content')
+
+
+ @if (count($errors) > 0)
+        <div class="form-group">
+            <div class="col-sm-10 col-sm-offset-1">
+                <div class="alert alert-danger">
+                    <strong>Upsss !</strong> Hay un Error...<br /><br />
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+    @endif
     <section class="content-header">
         <h1>Add New User</h1>
         <ol class="breadcrumb">

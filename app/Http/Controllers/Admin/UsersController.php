@@ -1,7 +1,8 @@
-<?php namespace App\Http\Controllers\Admin;
+<?php 
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\JoshController;
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\UsuarioRequest;
 use App\Mail\Register;
 use App\Mail\Restore;
 use App\User;
@@ -108,7 +109,8 @@ class UsersController extends JoshController
     {
         // Get all the available groups
         $groups = Sentinel::getRoleRepository()->all();
-        $groups = DB::table('roles')->whereIn('roles.id', [2,3,4,5,6,7,8])->get();
+
+        $groups = DB::table('roles')->whereIn('roles.id', [1,2,3,4,5,6,7,8])->get();
 
         $countries = $this->countries;
         // Show the page
@@ -120,7 +122,7 @@ class UsersController extends JoshController
      *
      * @return Redirect
      */
-    public function store(UserRequest $request)
+    public function store(UsuarioRequest $request)
     {
 
         //upload image
@@ -200,10 +202,10 @@ class UsersController extends JoshController
      * User update form processing page.
      *
      * @param  User $user
-     * @param UserRequest $request
+     * @param UsuarioRequest $request
      * @return Redirect
      */
-    public function update(User $user, UserRequest $request)
+    public function update(User $user, UsuarioRequest $request)
     {
 
 
