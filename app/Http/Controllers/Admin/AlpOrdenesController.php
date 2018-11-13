@@ -356,6 +356,8 @@ echo '<br>fin: '.$date_fin;*/
 
         $input = $request->all();
 
+         $configuracion = AlpConfiguracion::where('id','1')->first();
+
         //var_dump($input);
 
         $data_history = array(
@@ -475,6 +477,8 @@ echo '<br>fin: '.$date_fin;*/
 
         $input = $request->all();
 
+         $configuracion = AlpConfiguracion::where('id','1')->first();
+
         //var_dump($input);
 
         $data_history = array(
@@ -532,6 +536,8 @@ echo '<br>fin: '.$date_fin;*/
     {
 
         $user_id = Sentinel::getUser()->id;
+
+         $configuracion = AlpConfiguracion::where('id','1')->first();
 
         $input = $request->all();
 
