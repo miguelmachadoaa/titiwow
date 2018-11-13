@@ -61,7 +61,7 @@
                 </div>
                 <div class="form-group {{ $errors->first('email', 'has-error') }}">
                     <input type="email" class="form-control" id="Email" name="email" placeholder="Email"
-                           value="{!! old('Email') !!}" >
+                           value="{!! old('email') !!}" >
                     {!! $errors->first('email', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="form-group {{ $errors->first('telefono_cliente', 'has-error') }}">
@@ -131,7 +131,7 @@
                         <!-- insert this line -->
                         <span class="input-group-addon" style="width:0px; padding-left:0px; padding-right:0px; border:none;"></span>
                     </div>
-                    {!! $errors->first('detalle_address', '<span class="help-block">:message</span>') !!}
+                    {!! $errors->first('principal_address', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="form-group {{ $errors->first('detalle_address', 'has-error') }}">
                     <input type="text" class="form-control" id="detalle_address" name="detalle_address" placeholder="Apto, Puerta, Interior"
@@ -150,10 +150,9 @@
                     </label>
                 </div>
                 <div class="clearfix"></div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="marketing_cliente" value="1">  Deseo Recibir Promociones de parte de Alpina
-                    </label>
+                <div class="form-group">
+                    <div class="g-recaptcha" data-sitekey="{{env('CAPTCHA_KEY')}}"></div>
+                    {!! $errors->first('g-recaptcha-response', '<span class="help-block">:message</span>') !!}
                 </div>
                 <button type="submit" class="btn btn-block btn-primary">Registrarme</button>
                 <br />
@@ -165,6 +164,7 @@
     <!-- //Content Section End -->
 </div>
 <!--global js starts-->
+<script src='https://www.google.com/recaptcha/api.js'></script>
 <script type="text/javascript" src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>

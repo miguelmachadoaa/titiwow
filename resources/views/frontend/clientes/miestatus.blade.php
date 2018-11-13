@@ -54,11 +54,11 @@ Mi Estatus
                         <img class="img img-responsive" src="{{ url('/').'/assets/images/'.$puntos['nivel'].'.png' }}">
                     </div>
                     <div class="col-sm-9">
-                        <h3>Usted acumula compras este mes por  {{ $puntos['puntos'] }} COP</h3>
+                        <h4>Usted acumula compras este mes por  {{ $puntos['puntos'] }} COP</h4>
 
-                        <h3>Lo que lo ubica en el nivel {{ $puntos['nivel'] }} con una comision de {{ $puntos['porcentaje']*100 }}%</h3>
+                        <h4>Lo que lo ubica en el nivel {{ $puntos['nivel'] }} con una comision de {{ $puntos['porcentaje']*100 }}%</h4>
 
-                        <h3>Usted acumula una comision ganada de  {{ $puntos['puntos']*$puntos['porcentaje'] }} COP</h3>
+                        <h4>Usted acumula una comision ganada de  {{ $puntos['puntos']*$puntos['porcentaje'] }} COP</h4>
                         
                     </div>
                 </div>
@@ -75,7 +75,7 @@ Mi Estatus
 
 
 <div class="welcome">
-            <h3>Mi Estatus</h3>
+            <h3>Compras de Mis Amigos</h3>
         </div>
         <hr>
     <div class="products">
@@ -89,9 +89,12 @@ Mi Estatus
                     <tr>
                         <th>Nombre</th>
                         <th>Apellido</th>
-                        <th>Id Orden</th>
-                        <th>Compra</th>
-                        <th>Comision Ganada </th>
+
+                        <th>Total Compra</th>
+                        <th>Número de Orden</th>
+                        <th>Fecha de Compra</th>
+                        <th>Puntos Ganados</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -99,29 +102,28 @@ Mi Estatus
             @foreach($puntos_list as $referido)
 
                     <tr>
-                        <td>
+                        <td class="text-left">
                             {{ $referido->first_name }}
                         </td>
-                        <td>
+                        <td class="text-left">
                             {{ $referido->last_name }}
                         </td>
-
+                        <td>
+                            {{ $referido->cantidad }}
+                        </td>
                         <td>
                             {{ $referido->id_orden }}
                         </td>
 
                         <td>
-                            {{ $referido->cantidad }}
+                            {{ $referido->created_at }}
                         </td>
                         
-                        <td>
+                        <td class="text-left">
 
                            {{$referido->cantidad*$puntos['porcentaje']}}
-
                            
                         </td>
-                       
-
                         
                     </tr>
                 
@@ -136,13 +138,15 @@ Mi Estatus
                         <td>
                             {{ $ref->last_name }}
                         </td>
-
+                        <td>
+                            {{ $ref->cantidad }}
+                        </td>
                         <td>
                             {{ $ref->id_orden }}
                         </td>
 
                         <td>
-                            {{ $ref->cantidad }}
+                            {{ $ref->created_at }}
                         </td>
                         
                         <td>
@@ -150,6 +154,12 @@ Mi Estatus
                            {{$ref->cantidad*$puntos['porcentaje']}}
 
                            
+                        </td>
+                        <td class="text-left">
+                        </td>
+                        <td class="text-left">
+                        </td>
+                        <td class="text-left">
                         </td>
                        
 

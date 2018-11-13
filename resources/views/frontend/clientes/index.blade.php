@@ -14,23 +14,22 @@ Area clientes
 
     <style type="text/css">
         
-        .btn-large {
-            height: 180px;
-            line-height: 150px;
-            width: 180px;
-            margin: 1em;
-                display: inline-block;
-
-                 border: 1px solid rgba(0,0,0,0.1);
-    background: #fff !important; 
-    box-shadow: 2px 2px 2px #ddd;
-    border-radius: 1em;
+        .btn-medium {
+            height: 160px;
+            line-height: 160px;
+            width: 160px;
+            margin-bottom: 1em;
+            display: inline-block;
+            border: 1px solid rgba(0,0,0,0.1);
+            background: #fff !important; 
+            box-shadow: 2px 2px 2px #ddd;
+            border-radius: 1em;
         }
 
 
 
 
-        .btn-large {
+        .btn-medium {
             text-decoration: none;
             color: #000;
             background-color: #26a69a;
@@ -41,8 +40,8 @@ Area clientes
         }
 
 
-        .btn-large i {
-            font-size: 4.6rem;
+        .btn-medium i {
+            font-size: 3.6rem;
         }
 
 
@@ -101,120 +100,94 @@ Area clientes
 
             <div class="alert alert-default">
                 
-                <h3>Usted acumula compras este mes por  {{ $puntos['puntos'] }} COP</h3>
+                <h4>Usted acumula compras este mes por  {{ $puntos['puntos'] }} COP</h4>
 
-                <h3>Lo que lo ubica en el nivel {{ $puntos['nivel'] }} con una comision de {{ $puntos['porcentaje']*100 }}%</h3>
+                <h4>Lo que lo ubica en el nivel {{ $puntos['nivel'] }} con una comision de {{ $puntos['porcentaje']*100 }}%</h4>
 
-                <h3>Usted acumula una comision ganada de  {{ $puntos['puntos']*$puntos['porcentaje'] }} COP</h3>
-
-
-
+                <h4>Usted acumula una comision ganada de  {{ $puntos['puntos']*$puntos['porcentaje'] }} COP</h4>
             </div>
 
         @endif
 
         
         <div class="col-sm-12">
-
-            <a href="{{ url('my-account') }}" class=" btn-large ">
-                <div class="row">
-                <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-user"></i></div>
-                <div class="col-sm-12">Mi Cuenta</div>
-                </div>
-        
-
-            </a>
+            <div class="row">
+            <div class="col-sm-2 text-center">
+                <a href="{{ url('my-account') }}" class=" btn-medium ">
+                    <div class="row">
+                    <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-user"></i></div>
+                    <div class="col-sm-12">Mi Cuenta</div>
+                    </div>
             
 
-            <a href="{{ url('miscompras') }}" class=" btn-large ">
-                <div class="row">
-                <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-shopping-cart"></i></div>
-                <div class="col-sm-12">Mis Compras</div>
-                </div>
-        
-
-            </a>
-
-            <a href="{{ url('misdirecciones') }}" class=" btn-large ">
-                <div class="row">
-                <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-map"></i></div>
-                <div class="col-sm-12">Mi Dirección </div>
-                </div>
-        
-
-            </a>
-
-            @if (Sentinel::getUser()->hasAnyAccess(['clientes.misamigos']))
- 
-            <a  href="{{ url('misamigos') }}" class=" btn-large ">
-                <div class="row">
-                <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-users"></i></div>
-                <div class="col-sm-12">Amigos</div>
-                </div>
-        
-
-            </a>
-
-            @endif
-
-            @if (Sentinel::getUser()->hasAnyAccess(['clientes.misamigos']))
- 
-            <a  href="{{ url('miestatus') }}" class=" btn-large ">
-                <div class="row">
-                <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-users"></i></div>
-                <div class="col-sm-12">Mi Estatus </div>
-                </div>
-        
-
-            </a>
-
-            @endif
-
-            <a href="{{ url('productos') }}" class=" btn-large ">
-                <div class="row">
-                <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-shopping-cart"></i></div>
-                <div class="col-sm-12">Comprar </div>
-                </div>
-        
-
-            </a>
-
-            <a href="{{ url('#') }}" class=" btn-large ">
-                <div class="row">
-                <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-question-circle"></i></div>
-                <div class="col-sm-12">FAQS </div>
-                </div>
-        
-
-            </a>
-
-            <a href="{{ url('#') }}" class=" btn-large delete ">
-                <div class="row">
-                <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-trash"></i></div>
-                <div class="col-sm-12">Eliminar Cuenta </div>
-                </div>
-        
-
-            </a>
-
-           
-
-            
-            <!--@if (Sentinel::getUser()->hasAnyAccess(['clientes.amigos']))
-
-            <a href="{{ url('clientes/amigos') }}" class=" btn-large ">
-                <div class="row">
-                <div class="col-sm-12" style="height: 5em;" ><i class="fa fa-send"></i></div>
-                <div class="col-sm-12">Invitaciones</div>
-                </div>
-        
-
-            </a>
-
-            @endif-->
-
+                </a>
+            </div>    
+            <div class="col-sm-2 text-center">
+                <a href="{{ url('miscompras') }}" class=" btn-medium ">
+                    <div class="row">
+                    <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-shopping-cart"></i></div>
+                    <div class="col-sm-12">Mis Compras</div>
+                    </div>
             
 
+                </a>
+            </div>    
+            <div class="col-sm-2 text-center">
+                <a href="{{ url('misdirecciones') }}" class=" btn-medium ">
+                    <div class="row">
+                    <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-map"></i></div>
+                    <div class="col-sm-12">Mi Dirección </div>
+                    </div>
+                </a>
+            </div> 
+            <div class="col-sm-2 text-center">   
+                <a href="{{ url('productos') }}" class=" btn-medium ">
+                    <div class="row">
+                    <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-shopping-cart"></i></div>
+                    <div class="col-sm-12">Comprar </div>
+                    </div>
+                </a>
+            </div> 
+                @if (Sentinel::getUser()->hasAnyAccess(['clientes.misamigos']))
+                <div class="col-sm-2 text-center"> 
+                <a  href="{{ url('misamigos') }}" class=" btn-medium ">
+                    <div class="row">
+                    <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-users"></i></div>
+                    <div class="col-sm-12">Mis Amigos</div>
+                    </div>
+                </a>
+                </div> 
+                @endif
+
+                @if (Sentinel::getUser()->hasAnyAccess(['clientes.misamigos']))
+                <div class="col-sm-2 text-center"> 
+                <a  href="{{ url('miestatus') }}" class=" btn-medium ">
+                    <div class="row">
+                    <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-users"></i></div>
+                    <div class="col-sm-12">Mi Estatus </div>
+                    </div>
+                </a>
+                </div> 
+                </div> 
+            <div class="row">
+                @endif
+                <div class="col-sm-2 text-center"> 
+                <a href="{{ url('#') }}" class=" btn-medium ">
+                    <div class="row">
+                    <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-question-circle"></i></div>
+                    <div class="col-sm-12">FAQS </div>
+                    </div>
+                </a>
+                </div> 
+                <div class="col-sm-2 text-center"> 
+                <a href="{{ url('#') }}" class=" btn-medium delete ">
+                    <div class="row">
+                    <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-trash"></i></div>
+                    <div class="col-sm-12">Eliminar Cuenta </div>
+                    </div>
+                </a>
+                </div> 
+            </div>
         </div>
 
     </div>
