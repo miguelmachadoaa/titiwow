@@ -168,7 +168,6 @@ return [
         MercadoPagoLaravel\Providers\MercadoPagoServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Roumen\Sitemap\SitemapServiceProvider::class,
-        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
 
 
         /*
