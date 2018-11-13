@@ -44,14 +44,14 @@ Mis Compras
             <h3>Mis Compras</h3>
         </div>
         <hr>
-    <div class="products">
+    <div class="row">
 
-        <div class="row">
+        <div class="col-sm-12">
         @if(!$compras->isEmpty())
 
          <div class="table-responsive">
 
-             <table class="table table-responsive">
+             <table class="table table-responsive width100"  id="table">
                     <tr>
                         <th>Id</th>
                         <th>Nombre Cliente</th>
@@ -130,9 +130,9 @@ Mis Compras
                     </div>
                     <div class="modal-body">
 
-                         <table class="table table-responsive" id="tbDetalle"> 
+                         <div class="" id="tbDetalle"> 
 
-                        </table>
+                        </div>
                         
                         
 

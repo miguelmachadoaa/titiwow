@@ -87,7 +87,7 @@ Mis Amigos
 
         @if(!$amigos->isEmpty())
 
-        <div class="form-group col-sm-10 col-sm-offset-1">
+        <div class="form-group col-sm-10 col-sm-offset-1 table-responsive">
 
              <table class="table table-responsive">
                     <tr>
@@ -143,16 +143,14 @@ Mis Amigos
 
         <hr>
 
-
-
-        <div class="row" id="table_amigos">
+        <div class="row " id="table_amigos">
 
             <div class="col-sm-8">  <h3>   Mis  Amigos Registrados  </h3> </div>
 
         @if(!$referidos->isEmpty())
 
         
-        <div class="form-group col-sm-10 col-sm-offset-1">
+        <div class="form-group col-sm-10 col-sm-offset-1 table-responsive">
              <table class="table table-responsive" id="tbAmigos">
                 <thead>
                     <tr>
