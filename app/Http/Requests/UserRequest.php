@@ -44,7 +44,8 @@ class UserRequest extends FormRequest
                     'principal_address' => 'required',
                     'secundaria_address' => 'required',
                     'edificio_address' => 'required',
-                    'detalle_address' => 'required|min:2'
+                    'detalle_address' => 'required|min:2',
+                    'g-recaptcha-response' => 'required|captcha'
                 ];
             }
             case 'PUT':
@@ -62,7 +63,8 @@ class UserRequest extends FormRequest
                     'principal_address' => 'required',
                     'secundaria_address' => 'required',
                     'edificio_address' => 'required',
-                    'detalle_address' => 'required|min:2'
+                    'detalle_address' => 'required|min:2',
+                    'g-recaptcha-response' => 'required|captcha'
                 ];
             }
             default:
