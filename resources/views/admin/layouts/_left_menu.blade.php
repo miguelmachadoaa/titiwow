@@ -600,6 +600,34 @@
 
     @endif
     
+    @if (Sentinel::getUser()->hasAnyAccess(['cms.*']))
+
+     
+    <li {!! (( Request::is('admin/cms') ||  Request::is('admin/cms/create')) || Request::is('admin/cms/*') ? 'class="active"' : '') !!}>
+        <a href="#">
+            <i class="livicon" data-name="comment" data-c="#F89A14" data-hc="#F89A14" data-size="18"
+               data-loop="true"></i>
+            <span class="title">Páginas</span>
+            <span class="fa arrow"></span>
+        </a>
+        <ul class="sub-menu">
+           
+            <li {!! (Request::is('admin/cms') ? 'class="active"' : '') !!}>
+                <a href="{{ URL::to('admin/cms') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Lista de Páginas
+                </a>
+            </li>
+            <li {!! (Request::is('admin/cms/create') ? 'class="active"' : '') !!}>
+                <a href="{{ URL::to('admin/cms/create') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Nueva Página
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    @endif
    
    
    

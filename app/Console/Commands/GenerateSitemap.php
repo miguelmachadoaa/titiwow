@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\AlpProductos;
 use App\Models\AlpCategorias;
 use App\Models\AlpMarcas;
+use App\Models\AlpCms;
 
 use Illuminate\Console\Command;
 
@@ -55,6 +56,8 @@ class GenerateSitemap extends Command
         $categorias = AlpCategorias::take(100)->where('estado_registro','=',1)->get()->toArray();
 
         $marcas = AlpMarcas::take(100)->where('estado_registro','=',1)->get()->toArray();
+
+        $cmss = AlpCms::take(100)->where('estado_registro','=',1)->get()->toArray();
 
         // counters
         $counter = 0;
@@ -124,6 +127,28 @@ class GenerateSitemap extends Command
             }
 
             $final_slug = $siteUrl . '/marcas/' . $marca['slug'];
+
+            // add product to items array
+            $sitemap->add($final_slug, date('Y-m-d H:i:s'), '1.0', 'monthly');
+            // count number of elements
+            $counter++;
+        }
+
+        foreach ($cmss as $cms) {
+            if ($counter == $maxCount) {
+                // generate new sitemap file
+                $sitemap->store('xml', 'sitemap-paginas-' . $sitemapCounter, 'public/sitemap-sn');
+                // add the file to the sitemaps array
+                $sitemap->addSitemap($siteUrl . '/sitemap-sn/' . 'sitemap-paginas-' . $sitemapCounter . '.xml', date('Y-m-d H:i:s'));
+                // reset items array (clear memory)
+                $sitemap->model->resetItems();
+                // reset the counter
+                $counter = 0;
+                // count generated sitemap
+                $sitemapCounter++;
+            }
+
+            $final_slug = $siteUrl . '/paginas/' . $cms['slug'];
 
             // add product to items array
             $sitemap->add($final_slug, date('Y-m-d H:i:s'), '1.0', 'monthly');

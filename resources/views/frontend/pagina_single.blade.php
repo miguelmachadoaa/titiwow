@@ -1,0 +1,144 @@
+
+@extends('layouts/default')
+
+{{-- Page title --}}
+@section('title')
+{{$cms->titulo_pagina}} @parent
+@stop
+@section('meta_tags')
+<meta property="og:title" content="{{$cms->seo_titulo}} | AlpinaGo">
+<meta property="og:description" content="{{$cms->seo_descripcion}}">
+<meta property="og:robots" content="index, follow">
+<meta property="og:revisit-after" content="3 days">
+@endsection
+
+{{-- page level styles --}}
+@section('header_styles')
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/shopping.css') }}">
+    <link href="{{ asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
+@stop
+
+{{-- breadcrumb --}}
+@section('top')
+    <div class="breadcum">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="hidden-xs">
+                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Inicio
+                    </a>
+                </li>
+                <li class="hidden-md hidden-lg">
+                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>
+                    </a>
+                </li>
+                <li>
+                    <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
+                    <a href="#">Páginas</a>
+                </li>
+            </ol>
+            
+        </div>
+    </div>
+@stop
+
+
+{{-- Page content --}}
+@section('content')
+<div class="container contain_body">
+    <div class="row">
+        <div class="col-md-3 hidden-xs">
+        @include('layouts.sidebar')
+        </div>
+        <div class="col-md-9">
+            <div>
+                <h3>{{$cms->titulo_pagina}}</h3>
+
+                @php
+                $string = $cms->texto_pagina;
+                echo $string;
+                @endphp
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+{{-- page level scripts --}}
+@section('footer_scripts')
+    <script src="{{ asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
+    <script>
+        jQuery(document).ready(function () {
+            new WOW().init();
+        });
+
+
+        
+
+         $('body').on('click','.addtocart', function(e){
+
+            e.preventDefault();
+
+            base=$('#base').val();
+
+            id=$(this).data('id');
+
+            url=$(this).attr('href');
+
+            $.get(url, {}, function(data) {
+
+                $('.cartcontenido').html(data);
+
+                //$('#detailCartModal').modal('show');
+
+                $('#detalle_carro_front').html($('#modal_cantidad').val()+' '+'Items');
+
+                    $.post(base+'/cart/botones', {id}, function(data) {
+
+                        $('.boton_'+id+'').html(data);
+
+                    });
+
+            });
+
+
+
+        });
+
+        $('body').on('click','.updatecart', function(e){
+
+            e.preventDefault();
+
+            base=$('#base').val();
+
+            id=$(this).data('id');
+
+            tipo=$(this).data('tipo');
+
+            slug=$(this).data('slug');
+
+            cantidad=$('#cantidad_'+id+'').val();
+
+            if (tipo=='suma') {
+
+                cantidad=parseInt(cantidad);
+
+                cantidad++;
+
+            }else{
+
+                cantidad=cantidad-1;
+            }
+            
+                    $.post(base+'/cart/updatecartbotones', {id, slug, cantidad}, function(data) {
+
+                        $('.boton_'+id+'').html('');
+                        $('.boton_'+id+'').html(data);
+
+                    });
+
+        });
+
+
+
+    </script>
+@stop

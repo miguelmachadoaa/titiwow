@@ -10,6 +10,7 @@ use App\Models\AlpMarcas;
 use App\Models\AlpClientes;
 use App\Models\AlpEmpresas;
 use App\Models\AlpPrecioGrupo;
+use App\Models\AlpCms;
 use App\RoleUser;
 use App\State;
 use DB;
@@ -545,5 +546,16 @@ class ProductosFrontController extends Controller
         return \View::make('frontend.buscar', compact('productos', 'descuento', 'precio', 'states','termino', 'cart'));
 
     }
+
+    /* Pagina CMS */
+    public function cms($slug)
+    {
+
+        $cms = AlpCms::where('slug','=', $slug)->firstOrFail();
+        return \View::make('frontend.pagina_single', compact('cms'));
+
+    }
+
+    /*Fin CMS */
 
 }

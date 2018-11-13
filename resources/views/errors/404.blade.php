@@ -17,24 +17,51 @@ Página No Encontrada
 
     <!--end of page level css-->
 @stop
-
+{{-- breadcrumb --}}
+@section('top')
+    <div class="breadcum">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="hidden-xs">
+                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Inicio
+                    </a>
+                </li>
+                <li class="hidden-md hidden-lg">
+                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>
+                    </a>
+                </li>
+                <li>
+                    <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
+                    <a href="#">404</a>
+                </li>
+            </ol>
+            
+        </div>
+    </div>
+@stop
 {{-- content --}}
 @section('content')
-
-    <div id="animate" class="row">
-        <div class="number">4</div>
-        <div class="icon"> <i class="livicon" data-name="pacman" data-size="105" data-c="#f6c500" data-hc="#f1b21d" data-eventtype="click" data-iteration="15"></i>
+    <div class="container contain_body">
+        <div class="row">
+            <div class="col-md-3 hidden-xs">
+            @include('layouts.sidebar')
+            </div>
+            <div class="col-md-9">
+                <div id="animate" class="row">
+                    <div class="icon"> <i class="livicon" data-name="pacman" data-size="105" data-c="#f6c500" data-hc="#f1b21d" data-eventtype="click" data-iteration="15"></i>
+                    </div>
+                </div>
+                <div class="hgroup">
+                    <h1>Página No Encontrada</h1>
+                    <h2>Al parecer la página que busca no se encontró.</h2>
+                    <a href="{{ route('home') }}">
+                        <button type="button" class="btn btn-primary button-alignment">Regresar a Inicio</button>
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="number">4</div>
     </div>
-    <div class="hgroup">
-        <h1>Página No Encontrada</h1>
-        <h2>Al parecer la página que busca no se encontró.</h2>
-        <a href="{{ route('home') }}">
-            <button type="button" class="btn btn-primary button-alignment">Home</button>
-        </a>
-    </div>
-    @stop
+@stop
 {{-- footer scripts --}}
 @section('footer_scripts')
     <!-- page level js starts-->
