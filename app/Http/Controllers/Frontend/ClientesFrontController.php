@@ -314,19 +314,39 @@ class ClientesFrontController extends Controller
 
              $cart= \Session::get('cart');
 
-
-
                 $puntos = array();
 
 
             if ($role->role_id=='10') {
 
-            $puntos_cliente =  DB::table('alp_puntos')->select('alp_puntos.*', DB::raw("SUM(alp_puntos.cantidad) as puntos"))
-            ->whereYear('created_at', '=', $dt->year)
-            ->whereMonth('created_at', '=', $dt->month)
+            $puntos_cliente =  DB::table('alp_puntos')
+            ->select('alp_puntos.*','alp_puntos.*', DB::raw("SUM(alp_puntos.cantidad) as puntos"))
+            ->join('alp_ordenes','alp_puntos.id_orden' , '=', 'alp_ordenes.id')
+            ->whereYear('alp_puntos.created_at', '=', $dt->year)
+            ->whereMonth('alp_puntos.created_at', '=', $dt->month)
             ->where('alp_puntos.id_cliente', $user_id)
             ->groupBy('alp_puntos.id_cliente')
             ->first();
+
+            $puntos_list =  DB::table('alp_puntos')
+            ->select('alp_puntos.*','users.first_name as first_name','users.last_name as last_name')
+            ->join('users','alp_puntos.id_user' , '=', 'users.id')
+
+            ->whereYear('alp_puntos.created_at', '=', $dt->year)
+            ->whereMonth('alp_puntos.created_at', '=', $dt->month)
+            ->where('alp_puntos.id_cliente', $user_id)
+            ->get();
+
+            //una para los referidos y otroa pára sus compras
+
+           $puntos_list2 =  DB::table('alp_puntos')
+            ->select('alp_puntos.*','users.first_name as first_name','users.last_name as last_name')
+            ->join('users','alp_puntos.id_cliente' , '=', 'users.id')
+
+            ->whereYear('alp_puntos.created_at', '=', $dt->year)
+            ->whereMonth('alp_puntos.created_at', '=', $dt->month)
+            ->where('alp_puntos.id_user', $user_id)
+            ->get();
 
 
 
@@ -362,26 +382,18 @@ class ClientesFrontController extends Controller
 
             }
 
-
-
-
-            return view('frontend.clientes.miestatus', compact('referidos', 'cliente', 'user', 'configuracion', 'amigos', 'cantidad', 'states', 'cart', 'puntos'));
+            return view('frontend.clientes.miestatus', compact('referidos', 'cliente', 'user', 'configuracion', 'amigos', 'cantidad', 'states', 'cart', 'puntos', 'puntos_list', 'puntos_list2'));
     
 
             }else{
 
-
                 $url='clientes';
-
                   //return redirect('login');
                 return view('frontend.order.login', compact('url'));
 
-
         }
 
-       
     }
-
     /**/
 
     public function storeamigo(Request $request)

@@ -4,7 +4,7 @@
 
  <div class="table-responsive">
 
-   <table class="table table-responsive">
+   <table class="table table-responsive width100"  id="table">
 
    
          <tr>

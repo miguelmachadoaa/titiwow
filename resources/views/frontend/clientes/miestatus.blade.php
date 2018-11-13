@@ -80,13 +80,7 @@ Mi Estatus
         <hr>
     <div class="products">
 
-
-
-
-
-        <div class="row" id="table_amigos">
-
-            
+        <div class="row table-responsive" id="table_amigos">
 
         @if(!$referidos->isEmpty())
 
@@ -95,15 +89,17 @@ Mi Estatus
                     <tr>
                         <th>Nombre</th>
                         <th>Apellido</th>
+
                         <th>Total Compra</th>
                         <th>Número de Orden</th>
                         <th>Fecha de Compra</th>
                         <th>Puntos Ganados</th>
+
                     </tr>
                 </thead>
                 <tbody>
 
-            @foreach($referidos as $referido)
+            @foreach($puntos_list as $referido)
 
                     <tr>
                         <td class="text-left">
@@ -112,18 +108,50 @@ Mi Estatus
                         <td class="text-left">
                             {{ $referido->last_name }}
                         </td>
+                        <td>
+                            {{ $referido->cantidad }}
+                        </td>
+                        <td>
+                            {{ $referido->id_orden }}
+                        </td>
+
+                        <td>
+                            {{ $referido->created_at }}
+                        </td>
                         
                         <td class="text-left">
 
-                            @if($referido->puntos)
+                           {{$referido->cantidad*$puntos['porcentaje']}}
+                           
+                        </td>
+                        
+                    </tr>
+                
+            @endforeach
 
-                            {{ $referido->puntos }}
+            @foreach($puntos_list2 as $ref)
 
-                            @else
+                    <tr>
+                        <td>
+                            {{ $ref->first_name }}
+                        </td>
+                        <td>
+                            {{ $ref->last_name }}
+                        </td>
+                        <td>
+                            {{ $ref->cantidad }}
+                        </td>
+                        <td>
+                            {{ $ref->id_orden }}
+                        </td>
 
-                            0
+                        <td>
+                            {{ $ref->created_at }}
+                        </td>
+                        
+                        <td>
 
-                            @endif
+                           {{$ref->cantidad*$puntos['porcentaje']}}
 
                            
                         </td>
@@ -139,6 +167,7 @@ Mi Estatus
                     </tr>
                 
             @endforeach
+
             </tbody>
              </table>
             @else
