@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Ordenes
+Ordenes descuento
 @parent
 @stop
 
@@ -52,10 +52,7 @@ Ordenes
                                     <th>Forma de Pago</th>
                                     <th>Referencia</th>
                                     <th>Total</th>
-                                    <th>Codigo Oracle</th>
-                                    <th>Factura</th>
-                                    <th>Tracking</th>
-                                    <th>Creado</th>
+                                    <th>Total Sin Descuento</th>
                                     <th>Accion</th>
                                 </tr>
                             </thead>
@@ -77,11 +74,8 @@ Ordenes
 
                                          </td>
                                     <td>{!! number_format($row->monto_total,2) !!}</td>
+                                    <td>{!! number_format($row->monto_total_base,2) !!}</td>
 
-                                    <td>{!! $row->ordencompra!!}</td>
-                                    <td>{!! $row->factura!!}</td>
-                                    <td>{!! $row->tracking!!}</td>
-                                    <td>{!! $row->created_at->diffForHumans() !!}</td>
                                     <td>
 
                                            <a class="btn btn-primary btn-xs" href="{{ route('admin.ordenes.detalle', $row->id) }}">

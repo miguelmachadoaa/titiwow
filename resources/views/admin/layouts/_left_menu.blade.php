@@ -130,6 +130,15 @@
                 </a>
             </li>
             @endif
+
+            @if (Sentinel::getUser()->hasAnyAccess(['ordenes.descuento']))
+                <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.ordenes.descuento') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Ordenes con Descuentos
+                </a>
+            </li>
+            @endif
             
            
         </ul>
