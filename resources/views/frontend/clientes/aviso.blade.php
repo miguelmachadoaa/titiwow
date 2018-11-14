@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Register | Welcome to Josh Frontend </title>
+    <title>Registro | AlpinaGo!</title>
     <!--global css starts-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
@@ -22,9 +22,7 @@
     <div class="row">
         <div class="box animation flipInX">
             <img src="{{ asset('assets/img/logo_alpina.png') }}" alt="AlpinaGO">
-           
             
-           
             <form action="{{ url('signupembajador') }}" method="POST" id="reg_form">
 
                 <h3> {{ $mensaje }}.</h3>

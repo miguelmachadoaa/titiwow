@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Requests;
+use App\Rules\Captcha;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -26,7 +27,7 @@ class EmpresaRequest extends FormRequest {
 		return [
             'nombre_empresa' => 'required|min:3',
             'descripcion_empresa' => 'required|min:3',
-            'descuento_empresa' => 'required',
+			'descuento_empresa' => 'required',
 		];
 	}
 

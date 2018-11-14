@@ -15,7 +15,7 @@ Route::get('registroembajadores/{id}', 'Frontend\ClientesFrontController@embajad
 
 Route::post('signupafiliado', 'Admin\AuthController@postSignupAfiliado')->name('admin.signupafiliado');
     
-    Route::get('registroafiliado/{id}', 'Admin\AlpEmpresasController@afiliado')->name('frontend.empresas.registro');
+Route::get('registroafiliado/{id}', 'Admin\AlpEmpresasController@afiliado')->name('frontend.empresas.registro');
 
 
 

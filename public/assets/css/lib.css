@@ -1495,3 +1495,11 @@ footer a:hover, footer a:active{
     font-size: 25px !important;
   }
 /*fin categorias internas*/
+
+/*Select2 modal*/
+
+.select2 .select2-container .select2-container--default{
+    width: 100% !important;
+}
+
+/*fin select2 modal*/

@@ -95,8 +95,8 @@
                                 <label for="select21" class="col-md-3 control-label">
                                     Departamento
                                 </label>
-                                <div class="col-md-8" >
-                                    <select style="margin: 4px 0;" id="state_id_ubicacion" name="state_id_ubicacion" class="form-control ">
+                                <div class="col-md-9" >
+                                    <select id="state_id_ubicacion" name="state_id_ubicacion" class="form-control js-example-responsive" style="width: 100%">
                                         <option value="">Seleccione Departamento</option>       
                                     </select>
                                 </div>
@@ -105,8 +105,8 @@
                                 <label for="select21" class="col-md-3 control-label">
                                     Ciudad
                                 </label>
-                                <div class="col-md-8" >
-                                    <select style="margin: 4px 0;" id="city_id_ubicacion" name="city_id_ubicacion" class="form-control ">
+                                <div class="col-md-9" >
+                                    <select id="city_id_ubicacion" name="city_id_ubicacion" class="form-control js-example-responsive" style="width: 100%">
                                         <option value="">Seleccione Ciudad</option>
                                     </select>
                                 </div>
@@ -129,12 +129,10 @@
 
     <!--global js starts-->
     <script type="text/javascript" src="{{ asset('assets/js/frontend/lib.js') }}"></script>
-    <!--global js end-->
-
+    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/select2/js/select2.js') }}"></script>
     <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
-
-
+    <!--global js end-->
     <!-- javascript para verificar y validar la ubicacion para la venta-->
 
 
@@ -144,6 +142,12 @@
 
     
         $(document).ready(function(){
+
+            $("#state_id_ubicacion").select2();
+            $("#city_id_ubicacion").select2();
+            $(".js-example-responsive").select2({
+                width: 'resolve'
+            });
 
              $('.addtocart').addClass('hidden');
 

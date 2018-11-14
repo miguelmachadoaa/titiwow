@@ -242,8 +242,8 @@ Route::post('register','FrontEndController@postRegister')->name('register');
 Route::post('registerembajador','FrontEndController@postRegisterEmbajador')->name('registerembajador');
 
 Route::get('activate/{userId}/{activationCode}','FrontEndController@getActivate')->name('activate');
-Route::get('forgot-password','FrontEndController@getForgotPassword')->name('forgot-password');
-Route::post('forgot-password', 'FrontEndController@postForgotPassword');
+Route::get('olvido-clave','FrontEndController@getForgotPassword')->name('olvido-clave');
+Route::post('olvido-clave', 'FrontEndController@postForgotPassword');
 
 #Social Logins
 Route::get('facebook', 'Admin\FacebookAuthController@redirectToProvider');
