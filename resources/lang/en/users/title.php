@@ -6,20 +6,20 @@
 
 return array(
 
-	'user_profile'			=> 'User Profile',
-	'first_name'			=> 'First Name',
-	'last_name'				=> 'Last Name',
+'user_profile'			=> 'Perfil de Usuario',
+	'first_name'			=> 'Nombre',
+	'last_name'				=> 'Apellido',
 	'email'					=> 'E-mail',
-	'phone'					=> 'Phone Number',
-	'address'				=> 'Address',
-	'city'					=> 'City',
-	'status'				=> 'Status',
-	'created_at'			=> 'Created At',
-    'select_image'			=> 'Select Image',
-    'gender'				=> 'Gender / Sex',
-    'dob'					=> 'Birth Date',
-    'country'				=> 'Country',
-    'state'					=> 'State',
-    'postal'				=> 'Postal / Zip code'
+	'phone'					=> 'Número de Teléfono',
+	'address'				=> 'Dirección',
+	'city'					=> 'Ciudad',
+	'status'				=> 'Estado',
+	'created_at'			=> 'Creado el',
+    'select_image'			=> 'Seleccionar Imágen',
+    'gender'				=> 'Sexo',
+    'dob'					=> 'Fecha de Nacimiento',
+    'country'				=> 'País',
+    'state'					=> 'Estado',
+    'postal'				=> 'Código Postal'
     
 );

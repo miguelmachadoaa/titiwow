@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    Edit User
+    Editar Usuario
     @parent
 @stop
 
@@ -20,7 +20,7 @@
 {{-- Page content --}}
 @section('content')
     <section class="content-header">
-        <h1>Edit user</h1>
+        <h1>Editar Usuario</h1>
         <ol class="breadcrumb">
             <li>
                 <a href="{{ route('admin.dashboard') }}">
@@ -28,8 +28,8 @@
                     Dashboard
                 </a>
             </li>
-            <li>Users</li>
-            <li class="active">Add New User</li>
+            <li>Usuarios</li>
+            <li class="active">Agregar Usuario</li>
         </ol>
     </section>
     <section class="content">
@@ -38,7 +38,7 @@
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title"> <i class="livicon" data-name="users" data-size="16" data-c="#fff" data-hc="#fff" data-loop="true"></i>
-                            Editing user : <p class="user_name_max">{!! $user->first_name!!} {!! $user->last_name!!}</p>
+                            Editando Usuario : <p class="user_name_max">{!! $user->first_name!!} {!! $user->last_name!!}</p>
                         </h3>
                     <span class="pull-right clickable">
                         <i class="glyphicon glyphicon-chevron-up"></i>
@@ -55,29 +55,29 @@
 
                                     <div id="rootwizard">
                                         <ul>
-                                            <li><a href="#tab1" data-toggle="tab">User Profile</a></li>
-                                            <li><a href="#tab2" data-toggle="tab">Bio</a></li>
-                                            <li><a href="#tab3" data-toggle="tab">Address</a></li>
-                                            <li><a href="#tab4" data-toggle="tab">User Group</a></li>
+                                            <li><a href="#tab1" data-toggle="tab">Perfil de Usuario</a></li>
+                                            <li><a href="#tab2" data-toggle="tab">Datos Biograficos</a></li>
+                                            <li><a href="#tab3" data-toggle="tab">Direccion</a></li>
+                                            <li><a href="#tab4" data-toggle="tab">Rol de Usuario</a></li>
                                         </ul>
                                         <div class="tab-content">
                                             <div class="tab-pane" id="tab1">
                                                 <h2 class="hidden">&nbsp;</h2>
 
                                                 <div class="form-group {{ $errors->first('first_name', 'has-error') }}">
-                                                    <label for="first_name" class="col-sm-2 control-label">First Name *</label>
+                                                    <label for="first_name" class="col-sm-2 control-label">Nombre *</label>
                                                     <div class="col-sm-10">
                                                         <input id="first_name" name="first_name" type="text"
-                                                               placeholder="First Name" class="form-control required"
+                                                               placeholder="Nombre" class="form-control required"
                                                                value="{!! old('first_name', $user->first_name) !!}"/>
                                                     </div>
                                                     {!! $errors->first('first_name', '<span class="help-block">:message</span>') !!}
                                                 </div>
 
                                                 <div class="form-group {{ $errors->first('last_name', 'has-error') }}">
-                                                    <label for="last_name" class="col-sm-2 control-label">Last Name *</label>
+                                                    <label for="last_name" class="col-sm-2 control-label">Apellido*</label>
                                                     <div class="col-sm-10">
-                                                        <input id="last_name" name="last_name" type="text" placeholder="Last Name"
+                                                        <input id="last_name" name="last_name" type="text" placeholder="Apellido"
                                                                class="form-control required"
                                                                value="{!! old('last_name', $user->last_name) !!}"/>
                                                     </div>
@@ -96,7 +96,7 @@
                                                 </div>
 
                                                 <div class="form-group {{ $errors->first('password', 'has-error') }}">
-                                                    <p class="text-warning">If you don't want to change password... please leave them empty</p>
+                                                    <p class="text-warning">Si no desea cambiar la clave, no rellene estos campos</p>
                                                     <label for="password" class="col-sm-2 control-label">Password </label>
                                                     <div class="col-sm-10">
                                                         <input id="password" name="password" type="password" placeholder="Password"
@@ -106,10 +106,10 @@
                                                 </div>
 
                                                 <div class="form-group {{ $errors->first('password_confirm', 'has-error') }}">
-                                                    <label for="password_confirm" class="col-sm-2 control-label">Confirm Password </label>
+                                                    <label for="password_confirm" class="col-sm-2 control-label">Confirmar Password </label>
                                                     <div class="col-sm-10">
                                                         <input id="password_confirm" name="password_confirm" type="password"
-                                                               placeholder="Confirm Password " class="form-control"
+                                                               placeholder="Confirmar Password " class="form-control"
                                                                value="{!! old('password_confirm') !!}"/>
                                                         {!! $errors->first('password_confirm', '<span class="help-block">:message</span>') !!}
                                                     </div>
@@ -120,7 +120,7 @@
                                             <div class="tab-pane" id="tab2" disabled="disabled">
                                                 <h2 class="hidden">&nbsp;</h2>
                                                 <div class="form-group {{ $errors->first('dob', 'has-error') }}">
-                                                    <label for="dob" class="col-sm-2 control-label">Date of Birth</label>
+                                                    <label for="dob" class="col-sm-2 control-label">Fecha de Nacimiento</label>
                                                     <div class="col-sm-10">
                                                         <input id="dob" name="dob" type="text" class="form-control"
                                                                data-date-format="YYYY-MM-DD" value="{!! old('dob', $user->dob) !!}"
@@ -130,7 +130,7 @@
                                                 </div>
 
                                                 <div class="form-group {{ $errors->first('pic_file', 'has-error') }}">
-                                                    <label for="pic" class="col-sm-2 control-label">Profile picture</label>
+                                                    <label for="pic" class="col-sm-2 control-label">Imagen de Perfil</label>
                                                     <div class="col-sm-10">
                                                         <div class="fileinput fileinput-new" data-provides="fileinput">
                                                             <div class="fileinput-new thumbnail" style="width: 200px; height: 200px;">
@@ -169,7 +169,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group  {{ $errors->first('pic', 'has-error') }}">
-                                                    <label for="bio" class="col-sm-2 control-label">Bio <small>(brief intro)</small></label>
+
+
+                                                    <label for="bio" class="col-sm-2 control-label">Biogracias <small>(Introduccion)</small></label>
                                                     <div class="col-sm-10">
                                             <textarea name="bio" id="bio" class="form-control resize_vertical"
                                                       rows="4">{!! old('bio', $user->bio) !!}</textarea>
@@ -180,13 +182,13 @@
                                             </div>
                                             <div class="tab-pane" id="tab3" disabled="disabled">
                                                 <div class="form-group {{ $errors->first('gender', 'has-error') }}">
-                                                    <label for="email" class="col-sm-2 control-label">Gender </label>
+                                                    <label for="email" class="col-sm-2 control-label">Genero </label>
                                                     <div class="col-sm-10">
-                                                        <select class="form-control" title="Select Gender..." name="gender">
-                                                            <option value="">Select</option>
-                                                            <option value="male" @if($user->gender === 'male') selected="selected" @endif >Male</option>
-                                                            <option value="female" @if($user->gender === 'female') selected="selected" @endif >Female</option>
-                                                            <option value="other" @if($user->gender === 'other') selected="selected" @endif >Other</option>
+                                                        <select class="form-control" title="Seleccione Genero" name="gender">
+                                                            <option value="">Seleccione</option>
+                                                            <option value="male" @if($user->gender === 'male') selected="selected" @endif >Masculino</option>
+                                                            <option value="female" @if($user->gender === 'female') selected="selected" @endif >Famanino</option>
+                                                            <option value="other" @if($user->gender === 'other') selected="selected" @endif >Otro</option>
 
                                                         </select>
                                                     </div>
@@ -194,7 +196,7 @@
                                                 </div>
 
                                                 <div class="form-group required {{ $errors->first('country', 'has-error') }}">
-                                                    <label for="country" class="col-sm-2 control-label">Country </label>
+                                                    <label for="country" class="col-sm-2 control-label">Pais </label>
                                                     <div class="col-sm-10">
                                                         {!! Form::select('country', $countries,old('country',$user->country),array('class' => 'country_field form-control')) !!}
 
@@ -204,7 +206,7 @@
 
                                                 <div class="form-group {{ $errors->first('state', 'has-error') }}">
                                                     <label for="state"
-                                                           class="col-sm-2 control-label">State </label>
+                                                           class="col-sm-2 control-label">Departamento </label>
                                                     <div class="col-sm-10">
                                                         <input id="state" name="state" type="text"
                                                                class="form-control"
@@ -214,7 +216,7 @@
                                                 </div>
 
                                                 <div class="form-group {{ $errors->first('city', 'has-error') }}">
-                                                    <label for="city" class="col-sm-2 control-label">City </label>
+                                                    <label for="city" class="col-sm-2 control-label">Ciudad </label>
                                                     <div class="col-sm-10">
                                                         <input id="city" name="city" type="text" class="form-control"
                                                                value="{!! old('city', $user->city) !!}"/>
@@ -223,7 +225,7 @@
                                                 </div>
 
                                                 <div class="form-group {{ $errors->first('address', 'has-error') }}">
-                                                    <label for="address" class="col-sm-2 control-label">Address </label>
+                                                    <label for="address" class="col-sm-2 control-label">Direccion </label>
                                                     <div class="col-sm-10">
                                                         <input id="address" name="address" type="text" class="form-control"
                                                                value="{!! old('address', $user->address) !!}"/>
@@ -232,7 +234,7 @@
                                                 </div>
 
                                                 <div class="form-group {{ $errors->first('postal', 'has-error') }}">
-                                                    <label for="postal" class="col-sm-2 control-label">Postal/zip</label>
+                                                    <label for="postal" class="col-sm-2 control-label">Codigo Postal</label>
                                                     <div class="col-sm-10">
                                                         <input id="postal" name="postal" type="text" class="form-control"
                                                                value="{!! old('postal', $user->postal) !!}"/>
@@ -241,12 +243,12 @@
                                                 </div>
                                             </div>
                                             <div class="tab-pane" id="tab4" disabled="disabled">
-                                                <p class="text-danger"><strong>Be careful with group selection, if you give admin access.. they can access admin section</strong></p>
+                                                <p class="text-danger"><strong>Tenga cuidado con la selección de grupos, si le da acceso al administrador ... ellos pueden acceder a la sección de administración</strong></p>
                                                 <div class="form-group {{ $errors->first('group', 'has-error') }}">
-                                                    <label for="group" class="col-sm-2 control-label">Group *</label>
+                                                    <label for="group" class="col-sm-2 control-label">Rol *</label>
                                                     <div class="col-sm-10">
-                                                        <select class="form-control " title="Select group..." name="groups[]" id="groups" required>
-                                                            <option value="">Select</option>
+                                                        <select class="form-control " title="Seleccione Rol..." name="groups[]" id="groups" required>
+                                                            <option value="">Seleccione</option>
                                                             @foreach($roles as $role)
                                                                 <option value="{!! $role->id !!}" {{ (array_key_exists($role->id, $userRoles) ? ' selected="selected"' : '') }}>{{ $role->name }}</option>
                                                             @endforeach
@@ -256,17 +258,17 @@
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="activate" class="col-sm-2 control-label"> Activate User</label>
+                                                    <label for="activate" class="col-sm-2 control-label"> Activar Usuario</label>
                                                     <div class="col-sm-10">
                                                         <input id="activate" name="activate" type="checkbox" class="pos-rel p-l-30 custom-checkbox" value="1" @if($status) checked="checked" @endif  >
-                                                        <span>To activate your account click the check box</span>
+                                                        <span>Para activar cuenta active la casilla</span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <ul class="pager wizard">
-                                                <li class="previous"><a href="#">Previous</a></li>
-                                                <li class="next"><a href="#">Next</a></li>
-                                                <li class="next finish" style="display:none;"><a href="javascript:;">Finish</a></li>
+                                                <li class="previous"><a href="#">Anterior</a></li>
+                                                <li class="next"><a href="#">Siguiente</a></li>
+                                                <li class="next finish" style="display:none;"><a href="javascript:;">Finalizar</a></li>
                                             </ul>
                                         </div>
                                     </div>
