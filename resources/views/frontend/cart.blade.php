@@ -65,6 +65,8 @@ Carrito de Compras
 
                             <th>Producto</th>
 
+                            <th>Slug</th>
+
                             <th>Precio</th>
 
                             <th>Cantidad</th>
@@ -87,6 +89,7 @@ Carrito de Compras
 
                                 <td><img height="60px" src="../uploads/productos/{{$row->imagen_producto}}"></td>
                                 <td>{{$row->nombre_producto}}</td>
+                                <td>{{$row->slug}}</td>
                                 <td>{{number_format($row->precio_oferta,0,",",".")}}</td>
                                 
                                 <td>
