@@ -94,7 +94,7 @@
                         <b>Medida:</b> {{ $producto->medida}}<br />
                         <b>Referencia:</b> {{ $producto->referencia_producto}}<br />
                     </p>
-                    <div class="producto_atributos">
+                   <!-- <div class="producto_atributos">
                         <div class="row">
                                 <div class="col-md-4 text-right">
                                     <h4>Cantidad</h4>
@@ -103,7 +103,7 @@
                                     <input type="number" class="form-control" min="1" style="width:70px;">
                                 </div>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="box-info-product"> 
                         <div class="row">
                             <div class="col-md-4">
@@ -158,9 +158,53 @@
                                 @endif
                             </span>
                             </div>
-                            <div class="col-md-4">
+
+                                <div class="col-md-4">
+                                    <div class="product_botones boton_{{ $producto->id }}">
+
+                                                @if(isset($cart[$producto->slug]))
+
+                                                    <div class="row">
+                                                      <div class="col-sm-10 col-sm-offset-1">
+                                                        <div class="input-group">
+                                                          <span class="input-group-btn">
+                                                            
+                                                            <button data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
+
+                                                          </span>
+
+                                                          <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
+
+
+                                                          <span class="input-group-btn">
+
+                                                            <button data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-minus"></i></button>
+
+                                                          </span>
+
+                                                        </div><!-- /input-group -->
+                                                      </div><!-- /.col-lg-6 -->
+                                                     
+                                                    </div><!-- /.row -->
+
+                                                @else
+                                                     
+                                                        <a data-single="1" data-id="{{ $producto->id }}" class="btn btn-sm btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
+                                                    
+                                                
+
+                                                @endif
+
+                                                       
+
+                                                
+                                        </div>
+                                    </div>
+
+
+                            <!--<div class="col-md-4">
                                 <a class="btn btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Añadir al Carrito</a>        
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                     
@@ -289,7 +333,7 @@
 
 <!-- Modal Direccion -->
 
-
+<input type="hidden" name="single" id="single" value="1">
 
 
 @stop
@@ -308,72 +352,6 @@
             new WOW().init();
         });
 
-
-     
-
-         $('body').on('click','.addtocart', function(e){
-
-            e.preventDefault();
-
-            base=$('#base').val();
-
-            id=$(this).data('id');
-
-            url=$(this).attr('href');
-
-            $.get(url, {}, function(data) {
-
-                $('.cartcontenido').html(data);
-
-                $('#detailCartModal').modal('show');
-
-                $('#detalle_carro_front').html($('#modal_cantidad').val()+' '+'Items');
-
-                    $.post(base+'/cart/botones', {id}, function(data) {
-
-                        $('.boton_'+id+'').html(data);
-
-                    });
-
-            });
-
-
-
-        });
-
-        $('body').on('click','.updatecart', function(e){
-
-            e.preventDefault();
-
-            base=$('#base').val();
-
-            id=$(this).data('id');
-
-            tipo=$(this).data('tipo');
-
-            slug=$(this).data('slug');
-
-            cantidad=$('#cantidad_'+id+'').val();
-
-            if (tipo=='suma') {
-
-                cantidad=parseInt(cantidad);
-
-                cantidad++;
-
-            }else{
-
-                cantidad=cantidad-1;
-            }
-            
-                    $.post(base+'/cart/updatecartbotones', {id, slug, cantidad}, function(data) {
-
-                        $('.boton_'+id+'').html('');
-                        $('.boton_'+id+'').html(data);
-
-                    });
-
-        });
 
 
 

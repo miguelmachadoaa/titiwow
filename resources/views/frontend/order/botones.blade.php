@@ -27,6 +27,6 @@
 
     @endif
 
-    <a class="btn btn-sm btn-primary" href="{{ route('producto', [$producto->slug]) }}">Ver Más</a>
+    <a class="btn btn-sm btn-primary vermas" href="{{ route('producto', [$producto->slug]) }}">Ver Más</a>
 
 @endif

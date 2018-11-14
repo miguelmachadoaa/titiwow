@@ -332,8 +332,11 @@ class ProductosFrontController extends Controller
         }
 
          $states=State::where('config_states.country_id', '47')->get();
+
+         $cart= \Session::get('cart');
+
         
-        return \View::make('frontend.producto_single', compact('producto', 'descuento', 'precio','categos', 'states'));
+        return \View::make('frontend.producto_single', compact('producto', 'descuento', 'precio','categos', 'states', 'cart'));
 
     }
 
