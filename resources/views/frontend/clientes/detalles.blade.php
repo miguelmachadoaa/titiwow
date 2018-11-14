@@ -22,8 +22,8 @@
         <!-- Se construyen las opciones de envios -->
 
                         <tr>
-                            <td><img height="60px" src="{{ url('/') }}/uploads/productos/{{$row->imagen_producto}}"></td>
-                            <td>{{$row->nombre_producto}}</td>
+                            <td><a target="_blank" href="{{ route('producto', [$row->slug]) }}" ><img height="60px" src="{{ url('/') }}/uploads/productos/{{$row->imagen_producto}}"></a></td>
+                            <td><a target="_blank"  href="{{ route('producto', [$row->slug]) }}" >{{$row->nombre_producto}}</a></td>
                             <td>{{number_format($row->precio_unitario,2)}}</td>
                             <td>{{ $row->cantidad }}</td>
                             <td>{{ number_format($row->precio_total, 2) }}</td>                           

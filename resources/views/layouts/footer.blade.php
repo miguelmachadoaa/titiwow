@@ -356,9 +356,9 @@
                         $('.boton_'+id+'').html(data);
 
 
-                        if (single==1) {
+                       if (single==1) {
 
-                            $('.vermas').hidden();
+                            $('.vermas').remove();
                         }
 
 

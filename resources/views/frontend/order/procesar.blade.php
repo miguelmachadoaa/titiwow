@@ -94,8 +94,8 @@ Carro de Productos
                  <tbody>
                      @foreach($detalles as $row)
                         <tr>
-                            <td><img height="60px" src="../uploads/productos/{{$row->imagen_producto}}"></td>
-                            <td>{{$row->nombre_producto}}</td>
+                            <td><a target="_blank"  href="{{ route('producto', [$row->slug]) }}" ><img height="60px" src="../uploads/productos/{{$row->imagen_producto}}"></a></td>
+                            <td><a target="_blank"  href="{{ route('producto', [$row->slug]) }}" >{{$row->nombre_producto}}</a></td>
                             <td>{{$row->slug}}</td>
                             <td>{{number_format($row->precio_unitario,0,",",".")}}</td>
                             <td> {{ $row->cantidad }} </td>
