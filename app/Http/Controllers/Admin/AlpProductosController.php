@@ -315,9 +315,95 @@ class AlpProductosController extends JoshController
      */
     public function show($id)
     {
-        $producto = AlpProductos::find($id);
+         $categorias = AlpCategoriasProductos::select('alp_productos_category.*', 'alp_categorias.nombre_categoria as nombre_categoria')
+          ->join('alp_categorias', 'alp_productos_category.id_categoria', '=', 'alp_categorias.id')
+         
+          ->where('alp_productos_category.id_producto', $id)
+          ->get();
 
-        return view('admin.productos.show', compact('producto'));
+
+          $producto = AlpProductos::select('alp_productos.*', 'alp_categorias.nombre_categoria as nombre_categoria', 'alp_marcas.nombre_marca as nombre_marca')
+          ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
+          ->join('alp_marcas', 'alp_productos.id_marca', '=', 'alp_marcas.id')
+          ->where('alp_productos.id', $id)
+          ->first();
+
+
+
+        $precioGrupo = AlpPrecioGrupo::where('id_producto', $id)->get();
+
+        $drole = array();
+
+        $dprecio = array();
+
+        /*se rellena un arra con los precios por roles con el key igual al id del rol */
+
+          $precio_grupo = array();
+
+          $precio_grupo_corporativo = array();
+
+         # print_r($precioGrupo);
+
+         foreach ($precioGrupo as $pre) {
+
+          $nc=City::where('id',$pre->city_id)->first();
+
+
+          if ($pre->operacion==1) {
+            $pre->precio_seleccion=$producto->precio_base;
+            
+          }
+
+          if ($pre->operacion==2) {
+            $pre->precio_seleccion=$producto->precio_base*(1-($pre->precio/100));
+            
+          }
+
+          if ($pre->operacion==3) {
+            $pre->precio_seleccion=$pre->precio;
+            
+          }
+
+
+          if (substr($pre->id_role, 0, 1)=='E') {
+
+
+
+            $nr = DB::table('alp_empresas')->select('id', 'nombre_empresa')->where('id',substr($pre->id_role, 1))->first();
+
+            if (isset($nr->id)) {
+
+              $pre->id_role='E'.$nr->id;
+
+              $pre->role_name=$nr->nombre_empresa;
+              
+            }else{
+
+              $pre->role_name='';
+
+            }
+
+
+           
+          }else{
+
+            $nr = DB::table('roles')->select('id', 'name')->where('id',$pre->id_role)->first();
+
+            $pre->role_name=$nr->name;
+
+           
+
+          }
+
+           $pre->city_name=$nc->city_name;
+
+            $precio_grupo[]=$pre;
+                
+          
+
+        }
+
+        return view('admin.productos.show', compact('producto', 'precio_grupo', 'categorias'));
     }
 
     /**
