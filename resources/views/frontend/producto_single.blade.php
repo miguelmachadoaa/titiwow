@@ -150,7 +150,13 @@
                             @endif
 
                                </div>
-                            <span>IVA incluido</span>
+                            <span class="span_impuesto">
+                                @if($producto->id_impuesto == 1)
+                                    IVA incluido
+                                @elseif($producto->id_impuesto == 2)
+                                    Excento de IVA
+                                @endif
+                            </span>
                             </div>
                             <div class="col-md-4">
                                 <a class="btn btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Añadir al Carrito</a>        

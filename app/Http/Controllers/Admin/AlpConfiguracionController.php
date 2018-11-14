@@ -98,7 +98,7 @@ class AlpConfiguracionController extends JoshController
         $states = DB::table("config_states")
                     ->where("country_id",$id)
                     ->pluck("state_name","id")->all();
-        $states['0'] = 'Seleccione Región';
+        $states['0'] = 'Seleccione Departamento';
         return json_encode($states);
     }
 

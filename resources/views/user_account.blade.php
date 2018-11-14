@@ -19,7 +19,7 @@
 
 @stop
 
-{-- breadcrumb --}}
+{{-- breadcrumb --}}
 @section('top')
     <div class="breadcum">
         <div class="container">

@@ -260,7 +260,7 @@ class AlpEmpresasController extends JoshController
 
         $estructura = AlpEstructuraAddress::where('estado_registro','=',1)->get();
 
-
+ 
         if (!isset($amigo->id)) {
 
                 $mensaje="Su enlace de registro a vencido, solicite uno nuevo o registrese como cliente";

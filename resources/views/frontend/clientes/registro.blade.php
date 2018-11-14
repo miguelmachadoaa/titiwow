@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Register | Alpina Go </title>
+    <title>Registro Amigos | Alpina Go </title>
     <!--global css starts-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
@@ -14,6 +14,8 @@
     <link type="text/css" rel="stylesheet" href="{{asset('assets/vendors/iCheck/css/all.css')}}" />
     <link href="{{ asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/register.css') }}">
+    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+
     <!--end of page level css-->
 </head>
 <body>
@@ -85,13 +87,6 @@
                     {!! $errors->first('password_confirm', '<span class="help-block">:message</span>') !!}
                 </div>
 
-
-
-
-
-
-
-
                 <hr />
                 <div class="form-group {{ $errors->first('cod_alpinista', 'has-error') }}">
                     <div class="" >
@@ -147,40 +142,19 @@
                     {!! $errors->first('barrio_address', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="clearfix"></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-               
-               
-                <div class="clearfix"></div>
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" name="habeas_cliente" value="1">  Acepto los <a href="#"> Términos y Condiciones</a>
                     </label>
                 </div>
-
                  <div class="clearfix"></div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="marketing_cliente" value="1">  Deseo Recibir Promociones de parte de Alpina
-                    </label>
+                 <div class="form-group">
+                    <div class="g-recaptcha" data-sitekey="{{env('CAPTCHA_KEY')}}"></div>
+                    {!! $errors->first('g-recaptcha-response', '<span class="help-block">:message</span>') !!}
                 </div>
 
-
                 <button type="submit" class="btn btn-block btn-primary">Registrar</button>
-                Si ya posee cuenta, por favor Inicie Sesión <a href="{{ route('login') }}"> Iniciar Sesión</a>
+                Si ya posee cuenta, por favor<a href="{{ route('login') }}"> Inicie Sesión</a>
             </form>
             <input type="hidden" name="base" id="base" value="{{ url('/') }}">
         </div>
@@ -188,11 +162,14 @@
     <!-- //Content Section End -->
 </div>
 <!--global js starts-->
+<script src='https://www.google.com/recaptcha/api.js'></script>
 <script type="text/javascript" src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 <script type="text/javascript" src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/frontend/register_custom.js') }}"></script>
+<script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/select2/js/select2.js') }}"></script>
+
 
 <!--global js end-->
 
@@ -200,6 +177,9 @@
 
 <script >
 $(document).ready(function(){
+        $("#state_id").select2();
+        $("#city_id").select2();
+        $("#id_type_doc").select2();
         $('#cod_alpinista').hide();
         // For oncheck callback
         $('#chkalpinista').on('ifChecked', function () { $('#cod_alpinista').show();})

@@ -23,7 +23,7 @@
     <!--Content Section Start -->
     <div class="row">
         <div class="box animation flipInX">
-            <div class="box1">
+            <div class="box1 text-center">
             <img src="{{ asset('assets/img/logo_alpina.png') }}" alt="AlpinaGO">
             <h3 class="text-primary">Area de Clientes</h3>
                 <!-- Notifications -->
@@ -69,7 +69,7 @@
             </div>
             <br>
         <div class="bg-light animation flipInX">
-            <a href="{{ route('forgot-password') }}" id="forgot_pwd_title">Olvidó su Clave?</a>
+            <a href="{{ route('olvido-clave') }}" id="forgot_pwd_title">¿Olvidó su Contraseña?</a>
         </div>
         </div>
     </div>

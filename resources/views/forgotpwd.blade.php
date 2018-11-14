@@ -19,9 +19,9 @@
 <div class="container">
     <div class="row">
         <div class="box animation flipInX">
-            <img src="{{ asset('assets/images/josh-new.png') }}" alt="logo" class="img-responsive mar">
-            <h3 class="text-primary">Forgot Password</h3>
-            <p>Enter your email to reset your password</p>
+            <img src="{{ asset('assets/img/logo_alpina.png') }}" alt="AlpinaGO">
+            <h3 class="text-primary">Reestrablecer Contraseña</h3>
+            <p>Ingrese su Email</p>
             <div id="notific">
             @include('notifications')
             </div>
@@ -34,11 +34,11 @@
                     <span class="help-block">{{ $errors->first('email', ':message') }}</span>
                 </div>
                 <div class="form-group">
-                    <input class="form-control btn btn-primary btn-block" type="submit" value="Reset Your Password">
+                    <input class="form-control btn btn-primary btn-block" type="submit" value="Restablecer Contraseña">
                 </div>
             </form>
 
-            Back to login page?<a href="{{ route('login') }}"> Click here</a>
+            Quiere regresar al Login?<a href="{{ route('login') }}"> Click Aquí</a>
         </div>
     </div>
 </div>

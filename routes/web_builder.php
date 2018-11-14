@@ -15,7 +15,7 @@ Route::get('registroembajadores/{id}', 'Frontend\ClientesFrontController@embajad
 
 Route::post('signupafiliado', 'Admin\AuthController@postSignupAfiliado')->name('admin.signupafiliado');
     
-    Route::get('registroafiliado/{id}', 'Admin\AlpEmpresasController@afiliado')->name('frontend.empresas.registro');
+Route::get('registroafiliado/{id}', 'Admin\AlpEmpresasController@afiliado')->name('frontend.empresas.registro');
 
 
 
@@ -112,7 +112,7 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
     Route::resource('formasenvio', 'Admin\AlpFormasenvioController');
 
-    Route::resource('rolpagos', 'Admin\AlpRolpagosController');
+    Route::resource('rolpagos', 'Admin\AlpRolPagosController');
 
     Route::resource('rolenvios', 'Admin\AlpRolEnviosController');
 
