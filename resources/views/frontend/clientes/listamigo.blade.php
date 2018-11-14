@@ -5,6 +5,10 @@
 
     <h3>Solo te quedan {{ $configuracion->limite_amigos-$cantidad }} invitaciones disponibles por enviar</h3>
 
+    <div class="col-sm-10 col-sm-offset-1">
+        <div class="res"></div>
+    </div>    
+
 
 @if(count($amigos))
 
@@ -54,8 +58,8 @@
     </div>
 
 @endif
-
-
+    
+   
     <div class="form-group col-sm-10 col-sm-offset-1">
         <div class="alert alert-{{ $mensaje['tipo'] }}">{{ $mensaje['mensaje'] }}</div>
     </div>

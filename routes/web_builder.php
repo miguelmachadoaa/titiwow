@@ -306,6 +306,16 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
     Route::resource('sedes', 'Admin\AlpSedesController');
 
+    /*Inicio CMS*/
+
+    Route::group(['prefix' => 'cms'], function () {
+        Route::get('{cms}/delete', 'Admin\AlpCmsController@destroy')->name('cms.delete');
+        Route::get('{cms}/confirm-delete', 'Admin\AlpCmsController@getModalDelete')->name('cms.confirm-delete');
+        Route::get('{cms}/restore', 'Admin\AlpCmsController@restore')->name('cms.restore');
+    });
+    Route::resource('cms', 'Admin\AlpCmsController');
+
+    /*CMS Fin*/
 
 
     Route::resource('configuracion', 'Admin\AlpConfiguracionController');
@@ -514,6 +524,8 @@ Route::get('productos', 'Frontend\ProductosFrontController@index');
 Route::get('categoria/{slug}', ['as' => 'categoria', 'uses' => 'Frontend\ProductosFrontController@categorias']);
 
 Route::get('marcas/{slug}', ['as' => 'marcas', 'uses' => 'Frontend\ProductosFrontController@marcas']);
+
+Route::get('paginas/{slug}', ['as' => 'pagina', 'uses' => 'Frontend\ProductosFrontController@cms']);
 
 Route::get("buscar","Frontend\ProductosFrontController@mySearch");
 

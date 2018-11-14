@@ -56,21 +56,8 @@ Mis Amigos
         </div>
 
 
-         @if(isset($puntos['nivel']))
+        
 
-            <div class="alert alert-default">
-                
-                <h3>Usted acumula compras este mes por  {{ $puntos['puntos'] }} COP</h3>
-
-                <h3>Lo que lo ubica en el nivel {{ $puntos['nivel'] }} con una comision de {{ $puntos['porcentaje']*100 }}%</h3>
-
-                <h3>Usted acumula una comision ganada de  {{ $puntos['puntos']*$puntos['porcentaje'] }} COP</h3>
-
-
-
-            </div>
-
-        @endif
 
 
         <div class="row amigosList">
@@ -81,6 +68,12 @@ Mis Amigos
         <div class="col-sm-12">
             
         <h3>Solo te quedan {{ $configuracion->limite_amigos-$cantidad }} invitaciones disponibles por enviar</h3>
+
+        </div>
+
+         <div class="col-sm-10 col-sm-offset-1">
+            
+            <div class="res"></div>
 
         </div>
 
@@ -139,7 +132,16 @@ Mis Amigos
             </div>
             
         @endif
+
+
+       
+       
+
+
+
         </div>
+
+
 
         <hr>
 
@@ -157,7 +159,7 @@ Mis Amigos
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>Email</th>
-                        <th>Puntos</th>
+                        <th>Total Compra</th>
                         <th>Creado</th>
                         <th>Acciones</th>
                     </tr>
@@ -359,6 +361,7 @@ Mis Amigos
 
         });
 
+
         $('.sendEliminar').on('click',  function(e){
 
             e.preventDefault();
@@ -380,15 +383,16 @@ Mis Amigos
 
 
 
+
         $(document).on('click', '.addAmigo', function(e){
 
             e.preventDefault();
 
-            //alert('cantidad:'+$('#cantidad').val()+' limite:'+$('#limite').val());
+          //  alert('cantidad:'+$('#cantidad').val()+' limite:'+$('#limite').val());
 
-            if (parseInt($('#limite').val())<parseInt($('#cantidad').val())){
+            if (parseInt($('#limite').val())<=parseInt($('#cantidad').val())){
 
-                $('.res').html('<div class="alert alert-danger">Usted alcanzo el limite de sus amigos</div>');
+                $('.res').html('<div class="alert alert-danger">Usted alcanzo el limite de invitaciones a sus amigos</div>');
 
             }else{
 

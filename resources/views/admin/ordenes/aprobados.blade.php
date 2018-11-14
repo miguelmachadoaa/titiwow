@@ -48,7 +48,6 @@ Ordenes Aprobadas
                                     <th>Cliente</th>
                                     <th>Forma de Envio</th>
                                     <th>Forma de Pago</th>
-                                    <th>Referencia</th>
                                     <th>Total</th>
                                     <th>Codigo Oracle</th>
                                     <th>Factura</th>
@@ -66,14 +65,7 @@ Ordenes Aprobadas
                                     <td>{!! $row->first_name.' '.$row->last_name !!}</td>
                                     <td>{!! $row->nombre_forma_envios !!}</td>
                                     <td>{!! $row->nombre_forma_pago !!}</td>
-                                    <td> 
-                                        
-                                         @if($row->json!=Null)
-                                            {{ json_decode($row->json)->merchant_order_id }}
-
-                                        @endif
-
-                                         </td>
+                                   
                                     <td>{!! number_format($row->monto_total,2) !!}</td>
 
                                     <td>{!! $row->ordencompra!!}</td>

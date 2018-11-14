@@ -50,7 +50,6 @@ Ordenes descuento
                                     <th>Cliente</th>
                                     <th>Forma de Envio</th>
                                     <th>Forma de Pago</th>
-                                    <th>Referencia</th>
                                     <th>Total</th>
                                     <th>Total Sin Descuento</th>
                                     <th>Accion</th>
@@ -65,14 +64,7 @@ Ordenes descuento
                                     <td>{!! $row->first_name.' '.$row->last_name !!}</td>
                                     <td>{!! $row->nombre_forma_envios !!}</td>
                                     <td>{!! $row->nombre_forma_pago !!}</td>
-                                    <td> 
-                                        
-                                        @if($row->json!=Null)
-                                            {{ json_decode($row->json)->merchant_order_id }}
-
-                                        @endif
-
-                                         </td>
+                                   
                                     <td>{!! number_format($row->monto_total,2) !!}</td>
                                     <td>{!! number_format($row->monto_total_base,2) !!}</td>
 
@@ -85,19 +77,7 @@ Ordenes descuento
                                           
 
                                             
-                                         @if($row->ordencompra=='')
-
-                                            <div style="display: inline-block;" class="aprobar_{{ $row->id }}">
-                                            <button data-id="{{ $row->id }}"  data-codigo="{{ $row->ordencompra }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-info aprobar" > Aprobar </button></div>
-
-                                           @else
-
-                                            <div style="display: inline-block;" class="aprobar_{{ $row->id }}">
-                                            <button data-id="{{ $row->id }}"  data-codigo="{{ $row->ordencompra }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-success aprobar" > Aprobado </button></div>
-
-
-                                           @endif
-
+                                        
                                             
 
 

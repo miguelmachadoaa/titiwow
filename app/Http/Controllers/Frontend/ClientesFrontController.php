@@ -495,6 +495,8 @@ class ClientesFrontController extends Controller
 
     public function delamigo(Request $request)
     {
+            $mensaje = array();
+           
 
             $user_id = Sentinel::getUser()->id;
 
@@ -515,11 +517,15 @@ class ClientesFrontController extends Controller
 
             $cantidad=$clientes_amigos->cantidad+$amigos_amigos->cantidad;
 
+            $mensaje['tipo']='danger';
+
+            $mensaje['mensaje']='Se ha eliminado satisfactoriamente';
+
 
             $configuracion = AlpConfiguracion::where('id', '1')->first();
 
 
-            $view= View::make('frontend.clientes.listamigo', compact('amigos', 'cliente', 'user', 'cantidad', 'configuracion'));
+            $view= View::make('frontend.clientes.listamigo', compact('amigos', 'cliente', 'user', 'cantidad', 'configuracion', 'mensaje'));
 
             $data=$view->render();
 

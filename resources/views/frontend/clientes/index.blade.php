@@ -96,7 +96,7 @@ Area clientes
         @endif
 
 
-        @if(isset($puntos['nivel']))
+        <!--@if(isset($puntos['nivel']))
 
             <div class="alert alert-default">
                 
@@ -107,7 +107,7 @@ Area clientes
                 <h4>Usted acumula una comision ganada de  {{ $puntos['puntos']*$puntos['porcentaje'] }} COP</h4>
             </div>
 
-        @endif
+        @endif-->
 
         
         <div class="col-sm-12">
