@@ -197,7 +197,7 @@ class MenusTableSeeder extends Seeder
         /* Menu Marcas */
         DB::table('alp_menu_detalles')->insert([
             'name' => 'Avena Alpina',
-            'slug' => 'marcas/avena_alpina',
+            'slug' => 'marcas/avena-alpina',
             'parent' => 0,
             'order' => 1,
             'id_menu' => 3,
@@ -218,7 +218,7 @@ class MenusTableSeeder extends Seeder
         ]);
         DB::table('alp_menu_detalles')->insert([
             'name' => 'Yogurt Griego',
-            'slug' => 'marcas/yogurt-griego',
+            'slug' => 'marcas/yogurt-griego-alpina',
             'parent' => 0,
             'order' => 4,
             'id_menu' => 3,
@@ -239,14 +239,14 @@ class MenusTableSeeder extends Seeder
         ]);
         DB::table('alp_menu_detalles')->insert([
             'name' => 'Pudin',
-            'slug' => 'marcas/pudin',
+            'slug' => 'marcas/pudin-alpina',
             'parent' => 0,
             'order' => 7,
             'id_menu' => 3,
         ]);
         DB::table('alp_menu_detalles')->insert([
             'name' => 'Queso Sabana',
-            'slug' => 'marcas/queso-sabana',
+            'slug' => 'marcas/queso-sabana-alpina',
             'parent' => 0,
             'order' => 8,
             'id_menu' => 3,
