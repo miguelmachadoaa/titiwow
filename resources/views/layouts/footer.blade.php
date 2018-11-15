@@ -303,32 +303,6 @@
 
          });
 
-         
-
-
-         $(document).ready(function(){
-
-                 var base = $('#base').val();
-                        console.log(base);                        
-                   
-                $.ajax({
-                    url: base+'/cart/detalle/',
-                    type: "GET",
-                    dataType: "json",
-
-                    success:function(data) {
-
-                        $('#cartmenu').html('<li class="dropdown-item"><a href="http://localhost/laravel55/public/order/detail">Proceder a pagar</a></li>');
-
-                    }
-                });
-
-
-
-         });
-
-
-
 
          
          $('body').on('click','.addtocart', function(e){
@@ -345,13 +319,13 @@
 
             $.get(url, {}, function(data) {
 
-                $('.cartcontenido').html(data);
+               // $('.cartcontenido').html(data);
 
                // $('#detailCartModal').modal('show');
 
-                $('#detalle_carro_front').html($('#modal_cantidad').val()+' '+'Items');
+               // $('#detalle_carro_front').html($('#modal_cantidad').val()+' '+'Items');
 
-                    $.post(base+'/cart/botones', {id}, function(data) {
+                  /*  $.post(base+'/cart/botones', {id}, function(data) {
 
                         $('.boton_'+id+'').html(data);
 
@@ -364,7 +338,7 @@
 
 
 
-                    });
+                    });*/
 
             });
 
@@ -400,7 +374,7 @@
                 cantidad=cantidad-1;
             }
             
-                    $.post(base+'/cart/updatecartbotones', {id, slug, cantidad}, function(data) {
+                   $.post(base+'/cart/updatecartbotones', {id, slug, cantidad}, function(data) {
 
                         $('.boton_'+id+'').html('');
                         $('.boton_'+id+'').html(data);
@@ -418,14 +392,34 @@
 
 
 
-         
+         $(document).on('change','.cartselect', function(){
+
+            
+
+            base=$('#base').val();
+
+            slug=$(this).data('slug');
+
+            cantidad=$(this).val();
+
+                    $.post(base+'/cart/updatecantidad', { slug, cantidad}, function(data) {
+
+                    });
+
+            });
 
 
+         $(document).on('click','.delete-item', function(){
 
+            base=$('#base').val();
 
+            slug=$(this).data('slug');
 
+                    $.post(base+'/cart/delproducto', { slug}, function(data) {
 
+                    });
 
+            });
 
 
 

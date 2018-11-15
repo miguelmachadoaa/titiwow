@@ -100,9 +100,23 @@ class FrontEndController extends JoshController
 
        $cart= \Session::get('cart');
 
+        $total=0;
 
-       
-        return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart'));
+        if($cart!=NULL){
+
+            foreach($cart as $row) {
+
+                $total=$total+($row->cantidad*$row->precio_oferta);
+
+            }
+        }
+
+        
+
+      
+
+
+        return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total'));
 
     }
 

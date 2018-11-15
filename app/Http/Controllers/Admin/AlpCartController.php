@@ -148,9 +148,6 @@ class AlpCartController extends JoshController
 
       $cart=$this->reloadCart();
 
-     
-
-
       $total=$this->total();
 
       if (Sentinel::check()) {
@@ -1063,6 +1060,36 @@ class AlpCartController extends JoshController
       
     }
 
+
+
+    public function updatecantidad(Request $request)
+    {
+      
+      $cart= \Session::get('cart');
+
+      $cart[$request->slug]->cantidad=$request->cantidad;
+
+      \Session::put('cart', $cart);
+
+      return 'true';
+
+      
+    }
+
+    public function delproducto( Request $request)
+    {
+       $cart= \Session::get('cart');
+
+      unset( $cart[$request->slug]);
+
+       \Session::put('cart', $cart);
+
+       return 'true';
+      
+    }
+
+
+
     public function updatecart(Request $request)
     {
        $cart= \Session::get('cart');
@@ -1092,7 +1119,6 @@ class AlpCartController extends JoshController
 
       $detalle->update($data);
 
-       
 
        $configuracion=AlpConfiguracion::where('id', '1')->first();
 
