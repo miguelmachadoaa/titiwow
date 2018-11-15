@@ -477,7 +477,7 @@
 
 
             @if (Sentinel::getUser()->hasAnyAccess(['clientes.empresas']))
-                <li {!! (Request::is('admin/clientes') ? 'class="active" id="active"' : '') !!}>
+                <li {!! (Request::is('admin/clientes/empresas/list') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ URL::to('admin/clientes/empresas/list') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Clientes Empresas
@@ -487,7 +487,7 @@
             @endif
 
             @if (Sentinel::getUser()->hasAnyAccess(['clientes.inactivos']))
-                <li {!! (Request::is('admin/clientes') ? 'class="active" id="active"' : '') !!}>
+                <li {!! (Request::is('admin/clientes/inactivos') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ URL::to('admin/clientes/inactivos') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Clientes Inactivo
@@ -497,7 +497,7 @@
             @endif
 
             @if (Sentinel::getUser()->hasAnyAccess(['clientes.rechazados']))
-                <li {!! (Request::is('admin/clientes') ? 'class="active" id="active"' : '') !!}>
+                <li {!! (Request::is('admin/clientes/rechazados') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ URL::to('admin/clientes/rechazados') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Clientes Rechazados
@@ -514,16 +514,41 @@
                     Crear Nuevo Cliente
                 </a>
             </li>
-            @endif
-
-            
-
-            
-
-           
+            @endif 
         </ul>
     </li>
 
+    @endif
+
+    @if (Sentinel::getUser()->hasAnyAccess(['clientes.*']))
+
+        <li {!! (Request::is('admin/alpinistas') ? 'class="active"' : '') !!}>
+        <a href="#">
+            <i class="livicon" data-name="users" data-size="18" data-c="#F89A14" data-hc="#F89A14"
+                data-loop="true"></i>
+            <span class="title">Alpinistas</span>
+            <span class="fa arrow"></span>
+        </a>
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/alpinistas') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ URL::to('admin/alpinistas') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Lista de Alpinistas
+                </a>
+            </li>
+            <li {!! (Request::is('admin/alpinistas/create') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ URL::to('admin/alpinistas/cargar') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Cargar Alpinistas
+                </a>
+            </li>
+            <li {!! (Request::is('admin/alpinistas/destroy') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ URL::to('admin/alpinistas/show') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Retirar Alpinistas
+                </a>
+            </li>
+        </ul>
     @endif
 
     @if (Sentinel::getUser()->hasAnyAccess(['groups.*']))
