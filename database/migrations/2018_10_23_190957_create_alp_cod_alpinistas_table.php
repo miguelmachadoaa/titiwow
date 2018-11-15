@@ -17,7 +17,7 @@ class CreateAlpCodAlpinistasTable extends Migration
             $table->increments('id');
             $table->string('documento_alpi');
             $table->string('codigo_alpi');
-            $table->string('estatus_alpinista')->default(1)->comment('1: Dato Cargado, 2 Usuario Creado');
+            $table->string('estatus_alpinista')->default(1)->comment('1: Dato Cargado, 2 Usuario Creado, 3 Alpinista de Baja');
             $table->integer('id_usuario_creado')->nullable();
             $table->integer('id_user');
             $table->timestamps();

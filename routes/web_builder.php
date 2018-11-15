@@ -186,13 +186,27 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
 //Inicio Reportes generales
 
-   /* Route::get('reportes/registrados', 'Admin\AlpReportesController@registrados');
-    Route::get('reportes/registrados/registradosexcel', 'Admin\AlpReportesController@excelUserNew')->name('reportes.registrados.registradosexcel');*/
-
    Route::get('reportes/registrados', 'Admin\AlpReportesController@indexreg');
    Route::get('reportes/registrados/export', 'Admin\AlpReportesController@export');
 
 //Fin Reportes generales
+
+
+/* Vista Alpinistas (Importar)*/
+
+
+Route::group(['prefix' => 'alpinistas'], function () {
+
+    Route::post('import', 'Admin\AlpAlpinistasController@import');
+    Route::post('retirar', 'Admin\AlpAlpinistasController@retiro');
+
+});
+Route::resource('alpinistas', 'Admin\AlpAlpinistasController');
+
+
+
+
+/*Fin Vista Alpinistas */
     
 
     Route::group(['prefix' => 'empresas'], function () {
