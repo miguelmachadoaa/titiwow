@@ -204,7 +204,7 @@ $(document).ready(function(){
 
                     if(stateID) {
                         $.ajax({
-                            url: base+'/register/cities/'+stateID,
+                            url: base+'/registro/cities/'+stateID,
                             type: "GET",
                             dataType: "json",
                             success:function(data) {

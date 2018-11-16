@@ -51,7 +51,7 @@
 
                     </div>
                     <input type="submit" class="btn btn-block btn-primary" value="Iniciar Sesión">
-                    Aun sin cuenta? <a href="{{ route('register') }}"><strong> Registrarse</strong></a>
+                    Aun sin cuenta? <a href="{{ route('registro') }}"><strong> Registrarse</strong></a>
                 </form>
                 <br/>
              <!--<div class="text-center">

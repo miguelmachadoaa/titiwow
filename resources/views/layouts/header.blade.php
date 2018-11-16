@@ -76,7 +76,7 @@
                                 
                                 <li>
                                     <a href="#"><i class="shopping-cart" data-name="ion-ios7-cart" data-size="18" data-loop="true" data-c="#fff" data-hc="#fff"></i></a>               
-                                    <label ><a id="detalle_carro_front" href="{{url('register')}}" >Registrarse</a></label>    
+                                    <label ><a id="detalle_carro_front" href="{{url('registro')}}" >Registrarse</a></label>    
                                 </li>
                             @else
                                 <li {{ (Request::is('clientes') ? 'class=active' : '') }}>

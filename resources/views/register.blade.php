@@ -29,7 +29,7 @@
             <div id="notific">
             @include('notifications')
             </div>
-            <form action="{{ route('register') }}" method="POST" id="reg_form">
+            <form action="{{ route('registro') }}" method="POST" id="reg_form">
                 <!-- CSRF Token -->
                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
@@ -202,7 +202,7 @@ $(document).ready(function(){
 
                     if(stateID) {
                         $.ajax({
-                            url: base+'/register/cities/'+stateID,
+                            url: base+'/registro/cities/'+stateID,
                             type: "GET",
                             dataType: "json",
                             success:function(data) {
