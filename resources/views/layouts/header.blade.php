@@ -25,6 +25,15 @@
     <!--page level css-->
     @yield('header_styles')
     <!--end of page level css-->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129370910-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-129370910-1');
+    </script>
 </head>
 
 <body>
