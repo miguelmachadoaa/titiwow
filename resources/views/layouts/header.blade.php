@@ -33,15 +33,18 @@
         <!-- Icon Section Start -->
         <div class="icon-section">
             <div class="container">
-                <div class="col-sm-4 hidden-md" >
-                    <div class="navbar-header menu_float">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse">
+                <div class="col-sm-4 " >
+                    <div class="navbar-header menu_float hidden-md">
+                        <div id="header_logo" class="pull-left hidden-lg">
+                                <a  href="{{ route('home') }}" class="hidden-md"><img src="{{ asset('assets/images/logo_alpina.jpg') }}" alt="Alpina Market" class="logo_position"></a>
+                        </div>
+                        <button type="button" class="navbar-toggle collapsed pull-left" data-toggle="collapse" data-target="#collapse">
                             <span><a href="#"><i class="livicon" data-name="responsive-menu" data-size="25" data-loop="false" data-c="#ffffff" data-hc="#ccc"></i>
                             </a></span>
                         </button>
                     </div>
-                    <div class="pull-left">
-                        <ul class="list-inline icon-position">
+                    <div class="pull-left hidden-xs">
+                        <ul class="list-inline icon-position" style="margin-bottom:0px !important">
                             <li><a href="https://www.facebook.com/alpina" target="_blank"><i class="fa fa-facebook-f color-top" ></i></a></li>
                             <li><a href="https://www.instagram.com/alpinacol/" target="_blank"><i class="fa fa-instagram color-top" ></i></a></li>
                             <li><a href="https://www.linkedin.com/company/alpina/?trk=vsrp_companies_res_name&trkInfo=VSRPsearchId%3A3286542181450727911739%2CVSRPtargetId%3A48174%2CVSRPcmpt%3Aprimary" target="_blank"><i class="fa fa-linkedin-square color-top" ></i></a></li>
@@ -101,7 +104,7 @@
         </div>
         <!-- //Icon Section End -->
         <!-- logo Section Start -->
-        <div class="logo-section">
+        <div class="logo-section hidden-xs">
             <div class="logo-section-height">
                 <div class="container">
                     <div class="row">
