@@ -325,7 +325,7 @@
 
                // $('#detalle_carro_front').html($('#modal_cantidad').val()+' '+'Items');
 
-                  /*  $.post(base+'/cart/botones', {id}, function(data) {
+                    $.post(base+'/cart/botones', {id}, function(data) {
 
                         $('.boton_'+id+'').html(data);
 
@@ -335,14 +335,9 @@
                             $('.vermas').remove();
                         }
 
-
-
-
-                    });*/
+                    });
 
             });
-
-
 
         });
 

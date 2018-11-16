@@ -213,6 +213,7 @@ Main Components
   height: 400px;
   max-height: 90%;
   pointer-events: none;
+  font-family: 'PlutoBold';
 }
 .cd-cart .wrapper {
   position: absolute;
@@ -257,6 +258,7 @@ Main Components
   display: block;
 }
 .cd-cart footer {
+  padding: 0;
   bottom: 0;
   border-radius: 0 0 6px 6px;
   box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.15);
@@ -449,7 +451,9 @@ Main Components
 }
 .cd-cart .delete-item, .cd-cart .quantity {
   float: left;
-  color: #808b97;
+  /*color: #808b97;*/
+  color: #e94b35;
+   /* font-size: 1.2em;*/
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
@@ -462,6 +466,8 @@ Main Components
 .cd-cart .quantity label {
   display: inline-block;
   margin-right: .3em;
+      bottom: 0;
+    padding: 0;
 }
 .cd-cart .select {
   position: relative;
