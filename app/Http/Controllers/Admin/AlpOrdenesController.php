@@ -478,9 +478,7 @@ echo '<br>fin: '.$date_fin;*/
 
           $texto="La orden ".$orden->id." Ha sido aprobada y espera para ser facturada!";
 
-
            Mail::to($configuracion->correo_cedi)->send(new \App\Mail\notificacionOrden($orden->id, $texto));
-
 
 
 
