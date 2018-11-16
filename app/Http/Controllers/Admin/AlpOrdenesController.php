@@ -482,9 +482,6 @@ echo '<br>fin: '.$date_fin;*/
            Mail::to($configuracion->correo_cedi)->send(new \App\Mail\notificacionOrden($orden->id, $texto));
 
 
-
-
-
           $view= View::make('admin.ordenes.aprobar', compact('orden'));
 
           $data=$view->render();

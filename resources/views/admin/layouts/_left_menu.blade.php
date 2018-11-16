@@ -172,7 +172,7 @@
 
     @endif
 
-    @if (Sentinel::getUser()->hasAnyAccess(['formaspago.*']) || Sentinel::getUser()->hasAnyAccess(['configuracion.*']) || Sentinel::getUser()->hasAnyAccess(['estatus.*']) || Sentinel::getUser()->hasAnyAccess(['formasenvio.*']) || Sentinel::getUser()->hasAnyAccess(['rolenvios.*']) || Sentinel::getUser()->hasAnyAccess(['rolpagos.*']) || Sentinel::getUser()->hasAnyAccess(['impuestos.*']) || Sentinel::getUser()->hasAnyAccess(['marcas.*']) || Sentinel::getUser()->hasAnyAccess(['menus.*']) || Sentinel::getUser()->hasAnyAccess(['transportistas.*']) || Sentinel::getUser()->hasAnyAccess(['sedes.*']) || Sentinel::getUser()->hasAnyAccess(['empresas.*'])  )
+    @if (Sentinel::getUser()->hasAnyAccess(['formaspago.*']) || Sentinel::getUser()->hasAnyAccess(['configuracion.*']) || Sentinel::getUser()->hasAnyAccess(['estatus.*']) || Sentinel::getUser()->hasAnyAccess(['formasenvio.*']) || Sentinel::getUser()->hasAnyAccess(['rolenvios.*']) || Sentinel::getUser()->hasAnyAccess(['rolpagos.*']) || Sentinel::getUser()->hasAnyAccess(['impuestos.*']) || Sentinel::getUser()->hasAnyAccess(['marcas.*']) || Sentinel::getUser()->hasAnyAccess(['menus.*']) || Sentinel::getUser()->hasAnyAccess(['transportistas.*']) || Sentinel::getUser()->hasAnyAccess(['sedes.*']) || Sentinel::getUser()->hasAnyAccess(['empresas.*']) || Sentinel::getUser()->hasAnyAccess(['cupones.*'])  )
 
 
 
@@ -190,6 +190,17 @@
                 <a href="{!! route('admin.configuracion.index') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Configuracion General 
+                </a>
+            </li> 
+        </ul>
+    @endif
+
+    @if (Sentinel::getUser()->hasAnyAccess(['cupones.*']))
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/cupones*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.cupones.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Cupones
                 </a>
             </li> 
         </ul>

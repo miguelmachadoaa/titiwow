@@ -65,6 +65,24 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
     //inicio direcciones forma de pago 
 
+
+
+    Route::group(['prefix' => 'cupones'], function () {
+
+        Route::get('{id}/delete', 'Admin\AlpCuponesController@destroy')->name('cupones.delete');
+
+        Route::get('{id}/confirm-delete', 'Admin\AlpCuponesController@getModalDelete')->name('cupones.confirm-delete');
+
+        Route::get('{id}/restore', 'Admin\AlpCuponesController@getRestore')->name('cupones.restore');
+
+
+    });
+
+    Route::resource('cupones', 'Admin\AlpCuponesController');
+
+
+
+
     Route::group(['prefix' => 'formaspago'], function () {
 
         Route::get('{id}/delete', 'Admin\AlpFormaspagoController@destroy')->name('formaspago.delete');
