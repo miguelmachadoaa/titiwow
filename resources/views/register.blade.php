@@ -23,7 +23,8 @@
     <div class="row">
         <div class="box animation flipInX">
             <img src="{{ asset('assets/img/logo_alpina.png') }}" alt="logo" class="img-responsive mar">
-            <h3 class="text-primary">Registrarse</h3>
+            <div class="clearfix"></div>
+            <h3 class="text-primary">Registro Alpina Go!</h3>
             <!-- Notifications -->
             <div id="notific">
             @include('notifications')
@@ -44,7 +45,7 @@
                 </div>
                 <div class="form-group {{ $errors->first('id_type_doc', 'has-error') }}">
                     <div class="" >
-                        <select id="id_type_doc" name="id_type_doc" class="form-control">
+                        <select id="id_type_doc" name="id_type_doc" class="form-control {{ $errors->first('id_type_doc', 'has-error') }}">
                             <option value="">Seleccione Tipo de Documento</option>     
                             @foreach($t_documento as $tdoc)
                             <option value="{{ $tdoc->id }}">
@@ -78,18 +79,9 @@
                            placeholder="Confirmar Contraseña">
                     {!! $errors->first('password_confirm', '<span class="help-block">:message</span>') !!}
                 </div>
+                <div class="clearfix"></div>
                 <hr />
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="chkalpinista" id="chkalpinista" value="1"> ¡Soy Alpinista!</a>
-                    </label>
-                </div>
-                <div class="form-group {{ $errors->first('cod_alpinista', 'has-error') }}">
-                    <input type="text" class="form-control" id="cod_alpinista" name="cod_alpinista" placeholder="Código de Alpinista"
-                           value="{!! old('cod_alpinista') !!}" >
-                    {!! $errors->first('cod_alpinista', '<span class="help-block">:message</span>') !!}
-                </div>
-                <hr />
+                <h4 class="text-primary">Dirección</h4>
                 <div class="form-group {{ $errors->first('cod_alpinista', 'has-error') }}">
                     <div class="" >
                         <select id="state_id" name="state_id" class="form-control">
@@ -110,7 +102,8 @@
                     </div>
                     {!! $errors->first('city_id', '<span class="help-block">:message</span>') !!}
                 </div>
-                <div class="form-group {{ $errors->first('calle_address', 'has-error') }}">
+                <div class="clearfix"></div>
+                <div class="form-group {{ $errors->first('id_estructura_address', 'has-error') }}">
                     <div class="input-group">
                         <div class="" >
                         <select id="id_estructura_address" name="id_estructura_address" class="form-control">
@@ -120,13 +113,14 @@
                             @endforeach
                         </select>
                     </div>
+
                         <span class="input-group-addon" style="width:0px; padding-left:0px; padding-right:0px; border:none;"></span>
 
-                        <input type="text" id="principal_address" name="principal_address" class="form-control" value="{!! old('principal_address') !!}" >
-                        <span class="input-group-addon">#</span>
-                        <input type="text" id="secundaria_address" name="secundaria_address" class="form-control" value="{!! old('secundaria_address') !!}" >
-                        <span class="input-group-addon">-</span>
-                        <input type="text" id="edificio_address" name="edificio_address" class="form-control" value="{!! old('edificio_address') !!}" >
+                        <input type="text" id="principal_address" name="principal_address" class="form-control" value="{!! old('principal_address') !!}" placeholder="Principal">
+                        <span class="input-group-addon hidden-xs">#</span>
+                        <input type="text" id="secundaria_address" name="secundaria_address" class="form-control" value="{!! old('secundaria_address') !!}"  placeholder="#">
+                        <span class="input-group-addon hidden-xs">-</span>
+                        <input type="text" id="edificio_address" name="edificio_address" class="form-control" value="{!! old('edificio_address') !!}"  placeholder="-">
 
                         <!-- insert this line -->
                         <span class="input-group-addon" style="width:0px; padding-left:0px; padding-right:0px; border:none;"></span>
@@ -144,17 +138,32 @@
                     {!! $errors->first('barrio_address', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="clearfix"></div>
-                <div class="checkbox">
+                <hr />
+                <div class="form-group checkbox">
                     <label>
-                        <input type="checkbox" name="habeas_cliente" value="1">  Acepto los <a href="#"> Términos y Condiciones</a>
+                        <input type="checkbox" name="chkalpinista" id="chkalpinista" value="1"> ¡Soy Alpinista!</a>
+                    </label>
+                </div>
+                <div class="form-group {{ $errors->first('cod_alpinista', 'has-error') }}">
+                    <input type="text" class="form-control" id="cod_alpinista" name="cod_alpinista" placeholder="Código de Alpinista"
+                           value="{!! old('cod_alpinista') !!}" >
+                    {!! $errors->first('cod_alpinista', '<span class="help-block">:message</span>') !!}
+                </div>
+                <hr />
+                <div class="clearfix"></div>
+                <div class="form-group checkbox">
+                    <label>
+                        <input type="checkbox" name="habeas_cliente" value="1" minchecked="1">  Acepto los <a href="#"> Términos y Condiciones</a>
+                        {!! $errors->first('habeas_cliente', '<span class="help-block">:message</span>') !!}
+
                     </label>
                 </div>
                 <div class="clearfix"></div>
                 <div class="form-group">
-                    <div class="g-recaptcha" data-sitekey="{{env('CAPTCHA_KEY')}}"></div>
+                    <div class="g-recaptcha" data-sitekey="{{env('CAPTCHA_KEY')}}" style="padding:10px 30px !important"></div>
                     {!! $errors->first('g-recaptcha-response', '<span class="help-block">:message</span>') !!}
                 </div>
-                <button type="submit" class="btn btn-block btn-primary">Registrarme</button>
+                <button type="submit" class="btn btn-block btn-primary">Registrarse</button>
                 <br />
                 Si ya tiene cuenta, por favor Inicie Sesión <a href="{{ route('login') }}"> Ingresar</a>
             </form>

@@ -86,8 +86,9 @@
                            placeholder="Confirmar Contraseña">
                     {!! $errors->first('password_confirm', '<span class="help-block">:message</span>') !!}
                 </div>
-
+                <div class="clearfix"></div>
                 <hr />
+                <h4 class="text-primary">Dirección</h4>
                 <div class="form-group {{ $errors->first('cod_alpinista', 'has-error') }}">
                     <div class="" >
                         <select id="state_id" name="state_id" class="form-control">
@@ -108,6 +109,7 @@
                     </div>
                     {!! $errors->first('city_id', '<span class="help-block">:message</span>') !!}
                 </div>
+                <div class="clearfix"></div>
                 <div class="form-group {{ $errors->first('calle_address', 'has-error') }}">
                     <div class="input-group">
                         <div class="" >
@@ -120,11 +122,11 @@
                     </div>
                         <span class="input-group-addon" style="width:0px; padding-left:0px; padding-right:0px; border:none;"></span>
 
-                        <input type="text" id="principal_address" name="principal_address" class="form-control" value="{!! old('principal_address') !!}" >
-                        <span class="input-group-addon">#</span>
-                        <input type="text" id="secundaria_address" name="secundaria_address" class="form-control" value="{!! old('secundaria_address') !!}" >
-                        <span class="input-group-addon">-</span>
-                        <input type="text" id="edificio_address" name="edificio_address" class="form-control" value="{!! old('edificio_address') !!}" >
+                        <input type="text" id="principal_address" name="principal_address" class="form-control" value="{!! old('principal_address') !!}" placeholder="Principal">
+                        <span class="input-group-addon hidden-xs">#</span>
+                        <input type="text" id="secundaria_address" name="secundaria_address" class="form-control" value="{!! old('secundaria_address') !!}" placeholder="#">
+                        <span class="input-group-addon hidden-xs">-</span>
+                        <input type="text" id="edificio_address" name="edificio_address" class="form-control" value="{!! old('edificio_address') !!}" placeholder="-">
 
                         <!-- insert this line -->
                         <span class="input-group-addon" style="width:0px; padding-left:0px; padding-right:0px; border:none;"></span>
@@ -142,18 +144,18 @@
                     {!! $errors->first('barrio_address', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="clearfix"></div>
-                <div class="checkbox">
+                <div class="checkbox form-group">
                     <label>
                         <input type="checkbox" name="habeas_cliente" value="1">  Acepto los <a href="#"> Términos y Condiciones</a>
                     </label>
                 </div>
                  <div class="clearfix"></div>
                  <div class="form-group">
-                    <div class="g-recaptcha" data-sitekey="{{env('CAPTCHA_KEY')}}"></div>
+                    <div class="g-recaptcha" data-sitekey="{{env('CAPTCHA_KEY')}}" style="padding:10px 30px !important"></div>
                     {!! $errors->first('g-recaptcha-response', '<span class="help-block">:message</span>') !!}
                 </div>
 
-                <button type="submit" class="btn btn-block btn-primary">Registrar</button>
+                <button type="submit" class="btn btn-block btn-primary">Registrarse</button><br />
                 Si ya posee cuenta, por favor<a href="{{ route('login') }}"> Inicie Sesión</a>
             </form>
             <input type="hidden" name="base" id="base" value="{{ url('/') }}">
