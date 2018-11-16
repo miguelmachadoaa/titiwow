@@ -442,6 +442,8 @@ echo '<br>fin: '.$date_fin;*/
 
         $configuracion = AlpConfiguracion::where('id','1')->first();
 
+    //    dd($configuracion->correo_cedi);
+
         //var_dump($input);
 
         $data_history = array(

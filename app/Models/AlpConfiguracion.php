@@ -24,6 +24,14 @@ class AlpConfiguracion extends Model
         'id_mercadopago',
         'key_mercadopago',
         'minimo_compra',
+        'correo_admin',
+        'correo_shopmanager',
+        'correo_shopmanagercorp',
+        'correo_masterfile',
+        'correo_sac',
+        'correo_cedi',
+        'correo_logistica',
+        'correo_finanzas',
         'estado_registro',
         'id_user'
     ];
