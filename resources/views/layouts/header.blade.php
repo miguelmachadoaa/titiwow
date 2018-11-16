@@ -33,7 +33,7 @@
         <!-- Icon Section Start -->
         <div class="icon-section">
             <div class="container">
-                <div class="col-sm-3 hidden-md" >
+                <div class="col-sm-4 hidden-md" >
                     <div class="navbar-header menu_float">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse">
                             <span><a href="#"><i class="livicon" data-name="responsive-menu" data-size="25" data-loop="false" data-c="#ffffff" data-hc="#ccc"></i>
@@ -47,10 +47,13 @@
                             <li><a href="https://www.linkedin.com/company/alpina/?trk=vsrp_companies_res_name&trkInfo=VSRPsearchId%3A3286542181450727911739%2CVSRPtargetId%3A48174%2CVSRPcmpt%3Aprimary" target="_blank"><i class="fa fa-linkedin-square color-top" ></i></a></li>
                             <li><a href="https://twitter.com/Alpina" target="_blank"><i class="fa fa-twitter color-top" ></i></a></li>
                             <li><a href="https://www.youtube.com/user/AlpinaSA" target="_blank"><i class="fa fa-youtube-play color-top" ></i></a></li>
+                        <li class="menu-top">
+                            <label ><a id="detalle_carro_front" href="http://www.alpina.com" target="_blank">Ir Alpina Digital</a></label>    
+                        </li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-9 col-sm-8" >
+                <div class="col-md-8 col-sm-8" >
                     <ul class="list-inline">
                         <li class="pull-right menu-top">
                             <ul class="list-inline icon-position">

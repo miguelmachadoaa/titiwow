@@ -24,7 +24,7 @@
     <div class="row">
         <div class="box animation flipInX">
             <div class="box1 text-center">
-            <img src="{{ asset('assets/img/logo_alpina.png') }}" alt="AlpinaGO">
+            <a href="{{ route('home') }}"><img src="{{ asset('assets/img/logo_alpina.png') }}" alt="AlpinaGO"></a>
             <h3 class="text-primary">Area de Clientes</h3>
                 <!-- Notifications -->
                 <div id="notific">
@@ -54,6 +54,9 @@
                     Aún sin Cuenta? <a href="{{ route('register') }}"><strong> Registrarse</strong></a>
                 </form>
                 <br/>
+                <div class="text-center">
+                    <a class="btn btn-block btn-danger" href="{{ route('home') }}">Regresar a Inicio</a>
+                </div>
                 <!--div class="text-center">
                     <p>--OR--</p>
                     <p>Login with</p>
