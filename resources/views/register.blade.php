@@ -22,7 +22,7 @@
     <!--Content Section Start -->
     <div class="row">
         <div class="box animation flipInX">
-            <img src="{{ asset('assets/img/logo_alpina.png') }}" alt="logo" class="img-responsive mar">
+            <a href="{{ route('home') }}"><img src="{{ asset('assets/img/logo_alpina.png') }}" alt="AlpinaGo!" class="img-responsive mar"> </a>
             <div class="clearfix"></div>
             <h3 class="text-primary">Registro Alpina Go!</h3>
             <!-- Notifications -->
@@ -152,10 +152,8 @@
                 <hr />
                 <div class="clearfix"></div>
                 <div class="form-group checkbox">
-                    <label>
-                        <input type="checkbox" name="habeas_cliente" value="1" minchecked="1">  Acepto los <a href="#"> Términos y Condiciones</a>
-                        {!! $errors->first('habeas_cliente', '<span class="help-block">:message</span>') !!}
-
+                <label style="font-size:12px;">
+                        <input type="checkbox" name="habeas_cliente" value="1">  Acepto los <a href="#" target="_blank"> Términos y Condiciones</a> y la <a href="#" target="_blank">Política del Tratamiento de la Información</a> de Alpina Colombia SA.
                     </label>
                 </div>
                 <div class="clearfix"></div>
@@ -163,9 +161,24 @@
                     <div class="g-recaptcha" data-sitekey="{{env('CAPTCHA_KEY')}}" style="padding:10px 30px !important"></div>
                     {!! $errors->first('g-recaptcha-response', '<span class="help-block">:message</span>') !!}
                 </div>
-                <button type="submit" class="btn btn-block btn-primary">Registrarse</button>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <button type="submit" class="btn btn-block btn-success">Registrarse</button>
+                        </div>
+                        <div class="col-sm-6">
+                            <a class="btn btn-block btn-danger" href="{{ route('home') }}">Regresar a Inicio</a>
+                        </div>
+                    </div>
+                </div>
                 <br />
-                Si ya tiene cuenta, por favor Inicie Sesión <a href="{{ route('login') }}"> Ingresar</a>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            Si ya tiene cuenta, por favor Inicie Sesión <a href="{{ route('login') }}"> Ingresar</a>
+                        </div>
+                    </div>
+                </div>
             </form>
             <input type="hidden" name="base" id="base" value="{{ url('/') }}">
         </div>

@@ -23,7 +23,7 @@
     <!--Content Section Start -->
     <div class="row">
         <div class="box animation flipInX">
-            <img src="{{ asset('assets/img/logo_alpina.png') }}" alt="AlpinaGO">
+            <a href="{{ route('home') }}"><img src="{{ asset('assets/img/logo_alpina.png') }}" alt="AlpinaGO" ></a>
             <h3 class="text-primary">Registro de Afiliados Empresas </h3>
             <!-- Notifications -->
             <div id="notific">
@@ -149,8 +149,8 @@
                 
                <div class="clearfix"></div>
                 <div class="checkbox form-group">
-                    <label>
-                        <input type="checkbox" name="habeas_cliente" value="1">  Acepto los <a href="#"> Terminos y Condiciones</a>
+                    <label style="font-size:12px;">
+                        <input type="checkbox" name="habeas_cliente" value="1">  Acepto los <a href="#" target="_blank"> Términos y Condiciones</a> y la <a href="#" target="_blank">Política del Tratamiento de la Información</a> de Alpina Colombia SA.
                     </label>
                 </div>
 
@@ -159,8 +159,24 @@
                     <div class="g-recaptcha" data-sitekey="{{env('CAPTCHA_KEY')}}"  style="padding:10px 30px !important"></div>
                     {!! $errors->first('g-recaptcha-response', '<span class="help-block">:message</span>') !!}
                 </div>
-                <button type="submit" class="btn btn-block btn-primary">Registrarse</button><br />
-                Si ya tiene cuenta, por favor <a href="{{ route('login') }}">Inicie Sesión</a>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <button type="submit" class="btn btn-block btn-success">Registrarse</button>
+                        </div>
+                        <div class="col-sm-6">
+                            <a class="btn btn-block btn-danger" href="{{ route('home') }}">Regresar a Inicio</a>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            Si ya tiene cuenta, por favor Inicie Sesión <a href="{{ route('login') }}"> Ingresar</a>
+                        </div>
+                    </div>
+                </div>
             </form>
 
 
