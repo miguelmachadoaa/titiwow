@@ -265,10 +265,23 @@ class ProductosFrontController extends Controller
 
         $cart= \Session::get('cart');
 
+
+        $total=0;
+
+        if($cart!=NULL){
+
+            foreach($cart as $row) {
+
+                $total=$total+($row->cantidad*$row->precio_oferta);
+
+            }
+        }
+
+
         $states=State::where('config_states.country_id', '47')->get();
 
 
-        return \View::make('frontend.list', compact('leche','lacteos','quesos','postres','esparcibles','bebidas','finess','baby','nolacteos','descuento', 'precio', 'states', 'cart'));
+        return \View::make('frontend.list', compact('leche','lacteos','quesos','postres','esparcibles','bebidas','finess','baby','nolacteos','descuento', 'precio', 'states', 'cart', 'total'));
     }
  
     public function show($slug)
@@ -335,8 +348,21 @@ class ProductosFrontController extends Controller
 
          $cart= \Session::get('cart');
 
+
+        $total=0;
+
+        if($cart!=NULL){
+
+            foreach($cart as $row) {
+
+                $total=$total+($row->cantidad*$row->precio_oferta);
+
+            }
+        }
+
+
         
-        return \View::make('frontend.producto_single', compact('producto', 'descuento', 'precio','categos', 'states', 'cart'));
+        return \View::make('frontend.producto_single', compact('producto', 'descuento', 'precio','categos', 'states', 'cart', 'total'));
 
     }
 
@@ -412,7 +438,20 @@ class ProductosFrontController extends Controller
          $cart= \Session::get('cart');
 
 
-        return \View::make('frontend.categorias', compact('productos','cataname','slug', 'descuento', 'precio', 'states', 'cart'));
+        $total=0;
+
+        if($cart!=NULL){
+
+            foreach($cart as $row) {
+
+                $total=$total+($row->cantidad*$row->precio_oferta);
+
+            }
+        }
+
+
+
+        return \View::make('frontend.categorias', compact('productos','cataname','slug', 'descuento', 'precio', 'states', 'cart', 'total'));
 
     }
     public function marcas($slug)
@@ -479,9 +518,22 @@ class ProductosFrontController extends Controller
 
         $cart= \Session::get('cart');
 
+
+        $total=0;
+
+        if($cart!=NULL){
+
+            foreach($cart as $row) {
+
+                $total=$total+($row->cantidad*$row->precio_oferta);
+
+            }
+        }
+
+
          $states=State::where('config_states.country_id', '47')->get();
 
-        return \View::make('frontend.marcas', compact('productos','marcaname','slug', 'descuento', 'precio', 'states', 'cart'));
+        return \View::make('frontend.marcas', compact('productos','marcaname','slug', 'descuento', 'precio', 'states', 'cart', 'total'));
 
     }
 
@@ -544,9 +596,22 @@ class ProductosFrontController extends Controller
 
         $cart= \Session::get('cart');
 
+
+        $total=0;
+
+        if($cart!=NULL){
+
+            foreach($cart as $row) {
+
+                $total=$total+($row->cantidad*$row->precio_oferta);
+
+            }
+        }
+
+
          $states=State::where('config_states.country_id', '47')->get();
 
-        return \View::make('frontend.buscar', compact('productos', 'descuento', 'precio', 'states','termino', 'cart'));
+        return \View::make('frontend.buscar', compact('productos', 'descuento', 'precio', 'states','termino', 'cart', 'total'));
 
     }
 

@@ -1,4 +1,5 @@
 jQuery(document).ready(function($){
+
 	var cartWrapper = $('.cd-cart-container');
 	//product id - you don't need a counter in your real project but you can use your real product id
 	var productId = 0;
@@ -28,6 +29,34 @@ jQuery(document).ready(function($){
 
             });
 
+
+		$(document).on('click', '.updatecart', function(){
+
+			tipo=$(this).data('tipo');
+			id=$(this).data('id');
+			cantidad=$('#cantidad_'+id+'').val();
+
+			//alert(cantidad+'-'+id+'-'+tipo);
+
+			if(tipo=='suma'){
+
+				cantidad=parseInt(cantidad)+1;
+
+			}else{
+
+				cantidad=cantidad-1;
+
+			}
+
+			//alert(cantidad+'-'+id+'-'+tipo);
+
+
+			$('#cd-product-'+id+'').val(cantidad);
+
+			quickUpdateCart();
+
+		});
+
 		//open/close cart
 		cartTrigger.on('click', function(event){
 			event.preventDefault();
@@ -49,9 +78,6 @@ jQuery(document).ready(function($){
 		cartList.on('change', 'select', function(event){
 			quickUpdateCart();
 
-
-
-
 		});
 
 		//reinsert item deleted from the cart
@@ -71,8 +97,11 @@ jQuery(document).ready(function($){
 		
 		if( cartIsOpen ) {
 			cartWrapper.removeClass('cart-open');
+
+			$('.checkout').css('background', '#fff');
 			//reset undo
 			clearInterval(undoTimeoutId);
+
 			undo.removeClass('visible');
 			cartList.find('.deleted').remove();
 
@@ -81,8 +110,14 @@ jQuery(document).ready(function($){
 				//check if cart empty to hide it
 				if( Number(cartCount.find('li').eq(0).text()) == 0) cartWrapper.addClass('empty');
 			}, 500);
+		
 		} else {
+
 			cartWrapper.addClass('cart-open');
+
+			$('.checkout').css('background', '#2c97de');
+
+			
 		}
 	}
 
@@ -125,8 +160,14 @@ jQuery(document).ready(function($){
 		//this is just a product placeholder
 		//you should insert an item with the selected product info
 		//replace productId, productName, price and url with your real product info
+
+
+		precio=trigger.data('id').toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.'); 
+		precio.slice(0,-3);
+
+
 		productId = trigger.data('id');
-		var productAdded = $('<li class="product"><div class="product-image"><a href="#0"><img src="'+trigger.data('imagen')+'" alt="placeholder"></a></div><div class="product-details"><h3><a href="#0">'+trigger.data('name')+'</a></h3><span class="price">'+trigger.data('price')+'</span><div class="actions"><a href="#0" data-slug="'+trigger.data('slug')+'" class="delete-item">Borrar</a><div class="quantity"><label for="cd-product-'+ productId +'">Qty</label><span class="select"><select class="cartselect" data-slug="'+trigger.data('slug')+'" id="cd-product-'+ productId +'" name="quantity"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select></span></div></div></div></li>');
+		var productAdded = $('<li class="product"><div class="product-image"><a href="#0"><img src="'+trigger.data('imagen')+'" alt="placeholder"></a></div><div class="product-details"><h3><a href="#0">'+trigger.data('name')+'</a></h3><span class="price">'+trigger.data('price')+'</span><div class="actions"><a href="#0" data-slug="'+trigger.data('slug')+'" class="delete-item">Borrar</a><div class="quantity"><label for="cd-product-'+ productId +'">Cantidad: </label><span class="select"><select class="cartselect" data-slug="'+trigger.data('slug')+'" id="cd-product-'+ productId +'" name="quantity"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select></span></div></div></div></li>');
 		cartList.prepend(productAdded);
 	}
 
