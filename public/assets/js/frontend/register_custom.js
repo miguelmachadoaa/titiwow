@@ -9,7 +9,7 @@ $("#reg_form").bootstrapValidator({
         first_name: {
             validators: {
                 notEmpty: {
-                    message: 'First name is required'
+                    message: 'El Nombre es Requerido'
                 }
             },
             required: true,
@@ -18,7 +18,33 @@ $("#reg_form").bootstrapValidator({
         last_name: {
             validators: {
                 notEmpty: {
-                    message: 'Last name is required'
+                    message: 'El Apellido es Requerido'
+                }
+            },
+            required: true,
+            minlength: 3
+        },
+        id_type_doc: {
+            validators: {
+                notEmpty: {
+                    message: 'Debe Indicar el Tipo de Documento'
+                }
+            },
+            required: true
+        },
+        doc_cliente: {
+            validators: {
+                notEmpty: {
+                    message: 'El Número de Documento Requerido'
+                }
+            },
+            required: true,
+            minlength: 3
+        },
+        telefono_cliente: {
+            validators: {
+                notEmpty: {
+                    message: 'El Número de Teléfono Requerido'
                 }
             },
             required: true,
@@ -27,36 +53,83 @@ $("#reg_form").bootstrapValidator({
         email: {
             validators: {
                 notEmpty: {
-                    message: 'The email address is required'
+                    message: 'El Email es Requerido'
                 },
                 regexp: {
                     regexp: /^(\w+)([\-+.\'0-9A-Za-z_]+)*@(\w[\-\w]*\.){1,5}([A-Za-z]){2,6}$/,
-                    message: 'The input is not a valid email address'
+                    message: 'El Email no es Válido'
                 }
             }
         },
         password: {
             validators: {
                 notEmpty: {
-                    message: 'Password is required'
+                    message: 'La Contraseña es Requerida'
                 },
                 different: {
                     field: 'first_name,last_name',
-                    message: 'Password should not match first/last Name'
+                    message: 'La Contraseña debe ser Distinta al Nombre/Apellido'
                 }
             }
         },
         password_confirm: {
             validators: {
                 notEmpty: {
-                    message: 'Confirm Password is required'
+                    message: 'Debe Confirmar la Contraseña'
                 },
                 identical: {
                     field: 'password'
                 },
                 different: {
                     field: 'first_name,last_name',
-                    message: 'Confirm Password should match with password'
+                    message: 'La Contraseña debe ser Distinta al Nombre/Apellido'
+                }
+            }
+        },
+        state_id: {
+            validators: {
+                notEmpty: {
+                    message: 'Debe Indicar el Departamento'
+                }
+            },
+            required: true
+        },
+        city_id: {
+            validators: {
+                notEmpty: {
+                    message: 'Debe Indicar La Ciudad'
+                }
+            },
+            required: true
+        },
+        id_estructura_address: {
+            validators: {
+                notEmpty: {
+                    message: 'Debe Indicar La Dirección'
+                }
+            },
+            required: true
+        },
+        detalle_address: {
+            validators: {
+                notEmpty: {
+                    message: 'El Detalle de la Dirección es Requerido'
+                }
+            },
+            required: true,
+            minlength: 3
+        },
+        habeas_cliente: {
+            'habeas_cliente': {
+                validators: {
+                    choice: {
+                        min: 1,
+                        max: 1,
+                        message: 'Debe Aceptar los Términos y Condiciones'
+                    },
+                    notEmpty: {
+                        message: 'The username is required and cannot be empty'
+                    },
                 }
             }
         }
@@ -64,7 +137,7 @@ $("#reg_form").bootstrapValidator({
 });
 });
 
-$('#reg_form input').on('keyup', function (){
+/*$('#reg_form input').on('keyup', function (){
 
     $('#reg_form input').each(function(){
         var pswd = $("#reg_form input[name='password']").val();
@@ -76,4 +149,4 @@ $('#reg_form input').on('keyup', function (){
                 $('#reg_form').bootstrapValidator('revalidateField', 'password_confirm');
             }
     });
-});
+});*/

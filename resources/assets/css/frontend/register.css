@@ -27,6 +27,7 @@ body {
 }
 .box img{
     margin:auto;
+    margin-bottom: 20px;
 }
 .box h3{
     margin-top:0;

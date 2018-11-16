@@ -235,10 +235,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 #FrontEndController
 Route::get('login', 'FrontEndController@getLogin')->name('login');
 Route::post('login', 'FrontEndController@postLogin')->name('login');
-Route::get('register', 'FrontEndController@getRegister')->name('register');
-Route::get('register/states/{id}',array('as'=>'register.states','uses'=>'FrontEndController@selectState'));
-Route::get('register/cities/{id}',array('as'=>'register.cities','uses'=>'FrontEndController@selectCity'));
-Route::post('register','FrontEndController@postRegister')->name('register');
+Route::get('registro', 'FrontEndController@getRegister')->name('registro');
+Route::get('registro/states/{id}',array('as'=>'registro.states','uses'=>'FrontEndController@selectState'));
+Route::get('registro/cities/{id}',array('as'=>'registro.cities','uses'=>'FrontEndController@selectCity'));
+Route::post('registro','FrontEndController@postRegister')->name('register');
 Route::post('registerembajador','FrontEndController@postRegisterEmbajador')->name('registerembajador');
 
 Route::get('activate/{userId}/{activationCode}','FrontEndController@getActivate')->name('activate');
