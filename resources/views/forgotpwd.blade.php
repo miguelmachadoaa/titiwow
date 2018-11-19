@@ -4,7 +4,7 @@
     {{--<meta charset="utf-8">--}}
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Forgot_password | Welcome to Josh Frontend</title>
+    <title>Olvidó su Contraseña | Alpina Go!</title>
     <!--global css starts-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link href="{{ asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
@@ -19,7 +19,7 @@
 <div class="container">
     <div class="row">
         <div class="box animation flipInX">
-            <img src="{{ asset('assets/img/logo_alpina.png') }}" alt="AlpinaGO">
+            <img src="{{ asset('assets/img/login.png') }}" alt="Alpina GO!">
             <h3 class="text-primary">Reestrablecer Contraseña</h3>
             <p>Ingrese su Email</p>
             <div id="notific">
@@ -38,7 +38,7 @@
                 </div>
             </form>
 
-            Quiere regresar al Login?<a href="{{ route('login') }}"> Click Aquí</a>
+            ¿Quiere regresar al Login?<a href="{{ route('login') }}"> Click Aquí</a>
         </div>
     </div>
 </div>

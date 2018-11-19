@@ -4,7 +4,7 @@
     {{--<meta charset="utf-8">--}}
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Forgot_password | Welcome to Josh Frontend</title>
+    <title>Olvidó su Contraseña | Alpina Go!</title>
     <!--global css starts-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
@@ -18,21 +18,21 @@
 <div class="container">
     <div class="row">
         <div class="box animation flipInX">
-            <img src="{{ asset('assets/images/josh-new.png') }}" alt="logo" class="img-responsive mar">
-            <h3 class="text-primary">Reset your Password</h3>
-            <p>Enter your new password details</p>
+        <img src="{{ asset('assets/img/login.png') }}" alt="Alpina GO!">
+            <h3 class="text-primary">Reestrablecer Contraseña</h3>
+            <p>Ingrese su Nueva Contraseña</p>
             <div id="notific">
             @include('notifications')
             </div>
             <form action="{{ route('forgot-password-confirm',compact(['userId','passwordResetCode'])) }}" class="omb_loginForm pwd_validation"  autocomplete="off" method="POST">
                 {!! Form::token() !!}
-                <label class="sr-only"> New Password</label>
-                <input type="password" class="form-control" name="password" placeholder="New Password">
+                <label class="sr-only"> Nueva Contraseña</label>
+                <input type="password" class="form-control" name="password" placeholder="Nueva Contraseña">
                 <span class="help-block">{{ $errors->first('password', ':message') }}</span>
-                <label class="sr-only">Confirm Password</label>
-                <input type="password" class="form-control mt-15" name="password_confirm" placeholder="Confirm New Password">
+                <label class="sr-only">Confirme Nueva Contraseña</label>
+                <input type="password" class="form-control mt-15" name="password_confirm" placeholder="Confirme Nueva Contraseña">
                 <span class="help-block">{{ $errors->first('password_confirm', ':message') }}</span>
-                <input type="submit" class="btn btn-block btn-primary" value="Submit to Reset Password" style="margin-top:10px;">
+                <input type="submit" class="btn btn-block btn-primary" value="Reestablecer Contraseña" style="margin-top:10px;">
             </form>
         </div>
     </div>

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Login</title>
+    <title>Login | Alpina Go!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- global level css -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
@@ -32,7 +32,7 @@
                         <div id="login" class="animate form">
                             <form action="{{ route('signin') }}" autocomplete="on" method="post" role="form" id="login_form">
                                 <h3 class="black_bg">
-                                    <img src="{{ asset('assets/img/logo_alpina.png') }}" alt="Alpina">
+                                    <img src="{{ asset('assets/img/login.png') }}" alt="Alpina Go!">
                                     <br>Backend</h3>
                                     <!-- CSRF Token -->
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
@@ -77,98 +77,11 @@
                                 </p>
                             </form>
                         </div>
-                        <!--div id="register" class="animate form">
-                            <form action="{{ route('admin.signup') }}" autocomplete="on" method="post" role="form" id="register_here">
-                                <h3 class="black_bg">
-                                    <img src="{{ asset('assets/img/logo.png') }}" alt="josh logo">
-                                    <br>Registrarse</h3>
-
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                                    <input type="hidden" name="back" id="back" value="0">
-
-                                    <div class="form-group {{ $errors->first('first_name', 'has-error') }}">
-                                            <label style="margin-bottom:0px;" for="first_name" class="youmail">
-                                                <i class="livicon" data-name="user" data-size="16" data-loop="true" data-c="#3c8dbc" data-hc="#3c8dbc"></i>
-                                                Nombre
-                                            </label>
-                                        <input id="first_name" name="first_name" required type="text" placeholder="Nombre"
-                                               value="{!! old('first_name') !!}"/>
-                                        <div class="col-sm-12">
-                                            {!! $errors->first('first_name', '<span class="help-block">:message</span>') !!}
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group {{ $errors->first('last_name', 'has-error') }}">
-                                        <label style="margin-bottom:0px;" for="last_name" class="youmail">
-                                            <i class="livicon" data-name="user" data-size="16" data-loop="true" data-c="#3c8dbc" data-hc="#3c8dbc"></i>
-                                            Apellido
-                                        </label>
-                                        <input id="last_name" name="last_name" required type="text" placeholder="Apellido"
-                                               value="{!! old('last_name') !!}"/>
-                                        <div class="col-sm-12">
-                                            {!! $errors->first('last_name', '<span class="help-block">:message</span>') !!}
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group {{ $errors->first('email', 'has-error') }}">
-                                        <label style="margin-bottom:0px;" for="email" class="youmail">
-                                            <i class="livicon" data-name="mail" data-size="16" data-loop="true" data-c="#3c8dbc" data-hc="#3c8dbc"></i>
-                                            E-mail
-                                        </label>
-                                        <input id="email" name="email" value="{!! old('email') !!}" required type="email"
-                                               placeholder="Email"/>
-                                        <div class="col-sm-12">
-                                            {!! $errors->first('email', '<span class="help-block">:message</span>') !!}
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group {{ $errors->first('email_confirm', 'has-error') }}">
-                                        <label style="margin-bottom:0px;" for="email" class="youmail">
-                                            <i class="livicon" data-name="mail" data-size="16" data-loop="true" data-c="#3c8dbc" data-hc="#3c8dbc"></i>
-                                            Confirm E-mail
-                                        </label>
-                                        <input id="email_confirm" name="email_confirm" required type="email"
-                                               placeholder="Confirmar Email" value="{!! old('email_confirm') !!}"/>
-                                        <div class="col-sm-12">
-                                            {!! $errors->first('email_confirm', '<span class="help-block">:message</span>') !!}
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group {{ $errors->first('password', 'has-error') }}">
-                                        <label style="margin-bottom:0px;" for="password" class="youpasswd">
-                                            <i class="livicon" data-name="key" data-size="16" data-loop="true" data-c="#3c8dbc" data-hc="#3c8dbc"></i>
-                                            Contraseña
-                                        </label>
-                                        <input id="password" name="password" required type="password" placeholder="Contraseña" />
-                                        <div class="col-sm-12">
-                                            {!! $errors->first('password', '<span class="help-block">:message</span>') !!}
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group {{ $errors->first('password_confirm', 'has-error') }}">
-                                        <label style="margin-bottom:0px;" for="passwor_confirm" class="youpasswd">
-                                            <i class="livicon" data-name="key" data-size="16" data-loop="true" data-c="#3c8dbc" data-hc="#3c8dbc"></i>
-                                            Confirmar Contraseña
-                                        </label>
-                                        <input id="password_confirm" name="password_confirm" required type="password" placeholder="Confirmar Contraseña" />
-                                        <div class="col-sm-12">
-                                            {!! $errors->first('password_confirm', '<span class="help-block">:message</span>') !!}
-                                        </div>
-                                    </div>
-                                <p class="signin button">
-                                    <input type="submit" class="btn btn-success" value="Sign Up" />
-                                </p>
-                                <p class="change_link">
-                                    <a href="#tologin" class="to_register">
-                                        <button type="button" class="btn btn-responsive botton-alignment btn-warning btn-sm">Volver</button>
-                                    </a>
-                                </p>
-                            </form>
-                        </div-->
+                        
                         <div id="forgot" class="animate form">
                             <form action="{{ url('admin/forgot-password') }}" autocomplete="on" method="post" role="form" id="reset_pw">
                                 <h3 class="black_bg">
-                                <img src="{{ asset('assets/img/logo_alpina.png') }}" alt="Alpina"><br>Olvidaste Tu Contraseña</h3>
+                                <img src="{{ asset('assets/img/login.png') }}" alt="Alpina"><br>Olvidaste Tu Contraseña</h3>
                                 <p>
                                     
                                         Ingrese su dirección de correo electrónico a continuación y le enviaremos un enlace de restablecimiento de contraseña  a su bandeja de entrada
