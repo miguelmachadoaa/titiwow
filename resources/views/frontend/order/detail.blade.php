@@ -84,15 +84,15 @@ Carrito de Compras
 
 {{-- Page content --}}
 @section('content')
-<div class="container contain_body ">
+<div class="container contain_body container_cart_detail ">
 
-    <div class="row">
+    <div class="col-sm-8">
         
         @if(count($cart))
           
          <br>
             <div class="row">   
-                <div class="col-sm-10 col-sm-offset-1">  
+                <div class="">  
                         <h3>    Dirección de Envío </h3>
                  </div>
             </div>
@@ -109,12 +109,12 @@ Carrito de Compras
 
                
                 
-                    <div class="form-group ">
+                    <div class=" ">
 
                     <input type="hidden" name="id_direccion"  id="id_direccion" value="{{ $direcciones->id }}" >  
 
 
-                <div class="col-sm-10 col-sm-offset-1">
+                <div class=" ">
                     <div class="panel panel-default">
                         
                         <div class="panel-body">
@@ -163,7 +163,7 @@ Carrito de Compras
 
                 @else
 
-                    <div class="col-sm-10 col-sm-offset-1">
+                    <div class="">
                         
                         <h3>Debe agregar una dirección de envío  </h3>
                     
@@ -175,8 +175,8 @@ Carrito de Compras
 
                 </div>
 
-                <div class=" col-sm-10 col-sm-offset-1 res_dir">  
-                </div>
+                    <div class="  res_dir">  
+                    </div>
 
                 </div>
 
@@ -197,9 +197,9 @@ Carrito de Compras
                     
                     @if(count($formasenvio))
 
-                        <div class="col-sm-10 col-sm-offset-1">
+                        <div class="">
 
-                             <div class="form-group col-sm-10 col-sm-offset-1">
+                             <div class=" col-sm-12">
 
                                 <h3>    Formas de Envios</h3>
 
@@ -248,7 +248,7 @@ Carrito de Compras
 
                     @else
 
-                        <div class="col-sm-10 col-sm-offset-1">
+                        <div class="col-sm-12">
 
                             <h3>No hay Formas de envios para este grupo de usuarios</h3>
 
@@ -264,9 +264,9 @@ Carrito de Compras
 
                    
 
-                        <div class="col-sm-10 col-sm-offset-1">
+                        <div class="">
 
-                             <div class="form-group col-sm-10 col-sm-offset-1 ">
+                             <div class="col-sm-12 ">
 
                                 <h3>    Formas de pago</h3>
 
@@ -307,7 +307,30 @@ Carrito de Compras
                                         </div>
                                     <!--</a>-->
 
-                                    @else
+                                    @elseif($fp->id==4)
+
+                                        <div  data-id={{ $fp->id }} class="row forma border pointer cupones">
+                                            
+                                            <div class="col-sm-2 ">
+                                                
+                                                <i class="fa fa-money"></i>
+
+                                            </div>
+                                            <div class="col-sm-8 ">
+
+                                                {{ $fp->nombre_forma_pago.' , '.$fp->descripcion_forma_pago }}
+
+                                            </div>
+
+                                            <div class="col-sm-2 " style="text-align: right;">
+
+                                                <i class="fa  fa-chevron-right"></i>
+
+                                            </div>
+
+                                        </div>
+
+                                        @else
 
                                         <div data-id={{ $fp->id }} class="row forma border pointer procesar">
                                             
@@ -348,7 +371,7 @@ Carrito de Compras
                     @else
 
                     
-                        <div class=" col-sm-10 col-sm-offset-1">
+                        <div class=" col-sm-12">
                             <h3>No hay Formas de pago para este grupo de usuarios</h3>
                         </div>  
 
@@ -360,13 +383,129 @@ Carrito de Compras
 
                 </div>
                 
-            </div> <!-- end Row -->
+            </div> <!-- end Row --><!-- col-sm-8 -->
+
+            <div class="col-sm-4">
+                <br>
+
+                <h3>    Detalle de Orden </h3>
+
+                <div class="row" style="border:  1px solid rgba(0,0,0,0.1)">
+                    
+                    <div class="col-sm-12">
+                        
+                        @foreach($cart as $car)
+
+                        <li style="list-style-type: none;">
+
+                            <div class="row">
+
+                                <div class="col-sm-2">
+
+                                    <img width="60px" src="{{ url('/').'/uploads/productos/'.$car->imagen_producto }}">
+                                </div>
+
+                                <div class="col-sm-8">
+
+                                    <p>{{ $car->nombre_producto }}</p>
+                                    <p>{{ $car->cantidad }}</p>
+                                </div>
+
+                                <div class="col-sm-2">{{ $car->precio_oferta*$car->cantidad  }}</div>
+
+                            </div>
+                        </li>
+
+                        @endforeach
+
+
+                    </div>
+
+
+
+                </div>
+
+                <h3>Pagos </h3>
+
+                <div class="row">
+                    
+                    <div class="col-sm-12">
+
+                        @if(isset($pagos))
+
+                            @foreach($pagos as $pago)
+
+                                <li style="list-style-type: none;">
+
+                                @if($pago->id_forma_pago=='4')
+
+                                    <div class="row">
+                                        <div class="col-sm-8">{{ json_decode($pago->json)->codigo_cupon }}</div>
+                                        <div class="col-sm-4">{{ $pago->monto_pago }}</div>
+                                    </div>
+
+
+                                @else
+
+
+                                @endif
+                                    
+
+                                    
+                                </li>
+
+
+                            @endforeach
+
+                            
+
+                        @else
+
+                        <li style="list-style-type: none;">
+
+                            No Hay pagos Registrados
+                            
+                        </li>
+                        @endif
+                        
+
+                    </div>
+                </div>
+
+                <h3>Total a Pagar </h3>
+
+                <div class="row">
+                    
+                    <div class="col-sm-12">
+
+                        @if(isset($total))
+
+                            
+
+                                <li style="list-style-type: none;">
+
+                                    {{ $total }}
+                                    
+                                </li>
+
+                        
+                        @endif
+                        
+
+                    </div>
+                </div>
+                
+
+
+
+            </div>
 
         <br>  
 
          <div class=" res_env">  </div>  
-     </div>
 
+     </div> <!-- Container  -->
+ 
      @else
 
 
@@ -387,6 +526,49 @@ Carrito de Compras
      {!! Form::close() !!}
      
 </div>
+
+<!-- Modal Direccion -->
+ <div class="modal fade" id="modalCupones" role="dialog" aria-labelledby="modalLabeldanger">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h4 class="modal-title" id="modalLabeldanger">Aplicar Cupon</h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <form method="POST" action="{{url('cart/storedir')}}" id="addCuponForm" name="addCuponForm" class="form-horizontal">
+
+                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
+
+                            {{ csrf_field() }}
+                            <div class="row">
+
+                                <div class="form-group clearfix">
+                                    <label class="col-md-3 control-label" for="nombre_producto">Codigo Cupon</label>
+
+                                    <div class="col-sm-8">
+                                        <input style="margin: 4px 0;" id="codigo_cupon" name="codigo_cupon" type="text" placeholder="Codigo de Cupon" class="form-control">
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+                            <div class="row resCupon" ></div>
+                        </form>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn  btn-primary sendCupon" >Agregar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- Modal Direccion -->
    
 <!-- Modal Direccion -->
  <div class="modal fade" id="addDireccionModal" role="dialog" aria-labelledby="modalLabeldanger">
@@ -536,6 +718,59 @@ Carrito de Compras
     <script>
 
 
+        /*funciones para cpones */
+
+        $('body').on('click', '.cupones', function (){
+
+            $('#modalCupones').modal('show');
+
+       });
+
+
+$('.sendCupon').click(function () {
+    
+    var $validator = $('#addCuponForm').data('bootstrapValidator').validate();
+
+    if ($validator.isValid()) {
+
+        codigo_cupon=$("#codigo_cupon").val();
+
+        var base = $('#base').val();
+
+        $.ajax({
+            type: "POST",
+            data:{codigo_cupon},
+
+            url: base+"/cart/addcupon",
+                
+            complete: function(datos){     
+
+                $(".container_cart_detail").html(datos.responseText);
+
+                $('#modalCupones').modal('hide');
+
+               $("#nickname_address").val('');
+                $("#city_id").val('');
+                $("#calle_address").val('');
+                $("#calle2_address").val('');
+                $("#codigo_postal_address").val('');
+               $("#telefono_address").val('');
+                $("#notas").val('');
+            
+            }
+        });
+        //document.getElementById("addDireccionForm").submit();
+    }
+
+});
+
+
+
+
+        /*Funciones para cipones */
+
+
+
         $('body').on('click', '.procesar', function (){
 
 
@@ -661,6 +896,20 @@ Carrito de Compras
     </script>
 
      <script type="text/javascript">
+
+$("#addCuponForm").bootstrapValidator({
+    fields: {
+        codigo_cupon: {
+            validators: {
+                notEmpty: {
+                    message: 'El Codigo es requerido '
+                }
+            },
+            required: true,
+            minlength: 3
+        }
+    }
+});
         
         
 

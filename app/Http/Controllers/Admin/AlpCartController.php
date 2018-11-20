@@ -24,6 +24,7 @@ use App\Models\AlpEnvios;
 use App\Models\AlpEnviosHistory;
 use App\Models\AlpCarrito;
 use App\Models\AlpCarritoDetalle;
+use App\Models\AlpCupones;
 use App\Country;
 use App\State;
 use App\City;
@@ -144,7 +145,8 @@ class AlpCartController extends JoshController
 
     public function orderDetail()
     {
-       $carrito= \Session::get('cr');
+      
+      $carrito= \Session::get('cr');
 
       $cart=$this->reloadCart();
 
@@ -242,9 +244,9 @@ class AlpCartController extends JoshController
 
            $mp = new MP();
 
-           $preference = $mp::post("/checkout/preferences",$preference_data);
+          // $preference = $mp::post("/checkout/preferences",$preference_data);
 
-          //$preference = array('response' => array('sandbox_init_point' => '#', ), );
+          $preference = array('response' => array('sandbox_init_point' => '#', ), );
 
           /*actualizamos la data del carrito */
 
@@ -257,13 +259,15 @@ class AlpCartController extends JoshController
 
           $carro->update($data_carrito);
 
+           $pagos=AlpPagos::where('id_orden', $carrito)->get();
+
          // echo $carrito;
 
           /*actualizamos la data del carrito */
 
             $states=State::where('config_states.country_id', '47')->get();
 
-            return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv'));
+            return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos'));
 
          }
 
@@ -276,7 +280,7 @@ class AlpCartController extends JoshController
           return view('frontend.order.login', compact('url'));
 
 
-        }
+      }
 
     }
 
@@ -1616,5 +1620,208 @@ class AlpCartController extends JoshController
 
         
     }
+
+
+
+
+
+
+
+
+ public function addcupon(Request $request)
+    {
+      
+      $carrito= \Session::get('cr');
+
+      $cart=$this->reloadCart();
+
+      $total=$this->total();
+
+      if (Sentinel::check()) {
+
+        $user_id = Sentinel::getUser()->id;
+
+        /*se busca el cupon */
+
+        $cupon=AlpCupones::where('codigo_cupon', $request->codigo_cupon)->first();
+
+
+        if (isset($cupon->id)) {
+
+          $valor=0;
+          if ($cupon->tipo_reduccion==1) {
+            
+            $valor=$cupon->valor_cupon;
+
+          }else{
+
+            $valor=($cupon->valor_cupon/100)*$total;
+          }
+
+
+          $data_pago = array(
+            'id_orden' => $carrito, 
+            'id_forma_pago' => '4', 
+            'id_estatus_pago' => '2', 
+            'monto_pago' => $valor, 
+            'json' => json_encode($cupon), 
+            'id_user' => $user_id 
+          );
+
+
+          $pago=AlpPagos::create($data_pago);
+
+         
+        }
+
+
+
+        $pagos=AlpPagos::where('id_orden', $carrito)->get();
+
+
+
+
+
+
+
+
+        $configuracion=AlpConfiguracion::where('id', '1')->first();
+
+        $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
+
+       $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+          ->where('alp_direcciones.id_client', $user_id)->first();
+
+           $formasenvio = AlpFormasenvio::select('alp_formas_envios.*')
+          ->join('alp_rol_envio', 'alp_formas_envios.id', '=', 'alp_rol_envio.id_forma_envio')
+          ->where('alp_rol_envio.id_rol', $role->role_id)->get();
+
+
+          $formaspago = AlpFormaspago::select('alp_formas_pagos.*')
+          ->join('alp_rol_pago', 'alp_formas_pagos.id', '=', 'alp_rol_pago.id_forma_pago')
+          ->where('alp_rol_pago.id_rol', $role->role_id)->get();
+
+          $countries = Country::all();
+
+          $inv = $this->inventario();
+
+
+
+          /*  $entradas = AlpInventario::select(DB::raw( "SUM(cantidad) as cantidad_total"))
+              ->groupBy('id_producto')
+              ->where('operacion', '1')
+              ->get();
+
+              foreach ($entradas as $row) {
+                
+                $inv[$row->id_producto]=$row->cantidad_total;
+
+              }
+
+            $salidas = AlpInventario::select(DB::raw( "SUM(cantidad) as cantidad_total"))
+              ->groupBy('id_producto')
+              ->where('operacion', '1')
+              ->get();
+
+              foreach ($salidas as $row) {
+                
+                $inv[$row->id_producto]= $inv[$row->id_producto]-$row->cantidad_total;
+
+              }*/
+
+
+
+         if(count($cart)<=0){
+
+            return redirect('productos');
+
+         }else{
+
+          $items = array();
+
+          $list=array();
+
+            foreach ($cart as $row) {
+
+              $items["id"]=$row->id;
+              $items["title"]=$row->nombre_producto;
+              $items["description"]=$row->descripcion_corta;
+              $items["picture_url"]= url('/').'/uploads/productos/'.$row->imagen_producto;
+              $items["quantity"]=intval($row->cantidad);
+              $items["currency_id"]='COP';
+              $items["unit_price"]=intval($row->precio_oferta);
+
+              $list[]=$items;
+              
+            }
+
+            $preference_data = [
+              "items" => $list,
+              "payer" => [
+                "email" => 'correo@gmail.com'
+              ],
+              "back_urls" => [
+                "success" => url('/order/success'),
+                "failure" => url('/order/failure')
+              ],
+              "notification_url" =>url('/order/mercadopago'),
+              "external_reference" =>time()
+            ];
+
+           $mp = new MP();
+
+          // $preference = $mp::post("/checkout/preferences",$preference_data);
+
+          $preference = array('response' => array('sandbox_init_point' => '#', ), );
+
+          /*actualizamos la data del carrito */
+
+          $carro=AlpCarrito::where('id', $carrito)->first();
+
+         // dd($carrito);
+
+          $data_carrito = array(
+            'id_user' => $user_id );
+
+          $carro->update($data_carrito);
+
+         // echo $carrito;
+
+          /*actualizamos la data del carrito */
+
+            $states=State::where('config_states.country_id', '47')->get();
+
+            return view('frontend.order.cupon', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos'));
+
+         }
+
+
+      }else{
+
+        $url='order.detail';
+
+          //return redirect('login');
+          return view('frontend.order.login', compact('url'));
+
+
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     
 }
