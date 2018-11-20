@@ -53,6 +53,13 @@ body {
 /*Fin Fuentes pluto*/
 
 /*inicio botones*/
+.btn {
+    color:#ffffff !important;
+    font-family: 'PlutoBold';
+}
+.btn:hover {
+    color:#eeeeee !important;
+}
 .btn-vermas{
     background-color:#143473;
     border-color: #143473;
@@ -65,7 +72,13 @@ body {
 .input-group .form-control {
     z-index: 1 !important;
 }
+#boton_single .btn-vermas{
+    display: none;
+}
 /*fin botones*/
+.text-primary{
+    color:#143473 !important;
+}
 .icon-section {
     background: rgb(20, 51, 114);
     background: -moz-linear-gradient(left, rgba(20, 51, 114, 1) 1%, rgba(21, 75, 138, 1) 36%, rgba(24, 124, 188, 1) 69%, rgba(26, 154, 218, 1) 100%);

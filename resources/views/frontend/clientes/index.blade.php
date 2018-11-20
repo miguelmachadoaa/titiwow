@@ -78,7 +78,7 @@ Area clientes
 
         
         
-
+        <div class="alert alert-default">
         @if(isset($cliente))
 
             @if($cliente->id_empresa!=0)
@@ -93,9 +93,19 @@ Area clientes
 
             @endif
 
+            @if($cliente->cod_alpinista!=0)
+
+             <h4>Bienvenido a Tu Perfil de Embajador Alpina</h4>
+
+            @endif
+
+        @else
+
+            <h4>Bienvenido a Tu Perfil</h4>
+
         @endif
 
-
+        </div>
         <!--@if(isset($puntos['nivel']))
 
             <div class="alert alert-default">
