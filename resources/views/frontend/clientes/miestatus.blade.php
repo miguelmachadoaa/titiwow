@@ -124,6 +124,8 @@ Mi Estatus
                            {{$referido->cantidad*$puntos['porcentaje']}}
                            
                         </td>
+
+                         
                         
                     </tr>
                 

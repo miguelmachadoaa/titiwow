@@ -81,13 +81,7 @@ Ordenes
                                             </a>
 
                                              <div style="display: inline-block;" class="estatus_{{ $row->id }}">
-                                            <button data-id="{{ $row->id }}"  data-codigo="{{ $row->ordencompra }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-danger confirmar" > Cancelar </button></div>
-
-
-                                          
-
-                                            
-
+                                            <button data-id="{{ $row->id }}"  data-codigo="{{ $row->ordencompra }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-danger confirmar" > {{ $row->estatus_nombre }} </button></div>
 
 
                                             <!--<div style="display: inline-block;" class="pago_{{ $row->id }}">  

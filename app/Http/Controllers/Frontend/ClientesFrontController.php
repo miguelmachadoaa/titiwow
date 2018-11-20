@@ -294,6 +294,7 @@ class ClientesFrontController extends Controller
             ->join('users','alp_clientes.id_user_client' , '=', 'users.id')
             ->leftJoin('alp_ordenes','users.id' , '=', 'alp_ordenes.id_cliente')
             ->groupBy('alp_clientes.id')
+            ->where('alp_ordenes.estatus', '<>', '4')
             ->where('alp_clientes.id_embajador', $user_id)->get();
 
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
@@ -325,6 +326,7 @@ class ClientesFrontController extends Controller
             ->whereYear('alp_puntos.created_at', '=', $dt->year)
             ->whereMonth('alp_puntos.created_at', '=', $dt->month)
             ->where('alp_puntos.id_cliente', $user_id)
+            ->where('alp_ordenes.estatus', '<>', '4')            
             ->groupBy('alp_puntos.id_cliente')
             ->first();
 
@@ -334,6 +336,7 @@ class ClientesFrontController extends Controller
 
             ->whereYear('alp_puntos.created_at', '=', $dt->year)
             ->whereMonth('alp_puntos.created_at', '=', $dt->month)
+            ->where('alp_puntos.deleted_at', '=', NULL)
             ->where('alp_puntos.id_cliente', $user_id)
             ->get();
 
@@ -345,6 +348,7 @@ class ClientesFrontController extends Controller
 
             ->whereYear('alp_puntos.created_at', '=', $dt->year)
             ->whereMonth('alp_puntos.created_at', '=', $dt->month)
+             ->where('alp_puntos.deleted_at', '=', NULL)
             ->where('alp_puntos.id_user', $user_id)
             ->get();
 

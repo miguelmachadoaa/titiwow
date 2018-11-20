@@ -9,6 +9,7 @@ use App\Models\AlpEstatusOrdenes;
 use App\Models\AlpOrdenesHistory;
 use App\Models\AlpDetalles;
 use App\Models\AlpPagos;
+use App\Models\AlpPuntos;
 use App\Models\AlpConfiguracion;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -399,6 +400,18 @@ echo '<br>fin: '.$date_fin;*/
             'estatus' =>$input['id_status']
         );
 
+        if ($input['id_status']=='4') {
+
+          $punto=AlpPuntos::where('id_orden',$input['confirm_id'])->first();
+
+          $data_estatus_puntos = array('estado_registro' => $input['id_status'] );
+
+          $punto->update($data_estatus_puntos);
+
+          $punto->delete();
+
+        }
+
          
         $history=AlpOrdenesHistory::create($data_history);
 
@@ -428,7 +441,8 @@ echo '<br>fin: '.$date_fin;*/
         } else {
 
             return 0;
-        }       
+        }     
+
 
     }
 
