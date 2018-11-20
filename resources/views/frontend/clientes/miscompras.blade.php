@@ -92,6 +92,23 @@ Mis Compras
                                     <i class="livicon "  data-name="eye" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Ver Detalle"></i>
                                  </button>
 
+
+                                @if($row->estatus=='4')
+
+                                    <button data-id="{{ $row->id }}"  data-codigo="{{ $row->ordencompra }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-danger " > Cancelado  </button></div>
+
+
+                                @else
+
+                                    <button data-id="{{ $row->id }}"  data-codigo="{{ $row->ordencompra }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-danger confirmar" > Cancelar  </button></div>
+
+                                @endif
+                                 
+
+
+
+                                
+
                                             <!-- let's not delete 'Admin' group by accident -->
                                             
                                           

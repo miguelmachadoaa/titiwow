@@ -11,9 +11,10 @@ use App\Models\AlpDetalles;
 use App\Models\AlpPagos;
 use App\Models\AlpPuntos;
 use App\Models\AlpConfiguracion;
+use App\Users;
 use App\Http\Requests;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
+use Mail;
 use Redirect;
 use Response;
 use Sentinel;
@@ -490,12 +491,16 @@ echo '<br>fin: '.$date_fin;*/
 
         if ($orden->id) {
 
+
+          $user_cliente=Users::where('id', $orden->id_cliente)->first();
+
           $texto="La orden ".$orden->id." Ha sido aprobada y espera para ser facturada!";
 
            //return $texto;
 
-          Mail::to($configuracion->correo_cedi)->send(new \App\Mail\notificacionOrden($orden->id, $texto));
-          Mail::to('miguelmachadoaa@gmail.com')->send(new \App\Mail\notificacionOrden($orden->id, $texto));
+          Mail::to($configuracion->correo_cedi)->send(new \App\Mail\NotificacionOrden($orden->id, $texto));
+
+          Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionOrden($orden->id, $texto));
 
           $view= View::make('admin.ordenes.aprobar', compact('orden'));
 
@@ -555,7 +560,11 @@ echo '<br>fin: '.$date_fin;*/
 
           $texto="La orden ".$orden->id." Ha sido Facturada  y espera para ser Enviada!";
 
-          Mail::to($configuracion->correo_logistica)->send(new \App\Mail\notificacionOrden($orden->id, $texto));
+           $user_cliente=Users::where('id', $orden->id_cliente)->first();
+          
+          Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionOrden($orden->id, $texto));
+
+          Mail::to($configuracion->correo_logistica)->send(new \App\Mail\NotificacionOrden($orden->id, $texto));
 
 
           $view= View::make('admin.ordenes.facturar', compact('orden'));
@@ -617,7 +626,11 @@ echo '<br>fin: '.$date_fin;*/
 
           $texto="La orden ".$orden->id." Ha sido Enviada  !";
 
-          Mail::to($configuracion->correo_shopmanager)->send(new \App\Mail\notificacionOrden($orden->id, $texto));
+          $user_cliente=Users::where('id', $orden->id_cliente)->first();
+          
+          Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionOrden($orden->id, $texto));
+
+          Mail::to($configuracion->correo_shopmanager)->send(new \App\Mail\NotificacionOrden($orden->id, $texto));
 
           $view= View::make('admin.ordenes.enviar', compact('orden'));
 
