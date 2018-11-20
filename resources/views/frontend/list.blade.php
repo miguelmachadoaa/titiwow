@@ -6,8 +6,8 @@
 Productos @parent
 @stop
 @section('meta_tags')
-<meta property="og:title" content="Productos | AlpinaGo">
-<meta property="og:description" content="Productos de AlpinaGo">
+<meta property="og:title" content="Productos | Alpina Go!">
+<meta property="og:description" content="Productos de Alpina Go!">
 <meta property="og:robots" content="index, follow">
 <meta property="og:revisit-after" content="3 days">
 @endsection
@@ -26,11 +26,11 @@ Productos @parent
         <div class="container">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Inicio
+                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>Inicio
                     </a>
                 </li>
                 <li class="hidden-xs">
-                    <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
+                    <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>
                     <a href="#">Todos los Productos</a>
                 </li>
             </ol>
@@ -110,7 +110,7 @@ Productos @parent
 
                                                 @if(isset($cart[$producto->slug]))
 
-                                                    <div class="row">
+                                                    <div class="row" style="margin-bottom:5px;">
                                                       <div class="col-sm-10 col-sm-offset-1">
                                                         <div class="input-group">
                                                           <span class="input-group-btn">
@@ -124,7 +124,7 @@ Productos @parent
 
                                                           <span class="input-group-btn">
 
-                                                            <button data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-minus"></i></button>
+                                                            <button data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-danger updatecart" type="button"><i class="fa fa-minus"></i></button>
 
                                                           </span>
 
@@ -133,16 +133,14 @@ Productos @parent
                                                      
                                                     </div><!-- /.row -->
 
+                                                    <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+
                                                 @else
 
-                                                        <a data-slug="{{ $producto->slug }}" data-price="{{ $producto->precio_base }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-sm btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
-
-                                                
+                                                    <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                                    <a data-slug="{{ $producto->slug }}" data-price="{{ $producto->precio_base }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
 
                                                 @endif
-
-                                                        <a class="btn btn-sm btn-primary " href="{{ route('producto', [$producto->slug]) }}">Ver Más</a>
-
                                                 
                                         </div>
                                 </div>
@@ -224,43 +222,41 @@ Productos @parent
 
                                     <div class="product_botones boton_{{ $producto->id }}">
 
-                                                @if(isset($cart[$producto->slug]))
+                                    @if(isset($cart[$producto->slug]))
 
-                                                    <div class="row">
-                                                      <div class="col-sm-10 col-sm-offset-1">
-                                                        <div class="input-group">
-                                                          <span class="input-group-btn">
-                                                            
-                                                            <button data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
-
-                                                          </span>
-
-                                                          <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
-
-
-                                                          <span class="input-group-btn">
-
-                                                            <button data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-minus"></i></button>
-
-                                                          </span>
-
-                                                        </div><!-- /input-group -->
-                                                      </div><!-- /.col-lg-6 -->
-                                                     
-                                                    </div><!-- /.row -->
-
-                                                @else
-
-                                                        <a data-slug="{{ $producto->slug }}" data-price="{{ $producto->precio_base }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-sm btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
-
+                                        <div class="row" style="margin-bottom:5px;">
+                                        <div class="col-sm-10 col-sm-offset-1">
+                                            <div class="input-group">
+                                            <span class="input-group-btn">
                                                 
+                                                <button data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
 
-                                                @endif
+                                            </span>
 
-                                                        <a class="btn btn-sm btn-primary" href="{{ route('producto', [$producto->slug]) }}">Ver Más</a>
+                                            <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
 
-                                                
-                                        </div>
+
+                                            <span class="input-group-btn">
+
+                                                <button data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-danger updatecart" type="button"><i class="fa fa-minus"></i></button>
+
+                                            </span>
+
+                                            </div><!-- /input-group -->
+                                        </div><!-- /.col-lg-6 -->
+                                        
+                                        </div><!-- /.row -->
+
+                                        <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+
+                                    @else
+
+                                        <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                        <a data-slug="{{ $producto->slug }}" data-price="{{ $producto->precio_base }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
+
+                                    @endif
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -339,43 +335,41 @@ Productos @parent
 
                                     <div class="product_botones boton_{{ $producto->id }}">
 
-                                                @if(isset($cart[$producto->slug]))
+                                        @if(isset($cart[$producto->slug]))
 
-                                                    <div class="row">
-                                                      <div class="col-sm-10 col-sm-offset-1">
-                                                        <div class="input-group">
-                                                          <span class="input-group-btn">
-                                                            
-                                                            <button data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
+                                            <div class="row" style="margin-bottom:5px;">
+                                            <div class="col-sm-10 col-sm-offset-1">
+                                                <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    
+                                                    <button data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
 
-                                                          </span>
+                                                </span>
 
-                                                          <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
+                                                <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
 
 
-                                                          <span class="input-group-btn">
+                                                <span class="input-group-btn">
 
-                                                            <button data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-minus"></i></button>
+                                                    <button data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-danger updatecart" type="button"><i class="fa fa-minus"></i></button>
 
-                                                          </span>
+                                                </span>
 
-                                                        </div><!-- /input-group -->
-                                                      </div><!-- /.col-lg-6 -->
-                                                     
-                                                    </div><!-- /.row -->
+                                                </div><!-- /input-group -->
+                                            </div><!-- /.col-lg-6 -->
+                                            
+                                            </div><!-- /.row -->
 
-                                                @else
+                                            <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
 
-                                                        <a data-slug="{{ $producto->slug }}" data-price="{{ $producto->precio_base }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-sm btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
+                                        @else
 
-                                                
+                                            <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                            <a data-slug="{{ $producto->slug }}" data-price="{{ $producto->precio_base }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
 
-                                                @endif
+                                        @endif
 
-                                                        <a class="btn btn-sm btn-primary" href="{{ route('producto', [$producto->slug]) }}">Ver Más</a>
-
-                                                
-                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -453,43 +447,41 @@ Productos @parent
 
                                     <div class="product_botones boton_{{ $producto->id }}">
 
-                                                @if(isset($cart[$producto->slug]))
+                                        @if(isset($cart[$producto->slug]))
 
-                                                    <div class="row">
-                                                      <div class="col-sm-10 col-sm-offset-1">
-                                                        <div class="input-group">
-                                                          <span class="input-group-btn">
-                                                            
-                                                            <button data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
+                                            <div class="row" style="margin-bottom:5px;">
+                                            <div class="col-sm-10 col-sm-offset-1">
+                                                <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    
+                                                    <button data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
 
-                                                          </span>
+                                                </span>
 
-                                                          <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
+                                                <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
 
 
-                                                          <span class="input-group-btn">
+                                                <span class="input-group-btn">
 
-                                                            <button data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-minus"></i></button>
+                                                    <button data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-danger updatecart" type="button"><i class="fa fa-minus"></i></button>
 
-                                                          </span>
+                                                </span>
 
-                                                        </div><!-- /input-group -->
-                                                      </div><!-- /.col-lg-6 -->
-                                                     
-                                                    </div><!-- /.row -->
+                                                </div><!-- /input-group -->
+                                            </div><!-- /.col-lg-6 -->
+                                            
+                                            </div><!-- /.row -->
 
-                                                @else
+                                            <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
 
-                                                        <a data-slug="{{ $producto->slug }}" data-price="{{ $producto->precio_base }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-sm btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
+                                        @else
 
-                                                
+                                            <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                            <a data-slug="{{ $producto->slug }}" data-price="{{ $producto->precio_base }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
 
-                                                @endif
+                                        @endif
 
-                                                        <a class="btn btn-sm btn-primary" href="{{ route('producto', [$producto->slug]) }}">Ver Más</a>
-
-                                                
-                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -567,43 +559,41 @@ Productos @parent
 
                                     <div class="product_botones boton_{{ $producto->id }}">
 
-                                                @if(isset($cart[$producto->slug]))
+                                        @if(isset($cart[$producto->slug]))
 
-                                                    <div class="row">
-                                                      <div class="col-sm-10 col-sm-offset-1">
-                                                        <div class="input-group">
-                                                          <span class="input-group-btn">
-                                                            
-                                                            <button data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
+                                            <div class="row" style="margin-bottom:5px;">
+                                            <div class="col-sm-10 col-sm-offset-1">
+                                                <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    
+                                                    <button data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
 
-                                                          </span>
+                                                </span>
 
-                                                          <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
+                                                <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
 
 
-                                                          <span class="input-group-btn">
+                                                <span class="input-group-btn">
 
-                                                            <button data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-minus"></i></button>
+                                                    <button data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-danger updatecart" type="button"><i class="fa fa-minus"></i></button>
 
-                                                          </span>
+                                                </span>
 
-                                                        </div><!-- /input-group -->
-                                                      </div><!-- /.col-lg-6 -->
-                                                     
-                                                    </div><!-- /.row -->
+                                                </div><!-- /input-group -->
+                                            </div><!-- /.col-lg-6 -->
+                                            
+                                            </div><!-- /.row -->
 
-                                                @else
+                                            <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
 
-                                                        <a data-slug="{{ $producto->slug }}" data-price="{{ $producto->precio_base }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-sm btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
+                                        @else
 
-                                                
+                                            <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                            <a data-slug="{{ $producto->slug }}" data-price="{{ $producto->precio_base }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
 
-                                                @endif
+                                        @endif
 
-                                                        <a class="btn btn-sm btn-primary" href="{{ route('producto', [$producto->slug]) }}">Ver Más</a>
-
-                                                
-                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -681,43 +671,41 @@ Productos @parent
 
                                     <div class="product_botones boton_{{ $producto->id }}">
 
-                                                @if(isset($cart[$producto->slug]))
+                                        @if(isset($cart[$producto->slug]))
 
-                                                    <div class="row">
-                                                      <div class="col-sm-10 col-sm-offset-1">
-                                                        <div class="input-group">
-                                                          <span class="input-group-btn">
-                                                            
-                                                            <button data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
+                                            <div class="row" style="margin-bottom:5px;">
+                                            <div class="col-sm-10 col-sm-offset-1">
+                                                <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    
+                                                    <button data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
 
-                                                          </span>
+                                                </span>
 
-                                                          <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
+                                                <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
 
 
-                                                          <span class="input-group-btn">
+                                                <span class="input-group-btn">
 
-                                                            <button data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-minus"></i></button>
+                                                    <button data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-danger updatecart" type="button"><i class="fa fa-minus"></i></button>
 
-                                                          </span>
+                                                </span>
 
-                                                        </div><!-- /input-group -->
-                                                      </div><!-- /.col-lg-6 -->
-                                                     
-                                                    </div><!-- /.row -->
+                                                </div><!-- /input-group -->
+                                            </div><!-- /.col-lg-6 -->
+                                            
+                                            </div><!-- /.row -->
 
-                                                @else
+                                            <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
 
-                                                        <a data-slug="{{ $producto->slug }}" data-price="{{ $producto->precio_base }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-sm btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
+                                        @else
 
-                                                
+                                            <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                            <a data-slug="{{ $producto->slug }}" data-price="{{ $producto->precio_base }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
 
-                                                @endif
+                                        @endif
 
-                                                        <a class="btn btn-sm btn-primary" href="{{ route('producto', [$producto->slug]) }}">Ver Más</a>
-
-                                                
-                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -794,43 +782,41 @@ Productos @parent
 
                                     <div class="product_botones boton_{{ $producto->id }}">
 
-                                                @if(isset($cart[$producto->slug]))
+                                        @if(isset($cart[$producto->slug]))
 
-                                                    <div class="row">
-                                                      <div class="col-sm-10 col-sm-offset-1">
-                                                        <div class="input-group">
-                                                          <span class="input-group-btn">
-                                                            
-                                                            <button data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
+                                            <div class="row" style="margin-bottom:5px;">
+                                            <div class="col-sm-10 col-sm-offset-1">
+                                                <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    
+                                                    <button data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
 
-                                                          </span>
+                                                </span>
 
-                                                          <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
+                                                <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
 
 
-                                                          <span class="input-group-btn">
+                                                <span class="input-group-btn">
 
-                                                            <button data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-minus"></i></button>
+                                                    <button data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-danger updatecart" type="button"><i class="fa fa-minus"></i></button>
 
-                                                          </span>
+                                                </span>
 
-                                                        </div><!-- /input-group -->
-                                                      </div><!-- /.col-lg-6 -->
-                                                     
-                                                    </div><!-- /.row -->
+                                                </div><!-- /input-group -->
+                                            </div><!-- /.col-lg-6 -->
+                                            
+                                            </div><!-- /.row -->
 
-                                                @else
+                                            <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
 
-                                                        <a data-slug="{{ $producto->slug }}" data-price="{{ $producto->precio_base }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-sm btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
+                                        @else
 
-                                                
+                                            <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                            <a data-slug="{{ $producto->slug }}" data-price="{{ $producto->precio_base }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
 
-                                                @endif
+                                        @endif
 
-                                                        <a class="btn btn-sm btn-primary" href="{{ route('producto', [$producto->slug]) }}">Ver Más</a>
-
-                                                
-                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -913,43 +899,41 @@ Productos @parent
 
                                     <div class="product_botones boton_{{ $producto->id }}">
 
-                                                @if(isset($cart[$producto->slug]))
+                                        @if(isset($cart[$producto->slug]))
 
-                                                    <div class="row">
-                                                      <div class="col-sm-10 col-sm-offset-1">
-                                                        <div class="input-group">
-                                                          <span class="input-group-btn">
-                                                            
-                                                            <button data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
+                                            <div class="row" style="margin-bottom:5px;">
+                                            <div class="col-sm-10 col-sm-offset-1">
+                                                <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    
+                                                    <button data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
 
-                                                          </span>
+                                                </span>
 
-                                                          <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
+                                                <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
 
 
-                                                          <span class="input-group-btn">
+                                                <span class="input-group-btn">
 
-                                                            <button data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-minus"></i></button>
+                                                    <button data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-danger updatecart" type="button"><i class="fa fa-minus"></i></button>
 
-                                                          </span>
+                                                </span>
 
-                                                        </div><!-- /input-group -->
-                                                      </div><!-- /.col-lg-6 -->
-                                                     
-                                                    </div><!-- /.row -->
+                                                </div><!-- /input-group -->
+                                            </div><!-- /.col-lg-6 -->
+                                            
+                                            </div><!-- /.row -->
 
-                                                @else
+                                            <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
 
-                                                        <a data-slug="{{ $producto->slug }}" data-price="{{ $producto->precio_base }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-sm btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
+                                        @else
 
-                                                
+                                            <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                            <a data-slug="{{ $producto->slug }}" data-price="{{ $producto->precio_base }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
 
-                                                @endif
+                                        @endif
 
-                                                        <a class="btn btn-sm btn-primary" href="{{ route('producto', [$producto->slug]) }}">Ver Más</a>
-
-                                                
-                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1027,43 +1011,41 @@ Productos @parent
 
                                     <div class="product_botones boton_{{ $producto->id }}">
 
-                                                @if(isset($cart[$producto->slug]))
+                                        @if(isset($cart[$producto->slug]))
 
-                                                    <div class="row">
-                                                      <div class="col-sm-10 col-sm-offset-1">
-                                                        <div class="input-group">
-                                                          <span class="input-group-btn">
-                                                            
-                                                            <button data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
+                                            <div class="row" style="margin-bottom:5px;">
+                                            <div class="col-sm-10 col-sm-offset-1">
+                                                <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    
+                                                    <button data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
 
-                                                          </span>
+                                                </span>
 
-                                                          <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
+                                                <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
 
 
-                                                          <span class="input-group-btn">
+                                                <span class="input-group-btn">
 
-                                                            <button data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-minus"></i></button>
+                                                    <button data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-danger updatecart" type="button"><i class="fa fa-minus"></i></button>
 
-                                                          </span>
+                                                </span>
 
-                                                        </div><!-- /input-group -->
-                                                      </div><!-- /.col-lg-6 -->
-                                                     
-                                                    </div><!-- /.row -->
+                                                </div><!-- /input-group -->
+                                            </div><!-- /.col-lg-6 -->
+                                            
+                                            </div><!-- /.row -->
 
-                                                @else
+                                            <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
 
-                                                        <a data-slug="{{ $producto->slug }}" data-price="{{ $producto->precio_base }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-sm btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
+                                        @else
 
-                                                
+                                            <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                            <a data-slug="{{ $producto->slug }}" data-price="{{ $producto->precio_base }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
 
-                                                @endif
+                                        @endif
 
-                                                        <a class="btn btn-sm btn-primary" href="{{ route('producto', [$producto->slug]) }}">Ver Más</a>
-
-                                                
-                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
