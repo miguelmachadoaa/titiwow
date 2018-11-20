@@ -31,15 +31,15 @@
         <div class="container">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Inicio
+                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>Inicio
                     </a>
                 </li>
                 <li class="hidden-xs">
-                    <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
+                    <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>
                     <a href="#">Producto</a>
                 </li>
-                <li class="hidden-xs">
-                    <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
+                <li >
+                    <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>
                     <a href="#">{{ $producto->nombre_producto}}</a>
                 </li>
             </ol>
@@ -96,16 +96,7 @@
                         <b>Medida:</b> {{ $producto->medida}}<br />
                         <b>Referencia:</b> {{ $producto->referencia_producto}}<br />
                     </p>
-                   <!-- <div class="producto_atributos">
-                        <div class="row">
-                                <div class="col-md-4 text-right">
-                                    <h4>Cantidad</h4>
-                                </div>
-                                <div class="col-md-8">
-                                    <input type="number" class="form-control" min="1" style="width:70px;">
-                                </div>
-                        </div>
-                    </div>-->
+
                     <div class="box-info-product"> 
                         <div class="row">
                             <div class="col-md-4">
@@ -162,7 +153,7 @@
                             </div>
 
                                 <div class="col-md-4">
-                                    <div class="product_botones boton_{{ $producto->id }}">
+                                    <div class="product_botones boton_{{ $producto->id }}" id="boton_single">
 
                                                 @if(isset($cart[$producto->slug]))
 
@@ -180,7 +171,7 @@
 
                                                           <span class="input-group-btn">
 
-                                                            <button data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-minus"></i></button>
+                                                            <button data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-danger updatecart" type="button"><i class="fa fa-minus"></i></button>
 
                                                           </span>
 
@@ -191,18 +182,13 @@
 
                                                 @else
                                                      
-                                                        <a data-slug="{{ $producto->slug }}" data-price="{{ $producto->precio_base }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-sm btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Agregar al carro</a>
+                                                        <a data-slug="{{ $producto->slug }}" data-price="{{ $producto->precio_base }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito">Agregar al Carrito<i class="fa fa-cart-arrow-down" aria-hidden="true" style="margin-left:10px"></i></a>
                                                     
                                                 @endif
 
                                                 
                                         </div>
                                     </div>
-
-
-                            <!--<div class="col-md-4">
-                                <a class="btn btn-success addtocart" href="{{url('cart/addtocart', [$producto->slug])}}">Añadir al Carrito</a>        
-                            </div>-->
                         </div>
                     </div>
                     
@@ -240,65 +226,7 @@
                 </div>
             </div>
         </div>
-        <!--item desciption end-->
-        <!--recently view item-->
-        <!--div class="row">
-            <h2 class="text-primary">Nuevos Productos</h2>
-            <div class="divider"></div>
-            <div class="flip-3d">
-                <figure>
-                    <img src="{{ asset('assets/images/cart/default/saree1.jpg') }}" alt="product image">
-                    <figcaption>
-                        <h4 class="text-white">Floral Printed Saree</h4>
-                        <ul class="text-white">
-                            <li>Product Type - Women's Saree</li>
-                            <li>Color - Multi Colour</li>
-                        </ul>
-                        <h4 class="text-white"><del class="text-danger">Rs. 1599.00</del>  Rs. 1198.00   </h4>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="flip-3d">
-                <figure>
-                    <img src="{{ asset('assets/images/cart/default/shirt.jpg') }}" alt="product image">
-                    <figcaption>
-                        <h4 class="text-white">Atelier Check Shirt</h4>
-                        <ul class="text-white">
-                            <li>Product -Men's Club Wear</li>
-                            <li>Care - Machine/Hand Wash</li>
-                        </ulclass>
-                        <h4 class="text-white"><del class="text-danger">Rs. 1999.00</del> Rs. 1499.00</h4>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="flip-3d">
-                <figure>
-                    <img src="{{ asset('assets/images/cart/default/sony.jpg') }}" alt="product image">
-                    <figcaption>
-                        <h4 class="text-white">Sony Xperia C3 - (Black)</h4>
-                        <ul class="text-white">
-                            <li>Android v4.4.2 (KitKat)</li>
-                            <li>Quad-core 1.2 GHz</li>
-                        </ul>
-                        <h4 class="text-white"><del class="text-danger">Rs. 21,990</del>  Rs. 18,088</h4>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="flip-3d">
-                <figure>
-                    <img src="{{ asset('assets/images/cart/default/samsung.jpg') }}" alt="product image">
-                    <figcaption>
-                        <h4 class="text-white">Samsung Galaxy S6 64 GB - (White)</h4>
-                        <ul class="text-white">
-                            <li>Android v4.4.2 (KitKat)</li>
-                            <li>Quad-core 1.2 GHz</li>
-                        </ul>
-                        <h4 class="text-white">Rs. 55,900</h4>
-                    </figcaption>
-                </figure>
-            </div>
-        </div-->
-        <!--recently view item end-->
+        
     </div>
     <!-- //Container Section End -->
 
@@ -314,11 +242,6 @@
                         <h4 class="modal-title" id="modalLabeldanger">Producto Agregado a tu carrito de compras</h4>
                     </div>
                     <div class="modal-body cartcontenido">
-
-                        
-
-                      
-
 
                     </div>
                     <div class="modal-footer">
@@ -353,10 +276,6 @@
         jQuery(document).ready(function () {
             new WOW().init();
         });
-
-
-
-
 
     </script>
 

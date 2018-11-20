@@ -56,11 +56,11 @@ Area clientes
         <div class="container">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Inicio
+                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>Inicio
                     </a>
                 </li>
                 <li>
-                    <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
+                    <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>
                     <a href="{{ url('clientes') }}">Mi Perfil </a>
                 </li>
 
@@ -78,7 +78,7 @@ Area clientes
 
         
         
-
+        <div class="alert alert-default">
         @if(isset($cliente))
 
             @if($cliente->id_empresa!=0)
@@ -93,9 +93,19 @@ Area clientes
 
             @endif
 
+            @if($cliente->cod_alpinista!=0)
+
+             <h4>Bienvenido a Tu Perfil de Embajador Alpina</h4>
+
+            @endif
+
+        @else
+
+            <h4>Bienvenido a Tu Perfil</h4>
+
         @endif
 
-
+        </div>
         <!--@if(isset($puntos['nivel']))
 
             <div class="alert alert-default">

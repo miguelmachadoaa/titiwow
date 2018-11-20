@@ -31,7 +31,7 @@
                     <div id="wrapper">
                         <div id="login" class="animate form">
                             <form action="{{ route('signin') }}" autocomplete="on" method="post" role="form" id="login_form">
-                                <h3 class="black_bg">
+                                <h3 >
                                     <img src="{{ asset('assets/img/login.png') }}" alt="Alpina Go!">
                                     <br>Backend</h3>
                                     <!-- CSRF Token -->
@@ -57,13 +57,13 @@
                                         {!! $errors->first('password', '<span class="help-block">:message</span>') !!}
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <!--div class="form-group">
                                     <label>
                                         <input type="checkbox" name="remember-me" id="remember-me" value="remember-me"
                                                class="square-blue"/>
                                         Recordar
                                     </label>
-                                </div>
+                                </div-->
                                 <p class="login button">
                                     <input type="submit" value="Iniciar Sesión" class="btn btn-success" />
                                 </p>
@@ -80,7 +80,7 @@
                         
                         <div id="forgot" class="animate form">
                             <form action="{{ url('admin/forgot-password') }}" autocomplete="on" method="post" role="form" id="reset_pw">
-                                <h3 class="black_bg">
+                                <h3 >
                                 <img src="{{ asset('assets/img/login.png') }}" alt="Alpina"><br>Olvidaste Tu Contraseña</h3>
                                 <p>
                                     

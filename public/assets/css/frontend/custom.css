@@ -51,6 +51,34 @@ body {
 }
 
 /*Fin Fuentes pluto*/
+
+/*inicio botones*/
+.btn {
+    color:#ffffff !important;
+    font-family: 'PlutoBold';
+}
+.btn:hover {
+    color:#eeeeee !important;
+}
+.btn-vermas{
+    background-color:#143473;
+    border-color: #143473;
+    padding: 6px 30px;
+}
+.btn-cart{
+    background-color:#d5006e;
+    border-color: #d5006e;
+}
+.input-group .form-control {
+    z-index: 1 !important;
+}
+#boton_single .btn-vermas{
+    display: none;
+}
+/*fin botones*/
+.text-primary{
+    color:#143473 !important;
+}
 .icon-section {
     background: rgb(20, 51, 114);
     background: -moz-linear-gradient(left, rgba(20, 51, 114, 1) 1%, rgba(21, 75, 138, 1) 36%, rgba(24, 124, 188, 1) 69%, rgba(26, 154, 218, 1) 100%);
@@ -283,9 +311,7 @@ p label {
     font-size: 13px !important;
 }
 .breadcum {
-    background-color : #f2f2f2;
-    border-top       : 1px solid #c8c4c4;
-    border-bottom    : 1px solid #c8c4c4;
+    background-color : #f5ecec;
     padding          : 0 2%;
 }
 .breadcum .pull-right {
@@ -295,7 +321,7 @@ p label {
     padding          : 8px 15px;
     margin-bottom    : 0;
     list-style       : none;
-    background-color : #f2f2f2;
+    background-color : #f5ecec;
     border-radius    : 4px;
     float            : left;
 }
@@ -952,14 +978,14 @@ footer a:hover, footer a:active{
 /*Productos Listado Inicio*/
 .productos{
     margin: 20px 0px;
-    min-height: 399px;
-    border: 1px solid #dcdcdc;
+    min-height: 364px;
+    border: 1px solid #f5ecec;
     -webkit-border-radius: 15px 15px;  /* Safari  */
     -moz-border-radius: 15px 15px;     /* Firefox */
 }
 .separador{
     width:30%;
-    border-bottom: 3px solid #418bca;
+    border-bottom: 3px solid #143473;
     display: block;
     margin-right: auto;
     margin-left: auto;
@@ -989,23 +1015,23 @@ footer a:hover, footer a:active{
         margin: 0px auto;
 }}
 .catego{
-    color:#418bca;
+    color:#143473;
 }
 .products h3 {
     font-size: 14px;
-    color:#333336;
+    color:#143473;
     text-align: center;
     margin: 20px 5px 15px 5px;
-    min-height: 60px;
+    min-height: 45px;
 }
 .products h6 {
     font-size: 11px;
-    color:#009fe3;
+    color:#199ad9;
     text-align: center;
     margin: 20px 0px 15px 0px;
 }
 .pum {
-    color:#777 !important;
+    color:#bdb9b9 !important;
     margin: 5px 0px 5px 0px !important;
 }
 #precio_prod{
@@ -1013,11 +1039,11 @@ footer a:hover, footer a:active{
     margin: 0px 0px;
 }
 .precio_base{
-    color:#203878;
+    color:#143473;
     font-size: 20px;
 }
 #precio_prod del{
-    color: #ef6f6c;
+    color: #d5006e;
     font-size: 18px;
 }
 .product_info a:link{
@@ -1144,7 +1170,7 @@ footer a:hover, footer a:active{
     transition: all .5s;
   }
   .categoria1 .layercat {
-    background-color: rgba(0, 144, 196, 0.70);
+    background-color: rgba(0, 144, 196, 0.50);
     position: absolute;
     top: 0;
     left: 0;
@@ -1164,7 +1190,7 @@ footer a:hover, footer a:active{
     text-align: center;
   }
   .categoria2 .layercat {
-    background-color: rgba(5, 4, 41, 0.70);
+    background-color: rgba(5, 4, 41, 0.50);
     position: absolute;
     top: 0;
     left: 0;
@@ -1184,7 +1210,7 @@ footer a:hover, footer a:active{
     text-align: center;
   }
   .categoria3 .layercat {
-    background-color: rgba(36, 157, 174, 0.70);
+    background-color: rgba(36, 157, 174, 0.50);
     position: absolute;
     top: 0;
     left: 0;
@@ -1204,7 +1230,7 @@ footer a:hover, footer a:active{
     text-align: center;
   }
   .categoria4 .layercat {
-    background-color: rgba(144, 223, 98, 0.70);
+    background-color: rgba(144, 223, 98, 0.50);
     position: absolute;
     top: 0;
     left: 0;
@@ -1224,7 +1250,7 @@ footer a:hover, footer a:active{
     text-align: center;
   }
   .categoria5 .layercat {
-    background-color: rgba(5, 4, 41, 0.70);
+    background-color: rgba(5, 4, 41, 0.50);
     position: absolute;
     top: 0;
     left: 0;
@@ -1244,7 +1270,7 @@ footer a:hover, footer a:active{
     text-align: center;
   }
   .categoria6 .layercat {
-    background-color: rgba(36, 157, 174, 0.70);
+    background-color: rgba(36, 157, 174, 0.50);
     position: absolute;
     top: 0;
     left: 0;
@@ -1264,7 +1290,7 @@ footer a:hover, footer a:active{
     text-align: center;
   }
   .categoria7 .layercat {
-    background-color: rgba(144, 223, 98, 0.70);
+    background-color: rgba(144, 223, 98, 0.50);
     position: absolute;
     top: 0;
     left: 0;
@@ -1284,7 +1310,7 @@ footer a:hover, footer a:active{
     text-align: center;
   }
   .categoria8 .layercat {
-    background-color: rgba(5, 4, 41, 0.70);
+    background-color: rgba(5, 4, 41, 0.50);
     position: absolute;
     top: 0;
     left: 0;
@@ -1304,7 +1330,7 @@ footer a:hover, footer a:active{
     text-align: center;
   }
   .categoria9 .layercat {
-    background-color: rgba(144, 223, 98, 0.70);
+    background-color: rgba(144, 223, 98, 0.50);
     position: absolute;
     top: 0;
     left: 0;
@@ -1372,7 +1398,10 @@ footer a:hover, footer a:active{
 /* Css categorias del footer*/
 /*marcas home*/
 .brands{
-    margin-bottom: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #f5ecec;
+    -webkit-border-radius: 15px 15px;
+    -moz-border-radius: 15px 15px;
 }
 /*marcas home fin*/
 /*Categorias internas */
@@ -1393,7 +1422,7 @@ footer a:hover, footer a:active{
         color:#ffffff;
     }
     .categoriaprod {
-        height: 414px;
+        height: 370px;
     }
     
 }
