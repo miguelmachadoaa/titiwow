@@ -512,6 +512,8 @@ Route::post('cart/botones/',['as'=>'cart.botones', 'uses'=>'Admin\AlpCartControl
 
 Route::post('cart/updatecartbotones/',['as'=>'cart.updatecartbotones', 'uses'=>'Admin\AlpCartController@updatecartbotones']);
 
+Route::post('cart/addcupon/',['as'=>'cart.addcupon', 'uses'=>'Admin\AlpCartController@addcupon']);
+
 
 
 
@@ -628,7 +630,7 @@ Route::get('emailAmigo', function(){
 });
 
 Route::get('notificacion', function(){
-        return new \App\Mail\NotificacionOrden('25', 'La orden 25 Ha sido Enviada  !');
+        return new \App\Mail\NotificacionOrden('25', 'La orden 25 Ha sido Enviada!');
 });
 
 

@@ -478,7 +478,10 @@ echo '<br>fin: '.$date_fin;*/
 
           $texto="La orden ".$orden->id." Ha sido aprobada y espera para ser facturada!";
 
-           Mail::to($configuracion->correo_cedi)->send(new \App\Mail\notificacionOrden($orden->id, $texto));
+           //return $texto;
+
+          Mail::to($configuracion->correo_cedi)->send(new \App\Mail\notificacionOrden($orden->id, $texto));
+          Mail::to('miguelmachadoaa@gmail.com')->send(new \App\Mail\notificacionOrden($orden->id, $texto));
 
           $view= View::make('admin.ordenes.aprobar', compact('orden'));
 
@@ -490,7 +493,7 @@ echo '<br>fin: '.$date_fin;*/
 
         } else {
 
-            return 0;
+            return 'error orden';
         }       
 
     }
