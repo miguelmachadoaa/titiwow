@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Registro | Alpina Go </title>
+    <title>Registro | Alpina Go! </title>
     <!--global css starts-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
@@ -22,7 +22,7 @@
     <!--Content Section Start -->
     <div class="row">
         <div class="box animation flipInX">
-            <a href="{{ route('home') }}"><img src="{{ asset('assets/img/logo_alpina.png') }}" alt="AlpinaGo!" class="img-responsive mar"> </a>
+            <a href="{{ route('home') }}"><img src="{{ asset('assets/img/login.png') }}" alt="Alpina GO!"></a>
             <div class="clearfix"></div>
             <h3 class="text-primary">Registro Alpina Go!</h3>
             <!-- Notifications -->
@@ -117,9 +117,9 @@
                         <span class="input-group-addon" style="width:0px; padding-left:0px; padding-right:0px; border:none;"></span>
 
                         <input type="text" id="principal_address" name="principal_address" class="form-control" value="{!! old('principal_address') !!}" placeholder="Principal">
-                        <span class="input-group-addon hidden-xs">#</span>
+                        <span class="input-group-addon hidden-xs azul">#</span>
                         <input type="text" id="secundaria_address" name="secundaria_address" class="form-control" value="{!! old('secundaria_address') !!}"  placeholder="#">
-                        <span class="input-group-addon hidden-xs">-</span>
+                        <span class="input-group-addon hidden-xs azul">-</span>
                         <input type="text" id="edificio_address" name="edificio_address" class="form-control" value="{!! old('edificio_address') !!}"  placeholder="-">
 
                         <!-- insert this line -->
@@ -164,7 +164,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-6">
-                            <button type="submit" class="btn btn-block btn-success">Registrarse</button>
+                            <button type="submit" class="btn btn-block btn-primary">Registrarse</button>
                         </div>
                         <div class="col-sm-6">
                             <a class="btn btn-block btn-danger" href="{{ route('home') }}">Regresar a Inicio</a>

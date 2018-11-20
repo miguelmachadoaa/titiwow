@@ -21,7 +21,7 @@
     <!--Content Section Start -->
     <div class="row">
         <div class="box animation flipInX">
-            <img src="{{ asset('assets/img/logo_alpina.png') }}" alt="AlpinaGO">
+            <img src="{{ asset('assets/img/login.png') }}" alt="AlpinaGO">
             
             <form action="{{ url('signupembajador') }}" method="POST" id="reg_form">
 

@@ -1,6 +1,6 @@
 @component('mail::message')
 
-<p style="text-align: center;"><img src="{{ url('assets/img/logo_alpina.png') }}"></p>
+<p style="text-align: center;"><img src="{{ url('assets/img/login.png') }}"></p>
 
  {{ $texto }}
 <br>

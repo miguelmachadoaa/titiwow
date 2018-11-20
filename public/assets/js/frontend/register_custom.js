@@ -118,20 +118,6 @@ $("#reg_form").bootstrapValidator({
             },
             required: true,
             minlength: 3
-        },
-        habeas_cliente: {
-            'habeas_cliente': {
-                validators: {
-                    choice: {
-                        min: 1,
-                        max: 1,
-                        message: 'Debe Aceptar los Términos y Condiciones'
-                    },
-                    notEmpty: {
-                        message: 'The username is required and cannot be empty'
-                    },
-                }
-            }
         }
     }
 });

@@ -31,7 +31,7 @@
 <body class="skin-josh">
 <header class="header">
     <a href="{{ route('admin.dashboard') }}" class="logo">
-        <img src="{{ asset('assets/img/logo_alpina.png') }}" alt="logo">
+        <img src="{{ asset('assets/img/login.png') }}" alt="Apina Go!" height="46px">
     </a>
     <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->

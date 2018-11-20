@@ -23,7 +23,7 @@
     <!--Content Section Start -->
     <div class="row">
         <div class="box animation flipInX">
-            <a href="{{ route('home') }}"><img src="{{ asset('assets/img/logo_alpina.png') }}" alt="AlpinaGO" ></a>
+            <a href="{{ route('home') }}"><img src="{{ asset('assets/img/login.png') }}" alt="AlpinaGO" ></a>
             <h3 class="text-primary">Registro de Amigos</h3>
             <!-- Notifications -->
             <div id="notific">
@@ -123,9 +123,9 @@
                         <span class="input-group-addon" style="width:0px; padding-left:0px; padding-right:0px; border:none;"></span>
 
                         <input type="text" id="principal_address" name="principal_address" class="form-control" value="{!! old('principal_address') !!}" placeholder="Principal">
-                        <span class="input-group-addon hidden-xs">#</span>
+                        <span class="input-group-addon hidden-xs azul">#</span>
                         <input type="text" id="secundaria_address" name="secundaria_address" class="form-control" value="{!! old('secundaria_address') !!}" placeholder="#">
-                        <span class="input-group-addon hidden-xs">-</span>
+                        <span class="input-group-addon hidden-xs azul">-</span>
                         <input type="text" id="edificio_address" name="edificio_address" class="form-control" value="{!! old('edificio_address') !!}" placeholder="-">
 
                         <!-- insert this line -->
@@ -157,7 +157,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-6">
-                            <button type="submit" class="btn btn-block btn-success">Registrarse</button>
+                            <button type="submit" class="btn btn-block btn-primary">Registrarse</button>
                         </div>
                         <div class="col-sm-6">
                             <a class="btn btn-block btn-danger" href="{{ route('home') }}">Regresar a Inicio</a>

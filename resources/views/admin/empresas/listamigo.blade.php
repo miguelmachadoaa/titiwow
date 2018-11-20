@@ -5,7 +5,7 @@
                                     <th>Nombre</th>
                                     <th>Apellido</th>
                                     <th>Email</th>
-                                    <th>Enlace</th>
+                                    <!--th>Enlace</th-->
                                     <th>Accion</th>
                                 </tr>
                             </thead>
@@ -17,7 +17,7 @@
                                     <td>{!! $row->nombre_amigo!!}</td>
                                     <td>{!! $row->apellido_amigo !!}</td>
                                     <td>{!! $row->email_amigo !!}</td>
-                                    <td><a href=" {!! url('/').'/registroafiliado/'.$row->token  !!}  ">Enlace</a></td>
+                                    <!--td><a href=" {!! url('/').'/registroafiliado/'.$row->token  !!}  ">Enlace</a></td-->
                                     <td>
                                             
                                            

@@ -24,8 +24,8 @@
     <div class="row">
         <div class="box animation flipInX">
             <div class="box1 text-center">
-            <a href="{{ route('home') }}"><img src="{{ asset('assets/img/logo_alpina.png') }}" alt="AlpinaGO"></a>
-            <h3 class="text-primary">Area de Clientes</h3>
+            <a href="{{ route('home') }}"><img src="{{ asset('assets/img/login.png') }}" alt="Alpina GO!"></a>
+            <h3 class="text-primary">Mi Perfil</h3>
                 <!-- Notifications -->
                 <div id="notific">
                 @include('notifications')
@@ -44,19 +44,24 @@
                         <input type="password" class="form-control" name="password" placeholder="Contraseña">
                     </div>
                     <span class="help-block">{{ $errors->first('password', ':message') }}</span>
-                    <div class="checkbox">
+                    <!--div class="checkbox">
                         <label>
                             <input type="checkbox"> Recordar Usuario
                         </label>
 
+                    </div-->
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <input type="submit" class="btn btn-block btn-primary" value="Iniciar Sesión">
+                        </div>
+                        <div class="col-md-6">
+                            <a class="btn btn-block btn-danger" href="{{ route('home') }}">Regresar a Inicio</a>
+                        </div>
                     </div>
-                    <input type="submit" class="btn btn-block btn-primary" value="Iniciar Sesión">
-                    Aún sin Cuenta? <a href="{{ route('register') }}"><strong> Registrarse</strong></a>
+                    <div class="clearfix"></div>
+
+                    ¿Aún sin Cuenta? <a href="{{ route('register') }}"><strong> Registrarse</strong>
                 </form>
-                <br/>
-                <div class="text-center">
-                    <a class="btn btn-block btn-danger" href="{{ route('home') }}">Regresar a Inicio</a>
-                </div>
                 <!--div class="text-center">
                     <p>--OR--</p>
                     <p>Login with</p>
