@@ -492,7 +492,7 @@ echo '<br>fin: '.$date_fin;*/
         if ($orden->id) {
 
 
-          $user_cliente=Users::where('id', $orden->id_cliente)->first();
+          //$user_cliente=Users::where('id', $orden->id_cliente)->first();
 
           $texto="La orden ".$orden->id." Ha sido aprobada y espera para ser facturada!";
 
@@ -500,7 +500,7 @@ echo '<br>fin: '.$date_fin;*/
 
           Mail::to($configuracion->correo_cedi)->send(new \App\Mail\NotificacionOrden($orden->id, $texto));
 
-          Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionOrden($orden->id, $texto));
+         // Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionOrden($orden->id, $texto));
 
           $view= View::make('admin.ordenes.aprobar', compact('orden'));
 
@@ -560,9 +560,9 @@ echo '<br>fin: '.$date_fin;*/
 
           $texto="La orden ".$orden->id." Ha sido Facturada  y espera para ser Enviada!";
 
-           $user_cliente=Users::where('id', $orden->id_cliente)->first();
+         //  $user_cliente=Users::where('id', $orden->id_cliente)->first();
           
-          Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionOrden($orden->id, $texto));
+          //Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionOrden($orden->id, $texto));
 
           Mail::to($configuracion->correo_logistica)->send(new \App\Mail\NotificacionOrden($orden->id, $texto));
 
