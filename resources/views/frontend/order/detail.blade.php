@@ -228,7 +228,7 @@ Carrito de Compras
 
                                     <div class="col-sm-3 border">
                                         
-                                        $0
+                                        Gratis
 
                                     </div>
                                     
@@ -517,7 +517,7 @@ Carrito de Compras
      <hr>
      <p style="text-align: center;">
 
-         <a class="btn btn-default" href="{{url('/productos')}}">Cancelar </a>
+         <a class="btn btn-danger" href="{{url('/productos')}}">Cancelar <i class="fa fa-times" aria-hidden="true"></i></a>
 
      </p>
 

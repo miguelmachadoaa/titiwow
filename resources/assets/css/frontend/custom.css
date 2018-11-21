@@ -65,6 +65,10 @@ body {
     border-color: #143473;
     padding: 6px 30px;
 }
+.btn-seguir{
+    background-color:#143473;
+    border-color: #143473;
+}
 .btn-cart{
     background-color:#d5006e;
     border-color: #d5006e;

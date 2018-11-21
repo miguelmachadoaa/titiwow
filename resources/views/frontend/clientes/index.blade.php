@@ -95,7 +95,7 @@ Area clientes
 
             @if($cliente->cod_alpinista!=0)
 
-             <h4>Bienvenido a Tu Perfil de Embajador Alpina</h4>
+             <h4>Bienvenido a AlpinaGo, ya eres un Embajador Alpina. Invita a tus Amigos y familiares para empezar a disfrutar de nuestro producto.</h4>
 
             @endif
 
@@ -185,18 +185,20 @@ Area clientes
                 <a href="{{ url('#') }}" class=" btn-medium ">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-question-circle"></i></div>
-                    <div class="col-sm-12">FAQS </div>
+                    <div class="col-sm-12">Preguntas</div>
                     </div>
                 </a>
                 </div> 
-                <div class="col-sm-2 text-center"> 
-                <a href="{{ url('#') }}" class=" btn-medium delete ">
-                    <div class="row">
-                    <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-trash"></i></div>
-                    <div class="col-sm-12">Eliminar Cuenta </div>
-                    </div>
-                </a>
-                </div> 
+                @if($cliente->cod_alpinista==0)
+                    <div class="col-sm-2 text-center"> 
+                    <a href="{{ url('#') }}" class=" btn-medium delete ">
+                        <div class="row">
+                        <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-trash"></i></div>
+                        <div class="col-sm-12">Eliminar Cuenta </div>
+                        </div>
+                    </a>
+                    </div> 
+                @endif
             </div>
         </div>
 
