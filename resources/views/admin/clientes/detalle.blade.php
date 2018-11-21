@@ -127,6 +127,16 @@ Cliente
                 </div>
                 <!--timeline2-->
 
+        <br>
+                <div class="row">
+                
+            <p style="text-align: center;"> 
+                    <a class="btn btn-default" href="{{ url('admin/clientes') }}">Volver</a>
+
+            </p>
+
+        </div>
+
 
 </section>
 

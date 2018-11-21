@@ -181,6 +181,11 @@
                                                         </tr>
                                                     </table>
                                                 </div>
+
+                                                <p style="text-align: center;"> 
+                    <a class="btn btn-default" href="{{ url('admin/users') }}">Volver</a>
+
+            </p>
                                             </div>
                                         </div>
                                     </div>

@@ -83,6 +83,11 @@ Empresa - Invitaciones
                         No se encontraron registros
                     @endif  
                     </div> 
+
+                    <p style="text-align: center;"> 
+                    <a class="btn btn-default" href="{{ url('admin/empresas') }}">Volver</a>
+
+            </p>
                     </div>
                 </div>
             </div>

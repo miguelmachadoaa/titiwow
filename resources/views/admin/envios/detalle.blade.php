@@ -231,7 +231,7 @@ Orden {{$orden->id}}
              </table>
                     
             <p style="text-align: center;"> 
-                    <a class="btn btn-default" href="{{ url('admin/ordenes') }}">Volver</a>
+                    <a class="btn btn-default" href="{{ url('admin/envios') }}">Volver</a>
 
             </p>
                    

@@ -80,10 +80,7 @@
         
                             {{--based on anyone login or not display menu items--}}
                             @if(Sentinel::guest())
-                                <li>
-                                    <a href="#"><i class="shopping-cart" data-name="ion-ios7-cart" data-size="18" data-loop="true" data-c="#fff" data-hc="#fff"></i></a>               
-                                    <label ><a id="detalle_carro_front" href="{{url('cart/show')}}" >Mi Carrito</a></label>    
-                                </li>
+                                
                                 <li>
                                     <a href="#"><i class="shopping-cart" data-name="ion-ios7-cart" data-size="18" data-loop="true" data-c="#fff" data-hc="#fff"></i></a>               
                                     <label ><a id="detalle_carro_front" href="{{url('login')}}" >Iniciar Sesión</a></label>    
@@ -140,14 +137,12 @@
                         </div>
                         <div class="col-md-4 col-xs-4 navbar-nav" class="pull_left">
                             <div id="cart_block_top" class="pull-right navbar-nav">
-                                <button type="button" name="submit_search" class="btn btn-default button-cart dropdown nav-item ">
-                                <a class="dropdown-toggle nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="detalle_carro_front" href="{{ url('cart/show') }}"><span>Carrito de Compra</span></a>
+                                
 
-                                        <div id="cartmenu" class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <li><a href="{{ url('cart/show') }}">Proceder a pagar</a></li>
-                                            
-                                            
-                                        </div>
+                                <button type="button" name="submit_search" class="btn btn-default button-cart dropdown nav-item ">
+                                <a class="dropdown-toggle nav-link" role="button"  aria-expanded="false"  href="{{ url('cart/show') }}"><span>Carrito de Compra</span></a>
+
+                                        
                                 </button>
 
 

@@ -17,6 +17,8 @@ Route::post('signupafiliado', 'Admin\AuthController@postSignupAfiliado')->name('
     
 Route::get('registroafiliado/{id}', 'Admin\AlpEmpresasController@afiliado')->name('frontend.empresas.registro');
 
+Route::post('admin/ordenes/storeconfirm', 'Admin\AlpOrdenesController@storeconfirm')->name('ordenes.storeconfirm');
+
 
 
 
@@ -370,7 +372,7 @@ Route::resource('alpinistas', 'Admin\AlpAlpinistasController');
 
         Route::get('{id}/restore', 'Admin\AlpOrdenesController@getRestore')->name('ordenes.restore');
 
-        Route::post('/storeconfirm', 'Admin\AlpOrdenesController@storeconfirm')->name('ordenes.storeconfirm');
+        
 
         Route::post('/aprobar', 'Admin\AlpOrdenesController@aprobar')->name('ordenes.aprobar');
 
