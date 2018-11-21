@@ -405,11 +405,19 @@ echo '<br>fin: '.$date_fin;*/
 
           $punto=AlpPuntos::where('id_orden',$input['confirm_id'])->first();
 
-          $data_estatus_puntos = array('estado_registro' => $input['id_status'] );
+          if (isset($punto->id)) {
 
-          $punto->update($data_estatus_puntos);
+             $data_estatus_puntos = array('estado_registro' => $input['id_status'] );
 
-          $punto->delete();
+            $punto->update($data_estatus_puntos);
+
+            $punto->delete();
+
+
+          
+          }
+
+         
 
         }
 
