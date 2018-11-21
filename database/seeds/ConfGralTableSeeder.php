@@ -18,7 +18,7 @@ class ConfGralTableSeeder extends Seeder
                 'limite_amigos' => 10,
                 'id_mercadopago' => 534534543534,
                 'key_mercadopago' => '345345dfdgdfgdfgdfgdf',
-                'minimo_compra' => 15000,
+                'minimo_compra' => 30000,
                 'id_user' => 1,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
         ]);

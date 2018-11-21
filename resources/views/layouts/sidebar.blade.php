@@ -1,5 +1,5 @@
 <div class="row">
-    <h3>Categorías</h3>
+    <h3 class="subtitulo">Categorías</h3>
     <div class="dd" id="nestable_list_1">
         <ul class="dd-list">
             @foreach ($categorias as $key => $item)
@@ -12,7 +12,7 @@
     </div>
 </div>
 <div class="row">
-    <h3>Marcas</h3>
+    <h3 class="subtitulo">Marcas</h3>
     <div  id="">
         <ul >
             @foreach ($marcas as $key => $item)

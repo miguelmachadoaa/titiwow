@@ -1,68 +1,87 @@
  <!-- Footer Section Start -->
  <footer>
         <div class="container footer-text">
-            <!-- Mi cuenta Section Start -->
-            <div class="col-sm-3 clearfix">
-                <h4>Mi Cuenta</h4>
-                <p>
-                    <ul id="menu-principal-1" class="menu_footer"><li id="menu-item-8915" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-16 current_page_item menu-item-8915"><a href="http://www.centrodechapas.com.ar/">Inicio</a></li>
-                        <li id="menu-item-9224" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9224"><a href="#">Empresa</a></li>
-                        <li id="menu-item-9050" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9050"><a href="#">Productos</a></li>
-                        <li id="menu-item-9174" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9174"><a href="#">Servicios</a></li>
-                        <li id="menu-item-9051" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9051"><a href="#">Contacto</a></li>
-                    </ul>
-                </p>
-            </div>
-            <!-- //Mi cuenta Section End -->
-            <!-- Categorias Section Start -->
-            <div class="col-sm-3 clearfix">
-                <h4>Categorías</h4>
-                <p>
-                    <ul id="menu-principal-1" class="menu_footer"><li id="menu-item-8915" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-16 current_page_item menu-item-8915"><a href="http://www.centrodechapas.com.ar/">Inicio</a></li>
-                        <li id="menu-item-9224" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9224"><a href="#">Empresa</a></li>
-                        <li id="menu-item-9050" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9050"><a href="#">Productos</a></li>
-                        <li id="menu-item-9174" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9174"><a href="#">Servicios</a></li>
-                        <li id="menu-item-9051" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9051"><a href="#">Contacto</a></li>
-                    </ul>
-                </p>
-            </div>
-            <!-- //Categorias Section End -->
-            <!-- Redes Section Start -->
-            <div class="col-sm-3 clearfix">
-                <h4>SÍguenos en</h4>
-                <p>
-                <div class="redes_foot">
-                    <div class="div_deres"><a href="https://www.facebook.com/alpina" target="_blank"><i class="fa fa-facebook-f color-foot" ></i></a></div>
-                    <div class="div_deres"><a href="https://www.instagram.com/alpinacol/" target="_blank"><i class="fa fa-instagram color-foot" ></i></a></div>
-                    <div class="div_deres"><a href="https://www.linkedin.com/company/alpina/?trk=vsrp_companies_res_name&trkInfo=VSRPsearchId%3A3286542181450727911739%2CVSRPtargetId%3A48174%2CVSRPcmpt%3Aprimary" target="_blank"><i class="fa fa-linkedin-square color-foot" ></i></a></div>
-                    <div class="div_deres"><a href="https://twitter.com/Alpina" target="_blank"><i class="fa fa-twitter color-foot" ></i></a></div>
-                    <div class="div_deres"><a href="https://www.youtube.com/user/AlpinaSA" target="_blank"><i class="fa fa-youtube-play color-foot" ></i></a></div>
-                    <div style="clear: both;"></div>
+            <div >
+                <!-- Mi cuenta Section Start -->
+                <div class="col-sm-3 clearfix">
+                    <h4>Mi Cuenta</h4>
+                    <p>
+                        <ul id="menu-cuenta" class="menu_footer">
+                            <li class="menu-item"><a href="#">Mi Cuenta</a></li>
+                            <li class="menu-item"><a href="#">Mis Compras</a></li>
+                            <li class="menu-item"><a href="#">Mi Dirección</a></li>
+                            <li class="menu-item"><a href="#">Mi Carrito</a></li>
+                        </ul>
+                    </p>
                 </div>
-                </p>
-                
-            </div>
-            <!-- //redes Section End -->
-            <!-- Contacto Section Start -->
-            <div class="col-sm-3 clearfix">
-                <h4>Atención al Cliente</h4>
-                    <div class="contacto_foot">
-                        <div class="div_contacto1"><img src="{{ asset('assets/img/location.png') }}" border="0"></div>
-                        <div class="div_contacto2">Bogotá, Colombia</div>
+                <!-- //Mi cuenta Section End -->
+                <!-- Categorias Section Start -->
+                <div class="col-sm-3 clearfix">
+                    <h4>Categorías</h4>
+                    <p>
+                        <ul id="menu-categorias" class="menu_footer">
+                            <li class="menu-item"><a href="#">Leche</a></li>
+                            <li class="menu-item"><a href="#">Lácteos</a></li>
+                            <li class="menu-item"><a href="#">Quesos</a></li>
+                            <li class="menu-item"><a href="#">Postres y Dulces</a></li>
+                            <li class="menu-item"><a href="#">Esparcibles e Ingredientes</a></li>
+                            <li class="menu-item"><a href="#">Bebidas de Fruta</a></li>
+                            <li class="menu-item"><a href="#">Linea Finesse</a></li>
+                            <li class="menu-item"><a href="#">Alpina Baby</a></li>
+                            <li class="menu-item"><a href="#">No Lácteos</a></li>
+                        </ul>
+                    </p>
+                </div>
+                <!-- //Categorias Section End -->
+                <!-- Redes Section Start -->
+                <div class="col-sm-3 clearfix">
+                    <h4>Más Información</h4>
+                    <p>
+                        <ul id="menu-informacion" class="menu_footer">
+                            <li class="menu-item"><a href="www.alpina.com" target="_blank">Alpina Digital</a></li>
+                            <li class="menu-item"><a href="www.alpina.com/corporativo" target="_blank">Corporativo</a></li>
+                            <li class="menu-item"><a href="www.alpina.com/recetas" target="_blank">Recetas</a></li>
+
+                        </ul>
+                    </p>
+                    <!--div class="redes_foot">
+                        <div class="div_deres"><a href="https://www.facebook.com/alpina" target="_blank"><i class="fa fa-facebook-f color-foot" ></i></a></div>
+                        <div class="div_deres"><a href="https://www.instagram.com/alpinacol/" target="_blank"><i class="fa fa-instagram color-foot" ></i></a></div>
+                        <div class="div_deres"><a href="https://www.linkedin.com/company/alpina/?trk=vsrp_companies_res_name&trkInfo=VSRPsearchId%3A3286542181450727911739%2CVSRPtargetId%3A48174%2CVSRPcmpt%3Aprimary" target="_blank"><i class="fa fa-linkedin-square color-foot" ></i></a></div>
+                        <div class="div_deres"><a href="https://twitter.com/Alpina" target="_blank"><i class="fa fa-twitter color-foot" ></i></a></div>
+                        <div class="div_deres"><a href="https://www.youtube.com/user/AlpinaSA" target="_blank"><i class="fa fa-youtube-play color-foot" ></i></a></div>
                         <div style="clear: both;"></div>
-                        <div class="contacto_foot">
-                        <div class="div_contacto1"><img src="{{ asset('assets/img/emails.png') }}" border="0"></div>
-                        <div class="div_contacto2">pedidos@alpina.com</div>
-                        <div style="clear: both;"></div>
-                        <div class="contacto_foot">
-                        <div class="div_contacto1"><img src="{{ asset('assets/img/phone.png') }}" border="0"></div>
-                        <div class="div_contacto2">+57 0000000000</div>
+                    </div-->
+                    </p>
+                    
+                </div>
+                <!-- //redes Section End -->
+                <!-- Contacto Section Start -->
+                <div class="col-sm-3 clearfix">
+                    <h4>Contáctenos</h4>
+                        <p>Cualquier inconveniente o duda, comunícate con nuestra línea de atención Alpina en Bogotá
+                        
+                        </p>
+                        <ul id="menu-contacto" class="menu_footer">
+                            <li class="menu-item">(+57) 4238600</li>
+                            <li class="menu-item">(+57) 5718600</li>
+                            <li class="menu-item">(01) 8000529999</li>
+                            <li class="menu-item">soporte@alpina.com</li>
+                            <li class="menu-item">Formulario de <a href="#">Contacto</a></li>
+                        </ul>
                     </div>
                 </div>
-            </div>
             <!-- //Contacto Section End -->
-            
+            <div>
+                <div class="col-md-12 text-center">
+                <div class="separador" style="    border-bottom: 2px solid #ffffff;margin-bottom: 10px; width:20%"></div>
+                <a href="#" class="menu-item">Términos y Condiciones</a> | <a href="#" class="menu-item">Políticas de Privacidad</a>
+                </div>
+            </div>
+            </div>
         </div>
+
+
     </footer>
     <!-- //Footer Section End -->
     <div class="copyright">
