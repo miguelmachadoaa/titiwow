@@ -176,13 +176,9 @@ Carrito de Compras
 
         </div>
 
-<<<<<<< HEAD
-                                    <div class="col-sm-3 border">
-                                        
-                                        Gratis
-=======
+
         <hr>
->>>>>>> 62d09a1326c466b1bf532ce6010d01a7e3c0ee53
+
 
         <div class="row">
 
