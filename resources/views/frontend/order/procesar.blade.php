@@ -121,7 +121,7 @@ Carro de Productos
      <div class="row">
          <div class="col-md-10 col-md-offset-1 table-responsive" style="padding-bottom:20px;">
              
-            <a class="btn btn-default"  href="{{ url('/productos') }}">Seguir Comprando </a>
+            <a class="btn btn-seguir"  href="{{ url('/productos') }}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
          </div>
      </div>
 

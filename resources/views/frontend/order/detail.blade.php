@@ -455,7 +455,7 @@ Carrito de Compras
 
 @else
 
-<h1><span class="label label-primary">Tu Carrito de Compras está Vacio</span></h1>
+<h2><span class="label label-primary">Tu Carrito de Compras está Vacio</span></h2>
 
 @endif
 

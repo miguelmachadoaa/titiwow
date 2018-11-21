@@ -150,10 +150,10 @@ Carrito de Compras
 
 
     <h1><span class="label label-primary">Tu Carrito está Vacio</span></h1>
-
+<br />
         <p style="text-align: center;">
            
-            <a class="btn btn-default" href="{{url('productos')}}">Seguir Comprando </a>
+            <a class="btn btn-seguir" href="{{url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
 
         </p> 
 

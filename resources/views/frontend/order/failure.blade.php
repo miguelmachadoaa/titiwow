@@ -346,7 +346,7 @@ Carro de Productos
      @else
 
 
-     <h1><span class="label label-primary">El Carrito está Vacio</span></h1>
+     <h2><span class="label label-primary">El Carrito está Vacio</span></h2>
         
 
      @endif
@@ -354,7 +354,7 @@ Carro de Productos
      <hr>
      <p style="text-align: center;">
 
-         <a class="btn btn-default" href="{{url('/productos')}}">Cancelar </a>
+         <a class="btn btn-danger" href="{{url('/productos')}}">Cancelar <i class="fa fa-times" aria-hidden="true"></i></a>
 
      </p>
 
