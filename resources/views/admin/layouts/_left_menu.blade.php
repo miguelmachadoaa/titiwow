@@ -233,7 +233,7 @@
             <li {!! (Request::is('admin/estatusenvios*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.estatusenvios.index') !!}">
                     <i class="fa fa-angle-double-right"></i>
-                    Estatus Pagos
+                    Estatus Envios
                 </a>
             </li>
         </ul>

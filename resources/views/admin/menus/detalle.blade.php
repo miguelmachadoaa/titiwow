@@ -178,6 +178,14 @@ Menu {{$menu->id}}
                     @else
                         No se encontraron registros
                     @endif   
+
+
+                    <p style="text-align: center;"> 
+                    <a class="btn btn-default" href="{{ url('admin/menus') }}">Volver</a>
+
+            </p>
+
+
                 </div>
             </div>
         </div>
