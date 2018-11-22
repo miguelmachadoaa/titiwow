@@ -55,6 +55,7 @@ Ordenes
                                     <th>Factura</th>
                                     <th>Tracking</th>
                                     <th>Creado</th>
+                                    <th>Estado</th>
                                     <th>Accion</th>
                                 </tr>
                             </thead>
@@ -74,6 +75,7 @@ Ordenes
                                     <td>{!! $row->factura!!}</td>
                                     <td>{!! $row->tracking!!}</td>
                                     <td>{!! $row->created_at->diffForHumans() !!}</td>
+                                    <td>{!! $row->estatus_nombre !!}</td>
                                     <td>
 
                                            <a class="btn btn-primary btn-xs" href="{{ route('admin.ordenes.detalle', $row->id) }}">
