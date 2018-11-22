@@ -65,6 +65,11 @@ body {
     border-color: #143473;
     padding: 6px 30px;
 }
+.btn-vermas2{
+    background-color:#143473;
+    border-color: #143473;
+    padding: 6px 20px;
+}
 .btn-seguir{
     background-color:#143473;
     border-color: #143473;
@@ -828,6 +833,12 @@ footer a:hover, footer a:active{
 #hr_border2 {
     border-top : 1px solid #999;
 }
+.table{
+    font-family: 'PlutoRegular';
+}
+.alert{
+    font-family: 'PlutoRegular';
+}
 .alert-success {
     color: #fff;
     background-color: #22ddad !important;
@@ -895,7 +906,7 @@ footer a:hover, footer a:active{
 /* Fin footer contacto*/
 /* Header inicio */
 .logo-section {
-    background: url(../../assets/img/fondo_madera.jpg) repeat top center #203878;
+    background: url(../../assets/img/backhead.jpg) no-repeat top center #203878;
 }
 .logo-section-height{
     height: 115px;
@@ -907,7 +918,9 @@ footer a:hover, footer a:active{
     font-weight: 300;
     text-transform: uppercase;
 }
-
+.dropdown-menu{
+    font-size:12px;
+}
 .dropdown-menu>li>a{
     color:#143473;
     text-transform:uppercase;
@@ -1074,11 +1087,11 @@ footer a:hover, footer a:active{
 }
 .precio_base{
     color:#143473;
-    font-size: 20px;
+    font-size: 1.2em;
 }
 #precio_prod del{
     color: #d5006e;
-    font-size: 18px;
+    font-size: 1.1em;
 }
 .product_info a:link{
     color:#ffffff;
@@ -1439,6 +1452,13 @@ footer a:hover, footer a:active{
 }
 /*marcas home fin*/
 /*Categorias internas */
+
+.cajita{
+    color:#143473;
+}
+.cajita:hover{
+    color:#d5006e;
+}
 .categoriaprod {
     width: 100%;
     margin: 20px 0px;

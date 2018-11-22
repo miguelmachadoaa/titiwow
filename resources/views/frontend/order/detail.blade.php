@@ -210,7 +210,7 @@ Carrito de Compras
 
                     </div>
 
-                    <div class="col-sm-3 border">  $0 </div>
+                    <div class="col-sm-3 border">  Gratis </div>
 
                 </div>
 
