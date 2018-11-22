@@ -107,7 +107,9 @@ Alpinistas
     <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
     <script>
         $(document).ready(function() {
+
             $('#table').DataTable();
+            
         });
     </script>
 @stop

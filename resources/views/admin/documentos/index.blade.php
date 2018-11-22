@@ -6,6 +6,11 @@ Tipos de Documentos
 @parent
 @stop
 
+@section('header_styles')
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
+    <link href="{{ asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
+@stop
+
 {{-- Content --}}
 @section('content')
 <section class="content-header">
@@ -40,7 +45,7 @@ Tipos de Documentos
                     @if ($documentos->count() >= 1)
                         <div class="table-responsive">
 
-                        <table class="table table-bordered">
+                        <table class="table table-bordered" id="table">
                             <thead>
                                 <tr>
                                     <th>Id</th>
@@ -122,7 +127,21 @@ Tipos de Documentos
         </div>
     </div>
 </div>
+
+<script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
+
+
 <script>
+
+
+     $(document).ready(function() {
+
+            $('#table').DataTable();
+            
+        });
+
+
     $(function () {$('body').on('hidden.bs.modal', '.modal', function () {$(this).removeData('bs.modal');});});
     $(document).on("click", ".users_exists", function () {
 

@@ -172,7 +172,7 @@
 
     @endif
 
-    @if (Sentinel::getUser()->hasAnyAccess(['formaspago.*']) || Sentinel::getUser()->hasAnyAccess(['configuracion.*']) || Sentinel::getUser()->hasAnyAccess(['estatus.*']) || Sentinel::getUser()->hasAnyAccess(['formasenvio.*']) || Sentinel::getUser()->hasAnyAccess(['rolenvios.*']) || Sentinel::getUser()->hasAnyAccess(['rolpagos.*']) || Sentinel::getUser()->hasAnyAccess(['impuestos.*']) || Sentinel::getUser()->hasAnyAccess(['marcas.*']) || Sentinel::getUser()->hasAnyAccess(['menus.*']) || Sentinel::getUser()->hasAnyAccess(['transportistas.*']) || Sentinel::getUser()->hasAnyAccess(['sedes.*']) || Sentinel::getUser()->hasAnyAccess(['empresas.*']) || Sentinel::getUser()->hasAnyAccess(['cupones.*'])  )
+    @if (Sentinel::getUser()->hasAnyAccess(['formaspago.*']) || Sentinel::getUser()->hasAnyAccess(['configuracion.*']) || Sentinel::getUser()->hasAnyAccess(['estatus.*']) || Sentinel::getUser()->hasAnyAccess(['formasenvio.*']) || Sentinel::getUser()->hasAnyAccess(['rolenvios.*']) || Sentinel::getUser()->hasAnyAccess(['rolpagos.*']) || Sentinel::getUser()->hasAnyAccess(['impuestos.*']) || Sentinel::getUser()->hasAnyAccess(['marcas.*']) || Sentinel::getUser()->hasAnyAccess(['menus.*']) || Sentinel::getUser()->hasAnyAccess(['transportistas.*']) || Sentinel::getUser()->hasAnyAccess(['sedes.*']) || Sentinel::getUser()->hasAnyAccess(['empresas.*']) || Sentinel::getUser()->hasAnyAccess(['cupones.*'])|| Sentinel::getUser()->hasAnyAccess(['documentos.*'])  )
 
 
 
@@ -205,6 +205,8 @@
             </li> 
         </ul>
     @endif
+
+   
         
     @if (Sentinel::getUser()->hasAnyAccess(['estatus.*']))
         <ul class="sub-menu">
@@ -273,6 +275,17 @@
             </li>
         </ul>
     @endif
+
+    @if (Sentinel::getUser()->hasAnyAccess(['inventario.*']))
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/inventario*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.inventario.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Inventario
+                </a>
+            </li>
+        </ul>
+    @endif
      
     @if (Sentinel::getUser()->hasAnyAccess(['rolenvios.*']))
         <ul class="sub-menu">
@@ -296,14 +309,14 @@
     @endif
 
     @if (Sentinel::getUser()->hasAnyAccess(['rolconfiguracion.*']))
-        <ul class="sub-menu">
+        <!--<ul class="sub-menu">
             <li {!! (Request::is('admin/rolconfiguracion*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.rolconfiguracion.index') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Roles - Configuracion
                 </a>
             </li>
-        </ul>
+        </ul>-->
     @endif
 
     @if (Sentinel::getUser()->hasAnyAccess(['impuestos.*']))

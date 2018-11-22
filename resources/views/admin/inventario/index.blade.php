@@ -6,6 +6,11 @@ Inventario
 @parent
 @stop
 
+@section('header_styles')
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
+    <link href="{{ asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
+@stop
+
 {{-- Content --}}
 @section('content')
 <section class="content-header">
@@ -124,10 +129,17 @@ Inventario
         $(".modal-header h4").text( group_name+" Group" );
     });
 
-     $('#tbInventario').DataTable({
+    $(document).ready(function(){
+
+         $('#tbInventario').DataTable({
                       responsive: true,
                       pageLength: 10
                   });
+
+         
+    });
+
+    
 
 
 </script>
