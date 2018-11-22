@@ -123,7 +123,7 @@ Area clientes
         <div class="col-sm-12">
             <div class="row">
             <div class="col-sm-2 text-center">
-                <a href="{{ url('my-account') }}" class=" btn-medium ">
+                <a href="{{ url('my-account') }}" class=" btn-medium cajita">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-user"></i></div>
                     <div class="col-sm-12">Mi Cuenta</div>
@@ -133,7 +133,7 @@ Area clientes
                 </a>
             </div>    
             <div class="col-sm-2 text-center">
-                <a href="{{ url('miscompras') }}" class=" btn-medium ">
+                <a href="{{ url('miscompras') }}" class=" btn-medium cajita">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-shopping-cart"></i></div>
                     <div class="col-sm-12">Mis Compras</div>
@@ -143,7 +143,7 @@ Area clientes
                 </a>
             </div>    
             <div class="col-sm-2 text-center">
-                <a href="{{ url('misdirecciones') }}" class=" btn-medium ">
+                <a href="{{ url('misdirecciones') }}" class=" btn-medium cajita">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-map"></i></div>
                     <div class="col-sm-12">Mi Dirección </div>
@@ -151,7 +151,7 @@ Area clientes
                 </a>
             </div> 
             <div class="col-sm-2 text-center">   
-                <a href="{{ url('productos') }}" class=" btn-medium ">
+                <a href="{{ url('productos') }}" class=" btn-medium cajita">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-shopping-cart"></i></div>
                     <div class="col-sm-12">Comprar </div>
@@ -160,7 +160,7 @@ Area clientes
             </div> 
                 @if (Sentinel::getUser()->hasAnyAccess(['clientes.misamigos']))
                 <div class="col-sm-2 text-center"> 
-                <a  href="{{ url('misamigos') }}" class=" btn-medium ">
+                <a  href="{{ url('misamigos') }}" class=" btn-medium cajita">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-users"></i></div>
                     <div class="col-sm-12">Mis Amigos</div>
@@ -171,7 +171,7 @@ Area clientes
 
                 @if (Sentinel::getUser()->hasAnyAccess(['clientes.misamigos']))
                 <div class="col-sm-2 text-center"> 
-                <a  href="{{ url('miestatus') }}" class=" btn-medium ">
+                <a  href="{{ url('miestatus') }}" class=" btn-medium cajita">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-users"></i></div>
                     <div class="col-sm-12">Mi Estatus </div>
@@ -182,7 +182,7 @@ Area clientes
             <div class="row">
                 @endif
                 <div class="col-sm-2 text-center"> 
-                <a href="{{ url('#') }}" class=" btn-medium ">
+                <a href="{{ url('#') }}" class=" btn-medium cajita">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-question-circle"></i></div>
                     <div class="col-sm-12">Preguntas</div>
@@ -191,7 +191,7 @@ Area clientes
                 </div> 
                 @if($cliente->cod_alpinista==0)
                     <div class="col-sm-2 text-center"> 
-                    <a href="{{ url('#') }}" class=" btn-medium delete ">
+                    <a href="{{ url('#') }}" class=" btn-medium delete cajita">
                         <div class="row">
                         <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-trash"></i></div>
                         <div class="col-sm-12">Eliminar Cuenta </div>

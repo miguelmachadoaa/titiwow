@@ -47,7 +47,7 @@ Resultado de la Búsqueda @parent
 @section('content')
 <div class="container contain_body">
 <div class="row">
-<div class="col-md-3 hidden-xs">
+<div class="col-md-3 hidden-xs" style="padding-right:30px">
 @include('layouts.sidebar')
 </div>
 <div class="col-md-9">

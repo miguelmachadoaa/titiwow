@@ -98,9 +98,9 @@
     </div>
 
     <p style="text-align: center;">
-        <a class="btn btn-default" href="{{url('productos')}}">Seguir Comprando </a>
+        <a class="btn btn-seguir" href="{{url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
 
-         <a class="btn btn-default sendDetail" href="{{url('order/detail')}}">Continuar</a>
+         <a class="btn btn-cart sendDetail" href="{{url('order/detail')}}">Continuar <i class="fa fa-plus" aria-hidden="true"></i></a>
      </p> 
 
 
@@ -111,7 +111,7 @@
 
         <p style="text-align: center;">
            
-            <a class="btn btn-default" href="{{url('productos')}}">Seguir Comprando </a>
+            <a class="btn btn-seguir" href="{{url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
 
         </p> 
 
