@@ -6,6 +6,11 @@ Envios
 @parent
 @stop
 
+@section('header_styles')
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
+    <link href="{{ asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
+@stop
+
 {{-- Content --}}
 @section('content')
 <section class="content-header">
@@ -244,6 +249,8 @@ $("#estatusEnviosForm").bootstrapValidator({
 
 });
 
+        $(document).ready(function(){
+
 
 
         $('#tbOrdenes').DataTable({
@@ -255,6 +262,8 @@ $("#estatusEnviosForm").bootstrapValidator({
                            $('.livicon').updateLivicon();
                      },500);
                   } );
+
+        });
 
        </script>
 

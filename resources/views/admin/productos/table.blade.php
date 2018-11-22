@@ -105,16 +105,23 @@
 
         });
 
-        $('#alpProductos-table').DataTable({
-                      responsive: true,
-                      pageLength: 10,
-                      order: [ 0, 'desc' ]
-                  });
-                  $('#alpProductos-table').on( 'page.dt', function () {
-                     setTimeout(function(){
-                           $('.livicon').updateLivicon();
-                     },500);
-                  } );
+
+         $(document).ready(function(){
+
+            $('#alpProductos-table').DataTable({
+                          responsive: true,
+                          pageLength: 10,
+                          order: [ 0, 'desc' ]
+                      });
+            
+            $('#alpProductos-table').on( 'page.dt', function () {
+                         setTimeout(function(){
+                               $('.livicon').updateLivicon();
+                         },500);
+                      } );
+         });
+
+
 
 
 
