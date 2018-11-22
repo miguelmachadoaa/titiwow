@@ -38,9 +38,9 @@
                     <h4>Más Información</h4>
                     <p>
                         <ul id="menu-informacion" class="menu_footer">
-                            <li class="menu-item"><a href="www.alpina.com" target="_blank">Alpina Digital</a></li>
-                            <li class="menu-item"><a href="www.alpina.com/corporativo" target="_blank">Corporativo</a></li>
-                            <li class="menu-item"><a href="www.alpina.com/recetas" target="_blank">Recetas</a></li>
+                            <li class="menu-item"><a href="https://www.alpina.com" target="_blank">Alpina Digital</a></li>
+                            <li class="menu-item"><a href="https://www.alpina.com/corporativo" target="_blank">Corporativo</a></li>
+                            <li class="menu-item"><a href="https://www.alpina.com/recetas" target="_blank">Recetas</a></li>
 
                         </ul>
                     </p>

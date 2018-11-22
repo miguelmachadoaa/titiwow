@@ -122,7 +122,7 @@
                                             <div class="input-group">
                                                 <input type="text" name="buscar"  id="buscar" class="form-control" placeholder="Buscar ..." value="{{ old('buscar') }}" autocomplete="off">
                                             <span class="input-group-btn">
-                                                <button class="btn btn-success" >Buscar!</button>
+                                                <button class="btn btn-default" alt="Buscar" ><i class="fa fa-search" aria-hidden="true" id="busqueda"></i></button>
                                             </span>
                                             </div><!-- /input-group -->
                                         </div><!-- /.col-lg-6 -->
@@ -132,18 +132,18 @@
                         </div>
                         <div class="col-md-4 col-xs-8">
                             <div id="header_logo" class="pull-center">
-                                <a  href="{{ route('home') }}"><img src="{{ asset('assets/images/logo_alpina.jpg') }}" alt="Alpina Market" class="logo_position"></a>
+                                <a  href="{{ route('home') }}"><img src="{{ asset('assets/images/logo_go.png') }}" alt="Alpina Go!" class="logo_position"></a>
                             </div>
                         </div>
                         <div class="col-md-4 col-xs-4 navbar-nav" class="pull_left">
                             <div id="cart_block_top" class="pull-right navbar-nav">
                                 
 
-                                <button type="button" name="submit_search" class="btn btn-default button-cart dropdown nav-item ">
-                                <a class="dropdown-toggle nav-link" role="button"  aria-expanded="false"  href="{{ url('cart/show') }}"><span>Carrito de Compra</span></a>
-
-                                        
-                                </button>
+                                <!--button type="button" name="submit_search" class="btn btn-default button-cart dropdown nav-item "-->
+                                
+                                    <a class="btn btn-default" role="button"  aria-expanded="false"  href="{{ url('cart/show') }}" alt="Ir a Mi Carrito de Compras"><i class="fa fa-cart-arrow-down" aria-hidden="true" id="carrto"></i></a>
+ 
+                                <!--/button-->
 
 
                                 
