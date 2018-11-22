@@ -263,13 +263,12 @@ p label {
     font-weight    : 400;
 }
 .navbar-default .navbar-nav>li>a{
-    color:#143473 !important;
+    color:#143473;
 }
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav>.active>a {
-    color : #00aeef;
+    color : #ffffff;
     text-shadow: rgba(51, 51, 51, 0.298039) 0px 0px 0.5em;
-    background: #fafafa;
-    border-bottom: 4px solid #00aeef !important;
+    background: #143473;
 }
 /* ---------- Navbar  Dropdown menu Css ---------- */
 
@@ -282,7 +281,7 @@ p label {
     content       : " ";
     display       : block !important;
     position      : relative;
-    border-bottom : 8px solid #ef6f6c;
+    border-bottom : 8px solid #143473;
     border-right  : 8px solid transparent;
     border-left   : 8px solid transparent;
 }
@@ -290,7 +289,7 @@ p label {
 /* ---------- Navbar  Dropdown menu hover Css ---------- */
 
 .navbar-nav .dropdown-menu a:hover {
-    border-left : 2px solid #ef6f6c;
+    border-left : 2px solid #143473;
 }
 /* ---------- //Navbar  Dropdown menu hover Css End ---------- */
 
@@ -778,6 +777,11 @@ footer a:hover, footer a:active{
         margin-left  : 4%;
     }
 }
+@media (min-width: 768px){
+    .navbar-nav {
+        margin: -6px;
+    }
+}
 .skin_btn {
     display       : inline-table;
     cursor        : pointer;
@@ -894,25 +898,45 @@ footer a:hover, footer a:active{
     background: url(../../assets/img/fondo_madera.jpg) repeat top center #203878;
 }
 .logo-section-height{
-    height: 155px;
-    min-height: 155px;
-    padding: 32px;
+    height: 115px;
+    min-height: 115px;
+    padding: 12px;
 }
 .menu-top{
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
     text-transform: uppercase;
 }
+
+.dropdown-menu>li>a{
+    color:#143473;
+    text-transform:uppercase;
+    padding: 5px 20px
+}
+#busqueda{
+    color: #143473;
+    text-shadow: 1px 1px 1px #ccc;
+    font-size: 1.8em;
+}
+#carrto{
+    color: #d5006e;
+    text-shadow: 1px 1px 1px #ccc;
+    font-size: 2em;
+}
 /* Header fin*/
 /*bloque buscar inicio*/
 #search_block_top{
     margin-top: 20px;
 }
+#buscar{
+    height: 41px !important;
+    font-family: 'PlutoRegular';
+}
 #search_block_top .btn.button-search span {
     background: url(../../assets/img/icons-lens.png) no-repeat scroll center center rgba(0, 0, 0, 0);
     border: medium none;
     display: block;
-    height: 34px;
+    height: 41px;
     width: 34px;
     margin: 0 auto;
     line-height: 34px;
