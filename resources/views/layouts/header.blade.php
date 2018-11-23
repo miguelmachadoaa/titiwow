@@ -42,17 +42,22 @@
         <!-- Icon Section Start -->
         <div class="icon-section">
             <div class="container">
-                <div class="col-sm-4 " >
-                    <div class="navbar-header menu_float hidden-md">
+                <div class="row hidden-lg">
+                    <div class="col-sm-8" >
                         <div id="header_logo" class="pull-left hidden-lg">
-                                <a  href="{{ route('home') }}" class="hidden-md"><img src="{{ asset('assets/images/logo_alpina.jpg') }}" alt="Alpina Market" class="logo_position"></a>
+                                <a  href="{{ route('home') }}" class="hidden-md"><img src="{{ asset('assets/images/logo_movil.png') }}" alt="Alpina Go!" class="logo_position"></a>
                         </div>
-                        <button type="button" class="navbar-toggle collapsed pull-left" data-toggle="collapse" data-target="#collapse">
+                    </div>
+                    <div class="col-sm-4 pull-right" >
+                    <button type="button" class="navbar-toggle collapsed pull-left" data-toggle="collapse" data-target="#collapse">
                             <span><a href="#"><i class="livicon" data-name="responsive-menu" data-size="25" data-loop="false" data-c="#ffffff" data-hc="#ccc"></i>
                             </a></span>
                         </button>
                     </div>
-                    <div class="pull-left hidden-xs">
+                </div>
+                <div class="col-sm-4 " >
+                   
+                    <div class="pull-left hidden-md hidden-xs hidden-sm">
                         <ul class="list-inline icon-position" style="margin-bottom:0px !important">
                             <li><a href="https://www.facebook.com/alpina" target="_blank"><i class="fa fa-facebook-f color-top" ></i></a></li>
                             <li><a href="https://www.instagram.com/alpinacol/" target="_blank"><i class="fa fa-instagram color-top" ></i></a></li>
@@ -65,14 +70,14 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-8 col-sm-8" >
+                <div class="col-md-8 col-sm-8 hidden-md hidden-xs hidden-sm" id="datos">
                     <ul class="list-inline">
                         <li class="pull-right menu-top">
                             <ul class="list-inline icon-position">
 
                                 <li >
                                     
-                                    <label class="hidden-xs"><a id="ubicacion_header"  ></a></label>
+                                    <label class=""><a id="ubicacion_header"  ></a></label>
                                    
                                 </li>
 
@@ -110,11 +115,11 @@
         </div>
         <!-- //Icon Section End -->
         <!-- logo Section Start -->
-        <div class="logo-section hidden-xs">
+        <div class="logo-section hidden-xs hidden-sm hidden-md">
             <div class="logo-section-height">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-4 hidden-xs" >
+                        <div class="col-md-4 " >
                             <div id="search_block_top" class="pull-left">
                                 <form method="GET" action="{{ url('buscar') }}">
                                     <div class="row">
@@ -154,6 +159,7 @@
             </div>
         </div>
         <!-- //logo Section End -->
+        
         <nav class="navbar navbar-default container">
             <div class="collapse navbar-collapse" id="collapse"> 
                 <ul class="nav navbar-nav">
