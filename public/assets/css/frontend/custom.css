@@ -113,10 +113,15 @@ a:link,
 a:link,
 a:hover,
 a:focus,
-a:active {
+a:visited
+ {
     color           : #009fe3;
     text-decoration : none;
     font-family: 'PlutoBold';
+}
+a:active,
+a:hover{
+    color:#143473;
 }
 ul {
     list-style-type : none;
