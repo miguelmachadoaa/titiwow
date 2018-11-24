@@ -783,17 +783,25 @@ class AlpProductosController extends JoshController
      * @param Blog $blog
      * @return Response
      */
-    public function getModalDelete(AlpProductos $producto)
+    public function getModalDelete( $producto)
     {
+        
+       // dd($producto);
+
         $model = 'AlpProductos';
         $confirm_route = $error = null;
         try {
-            $confirm_route = route('admin.productos.delete', ['id' => $producto->id]);
+
+            $confirm_route = route('admin.productos.delete', ['id' => $producto]);
+
             return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
+
         } catch (GroupNotFoundException $e) {
 
             $error = trans('Error al eliminar Registro', compact('id'));
+
             return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
+
         }
     }
 
@@ -803,12 +811,56 @@ class AlpProductosController extends JoshController
      * @param  Blog $blog
      * @return Response
      */
-    public function destroy(AlpProductos $producto)
+    public function destroy( $producto)
     {
+
+
+      $id_producto=$producto;
+
+      $producto=AlpProductos::where('id', $id_producto)->first();
+
         if ($producto->delete()) {
+
+          $categorias=AlpCategoriasProductos::where('id_producto', $id_producto)->get();
+
+          foreach ($categorias as $categoria) {
+            
+            $cat=AlpCategoriasProductos::where('id', $categoria->id)->first();
+
+            $cat->delete();
+
+          }
+
+          $inventarios=AlpInventario::where('id_producto', $id_producto)->get();
+
+          foreach ($inventarios as $inventario) {
+            
+            $inv=AlpInventario::where('id', $inventario->id)->first();
+
+            $inv->delete();
+
+          }
+
+          $precios=AlpPrecioGrupo::where('id_producto', $id_producto)->get();
+
+          foreach ($precios as $precio) {
+            
+            $pre=AlpPrecioGrupo::where('id', $precio->id)->first();
+
+            $pre->delete();
+
+          }
+
+
             return redirect('admin/productos')->with('success', trans('Registro Eliminado Satisfactoriamente'));
+
+
         } else {
+
+
             return Redirect::route('admin/productos')->withInput()->with('error', trans('Error al eliminar Registro'));
+
+
         }
     }
 
