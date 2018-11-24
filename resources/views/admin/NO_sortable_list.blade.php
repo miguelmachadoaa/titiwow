@@ -9,7 +9,7 @@ Sortable List
 {{-- page level styles --}}
 @section('header_styles')
 
-    <link href="{{ asset('assets/css/pages/sortable_list.css')}}" rel="stylesheet">
+    <link href="{{ secure_asset('assets/css/pages/sortable_list.css')}}" rel="stylesheet">
     
 @stop
 
@@ -168,25 +168,25 @@ Sortable List
                         <div class="layer tile" data-force="30">
                             <div class="tile__name">Group A</div>
                             <div class="tile__list">
-                                <img src="{{ asset('assets/img/authors/avatar.jpg') }}"/>
-                                <img src="{{ asset('assets/img/authors/avatar1.jpg') }}"/>
-                                <img src="{{ asset('assets/img/authors/avatar2.jpg') }}"/>
-                                <img src="{{ asset('assets/img/authors/avatar3.jpg') }}"/>
+                                <img src="{{ secure_asset('assets/img/authors/avatar.jpg') }}"/>
+                                <img src="{{ secure_asset('assets/img/authors/avatar1.jpg') }}"/>
+                                <img src="{{ secure_asset('assets/img/authors/avatar2.jpg') }}"/>
+                                <img src="{{ secure_asset('assets/img/authors/avatar3.jpg') }}"/>
                             </div>
                         </div>
                         <div class="layer tile" data-force="25">
                             <div class="tile__name">Group B</div>
                             <div class="tile__list">
-                                <img src="{{ asset('assets/img/authors/avatar4.jpg') }}"/>
-                                <img src="{{ asset('assets/img/authors/avatar5.jpg') }}"/>
-                                <img src="{{ asset('assets/img/authors/avatar6.jpg') }}"/>
+                                <img src="{{ secure_asset('assets/img/authors/avatar4.jpg') }}"/>
+                                <img src="{{ secure_asset('assets/img/authors/avatar5.jpg') }}"/>
+                                <img src="{{ secure_asset('assets/img/authors/avatar6.jpg') }}"/>
                             </div>
                         </div>
                         <div class="layer tile" data-force="20">
                             <div class="tile__name">Group C</div>
                             <div class="tile__list">
-                                <img src="{{ asset('assets/img/authors/avatar7.jpg') }}"/>
-                                <img src="{{ asset('assets/img/authors/avatar.jpg') }}"/>
+                                <img src="{{ secure_asset('assets/img/authors/avatar7.jpg') }}"/>
+                                <img src="{{ secure_asset('assets/img/authors/avatar.jpg') }}"/>
                             </div>
                         </div>
                     </div>
@@ -278,8 +278,8 @@ Sortable List
 {{-- page level scripts --}}
 @section('footer_scripts')
 
-    <script src="{{ asset('assets/vendors/Sortable/js/Sortable.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/js/pages/sortable_list.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/Sortable/js/Sortable.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/js/pages/sortable_list.js') }}" type="text/javascript"></script>
 
     
 @stop

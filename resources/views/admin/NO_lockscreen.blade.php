@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="_token" content="{{ csrf_token() }}">
     <!-- global level css -->
-    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
     <!-- end of global level css -->
     <!-- page level css -->
-    <link href="{{ asset('assets/css/pages/lockscreen.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('assets/vendors/fort_js/css/fort.css') }}" />
+    <link href="{{ secure_asset('assets/css/pages/lockscreen.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ secure_asset('assets/vendors/fort_js/css/fort.css') }}" />
     <!-- end of page level css -->
 </head>
 
@@ -28,15 +28,15 @@
                          class="img-circle img-responsive "/>
 
                 @elseif(Sentinel::getUser()->gender === "male")
-                    <img src="{{ asset('assets/images/authors/avatar3.png') }}" alt="img"
+                    <img src="{{ secure_asset('assets/images/authors/avatar3.png') }}" alt="img"
                          class="img-circle img-responsive "/>
 
                 @elseif(Sentinel::getUser()->gender === "female")
-                    <img src="{{ asset('assets/images/authors/avatar5.png') }}" alt="img"
+                    <img src="{{ secure_asset('assets/images/authors/avatar5.png') }}" alt="img"
                          class="img-circle img-responsive "/>
 
                 @else
-                    <img src="{{ asset('assets/images/authors/no_avatar.jpg') }}" alt="img"
+                    <img src="{{ secure_asset('assets/images/authors/no_avatar.jpg') }}" alt="img"
                          class="img-circle img-responsive"/>
                 @endif
         </div>
@@ -53,14 +53,14 @@
 
 </div>
 <!-- global js -->
-<script src="{{ asset('assets/js/jquery-1.11.1.min.js') }}" type="text/javascript"></script>
+<script src="{{ secure_asset('assets/js/jquery-1.11.1.min.js') }}" type="text/javascript"></script>
 <!-- Bootstrap -->
-<script src="{{ asset('assets/js/bootstrap.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/js/holder.js') }}"></script>
+<script src="{{ secure_asset('assets/js/bootstrap.min.js') }}" type="text/javascript"></script>
+<script src="{{ secure_asset('assets/js/holder.js') }}"></script>
 <!-- end of global js -->
 <!-- beginning of page level js-->
-<script src="{{ asset('assets/vendors/fort_js/js/fort.js') }}"></script>
-{{--<script src="{{ asset('assets/js/pages/lockscreen.js') }}"></script>--}}
+<script src="{{ secure_asset('assets/vendors/fort_js/js/fort.js') }}"></script>
+{{--<script src="{{ secure_asset('assets/js/pages/lockscreen.js') }}"></script>--}}
 <script>Fort.gradient();</script>
 <script>
     $(document).ready(function(){

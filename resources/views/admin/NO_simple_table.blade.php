@@ -9,7 +9,7 @@ Simple Tables
 {{-- page level styles --}}
 @section('header_styles')
     <!-- page level css -->
-    <link href="{{ asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ secure_asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
     
 @stop
 

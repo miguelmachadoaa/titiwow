@@ -9,10 +9,10 @@ News_Item
 {{-- page level styles --}}
 @section('header_styles')
     <!--page level css starts-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/news.css') }}">
-<link href="{{ asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/blog.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/news.css') }}">
+<link href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/blog.css') }}">
     <!--end of page level css-->
 @stop
 
@@ -72,7 +72,7 @@ News_Item
                         <div class="col-xs-3">
                             <p>
                                 <a href="#">
-                                    <img src="{{ asset('assets/images/authors/avatar.jpg') }}" class="img-responsive img-circle" alt="riot">
+                                    <img src="{{ secure_asset('assets/images/authors/avatar.jpg') }}" class="img-responsive img-circle" alt="riot">
                                 </a>
                             </p>
                         </div>
@@ -80,7 +80,7 @@ News_Item
                         <div class="col-xs-3">
                             <p>
                                 <a href="#">
-                                    <img src="{{ asset('assets/images/authors/avatar1.jpg') }}" class="img-responsive img-circle" alt="riot">
+                                    <img src="{{ secure_asset('assets/images/authors/avatar1.jpg') }}" class="img-responsive img-circle" alt="riot">
                                 </a>
                             </p>
                         </div>
@@ -88,7 +88,7 @@ News_Item
                         <div class="col-xs-3">
                             <p>
                                 <a href="#">
-                                    <img src="{{ asset('assets/images/authors/avatar2.jpg') }}" class="img-responsive img-circle" alt="riot">
+                                    <img src="{{ secure_asset('assets/images/authors/avatar2.jpg') }}" class="img-responsive img-circle" alt="riot">
                                 </a>
                             </p>
                         </div>
@@ -96,7 +96,7 @@ News_Item
                         <div class="col-xs-3">
                             <p>
                                 <a href="#">
-                                    <img src="{{ asset('assets/images/authors/avatar3.jpg') }}" class="img-responsive img-circle" alt="riot">
+                                    <img src="{{ secure_asset('assets/images/authors/avatar3.jpg') }}" class="img-responsive img-circle" alt="riot">
                                 </a>
                             </p>
                         </div>
@@ -130,7 +130,7 @@ News_Item
                         <div class="media">
                             <div class="media-left">
                                 <a href="#">
-                                    <img class="media-object" src="{{ asset('assets/images/image_13.jpg') }}" alt="image">
+                                    <img class="media-object" src="{{ secure_asset('assets/images/image_13.jpg') }}" alt="image">
                                 </a>
                             </div>
                             <div class="media-body">
@@ -146,7 +146,7 @@ News_Item
                         <div class="media">
                             <div class="media-left">
                                 <a href="#">
-                                    <img class="media-object" src="{{ asset('assets/images/image_14.jpg') }}" alt="image">
+                                    <img class="media-object" src="{{ secure_asset('assets/images/image_14.jpg') }}" alt="image">
                                 </a>
                             </div>
                             <div class="media-body">
@@ -163,7 +163,7 @@ News_Item
                         <div class="media">
                             <div class="media-left">
                                 <a href="#">
-                                    <img class="media-object" src="{{ asset('assets/images/image_15.jpg') }}" alt="image">
+                                    <img class="media-object" src="{{ secure_asset('assets/images/image_15.jpg') }}" alt="image">
                                 </a>
                             </div>
                             <div class="media-body">
@@ -188,7 +188,7 @@ News_Item
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
     <script>
         jQuery(document).ready(function () {
             new WOW().init();

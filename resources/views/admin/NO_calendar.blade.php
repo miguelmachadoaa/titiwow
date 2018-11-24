@@ -9,10 +9,10 @@ Calendar
 {{-- page level styles --}}
 @section('header_styles')
     
-    <link href="{{ asset('assets/vendors/fullcalendar/css/fullcalendar.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/vendors/fullcalendar/css/fullcalendar.print.css') }}" rel="stylesheet"  media='print' type="text/css">
-    <link href="{{ asset('assets/vendors/iCheck/css/all.css') }}"  rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/css/pages/calendar_custom.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ secure_asset('assets/vendors/fullcalendar/css/fullcalendar.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ secure_asset('assets/vendors/fullcalendar/css/fullcalendar.print.css') }}" rel="stylesheet"  media='print' type="text/css">
+    <link href="{{ secure_asset('assets/vendors/iCheck/css/all.css') }}"  rel="stylesheet" type="text/css" />
+    <link href="{{ secure_asset('assets/css/pages/calendar_custom.css') }}" rel="stylesheet" type="text/css" />
     <!--page level styles ends-->
 @stop
 
@@ -207,8 +207,8 @@ Calendar
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-        <script src="{{ asset('assets/vendors/moment/js/moment.min.js') }}"  type="text/javascript"></script>
-        <script src="{{ asset('assets/vendors/fullcalendar/js/fullcalendar.min.js') }}"  type="text/javascript"></script>
-        <script src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
-        <script src="{{ asset('assets/js/pages/calendar.js') }}"  type="text/javascript"></script>
+        <script src="{{ secure_asset('assets/vendors/moment/js/moment.min.js') }}"  type="text/javascript"></script>
+        <script src="{{ secure_asset('assets/vendors/fullcalendar/js/fullcalendar.min.js') }}"  type="text/javascript"></script>
+        <script src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
+        <script src="{{ secure_asset('assets/js/pages/calendar.js') }}"  type="text/javascript"></script>
 @stop

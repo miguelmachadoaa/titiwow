@@ -8,10 +8,10 @@ Carousel
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link href="{{ asset('assets/vendors/owl_carousel/css/owl.carousel.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('assets/vendors/owl_carousel/css/owl.theme.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('assets/vendors/owl_carousel/css/owl.transitions.css') }}" rel="stylesheet" type="text/css">
-	<link href="{{ asset('assets/css/pages/carousel.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/vendors/owl_carousel/css/owl.carousel.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ secure_asset('assets/vendors/owl_carousel/css/owl.theme.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ secure_asset('assets/vendors/owl_carousel/css/owl.transitions.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ secure_asset('assets/css/pages/carousel.css') }}" rel="stylesheet" />
     
 @stop
 
@@ -52,15 +52,15 @@ Carousel
                 <div class="panel-body">
                     <div class="owl-carousel owl-theme" id="carousel3">
                         <div class="item">
-                            <img src="{{ asset('assets/img/parallax/photo1.jpg') }}"  alt="image1"> </div>
+                            <img src="{{ secure_asset('assets/img/parallax/photo1.jpg') }}"  alt="image1"> </div>
                         <div class="item">
-                            <img src="{{ asset('assets/img/parallax/photo2.jpg') }}"  alt="image2"> </div>
+                            <img src="{{ secure_asset('assets/img/parallax/photo2.jpg') }}"  alt="image2"> </div>
                         <div class="item">
-                            <img src="{{ asset('assets/img/parallax/photo3.jpg') }}"  alt="image3"> </div>
+                            <img src="{{ secure_asset('assets/img/parallax/photo3.jpg') }}"  alt="image3"> </div>
                         <div class="item">
-                            <img src="{{ asset('assets/img/parallax/photo1.jpg') }}"  alt="image4"> </div>
+                            <img src="{{ secure_asset('assets/img/parallax/photo1.jpg') }}"  alt="image4"> </div>
                         <div class="item">
-                            <img src="{{ asset('assets/img/parallax/photo2.jpg') }}"  alt="image5"> </div>
+                            <img src="{{ secure_asset('assets/img/parallax/photo2.jpg') }}"  alt="image5"> </div>
                     </div>
                     <!-- End Carousel -->
                 </div>
@@ -84,15 +84,15 @@ Carousel
                         <!--carousel starts-->
                         <div class="owl-carousel owl-theme" id="carousel1">
                             <div class="item">
-                                <img src="{{ asset('assets/img/parallax/photo1.jpg') }}"  alt="image1"> </div>
+                                <img src="{{ secure_asset('assets/img/parallax/photo1.jpg') }}"  alt="image1"> </div>
                             <div class="item">
-                                <img src="{{ asset('assets/img/parallax/photo2.jpg') }}"  alt="image2"> </div>
+                                <img src="{{ secure_asset('assets/img/parallax/photo2.jpg') }}"  alt="image2"> </div>
                             <div class="item">
-                                <img src="{{ asset('assets/img/parallax/photo3.jpg') }}"  alt="image3"> </div>
+                                <img src="{{ secure_asset('assets/img/parallax/photo3.jpg') }}"  alt="image3"> </div>
                             <div class="item">
-                                <img src="{{ asset('assets/img/parallax/photo1.jpg') }}"  alt="image4"> </div>
+                                <img src="{{ secure_asset('assets/img/parallax/photo1.jpg') }}"  alt="image4"> </div>
                             <div class="item">
-                                <img src="{{ asset('assets/img/parallax/photo2.jpg') }}"  alt="image5"> </div>
+                                <img src="{{ secure_asset('assets/img/parallax/photo2.jpg') }}"  alt="image5"> </div>
                         </div>
                         <!--carousel ends-->
                     </div>
@@ -115,15 +115,15 @@ Carousel
                 <div class="panel-body">
                     <div class="owl-carousel owl-theme" id="carousel4">
                         <div class="item">
-                            <img src="{{ asset('assets/img/parallax/photo1.jpg') }}"  alt="image1"> </div>
+                            <img src="{{ secure_asset('assets/img/parallax/photo1.jpg') }}"  alt="image1"> </div>
                         <div class="item">
-                            <img src="{{ asset('assets/img/parallax/photo2.jpg') }}"  alt="image2"> </div>
+                            <img src="{{ secure_asset('assets/img/parallax/photo2.jpg') }}"  alt="image2"> </div>
                         <div class="item">
-                            <img src="{{ asset('assets/img/parallax/photo3.jpg') }}"  alt="image3"> </div>
+                            <img src="{{ secure_asset('assets/img/parallax/photo3.jpg') }}"  alt="image3"> </div>
                         <div class="item">
-                            <img src="{{ asset('assets/img/parallax/photo1.jpg') }}"  alt="image4"> </div>
+                            <img src="{{ secure_asset('assets/img/parallax/photo1.jpg') }}"  alt="image4"> </div>
                         <div class="item">
-                            <img src="{{ asset('assets/img/parallax/photo2.jpg') }}"  alt="image5"> </div>
+                            <img src="{{ secure_asset('assets/img/parallax/photo2.jpg') }}"  alt="image5"> </div>
                     </div>
                     <!-- End Carousel -->
                 </div>
@@ -148,7 +148,7 @@ Carousel
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner">
                                 <div class="item active">
-                                    <img src="{{ asset('assets/img/parallax/photo1.jpg') }}"  class="img-responsive" alt="image1">
+                                    <img src="{{ secure_asset('assets/img/parallax/photo1.jpg') }}"  class="img-responsive" alt="image1">
                                     <div class="carousel-caption">
                                         <h3>Headline</h3>
                                         <p>
@@ -158,7 +158,7 @@ Carousel
                                 </div>
                                 <!-- End Item -->
                                 <div class="item">
-                                    <img src="{{ asset('assets/img/parallax/photo2.jpg') }}"  class="img-responsive" alt="image1">
+                                    <img src="{{ secure_asset('assets/img/parallax/photo2.jpg') }}"  class="img-responsive" alt="image1">
                                     <div class="carousel-caption">
                                         <h3>Headline</h3>
                                         <p>
@@ -168,7 +168,7 @@ Carousel
                                 </div>
                                 <!-- End Item -->
                                 <div class="item">
-                                    <img src="{{ asset('assets/img/parallax/photo3.jpg') }}"  class="img-responsive" alt="image1">
+                                    <img src="{{ secure_asset('assets/img/parallax/photo3.jpg') }}"  class="img-responsive" alt="image1">
                                     <div class="carousel-caption">
                                         <h3>Headline</h3>
                                         <p>
@@ -178,7 +178,7 @@ Carousel
                                 </div>
                                 <!-- End Item -->
                                 <div class="item">
-                                    <img src="{{ asset('assets/img/parallax/photo1.jpg') }}"  class='img-responsive' alt="image">
+                                    <img src="{{ secure_asset('assets/img/parallax/photo1.jpg') }}"  class='img-responsive' alt="image">
                                     <div class="carousel-caption">
                                         <h3>Headline</h3>
                                         <p>
@@ -218,6 +218,6 @@ Carousel
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ asset('assets/vendors/owl_carousel/js/owl.carousel.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/js/pages/carousel.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/owl_carousel/js/owl.carousel.min.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/js/pages/carousel.js') }}" type="text/javascript"></script>
 @stop

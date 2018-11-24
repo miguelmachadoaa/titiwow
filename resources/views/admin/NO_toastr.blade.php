@@ -9,9 +9,9 @@
 {{-- page level styles --}}
 @section('header_styles')
 
-    <link href="{{ asset('assets/vendors/toastr/css/toastr.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('assets/vendors/iCheck/css/all.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('assets/css/pages/toastr.css') }}" rel="stylesheet"/>
+    <link href="{{ secure_asset('assets/vendors/toastr/css/toastr.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ secure_asset('assets/vendors/iCheck/css/all.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ secure_asset('assets/css/pages/toastr.css') }}" rel="stylesheet"/>
 
 @stop
 
@@ -237,7 +237,7 @@
 {{-- page level scripts --}}
 @section('footer_scripts')
 
-    <script src="{{ asset('assets/vendors/toastr/js/toastr.min.js') }}"></script>
-    <script src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/toastr/js/pages/ui-toastr.js') }}"></script>
+    <script src="{{ secure_asset('assets/vendors/toastr/js/toastr.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/toastr/js/pages/ui-toastr.js') }}"></script>
 @stop

@@ -8,10 +8,10 @@ Sliders
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link rel="stylesheet" href="{{ asset('assets/vendors/ion_rangeslider/css/ion.rangeSlider.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendors/ion_rangeslider/css/ion.rangeSlider.skinFlat.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-slider/css/bootstrap-slider.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/pages/ion.css') }}" />
+    <link rel="stylesheet" href="{{ secure_asset('assets/vendors/ion_rangeslider/css/ion.rangeSlider.css') }}" />
+    <link rel="stylesheet" href="{{ secure_asset('assets/vendors/ion_rangeslider/css/ion.rangeSlider.skinFlat.css') }}" />
+    <link rel="stylesheet" href="{{ secure_asset('assets/vendors/bootstrap-slider/css/bootstrap-slider.min.css') }}" />
+    <link rel="stylesheet" href="{{ secure_asset('assets/css/pages/ion.css') }}" />
 @stop
 
 {{-- Page content --}}
@@ -219,9 +219,9 @@ Sliders
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ asset('assets/vendors/ion_rangeslider/js/ion.rangeSlider.js') }}" ></script>
-    <script src="{{ asset('assets/vendors/bootstrap-slider/js/bootstrap-slider.js') }}" ></script>
-    <script src="{{ asset('assets/vendors/ion_rangeslider/js/ion.rangeSlider.js') }}" ></script>
-    <script src="{{ asset('assets/vendors/bootstrap-slider/js/bootstrap-slider.js') }}" ></script>
-    <script src="{{ asset('assets/js/pages/sliders.js') }}"></script>
+    <script src="{{ secure_asset('assets/vendors/ion_rangeslider/js/ion.rangeSlider.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/bootstrap-slider/js/bootstrap-slider.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/ion_rangeslider/js/ion.rangeSlider.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/bootstrap-slider/js/bootstrap-slider.js') }}" ></script>
+    <script src="{{ secure_asset('assets/js/pages/sliders.js') }}"></script>
 @stop

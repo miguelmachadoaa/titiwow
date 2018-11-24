@@ -8,7 +8,7 @@
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link href="{{ asset('assets/vendors/sweetalert/css/sweetalert.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ secure_asset('assets/vendors/sweetalert/css/sweetalert.css') }}" rel="stylesheet" type="text/css" />
 @stop
 <style>
     .button-alignment{
@@ -128,17 +128,17 @@
 {{-- page level scripts --}}
 @section('footer_scripts')
     <!-- begining of page level js -->
-    <script src="{{ asset('assets/vendors/sweetalert/js/sweetalert.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/sweetalert/js/sweetalert-dev.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/js/pages/custom_sweetalert.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/sweetalert/js/sweetalert.min.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/sweetalert/js/sweetalert-dev.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/js/pages/custom_sweetalert.js') }}" type="text/javascript"></script>
     <script>
 
         $('#btn6').on('click',function(){
-            swal({   title: "Sweet!",   text: "Here's a custom image.",   imageUrl: "{!! asset('assets/images/c1.jpg')  !!}" });
+            swal({   title: "Sweet!",   text: "Here's a custom image.",   imageUrl: "{!! secure_asset('assets/images/c1.jpg')  !!}" });
         });
 
         $('#btn7').on('click',function(){
-            swal({   title: "Sweet!",   text: "Here's a custom image.",   imageUrl: "{!! asset('assets/images/c2.jpg')  !!}" });
+            swal({   title: "Sweet!",   text: "Here's a custom image.",   imageUrl: "{!! secure_asset('assets/images/c2.jpg')  !!}" });
         });
     </script>
 @stop

@@ -8,13 +8,13 @@ Advanced Data Tables
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/buttons.bootstrap.css') }}"/>
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/colReorder.bootstrap.css') }}"/>
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}"/>
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/rowReorder.bootstrap.css') }}"/>
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/buttons.bootstrap.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/scroller.bootstrap.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/pages/tables.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/buttons.bootstrap.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/colReorder.bootstrap.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/rowReorder.bootstrap.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/buttons.bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/scroller.bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/pages/tables.css') }}" />
 @stop
 
 {{-- Page content --}}
@@ -1656,20 +1656,20 @@ Advanced Data Tables
 {{-- page level scripts --}}
 @section('footer_scripts')
 
-    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/jquery.dataTables.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/jeditable/js/jquery.jeditable.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.buttons.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.colReorder.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.responsive.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.rowReorder.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/buttons.colVis.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/buttons.html5.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/buttons.print.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/buttons.bootstrap.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/buttons.print.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/pdfmake.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/vfs_fonts.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.scroller.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('assets/js/pages/table-advanced.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/jeditable/js/jquery.jeditable.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.buttons.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.colReorder.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.responsive.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.rowReorder.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/buttons.colVis.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/buttons.html5.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/buttons.print.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/buttons.bootstrap.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/buttons.print.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/pdfmake.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/vfs_fonts.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.scroller.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/js/pages/table-advanced.js') }}" ></script>
 @stop

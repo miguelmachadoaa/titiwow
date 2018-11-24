@@ -8,9 +8,9 @@ Pickers
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link href="{{ asset('assets/vendors/bootstrap-touchspin/css/jquery.bootstrap-touchspin.css') }}" rel="stylesheet" type="text/css" media="all" />
-    <link href="{{ asset('assets/vendors/jquery-spinner/css/bootstrap-spinner.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/css/pages/pickers.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/vendors/bootstrap-touchspin/css/jquery.bootstrap-touchspin.css') }}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{{ secure_asset('assets/vendors/jquery-spinner/css/bootstrap-spinner.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/css/pages/pickers.css') }}" rel="stylesheet" />
     
 @stop
 
@@ -270,10 +270,10 @@ Pickers
 @section('footer_scripts')
 
     <!--touchspin-->
-    <script src="{{ asset('assets/vendors/bootstrap-touchspin/js/jquery.bootstrap-touchspin.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/bootstrap-multiselect/js/bootstrap-multiselect.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/bootstrap-touchspin/js/jquery.bootstrap-touchspin.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/bootstrap-multiselect/js/bootstrap-multiselect.js') }}" ></script>
     <!--spinner-->
-    <script src="{{ asset('assets/vendors/jquery-spinner/js/jquery.spinner.min.js') }}" ></script>
-    <script src="{{ asset('assets/js/pages/pickers.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/jquery-spinner/js/jquery.spinner.min.js') }}" ></script>
+    <script src="{{ secure_asset('assets/js/pages/pickers.js') }}" ></script>
     
 @stop

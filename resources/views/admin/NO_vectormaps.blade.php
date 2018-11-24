@@ -9,7 +9,7 @@ Vector Maps
 {{-- page level styles --}}
 @section('header_styles')    
     
-	<link href="{{ asset('assets/css/pages/jqvmap.css') }}" media="screen" rel="stylesheet" type="text/css" />
+	<link href="{{ secure_asset('assets/css/pages/jqvmap.css') }}" media="screen" rel="stylesheet" type="text/css" />
     
 @stop
 
@@ -122,13 +122,13 @@ Vector Maps
 {{-- page level scripts --}}
 @section('footer_scripts')
     
-    <script src="{{ asset('assets/vendors/jqvmap/js/jquery.vmap.js') }}"  type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/jqvmap/js/jquery.vmap.world.js') }}"  type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/jqvmap/js/jquery.vmap.usa.js') }}"  type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/jqvmap/js/jquery.vmap.europe.js') }}"  type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/jqvmap/js/jquery.vmap.germany.js') }}"  type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/jqvmap/js/jquery.vmap.russia.js') }}"  type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/jqvmap/js/jquery.vmap.sampledata.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/jqvmap/js/jquery.vmap.js') }}"  type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/jqvmap/js/jquery.vmap.world.js') }}"  type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/jqvmap/js/jquery.vmap.usa.js') }}"  type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/jqvmap/js/jquery.vmap.europe.js') }}"  type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/jqvmap/js/jquery.vmap.germany.js') }}"  type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/jqvmap/js/jquery.vmap.russia.js') }}"  type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/jqvmap/js/jquery.vmap.sampledata.js') }}" ></script>
     <script type="text/javascript">
     jQuery(document).ready(function() {
         jQuery('#vmapworld').vectorMap({

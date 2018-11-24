@@ -9,7 +9,7 @@ Accordion Tabs
 {{-- page level styles --}}
 @section('header_styles')    
     
-	<link rel="stylesheet" href="{{ asset('assets/css/pages/tab.css') }}" />
+	<link rel="stylesheet" href="{{ secure_asset('assets/css/pages/tab.css') }}" />
     <style>
         @media (min-width:320px) and (max-width:425px){
             .popover.left{
@@ -451,7 +451,7 @@ Accordion Tabs
                                         ← popover on link so you can get site information.
                                         <div class="po-content hidden">
                                             <div class="po-title">
-                                                <img src="{{ asset('assets/img/football.png') }}" alt="Google" width="20" height="20" />Foot Ball world cup
+                                                <img src="{{ secure_asset('assets/img/football.png') }}" alt="Google" width="20" height="20" />Foot Ball world cup
                                             </div>
                                             <!-- ./po-title -->
                                             <div class="po-body">
@@ -480,5 +480,5 @@ Accordion Tabs
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ asset('assets/js/pages/tabs_accordions.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/js/pages/tabs_accordions.js') }}" type="text/javascript"></script>
 @stop

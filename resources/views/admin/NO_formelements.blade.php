@@ -8,7 +8,7 @@
 
     {{-- page level styles --}}
     @section('header_styles')
-    <link href="{{ asset('assets/css/pages/formelements.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/css/pages/formelements.css') }}" rel="stylesheet" />
 
 @stop
 
@@ -198,11 +198,11 @@
     @section('footer_scripts')
 
     <!-- InputMask -->
-    <script src="{{ asset('assets/vendors/moment/js/moment.min.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/moment/js/moment.min.js') }}" ></script>
     <!-- date-range-picker -->
-    <script src="{{ asset('assets/js/pages/autogrow.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/bootstrap-maxlength/js/bootstrap-maxlength.js') }}"  type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/card/lib/js/jquery.card.js') }}"  type="text/javascript"></script>
-    <script src="{{ asset('assets/js/pages/formelements.js') }}"  type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/js/pages/autogrow.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/bootstrap-maxlength/js/bootstrap-maxlength.js') }}"  type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/card/lib/js/jquery.card.js') }}"  type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/js/pages/formelements.js') }}"  type="text/javascript"></script>
 
     @stop

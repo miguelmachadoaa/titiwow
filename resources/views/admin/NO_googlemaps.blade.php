@@ -8,8 +8,8 @@
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/gmaps/css/examples.css') }}"/>
-    <link href="{{ asset('assets/css/pages/googlemaps_custom.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/gmaps/css/examples.css') }}"/>
+    <link href="{{ secure_asset('assets/css/pages/googlemaps_custom.css') }}" rel="stylesheet">
 @stop
 
 {{-- Page content --}}
@@ -134,10 +134,10 @@
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script type="text/javascript" src="{{ asset('assets/js/pages/maps_api.js') }}"></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/js/pages/maps_api.js') }}"></script>
     <script type="text/javascript"
             src="http://maps.google.com/maps/api/js?key=AIzaSyADWjiTRjsycXf3Lo0ahdc7dDxcQb475qw&libraries=places"></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/gmaps/js/gmaps.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/pages/custommaps.js') }}"></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/gmaps/js/gmaps.min.js') }}"></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/js/pages/custommaps.js') }}"></script>
 
 @stop

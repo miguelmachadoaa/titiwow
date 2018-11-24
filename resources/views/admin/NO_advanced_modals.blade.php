@@ -8,8 +8,8 @@
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link href="{{ asset('assets/vendors/modal/css/component.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('assets/css/pages/advmodals.css') }}" rel="stylesheet"/>
+    <link href="{{ secure_asset('assets/vendors/modal/css/component.css') }}" rel="stylesheet"/>
+    <link href="{{ secure_asset('assets/css/pages/advmodals.css') }}" rel="stylesheet"/>
 
 @stop
 
@@ -1104,7 +1104,7 @@
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script type="text/javascript" src="{{ asset('assets/vendors/modal/js/classie.js')}}"></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/modal/js/classie.js')}}"></script>
     <script>
         $("#stack2,#stack3").on('hidden.bs.modal', function (e) {
             $('body').addClass('modal-open');

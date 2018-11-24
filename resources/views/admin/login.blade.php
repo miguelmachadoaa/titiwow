@@ -5,12 +5,12 @@
     <title>Login | Alpina Go!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- global level css -->
-    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
+    <link href="{{ secure_asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
     <!-- end of global level css -->
     <!-- page level css -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/pages/login.css') }}" />
-    <link href="{{ asset('assets/vendors/iCheck/css/square/blue.css') }}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/pages/login.css') }}" />
+    <link href="{{ secure_asset('assets/vendors/iCheck/css/square/blue.css') }}" rel="stylesheet"/>
     <!-- end of page level css -->
 
 </head>
@@ -32,7 +32,7 @@
                         <div id="login" class="animate form">
                             <form action="{{ route('signin') }}" autocomplete="on" method="post" role="form" id="login_form">
                                 <h3 >
-                                    <img src="{{ asset('assets/img/login.png') }}" alt="Alpina Go!">
+                                    <img src="{{ secure_asset('assets/img/login.png') }}" alt="Alpina Go!">
                                     <br>Backend</h3>
                                     <!-- CSRF Token -->
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
@@ -81,7 +81,7 @@
                         <div id="forgot" class="animate form">
                             <form action="{{ url('admin/forgot-password') }}" autocomplete="on" method="post" role="form" id="reset_pw">
                                 <h3 >
-                                <img src="{{ asset('assets/img/login.png') }}" alt="Alpina"><br>Olvidaste Tu Contraseña</h3>
+                                <img src="{{ secure_asset('assets/img/login.png') }}" alt="Alpina"><br>Olvidaste Tu Contraseña</h3>
                                 <p>
                                     
                                         Ingrese su dirección de correo electrónico a continuación y le enviaremos un enlace de restablecimiento de contraseña  a su bandeja de entrada
@@ -117,15 +117,15 @@
         </div>
     </div>
     <!-- global js -->
-    <script src="{{ asset('assets/js/jquery-1.11.1.min.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/js/jquery-1.11.1.min.js') }}" type="text/javascript"></script>
     <!-- Bootstrap -->
-    <script src="{{ asset('assets/js/bootstrap.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/js/bootstrap.min.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
     <!--livicons-->
-    <script src="{{ asset('assets/js/raphael-min.js') }}"></script>
-    <script src="{{ asset('assets/js/livicons-1.4.min.js') }}"></script>
-    <script src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/js/pages/login.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/js/raphael-min.js') }}"></script>
+    <script src="{{ secure_asset('assets/js/livicons-1.4.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/js/pages/login.js') }}" type="text/javascript"></script>
     <!-- end of global js -->
 </body>
 </html>

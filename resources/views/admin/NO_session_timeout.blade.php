@@ -9,7 +9,7 @@ Session Timeout
 {{-- page level styles --}}
 @section('header_styles')    
     
-	<link rel="stylesheet" href="{{ asset('assets/css/pages/session_timeout.css') }}" />
+	<link rel="stylesheet" href="{{ secure_asset('assets/css/pages/session_timeout.css') }}" />
     
 @stop
 
@@ -99,7 +99,7 @@ Session Timeout
         }
     })
     </script>
-    <script src="{{ asset('assets/js/pages/jquery.sessionTimeout.min.js') }}" ></script>
+    <script src="{{ secure_asset('assets/js/pages/jquery.sessionTimeout.min.js') }}" ></script>
     <script>
     jQuery(document).ready(function() {
         // initialize session timeout settings

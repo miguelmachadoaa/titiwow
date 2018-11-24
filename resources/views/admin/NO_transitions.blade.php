@@ -9,9 +9,9 @@ Transitions
 {{-- page level styles --}}
 @section('header_styles')
 
-    <link rel="stylesheet" href="{{ asset('assets/vendors/animate/animate.min.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('assets/vendors/hover/css/hover-min.css') }}" />
-    <link href="{{ asset('assets/css/pages/transitions.css') }}" rel="stylesheet"/>
+    <link rel="stylesheet" href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}"/>
+    <link rel="stylesheet" href="{{ secure_asset('assets/vendors/hover/css/hover-min.css') }}" />
+    <link href="{{ secure_asset('assets/css/pages/transitions.css') }}" rel="stylesheet"/>
     
 @stop
 
@@ -548,8 +548,8 @@ Transitions
 {{-- page level scripts --}}
 @section('footer_scripts')
     
-    <script src="{{ asset('assets//vendors/select2/js/select2.js') }}" ></script>
+    <script src="{{ secure_asset('assets//vendors/select2/js/select2.js') }}" ></script>
     <!--panel js-->
-    <script src="{{ asset('assets/js/pages/transitions.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/js/pages/transitions.js') }}" type="text/javascript"></script>
     
 @stop

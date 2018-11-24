@@ -123,7 +123,7 @@
 {{-- Body Bottom confirm modal --}}
 @section('footer_scripts')
 
- <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+ <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
 
 

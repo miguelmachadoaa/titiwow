@@ -13,7 +13,7 @@
                                                        data-placement="top" title="Mark as Read"><span
                             class="pull-right ol livicon" data-n="adjust" data-s="10"
                             data-c="#287b0b"></span></i>
-                <img src="{{ asset('assets/img/authors/avatar.jpg') }}"
+                <img src="{{ secure_asset('assets/img/authors/avatar.jpg') }}"
                      class="img-responsive message-image" alt="icon">
 
                 <div class="message-body">
@@ -29,7 +29,7 @@
                 <i class="pull-right" data-toggle="tooltip" data-placement="top"
                    title="Mark as Read"><span class="pull-right ol livicon" data-n="adjust" data-s="10"
                                               data-c="#287b0b"></span></i>
-                <img src="{{ asset('assets/img/authors/avatar1.jpg') }}"
+                <img src="{{ secure_asset('assets/img/authors/avatar1.jpg') }}"
                      class="img-responsive message-image" alt="icon">
 
                 <div class="message-body">
@@ -46,7 +46,7 @@
                                     <span class="pull-right ol livicon" data-n="adjust" data-s="10"
                                           data-c="#287b0b"></span>
                 </i>
-                <img src="{{ asset('assets/img/authors/avatar5.jpg') }}"
+                <img src="{{ secure_asset('assets/img/authors/avatar5.jpg') }}"
                      class="img-responsive message-image" alt="icon">
 
                 <div class="message-body">
@@ -63,7 +63,7 @@
                                     <span class="pull-right ol livicon" data-n="adjust" data-s="10"
                                           data-c="#287b0b"></span>
                 </i>
-                <img src="{{ asset('assets/img/authors/avatar4.jpg') }}"
+                <img src="{{ secure_asset('assets/img/authors/avatar4.jpg') }}"
                      class="img-responsive message-image" alt="icon">
 
                 <div class="message-body">

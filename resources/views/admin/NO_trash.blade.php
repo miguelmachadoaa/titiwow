@@ -9,8 +9,8 @@ Trash Box
 {{-- page level styles --}}
 @section('header_styles')
     <!-- page level css -->
-    <link href="{{ asset('assets/css/pages/alertmessage.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/css/pages/mail_box.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ secure_asset('assets/css/pages/alertmessage.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/css/pages/mail_box.css') }}" rel="stylesheet" type="text/css" />
     
 @stop
 

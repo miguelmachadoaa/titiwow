@@ -8,9 +8,9 @@ Image Cropping
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link href="{{ asset('assets/vendors/iCheck/css/all.css') }}"  rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="{{ asset('assets/vendors/Jcrop/css/jquery.Jcrop.css') }}" type="text/css" />
-    <link rel="stylesheet" href="{{ asset('assets/css/pages/cropcustom.css') }}" type="text/css" />
+    <link href="{{ secure_asset('assets/vendors/iCheck/css/all.css') }}"  rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{ secure_asset('assets/vendors/Jcrop/css/jquery.Jcrop.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ secure_asset('assets/css/pages/cropcustom.css') }}" type="text/css" />
     <!-- styles for this page ends here-->
 @stop
 
@@ -76,7 +76,7 @@ Image Cropping
                                             <div class="tab-pane active" id="tab_1" style="padding:10px;">
                                                 <div class="col-md-8">
                                                     <h4>Hey Just Crop it.</h4>
-                                                    <img src="{{ asset('assets/img/cropping-image.jpg') }}" class="img-responsive" id="target1" alt="[Jcrop Example]" />
+                                                    <img src="{{ secure_asset('assets/img/cropping-image.jpg') }}" class="img-responsive" id="target1" alt="[Jcrop Example]" />
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="description">
@@ -89,7 +89,7 @@ Image Cropping
                                             <!-- /.tab-pane 1 -->
                                             <div class="tab-pane" id="tab_2" style="padding:10px;">
                                                 <div class="col-md-8">
-                                                    <img src="{{ asset('assets/img/cropping-image.jpg') }}" class="img-responsive" width="600px" id="target2" alt="[Jcrop Example]" />
+                                                    <img src="{{ secure_asset('assets/img/cropping-image.jpg') }}" class="img-responsive" width="600px" id="target2" alt="[Jcrop Example]" />
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="description">Cropped Image Details</div>
@@ -130,10 +130,10 @@ Image Cropping
                                             </div>
                                             <!-- /.tab-pane 2 -->
                                             <div class="tab-pane" id="tab_3" style="padding:10px;">
-                                                <img src="{{ asset('assets/img/cropping-image.jpg') }}" class="img-responsive" id="target3" alt="[Jcrop Example]" />
+                                                <img src="{{ secure_asset('assets/img/cropping-image.jpg') }}" class="img-responsive" id="target3" alt="[Jcrop Example]" />
                                                 <div id="preview-pane">
                                                     <div class="preview-container">
-                                                        <img src="{{ asset('assets/img/cropping-image.jpg') }}" class="jcrop-preview" alt="Preview" />
+                                                        <img src="{{ secure_asset('assets/img/cropping-image.jpg') }}" class="jcrop-preview" alt="Preview" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -141,7 +141,7 @@ Image Cropping
                                             <div class="tab-pane" id="tab_4" style="padding:10px;">
                                                 <div class="row">
                                                     <div class="col-md-8">
-                                                        <img src="{{ asset('assets/img/cropping-image.jpg') }}" class="img-responsive"  width="595px" id="target4" alt="[Jcrop Example]" />
+                                                        <img src="{{ secure_asset('assets/img/cropping-image.jpg') }}" class="img-responsive"  width="595px" id="target4" alt="[Jcrop Example]" />
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="span3" id="interface" style="width:220px;">
@@ -158,7 +158,7 @@ Image Cropping
                                             <!-- /.tab-pane 4-->
                                             <div class="tab-pane" id="tab_5" style="padding:10px;">
                                                 <div class="col-md-8">
-                                                    <img src="{{ asset('assets/img/cropping-image2.png') }}" width="595px" height="400%" class="img-responsive" id="target5" alt="[Jcrop Example]" />
+                                                    <img src="{{ secure_asset('assets/img/cropping-image2.png') }}" width="595px" height="400%" class="img-responsive" id="target5" alt="[Jcrop Example]" />
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div style="margin: .8em 0 .5em;">
@@ -197,7 +197,7 @@ Image Cropping
                                             <!-- /.tab-pane 5-->
                                             <div class="tab-pane" id="tab_6" style="padding:10px;">
                                                 <div class="col-md-8">
-                                                    <img src="{{ asset('assets/img/cropping-image.jpg') }}" class="img-responsive" width="600px" id="target6" alt="[Jcrop Example]" />
+                                                    <img src="{{ secure_asset('assets/img/cropping-image.jpg') }}" class="img-responsive" width="600px" id="target6" alt="[Jcrop Example]" />
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div style="margin-top:1em;">
@@ -224,7 +224,7 @@ Image Cropping
                                             <!-- /.tab-pane 7-->
                                             <div class="tab-pane" id="tab_8" style="padding:10px;">
                                                 <div class="col-lg-8 col-md-8 col-sm-8">
-                                                    <img src="{{ asset('assets/img/cropping-image.jpg') }}" width="600px" class="img-responsive" id="cropbox" />
+                                                    <img src="{{ secure_asset('assets/img/cropping-image.jpg') }}" width="600px" class="img-responsive" id="cropbox" />
                                                 </div>
                                                 <div class="col-lg-4 col-md-12  col-sm-12">
                                                     <form action="{{ URL::to('admin/crop_demo') }}" method="post" onsubmit="return checkCoords();">
@@ -255,9 +255,9 @@ Image Cropping
 {{-- page level scripts --}}
 @section('footer_scripts')
     
-    <script src="{{ asset('assets/vendors/Jcrop/js/jquery.Jcrop.min.js') }}" ></script>
-    <script src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
-    <script src="{{ asset('assets/vendors/Jcrop/js/jquery.color.js') }}" ></script>
-    <script src="{{ asset('assets/js/pages/cropcustom.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/Jcrop/js/jquery.Jcrop.min.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
+    <script src="{{ secure_asset('assets/vendors/Jcrop/js/jquery.color.js') }}" ></script>
+    <script src="{{ secure_asset('assets/js/pages/cropcustom.js') }}" ></script>
     
 @stop

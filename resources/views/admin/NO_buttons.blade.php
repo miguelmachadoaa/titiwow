@@ -9,8 +9,8 @@ Buttons
 {{-- page level styles --}}
 @section('header_styles')    
     
-    <link href="{{ asset('assets/vendors/iCheck/css/all.css') }}"  rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="{{ asset('assets/css/pages/buttons.css') }}" />
+    <link href="{{ secure_asset('assets/vendors/iCheck/css/all.css') }}"  rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{ secure_asset('assets/css/pages/buttons.css') }}" />
 @stop
 
 {{-- Page content --}}
@@ -279,7 +279,7 @@ Buttons
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/custom_buttons.js') }}"></script>
+    <script src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
+    <script src="{{ secure_asset('assets/js/pages/custom_buttons.js') }}"></script>
     <!--icon picker-->
 @stop

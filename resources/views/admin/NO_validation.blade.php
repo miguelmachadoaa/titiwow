@@ -9,16 +9,16 @@
 {{-- page level styles --}}
 @section('header_styles')
 
-    <link href="{{ asset('assets/css/pages/form2.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('assets/css/pages/form3.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('assets/vendors/iCheck/css/all.css') }}"  rel="stylesheet" type="text/css" />
+    <link href="{{ secure_asset('assets/css/pages/form2.css') }}" rel="stylesheet"/>
+    <link href="{{ secure_asset('assets/css/pages/form3.css') }}" rel="stylesheet"/>
+    <link href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}" rel="stylesheet"/>
+    <link href="{{ secure_asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
+    <link href="{{ secure_asset('assets/vendors/iCheck/css/all.css') }}"  rel="stylesheet" type="text/css" />
     <!-- include the BotDetect layout stylesheet -->
 
     <style>
         .iti-flag {
-            background-image: url("{{ asset('assets/vendors/intl-tel-input/flags.png') }}");
+            background-image: url("{{ secure_asset('assets/vendors/intl-tel-input/flags.png') }}");
         }
         @media (max-width: 992px){
             .form-horizontal .control-label {
@@ -472,10 +472,10 @@
 {{-- page level scripts --}}
 @section('footer_scripts')
 
-    <script src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"
+    <script src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"
             type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}"
+    <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}"
             type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/validation.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
+    <script src="{{ secure_asset('assets/js/pages/validation.js') }}" type="text/javascript"></script>
 @stop

@@ -8,10 +8,10 @@ Advanced Datatables
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/select2/css/select2-bootstrap.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/pages/tables.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/select2/css/select2-bootstrap.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/pages/tables.css') }}" />
 @stop
 
 {{-- Page content --}}
@@ -2397,10 +2397,10 @@ Advanced Datatables
 {{-- page level scripts --}}
 @section('footer_scripts')
 
-    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/jquery.dataTables.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.responsive.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/select2/js/select2.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('assets/js/pages/table-advanced2.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.responsive.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/js/pages/table-advanced2.js') }}" ></script>
 
 @stop

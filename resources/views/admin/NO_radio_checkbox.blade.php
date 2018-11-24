@@ -8,12 +8,12 @@
 
     {{-- page level styles --}}
     @section('header_styles')
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/iCheck/css/all.css') }}"/>
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/iCheck/css/line/line.css') }}"/>
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/bootstrap-switch/css/bootstrap-switch.css') }}"/>
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/switchery/css/switchery.css') }}"/>
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/awesomeBootstrapCheckbox/awesome-bootstrap-checkbox.css') }}"/>
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/pages/formelements.css') }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/iCheck/css/all.css') }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/iCheck/css/line/line.css') }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/bootstrap-switch/css/bootstrap-switch.css') }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/switchery/css/switchery.css') }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/awesomeBootstrapCheckbox/awesome-bootstrap-checkbox.css') }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/pages/formelements.css') }}"/>
 @stop
 
 {{-- Page content --}}
@@ -381,11 +381,11 @@
 
     {{-- page level scripts --}}
     @section('footer_scripts')
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/bootstrap-switch/js/bootstrap-switch.js') }}"></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/switchery/js/switchery.js') }}" ></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/bootstrap-maxlength/js/bootstrap-maxlength.js') }}"></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/card/lib/js/jquery.card.js') }}"></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/js/pages/radio_checkbox.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/bootstrap-switch/js/bootstrap-switch.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/switchery/js/switchery.js') }}" ></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/bootstrap-maxlength/js/bootstrap-maxlength.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/card/lib/js/jquery.card.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/js/pages/radio_checkbox.js') }}"></script>
 
     @stop

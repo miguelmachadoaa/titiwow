@@ -10,14 +10,14 @@
 @section('header_styles')
 
     <!-- Add fancyBox main CSS files -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/fancybox/jquery.fancybox.css') }}"
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/fancybox/jquery.fancybox.css') }}"
           media="screen"/>
     <!-- Add Button helper (this is optional) -->
     <link rel="stylesheet" type="text/css"
-          href="{{ asset('assets/vendors/fancybox/jquery.fancybox-buttons.css') }}"/>
+          href="{{ secure_asset('assets/vendors/fancybox/jquery.fancybox-buttons.css') }}"/>
     <!-- Add Thumbnail helper (this is optional) -->
     <link rel="stylesheet" type="text/css"
-          href="{{ asset('assets/vendors/fancybox/jquery.fancybox-thumbs.css') }}"/>
+          href="{{ secure_asset('assets/vendors/fancybox/jquery.fancybox-thumbs.css') }}"/>
     <!--page level css end-->
 @stop
 
@@ -74,161 +74,161 @@
                                         <div class="col-md-12">
                                             <div class="col-lg-2 col-md-3 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-effects-a"
-                                                   href="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                    title="Click aside to exit popup">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-3 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-effects-a"
-                                                   href="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                    title="Click aside to exit popup">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-3 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-effects-a"
-                                                   href="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                    title="Click aside to exit popup">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-3 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-effects-a"
-                                                   href="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                    title="Click aside to exit popup">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-3 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-effects-a"
-                                                   href="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                    title="Click aside to exit popup">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-3 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-effects-a"
-                                                   href="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                    title="Click aside to exit popup">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-3 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-effects-a"
-                                                   href="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                    title="Click aside to exit popup">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-3 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-effects-a"
-                                                   href="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                    title="Click aside to exit popup">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-3 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-effects-a"
-                                                   href="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                    title="Click aside to exit popup">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-3 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-effects-a"
-                                                   href="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                    title="Click aside to exit popup">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-3 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-effects-a"
-                                                   href="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                    title="Click aside to exit popup">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-3 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-effects-a"
-                                                   href="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                    title="Click aside to exit popup">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-3 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-effects-b"
-                                                   href="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                    title="Click aside to exit popup">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-3 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-effects-c"
-                                                   href="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                    title="Click on popup for exit">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-3 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-effects-a"
-                                                   href="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                    title="Click aside to exit popup">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-3 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-effects-a"
-                                                   href="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                    title="Click aside to exit popup">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-3 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-effects-a"
-                                                   href="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                    title="Click aside to exit popup">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-3 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-effects-a"
-                                                   href="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                    title="Click aside to exit popup">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-3 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-effects-a"
                                                    title="Click aside to exit popup">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
-                                                         href="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                         href="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-3 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-effects-a"
-                                                   href="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                    title="Click aside to exit popup">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/1.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/1.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
@@ -239,161 +239,161 @@
                                         <div class="col-md-12">
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox"
-                                                   href="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                    data-fancybox-group="gallery" title="Image Title 1">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox"
-                                                   href="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                    data-fancybox-group="gallery" title="Image Title 2">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox"
-                                                   href="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                    data-fancybox-group="gallery" title="Image Title 3">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox"
-                                                   href="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                    data-fancybox-group="gallery" title="Image Title 4">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox"
-                                                   href="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                    data-fancybox-group="gallery" title="Image Title 4">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox"
-                                                   href="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                    data-fancybox-group="gallery" title="Image Title 1">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox"
-                                                   href="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                    data-fancybox-group="gallery" title="Image Title 2">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox"
-                                                   href="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                    data-fancybox-group="gallery" title="Image Title 3">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox"
-                                                   href="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                    data-fancybox-group="gallery" title="Image Title 4">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox"
-                                                   href="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                    data-fancybox-group="gallery" title="Image Title 4">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox"
-                                                   href="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                    data-fancybox-group="gallery" title="Image Title 1">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 ol-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox"
-                                                   href="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                    data-fancybox-group="gallery" title="Image Title 2">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox"
-                                                   href="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                    data-fancybox-group="gallery" title="Image Title 3">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox"
-                                                   href="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                    data-fancybox-group="gallery" title="Image Title 4">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox"
-                                                   href="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                    data-fancybox-group="gallery" title="Image Title 4">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox"
-                                                   href="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                    data-fancybox-group="gallery" title="Image Title 1">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox"
-                                                   href="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                    data-fancybox-group="gallery" title="Image Title 2">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox"
-                                                   href="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                    data-fancybox-group="gallery" title="Image Title 3">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox"
-                                                   href="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                    data-fancybox-group="gallery" title="Image Title 4">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox"
-                                                   href="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                    data-fancybox-group="gallery" title="Image Title 4">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/2.jpg') }}"
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/2.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
@@ -404,141 +404,141 @@
                                         <div class="col-md-12">
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-buttons" data-fancybox-group="button"
-                                                   href="{{ asset('assets/img/img_holder/gal/3.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/3.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-buttons" data-fancybox-group="button"
-                                                   href="{{ asset('assets/img/img_holder/gal/3.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/3.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-buttons" data-fancybox-group="button"
-                                                   href="{{ asset('assets/img/img_holder/gal/3.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/3.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-buttons" data-fancybox-group="button"
-                                                   href="{{ asset('assets/img/img_holder/gal/3.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/3.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-buttons" data-fancybox-group="button"
-                                                   href="{{ asset('assets/img/img_holder/gal/3.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/3.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-buttons" data-fancybox-group="button"
-                                                   href="{{ asset('assets/img/img_holder/gal/3.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/3.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-buttons" data-fancybox-group="button"
-                                                   href="{{ asset('assets/img/img_holder/gal/3.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/3.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-buttons" data-fancybox-group="button"
-                                                   href="{{ asset('assets/img/img_holder/gal/3.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/3.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-buttons" data-fancybox-group="button"
-                                                   href="{{ asset('assets/img/img_holder/gal/3.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/3.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-buttons" data-fancybox-group="button"
-                                                   href="{{ asset('assets/img/img_holder/gal/3.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/3.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-buttons" data-fancybox-group="button"
-                                                   href="{{ asset('assets/img/img_holder/gal/3.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/3.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-buttons" data-fancybox-group="button"
-                                                   href="{{ asset('assets/img/img_holder/gal/3.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/3.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-buttons" data-fancybox-group="button"
-                                                   href="{{ asset('assets/img/img_holder/gal/3.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/3.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-buttons" data-fancybox-group="button"
-                                                   href="{{ asset('assets/img/img_holder/gal/3.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/3.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-buttons" data-fancybox-group="button"
-                                                   href="{{ asset('assets/img/img_holder/gal/3.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/3.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-buttons" data-fancybox-group="button"
-                                                   href="{{ asset('assets/img/img_holder/gal/3.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/3.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-buttons" data-fancybox-group="button"
-                                                   href="{{ asset('assets/img/img_holder/gal/3.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/3.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-buttons" data-fancybox-group="button"
-                                                   href="{{ asset('assets/img/img_holder/gal/3.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/3.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-buttons" data-fancybox-group="button"
-                                                   href="{{ asset('assets/img/img_holder/gal/3.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/3.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-buttons" data-fancybox-group="button"
-                                                   href="{{ asset('assets/img/img_holder/gal/3.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/3.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/3.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
@@ -549,113 +549,113 @@
                                         <div class="col-md-12">
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-thumbs" data-fancybox-group="thumb"
-                                                   href="{{ asset('assets/img/img_holder/gal/4.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/4.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-thumbs" data-fancybox-group="thumb"
-                                                   href="{{ asset('assets/img/img_holder/gal/4.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/4.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-thumbs" data-fancybox-group="thumb"
-                                                   href="{{ asset('assets/img/img_holder/gal/4.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/4.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-thumbs" data-fancybox-group="thumb"
-                                                   href="{{ asset('assets/img/img_holder/gal/4.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/4.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-thumbs" data-fancybox-group="thumb"
-                                                   href="{{ asset('assets/img/img_holder/gal/4.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/4.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-thumbs" data-fancybox-group="thumb"
-                                                   href="{{ asset('assets/img/img_holder/gal/4.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/4.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-thumbs" data-fancybox-group="thumb"
-                                                   href="{{ asset('assets/img/img_holder/gal/4.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/4.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-thumbs" data-fancybox-group="thumb"
-                                                   href="{{ asset('assets/img/img_holder/gal/4.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/4.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-thumbs" data-fancybox-group="thumb"
-                                                   href="{{ asset('assets/img/img_holder/gal/4.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/4.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-thumbs" data-fancybox-group="thumb"
-                                                   href="{{ asset('assets/img/img_holder/gal/4.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/4.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-thumbs" data-fancybox-group="thumb"
-                                                   href="{{ asset('assets/img/img_holder/gal/4.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/4.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-thumbs" data-fancybox-group="thumb"
-                                                   href="{{ asset('assets/img/img_holder/gal/4.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/4.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-thumbs" data-fancybox-group="thumb"
-                                                   href="{{ asset('assets/img/img_holder/gal/4.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/4.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-thumbs" data-fancybox-group="thumb"
-                                                   href="{{ asset('assets/img/img_holder/gal/4.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/4.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-thumbs" data-fancybox-group="thumb"
-                                                   href="{{ asset('assets/img/img_holder/gal/4.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/4.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-xs-6 col-sm-3 gallery-border">
                                                 <a class="fancybox-thumbs" data-fancybox-group="thumb"
-                                                   href="{{ asset('assets/img/img_holder/gal/4.jpg') }}">
-                                                    <img src="{{ asset('assets/img/img_holder/gal/4.jpg') }}"
+                                                   href="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}">
+                                                    <img src="{{ secure_asset('assets/img/img_holder/gal/4.jpg') }}"
                                                          class="img-responsive gallery-style" alt="Image">
                                                 </a>
                                             </div>
@@ -680,16 +680,16 @@
 
     <!-- Add mousewheel plugin (this is optional) -->
     <script type="text/javascript"
-            src="{{ asset('assets/vendors/fancybox/jquery.mousewheel.pack.js') }}"></script>
+            src="{{ secure_asset('assets/vendors/fancybox/jquery.mousewheel.pack.js') }}"></script>
     <script type="text/javascript"
-            src="{{ asset('assets/vendors/fancybox/jquery.fancybox.pack.js') }}"></script>
+            src="{{ secure_asset('assets/vendors/fancybox/jquery.fancybox.pack.js') }}"></script>
     <script type="text/javascript"
-            src="{{ asset('assets/vendors/fancybox/jquery.fancybox-buttons.js') }}"></script>
+            src="{{ secure_asset('assets/vendors/fancybox/jquery.fancybox-buttons.js') }}"></script>
     <script type="text/javascript"
-            src="{{ asset('assets/vendors/fancybox/jquery.fancybox-thumbs.js') }}"></script>
+            src="{{ secure_asset('assets/vendors/fancybox/jquery.fancybox-thumbs.js') }}"></script>
     <!-- Add Media helper (this is optional) -->
     <script type="text/javascript"
-            src="{{ asset('assets/vendors/fancybox/jquery.fancybox-media.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/pages/gallery.js') }}"></script>
+            src="{{ secure_asset('assets/vendors/fancybox/jquery.fancybox-media.js') }}"></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/js/pages/gallery.js') }}"></script>
 
 @stop

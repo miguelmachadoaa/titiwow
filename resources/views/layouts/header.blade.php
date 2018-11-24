@@ -18,9 +18,9 @@
     </title>
     @yield('meta_tags')
     <!--global css starts-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/lib.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/lib.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Comfortaa|Oswald|Montserrat:300,400,600|Roboto" rel="stylesheet">    
-    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
     <!--end of global css-->
     <!--page level css-->
     @yield('header_styles')
@@ -45,7 +45,7 @@
                 <div class="row hidden-lg">
                     <div class="col-sm-8" >
                         <div id="header_logo" class="pull-left hidden-lg">
-                                <a  href="{{ route('home') }}" class="hidden-md"><img src="{{ asset('assets/images/logo_movil.png') }}" alt="Alpina Go!" class="logo_position"></a>
+                                <a  href="{{ route('home') }}" class="hidden-md"><img src="{{ secure_asset('assets/images/logo_movil.png') }}" alt="Alpina Go!" class="logo_position"></a>
                         </div>
                     </div>
                     <div class="col-sm-4 pull-right" >
@@ -137,7 +137,7 @@
                         </div>
                         <div class="col-md-4 col-xs-8">
                             <div id="header_logo" class="pull-center">
-                                <a  href="{{ route('home') }}"><img src="{{ asset('assets/images/logo_go.png') }}" alt="Alpina Go!" class="logo_position"></a>
+                                <a  href="{{ route('home') }}"><img src="{{ secure_asset('assets/images/logo_go.png') }}" alt="Alpina Go!" class="logo_position"></a>
                             </div>
                         </div>
                         <div class="col-md-4 col-xs-4 navbar-nav" class="pull_left">

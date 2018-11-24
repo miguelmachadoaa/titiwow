@@ -5,10 +5,10 @@
     <title>Admin Login | Alpina Go</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- global level css -->
-    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
     <!-- end of global level css -->
     <!-- page level css -->
-    <link href="{{ asset('assets/css/pages/login2.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/css/pages/login2.css') }}" rel="stylesheet" />
     <!-- styles of the page ends-->
 </head>
 
@@ -56,11 +56,11 @@
         </div>
     </div>
     <!-- global js -->
-    <script src="{{ asset('assets/js/jquery-1.11.1.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/js/bootstrap.min.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/js/jquery-1.11.1.min.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/js/bootstrap.min.js') }}" type="text/javascript"></script>
     <!-- end of global js -->
     <!-- begining of page level js-->
-    <script src="{{ asset('assets/js/TweenLite.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/js/TweenLite.min.js') }}"></script>
     <script type="text/javascript">
     $(document).ready(function() {
         $(document).mousemove(function(event) {

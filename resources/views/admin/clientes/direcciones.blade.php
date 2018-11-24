@@ -9,10 +9,10 @@
 {{-- page level styles --}}
 @section('header_styles')
     <meta name="csrf_token" content="{{ csrf_token() }}">
-    <link href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('assets/vendors/x-editable/css/bootstrap-editable.css') }}" rel="stylesheet"/>
+    <link href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}" rel="stylesheet"/>
+    <link href="{{ secure_asset('assets/vendors/x-editable/css/bootstrap-editable.css') }}" rel="stylesheet"/>
 
-    <link href="{{ asset('assets/css/pages/user_profile.css') }}" rel="stylesheet"/>
+    <link href="{{ secure_asset('assets/css/pages/user_profile.css') }}" rel="stylesheet"/>
 @stop
 
 
@@ -134,7 +134,7 @@
 {{-- page level scripts --}}
 @section('footer_scripts')
     <!-- Bootstrap WYSIHTML5 -->
-    <script  src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}" type="text/javascript"></script>
+    <script  src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}" type="text/javascript"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {

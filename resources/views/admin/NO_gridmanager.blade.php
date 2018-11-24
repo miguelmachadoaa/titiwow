@@ -9,9 +9,9 @@ Page Builder
 {{-- page level styles --}}
 @section('header_styles')
     
-    <link href="{{ asset('assets/vendors/gridmanager/css/jquery.gridmanager.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/vendors/gridmanager/css/demo.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/css/pages/grid_manager.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/vendors/gridmanager/css/jquery.gridmanager.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/vendors/gridmanager/css/demo.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/css/pages/grid_manager.css') }}" rel="stylesheet" />
     
 @stop
 
@@ -167,7 +167,7 @@ Page Builder
 {{-- page level scripts --}}
 @section('footer_scripts')
 
-    <script src="{{ asset('assets/vendors/gridmanager/js/jquery.gridmanager.js') }}" ></script>
-    <script src="{{ asset('assets/js/pages/grid_manager.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/gridmanager/js/jquery.gridmanager.js') }}" ></script>
+    <script src="{{ secure_asset('assets/js/pages/grid_manager.js') }}" ></script>
     
 @stop

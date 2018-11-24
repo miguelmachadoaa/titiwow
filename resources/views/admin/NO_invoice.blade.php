@@ -8,7 +8,7 @@ Invoice
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link href="{{ asset('assets/css/pages/invoice.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ secure_asset('assets/css/pages/invoice.css') }}" rel="stylesheet" type="text/css"/>
 @stop
 
 {{-- Page content --}}
@@ -48,7 +48,7 @@ Invoice
                             <div class="panel-body" style="border:1px solid #ccc;padding:0;margin:0;">
                                 <div class="row" style="padding: 15px;margin-top:5px;">
                                     <div class="col-md-6">
-                                        <img src="{{ asset('assets/img/logo2.png') }}" alt="logo" class="img-responsive">
+                                        <img src="{{ secure_asset('assets/img/logo2.png') }}" alt="logo" class="img-responsive">
                                     </div>
                                     <div class="col-md-6">
                                         <div class="pull-right">
@@ -205,6 +205,6 @@ Invoice
 {{-- page level scripts --}}
 @section('footer_scripts')
 
-    <script  src="{{ asset('assets/js/pages/invoice.js') }}"  type="text/javascript"></script>
+    <script  src="{{ secure_asset('assets/js/pages/invoice.js') }}"  type="text/javascript"></script>
 
 @stop

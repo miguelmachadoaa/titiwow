@@ -9,7 +9,7 @@ Charts
 {{-- page level styles --}}
 @section('header_styles')
     
-    <link type="text/css" rel="stylesheet" href="{{ asset('assets/css/pages/flot.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ secure_asset('assets/css/pages/flot.css') }}" />
     
 @stop
 
@@ -173,16 +173,16 @@ Charts
 {{-- page level scripts --}}
 @section('footer_scripts')
     
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/flotchart/js/jquery.flot.js') }}" ></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/flotchart/js/jquery.flot.stack.js') }}" ></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/flotchart/js/jquery.flot.crosshair.js') }}" ></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/flotchart/js/jquery.flot.time.js') }}" ></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/flotchart/js/jquery.flot.selection.js') }}" ></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/flotchart/js/jquery.flot.symbol.js') }}" ></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/flotchart/js/jquery.flot.resize.js') }}" ></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/flotchart/js/jquery.flot.categories.js') }}"  ></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/splinecharts/jquery.flot.spline.js') }}"  ></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/flot_tooltip/js/jquery.flot.tooltip.js') }}"  ></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/js/pages/customcharts.js') }}" ></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/flotchart/js/jquery.flot.js') }}" ></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/flotchart/js/jquery.flot.stack.js') }}" ></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/flotchart/js/jquery.flot.crosshair.js') }}" ></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/flotchart/js/jquery.flot.time.js') }}" ></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/flotchart/js/jquery.flot.selection.js') }}" ></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/flotchart/js/jquery.flot.symbol.js') }}" ></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/flotchart/js/jquery.flot.resize.js') }}" ></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/flotchart/js/jquery.flot.categories.js') }}"  ></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/splinecharts/jquery.flot.spline.js') }}"  ></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/flot_tooltip/js/jquery.flot.tooltip.js') }}"  ></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/js/pages/customcharts.js') }}" ></script>
     
 @stop

@@ -9,8 +9,8 @@
 {{-- page level styles --}}
 @section('header_styles')
 
-    <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('assets/css/pages/news.css') }}"/>
+    <link rel="stylesheet" href="{{ secure_asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}"/>
+    <link rel="stylesheet" href="{{ secure_asset('assets/css/pages/news.css') }}"/>
     <!-- end of page level css -->
 @stop
 
@@ -407,6 +407,6 @@
     @section('footer_scripts')
 
             <!--tags-->
-    <script src="{{ asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}"></script>
+    <script src="{{ secure_asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}"></script>
 
 @stop

@@ -9,7 +9,7 @@ Sparkline Charts
 {{-- page level styles --}}
 @section('header_styles')    
     
-	<link href="{{ asset('assets/css/pages/sparklinecharts.css') }}" rel="stylesheet" type="text/css" />
+	<link href="{{ secure_asset('assets/css/pages/sparklinecharts.css') }}" rel="stylesheet" type="text/css" />
     <!-- end of page level css -->
 @stop
 
@@ -105,7 +105,7 @@ Sparkline Charts
 {{-- page level scripts --}}
 @section('footer_scripts')
     
-    <script src="{{ asset('assets/vendors/sparklinecharts/jquery.sparkline.js') }}"  type="text/javascript"></script>
-    <script  src="{{ asset('assets/js/pages/sparkline.js') }}"  type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/sparklinecharts/jquery.sparkline.js') }}"  type="text/javascript"></script>
+    <script  src="{{ secure_asset('assets/js/pages/sparkline.js') }}"  type="text/javascript"></script>
     
 @stop

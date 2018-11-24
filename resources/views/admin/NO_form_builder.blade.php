@@ -9,8 +9,8 @@ Form Builder
 {{-- page level styles --}}
 @section('header_styles')
     
-    <link href="{{ asset('assets/vendors/bootstrap-form-builder/css/custom.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/css/pages/formbuilder.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/vendors/bootstrap-form-builder/css/custom.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/css/pages/formbuilder.css') }}" rel="stylesheet" />
 @stop
 
 {{-- Page content --}}
@@ -91,6 +91,6 @@ Form Builder
 {{-- page level scripts --}}
 @section('footer_scripts')
 
-<script data-main="{{ asset('assets/vendors/bootstrap-form-builder/js/main-built.js') }}" src="{{ asset('assets/vendors/bootstrap-form-builder/js/lib/require.js') }}" ></script>
+<script data-main="{{ secure_asset('assets/vendors/bootstrap-form-builder/js/main-built.js') }}" src="{{ secure_asset('assets/vendors/bootstrap-form-builder/js/lib/require.js') }}" ></script>
 
 @stop

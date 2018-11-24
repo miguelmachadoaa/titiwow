@@ -8,7 +8,7 @@ Blank Page
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link rel="stylesheet" href="{{ asset('assets/css/pages/news.css') }}"/>
+    <link rel="stylesheet" href="{{ secure_asset('assets/css/pages/news.css') }}"/>
     <style>
         body{
             overflow: -webkit-paged-x;

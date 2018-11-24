@@ -9,9 +9,9 @@ Font Icons
 {{-- page level styles --}}
 @section('header_styles')
     
-    <link rel="stylesheet" href="{{ asset('assets/vendors/simple-line-icons/css/simple-line-icons.css') }}" />
-        <link rel="stylesheet" href="{{ asset('assets/vendors/ionicons/css/ionicons.min.css') }}" />
-    <link href="{{ asset('assets/css/pages/icon.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{ secure_asset('assets/vendors/simple-line-icons/css/simple-line-icons.css') }}" />
+        <link rel="stylesheet" href="{{ secure_asset('assets/vendors/ionicons/css/ionicons.min.css') }}" />
+    <link href="{{ secure_asset('assets/css/pages/icon.css') }}" rel="stylesheet" type="text/css" />
 
 @stop
 

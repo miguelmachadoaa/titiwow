@@ -9,8 +9,8 @@ Notifications
 {{-- page level styles --}}
 @section('header_styles')
 
-    <link href="{{ asset('assets/css/pages/fluid.css') }}"  rel="stylesheet"/>
-    <link href="{{ asset('assets/css/pages/toastr.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/css/pages/fluid.css') }}"  rel="stylesheet"/>
+    <link href="{{ secure_asset('assets/css/pages/toastr.css') }}" rel="stylesheet" />
     
 @stop
 
@@ -197,10 +197,10 @@ Notifications
 {{-- page level scripts --}}
 @section('footer_scripts')
 
-    <script src="{{ asset('assets/vendors/moment/js/moment.min.js') }}" ></script>
-    <script src="{{ asset('assets/vendors/noty/js/jquery.noty.packaged.min.js') }}" ></script>
-    <script src="{{ asset('assets/js/pages/noty_script.js') }}" ></script>
-    {{--<script type="text/javascript" src="{{ asset('assets/vendors/noty/script.js') }}" ></script>--}}
+    <script src="{{ secure_asset('assets/vendors/moment/js/moment.min.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/noty/js/jquery.noty.packaged.min.js') }}" ></script>
+    <script src="{{ secure_asset('assets/js/pages/noty_script.js') }}" ></script>
+    {{--<script type="text/javascript" src="{{ secure_asset('assets/vendors/noty/script.js') }}" ></script>--}}
 
 
   

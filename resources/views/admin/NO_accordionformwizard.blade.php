@@ -9,8 +9,8 @@ Accordian Form Wizard
 {{-- page level styles --}}
 @section('header_styles')
     
-    <link href="{{ asset('assets/vendors/acc-wizard/acc-wizard.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/css/pages/accordionformwizard.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/vendors/acc-wizard/acc-wizard.min.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/css/pages/accordionformwizard.css') }}" rel="stylesheet" />
     
 @stop
 
@@ -273,7 +273,7 @@ Accordian Form Wizard
 {{-- page level scripts --}}
 @section('footer_scripts')
     
-    <script src="{{ asset('assets/vendors/acc-wizard/acc-wizard.min.js') }}" ></script>
-    <script src="{{ asset('assets/js/pages/accordionformwizard.js') }}"  type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/acc-wizard/acc-wizard.min.js') }}" ></script>
+    <script src="{{ secure_asset('assets/js/pages/accordionformwizard.js') }}"  type="text/javascript"></script>
     
 @stop

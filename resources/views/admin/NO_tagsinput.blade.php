@@ -8,9 +8,9 @@ Tags Input
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-tagsinput/css/app.css') }}" />
-    <link href="{{ asset('assets/css/pages/tagsinput.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ secure_asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" />
+    <link rel="stylesheet" href="{{ secure_asset('assets/vendors/bootstrap-tagsinput/css/app.css') }}" />
+    <link href="{{ secure_asset('assets/css/pages/tagsinput.css') }}" rel="stylesheet" />
 @stop
 
 {{-- Page content --}}
@@ -314,8 +314,8 @@ this.tagsinput('input').typeahead('setQuery', '');
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}"  type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/typeahead/js/typeahead.bundle.min.js') }}"  type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/typeahead/js/bloodhound.min.js') }}"  type="text/javascript"></script>
-    <script src="{{ asset('assets/js/pages/Categorizing_tags.js') }}"  type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}"  type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/typeahead/js/typeahead.bundle.min.js') }}"  type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/typeahead/js/bloodhound.min.js') }}"  type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/js/pages/Categorizing_tags.js') }}"  type="text/javascript"></script>
 @stop

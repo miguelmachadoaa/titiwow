@@ -9,8 +9,8 @@ News Details
 {{-- page level styles --}}
 @section('header_styles')    
     
-	<link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/pages/blog.css') }}" />
+	<link rel="stylesheet" href="{{ secure_asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" />
+    <link rel="stylesheet" href="{{ secure_asset('assets/css/pages/blog.css') }}" />
     <!-- end of page level css -->
 @stop
 
@@ -260,6 +260,6 @@ News Details
 {{-- page level scripts --}}
 @section('footer_scripts')
     
-    <script src="{{ asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" ></script>
     
 @stop

@@ -8,7 +8,7 @@ Form Builder 2
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link href="{{ asset('assets/css/pages/formbuilder1.css') }}"  rel="stylesheet"/>
+    <link href="{{ secure_asset('assets/css/pages/formbuilder1.css') }}"  rel="stylesheet"/>
     
 @stop
 
@@ -132,8 +132,8 @@ Form Builder 2
 @section('footer_scripts')
     <!--livicons-->
 
-    <script src="{{ asset('assets/vendors/form-builder/js/beautify-html.js') }}" ></script>
-    <script src="{{ asset('assets/vendors/form-builder/js/beautify-css.js') }}" ></script>
-    <script src="{{ asset('assets/vendors/form-builder/js/beautify.js') }}" ></script>
-    <script src="{{ asset('assets/js/pages/form_builder2.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/form-builder/js/beautify-html.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/form-builder/js/beautify-css.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/form-builder/js/beautify.js') }}" ></script>
+    <script src="{{ secure_asset('assets/js/pages/form_builder2.js') }}" ></script>
 @stop

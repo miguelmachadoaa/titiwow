@@ -9,16 +9,16 @@
     {{-- page level styles --}}
     @section('header_styles')
 
-        <link type="text/css" href="{{ asset('assets/vendors/bootstrap-multiselect/css/bootstrap-multiselect.css') }}" rel="stylesheet" />
-        <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
-        <link href="{{ asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
-        <link href="{{ asset('assets/vendors/selectize/css/selectize.css') }}" rel="stylesheet" />
-        <link href="{{ asset('assets/vendors/selectize/css/selectize.bootstrap3.css') }}" rel="stylesheet" />
-        <link href="{{ asset('assets/vendors/iCheck/css/all.css') }}" rel="stylesheet" />
-        <link href="{{ asset('assets/vendors/iCheck/css/line/line.css') }}" rel="stylesheet" />
-        <link href="{{ asset('assets/vendors/bootstrap-switch/css/bootstrap-switch.css') }}" rel="stylesheet" />
-        <link href="{{ asset('assets/vendors/switchery/css/switchery.css') }}" rel="stylesheet" />
-        <link href="{{ asset('assets/css/pages/formelements.css') }}" rel="stylesheet" />
+        <link type="text/css" href="{{ secure_asset('assets/vendors/bootstrap-multiselect/css/bootstrap-multiselect.css') }}" rel="stylesheet" />
+        <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+        <link href="{{ secure_asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
+        <link href="{{ secure_asset('assets/vendors/selectize/css/selectize.css') }}" rel="stylesheet" />
+        <link href="{{ secure_asset('assets/vendors/selectize/css/selectize.bootstrap3.css') }}" rel="stylesheet" />
+        <link href="{{ secure_asset('assets/vendors/iCheck/css/all.css') }}" rel="stylesheet" />
+        <link href="{{ secure_asset('assets/vendors/iCheck/css/line/line.css') }}" rel="stylesheet" />
+        <link href="{{ secure_asset('assets/vendors/bootstrap-switch/css/bootstrap-switch.css') }}" rel="stylesheet" />
+        <link href="{{ secure_asset('assets/vendors/switchery/css/switchery.css') }}" rel="stylesheet" />
+        <link href="{{ secure_asset('assets/css/pages/formelements.css') }}" rel="stylesheet" />
 
 @stop
 
@@ -615,16 +615,16 @@
 
     {{-- page level scripts --}}
     @section('footer_scripts')
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/bootstrap-multiselect/js/bootstrap-multiselect.js') }}" ></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/select2/js/select2.js') }}"></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/sifter/sifter.js') }}"></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/microplugin/microplugin.js') }}"></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/selectize/js/selectize.min.js') }}"></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/bootstrap-switch/js/bootstrap-switch.js') }}"></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/switchery/js/switchery.js') }}" ></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/bootstrap-maxlength/js/bootstrap-maxlength.js') }}"></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/card/lib/js/jquery.card.js') }}"></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/js/pages/custom_elements.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/bootstrap-multiselect/js/bootstrap-multiselect.js') }}" ></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/sifter/sifter.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/microplugin/microplugin.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/selectize/js/selectize.min.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/bootstrap-switch/js/bootstrap-switch.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/switchery/js/switchery.js') }}" ></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/bootstrap-maxlength/js/bootstrap-maxlength.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/card/lib/js/jquery.card.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/js/pages/custom_elements.js') }}"></script>
 
     @stop

@@ -9,7 +9,7 @@ JS Charts
 {{-- page level styles --}}
 @section('header_styles')
 
-    <link rel="stylesheet" href="{{ asset('assets/css/pages/jscharts.css') }}" />
+    <link rel="stylesheet" href="{{ secure_asset('assets/css/pages/jscharts.css') }}" />
 
 @stop
 
@@ -164,6 +164,6 @@ JS Charts
 @stop
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ asset('assets/vendors/Chartjs/js/Chart.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/chartjs.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/Chartjs/js/Chart.js') }}"></script>
+    <script src="{{ secure_asset('assets/js/pages/chartjs.js') }}" ></script>
 @stop

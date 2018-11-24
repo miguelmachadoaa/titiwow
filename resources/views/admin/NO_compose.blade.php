@@ -8,8 +8,8 @@ Compose New Mail
 
 {{-- page level styles --}}
 @section('header_styles')
-	<link href="{{ asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet" media="screen" />
-    <link href="{{ asset('assets/css/pages/mail_box.css') }}" rel="stylesheet" type="text/css" />
+	<link href="{{ secure_asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet" media="screen" />
+    <link href="{{ secure_asset('assets/css/pages/mail_box.css') }}" rel="stylesheet" type="text/css" />
 
 @stop
 
@@ -137,7 +137,7 @@ Compose New Mail
 {{-- page level scripts --}}
 @section('footer_scripts')
 
-    <script src="{{ asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
     $('#summernote').summernote({
         fontNames: ['Lato', 'Arial', 'Courier New']

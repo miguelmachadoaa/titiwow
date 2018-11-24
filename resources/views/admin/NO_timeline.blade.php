@@ -9,8 +9,8 @@ Timeline
 {{-- page level styles --}}
 @section('header_styles')    
     
-	<link href="{{ asset('assets/css/pages/timeline.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/css/pages/timeline2.css') }}" rel="stylesheet" />
+	<link href="{{ secure_asset('assets/css/pages/timeline.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/css/pages/timeline2.css') }}" rel="stylesheet" />
     
 @stop
 

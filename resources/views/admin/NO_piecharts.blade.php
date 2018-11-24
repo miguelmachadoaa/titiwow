@@ -8,9 +8,9 @@ Pie Charts
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/c3/c3.min.css') }}" rel="stylesheet" type="text/css" />
-    <link  rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/morrisjs/morris.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/css/pages/piecharts.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/c3/c3.min.css') }}" rel="stylesheet" type="text/css" />
+    <link  rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/morrisjs/morris.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ secure_asset('assets/css/pages/piecharts.css') }}" rel="stylesheet" type="text/css" />
 
 @stop
 
@@ -219,13 +219,13 @@ Pie Charts
 {{-- page level scripts --}}
 @section('footer_scripts')
 
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/flotchart/js/jquery.flot.js') }}" ></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/flotchart/js/jquery.flot.pie.js') }}" ></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/flotchart/js/jquery.flot.resize.js') }}" ></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/d3/d3.min.js') }}"></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/d3pie/d3pie.min.js') }}"></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/c3/c3.min.js') }}"></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/morrisjs/morris.min.js') }}"></script>
-    <script language="javascript" type="text/javascript" src="{{ asset('assets/js/pages/custompiecharts.js') }}" ></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/flotchart/js/jquery.flot.js') }}" ></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/flotchart/js/jquery.flot.pie.js') }}" ></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/flotchart/js/jquery.flot.resize.js') }}" ></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/d3/d3.min.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/d3pie/d3pie.min.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/c3/c3.min.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/morrisjs/morris.min.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/js/pages/custompiecharts.js') }}" ></script>
 
 @stop

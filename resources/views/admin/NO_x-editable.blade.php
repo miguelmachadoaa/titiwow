@@ -9,12 +9,12 @@ X-Editable
 {{-- page level styles --}}
 @section('header_styles')
         <!-- page level css -->
-        <link href="{{ asset('assets/vendors/x-editable/css/x-select.css') }}" type="text/css" rel="stylesheet" />
-        <link href="{{ asset('assets/vendors/x-editable/css/bootstrap-editable.css') }}" type="text/css" rel="stylesheet" />
-        <link href="{{ asset('assets/vendors/x-editable/css/x-selectbootstrap.css') }}" type="text/css" rel="stylesheet" />
-        <link href="{{ asset('assets/vendors/x-editable/css/typeahead.js-bootstrap.css') }}" type="text/css" rel="stylesheet" />
-        <link href="{{ asset('assets/vendors/iCheck/css/all.css') }}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset('assets/css/pages/inlinedit.css') }}" rel="stylesheet" />
+        <link href="{{ secure_asset('assets/vendors/x-editable/css/x-select.css') }}" type="text/css" rel="stylesheet" />
+        <link href="{{ secure_asset('assets/vendors/x-editable/css/bootstrap-editable.css') }}" type="text/css" rel="stylesheet" />
+        <link href="{{ secure_asset('assets/vendors/x-editable/css/x-selectbootstrap.css') }}" type="text/css" rel="stylesheet" />
+        <link href="{{ secure_asset('assets/vendors/x-editable/css/typeahead.js-bootstrap.css') }}" type="text/css" rel="stylesheet" />
+        <link href="{{ secure_asset('assets/vendors/iCheck/css/all.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ secure_asset('assets/css/pages/inlinedit.css') }}" rel="stylesheet" />
         <!-- end of page level css -->
     @stop
 
@@ -151,14 +151,14 @@ X-Editable
 {{-- page level scripts --}}
 @section('footer_scripts')
         
-    <script src="{{ asset('assets/vendors/jquery-mockjax/js/jquery.mockjax.js') }}" ></script>
-    <script src="{{ asset('assets/vendors/moment/js/moment.min.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/jquery-mockjax/js/jquery.mockjax.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/moment/js/moment.min.js') }}" ></script>
     <script>var f = 'bootstrap3';</script>
-    <script src="{{ asset('assets/vendors/x-editable/js/bootstrap-editable.js') }}" ></script>
-    <script src="{{ asset('assets/vendors/x-editable/js/typeahead.js') }}" ></script>
-    <script src="{{ asset('assets/vendors/x-editable/js/typeaheadjs.js') }}" ></script>
-    <script src="{{ asset('assets/vendors/x-editable/js/address.js') }}" ></script>
-    <script src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
+    <script src="{{ secure_asset('assets/vendors/x-editable/js/bootstrap-editable.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/x-editable/js/typeahead.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/x-editable/js/typeaheadjs.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/x-editable/js/address.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
 
     <script>
         var c = window.location.href.match(/c=inline/i) ? 'inline' : 'popup';
@@ -171,7 +171,7 @@ X-Editable
 
         });
     </script>
-    <script src="{{ asset('assets/js/pages/demo-mock.js') }}" ></script>
-    <script src="{{ asset('assets/js/pages/demo.js') }}" ></script>
+    <script src="{{ secure_asset('assets/js/pages/demo-mock.js') }}" ></script>
+    <script src="{{ secure_asset('assets/js/pages/demo.js') }}" ></script>
     <!-- end of page level scripts-->
 @stop

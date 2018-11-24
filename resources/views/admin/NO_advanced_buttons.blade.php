@@ -9,8 +9,8 @@
 {{-- page level styles --}}
 @section('header_styles')
 
-    <link rel="stylesheet" href="{{ asset('assets/vendors/Buttons/css/buttons.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/pages/advbuttons.css') }}" />
+    <link rel="stylesheet" href="{{ secure_asset('assets/vendors/Buttons/css/buttons.css') }}" />
+    <link rel="stylesheet" href="{{ secure_asset('assets/css/pages/advbuttons.css') }}" />
 
 @stop
 
@@ -1110,8 +1110,8 @@
 {{-- page level scripts --}}
 @section('footer_scripts')
 
-    <script type="text/javascript" src="{{ asset('assets/vendors/Buttons/js/scrollto.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/Buttons/js/buttons.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/Buttons/js/scrollto.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/Buttons/js/buttons.js') }}" ></script>
     <!--social dashboard-->
     <script type="text/javascript">
         $({

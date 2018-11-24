@@ -106,7 +106,7 @@ Circle Sliders
 {{-- page level scripts --}}
 @section('footer_scripts')
     
-    <script src="{{ asset('assets/vendors/jquery-knob/js/jquery.knob.js') }}"  type="text/javascript"></script>
-    <script src="{{ asset('assets/js/pages/knob_page.js') }}"  type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/jquery-knob/js/jquery.knob.js') }}"  type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/js/pages/knob_page.js') }}"  type="text/javascript"></script>
     
 @stop

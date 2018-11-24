@@ -8,7 +8,7 @@
 
 {{-- page level styles --}}
 @section('header_styles')
-<link rel="stylesheet" href="{{ asset('assets/css/pages/blog.css') }}" />
+<link rel="stylesheet" href="{{ secure_asset('assets/css/pages/blog.css') }}" />
 @stop
 
 

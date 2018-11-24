@@ -9,11 +9,11 @@ Form Editors
 {{-- page level styles --}}
 @section('header_styles')
     
-    <link href="{{ asset('assets/vendors/bootstrap3-wysihtml5-bower/css/bootstrap3-wysihtml5.min.css') }}"  rel="stylesheet" media="screen"/>
-    <link href="{{ asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('assets/vendors/trumbowyg/css/trumbowyg.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('assets/vendors/trumbowyg/css/trumbowyg.colors.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('assets/css/pages/editor.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ secure_asset('assets/vendors/bootstrap3-wysihtml5-bower/css/bootstrap3-wysihtml5.min.css') }}"  rel="stylesheet" media="screen"/>
+    <link href="{{ secure_asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ secure_asset('assets/vendors/trumbowyg/css/trumbowyg.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ secure_asset('assets/vendors/trumbowyg/css/trumbowyg.colors.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ secure_asset('assets/css/pages/editor.css') }}" rel="stylesheet" type="text/css"/>
     
 @stop
 
@@ -109,16 +109,16 @@ Form Editors
 @section('footer_scripts')
     
     <!-- Bootstrap WYSIHTML5 -->
-    <script  src="{{ asset('assets/vendors/bootstrap3-wysihtml5-bower/js/bootstrap3-wysihtml5.all.min.js') }}"  type="text/javascript"></script>
-    <script  src="{{ asset('assets/vendors/bootstrap3-wysihtml5-bower/js/bootstrap3-wysihtml5.min.js') }}"  type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
-    <script  src="{{ asset('assets/vendors/trumbowyg/js/trumbowyg.js') }}"  type="text/javascript"></script>
-    <script  src="{{ asset('assets/vendors/trumbowyg/js/trumbowyg.base64.min.js') }}"  type="text/javascript"></script>
-    <script  src="{{ asset('assets/vendors/trumbowyg/js/trumbowyg.colors.min.js') }}"  type="text/javascript"></script>
-    <script  src="{{ asset('assets/vendors/trumbowyg/js/trumbowyg.noembed.min.js') }}"  type="text/javascript"></script>
-    <script  src="{{ asset('assets/vendors/trumbowyg/js/trumbowyg.pasteimage.min.js') }}"  type="text/javascript"></script>
-    <script  src="{{ asset('assets/vendors/trumbowyg/js/trumbowyg.preformatted.min.js') }}"  type="text/javascript"></script>
-    <script  src="{{ asset('assets/vendors/trumbowyg/js/trumbowyg.upload.min.js') }}"  type="text/javascript"></script>
-    <script  src="{{ asset('assets/js/pages/editor2.js') }}"  type="text/javascript"></script>
+    <script  src="{{ secure_asset('assets/vendors/bootstrap3-wysihtml5-bower/js/bootstrap3-wysihtml5.all.min.js') }}"  type="text/javascript"></script>
+    <script  src="{{ secure_asset('assets/vendors/bootstrap3-wysihtml5-bower/js/bootstrap3-wysihtml5.min.js') }}"  type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
+    <script  src="{{ secure_asset('assets/vendors/trumbowyg/js/trumbowyg.js') }}"  type="text/javascript"></script>
+    <script  src="{{ secure_asset('assets/vendors/trumbowyg/js/trumbowyg.base64.min.js') }}"  type="text/javascript"></script>
+    <script  src="{{ secure_asset('assets/vendors/trumbowyg/js/trumbowyg.colors.min.js') }}"  type="text/javascript"></script>
+    <script  src="{{ secure_asset('assets/vendors/trumbowyg/js/trumbowyg.noembed.min.js') }}"  type="text/javascript"></script>
+    <script  src="{{ secure_asset('assets/vendors/trumbowyg/js/trumbowyg.pasteimage.min.js') }}"  type="text/javascript"></script>
+    <script  src="{{ secure_asset('assets/vendors/trumbowyg/js/trumbowyg.preformatted.min.js') }}"  type="text/javascript"></script>
+    <script  src="{{ secure_asset('assets/vendors/trumbowyg/js/trumbowyg.upload.min.js') }}"  type="text/javascript"></script>
+    <script  src="{{ secure_asset('assets/js/pages/editor2.js') }}"  type="text/javascript"></script>
     
 @stop

@@ -9,8 +9,8 @@
 {{-- page level styles --}}
 @section('header_styles')
 
-    <link href="{{ asset('assets/vendors/bootstrap3-wysihtml5-bower/css/bootstrap3-wysihtml5.min.css') }}"  rel="stylesheet" media="screen"/>
-    <link href="{{ asset('assets/css/pages/editor.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ secure_asset('assets/vendors/bootstrap3-wysihtml5-bower/css/bootstrap3-wysihtml5.min.css') }}"  rel="stylesheet" media="screen"/>
+    <link href="{{ secure_asset('assets/css/pages/editor.css') }}" rel="stylesheet" type="text/css"/>
 
 @stop
 
@@ -171,12 +171,12 @@
     @section('footer_scripts')
 
             <!-- Bootstrap WYSIHTML5 -->
-    <script src="{{asset('assets/vendors/tinymce/tinymce.min.js')}}" type="text/javascript"></script>
-    <script  src="{{ asset('assets/vendors/ckeditor/js/ckeditor.js') }}"  type="text/javascript"></script>
-    <script  src="{{ asset('assets/vendors/ckeditor/js/jquery.js') }}"  type="text/javascript" ></script>
-    <script  src="{{ asset('assets/vendors/ckeditor/js/config.js') }}"  type="text/javascript"></script>
+    <script src="{{secure_asset('assets/vendors/tinymce/tinymce.min.js')}}" type="text/javascript"></script>
+    <script  src="{{ secure_asset('assets/vendors/ckeditor/js/ckeditor.js') }}"  type="text/javascript"></script>
+    <script  src="{{ secure_asset('assets/vendors/ckeditor/js/jquery.js') }}"  type="text/javascript" ></script>
+    <script  src="{{ secure_asset('assets/vendors/ckeditor/js/config.js') }}"  type="text/javascript"></script>
 
-            <script src="{{ asset('assets/vendors/ckedit_res/js/plugin.js') }}" type="text/javascript"></script>
-            <script src="{{ asset('assets/js/pages/editor.js') }}" type="text/javascript"></script>
+            <script src="{{ secure_asset('assets/vendors/ckedit_res/js/plugin.js') }}" type="text/javascript"></script>
+            <script src="{{ secure_asset('assets/js/pages/editor.js') }}" type="text/javascript"></script>
 
 @stop

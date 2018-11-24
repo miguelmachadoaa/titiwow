@@ -9,10 +9,10 @@
 {{-- page level styles --}}
 @section('header_styles')
 
-    <link rel="stylesheet" href="{{ asset('assets/css/pages/todolist.css') }}"/>
+    <link rel="stylesheet" href="{{ secure_asset('assets/css/pages/todolist.css') }}"/>
     <meta name="_token" content="{{ csrf_token() }}">
-{{--    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datetimepicker/css/bootstrap-datetimepicker.min.css') }}">--}}
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/smalotDatepicker/css/bootstrap-datetimepicker.min.css') }}">
+{{--    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datetimepicker/css/bootstrap-datetimepicker.min.css') }}">--}}
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/smalotDatepicker/css/bootstrap-datetimepicker.min.css') }}">
     {{--<link rel="stylesheet" href="https://www.malot.fr/bootstrap-datetimepicker/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">--}}
     <!-- end of page level css -->
     <style>
@@ -97,10 +97,10 @@
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script type="text/javascript" src="{{ asset('assets/vendors/moment/js/moment.min.js') }}"></script>
-{{--    <script type="text/javascript" src="{{ asset('assets/vendors/datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>--}}
-    <script type="text/javascript" src="{{ asset('assets/vendors/smalotDatepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/pages/tasklist.js') }}"></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/moment/js/moment.min.js') }}"></script>
+{{--    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>--}}
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/smalotDatepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/js/pages/tasklist.js') }}"></script>
 
     <script>
         var currentDate = new Date();

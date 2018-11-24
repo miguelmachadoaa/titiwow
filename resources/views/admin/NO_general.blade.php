@@ -9,8 +9,8 @@ General Components
 {{-- page level styles --}}
 @section('header_styles')    
     
-	<link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.css') }}" />
-    <link href="{{ asset('assets/css/pages/alertmessage.css') }}" rel="stylesheet"  type="text/css"/>
+	<link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.css') }}" />
+    <link href="{{ secure_asset('assets/css/pages/alertmessage.css') }}" rel="stylesheet"  type="text/css"/>
 @stop
 
 {{-- Page content --}}
@@ -622,7 +622,7 @@ General Components
 {{-- page level scripts --}}
 @section('footer_scripts')
     
-    <script type='text/javascript' src="{{ asset('assets/vendors/bootstrap-progressbar/js/bootstrap-progressbar.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('assets/js/pages/general.js') }}" ></script>
+    <script type='text/javascript' src="{{ secure_asset('assets/vendors/bootstrap-progressbar/js/bootstrap-progressbar.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/js/pages/general.js') }}" ></script>
     
 @stop

@@ -9,8 +9,8 @@
 {{-- page level styles --}}
 @section('header_styles')
 
-    <link href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}"  rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/vendors/iCheck/css/all.css') }}"  rel="stylesheet" type="text/css" />
+    <link href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}"  rel="stylesheet" type="text/css" />
+    <link href="{{ secure_asset('assets/vendors/iCheck/css/all.css') }}"  rel="stylesheet" type="text/css" />
 
 @stop
 {{-- Page content --}}
@@ -390,8 +390,8 @@
 {{-- page level scripts --}}
 @section('footer_scripts')
 
-    <script src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}" ></script>
-    <script src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/form_examples.js') }}"></script>
+    <script src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
+    <script src="{{ secure_asset('assets/js/pages/form_examples.js') }}"></script>
 
 @stop

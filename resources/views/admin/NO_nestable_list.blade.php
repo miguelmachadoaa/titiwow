@@ -8,7 +8,7 @@ Nestable List
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link href="{{ asset('assets/css/pages/sortable.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/css/pages/sortable.css') }}" rel="stylesheet" />
     
 @stop
 
@@ -232,8 +232,8 @@ Nestable List
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ asset('assets/vendors/nestable-list/jquery.nestable.js') }}" ></script>
-    <script src="{{ asset('assets/vendors/html5sortable/html.sortable.js') }}" ></script>
-    <script src="{{ asset('assets/js/pages/ui-nestable.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/nestable-list/jquery.nestable.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/html5sortable/html.sortable.js') }}" ></script>
+    <script src="{{ secure_asset('assets/js/pages/ui-nestable.js') }}" ></script>
     
 @stop

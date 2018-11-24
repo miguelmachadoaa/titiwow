@@ -9,8 +9,8 @@
 {{-- page level styles --}}
 @section('header_styles')
 
-    <link href="{{ asset('assets/vendors/animationcharts/jquery.circliful.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('assets/css/pages/charts.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ secure_asset('assets/vendors/animationcharts/jquery.circliful.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ secure_asset('assets/css/pages/charts.css') }}" rel="stylesheet" type="text/css"/>
 
 @stop
 
@@ -163,11 +163,11 @@
 {{-- page level scripts --}}
 @section('footer_scripts')
 
-    <script src="{{ asset('assets/vendors/flotchart/js/jquery.flot.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/animatechart/jquery.flot.animator.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/animationcharts/jquery.circliful.min.js') }}"></script>
-    <script src="{{ asset('assets/vendors/flotchart/js/jquery.flot.resize.js') }}" language="javascript"
+    <script src="{{ secure_asset('assets/vendors/flotchart/js/jquery.flot.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/animatechart/jquery.flot.animator.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/animationcharts/jquery.circliful.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/vendors/flotchart/js/jquery.flot.resize.js') }}" language="javascript"
             type="text/javascript"></script>
-    <script src="{{ asset('assets/js/pages/animation-chart.js') }}"></script>
+    <script src="{{ secure_asset('assets/js/pages/animation-chart.js') }}"></script>
 
 @stop

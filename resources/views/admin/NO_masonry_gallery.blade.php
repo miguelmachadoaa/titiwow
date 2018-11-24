@@ -9,8 +9,8 @@ Gallery
 {{-- page level styles --}}
 @section('header_styles')    
     
-	<link href="{{ asset('assets/css/pages/animated-masonry-gallery.css') }}" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/fancybox/jquery.fancybox.css') }}" media="screen" />
+	<link href="{{ secure_asset('assets/css/pages/animated-masonry-gallery.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/fancybox/jquery.fancybox.css') }}" media="screen" />
     <style>
         .mb-10{
             margin-bottom: 10px;
@@ -51,113 +51,113 @@ Gallery
                             </div>
                             <div id="gallery-content ">
                                 <div class="row" id="gallery-content-center">
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/big/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/big/1.jpg') }}" class="img-responsive all studio" alt="gallery">
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/big/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/big/1.jpg') }}" class="img-responsive all studio" alt="gallery">
                                     </a>
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/small/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/small/2.jpg') }}" class="img-responsive all landscape" alt="gallery">
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/small/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/small/2.jpg') }}" class="img-responsive all landscape" alt="gallery">
                                     </a>
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/big/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/big/2.jpg') }}" class="img-responsive all studio" alt="gallery">
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/big/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/big/2.jpg') }}" class="img-responsive all studio" alt="gallery">
                                     </a>
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/small/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/small/1.jpg') }}" class="img-responsive all studio" alt="gallery">
-                                    </a>
-
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/big/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/big/1.jpg') }}" class="img-responsive all landscape" alt="gallery">
-                                    </a>
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/small/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/small/2.jpg') }}" class="img-responsive all studio" alt="gallery">
-                                    </a>
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/big/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/big/1.jpg') }}" class="img-responsive all studio" alt="gallery">
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/small/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/small/1.jpg') }}" class="img-responsive all studio" alt="gallery">
                                     </a>
 
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/small/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/small/1.jpg') }}" class="img-responsive all landscape" alt="gallery">
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/big/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/big/1.jpg') }}" class="img-responsive all landscape" alt="gallery">
                                     </a>
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/big/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/big/1.jpg') }}" class="img-responsive all studio" alt="gallery">
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/small/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/small/2.jpg') }}" class="img-responsive all studio" alt="gallery">
                                     </a>
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/small/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/small/2.jpg') }}" class="img-responsive all studio" alt="gallery">
-                                    </a>
-
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/small/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/small/2.jpg') }}" class="img-responsive all landscape" alt="gallery">
-                                    </a>
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/big/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/big/1.jpg') }}" class="img-responsive all studio" alt="gallery">
-                                    </a>
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/small/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/small/2.jpg') }}" class="img-responsive all landscape" alt="gallery">
-                                    </a>
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/small/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/small/2.jpg') }}" class="img-responsive all studio" alt="gallery">
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/big/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/big/1.jpg') }}" class="img-responsive all studio" alt="gallery">
                                     </a>
 
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/big/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/big/2.jpg') }}" class="img-responsive all landscape" alt="gallery">
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/small/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/small/1.jpg') }}" class="img-responsive all landscape" alt="gallery">
                                     </a>
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/small/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/small/2.jpg') }}" class="img-responsive all studio" alt="gallery">
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/big/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/big/1.jpg') }}" class="img-responsive all studio" alt="gallery">
                                     </a>
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/400-x-699.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/small/1.jpg') }}" class="img-responsive all landscape" alt="gallery">
-                                    </a>
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/small/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/small/2.jpg') }}" class="img-responsive all studio" alt="gallery">
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/small/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/small/2.jpg') }}" class="img-responsive all studio" alt="gallery">
                                     </a>
 
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/small/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/small/1.jpg') }}" class="img-responsive all landscape" alt="gallery">
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/small/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/small/2.jpg') }}" class="img-responsive all landscape" alt="gallery">
                                     </a>
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/small/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/small/2.jpg') }}" class="img-responsive all studio" alt="gallery">
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/big/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/big/1.jpg') }}" class="img-responsive all studio" alt="gallery">
                                     </a>
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/small/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/small/1.jpg') }}" class="img-responsive all landscape" alt="gallery">
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/small/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/small/2.jpg') }}" class="img-responsive all landscape" alt="gallery">
                                     </a>
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/big/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/big/1.jpg') }}" class="img-responsive all studio" alt="gallery">
-                                    </a>
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/small/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/small/1.jpg') }}" class="img-responsive all landscape" alt="gallery">
-                                    </a>
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/small/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/small/2.jpg') }}" class="img-responsive all studio" alt="gallery">
-                                    </a>
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/small/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/small/1.jpg') }}" class="img-responsive all landscape" alt="gallery">
-                                    </a>
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/small/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/small/2.jpg') }}" class="img-responsive all studio" alt="gallery">
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/small/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/small/2.jpg') }}" class="img-responsive all studio" alt="gallery">
                                     </a>
 
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/small/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/small/1.jpg') }}" class="img-responsive all landscape" alt="gallery">
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/big/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/big/2.jpg') }}" class="img-responsive all landscape" alt="gallery">
                                     </a>
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder//small/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/small/2.jpg') }}" class="img-responsive all studio" alt="gallery">
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/small/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/small/2.jpg') }}" class="img-responsive all studio" alt="gallery">
                                     </a>
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/small/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/small/1.jpg') }}" class="img-responsive all landscape" alt="gallery">
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/400-x-699.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/small/1.jpg') }}" class="img-responsive all landscape" alt="gallery">
                                     </a>
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/big/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/big/1.jpg') }}" class="img-responsive all studio" alt="gallery">
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/small/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/small/2.jpg') }}" class="img-responsive all studio" alt="gallery">
                                     </a>
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/big/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/big/2.jpg') }}" class="img-responsive all landscape" alt="gallery">
+
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/small/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/small/1.jpg') }}" class="img-responsive all landscape" alt="gallery">
                                     </a>
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/big/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/big/1.jpg') }}" class="img-responsive all studio" alt="gallery">
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/small/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/small/2.jpg') }}" class="img-responsive all studio" alt="gallery">
                                     </a>
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/big/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/big/2.jpg') }}" class="img-responsive all landscape" alt="gallery">
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/small/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/small/1.jpg') }}" class="img-responsive all landscape" alt="gallery">
                                     </a>
-                                    <a class="fancybox img-responsive" href="{{ asset('assets/img/img_holder/small/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
-                                        <img src="{{ asset('assets/img/img_holder/small/2.jpg') }}" class="img-responsive all studio" alt="gallery">
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/big/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/big/1.jpg') }}" class="img-responsive all studio" alt="gallery">
+                                    </a>
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/small/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/small/1.jpg') }}" class="img-responsive all landscape" alt="gallery">
+                                    </a>
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/small/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/small/2.jpg') }}" class="img-responsive all studio" alt="gallery">
+                                    </a>
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/small/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/small/1.jpg') }}" class="img-responsive all landscape" alt="gallery">
+                                    </a>
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/small/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/small/2.jpg') }}" class="img-responsive all studio" alt="gallery">
+                                    </a>
+
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/small/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/small/1.jpg') }}" class="img-responsive all landscape" alt="gallery">
+                                    </a>
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder//small/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/small/2.jpg') }}" class="img-responsive all studio" alt="gallery">
+                                    </a>
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/small/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/small/1.jpg') }}" class="img-responsive all landscape" alt="gallery">
+                                    </a>
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/big/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/big/1.jpg') }}" class="img-responsive all studio" alt="gallery">
+                                    </a>
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/big/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/big/2.jpg') }}" class="img-responsive all landscape" alt="gallery">
+                                    </a>
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/big/1.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/big/1.jpg') }}" class="img-responsive all studio" alt="gallery">
+                                    </a>
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/big/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/big/2.jpg') }}" class="img-responsive all landscape" alt="gallery">
+                                    </a>
+                                    <a class="fancybox img-responsive" href="{{ secure_asset('assets/img/img_holder/small/2.jpg') }}" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet">
+                                        <img src="{{ secure_asset('assets/img/img_holder/small/2.jpg') }}" class="img-responsive all studio" alt="gallery">
                                     </a>
                                 </div>
                             </div>
@@ -173,10 +173,10 @@ Gallery
 {{-- page level scripts --}}
 @section('footer_scripts')
     
-    <script type="text/javascript" src="{{ asset('assets/js/pages/jquery.isotope.min.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('assets/js/pages/animated-masonry-gallery.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/js/pages/jquery.isotope.min.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/js/pages/animated-masonry-gallery.js') }}" ></script>
     <!-- Add fancyBox main JS and CSS files -->
-    <script type="text/javascript" src="{{ asset('assets/vendors/fancybox/jquery.fancybox.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/fancybox/jquery.fancybox.js') }}" ></script>
     <script type="text/javascript">
     $(document).ready(function() {
         $('.fancybox').fancybox();

@@ -8,9 +8,9 @@
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link href="{{ asset('assets/vendors/starability/starability-all.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('assets/vendors/bootstrapStarRating/css/star-rating.min.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('assets/css/pages/custom_rating.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ secure_asset('assets/vendors/starability/starability-all.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ secure_asset('assets/vendors/bootstrapStarRating/css/star-rating.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ secure_asset('assets/css/pages/custom_rating.css') }}" rel="stylesheet" type="text/css"/>
 @stop
 
 {{-- Page content --}}
@@ -230,8 +230,8 @@
     {{-- page level scripts --}}
     @section('footer_scripts')
     <!-- begining of page level js -->
-    <script src="{{ asset('assets/vendors/bootstrapStarRating/js/star-rating.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/js/pages/custom_rating.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/bootstrapStarRating/js/star-rating.min.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/js/pages/custom_rating.js') }}" type="text/javascript"></script>
     <!-- end of page level js -->
 
 @stop

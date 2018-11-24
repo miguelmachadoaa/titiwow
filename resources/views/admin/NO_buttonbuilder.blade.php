@@ -9,7 +9,7 @@ Buttons Builder
 {{-- page level styles --}}
 @section('header_styles')
     
-    <link href="{{ asset('assets/css/pages/buttonbuilder2.css') }}" rel="stylesheet"/>
+    <link href="{{ secure_asset('assets/css/pages/buttonbuilder2.css') }}" rel="stylesheet"/>
     
 @stop
 
@@ -1144,9 +1144,9 @@ Buttons Builder
 {{-- page level scripts --}}
 @section('footer_scripts')
     
-    <script src="{{ asset('assets/js/pages/scripts.min.js') }}"  type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/underscore/js/underscore-min.js') }}"  type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/backbone/js/backbone-min.js') }}"  type="text/javascript"></script>
-    <script src="{{ asset('assets/js/pages/buttonbuilder.js') }}"  type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/js/pages/scripts.min.js') }}"  type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/underscore/js/underscore-min.js') }}"  type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/backbone/js/backbone-min.js') }}"  type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/js/pages/buttonbuilder.js') }}"  type="text/javascript"></script>
     
 @stop

@@ -9,8 +9,8 @@ Form Layouts
 {{-- page level styles --}}
 @section('header_styles')
 
-    <link href="{{ asset('assets/vendors/iCheck/css/all.css') }}"  rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/css/pages/form_layouts.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ secure_asset('assets/vendors/iCheck/css/all.css') }}"  rel="stylesheet" type="text/css" />
+    <link href="{{ secure_asset('assets/css/pages/form_layouts.css') }}" rel="stylesheet" type="text/css"/>
 @stop
 
 {{-- Page content --}}
@@ -2440,7 +2440,7 @@ Form Layouts
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/form_layouts.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
+    <script src="{{ secure_asset('assets/js/pages/form_layouts.js') }}" type="text/javascript"></script>
 
 @stop

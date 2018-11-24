@@ -19,7 +19,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- global css -->
 
-    <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ secure_asset('assets/css/app.css') }}" rel="stylesheet" type="text/css"/>
     <!-- font Awesome -->
 
     <!-- end of global css -->
@@ -30,7 +30,7 @@
 <body class="skin-josh mini_sidebar">
 <header class="header">
     <a href="{{ route('admin.dashboard') }}" class="logo">
-        <img src="{{ asset('assets/img/logo.png') }}" alt="logo">
+        <img src="{{ secure_asset('assets/img/logo.png') }}" alt="logo">
     </a>
     <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
@@ -50,15 +50,15 @@
                                  class="img-circle img-responsive pull-left"/>
 
                         @elseif(Sentinel::getUser()->gender === "male")
-                            <img src="{{ asset('assets/images/authors/avatar3.png') }}" alt="img" height="35px" width="35px"
+                            <img src="{{ secure_asset('assets/images/authors/avatar3.png') }}" alt="img" height="35px" width="35px"
                                  class="img-circle img-responsive pull-left"/>
 
                         @elseif(Sentinel::getUser()->gender === "female")
-                            <img src="{{ asset('assets/images/authors/avatar5.png') }}" alt="img" height="35px" width="35px"
+                            <img src="{{ secure_asset('assets/images/authors/avatar5.png') }}" alt="img" height="35px" width="35px"
                                  class="img-circle img-responsive pull-left"/>
 
                         @else
-                            <img src="{{ asset('assets/images/authors/no_avatar.jpg') }}" alt="img" height="35px" width="35px"
+                            <img src="{{ secure_asset('assets/images/authors/no_avatar.jpg') }}" alt="img" height="35px" width="35px"
                                  class="img-circle img-responsive pull-left"/>
                         @endif
                         <div class="riot">
@@ -78,14 +78,14 @@
                                      class="img-circle img-responsive pull-left"/>
 
                             @elseif(Sentinel::getUser()->gender === "male")
-                                <img src="{{ asset('assets/images/authors/avatar3.png') }}" alt="img" height="35px" width="35px"
+                                <img src="{{ secure_asset('assets/images/authors/avatar3.png') }}" alt="img" height="35px" width="35px"
                                      class="img-circle img-responsive pull-left"/>
 
                             @elseif(Sentinel::getUser()->gender === "female")
-                                <img src="{{ asset('assets/images/authors/avatar5.png') }}" alt="img" height="35px" width="35px"
+                                <img src="{{ secure_asset('assets/images/authors/avatar5.png') }}" alt="img" height="35px" width="35px"
                                      class="img-circle img-responsive pull-left"/>
                             @else
-                                <img src="{{ asset('assets/images/authors/no_avatar.jpg') }}" alt="img" height="35px" width="35px"
+                                <img src="{{ secure_asset('assets/images/authors/no_avatar.jpg') }}" alt="img" height="35px" width="35px"
                                      class="img-circle img-responsive pull-left"/>
                             @endif
                             <p class="topprofiletext">{{ Sentinel::getUser()->first_name }} {{ Sentinel::getUser()->last_name }}</p>
@@ -185,7 +185,7 @@
     <i class="livicon" data-name="plane-up" data-size="18" data-loop="true" data-c="#fff" data-hc="white"></i>
 </a>
 <!-- global js -->
-<script src="{{ asset('assets/js/app.js') }}" type="text/javascript"></script>
+<script src="{{ secure_asset('assets/js/app.js') }}" type="text/javascript"></script>
 <!-- end of global js -->
 <!-- begin page level js -->
 @yield('footer_scripts')

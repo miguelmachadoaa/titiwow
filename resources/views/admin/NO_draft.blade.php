@@ -9,7 +9,7 @@ Mail Box
 {{-- page level styles --}}
 @section('header_styles')    
     
-	<link href="{{ asset('assets/css/pages/mail_box.css') }}" rel="stylesheet" type="text/css" />
+	<link href="{{ secure_asset('assets/css/pages/mail_box.css') }}" rel="stylesheet" type="text/css" />
     
 @stop
 

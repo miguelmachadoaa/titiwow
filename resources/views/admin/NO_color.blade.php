@@ -9,7 +9,7 @@ Color Picker
 {{-- page level styles --}}
 @section('header_styles')    
 
-<link href="{{ asset('assets/vendors/colorpicker/css/bootstrap-colorpicker.min.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ secure_asset('assets/vendors/colorpicker/css/bootstrap-colorpicker.min.css') }}" rel="stylesheet" type="text/css"/>
 <style>
     .colorpicker-right:after {
         top: -16px;
@@ -98,8 +98,8 @@ Color Picker
     
     <!--color picker slider-->
 
-<script src="{{ asset('assets/vendors/colorpicker/js/bootstrap-colorpicker.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/js/pages/color-picker.js') }}" type="text/javascript"></script>
+<script src="{{ secure_asset('assets/vendors/colorpicker/js/bootstrap-colorpicker.min.js') }}" type="text/javascript"></script>
+<script src="{{ secure_asset('assets/js/pages/color-picker.js') }}" type="text/javascript"></script>
 
     
 @stop

@@ -9,12 +9,12 @@
 {{-- page level styles --}}
 @section('header_styles')
     <!--page level css -->
-    <link href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" type="text/css" rel="stylesheet">
-    <link href="{{ asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendors/datetimepicker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendors/iCheck/css/all.css') }}"  rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/css/pages/wizard.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ secure_asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('assets/vendors/datetimepicker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('assets/vendors/iCheck/css/all.css') }}"  rel="stylesheet" type="text/css" />
+    <link href="{{ secure_asset('assets/css/pages/wizard.css') }}" rel="stylesheet">
     <!--end of page level css-->
 @stop
 {{-- Page content --}}
@@ -144,13 +144,13 @@
                                                                          class="img-responsive"/>
                                                                     @endif
                                                                 @elseif($user->gender === "male")
-                                                                    <img src="{{ asset('assets/images/authors/avatar3.png') }}" alt="..."
+                                                                    <img src="{{ secure_asset('assets/images/authors/avatar3.png') }}" alt="..."
                                                                          class="img-responsive"/>
                                                                 @elseif($user->gender === "female")
-                                                                    <img src="{{ asset('assets/images/authors/avatar5.png') }}" alt="..."
+                                                                    <img src="{{ secure_asset('assets/images/authors/avatar5.png') }}" alt="..."
                                                                          class="img-responsive"/>
                                                                 @else
-                                                                    <img src="{{ asset('assets/images/authors/no_avatar.jpg') }}" alt="..."
+                                                                    <img src="{{ secure_asset('assets/images/authors/no_avatar.jpg') }}" alt="..."
                                                                          class="img-responsive"/>
                                                                 @endif
                                                             </div>
@@ -287,19 +287,19 @@
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ asset('assets/vendors/moment/js/moment.min.js') }}" ></script>
-    <script src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
-    <script src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"  type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/bootstrapwizard/jquery.bootstrap.wizard.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/datetimepicker/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/js/pages/edituser.js') }}"></script>
+    <script src="{{ secure_asset('assets/vendors/moment/js/moment.min.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
+    <script src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"  type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/bootstrapwizard/jquery.bootstrap.wizard.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/datetimepicker/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/js/pages/edituser.js') }}"></script>
     <script>
         function formatState (state) {
             if (!state.id) { return state.text; }
             var $state = $(
-                '<span><img src="{{asset('assets/img/countries_flags')}}/'+ state.element.value.toLowerCase() + '.png" class="img-flag" width="20px" height="20px" /> ' + state.text + '</span>'
+                '<span><img src="{{secure_asset('assets/img/countries_flags')}}/'+ state.element.value.toLowerCase() + '.png" class="img-flag" width="20px" height="20px" /> ' + state.text + '</span>'
             );
             return $state;
 

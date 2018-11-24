@@ -9,12 +9,12 @@ User Profile
 {{-- page level styles --}}
 @section('header_styles')
 
-    <link href="{{ asset('assets/vendors/iCheck/css/all.css') }}"  rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/vendors/x-editable/css/bootstrap-editable.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/vendors/bootstrap-magnify/bootstrap-magnify.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/vendors/iCheck/css/all.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('assets/css/pages/user_profile.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ secure_asset('assets/vendors/iCheck/css/all.css') }}"  rel="stylesheet" type="text/css" />
+    <link href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ secure_asset('assets/vendors/x-editable/css/bootstrap-editable.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ secure_asset('assets/vendors/bootstrap-magnify/bootstrap-magnify.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/vendors/iCheck/css/all.css') }}" rel="stylesheet"/>
+    <link href="{{ secure_asset('assets/css/pages/user_profile.css') }}" rel="stylesheet" type="text/css"/>
     
 @stop
 
@@ -45,20 +45,20 @@ User Profile
                                     <div class="text-center">
                                         <div class="fileinput fileinput-new" data-provides="fileinput">
                                             <div class="fileinput-new thumbnail">
-                                                {{--<img src="{{ asset('assets/img/authors/avatar3.jpg') }}" data-src="holder.js/366x218/#fff:#000" class="img-responsive" width="366px" height="218px" />--}}
+                                                {{--<img src="{{ secure_asset('assets/img/authors/avatar3.jpg') }}" data-src="holder.js/366x218/#fff:#000" class="img-responsive" width="366px" height="218px" />--}}
                                                 @if(Sentinel::getUser()->pic)
                                                     <img src="{!! url('/').'/uploads/users/'.Sentinel::getUser()->pic !!}" alt="img"
                                                          class="img-responsive " width="366px" height="218px"/>
 
                                                 @elseif(Sentinel::getUser()->gender === "male")
-                                                    <img src="{{ asset('assets/images/authors/avatar3.png') }}" alt="img"
+                                                    <img src="{{ secure_asset('assets/images/authors/avatar3.png') }}" alt="img"
                                                          class="img-responsive " width="366px" height="218px"/>
 
                                                 @elseif(Sentinel::getUser()->gender === "female")
-                                                    <img src="{{ asset('assets/images/authors/avatar5.png') }}" alt="img"
+                                                    <img src="{{ secure_asset('assets/images/authors/avatar5.png') }}" alt="img"
                                                          class="img-responsive " width="366px" height="218px"/>
                                                 @else
-                                                    <img src="{{ asset('assets/images/authors/no_avatar.jpg') }}" alt="img"
+                                                    <img src="{{ secure_asset('assets/images/authors/no_avatar.jpg') }}" alt="img"
                                                          class="img-responsive" width="366px" height="218px"/>
                                                 @endif
                                             </div>
@@ -140,86 +140,86 @@ User Profile
                                             <div class="col-md-3 col-xs-6">
                                                 <div class="mag img-responsive">
                                                     <br />
-                                                    <img data-toggle="magnify" class="thumbnail img-responsive" src="{{ asset('assets/img/authors/avatar.jpg') }}" alt=""></div>
+                                                    <img data-toggle="magnify" class="thumbnail img-responsive" src="{{ secure_asset('assets/img/authors/avatar.jpg') }}" alt=""></div>
                                             </div>
                                             <div class="col-md-3 col-xs-6">
                                                 <div class="mag img-responsive">
                                                     <br />
-                                                    <img data-toggle="magnify" src="{{ asset('assets/img/authors/avatar3.jpg') }}" alt="" class="thumbnail img-responsive"></div>
+                                                    <img data-toggle="magnify" src="{{ secure_asset('assets/img/authors/avatar3.jpg') }}" alt="" class="thumbnail img-responsive"></div>
                                             </div>
                                             <div class="col-md-3 col-xs-6">
                                                 <div class="mag img-responsive">
                                                     <br />
-                                                    <img data-toggle="magnify" src="{{ asset('assets/img/authors/avatar7.jpg') }}" alt="" class="thumbnail img-responsive"></div>
+                                                    <img data-toggle="magnify" src="{{ secure_asset('assets/img/authors/avatar7.jpg') }}" alt="" class="thumbnail img-responsive"></div>
                                             </div>
                                             <div class="col-md-3 col-xs-6">
                                                 <div class="mag img-responsive">
                                                     <br />
-                                                    <img data-toggle="magnify" src="{{ asset('assets/img/authors/avatar5.jpg') }}" alt="" class="thumbnail img-responsive"></div>
+                                                    <img data-toggle="magnify" src="{{ secure_asset('assets/img/authors/avatar5.jpg') }}" alt="" class="thumbnail img-responsive"></div>
                                             </div>
 
                                             <!--/span-->
                                             <div class="col-md-3 col-xs-6">
                                                 <div class="mag img-responsive">
                                                     <br />
-                                                    <img data-toggle="magnify" src="{{ asset('assets/img/authors/avatar4.jpg') }}" alt="" class="thumbnail img-responsive"></div>
+                                                    <img data-toggle="magnify" src="{{ secure_asset('assets/img/authors/avatar4.jpg') }}" alt="" class="thumbnail img-responsive"></div>
                                             </div>
                                             <div class="col-md-3 col-xs-6">
                                                 <div class="mag img-responsive">
                                                     <br />
-                                                    <img data-toggle="magnify" src="{{ asset('assets/img/authors/avatar3.jpg') }}" alt="" class="thumbnail img-responsive"></div>
+                                                    <img data-toggle="magnify" src="{{ secure_asset('assets/img/authors/avatar3.jpg') }}" alt="" class="thumbnail img-responsive"></div>
                                             </div>
                                             <div class="col-md-3 col-xs-6">
                                                 <div class="mag img-responsive">
                                                     <br />
-                                                    <img data-toggle="magnify" src="{{ asset('assets/img/authors/avatar2.jpg') }}" alt="" class="thumbnail img-responsive"></div>
+                                                    <img data-toggle="magnify" src="{{ secure_asset('assets/img/authors/avatar2.jpg') }}" alt="" class="thumbnail img-responsive"></div>
                                             </div>
                                             <div class="col-md-3 col-xs-6">
                                                 <div class="mag img-responsive">
                                                     <br />
-                                                    <img data-toggle="magnify" src="{{ asset('assets/img/authors/avatar.jpg') }}" alt="" class="thumbnail img-responsive"></div>
-                                            </div>
-
-                                            <div class="col-md-3 col-xs-6">
-                                                <div class="mag img-responsive">
-                                                    <br />
-                                                    <img data-toggle="magnify" src="{{ asset('assets/img/authors/avatar3.jpg') }}" alt="" class="thumbnail img-responsive"></div>
-                                            </div>
-                                            <div class="col-md-3 col-xs-6">
-                                                <div class="mag img-responsive">
-                                                    <br />
-                                                    <img data-toggle="magnify" src="{{ asset('assets/img/authors/avatar4.jpg') }}" alt="" class="thumbnail img-responsive"></div>
-                                            </div>
-                                            <div class="col-md-3 col-xs-6">
-                                                <div class="mag img-responsive">
-                                                    <br />
-                                                    <img data-toggle="magnify" src="{{ asset('assets/img/authors/avatar7.jpg') }}" alt="" class="thumbnail img-responsive"></div>
-                                            </div>
-                                            <div class="col-md-3 col-xs-6">
-                                                <div class="mag img-responsive">
-                                                    <br />
-                                                    <img data-toggle="magnify" src="{{ asset('assets/img/authors/avatar.jpg') }}" alt="" class="thumbnail img-responsive"></div>
+                                                    <img data-toggle="magnify" src="{{ secure_asset('assets/img/authors/avatar.jpg') }}" alt="" class="thumbnail img-responsive"></div>
                                             </div>
 
                                             <div class="col-md-3 col-xs-6">
                                                 <div class="mag img-responsive">
                                                     <br />
-                                                    <img data-toggle="magnify" class="thumbnail img-responsive" src="{{ asset('assets/img/authors/avatar1.jpg') }}" alt=""></div>
+                                                    <img data-toggle="magnify" src="{{ secure_asset('assets/img/authors/avatar3.jpg') }}" alt="" class="thumbnail img-responsive"></div>
                                             </div>
                                             <div class="col-md-3 col-xs-6">
                                                 <div class="mag img-responsive">
                                                     <br />
-                                                    <img data-toggle="magnify" src="{{ asset('assets/img/authors/avatar2.jpg') }}" alt="" class="thumbnail img-responsive"></div>
+                                                    <img data-toggle="magnify" src="{{ secure_asset('assets/img/authors/avatar4.jpg') }}" alt="" class="thumbnail img-responsive"></div>
                                             </div>
                                             <div class="col-md-3 col-xs-6">
                                                 <div class="mag img-responsive">
                                                     <br />
-                                                    <img data-toggle="magnify" src="{{ asset('assets/img/authors/avatar3.jpg') }}" alt="" class="thumbnail img-responsive"></div>
+                                                    <img data-toggle="magnify" src="{{ secure_asset('assets/img/authors/avatar7.jpg') }}" alt="" class="thumbnail img-responsive"></div>
                                             </div>
                                             <div class="col-md-3 col-xs-6">
                                                 <div class="mag img-responsive">
                                                     <br />
-                                                    <img data-toggle="magnify" src="{{ asset('assets/img/authors/avatar4.jpg') }}" alt="" class="thumbnail img-responsive"></div>
+                                                    <img data-toggle="magnify" src="{{ secure_asset('assets/img/authors/avatar.jpg') }}" alt="" class="thumbnail img-responsive"></div>
+                                            </div>
+
+                                            <div class="col-md-3 col-xs-6">
+                                                <div class="mag img-responsive">
+                                                    <br />
+                                                    <img data-toggle="magnify" class="thumbnail img-responsive" src="{{ secure_asset('assets/img/authors/avatar1.jpg') }}" alt=""></div>
+                                            </div>
+                                            <div class="col-md-3 col-xs-6">
+                                                <div class="mag img-responsive">
+                                                    <br />
+                                                    <img data-toggle="magnify" src="{{ secure_asset('assets/img/authors/avatar2.jpg') }}" alt="" class="thumbnail img-responsive"></div>
+                                            </div>
+                                            <div class="col-md-3 col-xs-6">
+                                                <div class="mag img-responsive">
+                                                    <br />
+                                                    <img data-toggle="magnify" src="{{ secure_asset('assets/img/authors/avatar3.jpg') }}" alt="" class="thumbnail img-responsive"></div>
+                                            </div>
+                                            <div class="col-md-3 col-xs-6">
+                                                <div class="mag img-responsive">
+                                                    <br />
+                                                    <img data-toggle="magnify" src="{{ secure_asset('assets/img/authors/avatar4.jpg') }}" alt="" class="thumbnail img-responsive"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -249,7 +249,7 @@ User Profile
                                         <div class="activity">
                                             <div class="imgs-profile">
                                                 <a class="pull-left" href="#">
-                                                    <img class="media-object img-circle" src="{{ asset('assets/img/authors/avatar.jpg') }}" alt=""></a>
+                                                    <img class="media-object img-circle" src="{{ secure_asset('assets/img/authors/avatar.jpg') }}" alt=""></a>
                                                 <div class="media-body">
                                                     <strong>Abbey</strong>
                                                     started following
@@ -268,7 +268,7 @@ User Profile
 
                                             <div class="imgs-profile">
                                                 <a class="pull-left" href="#">
-                                                    <img class="media-object img-circle" src="{{ asset('assets/img/authors/avatar1.jpg') }}" alt=""></a>
+                                                    <img class="media-object img-circle" src="{{ secure_asset('assets/img/authors/avatar1.jpg') }}" alt=""></a>
                                                 <div class="media-body">
                                                     <strong>Clemens</strong>
                                                     posted a new blog.
@@ -279,7 +279,7 @@ User Profile
 
                                                     <div class="media blog-media">
                                                         <a class="pull-left" href="#">
-                                                            <img class="media-object thumbnail" src="{{ asset('assets/img/authors/avatar2.jpg') }}" alt=""></a>
+                                                            <img class="media-object thumbnail" src="{{ secure_asset('assets/img/authors/avatar2.jpg') }}" alt=""></a>
                                                         <div class="media-body col-md-8 col-lg-8 col-sm-8 col-xs-12">
                                                             <h4 class="media-title">
                                                                 <a href="">
@@ -297,7 +297,7 @@ User Profile
 
                                             <div class="imgs-profile">
                                                 <a class="pull-left" href="#">
-                                                    <img class="media-object" src="{{ asset('assets/img/authors/avatar3.jpg') }}" alt=""></a>
+                                                    <img class="media-object" src="{{ secure_asset('assets/img/authors/avatar3.jpg') }}" alt=""></a>
                                                 <div class="media-body">
                                                     <strong>Lottie</strong>
                                                     started following
@@ -313,7 +313,7 @@ User Profile
 
                                             <div class="imgs-profile">
                                                 <a class="pull-left" href="#">
-                                                    <img class="media-object img-circle" src="{{ asset('assets/img/authors/avatar4.jpg') }}" alt=""></a>
+                                                    <img class="media-object img-circle" src="{{ secure_asset('assets/img/authors/avatar4.jpg') }}" alt=""></a>
                                                 <div class="media-body">
                                                     <strong>Marlee</strong>
                                                     uploaded
@@ -326,16 +326,16 @@ User Profile
 
                                                     <ul class="uploadphoto-list">
                                                         <li>
-                                                            <a href="{{ asset('assets/img/authors/avatar2.jpg') }}" data-rel="prettyPhoto">
-                                                                <img src="{{ asset('assets/img/authors/avatar2.jpg') }}" class="thumbnail img-responsive" alt=""></a>
+                                                            <a href="{{ secure_asset('assets/img/authors/avatar2.jpg') }}" data-rel="prettyPhoto">
+                                                                <img src="{{ secure_asset('assets/img/authors/avatar2.jpg') }}" class="thumbnail img-responsive" alt=""></a>
                                                         </li>
                                                         <li>
-                                                            <a href="{{ asset('assets/img/authors/avatar3.jpg') }}" data-rel="prettyPhoto">
-                                                                <img src="{{ asset('assets/img/authors/avatar3.jpg') }}" class="thumbnail img-responsive" alt=""></a>
+                                                            <a href="{{ secure_asset('assets/img/authors/avatar3.jpg') }}" data-rel="prettyPhoto">
+                                                                <img src="{{ secure_asset('assets/img/authors/avatar3.jpg') }}" class="thumbnail img-responsive" alt=""></a>
                                                         </li>
                                                         <li>
-                                                            <a href="{{ asset('assets/img/authors/avatar.jpg') }}" data-rel="prettyPhoto">
-                                                                <img src="{{ asset('assets/img/authors/avatar.jpg') }}" class="thumbnail img-responsive" alt=""></a>
+                                                            <a href="{{ secure_asset('assets/img/authors/avatar.jpg') }}" data-rel="prettyPhoto">
+                                                                <img src="{{ secure_asset('assets/img/authors/avatar.jpg') }}" class="thumbnail img-responsive" alt=""></a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -344,7 +344,7 @@ User Profile
 
                                             <div class="imgs-profile">
                                                 <a class="pull-left" href="#">
-                                                    <img class="media-object img-circle" src="{{ asset('assets/img/authors/avatar7.jpg') }}" alt=""></a>
+                                                    <img class="media-object img-circle" src="{{ secure_asset('assets/img/authors/avatar7.jpg') }}" alt=""></a>
                                                 <div class="media-body">
                                                     <strong>Joseph</strong>
                                                     started following
@@ -360,7 +360,7 @@ User Profile
 
                                             <div class="imgs-profile">
                                                 <a class="pull-left" href="#">
-                                                    <img class="media-object img-circle" src="{{ asset('assets/img/authors/avatar2.jpg') }}" alt=""></a>
+                                                    <img class="media-object img-circle" src="{{ secure_asset('assets/img/authors/avatar2.jpg') }}" alt=""></a>
                                                 <div class="media-body">
                                                     <strong>Lenny</strong>
                                                     posted a new note.
@@ -383,7 +383,7 @@ User Profile
 
                                             <div class="imgs-profile">
                                                 <a class="pull-left" href="#">
-                                                    <img class="media-object img-circle" src="{{ asset('assets/img/authors/avatar3.jpg') }}" alt=""></a>
+                                                    <img class="media-object img-circle" src="{{ secure_asset('assets/img/authors/avatar3.jpg') }}" alt=""></a>
                                                 <div class="media-body">
                                                     <strong>Danielle</strong>
                                                     posted a new Image.
@@ -394,7 +394,7 @@ User Profile
 
                                                     <div class="media blog-media">
                                                         <a class="pull-left" href="#">
-                                                            <img class="media-object thumbnail" src="{{ asset('assets/img/authors/avatar4.jpg') }}" alt=""></a>
+                                                            <img class="media-object thumbnail" src="{{ secure_asset('assets/img/authors/avatar4.jpg') }}" alt=""></a>
                                                         <div class="media-body col-md-8 col-lg-8 col-sm-8 col-xs-12">
                                                             <h4 class="media-title">
                                                                 <a href="">
@@ -413,7 +413,7 @@ User Profile
 
                                             <div class="imgs-profile">
                                                 <a class="pull-left" href="#">
-                                                    <img class="media-object img-circle" src="{{ asset('assets/img/authors/avatar.jpg') }}" alt=""></a>
+                                                    <img class="media-object img-circle" src="{{ secure_asset('assets/img/authors/avatar.jpg') }}" alt=""></a>
                                                 <div class="media-body">
                                                     <strong>Frida</strong>
                                                     added new photo.
@@ -422,15 +422,15 @@ User Profile
                                                         December 2 at 12:30pm
                                                     </small>
                                                     <div class="mb20"></div>
-                                                    <a href="{{ asset('assets/img/authors/avatar.jpg') }}" data-rel="prettyPhoto" class="img-single">
-                                                        <img src="{{ asset('assets/img/authors/avatar.jpg') }}" class="thumbnail img-responsive" alt=""></a>
+                                                    <a href="{{ secure_asset('assets/img/authors/avatar.jpg') }}" data-rel="prettyPhoto" class="img-single">
+                                                        <img src="{{ secure_asset('assets/img/authors/avatar.jpg') }}" class="thumbnail img-responsive" alt=""></a>
                                                 </div>
                                             </div>
                                             <!-- media -->
 
                                             <div class="imgs-profile">
                                                 <a class="pull-left" href="#">
-                                                    <img class="media-object img-circle" src="{{ asset('assets/img/authors/avatar2.jpg') }}" alt=""></a>
+                                                    <img class="media-object img-circle" src="{{ secure_asset('assets/img/authors/avatar2.jpg') }}" alt=""></a>
                                                 <div class="media-body">
                                                     <strong>Jensen</strong>
                                                     started following
@@ -446,7 +446,7 @@ User Profile
 
                                             <div class="imgs-profile">
                                                 <a class="pull-left" href="#">
-                                                    <img class="media-object img-circle" src="{{ asset('assets/img/authors/avatar3.jpg') }}" alt=""></a>
+                                                    <img class="media-object img-circle" src="{{ secure_asset('assets/img/authors/avatar3.jpg') }}" alt=""></a>
                                                 <div class="media-body">
                                                     <strong>Krista</strong>
                                                     posted a new blog.
@@ -457,7 +457,7 @@ User Profile
 
                                                     <div class="media blog-media">
                                                         <a class="pull-left" href="#">
-                                                            <img class="media-object thumbnail" src="{{ asset('assets/img/authors/avatar4.jpg') }}" alt=""></a>
+                                                            <img class="media-object thumbnail" src="{{ secure_asset('assets/img/authors/avatar4.jpg') }}" alt=""></a>
                                                         <div class="media-body col-md-8 col-lg-8 col-sm-8 col-xs-12">
                                                             <h4 class="media-title">
                                                                 <a href="">
@@ -1028,12 +1028,12 @@ User Profile
 {{-- page level scripts --}}
 @section('footer_scripts')
 
-    <script src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"  type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/jquery-mockjax/js/jquery.mockjax.js') }}"  type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/x-editable/js/bootstrap-editable.js') }}"  type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/bootstrap-magnify/bootstrap-magnify.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/js/holder.js') }}"  type="text/javascript"></script>
-    <script src="{{ asset('assets/js/pages/user_profile.js') }}"  type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"  type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/jquery-mockjax/js/jquery.mockjax.js') }}"  type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/x-editable/js/bootstrap-editable.js') }}"  type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/bootstrap-magnify/bootstrap-magnify.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/js/holder.js') }}"  type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/js/pages/user_profile.js') }}"  type="text/javascript"></script>
 
 @stop

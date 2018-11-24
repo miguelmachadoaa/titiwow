@@ -9,8 +9,8 @@ Inbox
 {{-- page level styles --}}
 @section('header_styles')
 
-    <link href="{{ asset('assets/css/pages/alertmessage.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/css/pages/mail_box.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ secure_asset('assets/css/pages/alertmessage.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/css/pages/mail_box.css') }}" rel="stylesheet" type="text/css" />
 
     <!-- page level css ends-->
 @stop
@@ -624,5 +624,5 @@ Inbox
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ asset('assets/js/pages/mail_box.js') }}"></script>
+    <script src="{{ secure_asset('assets/js/pages/mail_box.js') }}"></script>
 @stop

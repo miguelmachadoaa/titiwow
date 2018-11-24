@@ -9,14 +9,14 @@
 {{-- page level styles --}}
 @section('header_styles')
 
-    <link rel="stylesheet" href="{{ asset('assets/vendors/blueimp-gallery-with-desc/css/blueimp-gallery.min.css') }}" />
+    <link rel="stylesheet" href="{{ secure_asset('assets/vendors/blueimp-gallery-with-desc/css/blueimp-gallery.min.css') }}" />
     <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
-    <link rel="stylesheet" href="{{ asset('assets/vendors/blueimp-file-upload/css/jquery.fileupload.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendors/blueimp-file-upload/css/jquery.fileupload-ui.css') }}" />
+    <link rel="stylesheet" href="{{ secure_asset('assets/vendors/blueimp-file-upload/css/jquery.fileupload.css') }}" />
+    <link rel="stylesheet" href="{{ secure_asset('assets/vendors/blueimp-file-upload/css/jquery.fileupload-ui.css') }}" />
     <!-- CSS adjustments for browsers with JavaScript disabled -->
     <noscript>
-        <link rel="stylesheet" href="{{ asset('assets/vendors/blueimp-file-upload/css/jquery.fileupload-noscript.css') }}" />
-        <link rel="stylesheet" href="{{ asset('assets/vendors/blueimp-file-upload/css/jquery.fileupload-ui-noscript.css') }}" />
+        <link rel="stylesheet" href="{{ secure_asset('assets/vendors/blueimp-file-upload/css/jquery.fileupload-noscript.css') }}" />
+        <link rel="stylesheet" href="{{ secure_asset('assets/vendors/blueimp-file-upload/css/jquery.fileupload-ui-noscript.css') }}" />
     </noscript>
 <style>
     @media(min-width:320px) and (max-width:425px){
@@ -135,32 +135,32 @@
 {{-- page level scripts --}}
 @section('footer_scripts')
 
-    <script src="{{ asset('assets/vendors/blueimp-file-upload/js/jquery.ui.widget.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/blueimp-file-upload/js/jquery.ui.widget.js') }}" ></script>
     <!-- The Templates plugin is included to render the upload/download listings -->
-    <script src="{{ asset('assets/vendors/blueimp-tmpl/js/tmpl.min.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/blueimp-tmpl/js/tmpl.min.js') }}" ></script>
     <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
-    <script src="{{ asset('assets/vendors/blueimploadimage/js/load-image.all.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/vendors/blueimploadimage/js/load-image.all.min.js') }}"></script>
     <!-- The Canvas to Blob plugin is included for image resizing functionality -->
-    <script src="{{ asset('assets/vendors/blueimp-canvas-to-blob/js/canvas-to-blob.min.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/blueimp-canvas-to-blob/js/canvas-to-blob.min.js') }}" ></script>
     <!-- Bootstrap JS is not required, but included for the responsive demo navigation -->
-    <script src="{{ asset('assets/vendors/blueimp-gallery-with-desc/js/jquery.blueimp-gallery.min.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/blueimp-gallery-with-desc/js/jquery.blueimp-gallery.min.js') }}" ></script>
     <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
-    <script src="{{ asset('assets/vendors/blueimp-file-upload/js/jquery.iframe-transport.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/blueimp-file-upload/js/jquery.iframe-transport.js') }}" ></script>
     <!-- The basic File Upload plugin -->
-    <script src="{{ asset('assets/vendors/blueimp-file-upload/js/jquery.fileupload.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/blueimp-file-upload/js/jquery.fileupload.js') }}" ></script>
     <!-- The File Upload processing plugin -->
-    <script src="{{ asset('assets/vendors/blueimp-file-upload/js/jquery.fileupload-process.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/blueimp-file-upload/js/jquery.fileupload-process.js') }}" ></script>
     <!-- The File Upload image preview & resize plugin -->
-    <script src="{{ asset('assets/vendors/blueimp-file-upload/js/jquery.fileupload-image.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/blueimp-file-upload/js/jquery.fileupload-image.js') }}" ></script>
     <!-- The File Upload audio preview plugin -->
-    <script src="{{ asset('assets/vendors/blueimp-file-upload/js/jquery.fileupload-audio.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/blueimp-file-upload/js/jquery.fileupload-audio.js') }}" ></script>
     <!-- The File Upload video preview plugin -->
-    <script src="{{ asset('assets/vendors/blueimp-file-upload/js/jquery.fileupload-video.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/blueimp-file-upload/js/jquery.fileupload-video.js') }}" ></script>
     <!-- The File Upload validation plugin -->
-    <script src="{{ asset('assets/vendors/blueimp-file-upload/js/jquery.fileupload-validate.js') }}" ></script>
+    <script src="{{ secure_asset('assets/vendors/blueimp-file-upload/js/jquery.fileupload-validate.js') }}" ></script>
     <!-- The File Upload user interface plugin -->
-    <script src="{{ asset('assets/vendors/blueimp-file-upload/js/jquery.fileupload-ui.js') }}" ></script>
-    <!--script src="{{ asset('assets/js/pages/main.js') }}" ></script-->
+    <script src="{{ secure_asset('assets/vendors/blueimp-file-upload/js/jquery.fileupload-ui.js') }}" ></script>
+    <!--script src="{{ secure_asset('assets/js/pages/main.js') }}" ></script-->
     <script>
         $( document ).ready(function() {
             $('#fileupload').fileupload({

@@ -9,7 +9,7 @@
 {{-- page level styles --}}
 @section('header_styles')
 
-    <link href="{{ asset('assets/vendors/dropzone/css/dropzone.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ secure_asset('assets/vendors/dropzone/css/dropzone.css') }}" rel="stylesheet" type="text/css" />
     <style>
         .dropzone .dz-preview .dz-image img {
             width :100%;
@@ -67,7 +67,7 @@
 {{-- page level scripts --}}
 @section('footer_scripts')
 
-    <script type="text/javascript" src="{{ asset('assets/vendors/dropzone/js/dropzone.js') }}" ></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/dropzone/js/dropzone.js') }}" ></script>
     <script>
         var FormDropzone = function() {
             return {

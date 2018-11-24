@@ -10,11 +10,11 @@
 @section('header_styles')
 
 
-    <link rel="stylesheet" href="{{ asset('assets/vendors/animate/animate.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/pages/only_dashboard.css') }}"/>
+    <link rel="stylesheet" href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('assets/css/pages/only_dashboard.css') }}"/>
     <meta name="_token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/morrisjs/morris.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/pages/dashboard2.css') }}"/>
+    <link rel="stylesheet" href="{{ secure_asset('assets/vendors/morrisjs/morris.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('assets/css/pages/dashboard2.css') }}"/>
 @stop
 
 {{-- Page content --}}
@@ -219,7 +219,7 @@
                                                  class="media-object img-circle"/>
                                         @endif
                                     @else
-                                        <img src="{{ asset('assets/images/authors/no_avatar.jpg') }}" class="media-object img-circle" >
+                                        <img src="{{ secure_asset('assets/images/authors/no_avatar.jpg') }}" class="media-object img-circle" >
                                      @endif
                                 </div>
                                 <div class="media-body">
@@ -259,7 +259,7 @@
                                     @if($blog->author->pic)
                                         <img src="{!! url('/').'/uploads/users/'.$blog->author->pic !!}" class="media-object img-circle" >
                                     @else
-                                        <img src="{{ asset('assets/images/authors/no_avatar.jpg') }}" class="media-object img-circle" >
+                                        <img src="{{ secure_asset('assets/images/authors/no_avatar.jpg') }}" class="media-object img-circle" >
                                     @endif
                                 </div>
                                 <div class="media-body">
@@ -295,13 +295,13 @@
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script type="text/javascript" src="{{ asset('assets/vendors/moment/js/moment.min.js') }}"></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/moment/js/moment.min.js') }}"></script>
     <!--for calendar-->
-    <script src="{{ asset('assets/vendors/moment/js/moment.min.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/moment/js/moment.min.js') }}" type="text/javascript"></script>
     <!-- Back to Top-->
-    <script type="text/javascript" src="{{ asset('assets/vendors/countUp_js/js/countUp.js') }}"></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/countUp_js/js/countUp.js') }}"></script>
     {{--<script src="http://demo.lorvent.com/rare/default/vendors/raphael/js/raphael.min.js"></script>--}}
-    <script src="{{ asset('assets/vendors/morrisjs/morris.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/vendors/morrisjs/morris.min.js') }}"></script>
 
     <script>
         var useOnComplete = false,
