@@ -51,9 +51,11 @@
             </div>
 
 
-                 <a href="{{ route('admin.productos.confirm-delete', collect($alpProductos)->first() ) }}" data-toggle="modal" data-target="#delete_confirm">
+                 <a href="{{ url('admin/productos/'.$alpProductos->id.'/confirm-delete' ) }}" data-toggle="modal" data-target="#delete_confirm">
                      <i class="livicon" data-name="remove-alt" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="delete alpProductos"></i>
                  </a>
+
+
             </td>
         </tr>
     @endforeach
@@ -67,7 +69,11 @@
             </div>
         </div>
     </div>
+
+
     <script>$(function () {$('body').on('hidden.bs.modal', '.modal', function () {$(this).removeData('bs.modal');});});</script>
+
+
 <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/buttons.bootstrap.css') }}"/>
 <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}"/>
  <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/buttons.bootstrap.css') }}">
