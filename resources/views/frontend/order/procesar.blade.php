@@ -30,7 +30,7 @@ Carro de Productos
         <div class="container">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Inicio
+                    <a href="{{ secure_url('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Inicio
                     </a>
                 </li>
                 <li class="hidden-xs">
@@ -40,7 +40,7 @@ Carro de Productos
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
-                    <a href="{{url('productos')}}">Resumen del Pedido</a>
+                    <a href="{{secure_url('productos')}}">Resumen del Pedido</a>
                 </li>
             </ol>
         </div>
@@ -70,7 +70,7 @@ Carro de Productos
 
             <h5>Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y será entregado {{ $fecha_entrega }}</h5>
 
-            <h5>De igual forma puede consultar la información y estatus de su pedido en su</h5> <a class="btn btn-sm btn-info" href="{{url('clientes')}}">Perfil</a> 
+            <h5>De igual forma puede consultar la información y estatus de su pedido en su</h5> <a class="btn btn-sm btn-info" href="{{secure_url('clientes')}}">Perfil</a> 
 
 
 
@@ -93,8 +93,8 @@ Carro de Productos
                  <tbody>
                      @foreach($detalles as $row)
                         <tr>
-                            <td><a target="_blank"  href="{{ route('producto', [$row->slug]) }}" ><img height="60px" src="../uploads/productos/{{$row->imagen_producto}}"></a></td>
-                            <td><a target="_blank"  href="{{ route('producto', [$row->slug]) }}" >{{$row->nombre_producto}}</a></td>
+                            <td><a target="_blank"  href="{{ secure_url('producto', [$row->slug]) }}" ><img height="60px" src="../uploads/productos/{{$row->imagen_producto}}"></a></td>
+                            <td><a target="_blank"  href="{{ secure_url('producto', [$row->slug]) }}" >{{$row->nombre_producto}}</a></td>
                             <td>{{number_format($row->precio_unitario,0,",",".")}}</td>
                             <td> {{ $row->cantidad }} </td>
                             <td>{{ number_format($row->precio_total, 0,",",".") }}</td>
@@ -121,7 +121,7 @@ Carro de Productos
      <div class="row">
          <div class="col-md-10 col-md-offset-1 table-responsive" style="padding-bottom:20px;">
              
-            <a class="btn btn-seguir"  href="{{ url('/productos') }}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
+            <a class="btn btn-seguir"  href="{{ secure_url('/productos') }}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
          </div>
      </div>
 

@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Registro | AlpinaGo!</title>
     <!--global css starts-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
-    <link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/bootstrap.min.css') }}">
+    <link rel="shortcut icon" href="{{ secure_asset('assets/images/favicon.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ secure_asset('assets/images/favicon.png') }}" type="image/x-icon">
     <!--end of global css-->
     <!--page level css starts-->
-    <link type="text/css" rel="stylesheet" href="{{asset('assets/vendors/iCheck/css/all.css')}}" />
-    <link href="{{ asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/register.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{secure_asset('assets/vendors/iCheck/css/all.css')}}" />
+    <link href="{{ secure_asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/register.css') }}">
     <!--end of page level css-->
 </head>
 <body>
@@ -21,13 +21,13 @@
     <!--Content Section Start -->
     <div class="row">
         <div class="box animation flipInX">
-            <img src="{{ asset('assets/img/login.png') }}" alt="AlpinaGO">
+            <img src="{{ secure_asset('assets/img/login.png') }}" alt="AlpinaGO!">
             
-            <form action="{{ url('signupembajador') }}" method="POST" id="reg_form">
+            <form action="{{ secure_url('signupembajador') }}" method="POST" id="reg_form">
 
                 <h3> {{ $mensaje }}.</h3>
                 
-                <p> <a href="{{ route('register') }}"> Registrarse</a> - <a href="{{ url('/') }}"> Inicio</a></p> 
+                <p> <a href="{{ route('register') }}"> Registrarse</a> - <a href="{{ secure_url('/') }}"> Inicio</a></p> 
               
 
             </form>
@@ -36,11 +36,11 @@
     <!-- //Content Section End -->
 </div>
 <!--global js starts-->
-<script type="text/javascript" src="{{ asset('assets/js/jquery.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
-<script type="text/javascript" src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/frontend/register_custom.js') }}"></script>
+<script type="text/javascript" src="{{ secure_asset('assets/js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ secure_asset('assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+<script type="text/javascript" src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
+<script type="text/javascript" src="{{ secure_asset('assets/js/frontend/register_custom.js') }}"></script>
 <!--global js end-->
 </body>
 </html>

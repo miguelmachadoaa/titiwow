@@ -24,12 +24,12 @@ Mis Direcciones
                 </li>
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>
-                    <a href="{{ url('clientes') }}">Mi Perfil </a>
+                    <a href="{{ secure_url('clientes') }}">Mi Perfil </a>
                 </li>
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>
-                    <a href="{{ url('misdirecciones') }}">Mi Dirección </a>
+                    <a href="{{ secure_url('misdirecciones') }}">Mi Dirección </a>
                 </li>
             </ol>
             
@@ -59,7 +59,7 @@ Mis Direcciones
 
     <div class="row">
 
-          <input type="hidden" name="base" id="base" value="{{ url('/') }}">
+          <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
 
     <div class="col-sm-12 direcciones">   
 
@@ -141,7 +141,7 @@ Mis Direcciones
 <div class="container">
     <div class="form-group">
         <div class="col-lg-offset-5 col-lg-10" style="margin-bottom:20px;">
-            <a class="btn btn-danger" type="button" href="{{ url('clientes') }}">Regresar</a>
+            <a class="btn btn-danger" type="button" href="{{ secure_url('clientes') }}">Regresar</a>
         </div>
     </div>
 </div>
@@ -162,9 +162,9 @@ Mis Direcciones
 
                            
                         
-                        <form method="POST" action="{{url('cart/storedir')}}" id="editDireccionForm" name="editDireccionForm" class="form-horizontal">
+                        <form method="POST" action="{{secure_url('cart/storedir')}}" id="editDireccionForm" name="editDireccionForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
+                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
                             <input type="hidden" name="address_id" id="address_id" value="">
 
                             {{ csrf_field() }}

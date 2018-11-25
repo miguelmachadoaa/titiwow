@@ -81,7 +81,7 @@ Retirar Alpinistas
                 </div>
                 <br />
                 <div class="panel-body">
-                <form class="form-horizontal" enctype="multipart/form-data" role="form" method="post" action="{{ url('admin/alpinistas/retirar') }}">
+                <form class="form-horizontal" enctype="multipart/form-data" role="form" method="post" action="{{ secure_url('admin/alpinistas/retirar') }}">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <div class="form-group">
                             <div class="row">

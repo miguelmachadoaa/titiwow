@@ -70,7 +70,7 @@
                                                     @if((substr($user->pic, 0,5)) == 'https')
                                                         <img src="{{ $user->pic }}" alt="img" class="img-responsive"/>
                                                     @else
-                                                        <img src="{!! url('/').'/uploads/users/'.$user->pic !!}"
+                                                        <img src="{!! secure_url('/').'/uploads/users/'.$user->pic !!}"
                                                              alt="img" class="img-responsive"/>
                                                     @endif
                                                 @elseif($user->gender === "male")
@@ -183,7 +183,7 @@
                                                 </div>
 
                                                 <p style="text-align: center;"> 
-                    <a class="btn btn-default" href="{{ url('admin/users') }}">Volver</a>
+                    <a class="btn btn-default" href="{{ secure_url('admin/users') }}">Volver</a>
 
             </p>
                                             </div>

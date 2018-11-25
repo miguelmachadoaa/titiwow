@@ -51,7 +51,7 @@ Reportes Clientes Registrados
 
                     <div class="form-group">
                             <div class="col-sm-offset-4 col-sm-8">
-                                <a href="{{ url('admin/reportes/registrados/export') }}" class="btn btn-md btn-primary" id="generar_report" target="_blank">
+                                <a href="{{ secure_url('admin/reportes/registrados/export') }}" class="btn btn-md btn-primary" id="generar_report" target="_blank">
                                     Descargar productos en Excel
                                 </a>
                                 <a class="btn btn-md btn-danger" href="{{ route('admin.sedes.index') }}">

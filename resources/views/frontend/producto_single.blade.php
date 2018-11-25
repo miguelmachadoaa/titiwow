@@ -14,7 +14,7 @@
 {{-- page level styles --}}
 @section('header_styles')
     <!--page level css starts-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/cart.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/cart.css') }}">
     
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/cart.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/font-awesome.min.css') }}">
@@ -59,7 +59,7 @@
                 <div class="col-md-4">
                     <div class="row">
                         <div class="product_wrapper">
-                            <img id="zoom_09" src="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" data-zoom-image="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive" />
+                            <img id="zoom_09" src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" data-zoom-image="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive" />
                         </div>
                     </div>
                 </div>
@@ -182,7 +182,7 @@
 
                                                 @else
                                                      
-                                                        <a data-slug="{{ $producto->slug }}" data-price="{{ $producto->precio_base }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito">Agregar al Carrito<i class="fa fa-cart-arrow-down" aria-hidden="true" style="margin-left:10px"></i></a>
+                                                        <a data-slug="{{ $producto->slug }}" data-price="{{ $producto->precio_base }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito">Agregar al Carrito<i class="fa fa-cart-arrow-down" aria-hidden="true" style="margin-left:10px"></i></a>
                                                     
                                                 @endif
 
@@ -246,7 +246,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button"  class="btn  btn-default" data-dismiss="modal">Continuar Comprando</button>
-                        <a href="{{ url('cart/show') }}" class="btn  btn-info " >Proceder a Pagar</a>
+                        <a href="{{ secure_url('cart/show') }}" class="btn  btn-info " >Proceder a Pagar</a>
                     </div>
                 </div>
             </div>

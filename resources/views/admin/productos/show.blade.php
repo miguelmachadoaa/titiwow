@@ -32,7 +32,7 @@ Productos
 
                      <div class="form-group">
                         {!! Form::label('name_producto', 'Imagen Producto: ') !!}
-                        <p><img width="60px" src="{!! url('/').'/uploads/productos/'.$producto->imagen_producto !!}"></p>
+                        <p><img width="60px" src="{!! secure_url('/').'/uploads/productos/'.$producto->imagen_producto !!}"></p>
                     </div>
 
                     <div class="form-group">

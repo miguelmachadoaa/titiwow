@@ -29,7 +29,7 @@ Carrito de Compras
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>
-                    <a href="{{url('productos')}}">Listado</a>
+                    <a href="{{secure_url('productos')}}">Listado</a>
                 </li>
             </ol>
         </div>
@@ -47,7 +47,7 @@ Carrito de Compras
 
         <h1>Carrito de Compras</h1>
 
-        <a class="btn  btn-link" href="{{url('cart/vaciar')}}">Vaciar</a>
+        <a class="btn  btn-link" href="{{secure_url('cart/vaciar')}}">Vaciar</a>
 
         @if(count($cart))
                    
@@ -97,8 +97,8 @@ Carrito de Compras
                                     type="number" 
                                     data-id="{{$row->id}}" 
                                     data-slug="{{$row->slug}}" 
-                                    data-url="{{url('cart/updatecart')}}" 
-                                    data-href="{{url('cart/update', [$row->slug])}}"
+                                    data-url="{{secure_url('cart/updatecart')}}" 
+                                    data-href="{{secure_url('cart/update', [$row->slug])}}"
                                     name="producto_{{$row->id}}"
                                     id="producto_{{$row->id}}"
                                     min="1"
@@ -111,7 +111,7 @@ Carrito de Compras
 
                                 </td>
                                 <td>{{ number_format($row->cantidad*$row->precio_oferta, 2,",",".") }}</td>
-                                <td><a class="btn btn-danger" href="{{url('cart/delete', [$row->slug])}}">X</a></td>
+                                <td><a class="btn btn-danger" href="{{secure_url('cart/delete', [$row->slug])}}">X</a></td>
                             </tr>
                         @endforeach
                     
@@ -138,9 +138,9 @@ Carrito de Compras
     </div>
 
     <p style="text-align: center;">
-        <a class="btn btn-seguir" href="{{url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
+        <a class="btn btn-seguir" href="{{secure_url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
 
-         <a class="btn btn-cart sendDetail" href="{{url('order/detail')}}">Finalizar Tu Compra <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+         <a class="btn btn-cart sendDetail" href="{{secure_url('order/detail')}}">Finalizar Tu Compra <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
      </p> 
 
     
@@ -153,7 +153,7 @@ Carrito de Compras
 <br />
         <p style="text-align: center;">
            
-            <a class="btn btn-seguir" href="{{url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
+            <a class="btn btn-seguir" href="{{secure_url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
 
         </p> 
 

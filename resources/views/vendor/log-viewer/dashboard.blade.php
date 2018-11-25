@@ -6,8 +6,8 @@
     @parent
 @stop
 @section('header_styles')
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/pages/log_viewer.css') }}">
-<link href="{{ asset('assets/vendors/sweetalert/css/sweetalert.css') }}" rel="stylesheet"/>
+<link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/pages/log_viewer.css') }}">
+<link href="{{ secure_asset('assets/vendors/sweetalert/css/sweetalert.css') }}" rel="stylesheet"/>
 @stop
 @section('content')
 
@@ -84,8 +84,8 @@
 
 @section('footer_scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.min.js"></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/sweetalert/js/sweetalert.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/sweetalert/js/sweetalert-dev.js') }}"></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/sweetalert/js/sweetalert.min.js') }}"></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/sweetalert/js/sweetalert-dev.js') }}"></script>
     <script>
         Chart.defaults.global.responsive      = true;
         Chart.defaults.global.scaleFontFamily = "'Source Sans Pro'";
@@ -94,7 +94,7 @@
     <script>
         $(document).ready(function() {
             $.ajax({
-                url: '{{ url('admin/log_viewers/logcheck') }}',
+                url: '{{ secure_url('admin/log_viewers/logcheck') }}',
                 type: 'GET',
 
                 success: function (result) {

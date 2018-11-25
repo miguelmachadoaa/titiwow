@@ -436,7 +436,7 @@ class AuthController extends JoshController
 
                    // return Redirect::route($request->back)->with('success', trans('auth/message.signin.success'));
 
-                 $mensaje="Ha sido registrado satisfactoriamente, debe esperar ser activado en un proceso interno y le sera notificado via email";
+                 $mensaje="Ha sido registrado satisfactoriamente como Amigo Alpina, debe esperar que su usuarios sea activado en un proceso interno, le notificaremos vía email";
 
                 return view('frontend.clientes.aviso',  compact('mensaje'));
 
@@ -552,7 +552,7 @@ class AuthController extends JoshController
 
             if ($request->back=='0') {
 
-                $mensaje="Ha sido registrado satisfactoriamente, debe esperar ser activado en un proceso interno y le sera notificado via email";
+                $mensaje="Ha sido registrado satisfactoriamente como Amigo Alpina, debe esperar que su usuarios sea activado en un proceso interno, le notificaremos vía email";
 
                 return view('frontend.clientes.aviso',  compact('mensaje'));
                    

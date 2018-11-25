@@ -15,7 +15,7 @@
                                     <td height="60" style="background-color:#403e3e;font-family: 'Montserrat',Arial, sans-serif;font-size:26px;font-weight:500;letter-spacing:1px;line-height:30px;" align="center">
                                         <center>
                                             <img data-crop="false" style="display:block;"
-                                                 src="{{ asset('assets/images/emaillogo.PNG') }}" alt="img"/>
+                                                 src="{{ secure_asset('assets/images/emaillogo.PNG') }}" alt="img"/>
                                         </center>
                                     </td>
                                 </tr>

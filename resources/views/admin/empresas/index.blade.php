@@ -67,7 +67,7 @@ Empresa
                                     <td>{!! $row->descuento_empresa !!}</td>
                                     <td>
                                             
-                                            <a href="{{ url('admin/empresas/'.$row->id.'/invitaciones') }}">
+                                            <a href="{{ secure_url('admin/empresas/'.$row->id.'/invitaciones') }}">
                                                 <i class="livicon" data-name="plus" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar categoria"></i>
                                             </a>
 

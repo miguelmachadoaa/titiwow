@@ -215,7 +215,7 @@
                                             <img src="{{ $user->pic }}" alt="img"
                                                  class="media-object img-circle"/>
                                         @else
-                                            <img src="{!! url('/').'/uploads/users/'.$user->pic !!}"
+                                            <img src="{!! secure_url('/').'/uploads/users/'.$user->pic !!}"
                                                  class="media-object img-circle"/>
                                         @endif
                                     @else
@@ -257,7 +257,7 @@
                             <div class="media">
                                 <div class="media-left">
                                     @if($blog->author->pic)
-                                        <img src="{!! url('/').'/uploads/users/'.$blog->author->pic !!}" class="media-object img-circle" >
+                                        <img src="{!! secure_url('/').'/uploads/users/'.$blog->author->pic !!}" class="media-object img-circle" >
                                     @else
                                         <img src="{{ secure_asset('assets/images/authors/no_avatar.jpg') }}" class="media-object img-circle" >
                                     @endif

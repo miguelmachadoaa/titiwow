@@ -30,7 +30,7 @@
                     <a class="hiddenanchor" id="toforgot"></a>
                     <div id="wrapper">
                         <div id="login" class="animate form">
-                            <form action="{{ route('signin') }}" autocomplete="on" method="post" role="form" id="login_form">
+                            <form action="{{ secure_url('admin/signin') }}" autocomplete="on" method="post" role="form" id="login_form">
                                 <h3 >
                                     <img src="{{ secure_asset('assets/img/login.png') }}" alt="Alpina Go!">
                                     <br>Backend</h3>
@@ -79,7 +79,7 @@
                         </div>
                         
                         <div id="forgot" class="animate form">
-                            <form action="{{ url('admin/forgot-password') }}" autocomplete="on" method="post" role="form" id="reset_pw">
+                            <form action="{{ secure_url('admin/forgot-password') }}" autocomplete="on" method="post" role="form" id="reset_pw">
                                 <h3 >
                                 <img src="{{ secure_asset('assets/img/login.png') }}" alt="Alpina"><br>Olvidaste Tu Contraseña</h3>
                                 <p>

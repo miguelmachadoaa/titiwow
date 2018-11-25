@@ -51,7 +51,7 @@ Menu {{$menu->id}}
                 </div>
                 <div class="panel-body">
                     
-                        <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" action="{{ url('admin/menus/'.$menu->id.'/storeson') }}">
+                        <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" action="{{ secure_url('admin/menus/'.$menu->id.'/storeson') }}">
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
 
@@ -184,7 +184,7 @@ Menu {{$menu->id}}
 
 
                     <p style="text-align: center;"> 
-                    <a class="btn btn-default" href="{{ url('admin/menus') }}">Volver</a>
+                    <a class="btn btn-default" href="{{ secure_url('admin/menus') }}">Volver</a>
 
             </p>
 

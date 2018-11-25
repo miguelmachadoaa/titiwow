@@ -122,9 +122,9 @@ Ordenes Corporativas
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{url('ordenes/confirmar')}}" id="confirmarOrdenForm" name="confirmarOrdenForm" class="form-horizontal">
+                        <form method="POST" action="{{secure_url('ordenes/confirmar')}}" id="confirmarOrdenForm" name="confirmarOrdenForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
+                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
                             <input type="hidden" name="confirm_id" id="confirm_id" value="">
 
                             {{ csrf_field() }}

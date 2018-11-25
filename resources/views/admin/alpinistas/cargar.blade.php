@@ -81,7 +81,7 @@ Cargar Alpinistas
                 </div>
                 <br />
                 <div class="panel-body">
-                <form class="form-horizontal" enctype="multipart/form-data" role="form" method="post" action="{{ url('admin/alpinistas/import') }}">
+                <form class="form-horizontal" enctype="multipart/form-data" role="form" method="post" action="{{ secure_url('admin/alpinistas/import') }}">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <div class="form-group">
                             <div class="row">

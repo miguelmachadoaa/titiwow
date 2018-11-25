@@ -6,7 +6,7 @@
     <li class="dropdown-item">
                             <div class="row">
                                         <div class="col-sm-3">
-                                              <img style="width: 30px;" src="{{ url('/').'/uploads/productos/'.$row->imagen_producto }}">
+                                              <img style="width: 30px;" src="{{ secure_url('/').'/uploads/productos/'.$row->imagen_producto }}">
                                           </div>
                                           <div class="col-sm-9" style="font-size: 0.75em;">
                                               <p>{{ substr($row->nombre_producto, 0, 25) }}</p>
@@ -18,6 +18,6 @@
 
   @endforeach
 
-    <li><a href="{{ url('order/detail') }}">Proceder a pagar</a></li>
+    <li><a href="{{ secure_url('order/detail') }}">Proceder a pagar</a></li>
 
 @endif

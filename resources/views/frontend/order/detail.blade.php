@@ -15,7 +15,7 @@ Carrito de Compras
 
      <!--<link href="{{ secure_asset('assets/vendors/modal/css/component.css') }}" rel="stylesheet"/>-->
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/shopping.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/shopping.css') }}">
     
     <link href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
 
@@ -74,7 +74,7 @@ Carrito de Compras
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
-                    <a href="{{url('productos')}}">Checkout</a>
+                    <a href="{{secure_url('productos')}}">Checkout</a>
                 </li>
             </ol>
            
@@ -98,7 +98,7 @@ Carrito de Compras
 
         </div>
 
-        {!! Form::open(['url' => 'order/procesar', 'class' => 'form-horizontal', 'id' => 'procesarForm', 'name' => 'procesarForm', 'method'=>'POST']) !!}
+        {!! Form::open(['url' => secure_url('order/procesar'), 'class' => 'form-horizontal', 'id' => 'procesarForm', 'name' => 'procesarForm', 'method'=>'POST']) !!}
 
             <div class="row direcciones" style="text-align: left;">
 
@@ -260,7 +260,7 @@ Carrito de Compras
 
                     <div class="col-sm-8 ">
 
-                        <img src="{{ url('/uploads/files/mercado-pago.jpg') }}">
+                        <img src="{{ secure_url('/uploads/files/mercado-pago.jpg') }}">
 
                     </div>
 
@@ -360,7 +360,7 @@ Carrito de Compras
 
                         <div class="col-sm-2">
 
-                            <img width="60px" src="{{ url('/').'/uploads/productos/'.$car->imagen_producto }}">
+                            <img width="60px" src="{{ secure_url('/').'/uploads/productos/'.$car->imagen_producto }}">
 
                         </div>
 
@@ -459,7 +459,7 @@ Carrito de Compras
 
 <p style="text-align: center;">
 
-    <a class="btn btn-danger" href="{{url('/productos')}}">Cancelar <i class="fa fa-times" aria-hidden="true"></i></a>
+    <a class="btn btn-danger" href="{{secure_url('/productos')}}">Cancelar <i class="fa fa-times" aria-hidden="true"></i></a>
 
 
 </p>
@@ -479,9 +479,9 @@ Carrito de Compras
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{url('cart/storedir')}}" id="addCuponForm" name="addCuponForm" class="form-horizontal">
+                        <form method="POST" action="{{secure_url('cart/storedir')}}" id="addCuponForm" name="addCuponForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
+                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
 
                             {{ csrf_field() }}
                             <div class="row">
@@ -522,9 +522,9 @@ Carrito de Compras
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{url('cart/storedir')}}" id="addDireccionForm" name="addDireccionForm" class="form-horizontal">
+                        <form method="POST" action="{{secure_url('cart/storedir')}}" id="addDireccionForm" name="addDireccionForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
+                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
 
                             {{ csrf_field() }}
                             <div class="row">

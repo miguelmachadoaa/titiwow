@@ -2,7 +2,7 @@
 
         <h1>Carrito de Compras</h1>
 
-        <a class="btn  btn-link" href="{{url('cart/vaciar')}}">Vaciar</a>
+        <a class="btn  btn-link" href="{{secure_url('cart/vaciar')}}">Vaciar</a>
 
         @if($error!='0')
             <div class="col-md-10 col-md-offset-1 table-responsive" >
@@ -56,8 +56,8 @@
                                     type="number" 
                                     data-id="{{$row->id}}" 
                                     data-slug="{{$row->slug}}" 
-                                    data-url="{{url('cart/updatecart')}}" 
-                                    data-href="{{url('cart/update', [$row->slug])}}"
+                                    data-url="{{secure_url('cart/updatecart')}}" 
+                                    data-href="{{secure_url('cart/update', [$row->slug])}}"
                                     name="producto_{{$row->id}}"
                                     id="producto_{{$row->id}}"
                                     min="1"
@@ -69,7 +69,7 @@
 
                                 </td>
                                 <td>{{ number_format($row->cantidad*$row->precio_oferta, 2,",",".") }}</td>
-                                <td><a class="btn btn-danger" href="{{url('cart/delete', [$row->slug])}}">X</a></td>
+                                <td><a class="btn btn-danger" href="{{secure_url('cart/delete', [$row->slug])}}">X</a></td>
                             </tr>
                         @endforeach
                     
@@ -98,9 +98,9 @@
     </div>
 
     <p style="text-align: center;">
-        <a class="btn btn-seguir" href="{{url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
+        <a class="btn btn-seguir" href="{{secure_url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
 
-         <a class="btn btn-cart sendDetail" href="{{url('order/detail')}}">Continuar <i class="fa fa-plus" aria-hidden="true"></i></a>
+         <a class="btn btn-cart sendDetail" href="{{secure_url('order/detail')}}">Continuar <i class="fa fa-plus" aria-hidden="true"></i></a>
      </p> 
 
 
@@ -111,7 +111,7 @@
 
         <p style="text-align: center;">
            
-            <a class="btn btn-seguir" href="{{url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
+            <a class="btn btn-seguir" href="{{secure_url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
 
         </p> 
 

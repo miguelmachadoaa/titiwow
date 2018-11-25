@@ -106,9 +106,9 @@
                 </div>
                 
                 <div class="modal-body ">
-                     <form method="POST" action="{{url('formasenvio/storeciudad')}}" id="addCiuadadForm" name="addCiuadadForm" class="form-horizontal">
+                     <form method="POST" action="{{secure_url('formasenvio/storeciudad')}}" id="addCiuadadForm" name="addCiuadadForm" class="form-horizontal">
 
-                        <input type="hidden" name="base" id="base" value="{{ url('/') }}">
+                        <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
 
                             <div class="form-group col-sm-12">
                                 <label for="select21" class="col-md-3 control-label">

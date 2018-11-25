@@ -70,7 +70,7 @@ $style = [
                     <!-- Logo -->
                     <tr>
                         <td style="{{ $style['email-masthead'] }}">
-                            <a style="{{ $fontFamily }} {{ $style['email-masthead_name'] }}" href="{{ url('/') }}" target="_blank">
+                            <a style="{{ $fontFamily }} {{ $style['email-masthead_name'] }}" href="{{ secure_url('/') }}" target="_blank">
                                 {{ config('app.name') }}
                             </a>
                         </td>
@@ -176,7 +176,7 @@ $style = [
                                     <td style="{{ $fontFamily }} {{ $style['email-footer_cell'] }}">
                                         <p style="{{ $style['paragraph-sub'] }}">
                                             &copy; {{ date('Y') }}
-                                            <a style="{{ $style['anchor'] }}" href="{{ url('/') }}" target="_blank">{{ config('app.name') }}</a>.
+                                            <a style="{{ $style['anchor'] }}" href="{{ secure_url('/') }}" target="_blank">{{ config('app.name') }}</a>.
                                             All rights reserved.
                                         </p>
                                     </td>

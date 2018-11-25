@@ -78,10 +78,10 @@
                                     <td>{!! $row->created_at->diffForHumans() !!}</td>
                                     <td>
 
-                                        <a  href="{{ url('admin/clientes/'.$row->id.'/detalle') }}">
+                                        <a  href="{{ secure_url('admin/clientes/'.$row->id.'/detalle') }}">
                                             <i class="fa fa-eye" title="Detalles" alt="Detalles"></i>
                                         </a>
-                                        <a href="{{ url('admin/clientes/'.$row->id.'/direcciones') }}">
+                                        <a href="{{ secure_url('admin/clientes/'.$row->id.'/direcciones') }}">
                                             <i class="livicon" data-name="eye" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Direcciones del Cliente"></i>
                                         </a>
 
@@ -160,9 +160,9 @@
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{url('admin/clientes/activar')}}" id="activarUsuarioForm" name="activarUsuarioForm" class="form-horizontal">
+                        <form method="POST" action="{{secure_url('admin/clientes/activar')}}" id="activarUsuarioForm" name="activarUsuarioForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
+                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
                             <input type="hidden" name="cliente_id" id="cliente_id" value="">
 
                             {{ csrf_field() }}
@@ -215,9 +215,9 @@
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{url('admin/clientes/activar')}}" id="rechazarUsuarioForm" name="rechazarUsuarioForm" class="form-horizontal">
+                        <form method="POST" action="{{secure_url('admin/clientes/activar')}}" id="rechazarUsuarioForm" name="rechazarUsuarioForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
+                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
                             <input type="hidden" name="cliente_id" id="cliente_id" value="">
 
                             {{ csrf_field() }}

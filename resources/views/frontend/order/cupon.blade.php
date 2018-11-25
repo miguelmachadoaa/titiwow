@@ -204,7 +204,7 @@
                                             </div>
                                             <div class="col-sm-8 ">
 
-                                                <img src="{{ url('/uploads/files/mercado-pago.jpg') }}">
+                                                <img src="{{ secure_url('/uploads/files/mercado-pago.jpg') }}">
 
                                                 
 
@@ -314,7 +314,7 @@
 
                                 <div class="col-sm-2">
 
-                                    <img width="60px" src="{{ url('/').'/uploads/productos/'.$car->imagen_producto }}">
+                                    <img width="60px" src="{{ secure_url('/').'/uploads/productos/'.$car->imagen_producto }}">
                                 </div>
 
                                 <div class="col-sm-8">

@@ -112,9 +112,9 @@ Ordenes Enviadas
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{url('ordenes/confirmar')}}" id="enviarOrdenForm" name="enviarOrdenForm" class="form-horizontal">
+                        <form method="POST" action="{{secure_url('ordenes/confirmar')}}" id="enviarOrdenForm" name="enviarOrdenForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
+                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
                             <input type="hidden" name="enviar_id" id="enviar_id" value="">
 
                             {{ csrf_field() }}

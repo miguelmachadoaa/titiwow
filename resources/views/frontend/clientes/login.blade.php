@@ -5,12 +5,12 @@
     <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- global level css -->
-    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
+    <link href="{{ secure_asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
     <!-- end of global level css -->
     <!-- page level css -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/pages/login.css') }}" />
-    <link href="{{ asset('assets/vendors/iCheck/css/square/blue.css') }}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/pages/login.css') }}" />
+    <link href="{{ secure_asset('assets/vendors/iCheck/css/square/blue.css') }}" rel="stylesheet"/>
     <!-- end of page level css -->
 
 </head>
@@ -30,9 +30,9 @@
                     <a class="hiddenanchor" id="toforgot"></a>
                     <div id="wrapper">
                         <div id="login" class="animate form">
-                            <form action="{{ route('signin') }}" autocomplete="on" method="post" role="form" id="login_form">
+                            <form action="{{ secure_url('signin') }}" autocomplete="on" method="post" role="form" id="login_form">
                                 <h3 class="black_bg">
-                                    <img src="{{ asset('assets/img/login.png') }}" alt="Alpina">
+                                    <img src="{{ secure_asset('assets/img/login.png') }}" alt="Alpina">
                                     <br>Backend</h3>
                                     <!-- CSRF Token -->
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
@@ -166,9 +166,9 @@
                             </form>
                         </div-->
                         <div id="forgot" class="animate form">
-                            <form action="{{ url('admin/forgot-password') }}" autocomplete="on" method="post" role="form" id="reset_pw">
+                            <form action="{{ secure_url('admin/forgot-password') }}" autocomplete="on" method="post" role="form" id="reset_pw">
                                 <h3 class="black_bg">
-                                    <img src="{{ asset('assets/img/logo.png') }}" alt="josh logo"><br>Forgot Password</h3>
+                                    <img src="{{ secure_asset('assets/img/logo.png') }}" alt="josh logo"><br>Forgot Password</h3>
                                 <p>
                                     Enter your email address below and we'll send a special reset password link to your inbox.
                                 </p>
@@ -203,15 +203,15 @@
         </div>
     </div>
     <!-- global js -->
-    <script src="{{ asset('assets/js/jquery-1.11.1.min.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/js/jquery-1.11.1.min.js') }}" type="text/javascript"></script>
     <!-- Bootstrap -->
-    <script src="{{ asset('assets/js/bootstrap.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/js/bootstrap.min.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
     <!--livicons-->
-    <script src="{{ asset('assets/js/raphael-min.js') }}"></script>
-    <script src="{{ asset('assets/js/livicons-1.4.min.js') }}"></script>
-    <script src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/js/pages/login.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/js/raphael-min.js') }}"></script>
+    <script src="{{ secure_asset('assets/js/livicons-1.4.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/js/pages/login.js') }}" type="text/javascript"></script>
     <!-- end of global js -->
 </body>
 </html>

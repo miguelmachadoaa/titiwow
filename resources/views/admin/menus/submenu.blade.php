@@ -48,7 +48,7 @@ Sub Menu {{$detalle->id}}
                 </div>
                 <div class="panel-body">
                     
-                        <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" action="{{ url('admin/menus/'.$detalle->id.'/storesub') }}">
+                        <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" action="{{ secure_url('admin/menus/'.$detalle->id.'/storesub') }}">
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
 

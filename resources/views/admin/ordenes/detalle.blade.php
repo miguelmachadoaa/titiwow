@@ -175,7 +175,7 @@ Orden {{$orden->id}}
                  <tbody>
                      @foreach($detalles as $row)
                         <tr>
-                            <td><img height="60px" src="{{ url('/') }}/uploads/productos/{{$row->imagen_producto}}"></td>
+                            <td><img height="60px" src="{{ secure_url('/') }}/uploads/productos/{{$row->imagen_producto}}"></td>
                             <td>{{$row->nombre_producto}}</td>
                             <td>{{number_format($row->precio_unitario,2)}}</td>
                             <td>
@@ -195,7 +195,7 @@ Orden {{$orden->id}}
              </table>
                     
             <p style="text-align: center;"> 
-                    <a class="btn btn-default" href="{{ url('admin/ordenes') }}">Regresar</a>
+                    <a class="btn btn-default" href="{{ secure_url('admin/ordenes') }}">Regresar</a>
 
             </p>
                    

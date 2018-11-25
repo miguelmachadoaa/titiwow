@@ -74,7 +74,7 @@ Carro de Productos
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
-                    <a href="{{url('productos')}}">Error en el Pago</a>
+                    <a href="{{secure_url('productos')}}">Error en el Pago</a>
                 </li>
             </ol>
         </div>
@@ -152,7 +152,7 @@ Carro de Productos
                     <div class="col-sm-10 col-sm-offset-1">
                         
                         <h3>Debe agregar una dirección de envio  </h3>
-                        <p><a href="{{ url('misdirecciones') }}">Mi Dirección</a></p>
+                        <p><a href="{{ secure_url('misdirecciones') }}">Mi Dirección</a></p>
                     
                     </div>
 
@@ -354,7 +354,7 @@ Carro de Productos
      <hr>
      <p style="text-align: center;">
 
-         <a class="btn btn-danger" href="{{url('/productos')}}">Cancelar <i class="fa fa-times" aria-hidden="true"></i></a>
+         <a class="btn btn-danger" href="{{secure_url('/productos')}}">Cancelar <i class="fa fa-times" aria-hidden="true"></i></a>
 
      </p>
 
@@ -373,9 +373,9 @@ Carro de Productos
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{url('cart/storedir')}}" id="addDireccionForm" name="addDireccionForm" class="form-horizontal">
+                        <form method="POST" action="{{secure_url('cart/storedir')}}" id="addDireccionForm" name="addDireccionForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
+                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
 
                             {{ csrf_field() }}
                             <div class="row">

@@ -75,7 +75,7 @@
                                                     @if((substr($user->pic, 0,5)) == 'https')
                                                         <img src="{{ $user->pic }}" alt="img" class="img-responsive"/>
                                                     @else
-                                                        <img src="{!! url('/').'/uploads/users/'.$user->pic !!}"
+                                                        <img src="{!! secure_url('/').'/uploads/users/'.$user->pic !!}"
                                                              alt="img" class="img-responsive"/>
                                                     @endif
                                                 @elseif($user->gender === "male")

@@ -105,7 +105,7 @@
 
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
-            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
+            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
 
                 <div class="row acc-wizard">
 
@@ -703,7 +703,7 @@
                 </div>
             {!! Form::close() !!}
 
-             <a class="btn btn-default" href="{{ url('/admin/productos') }}">@lang('button.back')</a>
+             <a class="btn btn-default" href="{{ secure_url('/admin/productos') }}">@lang('button.back')</a>
             </div>
         </div>
     </div>

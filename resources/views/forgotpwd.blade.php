@@ -6,26 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Olvidó su Contraseña | Alpina Go!</title>
     <!--global css starts-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
-    <link href="{{ asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
-    <link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/bootstrap.min.css') }}">
+    <link href="{{ secure_asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
+    <link rel="shortcut icon" href="{{ secure_asset('assets/images/favicon.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ secure_asset('assets/images/favicon.png') }}" type="image/x-icon">
     <!--end of global css-->
     <!--page level css starts-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/forgot.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/forgot.css') }}">
     <!--end of page level css-->
 </head>
 <body>
 <div class="container">
     <div class="row">
         <div class="box animation flipInX">
-            <img src="{{ asset('assets/img/login.png') }}" alt="Alpina GO!">
+            <img src="{{ secure_asset('assets/img/login.png') }}" alt="Alpina GO!">
             <h3 class="text-primary">Reestrablecer Contraseña</h3>
             <p>Ingrese su Email</p>
             <div id="notific">
             @include('notifications')
             </div>
-            <form action="{{ route('forgot-password') }}" class="omb_loginForm" autocomplete="off" method="POST">
+            <form action="{{ secure_url('forgot-password') }}" class="omb_loginForm" autocomplete="off" method="POST">
                 {!! Form::token() !!}
                 <div class="form-group">
                     <label class="sr-only"></label>
@@ -43,10 +43,10 @@
     </div>
 </div>
 <!--global js starts-->
-<script type="text/javascript" src="{{ asset('assets/js/jquery.min.js') }}"></script>
-<script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
-<script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/frontend/forgotpwd_custom.js') }}"></script>
+<script type="text/javascript" src="{{ secure_asset('assets/js/jquery.min.js') }}"></script>
+<script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+<script type="text/javascript" src="{{ secure_asset('assets/js/bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ secure_asset('assets/js/frontend/forgotpwd_custom.js') }}"></script>
 <!--global js end-->
 </body>
 </html>

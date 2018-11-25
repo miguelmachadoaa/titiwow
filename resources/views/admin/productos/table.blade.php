@@ -22,9 +22,9 @@
             <td>{!! number_format($alpProductos->precio_base,2) !!}</td>
             <td id="acti_{{ $alpProductos->id }}">
                 @if($alpProductos->estado_registro == 1)
-                    <button type="button" data-url="{{ url('productos/desactivar') }}" data-desactivar="2" data-id="{{ $alpProductos->id  }}" class="btn btn-responsive button-alignment btn-success btn_sizes desactivar" style="font-size: 12px !important;" >Activo</button>
+                    <button type="button" data-url="{{ secure_url('productos/desactivar') }}" data-desactivar="2" data-id="{{ $alpProductos->id  }}" class="btn btn-responsive button-alignment btn-success btn_sizes desactivar" style="font-size: 12px !important;" >Activo</button>
                 @elseif($alpProductos->estado_registro == 2)
-                    <button type="button" data-url="{{ url('productos/desactivar') }}" data-desactivar="1" data-id="{{ $alpProductos->id  }}" class="btn btn-responsive button-alignment btn-danger btn_sizes desactivar" style="font-size: 12px !important;">Inactivo</button>
+                    <button type="button" data-url="{{ secure_url('productos/desactivar') }}" data-desactivar="1" data-id="{{ $alpProductos->id  }}" class="btn btn-responsive button-alignment btn-danger btn_sizes desactivar" style="font-size: 12px !important;">Inactivo</button>
                 @endif
             </td>
             <td>
@@ -39,19 +39,19 @@
                 
                     @if($alpProductos->destacado=='1')
 
-                        <button title="Destacado" data-url="{{ url('productos/destacado') }}" data-destacado="0" data-id="{{ $alpProductos->id  }}"   class="btn btn-xs btn-link  destacado">  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>   </button>
+                        <button title="Destacado" data-url="{{ secure_url('productos/destacado') }}" data-destacado="0" data-id="{{ $alpProductos->id  }}"   class="btn btn-xs btn-link  destacado">  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>   </button>
 
 
                     @else
 
-                        <button title="Normal" data-url="{{ url('productos/destacado') }}" data-destacado="1" data-id="{{ $alpProductos->id  }}"   class="btn btn-xs btn-link  destacado">  <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>   </button>
+                        <button title="Normal" data-url="{{ secure_url('productos/destacado') }}" data-destacado="1" data-id="{{ $alpProductos->id  }}"   class="btn btn-xs btn-link  destacado">  <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>   </button>
 
                     @endif
 
             </div>
 
 
-                 <a href="{{ url('admin/productos/'.$alpProductos->id.'/confirm-delete' ) }}" data-toggle="modal" data-target="#delete_confirm">
+                 <a href="{{ secure_url('admin/productos/'.$alpProductos->id.'/confirm-delete' ) }}" data-toggle="modal" data-target="#delete_confirm">
                      <i class="livicon" data-name="remove-alt" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="delete alpProductos"></i>
                  </a>
 

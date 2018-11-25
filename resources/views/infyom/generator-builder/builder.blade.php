@@ -601,9 +601,9 @@
             radioClass: 'iradio_square-blue'
         });
 
-        var modelCheckUrl = "{{ url('admin/modelCheck') }}";
-        var generateUrl = "{!! url('') !!}/admin/generator_builder/generate";
-        var componentUrl = "{!! url('') !!}/admin/field_template";
+        var modelCheckUrl = "{{ secure_url('admin/modelCheck') }}";
+        var generateUrl = "{!! secure_url('') !!}/admin/generator_builder/generate";
+        var componentUrl = "{!! secure_url('') !!}/admin/field_template";
 
     </script>
 @stop

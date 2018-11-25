@@ -9,7 +9,7 @@
 {{-- page level styles --}}
 @section('header_styles')
     <!--page level css starts-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/blog.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/blog.css') }}">
     <!--end of page level css-->
 @stop
 
@@ -133,7 +133,7 @@
                         <ul class="media-list media-xs media-dotted">
                             <li class="media">
                                 <a class="pull-left" href="#">
-                                    <img src="{{ asset('assets/images/authors/avatar1.jpg') }}" class="img-circle img-responsive pull-left" alt="riot">
+                                    <img src="{{ secure_asset('assets/images/authors/avatar1.jpg') }}" class="img-circle img-responsive pull-left" alt="riot">
                                 </a>
                                 <div class="media-body">
                                     <h4 class="media-heading primary">
@@ -150,7 +150,7 @@
                             <hr>
                             <li class="media">
                                 <a class="pull-left" href="#">
-                                    <img src="{{ asset('assets/images/authors/avatar4.jpg') }}" class="img-circle img-responsive pull-left" alt="riot">
+                                    <img src="{{ secure_asset('assets/images/authors/avatar4.jpg') }}" class="img-circle img-responsive pull-left" alt="riot">
                                 </a>
                                 <div class="media-body">
                                     <h4 class="media-heading primary">
@@ -167,7 +167,7 @@
                             <hr>
                             <li class="media">
                                 <a class="pull-left" href="#">
-                                    <img src="{{ asset('assets/images/authors/avatar5.jpg') }}" class="img-circle img-responsive pull-left" alt="riot">
+                                    <img src="{{ secure_asset('assets/images/authors/avatar5.jpg') }}" class="img-circle img-responsive pull-left" alt="riot">
                                 </a>
                                 <div class="media-body">
                                     <h4 class="media-heading primary">

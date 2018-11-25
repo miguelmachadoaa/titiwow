@@ -24,12 +24,12 @@ Mis Amigos
                 </li>
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>
-                    <a href="{{ url('clientes') }}">Mi Perfil </a>
+                    <a href="{{ secure_url('clientes') }}">Mi Perfil </a>
                 </li>
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>
-                    <a href="{{ url('misamigos') }}">Mis Amigos </a>
+                    <a href="{{ secure_url('misamigos') }}">Mis Amigos </a>
                 </li>
             </ol>
             
@@ -51,7 +51,7 @@ Mis Amigos
 
             <div class="col-sm-8">  <h3>   Mis  Invitaciones Enviadas  </h3> </div>
                 
-            <div class="col-sm-4"> <br> <a class="btn btn-info addAmigo" href="{{ url('registroembajadores/'.'ALP'.$user->id) }}">Enviar invitacion</a> </div>
+            <div class="col-sm-4"> <br> <a class="btn btn-info addAmigo" href="{{ secure_url('registroembajadores/'.'ALP'.$user->id) }}">Enviar invitacion</a> </div>
 
         </div>
 
@@ -113,7 +113,7 @@ Mis Amigos
                        
 
                         <td>    
-                                <button data-id="{{ $row->id }}" data-url="{{ url('delamigo') }}"  class="btn btn-danger delAmigo">Eliminar</button>
+                                <button data-id="{{ $row->id }}" data-url="{{ secure_url('delamigo') }}"  class="btn btn-danger delAmigo">Eliminar</button>
 
                         </td>
                     </tr>
@@ -180,7 +180,7 @@ Mis Amigos
 
                                     <td>    
 
-                                            <a class="btn btn-xs" href="{{ url('clientes/'.$referido->id_user_client.'/compras') }}">
+                                            <a class="btn btn-xs" href="{{ secure_url('clientes/'.$referido->id_user_client.'/compras') }}">
                                                 <i class="livicon" data-name="eye" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Ver Compras"></i>
                                             </a>
 
@@ -207,7 +207,7 @@ Mis Amigos
 <div class="container">
     <div class="form-group">
         <div class="col-lg-offset-5 col-lg-10" style="margin-bottom:20px;">
-            <a class="btn btn-danger" type="button" href="{{ url('clientes') }}">Regresar</a>
+            <a class="btn btn-danger" type="button" href="{{ secure_url('clientes') }}">Regresar</a>
         </div>
     </div>
 </div>
@@ -223,7 +223,7 @@ Mis Amigos
                     </div>
                     <div class="modal-body">
                       
-                           <input type="hidden" name="url" id="url" value="{{ url('clientes/deleteamigo') }}">
+                           <input type="hidden" name="url" id="url" value="{{ secure_url('clientes/deleteamigo') }}">
 
                             <input type="hidden" name="del_id" id="del_id" value="">
 
@@ -249,9 +249,9 @@ Mis Amigos
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{url('storeamigo')}}" id="addAmigoForm" name="addAmigoForm" class="form-horizontal">
+                        <form method="POST" action="{{secure_url('storeamigo')}}" id="addAmigoForm" name="addAmigoForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
+                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
 
                             {{ csrf_field() }}
 

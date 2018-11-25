@@ -131,7 +131,7 @@ Cliente
                 <div class="row">
                 
             <p style="text-align: center;"> 
-                    <a class="btn btn-default" href="{{ url('admin/clientes') }}">Volver</a>
+                    <a class="btn btn-default" href="{{ secure_url('admin/clientes') }}">Volver</a>
 
             </p>
 

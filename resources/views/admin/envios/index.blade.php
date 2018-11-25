@@ -112,9 +112,9 @@ Envios
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{url('envios/confirmar')}}" id="estatusEnviosForm" name="estatusEnviosForm" class="form-horizontal">
+                        <form method="POST" action="{{secure_url('envios/confirmar')}}" id="estatusEnviosForm" name="estatusEnviosForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
+                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
                             <input type="hidden" name="envio_id" id="envio_id" value="">
 
                             {{ csrf_field() }}

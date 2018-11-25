@@ -88,17 +88,17 @@
                                 
                                 <li>
                                     <a href="#"><i class="shopping-cart" data-name="ion-ios7-cart" data-size="18" data-loop="true" data-c="#fff" data-hc="#fff"></i></a>               
-                                    <label ><a id="detalle_carro_front" href="{{url('login')}}" >Iniciar Sesión</a></label>    
+                                    <label ><a id="detalle_carro_front" href="{{secure_url('login')}}" >Iniciar Sesión</a></label>    
                                 </li>
                                 
                                 <li>
                                     <a href="#"><i class="shopping-cart" data-name="ion-ios7-cart" data-size="18" data-loop="true" data-c="#fff" data-hc="#fff"></i></a>               
-                                    <label ><a id="detalle_carro_front" href="{{url('registro')}}" >Registrarse</a></label>    
+                                    <label ><a id="detalle_carro_front" href="{{secure_url('registro')}}" >Registrarse</a></label>    
                                 </li>
                             @else
                                 <li {{ (Request::is('clientes') ? 'class=active' : '') }}>
                                     <label >                          
-                                        <a  href="{{url('clientes')}}">
+                                        <a  href="{{secure_url('clientes')}}">
                                             Hola: {{ Sentinel::getUser()->first_name }} {{ Sentinel::getUser()->last_name }}</a>
                                     </label>  
                                 </li>
@@ -121,7 +121,7 @@
                     <div class="row">
                         <div class="col-md-4 " >
                             <div id="search_block_top" class="pull-left">
-                                <form method="GET" action="{{ url('buscar') }}">
+                                <form method="GET" action="{{ secure_url('buscar') }}">
                                     <div class="row">
                                         <div class="col-lg-8">
                                             <div class="input-group">
@@ -146,7 +146,7 @@
 
                                 <!--button type="button" name="submit_search" class="btn btn-default button-cart dropdown nav-item "-->
                                 
-                                    <a class="btn btn-default" role="button"  aria-expanded="false"  href="{{ url('cart/show') }}" alt="Ir a Mi Carrito de Compras"><i class="fa fa-cart-arrow-down" aria-hidden="true" id="carrto"></i></a>
+                                    <a class="btn btn-default" role="button"  aria-expanded="false"  href="{{ secure_url('cart/show') }}" alt="Ir a Mi Carrito de Compras"><i class="fa fa-cart-arrow-down" aria-hidden="true" id="carrto"></i></a>
  
                                 <!--/button-->
 
@@ -180,14 +180,14 @@
                         <li class="dropdown">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hola: {{ Sentinel::getUser()->first_name }}  <span class="caret"></span></a>
                           <ul class="dropdown-menu">
-                            <li><a href="{{ url('clientes') }}">Mi Perfil</a></li>
-                            <li><a href="{{ url('my-account') }}">Mi Cuenta</a></li>
-                            <li><a href="{{ url('miscompras') }}">Mis Compras</a></li>
-                            <li><a href="{{ url('misdirecciones') }}">Mi Direccion</a></li>
+                            <li><a href="{{ secure_url('clientes') }}">Mi Perfil</a></li>
+                            <li><a href="{{ secure_url('my-account') }}">Mi Cuenta</a></li>
+                            <li><a href="{{ secure_url('miscompras') }}">Mis Compras</a></li>
+                            <li><a href="{{ secure_url('misdirecciones') }}">Mi Direccion</a></li>
                            
                             @if (Sentinel::getUser()->hasAnyAccess(['clientes.misamigos']))
                             <li role="separator" class="divider"></li>
-                            <li><a href="{{ url('misamigos') }}">Mis Amigos</a></li>
+                            <li><a href="{{ secure_url('misamigos') }}">Mis Amigos</a></li>
                             @endif
                             
 

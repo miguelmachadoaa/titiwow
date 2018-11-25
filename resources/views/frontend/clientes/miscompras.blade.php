@@ -24,12 +24,12 @@ Mis Compras
                 </li>
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>
-                    <a href="{{ url('clientes/') }}">Mi Perfil </a>
+                    <a href="{{ secure_url('clientes/') }}">Mi Perfil </a>
                 </li>
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>
-                    <a href="{{ url('miscompras/') }}">Compras </a>
+                    <a href="{{ secure_url('miscompras/') }}">Compras </a>
                 </li>
             </ol>
         </div>
@@ -93,7 +93,7 @@ Mis Compras
                         <td>    
                                
 
-                                  <button class="btn btn-info btn-xs seeDetalle" data-url="{{ url('clientes/'.$row->id.'/detalle') }}" data-id="{{ $row->id }}" href="{{ url('clientes/'.$row->id.'/detalle') }}">
+                                  <button class="btn btn-info btn-xs seeDetalle" data-url="{{ secure_url('clientes/'.$row->id.'/detalle') }}" data-id="{{ $row->id }}" href="{{ secure_url('clientes/'.$row->id.'/detalle') }}">
                                     <i class="livicon "  data-name="eye" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Ver Detalle"></i>
                                  </button>
 
@@ -132,7 +132,7 @@ Mis Compras
 <div class="container">
     <div class="form-group">
         <div class="col-lg-offset-5 col-lg-10" style="margin-bottom:20px;">
-            <a class="btn btn-danger" type="button" href="{{ url('clientes') }}">Regresar</a>
+            <a class="btn btn-danger" type="button" href="{{ secure_url('clientes') }}">Regresar</a>
         </div>
     </div>
 </div>
@@ -174,9 +174,9 @@ Mis Compras
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{url('ordenes/confirmar')}}" id="confirmarOrdenForm" name="confirmarOrdenForm" class="form-horizontal">
+                        <form method="POST" action="{{secure_url('ordenes/confirmar')}}" id="confirmarOrdenForm" name="confirmarOrdenForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
+                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
                             <input type="hidden" name="confirm_id" id="confirm_id" value="">
 
                             {{ csrf_field() }}
@@ -227,7 +227,7 @@ Mis Compras
 <!-- Modal Direccion -->
 
 
-<input type="hidden" name="base" id="base" value="{{ url('/') }}">
+<input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
 
 
 

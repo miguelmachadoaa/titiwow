@@ -46,7 +46,7 @@
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         @if(Sentinel::getUser()->pic)
-                            <img src="{!! url('/').'/uploads/users/'.Sentinel::getUser()->pic !!}" alt="img" height="35px" width="35px"
+                            <img src="{!! secure_url('/').'/uploads/users/'.Sentinel::getUser()->pic !!}" alt="img" height="35px" width="35px"
                                  class="img-circle img-responsive pull-left"/>
 
                         @elseif(Sentinel::getUser()->gender === "male")
@@ -74,7 +74,7 @@
                         <!-- User image -->
                         <li class="user-header bg-light-blue">
                             @if(Sentinel::getUser()->pic)
-                                <img src="{!! url('/').'/uploads/users/'.Sentinel::getUser()->pic !!}" alt="img" height="35px" width="35px"
+                                <img src="{!! secure_url('/').'/uploads/users/'.Sentinel::getUser()->pic !!}" alt="img" height="35px" width="35px"
                                      class="img-circle img-responsive pull-left"/>
 
                             @elseif(Sentinel::getUser()->gender === "male")

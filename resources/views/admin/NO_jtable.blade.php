@@ -107,11 +107,11 @@
                     dataType: 'json'
                 },
                 actions: {
-                    listAction:  "{{ url('admin/jtable/index') }}",
+                    listAction:  "{{ secure_url('admin/jtable/index') }}",
                     deleteAction: function (postData) {
                         return $.Deferred(function ($dfd) {
                             $.ajax({
-                                url: "{{ url('admin/jtable/delete') }}",
+                                url: "{{ secure_url('admin/jtable/delete') }}",
                                 type: 'POST',
                                 dataType: 'json',
                                 data: postData,

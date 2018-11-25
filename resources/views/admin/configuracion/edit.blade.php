@@ -36,7 +36,7 @@ Editar Configuracion
                 </div>
                 <div class="panel-body">
 
-         <input type="hidden" name="base" id="base" value="{{ url('/') }}">
+         <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
                     
                     
                         {!! Form::model($configuracion, ['url' => URL::to('admin/configuracion/'. $configuracion->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}

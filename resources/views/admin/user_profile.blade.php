@@ -47,7 +47,7 @@ User Profile
                                             <div class="fileinput-new thumbnail">
                                                 {{--<img src="{{ secure_asset('assets/img/authors/avatar3.jpg') }}" data-src="holder.js/366x218/#fff:#000" class="img-responsive" width="366px" height="218px" />--}}
                                                 @if(Sentinel::getUser()->pic)
-                                                    <img src="{!! url('/').'/uploads/users/'.Sentinel::getUser()->pic !!}" alt="img"
+                                                    <img src="{!! secure_url('/').'/uploads/users/'.Sentinel::getUser()->pic !!}" alt="img"
                                                          class="img-responsive " width="366px" height="218px"/>
 
                                                 @elseif(Sentinel::getUser()->gender === "male")

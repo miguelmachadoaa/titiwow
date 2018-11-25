@@ -39,7 +39,7 @@ Alpinistas
                     </h4>
                     <div class="pull-right">
                         <a href="{{ route('admin.alpinistas.create') }}" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus"></span> Cargar Alpinistas</a>
-                        <a href="{{ url('admin/alpinistas/show') }}" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-minus"></span> Retirar Alpinistas</a>
+                        <a href="{{ secure_url('admin/alpinistas/show') }}" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-minus"></span> Retirar Alpinistas</a>
                     </div>
                 </div>
                 <br />

@@ -29,7 +29,7 @@ Carro de Productos
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>
-                    <a href="{{url('productos')}}">Listado</a>
+                    <a href="{{secure_url('productos')}}">Listado</a>
                 </li>
             </ol>
         </div>
@@ -42,7 +42,7 @@ Carro de Productos
 <div class="container text-center ">
     <div class="row">
         <h1>Carrito de Compras</h1>
-        <a class="btn  btn-link" href="{{url('cart/vaciar')}}">Vaciar</a>
+        <a class="btn  btn-link" href="{{secure_url('cart/vaciar')}}">Vaciar</a>
         @if(count($cart))
             
         
@@ -79,14 +79,14 @@ Carro de Productos
                                 <a 
                                 href="#"
                                 class="btn btn-warning btn-update-item" 
-                                data-href="{{url('cart/update', [$row->slug])}}" 
+                                data-href="{{secure_url('cart/update', [$row->slug])}}" 
                                 data-id="{{$row->id}}" 
                                 ><i class="fa fa-refresh"></i></a>
                                 
 
                             </td>
                             <td>{{ number_format($row->cantidad*$row->precio_base, 2) }}</td>
-                            <td><a class="btn btn-danger" href="{{url('cart/delete', [$row->slug])}}">X</a></td>
+                            <td><a class="btn btn-danger" href="{{secure_url('cart/delete', [$row->slug])}}">X</a></td>
                         </tr>
                      @endforeach
                      <tr>
@@ -107,9 +107,9 @@ Carro de Productos
      </div>
 
     <p style="text-align: center;">
-        <a class="btn btn-seguir" href="{{url('productos')}}">Seguir Comprando  <i class="fa fa-plus" aria-hidden="true"></i></a>
+        <a class="btn btn-seguir" href="{{secure_url('productos')}}">Seguir Comprando  <i class="fa fa-plus" aria-hidden="true"></i></a>
 
-         <a class="btn btn-cart" href="{{url('order/detail')}}">Continuar <i class="fa fa-plus" aria-hidden="true"></i></a>
+         <a class="btn btn-cart" href="{{secure_url('order/detail')}}">Continuar <i class="fa fa-plus" aria-hidden="true"></i></a>
      </p> 
 
 
@@ -120,7 +120,7 @@ Carro de Productos
 
         <p style="text-align: center;">
            
-            <a class="btn btn-seguir" href="{{url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
+            <a class="btn btn-seguir" href="{{secure_url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
 
         </p> 
 

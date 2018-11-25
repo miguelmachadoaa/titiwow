@@ -26,12 +26,12 @@ Compras Mis Referidos
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>
-                    <a href="{{ url('clientes') }}">Mi Perfil </a>
+                    <a href="{{ secure_url('clientes') }}">Mi Perfil </a>
                 </li>
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>
-                    <a href="{{ url('clientes/miscompras') }}">Compras  </a>
+                    <a href="{{ secure_url('clientes/miscompras') }}">Compras  </a>
                 </li>
         </div>
     </div>
@@ -89,7 +89,7 @@ Compras Mis Referidos
                         <td>    
                                
 
-                                  <button class="btn btn-info btn-xs seeDetalle" data-url="{{ url('clientes/'.$row->id.'/detalle') }}" data-id="{{ $row->id }}" href="{{ url('clientes/'.$row->id.'/detalle') }}">
+                                  <button class="btn btn-info btn-xs seeDetalle" data-url="{{ secure_url('clientes/'.$row->id.'/detalle') }}" data-id="{{ $row->id }}" href="{{ secure_url('clientes/'.$row->id.'/detalle') }}">
                                     <i class="livicon "  data-name="eye" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Ver Detalle"></i>
                                  </button>
 

@@ -126,9 +126,9 @@ Ciudades de envio
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{url('formasenvio/storeciudad')}}" id="addCiuadadForm" name="addCiuadadForm" class="form-horizontal">
+                        <form method="POST" action="{{secure_url('formasenvio/storeciudad')}}" id="addCiuadadForm" name="addCiuadadForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
+                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
                             <input type="hidden" name="id_forma" id="id_forma" value="{{ $formas->id }}">
 
                             {{ csrf_field() }}

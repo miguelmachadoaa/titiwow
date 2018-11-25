@@ -6,7 +6,7 @@
     @parent
 @stop
 @section('header_styles')
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/pages/log_viewer.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/pages/log_viewer.css') }}">
     @stop
 @section('content')
     <section class="content-header">

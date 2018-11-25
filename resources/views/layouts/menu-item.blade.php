@@ -8,7 +8,7 @@
         <ul class="dropdown-menu sub-menu">
             @foreach ($item['submenu'] as $submenu)
                 @if ($submenu['submenu'] == [])
-                    <li><a href="{{ url('categoria',[ 'slug' => $submenu['slug']]) }}">{{ $submenu['name'] }} </a></li>
+                    <li><a href="{{ secure_url('categoria',[ 'slug' => $submenu['slug']]) }}">{{ $submenu['name'] }} </a></li>
                 @else
                     @include('partials.menu-item', [ 'item' => $submenu ])
                 @endif

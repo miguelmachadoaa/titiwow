@@ -4,17 +4,17 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login | AlpinaGo</title>
+    <title>Login | Alpina Go!</title>
     <!--global css starts-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
-    <link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/bootstrap.min.css') }}">
+    <link rel="shortcut icon" href="{{ secure_asset('assets/images/favicon.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ secure_asset('assets/images/favicon.png') }}" type="image/x-icon">
     <!--end of global css-->
     <!--page level css starts-->
-    <link type="text/css" rel="stylesheet" href="{{asset('assets/vendors/iCheck/css/all.css')}}" />
-    <link href="{{ asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/login.css') }}">
-    <link rel="stylesheet" href=" {{ asset('assets/css/font-awesome.min.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{secure_asset('assets/vendors/iCheck/css/all.css')}}" />
+    <link href="{{ secure_asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/login.css') }}">
+    <link rel="stylesheet" href=" {{ secure_asset('assets/css/font-awesome.min.css') }}">
     <!--end of page level css-->
 
 </head>
@@ -24,13 +24,13 @@
     <div class="row">
         <div class="box animation flipInX">
             <div class="box1 text-center">
-            <a href="{{ route('home') }}"><img src="{{ asset('assets/img/login.png') }}" alt="Alpina GO!"></a>
+            <a href="{{ secure_url('home') }}"><img src="{{ secure_asset('assets/img/login.png') }}" alt="Alpina GO!"></a>
             <h3 class="text-primary">Mi Perfil</h3>
                 <!-- Notifications -->
                 <div id="notific">
                 @include('notifications')
                 </div>
-                <form action="{{ route('login') }}" class="omb_loginForm"  autocomplete="off" method="POST">
+                <form action="{{ secure_url('login') }}" class="omb_loginForm"  autocomplete="off" method="POST">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="back" id="back" value="0">
                     <div class="form-group {{ $errors->first('email', 'has-error') }}">
@@ -55,40 +55,40 @@
                             <input type="submit" class="btn btn-block btn-primary" value="Iniciar Sesión">
                         </div>
                         <div class="col-md-6">
-                            <a class="btn btn-block btn-danger" href="{{ route('home') }}">Regresar a Inicio</a>
+                            <a class="btn btn-block btn-danger" href="{{ secure_url('home') }}">Regresar a Inicio</a>
                         </div>
                     </div>
                     <div class="clearfix"></div>
 
-                    ¿Aún sin Cuenta? <a href="{{ route('register') }}"><strong> Registrarse</strong>
+                    ¿Aún sin Cuenta? <a href="{{ secure_url('registro') }}"><strong> Registrarse</strong>
                 </form>
                 <!--div class="text-center">
                     <p>--OR--</p>
                     <p>Login with</p>
-                    <a href="{{ url('/facebook') }}" class="social"><i class=" fa fa-facebook"></i> Facebook</a>
+                    <a href="{{ secure_url('/facebook') }}" class="social"><i class=" fa fa-facebook"></i> Facebook</a>
 
-                    <a href="{{ url('/google') }}" class="social text-danger"><i class=" fa fa-google-plus"></i> Google</a>
+                    <a href="{{ secure_url('/google') }}" class="social text-danger"><i class=" fa fa-google-plus"></i> Google</a>
 
-                    {{--<a href="{{ url('/twitter') }}" class="social"><i class=" fa fa-twitter"></i> Twitter</a>--}}
+                    {{--<a href="{{ secure_url('/twitter') }}" class="social"><i class=" fa fa-twitter"></i> Twitter</a>--}}
 
-                    <a href="{{ url('/linkedin') }}" class="social"><i class=" fa fa-linkedin"></i> LinkedIn</a>
+                    <a href="{{ secure_url('/linkedin') }}" class="social"><i class=" fa fa-linkedin"></i> LinkedIn</a>
                 </div-->
 
             </div>
             <br>
         <div class="bg-light animation flipInX">
-            <a href="{{ route('olvido-clave') }}" id="forgot_pwd_title">¿Olvidó su Contraseña?</a>
+            <a href="{{ secure_url('olvido-clave') }}" id="forgot_pwd_title">¿Olvidó su Contraseña?</a>
         </div>
         </div>
     </div>
     <!-- //Content Section End -->
 </div>
 <!--global js starts-->
-<script type="text/javascript" src="{{ asset('assets/js/frontend/jquery.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/frontend/bootstrap.min.js') }}"></script>
-<script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
-<script type="text/javascript" src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/frontend/login_custom.js') }}"></script>
+<script type="text/javascript" src="{{ secure_asset('assets/js/frontend/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ secure_asset('assets/js/frontend/bootstrap.min.js') }}"></script>
+<script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+<script type="text/javascript" src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
+<script type="text/javascript" src="{{ secure_asset('assets/js/frontend/login_custom.js') }}"></script>
 <!--global js end-->
 </body>
 </html>

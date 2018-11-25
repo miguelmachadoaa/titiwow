@@ -25,7 +25,7 @@
                     <li class="product">
                         <div class="product-image">
                             <a href="#0">
-                                <img src="{{ url('/').'/uploads/productos/'.$row->imagen_producto }}" alt="{{ $row->nombre_producto }}">
+                                <img src="{{ secure_url('/').'/uploads/productos/'.$row->imagen_producto }}" alt="{{ $row->nombre_producto }}">
                             </a>
                         </div>
                         <div class="product-details">
@@ -62,7 +62,7 @@
             </div>
 
             <footer style="padding: 0">
-                <a style="background: #fff;" href="{{ url('cart/show') }}" class="checkout btn"><em>Total - COP <span>@if(isset($cart)) {{ $total }}  @endif</span></em></a>
+                <a style="background: #fff;" href="{{ secure_url('cart/show') }}" class="checkout btn"><em>Total - COP <span>@if(isset($cart)) {{ $total }}  @endif</span></em></a>
             </footer>
         </div>
     </div> <!-- .cd-cart -->

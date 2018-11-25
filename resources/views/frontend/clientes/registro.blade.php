@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Registro Amigos | Alpina Go </title>
     <!--global css starts-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
-    <link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/bootstrap.min.css') }}">
+    <link rel="shortcut icon" href="{{ secure_asset('assets/images/favicon.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ secure_asset('assets/images/favicon.png') }}" type="image/x-icon">
     <!--end of global css-->
     <!--page level css starts-->
-    <link type="text/css" rel="stylesheet" href="{{asset('assets/vendors/iCheck/css/all.css')}}" />
-    <link href="{{ asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/register.css') }}">
-    <link href="{{ asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+    <link type="text/css" rel="stylesheet" href="{{secure_asset('assets/vendors/iCheck/css/all.css')}}" />
+    <link href="{{ secure_asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/register.css') }}">
+    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
 
     <!--end of page level css-->
 </head>
@@ -23,13 +23,13 @@
     <!--Content Section Start -->
     <div class="row">
         <div class="box animation flipInX">
-            <a href="{{ route('home') }}"><img src="{{ asset('assets/img/login.png') }}" alt="AlpinaGO" ></a>
+            <a href="{{ secure_url('home') }}"><img src="{{ secure_asset('assets/img/login.png') }}" alt="AlpinaGO" ></a>
             <h3 class="text-primary">Registro de Amigos</h3>
             <!-- Notifications -->
             <div id="notific">
             @include('notifications')
             </div>
-            <form action="{{ url('signupembajador') }}" method="POST" id="reg_form">
+            <form action="{{ secure_url('signupembajador') }}" method="POST" id="reg_form">
                 <!-- CSRF Token -->
                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                 <input type="hidden" name="back" id="back" value="0">
@@ -173,19 +173,19 @@
                     </div>
                 </div>
             </form>
-            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
+            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
         </div>
     </div>
     <!-- //Content Section End -->
 </div>
 <!--global js starts-->
 <script src='https://www.google.com/recaptcha/api.js'></script>
-<script type="text/javascript" src="{{ asset('assets/js/jquery.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
-<script type="text/javascript" src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/frontend/register_custom.js') }}"></script>
-<script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/select2/js/select2.js') }}"></script>
+<script type="text/javascript" src="{{ secure_asset('assets/js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ secure_asset('assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+<script type="text/javascript" src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
+<script type="text/javascript" src="{{ secure_asset('assets/js/frontend/register_custom.js') }}"></script>
+<script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
 
 
 <!--global js end-->

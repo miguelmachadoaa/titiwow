@@ -24,12 +24,12 @@ Mi Estatus
                 </li>
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>
-                    <a href="{{ url('clientes') }}">Mi Perfil </a>
+                    <a href="{{ secure_url('clientes') }}">Mi Perfil </a>
                 </li>
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>
-                    <a href="{{ url('miestatus') }}">Mi Estatus  </a>
+                    <a href="{{ secure_url('miestatus') }}">Mi Estatus  </a>
                 </li>
             </ol>
             
@@ -51,7 +51,7 @@ Mi Estatus
                 <div class="row">
                     
                     <div class="col-sm-3">
-                        <img class="img img-responsive" src="{{ url('/').'/assets/images/'.$puntos['nivel'].'.png' }}">
+                        <img class="img img-responsive" src="{{ secure_url('/').'/assets/images/'.$puntos['nivel'].'.png' }}">
                     </div>
                     <div class="col-sm-9">
                         <h4>Usted acumula compras este mes por  {{ $puntos['puntos'] }} COP</h4>
@@ -184,7 +184,7 @@ Mi Estatus
 <div class="container">
     <div class="form-group">
         <div class="col-lg-offset-5 col-lg-10" style="margin-bottom:20px;">
-            <a class="btn btn-danger" type="button" href="{{ url('clientes') }}">Regresar</a>
+            <a class="btn btn-danger" type="button" href="{{ secure_url('clientes') }}">Regresar</a>
         </div>
     </div>
 </div>
@@ -200,7 +200,7 @@ Mi Estatus
                     </div>
                     <div class="modal-body">
                       
-                           <input type="hidden" name="url" id="url" value="{{ url('clientes/deleteamigo') }}">
+                           <input type="hidden" name="url" id="url" value="{{ secure_url('clientes/deleteamigo') }}">
 
                             <input type="hidden" name="del_id" id="del_id" value="">
 
@@ -226,9 +226,9 @@ Mi Estatus
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{url('storeamigo')}}" id="addAmigoForm" name="addAmigoForm" class="form-horizontal">
+                        <form method="POST" action="{{secure_url('storeamigo')}}" id="addAmigoForm" name="addAmigoForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ url('/') }}">
+                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
 
                             {{ csrf_field() }}
 

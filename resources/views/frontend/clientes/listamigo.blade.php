@@ -47,7 +47,7 @@
                         
 
                         <td>    
-                                <button data-id="{{ $row->id }}" data-url="{{ url('delamigo') }}"  class="btn btn-danger delAmigo">Eliminar</button>
+                                <button data-id="{{ $row->id }}" data-url="{{ secure_url('delamigo') }}"  class="btn btn-danger delAmigo">Eliminar</button>
 
                         </td>
                     </tr>

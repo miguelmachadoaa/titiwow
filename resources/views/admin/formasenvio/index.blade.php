@@ -66,7 +66,7 @@ Formas de Envio
                                     <td>
                                             
                                             
-                                            <a  href="{{ url('admin/formasenvio').'/'.$row->id.'/ubicacion' }}"><i class="fa fa-map-marker"></i></a>
+                                            <a  href="{{ secure_url('admin/formasenvio').'/'.$row->id.'/ubicacion' }}"><i class="fa fa-map-marker"></i></a>
 
 
                                             <a href="{{ route('admin.formasenvio.edit', $row->id) }}">

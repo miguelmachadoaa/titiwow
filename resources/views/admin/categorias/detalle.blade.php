@@ -48,7 +48,7 @@ Categoria {{$categoria->id}}
                 </div>
                 <div class="panel-body">
                     
-                        <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" action="{{ url('admin/categorias/'.$categoria->id.'/storeson') }}">
+                        <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" action="{{ secure_url('admin/categorias/'.$categoria->id.'/storeson') }}">
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
 

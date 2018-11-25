@@ -9,8 +9,8 @@ Blog
 {{-- page level styles --}}
 @section('header_styles')
     <!--page level css starts-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/tabbular.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/blog.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/tabbular.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/blog.css') }}">
     <!--end of page level css-->
 @stop
 
@@ -116,7 +116,7 @@ Blog
                                     <div class="media">
                                         <div class="media-left tab col-sm-6 col-md-12 col-xs-12">
                                             <a href="#">
-                                                <img class="media-object img-responsive" src="{{ asset('assets/images/img_3.jpg') }}" alt="image">
+                                                <img class="media-object img-responsive" src="{{ secure_asset('assets/images/img_3.jpg') }}" alt="image">
                                             </a>
                                         </div>
                                     </div>
@@ -129,7 +129,7 @@ Blog
                                     <div class="media">
                                         <div class="media-left tab col-sm-6 col-md-12 col-xs-12">
                                             <a href="#">
-                                                <img class="media-object img-responsive" src="{{ asset('assets/images/img_5.jpg') }}" alt="image">
+                                                <img class="media-object img-responsive" src="{{ secure_asset('assets/images/img_5.jpg') }}" alt="image">
                                             </a>
                                         </div>
                                     </div>
@@ -144,7 +144,7 @@ Blog
                                     <div class="media">
                                         <div class="media-left media-middle tab col-sm-12 col-xs-12">
                                             <a href="#">
-                                                <img class="media-object img-responsive" src="{{ asset('assets/images/img_5.jpg') }}" alt="image">
+                                                <img class="media-object img-responsive" src="{{ secure_asset('assets/images/img_5.jpg') }}" alt="image">
                                             </a>
                                         </div>
                                     </div>
@@ -157,7 +157,7 @@ Blog
                                     <div class="media">
                                         <div class="media-left tab col-sm-6 col-md-12 col-xs-12">
                                             <a href="#">
-                                                <img class="media-object img-responsive" src="{{ asset('assets/images/img_3.jpg') }}" alt="image">
+                                                <img class="media-object img-responsive" src="{{ secure_asset('assets/images/img_3.jpg') }}" alt="image">
                                             </a>
                                         </div>
                                     </div>
@@ -179,7 +179,7 @@ Blog
                         <ul class="media-list media-xs media-dotted">
                             <li class="media">
                                 <a class="pull-left" href="#">
-                                    <img src="{{ asset('assets/images/authors/avatar.jpg') }}" class="img-circle img-responsive pull-left" alt="riot">
+                                    <img src="{{ secure_asset('assets/images/authors/avatar.jpg') }}" class="img-circle img-responsive pull-left" alt="riot">
                                 </a>
                                 <div class="media-body">
                                     <h4 class="media-heading primary">
@@ -196,7 +196,7 @@ Blog
                             <hr>
                             <li class="media">
                                 <a class="pull-left" href="#">
-                                    <img src="{{ asset('assets/images/authors/avatar1.jpg') }}" class="img-circle img-responsive pull-left" alt="riot">
+                                    <img src="{{ secure_asset('assets/images/authors/avatar1.jpg') }}" class="img-circle img-responsive pull-left" alt="riot">
                                 </a>
                                 <div class="media-body">
                                     <h4 class="media-heading primary">
@@ -213,7 +213,7 @@ Blog
                             <hr>
                             <li class="media">
                                 <a class="pull-left" href="#">
-                                    <img src="{{ asset('assets/images/authors/avatar5.jpg') }}" class="img-circle img-responsive pull-left" alt="riot">
+                                    <img src="{{ secure_asset('assets/images/authors/avatar5.jpg') }}" class="img-circle img-responsive pull-left" alt="riot">
                                 </a>
                                 <div class="media-body">
                                     <h4 class="media-heading primary">

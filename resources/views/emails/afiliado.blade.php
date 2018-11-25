@@ -1,6 +1,6 @@
 @component('mail::message')
 
-<p style="text-align: center;"><img src="{{ url('assets/img/login.png') }}"></p>
+<p style="text-align: center;"><img src="{{ secure_url('assets/img/login.png') }}"></p>
 
  Bienvenido a alpina {{ $name.' '.$lastname }}
 
@@ -8,7 +8,7 @@ Se te ha enviado una invitacion para registrarte como afiliado por la empresa {{
 
 Sigue el enlace para registrarte.
 
-@component('mail::button', ['url' => url('/registroafiliado/'.$token)])
+@component('mail::button', ['url' => secure_url('/registroafiliado/'.$token)])
 Registro 
 @endcomponent
 

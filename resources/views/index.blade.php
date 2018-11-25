@@ -99,7 +99,7 @@ Inicio @parent
                                 <div class="col-md-2 col-sm-6 col-xs-6 ">
                                     <div class="productos">
                                         <div class="text-align:center;">
-                                            <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive homi"></a>
+                                            <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive homi"></a>
                                         </div>
                                         <a href="{{ route('producto', [$producto->slug]) }}" ><h3>{{ $producto->nombre_producto }}</h3></a>
                                         <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="text-align:center;">{{ $producto->presentacion_producto }}</h6></a>
@@ -182,7 +182,7 @@ Inicio @parent
 
                                                 @else
                                                      <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
-                                                     <a data-slug="{{ $producto->slug }}" data-price="{{ $producto->precio_base }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
+                                                     <a data-slug="{{ $producto->slug }}" data-price="{{ $producto->precio_base }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
 
                                                 @endif
 
@@ -222,7 +222,7 @@ Inicio @parent
                                     <div class="col-md-2 col-sm-6 col-xs-6" >
                                         <div class="brands">
                                             <a href="{{ route('marcas', [$marca->slug]) }}" >
-                                                    <img src="{{ url('/').'/uploads/marcas/'.$marca->imagen_marca }}" class="img-responsive" title="{{ $marca->nombre_marca }}" alt="{{ $marca->nombre_marca }}">
+                                                    <img src="{{ secure_url('/').'/uploads/marcas/'.$marca->imagen_marca }}" class="img-responsive" title="{{ $marca->nombre_marca }}" alt="{{ $marca->nombre_marca }}">
                                             </a>
                                         </div>
                                     </div>
@@ -264,7 +264,7 @@ Inicio @parent
                 </div>
                 <div class="modal-footer">
                     <button type="button"  class="btn  btn-default" data-dismiss="modal">Continuar Comprando</button>
-                    <a href="{{ url('order/detail') }}" class="btn  btn-info " >Proceder a Pagar</a>
+                    <a href="{{ secure_url('order/detail') }}" class="btn  btn-info " >Proceder a Pagar</a>
                 </div>
             </div>
         </div>
@@ -272,7 +272,7 @@ Inicio @parent
 
 <!-- Modal Direccion -->
 
-<input type="hidden" name="base" id="base" value="{{ url('/') }}">
+<input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
 
 @include('frontend.includes.newcart')
 
