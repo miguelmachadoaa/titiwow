@@ -44,7 +44,7 @@
                             <!-- Form actions -->
                             <div class="form-group">
                                 <div class="col-sm-12">
-                                    <a class="btn" href="{{ route('admin.dashboard') }}">@lang('button.cancel')</a>
+                                    <a class="btn" href="{{ secure_url('admin') }}">@lang('button.cancel')</a>
 
                                     <button type="submit" class="btn btn-info">@lang('button.submit')</button>
                                 </div>

@@ -25,7 +25,7 @@
         <h1>@lang('clientes/title.add')</h1>
         <ol class="breadcrumb">
             <li>
-                <a href="{{ route('admin.dashboard') }}">
+                <a href="{{ secure_url('admin') }}">
                     <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                     @lang('general.dashboard')
                 </a>
@@ -49,7 +49,7 @@
                     </div>
                     <div class="panel-body">
                         <!--main content-->
-                        <form id="commentForm" action="{{ secure_url('admin.clientes.store') }}"
+                        <form id="commentForm" action="{{ secure_url('admin/clientes/store') }}"
                               method="POST" enctype="multipart/form-data" class="form-horizontal">
                             <!-- CSRF Token -->
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
@@ -162,18 +162,18 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group {{ $errors->first('telefono_cliente', 'has-error') }}">
-                                            <label for="telefono_cliente" class="col-sm-2 control-label">Número Telefónico *</label>
+                                        <div class="form-group {{ $errors->first('cod_alpinista', 'has-error') }}">
+                                            <label for="cod_alpinista" class="col-sm-2 control-label">Código Alpinista</label>
                                             <div class="col-sm-10">
-                                                <input id="telefono_cliente" name="telefono_cliente" type="number"
-                                                       placeholder="Número Telefónico" class="form-control required"
-                                                       value="{!! old('telefono_cliente') !!}"/>
+                                                <input id="cod_alpinista" name="cod_alpinista" type="text"
+                                                       placeholder="Código Alpinista" class="form-control required"
+                                                       value="{!! old('cod_alpinista') !!}"/>
 
-                                                {!! $errors->first('telefono_cliente', '<span class="help-block">:message</span>') !!}
+                                                {!! $errors->first('cod_alpinista', '<span class="help-block">:message</span>') !!}
                                             </div>
                                         </div>
 
-                                        <div class="form-group {{ $errors->first('pic_file', 'has-error') }}">
+                                        <!--div class="form-group {{ $errors->first('pic_file', 'has-error') }}">
                                             <label for="pic" class="col-sm-2 control-label">Foto de Perfil</label>
                                             <div class="col-sm-10">
                                                 <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -193,7 +193,7 @@
                                                 </div>
                                                 <span class="help-block">{{ $errors->first('pic_file', ':message') }}</span>
                                             </div>
-                                        </div>
+                                        </div-->
 
                                         <div class="form-group">
                                             <label for="marketing_cliente" class="col-sm-2 control-label"> Marketing</label>

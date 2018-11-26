@@ -60,7 +60,7 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
 
  	});
-
+    Route::post('categorias/create', 'Admin\AlpCategoriasController@store');
     Route::resource('categorias', 'Admin\AlpCategoriasController');
 
     //fin direcciones categorias
@@ -183,7 +183,7 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
         Route::post('/eliminar', 'Admin\AlpClientesController@eliminar')->name('clientes.eliminar');
 
         });
-
+    Route::post('clientes/store', 'Admin\AlpClientesController@store');
     Route::resource('clientes', 'Admin\AlpClientesController');
 
     //fin direcioens clientes
@@ -202,7 +202,7 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
     Route::post('estatus/store', 'Admin\AlpEstatusOrdenesController@store');
     Route::resource('estatus', 'Admin\AlpEstatusOrdenesController');
 
-//fin estatus ordenes
+    //fin estatus ordenes
 
 //Inicio Reportes generales
 
@@ -347,6 +347,7 @@ Route::resource('alpinistas', 'Admin\AlpAlpinistasController');
         Route::get('{cms}/confirm-delete', 'Admin\AlpCmsController@getModalDelete')->name('cms.confirm-delete');
         Route::get('{cms}/restore', 'Admin\AlpCmsController@restore')->name('cms.restore');
     });
+    Route::post('cms/create', 'Admin\AlpCmsController@store');
     Route::resource('cms', 'Admin\AlpCmsController');
 
     /*CMS Fin*/

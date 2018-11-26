@@ -29,7 +29,7 @@
     </h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ route('admin.dashboard') }}">
+            <a href="{{ secure_url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                 Inicio
             </a>
@@ -62,7 +62,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form class="form-horizontal bf" enctype="multipart/form-data" role="form" method="post" action="{{ secure_url('admin/categorias/store') }}">
+                    <form class="form-horizontal bf" enctype="multipart/form-data" role="form" method="post" action="{{ secure_url('admin/categorias/create') }}">
 
                     
 
@@ -192,7 +192,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
-                                <a class="btn btn-danger" href="{{ route('admin.categorias.index') }}">
+                                <a class="btn btn-danger" href="{{ secure_url('admin/categorias') }}">
                                     Cancelar
                                 </a>
                                 <button type="submit" class="btn btn-success">

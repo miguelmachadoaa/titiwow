@@ -59,7 +59,7 @@ Cargar Alpinistas
     <h1>Cargar Alpinistas</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ route('admin.dashboard') }}">
+            <a href="{{ secure_url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                Inicio
             </a>
@@ -97,7 +97,7 @@ Cargar Alpinistas
                                     <button type="submit" class="btn btn-success">
                                         Cargar Alpinistas
                                     </button>
-                                    <a class="btn btn-md btn-danger" href="{{ route('admin.alpinistas.index') }}">
+                                    <a class="btn btn-md btn-danger" href="{{ secure_url('admin/alpinistas') }}">
                                         Cancelar
                                     </a>
                                 

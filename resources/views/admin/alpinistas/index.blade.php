@@ -18,7 +18,7 @@ Alpinistas
     <h1>Alpinistas</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ route('admin.dashboard') }}">
+            <a href="{{ secure_url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                Inicio
             </a>
@@ -38,7 +38,7 @@ Alpinistas
                        Alpinistas
                     </h4>
                     <div class="pull-right">
-                        <a href="{{ route('admin.alpinistas.create') }}" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus"></span> Cargar Alpinistas</a>
+                        <a href="{{ secure_url('admin/alpinistas/create') }}" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus"></span> Cargar Alpinistas</a>
                         <a href="{{ secure_url('admin/alpinistas/show') }}" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-minus"></span> Retirar Alpinistas</a>
                     </div>
                 </div>

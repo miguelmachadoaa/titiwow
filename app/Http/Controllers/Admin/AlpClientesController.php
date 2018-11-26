@@ -144,13 +144,13 @@ class AlpClientesController extends JoshController
         $user_id = Sentinel::getUser()->id;
 
          //upload image
-        if ($file = $request->file('pic_file')) {
+        /*if ($file = $request->file('pic_file')) {
             $extension = $file->extension()?: 'png';
             $destinationPath = public_path() . '/uploads/perfiles/';
             $safeName = str_random(10) . '.' . $extension;
             $file->move($destinationPath, $safeName);
             $request['pic'] = $safeName;
-        }
+        }*/
         //check whether use should be activated by default or not
         $activate = $request->get('activate') ? true : false;
 
@@ -162,7 +162,6 @@ class AlpClientesController extends JoshController
             'first_name' => $request->first_name, 
             'last_name' =>$request->last_name, 
             'dob' =>$request->dob, 
-            'pic' =>$request->pic, 
             'password' =>$request->password], $activate)->id;
 
             $data = array(
@@ -172,6 +171,7 @@ class AlpClientesController extends JoshController
                 'genero_cliente' =>$request->genero_cliente, 
                 'telefono_cliente' =>$request->telefono_cliente, 
                 'marketing_cliente' =>$request->marketing_cliente,
+                'cod_alpinista'  =>$request->cod_alpinista,
                 'habeas_cliente' => 1,
                 'estado_masterfile' =>0,
                 'id_user' =>$user_id,               

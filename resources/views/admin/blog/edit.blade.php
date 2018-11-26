@@ -25,7 +25,7 @@
     <h1>@lang('blog/title.edit')</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ route('admin.dashboard') }}"> <i class="livicon" data-name="home" data-size="14" data-c="#000" data-loop="true"></i>
+            <a href="{{ secure_url('admin') }}"> <i class="livicon" data-name="home" data-size="14" data-c="#000" data-loop="true"></i>
                 @lang('general.home')
             </a>
         </li>

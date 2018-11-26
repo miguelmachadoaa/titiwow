@@ -19,7 +19,7 @@
     <h1>@lang('blog/title.bloglist')</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ route('admin.dashboard') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
+            <a href="{{ secure_url('admin') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
                 @lang('general.dashboard')
             </a>
         </li>
@@ -76,7 +76,7 @@
                                                                                                      data-c="#428BCA"
                                                                                                      data-hc="#428BCA"
                                                                                                      title="@lang('blog/table.update-blog')"></i></a>
-                                    <a href="{{ route('admin.blog.confirm-delete', $blog->id) }}" data-toggle="modal"
+                                    <a href="{{ secure_url('admin/blog/'.$blog->id.'/confirm-delete' ) }}" data-toggle="modal"
                                        data-target="#delete_confirm"><i class="livicon" data-name="remove-alt"
                                                                         data-size="18" data-loop="true" data-c="#f56954"
                                                                         data-hc="#f56954"

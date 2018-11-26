@@ -20,7 +20,7 @@
     <h1>Páginas de Contenido</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ route('admin.dashboard') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
+            <a href="{{ secure_url('admin') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
                 @lang('general.dashboard')
             </a>
         </li>
@@ -38,7 +38,7 @@
                 Lista de Páginas
                 </h4>
                 <div class="pull-right">
-                    <a href="{{ URL::to('admin/cms/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> @lang('button.create')</a>
+                    <a href="{{ secure_url('admin/cms/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> @lang('button.create')</a>
                 </div>
             </div>
             <br />
@@ -63,14 +63,14 @@
                                 <td>{{ $cms->estado_registro }}</td>
                                 <td>{{ $cms->created_at->diffForHumans() }}</td>
                                 <td>
-                                    <a href="{{ URL::to('admin/cms/' . $cms->id . '/edit' ) }}"><i class="livicon"
+                                    <a href="{{ secure_url('admin/cms/' . $cms->id . '/edit' ) }}"><i class="livicon"
                                                                                                      data-name="edit"
                                                                                                      data-size="18"
                                                                                                      data-loop="true"
                                                                                                      data-c="#428BCA"
                                                                                                      data-hc="#428BCA"
                                                                                                      title="@lang('cms/table.update-blog')"></i></a>
-                                    <a href="{{ route('admin.cms.confirm-delete', $cms->id) }}" data-toggle="modal"
+                                    <a href="{{ secure_url('admin/cms/'.$cms->id.'/confirm-delete') }}" data-toggle="modal"
                                        data-target="#delete_confirm"><i class="livicon" data-name="remove-alt"
                                                                         data-size="18" data-loop="true" data-c="#f56954"
                                                                         data-hc="#f56954"
