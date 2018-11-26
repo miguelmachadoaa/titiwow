@@ -18,13 +18,13 @@ Estatus Envios
     <h1>Estatus Envios</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ route('admin.dashboard') }}">
+            <a href="{{ secure_url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                Inicio
             </a>
         </li>
         <li><a href="#"> Estatus Envios </a></li>
-        <li class="active">Index</li>
+        <li class="active">Listado</li>
     </ol>
 </section>
 
@@ -38,7 +38,7 @@ Estatus Envios
                        Estatus Envios
                     </h4>
                     <div class="pull-right">
-                    <a href="{{ route('admin.estatusenvios.create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Estatus Envios</a>
+                    <a href="{{ secure_url('admin/estatusenvios/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Estatus Envios</a>
                     </div>
                 </div>
                 <br />
@@ -70,15 +70,15 @@ Estatus Envios
 
 
 
-                                            <a href="{{ route('admin.estatusenvios.edit', $row->id) }}">
-                                                <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar categoria"></i>
+                                            <a href="{{ secure_url('admin/estatusenvios/'.$row->id.'/edit') }}">
+                                                <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Editar Estado de Envio"></i>
                                             </a>
 
 
 
                                             <!-- let's not delete 'Admin' group by accident -->
                                             
-                                            <a href="{{ route('admin.estatusenvios.confirm-delete', $row->id) }}" data-toggle="modal" data-target="#delete_confirm">
+                                            <a href="{{ secure_url('admin/estatusenvios/'.$row->id.'/confirm-delete') }}" data-toggle="modal" data-target="#delete_confirm">
                                             <i class="livicon" data-name="remove-alt" data-size="18"
                                                 data-loop="true" data-c="#f56954" data-hc="#f56954"
                                                 title="Eliminar"></i>

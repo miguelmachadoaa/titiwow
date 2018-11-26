@@ -17,13 +17,13 @@ Inventario
     <h1>Inventario</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ route('admin.dashboard') }}">
+            <a href="{{ secure_url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                Inicio
             </a>
         </li>
         <li><a href="#"> Inventario </a></li>
-        <li class="active">Index</li>
+        <li class="active">Listado</li>
     </ol>
 </section>
 
@@ -36,9 +36,9 @@ Inventario
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
                        Inventario
                     </h4>
-                    <div class="pull-right">
-                    <a href="{{ route('admin.inventario.create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Agregar Inventario</a>
-                    </div>
+                    <!--div class="pull-right">
+                    <a href="{{ secure_url('admin/inventario/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Agregar Inventario</a>
+                    </div-->
                 </div>
                 <br />
                 <div class="panel-body">
@@ -65,7 +65,7 @@ Inventario
                                     <td>{!! $row->created_at->diffForHumans() !!}</td>
                                     <td>
                                             
-                                            <a href="{{ route('admin.inventario.edit', $row->id) }}">
+                                            <a href="{{ secure_url('admin/inventario/'.$row->id.'/edit') }}">
                                                 <i class="fa fa-plus"></i>
                                             </a>
 

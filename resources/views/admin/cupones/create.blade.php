@@ -14,7 +14,7 @@
     </h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ route('admin.dashboard') }}">
+            <a href="{{ secure_url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                 Inicio
             </a>
@@ -33,7 +33,7 @@
             <div class="panel panel-primary ">
                 <div class="panel-heading">
                     <h4 class="panel-title"> <i class="livicon" data-name="users-add" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Crear Cupon
+                       Crear Cupón
                     </h4>
                 </div>
                 <div class="panel-body">
@@ -47,7 +47,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form class="form-horizontal" role="form" method="post" action="{{ secure_url('admin/cupones/store') }}">
+                    <form class="form-horizontal" role="form" method="post" action="{{ secure_url('admin/cupones/create') }}">
                         <!-- CSRF Token -->
 
                         {{ csrf_field() }}
@@ -55,7 +55,7 @@
                         <div class="form-group {{ $errors->
                             first('codigo_cupon', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Codigo Cupon
+                                Codigo Cupón
                             </label>
                             <div class="col-sm-5">
                                 <input type="text" id="codigo_cupon" name="codigo_cupon" class="form-control" placeholder="Codigo Cupon"
@@ -69,7 +69,7 @@
                         <div class="form-group {{ $errors->
                             first('valor_cupon', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Valor Cupon
+                                Valor Cupón
                             </label>
                             <div class="col-sm-5">
                                 <input type="number" step="0.01" min="0" id="valor_cupon" name="valor_cupon" class="form-control" placeholder="Valor Cupon"
@@ -83,7 +83,7 @@
 
                         <div class="form-group {{ $errors->first('tipo_reduccion', 'has-error') }}">
                             <label for="select21" class="col-sm-2 control-label">
-                              Tipo de Cupon
+                              Tipo de Cupón
                             </label>
                             <div class="col-sm-5">   
                              <select id="tipo_reduccion" name="tipo_reduccion" class="form-control ">
@@ -120,12 +120,12 @@
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
-                                <a class="btn btn-danger" href="{{ route('admin.cupones.index') }}">
-                                    Cancelar
-                                </a>
                                 <button type="submit" class="btn btn-success">
                                     Crear
                                 </button>
+                                <a class="btn btn-danger" href="{{ secure_url('admin/cupones') }}">
+                                    Cancelar
+                                </a>
                             </div>
                         </div>
                     </form>

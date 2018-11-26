@@ -14,7 +14,7 @@ Editar Tipo de Documentos
     </h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ route('admin.dashboard') }}">
+            <a href="{{ secure_url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                 Inicio
             </a>
@@ -73,12 +73,12 @@ Editar Tipo de Documentos
                         </div>
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
-                                <a class="btn btn-danger" href="{{ route('admin.documentos.index') }}">
-                                    Cancelar
-                                </a>
                                 <button type="submit" class="btn btn-success">
                                     Actualizar
                                 </button>
+                                <a class="btn btn-danger" href="{{ route('admin.documentos.index') }}">
+                                    Cancelar
+                                </a>
                             </div>
                         </div>
                     </form>

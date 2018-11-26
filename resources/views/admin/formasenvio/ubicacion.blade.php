@@ -21,13 +21,13 @@ Ciudades de envio
     <h1>Ciudades de Envio</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ route('admin.dashboard') }}">
+            <a href="{{ secure_url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                Inicio
             </a>
         </li>
         <li><a href="#"> Ciudades de envio</a></li>
-        <li class="active">Index</li>
+        <li class="active">Lista</li>
     </ol>
 </section>
 

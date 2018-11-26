@@ -12,7 +12,7 @@ Transportistas
     <h1>Transportistas</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ route('admin.dashboard') }}">
+            <a href="{{ secure_url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                Inicio
             </a>
@@ -32,7 +32,7 @@ Transportistas
                        Transportistas
                     </h4>
                     <div class="pull-right">
-                    <a href="{{ route('admin.transportistas.create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Transportistas</a>
+                    <a href="{{ secure_url('admin/transportistas/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Transportistas</a>
                     </div>
                 </div>
                 <br />
@@ -64,7 +64,7 @@ Transportistas
 
 
 
-                                            <a href="{{ route('admin.transportistas.edit', $row->id) }}">
+                                            <a href="{{ secure_url('admin/transportistas/'.$row->id.'/edit') }}">
                                                 <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar categoria"></i>
                                             </a>
 
@@ -72,7 +72,7 @@ Transportistas
 
                                             <!-- let's not delete 'Admin' group by accident -->
                                             
-                                            <a href="{{ route('admin.transportistas.confirm-delete', $row->id) }}" data-toggle="modal" data-target="#delete_confirm">
+                                            <a href="{{ secure_url('admin/transportistas/'.$row->id.'/confirm-delete') }}" data-toggle="modal" data-target="#delete_confirm">
                                             <i class="livicon" data-name="remove-alt" data-size="18"
                                                 data-loop="true" data-c="#f56954" data-hc="#f56954"
                                                 title="Eliminar"></i>

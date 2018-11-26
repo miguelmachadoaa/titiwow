@@ -29,7 +29,7 @@ Menu {{$menu->id}}
     </h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ route('admin.dashboard') }}">
+            <a href="{{ secure_url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                 Inicio
             </a>
@@ -46,7 +46,7 @@ Menu {{$menu->id}}
             <div class="panel panel-primary ">
                 <div class="panel-heading">
                     <h4 class="panel-title"> <i class="livicon" data-name="wrench" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Agregar Sub Menu a  Menu {{$menu->nombre_menu}}
+                       Agregar Sub Menu a  Menu: {{$menu->nombre_menu}}
                     </h4>
                 </div>
                 <div class="panel-body">
@@ -60,7 +60,7 @@ Menu {{$menu->id}}
                              <div class="form-group {{ $errors->
                             first('name', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Nombre Categoria
+                                Nombre Menú
                             </label>
                             <div class="col-sm-5">
                                 <input type="text" id="name" name="name" class="form-control" placeholder="Nombre de Categoria"
@@ -87,12 +87,12 @@ Menu {{$menu->id}}
 
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
-                                <a class="btn btn-danger" href="{{ route('admin.menus.index') }}">
-                                    Cancelar
-                                </a>
                                 <button type="submit" class="btn btn-success">
                                     Crear
                                 </button>
+                                <a class="btn btn-danger" href="{{ secure_url('admin/menus/') }}">
+                                    Cancelar
+                                </a>
                             </div>
                         </div>
                     </form>
@@ -154,16 +154,16 @@ Menu {{$menu->id}}
                                     
                                     <td>
                                             
-                                            <a href="{{ route('admin.menus.submenu', $row->id) }}">
+                                            <a href="{{ secure_url('admin/menus/'.$row->id.'/submenu' ) }}">
                                                 <i class="livicon" data-name="plus" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Detalle"></i>
                                             </a>
 
-                                            <a href="{{ route('admin.menus.editson', $row->id) }}">
-                                                <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar categoria "></i>
+                                            <a href="{{ secure_url('admin/menus/'.$row->id.'/editson' ) }}">
+                                                <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Editar Menu "></i>
                                             </a>
                                             <!-- let's not delete 'Admin' group by accident -->
                                             
-                                            <a href="{{ route('admin.menus.confirm-delete', $row->id) }}" data-toggle="modal" data-target="#delete_confirm">
+                                            <a href="{{ secure_url('admin/menus/'.$row->id.'/confirm-delete') }}" data-toggle="modal" data-target="#delete_confirm">
                                             <i class="livicon" data-name="remove-alt" data-size="18"
                                                 data-loop="true" data-c="#f56954" data-hc="#f56954"
                                                 title="Eliminar"></i>
@@ -184,7 +184,7 @@ Menu {{$menu->id}}
 
 
                     <p style="text-align: center;"> 
-                    <a class="btn btn-default" href="{{ secure_url('admin/menus') }}">Volver</a>
+                    <a class="btn btn-danger" href="{{ secure_url('admin/menus') }}">Regresar</a>
 
             </p>
 

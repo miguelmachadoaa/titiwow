@@ -50,6 +50,15 @@
                 </a>
             </li>
             @endif
+
+            @if (Sentinel::getUser()->hasAnyAccess(['inventario.*']))
+            <li {!! (Request::is('admin/inventario*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.inventario.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Inventario
+                </a>
+            </li>
+            @endif
         </ul>
     </li>
 
@@ -205,9 +214,7 @@
             </li> 
         </ul>
     @endif
-
-   
-        
+  
     @if (Sentinel::getUser()->hasAnyAccess(['estatus.*']))
         <ul class="sub-menu">
             <li {!! (Request::is('admin/estatus*') ? 'class="active"' : '') !!}>
@@ -222,7 +229,7 @@
     @if (Sentinel::getUser()->hasAnyAccess(['estatuspagos.*']))
         <ul class="sub-menu">
             <li {!! (Request::is('admin/estatuspagos*') ? 'class="active"' : '') !!}>
-                <a href="{!! route('admin.estatuspagos.index') !!}">
+                <a href="{!! secure_url('admin/estatuspagos') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Estatus Pagos
                 </a>
@@ -271,17 +278,6 @@
                 <a href="{!! route('admin.formasenvio.index') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Formas de Envio
-                </a>
-            </li>
-        </ul>
-    @endif
-
-    @if (Sentinel::getUser()->hasAnyAccess(['inventario.*']))
-        <ul class="sub-menu">
-            <li {!! (Request::is('admin/inventario*') ? 'class="active"' : '') !!}>
-                <a href="{!! route('admin.inventario.index') !!}">
-                    <i class="fa fa-angle-double-right"></i>
-                    Inventario
                 </a>
             </li>
         </ul>

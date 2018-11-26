@@ -14,7 +14,7 @@
     </h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ route('admin.dashboard') }}">
+            <a href="{{ secure_url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                 Inicio
             </a>
@@ -37,7 +37,6 @@
                     </h4>
                 </div>
                 <div class="panel-body">
-                    {!! $errors->first('slug', '<span class="help-block">Another role with same slug exists, please choose another name</span> ') !!}
                     @if (count($errors) > 0)
                         <div class="alert alert-danger">
                             <ul>
@@ -47,7 +46,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form class="form-horizontal" role="form" method="post" action="{{ secure_url('admin/documentos/store') }}">
+                    <form class="form-horizontal" role="form" method="post" action="{{ secure_url('admin/documentos/create') }}">
                         <!-- CSRF Token -->
 
                         {{ csrf_field() }}
@@ -79,19 +78,14 @@
                                 {!! $errors->first('abrev_tipo_documento', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
-
-
-
-
-
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
-                                <a class="btn btn-danger" href="{{ route('admin.documentos.index') }}">
-                                    Cancelar
-                                </a>
                                 <button type="submit" class="btn btn-success">
                                     Crear
                                 </button>
+                                <a class="btn btn-danger" href="{{ secure_url('admin/documento') }}">
+                                    Cancelar
+                                </a>
                             </div>
                         </div>
                     </form>

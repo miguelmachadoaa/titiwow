@@ -19,13 +19,13 @@ Impuestos
     <h1>Impuestos</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ route('admin.dashboard') }}">
+            <a href="{{ secure_url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                Inicio
             </a>
         </li>
         <li><a href="#"> Impuestos </a></li>
-        <li class="active">Index</li>
+        <li class="active">Listado</li>
     </ol>
 </section>
 
@@ -39,7 +39,7 @@ Impuestos
                        Impuestos
                     </h4>
                     <div class="pull-right">
-                    <a href="{{ route('admin.impuestos.create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Impuestos</a>
+                    <a href="{{ secure_url('admin/impuestos/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Impuestos</a>
                     </div>
                 </div>
                 <br />
@@ -71,7 +71,7 @@ Impuestos
 
 
 
-                                            <a href="{{ route('admin.impuestos.edit', $row->id) }}">
+                                            <a href="{{ secure_url('admin/impuestos/'.$row->id.'/edit') }}">
                                                 <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar impuestos"></i>
                                             </a>
 
@@ -79,7 +79,7 @@ Impuestos
 
                                             <!-- let's not delete 'Admin' group by accident -->
                                             
-                                            <a href="{{ route('admin.impuestos.confirm-delete', $row->id) }}" data-toggle="modal" data-target="#delete_confirm">
+                                            <a href="{{ secure_url('admin/impuestos/'.$row->id.'/confirm-delete') }}" data-toggle="modal" data-target="#delete_confirm">
                                             <i class="livicon" data-name="remove-alt" data-size="18"
                                                 data-loop="true" data-c="#f56954" data-hc="#f56954"
                                                 title="Eliminar"></i>

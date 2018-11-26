@@ -18,13 +18,13 @@ Menús
     <h1>Menús</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ route('admin.dashboard') }}">
+            <a href="{{ secure_url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                Inicio
             </a>
         </li>
         <li><a href="#"> Menús</a></li>
-        <li class="active">Index</li>
+        <li class="active">Listado</li>
     </ol>
 </section>
 
@@ -38,7 +38,7 @@ Menús
                        Menús
                     </h4>
                     <div class="pull-right">
-                    <a href="{{ route('admin.menus.create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear categoria</a>
+                    <a href="{{ secure_url('admin/menus/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Menú</a>
                     </div>
                 </div>
                 <br />
@@ -64,13 +64,13 @@ Menús
                                     <td>{!! $row->created_at->diffForHumans() !!}</td>
                                     <td>
                                             
-                                             <a href="{{ route('admin.menus.detalle', $row->id) }}">
+                                             <a href="{{ secure_url('admin/menus/'.$row->id.'/detalle') }}">
                                                 <i class="livicon" data-name="plus" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Detalle"></i>
                                             </a>
 
 
 
-                                            <a href="{{ route('admin.menus.edit', $row->id) }}">
+                                            <a href="{{ secure_url('admin/menus/'.$row->id.'/edit') }}">
                                                 <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar categoria"></i>
                                             </a>
 
@@ -78,7 +78,7 @@ Menús
 
                                             <!-- let's not delete 'Admin' group by accident -->
                                             
-                                            <a href="{{ route('admin.menus.confirm-delete', $row->id) }}" data-toggle="modal" data-target="#delete_confirm">
+                                            <a href="{{ secure_url('admin/menus/'.$row->id.'/confirm-delete') }}" data-toggle="modal" data-target="#delete_confirm">
                                             <i class="livicon" data-name="remove-alt" data-size="18"
                                                 data-loop="true" data-c="#f56954" data-hc="#f56954"
                                                 title="Eliminar"></i>

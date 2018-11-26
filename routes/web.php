@@ -130,6 +130,7 @@ Route::group(['prefix' => 'admin','namespace'=>'Admin', 'middleware' => 'admin',
         Route::post('passwordreset', 'UsersController@passwordreset')->name('passwordreset');
 
     });
+    Route::post('users/create', 'UsersController@store');
     Route::resource('users', 'UsersController');
 
     Route::get('deleted_users',['before' => 'Sentinel', 'uses' => 'UsersController@getDeletedUsers'])->name('deleted_users');

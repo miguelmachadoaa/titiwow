@@ -41,7 +41,7 @@
         <h1>Agregar Usuario</h1>
         <ol class="breadcrumb">
             <li>
-                <a href="{{ route('admin.dashboard') }}">
+                <a href="{{ secure_url('admin') }}">
                     <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                     Dashboard
                 </a>
@@ -66,7 +66,7 @@
                     </div>
                     <div class="panel-body">
                         <!--main content-->
-                        <form id="commentForm" action="{{ secure_url('admin/users/store') }}"
+                        <form id="commentForm" action="{{ secure_url('admin/users/create') }}"
                               method="POST" enctype="multipart/form-data" class="form-horizontal">
                             <!-- CSRF Token -->
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />

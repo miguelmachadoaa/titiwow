@@ -14,7 +14,7 @@ Empresa - Invitaciones
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1>Empresa</h1>
+    <h1>Empresa - Invitaciones</h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}">
@@ -23,7 +23,7 @@ Empresa - Invitaciones
             </a>
         </li>
         <li><a href="#"> Empresa </a></li>
-        <li class="active">Index</li>
+        <li class="active">Invitaciones</li>
     </ol>
 </section>
 
@@ -34,7 +34,7 @@ Empresa - Invitaciones
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Empresa
+                       Empresa - Invitaciones
                     </h4>
                     <div class="pull-right">
                     <a href="#" data-id="{{ $empresa->id }}"  class="btn btn-sm btn-default addAmigo"><span class="glyphicon glyphicon-plus"></span> Agregar Invitacion</a>
@@ -90,7 +90,7 @@ Empresa - Invitaciones
                     </div> 
 
                     <p style="text-align: center;"> 
-                    <a class="btn btn-default" href="{{ secure_url('admin/empresas') }}">Volver</a>
+                    <a class="btn btn-default" href="{{ secure_url('admin/empresas') }}">Regresar</a>
 
             </p>
                     </div>

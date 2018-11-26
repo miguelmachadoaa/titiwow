@@ -14,7 +14,7 @@ Editar Cupon
     </h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ route('admin.dashboard') }}">
+            <a href="{{ secure_url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                 Inicio
             </a>
@@ -43,7 +43,7 @@ Editar Cupon
                              <div class="form-group {{ $errors->
                             first('codigo_cupon', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Codigo Cupon
+                                Código Cupón
                             </label>
                             <div class="col-sm-5">
                                 <input type="text" id="codigo_cupon" name="codigo_cupon" class="form-control" placeholder="Codigo Cupon"
@@ -57,7 +57,7 @@ Editar Cupon
                         <div class="form-group {{ $errors->
                             first('valor_cupon', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Valor Cupon
+                                Valor Cupón
                             </label>
                             <div class="col-sm-5">
                                 <input type="number" step="0.01" min="0" id="valor_cupon" name="valor_cupon" class="form-control" placeholder="Valor Cupon"
@@ -71,7 +71,7 @@ Editar Cupon
 
                         <div class="form-group {{ $errors->first('tipo_reduccion', 'has-error') }}">
                             <label for="select21" class="col-sm-2 control-label">
-                              Tipo de Cupon
+                              Tipo de Cupón
                             </label>
                             <div class="col-sm-5">   
                              <select id="tipo_reduccion" name="tipo_reduccion" class="form-control ">
@@ -102,19 +102,14 @@ Editar Cupon
                                 {!! $errors->first('limite_uso', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
-
-
-
-
-
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
-                                <a class="btn btn-danger" href="{{ route('admin.formaspago.index') }}">
-                                    Cancelar
-                                </a>
                                 <button type="submit" class="btn btn-success">
                                     Actualizar
                                 </button>
+                                <a class="btn btn-danger" href="{{ secure_url('admin/formaspago') }}">
+                                    Cancelar
+                                </a>
                             </div>
                         </div>
                     </form>

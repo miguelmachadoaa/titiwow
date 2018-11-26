@@ -19,13 +19,13 @@ Empresa
     <h1>Empresa</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ route('admin.dashboard') }}">
+            <a href="{{ secure_url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                Inicio
             </a>
         </li>
         <li><a href="#"> Empresa </a></li>
-        <li class="active">Index</li>
+        <li class="active">Listado</li>
     </ol>
 </section>
 
@@ -39,7 +39,7 @@ Empresa
                        Empresa
                     </h4>
                     <div class="pull-right">
-                    <a href="{{ route('admin.empresas.create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Empresa</a>
+                    <a href="{{ secure_url('admin/empresas/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Empresa</a>
                     </div>
                 </div>
                 <br />
@@ -68,12 +68,12 @@ Empresa
                                     <td>
                                             
                                             <a href="{{ secure_url('admin/empresas/'.$row->id.'/invitaciones') }}">
-                                                <i class="livicon" data-name="plus" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar categoria"></i>
+                                                <i class="livicon" data-name="plus" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Invitaciones"></i>
                                             </a>
 
 
-                                            <a href="{{ route('admin.empresas.edit', $row->id) }}">
-                                                <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar categoria"></i>
+                                            <a href="{{ secure_url('admin/empresas/'.$row->id.'/edit') }}">
+                                                <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Editar Empresa"></i>
                                             </a>
 
                                             
@@ -81,7 +81,7 @@ Empresa
 
                                             <!-- let's not delete 'Admin' group by accident -->
                                             
-                                            <a href="{{ route('admin.empresas.confirm-delete', $row->id) }}" data-toggle="modal" data-target="#delete_confirm">
+                                            <a href="{{ secure_url('admin/empresas/'.$row->id.'/confirm-delete') }}" data-toggle="modal" data-target="#delete_confirm">
                                             <i class="livicon" data-name="remove-alt" data-size="18"
                                                 data-loop="true" data-c="#f56954" data-hc="#f56954"
                                                 title="Eliminar"></i>

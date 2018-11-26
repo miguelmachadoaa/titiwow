@@ -26,7 +26,7 @@ Sub Menu {{$detalle->id}}
     </h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ route('admin.dashboard') }}">
+            <a href="{{ secure_url('admin') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                 Inicio
             </a>
@@ -43,7 +43,7 @@ Sub Menu {{$detalle->id}}
             <div class="panel panel-primary ">
                 <div class="panel-heading">
                     <h4 class="panel-title"> <i class="livicon" data-name="wrench" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Agregar Sub Menu a  Menu {{$detalle->name}}
+                       Agregar Sub Menu a  Menu: {{$detalle->name}}
                     </h4>
                 </div>
                 <div class="panel-body">
@@ -84,12 +84,12 @@ Sub Menu {{$detalle->id}}
 
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
-                                <a class="btn btn-danger" href="{{ route('admin.menus.index') }}">
-                                    Cancelar
-                                </a>
                                 <button type="submit" class="btn btn-success">
                                     Crear
                                 </button>
+                                <a class="btn btn-danger" href="{{ secure_url('admin/menus') }}">
+                                    Cancelar
+                                </a>
                             </div>
                         </div>
                     </form>

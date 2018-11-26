@@ -65,7 +65,7 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
     //fin direcciones categorias
 
-    //inicio direcciones forma de pago 
+    //crear cupones 
 
 
 
@@ -79,10 +79,10 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
 
     });
-
+    Route::post('cupones/create', 'Admin\AlpCuponesController@store');
     Route::resource('cupones', 'Admin\AlpCuponesController');
 
-
+    //fin cupones 
 
 
     Route::group(['prefix' => 'formaspago'], function () {
@@ -95,8 +95,8 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
 
  	});
-
-    Route::resource('formaspago', 'Admin\AlpFormaspagoController');
+     Route::post('formaspago/create', 'Admin\AlpFormaspagoController@store');
+     Route::resource('formaspago', 'Admin\AlpFormaspagoController');
 
 
 
@@ -110,7 +110,7 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
 
     });
-
+    Route::post('inventario/create', 'Admin\AlpInventarioController@store');
     Route::resource('inventario', 'Admin\AlpInventarioController');
 
 
@@ -129,11 +129,13 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
  	});
 
-
+    Route::post('formasenvio/create', 'Admin\AlpFormasenvioController@store');
     Route::resource('formasenvio', 'Admin\AlpFormasenvioController');
 
+    Route::post('rolpagos/create', 'Admin\AlpRolPagosController@store');
     Route::resource('rolpagos', 'Admin\AlpRolPagosController');
 
+    Route::post('rolenvios/create', 'Admin\AlpRolEnviosController@store');
     Route::resource('rolenvios', 'Admin\AlpRolEnviosController');
 
     Route::resource('rolconfiguracion', 'Admin\AlpRolConfiguracionController');
@@ -151,7 +153,7 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
         Route::get('{id}/restore', 'Admin\AlpMarcasController@getRestore')->name('marcas.restore');
 
  	});
-
+    Route::post('marcas/create', 'Admin\AlpMarcasController@store');
     Route::resource('marcas', 'Admin\AlpMarcasController');
 
     //fin direcioens marcas
@@ -241,7 +243,7 @@ Route::resource('alpinistas', 'Admin\AlpAlpinistasController');
         Route::get('{id}/afiliados', 'Admin\AlpEmpresasController@afiliados')->name('empresas.afiliados');
 
         });
-
+    Route::post('empresas/create', 'Admin\AlpEmpresasController@store');
     Route::resource('empresas', 'Admin\AlpEmpresasController');
 
     Route::get('empresas/{id}/invitaciones', 'Admin\AlpEmpresasController@invitaciones')->name('empresas.invitaciones');
@@ -256,7 +258,7 @@ Route::resource('alpinistas', 'Admin\AlpAlpinistasController');
 
 
 
-       Route::group(['prefix' => 'estatuspagos'], function () {
+    Route::group(['prefix' => 'estatuspagos'], function () {
 
         Route::get('{id}/delete', 'Admin\AlpEstatusPagosController@destroy')->name('estatuspagos.delete');
 
@@ -265,11 +267,11 @@ Route::resource('alpinistas', 'Admin\AlpAlpinistasController');
         Route::get('{id}/restore', 'Admin\AlpEstatusPagosController@getRestore')->name('estatuspagos.restore');
 
         });
-
+    Route::post('estatuspagos/create', 'Admin\AlpEstatusPagosController@store');
     Route::resource('estatuspagos', 'Admin\AlpEstatusPagosController');
 
 
-       Route::group(['prefix' => 'estatusenvios'], function () {
+    Route::group(['prefix' => 'estatusenvios'], function () {
 
         Route::get('{id}/delete', 'Admin\AlpEstatusEnviosController@destroy')->name('estatusenvios.delete');
 
@@ -278,7 +280,7 @@ Route::resource('alpinistas', 'Admin\AlpAlpinistasController');
         Route::get('{id}/restore', 'Admin\AlpEstatusEnviosController@getRestore')->name('estatusenvios.restore');
 
         });
-
+    Route::post('estatusenvios/create', 'Admin\AlpEstatusEnviosController@store');
     Route::resource('estatusenvios', 'Admin\AlpEstatusEnviosController');
 
     //fin direcioens clientes
@@ -292,7 +294,7 @@ Route::resource('alpinistas', 'Admin\AlpAlpinistasController');
         Route::get('{id}/restore', 'Admin\AlpTransportistasController@getRestore')->name('transportistas.restore');
 
         });
-
+    Route::post('transportistas/create', 'Admin\AlpTransportistasController@store');
     Route::resource('transportistas', 'Admin\AlpTransportistasController');
 
     //tipos de documentos
@@ -306,7 +308,7 @@ Route::resource('alpinistas', 'Admin\AlpAlpinistasController');
         Route::get('{id}/restore', 'Admin\AlpTipoDocumentosController@getRestore')->name('documentos.restore');
 
         });
-
+    Route::post('documentos/create', 'Admin\AlpTipoDocumentosController@store');
     Route::resource('documentos', 'Admin\AlpTipoDocumentosController');
 
     //crud impuestos
@@ -322,7 +324,7 @@ Route::resource('alpinistas', 'Admin\AlpAlpinistasController');
         });
 
 
-
+    Route::post('impuestos/create', 'Admin\AlpImpuestosController@store');
     Route::resource('impuestos', 'Admin\AlpImpuestosController');
 
 
@@ -337,7 +339,7 @@ Route::resource('alpinistas', 'Admin\AlpAlpinistasController');
         Route::get('{id}/restore', 'Admin\AlpSedesController@getRestore')->name('sedes.restore');
 
         });
-
+    Route::post('sedes/create', 'Admin\AlpSedesController@store');
     Route::resource('sedes', 'Admin\AlpSedesController');
 
     /*Inicio CMS*/
@@ -447,6 +449,9 @@ Route::resource('alpinistas', 'Admin\AlpAlpinistasController');
         Route::post('{menu}/updson', 'Admin\AlpMenuController@updson')->name('menus.updson');
 
     });
+
+    Route::post('menus/create', 'Admin\AlpMenuController@store');
+
 
 
 });
