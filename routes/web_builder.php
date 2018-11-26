@@ -199,7 +199,7 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
         Route::get('{id}/restore', 'Admin\AlpEstatusOrdenesController@getRestore')->name('estatus.restore');
 
         });
-
+    Route::post('estatus/store', 'Admin\AlpEstatusOrdenesController@store');
     Route::resource('estatus', 'Admin\AlpEstatusOrdenesController');
 
 //fin estatus ordenes
