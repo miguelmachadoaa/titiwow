@@ -48,7 +48,7 @@ Productos @parent
         <!-- Categoria 1 -->
         <div class="row">
             <div class="col-md-3">   
-                <div class="categoriaprod" id="cat1" style="background-image:url({{ secure_url('/').'/assets/img/categorias/leche.png' }});background-repeat: no-repeat;background-size: cover;">
+                <div class="categoriaprod" id="cat1" style="background-image:url({{ secure_url('/').'/assets/img/categorias/leche.jpg' }});background-repeat: no-repeat;background-size: cover;">
                     <div class="layercat">
                         <div class="text-align:center;" id="contenido_list">
                             <h2>Leche</h2>

@@ -28,9 +28,11 @@ Inicio @parent
 @section('top')
     <!--Carousel Start -->
     <div id="owl-demo" class="owl-carousel owl-theme">
-        <div class="item"><img src="{{ secure_asset('assets/images/slides/slider1.jpg') }}" alt="Alpina Go">
+        <div class="item"><img src="{{ secure_asset('assets/images/slides/alpinago.jpg') }}" alt="Alpina Go!">
         </div>
-        <div class="item"><img src="{{ secure_asset('assets/images/slides/slider3.png') }}" alt="Frutas">
+        <div class="item"><img src="{{ secure_asset('assets/images/slides/arequipe_navidad18.jpg') }}" alt="Arequipe Alpina En Navidad">
+        </div>
+        <div class="item"><img src="{{ secure_asset('assets/images/slides/holandes18.jpg') }}" alt="Holandés Alpina En Navidad">
         </div>
     </div>
     <!-- //Carousel End -->
