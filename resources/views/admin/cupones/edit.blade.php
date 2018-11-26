@@ -36,7 +36,7 @@ Editar Cupon
                 </div>
                 <div class="panel-body">
                     
-                        {!! Form::model($cupon, ['url' => URL::to('admin/cupones/'. $cupon->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($cupon, ['url' => secure_url('admin/cupones/'. $cupon->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                           

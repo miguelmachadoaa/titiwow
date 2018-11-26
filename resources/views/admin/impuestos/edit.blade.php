@@ -36,7 +36,7 @@ Editar Impuestos
                 </div>
                 <div class="panel-body">
                     
-                        {!! Form::model($impuestos, ['url' => URL::to('admin/impuestos/'. $impuestos->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($impuestos, ['url' => secure_url('admin/impuestos/'. $impuestos->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                           

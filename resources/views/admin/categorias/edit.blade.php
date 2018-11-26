@@ -48,7 +48,7 @@ Editar Categoria
                 </div>
                 <div class="panel-body">
                     
-                        {!! Form::model($categoria, ['url' => URL::to('admin/categorias/'. $categoria->id), 'files'=> true, 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($categoria, ['url' => secure_url('admin/categorias/'. $categoria->id), 'files'=> true, 'method' => 'put', 'class' => 'form-horizontal']) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                           

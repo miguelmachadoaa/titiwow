@@ -41,7 +41,7 @@
         <!--main content-->
         <div class="row">
             <div class="the-box no-border">
-                {!! Form::model($news, ['url' => URL::to('admin/news/' . $news->id), 'method' => 'put', 'class' => 'bf', 'files'=> true]) !!}
+                {!! Form::model($news, ['url' => secure_url('admin/news/' . $news->id), 'method' => 'put', 'class' => 'bf', 'files'=> true]) !!}
                 <div class="row">
                     <div class="col-sm-8">
                         <div class="form-group {{ $errors->first('title', 'has-error') }}">

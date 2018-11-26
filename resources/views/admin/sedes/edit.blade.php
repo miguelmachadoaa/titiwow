@@ -36,7 +36,7 @@ Editar Sedes
                 </div>
                 <div class="panel-body">
                     
-                        {!! Form::model($sedes, ['url' => URL::to('admin/sedes/'. $sedes->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($sedes, ['url' => secure_url('admin/sedes/'. $sedes->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                           

@@ -50,7 +50,7 @@
 
                             <div class="col-md-12">
 
-                                {!! Form::model($user, ['url' => URL::to('admin/users/'. $user->id.''), 'method' => 'put', 'class' => 'form-horizontal','id'=>'commentForm', 'enctype'=>'multipart/form-data','files'=> true]) !!}
+                                {!! Form::model($user, ['url' => secure_url('admin/users/'. $user->id.''), 'method' => 'put', 'class' => 'form-horizontal','id'=>'commentForm', 'enctype'=>'multipart/form-data','files'=> true]) !!}
                                     {{ csrf_field() }}
 
                                     <div id="rootwizard">

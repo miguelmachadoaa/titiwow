@@ -36,7 +36,7 @@ Editar Transportistas
                 </div>
                 <div class="panel-body">
                     
-                        {!! Form::model($transportistas, ['url' => URL::to('admin/transportistas/'. $transportistas->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($transportistas, ['url' => secure_url('admin/transportistas/'. $transportistas->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                           

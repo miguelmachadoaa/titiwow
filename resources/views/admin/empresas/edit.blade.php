@@ -36,7 +36,7 @@ Editar Empresa
                 </div>
                 <div class="panel-body">
                     
-                        {!! Form::model($empresas, ['url' => URL::to('admin/empresas/'. $empresas->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($empresas, ['url' => secure_url('admin/empresas/'. $empresas->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                           

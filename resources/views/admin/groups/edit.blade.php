@@ -36,7 +36,7 @@
                 </div>
                 <div class="panel-body">
                     @if($role)
-                        {!! Form::model($role, ['url' => URL::to('admin/groups/'. $role->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($role, ['url' => secure_url('admin/groups/'. $role->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                             <div class="form-group {{ $errors->

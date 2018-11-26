@@ -48,7 +48,7 @@ Editar Menu
                 </div>
                 <div class="panel-body">
                     
-                        {!! Form::model($menu, ['url' => URL::to('admin/menus/'. $menu->id), 'files'=> true, 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($menu, ['url' => secure_url('admin/menus/'. $menu->id), 'files'=> true, 'method' => 'put', 'class' => 'form-horizontal']) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                           

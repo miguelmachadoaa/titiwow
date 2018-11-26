@@ -36,7 +36,7 @@ Editar Forma de Envio
                 </div>
                 <div class="panel-body">
                     
-                        {!! Form::model($forma, ['url' => URL::to('admin/formasenvio/'. $forma->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($forma, ['url' => secure_url('admin/formasenvio/'. $forma->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                           

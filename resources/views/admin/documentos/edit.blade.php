@@ -36,7 +36,7 @@ Editar Tipo de Documentos
                 </div>
                 <div class="panel-body">
                     
-                        {!! Form::model($documentos, ['url' => URL::to('admin/documentos/'. $documentos->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($documentos, ['url' => secure_url('admin/documentos/'. $documentos->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                           

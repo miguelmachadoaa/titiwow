@@ -36,7 +36,7 @@ Editar Estatus Ordenes
                 </div>
                 <div class="panel-body">
                     
-                        {!! Form::model($estatus, ['url' => URL::to('admin/estatus/'. $estatus->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($estatus, ['url' => secure_url('admin/estatus/'. $estatus->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                           

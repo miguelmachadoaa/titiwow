@@ -82,7 +82,7 @@
                     @endif
        
 
-        {!! Form::model($producto, ['url' => URL::to('admin/productos/'. $producto->id.''), 'method' => 'put', 'id'=>'productosForm', 'files'=> true]) !!}
+        {!! Form::model($producto, ['url' => secure_url('admin/productos/'. $producto->id.''), 'method' => 'put', 'id'=>'productosForm', 'files'=> true]) !!}
 
       
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />

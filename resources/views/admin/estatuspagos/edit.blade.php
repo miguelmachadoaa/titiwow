@@ -36,7 +36,7 @@ Editar Estatus Pagos
                 </div>
                 <div class="panel-body">
                     
-                        {!! Form::model($estatus, ['url' => URL::to('admin/estatuspagos/'. $estatus->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($estatus, ['url' => secure_url('admin/estatuspagos/'. $estatus->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                           

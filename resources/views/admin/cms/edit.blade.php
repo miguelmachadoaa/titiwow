@@ -40,7 +40,7 @@
     <!--main content-->
     <div class="row">
         <div class="the-box no-border">
-           {!! Form::model($cms, ['url' => URL::to('admin/cms/' . $cms->id), 'method' => 'put', 'class' => 'bf']) !!}
+           {!! Form::model($cms, ['url' => secure_url('admin/cms/' . $cms->id), 'method' => 'put', 'class' => 'bf']) !!}
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group {{ $errors->first('titulo_pagina', 'has-error') }}">

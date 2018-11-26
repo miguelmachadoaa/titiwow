@@ -37,7 +37,7 @@ Agregar Inventario
                 </div>
                 <div class="panel-body">
                     
-                        {!! Form::model($producto, ['url' => URL::to('admin/inventario/'. $producto->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($producto, ['url' => secure_url('admin/inventario/'. $producto->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                           

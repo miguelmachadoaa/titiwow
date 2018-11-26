@@ -49,7 +49,7 @@
                     </div>
                     <div class="panel-body">
                         <!--main content-->
-                        {!! Form::model($user, ['url' => URL::to('admin/clientes/'. $user->id.''), 'method' => 'put', 'class' => 'form-horizontal','id'=>'commentForm', 'enctype'=>'multipart/form-data','files'=> true]) !!}
+                        {!! Form::model($user, ['url' => secure_url('admin/clientes/'. $user->id.''), 'method' => 'put', 'class' => 'form-horizontal','id'=>'commentForm', 'enctype'=>'multipart/form-data','files'=> true]) !!}
                             {{ csrf_field() }}
 
                             <input type="hidden" name="id_cliente" id="id_cliente" value="{{ $user->id }}">

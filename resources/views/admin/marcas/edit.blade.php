@@ -48,7 +48,7 @@ Editar Marca
                 </div>
                 <div class="panel-body">
                     
-                        {!! Form::model($marca, ['url' => URL::to('admin/marcas/'. $marca->id), 'method' => 'put', 'class' => 'form-horizontal', 'enctype'=>'multipart/form-data', 'files'=> true]) !!}
+                        {!! Form::model($marca, ['url' => secure_url('admin/marcas/'. $marca->id), 'method' => 'put', 'class' => 'form-horizontal', 'enctype'=>'multipart/form-data', 'files'=> true]) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                           

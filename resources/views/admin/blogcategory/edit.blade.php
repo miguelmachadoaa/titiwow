@@ -34,7 +34,7 @@
                     </h4>
                 </div>
                 <div class="panel-body">
-                    {!! Form::model($blogcategory, ['url' => URL::to('admin/blogcategory') . '/' . $blogcategory->id, 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                    {!! Form::model($blogcategory, ['url' => secure_url('admin/blogcategory') . '/' . $blogcategory->id, 'method' => 'put', 'class' => 'form-horizontal']) !!}
                     <div class="form-group {{ $errors->first('title', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
                                 @lang('blogcategory/form.name')

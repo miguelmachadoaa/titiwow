@@ -50,7 +50,7 @@ Editar Sub Menu
 
                 <div class="panel-body">
                     
-                        {!! Form::model($detalle, ['url' => URL::to('admin/menus/'. $detalle->id.'/updson'), 'files'=> true, 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($detalle, ['url' => secure_url('admin/menus/'. $detalle->id.'/updson'), 'files'=> true, 'method' => 'post', 'class' => 'form-horizontal']) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
 
