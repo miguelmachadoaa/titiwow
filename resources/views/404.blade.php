@@ -35,7 +35,7 @@ Página No Encontrada
                 <div class="hgroup">
                     <h1>Página No Encontrada</h1>
                     <h2>Al parecer la página que busca no se encontró.</h2>
-                    <a href="{{ route('home') }}">
+                    <a href="{{ secure_url('/') }}">
                         <button type="button" class="btn btn-primary button-alignment">Regresar a Inicio</button>
                     </a>
                 </div>

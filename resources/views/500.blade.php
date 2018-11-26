@@ -23,7 +23,7 @@
                         Thats an error.
                         <br>There was an error. Please Try again later. Thats all we know
                     </h3>
-                        <a href="{{ route('home') }}" class="btn btn-primary">Home</a>
+                        <a href="{{ secure_url('/') }}" class="btn btn-primary">Home</a>
                     <br>
                 </div>
             </div>

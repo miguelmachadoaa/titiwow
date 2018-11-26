@@ -23,11 +23,11 @@ Página No Encontrada
         <div class="container">
             <ol class="breadcrumb">
                 <li class="hidden-xs">
-                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Inicio
+                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>Inicio
                     </a>
                 </li>
                 <li class="hidden-md hidden-lg">
-                    <a href="{{ route('home') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>
+                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>
                     </a>
                 </li>
                 <li>
@@ -54,7 +54,7 @@ Página No Encontrada
                 <div class="hgroup">
                     <h1>Página No Encontrada</h1>
                     <h2>Al parecer la página que busca no se encontró.</h2>
-                    <a href="{{ route('home') }}">
+                    <a href="{{ secure_url('/') }}">
                         <button type="button" class="btn btn-primary button-alignment">Regresar a Inicio</button>
                     </a>
                 </div>

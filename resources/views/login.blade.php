@@ -24,7 +24,7 @@
     <div class="row">
         <div class="box animation flipInX">
             <div class="box1 text-center">
-            <a href="{{ secure_url('home') }}"><img src="{{ secure_asset('assets/img/login.png') }}" alt="Alpina GO!"></a>
+            <a href="{{ secure_url('/') }}"><img src="{{ secure_asset('assets/img/login.png') }}" alt="Alpina GO!"></a>
             <h3 class="text-primary">Mi Perfil</h3>
                 <!-- Notifications -->
                 <div id="notific">
@@ -55,7 +55,7 @@
                             <input type="submit" class="btn btn-block btn-primary" value="Iniciar Sesión">
                         </div>
                         <div class="col-md-6">
-                            <a class="btn btn-block btn-danger" href="{{ secure_url('home') }}">Regresar a Inicio</a>
+                            <a class="btn btn-block btn-danger" href="{{ secure_url('/') }}">Regresar a Inicio</a>
                         </div>
                     </div>
                     <div class="clearfix"></div>

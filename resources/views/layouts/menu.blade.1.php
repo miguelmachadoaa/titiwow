@@ -3,7 +3,7 @@
 
 <div class="collapse navbar-collapse" id="collapse">
     <ul class="nav navbar-nav navbar-left">
-        <li {!! (Request::is('/') ? 'class="active"' : '') !!}><a href="{{ route('home') }}"> Home</a>
+        <li {!! (Request::is('/') ? 'class="active"' : '') !!}><a href="{{ secure_url('/') }}"> Home</a>
         </li>
         @foreach ($menu as $item)
             <li><a href="{{ $item->url_menu}}">{{ $item->titulo_menu}}</a></li>

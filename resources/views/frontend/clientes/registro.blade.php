@@ -23,7 +23,7 @@
     <!--Content Section Start -->
     <div class="row">
         <div class="box animation flipInX">
-            <a href="{{ secure_url('home') }}"><img src="{{ secure_asset('assets/img/login.png') }}" alt="AlpinaGO" ></a>
+            <a href="{{ secure_url('/') }}"><img src="{{ secure_asset('assets/img/login.png') }}" alt="AlpinaGO" ></a>
             <h3 class="text-primary">Registro de Amigos</h3>
             <!-- Notifications -->
             <div id="notific">
@@ -160,7 +160,7 @@
                             <button type="submit" class="btn btn-block btn-primary">Registrarse</button>
                         </div>
                         <div class="col-sm-6">
-                            <a class="btn btn-block btn-danger" href="{{ route('home') }}">Regresar a Inicio</a>
+                            <a class="btn btn-block btn-danger" href="{{ secure_url('/') }}">Regresar a Inicio</a>
                         </div>
                     </div>
                 </div>
