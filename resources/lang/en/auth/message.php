@@ -7,9 +7,9 @@
 return array(
 
     'account_already_exists' => 'An account with this email already exists.',
-    'account_not_found' => 'Email or password is incorrect.',
-    'account_email_not_found' =>'Email is incorrect.',
-    'account_not_activated'  => 'This user account is not activated.',
+    'account_not_found' => 'El Email o Contraseña es Incorrecto.',
+    'account_email_not_found' =>'Email es incorrecto.',
+    'account_not_activated'  => 'Este Usuario no ha sido activado.',
     'account_suspended'      => 'User account suspended because of too many login attempts. Try again after [:delay] seconds',
     'account_banned'         => 'This user account is banned.',
 

@@ -9,17 +9,17 @@ $(document).ready(function () {
             email: {
                 validators: {
                     notEmpty: {
-                        message: 'The email address is required'
+                        message: 'El Email es Requerido'
                     },
                     emailAddress: {
-                        message: 'The input is not a valid email address'
+                        message: 'Debe ingresar un Email válido'
                     }
                 }
             },
             password: {
                 validators: {
                     notEmpty: {
-                        message: 'Password is required'
+                        message: 'La Contraseña es Requerida'
                     },
                     different: {
                         field: 'first_name,last_name',

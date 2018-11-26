@@ -101,7 +101,7 @@
                     @endif
 
 
-            {!! Form::open(['url' => 'admin\productos', 'class' => 'form-horizontal', 'id' => 'productosForm', 'name' => 'productosForm', 'files'=> true]) !!}
+            {!! Form::open(['url' => secure_url('admin\productos'), 'class' => 'form-horizontal', 'id' => 'productosForm', 'name' => 'productosForm', 'files'=> true]) !!}
 
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 

@@ -48,7 +48,7 @@ Productos @parent
         <!-- Categoria 1 -->
         <div class="row">
             <div class="col-md-3">   
-                <div class="categoriaprod" id="cat1" style="background-image:url({{ secure_url('/').'/assets/img/categorias/leche.png' }});">
+                <div class="categoriaprod" id="cat1" style="background-image:url({{ secure_url('/').'/assets/img/categorias/leche.png' }});background-repeat: no-repeat;background-size: cover;">
                     <div class="layercat">
                         <div class="text-align:center;" id="contenido_list">
                             <h2>Leche</h2>
@@ -159,7 +159,7 @@ Productos @parent
         <!-- Categoria 2 -->
         <div class="row">
             <div class="col-md-3">   
-                <div class="categoriaprod" id="cat2" style="background-image: url({{ secure_url('/').'/assets/img/categorias/lacteos.jpg' }});">
+                <div class="categoriaprod" id="cat2" style="background-image: url({{ secure_url('/').'/assets/img/categorias/lacteos.jpg' }});background-repeat: no-repeat;background-size: cover;">
                     <div class="layercat">
                         <div class="text-align:center;" id="contenido_list">
                             <h2>Lácteos</h2>
@@ -273,7 +273,7 @@ Productos @parent
          <!-- Categoria 3 -->
          <div class="row">
             <div class="col-md-3">   
-                <div class="categoriaprod" id="cat3" style="background-image: url({{ secure_url('/').'/assets/img/categorias/quesos.jpg' }});">
+                <div class="categoriaprod" id="cat3" style="background-image: url({{ secure_url('/').'/assets/img/categorias/quesos.jpg' }});background-repeat: no-repeat;background-size: cover;">
                     <div class="layercat">
                         <div class="text-align:center;" id="contenido_list">
                             <h2>Quesos</h2>
@@ -386,7 +386,7 @@ Productos @parent
          <!-- Categoria 4 -->
          <div class="row">
             <div class="col-md-3">   
-                <div class="categoriaprod" id="cat4" style="background-image: url({{ secure_url('/').'/assets/img/categorias/postres.jpg' }});">
+                <div class="categoriaprod" id="cat4" style="background-image: url({{ secure_url('/').'/assets/img/categorias/postres.jpg' }});background-repeat: no-repeat;background-size: cover;">
                     <div class="layercat">
                         <div class="text-align:center;" id="contenido_list">
                             <h2>Postres y Dulces</h2>
@@ -498,7 +498,7 @@ Productos @parent
         <!-- Categoria 5 -->
         <div class="row">
             <div class="col-md-3">   
-                <div class="categoriaprod" id="cat5" style="background-image: url({{ secure_url('/').'/assets/img/categorias/esparcibles.jpg' }});">
+                <div class="categoriaprod" id="cat5" style="background-image: url({{ secure_url('/').'/assets/img/categorias/esparcibles.jpg' }});background-repeat: no-repeat;background-size: cover;">
                     <div class="layercat">
                         <div class="text-align:center;" id="contenido_list">
                             <h2>Esparcibles e Ingredientes</h2>
@@ -610,7 +610,7 @@ Productos @parent
         <!-- Categoria 6 -->
         <div class="row">
             <div class="col-md-3">   
-                <div class="categoriaprod" id="cat6" style="background-image: url({{ secure_url('/').'/assets/img/categorias/jugos.jpg' }});">
+                <div class="categoriaprod" id="cat6" style="background-image: url({{ secure_url('/').'/assets/img/categorias/jugos.jpg' }});background-repeat: no-repeat;background-size: cover;">
                     <div class="layercat">
                         <div class="text-align:center;" id="contenido_list">
                             <h2>Bebidas de Fruta</h2>
@@ -722,7 +722,7 @@ Productos @parent
         <!-- Categoria 7 -->
         <div class="row">
             <div class="col-md-3">   
-                <div class="categoriaprod" id="cat7" style="background-image: url({{ secure_url('/').'/assets/img/categorias/finness.jpg' }});">
+                <div class="categoriaprod" id="cat7" style="background-image: url({{ secure_url('/').'/assets/img/categorias/finness.jpg' }});background-repeat: no-repeat;background-size: cover;">
                     <div class="layercat">
                         <div class="text-align:center;" id="contenido_list">
                             <h2>Línea Finesse</h2>
@@ -833,7 +833,7 @@ Productos @parent
         <!-- Categoria 8 -->
         <div class="row">
             <div class="col-md-3">   
-                <div class="categoriaprod" id="cat8" style="background-image: url({{ secure_url('/').'/assets/img/categorias/baby.jpg' }});">
+                <div class="categoriaprod" id="cat8" style="background-image: url({{ secure_url('/').'/assets/img/categorias/baby.jpg' }});background-repeat: no-repeat;background-size: cover;">
                     <div class="layercat">
                         <div class="text-align:center;" id="contenido_list">
                             <h2>Alpina Baby</h2>
@@ -950,7 +950,7 @@ Productos @parent
         <!-- Categoria 9 -->
         <div class="row">
             <div class="col-md-3">   
-                <div class="categoriaprod" id="cat9" style="background-image: url({{ secure_url('/').'/assets/img/categorias/no-lacteos.jpg' }});">
+                <div class="categoriaprod" id="cat9" style="background-image: url({{ secure_url('/').'/assets/img/categorias/no-lacteos.jpg' }});background-repeat: no-repeat;background-size: cover;">
                     <div class="layercat">
                         <div class="text-align:center;" id="contenido_list">
                             <h2>No Lácteos</h2>

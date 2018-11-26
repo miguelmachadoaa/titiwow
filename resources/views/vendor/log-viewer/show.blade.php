@@ -86,7 +86,7 @@
                                 {{--</div>--}}
                                 {{--<div class="panel-footer">--}}
                                     {{-- Search --}}
-                                    {{--<form action="{{ route('log-viewer::logs.search', [$log->date, $level]) }}" method="GET">--}}
+                                    {{--<form action="{{ secure_url('log-viewer::logs.search', [$log->date, $level]) }}" method="GET">--}}
                                         {{--<div class=form-group">--}}
                                             {{--<div class="input-group">--}}
                                                 {{--<input id="query" name="query" class="form-control"  value="{!! request('query') !!}" placeholder="typing something to search">--}}
@@ -185,7 +185,7 @@
                     </div>
                 </div>
             </div>
-            <a class="btn btn-primary" href="{{ URL::to('admin/log_viewers/logs') }}">
+            <a class="btn btn-primary" href="{{ secure_url('admin/log_viewers/logs') }}">
                 Back
             </a>
         </div>
@@ -195,7 +195,7 @@
     <!--Delete Modal-->
     <div id="delete-log-modal" class="modal fade">
         <div class="modal-dialog">
-            <form id="delete-log-form" action="{{ URL::to('admin/log_viewers/logs/delete') }}" method="POST">
+            <form id="delete-log-form" action="{{ secure_url('admin/log_viewers/logs/delete') }}" method="POST">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="date" value="{{ $log->date }}">

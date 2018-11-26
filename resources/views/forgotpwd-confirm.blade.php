@@ -24,7 +24,7 @@
             <div id="notific">
             @include('notifications')
             </div>
-            <form action="{{ route('forgot-password-confirm',compact(['userId','passwordResetCode'])) }}" class="omb_loginForm pwd_validation"  autocomplete="off" method="POST">
+            <form action="{{ secure_url('forgot-password-confirm',compact(['userId','passwordResetCode'])) }}" class="omb_loginForm pwd_validation"  autocomplete="off" method="POST">
                 {!! Form::token() !!}
                 <label class="sr-only"> Nueva Contraseña</label>
                 <input type="password" class="form-control" name="password" placeholder="Nueva Contraseña">

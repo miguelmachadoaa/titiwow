@@ -36,7 +36,7 @@
                     </h4>
                 </div>
                 <div class="panel-body">
-                    {!! Form::open(array('url' => URL::to('admin/blogcategory'), 'method' => 'post', 'class' => 'form-horizontal', 'files'=> true)) !!}
+                    {!! Form::open(array('url' => secure_url('admin/blogcategory'), 'method' => 'post', 'class' => 'form-horizontal', 'files'=> true)) !!}
                     <div class="form-group {{ $errors->first('title', 'has-error') }}">
                         <label for="title" class="col-sm-2 control-label">
                             @lang('blogcategory/form.name')

@@ -47,7 +47,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form class="form-horizontal" role="form" method="post" action="{{ route('admin.impuestos.store') }}">
+                    <form class="form-horizontal" role="form" method="post" action="{{ secure_url('admin/impuestos/store') }}">
                         <!-- CSRF Token -->
 
                         {{ csrf_field() }}

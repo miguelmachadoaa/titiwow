@@ -57,7 +57,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form class="form-horizontal" enctype="multipart/form-data" role="form" method="post" action="{{ route('admin.marcas.store') }}">
+                    <form class="form-horizontal" enctype="multipart/form-data" role="form" method="post" action="{{ secure_url('admin/marcas/store') }}">
                         <!-- CSRF Token -->
 
                         {{ csrf_field() }}

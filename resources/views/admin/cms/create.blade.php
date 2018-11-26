@@ -40,7 +40,7 @@
     <div class="row">
         <div class="the-box no-border">
             <!-- errors -->
-            {!! Form::open(array('url' => URL::to('admin/cms'), 'method' => 'post', 'class' => 'bf')) !!}
+            {!! Form::open(array('url' => secure_url('admin/cms'), 'method' => 'post', 'class' => 'bf')) !!}
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                  <div class="row">
                     <div class="col-sm-12">

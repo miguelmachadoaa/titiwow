@@ -48,7 +48,7 @@ Inicio @parent
                 <h3 class="catego">Categorías</h3>
                 <div class="separador"></div>
             </div>
-            <div class="col-md-12 col-sm-12 wow slideInLeft" data-wow-duration="1.5s">
+            <div class="col-md-12 col-sm-12 wow pulse" data-wow-duration="1.5s">
                 <div class="row">
                     @if(!$categorias->isEmpty())
                         @foreach($categorias as $categoria)
@@ -86,7 +86,7 @@ Inicio @parent
                     <h3 class="catego">Productos Más Vendidos</h3>
                     <div class="separador"></div>
                 </div>
-                <div class="col-md-12 col-sm-12 ">
+                <div class="col-md-12 col-sm-12 wow bounceInUp center" data-wow-duration="1.5s"> 
                     <div class="products">
                         <div class="row">
                         @if(!$productos->isEmpty())
@@ -215,7 +215,7 @@ Inicio @parent
                         <h3 class="catego">Nuestras Marcas</h3>
                         <div class="separador"></div>
                     </div>
-                    <div class="col-md-12 col-sm-12 wow slideInLeft" data-wow-duration="1.5s"> 
+                    <div class="col-md-12 col-sm-12 wow bounceInUp center" data-wow-duration="1.5s"> 
                         <div class="row">
                             @if(!$marcas->isEmpty())
                                 @foreach($marcas as $marca)

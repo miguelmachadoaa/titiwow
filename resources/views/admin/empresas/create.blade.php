@@ -47,7 +47,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form class="form-horizontal" role="form" method="post" action="{{ route('admin.empresas.store') }}">
+                    <form class="form-horizontal" role="form" method="post" action="{{ secure_url('admin/empresas/store') }}">
                         <!-- CSRF Token -->
 
                         {{ csrf_field() }}

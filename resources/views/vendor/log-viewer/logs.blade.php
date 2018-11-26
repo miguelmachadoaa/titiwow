@@ -129,7 +129,7 @@
     {{-- DELETE MODAL --}}
     <div id="delete-log-modal" class="modal fade">
         <div class="modal-dialog">
-            <form id="delete-log-form" action="{{ URL::to('admin/log_viewers/logs/delete') }}" method="post">
+            <form id="delete-log-form" action="{{ secure_url('admin/log_viewers/logs/delete') }}" method="post">
                 <input type="hidden" name="_method" value="DELETE">
                 {{ csrf_field() }}
                 <input type="hidden" name="date" value="">

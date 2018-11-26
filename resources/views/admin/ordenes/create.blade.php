@@ -62,7 +62,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form class="form-horizontal bf" enctype="multipart/form-data" role="form" method="post" action="{{ route('admin.categorias.store') }}">
+                    <form class="form-horizontal bf" enctype="multipart/form-data" role="form" method="post" action="{{ secure_url('admin/categorias/store') }}">
 
                     
 

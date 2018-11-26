@@ -97,7 +97,7 @@
                 <!-- //Media left section End -->
                 <!-- Comment Section Start -->
                 <h3>Leave a Comment</h3>
-                {!! Form::open(array('url' => URL::to('blogitem/'.$blog->id.'/comment'), 'method' => 'post', 'class' => 'bf', 'files'=> true)) !!}
+                {!! Form::open(array('url' => secure_url('blogitem/'.$blog->id.'/comment'), 'method' => 'post', 'class' => 'bf', 'files'=> true)) !!}
 
                 <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                     {!! Form::text('name', null, array('class' => 'form-control input-lg','required' => 'required', 'placeholder'=>'Your name')) !!}

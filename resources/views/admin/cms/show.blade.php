@@ -76,7 +76,7 @@
                 <p>
                     <span class="label label-info square">@lang('blog/title.leavecomment')</span>
                 </p>
-                 {!! Form::open(array('url' => URL::to('admin/blog/'.$blog->id.'/storecomment'), 'method' => 'post', 'class' => 'bf', 'files'=> true)) !!}
+                 {!! Form::open(array('url' => secure_url('admin/blog/'.$blog->id.'/storecomment'), 'method' => 'post', 'class' => 'bf', 'files'=> true)) !!}
 
                 <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                     {!! Form::text('name', null, array('class' => 'form-control input-lg','required' => 'required', 'placeholder'=>trans('blog/form.ph-name'))) !!}

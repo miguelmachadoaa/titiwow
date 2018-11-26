@@ -54,7 +54,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form class="form-horizontal" role="form" method="post" action="{{ route('admin.rolenvios.store') }}">
+                    <form class="form-horizontal" role="form" method="post" action="{{ secure_url('admin/rolenvios/store') }}">
                         <!-- CSRF Token -->
 
                         {{ csrf_field() }}
