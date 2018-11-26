@@ -7,10 +7,10 @@
                     <h4>Mi Cuenta</h4>
                     <p>
                         <ul id="menu-cuenta" class="menu_footer">
-                            <li class="menu-item"><a href="#">Mi Cuenta</a></li>
-                            <li class="menu-item"><a href="#">Mis Compras</a></li>
-                            <li class="menu-item"><a href="#">Mi Dirección</a></li>
-                            <li class="menu-item"><a href="#">Mi Carrito</a></li>
+                            <li class="menu-item"><a href="{{ secure_url('my-account') }}">Mi Cuenta</a></li>
+                            <li class="menu-item"><a href="{{ secure_url('miscompras') }}">Mis Compras</a></li>
+                            <li class="menu-item"><a href="{{ secure_url('misdirecciones') }}">Mi Dirección</a></li>
+                            <li class="menu-item"><a href="{{ secure_url('cart/show') }}">Mi Carrito</a></li>
                         </ul>
                     </p>
                 </div>
@@ -20,15 +20,15 @@
                     <h4>Categorías</h4>
                     <p>
                         <ul id="menu-categorias" class="menu_footer">
-                            <li class="menu-item"><a href="#">Leche</a></li>
-                            <li class="menu-item"><a href="#">Lácteos</a></li>
-                            <li class="menu-item"><a href="#">Quesos</a></li>
-                            <li class="menu-item"><a href="#">Postres y Dulces</a></li>
-                            <li class="menu-item"><a href="#">Esparcibles e Ingredientes</a></li>
-                            <li class="menu-item"><a href="#">Bebidas de Fruta</a></li>
-                            <li class="menu-item"><a href="#">Linea Finesse</a></li>
-                            <li class="menu-item"><a href="#">Alpina Baby</a></li>
-                            <li class="menu-item"><a href="#">No Lácteos</a></li>
+                            <li class="menu-item"><a href="{{ secure_url('categoria/leche') }}">Leche</a></li>
+                            <li class="menu-item"><a href="{{ secure_url('categoria/lacteos') }}">Lácteos</a></li>
+                            <li class="menu-item"><a href="{{ secure_url('categoria/quesos') }}">Quesos</a></li>
+                            <li class="menu-item"><a href="{{ secure_url('categoria/postres-dulces') }}">Postres y Dulces</a></li>
+                            <li class="menu-item"><a href="{{ secure_url('categoria/esparcibles-ingredientes') }}">Esparcibles e Ingredientes</a></li>
+                            <li class="menu-item"><a href="{{ secure_url('categoria/bebidas-frutas') }}">Bebidas de Fruta</a></li>
+                            <li class="menu-item"><a href="{{ secure_url('categoria/finesse') }}">Linea Finesse</a></li>
+                            <li class="menu-item"><a href="{{ secure_url('categoria/alpina-baby') }}">Alpina Baby</a></li>
+                            <li class="menu-item"><a href="{{ secure_url('categoria/no-lacteos') }}">No Lácteos</a></li>
                         </ul>
                     </p>
                 </div>
@@ -67,7 +67,7 @@
                             <li class="menu-item">(+57) 5718600</li>
                             <li class="menu-item">(01) 8000529999</li>
                             <li class="menu-item">soporte@alpina.com</li>
-                            <li class="menu-item">Formulario de <a href="#">Contacto</a></li>
+                            <!--li class="menu-item">Formulario de <a href="#">Contacto</a></li-->
                         </ul>
                     </div>
                 </div>

@@ -45,7 +45,7 @@
                 <div class="row hidden-lg">
                     <div class="col-sm-8" >
                         <div id="header_logo" class="pull-left hidden-lg">
-                                <a  href="{{ route('home') }}" class="hidden-md"><img src="{{ secure_asset('assets/images/logo_movil.png') }}" alt="Alpina Go!" class="logo_position"></a>
+                                <a  href="{{ secure_url('home') }}" class="hidden-md"><img src="{{ secure_asset('assets/images/logo_movil.png') }}" alt="Alpina Go!" class="logo_position"></a>
                         </div>
                     </div>
                     <div class="col-sm-4 pull-right" >
@@ -65,7 +65,7 @@
                             <li><a href="https://twitter.com/Alpina" target="_blank"><i class="fa fa-twitter color-top" ></i></a></li>
                             <li><a href="https://www.youtube.com/user/AlpinaSA" target="_blank"><i class="fa fa-youtube-play color-top" ></i></a></li>
                         <li class="menu-top">
-                            <label ><a id="detalle_carro_front" href="http://www.alpina.com" target="_blank">Ir Alpina Digital</a></label>    
+                            <label ><a id="detalle_carro_front" href="https://www.alpina.com" target="_blank">Ir Alpina Digital</a></label>    
                         </li>
                         </ul>
                     </div>
@@ -104,7 +104,7 @@
                                 </li>
 
                                 <li>
-                                    <label ><a href="{{ URL::to('logout') }}">Cerrar Sesión</a></label>  
+                                    <label ><a href="{{ secure_url('logout') }}">Cerrar Sesión</a></label>  
                                 </li>
                             @endif
                             </ul>
@@ -137,7 +137,7 @@
                         </div>
                         <div class="col-md-4 col-xs-8">
                             <div id="header_logo" class="pull-center">
-                                <a  href="{{ route('home') }}"><img src="{{ secure_asset('assets/images/logo_go.png') }}" alt="Alpina Go!" class="logo_position"></a>
+                                <a  href="{{ secure_url('home') }}"><img src="{{ secure_asset('assets/images/logo_go.png') }}" alt="Alpina Go!" class="logo_position"></a>
                             </div>
                         </div>
                         <div class="col-md-4 col-xs-4 navbar-nav" class="pull_left">
@@ -170,36 +170,6 @@
                         @include('layouts.menu-item', ['item' => $item])
                     @endforeach
                 </ul>
-
-               <!-- @if(Sentinel::guest())
-
-                @else
-
-                    <ul class="nav navbar-nav navbar-right">
-                        
-                        <li class="dropdown">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hola: {{ Sentinel::getUser()->first_name }}  <span class="caret"></span></a>
-                          <ul class="dropdown-menu">
-                            <li><a href="{{ secure_url('clientes') }}">Mi Perfil</a></li>
-                            <li><a href="{{ secure_url('my-account') }}">Mi Cuenta</a></li>
-                            <li><a href="{{ secure_url('miscompras') }}">Mis Compras</a></li>
-                            <li><a href="{{ secure_url('misdirecciones') }}">Mi Direccion</a></li>
-                           
-                            @if (Sentinel::getUser()->hasAnyAccess(['clientes.misamigos']))
-                            <li role="separator" class="divider"></li>
-                            <li><a href="{{ secure_url('misamigos') }}">Mis Amigos</a></li>
-                            @endif
-                            
-
-
-                          </ul>
-                        </li>
-                      </ul>
-
-
-                @endif-->
-
-
 
                 
             </div>
