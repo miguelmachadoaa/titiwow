@@ -98,7 +98,7 @@ Editar Marca
 
                                     @else
                                         
-                                        <img src="{{ secure_asset('assets/images/authors/no_avatar.jpg') }}" alt="..."
+                                        <img src="{{ secure_asset('/uploads/categorias/default.png') }}" alt="..."
                                             class="img-responsive"/>
 
                                     @endif

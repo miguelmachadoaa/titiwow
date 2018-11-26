@@ -118,7 +118,7 @@
 
                                 <div class="fileinput-new thumbnail" style="max-width: 200px; max-height: 200px;">
 
-                                    <img src="{{ secure_asset('assets/images/authors/no_avatar.jpg') }}" alt="..."class="img-responsive"/>
+                                    <img src="{{ secure_asset('/uploads/categorias/default.jpg') }}" alt="..."class="img-responsive"/>
 
                                 </div>
 
