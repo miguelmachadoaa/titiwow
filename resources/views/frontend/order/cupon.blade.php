@@ -30,37 +30,54 @@
                     <div class="panel panel-default">
                         
                         <div class="panel-body">
-                            <div class="box-body">
-                                <dl class="dl-horizontal">
-
-                                    <dt>Departamento</dt>
-                                    <dd>{{ $direcciones->state_name }}</dd>
-
-                                    <dt>Ciudad</dt>
-                                    <dd>{{$direcciones->city_name }}</dd>
-
-                                   
-                                    <dt>Dirección</dt>
-                                    <dd>
-                                       {{ $direcciones->nombre_estructura.' '.$direcciones->principal_address.' - '.$direcciones->secundaria_address }}
-                                    </dd>
-
-                                    <dt>Apto, Puerta Interior</dt>
-                                    <dd>
-                                       {{ $direcciones->edificio_address.' '.$direcciones->detalle_address }}
-                                    </dd>
-
-                                    <dt>Barrio</dt>
-                                    <dd>
-                                       {{ $direcciones->barrio_address }}
-                                    </dd>
-
-                                    <dt>Notas</dt>
-                                    <dd>{{ $direcciones->notas }}</dd>
-                                    
-                                </dl>
-                            </div>
-                            <!-- /.box-body -->
+                        <div class="row">
+                                        <div class="col-md-6 text-right">
+                                            <h5>Departamento:</h5>
+                                        </div>
+                                        <div class="col-md-6 text-left">
+                                            <h6>{{ $direcciones->state_name }}</h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 text-right">
+                                            <h5>Ciudad:</h5>
+                                        </div>
+                                        <div class="col-md-6 text-left">
+                                            <h6>{{ $direcciones->city_name }}</h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 text-right">
+                                            <h5>Dirección:</h5>
+                                        </div>
+                                        <div class="col-md-6 text-left">
+                                            <h6>{{ $direcciones->nombre_estructura.' '.$direcciones->principal_address .' #'. $direcciones->secundaria_address .'-'.$direcciones->edificio_address }}</h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 text-right">
+                                            <h5>Información Adicional:</h5>
+                                        </div>
+                                        <div class="col-md-6 text-left">
+                                            <h6>{{ $direcciones->detalle_address }}</h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 text-right">
+                                            <h5>Barrio:</h5>
+                                        </div>
+                                        <div class="col-md-6 text-left">
+                                            <h6>{{ $direcciones->barrio_address }}</h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 text-right">
+                                            <h5>Notas:</h5>
+                                        </div>
+                                        <div class="col-md-6 text-left">
+                                            <h6>{{ $direcciones->notas }}</h6>
+                                        </div>
+                                    </div>
                         </div>
 
                     </div>
@@ -157,6 +174,7 @@
                             </div> <!-- End form group -->
                             
                         </div> <!-- End Col -->
+
 
                     @else
 

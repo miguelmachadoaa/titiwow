@@ -108,55 +108,58 @@ Carrito de Compras
 
                         <input type="hidden" name="id_direccion"  id="id_direccion" value="{{ $direcciones->id }}" >
 
-                        <div class="panel panel-default">
+                        <div class="panel">
 
                             <div class="panel-body">
 
-                                <div class="box-body">
-
-                                    <dl class="dl-horizontal">
-
-                                        <dt>Departamento</dt>
-
-                                        <dd>{{ $direcciones->state_name }}</dd>
-
-                                        <dt>Ciudad</dt>
-
-                                        <dd>{{$direcciones->city_name }}</dd>
-
-                                        <dt>Dirección</dt>
-
-                                        <dd>
-
-                                            {{ $direcciones->nombre_estructura.' '.$direcciones->principal_address.' - '.$direcciones->secundaria_address }}
-
-                                        </dd>
-
-                                        <dt>Apto, Puerta Interior</dt>
-
-                                        <dd>
-
-                                            {{ $direcciones->edificio_address.' '.$direcciones->detalle_address }}
-
-                                        </dd>
-
-                                        <dt>Barrio</dt>
-
-                                        <dd>
-
-                                            {{ $direcciones->barrio_address }}
-
-                                        </dd>
-
-                                        <dt>Notas</dt>
-
-                                        <dd>{{ $direcciones->notas }}</dd>
-
-                                    </dl>
-
-                                </div>
-
-                                <!-- /.box-body -->
+                                  <div class="row text-center">
+                                        <div class="col-md-3 col-md-offset-3">
+                                            <h5>Departamento:</h5>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h6>{{ $direcciones->state_name }}</h6>
+                                        </div>
+                                    </div>
+                                    <div class="row text-center">
+                                        <div class="col-md-3 col-md-offset-3">
+                                            <h5>Ciudad:</h5>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h6>{{ $direcciones->city_name }}</h6>
+                                        </div>
+                                    </div>
+                                    <div class="row text-center">
+                                        <div class="col-md-3 col-md-offset-3">
+                                            <h5>Dirección:</h5>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h6>{{ $direcciones->nombre_estructura.' '.$direcciones->principal_address .' #'. $direcciones->secundaria_address .'-'.$direcciones->edificio_address }}</h6>
+                                        </div>
+                                    </div>
+                                    <div class="row text-center">
+                                        <div class="col-md-3 col-md-offset-3">
+                                            <h5>Información Adicional:</h5>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h6>{{ $direcciones->detalle_address }}</h6>
+                                        </div>
+                                    </div>
+                                    <div class="row text-center">
+                                        <div class="col-md-3 col-md-offset-3">
+                                            <h5>Barrio:</h5>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h6>{{ $direcciones->barrio_address }}</h6>
+                                        </div>
+                                    </div>
+                                    <div class="row text-center">
+                                        <div class="col-md-3 col-md-offset-3">
+                                            <h5>Notas:</h5>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h6>{{ $direcciones->notas }}</h6>
+                                        </div>
+                                    </div>
 
                             </div>
 
@@ -219,6 +222,11 @@ Carrito de Compras
                 @endforeach
 
             </div> <!-- End form group -->
+            <div class="col-sm-12">
+
+            <h6>* Los pedidos que se realicen de lunes a viernes, entre las 8:00 am y 5:00 pm serán entregados al siguiente día; por su parte, los pedidos que se realicen después de las 5:00pm serán entregados dos (2) días después. Aquellos que se realicen los sábados antes de las 3:00 pm serán entregados el lunes siguiente y los que se hagan los sábados después de las 3:00 pm, domingos y lunes antes de las 7:00 am serán entregados el martes.</h6>
+
+            </div>  
 
             @else
 
@@ -252,21 +260,15 @@ Carrito de Compras
 
                 <div data-href="{{ $preference['response']['sandbox_init_point'] }}" data-id={{ $fp->id }} class="row forma border pointer mercadopago ">
 
-                    <div class="col-sm-2 ">
-
-                        <i class="fa fa-money"></i>
-
-                    </div>
-
                     <div class="col-sm-8 ">
 
-                        <img src="{{ secure_url('/uploads/files/mercado-pago.jpg') }}">
+                        <img src="{{ secure_url('/uploads/files/mercado-pago.jpg') }}" class="img-responsive">
 
                     </div>
 
-                    <div class="col-sm-2 " style="text-align: right;">
+                    <div class="col-sm-4 " style="padding:8px;background-color:#3c763d;color:#ffffff;">
 
-                        <i class="fa  fa-chevron-right"></i>
+                        <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
 
                     </div>
 
@@ -276,11 +278,6 @@ Carrito de Compras
 
                 <div  data-id={{ $fp->id }} class="row forma border pointer cupones">
 
-                    <div class="col-sm-2 ">
-
-                        <i class="fa fa-money"></i>
-
-                    </div>
 
                     <div class="col-sm-8 ">
 
@@ -288,9 +285,9 @@ Carrito de Compras
 
                     </div>
 
-                    <div class="col-sm-2 " style="text-align: right;">
+                    <div class="col-sm-4 " style="padding:8px;background-color:#3c763d;color:#ffffff;">
 
-                        <i class="fa  fa-chevron-right"></i>
+                        <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
 
                     </div>
 
@@ -300,11 +297,6 @@ Carrito de Compras
 
                 <div data-id={{ $fp->id }} class="row forma border pointer procesar">
 
-                    <div class="col-sm-2 ">
-
-                        <i class="fa fa-money"></i>
-
-                    </div>
 
                     <div class="col-sm-8 ">
 
@@ -312,9 +304,9 @@ Carrito de Compras
 
                     </div>
 
-                    <div class="col-sm-2 " style="text-align: right;">
+                    <div class="col-sm-4 " style="padding:8px;background-color:#3c763d;color:#ffffff;">
 
-                        <i class="fa  fa-chevron-right"></i>
+                        <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
 
                     </div>
 
@@ -383,7 +375,7 @@ Carrito de Compras
 
         @if(isset($pagos))
 
-            <h4 style="margin-left: 1em;">Pagos </h4>
+            <!--h4 style="margin-left: 1em;">Pagos </h4-->
 
             <div class="row">
 
@@ -420,18 +412,15 @@ Carrito de Compras
         @endif
 
         @if(isset($total))
+            <hr />
+            <div class="row text-center">
 
-            <h4 style="margin-left: 1em;">Total a Pagar</h4>
+                <div class="col-sm-8">
+                    <h4>Total a Pagar</h4>
+                </div>
+                <div class="col-sm-4">
 
-            <div class="row">
-
-                <div class="col-sm-12">
-
-                    <li style="list-style-type: none;">
-
-                       <h3 style="margin-left: 1em;">{{ number_format($total,0,",",".")}}</h3> 
-
-                    </li>
+                       <h4 style="color:#143473;">{{ number_format($total,0,",",".")}}</h4> 
 
                 </div>
 

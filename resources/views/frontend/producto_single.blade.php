@@ -36,7 +36,9 @@
                 </li>
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>
-                    <a href="#">Producto</a>
+                        @foreach($catprincipal as $catp)
+                        <a href="{{ secure_url('categoria/'.$catp->categ_slug) }}" alt="Ver Categoría"> {{ $catp->nombre_categoria }}</a>
+                        @endforeach
                 </li>
                 <li >
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>
@@ -72,9 +74,9 @@
                         <b>Categorías:</b> 
                         @foreach ($categos as $cats)
                             @if($loop->last)
-                            <a href="{{ route('categoria', [$cats->categ_slug]) }}" >{{ $cats->nombre_categoria }}</a>.
+                            <a href="{{ secure_url('categoria/'.$cats->categ_slug) }}" >{{ $cats->nombre_categoria }}</a>.
                             @else
-                            <a href="{{ route('categoria', [$cats->categ_slug]) }}" >{{ $cats->nombre_categoria }}</a>,
+                            <a href="{{ secure_url('categoria/'.$cats->categ_slug) }}" >{{ $cats->nombre_categoria }}</a>,
                             @endif
                         @endforeach
                        <br />
