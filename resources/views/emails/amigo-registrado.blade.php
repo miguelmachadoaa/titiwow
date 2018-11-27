@@ -4,7 +4,7 @@
 
  <h3><b>Tu amigo  {{ $name.' '.$lastname }}</b></h3>
 
-<p>Se ha registrado exitosamente, sigue enviando invitaciones y podras ganar muchas mas comisiones y premios </p>
+<p>Se ha registrado exitosamente, sigue enviando invitaciones y podrás ganar muchas más comisiones y premios </p>
 
 
 

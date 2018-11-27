@@ -4,11 +4,11 @@
 
  <h3><b>Bienvenido a alpina {{ $name.' '.$lastname }}</b></h3>
 
-<p>Se te ha enviado una invitacion para registrarte como afiliado por </p>
+<p>Se te ha enviado una invitación para registrarte como afiliado por </p>
 
 <p>{{ $embajador }}</p> 
 
-<p>Al registrarte como amigo AlpinaGo obtendras descuentos especiales.</p>
+<p>Al registrarte como amigo AlpinaGo obtendrás descuentos especiales.</p>
 
 <p>Sigue el enlace para terminar el registro.</p>
 

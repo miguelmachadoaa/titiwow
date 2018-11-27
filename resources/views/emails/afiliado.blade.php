@@ -2,7 +2,7 @@
 
 <p style="text-align: center;"><img src="{{ secure_url('assets/img/login.png') }}"></p>
 
- Bienvenido a alpina {{ $name.' '.$lastname }}
+ Bienvenido a Alpina GO! {{ $name.' '.$lastname }}
 
 Se te ha enviado una invitacion para registrarte como afiliado por la empresa {{ $empresa }}
 
