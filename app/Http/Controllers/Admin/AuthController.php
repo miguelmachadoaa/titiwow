@@ -405,6 +405,10 @@ class AuthController extends JoshController
                     'id_user' =>$user->id,               
                 );
 
+             $embajador=User::where('id',$amigo->id_cliente )->first();
+
+
+
              //dd($data);
 
             AlpClientes::create($data);
@@ -427,6 +431,8 @@ class AuthController extends JoshController
             $amigo->delete();
 
              Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name));
+
+             Mail::to($embajador->email)->send(new \App\Mail\AmigoRegistrado($user->first_name, $user->last_name));
 
             //activity log ends
             // Redirect to the home page with success menu

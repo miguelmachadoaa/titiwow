@@ -1,4 +1,5 @@
-<?php namespace App\Http\Controllers\Admin;
+<?php 
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\JoshController;
 use Intervention\Image\Facades\Image;
@@ -12,6 +13,7 @@ use App\Models\AlpClientesHistory;
 use App\Models\AlpDirecciones;
 use App\Models\AlpTDocumento;
 use App\Models\AlpEmpresas;
+use App\Models\AlpConfiguracion;
 use App\User;
 use App\RoleUser;
 use App\Http\Requests;
@@ -23,7 +25,7 @@ use View;
 use DB;
 use File;
 use Hash;
-use Illuminate\Support\Facades\Mail;
+use Mail;
 use URL;
 use Validator;
 use Yajra\DataTables\DataTables;
@@ -487,6 +489,8 @@ class AlpClientesController extends JoshController
     {
         $user_id = Sentinel::getUser()->id;
 
+           $configuracion = AlpConfiguracion::where('id','1')->first();
+
        try {
 
 
@@ -516,6 +520,8 @@ class AlpClientesController extends JoshController
 
 
             $cliente->delete();
+
+            Mail::to($configuracion->correo_admin)->send(new \App\Mail\UserRechazado($user->first_name, $user->last_name));
 
             //$user->delete();
 
@@ -626,6 +632,9 @@ class AlpClientesController extends JoshController
         ->join('roles', 'role_users.role_id', '=', 'roles.id')
         ->where('users.id', '=', $request->cliente_id)
         ->first();
+
+
+        Mail::to($user->email)->send(new \App\Mail\UserAprobado($user->first_name, $user->last_name));
 
         $view= View::make('admin.clientes.trcliente', compact('clientes'));
 
