@@ -34,7 +34,7 @@ a img {
 /* Typography */
 
 h1 {
-    color: #2F3133;
+    color: #123275;
     font-size: 19px;
     font-weight: bold;
     margin-top: 0;
@@ -42,7 +42,7 @@ h1 {
 }
 
 h2 {
-    color: #2F3133;
+    color: #123275;
     font-size: 16px;
     font-weight: bold;
     margin-top: 0;
@@ -50,15 +50,15 @@ h2 {
 }
 
 h3 {
-    color: #2F3133;
-    font-size: 14px;
+    color: #123275;
+    font-size: 18px;
     font-weight: bold;
     margin-top: 0;
     text-align: left;
 }
 
 p {
-    color: #74787E;
+    color: #123275;
     font-size: 16px;
     line-height: 1.5em;
     margin-top: 0;
@@ -97,6 +97,7 @@ img {
 /* Header */
 
 .header {
+    background: #0199dc;
     padding: 25px 0;
     text-align: center;
 }
@@ -148,6 +149,17 @@ img {
 /* Footer */
 
 .footer {
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    width: 570px;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 570px;
+}
+
+.pre-footer {
+    background:#fff;
     margin: 0 auto;
     padding: 0;
     text-align: center;
@@ -211,11 +223,12 @@ img {
 }
 
 .button-blue {
-    background-color: #3097D1;
-    border-top: 10px solid #3097D1;
-    border-right: 18px solid #3097D1;
-    border-bottom: 10px solid #3097D1;
-    border-left: 18px solid #3097D1;
+    background-color: #d7006e;
+    border-top: 10px solid #d7006e;
+    border-right: 18px solid #d7006e;
+    border-bottom: 10px solid #d7006e;
+    border-left: 18px solid #d7006e;
+    border-radius: 5px;
 }
 
 .button-green {

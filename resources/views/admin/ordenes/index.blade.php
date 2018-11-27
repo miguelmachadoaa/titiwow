@@ -75,7 +75,7 @@ Ordenes
                                     <td>{!! $row->factura!!}</td>
                                     <td>{!! $row->tracking!!}</td>
                                     <td>{!! $row->created_at->diffForHumans() !!}</td>
-                                    <td>{!! $row->estatus_nombre !!}</td>
+                                    <td><span class="badge badge-default" >{!! $row->estatus_nombre !!}</span></td>
                                     <td>
 
                                            <a class="btn btn-primary btn-xs" href="{{ route('admin.ordenes.detalle', $row->id) }}">
