@@ -247,7 +247,7 @@ class AlpCartController extends JoshController
 
           // $preference = $mp::post("/checkout/preferences",$preference_data);
 
-          $preference = array('response' => array('sandbox_init_point' => '#', ), );
+          |$preference = array('response' => array('sandbox_init_point' => '#', ), );
 
           /*actualizamos la data del carrito */
 
@@ -804,7 +804,7 @@ class AlpCartController extends JoshController
 
           $texto='Se ha creado la siguiente orden '.$compra->id.' y esta a espera de aprobacion  ';
 
-          Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionOrden($compra->id, $texto));
+          Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
 
           Mail::to($configuracion->correo_cedi)->send(new \App\Mail\NotificacionOrden($compra->id, $texto));
 

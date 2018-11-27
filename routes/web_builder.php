@@ -650,6 +650,10 @@ Route::get('notificacion', function(){
         return new \App\Mail\NotificacionOrden('25', 'La orden 25 Ha sido Enviada!');
 });
 
+Route::get('compra', function(){
+        return new \App\Mail\CompraRealizada('Miguel', 'Machado', array('1'=>array('nombre'=>'producto1','precio'=>120,'cantidad'=>1),'2'=>array('nombre'=>'producto2','precio'=>120,'cantidad'=>2),'3'=>array('nombre'=>'producto3','precio'=>120,'cantidad'=>3)) , '25/12/2018');
+});
+
 
 
 

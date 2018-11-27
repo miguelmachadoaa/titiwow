@@ -106,11 +106,8 @@ Carrito de Compras
                                     value="{{ $row->cantidad }}" 
                                     >
 
-                                   
-                                    
-
                                 </td>
-                                <td>{{ number_format($row->cantidad*$row->precio_oferta, 2,",",".") }}</td>
+                                <td>{{ number_format($row->cantidad*$row->precio_oferta, 0,",",".") }}</td>
                                 <td><a class="btn btn-danger" href="{{secure_url('cart/delete', [$row->slug])}}">X</a></td>
                             </tr>
                         @endforeach
@@ -119,7 +116,7 @@ Carrito de Compras
                             
                             <td colspan="5" style="text-align: right;">Total: </td>
                             
-                            <td>{{number_format($total, 2,",",".")}} 
+                            <td>{{number_format($total, 0,",",".")}} 
 
                                 <input type="hidden" name="total_orden" id="total_orden" value="{{ $total }}">
                                 <input type="hidden" name="limite_orden" id="limite_orden" value="{{ $configuracion->minimo_compra }}">
