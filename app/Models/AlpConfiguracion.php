@@ -23,6 +23,7 @@ class AlpConfiguracion extends Model
         'limite_amigos',
         'id_mercadopago',
         'key_mercadopago',
+        'mercadopago_sand',
         'minimo_compra',
         'correo_admin',
         'correo_shopmanager',

@@ -107,7 +107,7 @@ Editar Configuracion
                                 </div>
                             </div>
 
-                            <div class="form-group {{ $errors->first('key_mercadopago', 'has-error') }}">
+                           <!-- <div class="form-group {{ $errors->first('key_mercadopago', 'has-error') }}">
                                 <label for="title" class="col-sm-2 control-label">
                                     Key Mercadopago
                                 </label>
@@ -118,6 +118,30 @@ Editar Configuracion
                                 <div class="col-sm-4">
                                     {!! $errors->first('key_mercadopago', '<span class="help-block">:message</span> ') !!}
                                 </div>
+                            </div>-->
+
+                            <div class="form-group  {{ $errors->first('mercadopago_sand', 'has-error') }}">
+                                <label for="select21" class="col-sm-2 control-label">
+                                    Modo Mercadopago
+                                </label>
+                                <div class="col-sm-5">   
+                                 <select id="mercadopago_sand" name="mercadopago_sand" class="form-control ">
+                                    <option value="">Seleccione</option>
+                                        
+                                       
+                                        <option value="{{ 1 }}"
+                                                @if($configuracion->mercadopago_sand == 1) selected="selected" @endif >Modo Sandbox</option>
+
+                                        <option value="{{ 2 }}"
+                                                @if($configuracion->mercadopago_sand == 2) selected="selected" @endif >Modo Real</option>
+                                       
+                                </select>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('mercadopago_sand', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                                  
+                                </div>
+                               
                             </div>
 
                             <fieldset>
