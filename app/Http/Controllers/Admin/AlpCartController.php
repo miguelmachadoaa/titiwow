@@ -247,6 +247,8 @@ class AlpCartController extends JoshController
 
           $preference = $mp::post("/checkout/preferences",$preference_data);
 
+          //dd($preference);
+
           //$preference = array('response' => array('sandbox_init_point' => '#', ), );
 
           /*actualizamos la data del carrito */

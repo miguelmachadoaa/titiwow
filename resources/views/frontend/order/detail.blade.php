@@ -256,15 +256,15 @@ Carrito de Compras
 
                 @if($fp->id==2)
 
-                <div data-href="{{ $preference['response']['sandbox_init_point'] }}" data-id={{ $fp->id }} class="row forma border pointer mercadopago ">
+                <div data-href="@if($configuracion->mercadopago_sand==1){{ $preference['response']['sandbox_init_point'] }} @else {{ $preference['response']['init_point'] }} @endif" data-id={{ $fp->id }} class="row forma border pointer mercadopago ">
 
-                    <div class="img-responsive" style="min-height: 1em;" class="col-sm-8 col-xs-12">
+                    <div class="img-responsive" style="min-height: 1em;" class=" col-sm-8 ">
 
-                        <img src="{{ secure_url('/uploads/files/mercado-pago.jpg') }}" width="100%">
+                        <img class="img-responsive" src="{{ secure_url('/uploads/files/mercado-pago.jpg') }}" >
 
                     </div>
 
-                    <div class="col-sm-4 col-xs-12" style="padding:8px;background-color:#3c763d;color:#ffffff;">
+                    <div class=" col-sm-4 " style="padding:8px;background-color:#3c763d;color:#ffffff;">
 
                         <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
 
