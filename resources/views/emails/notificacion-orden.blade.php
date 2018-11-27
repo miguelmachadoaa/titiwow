@@ -1,6 +1,6 @@
 @component('mail::message')
 
-<p style="text-align: center;"><img src="{{ secure_url('assets/img/login.png') }}"></p>
+<!--<p style="text-align: center;"><img src="{{ secure_url('assets/img/login.png') }}"></p>-->
 
  {{ $texto }}
 <br>
