@@ -1,7 +1,7 @@
 @component('mail::message')
 Gracias por su compra {{ $compra->first_name.' '.$compra->last_name }}
 
-Hemos registrado una compra {{ $compra->codigo }},  Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y será entregado {{ $fecha_entrega }}. 
+Hemos registrado una compra {{ $compra->referencia }},  Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y será entregado {{ $fecha_entrega }}. 
 
 
 
@@ -28,7 +28,7 @@ Hemos registrado una compra {{ $compra->codigo }},  Ha seleccionado enviar el pe
 
 </table>
 
-El total de la compra fue de {{ number_format($total, 0,",",".") }}
+El total de la compra fue de {{ number_format($compra->monto_total, 0,",",".") }}
 
 
 @component('mail::button', ['url' => secure_url('/')])
