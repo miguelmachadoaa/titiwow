@@ -28,7 +28,7 @@ Detalles del Pedido
 	@foreach($detalles as $row)
 
 		<tr>
-		<td>{{$row->pum}}</td>
+		<td>{{$row->referencia_producto}}</td>
 		<td>{{$row->nombre_producto}}</td>
         <td>{{number_format($row->precio_unitario,0,",",".")}}</td>
         <td> {{ $row->cantidad }} </td>
