@@ -52,7 +52,7 @@
      <h1>@lang('productos/title.edit')</h1>
      <ol class="breadcrumb">
          <li>
-             <a href="{{ route('admin.dashboard') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
+             <a href="{{ secure_url('admin') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
                  @lang('general.dashboard')
              </a>
          </li>
