@@ -86,6 +86,13 @@ body {
     background-color:#143473;
     border-color: #143473;
 }
+.label-seguir{
+    color:#143473 !important;
+    margin-right: 20px;
+}
+.label-seguir:hover{
+    color:#009fe3;
+}
 .btn-cart{
     background-color:#d5006e;
     border-color: #d5006e;

@@ -2,19 +2,6 @@
  <footer>
         <div class="container footer-text">
             <div >
-                <!-- Mi cuenta Section Start -->
-                <div class="col-sm-3 clearfix">
-                    <h4>Mi Cuenta</h4>
-                    <p>
-                        <ul id="menu-cuenta" class="menu_footer">
-                            <li class="menu-item"><a href="{{ secure_url('my-account') }}">Mi Cuenta</a></li>
-                            <li class="menu-item"><a href="{{ secure_url('miscompras') }}">Mis Compras</a></li>
-                            <li class="menu-item"><a href="{{ secure_url('misdirecciones') }}">Mi Dirección</a></li>
-                            <li class="menu-item"><a href="{{ secure_url('cart/show') }}">Mi Carrito</a></li>
-                        </ul>
-                    </p>
-                </div>
-                <!-- //Mi cuenta Section End -->
                 <!-- Categorias Section Start -->
                 <div class="col-sm-3 clearfix">
                     <h4>Categorías</h4>
@@ -33,6 +20,21 @@
                     </p>
                 </div>
                 <!-- //Categorias Section End -->
+                 <!-- Mi cuenta Section Start -->
+                 <div class="col-sm-3 clearfix">
+                    <h4>Marcas Principales</h4>
+                    <p>
+                        <ul id="menu-marcas" class="menu_footer">
+                        <li class="menu-item"><a href="{{ secure_url('marcas/bon-yurt') }}">Bon Yurt</a></li>
+                        <li class="menu-item"><a href="{{ secure_url('marcas/alpin') }}">Alpín</a></li>
+                        <li class="menu-item"><a href="{{ secure_url('marcas/yogo-yogo') }}">Yogo Yogo</a></li>
+                        <li class="menu-item"><a href="{{ secure_url('marcas/avena-alpina') }}">Avena</a></li>
+                        <li class="menu-item"><a href="{{ secure_url('marcas/frutto') }}">Frutto</a></li>
+                        <li class="menu-item"><a href="{{ secure_url('marcas/alpinito') }}">Alpinito</a></li>
+                        </ul>
+                    </p>
+                </div>
+                <!-- //Mi cuenta Section End -->
                 <!-- Redes Section Start -->
                 <div class="col-sm-3 clearfix">
                     <h4>Más Información</h4>
@@ -66,7 +68,7 @@
                             <li class="menu-item">(+57) 4238600</li>
                             <li class="menu-item">(+57) 5718600</li>
                             <li class="menu-item">(01) 8000529999</li>
-                            <li class="menu-item">soporte@alpina.com</li>
+                            <li class="menu-item">contaccenter@alpina.com</li>
                             <!--li class="menu-item">Formulario de <a href="#">Contacto</a></li-->
                         </ul>
                     </div>

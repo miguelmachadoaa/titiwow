@@ -11,7 +11,7 @@ Productos
     <h1>Productos</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ route('admin.dashboard') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
+            <a href="{{ secure_url('admin') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
                 Escritorio
             </a>
         </li>
@@ -29,7 +29,7 @@ Productos
                     Listado de Productos
                 </h4>
                 <div class="pull-right">
-                    <a href="{{ route('admin.productos.create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> @lang('button.create')</a>
+                    <a href="{{ secure_url('admin/productos/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> @lang('button.create')</a>
                 </div>
             </div>
             <br />

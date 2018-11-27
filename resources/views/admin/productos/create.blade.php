@@ -61,7 +61,7 @@
                 <h1>@lang('productos/title.add')</h1>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="{{ route('admin.dashboard') }}">
+                        <a href="{{ secure_url('admin') }}">
                             <i class="livicon" data-name="home" data-size="14" data-loop="true"></i>
                             @lang('general.dashboard')
                         </a>

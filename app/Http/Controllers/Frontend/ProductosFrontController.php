@@ -300,6 +300,10 @@ class ProductosFrontController extends Controller
             $categos = DB::table('alp_categorias')->select('alp_categorias.nombre_categoria as nombre_categoria','alp_categorias.slug as categ_slug')
             ->join('alp_productos_category','alp_categorias.id' , '=', 'alp_productos_category.id_categoria')
             ->where('id_producto','=', $producto->id)->where('alp_categorias.estado_registro','=', 1)->groupBy('alp_categorias.id')->get();
+            
+            $catprincipal = DB::table('alp_productos')->select('alp_categorias.nombre_categoria as nombre_categoria','alp_categorias.slug as categ_slug')
+            ->join('alp_categorias','alp_productos.id_categoria_default' , '=', 'alp_categorias.id')
+            ->where('alp_productos.id','=', $producto->id)->where('alp_productos.estado_registro','=', 1)->get();
 
            }else{
             abort('404');
@@ -362,7 +366,7 @@ class ProductosFrontController extends Controller
 
 
         
-        return \View::make('frontend.producto_single', compact('producto', 'descuento', 'precio','categos', 'states', 'cart', 'total'));
+        return \View::make('frontend.producto_single', compact('producto', 'descuento', 'precio','categos', 'states', 'cart', 'total','catprincipal'));
 
     }
 

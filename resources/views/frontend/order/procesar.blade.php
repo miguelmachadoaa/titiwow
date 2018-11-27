@@ -121,7 +121,7 @@ Carro de Productos
      <div class="row">
          <div class="col-md-10 col-md-offset-1 table-responsive" style="padding-bottom:20px;">
              
-            <a class="btn btn-seguir"  href="{{ secure_url('/productos') }}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
+            <a class="label label-seguir"  href="{{ secure_url('/productos') }}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
          </div>
      </div>
 

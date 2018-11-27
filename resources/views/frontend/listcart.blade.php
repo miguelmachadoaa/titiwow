@@ -1,6 +1,6 @@
     <div class="row">
 
-        <h1>Carrito de Compras</h1>
+        <h2>Carrito de Compras</h2>
 
         <a class="btn  btn-link" href="{{secure_url('cart/vaciar')}}">Vaciar</a>
 
@@ -98,9 +98,9 @@
     </div>
 
     <p style="text-align: center;">
-        <a class="btn btn-seguir" href="{{secure_url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
+        <a class="label label-seguir" href="{{secure_url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
 
-         <a class="btn btn-cart sendDetail" href="{{secure_url('order/detail')}}">Continuar <i class="fa fa-plus" aria-hidden="true"></i></a>
+         <a class="btn btn-cart sendDetail" href="{{secure_url('order/detail')}}">Finalizar Tu Compra <i class="fa fa-plus" aria-hidden="true"></i></a>
      </p> 
 
 
@@ -111,7 +111,7 @@
 
         <p style="text-align: center;">
            
-            <a class="btn btn-seguir" href="{{secure_url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
+            <a class="label label-seguir" href="{{secure_url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
 
         </p> 
 

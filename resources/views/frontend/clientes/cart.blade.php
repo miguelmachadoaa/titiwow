@@ -26,11 +26,6 @@ Carro de Productos
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>
                     <a href="#">Carrito de Compra</a>
                 </li>
-
-                <li class="hidden-xs">
-                    <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>
-                    <a href="{{secure_url('productos')}}">Listado</a>
-                </li>
             </ol>
         </div>
     </div>
@@ -41,7 +36,7 @@ Carro de Productos
 @section('content')
 <div class="container text-center ">
     <div class="row">
-        <h1>Carrito de Compras</h1>
+        <h2>Carrito de Compras</h2>
         <a class="btn  btn-link" href="{{secure_url('cart/vaciar')}}">Vaciar</a>
         @if(count($cart))
             
@@ -85,6 +80,24 @@ Carro de Productos
                                 
 
                             </td>
+                            <!--td>
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                        
+                                        <button data-slug="{{ $row->slug }}" data-tipo='suma' data-id="{{ $row->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
+
+                                        </span>
+
+                                        <input id="cantidad_{{ $row->id }}" name="cantidad_{{ $row->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$row->slug]->cantidad }}" placeholder="">
+
+
+                                        <span class="input-group-btn">
+
+                                        <button data-slug="{{ $row->slug }}" data-tipo='resta' data-id="{{ $row->id }}" class="btn btn-danger updatecart" type="button"><i class="fa fa-minus"></i></button>
+
+                                        </span>
+                                    </div>
+                                </td-->
                             <td>{{ number_format($row->cantidad*$row->precio_base, 2) }}</td>
                             <td><a class="btn btn-danger" href="{{secure_url('cart/delete', [$row->slug])}}">X</a></td>
                         </tr>
@@ -107,9 +120,9 @@ Carro de Productos
      </div>
 
     <p style="text-align: center;">
-        <a class="btn btn-seguir" href="{{secure_url('productos')}}">Seguir Comprando  <i class="fa fa-plus" aria-hidden="true"></i></a>
+        <a class="label label-seguir" href="{{secure_url('productos')}}">Seguir Comprando  <i class="fa fa-plus" aria-hidden="true"></i></a>
 
-         <a class="btn btn-cart" href="{{secure_url('order/detail')}}">Continuar <i class="fa fa-plus" aria-hidden="true"></i></a>
+         <a class="btn btn-cart" href="{{secure_url('order/detail')}}">Finalizar Tu Compra <i class="fa fa-plus" aria-hidden="true"></i></a>
      </p> 
 
 
@@ -120,7 +133,7 @@ Carro de Productos
 
         <p style="text-align: center;">
            
-            <a class="btn btn-seguir" href="{{secure_url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
+            <a class="label label-seguir" href="{{secure_url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
 
         </p> 
 
