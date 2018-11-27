@@ -295,8 +295,11 @@ class FrontEndController extends JoshController
 
                 $codalpin = AlpCodAlpinistas::where('documento_alpi', $request->doc_cliente)->where('codigo_alpi', $request->cod_alpinista)->where('estatus_alpinista',1)->first();
                 if ($codalpin) {
+
                     $activate=true;
+
                 }else{
+
                     $activate=false;
                 }
 
@@ -318,9 +321,13 @@ class FrontEndController extends JoshController
            if($request->chkalpinista == 1) {
 
                 if ($codalpin) {
+
                     $masterfi=1;
+
                 }else{
+
                     $masterfi=0;
+
                 }
 
                 $data = array(
@@ -335,6 +342,7 @@ class FrontEndController extends JoshController
                     'id_embajador' =>'0',               
                     'id_user' =>0,               
                 );
+
             }else{
 
                 $data = array(
@@ -398,12 +406,19 @@ class FrontEndController extends JoshController
 
                     }
                 }
+
+
+                Mail::to($user->email)->send(new \App\Mail\WelcomeEmbajador($user->first_name, $user->last_name));
+
+
             }else{
 
                 //add user to 'Cliente' group
                 $role = Sentinel::findRoleById(9);
 
                 $role->users()->attach($user);
+
+                Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name));
 
             }
 

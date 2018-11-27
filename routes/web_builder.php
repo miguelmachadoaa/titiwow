@@ -626,7 +626,16 @@ Route::post('categorias/destacado', ['as'=> 'categorias.destacado', 'uses' => 'A
 
 
 Route::get('emailU', function(){
-        return new \App\Mail\WelcomeUser('Miguel Machado');
+        return new \App\Mail\WelcomeUser('Miguel Machado', '');
+});
+
+
+Route::get('emailEmbajador', function(){
+        return new \App\Mail\WelcomeEmbajador('Miguel Machado', '');
+});
+
+Route::get('aprobado', function(){
+        return new \App\Mail\UserAprobado('Miguel Machado', '');
 });
 
 Route::get('emailAfiliado', function(){
@@ -640,5 +649,7 @@ Route::get('emailAmigo', function(){
 Route::get('notificacion', function(){
         return new \App\Mail\NotificacionOrden('25', 'La orden 25 Ha sido Enviada!');
 });
+
+
 
 

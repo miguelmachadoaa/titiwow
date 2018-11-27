@@ -1,12 +1,10 @@
 @component('mail::message')
  Bienvenido a alpina {{ $name.' '.$lastname }}
 
-Bienvenido a Alpina
+Estamos procesando tu solicitud de registro, te notificaremos una vez haya finalizado el proceso, este proceso puede tomar hasta 24 horas habiles.
 
-@component('mail::button', ['url' => '/'])
-Vista nuestro sitio
-@endcomponent
 
-Thanks,<br>
+
+Gracias,<br>
 {{ config('app.name') }}
 @endcomponent

@@ -8,12 +8,14 @@
 
 <p>{{ $embajador }}</p> 
 
-<p>Sigue el enlace para registrarte.</p>
+<p>Al registrarte como amigo AlpinaGo obtendras descuentos especiales.</p>
+
+<p>Sigue el enlace para terminar el registro.</p>
 
 
 
 @component('mail::button', ['url' => secure_url('/registroembajadores/'.$token)])
-Registro 
+Termina el Registro 
 @endcomponent
 
 Gracias,<br>
