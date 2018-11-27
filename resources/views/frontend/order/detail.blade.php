@@ -180,14 +180,12 @@ Carrito de Compras
         </div>
 
 
-        <hr>
-
 
         <div class="row">
 
             @if(count($formasenvio))
 
-            <div class=" col-sm-12">
+            <div class=" col-sm-12 col-xs-12">
 
                 <h3>    Formas de Envios</h3>
 
@@ -197,7 +195,7 @@ Carrito de Compras
 
                  <div class="row forma">
 
-                    <div class="col-sm-3 border" >
+                    <div class="col-sm-3 col-xs-3 border" >
 
                         <div class="radio">
 
@@ -207,13 +205,13 @@ Carrito de Compras
 
                     </div>
 
-                    <div class="col-sm-6 border">
+                    <div class="col-sm-6 col-xs-6 border">
 
-                        {{ $fe->nombre_forma_envios.' , '.$fe->descripcion_forma_envios }}
+                        <p>{{ $fe->nombre_forma_envios.' , '.$fe->descripcion_forma_envios }}</p>
 
                     </div>
 
-                    <div class="col-sm-3 border">  Gratis </div>
+                    <div class="col-sm-3 col-xs-3 border">  Gratis </div>
 
                 </div>
 
@@ -260,13 +258,13 @@ Carrito de Compras
 
                 <div data-href="{{ $preference['response']['sandbox_init_point'] }}" data-id={{ $fp->id }} class="row forma border pointer mercadopago ">
 
-                    <div class="col-sm-8 ">
+                    <div class="img-responsive" style="min-height: 1em;" class="col-sm-8 col-xs-12">
 
-                        <img src="{{ secure_url('/uploads/files/mercado-pago.jpg') }}" class="img-responsive">
+                        <img src="{{ secure_url('/uploads/files/mercado-pago.jpg') }}" width="100%">
 
                     </div>
 
-                    <div class="col-sm-4 " style="padding:8px;background-color:#3c763d;color:#ffffff;">
+                    <div class="col-sm-4 col-xs-12" style="padding:8px;background-color:#3c763d;color:#ffffff;">
 
                         <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
 
@@ -279,13 +277,13 @@ Carrito de Compras
                 <div  data-id={{ $fp->id }} class="row forma border pointer cupones">
 
 
-                    <div class="col-sm-8 ">
+                    <div class="col-sm-8 col-xs-12">
 
-                        {{ $fp->nombre_forma_pago.' , '.$fp->descripcion_forma_pago }}
+                       <p>{{ $fp->nombre_forma_pago.' , '.$fp->descripcion_forma_pago }}</p> 
 
                     </div>
 
-                    <div class="col-sm-4 " style="padding:8px;background-color:#3c763d;color:#ffffff;">
+                    <div class="col-sm-4 col-xs-12" style="padding:8px;background-color:#3c763d;color:#ffffff;">
 
                         <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
 
@@ -298,13 +296,13 @@ Carrito de Compras
                 <div data-id={{ $fp->id }} class="row forma border pointer procesar">
 
 
-                    <div class="col-sm-8 ">
+                    <div class="col-sm-8 col-xs-12">
 
-                        {{ $fp->nombre_forma_pago.' , '.$fp->descripcion_forma_pago }}
+                       <p>{{ $fp->nombre_forma_pago.' , '.$fp->descripcion_forma_pago }}</p> 
 
                     </div>
 
-                    <div class="col-sm-4 " style="padding:8px;background-color:#3c763d;color:#ffffff;">
+                    <div class="col-sm-4 col-xs-12" style="padding:8px;background-color:#3c763d;color:#ffffff;">
 
                         <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
 
@@ -322,7 +320,7 @@ Carrito de Compras
 
             @else
 
-            <div class=" col-sm-12">
+            <div class=" col-sm-12 col-xs-12">
 
                 <h3>No hay Formas de pago para este grupo de usuarios</h3>
 
@@ -342,7 +340,7 @@ Carrito de Compras
 
         <div class="row" style=" padding: 1em 0em; border:  1px solid rgba(0,0,0,0.1)">
 
-            <div class="col-sm-12">
+            <div class="col-sm-12 col-xs-12">
 
                 @foreach($cart as $car)
 
@@ -350,19 +348,19 @@ Carrito de Compras
 
                     <div class="row">
 
-                        <div class="col-sm-2">
+                        <div class="hidden-xs col-sm-2 ">
 
-                            <img width="60px" src="{{ secure_url('/').'/uploads/productos/'.$car->imagen_producto }}">
-
-                        </div>
-
-                        <div class="col-sm-8">
-
-                            <p>{{ $car->nombre_producto.' X '.$car->cantidad }}</p>
+                           <a href="{{ route('producto', [$car->slug]) }}"> <img width="3em" src="{{ secure_url('/').'/uploads/productos/'.$car->imagen_producto }}"></a>
 
                         </div>
 
-                        <div class="col-sm-2">{{  number_format($car->precio_oferta*$car->cantidad,0,",",".")  }}</div>
+                        <div class="col-xs-9 col-sm-8 ">
+
+                            <a href="{{ route('producto', [$car->slug]) }}" ><p>{{ $car->nombre_producto.' X '.$car->cantidad }}</p></a>
+
+                        </div>
+
+                        <div class="col-xs-3 col-sm-2 ">{{  number_format($car->precio_oferta*$car->cantidad,0,",",".")  }} COP</div>
 
                     </div>
 
