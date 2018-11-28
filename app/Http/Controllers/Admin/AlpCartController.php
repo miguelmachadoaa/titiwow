@@ -290,6 +290,9 @@ class AlpCartController extends JoshController
      public function failure(Request $request)
     {
        
+        $configuracion=AlpConfiguracion::where('id', '1')->first();
+
+
        if ($request->collection_status=='null') {
 
            $cart= \Session::get('cart');
@@ -377,7 +380,7 @@ class AlpCartController extends JoshController
 
             $states=State::where('config_states.country_id', '47')->get();
 
-            return view('frontend.order.failure', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries','preference', 'states'));
+            return view('frontend.order.failure', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries','preference', 'states', 'configuracion'));
 
 
          }

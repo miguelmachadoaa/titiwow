@@ -13,9 +13,11 @@ class UsersExport implements FromCollection
     */
     public function collection()
     {
-        return User::whereDate('users.created_at', '=', Carbon::today())
+       /* return User::whereDate('users.created_at', '=', Carbon::today())
         ->join('role_users','users.id','=','role_users.user_id')
                 ->whereIn('role_users.role_id', [9, 10, 11,12])
-                ->get();
+                ->get();*/
+
+        return User::all();
     }
 }

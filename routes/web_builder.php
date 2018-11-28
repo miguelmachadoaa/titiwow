@@ -209,7 +209,13 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 //Inicio Reportes generales
 
    Route::get('reportes/registrados', 'Admin\AlpReportesController@indexreg');
+   
    Route::get('reportes/registrados/export', 'Admin\AlpReportesController@export');
+
+
+   Route::get('reportes/ventas', 'Admin\AlpReportesController@ventas');
+   //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
+   Route::post('reportes/exportventas', 'Admin\AlpReportesController@exportventas');
 
 //Fin Reportes generales
 
