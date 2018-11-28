@@ -28,8 +28,8 @@ class UsersExport implements FromQuery
     public function query()
     {
        return User::query()->select('users.*')
-          ->whereDate('users.created_at', '>', $this->desde)
-          ->whereDate('users.created_at', '<', $this->hasta);
+          ->whereDate('users.created_at', '>=', $this->desde)
+          ->whereDate('users.created_at', '<=', $this->hasta);
 
         
     }

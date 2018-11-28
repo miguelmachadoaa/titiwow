@@ -31,8 +31,8 @@ class ProductosExport implements FromQuery
          /*AlpOrdenes::query()->whereDate('created_at', '>', $this->desde)->whereDate('created_at', '<', $this->hasta)->where('id_cliente','=', $this->user);*/
 
         return AlpDetalles::query()
-          ->whereDate('created_at', '>', $this->desde)
-          ->whereDate('created_at', '<', $this->hasta)
+          ->whereDate('created_at', '>=', $this->desde)
+          ->whereDate('created_at', '<=', $this->hasta)
           ->where('id_producto','=', $this->producto);
           
     }

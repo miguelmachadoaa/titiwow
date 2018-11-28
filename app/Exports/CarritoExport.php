@@ -33,8 +33,8 @@ class CarritoExport implements FromQuery
          return AlpCarritoDetalle::query()->select('alp_carrito_detalle.id as id', 'alp_productos.nombre_producto as nombre_producto', 'alp_carrito_detalle.cantidad as cantidad')
           ->join('alp_productos', 'alp_carrito_detalle.id_producto', '=', 'alp_productos.id')
           
-          ->whereDate('alp_carrito_detalle.created_at', '>', $this->desde)
-          ->whereDate('alp_carrito_detalle.created_at', '<', $this->hasta);
+          ->whereDate('alp_carrito_detalle.created_at', '>=', $this->desde)
+          ->whereDate('alp_carrito_detalle.created_at', '<=', $this->hasta);
           
     }
 

@@ -53,8 +53,8 @@ class VentasExport implements FromQuery
           ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
           ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
           ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
-          ->whereDate('alp_ordenes.created_at', '>', $this->desde)
-          ->whereDate('alp_ordenes.created_at', '<', $this->hasta)
+          ->whereDate('alp_ordenes.created_at', '>=', $this->desde)
+          ->whereDate('alp_ordenes.created_at', '<=', $this->hasta)
           ->where('alp_ordenes.id_cliente','=', $this->user);
           
     }
