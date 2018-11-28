@@ -108,7 +108,7 @@ Reporte de Ventas
 
                     <div class="form-group">
                             <div class="col-sm-offset-4 col-sm-8">
-                                <button type="submit" class="btn btn-md btn-primary">  Descargar ventas en Excel  </button>
+                                <button type="submit" class="btn btn-md btn-primary">  Descargar Excel  </button>
                                 
                               
 

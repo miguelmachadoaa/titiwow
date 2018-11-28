@@ -613,6 +613,27 @@
                     Usuarios Registrados
                 </a>
             </li>
+
+            <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ URL::to('admin/reportes/ventas') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Ventas por cliente
+                </a>
+            </li>
+
+            <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ URL::to('admin/reportes/productos') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Ventas por producto
+                </a>
+            </li>
+
+            <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ URL::to('admin/reportes/carrito') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Carritos Abandonados
+                </a>
+            </li>
         </ul>
     </li>
 

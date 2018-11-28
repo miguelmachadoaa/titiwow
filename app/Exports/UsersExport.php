@@ -3,21 +3,34 @@
 namespace App\Exports;
 
 use App\User;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromQuery;
+use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 use Carbon\Carbon;
 
-class UsersExport implements FromCollection
+class UsersExport implements FromQuery
 {
     /**
     * @return \Illuminate\Support\Collection
     */
-    public function collection()
-    {
-       /* return User::whereDate('users.created_at', '=', Carbon::today())
-        ->join('role_users','users.id','=','role_users.user_id')
-                ->whereIn('role_users.role_id', [9, 10, 11,12])
-                ->get();*/
 
-        return User::all();
+    use Exportable;
+
+    public function __construct(string $desde, string $hasta)
+    {
+        $this->desde = $desde;
+        $this->hasta = $hasta;
+        
+    }
+
+
+
+    public function query()
+    {
+       return User::query()->select('users.*')
+          ->whereDate('users.created_at', '>', $this->desde)
+          ->whereDate('users.created_at', '<', $this->hasta);
+
+        
     }
 }

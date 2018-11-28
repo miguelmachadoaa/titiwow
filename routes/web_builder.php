@@ -210,12 +210,21 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
    Route::get('reportes/registrados', 'Admin\AlpReportesController@indexreg');
    
-   Route::get('reportes/registrados/export', 'Admin\AlpReportesController@export');
+   Route::post('reportes/registrados/export', 'Admin\AlpReportesController@export');
 
 
    Route::get('reportes/ventas', 'Admin\AlpReportesController@ventas');
    //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
    Route::post('reportes/exportventas', 'Admin\AlpReportesController@exportventas');
+
+
+    Route::get('reportes/productos', 'Admin\AlpReportesController@productos');
+   //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
+   Route::post('reportes/exportproductos', 'Admin\AlpReportesController@exportproductos');
+
+    Route::get('reportes/carrito', 'Admin\AlpReportesController@carrito');
+   //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
+   Route::post('reportes/exportcarrito', 'Admin\AlpReportesController@exportcarrito');
 
 //Fin Reportes generales
 

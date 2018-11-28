@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Reportes Clientes Registrados
+Reporte de Ventas por Producto
 @parent
 @stop
 
@@ -19,10 +19,13 @@ Reportes Clientes Registrados
     <link href="{{ asset('assets/css/pages/adv_date_pickers.css') }}" rel="stylesheet" type="text/css"/>
 @stop
 
+
+
+
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1>Reporte de Clientes Registrados</h1>
+    <h1>Reporte de VVentas por Producto </h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}">
@@ -31,7 +34,7 @@ Reportes Clientes Registrados
             </a>
         </li>
         <li><a href="#"> Reportes </a></li>
-        <li class="active">Clientes Registrados</li>
+        <li class="active">Ventas por Producto</li>
     </ol>
 </section>
 
@@ -42,17 +45,36 @@ Reportes Clientes Registrados
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Reportes Clientes Registrados
+                       Reporte Ventas por Producto
                     </h4>
                 </div>
                 <br />
                 <div class="panel-body">
-                     <form class="form-horizontal" role="form" method="post" action="{{ secure_url('admin/reportes/registrados/export') }}">
+
+                    <form class="form-horizontal" role="form" method="post" action="{{ secure_url('admin/reportes/exportproductos') }}">
 
                         {{ csrf_field() }}
 
                 <div class="row">   
-                    
+                    <div class="form-group col-sm-12 ">
+                        <label for="select21" class="col-md-2 control-label text-right">
+                        Producto                                               
+                        </label>
+                        <div class="col-md-10">   
+                            <select id="producto" name="producto" class="form-control select2">
+                                <option value="">Seleccione</option>
+
+                                 @foreach($productos as $producto)
+                                 
+                                    <option  value="{{ $producto->id }}">{{ $producto->nombre_producto }}</option>
+
+                                 @endforeach
+                                
+                            </select>
+                        </div>           
+                    </div>
+
+
                     <div class="form-group">
 
                                 <label class="col-md-2 control-label text-right">Desde - Hasta:</label>
@@ -86,8 +108,10 @@ Reportes Clientes Registrados
 
                     <div class="form-group">
                             <div class="col-sm-offset-4 col-sm-8">
-                                <button type="submit" class="btn btn-md btn-primary">  Descargar  Excel  </button>
+                                <button type="submit" class="btn btn-md btn-primary">  Descargar ventas en Excel  </button>
                                 
+                              
+
                                 <a class="btn btn-md btn-danger" href="{{ route('admin.dashboard') }}">
                                     Cancelar
                                 </a>
@@ -108,6 +132,10 @@ Reportes Clientes Registrados
 
 
 @stop
+
+
+
+{{-- page level scripts --}}
 @section('footer_scripts')
     <!-- begining of page level js -->
     <script src="{{ asset('assets/vendors/pickadate/js/picker.js') }}" type="text/javascript"></script>
@@ -135,7 +163,13 @@ Reportes Clientes Registrados
     });
 
 
-     
+     $(document).ready(function(){
+        $('.select2').select2({
+            placeholder: "select",
+            theme:"bootstrap"
+        });
+    })
+
 
 
    </script>
