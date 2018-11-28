@@ -7,6 +7,9 @@ Reporte de Ventas
 @stop
 
 @section('header_styles')
+
+  <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/vendors/pickadate/css/default.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/vendors/pickadate/css/default.date.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/vendors/pickadate/css/default.time.css') }}" rel="stylesheet" type="text/css"/>
@@ -58,11 +61,12 @@ Reporte de Ventas
                         Clientes                                               
                         </label>
                         <div class="col-md-10">   
-                            <select id="clientes" name="clientes" class="form-control ">
+                            <select id="clientes" name="clientes" class="form-control select2">
                                 <option value="">Seleccione</option>
+
                                  @foreach($clientes as $cliente)
                                  
-                                    <option  value="{{ $cliente->id }}">{{ $cliente->first_name.' '.$cliente->last_name }}</option>
+                                    <option  value="{{ $cliente->id_cliente }}">{{ $cliente->first_name.' '.$cliente->last_name }}</option>
 
                                  @endforeach
                                 
@@ -106,11 +110,9 @@ Reporte de Ventas
                             <div class="col-sm-offset-4 col-sm-8">
                                 <button type="submit" class="btn btn-md btn-primary">  Descargar ventas en Excel  </button>
                                 
-                                <a href="{{ secure_url('admin/reportes/exportventas') }}" class="btn btn-md btn-primary" id="generar_report" target="_blank">
-                                    Descargar productos en Excel
-                                </a>
+                              
 
-                                <a class="btn btn-md btn-danger" href="{{ route('admin.sedes.index') }}">
+                                <a class="btn btn-md btn-danger" href="{{ route('admin.dashboard') }}">
                                     Cancelar
                                 </a>
                             
@@ -142,6 +144,9 @@ Reporte de Ventas
     <script src="{{ asset('assets/vendors/flatpickrCalendar/js/flatpickr.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/airDatepicker/js/datepicker.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/airDatepicker/js/datepicker.en.js') }}" type="text/javascript"></script>
+
+<script src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
+
    
    <script type="text/javascript">
        
@@ -156,6 +161,14 @@ Reporte de Ventas
     hasta.set("onChange", function (d) {
         desde.set("maxDate", d);
     });
+
+
+     $(document).ready(function(){
+        $('.select2').select2({
+            placeholder: "select",
+            theme:"bootstrap"
+        });
+    })
 
 
 
