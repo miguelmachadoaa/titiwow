@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-Carro de Productos 
+Carrito de Compras 
 @parent
 @stop
 
@@ -69,300 +69,441 @@ Carro de Productos
                 </li>
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
-                    <a href="#">Carrito de Compra</a>
+                    <a href="#">Carrito de Compras</a>
                 </li>
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
-                    <a href="{{secure_url('productos')}}">Error en el Pago</a>
+                    <a href="{{secure_url('productos')}}">Checkout</a>
                 </li>
             </ol>
+           
         </div>
     </div>
 @stop
 
 {{-- Page content --}}
 @section('content')
-<div class="container contain_body ">
+<div class="container contain_body container_cart_detail ">
 
-    <div class="row">
+    <div class="col-sm-8">
         
         @if(count($cart))
           
          <br>
-            <div class="row">   
-                <div class="col-sm-10 col-sm-offset-1">  
-                        <h3>    Dirección de Envio </h3>
-                 </div>
-            </div>
 
-             {!! Form::open(['url' => secure_url('order/procesar'), 'class' => 'form-horizontal', 'id' => 'procesarForm', 'name' => 'procesarForm', 'method'=>'POST']) !!}
+        <div class="row"> 
 
+            <h3>    Dirección de Envío </h3>
 
+        </div>
+
+        {!! Form::open(['url' => secure_url('order/procesar'), 'class' => 'form-horizontal', 'id' => 'procesarForm', 'name' => 'procesarForm', 'method'=>'POST']) !!}
 
             <div class="row direcciones" style="text-align: left;">
 
                 <div class="col-sm-12">
 
-                @if(isset($direcciones->id))
+                    @if(isset($direcciones->id))
 
-               
-                
-                    <div class="form-group ">
+                        <input type="hidden" name="id_direccion"  id="id_direccion" value="{{ $direcciones->id }}" >
 
-                    <input type="hidden" name="id_direccion"  id="id_direccion" value="{{ $direcciones->id }}" >  
+                        <div class="panel">
 
+                            <div class="panel-body">
 
-                <div class="col-sm-10 col-sm-offset-1">
-                    <div class="panel panel-default">
-                        
-                        <div class="panel-body">
-                            <div class="box-body">
-                                <dl class="dl-horizontal">
+                                  <div class="row text-center">
+                                        <div class="col-md-3 col-md-offset-3">
+                                            <h5>Departamento:</h5>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h6>{{ $direcciones->state_name }}</h6>
+                                        </div>
+                                    </div>
+                                    <div class="row text-center">
+                                        <div class="col-md-3 col-md-offset-3">
+                                            <h5>Ciudad:</h5>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h6>{{ $direcciones->city_name }}</h6>
+                                        </div>
+                                    </div>
+                                    <div class="row text-center">
+                                        <div class="col-md-3 col-md-offset-3">
+                                            <h5>Dirección:</h5>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h6>{{ $direcciones->nombre_estructura.' '.$direcciones->principal_address .' #'. $direcciones->secundaria_address .'-'.$direcciones->edificio_address }}</h6>
+                                        </div>
+                                    </div>
+                                    <div class="row text-center">
+                                        <div class="col-md-3 col-md-offset-3">
+                                            <h5>Información Adicional:</h5>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h6>{{ $direcciones->detalle_address }}</h6>
+                                        </div>
+                                    </div>
+                                    <div class="row text-center">
+                                        <div class="col-md-3 col-md-offset-3">
+                                            <h5>Barrio:</h5>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h6>{{ $direcciones->barrio_address }}</h6>
+                                        </div>
+                                    </div>
+                                    <div class="row text-center">
+                                        <div class="col-md-3 col-md-offset-3">
+                                            <h5>Notas:</h5>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h6>{{ $direcciones->notas }}</h6>
+                                        </div>
+                                    </div>
 
-                                    <dt>Ubicación</dt>
-                                    <dd>{{ $direcciones->country_name.', '.$direcciones->state_name.', '.$direcciones->city_name }}</dd>
-
-
-                                    <dt>Dirección</dt>
-                                    <dd>
-                                       {{ $direcciones->nombre_estructura.' '.$direcciones->principal_address.' - '.$direcciones->secundaria_address.' '.$direcciones->edificio_address.' '.$direcciones->detalle_address.' '.$direcciones->barrio_address }}
-                                    </dd>
-
-                                    <dt>Notas</dt>
-                                    <dd>{{ $direcciones->notas }}</dd>
-                                    
-                                </dl>
                             </div>
-                            <!-- /.box-body -->
-                        </div>
 
-                    </div>
-                </div>
-                     
+                        </div>
 
                         <!-- Se construyen las opciones de envios -->
 
-                       
+                    @else
 
-                  
+                        <h3>Debe agregar una dirección de envío  </h3>
+
+                    @endif
+
+                </div>
+
+            <div class="  res_dir"></div>
+
+        </div>
+
+
+
+        <div class="row">
+
+            @if(count($formasenvio))
+
+            <div class=" col-sm-12 col-xs-12">
+
+                <h3>    Formas de Envios</h3>
+
+                <?php $c="checked"; ?> 
+
+                 @foreach($formasenvio as $fe)
+
+                 <div class="row forma">
+
+                    <div class="col-sm-3 col-xs-3 border" >
+
+                        <div class="radio">
+
+                            <label><input type="radio" name="id_forma_envio" class="custom-radio" id="id_forma_envio" value="{{ $fe->id }}" {{ $c }}>&nbsp; </label>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-6 col-xs-6 border">
+
+                        <p>{{ $fe->nombre_forma_envios.' , '.$fe->descripcion_forma_envios }}</p>
+
+                    </div>
+
+                    <div class="col-sm-3 col-xs-3 border">  Gratis </div>
+
+                </div>
+
+                <?php $c=""; ?> 
+
+                @endforeach
+
+            </div> <!-- End form group -->
+            <div class="col-sm-12">
+
+            <h6>* Los pedidos que se realicen de lunes a viernes, entre las 8:00 am y 5:00 pm serán entregados al siguiente día; por su parte, los pedidos que se realicen después de las 5:00pm serán entregados dos (2) días después. Aquellos que se realicen los sábados antes de las 3:00 pm serán entregados el lunes siguiente y los que se hagan los sábados después de las 3:00 pm, domingos y lunes antes de las 7:00 am serán entregados el martes.</h6>
+
+            </div>  
+
+            @else
+
+            <div class="col-sm-12">
+
+                <h3>No hay Formas de envios para este grupo de usuarios</h3>
+
+            </div> 
+
+            @endif
+
+            <!-- End formas de pago -->
+
+            <!-- Empiezo formas de pagp -->
+
+            @if(count($formaspago))
+
+            <div class="col-sm-12 ">
+
+                <h3>    Formas de pago</h3>
+
+                <input type="hidden" name="id_forma_pago" id="id_forma_pago" value="">
+
+                <?php $c="checked"; ?>
+
+                <!-- Se construyen las opciones de envios -->
+
+                @foreach($formaspago as $fp)
+
+                @if($fp->id==2)
+
+                <div data-href="@if($configuracion->mercadopago_sand==1){{ $preference['response']['sandbox_init_point'] }} @else {{ $preference['response']['init_point'] }} @endif" data-id={{ $fp->id }} class="row forma border pointer mercadopago ">
+
+                    <div class="img-responsive" style="min-height: 1em;" class=" col-sm-8 ">
+
+                        <img class="img-responsive" src="{{ secure_url('/uploads/files/mercado-pago.jpg') }}" >
+
+                    </div>
+
+                    <div class=" col-sm-4 " style="padding:8px;background-color:#3c763d;color:#ffffff;">
+
+                        <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
+
+                    </div>
+
+                </div>
+
+                @elseif($fp->id==4)
+
+                <div  data-id={{ $fp->id }} class="row forma border pointer cupones">
+
+
+                    <div class="col-sm-8 col-xs-12">
+
+                       <p>{{ $fp->nombre_forma_pago.' , '.$fp->descripcion_forma_pago }}</p> 
+
+                    </div>
+
+                    <div class="col-sm-4 col-xs-12" style="padding:8px;background-color:#3c763d;color:#ffffff;">
+
+                        <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
+
+                    </div>
+
+                </div>
 
                 @else
 
-                    <div class="col-sm-10 col-sm-offset-1">
-                        
-                        <h3>Debe agregar una dirección de envio  </h3>
-                        <p><a href="{{ secure_url('misdirecciones') }}">Mi Dirección</a></p>
-                    
+                <div data-id={{ $fp->id }} class="row forma border pointer procesar">
+
+
+                    <div class="col-sm-8 col-xs-12">
+
+                       <p>{{ $fp->nombre_forma_pago.' , '.$fp->descripcion_forma_pago }}</p> 
+
                     </div>
 
-                @endif 
+                    <div class="col-sm-4 col-xs-12" style="padding:8px;background-color:#3c763d;color:#ffffff;">
+
+                        <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
 
                     </div>
 
                 </div>
 
-                <div class=" col-sm-10 col-sm-offset-1 res_dir">  
-                </div>
+                @endif
 
-            </div>
+                @endforeach
 
-               
-
-                <hr>
-
-            <div class="row">
-
-                    
-                    @if(count($formasenvio))
-
-                        <div class="col-sm-10 col-sm-offset-1">
-
-                             <div class="form-group col-sm-10 col-sm-offset-1">
-
-                                <h3>    Formas de Envios</h3>
-
-                                 <?php $c="checked"; ?>     
-
-                                 <!-- Se construyen las opciones de envios -->                   
-
-                                @foreach($formasenvio as $fe)
-
-                                <div class="row forma">
-
-                                    <div class="col-sm-3 border" >
-                                        
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="id_forma_envio" class="custom-radio" id="id_forma_envio" value="{{ $fe->id }}" {{ $c }}>&nbsp; </label>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-sm-6 border">
-
-                                        {{ $fe->nombre_forma_envios.' , '.$fe->descripcion_forma_envios }}
-
-                                    </div>
-
-                                    <div class="col-sm-3 border">
-                                        
-                                        $0
-
-                                    </div>
-                                    
-
-                                </div>
-
-                                    
-
-
-                                 <?php $c=""; ?>  
-
-                                @endforeach 
-                                
-                            </div> <!-- End form group -->
-                            
-                        </div> <!-- End Col -->
-
-                    @else
-
-                        <div class="col-sm-10 col-sm-offset-1">
-
-                            <h3>No hay Formas de envios para este grupo de usuarios</h3>
-
-                        </div>  
-
-                    @endif  <!-- End formas de pago -->
-
-
-                    <!-- Empiezo formas de pagp -->
-
-
-                    @if(count($formaspago))
-
-                   
-
-                        <div class="col-sm-10 col-sm-offset-1">
-
-                             <div class="form-group col-sm-10 col-sm-offset-1 ">
-
-                                <h3>    Formas de pago</h3>
-
-                                <input type="hidden" name="id_forma_pago" id="id_forma_pago" value="">
-
-                                 <?php $c="checked"; ?>     
-
-                                 <!-- Se construyen las opciones de envios -->                   
-
-                                @foreach($formaspago as $fp)
-
-                                    @if($fp->id==2)
-
-                                        
-                                        <a href="{{ $preference['response']['sandbox_init_point'] }}">
-                                        <div data-id={{ $fp->id }} class="row forma border pointer procesar">
-                                            
-                                            <div class="col-sm-2 ">
-                                                
-                                                <i class="fa fa-money"></i>
-
-                                            </div>
-                                            <div class="col-sm-8 ">
-
-                                                {{ $fp->nombre_forma_pago.' , '.$fp->descripcion_forma_pago }}
-
-                                            </div>
-
-                                            <div class="col-sm-2 " style="text-align: right;">
-
-                                                <i class="fa  fa-chevron-right"></i>
-
-                                            </div>
-
-                                        </div></a>
-
-                                    @else
-
-                                        <div data-id={{ $fp->id }} class="row forma border pointer procesar">
-                                            
-                                            <div class="col-sm-2 ">
-                                                
-                                                <i class="fa fa-money"></i>
-
-                                            </div>
-                                            <div class="col-sm-8 ">
-
-                                                {{ $fp->nombre_forma_pago.' , '.$fp->descripcion_forma_pago }}
-
-                                            </div>
-
-                                            <div class="col-sm-2 " style="text-align: right;">
-
-                                                <i class="fa  fa-chevron-right"></i>
-
-                                            </div>
-
-                                        </div>
-
-                                        @endif
-
-                                @endforeach 
-
-                                <div class="col-sm-12">
+                <div class="col-sm-12">
                                     
                                     <div class="alert alert-danger">El pago no pudo ser procesado. Por favor, revisa los detalles del pago e inténtalo de nuevo.</div>
                                 </div>
-                                
-                            </div>
-                            
-                        </div>
-                    
-                        <br>
 
-                      
-
-
-                    @else
-
-                    
-                        <div class=" col-sm-10 col-sm-offset-1">
-                            <h3>No hay Formas de pago para este grupo de usuarios</h3>
-                        </div>  
-
-                    @endif  
-
-                    <!-- End formas de pago -->
-
-                </div>
-                
             </div>
 
-        <br>  
+            <br>
 
-         <div class=" res_env">  </div>  
-     </div>
+            @else
 
-     @else
+            <div class=" col-sm-12 col-xs-12">
+
+                <h3>No hay Formas de pago para este grupo de usuarios</h3>
+
+            </div> 
+
+            @endif 
+
+        </div>
+
+    </div> <!-- end Row --><!-- col-sm-8 -->
+
+    <div class="col-sm-4">
+
+        <br>
+
+        <h3>    Detalle de Orden </h3>
+
+        <div class="row" style=" padding: 1em 0em; border:  1px solid rgba(0,0,0,0.1)">
+
+            <div class="col-sm-12 col-xs-12">
+
+                @foreach($cart as $car)
+
+                <li style="list-style-type: none;">
+
+                    <div class="row">
+
+                        <div class="hidden-xs col-sm-2 ">
+
+                           <a href="{{ route('producto', [$car->slug]) }}"> <img width="3em" src="{{ secure_url('/').'/uploads/productos/'.$car->imagen_producto }}"></a>
+
+                        </div>
+
+                        <div class="col-xs-9 col-sm-8 ">
+
+                            <a href="{{ route('producto', [$car->slug]) }}" ><p>{{ $car->nombre_producto.' X '.$car->cantidad }}</p></a>
+
+                        </div>
+
+                        <div class="col-xs-3 col-sm-2 ">{{  number_format($car->precio_oferta*$car->cantidad,0,",",".")  }} COP</div>
+
+                    </div>
+
+                </li>
+
+                @endforeach
+
+            </div>
 
 
-     <h2><span class="label label-primary">El Carrito está Vacio</span></h2>
-        
+        @if(isset($pagos))
 
-     @endif
+            <!--h4 style="margin-left: 1em;">Pagos </h4-->
 
-     <hr>
-     <p style="text-align: center;">
+            <div class="row">
 
-         <a class="btn btn-danger" href="{{secure_url('/productos')}}">Cancelar <i class="fa fa-times" aria-hidden="true"></i></a>
+                <div class="col-sm-12">
 
-     </p>
+                    @foreach($pagos as $pago)
 
-    
+                    <li style="list-style-type: none;">
 
-     {!! Form::close() !!}
-     
+                        @if($pago->id_forma_pago=='4')
+
+                        <div class="row">
+
+                            <div class="col-sm-8">{{ json_decode($pago->json)->codigo_cupon }}</div>
+
+                            <div class="col-sm-4">{{   number_format($pago->monto_pago,0,",",".") }}</div>
+
+                        </div>
+
+                        @else
+
+                        @endif
+
+                    </li>
+
+                    @endforeach
+
+                    
+
+                </div>
+
+            </div>
+
+        @endif
+
+        @if(isset($total))
+            <hr />
+            <div class="row text-center">
+
+                <div class="col-sm-8">
+                    <h4>Total a Pagar</h4>
+                </div>
+                <div class="col-sm-4">
+
+                       <h4 style="color:#143473;">{{ number_format($total,0,",",".")}}</h4> 
+
+                </div>
+
+            </div>
+
+        @endif
+
+        </div>
+
+    </div>
+
+    <br> 
+
+    <div class=" res_env">  </div> 
+
+</div> <!-- Container  -->
+
+@else
+
+<h2><span class="label label-primary">Tu Carrito de Compras está Vacio</span></h2>
+
+@endif
+
+<hr>
+
+<p style="text-align: center;">
+
+    <a class="btn btn-danger" href="{{secure_url('/productos')}}">Cancelar <i class="fa fa-times" aria-hidden="true"></i></a>
+
+
+</p>
+
+{!! Form::close() !!}
+
 </div>
+
+
+
+<!-- Modal Direccion -->
+ <div class="modal fade" id="modalCupones" role="dialog" aria-labelledby="modalLabeldanger">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h4 class="modal-title" id="modalLabeldanger">Aplicar Cupon</h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <form method="POST" action="{{secure_url('cart/storedir')}}" id="addCuponForm" name="addCuponForm" class="form-horizontal">
+
+                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+
+                            {{ csrf_field() }}
+                            <div class="row">
+
+                                <div class="form-group clearfix">
+                                    <label class="col-md-3 control-label" for="nombre_producto">Codigo Cupon</label>
+
+                                    <div class="col-sm-8">
+                                        <input style="margin: 4px 0;" id="codigo_cupon" name="codigo_cupon" type="text" placeholder="Codigo de Cupon" class="form-control">
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+                            <div class="row resCupon" ></div>
+                        </form>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn  btn-primary sendCupon" >Agregar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- Modal Direccion -->
    
 <!-- Modal Direccion -->
  <div class="modal fade" id="addDireccionModal" role="dialog" aria-labelledby="modalLabeldanger">
@@ -381,7 +522,7 @@ Carro de Productos
                             <div class="row">
 
                                 <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Nickname Direccion</label>
+                                    <label class="col-md-3 control-label" for="nombre_producto">Nickname Dirección</label>
 
                                     <div class="col-sm-8">
                                         <input style="margin: 4px 0;" id="nickname_address" name="nickname_address" type="text" placeholder="Nickname Direccion" class="form-control">
@@ -448,7 +589,7 @@ Carro de Productos
                                 
 
                                 <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Codigo Postal</label>
+                                    <label class="col-md-3 control-label" for="nombre_producto">Código Postal</label>
 
                                     <div class="col-sm-8">
                                      <input style="margin: 4px 0;" id="codigo_postal_address" name="codigo_postal_address" type="text" placeholder="Codigo Postal" class="form-control">
@@ -456,7 +597,7 @@ Carro de Productos
                                 </div>
 
                                 <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Telefono</label>
+                                    <label class="col-md-3 control-label" for="nombre_producto">Teléfono</label>
 
                                     <div class="col-sm-8">
                                         <input style="margin: 4px 0;" id="telefono_address" name="telefono_address" type="text" placeholder="Telefono" class="form-control">
@@ -512,10 +653,63 @@ Carro de Productos
     <script>
 
 
+        /*funciones para cpones */
+
+        $('body').on('click', '.cupones', function (){
+
+            $('#modalCupones').modal('show');
+
+       });
+
+
+$('.sendCupon').click(function () {
+    
+    var $validator = $('#addCuponForm').data('bootstrapValidator').validate();
+
+    if ($validator.isValid()) {
+
+        codigo_cupon=$("#codigo_cupon").val();
+
+        var base = $('#base').val();
+
+        $.ajax({
+            type: "POST",
+            data:{codigo_cupon},
+
+            url: base+"/cart/addcupon",
+                
+            complete: function(datos){     
+
+                $(".container_cart_detail").html(datos.responseText);
+
+                $('#modalCupones').modal('hide');
+
+               $("#nickname_address").val('');
+                $("#city_id").val('');
+                $("#calle_address").val('');
+                $("#calle2_address").val('');
+                $("#codigo_postal_address").val('');
+               $("#telefono_address").val('');
+                $("#notas").val('');
+            
+            }
+        });
+        //document.getElementById("addDireccionForm").submit();
+    }
+
+});
+
+
+
+
+        /*Funciones para cipones */
+
+
+
         $('body').on('click', '.procesar', function (){
 
 
-            id_direccion= $("input[name='id_direccion']:checked").val(); 
+            id_direccion= $("#id_direccion").val(); 
             
             id_forma_envio=$("input[name='id_forma_envio']:checked").val(); 
             
@@ -533,13 +727,81 @@ Carro de Productos
 
                 $('#id_forma_pago').val(id_forma_pago);
 
-                $('#procesarForm').submit();
+                base=$('#base').val();
+
+                $.ajax({
+                    type: "POST",
+                    data:{id_forma_envio, id_direccion},
+                    url: base+"/cart/verificarDireccion",
+                        
+                    complete: function(datos){     
+
+                       if(datos.responseText=='true'){
+
+                            $('#procesarForm').submit()
+
+                       }else{
+
+                            $('.res_env').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+
+                       }
+                    
+                    }
+                });
 
             }
 
+        });
 
+
+        $('body').on('click', '.mercadopago', function (){
+
+
+
+            id_direccion= $("#id_direccion").val(); 
             
+            id_forma_envio=$("input[name='id_forma_envio']:checked").val(); 
+            
+            id_forma_pago=$(this).data('id');
 
+            url=$(this).data('href');
+
+
+            if (id_forma_envio==undefined || id_direccion==undefined || id_forma_pago==undefined) {
+
+               // alert('Todos los capos son obligatorios');
+
+                $('.res_env').html('<div class="alert alert-danger" role="alert">Todos los campos son obligatorios</div>');
+
+
+            }else{
+
+                $('#id_forma_pago').val(id_forma_pago);
+
+                base=$('#base').val();
+
+                $.ajax({
+                    type: "POST",
+                    data:{id_forma_envio, id_direccion, id_forma_pago},
+
+                    url: base+"/cart/verificarDireccion",
+                        
+                    complete: function(datos){     
+
+                       if(datos.responseText=='true'){
+
+                            window.location.href = url;
+
+                       }else{
+
+                            $('.res_env').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+
+                       }
+                    
+                    }
+                });
+
+            }
 
         });
 
@@ -569,6 +831,20 @@ Carro de Productos
     </script>
 
      <script type="text/javascript">
+
+$("#addCuponForm").bootstrapValidator({
+    fields: {
+        codigo_cupon: {
+            validators: {
+                notEmpty: {
+                    message: 'El Codigo es requerido '
+                }
+            },
+            required: true,
+            minlength: 3
+        }
+    }
+});
         
         
 
