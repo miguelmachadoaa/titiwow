@@ -61,7 +61,7 @@
                 <div class="col-md-4">
                     <div class="row">
                         <div class="product_wrapper">
-                            <img id="zoom_09" src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" data-zoom-image="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive" />
+                            <img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" data-zoom-image="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive" alt="{{ $producto->nombre_producto}} | Alpina Go!" title="{{ $producto->nombre_producto}} | Alpina Go!"/>
                         </div>
                     </div>
                 </div>
@@ -266,7 +266,6 @@
 {{-- page level scripts --}}
 @section('footer_scripts')
     <!--page level js start-->
-    <script type="text/javascript" src="{{ secure_asset('assets/js/frontend/elevatezoom.js') }}"></script>
     <script type="text/javascript" src="{{ secure_asset('assets/vendors/bootstrap-rating/bootstrap-rating.js') }}"></script>
     <script type="text/javascript" src="{{ secure_asset('assets/js/frontend/cart.js') }}"></script>
     <!--page level js start-->

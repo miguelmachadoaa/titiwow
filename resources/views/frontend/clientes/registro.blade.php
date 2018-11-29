@@ -7,9 +7,13 @@
     <title>Registro Amigos | Alpina Go </title>
     <!--global css starts-->
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/bootstrap.min.css') }}">
-    <link rel="shortcut icon" href="{{ secure_asset('assets/images/favicon.png') }}" type="image/x-icon">
-    <link rel="icon" href="{{ secure_asset('assets/images/favicon.png') }}" type="image/x-icon">
-    <!--end of global css-->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ secure_asset('assets/img/favicon/apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ secure_asset('assets/img/favicon/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ secure_asset('assets/img/favicon/favicon-16x16.png')}}">
+    <link rel="manifest" href="{{ secure_asset('assets/img/favicon/site.webmanifest')}}">
+    <link rel="mask-icon" href="{{ secure_asset('assets/img/favicon/safari-pinned-tab.svg')}}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">    <!--end of global css-->
     <!--page level css starts-->
     <link type="text/css" rel="stylesheet" href="{{secure_asset('assets/vendors/iCheck/css/all.css')}}" />
     <link href="{{ secure_asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
@@ -174,6 +178,20 @@
                 </div>
             </form>
             <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+        </div>
+        <div>
+            <div class="form-group">
+                <div class="row text-center" style="background:rgba(0,0,0,0.4);color:#ffffff;padding:20px;margin-top:20px;">
+                    <div class="col-md-12">
+                        <div style="font-size:12px;padding:0px 20px;">
+                            <p>He sido informado (a) por ALPINA PRODUCTOS ALIMENTICIOS S.A. (Responsable del tratamiento) de lo siguiente: (i) los datos suministrados en este documento serán tratados para los siguientes propósitos: enviar o utilizar la información para fines contractuales, de atención al cliente, de marketing (tales como análisis de consumos, trazabilidad de marca entre otros), comerciales, actualizar datos y brindar información relevante; (ii) es facultativo responder preguntas sobre datos sensibles o de menores de edad; (iii) como titular de los datos y/o representante del menor, tengo los derechos de conocer, actualizar, rectificar o suprimir mi información o revocar esta autorización; (iv) en caso de no ser resuelta mi solicitud directamente, y de manera subsidiaria, tengo derecho a presentar quejas ante la Superintendencia de Industria y Comercio, acorde con la Ley 1581 de 2012, el Decreto 1074 de 2015 y demás normas complementarias; (v) mis derechos y obligaciones, los puedo ejercer observando estrictamente la Política de Tratamiento de Información de ALPINA PRODUCTOS ALIMENTICIOS S.A. disponible en www.alpinago.com y (vi) el dato de contacto es: habeas.data@alpina.com. 
+                            <p>En virtud de lo anterior, autorizo de manera previa, expresa, informada e inequívoca a ALPINA PRODUCTOS ALIMENTICIOS S.A. para que trate los datos que suministro en este documento para los fines señalados anteriormente. Adicionalmente, autorizo la transferencia o transmisión nacional e internacional de mis datos.</p>
+                            <p>Declaro que los datos de terceros, los suministro tras haber obtenido previamente su autorización y en virtud de mi relación de parentesco con ellos.</p>
+                </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <!-- //Content Section End -->
