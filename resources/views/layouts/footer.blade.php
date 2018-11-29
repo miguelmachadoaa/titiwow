@@ -20,7 +20,7 @@
                     </p>
                 </div>
                 <!-- //Categorias Section End -->
-                 <!-- Mi cuenta Section Start -->
+                 <!-- Marcas Section Start -->
                  <div class="col-sm-3 clearfix">
                     <h4>Marcas Principales</h4>
                     <p>
@@ -34,30 +34,6 @@
                         </ul>
                     </p>
                 </div>
-                <!-- //Mi cuenta Section End -->
-                <!-- Redes Section Start -->
-                <div class="col-sm-3 clearfix">
-                    <h4>Más Información</h4>
-                    <p>
-                        <ul id="menu-informacion" class="menu_footer">
-                            <li class="menu-item"><a href="https://www.alpina.com" target="_blank">Alpina Digital</a></li>
-                            <li class="menu-item"><a href="https://www.alpina.com/corporativo" target="_blank">Corporativo</a></li>
-                            <li class="menu-item"><a href="https://www.alpina.com/recetas" target="_blank">Recetas</a></li>
-
-                        </ul>
-                    </p>
-                    <!--div class="redes_foot">
-                        <div class="div_deres"><a href="https://www.facebook.com/alpina" target="_blank"><i class="fa fa-facebook-f color-foot" ></i></a></div>
-                        <div class="div_deres"><a href="https://www.instagram.com/alpinacol/" target="_blank"><i class="fa fa-instagram color-foot" ></i></a></div>
-                        <div class="div_deres"><a href="https://www.linkedin.com/company/alpina/?trk=vsrp_companies_res_name&trkInfo=VSRPsearchId%3A3286542181450727911739%2CVSRPtargetId%3A48174%2CVSRPcmpt%3Aprimary" target="_blank"><i class="fa fa-linkedin-square color-foot" ></i></a></div>
-                        <div class="div_deres"><a href="https://twitter.com/Alpina" target="_blank"><i class="fa fa-twitter color-foot" ></i></a></div>
-                        <div class="div_deres"><a href="https://www.youtube.com/user/AlpinaSA" target="_blank"><i class="fa fa-youtube-play color-foot" ></i></a></div>
-                        <div style="clear: both;"></div>
-                    </div-->
-                    </p>
-                    
-                </div>
-                <!-- //redes Section End -->
                 <!-- Contacto Section Start -->
                 <div class="col-sm-3 clearfix">
                     <h4>Contáctenos</h4>
@@ -73,11 +49,16 @@
                         </ul>
                     </div>
                 </div>
-            <!-- //Contacto Section End -->
+                <!-- Pare y Compare Section Start -->
+                <div class="col-sm-3 clearfix">
+                    <img src="{{ secure_asset('uploads/files/pareycompare.png') }}" alt="Pare y Compare" title="Pare y Compare" class="img-responsive" style="margin:10px;">
+                </div>
+                <!-- //redes Section End -->
+            <!-- //Pare y Compare Section End -->
             <div>
                 <div class="col-md-12 text-center">
                 <div class="separador" style="    border-bottom: 2px solid #ffffff;margin-bottom: 10px; width:20%"></div>
-                <a href="#" class="menu-item">Términos y Condiciones</a> | <a href="#" class="menu-item">Políticas de Privacidad</a>
+                <a href="{{ secure_url('paginas/terminos-condiciones')}}" class="menu-item" target="_blank" alt="Términos y Condiciones de Acceso a Alpina Go" title="Términos y Condiciones de Acceso a Alpina Go">Términos y Condiciones de Acceso a Alpina Go</a> | <a href="{{ secure_asset('uploads/files/política_de_tratamiento_de_la_informacion.PDF') }}" class="menu-item" target="_blank" title="Políticas de Tratamiento de la Información" alt="Políticas de Tratamiento de la Información">Políticas de Tratamiento de la Información</a>
                 </div>
             </div>
             </div>
