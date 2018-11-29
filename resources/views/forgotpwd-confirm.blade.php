@@ -24,13 +24,17 @@
             <div id="notific">
             @include('notifications')
             </div>
-            <form action="{{ secure_url('forgot-password-confirm',compact(['userId','passwordResetCode'])) }}" class="omb_loginForm pwd_validation"  autocomplete="off" method="POST">
+            <form action="{{ secure_url('forgot-password',compact(['userId','passwordResetCode'])) }}" class="omb_loginForm pwd_validation"  autocomplete="off" method="POST">
                 {!! Form::token() !!}
+
                 <label class="sr-only"> Nueva Contraseña</label>
+
                 <input type="password" class="form-control" name="password" placeholder="Nueva Contraseña">
                 <span class="help-block">{{ $errors->first('password', ':message') }}</span>
+
                 <label class="sr-only">Confirme Nueva Contraseña</label>
                 <input type="password" class="form-control mt-15" name="password_confirm" placeholder="Confirme Nueva Contraseña">
+                
                 <span class="help-block">{{ $errors->first('password_confirm', ':message') }}</span>
                 <input type="submit" class="btn btn-block btn-primary" value="Reestablecer Contraseña" style="margin-top:10px;">
             </form>
