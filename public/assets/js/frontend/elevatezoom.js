@@ -73,7 +73,7 @@ if ( typeof Object.create !== 'function' ) {
 						$(this).addClass(self.options.galleryActiveClass);
 					}
 					//stop any link on the a tag from working
-					e.preventDefault();
+					//e.preventDefault();
 
 					//call the swap image function            
 					if($(this).data("zoom-image")){self.zoomImagePre = $(this).data("zoom-image")}
@@ -335,7 +335,7 @@ if ( typeof Object.create !== 'function' ) {
 				/*-------------------END THE ZOOM WINDOW AND LENS----------------------------------*/
 				//touch events
 				self.$elem.bind('touchmove', function(e){    
-					e.preventDefault();
+					//e.preventDefault();
 					var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];  
 					self.setPosition(touch);
 
@@ -345,7 +345,7 @@ if ( typeof Object.create !== 'function' ) {
 						self.showHideWindow("show");
 
 					}
-					e.preventDefault();
+					//e.preventDefault();
 					var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];  
 					self.setPosition(touch); 
 
@@ -364,7 +364,7 @@ if ( typeof Object.create !== 'function' ) {
 				if(self.options.showLens) {
 					self.zoomLens.bind('touchmove', function(e){ 
 
-						e.preventDefault();
+						//e.preventDefault();
 						var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];  
 						self.setPosition(touch); 
 					});    
@@ -511,7 +511,7 @@ if ( typeof Object.create !== 'function' ) {
 
 						e.stopImmediatePropagation();
 						e.stopPropagation();
-						e.preventDefault();
+						//e.preventDefault();
 
 
 						if(theEvent /120 > 0) {
