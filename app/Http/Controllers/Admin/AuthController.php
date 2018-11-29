@@ -206,14 +206,20 @@ class AuthController extends JoshController
             $reminder = Reminder::exists($user) ?: Reminder::create($user);
             // Data to be used on the email view
 
-            $data->user_name = $user->first_name .' ' .$user->last_name;
+           // $data->user_name = $user->first_name .' ' .$user->last_name;
 
-            $data->forgotPasswordUrl = secure_url::route('forgot-password-confirm', [$user->id, $reminder->code]);
+           // $data->forgotPasswordUrl = secure_url::route('forgot-password-confirm', [$user->id, $reminder->code]);
+
+
+            $data=[
+                'user_name' => $user->first_name .' '. $user->last_name,
+                'forgotPasswordUrl' => URL::route('forgot-password-confirm', [$user->id, $reminder->code])
+            ];
 
             // Send the activation code through email
 
             Mail::to($user->email)
-                ->send(new ForgotPassword($data));
+                ->send(new RecuperarClave($data));
 
 
 
@@ -268,7 +274,7 @@ class AuthController extends JoshController
 
         // Find the user using the password reset code
         $user = Sentinel::findById($userId);
-        
+
         if (!$reminder = Reminder::complete($user, $passwordResetCode, $request->get('password'))) {
             // Ooops.. something went wrong
             return Redirect::route('signin')->with('error', trans('auth/message.forgot-password-confirm.error'));
