@@ -215,6 +215,8 @@ class AuthController extends JoshController
             Mail::to($user->email)
                 ->send(new ForgotPassword($data));
 
+
+
         } catch (UserNotFoundException $e) {
             // Even though the email was not found, we will pretend
             // we have sent the password reset code through email,
@@ -241,7 +243,7 @@ class AuthController extends JoshController
         }
         if($reminder = Reminder::exists($user)) {
             if($passwordResetCode == $reminder->code) {
-                return view('admin.auth.forgot-password-confirm');
+                return view('admin.auth.forgot-password-confirm', compact(['userId', 'passwordResetCode']));
             } else{
                 return 'code does not match';
             }
@@ -261,11 +263,12 @@ class AuthController extends JoshController
      * @param  string   $passwordResetCode
      * @return Redirect
      */
-    public function postForgotPasswordConfirm(ConfirmPasswordRequest $request, $userId, $passwordResetCode = null)
+    public function postForgotPasswordConfirm(Request $request, $userId, $passwordResetCode = null)
     {
 
         // Find the user using the password reset code
         $user = Sentinel::findById($userId);
+        
         if (!$reminder = Reminder::complete($user, $passwordResetCode, $request->get('password'))) {
             // Ooops.. something went wrong
             return Redirect::route('signin')->with('error', trans('auth/message.forgot-password-confirm.error'));

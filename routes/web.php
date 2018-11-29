@@ -53,7 +53,8 @@ Route::group(['prefix' => 'admin', 'namespace'=>'Admin'], function () {
 
     # Forgot Password Confirmation
     Route::get('forgot-password/{userId}/{passwordResetCode}', 'AuthController@getForgotPasswordConfirm')->name('forgot-password-confirm');
-    Route::post('forgot-password/{userId}/{passwordResetCode}', 'AuthController@getForgotPasswordConfirm');
+    
+    Route::post('forgot-password/{userId}/{passwordResetCode}', 'AuthController@postForgotPasswordConfirm');
 
     # Logout
     Route::get('logout', 'AuthController@getLogout')->name('logout');

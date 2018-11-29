@@ -21,7 +21,7 @@
                         <h3 class="panel-title text-center">Forgot Password</h3>
                     </div>
                     <div class="panel-body">
-                        <form method="post" action="" class="form-horizontal">
+                        <form method="post" action="{{ secure_url('admin/forgot-password',compact(['userId','passwordResetCode'])) }}" class="form-horizontal">
                             <!-- CSRF Token -->
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
