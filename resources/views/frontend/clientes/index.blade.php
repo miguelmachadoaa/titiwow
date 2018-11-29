@@ -170,14 +170,14 @@ Area clientes
                 @endif
 
                 @if (Sentinel::getUser()->hasAnyAccess(['clientes.misamigos']))
-                <div class="col-sm-2 text-center"> 
+                <!--div class="col-sm-2 text-center"> 
                 <a  href="{{ secure_url('miestatus') }}" class=" btn-medium cajita">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-users"></i></div>
                     <div class="col-sm-12">Mi Estatus </div>
                     </div>
                 </a>
-                </div> 
+                </div--> 
                 </div> 
             <div class="row">
                 @endif

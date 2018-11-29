@@ -50,8 +50,8 @@
         @include('layouts.sidebar')
         </div>
         <div class="col-md-9">
-            <div>
-                <h3>{{$cms->titulo_pagina}}</h3>
+            <div style="padding:10px 30px; 20px 30px">
+                <h3 class="text-center">{{$cms->titulo_pagina}}</h3>
 
                 @php
                 $string = $cms->texto_pagina;

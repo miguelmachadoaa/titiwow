@@ -5,6 +5,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ secure_asset('assets/img/favicon/apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ secure_asset('assets/img/favicon/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ secure_asset('assets/img/favicon/favicon-16x16.png')}}">
+    <link rel="manifest" href="{{ secure_asset('assets/img/favicon/site.webmanifest')}}">
+    <link rel="mask-icon" href="{{ secure_asset('assets/img/favicon/safari-pinned-tab.svg')}}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -169,9 +178,28 @@
                         @endif
                         @include('layouts.menu-item', ['item' => $item])
                     @endforeach
+                        <!--li >       
+                            <label class=""><a id="ubicacion_header2"  ></a></label>
+                        </li-->
+                    <hr />
+                    {{--based on anyone login or not display menu items--}}
+                        @if(Sentinel::guest())
+                        <li class="hidden-lg">
+                            <a href="{{secure_url('login')}}" >Iniciar Sesión</a>   
+                        </li> 
+                        <li class="hidden-lg">
+                            <a href="{{secure_url('registro')}}" >Registrarse</a>   
+                        </li>
+                    @else
+                        <li class="hidden-lg" {{ (Request::is('clientes') ? 'class=active' : '') }} >                         
+                                <a  href="{{secure_url('clientes')}}">
+                                    Hola: {{ Sentinel::getUser()->first_name }} {{ Sentinel::getUser()->last_name }}</a>
+                        </li>
+                        <li class="hidden-lg">
+                           <a href="{{ secure_url('logout') }}">Cerrar Sesión</a>
+                        </li>
+                    @endif
                 </ul>
-
-                
             </div>
         </nav>
 

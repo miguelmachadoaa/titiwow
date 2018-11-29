@@ -8,12 +8,11 @@
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link href="{{ secure_asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet" />
     <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ secure_asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
     <link href="{{ secure_asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
-
+    <meta charset="utf-8">
     <!--end of page level css-->
 @stop
 
@@ -48,7 +47,7 @@
                             <span class="help-block">{{ $errors->first('titulo_pagina', ':message') }}</span>
                         </div>
                         <div class="box-body pad form-group {{ $errors->first('texto_pagina', 'has-error') }}">
-                            {!! Form::textarea('texto_pagina', NULL, array('placeholder'=>trans('blog/form.ph-content'),'rows'=>'5','class'=>'textarea form-control','style'=>'style="width: 100%; height: 200px !important; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"')) !!}
+                            <textarea class="textarea form-control" name="texto_pagina" id="texto_pagina" placeholder="Texto de la Página de Contenido" rows="5" cols="10">{!! old('texto_pagina', $cms->texto_pagina) !!}</textarea>
                             <span class="help-block">{{ $errors->first('texto_pagina', ':message') }}</span>
                         </div>
                         <div class="form-group {{ $errors->first('seo_titulo', 'has-error') }}">
@@ -78,7 +77,9 @@
 @stop
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ secure_asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
+    <script  src="{{ secure_asset('assets/vendors/ckeditor/js/ckeditor.js') }}"  type="text/javascript"></script>
+    <script  src="{{ secure_asset('assets/vendors/ckeditor/js/jquery.js') }}"  type="text/javascript" ></script>
+    <script  src="{{ secure_asset('assets/vendors/ckeditor/js/config.js') }}"  type="text/javascript"></script>
     <script src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
     <script src="{{ secure_asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
     <script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
