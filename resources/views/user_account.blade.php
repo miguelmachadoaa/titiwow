@@ -59,7 +59,7 @@
                         {!! Form::model($user, ['url' => secure_url('my-account'), 'method' => 'put', 'class' => 'form-horizontal','enctype'=>"multipart/form-data"]) !!}
 
                         {{ csrf_field() }}
-                            <div class="form-group {{ $errors->first('pic', 'has-error') }}">
+                            <!--div class="form-group {{ $errors->first('pic', 'has-error') }}">
                                 <label class="col-md-2 control-label">Imagen:</label>
                                 <div class="col-md-10">
                                     <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -95,7 +95,7 @@
                                     </div>
                                     <span class="help-block">{{ $errors->first('pic', ':message') }}</span>
                                 </div>
-                            </div>
+                            </div-->
                             <div class="form-group {{ $errors->first('first_name', 'has-error') }}">
                                 <label class="col-lg-2 control-label">
                                     Nombre:
@@ -202,82 +202,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--div class="form-group  {{ $errors->first('bio', 'has-error') }}">
-                                <label for="" class="col-lg-2 control-label">Biografia <small>(Pequeña Introduccion):</small></label>
-                                <div class="col-lg-6">
-                                            <textarea name="bio" id="bio" class="form-control resize_vertical"
-                                                      rows="4">{!! old('bio', $user->bio) !!}</textarea>
-                                </div>
-                                {!! $errors->first('bio', '<span class="help-block">:message</span>') !!}
-                            </div-->
-
-                            <!--div>
-                                <h3 class="text-primary" id="title">Contacto: </h3>
-                            </div>
-
-                            <div class="form-group {{ $errors->first('address', 'has-error') }}">
-                                <label class="col-lg-2 control-label">
-                                    Dirección:
-                                </label>
-                                <div class="col-lg-6">
-                                            <textarea rows="5" cols="30" class="form-control resize_vertical" id="add1"
-                                                      name="address">{!! old('address',$user->address) !!}</textarea>
-                                </div>
-                                <span class="help-block">{{ $errors->first('address', ':message') }}</span>
-                            </div>
-
-                            <div class="form-group {{ $errors->first('country', 'has-error') }}">
-                                <label class="control-label  col-lg-2">Seleccione País: </label>
-                                <div class="col-lg-6">
-                                    {!! Form::select('country', $countries, $user->country,['class' => 'form-control select2', 'id' => 'countries']) !!}
-                                    <span class="help-block">{{ $errors->first('country', ':message') }}</span>
-                                </div>
-                            </div>
-
-                        <div class="form-group {{ $errors->first('state', 'has-error') }}">
-                            <label class="col-lg-2 control-label" for="state">Departamento:</label>
-                                <div class="col-lg-6">
-                                    <div class="input-group">
-                                                        <span class="input-group-addon">
-                        <i class="livicon" data-name="plus-alt" data-size="16" data-loop="true" data-c="#418bca" data-hc="#418bca"></i>
-                                                        </span>
-                                        <input type="text" placeholder=" " id="state" class="form-control"
-                                               name="state"
-                                               value="{!! ($user->state) !!}"/>
-                                    </div>
-                                </div>
-                            <span class="help-block">{{ $errors->first('state', ':message') }}</span>
-
-                            </div>
-
-                            <div class="form-group {{ $errors->first('city', 'has-error') }}">
-                                <label class="col-lg-2 control-label" for="city">Ciudad:</label>
-                                <div class="col-lg-6">
-                                    <div class="input-group">
-                                                        <span class="input-group-addon">
-                        <i class="livicon" data-name="plus-alt" data-size="16" data-loop="true" data-c="#418bca" data-hc="#418bca"></i>
-                                                        </span>
-                                        <input type="text" placeholder=" " id="city" class="form-control" name="city"
-                                               value="{!! old('city',$user->city) !!}"/>
-                                    </div>
-                                </div>
-                                <span class="help-block">{{ $errors->first('city', ':message') }}</span>
-                            </div-->
-
-                            <!--div class="form-group {{ $errors->first('postal', 'has-error') }}">
-                                <label class="col-lg-2 control-label" for="postal">Código Postal:</label>
-                                <div class="col-lg-6">
-                                    <div class="input-group">
-                                                        <span class="input-group-addon">
-                        <i class="livicon" data-name="plus-alt" data-size="16" data-loop="true" data-c="#418bca" data-hc="#418bca"></i>
-                                                        </span>
-                                        <input type="text" placeholder=" " id="postal" class="form-control"
-                                               name="postal" value="{!! old('postal',$user->postal) !!}"/>
-                                    </div>
-                                    <span class="help-block">{{ $errors->first('postal', ':message') }}</span>
-                                </div>
-                            </div-->
-
                             <div class="form-group {{ $errors->first('dob', 'has-error') }}">
                                 <label class="col-lg-2 control-label">
                                     Fecha de Nacimiento:
@@ -301,8 +225,8 @@
 
                             <div class="form-group">
                                 <div class="col-lg-offset-2 col-lg-10">
-                                    <button class="btn btn-primary" type="submit">Guardar</button>
                                     <a class="btn btn-danger" type="button" href="{{ secure_url('clientes') }}">Regresar</a>
+                                    <button class="btn btn-primary" type="submit">Guardar</button>
                                 </div>
                             </div>
 

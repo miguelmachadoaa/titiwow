@@ -169,9 +169,28 @@
                         @endif
                         @include('layouts.menu-item', ['item' => $item])
                     @endforeach
+                        <!--li >       
+                            <label class=""><a id="ubicacion_header2"  ></a></label>
+                        </li-->
+                    <hr />
+                    {{--based on anyone login or not display menu items--}}
+                        @if(Sentinel::guest())
+                        <li class="hidden-lg">
+                            <a href="{{secure_url('login')}}" >Iniciar Sesión</a>   
+                        </li> 
+                        <li class="hidden-lg">
+                            <a href="{{secure_url('registro')}}" >Registrarse</a>   
+                        </li>
+                    @else
+                        <li class="hidden-lg" {{ (Request::is('clientes') ? 'class=active' : '') }} >                         
+                                <a  href="{{secure_url('clientes')}}">
+                                    Hola: {{ Sentinel::getUser()->first_name }} {{ Sentinel::getUser()->last_name }}</a>
+                        </li>
+                        <li class="hidden-lg">
+                           <a href="{{ secure_url('logout') }}">Cerrar Sesión</a>
+                        </li>
+                    @endif
                 </ul>
-
-                
             </div>
         </nav>
 
