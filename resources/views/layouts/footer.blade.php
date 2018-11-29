@@ -8,7 +8,7 @@
                     <p>
                         <ul id="menu-categorias" class="menu_footer">
                             <li class="menu-item"><a href="{{ secure_url('categoria/leche') }}">Leche</a></li>
-                            <li class="menu-item"><a href="{{ secure_url('categoria/lacteos') }}">Lácteos</a></li>
+                            <li class="menu-item"><a href="{{ secure_url('categoria/lacteos') }}">Derivados Lácteos</a></li>
                             <li class="menu-item"><a href="{{ secure_url('categoria/quesos') }}">Quesos</a></li>
                             <li class="menu-item"><a href="{{ secure_url('categoria/postres-dulces') }}">Postres y Dulces</a></li>
                             <li class="menu-item"><a href="{{ secure_url('categoria/esparcibles-ingredientes') }}">Esparcibles e Ingredientes</a></li>

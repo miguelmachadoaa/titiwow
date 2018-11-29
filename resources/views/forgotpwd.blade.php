@@ -8,8 +8,13 @@
     <!--global css starts-->
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/bootstrap.min.css') }}">
     <link href="{{ secure_asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
-    <link rel="shortcut icon" href="{{ secure_asset('assets/images/favicon.png') }}" type="image/x-icon">
-    <link rel="icon" href="{{ secure_asset('assets/images/favicon.png') }}" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ secure_asset('assets/img/favicon/apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ secure_asset('assets/img/favicon/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ secure_asset('assets/img/favicon/favicon-16x16.png')}}">
+    <link rel="manifest" href="{{ secure_asset('assets/img/favicon/site.webmanifest')}}">
+    <link rel="mask-icon" href="{{ secure_asset('assets/img/favicon/safari-pinned-tab.svg')}}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
     <!--end of global css-->
     <!--page level css starts-->
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/forgot.css') }}">
@@ -43,7 +48,7 @@
                 </div>
             </form>
 
-            ¿Quiere regresar al Login?<a href="{{ route('login') }}"> Click Aquí</a>
+            ¿Quiere regresar al Login?<a href="{{ sucure_url('login') }}"> Click Aquí</a>
         </div>
     </div>
 </div>

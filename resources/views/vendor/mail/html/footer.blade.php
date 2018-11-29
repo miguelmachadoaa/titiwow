@@ -15,12 +15,12 @@
 
 
 
-<tr style="background: #0199dc;">
+<tr style="background: #003596;">
     <td>
-        <table style="background: #0199dc; border-bottom:  1px solid #fff;" width="90%" class="" align="center" width=""  cellpadding="0" cellspacing="0">
+        <table style="background: #003596; border-bottom:  1px solid #fff;" width="90%" class="" align="center" width=""  cellpadding="0" cellspacing="0">
             <tr>
                 <td class="" align="center">
-                    <table style="background:#0199dc; border-bottom:  1px solid #fff;" class="footer" align="center" width="570" cellpadding="0" cellspacing="0">
+                    <table style="background:#003596;" class="footer" align="center" width="570" cellpadding="0" cellspacing="0">
 			            <tr>
 			                <td class="content-cell" align="left" style="color: #123275; font-style: 0.5em;">
 			                    <p style="text-align: center;"><img src="{{ secure_url('assets/images/logo_go.png') }}"></p>
@@ -41,9 +41,9 @@
     </td>
 </tr>
 
-<tr style="background: #0199dc;">
+<tr style="background: #003596;">
     <td>
-        <table style="background: #0199dc; 		" width="90%" class="" align="center" width=""  cellpadding="0" cellspacing="0">
+        <table style="background: #003596; 		" width="90%" class="" align="center" width=""  cellpadding="0" cellspacing="0">
             <tr>
                 <td class="" align="center">
                     <br>	

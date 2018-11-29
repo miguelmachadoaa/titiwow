@@ -1,6 +1,6 @@
 <tr  >
     <td class="header" style="margin-bottom: 0 !important; " width="570">
-    	<p style="text-align: center;"><img src="{{ secure_url('assets/images/logo_go.png') }}"></p>
+    	<span style="text-align: center;"><img src="{{ secure_url('assets/images/logo_go.png') }}"></p>
 
         <!--<a href="{{ $url }}">
             {{ $slot }} 

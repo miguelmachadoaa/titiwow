@@ -97,8 +97,11 @@ img {
 /* Header */
 
 .header {
-    background: #0199dc;
-    padding: 25px 0;
+    background-image: url('assets/images/emails/headeremail.jpg');
+    background-color: #001e8a;
+    background-repeat:no-repeat;
+    background-position: center center;
+    padding: 15px 0;
     text-align: center;
 }
 
