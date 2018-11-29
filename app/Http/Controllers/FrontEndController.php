@@ -545,19 +545,27 @@ class FrontEndController extends JoshController
     public function postForgotPassword(Request $request)
     {
 
+       // dd($request);
+
         try {
             // Get the user password recovery code
             $user = Sentinel::findByCredentials(['email' => $request->email]);
+
             if (!$user) {
+
                 return Redirect::route('forgot-password')->with('error', trans('auth/message.account_email_not_found'));
+
             }
 
             $activation = Activation::completed($user);
+
             if (!$activation) {
+
                 return Redirect::route('forgot-password')->with('error', trans('auth/message.account_not_activated'));
             }
 
             $reminder = Reminder::exists($user) ?: Reminder::create($user);
+
             // Data to be used on the email view
 
             $data=[
@@ -566,7 +574,9 @@ class FrontEndController extends JoshController
             ];
             // Send the activation code through email
             Mail::to($user->email)
-                ->send(new ForgotPassword($data));
+                ->send(new RecuperarClave($data));
+
+
 
         } catch (UserNotFoundException $e) {
             // Even though the email was not found, we will pretend

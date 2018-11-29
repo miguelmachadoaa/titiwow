@@ -194,15 +194,21 @@ class AuthController extends JoshController
             if (!$user) {
                 return back()->with('error', trans('auth/message.account_email_not_found'));
             }
+
             $activation = Activation::completed($user);
+
             if(!$activation){
+
                 return back()->with('error', trans('auth/message.account_not_activated'));
+
             }
+
             $reminder = Reminder::exists($user) ?: Reminder::create($user);
             // Data to be used on the email view
 
             $data->user_name = $user->first_name .' ' .$user->last_name;
-            $data->forgotPasswordUrl = URL::route('forgot-password-confirm', [$user->id, $reminder->code]);
+
+            $data->forgotPasswordUrl = secure_url::route('forgot-password-confirm', [$user->id, $reminder->code]);
 
             // Send the activation code through email
 

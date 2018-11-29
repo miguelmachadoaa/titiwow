@@ -25,16 +25,21 @@
             <div id="notific">
             @include('notifications')
             </div>
-            <form action="{{ secure_url('forgot-password') }}" class="omb_loginForm" autocomplete="off" method="POST">
+            <form action="{{ secure_url('olvido-clave') }}" class="omb_loginForm" autocomplete="off" method="POST">
                 {!! Form::token() !!}
                 <div class="form-group">
                     <label class="sr-only"></label>
                     <input type="email" class="form-control email" name="email" placeholder="Email"
                            value="{!! old('email') !!}">
+
                     <span class="help-block">{{ $errors->first('email', ':message') }}</span>
+
                 </div>
+
                 <div class="form-group">
+
                     <input class="form-control btn btn-primary btn-block" type="submit" value="Restablecer Contraseña">
+                    
                 </div>
             </form>
 
