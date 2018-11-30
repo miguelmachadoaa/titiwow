@@ -490,16 +490,38 @@ echo '<br>fin: '.$date_fin;*/
 
         $orden->update($data_update_orden);
 
-        $orden = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre')
+        $orden = AlpOrdenes::select(
+          'alp_ordenes.*', 'users.first_name as first_name', 
+          'users.last_name as last_name', 
+          'users.email as email', 
+          'alp_clientes.doc_cliente as doc_cliente', 
+          'alp_clientes.cod_oracle_cliente as cod_oracle_cliente', 
+          'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 
+          'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 
+          'alp_ordenes_estatus.estatus_nombre as estatus_nombre',
+          'alp_envios.fecha_envio as fecha_envio',
+          'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre'
+        )
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_clientes', 'alp_ordenes.id_cliente', '=', 'alp_clientes.id_user_client')
           ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
           ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
           ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
+          ->join('alp_envios', 'alp_ordenes.id', '=', 'alp_envios.id_orden')
           ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
           ->where('alp_ordenes.id', $input['id'])
           ->first();
 
-        $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.imagen_producto as imagen_producto' ,'alp_productos.slug as slug')
+          ///dd($orden);
+
+        $detalles =  DB::table('alp_ordenes_detalle')->select(
+          'alp_ordenes_detalle.*',
+          'alp_productos.referencia_producto as referencia_producto',
+          'alp_productos.nombre_producto as nombre_producto',
+          'alp_productos.referencia_producto as referencia_producto' ,
+          'alp_productos.imagen_producto as imagen_producto' ,
+          'alp_productos.slug as slug'
+        )
           ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
           ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
 
@@ -520,6 +542,9 @@ echo '<br>fin: '.$date_fin;*/
 
           
           Mail::to($orden->email)->send(new \App\Mail\CompraAprobada($orden, $detalles, $envio->fecha_envio));
+
+
+          Mail::to($configuracion->correo_cedi)->send(new \App\Mail\CompraSac($orden, $detalles, $envio->fecha_envio));
 
 
          // Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionOrden($orden->id, $texto));

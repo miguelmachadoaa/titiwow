@@ -8,34 +8,83 @@ use App\Models\AlpDetalles;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\FromView;
+use Illuminate\Contracts\View\View;
 
-use Carbon\Carbon;
+use \DB;
 
 
-
-class ProductosExport implements FromQuery
+class ProductosExport implements FromView
 {
-    use Exportable;
-
-    public function __construct(string $desde, string $hasta, int $producto)
+    
+    public function __construct(string $desde, string $hasta)
     {
         $this->desde = $desde;
         $this->hasta = $hasta;
-        $this->producto = $producto;
     }
 
 
 
-    public function query()
+    public function view(): View
     {
-         /*AlpOrdenes::query()->whereDate('created_at', '>', $this->desde)->whereDate('created_at', '<', $this->hasta)->where('id_cliente','=', $this->user);*/
+         $productos= AlpDetalles::select(
+          'alp_ordenes_detalle.*', 
+           DB::raw('DATE_FORMAT(alp_ordenes_detalle.created_at, "%d/%m/%Y")  as fecha'),
+           DB::raw('sum(alp_ordenes_detalle.cantidad)  as total_cantidad'),
+          'alp_productos.nombre_producto as nombre_producto',
+          'alp_productos.referencia_producto as referencia_producto',
+          'alp_categorias.nombre_categoria as nombre_categoria',
+          'alp_marcas.nombre_marca as nombre_marca'
+          )
+          ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
+          ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
+          ->join('alp_marcas', 'alp_productos.id_marca', '=', 'alp_marcas.id')
+          ->groupBy('alp_ordenes_detalle.id_producto')
+          ->whereDate('alp_ordenes_detalle.created_at', '>=', $this->desde)
+          ->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta)
+          ->get();
 
-        return AlpDetalles::query()
-          ->whereDate('created_at', '>=', $this->desde)
-          ->whereDate('created_at', '<=', $this->hasta)
-          ->where('id_producto','=', $this->producto);
-          
+
+          $pro = array();
+
+          foreach ($productos as $producto) {
+
+            $p= AlpDetalles::select(
+           DB::raw('count(alp_ordenes_detalle.id_orden)  as num_pedidos')
+          )
+          ->groupBy('alp_ordenes_detalle.id_orden')
+          ->where('alp_ordenes_detalle.id_producto', '=', $producto->id_producto)
+          ->whereDate('alp_ordenes_detalle.created_at', '>=', $this->desde)
+          ->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta)
+          ->first();
+
+          //dd($p);
+
+          if (isset($p->num_pedidos)) {
+
+            $producto->num_pedidos=$p->num_pedidos;
+            
+          }else{
+
+            $producto->num_pedidos=0;
+
+
+          }
+
+          $pro[]=$producto;
+
+
+            
+          }
+
+          //dd($ordenes);
+
+        return view('admin.exports.productos', [
+            'productos' => $pro
+        ]);
     }
-
-    
 }
+
+
+
+

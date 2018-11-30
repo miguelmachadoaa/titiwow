@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\FinancieroExport;
 use App\Exports\UsersExport;
 use App\Exports\VentasExport;
 use App\Exports\ProductosExport;
@@ -52,7 +53,7 @@ class AlpReportesController extends Controller
 
        // dd($request->all());
 
-        return Excel::download(new ProductosExport($request->desde, $request->hasta, $request->producto), 'ventas_desde_'.$request->desde.'_hasta_'.$request->hasta.'_producto_'.$request->producto.'.xlsx');
+        return Excel::download(new ProductosExport($request->desde, $request->hasta), 'ventas_desde_'.$request->desde.'_hasta_'.$request->hasta.'_producto_'.$request->producto.'.xlsx');
     }
 
     public function carrito() 
@@ -93,4 +94,25 @@ class AlpReportesController extends Controller
     {
         return Excel::import(new UsersImport, 'users.xlsx');
     }
+
+
+
+    public function financiero() 
+    {
+
+        
+
+        return view('admin.reportes.financiero');
+
+    }
+
+
+    public function exportfinanciero(Request $request) 
+    {
+
+       // dd($request->all());
+
+        return Excel::download(new FinancieroExport($request->desde, $request->hasta), 'financiero_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+    }
+
 }
