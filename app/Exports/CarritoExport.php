@@ -9,15 +9,15 @@ use App\Models\AlpCarritoDetalle;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\FromView;
+use Illuminate\Contracts\View\View;
 
-use Carbon\Carbon;
+use \DB;
 
 
-
-class CarritoExport implements FromQuery
+class CarritoExport implements FromView
 {
-    use Exportable;
-
+    
     public function __construct(string $desde, string $hasta)
     {
         $this->desde = $desde;
@@ -26,17 +26,23 @@ class CarritoExport implements FromQuery
 
 
 
-    public function query()
+    public function view(): View
     {
-         /*AlpOrdenes::query()->whereDate('created_at', '>', $this->desde)->whereDate('created_at', '<', $this->hasta)->where('id_cliente','=', $this->user);*/
-
-         return AlpCarritoDetalle::query()->select('alp_carrito_detalle.id as id', 'alp_productos.nombre_producto as nombre_producto', 'alp_carrito_detalle.cantidad as cantidad')
+        $carrito= AlpCarritoDetalle::select(
+          'alp_carrito_detalle.id as id', 
+          'alp_carrito_detalle.id_producto as id_producto', 
+          'alp_productos.nombre_producto as nombre_producto',
+           DB::raw('DATE_FORMAT(alp_carrito_detalle.created_at, "%d/%m/%Y")  as fecha'),
+          'alp_carrito_detalle.cantidad as cantidad')
           ->join('alp_productos', 'alp_carrito_detalle.id_producto', '=', 'alp_productos.id')
           
           ->whereDate('alp_carrito_detalle.created_at', '>=', $this->desde)
-          ->whereDate('alp_carrito_detalle.created_at', '<=', $this->hasta);
-          
-    }
+          ->whereDate('alp_carrito_detalle.created_at', '<=', $this->hasta)->get();
 
-    
+          //dd($ordenes);
+
+        return view('admin.exports.carrito', [
+            'carrito' => $carrito
+        ]);
+    }
 }

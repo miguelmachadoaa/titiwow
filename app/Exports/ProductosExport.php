@@ -8,15 +8,15 @@ use App\Models\AlpDetalles;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\FromView;
+use Illuminate\Contracts\View\View;
 
-use Carbon\Carbon;
+use \DB;
 
 
-
-class ProductosExport implements FromQuery
+class ProductosExport implements FromView
 {
-    use Exportable;
-
+    
     public function __construct(string $desde, string $hasta, int $producto)
     {
         $this->desde = $desde;
@@ -26,16 +26,26 @@ class ProductosExport implements FromQuery
 
 
 
-    public function query()
+    public function view(): View
     {
-         /*AlpOrdenes::query()->whereDate('created_at', '>', $this->desde)->whereDate('created_at', '<', $this->hasta)->where('id_cliente','=', $this->user);*/
+         $productos= AlpDetalles::select(
+          'alp_ordenes_detalle.*', 
+           DB::raw('DATE_FORMAT(alp_ordenes_detalle.created_at, "%d/%m/%Y")  as fecha'),
+          'alp_productos.nombre_producto as nombre_producto'
+          )
+          ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
+          ->whereDate('alp_ordenes_detalle.created_at', '>=', $this->desde)
+          ->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta)
+          ->where('id_producto','=', $this->producto)->get();
 
-        return AlpDetalles::query()
-          ->whereDate('created_at', '>=', $this->desde)
-          ->whereDate('created_at', '<=', $this->hasta)
-          ->where('id_producto','=', $this->producto);
-          
+          //dd($ordenes);
+
+        return view('admin.exports.productos', [
+            'productos' => $productos
+        ]);
     }
-
-    
 }
+
+
+
+
