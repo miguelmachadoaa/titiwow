@@ -302,11 +302,11 @@ class AuthController extends JoshController
             // Log the user out
             Sentinel::logout();
             // Redirect to the users page
-            return redirect('admin/signin')->with('success', 'You have successfully logged out!');
+            return redirect('admin/signin')->with('success', 'Cerró Sesión Exitosamente');
         } else {
 
         // Redirect to the users page
-            return redirect('admin/signin')->with('error', 'You must be login!');
+            return redirect('admin/signin')->with('error', 'Debes Iniciar Sesión');
         }
     }
 

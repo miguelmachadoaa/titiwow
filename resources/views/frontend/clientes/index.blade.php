@@ -189,7 +189,7 @@ Area clientes
                     </div>
                 </a>
                 </div> 
-                @if($cliente->cod_alpinista==0)
+                @if(empty($cliente->cod_alpinista))
                     <div class="col-sm-2 text-center"> 
                     <a href="{{ secure_url('#') }}" class=" btn-medium delete cajita">
                         <div class="row">

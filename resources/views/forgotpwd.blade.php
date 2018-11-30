@@ -48,7 +48,7 @@
                 </div>
             </form>
 
-            ¿Quiere regresar al Login?<a href="{{ sucure_url('login') }}"> Click Aquí</a>
+            ¿Quiere regresar al Login?<a href="{{ secure_url('login') }}"> Click Aquí</a>
         </div>
     </div>
 </div>
