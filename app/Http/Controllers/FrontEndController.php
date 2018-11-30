@@ -698,7 +698,7 @@ class FrontEndController extends JoshController
             Sentinel::logout();
 
             // Redirect to the users page
-            return redirect('login')->with('success', 'You have successfully logged out!');
+            return redirect('login')->with('success', 'Cerró Sesión Exitosamente');
         } else {
 
             // Redirect to the users page
