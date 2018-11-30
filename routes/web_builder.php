@@ -641,24 +641,24 @@ Route::post('categorias/destacado', ['as'=> 'categorias.destacado', 'uses' => 'A
 
 
 Route::get('emailU', function(){
-        return new \App\Mail\WelcomeUser('Miguel Machado', '');
+        return new \App\Mail\WelcomeUser('Nombre Cliente', '');
 });
 
 
 Route::get('emailEmbajador', function(){
-        return new \App\Mail\WelcomeEmbajador('Miguel Machado', '');
+        return new \App\Mail\WelcomeEmbajador('Nombre Emabajador', '');
 });
 
 Route::get('aprobado', function(){
-        return new \App\Mail\UserAprobado('Miguel Machado', '');
+        return new \App\Mail\UserAprobado('Nombre Cliente', '');
 });
 
 Route::get('emailAfiliado', function(){
-        return new \App\Mail\NotificacionAfiliado('Miguel', 'Machado', 'sdklfjasfasdfasdklfasf', 'Empresa');
+        return new \App\Mail\NotificacionAfiliado('Nombre', 'Cliente', 'sdklfjasfasdfasdklfasf', 'Empresa');
 });
 
 Route::get('emailAmigo', function(){
-        return new \App\Mail\NotificacionAmigo('Miguel', 'Machado', 'sdklfjasfasdfasdklfasf', 'Embajador Embajador');
+        return new \App\Mail\NotificacionAmigo('Nombre', 'Cliente', 'sdklfjasfasdfasdklfasf', 'Embajador Embajador');
 });
 
 Route::get('notificacion', function(){
@@ -666,7 +666,7 @@ Route::get('notificacion', function(){
 });
 
 Route::get('compra', function(){
-        return new \App\Mail\CompraRealizada('Miguel', 'Machado', array('1'=>array('nombre'=>'producto1','precio'=>120,'cantidad'=>1),'2'=>array('nombre'=>'producto2','precio'=>120,'cantidad'=>2),'3'=>array('nombre'=>'producto3','precio'=>120,'cantidad'=>3)) , '25/12/2018');
+        return new \App\Mail\CompraRealizada('Nombre', 'Cliente', array('1'=>array('nombre'=>'producto1','precio'=>120,'cantidad'=>1),'2'=>array('nombre'=>'producto2','precio'=>120,'cantidad'=>2),'3'=>array('nombre'=>'producto3','precio'=>120,'cantidad'=>3)) , '25/12/2018');
 });
 
 
