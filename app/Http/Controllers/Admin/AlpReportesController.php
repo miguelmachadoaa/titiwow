@@ -14,6 +14,7 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\DB;
 
 class AlpReportesController extends Controller 
 {
