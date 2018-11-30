@@ -237,7 +237,8 @@ class AlpCartController extends JoshController
               ],
               "back_urls" => [
                 "success" => url('/order/success'),
-                "failure" => url('/order/failure')
+                "failure" => url('/order/failure'),
+                "pending" => url('/order/failure')
               ],
               "notification_url" =>url('/order/mercadopago'),
               "external_reference" =>time()
@@ -364,7 +365,8 @@ class AlpCartController extends JoshController
               ],
               "back_urls" => [
                 "success" => url('/order/success'),
-                "failure" => url('/order/failure')
+                "failure" => url('/order/failure'),
+                "pending" => url('/order/failure')
               ],
               "notification_url" =>url('/order/mercadopago'),
               "external_reference" =>time()
@@ -1809,7 +1811,8 @@ Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $det
               ],
               "back_urls" => [
                 "success" => url('/order/success'),
-                "failure" => url('/order/failure')
+                "failure" => url('/order/failure'),
+                "pending" => url('/order/failure')
               ],
               "notification_url" =>url('/order/mercadopago'),
               "external_reference" =>time()
