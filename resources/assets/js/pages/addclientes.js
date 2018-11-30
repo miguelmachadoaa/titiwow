@@ -52,7 +52,7 @@ $("#commentForm").bootstrapValidator({
                 },
                 different: {
                     field: 'first_name,last_name',
-                    message: 'La clave no debe ser igual al nombre'
+                    message: 'La Contraseña no debe ser igual al nombre'
                 }
             }
         },

@@ -96,7 +96,7 @@
                                                 </div>
 
                                                 <div class="form-group {{ $errors->first('password', 'has-error') }}">
-                                                    <p class="text-warning">Si no desea cambiar la clave, no rellene estos campos</p>
+                                                    <p class="text-warning">Si no desea cambiar la Contraseña, no rellene estos campos</p>
                                                     <label for="password" class="col-sm-2 control-label">Password </label>
                                                     <div class="col-sm-10">
                                                         <input id="password" name="password" type="password" placeholder="Password"

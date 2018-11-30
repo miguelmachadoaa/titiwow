@@ -70,7 +70,7 @@
             </div>
             <br>
         <div class="bg-light animation flipInX">
-            <a href="{{ route('forgot-password') }}" id="forgot_pwd_title">Olvidaste tu clave?</a>
+            <a href="{{ route('forgot-password') }}" id="forgot_pwd_title">Olvidaste tu Contraseña?</a>
         </div>
         </div>
     </div>

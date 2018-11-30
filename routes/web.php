@@ -245,7 +245,7 @@ Route::post('registerembajador','FrontEndController@postRegisterEmbajador')->nam
 
 Route::get('activate/{userId}/{activationCode}','FrontEndController@getActivate')->name('activate');
 Route::get('olvido-clave','FrontEndController@getForgotPassword')->name('olvido-clave');
-Route::post('olvido-clave', 'FrontEndController@postForgotPassword');
+Route::post('olvido-clave', 'FrontEndController@postForgotPassword')->name('olvido-clave');
 
 #Social Logins
 Route::get('facebook', 'Admin\FacebookAuthController@redirectToProvider');
@@ -262,8 +262,8 @@ Route::get('google/callback', 'Admin\GoogleAuthController@handleProviderCallback
 
 
 # Forgot Password Confirmation
-Route::post('forgot-password/{userId}/{passwordResetCode}', 'FrontEndController@postForgotPasswordConfirm');
-Route::get('forgot-password/{userId}/{passwordResetCode}', 'FrontEndController@getForgotPasswordConfirm')->name('forgot-password-confirm');
+Route::post('olvido-clave/{userId}/{passwordResetCode}', 'FrontEndController@postForgotPasswordConfirm');
+Route::get('olvido-clave/{userId}/{passwordResetCode}', 'FrontEndController@getForgotPasswordConfirm')->name('olvido-clave-confirm');
 # My account display and update details
 //Route::group(['middleware' => 'user'], function () {
     Route::put('my-account', 'FrontEndController@update');

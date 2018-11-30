@@ -553,7 +553,7 @@ class FrontEndController extends JoshController
 
             if (!$user) {
 
-                return Redirect::route('forgot-password')->with('error', trans('auth/message.account_email_not_found'));
+                return Redirect::route('olvido-clave')->with('error', trans('auth/message.account_email_not_found'));
 
             }
 
@@ -561,7 +561,7 @@ class FrontEndController extends JoshController
 
             if (!$activation) {
 
-                return Redirect::route('forgot-password')->with('error', trans('auth/message.account_not_activated'));
+                return Redirect::route('olvido-clave')->with('error', trans('auth/message.account_not_activated'));
             }
 
             $reminder = Reminder::exists($user) ?: Reminder::create($user);
@@ -570,11 +570,13 @@ class FrontEndController extends JoshController
 
             $data=[
                 'user_name' => $user->first_name .' '. $user->last_name,
-                'forgotPasswordUrl' => URL::route('forgot-password-confirm', [$user->id, $reminder->code])
+                'forgotPasswordUrl' => URL::route('olvido-clave-confirm', [$user->id, $reminder->code])
             ];
             // Send the activation code through email
             Mail::to($user->email)
                 ->send(new \App\Mail\RecuperarClave($data));
+
+
 
 
 
@@ -696,11 +698,11 @@ class FrontEndController extends JoshController
             Sentinel::logout();
 
             // Redirect to the users page
-            return redirect('login')->with('success', 'You have successfully logged out!');
+            return redirect('login')->with('success', 'Cerró Sesión Exitosamente');
         } else {
 
             // Redirect to the users page
-            return redirect('admin/signin')->with('error', 'You must be login!');
+            return redirect('admin/signin')->with('error', 'Debes Iniciar Sesión');
         }
 
     }
