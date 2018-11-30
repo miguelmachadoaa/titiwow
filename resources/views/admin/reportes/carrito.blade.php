@@ -70,7 +70,7 @@ Reporte de Carritos Abandonados
                                         <i class="livicon" data-name="calendar" data-size="16" data-c="#555555"
                                            data-hc="#555555" data-loop="true"></i>
                                     </div>
-                                    <input class="form-control" id="desde" name="desde" placeholder="Desde">
+                                    <input required class="form-control" id="desde" name="desde" placeholder="Desde">
                                 </div>
                             </div>
                                 <div class="col-sm-5 pad-0-res mt-5">
@@ -79,7 +79,7 @@ Reporte de Carritos Abandonados
                                         <i class="livicon" data-name="calendar" data-size="16" data-c="#555555"
                                            data-hc="#555555" data-loop="true"></i>
                                     </div>
-                                    <input class="form-control" id="hasta" name="hasta" placeholder="Hasta">
+                                    <input required class="form-control" id="hasta" name="hasta" placeholder="Hasta">
                                 </div>
                             </div>
                         </div>
