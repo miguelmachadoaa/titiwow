@@ -4,8 +4,11 @@
             <th ><b>Id_Detalle</b></th>
             <th ><b>Id_Orden</b></th>
             <th ><b>id_producto</b></th>
+            <th ><b>Categoria</b></th>
+            <th ><b>Marca</b></th>
             <th><b>Producto</b></th>
-            <th><b>Cantidad</b></th>
+            <th><b>Cantidad de unidades</b></th>
+            <th><b>Numero de Pedidos</b></th>
             <th><b>Fecha</b></th>
         </tr>
     </thead>
@@ -16,8 +19,11 @@
             <td>{!! $row->id !!}</td>
             <td>{!! $row->id_orden!!}</td>
             <td>{!! $row->id_producto!!}</td>
+            <td>{!! $row->nombre_categoria!!}</td>
+            <td>{!! $row->nombre_marca!!}</td>
             <td>{!! $row->nombre_producto !!}</td>
-            <td>{!! $row->cantidad !!}</td>
+            <td>{!! $row->total_cantidad !!}</td>
+            <td>{!! $row->num_pedidos !!}</td>
             <td>{!! $row->fecha !!}</td>
           
         </tr>
