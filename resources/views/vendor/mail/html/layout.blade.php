@@ -8,25 +8,25 @@
     <style>
         @media only screen and (max-width: 600px) {
             .inner-body {
-                width: 100% !important;
+                width: 710px !important;
             }
 
             .footer {
-                width: 100% !important;
+                width: 710px !important;
             }
         }
 
         @media only screen and (max-width: 500px) {
             .button {
-                width: 100% !important;
+                width: 710px !important;
             }
         }
     </style>
-
-    <table class="wrapper" width="100%" cellpadding="0" cellspacing="0">
+    <center style="width: 100%; background-color: #e9e9e9;">
+    <table align="center" class="wrapper" width="710px" cellpadding="0" cellspacing="0">
         <tr>
             <td align="center">
-                <table class="content" width="100%" cellpadding="0" cellspacing="0">
+                <table class="content" width="710px" cellpadding="0" cellspacing="0">
                     {{ $header or '' }}
 
                     <!-- Email Body -->
@@ -50,5 +50,6 @@
             </td>
         </tr>
     </table>
+    </center>
 </body>
 </html>
