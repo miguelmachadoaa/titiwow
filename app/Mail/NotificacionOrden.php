@@ -34,6 +34,8 @@ class NotificacionOrden extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.notificacion-orden');
+        return $this->from('noresponder@alpinago.com')
+        ->subject('Nuevo Pedido | CEDI')
+        ->markdown('emails.notificacion-orden');
     }
 }

@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Roles;
 use App\RoleUser;
+use App\User;
 use App\Models\AlpClientes;
 use App\Models\AlpAmigos;
 use App\Models\AlpDirecciones;

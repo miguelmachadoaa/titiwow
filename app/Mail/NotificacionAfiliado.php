@@ -38,6 +38,8 @@ class NotificacionAfiliado extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.afiliado');
+        return $this->from('noresponder@alpinago.com')
+        ->subject('Invitación a Alpina Go Corporativo | Alpina Alimenta tu vida')
+        ->markdown('emails.afiliado');
     }
 }

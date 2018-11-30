@@ -34,6 +34,8 @@ class UserAprobado extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.aprobado');
+        return $this->from('noresponder@alpinago.com')
+        ->subject('Ya Puedes Comprar en Alpina Go | Alpina Alimenta tu vida')
+        ->markdown('emails.aprobado');
     }
 }

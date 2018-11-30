@@ -1,18 +1,20 @@
 @component('mail::message')
- Bienvenido a alpina {{ $name.' '.$lastname }}
+Hola  {{ $name.' '.$lastname }}
 
-Te hemos registrado en nuestro sistema como embajador AlpniGo, por lo que podras agregar amigos y ganar comisiones por tus compras y las de ellos.
+¡Felicitaciones eres Embajador AlpinaGo!
 
-Puedes Referir amigos en tu area cliente y ver las compras que ellos hagan
+Desde ahora podrás comprar tus productos favoritos y también agregar a tus amigos para que con sus compras puedas disfrutar de todos los beneficios que nuestra plataforma tiene para ti.
 
-Comienza ya 
+¡Refiere a tus amigos desde tu Área Cliente! 
 
-
-@component('mail::button', ['url' => secure_url('/')])
-Visita Nuestra pagina
+@component('mail::button', ['url' => secure_url('/misamigos')])
+Referir Amigos
 @endcomponent
 
+Esperamos que sigas disfrutando de la experiencia Alpina Go! Y recuerda:
 
-Gracias,<br>
+¡Alpina alimenta tu vida!
+
+<br>
 {{ config('app.name') }}
 @endcomponent

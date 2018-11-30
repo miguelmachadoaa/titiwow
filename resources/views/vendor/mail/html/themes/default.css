@@ -38,7 +38,7 @@ h1 {
     font-size: 19px;
     font-weight: bold;
     margin-top: 0;
-    text-align: left;
+    text-align: center;
 }
 
 h2 {
@@ -46,7 +46,7 @@ h2 {
     font-size: 16px;
     font-weight: bold;
     margin-top: 0;
-    text-align: left;
+    text-align: center;
 }
 
 h3 {
@@ -54,7 +54,7 @@ h3 {
     font-size: 18px;
     font-weight: bold;
     margin-top: 0;
-    text-align: left;
+    text-align: center;
 }
 
 p {
@@ -62,7 +62,7 @@ p {
     font-size: 16px;
     line-height: 1.5em;
     margin-top: 0;
-    text-align: left;
+    text-align: center;
 }
 
 p.sub {
@@ -114,7 +114,7 @@ img {
 }
 
 .header2 {
-    background-image: url('assets/images/emails/mail1.png');
+    background-image: url('assets/images/emails/mail1.jpg');
     background-color: #FFFFFF;
     background-repeat:no-repeat;
     background-position: center center;
@@ -160,12 +160,11 @@ img {
 /* Footer */
 
 .footer {
-    background-image: url('assets/images/emails/mailing-footer.jpg');
+    background-color: #0041b8;
     margin: 0 auto;
     padding: 0;
     text-align: center;
     width: 710px;
-    background-repeat:no-repeat;
     -premailer-cellpadding: 0;
     -premailer-cellspacing: 0;
     -premailer-width: 570px;

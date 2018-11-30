@@ -34,6 +34,8 @@ class WelcomeEmbajador extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.welcome-embajador');
+        return $this->from('noresponder@alpinago.com')
+        ->subject('Ya eres un Embajador Alpina Go | Alpina Alimenta tu vida')
+        ->markdown('emails.welcome-embajador');
     }
 }

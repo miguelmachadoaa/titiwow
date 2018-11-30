@@ -32,6 +32,8 @@ class RecuperarClave extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.recuperar-clave');
+        return $this->from('noresponder@alpinago.com')
+        ->subject('Recuperar Contraseña | Alpina Alimenta tu vida')
+        ->markdown('emails.recuperar-clave');
     }
 }

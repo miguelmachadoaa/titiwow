@@ -28,7 +28,7 @@ class ContactUser extends Mailable
      */
     public function build()
     {
-        return $this->from('example@example.com')
+        return $this->from('noresponder@alpinago.com')
             ->subject('Welcome '.$this->data['contact-name'])
             ->markdown('emails.emailTemplates.contactUser');
     }

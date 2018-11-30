@@ -28,8 +28,8 @@ class Register extends Mailable
      */
     public function build()
     {
-        return $this->from('example@example.com')
-            ->subject('Activate Your Josh Account')
+        return $this->from('noresponder@alpinago.com')
+            ->subject('Activa tu Cuenta | Alpina Alimenta tu vida')
             ->markdown('emails.emailTemplates.activate');
     }
 }

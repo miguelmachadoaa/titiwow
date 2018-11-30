@@ -34,6 +34,10 @@ class WelcomeUser extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.welcome');
+
+        return $this->from('noresponder@alpinago.com')
+        ->subject('Bienvenido a Alpina Go! | Alpina Alimenta tu vida')
+        ->markdown('emails.welcome');
+
     }
 }

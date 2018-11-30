@@ -36,6 +36,8 @@ class CompraAprobada extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.compra-aprobada');
+        return $this->from('noresponder@alpinago.com')
+        ->subject('Compra Aprobada | | Alpina Alimenta tu vida')
+        ->markdown('emails.compra-aprobada');
     }
 }
