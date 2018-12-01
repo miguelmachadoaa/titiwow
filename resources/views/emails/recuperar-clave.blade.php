@@ -2,7 +2,7 @@
 
 Hola! {{ $data['user_name'] }}
 
-Se ha solicitado un enlace para cambiar su contraseña. Puede hacerlo a través del siguiente boton
+Se ha solicitado un enlace para cambiar su contraseña. Puede hacerlo a través del siguiente botón
 
 @component('mail::button', ['url' => $data['forgotPasswordUrl']])
 

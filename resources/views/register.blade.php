@@ -111,10 +111,10 @@
                 <div class="form-group {{ $errors->first('id_estructura_address', 'has-error') }}">
                     <div class="input-group">
                         <div class="" >
-                        <select id="id_estructura_address" name="id_estructura_address" class="form-control">
+                        <select id="id_estructura_address" name="id_estructura_address" class="form-control" style="width:40px; padding-left:0px; padding-right:0px; border:none;">
                             @foreach($estructura as $estru)
                             <option value="{{ $estru->id }}">
-                            {{ $estru->nombre_estructura}} </option>
+                            {{ $estru->abrevia_estructura}} - {{ $estru->nombre_estructura}} </option>
                             @endforeach
                         </select>
                     </div>

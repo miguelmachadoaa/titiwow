@@ -672,7 +672,7 @@ Route::get('emailU', function(){
 
 
 Route::get('emailEmbajador', function(){
-        return new \App\Mail\WelcomeEmbajador('Nombre Emabajador', '');
+        return new \App\Mail\WelcomeEmbajador('Nombre Embajador', '');
 });
 
 Route::get('aprobado', function(){
@@ -684,7 +684,7 @@ Route::get('emailAfiliado', function(){
 });
 
 Route::get('emailAmigo', function(){
-        return new \App\Mail\NotificacionAmigo('Nombre', 'Cliente', 'sdklfjasfasdfasdklfasf', 'Embajador Embajador');
+        return new \App\Mail\NotificacionAmigo('Nombre', 'Cliente', 'bd60a2c121', 'Embajador Embajador');
 });
 
 Route::get('notificacion', function(){

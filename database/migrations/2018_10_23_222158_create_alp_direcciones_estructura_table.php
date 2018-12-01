@@ -16,6 +16,7 @@ class CreateAlpDireccionesEstructuraTable extends Migration
         Schema::create('alp_direcciones_estructura', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre_estructura');
+            $table->string('abrevia_estructura');
             $table->integer('estado_registro')->default(1);
             $table->integer('id_user');
             $table->timestamps();

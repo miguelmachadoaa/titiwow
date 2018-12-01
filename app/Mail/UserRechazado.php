@@ -36,6 +36,8 @@ class UserRechazado extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.rechazado');
+        return $this->from('noresponder@alpinago.com')
+        ->subject('Usuario Rechazado | Masterfile')
+        ->markdown('emails.rechazado');
     }
 }

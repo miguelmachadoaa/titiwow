@@ -35,6 +35,8 @@ class AmigoRegistrado extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.amigo-registado');
+        return $this->from('noresponder@alpinago.com')
+        ->subject('Status de tus Amigos en Alpina Go | Alpina Alimenta tu vida')
+        ->markdown('emails.amigo-registrado');
     }
 }

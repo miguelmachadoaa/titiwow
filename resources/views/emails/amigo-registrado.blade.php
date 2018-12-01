@@ -1,17 +1,15 @@
 @component('mail::message')
 
-<!--<p style="text-align: center;"><img src="{{ secure_url('assets/img/login.png') }}"></p>-->
+ <h3><b>Hola {{ $name.' '.$lastname }},Tu amigo ha completado su registro en Alpina Go!</b></h3>
 
- <h3><b>Tu amigo  {{ $name.' '.$lastname }}</b></h3>
+<p>Por cada amigo que registres tendrás acceso a beneficios y premios exclusivos dentro de nuestra plataforma.</p>
 
-<p>Se ha registrado exitosamente, sigue enviando invitaciones y podrás ganar muchas más comisiones y premios </p>
-
-
+Puedes ver el status de cada uno de tus referidos entrando a tu perfil:
 
 @component('mail::button', ['url' => secure_url('/')])
-Visita Nuesta pagina 
+Ir a tu Perfil
 @endcomponent
 
-Gracias,<br>
+¡Alpina alimenta tu vida!<br>
 {{ config('app.name') }}
 @endcomponent

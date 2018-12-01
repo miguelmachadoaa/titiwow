@@ -12,7 +12,7 @@
             }
 
             .footer {
-                width: 710px !important;
+                width: 100% !important;
             }
         }
 

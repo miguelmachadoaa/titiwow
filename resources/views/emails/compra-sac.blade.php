@@ -42,8 +42,8 @@ Detalles del Pedido
 El total de la compra fue de {{ number_format($compra->monto_total, 0,",",".") }}
 
 
-@component('mail::button', ['url' => secure_url('/')])
-Visitar pagina
+@component('mail::button', ['url' => secure_url('/admin')])
+Visitar página
 @endcomponent
 
 

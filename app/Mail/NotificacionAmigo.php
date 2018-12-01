@@ -38,6 +38,8 @@ class NotificacionAmigo extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.amigo');
+        return $this->from('noresponder@alpinago.com')
+        ->subject('Invitación a Alpina Go | Alpina Alimenta tu vida')
+        ->markdown('emails.amigo');
     }
 }

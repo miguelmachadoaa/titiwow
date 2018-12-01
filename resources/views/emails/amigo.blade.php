@@ -1,23 +1,20 @@
 @component('mail::message')
 
-<!--<p style="text-align: center;"><img src="{{ secure_url('assets/img/login.png') }}"></p>-->
+<h3><b>Hola {{ $name.' '.$lastname }}</b></h3>
 
- <h3><b>Bienvenido a alpina {{ $name.' '.$lastname }}</b></h3>
+<p class="text-aling:center;">¡Nuestro embajador {{ $embajador }} te ha agregado a su grupo de amigos en AlpinaGo! </p>
 
-<p>Se te ha enviado una invitación para registrarte como afiliado por </p>
+<p>Acepta la  invitación y regístrate, Compra tus productos favoritos y agrega a tus amigos para que con sus compras puedas disfrutar de todos los beneficios que nuestra plataforma tiene para ti.
+</p>
 
-<p>{{ $embajador }}</p> 
-
-<p>Al registrarte como amigo AlpinaGo obtendrás descuentos especiales.</p>
-
-<p>Sigue el enlace para terminar el registro.</p>
-
-
+<p>¡Acepta la  invitación y regístrate ahora! </p>
 
 @component('mail::button', ['url' => secure_url('/registroembajadores/'.$token)])
-Termina el Registro 
+Registrarme
 @endcomponent
 
-Gracias,<br>
+Esperamos que disfrutes de la experiencia AlpinaGo! Y recuerda:
+
+¡Alpina alimenta tu vida!<br>
 {{ config('app.name') }}
 @endcomponent
