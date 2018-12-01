@@ -158,6 +158,9 @@ class AlpCartController extends JoshController
 
     public function orderDetail()
     {
+
+      $configuracion=AlpConfiguracion::where('id', '1')->first();
+
       
       $carrito= \Session::get('cr');
 
@@ -165,11 +168,16 @@ class AlpCartController extends JoshController
 
       $total=$this->total();
 
+      if ($total<$configuracion->minimo_compra) {
+        
+        return redirect('cart/show');
+
+      }
+
       if (Sentinel::check()) {
 
         $user_id = Sentinel::getUser()->id;
 
-        $configuracion=AlpConfiguracion::where('id', '1')->first();
 
         $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
 
@@ -248,9 +256,9 @@ class AlpCartController extends JoshController
                 "email" => 'correo@gmail.com'
               ],
               "back_urls" => [
-                "success" => url('/order/success'),
-                "failure" => url('/order/failure'),
-                "pending" => url('/order/failure')
+                "success" => secure_url('/order/success'),
+                "failure" => secure_url('/order/failure'),
+                "pending" => secure_url('/order/pending')
               ],
               "notification_url" =>url('/order/mercadopago'),
               "external_reference" =>time()
@@ -381,9 +389,9 @@ class AlpCartController extends JoshController
                 "email" => $usuario->email,
               ],
               "back_urls" => [
-                "success" => url('/order/success'),
-                "failure" => url('/order/failure'),
-                "pending" => url('/order/failure')
+                  "success" => secure_url('/order/success'),
+                "failure" => secure_url('/order/failure'),
+                "pending" => secure_url('/order/pending')
               ],
               "notification_url" =>url('/order/mercadopago'),
               "external_reference" =>time()
@@ -419,20 +427,15 @@ class AlpCartController extends JoshController
     {
 
 
-       if ($request->collection_status=='approved') {
+    if ($request->collection_status=='approved') {
      
-        $input=$request->all();
+      $input=$request->all();
 
-        $cart= \Session::get('cart');
+      $cart= \Session::get('cart');
 
-        $orden_data= \Session::get('orden');
-
+      $orden_data= \Session::get('orden');
 
       $total=$this->total();
-
-      #$input=$request->all();
-
-     ## dd($cart);
 
       if (Sentinel::check()) {
 
@@ -450,17 +453,16 @@ class AlpCartController extends JoshController
         $hora_base=str_replace(':', '', $ciudad_forma->hora);
 
         if (intval($hora)>intval($hora_base)) {
+
           $ciudad_forma->dias=$ciudad_forma->dias+1;
+
         }
 
-
-       $fecha_entrega=$date->addDays($ciudad_forma->dias)->format('d-m-Y');
-
+        $fecha_entrega=$date->addDays($ciudad_forma->dias)->format('d-m-Y');
 
         $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
 
-
-         $data_orden = array(
+        $data_orden = array(
             'referencia ' => time(), 
             'id_cliente' => $user_id, 
             'id_forma_envio' =>$orden_data['id_forma_envio'], 
@@ -471,13 +473,13 @@ class AlpCartController extends JoshController
             'monto_total' =>$total,
             'monto_total_base' =>$total,
             'id_user' =>$user_id
-          );
+        );
 
-         $orden=AlpOrdenes::create($data_orden);
+        $orden=AlpOrdenes::create($data_orden);
 
-         $monto_total_base=0;
+        $monto_total_base=0;
 
-         foreach ($cart as $detalle) {
+        foreach ($cart as $detalle) {
 
           $monto_total_base=$monto_total_base+($detalle->cantidad*$detalle->precio_base);
 
@@ -503,27 +505,26 @@ class AlpCartController extends JoshController
 
           AlpInventario::create($data_inventario);
 
-         }
+        }//endfreach
 
 
 
-         $cliente=AlpClientes::where('id_user_client', $user_id)->first();
+        $cliente=AlpClientes::where('id_user_client', $user_id)->first();
 
-         if (isset($cliente)) {
+        if (isset($cliente)) {
            
-            if ($cliente->id_embajador!=0) {
+          if ($cliente->id_embajador!=0) {
              
-                $data_puntos = array(
+              $data_puntos = array(
                   'id_orden' => $orden->id,
                   'id_cliente' => $cliente->id_embajador,
                   'tipo' => '1',//agregar
                   'cantidad' =>$total ,
                   'id_user' =>$user_id                   
-                );
+              );
 
 
-                AlpPuntos::create($data_puntos);
-
+              AlpPuntos::create($data_puntos);
 
             }
 
@@ -548,12 +549,7 @@ class AlpCartController extends JoshController
 
         );
 
-
-
-
         AlpEnviosHistory::create($data_envio_history);
-
-
 
          $data_update = array(
           'referencia' => 'ALP'.$orden->id,
@@ -561,7 +557,6 @@ class AlpCartController extends JoshController
            );
 
          $orden->update($data_update);
-
 
          $data_pago = array(
           'id_orden' => $orden->id, 
@@ -607,9 +602,9 @@ class AlpCartController extends JoshController
          // Mail::to($configuracion->correo_cedi)->send(new \App\Mail\NotificacionOrden($compra->id, $texto));
 
 
-          Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
+        Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
 
-Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
+        Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
           
 
           return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
@@ -618,24 +613,241 @@ Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $det
       }else{
 
           return redirect('login');
-
-
-    }
+      }
 
 
 
 
 
 
-  }else{
-
+    }else{
 
           return redirect('orden/failure');
 
-  }
-
-
     }
+
+
+}
+
+
+
+
+
+      public function pending(Request $request)
+    {
+
+
+    //if ($request->collection_status=='approved') {
+     
+      $input=$request->all();
+
+      $cart= \Session::get('cart');
+
+      $orden_data= \Session::get('orden');
+
+      $total=$this->total();
+
+      if (Sentinel::check()) {
+
+        $user_id = Sentinel::getUser()->id;
+
+        $direccion=AlpDirecciones::where('id', $orden_data['id_direccion'])->first();
+
+        $ciudad_forma=AlpFormaCiudad::where('id_forma', $orden_data['id_forma_envio'])->where('id_ciudad', $direccion->city_id)->first();
+
+
+        $date = Carbon::now();
+
+        $hora=$date->format('hi');
+
+        $hora_base=str_replace(':', '', $ciudad_forma->hora);
+
+        if (intval($hora)>intval($hora_base)) {
+
+          $ciudad_forma->dias=$ciudad_forma->dias+1;
+
+        }
+
+        $fecha_entrega=$date->addDays($ciudad_forma->dias)->format('d-m-Y');
+
+        $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
+
+        $data_orden = array(
+            'referencia ' => time(), 
+            'id_cliente' => $user_id, 
+            'id_forma_envio' =>$orden_data['id_forma_envio'], 
+            'id_address' =>$orden_data['id_direccion'], 
+            'id_forma_pago' =>$orden_data['id_forma_pago'], 
+            'estatus' =>'1', 
+            'estatus_pago' =>'1', 
+            'monto_total' =>$total,
+            'monto_total_base' =>$total,
+            'id_user' =>$user_id
+        );
+
+        $orden=AlpOrdenes::create($data_orden);
+
+        $monto_total_base=0;
+
+        foreach ($cart as $detalle) {
+
+          $monto_total_base=$monto_total_base+($detalle->cantidad*$detalle->precio_base);
+
+          $data_detalle = array(
+            'id_orden' => $orden->id, 
+            'id_producto' => $detalle->id, 
+            'cantidad' =>$detalle->cantidad, 
+            'precio_unitario' =>$detalle->precio_oferta, 
+            'precio_base' =>$detalle->precio_base, 
+            'precio_total' =>$detalle->cantidad*$detalle->precio_oferta,
+            'precio_total_base' =>$detalle->cantidad*$detalle->precio_base,
+            'id_user' =>$user_id 
+          );
+
+          $data_inventario = array(
+            'id_producto' => $detalle->id, 
+            'cantidad' =>$detalle->cantidad, 
+            'operacion' =>'2', 
+            'id_user' =>$user_id 
+          );
+
+          AlpDetalles::create($data_detalle);
+
+          AlpInventario::create($data_inventario);
+
+        }//endfreach
+
+
+
+        $cliente=AlpClientes::where('id_user_client', $user_id)->first();
+
+        if (isset($cliente)) {
+           
+          if ($cliente->id_embajador!=0) {
+             
+              $data_puntos = array(
+                  'id_orden' => $orden->id,
+                  'id_cliente' => $cliente->id_embajador,
+                  'tipo' => '1',//agregar
+                  'cantidad' =>$total ,
+                  'id_user' =>$user_id                   
+              );
+
+
+              AlpPuntos::create($data_puntos);
+
+            }
+
+         }
+
+        $data_envio = array(
+          'id_orden' => $orden->id, 
+          'fecha_envio' => $date->addDays($ciudad_forma->dias)->format('Y-m-d'),
+          'estatus' => 1, 
+          'id_user' =>$user_id                   
+
+        );
+
+
+        $envio=AlpEnvios::create($data_envio);
+
+        $data_envio_history = array(
+          'id_envio' => $envio->id, 
+          'estatus_envio' => 1, 
+          'nota' => 'Envio recibido', 
+          'id_user' =>$user_id                   
+
+        );
+
+        AlpEnviosHistory::create($data_envio_history);
+
+         $data_update = array(
+          'referencia' => 'ALP'.$orden->id,
+          'monto_total_base' => $monto_total_base
+           );
+
+         $orden->update($data_update);
+
+         $data_pago = array(
+          'id_orden' => $orden->id, 
+          'id_forma_pago' => $orden_data['id_forma_pago'], 
+          'id_estatus_pago' => 1, 
+          'monto_pago' => $total, 
+          'json' => json_encode($input), 
+          'id_user' => $user_id, 
+        );
+
+
+         AlpPagos::create($data_pago);
+
+         $aviso_pago="Su pago esta siendo procesado segun referencia: ".$request->preference_id.", debera finalizar el proceso en 24 horas o su pedido sera cancelado.!";
+
+       //  $datalles=AlpDetalles::where('id_orden', $orden->id)->get();
+
+        $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
+            ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
+            ->join('alp_clientes','alp_ordenes.id_cliente' , '=', 'alp_clientes.id_user_client')
+            ->join('alp_formas_envios','alp_ordenes.id_forma_envio' , '=', 'alp_formas_envios.id')
+            ->join('alp_formas_pagos','alp_ordenes.id_forma_pago' , '=', 'alp_formas_pagos.id')
+            ->where('alp_ordenes.id', $orden->id)->first();
+
+
+        $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug')
+          ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
+          ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
+
+
+         $cart= \Session::forget('cart');
+
+         $states=State::where('config_states.country_id', '47')->get();
+
+         $configuracion = AlpConfiguracion::where('id','1')->first();
+
+          $user_cliente=User::where('id', $user_id)->first();
+
+          $texto='Se ha creado la siguiente orden '.$compra->id.' y esta a espera de aprobacion  ';
+
+          //Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionOrden($compra->id, $texto));
+
+         // Mail::to($configuracion->correo_cedi)->send(new \App\Mail\NotificacionOrden($compra->id, $texto));
+
+
+        Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
+
+        Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
+          
+
+          return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
+        
+
+      }else{
+
+          return redirect('login');
+      }
+
+
+   // }else{
+
+   //       return redirect('orden/failure');
+
+   // }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1829,9 +2041,9 @@ Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $det
                 "email" => 'correo@gmail.com'
               ],
               "back_urls" => [
-                "success" => url('/order/success'),
-                "failure" => url('/order/failure'),
-                "pending" => url('/order/failure')
+                  "success" => secure_url('/order/success'),
+                "failure" => secure_url('/order/failure'),
+                "pending" => secure_url('/order/pending')
               ],
               "notification_url" =>url('/order/mercadopago'),
               "external_reference" =>time()
