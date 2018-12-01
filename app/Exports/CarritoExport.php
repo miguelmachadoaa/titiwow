@@ -61,7 +61,7 @@ class CarritoExport implements FromView
             ->whereDate('alp_carrito_detalle.created_at', '>=', $this->desde)
             ->whereDate('alp_carrito_detalle.created_at', '<=', $this->hasta)->get();
 
-            
+              
 
               $monto=0;
               $prod='';

@@ -599,7 +599,7 @@
     </li>
 
     @endif
-    @if (Sentinel::getUser()->hasAnyAccess(['groups.*']))
+    @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
     <li {!! (Request::is('admin/groups') || Request::is('admin/groups/create') || Request::is('admin/groups/*') ? 'class="active"' : '') !!}>
         <a href="#">
@@ -609,40 +609,59 @@
             <span class="fa arrow"></span>
         </a>
         <ul class="sub-menu">
-            <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/reportes/registrados') }}">
-                    <i class="fa fa-angle-double-right"></i>
-                    Usuarios Registrados
-                </a>
-            </li>
 
-            <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.usuarios']))
+
+                 <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
+                    <a href="{{ URL::to('admin/reportes/registrados') }}">
+                        <i class="fa fa-angle-double-right"></i>
+                        Usuarios Registrados
+                    </a>
+                </li>
+            @endif
+
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.clientes']))
+
+                <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ URL::to('admin/reportes/ventas') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Ventas por cliente
                 </a>
             </li>
+            @endif
 
-            <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.productos']))
+
+                <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ URL::to('admin/reportes/productos') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Ventas por producto
                 </a>
             </li>
+            @endif
 
-            <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.carritos']))
+                <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ URL::to('admin/reportes/carrito') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Carritos Abandonados
                 </a>
             </li>
+            @endif
 
-            <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.financiero']))
+
+                <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ URL::to('admin/reportes/financiero') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Financiero
                 </a>
             </li>
+            @endif
+
+            
+
+            
         </ul>
     </li>
 

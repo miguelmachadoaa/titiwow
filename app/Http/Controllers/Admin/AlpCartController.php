@@ -122,6 +122,16 @@ class AlpCartController extends JoshController
 
       $configuracion = AlpConfiguracion::where('id', '1')->first();
 
+    // dd($configuracion);
+
+     //MP::setCredenciales($configuracion->cliente_id_mercadopago, $configuracion->cliente_secret_mercadopago, $configuracion->access_token_mercadopago);
+
+     MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+
+    // MP::setCredenciales('1212121212', '123456');
+
+    //dd(MP::getAccessToken());
+
      $preference_data = [
       "items" => [
         [
@@ -139,6 +149,8 @@ class AlpCartController extends JoshController
       ]
     ];
     $preference = MP::post("/checkout/preferences",$preference_data);
+
+    dd($preference);
     //return dd($preference);
 
     }
@@ -246,7 +258,12 @@ class AlpCartController extends JoshController
 
            $mp = new MP();
 
-          $preference = $mp::post("/checkout/preferences",$preference_data);
+           // $mp->setCredenciales($configuracion->cliente_id_mercadopago, $configuracion->cliente_secret_mercadopago);
+
+            MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+
+
+          $preference = MP::post("/checkout/preferences",$preference_data);
 
           //dd($preference);
 
@@ -373,6 +390,8 @@ class AlpCartController extends JoshController
             ];
 
             //print_r($preference_data);
+
+            MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
             
             $preference = MP::post("/checkout/preferences",$preference_data);
 
