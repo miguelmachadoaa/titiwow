@@ -10,7 +10,7 @@ Datos de la compra
 <p><b>Cedula: </b>{{ $compra->doc_cliente }}</p>
 <p><b>Valor Pagado: </b>{{ $compra->monto_total }}</p>
 <p><b>Valor Iva: </b>{{ 0}}</p>
-<p><b>Fecha de Entrega: </b>{{ $compra->fecha_envio }}</p>
+<p><b>Fecha de Entrega: </b>{{ $fecha_entrega }}</p>
 
 
 

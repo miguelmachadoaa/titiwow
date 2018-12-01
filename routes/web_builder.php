@@ -501,6 +501,12 @@ Route::get(   'order/failure/',     [
         'uses'=>'Admin\AlpCartController@failure'
     ]);
 
+Route::get(   'order/pending/',     [
+        //'middleware'=>'auth', 
+        'as'=>'order.pending', 
+        'uses'=>'Admin\AlpCartController@pending'
+    ]);
+
 Route::get(   'order/success/',     [
         //'middleware'=>'auth', 
         'as'=>'order.success', 

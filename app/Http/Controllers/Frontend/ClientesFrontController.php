@@ -924,5 +924,53 @@ class ClientesFrontController extends Controller
 
     }
 
+    public function eliminar(Request $request)
+    {
+        $user_id = Sentinel::getUser()->id;
+
+       try {
+
+
+            $user=User::where('id', $user_id)->first();
+            
+            Activation::remove($user);
+                        //add new record
+            Activation::create($user);
+
+            $data_history = array(
+                'id_cliente' => $user_id, 
+                'estatus_cliente' => 'eliminado',
+                'notas' => $request->notas,
+                'id_user' => $user_id
+            );
+
+
+            AlpClientesHistory::create($data_history);
+
+            $data = array(
+                'nota' => $request->notas
+                 );
+
+            $cliente=AlpClientes::where('id_user_client', $user_id)->first();
+
+            $cliente->update($data);
+
+
+            $cliente->delete();
+
+            //$user->delete();
+
+            return 1;
+            
+        } catch (Exception $e) {
+
+            return 0;
+            
+        }
+
+             
+          
+    }
+
 
 }

@@ -86,7 +86,7 @@
 
                                 <li >
                                     
-                                    <label class=""><a id="ubicacion_header"  ></a></label>
+                                    <label class=""><a id="ubicacion_header"  >Seleccione Ciudad</a></label>
                                    
                                 </li>
 

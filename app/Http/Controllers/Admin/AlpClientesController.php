@@ -573,13 +573,13 @@ class AlpClientesController extends JoshController
 
             $cliente->delete();
 
-            //$user->delete();
+            $user->delete();
 
-            return 'true';
+            return 1;
             
         } catch (Exception $e) {
 
-            return 'false';
+            return 0;
             
         }
 
