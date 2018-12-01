@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\ConsolidadoExport;
+use App\Exports\LogisticaExport;
+use App\Exports\MasterfileExport;
 use App\Exports\FinancieroExport;
 use App\Exports\UsersExport;
 use App\Exports\VentasExport;
@@ -114,5 +117,48 @@ class AlpReportesController extends Controller
 
         return Excel::download(new FinancieroExport($request->desde, $request->hasta), 'financiero_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
     }
+
+
+     public function masterfile() 
+    {
+
+        return view('admin.reportes.masterfile');
+
+    }
+
+
+    public function exportmasterfile(Request $request) 
+    {
+        return Excel::download(new MasterfileExport($request->desde, $request->hasta), 'masterfile_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+    }
+
+
+     public function logistica() 
+    {
+
+        return view('admin.reportes.logistica');
+
+    }
+
+
+    public function exportlogistica(Request $request) 
+    {
+        return Excel::download(new LogisticaExport($request->desde, $request->hasta), 'logistica_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+    }
+
+
+    public function consolidado() 
+    {
+
+        return view('admin.reportes.consolidado');
+
+    }
+
+
+    public function exportconsolidado(Request $request) 
+    {
+        return Excel::download(new ConsolidadoExport($request->desde), 'consolidado_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+    }
+
 
 }

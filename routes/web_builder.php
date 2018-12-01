@@ -231,6 +231,21 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
    //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
    Route::post('reportes/exportfinanciero', 'Admin\AlpReportesController@exportfinanciero');
 
+    Route::get('reportes/masterfile', 'Admin\AlpReportesController@masterfile');
+   //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
+   Route::post('reportes/exportmasterfile', 'Admin\AlpReportesController@exportmasterfile');
+
+
+
+    Route::get('reportes/logistica', 'Admin\AlpReportesController@logistica');
+   //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
+   Route::post('reportes/exportlogistica', 'Admin\AlpReportesController@exportlogistica');
+
+
+    Route::get('reportes/consolidado', 'Admin\AlpReportesController@consolidado');
+   //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
+   Route::post('reportes/exportconsolidado', 'Admin\AlpReportesController@exportconsolidado');
+
 //Fin Reportes generales
 
 

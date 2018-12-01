@@ -541,6 +541,10 @@ class AlpClientesController extends JoshController
 
     public function eliminar(Request $request)
     {
+        
+        //dd($request);
+
+
         $user_id = Sentinel::getUser()->id;
 
        try {
