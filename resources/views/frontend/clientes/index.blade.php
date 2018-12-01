@@ -280,7 +280,8 @@ Area clientes
                 
             complete: function(datos){     
 
-            //   location.reload();
+                $("#deleteModal").modal('hide');
+                
 
             }
         });
