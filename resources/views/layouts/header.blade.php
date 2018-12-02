@@ -86,11 +86,9 @@
 
                                 <li >
                                     
-                                    <label class=""><a id="ubicacion_header"  >Seleccione Ciudad</a></label>
+                                    <label class="ubicacion_header"><a id="ubicacion_header"  >Seleccione Ciudad</a></label>
                                    
                                 </li>
-
-                                
         
                             {{--based on anyone login or not display menu items--}}
                             @if(Sentinel::guest())
@@ -178,10 +176,12 @@
                         @endif
                         @include('layouts.menu-item', ['item' => $item])
                     @endforeach
-                        <!--li >       
-                            <label class=""><a id="ubicacion_header2"  ></a></label>
-                        </li-->
+
                     <hr />
+                        <li class="hidden-lg ubicacion_header">       
+                            <a href="#"  ></a>
+                        </li>
+                    
                     {{--based on anyone login or not display menu items--}}
                         @if(Sentinel::guest())
                         <li class="hidden-lg">

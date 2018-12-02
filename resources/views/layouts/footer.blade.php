@@ -160,15 +160,15 @@
 
                 if (ubicacion.status=='true'){
 
-                    $('#ubicacion_header').html(ubicacion.city_name+' '+ubicacion.state_name);
+                    $('.ubicacion_header a').html(ubicacion.city_name+' '+ubicacion.state_name);
 
                                 $('.addtocart').removeClass('hidden');
 
 
                 }else{
 
-                    //$('#ubicacion_header').html(ubicacion.city_name+' '+ubicacion.state_name);
-                    $('#ubicacion_header').html('No Disponible para Despacho');
+                    //$('.ubicacion_header a').html(ubicacion.city_name+' '+ubicacion.state_name);
+                    $('.ubicacion_header a').html('No Disponible para Despacho');
 
                     $('.addtocart').addClass('hidden');
 
@@ -183,7 +183,7 @@
 
 
 
-        $('#ubicacion_header').click(function(e){
+        $('.ubicacion_header a').click(function(e){
 
             e.preventDefault();
 
@@ -219,16 +219,16 @@
 
                              if (ubicacion.status=='true') {
 
-                                $('#ubicacion_header').html(ubicacion.city_name+', '+ubicacion.state_name);
+                                $('.ubicacion_header a').html(ubicacion.city_name+', '+ubicacion.state_name);
 
                                 $('.addtocart').removeClass('hidden');
 
 
                             }else{
 
-                                //$('#ubicacion_header').html(ubicacion.city_name+' '+ubicacion.state_name);
+                                //$('.ubicacion_header a').html(ubicacion.city_name+' '+ubicacion.state_name);
 
-                                $('#ubicacion_header').html('No Disponible para Despacho');
+                                $('.ubicacion_header a').html('No Disponible para Despacho');
 
                                 $('.addtocart').addClass('hidden');
                             }
