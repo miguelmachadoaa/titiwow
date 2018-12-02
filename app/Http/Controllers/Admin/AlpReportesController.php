@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Exports\ConsolidadoExport;
 use App\Exports\LogisticaExport;
 use App\Exports\MasterfileExport;
+use App\Exports\MasterfileEmbajadoresExport;
 use App\Exports\FinancieroExport;
 use App\Exports\UsersExport;
 use App\Exports\VentasExport;
@@ -130,6 +131,19 @@ class AlpReportesController extends Controller
     public function exportmasterfile(Request $request) 
     {
         return Excel::download(new MasterfileExport($request->desde, $request->hasta), 'masterfile_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+    }
+
+     public function masterfileembajadores() 
+    {
+
+        return view('admin.reportes.masterfileembajador');
+
+    }
+
+
+    public function exportmasterfileembajadores(Request $request) 
+    {
+        return Excel::download(new MasterfileEmbajadoresExport($request->desde, $request->hasta), 'masterfile_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
     }
 
 
