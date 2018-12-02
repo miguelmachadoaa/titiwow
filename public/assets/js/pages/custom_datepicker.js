@@ -15,8 +15,8 @@ $(document).ready(function () {
 
     });
 
-    var check_in = flatpickr("#check_in_date", {minDate: new Date()});
-    var check_out = flatpickr("#check_out_date", {minDate: new Date()});
+    var check_in = flatpickr("#check_in_date", {defaultDate: new Date(), minDate:'2000-01-01'});
+    var check_out = flatpickr("#check_out_date", {minDate:'2000-01-01'});
 
     check_in.set("onChange", function (d) {
         check_out.set("minDate", d.fp_incr(1)); //increment by one day
