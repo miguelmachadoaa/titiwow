@@ -55,6 +55,7 @@ Ordenes
                                     <th>Factura</th>
                                     <th>Tracking</th>
                                     <th>Creado</th>
+                                    <th>Estado Pago</th>
                                     <th>Estado</th>
                                     <th>Accion</th>
                                 </tr>
@@ -75,6 +76,10 @@ Ordenes
                                     <td>{!! $row->factura!!}</td>
                                     <td>{!! $row->tracking!!}</td>
                                     <td>{!! $row->created_at->diffForHumans() !!}</td>
+                                    <td>  <div style="display: inline-block;" class="pago_{{ $row->id }}">  
+
+                                            <button data-id="{{ $row->id }}" class="btn btn-xs btn-success pago" > {{ $row->estatus_pago_nombre }} </button></div>
+</td>
                                     <td><span class="badge badge-default" >{!! $row->estatus_nombre !!}</span></td>
                                     <td>
 
@@ -83,13 +88,10 @@ Ordenes
                                             </a>
 
                                              <div style="display: inline-block;" class="estatus_{{ $row->id }}">
-                                            <button data-id="{{ $row->id }}"  data-codigo="{{ $row->ordencompra }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-danger confirmar" > {{ $row->estatus_nombre }} </button></div>
+                                            <button data-id="{{ $row->id }}"  data-codigo="{{ $row->ordencompra }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-danger confirmar" > Cancelar </button></div>
 
 
-                                            <div style="display: inline-block;" class="pago_{{ $row->id }}">  
-
-                                            <button data-id="{{ $row->id }}" class="btn btn-xs btn-success pago" > {{ $row->estatus_pago_nombre }} </button></div>
-
+                                          
 
                                     </td>
                                 </tr>
