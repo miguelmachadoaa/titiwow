@@ -13,7 +13,7 @@ use Illuminate\Contracts\View\View;
 use \DB;
 
 
-class MasterfileExport implements FromView
+class MasterfileEmbajadoresExport implements FromView
 {
     
     public function __construct(string $desde, string $hasta)
@@ -53,14 +53,14 @@ class MasterfileExport implements FromView
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
           ->join('role_users', 'users.id', '=', 'role_users.user_id')
           ->join('roles', 'role_users.role_id', '=', 'roles.id')
-          ->where('roles.id','=', '9')
+          ->where('roles.id','=', '10')
           ->whereDate('users.created_at', '>=', $this->desde)
           ->whereDate('users.created_at', '<=', $this->hasta)
           ->get();
 
           //dd($ordenes);
 
-        return view('admin.exports.masterfile', [
+        return view('admin.exports.masterfileembajadores', [
             'usuarios' => $users
         ]);
     }
