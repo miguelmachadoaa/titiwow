@@ -412,6 +412,8 @@ Route::resource('alpinistas', 'Admin\AlpAlpinistasController');
 
         
 
+        Route::post('/recibir', 'Admin\AlpOrdenesController@recibir')->name('ordenes.recibir');
+
         Route::post('/aprobar', 'Admin\AlpOrdenesController@aprobar')->name('ordenes.aprobar');
 
         Route::post('/facturar', 'Admin\AlpOrdenesController@facturar')->name('ordenes.facturar');
@@ -421,6 +423,8 @@ Route::resource('alpinistas', 'Admin\AlpAlpinistasController');
         Route::get('/empresas/list', 'Admin\AlpOrdenesController@empresas')->name('ordenes.empresas');
 
         Route::get('/aprobados/list', 'Admin\AlpOrdenesController@aprobados')->name('ordenes.aprobados');
+
+        Route::get('/espera/list', 'Admin\AlpOrdenesController@espera')->name('ordenes.espera');
 
         Route::get('/recibidos/list', 'Admin\AlpOrdenesController@recibidos')->name('ordenes.recibidos');
 

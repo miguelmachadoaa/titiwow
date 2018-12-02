@@ -127,6 +127,29 @@ echo '<br>fin: '.$date_fin;*/
 
     }
 
+    public function espera()
+    {
+        // Grab all the groups
+      
+        $ordenes = AlpOrdenes::all();
+
+        $estatus_ordenes = AlpEstatusOrdenes::all();
+
+         $ordenes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
+          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
+           ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
+          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
+          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+          ->where('alp_ordenes.estatus', '8')
+          ->get();
+       
+        // Show the page
+        return view('admin.ordenes.espera', compact('ordenes', 'estatus_ordenes'));
+
+    }
+
     public function aprobados()
     {
         // Grab all the groups
@@ -454,6 +477,112 @@ echo '<br>fin: '.$date_fin;*/
             return 0;
         }     
 
+
+    }
+
+
+       public function recibir(Request $request)
+    {
+
+        $user_id = Sentinel::getUser()->id;
+
+        $input = $request->all();
+
+        $configuracion = AlpConfiguracion::where('id','1')->first();
+
+    //    dd($configuracion->correo_cedi);
+
+        //var_dump($input);
+
+        $data_history = array(
+            'id_orden' => $input['id'], 
+            'id_status' => '1', 
+            'notas' => $input['notas'], 
+            'id_user' => $user_id 
+        );
+
+        $data_update_orden = array(
+            'estatus' =>'1'
+        );
+
+         
+        $history=AlpOrdenesHistory::create($data_history);
+
+        $orden=AlpOrdenes::find($input['id']);
+
+        $orden->update($data_update_orden);
+
+        $orden = AlpOrdenes::select(
+          'alp_ordenes.*', 'users.first_name as first_name', 
+          'users.last_name as last_name', 
+          'users.email as email', 
+          'alp_clientes.doc_cliente as doc_cliente', 
+          'alp_clientes.cod_oracle_cliente as cod_oracle_cliente', 
+          'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 
+          'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 
+          'alp_ordenes_estatus.estatus_nombre as estatus_nombre',
+          'alp_envios.fecha_envio as fecha_envio',
+          'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre'
+        )
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_clientes', 'alp_ordenes.id_cliente', '=', 'alp_clientes.id_user_client')
+          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
+          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
+          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
+          ->join('alp_envios', 'alp_ordenes.id', '=', 'alp_envios.id_orden')
+          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+          ->where('alp_ordenes.id', $input['id'])
+          ->first();
+
+          ///dd($orden);
+
+        $detalles =  DB::table('alp_ordenes_detalle')->select(
+          'alp_ordenes_detalle.*',
+          'alp_productos.referencia_producto as referencia_producto',
+          'alp_productos.nombre_producto as nombre_producto',
+          'alp_productos.referencia_producto as referencia_producto' ,
+          'alp_productos.imagen_producto as imagen_producto' ,
+          'alp_productos.slug as slug'
+        )
+          ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
+          ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
+
+        $envio=AlpEnvios::where('id_orden', $orden->id)->first();
+
+
+
+        if ($orden->id) {
+
+
+          //$user_cliente=Users::where('id', $orden->id_cliente)->first();
+
+          $texto="La orden ".$orden->id.", el pago a sido aprobado y espera por el proceso de aprobacion!";
+
+           //return $texto;
+
+          Mail::to($configuracion->correo_cedi)->send(new \App\Mail\NotificacionOrden($orden->id, $texto));
+
+          
+          //Mail::to($orden->email)->send(new \App\Mail\CompraAprobada($orden, $detalles, $envio->fecha_envio));
+
+
+          //Mail::to($configuracion->correo_cedi)->send(new \App\Mail\CompraSac($orden, $detalles, $envio->fecha_envio));
+
+
+         // Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionOrden($orden->id, $texto));
+
+          $view= View::make('admin.ordenes.recibir', compact('orden'));
+
+          $data=$view->render();
+
+          $res = array('data' => $data);
+
+          return $data;
+
+        } else {
+
+            return 'error orden';
+        }       
 
     }
 

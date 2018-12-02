@@ -75,6 +75,15 @@
             <span class="fa arrow"></span>
         </a>
         <ul class="sub-menu">
+
+            @if (Sentinel::getUser()->hasAnyAccess(['ordenes.espera']))
+                <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.ordenes.espera') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Ordenes en Espera
+                </a>
+            </li>
+            @endif
            
 
              @if (Sentinel::getUser()->hasAnyAccess(['ordenes.recibidos']))

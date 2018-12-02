@@ -678,8 +678,8 @@ class AlpCartController extends JoshController
             'id_forma_envio' =>$orden_data['id_forma_envio'], 
             'id_address' =>$orden_data['id_direccion'], 
             'id_forma_pago' =>$orden_data['id_forma_pago'], 
-            'estatus' =>'1', 
-            'estatus_pago' =>'1', 
+            'estatus' =>'8', 
+            'estatus_pago' =>'4', 
             'monto_total' =>$total,
             'monto_total_base' =>$total,
             'id_user' =>$user_id
@@ -753,7 +753,7 @@ class AlpCartController extends JoshController
 
         $data_envio_history = array(
           'id_envio' => $envio->id, 
-          'estatus_envio' => 1, 
+          'estatus_envio' => 8, 
           'nota' => 'Envio recibido', 
           'id_user' =>$user_id                   
 
@@ -771,7 +771,7 @@ class AlpCartController extends JoshController
          $data_pago = array(
           'id_orden' => $orden->id, 
           'id_forma_pago' => $orden_data['id_forma_pago'], 
-          'id_estatus_pago' => 1, 
+          'id_estatus_pago' => 4, 
           'monto_pago' => $total, 
           'json' => json_encode($input), 
           'id_user' => $user_id, 
@@ -805,7 +805,7 @@ class AlpCartController extends JoshController
 
           $user_cliente=User::where('id', $user_id)->first();
 
-          $texto='Se ha creado la siguiente orden '.$compra->id.' y esta a espera de aprobacion  ';
+          $texto='Se ha creado la siguiente orden '.$compra->id.' y esta a proceso de espera para aprobacion de pago, debera completar el pago en 24 horas o la orden sera cancelada';
 
           //Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionOrden($compra->id, $texto));
 
