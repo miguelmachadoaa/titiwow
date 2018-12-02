@@ -329,7 +329,6 @@ class FrontEndController extends JoshController
                     $masterfi=0;
 
                 }
-
                 $data = array(
                     'id_user_client' => $user->id, 
                     'id_type_doc' => $request->id_type_doc, 
@@ -338,6 +337,7 @@ class FrontEndController extends JoshController
                     'habeas_cliente' => $request->habeas_cliente,
                     'estado_masterfile' =>$masterfi,
                     'cod_alpinista'=> $request->cod_alpinista,
+                    'cod_oracle_cliente'=> $codalpin->cod_oracle_cliente,
                     'id_empresa' =>'0',               
                     'id_embajador' =>'0',               
                     'id_user' =>0,               

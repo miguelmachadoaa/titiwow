@@ -55,6 +55,7 @@ Alpinistas
                                     <th>Correo</th>
                                     <th>Documento</th>
                                     <th>Cod. Alpinista</th>
+                                    <th>ID Masterfile</th>
                                     <th>Estado Alpinista</th>
                                     <th>Creado</th>
                                 </tr>
@@ -73,6 +74,7 @@ Alpinistas
                                     @endif
                                     <td>{!! $row->documento_alpi !!}</td>
                                     <td>{!! $row->codigo_alpi !!}</td>
+                                    <td>{!! $row->cod_oracle_cliente !!}</td>
                                     @if($row->estatus_alpinista == 1)
                                         <td><span class="label label-sm label-info">Cargado</span></td>
                                     @elseif($row->estatus_alpinista == 2)
