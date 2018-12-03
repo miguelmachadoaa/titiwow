@@ -556,7 +556,7 @@ echo '<br>fin: '.$date_fin;*/
 
           //$user_cliente=Users::where('id', $orden->id_cliente)->first();
 
-          $texto="La orden ".$orden->id.", el pago a sido aprobado y espera por el proceso de aprobacion!";
+          $texto="La orden ".$orden->id.", el pago ha sido notificado y espera por el proceso de aprobación!";
 
            //return $texto;
 

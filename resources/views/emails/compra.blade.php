@@ -16,7 +16,7 @@ Datos de la compra
 
 <h3>Detalle de compra</h3>
 
-<table width="100%">
+<table width="100%" border="1">
 	<tr>
 		<th>Sku</th>
 		<th>idProducto</th>
@@ -40,7 +40,7 @@ Datos de la compra
 	@endforeach
 
 </table>
-
+<br />
 El total de la compra fue de {{ number_format($compra->monto_total, 0,",",".") }}
 
 
