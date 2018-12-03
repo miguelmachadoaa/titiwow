@@ -438,11 +438,6 @@ class ClientesFrontController extends Controller
             }else{
 
 
-
-
-
-            
-
             $token=substr(md5(time()), 0, 10);
 
             $data = array(
@@ -454,7 +449,6 @@ class ClientesFrontController extends Controller
                 'id_user' => $user_id
             );
         
-
             AlpAmigos::create($data);
 
             $amigos=AlpAmigos::where('id_cliente', $user_id)->get();
