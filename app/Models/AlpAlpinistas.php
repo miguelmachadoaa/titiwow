@@ -19,6 +19,7 @@ class AlpAlpinistas extends Model
         'id',
         'documento_alpi',
         'codigo_alpi',
+        'cod_oracle_cliente',
         'estatus_alpinista',
         'id_usuario_creado',
         'id_user'

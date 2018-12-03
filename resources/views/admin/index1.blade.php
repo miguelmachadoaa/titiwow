@@ -41,6 +41,7 @@
 
 
     <section class="content">
+    @if (Sentinel::getUser()->hasAnyAccess(['productos.*']))
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6 margin_10 animated fadeInLeftBig">
                 <!-- Trans label pie charts strats here-->
@@ -235,7 +236,23 @@
                 <!-- END BEGIN Percentage monitor-->
             </div>
         </div>
-        
+    @else
+        <div class="row">
+            <div class="col-md-6 col-lg-6 col-12 my-3">
+                <div class="card panel-primary">
+                    <div class="card-heading">
+                        <h4 class="card-title">Amigo Alpinista</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            En este Backend Podrás controlar el Proceso de venta de AlpinaGo!
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+     @endif 
     </section>
     <div class="modal fade" id="editConfirmModal" tabindex="-1" role="dialog">
         <div class="modal-dialog">
