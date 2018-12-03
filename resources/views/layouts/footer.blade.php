@@ -51,7 +51,7 @@
                 </div>
                 <!-- Pare y Compare Section Start -->
                 <div class="col-sm-3 clearfix">
-                    <img src="{{ secure_asset('uploads/files/pareycompare.png') }}" alt="Pare y Compare" title="Pare y Compare" class="img-responsive" style="margin:10px;">
+                    <img src="{{ secure_asset('uploads/files/pareycompare.png') }}" alt="Pare y Compare" title="Pare y Compare" class="img-responsive" style="margin:10px auto;width:160px;">
                 </div>
                 <!-- //redes Section End -->
             <!-- //Pare y Compare Section End -->
@@ -69,7 +69,7 @@
     <!-- //Footer Section End -->
     <div class="copyright">
         <div class="container">
-        <p>Todos los derechos reservados &copy; Alpina, 2018</p>
+        <p>Todos los derechos reservados &copy; Alpina Productos Alimenticios S.A., {{ date('Y') }} </p>
         </div>
     </div>
     <!--a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Return to top" data-toggle="tooltip" data-placement="left">

@@ -656,7 +656,7 @@ footer img {
 footer .btn-primary.text-white {
     margin-top : 2%;
 }
-footer a,  footer a:visited, .menu-item a{
+footer a:link,  footer a:visited, .menu-item a{
     color:#ffffff;
     font-size: 14px;
 }
