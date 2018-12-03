@@ -51,7 +51,7 @@
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-4">
-                            <a class="btn btn-danger" href="{{ URL::to('admin/blogcategory/') }}">
+                            <a class="btn btn-danger" href="{{ secure_url('admin/blogcategory/') }}">
                                 @lang('button.cancel')
                             </a>
                             <button type="submit" class="btn btn-success">
