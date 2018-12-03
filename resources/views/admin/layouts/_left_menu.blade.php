@@ -608,7 +608,7 @@
     </li>
 
     @endif
-    @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
+    
 
     <li {!! (Request::is('admin/groups') || Request::is('admin/groups/create') || Request::is('admin/groups/*') ? 'class="active"' : '') !!}>
         <a href="#">
@@ -620,7 +620,7 @@
         <ul class="sub-menu">
 
 
-            @if (Sentinel::getUser()->hasAnyAccess(['reportes.masterfile']))
+            
 
                  <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
                     <a href="{{ URL::to('admin/reportes/masterfile') }}">
@@ -628,9 +628,9 @@
                         Masterfile Clientes
                     </a>
                 </li>
-            @endif
+           
 
-            @if (Sentinel::getUser()->hasAnyAccess(['reportes.masterfile']))
+            
 
                  <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
                     <a href="{{ URL::to('admin/reportes/masterfileembajadores') }}">
@@ -638,7 +638,7 @@
                         Masterfile Embajadores
                     </a>
                 </li>
-            @endif
+          
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.logistica']))
 
@@ -716,7 +716,7 @@
         </ul>
     </li>
 
-    @endif
+  
 
 
 

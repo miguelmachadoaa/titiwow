@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Masterfile
+Masterfile Clientes
 @parent
 @stop
 
@@ -25,7 +25,7 @@ Masterfile
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1>Reporte de Masterfile </h1>
+    <h1>Reporte de Masterfile Clientes</h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}">
@@ -34,7 +34,7 @@ Masterfile
             </a>
         </li>
         <li><a href="#"> Reportes </a></li>
-        <li class="active">Masterfiles</li>
+        <li class="active">Masterfiles Clientes</li>
     </ol>
 </section>
 
@@ -45,7 +45,7 @@ Masterfile
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Reporte Masterfiles 
+                       Reporte Masterfile Clientes
                     </h4>
                 </div>
                 <br />
