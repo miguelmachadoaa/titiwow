@@ -54,6 +54,7 @@ class MasterfileEmbajadoresExport implements FromView
           ->join('role_users', 'users.id', '=', 'role_users.user_id')
           ->join('roles', 'role_users.role_id', '=', 'roles.id')
           ->where('roles.id','=', '10')
+          ->where('alp_clientes.estado_masterfile','=','0')
           ->whereDate('users.created_at', '>=', $this->desde)
           ->whereDate('users.created_at', '<=', $this->hasta)
           ->get();

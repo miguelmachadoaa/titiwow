@@ -643,7 +643,7 @@
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.logistica']))
 
                  <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ URL::to('admin/reportes/registrados') }}">
+                    <a href="{{ URL::to('admin/reportes/logistica') }}">
                         <i class="fa fa-angle-double-logistica"></i>
                         Logistica
                     </a>

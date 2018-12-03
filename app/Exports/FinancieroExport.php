@@ -50,6 +50,7 @@ class FinancieroExport implements FromView
           ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
           ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
           ->groupBy('alp_ordenes.id')
+          ->where('alp_ordenes.estatus', '=', '6')
           ->whereDate('alp_ordenes.created_at', '>=', $this->desde)
           ->whereDate('alp_ordenes.created_at', '<=', $this->hasta)->get();
 
