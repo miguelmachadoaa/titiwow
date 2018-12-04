@@ -178,6 +178,8 @@ class AlpCartController extends JoshController
 
         $user_id = Sentinel::getUser()->id;
 
+        $usuario=User::where('id', $user_id)->first();
+
 
         $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
 
@@ -199,30 +201,19 @@ class AlpCartController extends JoshController
 
           $countries = Country::all();
 
+           $inv = $this->inventario();
 
-            $entradas = AlpInventario::select(DB::raw( "SUM(cantidad) as cantidad_total"))
-              ->groupBy('id_producto')
-              ->where('operacion', '1')
-              ->get();
 
-              $inv = array();
+           $pagos=AlpPagos::where('id_orden', $carrito)->get();
 
-              foreach ($entradas as $row) {
-                
-                $inv[$row->id_producto]=$row->cantidad_total;
+          $total_pagos=0;
 
-              }
+          foreach ($pagos as $pago) {
 
-            $salidas = AlpInventario::select(DB::raw( "SUM(cantidad) as cantidad_total"))
-              ->groupBy('id_producto')
-              ->where('operacion', '1')
-              ->get();
+            $total_pagos=$total_pagos+$pago->monto_pago;
 
-              foreach ($salidas as $row) {
-                
-                $inv[$row->id_producto]= $inv[$row->id_producto]-$row->cantidad_total;
+          }
 
-              }
 
 
 
@@ -236,7 +227,7 @@ class AlpCartController extends JoshController
 
           $list=array();
 
-            foreach ($cart as $row) {
+           /* foreach ($cart as $row) {
 
               $items["id"]=$row->id;
               $items["title"]=$row->nombre_producto;
@@ -248,28 +239,39 @@ class AlpCartController extends JoshController
 
               $list[]=$items;
               
-            }
+            }*/
+
+
+              $items["id"]=$carrito;
+              $items["title"]='Orden Alpina Nro. '.$carrito;
+              $items["description"]='Orden Alpina Nro. '.$carrito;
+              $items["picture_url"]= '#';
+              $items["quantity"]=1;
+              $items["currency_id"]='COP';
+              $items["unit_price"]=intval($total-$total_pagos);
+
+              $list[]=$items;
+
 
             $preference_data = [
               "items" => $list,
               "payer" => [
-                "email" => 'correo@gmail.com'
+                "name" => $usuario->first_name,
+                "surname" => $usuario->last_name,
+                "email" => $usuario->email,
               ],
               "back_urls" => [
                 "success" => secure_url('/order/success'),
                 "failure" => secure_url('/order/failure'),
                 "pending" => secure_url('/order/pending')
               ],
-              "notification_url" =>url('/order/mercadopago'),
+              "notification_url" =>secure_url('/order/mercadopago'),
               "external_reference" =>time()
             ];
 
            $mp = new MP();
 
-           // $mp->setCredenciales($configuracion->cliente_id_mercadopago, $configuracion->cliente_secret_mercadopago);
-
             MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
-
 
           $preference = MP::post("/checkout/preferences",$preference_data);
 
@@ -288,15 +290,15 @@ class AlpCartController extends JoshController
 
           $carro->update($data_carrito);
 
-           $pagos=AlpPagos::where('id_orden', $carrito)->get();
+          
 
          // echo $carrito;
 
           /*actualizamos la data del carrito */
 
-            $states=State::where('config_states.country_id', '47')->get();
+          $states=State::where('config_states.country_id', '47')->get();
 
-            return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos'));
+          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos'));
 
          }
 
@@ -317,6 +319,9 @@ class AlpCartController extends JoshController
     {
        
         $configuracion=AlpConfiguracion::where('id', '1')->first();
+
+      $carrito= \Session::get('cr');
+        
 
 
        if ($request->collection_status=='null') {
@@ -351,6 +356,21 @@ class AlpCartController extends JoshController
 
           $countries = Country::all();
 
+
+            $inv = $this->inventario();
+              
+
+
+           $pagos=AlpPagos::where('id_orden', $carrito)->get();
+
+          $total_pagos=0;
+
+          foreach ($pagos as $pago) {
+
+            $total_pagos=$total_pagos+$pago->monto_pago;
+
+          }
+
          if(count($cart)<=0){
 
             return redirect('productos');
@@ -361,25 +381,15 @@ class AlpCartController extends JoshController
 
           $list=array();
 
-            foreach ($cart as $row) {
-
-              $items["id"]=$row->id;
-             
-              $items["title"]=$row->nombre_producto;
-              
-              $items["description"]=$row->descripcion_corta;
-              
-              $items["picture_url"]= url('/').'/uploads/productos/'.$row->imagen_producto;
-              
-              $items["quantity"]=intval($row->cantidad);
-              
+            $items["id"]=$carrito;
+              $items["title"]='Orden Alpina Nro. '.$carrito;
+              $items["description"]='Orden Alpina Nro. '.$carrito;
+              $items["picture_url"]= '#';
+              $items["quantity"]=1;
               $items["currency_id"]='COP';
-              
-              $items["unit_price"]=intval($row->precio_oferta);
+              $items["unit_price"]=intval($total-$total_pagos);
 
               $list[]=$items;
-              
-            }
 
             $preference_data = [
               "items" => $list,
@@ -393,7 +403,7 @@ class AlpCartController extends JoshController
                 "failure" => secure_url('/order/failure'),
                 "pending" => secure_url('/order/pending')
               ],
-              "notification_url" =>url('/order/mercadopago'),
+              "notification_url" =>secure_url('/order/mercadopago'),
               "external_reference" =>time()
             ];
 
@@ -409,7 +419,8 @@ class AlpCartController extends JoshController
 
             $states=State::where('config_states.country_id', '47')->get();
 
-            return view('frontend.order.failure', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries','preference', 'states', 'configuracion'));
+            return view('frontend.order.failure', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries','preference', 'states', 'configuracion', 'inv', 'pagos', 'total_pagos'));
+
 
 
          }
@@ -1917,6 +1928,8 @@ class AlpCartController extends JoshController
 
         $user_id = Sentinel::getUser()->id;
 
+        $usuario=User::where('id', $user_id)->first();
+
         /*se busca el cupon */
 
         $cupon=AlpCupones::where('codigo_cupon', $request->codigo_cupon)->first();
@@ -1925,6 +1938,7 @@ class AlpCartController extends JoshController
         if (isset($cupon->id)) {
 
           $valor=0;
+
           if ($cupon->tipo_reduccion==1) {
             
             $valor=$cupon->valor_cupon;
@@ -1947,23 +1961,24 @@ class AlpCartController extends JoshController
 
           $pago=AlpPagos::create($data_pago);
 
-         
         }
-
-
 
         $pagos=AlpPagos::where('id_orden', $carrito)->get();
 
+        $total_pagos=0;
 
+          foreach ($pagos as $pago) {
 
+            $total_pagos=$total_pagos+$pago->monto_pago;
 
-
-
+          }
 
 
         $configuracion=AlpConfiguracion::where('id', '1')->first();
 
+
         $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
+
 
        $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
           ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
@@ -1986,31 +2001,6 @@ class AlpCartController extends JoshController
           $inv = $this->inventario();
 
 
-
-          /*  $entradas = AlpInventario::select(DB::raw( "SUM(cantidad) as cantidad_total"))
-              ->groupBy('id_producto')
-              ->where('operacion', '1')
-              ->get();
-
-              foreach ($entradas as $row) {
-                
-                $inv[$row->id_producto]=$row->cantidad_total;
-
-              }
-
-            $salidas = AlpInventario::select(DB::raw( "SUM(cantidad) as cantidad_total"))
-              ->groupBy('id_producto')
-              ->where('operacion', '1')
-              ->get();
-
-              foreach ($salidas as $row) {
-                
-                $inv[$row->id_producto]= $inv[$row->id_producto]-$row->cantidad_total;
-
-              }*/
-
-
-
          if(count($cart)<=0){
 
             return redirect('productos');
@@ -2021,7 +2011,7 @@ class AlpCartController extends JoshController
 
           $list=array();
 
-            foreach ($cart as $row) {
+           /* foreach ($cart as $row) {
 
               $items["id"]=$row->id;
               $items["title"]=$row->nombre_producto;
@@ -2033,25 +2023,42 @@ class AlpCartController extends JoshController
 
               $list[]=$items;
               
-            }
+            }*/
+
+
+             $items["id"]=$carrito;
+              $items["title"]='Orden Alpina Nro. '.$carrito;
+              $items["description"]='Orden Alpina Nro. '.$carrito;
+              $items["picture_url"]= '#';
+              $items["quantity"]=1;
+              $items["currency_id"]='COP';
+              $items["unit_price"]=intval($total-$total_pagos);
+
+              $list[]=$items;
+
 
             $preference_data = [
               "items" => $list,
               "payer" => [
-                "email" => 'correo@gmail.com'
+                "name" => $usuario->first_name,
+                "surname" => $usuario->last_name,
+                "email" => $usuario->email,
               ],
               "back_urls" => [
                   "success" => secure_url('/order/success'),
                 "failure" => secure_url('/order/failure'),
                 "pending" => secure_url('/order/pending')
               ],
-              "notification_url" =>url('/order/mercadopago'),
+              "notification_url" =>secure_url('/order/mercadopago'),
               "external_reference" =>time()
             ];
 
-           $mp = new MP();
+          
 
-         $preference = $mp::post("/checkout/preferences",$preference_data);
+
+          MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+
+         $preference = MP::post("/checkout/preferences",$preference_data);
 
           ///$preference = array('response' => array('sandbox_init_point' => '#', ), );
 
@@ -2072,7 +2079,7 @@ class AlpCartController extends JoshController
 
             $states=State::where('config_states.country_id', '47')->get();
 
-            return view('frontend.order.cupon', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos'));
+            return view('frontend.order.cupon', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos'));
 
          }
 
@@ -2088,15 +2095,6 @@ class AlpCartController extends JoshController
         }
 
     }
-
-
-
-
-
-
-
-
-
 
 
 
