@@ -633,6 +633,16 @@
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.masterfile']))
 
                  <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
+                    <a href="{{ URL::to('admin/reportes/masterfileamigos') }}">
+                        <i class="fa fa-angle-double-right"></i>
+                        Masterfile Amigos
+                    </a>
+                </li>
+            @endif
+
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.masterfile']))
+
+                 <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
                     <a href="{{ URL::to('admin/reportes/masterfileembajadores') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Masterfile Embajadores

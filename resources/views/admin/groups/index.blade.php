@@ -84,6 +84,11 @@
                                                 @endif
 
                                             @endif
+
+                                            <!--a class="btn btn-success btn-xs" href="{{ route('admin.groups.permisos', $role->id) }}">
+                                                Permisos
+                                            </a-->
+
                                     </td>
                                 </tr>
                                 @endforeach

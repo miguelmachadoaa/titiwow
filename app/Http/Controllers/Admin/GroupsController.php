@@ -8,6 +8,7 @@ use App\Models\AlpModulos;
 use Redirect;
 use Sentinel;
 use View;
+use Route;
 
 
 class GroupsController extends JoshController
@@ -156,5 +157,97 @@ class GroupsController extends JoshController
             return Redirect::route('admin.groups.index')->with('error', trans('groups/message.group_not_found', compact('id')));
         }
     }
+
+
+
+
+
+
+
+
+
+     public function permissions($id){
+        
+        $role = Sentinel::findRoleById($id);
+        
+        $routes = Route::getRoutes();
+
+        //Api Route
+        // $api = app('api.router');
+        // /** @var $api \Dingo\Api\Routing\Router */
+        // $routeCollector = $api->getRoutes(config('api.version'));
+        // /** @var $routeCollector \FastRoute\RouteCollector */
+        // $api_route = $routeCollector->getRoutes();
+
+
+        $actions = [];
+        foreach ($routes as $route) {
+            if ($route->getName() != "" && !substr_count($route->getName(), 'payment')) {
+                $actions[] = $route->getName();
+            }            
+        }
+        
+        //remove store option
+        $input = preg_quote("store", '~');
+        $var = preg_grep('~' . $input . '~', $actions);
+        $actions = array_values(array_diff($actions, $var));
+
+        //remove update option
+        $input = preg_quote("update", '~');
+        $var = preg_grep('~' . $input . '~', $actions);
+        $actions = array_values(array_diff($actions, $var));
+
+        //Api all names
+        // foreach ($api_route as $route) {
+        //     if ($route->getName() != "" && !substr_count($route->getName(), 'payment')) {
+        //         $actions[] = $route->getName();
+        //     }            
+        // }
+        
+        $var = [];
+        $i = 0;
+        foreach ($actions as $action) {
+
+            $input = preg_quote(explode('.', $action )[0].".", '~');
+            $var[$i] = preg_grep('~' . $input . '~', $actions);
+            $actions = array_values(array_diff($actions, $var[$i]));
+            $i += 1;
+        }
+
+        $actions = array_filter($var);
+        // dd (array_filter($actions));
+        return View('admin.groups.permisos', compact('role', 'actions'));
+    }
+
+    public function save($id, Request $request){
+        $role = Sentinel::findRoleById($id);
+        
+        $role->permissions = [];
+        if($request->permissions){
+            foreach ($request->permissions as $permission) {
+                if(explode('.', $permission)[1] == 'create'){
+                    $role->addPermission($permission);
+                    $role->addPermission(explode('.', $permission)[0].".store");                
+                }
+                else if(explode('.', $permission)[1] == 'edit'){
+                    $role->addPermission($permission);
+                    $role->addPermission(explode('.', $permission)[0].".update");                
+                }
+                else{
+                    $role->addPermission($permission);
+                }            
+            }  
+        }
+        
+        $role->save();
+        
+        Session::flash('message', 'Success! Permissions are stored successfully.');
+        Session::flash('status', 'success');
+        return redirect('role');
+    }
+
+
+
+
 
 }

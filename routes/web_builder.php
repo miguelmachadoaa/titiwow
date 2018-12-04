@@ -25,6 +25,14 @@ Route::post('admin/ordenes/storeconfirm', 'Admin\AlpOrdenesController@storeconfi
 
 Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.'), function () {
 
+
+    Route::get('groups/{role}/permisos', ['uses' => 'Admin\GroupsController@permissions', 'as' => 'groups.permisos']);
+    
+    Route::post('groups/{role}/save', ['uses' => 'Admin\GroupsController@save', 'as' => 'groups.save']);
+
+
+
+
     Route::resource('productos', 'Admin\AlpProductosController');
 
     Route::get('productos/{id}/confirmar', array('as' => 'productos.confirmar', 'uses' => 'Admin\AlpProductosController@confirmar'));
@@ -241,6 +249,11 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
    Route::get('reportes/masterfileembajadores', 'Admin\AlpReportesController@masterfileembajadores');
    //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
    Route::post('reportes/exportmasterfileembajadores', 'Admin\AlpReportesController@exportmasterfileembajadores');
+
+
+   Route::get('reportes/masterfileamigos', 'Admin\AlpReportesController@masterfileamigos');
+   //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
+   Route::post('reportes/exportmasterfileamigos', 'Admin\AlpReportesController@exportmasterfileamigos');
 
 
 
