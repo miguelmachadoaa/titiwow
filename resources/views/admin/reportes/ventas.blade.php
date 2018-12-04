@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Reporte de Ventas 
+Reporte de Ventas por usuario
 @parent
 @stop
 
@@ -25,7 +25,7 @@ Reporte de Ventas
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1>Reporte de Ventas por cliente </h1>
+    <h1>Reporte de Ventas por usuario </h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}">
@@ -34,7 +34,7 @@ Reporte de Ventas
             </a>
         </li>
         <li><a href="#"> Reportes </a></li>
-        <li class="active">Ventas por clientes</li>
+        <li class="active">Ventas por usuario</li>
     </ol>
 </section>
 
@@ -45,7 +45,7 @@ Reporte de Ventas
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Reporte ventas por clientes 
+                       Reporte ventas por usuario 
                     </h4>
                 </div>
                 <br />
@@ -58,7 +58,7 @@ Reporte de Ventas
                 <div class="row">   
                     <div class="form-group col-sm-12 ">
                         <label for="select21" class="col-md-2 control-label text-right">
-                        Clientes                                               
+                        Usuarios                                               
                         </label>
                         <div class="col-md-10">   
                             <select id="clientes" name="clientes" class="form-control select2">

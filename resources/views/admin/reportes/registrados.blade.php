@@ -22,7 +22,7 @@ Reportes Clientes Registrados
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1>Reporte de Clientes Registrados</h1>
+    <h1>Reporte de Lista de Usuarios</h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}">
@@ -31,7 +31,7 @@ Reportes Clientes Registrados
             </a>
         </li>
         <li><a href="#"> Reportes </a></li>
-        <li class="active">Clientes Registrados</li>
+        <li class="active">Lista de Usuarios</li>
     </ol>
 </section>
 
@@ -42,7 +42,7 @@ Reportes Clientes Registrados
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Reportes Clientes Registrados
+                       Reportes Lista de Usuarios
                     </h4>
                 </div>
                 <br />
@@ -64,7 +64,7 @@ Reportes Clientes Registrados
                                         <i class="livicon" data-name="calendar" data-size="16" data-c="#555555"
                                            data-hc="#555555" data-loop="true"></i>
                                     </div>
-                                    <input class="form-control" id="desde" name="desde" placeholder="Desde">
+                                    <input required class="form-control" id="desde" name="desde" placeholder="Desde">
                                 </div>
                             </div>
                                 <div class="col-sm-5 pad-0-res mt-5">
@@ -73,7 +73,7 @@ Reportes Clientes Registrados
                                         <i class="livicon" data-name="calendar" data-size="16" data-c="#555555"
                                            data-hc="#555555" data-loop="true"></i>
                                     </div>
-                                    <input class="form-control" id="hasta" name="hasta" placeholder="Hasta">
+                                    <input required class="form-control" id="hasta" name="hasta" placeholder="Hasta">
                                 </div>
                             </div>
                         </div>

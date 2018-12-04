@@ -45,7 +45,7 @@ Reporte Logistica
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Reporte Logistica
+                       Reporte Logistica ventas ecommerce
                     </h4>
                 </div>
                 <br />

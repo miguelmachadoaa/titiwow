@@ -25,7 +25,7 @@ Reporte de Ventas por Producto
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1>Reporte de VVentas por Producto </h1>
+    <h1>Reporte de Ventas por Producto </h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}">

@@ -608,7 +608,7 @@
     </li>
 
     @endif
-    
+    @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
     <li {!! (Request::is('admin/groups') || Request::is('admin/groups/create') || Request::is('admin/groups/*') ? 'class="active"' : '') !!}>
         <a href="#">
@@ -620,7 +620,7 @@
         <ul class="sub-menu">
 
 
-            
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.masterfile']))
 
                  <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
                     <a href="{{ URL::to('admin/reportes/masterfile') }}">
@@ -628,9 +628,9 @@
                         Masterfile Clientes
                     </a>
                 </li>
-           
+            @endif
 
-            
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.masterfile']))
 
                  <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
                     <a href="{{ URL::to('admin/reportes/masterfileembajadores') }}">
@@ -638,14 +638,14 @@
                         Masterfile Embajadores
                     </a>
                 </li>
-          
+            @endif
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.logistica']))
 
                  <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
                     <a href="{{ URL::to('admin/reportes/logistica') }}">
-                        <i class="fa fa-angle-double-logistica"></i>
-                        Logistica
+                        <i class="fa fa-angle-double-right"></i>
+                        Logistica Ventas Ecommerce
                     </a>
                 </li>
             @endif
@@ -665,7 +665,7 @@
                  <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
                     <a href="{{ URL::to('admin/reportes/registrados') }}">
                         <i class="fa fa-angle-double-right"></i>
-                        Usuarios Registrados
+                        Lista de Usuarios
                     </a>
                 </li>
             @endif
@@ -675,7 +675,7 @@
                 <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ URL::to('admin/reportes/ventas') }}">
                     <i class="fa fa-angle-double-right"></i>
-                    Ventas por cliente
+                    Ventas por Usuario
                 </a>
             </li>
             @endif
@@ -704,7 +704,7 @@
                 <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ URL::to('admin/reportes/financiero') }}">
                     <i class="fa fa-angle-double-right"></i>
-                    Financiero
+                    Conciliacion Financiera
                 </a>
             </li>
             @endif
@@ -716,7 +716,7 @@
         </ul>
     </li>
 
-  
+    @endif
 
 
 
