@@ -1,4 +1,4 @@
-    <div class="row">
+    <div class="row " style="margin: 15px">
 
         <h2>Carrito de Compras</h2>
 

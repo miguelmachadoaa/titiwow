@@ -271,6 +271,7 @@ Carrito de Compras
                     </div>
 
                 </div>
+                <br>
 
                 @elseif($fp->id==4)
 
@@ -310,6 +311,7 @@ Carrito de Compras
                     </div>
 
                 </div>
+                <br>
 
                 @endif
 
@@ -332,6 +334,8 @@ Carrito de Compras
         </div>
 
     </div> <!-- end Row --><!-- col-sm-8 -->
+
+    <br><br><br>
 
     <div class="col-sm-4">
 
@@ -425,10 +429,10 @@ Carrito de Compras
                                         
                                         <div class="row text-center">
 
-                                            <div class="col-sm-8">
+                                            <div class="col-sm-8 col-xs-8">
                                                 <h4>{{ json_decode($pago->json)->codigo_cupon }}</h4>
                                             </div>
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-4 col-xs-4">
 
                                                 <h4 style="color:#143473;">{{   number_format($pago->monto_pago,0,",",".") }}</h4> 
 
@@ -458,10 +462,10 @@ Carrito de Compras
             <hr />
             <div class="row text-center">
 
-                <div class="col-sm-8">
+                <div class="col-sm-8 col-xs-8" >
                     <h4>Total a Pagar</h4>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-4 col-xs-4">
 
                        <h4 style="color:#143473;">{{ number_format($total-$total_pagos,0,",",".")}}</h4> 
 

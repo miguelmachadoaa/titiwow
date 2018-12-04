@@ -38,7 +38,7 @@ Carrito de Compras
 
     <div class="row" id="table_detalle">
 
-    <div class="row">
+    <div class="row" style="    margin: 15px;">
 
         <h2>Carrito de Compras</h2>
 
@@ -48,7 +48,9 @@ Carrito de Compras
                    
             <br>
 
-            <div class="col-md-10 col-md-offset-1 table-responsive" >
+            <div class="col-md-1 col-xs-1"></div>
+
+            <div class="col-md-10 col-xs-10  table-responsive" >
 
                 <table class="table  ">
 
