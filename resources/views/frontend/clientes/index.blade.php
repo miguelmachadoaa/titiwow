@@ -182,7 +182,7 @@ Area clientes
             <div class="row">
                 @endif
                 <div class="col-sm-2 text-center"> 
-                <a href="{{ secure_url('#') }}" class=" btn-medium cajita">
+                <a href="{{ secure_url('paginas/faqs') }}" class=" btn-medium cajita">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-question-circle"></i></div>
                     <div class="col-sm-12">Preguntas</div>
