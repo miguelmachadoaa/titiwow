@@ -892,7 +892,7 @@ class AlpCartController extends JoshController
 
 
          $data_update = array(
-          'referencia' => 'ALP'.$orden->id,
+          'referencia' => 'PRE'.$orden->id,
           'monto_total_base' => $monto_total_base,
         );
 
