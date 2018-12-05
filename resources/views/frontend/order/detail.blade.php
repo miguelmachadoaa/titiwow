@@ -386,7 +386,7 @@ Carrito de Compras
                 <div class="col-sm-12 col-xs-12">
                     
 
-                    <div  data-id={{ $fp->id }} class="row forma border pointer cupones">
+                    <div  data-id="4" class="row forma border pointer cupones">
 
 
                     <div class="col-sm-8 col-xs-12">

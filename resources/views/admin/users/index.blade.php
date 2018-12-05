@@ -62,6 +62,8 @@ Users List
             </div>
         </div>
     </div>    <!-- row-->
+
+    <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
 </section>
 @stop
 
@@ -72,10 +74,12 @@ Users List
 
 <script>
     $(function() {
+        base=$('#base').val();
+
         var table = $('#table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{!! route('admin.users.data') !!}',
+            ajax: base+'/admin/users/data',
             columns: [
                 { data: 'id', name: 'id' },
                 { data: 'first_name', name: 'first_name' },

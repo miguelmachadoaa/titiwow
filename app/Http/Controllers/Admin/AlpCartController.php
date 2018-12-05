@@ -25,6 +25,8 @@ use App\Models\AlpEnviosHistory;
 use App\Models\AlpCarrito;
 use App\Models\AlpCarritoDetalle;
 use App\Models\AlpCupones;
+use App\Models\AlpPreOrdenes;
+use App\Models\AlpPreDetalles;
 use App\Country;
 use App\State;
 use App\City;
@@ -156,10 +158,13 @@ class AlpCartController extends JoshController
     }
 
 
+   
+
     public function orderDetail()
     {
 
       $configuracion=AlpConfiguracion::where('id', '1')->first();
+
 
       
       $carrito= \Session::get('cr');
@@ -167,6 +172,9 @@ class AlpCartController extends JoshController
       $cart=$this->reloadCart();
 
       $total=$this->total();
+
+     
+
 
       if ($total<$configuracion->minimo_compra) {
         
@@ -277,6 +285,10 @@ class AlpCartController extends JoshController
 
           //dd($preference);
 
+          $this->saveOrden($preference);
+
+          //dd($preference);
+
           //$preference = array('response' => array('sandbox_init_point' => '#', ), );
 
           /*actualizamos la data del carrito */
@@ -318,15 +330,13 @@ class AlpCartController extends JoshController
      public function failure(Request $request)
     {
        
-        $configuracion=AlpConfiguracion::where('id', '1')->first();
+      $configuracion=AlpConfiguracion::where('id', '1')->first();
 
-      $carrito= \Session::get('cr');
-        
+      $carrito= \Session::get('cr');      
 
+      if ($request->collection_status=='null') {
 
-       if ($request->collection_status=='null') {
-
-           $cart= \Session::get('cart');
+      $cart= \Session::get('cart');
 
       $total=$this->total();
 
@@ -356,12 +366,9 @@ class AlpCartController extends JoshController
 
           $countries = Country::all();
 
+          $inv = $this->inventario();
 
-            $inv = $this->inventario();
-              
-
-
-           $pagos=AlpPagos::where('id_orden', $carrito)->get();
+          $pagos=AlpPagos::where('id_orden', $carrito)->get();
 
           $total_pagos=0;
 
@@ -413,6 +420,8 @@ class AlpCartController extends JoshController
             
             $preference = MP::post("/checkout/preferences",$preference_data);
 
+             $this->saveOrden($preference);
+
             //$preference=null;
 
             ///print_r($preference);
@@ -422,15 +431,13 @@ class AlpCartController extends JoshController
             return view('frontend.order.failure', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries','preference', 'states', 'configuracion', 'inv', 'pagos', 'total_pagos'));
 
 
-
          }
 
       }
 
-
-       }
-
     }
+
+  }
 
 
 
@@ -438,7 +445,7 @@ class AlpCartController extends JoshController
     {
 
 
-    if ($request->collection_status=='approved') {
+   /* if ($request->collection_status=='approved') {*/
      
       $input=$request->all();
 
@@ -534,7 +541,6 @@ class AlpCartController extends JoshController
                   'id_user' =>$user_id                   
               );
 
-
               AlpPuntos::create($data_puntos);
 
             }
@@ -548,7 +554,6 @@ class AlpCartController extends JoshController
           'id_user' =>$user_id                   
 
         );
-
 
         $envio=AlpEnvios::create($data_envio);
 
@@ -577,7 +582,6 @@ class AlpCartController extends JoshController
           'json' => json_encode($input), 
           'id_user' => $user_id, 
         );
-
 
          AlpPagos::create($data_pago);
 
@@ -626,27 +630,16 @@ class AlpCartController extends JoshController
           return redirect('login');
       }
 
-
-
-
-
-
-    }else{
+    /*}else{
 
           return redirect('orden/failure');
 
-    }
-
+    }*/
 
 }
 
-
-
-
-
       public function pending(Request $request)
     {
-
 
     //if ($request->collection_status=='approved') {
      
@@ -759,7 +752,6 @@ class AlpCartController extends JoshController
 
         );
 
-
         $envio=AlpEnvios::create($data_envio);
 
         $data_envio_history = array(
@@ -788,7 +780,6 @@ class AlpCartController extends JoshController
           'id_user' => $user_id, 
         );
 
-
          AlpPagos::create($data_pago);
 
          $aviso_pago="Su pago esta siendo procesado segun referencia: ".$request->preference_id.", debera finalizar el proceso en 24 horas o su pedido sera cancelado.!";
@@ -806,7 +797,6 @@ class AlpCartController extends JoshController
         $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug')
           ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
           ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
-
 
          $cart= \Session::forget('cart');
 
@@ -829,7 +819,6 @@ class AlpCartController extends JoshController
           
 
           return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
-        
 
       }else{
 
@@ -849,14 +838,69 @@ class AlpCartController extends JoshController
 
 
 
+ public function saveOrden($preference){
+
+
+      $carrito= \Session::get('cr');
+
+      $cart=$this->reloadCart();
+
+      $total=$this->total();
+
+      $user_id = Sentinel::getUser()->id;
+
+
+      $data_orden = array(
+            'referencia ' => time(), 
+            'id_cliente' => $user_id, 
+            'estatus' =>'1', 
+            'monto_total' =>$total,
+            'monto_total_base' =>$total,
+            'preferencia_id' => $preference['response']['id'],
+            'json' => json_encode($preference),
+            'id_user' =>$user_id
+          );
+
+      $orden=AlpPreOrdenes::create($data_orden);
+
+
+       $monto_total_base=0;
+
+
+         foreach ($cart as $detalle) {
+
+          //dd($detalle);
+
+            $monto_total_base=$monto_total_base+($detalle->cantidad*$detalle->precio_base);
+
+            $data_detalle = array(
+              'id_orden' => $orden->id, 
+              'id_producto' => $detalle->id, 
+              'cantidad' =>$detalle->cantidad, 
+              'precio_base' =>$detalle->precio_base, 
+              'precio_total_base' =>$detalle->cantidad*$detalle->precio_base, 
+              'precio_unitario' =>$detalle->precio_oferta, 
+              'precio_total' =>$detalle->cantidad*$detalle->precio_oferta,
+              'id_user' =>$user_id 
+            );
+
+            AlpPreDetalles::create($data_detalle);
+
+         
+
+         }
+
+
+         $data_update = array(
+          'referencia' => 'ALP'.$orden->id,
+          'monto_total_base' => $monto_total_base,
+        );
+
+         $orden->update($data_update);
 
 
 
-
-
-
-
-
+    }
 
 
 

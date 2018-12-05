@@ -172,6 +172,27 @@ class GroupsController extends JoshController
         
         $routes = Route::getRoutes();
 
+        $iterator=$routes->getIterator();
+
+        //dd($iterator);
+
+        //dd($routes);
+
+        $listado = array();
+
+        foreach ($routes as $ro) {
+
+            if (substr($ro->getName(), 0,5)=='admin') {
+
+                $listado[]=$ro->getName();
+                # code...
+            }
+            
+            
+        }
+
+        dd($listado);
+
         //Api Route
         // $api = app('api.router');
         // /** @var $api \Dingo\Api\Routing\Router */
