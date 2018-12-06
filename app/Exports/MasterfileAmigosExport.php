@@ -61,7 +61,7 @@ class MasterfileAmigosExport implements FromView
 
           //dd($ordenes);
 
-        return view('admin.exports.masterfile.amigos', [
+        return view('admin.exports.masterfileamigos', [
             'usuarios' => $users
         ]);
     }
