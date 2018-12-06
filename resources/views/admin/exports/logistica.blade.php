@@ -16,15 +16,15 @@
 
         @foreach ($ventas as $row)
         <tr>
-            <td>{!! $row->id !!}</td>
+            <td>{!! $row->ordencompra !!}</td>
             <td>{!! $row->city_name!!}</td>
-            <td>{{ $row->nombre_estructura.' '.$row->principal_address.' '.$row->secundaria_address.' '.$row->edificio_address     }}</td>
+            <td>{{ $row->abrevia_estructura.' '.$row->principal_address.' '.$row->secundaria_address.' '.$row->edificio_address     }}</td>
             <td>3</td>
             <td>{!! $row->monto_total !!}</td>
             <td>{!! $row->first_name.' '.$row->last_name !!}</td>
             <td>{!! $row->telefono_cliente !!}</td>
             <td></td>
-            <td></td>
+            <td>{!! $row->barrio_address !!}</td>
           
         </tr>
         @endforeach

@@ -28,6 +28,7 @@ class LogisticaExport implements FromView
     {
         $ordenes=AlpOrdenes::query()->select(
           'alp_ordenes.id as id',
+          'alp_ordenes.ordencompra as ordencompra',
           'alp_ordenes.referencia as referencia', 
           'alp_ordenes.monto_total as monto_total',
         'config_cities.city_name as city_name',
@@ -38,6 +39,7 @@ class LogisticaExport implements FromView
         'alp_direcciones.detalle_address as detalle_address',
         'alp_direcciones.barrio_address as barrio_address',
         'alp_direcciones_estructura.nombre_estructura as nombre_estructura',
+        'alp_direcciones_estructura.abrevia_estructura as abrevia_estructura',
           DB::raw('count(alp_ordenes_detalle.cantidad) as total_articulos'),
           'alp_clientes.doc_cliente as doc_cliente',
           'alp_clientes.telefono_cliente as telefono_cliente',
@@ -58,6 +60,8 @@ class LogisticaExport implements FromView
           ->join('alp_clientes', 'alp_ordenes.id_cliente', '=', 'alp_clientes.id_user_client')
           ->join('alp_ordenes_detalle', 'alp_ordenes.id', '=', 'alp_ordenes_detalle.id_orden')
           ->groupBy('alp_ordenes.id')
+          ->where('alp_ordenes.ordencompra', '!=', NULL)
+          ->where('alp_ordenes.estatus', '!=', '4')
           ->whereDate('alp_ordenes.created_at', '>=', $this->desde)
           ->whereDate('alp_ordenes.created_at', '<=', $this->hasta)
           ->get();
