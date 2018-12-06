@@ -788,7 +788,7 @@ class AlpCartController extends JoshController
 
          AlpPagos::create($data_pago);
 
-         $aviso_pago="Su pago esta siendo procesado segun referencia: ".$request->preference_id.", debera finalizar el proceso en 24 horas o su pedido sera cancelado.!";
+         $aviso_pago="Su pago está siendo procesado según referencia: ".$request->preference_id.", deberá finalizar el proceso en 24 horas o su pedido será cancelado.!";
 
        //  $datalles=AlpDetalles::where('id_orden', $orden->id)->get();
 
@@ -812,7 +812,7 @@ class AlpCartController extends JoshController
 
           $user_cliente=User::where('id', $user_id)->first();
 
-          $texto='Se ha creado la siguiente orden '.$compra->id.' y esta a proceso de espera para aprobacion de pago, debera completar el pago en 24 horas o la orden sera cancelada';
+          $texto='Se ha creado la siguiente orden '.$compra->id.' y está en proceso de espera para aprobación de pago, deberá completar el pago en 24 horas o la orden será cancelada';
 
           //Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionOrden($compra->id, $texto));
 
