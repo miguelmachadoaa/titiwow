@@ -174,7 +174,7 @@ class FrontEndController extends JoshController
 
                 
             } else {
-                return redirect('login')->with('error', 'Email or password is incorrect.');
+                return redirect('login')->with('error', 'El Email o Contraseña son Incorrectos.');
                 //return Redirect::back()->withInput()->withErrors($validator);
             }
 
