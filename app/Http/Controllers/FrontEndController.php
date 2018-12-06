@@ -324,12 +324,7 @@ class FrontEndController extends JoshController
 
                     $masterfi=1;
 
-                }else{
-
-                    $masterfi=0;
-
-                }
-                $data = array(
+                    $data = array(
                     'id_user_client' => $user->id, 
                     'id_type_doc' => $request->id_type_doc, 
                     'doc_cliente' =>$request->doc_cliente, 
@@ -343,9 +338,11 @@ class FrontEndController extends JoshController
                     'id_user' =>0,               
                 );
 
-            }else{
+                }else{
 
-                $data = array(
+                    $masterfi=0;
+
+                    $data = array(
                     'id_user_client' => $user->id, 
                     'id_type_doc' => $request->id_type_doc, 
                     'doc_cliente' =>$request->doc_cliente, 
@@ -356,6 +353,29 @@ class FrontEndController extends JoshController
                     'id_embajador' =>'0',               
                     'id_user' =>0,               
                 );
+
+                }
+
+                
+
+            }else{
+
+
+                $masterfi=0;
+
+                    $data = array(
+                    'id_user_client' => $user->id, 
+                    'id_type_doc' => $request->id_type_doc, 
+                    'doc_cliente' =>$request->doc_cliente, 
+                    'telefono_cliente' => $request->telefono_cliente,
+                    'habeas_cliente' => $request->habeas_cliente,
+                    'estado_masterfile' =>0,
+                    'id_empresa' =>'0',               
+                    'id_embajador' =>'0',               
+                    'id_user' =>0,               
+                );
+
+                
                 
             }
 

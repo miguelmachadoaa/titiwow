@@ -34,7 +34,7 @@
             <div id="notific">
             @include('notifications')
             </div>
-            <form action="{{ secure_url('registro') }}" method="POST" id="reg_form">
+            <form action="{{ secure_url('registro') }}" method="POST" id="reg_form" name="reg_form">
                 <!-- CSRF Token -->
                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
@@ -152,6 +152,7 @@
                 <div class="form-group {{ $errors->first('cod_alpinista', 'has-error') }}">
                     <input type="text" class="form-control" id="cod_alpinista" name="cod_alpinista" placeholder="Código de Alpinista"
                            value="{!! old('cod_alpinista') !!}" >
+                    <div class="res_cod_alpinista"></div>
                     {!! $errors->first('cod_alpinista', '<span class="help-block">:message</span>') !!}
                 </div>
                 <hr />
@@ -169,7 +170,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-6">
-                            <button type="submit" class="btn btn-block btn-primary">Registrarse</button>
+                            <button id="btnsubmit" name="btnsubmit" type="submit" class="btn btn-block btn-primary">Registrarse</button>
                         </div>
                         <div class="col-sm-6">
                             <a class="btn btn-block btn-danger" href="{{ secure_url('/') }}">Regresar a Inicio</a>
@@ -217,10 +218,62 @@
 $(document).ready(function(){
         $('#cod_alpinista').hide();
         // For oncheck callback
-        $('#chkalpinista').on('ifChecked', function () { $('#cod_alpinista').show();})
+        $('#chkalpinista').on('ifChecked', function () { 
+            $('#cod_alpinista').show();
+        })
 
         // For onUncheck callback
-        $('#chkalpinista').on('ifUnchecked', function () { $('#cod_alpinista').hide();})
+        $('#chkalpinista').on('ifUnchecked', function () { 
+            $('#cod_alpinista').hide();
+        })
+
+        
+
+        $('#cod_alpinista').change(function(){
+                $('#btnsubmit').removeAttr('disabled');             
+        })
+
+
+
+        $('#btnsubmit').on('click', function(e){
+
+            e.preventDefault();
+
+            $('.res_cod_alpinista').html('');
+
+
+            var $validator = $('#reg_form').data('bootstrapValidator').validate();
+
+
+                if( $('.icheckbox_minimal-blue:first').hasClass('checked') ) {
+
+
+                    if ($('#cod_alpinista').val()!='') {
+
+                     if ($validator.isValid()) {
+
+                            $("#reg_form")[0].submit();
+
+                       }
+
+                    }else{
+
+                        $('.res_cod_alpinista').html('<span class="help-block">Código de Alpinista es requerido</span>');
+
+                        $('#btnsubmit').attr('disabled', '1');
+                    }
+
+                }else{
+
+
+                        if ($validator.isValid()) {
+
+                            $("#reg_form")[0].submit();
+                               
+                        }
+                }
+
+        });
 
         $("#state_id").select2();
         $("#city_id").select2();
