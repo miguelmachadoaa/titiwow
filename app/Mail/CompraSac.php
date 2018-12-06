@@ -37,7 +37,7 @@ class CompraSac extends Mailable
     public function build()
     {
         return $this->from('noresponder@alpinago.com')
-        ->subject('Nuevo Pedido | SAC')
+        ->subject('Nuevo Pedido Nro.: '.$this->compra->id.' | SAC')
         ->markdown('emails.compra');
     }
 }

@@ -1,5 +1,5 @@
 @component('mail::message')
-Gracias por su compra {{ $compra->first_name.' '.$compra->last_name }}
+Gracias por su compra <b>{{ $compra->first_name.' '.$compra->last_name }}</b>
 
 Hemos registrado una compra {{ $compra->referencia }},  Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y será entregado {{ $fecha_entrega }}. 
 
@@ -9,7 +9,7 @@ Datos de la compra
 <p><b>IdUsuario Masterfile: </b>{{ $compra->cod_oracle_cliente }}</p>
 <p><b>Cedula: </b>{{ $compra->doc_cliente }}</p>
 <p><b>Valor Pagado: </b>{{ $compra->monto_total }}</p>
-<p><b>Valor Iva: </b>{{ 0}}</p>
+<p><b>Valor Iva: </b>{{ number_format($compra->monto_total-($compra->monto_total/1.19))}}</p>
 <p><b>Fecha de Entrega: </b>{{ $fecha_entrega }}</p>
 
 
@@ -18,6 +18,7 @@ Datos de la compra
 
 <table width="100%" border="1">
 	<tr>
+		<th>EAN</th>
 		<th>Sku</th>
 		<th>idProducto</th>
 		<th>Producto</th>
@@ -30,6 +31,7 @@ Datos de la compra
 
 		<tr>
 		<td>{{$row->referencia_producto}}</td>
+		<td>{{$row->referencia_producto_sap}}</td>
 		<td>{{$row->id_producto}}</td>
 		<td>{{$row->nombre_producto}}</td>
         <td>{{number_format($row->precio_unitario,0,",",".")}}</td>

@@ -281,7 +281,16 @@ class AlpCartController extends JoshController
 
             MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
-          $preference = MP::post("/checkout/preferences",$preference_data);
+         // $preference = MP::post("/checkout/preferences",$preference_data);
+
+          $preference = array(
+            'response' => array(
+              'sandbox_init_point' => '#',
+              'init_point' => '#',
+              'id' => time(),
+               ),
+              );
+
 
           //dd($preference);
 
@@ -289,7 +298,6 @@ class AlpCartController extends JoshController
 
           //dd($preference);
 
-          //$preference = array('response' => array('sandbox_init_point' => '#', ), );
 
           /*actualizamos la data del carrito */
 
