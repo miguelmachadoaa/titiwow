@@ -61,7 +61,7 @@ class LogisticaExport implements FromView
           ->join('alp_ordenes_detalle', 'alp_ordenes.id', '=', 'alp_ordenes_detalle.id_orden')
           ->groupBy('alp_ordenes.id')
           ->where('alp_ordenes.ordencompra', '!=', NULL)
-          ->where('alp_ordenes.estatus', '!=', '4')
+          ->where('alp_ordenes.estatus', '=', '6')
           ->whereDate('alp_ordenes.created_at', '>=', $this->desde)
           ->whereDate('alp_ordenes.created_at', '<=', $this->hasta)
           ->get();

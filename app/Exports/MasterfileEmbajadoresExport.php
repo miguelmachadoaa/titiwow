@@ -39,7 +39,7 @@ class MasterfileEmbajadoresExport implements FromView
         'alp_direcciones.edificio_address as edificio_address',
         'alp_direcciones.detalle_address as detalle_address',
         'alp_direcciones.barrio_address as barrio_address',
-        'alp_direcciones_estructura.nombre_estructura as nombre_estructura',
+        'alp_direcciones_estructura.abrevia_estructura as abrevia_estructura',
         'alp_clientes.id_embajador as id_embajador',
         'alp_clientes.telefono_cliente as telefono_cliente',
         'roles.name as name_rol' 

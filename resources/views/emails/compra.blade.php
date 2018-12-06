@@ -43,7 +43,7 @@ Datos de la compra
 
 </table>
 <br />
-El total de la compra fue de {{ number_format($compra->monto_total, 0,",",".") }}
+El total de la compra fué de {{ number_format($compra->monto_total, 0,",",".") }}
 
 
 @component('mail::button', ['url' => secure_url('/')])
