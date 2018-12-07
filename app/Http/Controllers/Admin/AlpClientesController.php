@@ -539,12 +539,12 @@ class AlpClientesController extends JoshController
           
     }
 
-    public function eliminar(Request $request)
+    public function elimi3nar(Request $request)
     {
         
-        //dd($request);
+        return 'llego';
 
-
+/*
         $user_id = Sentinel::getUser()->id;
 
        try {
@@ -585,7 +585,7 @@ class AlpClientesController extends JoshController
 
             return 0;
             
-        }
+        }*/
 
              
           
@@ -604,7 +604,7 @@ class AlpClientesController extends JoshController
         if (isset($res->id)) {
             
             return 0;
-            
+
         }else{
 
 

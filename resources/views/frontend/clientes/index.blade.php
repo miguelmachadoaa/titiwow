@@ -275,7 +275,7 @@ Area clientes
 
         $.ajax({
             type: "POST",
-            data:{ base },
+            data:{  },
             url: base+"/admin/clientes/eliminar",
                 
             complete: function(datos){     
