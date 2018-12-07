@@ -51,9 +51,9 @@
             </div>
 
 
-                 <a href="{{ secure_url('admin/productos/'.$alpProductos->id.'/confirm-delete' ) }}" data-toggle="modal" data-target="#delete_confirm">
+                 <!--a href="{{ secure_url('admin/productos/'.$alpProductos->id.'/confirm-delete' ) }}" data-toggle="modal" data-target="#delete_confirm">
                      <i class="livicon" data-name="remove-alt" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="delete alpProductos"></i>
-                 </a>
+                 </a-->
 
 
             </td>
