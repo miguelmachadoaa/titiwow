@@ -174,7 +174,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-6">
-                            <button id="btnsubmit" name="btnsubmit" type="submit" class="btn btn-block btn-primary">Registrarse</button>
+                            <button id="btnsubmit" name="btnsubmit" type="button" class="btn btn-block btn-primary">Registrarse</button>
                         </div>
                         <div class="col-sm-6">
                             <a class="btn btn-block btn-danger" href="{{ secure_url('/') }}">Regresar a Inicio</a>
@@ -242,7 +242,7 @@ $(document).ready(function(){
 
 
 
-        $('#btnsubmit').on('click', function(e){
+        $(document).on('click','#btnsubmit', function(e){
 
             e.preventDefault();
 
@@ -257,7 +257,9 @@ $(document).ready(function(){
 
                     if ($('#cod_alpinista').val()!='') {
 
+
                      if ($validator.isValid()) {
+
 
                             $("#reg_form")[0].submit();
 
@@ -265,9 +267,10 @@ $(document).ready(function(){
 
                     }else{
 
+
                         $('.res_cod_alpinista').html('<span class="help-block">Código de Alpinista es requerido</span>');
 
-                        $('#btnsubmit').attr('disabled', '1');
+                       //$('#btnsubmit').attr('disabled', '1');
                     }
 
                 }else{
@@ -275,7 +278,7 @@ $(document).ready(function(){
 
                         if ($validator.isValid()) {
 
-                            $("#reg_form")[0].submit();
+                           $("#reg_form")[0].submit();
                                
                         }
                 }

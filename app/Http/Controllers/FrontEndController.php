@@ -273,8 +273,11 @@ class FrontEndController extends JoshController
     public function getRegister()
     {
         $states=State::where('config_states.country_id', '47')->get();
+
         $t_documento = AlpTDocumento::where('estado_registro','=',1)->get();
+
         $estructura = AlpEstructuraAddress::where('estado_registro','=',1)->get();
+        
 
         // Show the page
         return view('register', compact('states','t_documento','estructura'));
