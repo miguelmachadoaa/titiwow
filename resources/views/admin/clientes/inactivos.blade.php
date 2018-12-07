@@ -194,6 +194,8 @@
                                     </div>
                                 </div>
 
+                                <div class="res_activar"></div>
+
 
                             </div>
                         </form>
@@ -338,15 +340,26 @@ $('.sendActivar').click(function () {
             data:{  cliente_id, cod_oracle_cliente, notas },
             url: base+"/admin/clientes/activar",
                 
-            complete: function(datos){     
+            complete: function(datos){   
 
-                $("#tr_"+cliente_id+'').html(datos.responseText);
+                if (datos.responseText==0) {
 
-                $('#activarUsuarioModal').modal('hide');
+                    $('.res_activar').html('<div class="label label-danger">Codigo Oracle Ya fue usado!</div>');
+
+                }else{
+
+                    $("#tr_"+cliente_id+'').html(datos.responseText);
+
+                    $('#activarUsuarioModal').modal('hide');
+                    
+                    $('#cliente_id').val('');
+                    $('#cod_oracle_cliente').val('');
+                    $('#notas').val('');
+
+
+                }  
+
                 
-                $('#cliente_id').val('');
-                $('#cod_oracle_cliente').val('');
-                $('#notas').val('');
         
             }
         });

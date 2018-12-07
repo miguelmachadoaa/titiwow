@@ -598,6 +598,18 @@ class AlpClientesController extends JoshController
 
         $user=User::where('id', $request->cliente_id)->first();
 
+        $res=AlpClientes::where('cod_oracle_cliente', $request->cod_oracle_cliente)->first();
+
+
+        if (isset($res->id)) {
+            
+            return 0;
+            
+        }else{
+
+
+        
+
 
           Activation::remove($user);
                         //add new record
@@ -645,6 +657,8 @@ class AlpClientesController extends JoshController
         $data=$view->render();
 
         return $data;
+
+        }
           
     }
 
