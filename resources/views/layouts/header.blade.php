@@ -170,6 +170,24 @@
         <nav class="navbar navbar-default container">
             <div class="collapse navbar-collapse" id="collapse"> 
                 <ul class="nav navbar-nav">
+                    <li style="padding: 0.2em 1em;">
+
+                        <form method="GET" action="{{ secure_url('buscar') }}">
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <div class="input-group">
+                                                <input type="text" name="buscar"  id="buscar" class="form-control" placeholder="Buscar ..." value="{{ old('buscar') }}" autocomplete="off">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" alt="Buscar" ><i class="fa fa-search" aria-hidden="true" id="busqueda"></i></button>
+                                            </span>
+                                            </div><!-- /input-group -->
+                                        </div><!-- /.col-lg-6 -->
+                                    </div>  
+                                </form>
+                        
+                    </li>
+                    <hr>
+
                     @foreach ($menus as $key => $item)
                         @if ($item['parent'] != 0)
                             @break
@@ -178,6 +196,9 @@
                     @endforeach
 
                     <hr />
+
+
+
                         <li class="hidden-lg ubicacion_header">       
                             <a href="#"  ></a>
                         </li>
