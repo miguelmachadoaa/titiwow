@@ -926,4 +926,41 @@ class AlpProductosController extends JoshController
         
         return $data;
     }
+
+    public function referenciasap(Request $request)
+    {
+
+        $input = $request->all();
+        
+        //dd($input['referencia_producto_sap']);
+
+        $ref=AlpProductos::where('referencia_producto_sap', $input['referencia_producto_sap'])->first();
+
+        if (isset($ref->id)) {
+          return json_encode( array('valid' => false ));
+        }else{
+          return json_encode( array('valid' => true ));
+
+        }
+    }
+
+    public function referencia(Request $request)
+    {
+
+        $input = $request->all();
+        
+        //dd($input['referencia_producto_sap']);
+
+        $ref=AlpProductos::where('referencia_producto', $input['referencia_producto'])->first();
+
+        if (isset($ref->id)) {
+
+          return json_encode( array('valid' => false ));
+
+        }else{
+          
+          return json_encode( array('valid' => true ));
+
+        }
+    }
 }

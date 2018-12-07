@@ -999,7 +999,7 @@
 
     <script type="text/javascript">
         
-        
+base=$('#base').val();        
 
 $("#productosForm").bootstrapValidator({
     fields: {
@@ -1016,15 +1016,26 @@ $("#productosForm").bootstrapValidator({
             validators: {
                 notEmpty: {
                     message: 'The referencia_producto name is required'
-                }
+                },
+                remote: {
+                message: 'La referencia no esta disponible',
+                method: 'POST',
+                url: base+'/admin/productos/verificar/referencia/',
+            }
             },
             required: true,
             minlength: 3
+            
         },
         referencia_producto_sap: {
             validators: {
                 notEmpty: {
                     message: 'The referencia_producto_sap name is required'
+                },
+                remote: {
+                            message: 'La referencia_producto_sap no esta disponible',
+                            method: 'POST',
+                            url: base+'/admin/productos/verificar/referenciasap/',
                 }
             },
             required: true,

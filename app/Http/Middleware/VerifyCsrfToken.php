@@ -13,6 +13,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
        'cart/addcupon', //
+       'productos/verificar/referenciasap', //
        'cart/storedir', //
        'admin/ordenes/storeconfirm', //
        'cart/verificarDireccion', //

@@ -42,6 +42,15 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
     Route::get('productos/{alpProductos}/delete', ['as'=> 'productos.delete', 'uses' => 'Admin\AlpProductosController@destroy']);
 
+    Route::get('productos/verificar/referenciasap', ['as'=> 'productos.referenciasap', 'uses' => 'Admin\AlpProductosController@referenciasap']);
+
+    Route::get('productos/verificar/referencia', ['as'=> 'productos.referencia', 'uses' => 'Admin\AlpProductosController@referencia']);
+
+
+
+   
+
+
     
     
 
