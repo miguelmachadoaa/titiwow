@@ -6,7 +6,7 @@ Detalles del Pedido
 
 <b>ID pedido:</b> {{ $compra->id }}
 <b>ID usuario masterfile:</b> {{ $compra->cod_oracle_cliente }}
-<b>Cedula:</b> {{ $compra->doc_cliente }}
+<b>Cedula:</b> {{ 'E'.$compra->doc_cliente }}
 <b>Valor Pagado:</b> {{ $compra->monto_total }}
 <b>Valor Iva:</b> {{ 0 }}
 <b>Fecha de Entrega:</b> {{ $fecha_entrega }}
