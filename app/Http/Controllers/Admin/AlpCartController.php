@@ -1830,6 +1830,28 @@ class AlpCartController extends JoshController
     }
 
 
+      public function getcartbotones(Request $request)
+    {
+       $cart= \Session::get('cart');
+
+       
+
+       $producto=AlpProductos::where('slug', $request->slug)->first();
+
+       if (isset($cart[$producto->slug])) {
+         
+          unset( $cart[$producto->slug]);
+       }
+  
+        $view= View::make('frontend.order.botones', compact('producto', 'cart'));
+
+        $data=$view->render();
+
+        return $data;
+      
+    }
+
+
 
 
 

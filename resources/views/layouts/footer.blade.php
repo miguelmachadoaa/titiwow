@@ -412,7 +412,32 @@
 
             slug=$(this).data('slug');
 
+            id=$(this).data('id');
+
+            alert(id);
+
+            single=$('#single').val();
+
+            cantidad=0;
+
+
+            id=$(this).data('id');
+
                     $.post(base+'/cart/delproducto', { slug}, function(data) {
+
+                    });
+
+                    $.post(base+'/cart/getcartbotones', {slug}, function(data) {
+
+                        $('.boton_'+id+'').html('');
+                        $('.boton_'+id+'').html(data);
+
+                         if (single==1) {
+
+                            $('.vermas').remove();
+                        }
+
+
 
                     });
 

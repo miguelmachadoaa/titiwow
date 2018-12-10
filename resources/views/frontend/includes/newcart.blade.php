@@ -34,11 +34,11 @@
                             </h3>
                             <span class="price">{{ $row->precio_oferta }}</span>
                             <div class="actions">
-                                <a data-slug="{{ $row->slug }}" href="#0" class="delete-item">Borrar</a>
+                                <a data-id="{{ $row->id }}" data-slug="{{ $row->slug }}" href="#0" class="delete-item">Borrar</a>
                                     <div class="quantity">
                                         <label for="cd-product-{{ $row->id }}">Cantidad</label>
                                             <span class="select">
-                                                <select class="cartselect" data-slug="{{ $row->slug }}" id="cd-product-{{ $row->id }}" name="quantity">
+                                                <select class="cartselect" data-id="{{ $row->id }}" data-slug="{{ $row->slug }}" id="cd-product-{{ $row->id }}" name="quantity">
                                                     <option value="{{ $row->cantidad }}">{{ $row->cantidad }}</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>

@@ -28,6 +28,7 @@ class VerifyCsrfToken extends Middleware
        'cart/updatecantidad', //
        'cart/delproducto', //
        'cart/updatecartbotones', //
+       'cart/getcartbotones', //
        'cart/botones', //
        'cart/detalle', //
        'formasenvio/storecity', //
