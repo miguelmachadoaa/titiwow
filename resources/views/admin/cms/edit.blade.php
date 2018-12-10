@@ -84,7 +84,7 @@
     <script src="{{ secure_asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
     <script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
     <script type="text/javascript" src="{{ secure_asset('assets/js/pages/add_newblog.js') }}" ></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/js/pages/add_newblog.js') }}" >
+    <script type="text/javascript" >
         // CKEditor Standard
         $('textarea#texto_pagina').ckeditor({
                 height: '150px',
