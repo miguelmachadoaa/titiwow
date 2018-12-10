@@ -186,7 +186,7 @@
                                 </form>
                         
                     </li>
-                    <hr>
+                    <hr class="hidden-lg">
 
                     @foreach ($menus as $key => $item)
                         @if ($item['parent'] != 0)
