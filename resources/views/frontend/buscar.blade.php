@@ -235,7 +235,7 @@ Resultado de la Búsqueda @parent
 {{-- page level scripts --}}
 @section('footer_scripts')
     <script src="{{ secure_asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
-    <script type="text/javascript" src="{{ asset('secure_asset/js/cart.js') }}"></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/js/cart.js') }}"></script>
 
     <script>
         jQuery(document).ready(function () {

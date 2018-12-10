@@ -170,7 +170,7 @@
         <nav class="navbar navbar-default container">
             <div class="collapse navbar-collapse" id="collapse"> 
                 <ul class="nav navbar-nav">
-                    <li style="padding: 0.2em 1em;">
+                    <li style="padding: 0.2em 1em;" class="hidden-lg">
 
                         <form method="GET" action="{{ secure_url('buscar') }}">
                                     <div class="row">
@@ -186,7 +186,7 @@
                                 </form>
                         
                     </li>
-                    <hr>
+                    <hr class="hidden-lg">
 
                     @foreach ($menus as $key => $item)
                         @if ($item['parent'] != 0)

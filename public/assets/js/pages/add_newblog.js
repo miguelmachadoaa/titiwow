@@ -1,21 +1,7 @@
 $(document).ready(function() {
     
     $('.form-group input[type=file]').attr("accept","image/*");
-    
- // CKEditor Standard
-    $('textarea#texto_pagina').ckeditor({
-            height: '150px',
-            toolbar: [{
-                name: 'document',
-                    items: ['Source', '-', 'NewPage', 'Preview', '-', 'Templates']
-            }, // Defines toolbar group with name (used to create voice label) and items in 3 subgroups.
-                ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'], // Defines toolbar group without name.
-                    {
-                    name: 'basicstyles',
-                    items: ['Bold', 'Italic']
-            }
-        ]
-    });
+
     $('body').on('click', '.btn-codeview', function (e) {
 
         if ( $('.note-editor').hasClass("fullscreen") ) {

@@ -94,5 +94,21 @@
 <script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
 
 <script src="{{ secure_asset('assets/js/pages/add_newblog.js') }}" type="text/javascript"></script>
+<script type="text/javascript" >
+        // CKEditor Standard
+        $('textarea#texto_pagina').ckeditor({
+                height: '150px',
+                toolbar: [{
+                    name: 'document',
+                        items: ['Source', '-', 'NewPage', 'Preview', '-', 'Templates']
+                }, // Defines toolbar group with name (used to create voice label) and items in 3 subgroups.
+                    ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'], // Defines toolbar group without name.
+                        {
+                        name: 'basicstyles',
+                        items: ['Bold', 'Italic']
+                }
+            ]
+        });
+    </script>
 
 @stop
