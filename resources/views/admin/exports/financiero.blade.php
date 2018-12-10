@@ -22,7 +22,7 @@
             <td>{!! $row->id!!}</td>
             <td>{!! $row->factura!!}</td>
             <td>{!! $row->cod_oracle_cliente!!}</td>
-            <td>{!! $row->doc_cliente !!}</td>
+            <td>{!! 'E'.$row->doc_cliente !!}</td>
             <td>{!! $row->first_name.' '.$row->last_name !!}</td>
             <td> @if($row->json!=null) {!! json_decode($row->json)->merchant_order_id !!} @endif </td>
             <td>{!! $row->ordencompra !!}</td>

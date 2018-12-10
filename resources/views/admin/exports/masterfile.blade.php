@@ -86,7 +86,7 @@
             <th><b>EC</b></th>
             <th><b>{{ $row->first_name.' '.$row->last_name }}</b></th>
             <th><b></b></th>
-            <th><b>{{ $row->doc_cliente }}</b></th>
+            <th><b>{{ 'E'.$row->doc_cliente }}</b></th>
             <th><b></b></th>
             <th><b></b></th>
             <th><b></b></th>
@@ -96,7 +96,7 @@
             <th><b>{{ $row->abrevia_estructura.' '.$row->principal_address.' '.$row->secundaria_address.' '.$row->edificio_address     }}</b></th>
             <th><b></b></th>
             <th><b>{{ $row->first_name.' '.$row->last_name }}</b></th>
-            <th><b>{{ $row->state_nme }}</b></th>
+            <th><b>{{ $row->state_name }}</b></th>
             <th><b>{{ $row->city_name }}</b></th>
             <th><b>{{ $row->barrio_address }}</b></th>
             <th><b> </b></th>
