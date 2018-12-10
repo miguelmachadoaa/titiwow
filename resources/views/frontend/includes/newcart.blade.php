@@ -25,7 +25,7 @@
                     <li class="product">
                         <div class="product-image">
                             <a href="#0">
-                                <img src="{{ secure_url('/').'/uploads/productos/'.$row->imagen_producto }}" alt="{{ $row->nombre_producto }}">
+                                <img class="img-responsive" src="{{ secure_url('/').'/uploads/productos/'.$row->imagen_producto }}" alt="{{ $row->nombre_producto }}">
                             </a>
                         </div>
                         <div class="product-details">

@@ -397,9 +397,25 @@
 
             slug=$(this).data('slug');
 
+            id=$(this).data('id');
+
             cantidad=$(this).val();
 
                     $.post(base+'/cart/updatecantidad', { slug, cantidad}, function(data) {
+
+                    });
+
+                    $.post(base+'/cart/updatecartbotones', {id, slug, cantidad}, function(data) {
+
+                        $('.boton_'+id+'').html('');
+                        $('.boton_'+id+'').html(data);
+
+                         if (single==1) {
+
+                            $('.vermas').remove();
+                        }
+
+
 
                     });
 
@@ -414,7 +430,7 @@
 
             id=$(this).data('id');
 
-            alert(id);
+            //alert(id);
 
             single=$('#single').val();
 
