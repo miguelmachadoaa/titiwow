@@ -19,6 +19,7 @@
             <th><b>Barrio</b></th>
             <th><b>Ciudad</b></th>
             <th><b>Departamento</b></th>
+            <th><b>Teléfono</b></th>
         </tr>
     </thead>
     <tbody>
@@ -38,10 +39,11 @@
             <td>{!! $row->monto_total_ordenes !!}</td>
             <td>{!! $row->cantidad_ordenes !!}</td>
             <td>{!! $row->fecha_ultima_compra !!}</td>
-            <td>{{ $row->abrevia_estructura.' '.$row->principal_address.' '.$row->secundaria_address.' '.$row->edificio_address     }}</td>
+            <td>{{ $row->abrevia_estructura.' '.$row->principal_address.' '.$row->secundaria_address.' '.$row->edificio_address.' '.$row->detalle_address }}</td>
             <td>{{  $row->barrio_address  }}</td>
             <td>{{  $row->city_name  }}</td>
             <td>{{  $row->state_name  }}</td>
+            <td>{{  $row->telefono_cliente  }}</td>
           
         </tr>
         @endforeach

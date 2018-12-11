@@ -33,6 +33,7 @@ class UsersExport implements FromView
         'alp_clientes.doc_cliente as doc_cliente',
         'alp_clientes.cod_oracle_cliente as cod_oracle_cliente',
         'alp_clientes.id_embajador as id_embajador',
+        'alp_clientes.telefono_cliente as telefono_cliente',
         'config_cities.city_name as city_name',
         'config_states.state_name as state_name',
         'alp_direcciones.principal_address as principal_address',
