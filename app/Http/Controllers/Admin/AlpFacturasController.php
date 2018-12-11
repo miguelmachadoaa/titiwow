@@ -5,17 +5,15 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Imports\AlpinistasImport;
-use App\Imports\RetiroImport;
+use App\Imports\FacturasImport;
 use Maatwebsite\Excel\Facades\Excel;
 
-use App\Models\AlpAlpinistas;
 use App\User;
-use App\Roles;
-use App\RoleUser;
+use App\Models\AlpFacturas;
+use App\Models\AlpOrdenes;
 use DB;
 
-class AlpAlpinistasController extends Controller
+class AlpFacturasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,13 +22,10 @@ class AlpAlpinistasController extends Controller
      */
     public function index()
     {
-        $alpinistas =  AlpAlpinistas::select('alp_cod_alpinistas.*',DB::raw('CONCAT(users.first_name, " ", users.last_name) AS nombre_alpinista'),'users.email as email','roles.name as name_role')
-        ->leftJoin('users', 'alp_cod_alpinistas.id_usuario_creado', '=', 'users.id')
-        ->leftJoin('role_users', 'alp_cod_alpinistas.id_usuario_creado', '=', 'role_users.user_id')
-        ->leftJoin('roles', 'role_users.role_id', '=', 'roles.id')
+        $facturas =  AlpFacturas::select('alp_cod_facturas.*')
         ->get();
 
-        return view('admin.alpinistas.index', compact('alpinistas'));
+        return view('admin.facturas.index', compact('facturas'));
     }
 
     /**
@@ -40,7 +35,7 @@ class AlpAlpinistasController extends Controller
      */
     public function create()
     {
-        return view('admin.alpinistas.cargar');
+        return view('admin.facturas.cargar');
     }
 
     /**
@@ -62,7 +57,7 @@ class AlpAlpinistasController extends Controller
      */
     public function show()
     {
-        return view('admin.alpinistas.retirar');
+   
     }
 
     /**
@@ -101,19 +96,10 @@ class AlpAlpinistasController extends Controller
 
     public function import(Request $request) 
     {
-        $archivo = $request->file('file_alpinistas');
-        Excel::import(new AlpinistasImport, $archivo);
+        $archivo = $request->file('file_facturas');
+        Excel::import(new FacturasImport, $archivo);
         
-        return redirect('admin/alpinistas')->with('success', 'Alpinistas Cargados Exitosamente');
+        return redirect('admin/facturasmasivas')->with('success', 'Facturas Cargadas Exitosamente');
     }
-
-    public function retiro(Request $request) 
-    {
-        $archivo = $request->file('file_alpinistas');
-        Excel::import(new RetiroImport, $archivo);
-        
-        return redirect('admin/alpinistas')->with('success', 'Alpinistas Retirados Exitosamente');
-    }
-
-    
+  
 }

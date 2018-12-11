@@ -295,7 +295,15 @@ Route::resource('alpinistas', 'Admin\AlpAlpinistasController');
 
 /*Fin Vista Alpinistas */
     
+/* Facturas Masivas */
+Route::group(['prefix' => 'facturasmasivas'], function () {
 
+    Route::post('import', 'Admin\AlpFacturasController@import');
+
+});
+Route::resource('facturasmasivas', 'Admin\AlpFacturasController');
+
+/* Facturas Masivas Fin*/
     Route::group(['prefix' => 'empresas'], function () {
 
         Route::get('{id}/delete', 'Admin\AlpEmpresasController@destroy')->name('empresas.delete');
