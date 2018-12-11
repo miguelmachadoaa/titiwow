@@ -116,8 +116,9 @@
                         </form>     
                 </div>
                 <div class="modal-footer">
-                    <button type="button"   class="btn  btn-primary saveubicacion" >Aceptar</button>
                     <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="button"   class="btn  btn-primary saveubicacion" >Aceptar</button>
+                    
                 </div>
             </div>
         </div>

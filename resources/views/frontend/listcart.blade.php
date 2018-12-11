@@ -1,56 +1,29 @@
-    <div class="row " style="margin: 15px">
+    <div class="row" style="    margin: 15px;">
 
         <h2>Carrito de Compras</h2>
 
         <a class="btn  btn-link" href="{{secure_url('cart/vaciar')}}">Vaciar</a>
 
-        @if($error!='0')
-            <div class="col-md-10 col-md-offset-1 table-responsive" >
-                <div class="alert alert-danger">
-                    {{ $error }}
-                </div>
-            </div>
-        @endif
-
         @if(count($cart))
-                   
-            <br>
 
-            <div class="col-md-10 col-md-offset-1 table-responsive" >
+            <div class="row">
 
-                <table class="table  ">
 
-                    <thead style="border-top: 1px solid rgba(0,0,0,0.1);">
 
-                        <tr>
+                @foreach($cart as $row)
+                    <hr>
+                    <div class="row" style="text-align: left;">
+                        
+                        <div class="col-sm-2 col-xs-3">
+                            <a target="_blank"  href="{{ route('producto', [$row->slug]) }}" ><img style="padding: 5px 0px; height: 8em;"  src="../uploads/productos/{{$row->imagen_producto}}"></a>
+                        </div>
 
-                            <th>Imagen</th>
-
-                            <th>Producto</th>
-
-                            <th>Precio</th>
-
-                            <th>Cantidad</th>
-
-                            <th>SubTotal</th>
-
-                            <th>Eliminar</th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                        @foreach($cart as $row)
-
-                            <tr>
-
-                                <td><img height="60px" src="../uploads/productos/{{$row->imagen_producto}}"></td>
-                                <td>{{$row->nombre_producto}}</td>
-                                <td>{{number_format($row->precio_oferta,2,",",".")}}</td>
-                                <td>
-                                    <input 
+                        <div class="col-sm-10 col-xs-9">
+                            <div class="col-xs-12"><a target="_blank"  href="{{ route('producto', [$row->slug]) }}" >{{$row->nombre_producto}}</a></div>    
+                            <div class="col-xs-12">Precio: {{ number_format($row->precio_oferta, 0,",",".") }}</div>    
+                            <div class="col-xs-12">Subtotal:{{ number_format($row->cantidad*$row->precio_oferta, 0,",",".") }}</div>    
+                            <div class="col-xs-8">
+                                Cantidad: <input 
                                     style="text-align: center;" 
                                     class="cantidad" 
                                     type="number" 
@@ -64,51 +37,65 @@
                                     max="100"
                                     value="{{ $row->cantidad }}" 
                                     >
+                            </div>
+                            <div class="col-xs-4"><a class="btn btn-danger btn-xs" href="{{secure_url('cart/delete', [$row->slug])}}">Borrar</a></div>
+                            
+                           
+                        </div>
 
-                                    
+                        <div class="col-sm-2 col-xs-3">
+                            
+                        </div>
 
-                                </td>
-                                <td>{{ number_format($row->cantidad*$row->precio_oferta, 2,",",".") }}</td>
-                                <td><a class="btn btn-danger" href="{{secure_url('cart/delete', [$row->slug])}}">X</a></td>
-                            </tr>
-                        @endforeach
+
+                    </div>
+
+                            
                     
-                        <tr>
-                            
-                            <td colspan="5" style="text-align: right;">Total: </td>
-                            
-                            <td>
+                    @endforeach
 
-                                {{number_format($total, 2,",",".")}}
+                <hr>
 
-                                <input type="hidden" name="total_orden" id="total_orden" value="{{ $total }}">
-                                <input type="hidden" name="limite_orden" id="limite_orden" value="{{ $configuracion->minimo_compra }}">
+                <div class="col-xs-4 col-sm-4">
+                    <h3>Total</h3>
+                </div>
 
-                            </td>
+                <div class="col-xs-8 col-sm-8">
+                    <h3> COP {{number_format($total, 0,",",".")}} </h3>
+                </div>
 
-                         </tr>
+                <hr>
 
-                    </tbody>
+                
 
-                </table>
+       
 
-             <hr>
+       
+
 
             </div>
+
+ <input type="hidden" name="total_orden" id="total_orden" value="{{ $total }}">
+        <input type="hidden" name="limite_orden" id="limite_orden" value="{{ $configuracion->minimo_compra }}">
+
+                   
+
     </div>
 
     <p style="text-align: center;">
         <a class="label label-seguir" href="{{secure_url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
 
-         <a class="btn btn-cart sendDetail" href="{{secure_url('order/detail')}}">Finalizar Tu Compra <i class="fa fa-plus" aria-hidden="true"></i></a>
+         <a class="btn btn-cart sendDetail" href="{{secure_url('order/detail')}}">Finalizar Tu Compra <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
      </p> 
+
+    
 
 
      @else
 
 
     <h1><span class="label label-primary">Tu Carrito está Vacio</span></h1>
-
+<br />
         <p style="text-align: center;">
            
             <a class="label label-seguir" href="{{secure_url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>

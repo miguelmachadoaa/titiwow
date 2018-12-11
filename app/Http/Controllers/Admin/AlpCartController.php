@@ -591,7 +591,7 @@ class AlpCartController extends JoshController
 
          AlpPagos::create($data_pago);
 
-         $aviso_pago="Hemos recibido su pago satifactoriamente según referencia: ".$request->preference_id.", Le llegará un email con la descripción de su pago. Muchas gracias por su Compra!";
+         $aviso_pago="Hemos recibido su pago satifactoriamente, una vez sea confirmado, Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!";
 
        //  $datalles=AlpDetalles::where('id_orden', $orden->id)->get();
 
@@ -788,7 +788,7 @@ class AlpCartController extends JoshController
 
          AlpPagos::create($data_pago);
 
-         $aviso_pago="Su pago está siendo procesado según referencia: ".$request->preference_id.", deberá finalizar el proceso en 24 horas o su pedido será cancelado.!";
+         $aviso_pago="Su pago está siendo procesado , deberá finalizar el proceso en 24 horas o su pedido será cancelado.!";
 
        //  $datalles=AlpDetalles::where('id_orden', $orden->id)->get();
 
@@ -1192,7 +1192,6 @@ class AlpCartController extends JoshController
 
           $ciudad= \Session::get('ciudad');
 
-
           $data = array(
             'referencia' => time(), 
             'id_city' => $ciudad, 
@@ -1202,13 +1201,10 @@ class AlpCartController extends JoshController
           $carr=AlpCarrito::create($data);
 
           \Session::put('cr', $carr->id);
-
        
         }
 
        $cart= \Session::get('cart');
-
-       
 
 
        $carrito= \Session::get('cr');
@@ -1234,12 +1230,6 @@ class AlpCartController extends JoshController
 
                 if ($cliente->id_empresa!=0) {
                     
-                     /*$empresa=AlpEmpresas::find($cliente->id_empresa);
-
-                    $cliente['nombre_empresa']=$empresa->nombre_empresa;
-
-                    $descuento=(1-($empresa->descuento_empresa/100));*/
-
                     $role->role_id='E'.$cliente->id_empresa.'';
                 }
                
@@ -1267,9 +1257,6 @@ class AlpCartController extends JoshController
 
         }
           
-
-
-
 
 
         if ($descuento=='1') {
@@ -1327,11 +1314,8 @@ class AlpCartController extends JoshController
       }else{
 
         $error="No hay existencia suficiente de este producto";
+
       }
-
-
-
-
 
 
        \Session::put('cart', $cart);
@@ -1582,17 +1566,11 @@ class AlpCartController extends JoshController
     {
        $cart= \Session::get('cart');
 
-
-
        $s_user= \Session::get('user');
 
       $total=0;
 
       $cambio=0;
-
-      
-
-      
 
       $descuento='1'; 
 
@@ -1602,8 +1580,8 @@ class AlpCartController extends JoshController
 
             $user_id = Sentinel::getUser()->id;
 
-            //if ($user_id!=$s_user) {
-            if (1) {
+            if ($user_id!=$s_user) {
+            //if (1) {
 
               $cambio=1;
 
@@ -1616,12 +1594,6 @@ class AlpCartController extends JoshController
               if (isset($cliente->id_empresa) ) {
 
                   if ($cliente->id_empresa!=0) {
-                      
-                     /* $empresa=AlpEmpresas::find($cliente->id_empresa);
-
-                      $cliente['nombre_empresa']=$empresa->nombre_empresa;
-
-                      $descuento=(1-($empresa->descuento_empresa/100));*/
 
                       $role->role_id='E'.$cliente->id_empresa.'';
                   }

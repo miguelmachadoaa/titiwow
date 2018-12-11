@@ -274,11 +274,12 @@ Area clientes
         base=$('#base').val();
 
         $.ajax({
-            type: "POST",
-            data:{  },
-            url: base+"/admin/clientes/eliminar",
+            type: "GET",
+            url: base+"/admin/clientes/eliminar/cliente",
                 
-            complete: function(datos){     
+            complete: function(datos){ 
+
+               // alert(datos);    
 
                 $("#deleteModal").modal('hide');
                 

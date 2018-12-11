@@ -539,16 +539,15 @@ class AlpClientesController extends JoshController
           
     }
 
-    public function elimi3nar(Request $request)
+    public function eliminar(Request $request)
     {
         
-        return 'llego';
+       
 
-/*
+
         $user_id = Sentinel::getUser()->id;
 
-       try {
-
+        
 
             $user=User::where('id', $user_id)->first();
             
@@ -580,14 +579,9 @@ class AlpClientesController extends JoshController
             $user->delete();
 
             return 1;
-            
-        } catch (Exception $e) {
 
-            return 0;
-            
-        }*/
-
-             
+            Sentinel::logout();
+                         
           
     }
 
