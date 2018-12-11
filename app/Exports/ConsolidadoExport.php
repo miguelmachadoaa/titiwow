@@ -45,6 +45,7 @@ class ConsolidadoExport implements FromView
           ->join('alp_clientes', 'alp_ordenes.id_cliente', '=', 'alp_clientes.id_user_client')
           ->join('alp_ordenes_detalle', 'alp_ordenes.id', '=', 'alp_ordenes_detalle.id_orden')
           ->groupBy('alp_ordenes.id')
+          ->where('alp_ordenes.estatus',  '6')
           ->whereDate('alp_ordenes.created_at', '>=', $this->desde)
           ->whereDate('alp_ordenes.created_at', '<=', $this->desde)
           ->get();
