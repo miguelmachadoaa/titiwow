@@ -427,6 +427,7 @@ Main Components
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  font-size: 1em;
 }
 .cd-cart h3 a {
   color: #2b3e51;

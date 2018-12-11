@@ -25,7 +25,7 @@
                     <li class="product">
                         <div class="product-image">
                             <a href="#0">
-                                <img src="{{ secure_url('/').'/uploads/productos/'.$row->imagen_producto }}" alt="{{ $row->nombre_producto }}">
+                                <img class="img-responsive" src="{{ secure_url('/').'/uploads/productos/'.$row->imagen_producto }}" alt="{{ $row->nombre_producto }}">
                             </a>
                         </div>
                         <div class="product-details">
@@ -34,11 +34,11 @@
                             </h3>
                             <span class="price">{{ $row->precio_oferta }}</span>
                             <div class="actions">
-                                <a data-slug="{{ $row->slug }}" href="#0" class="delete-item">Borrar</a>
-                                    <div class="quantity">
+                                <a data-id="{{ $row->id }}" data-slug="{{ $row->slug }}" href="#0" class="delete-item col-xs-3">Borrar</a>
+                                    <div class="quantity col-xs-8">
                                         <label for="cd-product-{{ $row->id }}">Cantidad</label>
                                             <span class="select">
-                                                <select class="cartselect" data-slug="{{ $row->slug }}" id="cd-product-{{ $row->id }}" name="quantity">
+                                                <select class="cartselect" data-id="{{ $row->id }}" data-slug="{{ $row->slug }}" id="cd-product-{{ $row->id }}" name="quantity">
                                                     <option value="{{ $row->cantidad }}">{{ $row->cantidad }}</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
