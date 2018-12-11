@@ -22,7 +22,7 @@ class VerifyCsrfToken extends Middleware
        'storeamigo', //
        'empresas/storeamigo', //
        'clientes/deleteamigo', //
-       'admin/clientes/eliminar', //
+       'admin/clientes/eliminar/cliente', //
        'empresas/delamigo', //
        'cart/updatecart', //
        'cart/updatecantidad', //

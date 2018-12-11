@@ -172,7 +172,7 @@ Mis Amigos
                                         {{ $referido->email }}
                                     </td>
                                     <td>
-                                        {{ $referido->puntos }}
+                                        {{ number_format($referido->puntos,0,",",".")  }}
                                     </td>
                                     <td>
                                         {{ $referido->created_at }}

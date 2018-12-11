@@ -89,12 +89,14 @@
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
-                                <button type="submit" class="btn btn-success">
-                                    Crear
-                                </button>
+                                
                                 <a class="btn btn-danger" href="{{ route('admin.menus.index') }}">
                                     Cancelar
                                 </a>
+
+                                <button type="submit" class="btn btn-success">
+                                    Crear
+                                </button>
                             </div>
                         </div>
                     {!! Form::close() !!}

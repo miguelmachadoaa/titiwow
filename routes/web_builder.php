@@ -199,10 +199,11 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
         Route::post('/rechazar', 'Admin\AlpClientesController@rechazar')->name('clientes.rechazar');
 
-        Route::post('/eliminar', 'Admin\AlpClientesController@eliminar')->name('clientes.eliminar');
+        Route::get('/eliminar/cliente', 'Admin\AlpClientesController@eliminar')->name('clientes.eliminar');
 
         });
     Route::post('clientes/store', 'Admin\AlpClientesController@store');
+    
     Route::resource('clientes', 'Admin\AlpClientesController');
 
     //fin direcioens clientes
@@ -460,6 +461,8 @@ Route::resource('alpinistas', 'Admin\AlpAlpinistasController');
         Route::get('/facturados/list', 'Admin\AlpOrdenesController@facturados')->name('ordenes.facturados');
 
         Route::get('/enviados/list', 'Admin\AlpOrdenesController@enviados')->name('ordenes.enviados');
+
+        Route::get('/cancelados/list', 'Admin\AlpOrdenesController@cancelados')->name('ordenes.cancelados');
 
         Route::get('/consolidado/list', 'Admin\AlpOrdenesController@consolidado')->name('ordenes.consolidado');
 

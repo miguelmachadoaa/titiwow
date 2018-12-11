@@ -6,7 +6,6 @@ Hemos registrado una compra {{ $compra->referencia }},  Ha seleccionado enviar e
 Datos de la compra
 
 <p><b>IdPedido: </b>{{ $compra->id }}</p>
-<p><b>IdUsuario Masterfile: </b>{{ $compra->cod_oracle_cliente }}</p>
 <p><b>Cedula: </b>{{ $compra->doc_cliente }}</p>
 <p><b>Valor Pagado: </b>{{ $compra->monto_total }}</p>
 <p><b>Valor Iva: </b>{{ number_format($compra->monto_total-($compra->monto_total/1.19))}}</p>

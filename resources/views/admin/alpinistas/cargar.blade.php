@@ -94,12 +94,14 @@ Cargar Alpinistas
 
                         <div class="form-group">
                                 <div class="col-sm-offset-4 col-sm-8">
-                                    <button type="submit" class="btn btn-success">
-                                        Cargar Alpinistas
-                                    </button>
+                                    
                                     <a class="btn btn-md btn-danger" href="{{ secure_url('admin/alpinistas') }}">
                                         Cancelar
                                     </a>
+
+                                    <button type="submit" class="btn btn-success">
+                                        Cargar Alpinistas
+                                    </button>
                                 
                                 </div>
                             </div>

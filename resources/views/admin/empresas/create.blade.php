@@ -101,12 +101,14 @@
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
-                                <button type="submit" class="btn btn-success">
-                                    Crear
-                                </button>
+                               
                                 <a class="btn btn-danger" href="{{ secure_url('admin/empresas') }}">
                                     Cancelar
                                 </a>
+
+                                 <button type="submit" class="btn btn-success">
+                                    Crear
+                                </button>
                             </div>
                         </div>
                     </form>

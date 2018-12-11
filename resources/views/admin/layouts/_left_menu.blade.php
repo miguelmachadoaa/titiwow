@@ -122,6 +122,15 @@
             </li>
             @endif
 
+            @if (Sentinel::getUser()->hasAnyAccess(['ordenes.cancelados']))
+                <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.ordenes.cancelados') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Ordenes Canceladas
+                </a>
+            </li>
+            @endif
+
             @if (Sentinel::getUser()->hasAnyAccess(['ordenes.empresas']))
                 <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.ordenes.empresas') !!}">

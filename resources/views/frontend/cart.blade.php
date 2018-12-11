@@ -38,137 +38,21 @@ Carrito de Compras
 
     <div class="row" id="table_detalle">
 
-    <div class="row" style="    margin: 15px;">
-
-        <h2>Carrito de Compras</h2>
-
-        <a class="btn  btn-link" href="{{secure_url('cart/vaciar')}}">Vaciar</a>
-
-        @if(count($cart))
-                   
-            <br>
-
-            <div class="col-md-1 col-xs-1"></div>
-
-            <div class="col-md-10 col-xs-10  table-responsive" >
-
-                <table class="table  ">
-
-                    <thead style="border-top: 1px solid rgba(0,0,0,0.1);">
-
-                        <tr>
-
-                            <th>Imagen</th>
-
-                            <th>Producto</th>
-
-
-                            <th>Precio</th>
-
-                            <th>Cantidad</th>
-
-                            <th>SubTotal</th>
-
-                            <th>Eliminar</th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-
-
-                        @foreach($cart as $row)
-
-                            <tr>
-
-                                <td><a target="_blank"  href="{{ route('producto', [$row->slug]) }}" ><img height="60px" src="../uploads/productos/{{$row->imagen_producto}}"></a></td>
-                                <td><a target="_blank"  href="{{ route('producto', [$row->slug]) }}" >{{$row->nombre_producto}}</a></td>
-                                <td>{{number_format($row->precio_oferta,0,",",".")}}</td>
-                                
-                                <td>
-                                    <input 
-                                    style="text-align: center;" 
-                                    class="cantidad" 
-                                    type="number" 
-                                    data-id="{{$row->id}}" 
-                                    data-slug="{{$row->slug}}" 
-                                    data-url="{{secure_url('cart/updatecart')}}" 
-                                    data-href="{{secure_url('cart/update', [$row->slug])}}"
-                                    name="producto_{{$row->id}}"
-                                    id="producto_{{$row->id}}"
-                                    min="1"
-                                    max="100"
-                                    value="{{ $row->cantidad }}" 
-                                    >
-
-                                </td>
-
-                               
-                                <td>{{ number_format($row->cantidad*$row->precio_oferta, 0,",",".") }}</td>
-
-                                <td><a class="btn btn-danger" href="{{secure_url('cart/delete', [$row->slug])}}">X</a></td>
-                            </tr>
-                        @endforeach
-                    
-                        <tr>
-                            
-                            <td colspan="5" style="text-align: right;">Total: </td>
-                            
-                            <td>{{number_format($total, 0,",",".")}} 
-
-                                <input type="hidden" name="total_orden" id="total_orden" value="{{ $total }}">
-                                <input type="hidden" name="limite_orden" id="limite_orden" value="{{ $configuracion->minimo_compra }}">
-
-                            </td>
-
-                         </tr>
-
-                    </tbody>
-
-                </table>
-
-             <hr>
-
-            </div>
-    </div>
-
-    <p style="text-align: center;">
-        <a class="label label-seguir" href="{{secure_url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
-
-         <a class="btn btn-cart sendDetail" href="{{secure_url('order/detail')}}">Finalizar Tu Compra <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
-     </p> 
-
-    
-
-
-     @else
-
-
-    <h1><span class="label label-primary">Tu Carrito está Vacio</span></h1>
-<br />
-        <p style="text-align: center;">
-           
-            <a class="label label-seguir" href="{{secure_url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
-
-        </p> 
+        @include('frontend.listcart')
 
         
 
-     @endif
+    </div>
 
-     <hr>
-
-      </div>
-
-     <div class="row">
+    <div class="row">
          
-         <div class="col-sm-12">
+        <div class="col-sm-12">
              
-             <div class="res"></div>
-         </div>
-     </div>
+            <div class="res"></div>
+
+        </div>
+
+    </div>
      
 </div>
 

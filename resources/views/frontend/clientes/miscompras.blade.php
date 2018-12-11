@@ -80,7 +80,7 @@ Mis Compras
                             {{ $row->nombre_forma_pago }}
                         </td>
                         <td>
-                            {{ $row->monto_total }}
+                            {{ number_format($row->monto_total,0,",",".") }}
                         </td>
                         <td>
                             {{ $row->created_at }}

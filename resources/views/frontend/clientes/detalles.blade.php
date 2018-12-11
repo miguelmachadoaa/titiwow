@@ -24,9 +24,9 @@
                         <tr>
                             <td><a target="_blank" href="{{ route('producto', [$row->slug]) }}" ><img height="60px" src="{{ secure_url('/') }}/uploads/productos/{{$row->imagen_producto}}"></a></td>
                             <td><a target="_blank"  href="{{ route('producto', [$row->slug]) }}" >{{$row->nombre_producto}}</a></td>
-                            <td>{{number_format($row->precio_unitario,2)}}</td>
+                            <td>{{number_format($row->precio_unitario,0,",",".")}}</td>
                             <td>{{ $row->cantidad }}</td>
-                            <td>{{ number_format($row->precio_total, 2) }}</td>                           
+                            <td>{{ number_format($row->precio_total,0,",",".") }}</td>                           
                         </tr>
 
         
