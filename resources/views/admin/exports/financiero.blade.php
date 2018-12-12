@@ -17,6 +17,19 @@
     <tbody>
 
         @foreach ($ventas as $row)
+
+        @php
+
+        $total = $row->monto_total;
+        $iva=19;
+
+        $precioIva = ($total*$iva/100);
+
+        $precioNormalizado = floatval(sprintf($precioIva));
+
+
+
+        @endphp
         <tr>
             <td>{!! $row->fecha !!}</td>
             <td>{!! $row->id!!}</td>
@@ -28,7 +41,7 @@
             <td>{!! $row->ordencompra !!}</td>
             <td>{!! $row->nombre_forma_pago  !!}</td>
             <td>{!! $row->monto_total !!}</td>
-            <td>{!! 0 !!}</td>
+            <td>{!! $precioNormalizado !!}</td>
           
         </tr>
         @endforeach
