@@ -9,6 +9,8 @@
             <th><b>Correo</b></th>
             <th><b>Cantidad_productos</b></th>
             <th><b>Valor_Pagado</b></th>
+            <th><b>Forma de Pago </b></th>
+            <th><b>Tipo de Pago</b></th>
             <th><b>Rol</b></th>
         </tr>
     </thead>
@@ -24,6 +26,17 @@
             <td>{!! $venta->email !!}</td>
             <td>{!! $venta->total_articulos !!}</td>
             <td>{!! $venta->monto_total !!}</td>
+            <td>{!! $venta->nombre_forma_pago !!}</td>
+            <td>
+
+                @if($venta->json)
+
+                    {{  json_decode($venta->json)->payment_type }}
+
+                @endif
+
+            </td>
+
             <td>{!! $venta->name_rol !!}</td>
           
         </tr>

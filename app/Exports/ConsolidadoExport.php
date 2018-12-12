@@ -37,12 +37,18 @@ class ConsolidadoExport implements FromView
           'users.last_name as last_name', 
           'users.email as email', 
           'alp_ordenes.created_at as created_at',
+          'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago',
+          'alp_ordenes_pagos.json as json',
+
            DB::raw('DATE_FORMAT(alp_ordenes.created_at, "%d/%m/%Y")  as fecha'),
           'roles.name as name_rol' )
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
           ->join('role_users', 'alp_ordenes.id_cliente', '=', 'role_users.user_id')
           ->join('roles', 'role_users.role_id', '=', 'roles.id')
           ->join('alp_clientes', 'alp_ordenes.id_cliente', '=', 'alp_clientes.id_user_client')
+          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
+          ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
+
           ->join('alp_ordenes_detalle', 'alp_ordenes.id', '=', 'alp_ordenes_detalle.id_orden')
           ->groupBy('alp_ordenes.id')
           ->where('alp_ordenes.estatus',  '6')
