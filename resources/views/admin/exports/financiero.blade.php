@@ -10,6 +10,7 @@
             <th><b>Id_Mercadopago</b></th>
             <th><b>Orden_pedido_sac</b></th>
             <th><b>Medio Pago</b></th>
+            <th><b>Tipo de Pago</b></th>
             <th><b>ValorPedido</b></th>
             <th><b>Iva</b></th>
         </tr>
@@ -40,6 +41,16 @@
             <td> @if($row->json!=null) {!! json_decode($row->json)->merchant_order_id !!} @endif </td>
             <td>{!! $row->ordencompra !!}</td>
             <td>{!! $row->nombre_forma_pago  !!}</td>
+            <td>
+
+                @if($row->json)
+
+                    {{  json_decode($row->json)->payment_type }}
+
+                @endif
+
+            </td>
+
             <td>{!! $row->monto_total !!}</td>
             <td>{!! $precioNormalizado !!}</td>
           
