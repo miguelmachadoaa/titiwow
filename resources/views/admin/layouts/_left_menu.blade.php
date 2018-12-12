@@ -577,7 +577,7 @@
                 </a>
             </li>
             <li {!! (Request::is('admin/alpinistas/create') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/alpinistas/cargar') }}">
+                <a href="{{ URL::to('admin/alpinistas/create') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Cargar Alpinistas
                 </a>
@@ -586,6 +586,31 @@
                 <a href="{{ URL::to('admin/alpinistas/show') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Retirar Alpinistas
+                </a>
+            </li>
+        </ul>
+    @endif
+
+    @if (Sentinel::getUser()->hasAnyAccess(['ordenes.aprobados']))
+
+        <li {!! (Request::is('admin/facturasmasivas') ? 'class="active"' : '') !!}>
+        <a href="#">
+            <i class="livicon" data-name="inbox" data-size="18" data-c="#EF6F6C" data-hc="#EF6F6C"
+                data-loop="true"></i>
+            <span class="title">Facturas Masivas</span>
+            <span class="fa arrow"></span>
+        </a>
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/facturasmasivas') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ URL::to('admin/facturasmasivas') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Lista de Facturas Cargadas
+                </a>
+            </li>
+            <li {!! (Request::is('admin/facturasmasivas/create') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ URL::to('admin/facturasmasivas/create') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Cargar Facturas
                 </a>
             </li>
         </ul>
