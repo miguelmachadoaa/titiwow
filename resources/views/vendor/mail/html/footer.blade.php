@@ -14,7 +14,7 @@
                                 <p style="margin-bottom: 0; text-align: left; color:#ffffff;font-size:14px;"> (+57) 4238600</p>
                                 <p style="margin-bottom: 0; text-align: left; color:#ffffff;font-size:14px;"> (+57) 5718600</p>
 			                    <p style="margin-bottom: 0; text-align: left; color:#ffffff;font-size:14px;"> (01) 8000529999</p>
-                                <p style="margin-bottom: 0; text-align: left; color:#ffffff;font-size:14px;"> contaccenter@alpinago.com</p>
+                                <p style="margin-bottom: 0; text-align: left; color:#ffffff;font-size:14px;"> contaccenter@alpina.com/p>
 
 			                </td>
 			            </tr>
