@@ -19,7 +19,7 @@ Users List
     <h1>Users</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{ route('admin.dashboard') }}">
+            <a href="{{ secure_url('admin.dashboard') }}">
                 <i class="livicon" data-name="home" data-size="14" data-color="#000"></i>
                 Dashboard
             </a>
