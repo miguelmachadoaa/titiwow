@@ -1580,8 +1580,8 @@ class AlpCartController extends JoshController
 
             $user_id = Sentinel::getUser()->id;
 
-            if ($user_id!=$s_user) {
-            //if (1) {
+            //if ($user_id!=$s_user) {
+            if (1) {
 
               $cambio=1;
 
