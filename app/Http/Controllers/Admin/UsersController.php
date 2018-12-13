@@ -74,7 +74,11 @@ class UsersController extends JoshController
      */
     public function data()
     {
-        $users = User::get(['id', 'first_name', 'last_name', 'email','created_at']);
+        //$users = User::get(['id', 'first_name', 'last_name', 'email','created_at']);
+
+        $users =  User::select('users.*')
+        ->join('role_users', 'users.id', '=', 'role_users.user_id')
+        ->whereIn('role_users.role_id', [1, 2, 3, 4, 5, 6, 7, 8])->get();
 
         return DataTables::of($users)
             ->editColumn('created_at',function(User $user) {

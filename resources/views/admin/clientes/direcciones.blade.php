@@ -25,13 +25,13 @@
             <li>
                 <a href="{{ route('admin.dashboard') }}">
                     <i class="livicon" data-name="home" data-size="14" data-loop="true"></i>
-                    Dashboard
+                    Escritorio
                 </a>
             </li>
             <li>
-                <a href="#">Users</a>
+                <a href="#">Clientes</a>
             </li>
-            <li class="active">User Profile</li>
+            <li class="active">Dirección</li>
         </ol>
     </section>
     <!--section ends-->
@@ -64,12 +64,7 @@
                                    
                                     <dt>Direccion</dt>
                                     <dd>
-                                       {{ $direcciones->nombre_estructura.' '.$direcciones->principal_address.' - '.$direcciones->secundaria_address }}
-                                    </dd>
-
-                                    <dt>Apto, Puerta Interior</dt>
-                                    <dd>
-                                       {{ $direcciones->edificio_address.' '.$direcciones->detalle_address }}
+                                       {{ $direcciones->abrevia_estructura.' '.$direcciones->principal_address.'  #'.$direcciones->secundaria_address .'-'.$direcciones->edificio_address.' '.$direcciones->detalle_address  }}
                                     </dd>
 
                                     <dt>Barrio</dt>
