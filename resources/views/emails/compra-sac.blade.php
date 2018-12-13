@@ -8,11 +8,9 @@ Detalles del Pedido
 <b>ID usuario masterfile:</b> {{ $compra->cod_oracle_cliente }}
 <b>Cedula:</b> {{ 'E'.$compra->doc_cliente }}
 <b>Valor Pagado:</b> {{ $compra->monto_total }}
-<b>Valor Iva:</b> {{ 0 }}
+<b>Base Imponible:</b> {{ $compra->base_impuesto }}
+<b>Valor Iva:</b> {{ $compra->monto_impuesto }}
 <b>Fecha de Entrega:</b> {{ $fecha_entrega }}
-
-
-
 
 
 <h3>Detalle de cada producto</h3>
@@ -30,8 +28,8 @@ Detalles del Pedido
 		<tr>
 		<td>{{$row->referencia_producto}}</td>
 		<td>{{$row->nombre_producto}}</td>
-        <td>{{number_format($row->precio_unitario,0,",",".")}}</td>
         <td> {{ $row->cantidad }} </td>
+        <td>{{number_format($row->precio_unitario,0,",",".")}}</td>
         
 	</tr>
 

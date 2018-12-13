@@ -28,6 +28,9 @@ class ConsolidadoExport implements FromView
     {
         $ordenes=AlpOrdenes::query()->select(
           'alp_ordenes.id as id',
+          'alp_ordenes.base_impuesto as base_impuesto',
+          'alp_ordenes.valor_impuesto as valor_impuesto',
+          'alp_ordenes.monto_impuesto as monto_impuesto',
           'alp_ordenes.referencia as referencia', 
           'alp_ordenes.monto_total as monto_total',
           DB::raw('count(alp_ordenes_detalle.cantidad) as total_articulos'),

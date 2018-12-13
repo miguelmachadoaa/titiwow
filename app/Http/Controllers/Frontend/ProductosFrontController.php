@@ -18,6 +18,76 @@ use Sentinel;
 
 class ProductosFrontController extends Controller
 {
+
+    private function addOferta($productos, $precio, $descuento){
+
+    $prods = array( );
+
+        foreach ($productos as $producto) {
+
+      if ($descuento=='1') {
+
+        if (isset($precio[$producto->id])) {
+          # code...
+         
+          switch ($precio[$producto->id]['operacion']) {
+
+            case 1:
+
+              $producto->precio_oferta=$producto->precio_base*$descuento;
+
+              break;
+
+            case 2:
+
+              $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
+              
+              break;
+
+            case 3:
+
+              $producto->precio_oferta=$precio[$producto->id]['precio'];
+              
+              break;
+            
+            default:
+            
+             $producto->precio_oferta=$producto->precio_base*$descuento;
+              # code...
+              break;
+          }
+
+        }else{
+
+          $producto->precio_oferta=$producto->precio_base*$descuento;
+
+        }
+
+
+       }else{
+
+       $producto->precio_oferta=$producto->precio_base*$descuento;
+
+
+       }
+
+
+       // $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
+
+
+      // $cart[$producto->slug]=$producto;
+
+       $prods[]=$producto;
+       
+      }
+
+      return $prods;
+
+
+    }
+
+
+
     public function index()
     {
 
@@ -263,6 +333,20 @@ class ProductosFrontController extends Controller
 
         }
 
+
+
+    $nolacteos=$this->addOferta($nolacteos, $precio, $descuento);
+    $baby=$this->addOferta($baby, $precio, $descuento);
+    $finess=$this->addOferta($finess, $precio, $descuento);
+    $bebidas=$this->addOferta($bebidas, $precio, $descuento);
+    $esparcibles=$this->addOferta($esparcibles, $precio, $descuento);
+    $postres=$this->addOferta($postres, $precio, $descuento);
+    $quesos=$this->addOferta($quesos, $precio, $descuento);
+    $lacteos=$this->addOferta($lacteos, $precio, $descuento);
+    $leche=$this->addOferta($leche, $precio, $descuento);
+
+
+
         $cart= \Session::get('cart');
 
 
@@ -276,6 +360,8 @@ class ProductosFrontController extends Controller
 
             }
         }
+
+       // dd($cart);
 
 
         $states=State::where('config_states.country_id', '47')->get();
@@ -347,6 +433,61 @@ class ProductosFrontController extends Controller
             }
 
         }
+
+        if ($descuento=='1') {
+
+        if (isset($precio[$producto->id])) {
+          # code...
+         
+          switch ($precio[$producto->id]['operacion']) {
+
+            case 1:
+
+              $producto->precio_oferta=$producto->precio_base*$descuento;
+
+              break;
+
+            case 2:
+
+              $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
+              
+              break;
+
+            case 3:
+
+              $producto->precio_oferta=$precio[$producto->id]['precio'];
+              
+              break;
+            
+            default:
+            
+             $producto->precio_oferta=$producto->precio_base*$descuento;
+              # code...
+              break;
+          }
+
+        }else{
+
+          $producto->precio_oferta=$producto->precio_base*$descuento;
+
+        }
+
+
+       }else{
+
+       $producto->precio_oferta=$producto->precio_base*$descuento;
+
+
+       }
+
+
+
+
+
+
+
+
+
 
          $states=State::where('config_states.country_id', '47')->get();
 
@@ -437,6 +578,9 @@ class ProductosFrontController extends Controller
         //print_r($precio);
        // print_r($role->role_id);
 
+    $productos=$this->addOferta($productos, $precio, $descuento);
+
+
          $states=State::where('config_states.country_id', '47')->get();
 
          $cart= \Session::get('cart');
@@ -522,6 +666,9 @@ class ProductosFrontController extends Controller
 
         $cart= \Session::get('cart');
 
+    $productos=$this->addOferta($productos, $precio, $descuento);
+
+
 
         $total=0;
 
@@ -600,6 +747,10 @@ class ProductosFrontController extends Controller
 
         $cart= \Session::get('cart');
 
+    $prods=$this->addOferta($productos, $precio, $descuento);
+
+
+
 
         $total=0;
 
@@ -615,7 +766,7 @@ class ProductosFrontController extends Controller
 
          $states=State::where('config_states.country_id', '47')->get();
 
-        return \View::make('frontend.buscar', compact('productos', 'descuento', 'precio', 'states','termino', 'cart', 'total'));
+        return \View::make('frontend.buscar', compact('productos', 'descuento', 'precio', 'states','termino', 'cart', 'total', 'prods'));
 
     }
 

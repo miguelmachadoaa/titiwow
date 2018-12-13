@@ -11,7 +11,9 @@
             <th><b>Orden_pedido_sac</b></th>
             <th><b>Medio Pago</b></th>
             <th><b>ValorPedido</b></th>
-            <th><b>Iva</b></th>
+            <th><b>Base Imponible</b></th>
+            <th><b>Valor Iva</b></th>
+            <th><b>Monto Iva</b></th>
         </tr>
     </thead>
     <tbody>
@@ -41,7 +43,9 @@
             <td>{!! $row->ordencompra !!}</td>
             <td>{!! $row->nombre_forma_pago  !!}</td>
             <td>{!! $row->monto_total !!}</td>
-            <td>{!! $precioNormalizado !!}</td>
+            <td>{!! $row->base_impuesto !!}</td>
+            <td>{!! $row->valor_impuesto*100 !!} %</td>
+            <td>{!! $row->monto_impuesto !!}</td>
           
         </tr>
         @endforeach

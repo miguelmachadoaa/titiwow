@@ -100,14 +100,34 @@ Carro de Productos
                             <td>{{ number_format($row->precio_total, 0,",",".") }}</td>
                         </tr>
                      @endforeach
+
                      <tr>
                          <td colspan="4" style="text-align: right;">
-                             Total: 
+                             <b>Total: </b>
                          </td>
                          <td>
-                             {{number_format($compra->monto_total, 2,",",".")}}
+                             {{number_format($compra->monto_total, 0,",",".")}}
                          </td>
                      </tr>
+                     <tr>
+                         <td colspan="4" style="text-align: right;">
+                             <b>Base Imponible: </b>
+                         </td>
+                         <td>
+                             {{number_format($compra->base_impuesto, 0,",",".")}}
+                         </td>
+                     </tr>
+
+                     <tr>
+                         <td colspan="4" style="text-align: right;">
+                             <b>Iva:</b> {{ $compra->valor_impuesto*100 }}%: 
+                         </td>
+                         <td>
+                             {{number_format($compra->monto_impuesto, 0,",",".")}}
+                         </td>
+                     </tr>
+
+                     
 
                  </tbody>
              </table>

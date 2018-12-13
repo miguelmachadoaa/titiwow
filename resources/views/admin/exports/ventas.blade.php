@@ -11,6 +11,9 @@
             <th><b>Valor_Pagado</b></th>
             <th><b>Forma de Pago </b></th>
             <th><b>Tipo de Pago</b></th>
+            <th><b>Base Imponible</b></th>
+            <th><b>Valor Impuesto</b></th>
+            <th><b>Monto Impuesto</b></th>
             <th><b>Rol</b></th>
         </tr>
     </thead>
@@ -36,6 +39,12 @@
                 @endif
 
             </td>
+
+            <td>{!! $venta->base_impuesto !!}</td>
+            <td>{!! $venta->valor_impuesto*100  !!}%</td>
+            <td>{!! $venta->monto_impuesto !!}</td>
+
+
 
             <td>{!! $venta->name_rol !!}</td>
           

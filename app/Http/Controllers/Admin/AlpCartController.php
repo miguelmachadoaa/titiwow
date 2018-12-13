@@ -173,7 +173,7 @@ class AlpCartController extends JoshController
 
       $total=$this->total();
 
-     
+     //dd($cart);
 
 
       if ($total<$configuracion->minimo_compra) {
@@ -496,16 +496,43 @@ class AlpCartController extends JoshController
             'estatus_pago' =>'2', 
             'monto_total' =>$total,
             'monto_total_base' =>$total,
+            'base_impuesto' =>'0',
+            'valor_impuesto' =>'0',
+            'monto_impuesto' =>'0',
             'id_user' =>$user_id
         );
 
         $orden=AlpOrdenes::create($data_orden);
 
         $monto_total_base=0;
+        $base_impuesto=0;
+        $monto_impuesto=0;
+        $valor_impuesto=0;
 
         foreach ($cart as $detalle) {
 
           $monto_total_base=$monto_total_base+($detalle->cantidad*$detalle->precio_base);
+
+           $total_detalle=$detalle->precio_oferta*$detalle->cantidad;
+
+            if ($detalle->valor_impuesto!=0) {
+
+           
+
+            $base_imponible_detalle=$total_detalle/(1+$detalle->valor_impuesto);
+
+            $base_impuesto=$base_impuesto+$base_imponible_detalle;
+
+            $valor_impuesto=$detalle->valor_impuesto;
+            
+          }
+
+          $imp=$detalle->valor_impuesto+1;
+
+          $monto_impuesto=$monto_impuesto+$detalle->valor_impuesto*($total_detalle/$imp);
+
+
+          
 
           $data_detalle = array(
             'id_orden' => $orden->id, 
@@ -515,6 +542,8 @@ class AlpCartController extends JoshController
             'precio_base' =>$detalle->precio_base, 
             'precio_total' =>$detalle->cantidad*$detalle->precio_oferta,
             'precio_total_base' =>$detalle->cantidad*$detalle->precio_base,
+            'valor_impuesto' =>$detalle->valor_impuesto,
+            'monto_impuesto' =>$detalle->valor_impuesto*$detalle->precio_oferta,
             'id_user' =>$user_id 
           );
 
@@ -575,7 +604,11 @@ class AlpCartController extends JoshController
 
          $data_update = array(
           'referencia' => 'ALP'.$orden->id,
-          'monto_total_base' => $monto_total_base
+          'monto_total_base' => $monto_total_base,
+          'base_impuesto' => $base_impuesto,
+          'monto_impuesto' => $monto_impuesto,
+          'valor_impuesto' => $valor_impuesto
+
            );
 
          $orden->update($data_update);
@@ -692,6 +725,9 @@ class AlpCartController extends JoshController
             'estatus_pago' =>'4', 
             'monto_total' =>$total,
             'monto_total_base' =>$total,
+            'base_impuesto' =>'0',
+            'valor_impuesto' =>'0',
+            'monto_impuesto' =>'0',
             'id_user' =>$user_id
         );
 
@@ -699,9 +735,31 @@ class AlpCartController extends JoshController
 
         $monto_total_base=0;
 
+        $base_impuesto=0;
+        $monto_impuesto=0;
+        $valor_impuesto=0;
+
         foreach ($cart as $detalle) {
 
           $monto_total_base=$monto_total_base+($detalle->cantidad*$detalle->precio_base);
+
+          $total_detalle=$detalle->precio_oferta*$detalle->cantidad;
+
+            if ($detalle->valor_impuesto!=0) {
+
+           
+
+            $base_imponible_detalle=$total_detalle/(1+$detalle->valor_impuesto);
+
+            $base_impuesto=$base_impuesto+$base_imponible_detalle;
+
+            $valor_impuesto=$detalle->valor_impuesto;
+            
+          }
+
+          $imp=$detalle->valor_impuesto+1;
+
+          $monto_impuesto=$monto_impuesto+$detalle->valor_impuesto*($total_detalle/$imp);
 
           $data_detalle = array(
             'id_orden' => $orden->id, 
@@ -711,6 +769,8 @@ class AlpCartController extends JoshController
             'precio_base' =>$detalle->precio_base, 
             'precio_total' =>$detalle->cantidad*$detalle->precio_oferta,
             'precio_total_base' =>$detalle->cantidad*$detalle->precio_base,
+             'valor_impuesto' =>$detalle->valor_impuesto,
+            'monto_impuesto' =>$detalle->valor_impuesto*$detalle->precio_oferta,
             'id_user' =>$user_id 
           );
 
@@ -772,7 +832,11 @@ class AlpCartController extends JoshController
 
          $data_update = array(
           'referencia' => 'ALP'.$orden->id,
-          'monto_total_base' => $monto_total_base
+          'monto_total_base' => $monto_total_base,
+
+          'base_impuesto' => $base_impuesto,
+          'monto_impuesto' => $monto_impuesto,
+          'valor_impuesto' => $valor_impuesto
            );
 
          $orden->update($data_update);
@@ -916,6 +980,11 @@ class AlpCartController extends JoshController
     {
        $cart= \Session::get('cart');
 
+       if (count($cart)>0) {
+         # code...
+      
+
+
        $carrito= \Session::get('cr');
 
       $total=$this->total();
@@ -965,12 +1034,18 @@ class AlpCartController extends JoshController
             'estatus_pago' =>'1', 
             'monto_total' =>$total,
             'monto_total_base' =>$total,
+            'base_impuesto' =>'0',
+            'valor_impuesto' =>'0',
+            'monto_impuesto' =>'0',
             'id_user' =>$user_id
           );
 
          $orden=AlpOrdenes::create($data_orden);
 
          $monto_total_base=0;
+          $base_impuesto=0;
+        $monto_impuesto=0;
+        $valor_impuesto=0;
 
 
          foreach ($cart as $detalle) {
@@ -978,6 +1053,24 @@ class AlpCartController extends JoshController
           //dd($detalle);
 
             $monto_total_base=$monto_total_base+($detalle->cantidad*$detalle->precio_base);
+
+            $total_detalle=$detalle->precio_oferta*$detalle->cantidad;
+
+            if ($detalle->valor_impuesto!=0) {
+
+           
+
+            $base_imponible_detalle=$total_detalle/(1+$detalle->valor_impuesto);
+
+            $base_impuesto=$base_impuesto+$base_imponible_detalle;
+
+            $valor_impuesto=$detalle->valor_impuesto;
+            
+          }
+
+          $imp=$detalle->valor_impuesto+1;
+
+          $monto_impuesto=$monto_impuesto+$detalle->valor_impuesto*($total_detalle/$imp);
 
             $data_detalle = array(
               'id_orden' => $orden->id, 
@@ -987,6 +1080,8 @@ class AlpCartController extends JoshController
               'precio_total_base' =>$detalle->cantidad*$detalle->precio_base, 
               'precio_unitario' =>$detalle->precio_oferta, 
               'precio_total' =>$detalle->cantidad*$detalle->precio_oferta,
+            'valor_impuesto' =>$detalle->valor_impuesto,
+            'monto_impuesto' =>$detalle->valor_impuesto*($detalle->precio_oferta*$detalle->cantidad),
               'id_user' =>$user_id 
             );
 
@@ -1059,6 +1154,9 @@ class AlpCartController extends JoshController
          $data_update = array(
           'referencia' => 'ALP'.$orden->id,
           'monto_total_base' => $monto_total_base,
+          'base_impuesto' => $base_impuesto,
+          'monto_impuesto' => $monto_impuesto,
+          'valor_impuesto' => $valor_impuesto
         );
 
          $orden->update($data_update);
@@ -1134,6 +1232,13 @@ class AlpCartController extends JoshController
 
     }
 
+    }else{
+
+          return redirect('cart/show');
+
+
+    }
+
 
 
     }
@@ -1185,6 +1290,18 @@ class AlpCartController extends JoshController
 
     public function addtocart( AlpProductos $producto)
     {
+
+
+      $id_p=$producto->id;
+
+     
+          $producto=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
+          ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
+          ->where('alp_productos.id', $id_p)
+->first();
+
+
+         // return json_encode($producto);
 
         if (!\Session::has('cr')) {
 
@@ -1275,18 +1392,21 @@ class AlpCartController extends JoshController
             case 2:
 
               $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
+
               
               break;
 
             case 3:
 
               $producto->precio_oferta=$precio[$producto->id]['precio'];
+
               
               break;
             
             default:
             
              $producto->precio_oferta=$producto->precio_base*$descuento;
+
               # code...
               break;
           }
@@ -1295,6 +1415,7 @@ class AlpCartController extends JoshController
 
           $producto->precio_oferta=$producto->precio_base*$descuento;
 
+
         }
 
 
@@ -1302,9 +1423,12 @@ class AlpCartController extends JoshController
 
        $producto->precio_oferta=$producto->precio_base*$descuento;
 
+
        }
 
       $producto->cantidad=1;
+      $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
+
 
       
       if($inv[$producto->id]>=$producto->cantidad){
@@ -1580,8 +1704,8 @@ class AlpCartController extends JoshController
 
             $user_id = Sentinel::getUser()->id;
 
-            if ($user_id!=$s_user) {
-            //if (1) {
+            //if ($user_id!=$s_user) {
+            if (1) {
 
               $cambio=1;
 
@@ -1676,7 +1800,11 @@ class AlpCartController extends JoshController
 
        $producto->precio_oferta=$producto->precio_base*$descuento;
 
+
        }
+
+
+        $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
 
 
        $cart[$producto->slug]=$producto;

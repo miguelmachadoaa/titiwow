@@ -32,7 +32,7 @@
                             <h3>
                                 <a href="#0">{{ $row->nombre_producto }}</a>
                             </h3>
-                            <span class="price">{{ $row->precio_oferta }}</span>
+                            <span class="price">{{ intval($row->precio_oferta) }}</span>
                             <div class="actions">
                                 <a data-id="{{ $row->id }}" data-slug="{{ $row->slug }}" href="#0" class="delete-item col-xs-3">Borrar</a>
                                     <div class="quantity col-xs-8">

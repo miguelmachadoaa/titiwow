@@ -8,7 +8,8 @@ Datos de la compra
 <p><b>IdPedido: </b>{{ $compra->id }}</p>
 <p><b>Cedula: </b>{{ $compra->doc_cliente }}</p>
 <p><b>Valor Pagado: </b>{{ $compra->monto_total }}</p>
-<p><b>Valor Iva: </b>{{ number_format($compra->monto_total-($compra->monto_total/1.19))}}</p>
+<p><b>Base Imponible: </b>{{ number_format($compra->base_impuesto,0,",",".")}}</p>
+<p><b>Valor Iva: </b>{{ number_format($compra->monto_impuesto,0,",",".")}}</p>
 <p><b>Fecha de Entrega: </b>{{ $fecha_entrega }}</p>
 
 

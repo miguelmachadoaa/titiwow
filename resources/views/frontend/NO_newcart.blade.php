@@ -20,6 +20,8 @@
                 <ul>
                     <!-- products added to the cart will be inserted here using JavaScript -->
                     @if(isset($cart))
+
+
                     @foreach($cart as $row)
 
                     <li class="product">
@@ -32,7 +34,7 @@
                             <h3>
                                 <a href="#0">{{ $row->nombre_producto }}</a>
                             </h3>
-                            <span class="price">{{ $row->precio_oferta }}</span>
+                            <span class="price">{{ intval($row->precio_oferta) }}</span>
                             <div class="actions">
                                 <a data-slug="{{ $row->slug }}" href="#0" class="delete-item">Borrar</a>
                                     <div class="quantity">
@@ -62,7 +64,7 @@
             </div>
 
             <footer style="padding: 0">
-                <a style="background: #fff;" href="{{ secure_url('cart/show') }}" class="checkout btn"><em>Total - COP <span>@if(isset($cart)) {{ $total }}  @endif</span></em></a>
+                <a style="background: #fff;" href="{{ secure_url('cart/show') }}" class="checkout btn"><em>Total - COP  <span>@if(isset($cart)) {{ intval($total) }}  @endif</span></em></a>
             </footer>
         </div>
     </div> <!-- .cd-cart -->
