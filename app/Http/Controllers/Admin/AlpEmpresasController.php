@@ -263,7 +263,7 @@ class AlpEmpresasController extends JoshController
  
         if (!isset($amigo->id)) {
 
-                $mensaje="Su enlace de registro a vencido, solicite uno nuevo o registrese como cliente";
+                $mensaje="Su enlace de registro ha vencido, solicite uno nuevo o registrese como cliente";
 
                 return view('frontend.clientes.aviso',  compact('mensaje'));
 

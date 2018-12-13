@@ -712,7 +712,7 @@ class ClientesFrontController extends Controller
 
         if (!isset($amigo->id)) {
 
-            $mensaje="Su enlace de registro a vencido, solicite uno nuevo o registrese como cliente";
+            $mensaje="Su enlace de registro ha vencido, solicite uno nuevo o registrese como cliente";
 
             $states=State::where('config_states.country_id', '47')->get();
 

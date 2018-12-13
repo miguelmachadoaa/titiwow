@@ -18,7 +18,7 @@
         <tr>
             <td>{!! $row->ordencompra !!}</td>
             <td>{!! $row->city_name!!}</td>
-            <td>{{ $row->abrevia_estructura.' '.$row->principal_address.' '.$row->secundaria_address.' '.$row->edificio_address     }}</td>
+            <td>{{ $row->abrevia_estructura.' '.$row->principal_address.' '.$row->secundaria_address.' '.$row->edificio_address.' '.$row->detalle_address     }}</td>
             <td>3</td>
             <td>{!! $row->monto_total !!}</td>
             <td>{!! $row->first_name.' '.$row->last_name !!}</td>

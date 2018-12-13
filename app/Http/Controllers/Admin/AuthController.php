@@ -446,9 +446,9 @@ class AuthController extends JoshController
 
             $amigo->delete();
 
-             Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name));
+             //Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name));
 
-             Mail::to($embajador->email)->send(new \App\Mail\AmigoRegistrado($user->first_name, $user->last_name));
+             //Mail::to($embajador->email)->send(new \App\Mail\AmigoRegistrado($user->first_name, $user->last_name));
 
             //activity log ends
             // Redirect to the home page with success menu
@@ -458,7 +458,7 @@ class AuthController extends JoshController
 
                    // return Redirect::route($request->back)->with('success', trans('auth/message.signin.success'));
 
-                 $mensaje="Ha sido registrado satisfactoriamente como Amigo Alpina, debe esperar que su usuarios sea activado en un proceso interno, le notificaremos vía email";
+                 $mensaje="Ha sido registrado satisfactoriamente como Amigo Alpina, debe esperar que su Usuario sea activado en un proceso interno, le notificaremos vía email";
 
                 return view('frontend.clientes.aviso',  compact('mensaje'));
 
@@ -574,7 +574,7 @@ class AuthController extends JoshController
 
             if ($request->back=='0') {
 
-                $mensaje="Ha sido registrado satisfactoriamente como Amigo Alpina, debe esperar que su usuarios sea activado en un proceso interno, le notificaremos vía email";
+                $mensaje="Ha sido registrado satisfactoriamente como Amigo Alpina, debe esperar que su Usuario sea activado en un proceso interno, le notificaremos vía email";
 
                 return view('frontend.clientes.aviso',  compact('mensaje'));
                    
