@@ -68,7 +68,7 @@
     <div class="products">
         <div class="row">
         @if(!$productos->isEmpty())
-            @foreach($productos as $producto)
+            @foreach($prods as $producto)
                 <div class="col-md-3 col-sm-6 col-xs-6">
                     <div class="productos">
                         <div class="text-align:center;">

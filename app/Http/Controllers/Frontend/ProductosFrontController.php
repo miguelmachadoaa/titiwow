@@ -578,7 +578,7 @@ class ProductosFrontController extends Controller
         //print_r($precio);
        // print_r($role->role_id);
 
-    $productos=$this->addOferta($productos, $precio, $descuento);
+    $prods=$this->addOferta($productos, $precio, $descuento);
 
 
          $states=State::where('config_states.country_id', '47')->get();
@@ -599,7 +599,7 @@ class ProductosFrontController extends Controller
 
 
 
-        return \View::make('frontend.categorias', compact('productos','cataname','slug', 'descuento', 'precio', 'states', 'cart', 'total'));
+        return \View::make('frontend.categorias', compact('productos','cataname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods'));
 
     }
     public function marcas($slug)
@@ -666,7 +666,7 @@ class ProductosFrontController extends Controller
 
         $cart= \Session::get('cart');
 
-    $productos=$this->addOferta($productos, $precio, $descuento);
+    $prods=$this->addOferta($productos, $precio, $descuento);
 
 
 
@@ -684,7 +684,7 @@ class ProductosFrontController extends Controller
 
          $states=State::where('config_states.country_id', '47')->get();
 
-        return \View::make('frontend.marcas', compact('productos','marcaname','slug', 'descuento', 'precio', 'states', 'cart', 'total'));
+        return \View::make('frontend.marcas', compact('productos','marcaname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods'));
 
     }
 
