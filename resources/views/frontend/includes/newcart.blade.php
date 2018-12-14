@@ -30,7 +30,7 @@
                         </div>
                         <div class="product-details">
                             <h3>
-                                <a href="#0">{{ $row->nombre_producto }}</a>
+                                <a href="{{ route('producto', [$producto->slug]) }}">{{ $row->nombre_producto }}</a>
                             </h3>
                             <span class="price">{{ intval($row->precio_oferta) }}</span>
                             <div class="actions">
