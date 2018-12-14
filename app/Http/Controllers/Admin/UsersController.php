@@ -93,10 +93,10 @@ class UsersController extends JoshController
 
             })
             ->addColumn('actions',function($user) {
-                $actions = '<a href='. route('admin.users.show', $user->id) .'><i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i></a>
-                            <a href='. route('admin.users.edit', $user->id) .'><i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="update user"></i></a>';
+                $actions = '<a href='. secure_url('admin/users/'.$user->id).'><i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view user"></i></a>
+                            <a href='. secure_url('admin/users/'.$user->id.'/edit').'><i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="update user"></i></a>';
                 if ((Sentinel::getUser()->id != $user->id) && ($user->id != 1)) {
-                    $actions .= '<a href='. route('admin.users.confirm-delete', $user->id) .' data-toggle="modal" data-target="#delete_confirm"><i class="livicon" data-name="user-remove" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="delete user"></i></a>';
+                    $actions .= '<a href='. secure_url('admin/users/'.$user->id.'/confirm-delete') .' data-toggle="modal" data-target="#delete_confirm"><i class="livicon" data-name="user-remove" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="delete user"></i></a>';
                 }
                 return $actions;
             })
@@ -154,7 +154,7 @@ class UsersController extends JoshController
                 // Data to be used on the email view
                 $data =[
                     'user_name' => $user->first_name .' '. $user->last_name,
-                    'activationUrl' => URL::route('activate', [$user->id, Activation::create($user)->code])
+                    'activationUrl' => URL::secure_url('activate', [$user->id, Activation::create($user)->code])
                 ];
                 // Send the activation code through email
                 Mail::to($user->email)
@@ -166,7 +166,7 @@ class UsersController extends JoshController
                 ->causedBy($user)
                 ->log('New User Created by '.Sentinel::getUser()->full_name);
             // Redirect to the home page with success menu
-            return Redirect::route('admin.users.index')->with('success', trans('users/message.success.create'));
+            return Redirect::secure_url('admin.users.index')->with('success', trans('users/message.success.create'));
 
         } catch (LoginRequiredException $e) {
             $error = trans('admin/users/message.user_login_required');
@@ -280,7 +280,7 @@ class UsersController extends JoshController
                     //send activation mail
                     $data=[
                         'user_name' =>$user->first_name .' '. $user->last_name,
-                    'activationUrl' => URL::route('activate', [$user->id, Activation::exists($user)->code])
+                    'activationUrl' => URL::secure_url('activate', [$user->id, Activation::exists($user)->code])
                     ];
                     // Send the activation code through email
                     Mail::to($user->email)
@@ -299,7 +299,7 @@ class UsersController extends JoshController
                     ->causedBy($user)
                     ->log('User Updated by '.Sentinel::getUser()->full_name);
                 // Redirect to the user page
-                return Redirect::route('admin.users.edit', $user)->with('success', $success);
+                return Redirect::secure_url('admin.users.edit', $user)->with('success', $success);
             }
 
             // Prepare the error message
@@ -309,11 +309,11 @@ class UsersController extends JoshController
             $error = trans('users/message.user_not_found', compact('id'));
 
             // Redirect to the user management page
-            return Redirect::route('admin.users.index')->with('error', $error);
+            return Redirect::secure_url('admin.users.index')->with('error', $error);
         }
 
         // Redirect to the user page
-        return Redirect::route('admin.users.edit', $user)->withInput()->with('error', $error);
+        return Redirect::secure_url('admin.users.edit', $user)->withInput()->with('error', $error);
     }
 
     /**
@@ -357,7 +357,7 @@ class UsersController extends JoshController
             $error = trans('users/message.user_not_found', compact('id'));
             return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
         }
-        $confirm_route = route('admin.users.delete', ['id' => $user->id]);
+        $confirm_route = secure_url('admin.users.delete', ['id' => $user->id]);
         return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
     }
 
@@ -377,7 +377,7 @@ class UsersController extends JoshController
                 // Prepare the error message
                 $error = trans('admin/users/message.error.delete');
                 // Redirect to the user management page
-                return Redirect::route('admin.users.index')->with('error', $error);
+                return Redirect::secure_url('admin.users.index')->with('error', $error);
             }
             // Delete the user
             //to allow soft deleted, we are performing query on users model instead of Sentinel model
@@ -391,13 +391,13 @@ class UsersController extends JoshController
                 ->causedBy($user)
                 ->log('User deleted by '.Sentinel::getUser()->full_name);
             // Redirect to the user management page
-            return Redirect::route('admin.users.index')->with('success', $success);
+            return Redirect::secure_url('admin.users.index')->with('success', $success);
         } catch (UserNotFoundException $e) {
             // Prepare the error message
             $error = trans('admin/users/message.user_not_found', compact('id'));
 
             // Redirect to the user management page
-            return Redirect::route('admin.users.index')->with('error', $error);
+            return Redirect::secure_url('admin.users.index')->with('error', $error);
         }
     }
 
@@ -438,13 +438,13 @@ class UsersController extends JoshController
                 ->causedBy($user)
                 ->log('User restored by '.Sentinel::getUser()->full_name);
             // Redirect to the user management page
-            return Redirect::route('admin.deleted_users')->with('success', $success);
+            return Redirect::secure_url('admin.deleted_users')->with('success', $success);
         } catch (UserNotFoundException $e) {
             // Prepare the error message
             $error = trans('users/message.user_not_found', compact('id'));
 
             // Redirect to the user management page
-            return Redirect::route('admin.deleted_users')->with('error', $error);
+            return Redirect::secure_url('admin.deleted_users')->with('error', $error);
         }
     }
 
@@ -467,7 +467,7 @@ class UsersController extends JoshController
             // Prepare the error message
             $error = trans('users/message.user_not_found', compact('id'));
             // Redirect to the user management page
-            return Redirect::route('admin.users.index')->with('error', $error);
+            return Redirect::secure_url('admin.users.index')->with('error', $error);
         }
         // Show the page
         return view('admin.users.show', compact('user'));
