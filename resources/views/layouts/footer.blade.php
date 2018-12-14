@@ -316,21 +316,17 @@
 
             id=$(this).data('id');
 
+            price=$(this).data('price');
+
+            slug=$(this).data('slug');
+
             single=$('#single').val();
 
             url=$(this).attr('href');
 
-            $.get(url, {}, function(data) {
+            $.post(base+'/cart/agregar', {price, slug}, function(data) {
 
-               // $('.cartcontenido').html(data);
-
-               // $('#detailCartModal').modal('show');
-
-               // $('#detalle_carro_front').html($('#modal_cantidad').val()+' '+'Items');
-
-                    $.post(base+'/cart/botones', {id}, function(data) {
-
-                        $('.boton_'+id+'').html(data);
+                $('.boton_'+id+'').html(data);
 
 
                        if (single==1) {
@@ -338,7 +334,7 @@
                             $('.vermas').remove();
                         }
 
-                    });
+               
 
             });
 
@@ -438,15 +434,11 @@
             cantidad=0;
 
 
-            id=$(this).data('id');
+           
 
                     $.post(base+'/cart/delproducto', { slug}, function(data) {
 
-                    });
-
-                    $.post(base+'/cart/getcartbotones', {slug}, function(data) {
-
-                        $('.boton_'+id+'').html('');
+                         $('.boton_'+id+'').html('');
                         $('.boton_'+id+'').html(data);
 
                          if (single==1) {
@@ -454,9 +446,8 @@
                             $('.vermas').remove();
                         }
 
-
-
                     });
+
 
             });
 

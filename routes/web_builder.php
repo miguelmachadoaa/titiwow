@@ -589,6 +589,8 @@ Route::get('cart/add/{product}',['as'=>'cart.add', 'uses'=>'Admin\AlpCartControl
 //responde json
 Route::get('cart/addtocart/{product}',['as'=>'cart.addtocart', 'uses'=>'Admin\AlpCartController@addtocart']);
 
+Route::post('cart/agregar/',['as'=>'cart.agregar', 'uses'=>'Admin\AlpCartController@addtocart']);
+
 //eliminar item del carro
 Route::get('cart/delete/{product}',['as'=>'cart.add', 'uses'=>'Admin\AlpCartController@delete']);
 

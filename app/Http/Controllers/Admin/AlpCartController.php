@@ -124,15 +124,10 @@ class AlpCartController extends JoshController
 
       $configuracion = AlpConfiguracion::where('id', '1')->first();
 
-    // dd($configuracion);
-
-     //MP::setCredenciales($configuracion->cliente_id_mercadopago, $configuracion->cliente_secret_mercadopago, $configuracion->access_token_mercadopago);
-
+    
      MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
-    // MP::setCredenciales('1212121212', '123456');
-
-    //dd(MP::getAccessToken());
+   
 
      $preference_data = [
       "items" => [
@@ -153,7 +148,7 @@ class AlpCartController extends JoshController
     $preference = MP::post("/checkout/preferences",$preference_data);
 
     dd($preference);
-    //return dd($preference);
+   
 
     }
 
@@ -290,27 +285,17 @@ class AlpCartController extends JoshController
               );*/
 
 
-          //dd($preference);
 
           $this->saveOrden($preference);
-
-          //dd($preference);
-
 
           /*actualizamos la data del carrito */
 
           $carro=AlpCarrito::where('id', $carrito)->first();
 
-         // dd($carrito);
-
           $data_carrito = array(
             'id_user' => $user_id );
 
           $carro->update($data_carrito);
-
-          
-
-         // echo $carrito;
 
           /*actualizamos la data del carrito */
 
@@ -913,7 +898,10 @@ class AlpCartController extends JoshController
 
       $carrito= \Session::get('cr');
 
-      $cart=$this->reloadCart();
+      //$cart=$this->reloadCart();
+
+      $cart= \Session::get('cart');
+
 
       $total=$this->total();
 
@@ -1271,7 +1259,6 @@ class AlpCartController extends JoshController
         }
 
 
-
        $producto->cantidad=1;
 
        $producto->precio_base=$producto->precio_base*$descuento;
@@ -1288,20 +1275,15 @@ class AlpCartController extends JoshController
       
     }
 
-    public function addtocart( AlpProductos $producto)
+    public function addtocart( Request $request)
     {
 
 
-      $id_p=$producto->id;
-
-     
           $producto=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
           ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
-          ->where('alp_productos.id', $id_p)
-->first();
+          ->where('alp_productos.slug', $request->slug)
+          ->first();
 
-
-         // return json_encode($producto);
 
         if (!\Session::has('cr')) {
 
@@ -1334,97 +1316,8 @@ class AlpCartController extends JoshController
 
        $inv=$this->inventario();
 
-       if (Sentinel::check()) {
 
-            $user_id = Sentinel::getUser()->id;
-
-            $role=RoleUser::where('user_id', $user_id)->first();
-
-            $cliente = AlpClientes::where('id_user_client', $user_id )->first();
-
-
-            if (isset($cliente) ) {
-
-                if ($cliente->id_empresa!=0) {
-                    
-                    $role->role_id='E'.$cliente->id_empresa.'';
-                }
-               
-            }
-
-
-
-            if ($role->role_id) {
-               
-                foreach ($cart as  $row) {
-                    
-                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $role->role_id)->first();
-
-                    if (isset($pregiogrupo->id)) {
-                       
-                        $precio[$row->id]['precio']=$pregiogrupo->precio;
-                        $precio[$row->id]['operacion']=$pregiogrupo->operacion;
-                        $precio[$row->id]['pum']=$pregiogrupo->pum;
-
-                    }
-
-                }
-                
-            }
-
-        }
-          
-
-
-        if ($descuento=='1') {
-
-        if (isset($precio[$producto->id])) {
-          # code...
-         
-          switch ($precio[$producto->id]['operacion']) {
-
-            case 1:
-
-              $producto->precio_oferta=$producto->precio_base*$descuento;
-
-              break;
-
-            case 2:
-
-              $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
-
-              
-              break;
-
-            case 3:
-
-              $producto->precio_oferta=$precio[$producto->id]['precio'];
-
-              
-              break;
-            
-            default:
-            
-             $producto->precio_oferta=$producto->precio_base*$descuento;
-
-              # code...
-              break;
-          }
-
-        }else{
-
-          $producto->precio_oferta=$producto->precio_base*$descuento;
-
-
-        }
-
-
-       }else{
-
-       $producto->precio_oferta=$producto->precio_base*$descuento;
-
-
-       }
+      $producto->precio_oferta=$request->price;
 
       $producto->cantidad=1;
       $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
@@ -1453,20 +1346,17 @@ class AlpCartController extends JoshController
 
        AlpCarritoDetalle::create($data_detalle);
 
-       /*guardar detalles en el carro */
+      
 
-       $cantidad=$this->cantidad();
 
-       $total=$this->total();
+       $view= View::make('frontend.order.botones', compact('producto', 'cart'));
 
-       $view= View::make('frontend.order.cartdetail', compact('producto', 'cantidad', 'total', 'error'));
+          $data=$view->render();
 
-        $data=$view->render();
+          $res = array('data' => $data);
 
-        $res = array('data' => $data);
-
-        //  return json_encode($res);
-        return $data;
+          return $data;
+       // return json_encode($cart);
       
     }
 
@@ -1529,11 +1419,20 @@ class AlpCartController extends JoshController
     {
        $cart= \Session::get('cart');
 
+       $producto=AlpProductos::where('slug', $request->slug)->first();
+ 
+
       unset( $cart[$request->slug]);
 
        \Session::put('cart', $cart);
 
-       return 'true';
+       $view= View::make('frontend.order.botones', compact('producto', 'cart'));
+
+        $data=$view->render();
+
+        return $data;
+
+       //return 'true';
       
     }
 
@@ -1571,25 +1470,17 @@ class AlpCartController extends JoshController
 
        $configuracion=AlpConfiguracion::where('id', '1')->first();
 
-
-      // return $cart;
-
-       $cart=$this->reloadCart();
-       
+//       $cart=$this->reloadCart();
 
        \Session::put('cart', $cart);
 
-
-
        $total=$this->total();
-
 
         $view= View::make('frontend.listcart', compact('cart', 'total', 'configuracion', 'error'));
 
         $data=$view->render();
 
         return $data;
-
       
     }
 
@@ -1598,10 +1489,8 @@ class AlpCartController extends JoshController
        $cart= \Session::forget('cart');
 
        $carrito= \Session::forget('cr');
-
       
        return redirect('cart/show');
-
       
     }
 
@@ -1623,9 +1512,6 @@ class AlpCartController extends JoshController
     }
 
 
-
-
-
     private function cantidad()
     {
        $cart= \Session::get('cart');
@@ -1640,14 +1526,12 @@ class AlpCartController extends JoshController
 
        return $cantidad;
 
-      
     }
 
 
 
     private function inventario()
     {
-       
 
       $entradas = AlpInventario::groupBy('id_producto')
               ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
@@ -1662,7 +1546,6 @@ class AlpCartController extends JoshController
 
               }
 
-
             $salidas = AlpInventario::select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
               ->groupBy('id_producto')
               ->where('operacion', '2')
@@ -1675,15 +1558,8 @@ class AlpCartController extends JoshController
             }
 
             return $inv;
-
-
       
     }
-
-
-
-
-
 
 
     private function reloadCart()
@@ -1832,10 +1708,6 @@ class AlpCartController extends JoshController
 
         $producto=AlpProductos::where('id', $request->id)->first();
 
-       //dd($producto);
-
-
-        //print_r($producto->id);
 
        $cart= \Session::get('cart');
 
@@ -1855,7 +1727,7 @@ class AlpCartController extends JoshController
 
         } else{
 
-          echo "No se encontro del prodcuto";
+          echo "No se encontro del producto";
         }   
 
     }
@@ -1912,7 +1784,7 @@ class AlpCartController extends JoshController
          
        }
 
-        $cart=$this->reloadCart();
+       // $cart=$this->reloadCart();
 
 
        \Session::put('cart', $cart);
@@ -2092,7 +1964,7 @@ class AlpCartController extends JoshController
       
       $carrito= \Session::get('cr');
 
-      $cart=$this->reloadCart();
+      //$cart=$this->reloadCart();
 
       $total=$this->total();
 
