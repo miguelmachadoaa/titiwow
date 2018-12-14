@@ -20,6 +20,7 @@
                 <ul>
                     <!-- products added to the cart will be inserted here using JavaScript -->
                     @if(isset($cart))
+                    
                     @foreach($cart as $row)
 
                     <li class="product">
@@ -30,7 +31,7 @@
                         </div>
                         <div class="product-details">
                             <h3>
-                                <a href="{{ route('producto', [$producto->slug]) }}">{{ $row->nombre_producto }}</a>
+                                <a href="{{ route('producto', [$row->slug]) }}">{{ $row->nombre_producto }}</a>
                             </h3>
                             <span class="price">{{ intval($row->precio_oferta) }}</span>
                             <div class="actions">
