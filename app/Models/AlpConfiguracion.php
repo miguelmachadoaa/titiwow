@@ -25,6 +25,7 @@ class AlpConfiguracion extends Model
         'key_mercadopago',
         'mercadopago_sand',
         'minimo_compra',
+        'registro_publico',
         'correo_admin',
         'correo_shopmanager',
         'correo_shopmanagercorp',

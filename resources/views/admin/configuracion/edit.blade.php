@@ -144,6 +144,30 @@ Editar Configuracion
                                
                             </div>
 
+                            <div class="form-group  {{ $errors->first('registro_publico', 'has-error') }}">
+                                <label for="select21" class="col-sm-2 control-label">
+                                    Registro Publico
+                                </label>
+                                <div class="col-sm-5">   
+                                 <select id="registro_publico" name="registro_publico" class="form-control ">
+                                    <option value="">Seleccione</option>
+                                        
+                                       
+                                        <option value="{{ 1 }}"
+                                                @if($configuracion->registro_publico == 1) selected="selected" @endif >Habilitado</option>
+
+                                        <option value="{{ 0}}"
+                                                @if($configuracion->registro_publico == 0) selected="selected" @endif >Deshabilitado</option>
+                                       
+                                </select>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('registro_publico', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                                  
+                                </div>
+                               
+                            </div>
+
                             <fieldset>
                                 
                                 <legend>Correos para notificacion</legend>

@@ -236,6 +236,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 
 #FrontEndController
 Route::get('login', 'FrontEndController@getLogin')->name('login');
+Route::get('desactivado', 'FrontEndController@desactivado')->name('desactivado');
 Route::post('login', 'FrontEndController@postLogin')->name('login');
 Route::get('registro', 'FrontEndController@getRegister')->name('registro');
 Route::get('registro/states/{id}',array('as'=>'registro.states','uses'=>'FrontEndController@selectState'));

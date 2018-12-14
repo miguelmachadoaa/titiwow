@@ -17,6 +17,7 @@ use App\Models\AlpPrecioGrupo;
 use App\Models\AlpProductos;
 use App\Models\AlpTDocumento;
 use App\Models\AlpEstructuraAddress;
+use App\Models\AlpConfiguracion;
 use App\Models\AlpDirecciones;
 use App\Models\AlpCodAlpinistas;
 use App\User;
@@ -201,12 +202,24 @@ class FrontEndController extends JoshController
     public function getLogin()
     {
         // Is the user logged in?
+
+
+
+
         if (Sentinel::check()) {
             
             return Redirect::route('clientes');
         }
         // Show the login page
         return view('login');
+    }
+
+     public function desactivado()
+    {
+        // Is the user logged in?
+        
+        // Show the login page
+        return view('desactivado');
     }
 
     /**
@@ -337,6 +350,18 @@ class FrontEndController extends JoshController
      */
     public function getRegister()
     {
+
+
+        $configuracion=AlpConfiguracion::where('id', '1')->first();
+
+
+        if ( $configuracion->registro_publico==0) {
+                
+                return view('desactivado');
+            # code...
+        }
+
+        
         $states=State::where('config_states.country_id', '47')->get();
 
         $t_documento = AlpTDocumento::where('estado_registro','=',1)->get();
