@@ -64,7 +64,7 @@
                                    
                                     <dt>Direccion</dt>
                                     <dd>
-                                       {{ $direcciones->abrevia_estructura.' '.$direcciones->principal_address.'  #'.$direcciones->secundaria_address .'-'.$direcciones->edificio_address.' '.$direcciones->detalle_address  }}
+                                       {{ $direcciones->nombre_estructura.' '.$direcciones->principal_address.'  #'.$direcciones->secundaria_address .'-'.$direcciones->edificio_address.' '.$direcciones->detalle_address  }}
                                     </dd>
 
                                     <dt>Barrio</dt>

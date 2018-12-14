@@ -609,7 +609,7 @@ class AlpCartController extends JoshController
 
          AlpPagos::create($data_pago);
 
-         $aviso_pago="Hemos recibido su pago satifactoriamente, una vez sea confirmado, Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!";
+         $aviso_pago="Hemos recibido su pago satisfactoriamente, una vez sea confirmado, Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!";
 
        //  $datalles=AlpDetalles::where('id_orden', $orden->id)->get();
 
