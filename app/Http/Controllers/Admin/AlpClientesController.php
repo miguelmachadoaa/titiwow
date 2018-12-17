@@ -543,7 +543,9 @@ class AlpClientesController extends JoshController
     {
         
        
+        $input=$request->all();
 
+        dd($input);
 
         $user_id = Sentinel::getUser()->id;
 

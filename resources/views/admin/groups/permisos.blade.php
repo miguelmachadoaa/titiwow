@@ -44,62 +44,62 @@
                 <div class="panel-body">
 
 
-
-
-
-
-
                 
         {{ Form::open(array('url' => route('admin.groups.save', $role->id), 'class' => 'form-horizontal')) }}
     <ul>
+
     <div class="row">
-    @foreach($actions as $action)
+
+
+
+    @foreach($listado as $key=>$value)
+
+
         <div class="col-md-4">
-          <?php $first= array_values($action)[0];
-            $firstname =explode(".", $first)[0];
-          ?> 
-
-        {{Form::label($firstname, $firstname, ['class' => 'form col-md-4 capital_letter'])}}
-        <br>
-        <select name="permissions[]" class="select" multiple="multiple">
-            @foreach($action as $act)
-            @if(explode(".", $act)[0]=="api")
-            <option value="{{$act}}" {{array_key_exists($act, $role->permissions)?"selected":""}}>
-            {{isset(explode(".", $act)[2])?explode(".", $act)[1].".".explode(".", $act)[2]:explode(".", $act)[1]}}</option>
-            @else
-             <option value="{{$act}}" {{array_key_exists($act, $role->permissions)?"selected":""}}>
-
-              {{explode(".", $act)[1]}}
-              
-             </option>
-            @endif
-            @endforeach
-        </select>        
-        </div>
-    @endforeach
-    </div>  <br>
-      <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-3">
-                {!! Form::submit('Guardar', ['class' => 'btn btn-success form-control']) !!}
-            </div>
-            <a href="{{$role->is_group ? route('admin.groups.index'):route('admin.groups.index')}}" class="btn btn-default">Regresar</a>
-        </div>
         
+
+            {{Form::label($key, $key, ['class' => 'form col-md-4 capital_letter'])}}
+            <br>
+
+            <select id="{{ $key }}[]" name="{{ $key }}[]" class="select form-control" multiple="multiple">
+
+                    @foreach($value as $l)
+
+                    <option   @if(isset($acceso[$key.'.'.$l])) selected @endif  value="{{ $l }}">{{ $l }}</option>
+
+                    @endforeach
+
+               
+            </select>   
+
         </div>
+
+    @endforeach
+
+    </div>  
+
+
+
+
+    <br>
+
+      <div class="form-group">
+
+            <div class="col-sm-offset-3 col-sm-3">
+
+                {!! Form::submit('Guardar', ['class' => 'btn btn-success form-control']) !!}
+
+            </div>
+
+            <a href="{{$role->is_group ? route('admin.groups.index'):route('admin.groups.index')}}" class="btn btn-default">Regresar</a>
+
+    </div>
+        
+        </div> <!-- /panel body  -->
         </div>
+
     </ul> 
     {{ Form::close() }}     
-
-
-
-
-
-
-
-
-
-
-
 
 
 

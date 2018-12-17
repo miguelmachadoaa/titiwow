@@ -67,6 +67,10 @@
                                         <a href="{{ route('admin.groups.edit', $role->id) }}">
                                                 <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="edit group"></i>
                                             </a>
+
+                                            <a href="{{ route('admin.groups.permisos', $role->id) }}">
+                                                <i class="fa fa-cog"></i>
+                                            </a>
                                             <!-- let's not delete 'Admin' group by accident -->
                                             @if ($role->id !== 1)
                                                 @if($role->users()->count())

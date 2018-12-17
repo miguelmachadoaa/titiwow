@@ -213,7 +213,7 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
         Route::post('/rechazar', 'Admin\AlpClientesController@rechazar')->name('clientes.rechazar');
 
-        Route::get('/eliminar/cliente', 'Admin\AlpClientesController@eliminar')->name('clientes.eliminar');
+        Route::get('/delcliente', 'Admin\AlpClientesController@eliminar')->name('clientes.eliminar');
 
         });
     Route::post('clientes/store', 'Admin\AlpClientesController@store');

@@ -8,6 +8,9 @@ use App\Models\AlpModulos;
 use Redirect;
 use Sentinel;
 use View;
+use App\Http\Requests;
+
+use Illuminate\Http\Request;
 use Route;
 
 
@@ -169,6 +172,8 @@ class GroupsController extends JoshController
      public function permissions($id){
         
         $role = Sentinel::findRoleById($id);
+
+        $acceso=$role->permissions;
         
         $routes = Route::getRoutes();
 
@@ -184,14 +189,22 @@ class GroupsController extends JoshController
 
             if (substr($ro->getName(), 0,5)=='admin') {
 
-                $listado[]=$ro->getName();
-                # code...
+                $lis=explode('.', $ro->getName());
+
+                if(count($lis)>2){
+
+                    $listado[$lis[1]][]=$lis[2];
+
+
+                }
+
+                
             }
             
             
         }
 
-        dd($listado);
+       // dd($listado);
 
         //Api Route
         // $api = app('api.router');
@@ -201,70 +214,48 @@ class GroupsController extends JoshController
         // $api_route = $routeCollector->getRoutes();
 
 
-        $actions = [];
-        foreach ($routes as $route) {
-            if ($route->getName() != "" && !substr_count($route->getName(), 'payment')) {
-                $actions[] = $route->getName();
-            }            
-        }
-        
-        //remove store option
-        $input = preg_quote("store", '~');
-        $var = preg_grep('~' . $input . '~', $actions);
-        $actions = array_values(array_diff($actions, $var));
-
-        //remove update option
-        $input = preg_quote("update", '~');
-        $var = preg_grep('~' . $input . '~', $actions);
-        $actions = array_values(array_diff($actions, $var));
-
-        //Api all names
-        // foreach ($api_route as $route) {
-        //     if ($route->getName() != "" && !substr_count($route->getName(), 'payment')) {
-        //         $actions[] = $route->getName();
-        //     }            
-        // }
-        
-        $var = [];
-        $i = 0;
-        foreach ($actions as $action) {
-
-            $input = preg_quote(explode('.', $action )[0].".", '~');
-            $var[$i] = preg_grep('~' . $input . '~', $actions);
-            $actions = array_values(array_diff($actions, $var[$i]));
-            $i += 1;
-        }
-
-        $actions = array_filter($var);
-        // dd (array_filter($actions));
-        return View('admin.groups.permisos', compact('role', 'actions'));
+     
+        return View('admin.groups.permisos', compact('listado', 'role', 'acceso'));
     }
 
     public function save($id, Request $request){
         $role = Sentinel::findRoleById($id);
         
-        $role->permissions = [];
-        if($request->permissions){
-            foreach ($request->permissions as $permission) {
-                if(explode('.', $permission)[1] == 'create'){
-                    $role->addPermission($permission);
-                    $role->addPermission(explode('.', $permission)[0].".store");                
-                }
-                else if(explode('.', $permission)[1] == 'edit'){
-                    $role->addPermission($permission);
-                    $role->addPermission(explode('.', $permission)[0].".update");                
-                }
-                else{
-                    $role->addPermission($permission);
-                }            
-            }  
+
+
+
+        $input=$request->all();
+
+       // dd($input);
+
+
+        $per = array( );
+
+        foreach ($input as $key => $value) {
+           
+            if ($key!='_token') {
+                
+               foreach ($value as $key2 => $value2) {
+                 
+                 $per[$key.'.'.$value2]=true;
+
+               }
+
+            }
+
+
+
+
         }
+
+        $role->permissions = $per;
+        
         
         $role->save();
         
-        Session::flash('message', 'Success! Permissions are stored successfully.');
-        Session::flash('status', 'success');
-        return redirect('role');
+       // Session::flash('message', 'Success! Permissions are stored successfully.');
+        //Session::flash('status', 'success');
+        return redirect('admin/groups');
     }
 
 
