@@ -11,18 +11,23 @@
 @section('header_styles')
     
     <link href="{{ secure_asset('assets/vendors/acc-wizard/acc-wizard.min.css') }}" rel="stylesheet" />
+
     <link href="{{ secure_asset('assets/css/pages/accordionformwizard.css') }}" rel="stylesheet" />
     
 
     <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+
     <link href="{{ secure_asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
 
     <!-- stilos para la carga de imagen  -->
     <link href="{{ secure_asset('assets/vendors/summernote/summernote.css') }}" rel="stylesheet" />
+
     <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ secure_asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
     <link href="{{ secure_asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
+
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
+    
 
     <!-- fin stilos para la carga de imagen  -->
 

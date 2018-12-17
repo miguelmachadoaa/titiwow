@@ -199,7 +199,7 @@
 
     @endif
 
-    @if (Sentinel::getUser()->hasAnyAccess(['formaspago.*']) || Sentinel::getUser()->hasAnyAccess(['configuracion.*']) || Sentinel::getUser()->hasAnyAccess(['estatus.*']) || Sentinel::getUser()->hasAnyAccess(['formasenvio.*']) || Sentinel::getUser()->hasAnyAccess(['rolenvios.*']) || Sentinel::getUser()->hasAnyAccess(['rolpagos.*']) || Sentinel::getUser()->hasAnyAccess(['impuestos.*']) || Sentinel::getUser()->hasAnyAccess(['marcas.*']) || Sentinel::getUser()->hasAnyAccess(['menus.*']) || Sentinel::getUser()->hasAnyAccess(['transportistas.*']) || Sentinel::getUser()->hasAnyAccess(['sedes.*']) || Sentinel::getUser()->hasAnyAccess(['empresas.*']) || Sentinel::getUser()->hasAnyAccess(['cupones.*'])|| Sentinel::getUser()->hasAnyAccess(['documentos.*'])  )
+    @if (Sentinel::getUser()->hasAnyAccess(['formaspago.*']) || Sentinel::getUser()->hasAnyAccess(['configuracion.*']) || Sentinel::getUser()->hasAnyAccess(['estatus.*']) || Sentinel::getUser()->hasAnyAccess(['formasenvio.*']) || Sentinel::getUser()->hasAnyAccess(['rolenvios.*']) || Sentinel::getUser()->hasAnyAccess(['rolpagos.*']) || Sentinel::getUser()->hasAnyAccess(['impuestos.*']) || Sentinel::getUser()->hasAnyAccess(['marcas.*']) || Sentinel::getUser()->hasAnyAccess(['menus.*']) || Sentinel::getUser()->hasAnyAccess(['transportistas.*']) || Sentinel::getUser()->hasAnyAccess(['sedes.*']) || Sentinel::getUser()->hasAnyAccess(['empresas.*']) || Sentinel::getUser()->hasAnyAccess(['cupones.*'])|| Sentinel::getUser()->hasAnyAccess(['documentos.*'])|| Sentinel::getUser()->hasAnyAccess(['sliders.*'])  )
 
 
 
@@ -217,6 +217,17 @@
                 <a href="{!! route('admin.configuracion.index') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Configuracion General 
+                </a>
+            </li> 
+        </ul>
+    @endif
+
+    @if (Sentinel::getUser()->hasAnyAccess(['sliders.*']))
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/sliders*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.sliders.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Sliders
                 </a>
             </li> 
         </ul>

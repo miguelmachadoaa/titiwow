@@ -33,6 +33,20 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
 
 
+    Route::resource('sliders', 'Admin\AlpSlidersController');
+
+    Route::get('sliders/{id}/confirm-delete', array('as' => 'sliders.confirm-delete', 'uses' => 'Admin\AlpSlidersController@getModalDelete'));
+
+    Route::get('sliders/{alpSliders}/delete', ['as'=> 'sliders.delete', 'uses' => 'Admin\AlpSlidersController@destroy']);
+
+
+
+
+
+
+
+
+
     Route::resource('productos', 'Admin\AlpProductosController');
 
     Route::get('productos/{id}/confirmar', array('as' => 'productos.confirmar', 'uses' => 'Admin\AlpProductosController@confirmar'));
