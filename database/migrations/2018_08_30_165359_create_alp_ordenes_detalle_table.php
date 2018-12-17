@@ -22,6 +22,8 @@ class CreateAlpOrdenesDetalleTable extends Migration
             $table->decimal('precio_base',20,2);
             $table->decimal('precio_total',20,2);
             $table->decimal('precio_total_base',20,2);
+            $table->decimal('valor_impuesto',20,2);
+            $table->decimal('monto_impuesto',20,2);
             $table->integer('id_user');
             $table->timestamps();
             $table->softDeletes();

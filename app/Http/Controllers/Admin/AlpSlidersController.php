@@ -7,6 +7,7 @@ use App\Http\Requests\SlidersRequest;
 use App\Models\AlpSliders;
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Redirect;
 use Response;
 use Sentinel;
 use Intervention\Image\Facades\Image;
@@ -111,10 +112,10 @@ class AlpSlidersController extends JoshController
 
         if ($slider->id) {
 
-            return redirect('admin/sliders');
+            return redirect('sliders');
 
         } else {
-            return Redirect::route('admin/sliders')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+            return Redirect::route('sliders')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
         }   
 
     }

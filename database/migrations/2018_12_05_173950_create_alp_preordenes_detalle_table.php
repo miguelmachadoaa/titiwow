@@ -15,7 +15,16 @@ class CreateAlpPreordenesDetalleTable extends Migration
     {
         Schema::create('alp_preordenes_detalle', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('id_orden');
+            $table->integer('id_producto');
+            $table->integer('cantidad');
+            $table->decimal('precio_unitario',20,2);
+            $table->decimal('precio_base',20,2);
+            $table->decimal('precio_total',20,2);
+            $table->decimal('precio_total_base',20,2);
+            $table->integer('id_user');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
