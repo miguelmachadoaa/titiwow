@@ -8,21 +8,21 @@ Su compra {{ $compra->referencia }},  ya se encuentra en proceso de empaque. La 
 
 <h3>Detalle de compra</h3>
 
-<table width="100%">
+<table width="100%" style="border-collapse: collapse;border: solid 2px #e9e9e9;" cellpadding="10px">
 	<tr>
-		<th>Producto</th>
-         <th>Precio</th>
-         <th>Cantidad</th>
-         <th>SubTotal</th>
+		<th style="border: solid 2px #e9e9e9;">Producto</th>
+         <th style="border: solid 2px #e9e9e9;">Precio</th>
+         <th style="border: solid 2px #e9e9e9;">Cantidad</th>
+         <th style="border: solid 2px #e9e9e9;">SubTotal</th>
 	</tr>
 
 	@foreach($detalles as $row)
 
 		<tr>
-		<td>{{$row->nombre_producto}}</td>
-        <td>{{number_format($row->precio_unitario,0,",",".")}}</td>
-        <td> {{ $row->cantidad }} </td>
-        <td>{{ number_format($row->precio_total, 0,",",".") }}</td>
+		<td style="border: solid 2px #e9e9e9;">{{$row->nombre_producto}}</td>
+        <td style="border: solid 2px #e9e9e9;">{{number_format($row->precio_unitario,0,",",".")}}</td>
+        <td style="border: solid 2px #e9e9e9;"> {{ $row->cantidad }} </td>
+        <td style="border: solid 2px #e9e9e9;">{{ number_format($row->precio_total, 0,",",".") }}</td>
 	</tr>
 
 	@endforeach

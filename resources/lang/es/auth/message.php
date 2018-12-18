@@ -29,12 +29,12 @@ return array(
 
         'forgot-password' => array(
             'error'   => 'Hubo un problema al recuperar su código de reseteo de contraseña, intente nuevamente.',
-            'success' => 'El correo de recuperación de contrasela fué enviado correctamente.',
+            'success' => 'El correo de recuperación de contraseña fué enviado correctamente.',
         ),
 
         'forgot-password-confirm' => array(
             'error'   => 'Hubo un problema al resetear su contraseña, intente nuevamente.',
-            'success' => 'Su contraseña se ha reseteado correctamentte.',
+            'success' => 'Su contraseña se ha reseteado correctamente.',
         ),
 
     'activate' => array(

@@ -6,7 +6,7 @@ Hemos registrado una compra {{ $compra->referencia }},  Ha seleccionado enviar e
 Datos de la compra
 
 <p><b>IdPedido: </b>{{ $compra->id }}</p>
-<p><b>Cedula: </b>{{ $compra->doc_cliente }}</p>
+<p><b>Documento: </b>{{ $compra->doc_cliente }}</p>
 <p><b>Valor Pagado: </b>{{ $compra->monto_total }}</p>
 <p><b>Base Imponible: </b>{{ number_format($compra->base_impuesto,0,",",".")}}</p>
 <p><b>Valor Iva: </b>{{ number_format($compra->monto_impuesto,0,",",".")}}</p>
@@ -16,27 +16,27 @@ Datos de la compra
 
 <h3>Detalle de compra</h3>
 
-<table width="100%" border="1">
+<table width="100%" style="border-collapse: collapse;border: solid 2px #e9e9e9;" cellpadding="10px">
 	<tr>
-		<th>EAN</th>
-		<th>Sku</th>
-		<th>idProducto</th>
-		<th>Producto</th>
-         <th>Precio</th>
-         <th>Cantidad</th>
-         <th>SubTotal</th>
+		<th style="border: solid 2px #e9e9e9;">EAN</th>
+		<th style="border: solid 2px #e9e9e9;">Sku</th>
+		<th style="border: solid 2px #e9e9e9;">idProducto</th>
+		<th style="border: solid 2px #e9e9e9;">Producto</th>
+        <th style="border: solid 2px #e9e9e9;">Precio</th>
+        <th style="border: solid 2px #e9e9e9;">Cantidad</th>
+        <th style="border: solid 2px #e9e9e9;">SubTotal</th>
 	</tr>
 
 	@foreach($detalles as $row)
 
 		<tr>
-		<td>{{$row->referencia_producto}}</td>
-		<td>{{$row->referencia_producto_sap}}</td>
-		<td>{{$row->id_producto}}</td>
-		<td>{{$row->nombre_producto}}</td>
-        <td>{{number_format($row->precio_unitario,0,",",".")}}</td>
-        <td> {{ $row->cantidad }} </td>
-        <td>{{ number_format($row->precio_total, 0,",",".") }}</td>
+		<td style="border: solid 2px #e9e9e9;">{{$row->referencia_producto}}</td>
+		<td style="border: solid 2px #e9e9e9;">{{$row->referencia_producto_sap}}</td>
+		<td style="border: solid 2px #e9e9e9;">{{$row->id_producto}}</td>
+		<td style="border: solid 2px #e9e9e9;">{{$row->nombre_producto}}</td>
+        <td style="border: solid 2px #e9e9e9;">{{number_format($row->precio_unitario,0,",",".")}}</td>
+        <td style="border: solid 2px #e9e9e9;"> {{ $row->cantidad }} </td>
+        <td style="border: solid 2px #e9e9e9;">{{ number_format($row->precio_total, 0,",",".") }}</td>
 	</tr>
 
 	@endforeach

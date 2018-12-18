@@ -6,7 +6,7 @@ Detalles del Pedido
 
 <b>ID pedido:</b> {{ $compra->id }}
 <b>ID usuario masterfile:</b> {{ $compra->cod_oracle_cliente }}
-<b>Cedula:</b> {{ 'E'.$compra->doc_cliente }}
+<b>Documento:</b> {{ 'E'.$compra->doc_cliente }}
 <b>Valor Pagado:</b> {{ $compra->monto_total }}
 <b>Base Imponible:</b> {{ $compra->base_impuesto }}
 <b>Valor Iva:</b> {{ $compra->monto_impuesto }}
@@ -15,21 +15,21 @@ Detalles del Pedido
 
 <h3>Detalle de cada producto</h3>
 
-<table width="100%">
+<table width="100%" style="border-collapse: collapse;border: solid 2px #e9e9e9;" cellpadding="10px">
 	<tr>
-		<th>Sku</th>
-         <th>Nombre Producto</th>
-         <th>Cantidad</th>
-         <th>Valor</th>
+		<th style="border: solid 2px #e9e9e9;">Sku</th>
+         <th style="border: solid 2px #e9e9e9;">Nombre Producto</th>
+         <th style="border: solid 2px #e9e9e9;">Cantidad</th>
+         <th style="border: solid 2px #e9e9e9;">Valor</th>
 	</tr>
 
 	@foreach($detalles as $row)
 
 		<tr>
-		<td>{{$row->referencia_producto}}</td>
-		<td>{{$row->nombre_producto}}</td>
-        <td> {{ $row->cantidad }} </td>
-        <td>{{number_format($row->precio_unitario,0,",",".")}}</td>
+		<td style="border: solid 2px #e9e9e9;">{{$row->referencia_producto}}</td>
+		<td style="border: solid 2px #e9e9e9;">{{$row->nombre_producto}}</td>
+        <td style="border: solid 2px #e9e9e9;"> {{ $row->cantidad }} </td>
+        <td style="border: solid 2px #e9e9e9;">{{number_format($row->precio_unitario,0,",",".")}}</td>
         
 	</tr>
 

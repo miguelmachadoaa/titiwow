@@ -195,11 +195,6 @@ img {
     -premailer-width: 100%;
 }
 
-.table th {
-    border-bottom: 1px solid #EDEFF2;
-    padding-bottom: 8px;
-}
-
 .table td {
     color: #74787E;
     font-size: 15px;
