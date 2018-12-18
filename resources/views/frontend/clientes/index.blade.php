@@ -46,7 +46,6 @@ Area clientes
 
 
 
-
     </style>
 @stop
 
@@ -189,19 +188,20 @@ Area clientes
                     </div>
                 </a>
                 </div> 
-                @if(empty($cliente->cod_alpinista))
-                    <div class="col-sm-2 text-center"> 
-                    <a href="{{ secure_url('#') }}" class=" btn-medium delete cajita">
-                        <div class="row">
-                        <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-trash"></i></div>
-                        <div class="col-sm-12">Eliminar Cuenta </div>
-                        </div>
-                    </a>
-                    </div> 
-                @endif
+                
             </div>
         </div>
-
+    </div>
+</div>
+<div class="container">
+    <div class="form-group">
+        <div class="col-lg-offset-10 col-lg-10" style="margin-bottom:20px;">
+            @if(empty($cliente->cod_alpinista))
+                <a href="{{ secure_url('#') }}" class="btn btn-danger delete" type="button">
+                 Eliminar Cuenta 
+                </a>
+            @endif
+        </div>
     </div>
 
     
