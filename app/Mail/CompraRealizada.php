@@ -37,7 +37,7 @@ class CompraRealizada extends Mailable
     public function build()
     {
         return $this->from('noresponder@alpinago.com')
-        ->subject('Gracias por Su Compra | | Alpina Alimenta tu vida')
+        ->subject('Gracias por Su Compra | Alpina Alimenta tu vida')
         ->markdown('emails.compra');
     }
 }
