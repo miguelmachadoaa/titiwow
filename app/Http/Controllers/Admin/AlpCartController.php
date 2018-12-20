@@ -263,6 +263,7 @@ class AlpCartController extends JoshController
                 "surname" => $usuario->last_name,
                 "email" => $usuario->email,
               ],
+              "auto_return" => 'approved',
               "back_urls" => [
                 "success" => secure_url('/order/success'),
                 "failure" => secure_url('/order/failure'),
@@ -396,6 +397,7 @@ class AlpCartController extends JoshController
                 "surname" => $usuario->last_name,
                 "email" => $usuario->email,
               ],
+              "auto_return" => 'approved',
               "back_urls" => [
                   "success" => secure_url('/order/success'),
                 "failure" => secure_url('/order/failure'),
@@ -2088,6 +2090,7 @@ class AlpCartController extends JoshController
                 "surname" => $usuario->last_name,
                 "email" => $usuario->email,
               ],
+              "auto_return" => 'approved',
               "back_urls" => [
                   "success" => secure_url('/order/success'),
                 "failure" => secure_url('/order/failure'),
