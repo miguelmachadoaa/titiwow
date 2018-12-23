@@ -10,6 +10,7 @@ use App\Exports\MasterfileEmbajadoresExport;
 use App\Exports\FinancieroExport;
 use App\Exports\UsersExport;
 use App\Exports\VentasExport;
+use App\Exports\VentastotalesExport;
 use App\Exports\ProductosExport;
 use App\Exports\CarritoExport;
 use App\User;
@@ -186,6 +187,19 @@ class AlpReportesController extends Controller
     public function exportconsolidado(Request $request) 
     {
         return Excel::download(new ConsolidadoExport($request->desde), 'consolidado_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+    }
+
+     public function ventastotales() 
+    {
+
+        return view('admin.reportes.ventastotales');
+
+    }
+
+
+    public function exportventastotales(Request $request) 
+    {
+        return Excel::download(new VentastotalesExport($request->desde, $request->hasta), 'ventastotales_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
     }
 
 
