@@ -601,6 +601,21 @@ Route::post(    'order/procesar',     [
         'uses'=>'Admin\AlpCartController@orderProcesar'
     ]);
 
+Route::post(    'order/procesarticket',     [ 
+        'as'=>'order.procesarticket', 
+        'uses'=>'Admin\AlpCartController@orderProcesarTicket'
+    ]);
+
+Route::post(    'order/creditcard',     [ 
+        'as'=>'order.creditcard', 
+        'uses'=>'Admin\AlpCartController@orderCreditcard'
+    ]);
+
+Route::get(    'order/rapipago',     [ 
+        'as'=>'order.rapipago', 
+        'uses'=>'Admin\AlpCartController@orderRapipago'
+    ]);
+
 //inyeccion de dependencias
 Route::bind('product', function($slug){
     return App\Models\AlpProductos::where('slug', $slug)->first();

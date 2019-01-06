@@ -12,6 +12,10 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
+       'order/procesar', //
+       'order/procesarticket', //
+       'order/creditcard', //
+       'order/rapipago', //
        'cart/addcupon', //
        'productos/verificar/referenciasap', //
        'cart/storedir', //

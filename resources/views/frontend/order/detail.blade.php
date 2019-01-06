@@ -54,6 +54,40 @@ Carrito de Compras
             white-space: nowrap;
         }
 
+
+        button.mercadopago-button {
+                background: transparent;
+                width: 100%;
+                height: 100%;
+                font-size: 14px;
+                margin: 0px;
+                padding: 0px;
+                font-family: 'PlutoBold';
+        }
+
+
+
+        div.overlay {
+    display:        table;
+    position:        fixed;
+    top:            0;
+    left:            0;
+    width:            100%;
+    height:            100%;
+    z-index: 1;
+}
+div.overlay > div {
+    display:        table-cell;
+    width:            100%;
+    height:            100%;
+    background:        #ccc;
+    opacity:        1.5;
+    text-align:        center;
+    vertical-align:    middle;
+}
+
+
+
     </style>
 
 @stop
@@ -84,6 +118,10 @@ Carrito de Compras
 
 {{-- Page content --}}
 @section('content')
+
+<div style="display:none;" class="overlay"><div>Procesando...</div></div>
+
+
 <div class="container contain_body container_cart_detail ">
 
     <div class="col-sm-8">
@@ -98,7 +136,7 @@ Carrito de Compras
 
         </div>
 
-        {!! Form::open(['url' => secure_url('order/procesar'), 'class' => 'form-horizontal', 'id' => 'procesarForm', 'name' => 'procesarForm', 'method'=>'POST']) !!}
+        <!--{!! Form::open(['url' => secure_url('order/procesar'), 'class' => 'form-horizontal', 'id' => 'procesarForm', 'name' => 'procesarForm', 'method'=>'POST']) !!}-->
 
             <div class="row direcciones" style="text-align: left;">
 
@@ -295,7 +333,7 @@ Carrito de Compras
 
                 @else
 
-                <div data-id={{ $fp->id }} class="row forma border pointer procesar">
+                <div data-type='formaspago'  data-id="{{ $fp->id }}" class="row forma border pointer procesar">
 
 
                     <div class="col-sm-8 col-xs-12">
@@ -314,6 +352,74 @@ Carrito de Compras
                 <br>
 
                 @endif
+
+                
+
+
+                @endforeach
+
+                <div data-type='creditcard' data-id="5" class="row forma border pointer procesar   ">
+
+
+                    <div class="col-sm-8 col-xs-12">
+
+                       <p>Targeta de Credito </p> 
+
+                    </div>
+
+                    <div class="col-sm-4 col-xs-12" style="background-color:#3c763d;color:#ffffff;">
+
+                       <form action="{{ secure_url('/order/creditcard') }}" method="POST">
+                          <script
+                            src="https://www.mercadopago.com.co/integrations/v1/web-tokenize-checkout.js"
+                            data-public-key="TEST-7d0c17e4-d247-4802-9863-91e8dad15293"
+                            data-button-label="Pagar"
+                            data-transaction-amount="{{ $total }}"
+                          
+                            data-summary-product="{{ $total }}"
+                            data-summary-taxes="{{ $impuesto }}"
+                            >
+                          </script>
+                        </form>
+
+                    </div>
+
+                </div>
+
+
+
+                <br>
+
+                
+
+                @foreach($payment_methods['response'] as $pm)
+
+                    @if($pm['payment_type_id']=='ticket')
+
+                    <div data-idpago="{{ $pm['id'] }}" data-type="ticket" data-id="2" class="row forma border pointer procesar   ">
+
+                        <div class="col-sm-8 col-xs-12">
+
+                           {{ $pm['name'] }}  <img src="{{ $pm['secure_thumbnail'] }} ">
+                          
+
+                        </div>
+
+                        <div class="col-sm-4 col-xs-12" style="padding:8px;background-color:#3c763d;color:#ffffff;">
+
+                            <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
+
+                        </div>
+
+                    </div>
+
+                    @endif
+                 
+
+
+
+
+
 
                 @endforeach
 
@@ -500,7 +606,7 @@ Carrito de Compras
 
 </p>
 
-{!! Form::close() !!}
+<!--{!! Form::close() !!}-->
 
 </div>
 
@@ -752,6 +858,8 @@ $('.sendCupon').click(function () {
 
         $('body').on('click', '.procesar', function (){
 
+            $('.overlay').fadeIn();
+
 
             id_direccion= $("#id_direccion").val(); 
             
@@ -766,14 +874,82 @@ $('.sendCupon').click(function () {
 
                 $('.res_env').html('<div class="alert alert-danger" role="alert">Todos los campos son obligatorios</div>');
 
+                $('.overlay').fadeOut();
+
 
             }else{
 
-                $('#id_forma_pago').val(id_forma_pago);
+                id_direccion= $("#id_direccion").val(); 
+            
+                id_forma_envio=$("input[name='id_forma_envio']:checked").val(); 
+                    
+                id_forma_pago=$(this).data('id');
 
                 base=$('#base').val();
 
-                $.ajax({
+                if (id_forma_pago==2) {
+
+                    type=$(this).data('type');
+                    idpago=$(this).data('idpago');
+
+                    if(type=="ticket"){
+
+                         $.ajax({
+                            type: "POST",
+                            data:{id_forma_envio, id_direccion},
+
+                            url: base+"/cart/verificarDireccion",
+                                
+                            complete: function(datos){     
+
+                               if(datos.responseText=='true'){
+
+                                    $('#procesarForm').submit();
+
+                                    $.ajax({
+                                        type: "POST",
+                                        data:{id_direccion, id_forma_envio, id_forma_pago, type, idpago},
+
+                                        url: base+"/order/procesarticket",
+                                            
+                                        complete: function(datos){     
+
+                                            $('.contain_body').html(datos.responseText);
+
+                                            $('.overlay').fadeOut();
+                                        
+                                        }
+
+                                    });
+
+                               }else{
+
+                                    $('.res_env').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+
+                               }
+                            
+                            }
+                        });
+
+                    }else{
+
+
+
+
+
+
+
+
+                    }
+
+                   
+
+
+                }else{
+
+
+
+                       $.ajax({
                     type: "POST",
                     data:{id_forma_envio, id_direccion},
                     url: base+"/cart/verificarDireccion",
@@ -782,7 +958,23 @@ $('.sendCupon').click(function () {
 
                        if(datos.responseText=='true'){
 
-                            $('#procesarForm').submit()
+                            //$('#procesarForm').submit();
+
+                            $.ajax({
+                                type: "POST",
+                                data:{id_direccion, id_forma_envio, id_forma_pago},
+
+                                url: base+"/order/procesar",
+                                    
+                                complete: function(datos){     
+
+                                    $('.contain_body').html(datos.responseText);
+
+                                    $('.overlay').fadeOut();
+                                
+                                }
+
+                            });
 
                        }else{
 
@@ -792,6 +984,12 @@ $('.sendCupon').click(function () {
                     
                     }
                 });
+
+
+
+                }
+
+             
 
             }
 
@@ -1058,7 +1256,14 @@ $('#addDireccionForm').keypress(
                 });
             //fin select ciudad
         });
+
+
+ 
+
+
     </script>
+
+
 
 
 
