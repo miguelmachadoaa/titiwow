@@ -410,7 +410,7 @@ class AlpCartController extends JoshController
         $url='order.detail';
 
           //return redirect('login');
-          return view('frontend.order.login', compact('url'));
+        return view('frontend.order.login', compact('url'));
 
 
       }
