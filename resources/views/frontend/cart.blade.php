@@ -69,41 +69,6 @@ Carrito de Compras
         });
 
 
-        $(document).on('click', '.sendDetail',function(e){
-            e.preventDefault();
-
-            url=$(this).attr('href');
-
-            if (parseInt($('#total_orden').val())>=parseInt($('#limite_orden').val())) {
-
-                window.location=url;
-
-            }else{
-
-                $('.res').html('<div class="alert alert-danger" role="alert">El monto minimo de compra es de '+ $('#limite_orden').val() + '</div>');
-            }
-        })
-
-
         
-
-        $('#table_detalle').on('blur', '.cantidad', function(){
-
-            var id=$(this).data('id');
-
-            var slug=$(this).data('slug');
-
-            var url=$(this).data('url');
-
-            var cantidad=$('#producto_'+id).val();
-
-            $.post(url, { slug, id, cantidad}, function(data) {
-
-                    $('#table_detalle').html(data);
-                         
-            });
-
-          //  window.location.href=href+'/'+cantidad;
-        });
     </script>
 @stop

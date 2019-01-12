@@ -190,7 +190,18 @@ class AlpReportesController extends Controller
 
     public function exportlogistica(Request $request) 
     {
+
+        Excel::store(new LogisticaExport($request->desde, $request->hasta), 'logistica_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx', 'public');
+
+
         return Excel::download(new LogisticaExport($request->desde, $request->hasta), 'logistica_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+    }
+
+    public function storeexportlogistica(Request $request) 
+    {
+         Excel::store(new LogisticaExport($request->desde, $request->hasta), 'logistica_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+
+         return true;
     }
 
 
