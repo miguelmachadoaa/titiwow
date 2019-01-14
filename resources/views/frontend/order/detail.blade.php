@@ -358,12 +358,12 @@ div.overlay > div {
 
                 @endforeach
 
-                <div data-type='creditcard' data-id="5" class="row forma border pointer    ">
+                <div data-type='creditcard' id="creditcard" data-id="5" class="row forma border pointer    ">
 
 
                     <div class="col-sm-8 col-xs-12">
 
-                       <p>Targeta de Credito </p> 
+                       <p>Tarjeta de Credito </p> 
 
                     </div>
 
@@ -396,7 +396,7 @@ div.overlay > div {
 
                     @if($pm['payment_type_id']=='ticket')
 
-                    <div data-idpago="{{ $pm['id'] }}" data-type="ticket" data-id="2" class="row forma border pointer    ">
+                    <div data-idpago="{{ $pm['id'] }}" data-type="ticket" data-id="2" class="row forma border pointer  procesar  ">
 
                         <div class="col-sm-8 col-xs-12">
 
@@ -1033,6 +1033,59 @@ $('.sendCupon').click(function () {
                        if(datos.responseText=='true'){
 
                             window.location.href = url;
+
+                       }else{
+
+                            $('.res_env').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+
+                       }
+                    
+                    }
+                });
+
+            }
+
+        });
+
+
+
+        $('body').on('click', '#creditcard', function (){
+
+
+
+            id_direccion= $("#id_direccion").val(); 
+            
+            id_forma_envio=$("input[name='id_forma_envio']:checked").val(); 
+            
+            id_forma_pago=$(this).data('id');
+
+            url=$(this).data('href');
+
+
+            if (id_forma_envio==undefined || id_direccion==undefined || id_forma_pago==undefined) {
+
+               // alert('Todos los capos son obligatorios');
+
+                $('.res_env').html('<div class="alert alert-danger" role="alert">Todos los campos son obligatorios</div>');
+
+
+            }else{
+
+                $('#id_forma_pago').val(id_forma_pago);
+
+                base=$('#base').val();
+
+                $.ajax({
+                    type: "POST",
+                    data:{id_forma_envio, id_direccion, id_forma_pago},
+
+                    url: base+"/cart/verificarDireccion",
+                        
+                    complete: function(datos){     
+
+                       if(datos.responseText=='true'){
+
+                            //window.location.href = url;
 
                        }else{
 
