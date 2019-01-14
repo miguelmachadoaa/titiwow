@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Exports\ConsolidadoExport;
 use App\Exports\LogisticaExport;
+use App\Exports\CronLogisticaExport;
 use App\Exports\MasterfileExport;
 use App\Exports\MasterfileAmigosExport;
 use App\Exports\MasterfileEmbajadoresExport;
@@ -23,6 +24,8 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DB;
+
+use Carbon\Carbon;
 
 class AlpReportesController extends Controller 
 {
@@ -229,6 +232,21 @@ class AlpReportesController extends Controller
     public function exportventastotales(Request $request) 
     {
         return Excel::download(new VentastotalesExport($request->desde, $request->hasta), 'ventastotales_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+    }
+
+    /*********************funciones para descarga de reporte************************/
+
+    public function exportcronlogisticaexport(Request $request) 
+    {
+        $date = Carbon::now();
+
+        $hoy=$date->format('Y-m-d');
+
+        $archivo='logistica_'.$hoy.'.xlsx';
+
+
+       return Excel::download(new CronLogisticaExport(), $archivo);
+
     }
 
 

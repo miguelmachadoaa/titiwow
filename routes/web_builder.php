@@ -240,6 +240,25 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
 //Inicio Reportes generales
 
+
+    /******************Rutas para descarga de archivs*************************/
+
+    Route::get('reportes/exportcronlogisticaexport', 'Admin\AlpReportesController@exportcronlogisticaexport');
+
+
+    /*******************************************/
+
+
+
+
+
+
+
+
+
+
+
+
    Route::get('reportes/registrados', 'Admin\AlpReportesController@indexreg');
    
    Route::post('reportes/registrados/export', 'Admin\AlpReportesController@export');
@@ -247,6 +266,11 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
    Route::get('reportes/ventastotales', 'Admin\AlpReportesController@ventastotales');
    
    Route::post('reportes/exportventastotales', 'Admin\AlpReportesController@exportventastotales');
+
+   
+
+
+
 
 
    Route::get('reportes/ventas', 'Admin\AlpReportesController@ventas');

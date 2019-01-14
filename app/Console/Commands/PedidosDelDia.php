@@ -53,14 +53,14 @@ class PedidosDelDia extends Command
 
         $hoy=$date->format('Y-m-d');
 
-        $archivo='logistica_'.$hoy.'.xlsx';
+        $archivo='/reportes/exportcronlogisticaexport';
 
 
-        Excel::store(new CronLogisticaExport(), $archivo);
+       // Excel::store(new CronLogisticaExport(), $archivo);
 
-        $enlace=secure_url('/storage/'.$archivo);
+        $enlace=storage_path('/app/'.$archivo);
 
-        Mail::to($configuracion->correo_sac)->send(new \App\Mail\CronVentaDia($enlace, $hoy));
+        Mail::to($configuracion->correo_sac)->send(new \App\Mail\CronVentaDia($archivo, $hoy));
 
     }
 }
