@@ -358,7 +358,7 @@ div.overlay > div {
 
                 @endforeach
 
-                <div data-type='creditcard' id="creditcard" data-id="5" class="row forma border pointer    ">
+                <div data-type='creditcard' id="creditcard" data-id="2" class="row forma border pointer    ">
 
 
                     <div class="col-sm-8 col-xs-12">

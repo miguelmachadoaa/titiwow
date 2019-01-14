@@ -478,25 +478,13 @@ class AlpCartController extends JoshController
         Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
           
 
-          return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
+          return view('frontend.order.procesar_completo', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
         
 
       }else{
 
           return redirect('login');
       }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
