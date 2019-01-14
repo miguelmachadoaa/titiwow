@@ -131,10 +131,10 @@ class AlpCartController extends JoshController
 
       $hoy=$date->format('Y-m-d');
 
-      $enlace=secure_url('storage/'.$archivo);
+      //$enlace=secure_url('storage/'.$archivo);
 
-      //dd(storage_path('app/logistica_desde_2018-12-01_hasta_2018-12-31.xlsx'));
-
+     // dd(storage_path('app/logistica_desde_2018-12-01_hasta_2018-12-31.xlsx'));
+     return Storage::response("logistica_desde_2018-12-01_hasta_2018-12-31.xlsx");
     
     /* MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
@@ -188,7 +188,7 @@ class AlpCartController extends JoshController
       
       }
 
-      dd($data);
+     // dd($data);
    
 
     }

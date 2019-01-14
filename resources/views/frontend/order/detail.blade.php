@@ -358,7 +358,7 @@ div.overlay > div {
 
                 @endforeach
 
-                <div data-type='creditcard' data-id="5" class="row forma border pointer procesar   ">
+                <div data-type='creditcard' data-id="5" class="row forma border pointer    ">
 
 
                     <div class="col-sm-8 col-xs-12">
@@ -372,7 +372,7 @@ div.overlay > div {
                        <form action="{{ secure_url('/order/creditcard') }}" method="POST">
                           <script
                             src="https://www.mercadopago.com.co/integrations/v1/web-tokenize-checkout.js"
-                            data-public-key="TEST-7d0c17e4-d247-4802-9863-91e8dad15293"
+                            data-public-key="APP_USR-63f34f9d-9da6-42c9-97c9-9fc76bb24388"
                             data-button-label="Pagar"
                             data-transaction-amount="{{ $total }}"
                           
@@ -396,7 +396,7 @@ div.overlay > div {
 
                     @if($pm['payment_type_id']=='ticket')
 
-                    <div data-idpago="{{ $pm['id'] }}" data-type="ticket" data-id="2" class="row forma border pointer procesar   ">
+                    <div data-idpago="{{ $pm['id'] }}" data-type="ticket" data-id="2" class="row forma border pointer    ">
 
                         <div class="col-sm-8 col-xs-12">
 
