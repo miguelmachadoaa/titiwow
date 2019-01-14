@@ -363,7 +363,7 @@ div.overlay > div {
 
                     <div class="col-sm-8 col-xs-12">
 
-                       <p>Tarjeta de Credito </p> 
+                       <p>Tarjeta de Crédito </p> 
 
                     </div>
 
