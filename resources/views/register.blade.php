@@ -16,7 +16,7 @@
     <meta name="theme-color" content="#ffffff">
     <!--end of global css-->
     <!--page level css starts-->
-    <link type="text/css" rel="stylesheet" href="{{secure_asset('assets/vendors/iCheck/css/all.css')}}" />
+    <!--link type="text/css" rel="stylesheet" href="{{secure_asset('assets/vendors/iCheck/css/all.css')}}" /-->
     <link href="{{ secure_asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/register.css') }}">
     <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
@@ -127,6 +127,7 @@
                     </div>
                     {!! $errors->first('principal_address', '<span class="help-block">:message</span>') !!}
                 </div>
+                <div class="clearfix"></div>
                 <div class="form-group {{ $errors->first('secundaria_address', 'has-error') }}">
                     <div class="input-group">
                         <span class="input-group-addon azul" id="basic-addon3">#</span>
@@ -134,6 +135,7 @@
                     </div>
                     {!! $errors->first('secundaria_address', '<span class="help-block">:message</span>') !!}
                 </div>
+                <div class="clearfix"></div>
                 <div class="form-group {{ $errors->first('edificio_address', 'has-error') }}">
                     <div class="input-group">
                         <span class="input-group-addon azul" id="basic-addon4">-</span>
@@ -179,6 +181,7 @@
 
                     {!! $errors->first('cod_alpinista', '<span class="help-block">:message</span>') !!}
                 </div>
+                <div class="clearfix"></div>
                 <hr />
                 <div class="clearfix"></div>
                 <div class="form-group ">
@@ -186,7 +189,9 @@
                 </div>
                 <div class="form-group {{ $errors->first('habeas_cliente', 'has-error') }} checkbox">
                     <label style="font-size:12px;">
-                        <input type="checkbox" name="habeas_cliente" value="1" require>  Acepto los <a href="{{ secure_url('paginas/terminos-condiciones')}}" class="menu-item" target="_blank" alt="Términos y Condiciones de Acceso a Alpina Go" title="Términos y Condiciones de Acceso a Alpina Go">Términos y Condiciones de Acceso a Alpina Go</a> y la  <a href="{{ secure_asset('uploads/files/politica_de_tratamiento_de_la_informacion.PDF') }}" class="menu-item" target="_blank" title="Políticas de Tratamiento de la Información" alt="Políticas de Tratamiento de la Información">Políticas de Tratamiento de la Información</a> de ALPINA PRODUCTOS ALIMENTICIOS S.A.
+                        <input type="checkbox" name="habeas_cliente" value="1" require> 
+                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                         Acepto los <a href="{{ secure_url('paginas/terminos-condiciones')}}" class="menu-item" target="_blank" alt="Términos y Condiciones de Acceso a Alpina Go" title="Términos y Condiciones de Acceso a Alpina Go">Términos y Condiciones de Acceso a Alpina Go</a> y la  <a href="{{ secure_asset('uploads/files/politica_de_tratamiento_de_la_informacion.PDF') }}" class="menu-item" target="_blank" title="Políticas de Tratamiento de la Información" alt="Políticas de Tratamiento de la Información">Políticas de Tratamiento de la Información</a> de ALPINA PRODUCTOS ALIMENTICIOS S.A.
                     </label>
                     {!! $errors->first('habeas_cliente', '<span class="help-block">:message</span>') !!}
                 </div>
@@ -238,27 +243,21 @@
 <script type="text/javascript" src="{{ secure_asset('assets/js/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ secure_asset('assets/js/bootstrap.min.js') }}"></script>
 <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
+<!--script type="text/javascript" src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}"></script-->
 <script type="text/javascript" src="{{ secure_asset('assets/js/frontend/register_custom.js') }}"></script>
 <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
 <!--global js end-->
 <script >
 $(document).ready(function(){
         $('#cod_alpinista').hide();
-        // For oncheck callback
-        
-        // For onUncheck callback
-         $('#chkalpinista').on('ifChecked', function () { 
-            $('#cod_alpinista').show();
-        })
-
-        // For onUncheck callback
-        $('#chkalpinista').on('ifUnchecked', function () { 
-            $('#cod_alpinista').hide();
-
-        })
-
-        
+        $('#chkalpinista' ).on( 'click', function() {
+            if( $(this).is(':checked') ){
+                $('#cod_alpinista').show();
+            } else {
+                $('#cod_alpinista').hide();
+                $('#cod_alpinista').val("");
+            }
+        });
 
         $('#cod_alpinista').change(function(){
                 $('#btnsubmit').removeAttr('disabled');             
@@ -276,7 +275,7 @@ $(document).ready(function(){
             var $validator = $('#reg_form').data('bootstrapValidator').validate();
 
 
-                if( $('.icheckbox_minimal-blue:first').hasClass('checked') ) {
+                if( $('#chkalpinista').is(':checked') ) {
 
 
                     if ($('#cod_alpinista').val()!='') {

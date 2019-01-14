@@ -1,8 +1,8 @@
 $(document).ready(function(){
-    $("input[type='checkbox'],input[type='radio']").iCheck({
+  /*  $("input[type='checkbox'],input[type='radio']").iCheck({
         checkboxClass: 'icheckbox_minimal-blue',
         radioClass: 'iradio_minimal-blue'
-    });
+    });*/
 
 $("#reg_form").bootstrapValidator({
     fields: {
@@ -109,6 +109,33 @@ $("#reg_form").bootstrapValidator({
                 }
             },
             required: true
+        },
+        principal_address: {
+            validators: {
+                notEmpty: {
+                    message: 'Dirección Principal es Requerida'
+                }
+            },
+            required: true,
+            minlength: 1
+        },
+        secundaria_address: {
+            validators: {
+                notEmpty: {
+                    message: 'Dirección Secundaria es Requerida'
+                }
+            },
+            required: true,
+            minlength: 1
+        },
+        edificio_address: {
+            validators: {
+                notEmpty: {
+                    message: 'El Número del Edificio es Requerido'
+                }
+            },
+            required: true,
+            minlength: 3
         },
         detalle_address: {
             validators: {

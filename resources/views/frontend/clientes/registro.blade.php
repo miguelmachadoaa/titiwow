@@ -15,7 +15,7 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">    <!--end of global css-->
     <!--page level css starts-->
-    <link type="text/css" rel="stylesheet" href="{{secure_asset('assets/vendors/iCheck/css/all.css')}}" />
+    <!--link type="text/css" rel="stylesheet" href="{{secure_asset('assets/vendors/iCheck/css/all.css')}}" /-->
     <link href="{{ secure_asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/register.css') }}">
     <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
@@ -202,7 +202,7 @@
 <script type="text/javascript" src="{{ secure_asset('assets/js/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ secure_asset('assets/js/bootstrap.min.js') }}"></script>
 <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
-<script type="text/javascript" src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
+<!--script type="text/javascript" src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}"></script-->
 <script type="text/javascript" src="{{ secure_asset('assets/js/frontend/register_custom.js') }}"></script>
 <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
 
@@ -217,12 +217,6 @@ $(document).ready(function(){
         $("#city_id").select2();
         $("#id_type_doc").select2();
         $('#cod_alpinista').hide();
-        // For oncheck callback
-        $('#chkalpinista').on('ifChecked', function () { $('#cod_alpinista').show();})
-
-        // For onUncheck callback
-        $('#chkalpinista').on('ifUnchecked', function () { $('#cod_alpinista').hide();})
-
    
         //Inicio select región
                         
