@@ -372,7 +372,7 @@ div.overlay > div {
                        <form action="{{ secure_url('/order/creditcard') }}" method="POST">
                           <script
                             src="https://www.mercadopago.com.co/integrations/v1/web-tokenize-checkout.js"
-                            data-public-key="APP_USR-63f34f9d-9da6-42c9-97c9-9fc76bb24388"
+                            data-public-key="{{ $configuracion->public_key_mercadopago }}"
                             data-button-label="Pagar"
                             data-transaction-amount="{{ $total }}"
                           
