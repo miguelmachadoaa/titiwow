@@ -232,7 +232,7 @@ Orden {{$orden->id}}
                    <table class="table table-striped ">
                  
                  <tbody>
-                   
+                      @if($pago->json!=0)
                         <tr>
                             <td><b>Id Orden</b></td>
                             <td>{{$pago->id_orden}}</td>
@@ -293,7 +293,7 @@ Orden {{$orden->id}}
                             
                         </tr>
                    
-
+                      @endif
                     
 
                  </tbody>

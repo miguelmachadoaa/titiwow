@@ -244,6 +244,10 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
    
    Route::post('reportes/registrados/export', 'Admin\AlpReportesController@export');
 
+   Route::get('reportes/ventastotales', 'Admin\AlpReportesController@ventastotales');
+   
+   Route::post('reportes/exportventastotales', 'Admin\AlpReportesController@exportventastotales');
+
 
    Route::get('reportes/ventas', 'Admin\AlpReportesController@ventas');
    //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
@@ -289,6 +293,11 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
     Route::get('reportes/consolidado', 'Admin\AlpReportesController@consolidado');
    //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
    Route::post('reportes/exportconsolidado', 'Admin\AlpReportesController@exportconsolidado');
+
+
+   Route::get('reportes/productostotales', 'Admin\AlpReportesController@productostotales');
+   //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
+   Route::post('reportes/exportproductostotales', 'Admin\AlpReportesController@exportproductostotales');
 
 //Fin Reportes generales
 
@@ -590,6 +599,21 @@ Route::get(   'order/success/',     [
 Route::post(    'order/procesar',     [ 
         'as'=>'order.procesar', 
         'uses'=>'Admin\AlpCartController@orderProcesar'
+    ]);
+
+Route::post(    'order/procesarticket',     [ 
+        'as'=>'order.procesarticket', 
+        'uses'=>'Admin\AlpCartController@orderProcesarTicket'
+    ]);
+
+Route::post(    'order/creditcard',     [ 
+        'as'=>'order.creditcard', 
+        'uses'=>'Admin\AlpCartController@orderCreditcard'
+    ]);
+
+Route::get(    'order/rapipago',     [ 
+        'as'=>'order.rapipago', 
+        'uses'=>'Admin\AlpCartController@orderRapipago'
     ]);
 
 //inyeccion de dependencias

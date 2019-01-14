@@ -10,7 +10,9 @@ use App\Exports\MasterfileEmbajadoresExport;
 use App\Exports\FinancieroExport;
 use App\Exports\UsersExport;
 use App\Exports\VentasExport;
+use App\Exports\VentastotalesExport;
 use App\Exports\ProductosExport;
+use App\Exports\ProductostotalesExport;
 use App\Exports\CarritoExport;
 use App\User;
 use App\Models\AlpOrdenes;
@@ -59,6 +61,23 @@ class AlpReportesController extends Controller
        // dd($request->all());
 
         return Excel::download(new ProductosExport($request->desde, $request->hasta), 'ventas_desde_'.$request->desde.'_hasta_'.$request->hasta.'_producto_'.$request->producto.'.xlsx');
+    }
+
+    public function productostotales() 
+    {
+
+        $productos=AlpProductos::all();
+
+        return view('admin.reportes.productostotales', compact('productos'));
+
+    }
+
+     public function exportproductostotales(Request $request) 
+    {
+
+       // dd($request->all());
+
+        return Excel::download(new ProductostotalesExport($request->desde, $request->hasta), 'productos_con_impuesto_desde_'.$request->desde.'_hasta_'.$request->hasta.'_producto_'.$request->producto.'.xlsx');
     }
 
     public function carrito() 
@@ -171,7 +190,18 @@ class AlpReportesController extends Controller
 
     public function exportlogistica(Request $request) 
     {
+
+        Excel::store(new LogisticaExport($request->desde, $request->hasta), 'logistica_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx', 'public');
+
+
         return Excel::download(new LogisticaExport($request->desde, $request->hasta), 'logistica_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+    }
+
+    public function storeexportlogistica(Request $request) 
+    {
+         Excel::store(new LogisticaExport($request->desde, $request->hasta), 'logistica_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+
+         return true;
     }
 
 
@@ -186,6 +216,19 @@ class AlpReportesController extends Controller
     public function exportconsolidado(Request $request) 
     {
         return Excel::download(new ConsolidadoExport($request->desde), 'consolidado_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+    }
+
+     public function ventastotales() 
+    {
+
+        return view('admin.reportes.ventastotales');
+
+    }
+
+
+    public function exportventastotales(Request $request) 
+    {
+        return Excel::download(new VentastotalesExport($request->desde, $request->hasta), 'ventastotales_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
     }
 
 

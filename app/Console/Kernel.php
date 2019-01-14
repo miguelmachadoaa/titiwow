@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         'App\Console\Commands\loggerLink',
         Commands\GenerateSitemap::class,
+        Commands\PedidosDelDia::class,
 
     ];
 
@@ -29,6 +30,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
         $schedule->command('generate:sitemap')->weekly();
+        $schedule->command('pedidos:day')->dailyAt('17:00');
     }
 
     /**

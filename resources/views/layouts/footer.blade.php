@@ -308,7 +308,7 @@
 
 
          
-         $('body').on('click','.addtocart', function(e){
+         $(document).on('click','.addtocart', function(e){
 
             e.preventDefault();
 

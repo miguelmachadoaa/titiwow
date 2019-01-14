@@ -764,6 +764,26 @@
             </li>
             @endif
 
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.clientes']))
+
+                <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ URL::to('admin/reportes/ventastotales') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Ventas con Impuesto
+                </a>
+            </li>
+            @endif
+
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.productos']))
+
+                <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ URL::to('admin/reportes/productostotales') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Productos con Impuesto
+                </a>
+            </li>
+            @endif
+
             
             
 
