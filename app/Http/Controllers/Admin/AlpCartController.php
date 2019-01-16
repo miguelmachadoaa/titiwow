@@ -134,12 +134,42 @@ class AlpCartController extends JoshController
       //$enlace=secure_url('storage/'.$archivo);
 
      // dd(storage_path('app/logistica_desde_2018-12-01_hasta_2018-12-31.xlsx'));
-     return Storage::response("logistica_desde_2018-12-01_hasta_2018-12-31.xlsx");
+     //return Storage::response("logistica_desde_2018-12-01_hasta_2018-12-31.xlsx");
     
-    /* MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+     MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
+
+
+
+
+$payment_methods = MP::get("/v1/payment_methods");
+
+         // dd($payment_methods);
    
+    $preference_data = [
+        "transaction_amount" => 10000,
+        "description" => 'Pago de orden',
+        "payer" => [
+          "email"=>"miguel@gmail.com",
+          "identification" => array(
+            "type" => "CC",
+            "number" => "76262349"
+          ),
+          "entity_type" => "individual"
+        ],
+        "transaction_details" => ["financial_institution"=>1007],
+        "additional_info" => ["ip_address"=>"127.0.0.1"],
+        "callback_url" => 'https://alpinago.com/public/orden/pse',
+        "payment_method_id" => "pse",
 
+      ];
+
+      
+
+      $preference = MP::post("/v1/payments",$preference_data);
+
+
+/*
      $preference_data = [
       "items" => [
         [
@@ -157,10 +187,14 @@ class AlpCartController extends JoshController
       ]
     ];
     $preference = MP::post("/checkout/preferences",$preference_data);
+*/
 
-    dd($preference);*/
 
-    $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
+
+
+    dd($preference);
+
+  /*  $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
             ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
             ->join('alp_clientes','alp_ordenes.id_cliente' , '=', 'alp_clientes.id_user_client')
             ->join('alp_formas_envios','alp_ordenes.id_forma_envio' , '=', 'alp_formas_envios.id')
@@ -188,7 +222,7 @@ class AlpCartController extends JoshController
       
       }
 
-     // dd($data);
+     // dd($data);*/
    
 
     }
@@ -647,6 +681,8 @@ class AlpCartController extends JoshController
           $this->saveOrden($preference);
 
           $payment_methods = MP::get("/v1/payment_methods");
+
+         // dd($payment_methods);
 
           /*actualizamos la data del carrito */
 

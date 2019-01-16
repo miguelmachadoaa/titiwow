@@ -41,6 +41,15 @@ use DB;
 
 class FrontEndController extends JoshController
 {
+
+    public function getContacto()
+    {
+        // Is the user logged in?
+        return view('frontend.contacto');
+
+    }
+
+    
     public function home()
     {
         $descuento='1'; 
@@ -198,7 +207,17 @@ class FrontEndController extends JoshController
      * Account sign in.
      *
      * @return View
+
+
+
+
      */
+
+    
+
+
+
+
     public function getLogin()
     {
         // Is the user logged in?
