@@ -245,6 +245,8 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
     Route::get('reportes/exportcronlogisticaexport', 'Admin\AlpReportesController@exportcronlogisticaexport');
 
+    Route::get('reportes/cronnuevosusuariosexport', 'Admin\AlpReportesController@cronnuevosusuariosexport');
+
 
     /*******************************************/
 

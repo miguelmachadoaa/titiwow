@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
         'App\Console\Commands\loggerLink',
         Commands\GenerateSitemap::class,
         Commands\PedidosDelDia::class,
+        Commands\NuevosUsuarios::class,
 
     ];
 
@@ -31,6 +32,8 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
         $schedule->command('generate:sitemap')->weekly();
         $schedule->command('pedidos:day')->dailyAt('17:00');
+        $schedule->command('usuarios:new')->dailyAt('08:00');
+        $schedule->command('usuarios:new')->dailyAt('15:00');
     }
 
     /**

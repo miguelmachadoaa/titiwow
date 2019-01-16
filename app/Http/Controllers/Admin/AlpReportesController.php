@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\UsersActivarExport;
 use App\Exports\ConsolidadoExport;
 use App\Exports\LogisticaExport;
 use App\Exports\CronLogisticaExport;
@@ -246,6 +247,19 @@ class AlpReportesController extends Controller
 
 
        return Excel::download(new CronLogisticaExport(), $archivo);
+
+    }
+
+    public function cronnuevosusuariosexport(Request $request) 
+    {
+        $date = Carbon::now();
+
+        $hoy=$date->format('Y-m-d');
+
+        $archivo='nuevos_usuarios_'.$hoy.'.xlsx';
+
+
+       return Excel::download(new UsersActivarExport(), $archivo);
 
     }
 
