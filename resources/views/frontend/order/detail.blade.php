@@ -358,12 +358,40 @@ div.overlay > div {
 
                 @endforeach
 
+                @if(isset($pse['response']['transaction_details']['external_resource_url']))
+                 <div data-href="{{ $pse['response']['transaction_details']['external_resource_url'] }}" data-id="2" class="row forma border pointer mercadopago ">
+
+                    <div class=" col-sm-8 img-responsive" style="min-height: 1em;" class=" col-sm-8 ">
+
+                        PSE <img src="https://www.mercadopago.com/org-img/MP3/API/logos/pse.gif" >
+
+                    </div>
+
+                    <div class=" col-sm-4 " style="padding:8px;background-color:#3c763d;color:#ffffff;">
+
+                        <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
+
+                    </div>
+
+                </div><br>
+
+                @endif
+
+
+
+                
+
                 <div data-type='creditcard' id="creditcard" data-id="2" class="row forma border pointer    ">
 
 
                     <div class="col-sm-8 col-xs-12">
 
-                       <p>Tarjeta de Crédito </p> 
+                       <p>Tarjeta de Crédito 
+                        <img src="https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif" > 
+                        <img src="https://www.mercadopago.com/org-img/MP3/API/logos/amex.gif" > 
+                        <img src="https://www.mercadopago.com/org-img/MP3/API/logos/master.gif" > 
+                        <img src="https://www.mercadopago.com/org-img/MP3/API/logos/diners.gif" > 
+                    </p> 
 
                     </div>
 
@@ -385,8 +413,6 @@ div.overlay > div {
                     </div>
 
                 </div>
-
-
 
                 <br>
 
