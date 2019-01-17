@@ -5,6 +5,7 @@ use App\Http\Requests\MarcaRequest;
 use App\Models\AlpMarcas;
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 use Redirect;
 use Sentinel;
 use View;
@@ -65,23 +66,10 @@ class AlpMarcasController extends JoshController
         if ($request->hasFile('image')) {
             
             $file = $request->file('image');
-
-            #echo $file.'<br>';
-            
             $extension = $file->extension()?: 'png';
-            
-
-            $picture = str_random(10) . '.' . $extension;
-
-            #echo $picture.'<br>';
-
-            $destinationPath = public_path() . '/uploads/marcas/';
-
-            #echo $destinationPath.'<br>';
-
-            
-            $file->move($destinationPath, $picture);
-            
+            $picture = str_random(10) . '.' . $extension;    
+            $destinationPath = base_path('public/uploads/marcas/' . $picture);
+            Image::make($file)->resize(600, 600)->save($destinationPath);            
             $imagen = $picture;
 
         }
@@ -137,23 +125,10 @@ class AlpMarcasController extends JoshController
        if ($request->hasFile('image')) {
             
         $file = $request->file('image');
-
-        #echo $file.'<br>';
-        
         $extension = $file->extension()?: 'png';
-        
-
-        $picture = str_random(10) . '.' . $extension;
-
-        #echo $picture.'<br>';
-
-        $destinationPath = public_path() . '/uploads/marcas/';
-
-        #echo $destinationPath.'<br>';
-
-        
-        $file->move($destinationPath, $picture);
-        
+        $picture = str_random(10) . '.' . $extension;    
+        $destinationPath = base_path('public/uploads/marcas/' . $picture);
+        Image::make($file)->resize(600, 600)->save($destinationPath);            
         $imagen = $picture;
 
         $data = array(

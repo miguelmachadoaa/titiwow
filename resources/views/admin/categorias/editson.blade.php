@@ -103,7 +103,7 @@ Editar Categoria
                                    
                                     @if($categoria->imagen_categoria!='0')
 
-                                        <img src="{{URL::to('uploads/blog/'.$categoria->imagen_categoria)}}" class="img-responsive" alt="Image">
+                                        <img src="{{URL::to('uploads/categorias/'.$categoria->imagen_categoria)}}" class="img-responsive" alt="Image">
 
                                     @else
                                         
