@@ -139,9 +139,6 @@ class AlpCartController extends JoshController
      MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
 
-
-
-
 $payment_methods = MP::get("/v1/payment_methods");
 
          // dd($payment_methods);
@@ -167,6 +164,11 @@ $payment_methods = MP::get("/v1/payment_methods");
         "additional_info" => ["ip_address"=>"127.0.0.1"],
         "callback_url" => 'https://alpinago.com/public/orden/pse',
         "payment_method_id" => "pse",
+        "back_urls" => [
+                "success" => 'https://alpinago.com/public/orden/pse',
+                "failure" => 'https://alpinago.com/public/orden/failure',
+                "pending" => 'https://alpinago.com/public/orden/pending',
+              ]
 
       ];
 
@@ -616,7 +618,8 @@ $payment_methods = MP::get("/v1/payment_methods");
             "transaction_details" => ["financial_institution"=>1007],
             "additional_info" => ["ip_address"=>"127.0.0.1"],
             "callback_url" => 'https://alpinago.com/public/orden/pse',
-            "payment_method_id" => "pse",
+            "payment_method_id" => "pse"
+
           ];
 
 
@@ -663,15 +666,19 @@ $payment_methods = MP::get("/v1/payment_methods");
        
       $configuracion=AlpConfiguracion::where('id', '1')->first();
 
-      $carrito= \Session::get('cr');      
+      $carrito= \Session::get('cr');   
 
-      if ($request->collection_status=='null') {
+       $impuesto=$this->impuesto();   
 
-      $cart= \Session::get('cart');
+        $cart= \Session::get('cart');
 
-      $total=$this->total();
+        $total=$this->total();
 
-      if (Sentinel::check()) {
+      if (!isset($request->collection_status) || $request->collection_status=='null') {
+
+       
+
+        if (Sentinel::check()) {
 
         $user_id = Sentinel::getUser()->id;
 
@@ -719,7 +726,8 @@ $payment_methods = MP::get("/v1/payment_methods");
 
           $list=array();
 
-            $items["id"]=$carrito;
+         
+              $items["id"]=$carrito;
               $items["title"]='Orden Alpina Nro. '.$carrito;
               $items["description"]='Orden Alpina Nro. '.$carrito;
               $items["picture_url"]= '#';
@@ -728,6 +736,7 @@ $payment_methods = MP::get("/v1/payment_methods");
               $items["unit_price"]=intval($total-$total_pagos);
 
               $list[]=$items;
+
 
             $preference_data = [
               "items" => $list,
@@ -738,7 +747,7 @@ $payment_methods = MP::get("/v1/payment_methods");
               ],
               "auto_return" => 'approved',
               "back_urls" => [
-                  "success" => secure_url('/order/success'),
+                "success" => secure_url('/order/success'),
                 "failure" => secure_url('/order/failure'),
                 "pending" => secure_url('/order/pending')
               ],
@@ -746,21 +755,48 @@ $payment_methods = MP::get("/v1/payment_methods");
               "external_reference" =>time()
             ];
 
-            //print_r($preference_data);
+           $mp = new MP();
 
             MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+
+          $preference = MP::post("/checkout/preferences",$preference_data);
+
+          $this->saveOrden($preference);
+
+
+
+          $pse_data = [
+            "transaction_amount" => $total,           
+            "description" => 'Pago de orden Nro.'.$carrito,
+            "payer" => [
+              "email"=>$usuario->email,
+              "identification" => array(
+                "type" => "CC",
+                "number" => "123123"
+              ),
+              "entity_type" => "individual"
+            ],
+            "transaction_details" => ["financial_institution"=>1007],
+            "additional_info" => ["ip_address"=>"127.0.0.1"],
+            "callback_url" => 'https://alpinago.com/public/orden/pse',
+            "payment_method_id" => "pse",
             
-            $preference = MP::post("/checkout/preferences",$preference_data);
 
-             $this->saveOrden($preference);
+          ];
 
+
+          $pse = MP::post("/v1/payments",$pse_data);
+
+
+
+          $payment_methods = MP::get("/v1/payment_methods");
             //$preference=null;
 
             ///print_r($preference);
 
             $states=State::where('config_states.country_id', '47')->get();
 
-            return view('frontend.order.failure', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries','preference', 'states', 'configuracion', 'inv', 'pagos', 'total_pagos'));
+            return view('frontend.order.failure', compact('cart', 'total', 'impuesto', 'direcciones', 'formasenvio', 'formaspago', 'countries','preference', 'states', 'configuracion', 'inv', 'pagos', 'total_pagos', 'payment_methods', 'pse'));
 
 
          }
@@ -2889,7 +2925,8 @@ $payment_methods = MP::get("/v1/payment_methods");
 
           $list=array();
 
-             $items["id"]=$carrito;
+         
+              $items["id"]=$carrito;
               $items["title"]='Orden Alpina Nro. '.$carrito;
               $items["description"]='Orden Alpina Nro. '.$carrito;
               $items["picture_url"]= '#';
@@ -2909,7 +2946,7 @@ $payment_methods = MP::get("/v1/payment_methods");
               ],
               "auto_return" => 'approved',
               "back_urls" => [
-                  "success" => secure_url('/order/success'),
+                "success" => secure_url('/order/success'),
                 "failure" => secure_url('/order/failure'),
                 "pending" => secure_url('/order/pending')
               ],
@@ -2917,12 +2954,44 @@ $payment_methods = MP::get("/v1/payment_methods");
               "external_reference" =>time()
             ];
 
-          
+           $mp = new MP();
+
+            MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+
+          $preference = MP::post("/checkout/preferences",$preference_data);
+
+          $this->saveOrden($preference);
 
 
-          MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
-         $preference = MP::post("/checkout/preferences",$preference_data);
+          $pse_data = [
+            "transaction_amount" => $total,           
+            "description" => 'Pago de orden Nro.'.$carrito,
+            "payer" => [
+              "email"=>$usuario->email,
+              "identification" => array(
+                "type" => "CC",
+                "number" => "123123"
+              ),
+              "entity_type" => "individual"
+            ],
+            "transaction_details" => ["financial_institution"=>1007],
+            "additional_info" => ["ip_address"=>"127.0.0.1"],
+            "callback_url" => 'https://alpinago.com/public/orden/pse',
+            "payment_method_id" => "pse",
+            
+
+          ];
+
+
+          $pse = MP::post("/v1/payments",$pse_data);
+
+
+
+          $payment_methods = MP::get("/v1/payment_methods");
+            //$preference=null;
+
+            ///print_r($preference);
 
           ///$preference = array('response' => array('sandbox_init_point' => '#', ), );
 
@@ -2943,7 +3012,7 @@ $payment_methods = MP::get("/v1/payment_methods");
 
             $states=State::where('config_states.country_id', '47')->get();
 
-            return view('frontend.order.cupon', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos'));
+            return view('frontend.order.cupon', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'pse', 'payment_methods'));
 
          }
 

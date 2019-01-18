@@ -294,7 +294,7 @@ div.overlay > div {
 
                 @if($fp->id==2)
 
-                <div data-href="@if($configuracion->mercadopago_sand==1){{ $preference['response']['sandbox_init_point'] }} @else {{ $preference['response']['init_point'] }} @endif" data-id={{ $fp->id }} class="row forma border pointer mercadopago ">
+                <!--div data-href="@if($configuracion->mercadopago_sand==1){{ $preference['response']['sandbox_init_point'] }} @else {{ $preference['response']['init_point'] }} @endif" data-id={{ $fp->id }} class="row forma border pointer mercadopago ">
 
                     <div class=" col-sm-8 img-responsive" style="min-height: 1em;" class=" col-sm-8 ">
 
@@ -308,7 +308,7 @@ div.overlay > div {
 
                     </div>
 
-                </div>
+                </div-->
                 <br>
 
                 @elseif($fp->id==4)
@@ -359,6 +359,7 @@ div.overlay > div {
                 @endforeach
 
                 @if(isset($pse['response']['transaction_details']['external_resource_url']))
+
                  <div data-href="{{ $pse['response']['transaction_details']['external_resource_url'] }}" data-id="2" class="row forma border pointer mercadopago ">
 
                     <div class=" col-sm-8 img-responsive" style="min-height: 1em;" class=" col-sm-8 ">
@@ -376,12 +377,9 @@ div.overlay > div {
                 </div><br>
 
                 @endif
-
-
-
                 
 
-                <div data-type='creditcard' id="creditcard" data-id="2" class="row forma border pointer    ">
+                <div data-type='creditcard' id="creditcard" data-id="2" class="row forma border pointer">
 
 
                     <div class="col-sm-8 col-xs-12">
@@ -414,6 +412,7 @@ div.overlay > div {
 
                 </div>
 
+
                 <br>
 
                 
@@ -441,12 +440,6 @@ div.overlay > div {
 
                     @endif
                  
-
-
-
-
-
-
                 @endforeach
 
             </div>
@@ -1076,8 +1069,6 @@ $('.sendCupon').click(function () {
 
 
         $('body').on('click', '#creditcard', function (){
-
-
 
             id_direccion= $("#id_direccion").val(); 
             

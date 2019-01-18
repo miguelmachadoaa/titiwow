@@ -190,9 +190,9 @@
                     <!-- Empiezo formas de pagp -->
 
 
-                    @if(count($formaspago))
+                      @if(count($formaspago))
 
-                    <div class="col-sm-12 ">
+            <div class="col-sm-12 ">
 
                 <h3>    Formas de pago</h3>
 
@@ -206,7 +206,7 @@
 
                 @if($fp->id==2)
 
-                <div data-href="@if($configuracion->mercadopago_sand==1){{ $preference['response']['sandbox_init_point'] }} @else {{ $preference['response']['init_point'] }} @endif" data-id={{ $fp->id }} class="row forma border pointer mercadopago ">
+                <!--div data-href="@if($configuracion->mercadopago_sand==1){{ $preference['response']['sandbox_init_point'] }} @else {{ $preference['response']['init_point'] }} @endif" data-id={{ $fp->id }} class="row forma border pointer mercadopago ">
 
                     <div class=" col-sm-8 img-responsive" style="min-height: 1em;" class=" col-sm-8 ">
 
@@ -220,7 +220,8 @@
 
                     </div>
 
-                </div>
+                </div-->
+                
 
                 @elseif($fp->id==4)
 
@@ -241,9 +242,10 @@
 
                 </div-->
 
+
                 @else
 
-                <div data-id={{ $fp->id }} class="row forma border pointer procesar">
+                <div data-type='formaspago'  data-id="{{ $fp->id }}" class="row forma border pointer procesar">
 
 
                     <div class="col-sm-8 col-xs-12">
@@ -259,27 +261,112 @@
                     </div>
 
                 </div>
+                
 
                 @endif
 
+                
+
+
+                @endforeach
+
+                @if(isset($pse['response']['transaction_details']['external_resource_url']))
+
+                 <div data-href="{{ $pse['response']['transaction_details']['external_resource_url'] }}" data-id="2" class="row forma border pointer mercadopago ">
+
+                    <div class=" col-sm-8 img-responsive" style="min-height: 1em;" class=" col-sm-8 ">
+
+                        PSE <img src="https://www.mercadopago.com/org-img/MP3/API/logos/pse.gif" >
+
+                    </div>
+
+                    <div class=" col-sm-4 " style="padding:8px;background-color:#3c763d;color:#ffffff;">
+
+                        <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
+
+                    </div>
+
+                </div>
+
+                @endif
+                
+
+                <div data-type='creditcard' id="creditcard" data-id="2" class="row forma border pointer    ">
+
+
+                    <div class="col-sm-8 col-xs-12">
+
+                       <p>Tarjeta de Crédito 
+                        <img src="https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif" > 
+                        <img src="https://www.mercadopago.com/org-img/MP3/API/logos/amex.gif" > 
+                        <img src="https://www.mercadopago.com/org-img/MP3/API/logos/master.gif" > 
+                        <img src="https://www.mercadopago.com/org-img/MP3/API/logos/diners.gif" > 
+                    </p> 
+
+                    </div>
+
+                    <div class="col-sm-4 col-xs-12" style="background-color:#3c763d;color:#ffffff;">
+
+                       <form action="{{ secure_url('/order/creditcard') }}" method="POST">
+                          <script
+                            src="https://www.mercadopago.com.co/integrations/v1/web-tokenize-checkout.js"
+                            data-public-key="{{ $configuracion->public_key_mercadopago }}"
+                            data-button-label="Pagar"
+                            data-transaction-amount="{{ $total }}"
+                          
+                            data-summary-product="{{ $total }}"
+                            data-summary-taxes="{{ $impuesto }}"
+                            >
+                          </script>
+                        </form>
+
+                    </div>
+
+                </div>
+                
+
+                <br>
+
+                
+
+                @foreach($payment_methods['response'] as $pm)
+
+                    @if($pm['payment_type_id']=='ticket')
+
+                    <div data-idpago="{{ $pm['id'] }}" data-type="ticket" data-id="2" class="row forma border pointer  procesar  ">
+
+                        <div class="col-sm-8 col-xs-12">
+
+                           {{ $pm['name'] }}  <img src="{{ $pm['secure_thumbnail'] }} ">
+                          
+
+                        </div>
+
+                        <div class="col-sm-4 col-xs-12" style="padding:8px;background-color:#3c763d;color:#ffffff;">
+
+                            <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
+
+                        </div>
+
+                    </div>
+
+                    @endif
+                 
                 @endforeach
 
             </div>
 
             <br>
 
-                      
+            @else
 
+            <div class=" col-sm-12 col-xs-12">
 
-                    @else
+                <h3>No hay Formas de pago para este grupo de usuarios</h3>
 
-                    
-                        <div class=" col-sm-12">
-                            <h3>No hay Formas de pago para este grupo de usuarios</h3>
-                        </div>  
+            </div> 
 
-                    @endif  
-
+            @endif 
                    
 
                     <!-- End formas de pago -->
