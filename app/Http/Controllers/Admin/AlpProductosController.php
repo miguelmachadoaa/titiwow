@@ -163,24 +163,11 @@ class AlpProductosController extends JoshController
         
         if ($request->hasFile('image')) {
             
-            $file = $request->file('image');    
-
-            #echo $file.'<br>';
-            
-            $extension = $file->extension()?: 'png';
-            
-
-            $picture = str_random(10) . '.' . $extension;
-
-            #echo $picture.'<br>';
-
-            $destinationPath = public_path() . '/uploads/productos/';
-
-            #echo $destinationPath.'<br>';
-
-            
-            $file->move($destinationPath, $picture);
-            
+            $file = $request->file('image');
+            $extension = $file->extension()?: 'jpg';
+            $picture = str_random(10) . '.' . $extension;    
+            $destinationPath = base_path('public/uploads/productos/' . $picture);
+            Image::make($file)->resize(600, 600)->save($destinationPath);            
             $imagen = $picture;
 
         }
@@ -605,25 +592,12 @@ class AlpProductosController extends JoshController
         
         if ($request->hasFile('image')) {
             
-            $file = $request->file('image');
-
-            #echo $file.'<br>';
-            
-            $extension = $file->extension()?: 'png';
-            
-
-            $picture = str_random(10) . '.' . $extension;
-
-            #echo $picture.'<br>';
-
-            $destinationPath = public_path() . '/uploads/productos/';
-
-            #echo $destinationPath.'<br>';
-
-            
-            $file->move($destinationPath, $picture);
-            
-            $imagen = $picture;
+          $file = $request->file('image');
+          $extension = $file->extension()?: 'jpg';
+          $picture = str_random(10) . '.' . $extension;    
+          $destinationPath = base_path('public/uploads/productos/' . $picture);
+          Image::make($file)->resize(600, 600)->save($destinationPath);            
+          $imagen = $picture;
 
              $data = array(
                 'nombre_producto' => $request->nombre_producto, 

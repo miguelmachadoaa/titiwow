@@ -63,25 +63,12 @@ class AlpCategoriasController extends JoshController
 
         
         if ($request->hasFile('image')) {
-            
+
             $file = $request->file('image');
-
-            #echo $file.'<br>';
-            
             $extension = $file->extension()?: 'png';
-            
-
-            $picture = str_random(10) . '.' . $extension;
-
-            #echo $picture.'<br>';
-
-            $destinationPath = public_path() . '/uploads/categorias/';
-
-            #echo $destinationPath.'<br>';
-
-            
-            $file->move($destinationPath, $picture);
-            
+            $picture = str_random(10) . '.' . $extension;    
+            $destinationPath = base_path('public/uploads/categorias/' . $picture);
+            Image::make($file)->resize(800, 800)->save($destinationPath);            
             $imagen = $picture;
 
         }
@@ -143,27 +130,16 @@ class AlpCategoriasController extends JoshController
         
         if ($request->hasFile('image')) {
             
+            
             $file = $request->file('image');
-
-            #echo $file.'<br>';
-            
             $extension = $file->extension()?: 'png';
-            
-
-            $picture = str_random(10) . '.' . $extension;
-
-            #echo $picture.'<br>';
-
-            $destinationPath = public_path() . '/uploads/categorias/';
-
-            #echo $destinationPath.'<br>';
-
-            
-            $file->move($destinationPath, $picture);
-            
+            $picture = str_random(10) . '.' . $extension;    
+            $destinationPath = base_path('public/uploads/categorias/' . $picture);
+            Image::make($file)->resize(800, 800)->save($destinationPath);            
             $imagen = $picture;
 
-             $data = array(
+
+            $data = array(
             'nombre_categoria' => $request->nombre_categoria, 
             'descripcion_categoria' => $request->descripcion_categoria,             
             'css_categoria' =>$request->css_categoria, 
@@ -294,23 +270,10 @@ class AlpCategoriasController extends JoshController
         if ($request->hasFile('image')) {
             
             $file = $request->file('image');
-
-            #echo $file.'<br>';
-            
             $extension = $file->extension()?: 'png';
-            
-
-            $picture = str_random(10) . '.' . $extension;
-
-            #echo $picture.'<br>';
-
-            $destinationPath = public_path() . '/uploads/blog/';
-
-            #echo $destinationPath.'<br>';
-
-            
-            $file->move($destinationPath, $picture);
-            
+            $picture = str_random(10) . '.' . $extension;    
+            $destinationPath = base_path('public/uploads/categorias/' . $picture);
+            Image::make($file)->resize(800, 800)->save($destinationPath);            
             $imagen = $picture;
 
         }
@@ -368,23 +331,10 @@ class AlpCategoriasController extends JoshController
         if ($request->hasFile('image')) {
             
             $file = $request->file('image');
-
-            #echo $file.'<br>';
-            
             $extension = $file->extension()?: 'png';
-            
-
-            $picture = str_random(10) . '.' . $extension;
-
-            #echo $picture.'<br>';
-
-            $destinationPath = public_path() . '/uploads/blog/';
-
-            #echo $destinationPath.'<br>';
-
-            
-            $file->move($destinationPath, $picture);
-            
+            $picture = str_random(10) . '.' . $extension;    
+            $destinationPath = base_path('public/uploads/categorias/' . $picture);
+            Image::make($file)->resize(800, 800)->save($destinationPath);            
             $imagen = $picture;
 
             $data = array(
