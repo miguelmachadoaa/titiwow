@@ -414,6 +414,8 @@ echo '<br>fin: '.$date_fin;*/
           ->where('alp_ordenes_pagos.id_orden', $id)
           ->first();
 
+          //dd($pago);
+
 
     $history = AlpOrdenesHistory::select('alp_ordenes_history.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre' )
           ->join('alp_ordenes_estatus', 'alp_ordenes_history.id_status', '=', 'alp_ordenes_estatus.id')

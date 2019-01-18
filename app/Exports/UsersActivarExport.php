@@ -52,7 +52,7 @@ class UsersActivarExport implements FromView
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
           ->join('role_users', 'users.id', '=', 'role_users.user_id')
           ->join('roles', 'role_users.role_id', '=', 'roles.id')
-          //->whereNull('alp_clientes.cod_oracle_cliente')
+          ->whereNull('alp_clientes.cod_oracle_cliente')
           ->get();
 
           //dd($ordenes);

@@ -230,12 +230,14 @@ Orden {{$orden->id}}
                     <br> 
 
                    <table class="table table-striped ">
+
+                  
                  
                  <tbody>
-                      @if($pago->json!=0)
+                     
                         <tr>
                             <td><b>Id Orden</b></td>
-                            <td>{{$pago->id_orden}}</td>
+                            <td>{{$pago['id_orden']}}</td>
                             
                         </tr>
 
@@ -250,50 +252,199 @@ Orden {{$orden->id}}
                             <td>{{$pago->monto_pago}}</td>
                             
                         </tr>
+                         
+                        
+                        @if(isset(json_decode($pago->json)->response->id) )
 
-                        <tr>
+                          <tr>
+                              <td>id</td>
+                              <td>{{json_decode($pago->json)->response->id}}</td>
+                              
+                          </tr>
+
+                        @endif
+
+
+                      @if(isset(json_decode($pago->json)->collection_id) )
+                          <tr>
                             <td>collection_id</td>
                             <td>{{json_decode($pago->json)->collection_id}}</td>
                             
                         </tr>
+                        @endif
 
-                         <tr>
+                        @if(isset(json_decode($pago->json)->collection_status) )
+                          <tr>
                             <td>collection_status</td>
                             <td>{{json_decode($pago->json)->collection_status}}</td>
                             
                         </tr>
+                        @endif
 
-                         <tr>
-                            <td>collection_id</td>
-                            <td>{{json_decode($pago->json)->collection_id}}</td>
-                            
-                        </tr>
-
-                         <tr>
+                        @if(isset(json_decode($pago->json)->preference_id) )
+                          <tr>
                             <td>preference_id</td>
                             <td>{{json_decode($pago->json)->preference_id}}</td>
                             
                         </tr>
+                        @endif
 
-                         <tr>
+                        @if(isset(json_decode($pago->json)->external_reference) )
+                          <tr>
                             <td>external_reference</td>
                             <td>{{json_decode($pago->json)->external_reference}}</td>
                             
                         </tr>
+                        @endif
 
-                         <tr>
+                        @if(isset(json_decode($pago->json)->payment_type) )
+                          <tr>
                             <td>payment_type</td>
                             <td>{{json_decode($pago->json)->payment_type}}</td>
                             
                         </tr>
+                        @endif
 
-                        <tr>
+                        @if(isset(json_decode($pago->json)->merchant_order_id) )
+                          <tr>
                             <td>merchant_order_id</td>
                             <td>{{json_decode($pago->json)->merchant_order_id}}</td>
                             
                         </tr>
-                   
-                      @endif
+                        @endif
+
+                         
+
+                      
+
+
+
+
+
+
+
+
+
+                      
+
+
+                           @if(isset(json_decode($pago->json)->response->operation_type) )
+
+                          <tr>
+                              <td>operation_type</td>
+                              <td>{{json_decode($pago->json)->response->operation_type}}</td>
+                              
+                          </tr>
+
+                        @endif
+
+
+                           @if(isset(json_decode($pago->json)->response->payment_method_id) )
+
+                          <tr>
+                              <td>payment_method_id</td>
+                              <td>{{json_decode($pago->json)->response->payment_method_id}}</td>
+                              
+                          </tr>
+
+                        @endif
+
+
+                           @if(isset(json_decode($pago->json)->response->payment_type_id) )
+
+                          <tr>
+                              <td>payment_type_id</td>
+                              <td>{{json_decode($pago->json)->response->payment_type_id}}</td>
+                              
+                          </tr>
+
+                        @endif
+
+
+                          
+
+
+                           @if(isset(json_decode($pago->json)->response->status) )
+
+                          <tr>
+                              <td>status</td>
+                              <td>{{json_decode($pago->json)->response->status}}</td>
+                              
+                          </tr>
+
+                        @endif
+
+                        @if(isset(json_decode($pago->json)->response->status_detail) )
+
+                          <tr>
+                              <td>status_detail</td>
+                              <td>{{json_decode($pago->json)->response->status_detail}}</td>
+                              
+                          </tr>
+
+                        @endif
+
+                        
+
+                           @if(isset(json_decode($pago->json)->response->collector_id) )
+
+                          <tr>
+                              <td>collector_id</td>
+                              <td>{{json_decode($pago->json)->response->collector_id}}</td>
+                              
+                          </tr>
+
+                        @endif
+
+                           @if(isset(json_decode($pago->json)->response->net_amount) )
+
+                          <tr>
+                              <td>net_amount</td>
+                              <td>{{json_decode($pago->json)->response->net_amount}}</td>
+                              
+                          </tr>
+
+                        @endif
+
+                           @if(isset(json_decode($pago->json)->response->taxes->value) )
+
+                          <tr>
+                              <td>taxes</td>
+                              <td>{{json_decode($pago->json)->response->taxes->value}}</td>
+                              
+                          </tr>
+
+                        @endif
+
+                           @if(isset(json_decode($pago->json)->response->identification->number) )
+
+                          <tr>
+                              <td>identification</td>
+                              <td>{{json_decode($pago->json)->response->identification->number}}</td>
+                              
+                          </tr>
+
+                        @endif
+
+                           @if(isset(json_decode($pago->json)->response->transaction_details->external_resource_url) )
+
+                          <tr>
+                              <td>Ticket para pago</td>
+                              <td><a target="_blank" href="{{json_decode($pago->json)->response->transaction_details->external_resource_url}}">Ver ticket</a></td>
+                              
+                          </tr>
+
+                        @endif
+
+                           @if(isset(json_decode($pago->json)->response->transaction_details->verification_code) )
+
+                          <tr>
+                              <td>verification_code</td>
+                              <td>{{json_decode($pago->json)->response->transaction_details->verification_code}}</td>
+                              
+                          </tr>
+
+                        @endif
                     
 
                  </tbody>
