@@ -79,6 +79,8 @@ class AlpMarcasController extends JoshController
             'descripcion_marca' => $request->descripcion_marca, 
             'imagen_marca' => $imagen, 
             'slug' => $request->slug, 
+            'seo_titulo' => $request->seo_titulo,
+            'seo_descripcion' => $request->seo_descripcion,
             'order' => $request->order, 
             'destacado' => $request->destacado, 
             'id_user' =>$user_id
@@ -137,7 +139,9 @@ class AlpMarcasController extends JoshController
             'destacado' => $request->destacado,
             'order' => $request->order,
             'slug' => $request->slug,
-            'imagen_marca' =>$imagen, 
+            'seo_titulo' => $request->seo_titulo,
+            'seo_descripcion' => $request->seo_descripcion,
+            'imagen_marca' =>$imagen,
         );
 
     }else{
@@ -148,6 +152,8 @@ class AlpMarcasController extends JoshController
             'destacado' => $request->destacado,
             'order' => $request->order,
             'slug' => $request->slug,
+            'seo_titulo' => $request->seo_titulo,
+            'seo_descripcion' => $request->seo_descripcion
         );
 
 

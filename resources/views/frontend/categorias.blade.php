@@ -10,8 +10,8 @@
 @section('meta_tags')
 @php 
     foreach($cataname as $catana)
-        $catego = $catana->nombre_categoria;
-        $categodes = $catana->descripcion_categoria
+        $catego = $catana->seo_titulo;
+        $categodes = $catana->seo_descripcion
 @endphp
 <meta property="og:title" content="{{$catego}} | Alpina Go!">
 <meta property="og:description" content="{{$categodes}}">

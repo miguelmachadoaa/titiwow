@@ -81,6 +81,8 @@ class AlpCategoriasController extends JoshController
             'imagen_categoria' =>$imagen, 
             'id_categoria_parent' =>'0', 
             'slug' => $request->slug,
+            'seo_titulo' =>$request->seo_titulo, 
+            'seo_descripcion' =>$request->seo_descripcion, 
             'id_user' =>$user_id
         );
 
@@ -146,7 +148,9 @@ class AlpCategoriasController extends JoshController
             'order' =>$request->order, 
             'imagen_categoria' =>$imagen, 
             'id_categoria_parent' =>'0',
-            'slug' => $request->slug
+            'slug' => $request->slug,
+            'seo_titulo' =>$request->seo_titulo, 
+            'seo_descripcion' =>$request->seo_descripcion
             );
 
         }else{
@@ -158,6 +162,8 @@ class AlpCategoriasController extends JoshController
             'order' =>$request->order, 
                 'imagen_categoria' =>$imagen, 
                 'id_categoria_parent' =>'0',
+                'seo_titulo' =>$request->seo_titulo, 
+                'seo_descripcion' =>$request->seo_descripcion, 
                 'slug' => $request->slug
             );
 
@@ -285,6 +291,8 @@ class AlpCategoriasController extends JoshController
             'imagen_categoria' =>$imagen, 
             'id_categoria_parent' =>$padre, 
             'slug' => $request->slug,
+            'seo_titulo' =>$request->seo_titulo, 
+            'seo_descripcion' =>$request->seo_descripcion, 
             'id_user' =>$user_id
         );
          
@@ -343,6 +351,8 @@ class AlpCategoriasController extends JoshController
             'referencia_producto_sap' =>$request->referencia_producto_sap, 
             'imagen_categoria' =>$imagen, 
             'id_categoria_parent' =>$request->id_categoria_parent,
+            'seo_titulo' =>$request->seo_titulo, 
+            'seo_descripcion' =>$request->seo_descripcion, 
             'slug' => $request->slug
                 );
 
@@ -353,6 +363,8 @@ class AlpCategoriasController extends JoshController
             'descripcion_categoria' => $request->descripcion_categoria, 
             'referencia_producto_sap' =>$request->referencia_producto_sap, 
             'id_categoria_parent' =>$request->id_categoria_parent,
+            'seo_titulo' =>$request->seo_titulo, 
+            'seo_descripcion' =>$request->seo_descripcion, 
             'slug' => $request->slug
                 );
 

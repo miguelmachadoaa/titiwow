@@ -71,7 +71,7 @@ Editar Categoria
                         <div class="form-group {{ $errors->
                             first('descripcion_categoria', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Descaripcion Categoria
+                                Descripción Categoria
                             </label>
                             <div class="col-sm-5">
                                 
@@ -148,6 +148,32 @@ Editar Categoria
                             </div>
                         </div>
 
+                        <div class="form-group {{ $errors->
+                            first('seo_titulo', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Seo Titulo
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="text" id="seo_titulo" name="seo_titulo" class="form-control" placeholder="Seo Titulo"
+                                       value="{!! old('seo_titulo', $categoria->seo_titulo) !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('seo_titulo', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+                        <div class="form-group {{ $errors->
+                            first('seo_descripcion', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                            Seo Descripción
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="text"  id="seo_descripcion" name="seo_descripcion" class="form-control" placeholder="Seo Descripcion"
+                                       value="{!! old('seo_descripcion', $categoria->seo_descripcion) !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('seo_descripcion', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
                         <div class="form-group {{ $errors->
                             first('css_categoria', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
