@@ -16,6 +16,7 @@ use App\Models\AlpEmpresas;
 use App\Models\AlpPrecioGrupo;
 use App\Models\AlpProductos;
 use App\Models\AlpTDocumento;
+use App\Models\AlpSliders;
 use App\Models\AlpEstructuraAddress;
 use App\Models\AlpConfiguracion;
 use App\Models\AlpDirecciones;
@@ -189,9 +190,10 @@ class FrontEndController extends JoshController
         
 
       
+        $sliders=AlpSliders::orderBy("order")->get();
 
 
-        return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods'));
+        return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders'));
 
     }
 

@@ -103,6 +103,8 @@ class AlpSlidersController extends JoshController
             'nombre_slider' => $request->nombre_slider, 
             'descripcion_slider' => $request->descripcion_slider,
             'imagen_slider' =>$imagen, 
+            'order' => $request->order,
+            'link_slider' => $request->link_slider,
             'id_user' =>$user_id
         );
          
@@ -112,10 +114,10 @@ class AlpSlidersController extends JoshController
 
         if ($slider->id) {
 
-            return redirect('sliders');
+            return redirect('admin/sliders');
 
         } else {
-            return Redirect::route('sliders')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+            return Redirect::route('admin/sliders')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
         }   
 
     }
@@ -197,7 +199,9 @@ class AlpSlidersController extends JoshController
              $data = array(
                 'nombre_slider' => $request->nombre_slider, 
                 'descripcion_slider' => $request->descripcion_slider,
-                'imagen_slider' =>$imagen
+                'imagen_slider' =>$imagen,
+                'order' => $request->order,
+                'link_slider' => $request->link_slider
                 );
 
 
@@ -207,6 +211,8 @@ class AlpSlidersController extends JoshController
                   $data = array(
               'nombre_slider' => $request->nombre_slider, 
                 'descripcion_slider' => $request->descripcion_slider,
+                'order' => $request->order,
+                'link_slider' => $request->link_slider
                 );
 
         }
