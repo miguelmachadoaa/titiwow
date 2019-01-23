@@ -137,10 +137,34 @@
 
                         </div>
 
+                        <div class="form-group {{ $errors->first('link_slider', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                               Enlace para el Slider
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="text" id="link_slider" name="link_slider" class="form-control" placeholder="Enlace"
+                                       value="{!! old('link_slider') !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('link_slider', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
 
+                       
 
-
-
+                        <div class="form-group {{ $errors->
+                            first('order', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Posición del Slider
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="number" min="0" step="1" id="order" name="order" class="form-control" placeholder="Posición del Slider"
+                                       value="{!! old('order') !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('order', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                 

@@ -28,12 +28,13 @@ Inicio @parent
 @section('top')
     <!--Carousel Start -->
     <div id="owl-demo" class="owl-carousel owl-theme">
-        <div class="item"><img src="{{ secure_asset('assets/images/slides/alpinago.jpg') }}" alt="Alpina Go!">
-        </div>
-        <div class="item"><img src="{{ secure_asset('assets/images/slides/arequipe_navidad18.jpg') }}" alt="Arequipe Alpina En Navidad">
-        </div>
-        <div class="item"><img src="{{ secure_asset('assets/images/slides/holandes18.jpg') }}" alt="Holandés Alpina En Navidad">
-        </div>
+        @foreach($sliders as $s)
+            <div class="item">
+                <a href="{{ $s->link_slider }}" target="_self">
+                    <img src="{{ secure_asset('uploads/sliders/'.$s->imagen_slider ) }}" alt="Alpina Go!">
+                </a>
+            </div>
+        @endforeach
     </div>
     <!-- //Carousel End -->
 @stop

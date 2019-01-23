@@ -18,6 +18,8 @@ class CreateAlpSliderTable extends Migration
             $table->string('nombre_slider');
             $table->string('descripcion_slider')->nullable();
             $table->string('imagen_slider')->default('default.png');
+            $table->integer('order')->nullable();
+            $table->text('link_slider')->nullable();
             $table->integer('estado_registro')->default(1);
             $table->integer('id_user');
             $table->timestamps();

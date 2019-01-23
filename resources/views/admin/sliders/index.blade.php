@@ -53,6 +53,8 @@ Sliders
                                     <th>Nombre</th>
                                     <th>Descripcion</th>
                                     <th>Imagen</th>
+                                    <th>Enlace</th>
+                                    <th>Orden</th>
                                     <th>Creado</th>
                                     <th>Accion</th>
                                 </tr>
@@ -65,6 +67,8 @@ Sliders
                                     <td>{!! $row->nombre_slider!!}</td>
                                     <td>{!! $row->descripcion_slider!!}</td>
                                     <td><img src="../uploads/sliders/{!! $row->imagen_slider !!}" height="60px"></td>
+                                    <td>{!! $row->link_slider!!}</td>
+                                    <td>{!! $row->order!!}</td>
                                     <td>{!! $row->created_at->diffForHumans() !!}</td>
                                     <td>
                                             
