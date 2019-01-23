@@ -143,34 +143,31 @@ $payment_methods = MP::get("/v1/payment_methods");
 
          // dd($payment_methods);
    
-    $preference_data = [
-        "transaction_amount" => 10000,
-        /*"net_amount" => 9000,
-        "taxes" => [
-          "value"=>1000,
-          "type"=>"IVA"
-        ],*/
-
-        "description" => 'Pago de orden',
-        "payer" => [
-          "email"=>"miguel@gmail.com",
-          "identification" => array(
-            "type" => "CC",
-            "number" => "76262349"
-          ),
-          "entity_type" => "individual"
-        ],
-        "transaction_details" => ["financial_institution"=>1007],
-        "additional_info" => ["ip_address"=>"127.0.0.1"],
-        "callback_url" => 'https://alpinago.com/public/orden/pse',
-        "payment_method_id" => "pse",
-        "back_urls" => [
-                "success" => 'https://alpinago.com/public/orden/pse',
-                "failure" => 'https://alpinago.com/public/orden/failure',
-                "pending" => 'https://alpinago.com/public/orden/pending',
-              ]
-
-      ];
+    $preference_data = '{
+         "payer": {
+             "email": "dfgdf@sd.csdf",
+             "entity_type": "individual",
+             "identification": {
+                 "type": "CC",
+                 "number": "123456"
+             }
+         },
+         "description": "Pago de tiquete via web BOG-BUC",
+         "callback_url": "http://vos.berlinasdelfonce.com/compra/respuestapse/",
+         "additional_info": {
+             "ip_address": "172.17.0.1"
+         },
+         "payment_method_id": "pse",
+         "transaction_amount": 10000,
+         "transaction_details": {
+             "financial_institution": 1007
+         },
+         "net_amount": 9500,
+         "taxes":[{
+                             "value": 500,
+                             "type": "IVA"
+                     }]
+     }' ;
 
       
 
@@ -597,30 +594,36 @@ $payment_methods = MP::get("/v1/payment_methods");
 
           $this->saveOrden($preference);
 
+          $net_amount=$total-$impuesto;
+
+          $pse_data = '{
+         "payer": {
+             "email": "'.$usuario->email.'",
+             "entity_type": "individual",
+             "identification": {
+                 "type": "CC",
+                 "number": "123456"
+             }
+         },
+         "description": "'.'Pago de orden Nro.'.$carrito.'",
+         "callback_url": "https://alpinago.com/public/orden/pse",
+         "additional_info": {
+             "ip_address": "172.17.0.1"
+         },
+         "payment_method_id": "pse",
+         "transaction_amount": '.$total.',
+         "transaction_details": {
+             "financial_institution": 1007
+         },
+         "net_amount": '.$net_amount.',
+         "taxes":[{
+                             "value": '.$impuesto.',
+                             "type": "IVA"
+                     }]
+     }';
 
 
-          $pse_data = [
-            "transaction_amount" => $total,
-           /* "net_amount" => $total-$impuesto,
-            "taxes" =>[ 
-                "value" => $impuesto,
-                "type" => "IVA"
-            ],*/
-            "description" => 'Pago de orden Nro.'.$carrito,
-            "payer" => [
-              "email"=>$usuario->email,
-              "identification" => array(
-                "type" => "CC",
-                "number" => "123123"
-              ),
-              "entity_type" => "individual"
-            ],
-            "transaction_details" => ["financial_institution"=>1007],
-            "additional_info" => ["ip_address"=>"127.0.0.1"],
-            "callback_url" => 'https://alpinago.com/public/orden/pse',
-            "payment_method_id" => "pse"
-
-          ];
+          
 
 
           $pse = MP::post("/v1/payments",$pse_data);
@@ -765,24 +768,31 @@ $payment_methods = MP::get("/v1/payment_methods");
 
 
 
-          $pse_data = [
-            "transaction_amount" => $total,           
-            "description" => 'Pago de orden Nro.'.$carrito,
-            "payer" => [
-              "email"=>$usuario->email,
-              "identification" => array(
-                "type" => "CC",
-                "number" => "123123"
-              ),
-              "entity_type" => "individual"
-            ],
-            "transaction_details" => ["financial_institution"=>1007],
-            "additional_info" => ["ip_address"=>"127.0.0.1"],
-            "callback_url" => 'https://alpinago.com/public/orden/pse',
-            "payment_method_id" => "pse",
-            
-
-          ];
+          $pse_data = '{
+         "payer": {
+             "email": "'.$usuario->email.'",
+             "entity_type": "individual",
+             "identification": {
+                 "type": "CC",
+                 "number": "123456"
+             }
+         },
+         "description": "'.'Pago de orden Nro.'.$carrito.'",
+         "callback_url": "https://alpinago.com/public/orden/pse",
+         "additional_info": {
+             "ip_address": "172.17.0.1"
+         },
+         "payment_method_id": "pse",
+         "transaction_amount": '.$total.',
+         "transaction_details": {
+             "financial_institution": 1007
+         },
+         "net_amount": '.$net_amount.',
+         "taxes":[{
+                             "value": '.$impuesto.',
+                             "type": "IVA"
+                     }]
+     }';
 
 
           $pse = MP::post("/v1/payments",$pse_data);
@@ -2964,24 +2974,31 @@ $payment_methods = MP::get("/v1/payment_methods");
 
 
 
-          $pse_data = [
-            "transaction_amount" => $total,           
-            "description" => 'Pago de orden Nro.'.$carrito,
-            "payer" => [
-              "email"=>$usuario->email,
-              "identification" => array(
-                "type" => "CC",
-                "number" => "123123"
-              ),
-              "entity_type" => "individual"
-            ],
-            "transaction_details" => ["financial_institution"=>1007],
-            "additional_info" => ["ip_address"=>"127.0.0.1"],
-            "callback_url" => 'https://alpinago.com/public/orden/pse',
-            "payment_method_id" => "pse",
-            
-
-          ];
+          $pse_data = '{
+         "payer": {
+             "email": "'.$usuario->email.'",
+             "entity_type": "individual",
+             "identification": {
+                 "type": "CC",
+                 "number": "123456"
+             }
+         },
+         "description": "'.'Pago de orden Nro.'.$carrito.'",
+         "callback_url": "https://alpinago.com/public/orden/pse",
+         "additional_info": {
+             "ip_address": "172.17.0.1"
+         },
+         "payment_method_id": "pse",
+         "transaction_amount": '.$total.',
+         "transaction_details": {
+             "financial_institution": 1007
+         },
+         "net_amount": '.$net_amount.',
+         "taxes":[{
+                             "value": '.$impuesto.',
+                             "type": "IVA"
+                     }]
+     }';
 
 
           $pse = MP::post("/v1/payments",$pse_data);
