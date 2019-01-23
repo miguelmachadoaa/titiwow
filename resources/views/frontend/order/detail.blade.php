@@ -913,7 +913,7 @@ $('.sendCupon').click(function () {
 
                     if(type=="ticket"){
 
-                         $.ajax({
+                        $.ajax({
                             type: "POST",
                             data:{id_forma_envio, id_direccion},
 
@@ -941,11 +941,11 @@ $('.sendCupon').click(function () {
 
                                     });
 
-                               }else{
+                                }else{
 
                                     $('.res_env').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
 
-                               }
+                                }
                             
                             }
                         });
@@ -967,48 +967,43 @@ $('.sendCupon').click(function () {
                 }else{
 
 
-
-                       $.ajax({
-                    type: "POST",
-                    data:{id_forma_envio, id_direccion},
-                    url: base+"/cart/verificarDireccion",
+                    $.ajax({
+                        type: "POST",
+                        data:{id_forma_envio, id_direccion},
+                        url: base+"/cart/verificarDireccion",
                         
-                    complete: function(datos){     
+                        complete: function(datos){     
 
-                       if(datos.responseText=='true'){
+                            if(datos.responseText=='true'){
 
                             //$('#procesarForm').submit();
 
-                            $.ajax({
-                                type: "POST",
-                                data:{id_direccion, id_forma_envio, id_forma_pago},
-
-                                url: base+"/order/procesar",
+                                $.ajax({
+                                    type: "POST",
+                                    data:{id_direccion, id_forma_envio, id_forma_pago},
+                                    url: base+"/order/procesar",
                                     
-                                complete: function(datos){     
+                                    complete: function(datos){     
 
-                                    $('.contain_body').html(datos.responseText);
+                                        $('.contain_body').html(datos.responseText);
 
-                                    $('.overlay').fadeOut();
+                                        $('.overlay').fadeOut();
                                 
-                                }
+                                    }
 
-                            });
+                                });
 
-                       }else{
+                            }else{
 
-                            $('.res_env').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+                                $('.res_env').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
 
-                       }
+                            }
                     
-                    }
-                });
-
-
+                        }
+                    
+                    });
 
                 }
-
-             
 
             }
 
@@ -1016,8 +1011,6 @@ $('.sendCupon').click(function () {
 
 
         $('body').on('click', '.mercadopago', function (){
-
-
 
             id_direccion= $("#id_direccion").val(); 
             
@@ -1033,7 +1026,6 @@ $('.sendCupon').click(function () {
                // alert('Todos los capos son obligatorios');
 
                 $('.res_env').html('<div class="alert alert-danger" role="alert">Todos los campos son obligatorios</div>');
-
 
             }else{
 
@@ -1067,7 +1059,6 @@ $('.sendCupon').click(function () {
         });
 
 
-
         $('body').on('click', '#creditcard', function (){
 
             id_direccion= $("#id_direccion").val(); 
@@ -1078,13 +1069,11 @@ $('.sendCupon').click(function () {
 
             url=$(this).data('href');
 
-
             if (id_forma_envio==undefined || id_direccion==undefined || id_forma_pago==undefined) {
 
                // alert('Todos los capos son obligatorios');
 
                 $('.res_env').html('<div class="alert alert-danger" role="alert">Todos los campos son obligatorios</div>');
-
 
             }else{
 
@@ -1118,7 +1107,6 @@ $('.sendCupon').click(function () {
         });
 
 
-
         jQuery(document).ready(function () {
             new WOW().init();
         });
@@ -1126,8 +1114,6 @@ $('.sendCupon').click(function () {
         $('.addDireccionModal').on('click', function(){
             $("#addDireccionModal").modal('show');
         });
-
-       
 
 
 

@@ -637,6 +637,11 @@ Route::post(    'order/creditcard',     [
         'uses'=>'Admin\AlpCartController@orderCreditcard'
     ]);
 
+
+Route::post(    'order/pse',     [ 
+        'as'=>'order.pse', 
+        'uses'=>'Admin\AlpCartController@orderPse'
+    ]);
 Route::get(    'order/rapipago',     [ 
         'as'=>'order.rapipago', 
         'uses'=>'Admin\AlpCartController@orderRapipago'
