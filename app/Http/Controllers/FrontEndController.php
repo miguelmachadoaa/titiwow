@@ -417,7 +417,7 @@ class FrontEndController extends JoshController
 
 
                 }else{
-                    return redirect('registro')->with('failure', trans('auth/message.signup.failure'));
+                    return redirect('registro')->with('error', trans('auth/message.failure.error'))->withInput();;
 
                 }
 

@@ -46,4 +46,8 @@ return array(
         'error'   => 'Hubo un problema al enviar su formulario de contacto, intente nuevamente.',
         'success' => 'Sus datos de contacto fueron enviados correctamente. ',
     ),
+    'failure' => array(
+        'error'   => 'Los Datos de Alpinista no concuerdan.',
+        'success' => 'Se ha registrado correctamente.',
+    ),
 );

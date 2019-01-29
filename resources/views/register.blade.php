@@ -53,8 +53,7 @@
                         <select id="id_type_doc" name="id_type_doc" class="form-control {{ $errors->first('id_type_doc', 'has-error') }}">
                             <option value="">Seleccione Tipo de Documento</option>     
                             @foreach($t_documento as $tdoc)
-                            <option value="{{ $tdoc->id }}">
-                            {{ $tdoc->abrev_tipo_documento}} - {{ $tdoc->nombre_tipo_documento}}</option>
+                                <option value="{{ $tdoc->id }}" {{ (old("id_type_doc") == $tdoc->id ? "selected":"") }}>{{ $tdoc->abrev_tipo_documento}} - {{ $tdoc->nombre_tipo_documento}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -112,8 +111,7 @@
                         <select id="id_estructura_address" name="id_estructura_address" class="form-control">
                             <option value="">Seleccione Dirección</option> 
                             @foreach($estructura as $estru)
-                            <option value="{{ $estru->id }}">
-                            {{ $estru->abrevia_estructura}} - {{ $estru->nombre_estructura}} </option>
+                            <option value="{{ $estru->id }}" {{ (old("id_estructura_address") == $estru->id ? "selected":"") }}>{{ $estru->abrevia_estructura}} - {{ $estru->nombre_estructura}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -123,7 +121,7 @@
                 <div class="form-group {{ $errors->first('principal_address', 'has-error') }}">
                     <div class="input-group">
                         <span class="input-group-addon azul" id="basic-addon2">Principal</span>
-                        <input type="text" class="form-control" id="principal_address" name="principal_address" style="font-style:italic" placeholder="Ejemplo: 100" aria-describedby="basic-addon2">
+                        <input type="text" class="form-control" value="{!! old('principal_address') !!}" id="principal_address" name="principal_address" style="font-style:italic" placeholder="Ejemplo: 100" aria-describedby="basic-addon2">
                     </div>
                     {!! $errors->first('principal_address', '<span class="help-block">:message</span>') !!}
                 </div>
@@ -131,7 +129,7 @@
                 <div class="form-group {{ $errors->first('secundaria_address', 'has-error') }}">
                     <div class="input-group">
                         <span class="input-group-addon azul" id="basic-addon3">#</span>
-                        <input type="text" class="form-control" id="secundaria_address" name="secundaria_address" placeholder="Ejemplo: 21" aria-describedby="basic-addon3">
+                        <input type="text" class="form-control" value="{!! old('secundaria_address') !!}" id="secundaria_address" name="secundaria_address" placeholder="Ejemplo: 21" aria-describedby="basic-addon3">
                     </div>
                     {!! $errors->first('secundaria_address', '<span class="help-block">:message</span>') !!}
                 </div>
@@ -139,7 +137,7 @@
                 <div class="form-group {{ $errors->first('edificio_address', 'has-error') }}">
                     <div class="input-group">
                         <span class="input-group-addon azul" id="basic-addon4">-</span>
-                        <input type="text" class="form-control" id="edificio_address" name="edificio_address" placeholder="Ejemplo: 14" aria-describedby="basic-addon4">
+                        <input type="text" class="form-control" value="{!! old('edificio_address') !!}" id="edificio_address" name="edificio_address" placeholder="Ejemplo: 14" aria-describedby="basic-addon4">
                     </div>
                     {!! $errors->first('edificio_address', '<span class="help-block">:message</span>') !!}
                 </div>
