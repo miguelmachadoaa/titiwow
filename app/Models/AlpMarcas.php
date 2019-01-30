@@ -23,6 +23,8 @@ class AlpMarcas extends Model
         'descripcion_marca',
         'imagen_marca',
         'slug',
+        'seo_titulo',
+        'seo_descripcion',
         'destacado',
         'order',
         'estado_registro',

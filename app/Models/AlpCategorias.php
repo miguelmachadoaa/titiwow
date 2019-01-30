@@ -24,6 +24,8 @@ class AlpCategorias extends Model
         'imagen_categoria',
         'id_categoria_parent',
         'slug',
+        'seo_titulo',
+        'seo_descripcion',
         'destacado',
         'order',
         'css_categoria',

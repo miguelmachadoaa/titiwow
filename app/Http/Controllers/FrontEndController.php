@@ -410,19 +410,25 @@ class FrontEndController extends JoshController
                 $codalpin = AlpCodAlpinistas::where('documento_alpi', $request->doc_cliente)->where('codigo_alpi', $request->cod_alpinista)->where('estatus_alpinista',1)->first();
                 if ($codalpin) {
 
-                    $activate=true;
+                    $activate=false;
+
+                    // Register the user
+                    $user = Sentinel::register($request->only(['first_name', 'last_name', 'email', 'password']), $activate);
+
 
                 }else{
+                    return redirect('registro')->with('error', trans('auth/message.failure.error'))->withInput();;
 
-                    $activate=false;
                 }
 
             }else{
                 $activate=false;
-            }
 
-            // Register the user
-            $user = Sentinel::register($request->only(['first_name', 'last_name', 'email', 'password']), $activate);
+
+                // Register the user
+                $user = Sentinel::register($request->only(['first_name', 'last_name', 'email', 'password']), $activate);
+
+            }
 
             //crear registro en la tabla clientes 
 
@@ -436,7 +442,7 @@ class FrontEndController extends JoshController
 
                 if ($codalpin) {
 
-                    $masterfi=1;
+                    $masterfi=0;
 
                     $data = array(
                     'id_user_client' => $user->id, 

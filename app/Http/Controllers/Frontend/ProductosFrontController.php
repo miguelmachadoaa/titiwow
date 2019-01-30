@@ -377,7 +377,7 @@ class ProductosFrontController extends Controller
 
         $precio = array(); 
 
-            $producto =  DB::table('alp_productos')->select('alp_productos.*','alp_marcas.nombre_marca')
+            $producto =  DB::table('alp_productos')->select('alp_productos.*','alp_marcas.nombre_marca','alp_marcas.slug')
             ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
             ->where('alp_productos.estado_registro','=',1)
             ->where('alp_productos.slug','=', $slug)->first(); 
@@ -522,7 +522,7 @@ class ProductosFrontController extends Controller
 
         $categoria = AlpCategorias::where('slug','=', $slug)->firstOrFail();
 
-        $cataname = DB::table('alp_categorias')->select('nombre_categoria','descripcion_categoria')->where('id','=', $categoria->id)->where('estado_registro','=', 1)->get();
+        $cataname = DB::table('alp_categorias')->select('nombre_categoria','seo_titulo','seo_descripcion')->where('id','=', $categoria->id)->where('estado_registro','=', 1)->get();
 
         $productos =  DB::table('alp_productos')->select('alp_productos.*')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
@@ -613,7 +613,7 @@ class ProductosFrontController extends Controller
 
         $marca = AlpMarcas::where('slug','=', $slug)->firstOrFail();
 
-        $marcaname = DB::table('alp_marcas')->select('nombre_marca','descripcion_marca','slug')->where('id','=', $marca->id)->where('estado_registro','=', 1)->get();
+        $marcaname = DB::table('alp_marcas')->select('nombre_marca','seo_titulo','seo_descripcion','slug')->where('id','=', $marca->id)->where('estado_registro','=', 1)->get();
 
         $productos =  DB::table('alp_productos')->select('alp_productos.*')
         ->where('alp_productos.id_marca','=', $marca->id)

@@ -10,8 +10,8 @@
 @section('meta_tags')
 @php 
     foreach($marcaname as $marca)
-        $marcago = $marca->nombre_marca;
-        $marcades = $marca->descripcion_marca
+        $marcago = $marca->seo_titulo;
+        $marcades = $marca->seo_descripcion
 @endphp
 <meta property="og:title" content="{{$marcago}} | Alpina Go!">
 <meta property="og:description" content="{{$marcades}}">
