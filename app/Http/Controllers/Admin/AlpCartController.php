@@ -183,6 +183,151 @@ $payment_methods = MP::get("/v1/payment_methods");
 
 
 
+    public function getPse(Request $request)
+    {
+
+      $carrito= \Session::get('cr');
+
+      $total=$this->total();
+
+      $impuesto=$this->impuesto();
+      
+      $configuracion = AlpConfiguracion::where('id', '1')->first();
+
+        $mp = new MP();
+
+        MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+
+        $net_amount=$total-$impuesto;
+
+        $preference_data = '{
+           "payer": {
+               "email": "'.$request->email.'",
+               "entity_type": "individual",
+               "identification": {
+                   "type": "'.$request->id_type_doc.'",
+                   "number": "'.$request->doc_cliente.'"
+               }
+           },
+           "description": "Pago de orden Nro. '.$carrito.'",
+           "callback_url": "https://crearemosdev.com/pruebas/order/pse",
+           "additional_info": {
+               "ip_address": "3.17.57.158"
+           },
+           "payment_method_id": "pse",
+           "transaction_amount": '.$total.',
+           "transaction_details": {
+               "financial_institution": '.$request->id_fi.'
+           },
+           "net_amount": '.$net_amount.',
+           "taxes":[{
+                               "value": '.$impuesto.',
+                               "type": "IVA"
+                       }]
+       }' ;
+
+
+          $pse = MP::post("/v1/payments",$preference_data);
+
+         
+
+          if (isset($pse['response']['id'])) {
+
+      \Session::put('pse', $pse['response']['id']);
+
+            return $pse['response']['transaction_details']['external_resource_url'];
+
+          }else{
+
+            return 'false';
+
+          }
+
+    }
+
+
+
+       public function orderPse(Request $request)
+    {
+
+      $input=$request->all();
+
+
+       if (\Session::has('pse')) {
+
+        $id_pago=\Session::get('pse');
+
+        $configuracion = AlpConfiguracion::where('id', '1')->first();
+
+            $mp = new MP();
+
+            MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+
+            $input = MP::get("/v1/payments/".$id_pago);
+
+       }
+
+
+
+      if (Sentinel::check()) {
+
+
+    $user_id = Sentinel::getUser()->id;
+
+        // 1.- eststus orden, 2.- estatus pago, 3 json pedido 
+        $data=$this->generarPedido('8', '4', $input);
+
+        $id_orden=$data['id_orden'];
+
+        $fecha_entrega=$data['fecha_entrega'];
+
+       
+         $aviso_pago="Hemos recibido su pago satisfactoriamente, una vez sea confirmado, Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!";
+
+       
+
+        $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
+            ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
+            ->join('alp_clientes','alp_ordenes.id_cliente' , '=', 'alp_clientes.id_user_client')
+            ->join('alp_formas_envios','alp_ordenes.id_forma_envio' , '=', 'alp_formas_envios.id')
+            ->join('alp_formas_pagos','alp_ordenes.id_forma_pago' , '=', 'alp_formas_pagos.id')
+            ->where('alp_ordenes.id', $id_orden)->first();
+
+
+        $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug')
+          ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
+          ->where('alp_ordenes_detalle.id_orden', $id_orden)->get();
+
+
+         
+
+         $states=State::where('config_states.country_id', '47')->get();
+
+         $configuracion = AlpConfiguracion::where('id','1')->first();
+
+          $user_cliente=User::where('id', $user_id)->first();
+
+          $texto='Se ha creado la siguiente orden '.$compra->id.' y esta a espera de aprobacion  ';
+
+
+        Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
+
+        Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
+          
+
+          return view('frontend.order.procesar_completo', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
+        
+
+      }else{
+
+          return redirect('login');
+      }
+
+}
+
+
+
+
     public function notificacion(Request $request)
     {
       
