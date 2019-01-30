@@ -8,6 +8,7 @@ use App\Models\AlpDirecciones;
 use App\Models\AlpCategorias;
 use App\Models\AlpCategoriasProductos;
 use App\Models\AlpInventario;
+use App\Models\AlpTDocumento;
 use App\Models\AlpMarcas;
 use App\Models\AlpFormasenvio;
 use App\Models\AlpFormaCiudad;
@@ -179,6 +180,84 @@ $payment_methods = MP::get("/v1/payment_methods");
    
 
     }
+
+
+
+    public function notificacion(Request $request)
+    {
+      
+
+      $input=$request->all();
+
+      //dd($input);
+   
+      $configuracion = AlpConfiguracion::where('id', '1')->first();
+
+        $mp = new MP();
+
+        MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+
+               
+
+        $pago=AlpPagos::where('json', 'like', '%'.$input['data_id'].'%')->first();
+
+        //dd($pago);
+
+        if (isset($pago->id)) {
+
+          try {
+
+            $pse = MP::get("/v1/payments/".$input['data_id']);
+            
+          } catch (MercadoPagoException $e) {
+
+            $pse = $input;
+            
+          }
+
+         // $pse = MP::get("/v1/payments/".$input['data_id']);
+
+          $data_pago = array(
+            'id_orden' => $pago->id_orden, 
+            'id_forma_pago' => $pago->id_forma_pago, 
+            'id_estatus_pago' => 4, 
+            'monto_pago' => $pago->monto_pago, 
+            'json' => json_encode($pse), 
+            'id_user' => '0' 
+          );
+
+         AlpPagos::create($data_pago);
+
+         return response('true', 200);
+
+          
+        }else{
+
+          /*$data_pago = array(
+            'id_orden' => '0', 
+            'id_forma_pago' => '2', 
+            'id_estatus_pago' => 4, 
+            'monto_pago' => '0', 
+            'json' => json_encode($input), 
+            'id_user' => '0' 
+          );*/
+
+         return response('true', 201);
+
+
+
+        }
+
+
+
+    }
+
+
+
+
+
+
+
 
     public function orderRapipago(Request $request)
     {
