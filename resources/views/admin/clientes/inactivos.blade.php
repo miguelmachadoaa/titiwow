@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-@lang('clientes/title.clientes')
+@lang('clientes/title.clientes') Inactivos
 @parent
 @stop
 
@@ -14,7 +14,7 @@
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1> @lang('clientes/title.clientes')</h1>
+    <h1> @lang('clientes/title.clientes') Inactivos</h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}">
@@ -22,7 +22,7 @@
                Inicio
             </a>
         </li>
-        <li><a href="#">  @lang('clientes/title.clientes') </a></li>
+        <li><a href="#">  @lang('clientes/title.clientes') Inactivos </a></li>
         <li class="active"> Inicio</li>
     </ol>
 </section>

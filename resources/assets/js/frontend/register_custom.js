@@ -137,15 +137,6 @@ $("#reg_form").bootstrapValidator({
             required: true,
             minlength: 3
         },
-        detalle_address: {
-            validators: {
-                notEmpty: {
-                    message: 'El Detalle de la Dirección es Requerido'
-                }
-            },
-            required: true,
-            minlength: 3
-        },
         barrio_address: {
             validators: {
                 notEmpty: {

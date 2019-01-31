@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Ordenes Aprobadas
+Ordenes En Espera
 @parent
 @stop
 
