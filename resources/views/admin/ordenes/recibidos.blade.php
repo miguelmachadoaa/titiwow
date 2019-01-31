@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Ordenes
+Ordenes Recibidas
 @parent
 @stop
 

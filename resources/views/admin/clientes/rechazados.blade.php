@@ -2,14 +2,14 @@
 
 {{-- Web site Title --}}
 @section('title')
-@lang('clientes/title.clientes')
+@lang('clientes/title.clientes') Rechazados
 @parent
 @stop
 
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1> @lang('clientes/title.clientes')</h1>
+    <h1> @lang('clientes/title.clientes') Rechazados</h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}">
@@ -17,7 +17,7 @@
                Inicio
             </a>
         </li>
-        <li><a href="#">  @lang('clientes/title.clientes') </a></li>
+        <li><a href="#">  @lang('clientes/title.clientes') Rechazados</a></li>
         <li class="active"> Inicio</li>
     </ol>
 </section>
@@ -29,7 +29,7 @@
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                    Clientes rechazados
+                    Clientes Rechazados
                     </h4>
                     
                 </div>

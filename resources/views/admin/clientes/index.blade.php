@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-@lang('clientes/title.clientes')
+Todos los @lang('clientes/title.clientes')
 @parent
 @stop
 
@@ -14,7 +14,7 @@
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1> @lang('clientes/title.clientes')</h1>
+    <h1> Todos los @lang('clientes/title.clientes')</h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}">
@@ -22,7 +22,7 @@
                Inicio
             </a>
         </li>
-        <li><a href="#">  @lang('clientes/title.clientes') </a></li>
+        <li><a href="#"> Todos los @lang('clientes/title.clientes') </a></li>
         <li class="active"> Inicio</li>
     </ol>
 </section>
@@ -34,7 +34,7 @@
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                    @lang('clientes/title.clientes')
+                    Todos los @lang('clientes/title.clientes')
                     </h4>
                     <div class="pull-right">
                     <a href="{{ route('admin.clientes.create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span>  @lang('clientes/title.create')</a>

@@ -2,14 +2,14 @@
 
 {{-- Web site Title --}}
 @section('title')
-Ordenes descuento
+Ordenes con Descuento
 @parent
 @stop
 
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1>Ordenes</h1>
+    <h1>Ordenes con Descuentos</h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}">
@@ -17,7 +17,7 @@ Ordenes descuento
                Inicio
             </a>
         </li>
-        <li><a href="#"> Ordenes</a></li>
+        <li><a href="#"> Ordenes con Descuentos</a></li>
         <li class="active">Index</li>
     </ol>
 </section>

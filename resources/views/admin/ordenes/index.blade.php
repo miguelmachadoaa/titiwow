@@ -2,14 +2,14 @@
 
 {{-- Web site Title --}}
 @section('title')
-Ordenes
+Todas las Ordenes
 @parent
 @stop
 
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1>Ordenes</h1>
+    <h1>Todas las Ordenes</h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}">
@@ -17,7 +17,7 @@ Ordenes
                Inicio
             </a>
         </li>
-        <li><a href="#"> Ordenes</a></li>
+        <li><a href="#"> Todas las Ordenes</a></li>
         <li class="active">Index</li>
     </ol>
 </section>
