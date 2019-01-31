@@ -29,6 +29,9 @@ use App\Models\AlpCupones;
 use App\Models\AlpPreOrdenes;
 use App\Models\AlpPreDetalles;
 use App\Models\AlpOrdenesHistory;
+use App\Models\AlpEstructuraAddress;
+
+
 
 use App\Country;
 use App\State;
@@ -817,7 +820,9 @@ $payment_methods = MP::get("/v1/payment_methods");
 
           $tdocumento=AlpTDocumento::get();
 
-          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento'));
+          $estructura = AlpEstructuraAddress::where('estado_registro','=',1)->get();
+
+          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura'));
 
          }
 
@@ -1343,7 +1348,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago){
 
       $cart= \Session::get('cart');
 
-      $orden_data= \Session::get('orden');
+      $id_orden= \Session::get('orden');
 
       $total=$this->total();
 
@@ -2714,62 +2719,19 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago){
 
           $this->saveOrden($preference);
 
-
-
-          $pse_data = '{
-         "payer": {
-             "email": "'.$usuario->email.'",
-             "entity_type": "individual",
-             "identification": {
-                 "type": "CC",
-                 "number": "123456"
-             }
-         },
-         "description": "'.'Pago de orden Nro.'.$carrito.'",
-         "callback_url": "https://alpinago.com/public/orden/pse",
-         "additional_info": {
-             "ip_address": "172.17.0.1"
-         },
-         "payment_method_id": "pse",
-         "transaction_amount": '.$total.',
-         "transaction_details": {
-             "financial_institution": 1007
-         },
-         "net_amount": '.$net_amount.',
-         "taxes":[{
-                             "value": '.$impuesto.',
-                             "type": "IVA"
-                     }]
-     }';
-
-
-          $pse = MP::post("/v1/payments",$pse_data);
-
-
+          $pse = array();
 
           $payment_methods = MP::get("/v1/payment_methods");
-            //$preference=null;
-
-            ///print_r($preference);
-
-          ///$preference = array('response' => array('sandbox_init_point' => '#', ), );
-
-          /*actualizamos la data del carrito */
-
+         
           $carro=AlpCarrito::where('id', $carrito)->first();
 
-         // dd($carrito);
 
           $data_carrito = array(
             'id_user' => $user_id );
 
           $carro->update($data_carrito);
 
-         // echo $carrito;
-
-          /*actualizamos la data del carrito */
-
-            $states=State::where('config_states.country_id', '47')->get();
+          $states=State::where('config_states.country_id', '47')->get();
 
             return view('frontend.order.cupon', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'pse', 'payment_methods'));
 
