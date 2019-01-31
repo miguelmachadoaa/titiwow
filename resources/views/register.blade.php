@@ -106,6 +106,7 @@
                     </div>
                     {!! $errors->first('city_id', '<span class="help-block">:message</span>') !!}
                 </div>
+                <div class="clearfix"></div>
                 <div class="form-group">
                     <div style="padding: 0;" class="form-group  col-sm-6  col-xs-6 {{ $errors->first('id_estructura_address', 'has-error') }}">
                             <select id="id_estructura_address" name="id_estructura_address" class="form-control">
