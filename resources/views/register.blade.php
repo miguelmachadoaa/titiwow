@@ -106,55 +106,38 @@
                     </div>
                     {!! $errors->first('city_id', '<span class="help-block">:message</span>') !!}
                 </div>
-                <div style="padding: 0;" class="form-group  col-sm-6  col-xs-6 {{ $errors->first('id_estructura_address', 'has-error') }}">
-                    <div class="" >
-                        <select id="id_estructura_address" name="id_estructura_address" class="form-control">
-                            <option value="">Seleccione Dirección</option> 
-                            @foreach($estructura as $estru)
-                            <option value="{{ $estru->id }}">
-                            {{ $estru->abrevia_estructura}} - {{ $estru->nombre_estructura}} </option>
-                            @endforeach
-                        </select>
+                <div class="form-group">
+                    <div style="padding: 0;" class="form-group  col-sm-6  col-xs-6 {{ $errors->first('id_estructura_address', 'has-error') }}">
+                            <select id="id_estructura_address" name="id_estructura_address" class="form-control">
+                                @foreach($estructura as $estru)
+                                <option value="{{ $estru->id }}">
+                                {{ $estru->abrevia_estructura}} - {{ $estru->nombre_estructura}} </option>
+                                @endforeach
+                            </select>
+                        {!! $errors->first('id_estructura_address', '<span class="help-block">:message</span>') !!}
                     </div>
-                    {!! $errors->first('id_estructura_address', '<span class="help-block">:message</span>') !!}
-                </div>
-                
-                <div style="padding-right: 0;" class="form-group col-sm-6 col-xs-6  {{ $errors->first('principal_address', 'has-error') }}">
-                    <div class="input-group">
-                        <!--span class="input-group-addon azul" id="basic-addon2">Principal</span-->
-                        <input type="text" class="form-control" id="principal_address" name="principal_address" style="font-style:italic" placeholder="Ejemplo: 100" aria-describedby="basic-addon2">
+                    <div style="padding-right: 0;" class="form-group col-sm-6 col-xs-6  {{ $errors->first('principal_address', 'has-error') }}">
+                        <div class="input-group">
+                            <!--span class="input-group-addon azul" id="basic-addon2">Principal</span-->
+                            <input type="text" class="form-control" id="principal_address" name="principal_address" style="font-style:italic" placeholder="Ejemplo: 100" aria-describedby="basic-addon2">
+                        </div>
+                        {!! $errors->first('principal_address', '<span class="help-block">:message</span>') !!}
                     </div>
-                    {!! $errors->first('principal_address', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="clearfix"></div>
                 <div style="padding: 0;" class="form-group col-sm-6  col-xs-6 {{ $errors->first('secundaria_address', 'has-error') }}">
                     <div class="input-group">
-                        <!--span class="input-group-addon azul" id="basic-addon3">#</span-->
-                        <input type="text" class="form-control" id="secundaria_address" name="secundaria_address" placeholder="Ejemplo: 21" aria-describedby="basic-addon3">
+                        <input type="text" class="form-control" id="secundaria_address" name="secundaria_address" placeholder="Ejemplo: #21" aria-describedby="basic-addon3">
                     </div>
                     {!! $errors->first('secundaria_address', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div style="padding-right: 0;" class="form-group col-sm-6  col-xs-6 {{ $errors->first('edificio_address', 'has-error') }}">
                     <div class="input-group">
-                        <!--span class="input-group-addon azul" id="basic-addon4">-</span-->
-                        <input type="text" class="form-control" id="edificio_address" name="edificio_address" placeholder="Ejemplo: 14" aria-describedby="basic-addon4">
+                        <input type="text" class="form-control" id="edificio_address" name="edificio_address" placeholder="Ejemplo: -14" aria-describedby="basic-addon4">
                     </div>
                     {!! $errors->first('edificio_address', '<span class="help-block">:message</span>') !!}
                 </div>
-                <div class="clearfix"></div><!--div class="form-group">  
-                    <div class="input-group">
-                        <span class="input-group-addon" style="width:0px; padding-left:0px; padding-right:0px; border:none;"></span>
-
-                        <input type="text" id="principal_address" name="principal_address" class="form-control" value="{!! old('principal_address') !!}" placeholder="Principal">
-                        <span class="input-group-addon hidden-xs azul">#</span>
-                        <input type="text" id="secundaria_address" name="secundaria_address" class="form-control" value="{!! old('secundaria_address') !!}"  placeholder="#">
-                        <span class="input-group-addon hidden-xs azul">-</span>
-                        <input type="text" id="edificio_address" name="edificio_address" class="form-control" value="{!! old('edificio_address') !!}"  placeholder="-">
-
-                        <span class="input-group-addon" style="width:0px; padding-left:0px; padding-right:0px; border:none;"></span>
-                    </div>
-                    {!! $errors->first('principal_address', '<span class="help-block">:message</span>') !!}
-                </div-->
+                <div class="clearfix"></div>
                 <div class="form-group {{ $errors->first('detalle_address', 'has-error') }}">
                     <input type="text" class="form-control" id="detalle_address" name="detalle_address" placeholder="Apto, Puerta, Interior"
                            value="{!! old('detalle_address') !!}" >
