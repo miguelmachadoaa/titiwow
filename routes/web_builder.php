@@ -637,8 +637,18 @@ Route::post(    'order/creditcard',     [
         'uses'=>'Admin\AlpCartController@orderCreditcard'
     ]);
 
+Route::post(    'order/getpse',     [ 
+        'as'=>'order.getpse', 
+        'uses'=>'Admin\AlpCartController@getPse'
+    ]);
 
-Route::post(    'order/pse',     [ 
+Route::get(    'order/notificacion',     [ 
+        'as'=>'order.notificacion', 
+        'uses'=>'Admin\AlpCartController@notificacion'
+    ]);
+
+
+Route::get(    'order/pse',     [ 
         'as'=>'order.pse', 
         'uses'=>'Admin\AlpCartController@orderPse'
     ]);

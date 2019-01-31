@@ -377,6 +377,24 @@ div.overlay > div {
                 </div><br>
 
                 @endif
+
+                 <div data-href="#" data-id="2" class="row forma border pointer pse ">
+
+                    <div class=" col-sm-8 img-responsive" style="min-height: 1em;" class=" col-sm-8 ">
+
+                        PSE <img src="https://www.mercadopago.com/org-img/MP3/API/logos/pse.gif" >
+
+                    </div>
+
+                    <div class=" col-sm-4 " style="padding:8px;background-color:#3c763d;color:#ffffff;">
+
+                        <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
+
+                    </div>
+
+                </div><br>
+                
+
                 
 
                 <div data-type='creditcard' id="creditcard" data-id="2" class="row forma border pointer">
@@ -631,6 +649,137 @@ div.overlay > div {
 
 
 
+
+<!-- Modal Direccion -->
+ <div class="modal fade" id="modalPse" role="dialog" aria-labelledby="modalLabeldanger">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="modalLabeldanger">Aplicar Cupon</h4>
+            </div>
+            <div class="modal-body">
+
+                <form method="POST" action="{{secure_url('cart/storedir')}}" id="addPseForm" name="addPseForm" class="form-horizontal">
+
+                    <h3>Ingrese los siguientes datos para procesar su compra.</h3>
+
+                    <div class="row">
+
+                        <div class="form-group clearfix">
+
+                            <label class="col-md-3 control-label" for="nombre_producto">Nombre</label>
+
+                            <div class="col-sm-8">
+
+                                <input style="margin: 4px 0;" id="nombre_pse " name="nombre_pse " type="text" placeholder="Nombre Cliente" class="form-control">
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group clearfix">
+
+                            <label class="col-md-3 control-label" for="nombre_producto">Tipo de Documento</label>
+
+                            <div class="col-sm-8">
+
+                                 <select class="form-control required" title="Selecciona Tipo de Documento..." name="id_type_doc_pse" id="id_type_doc_pse">
+
+                                    <option value="">Selecciona el Tipo de Documento *</option>
+                                    @foreach($tdocumento as $tdocument)
+                                        <option value="{{ $tdocument->abrev_tipo_documento }}">{{ $tdocument->nombre_tipo_documento }} - {{ $tdocument->abrev_tipo_documento }}</option>
+
+                                    @endforeach
+
+                                 </select>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group clearfix">
+
+                            <label class="col-md-3 control-label" for="nombre_producto">Documento </label>
+
+                            <div class="col-sm-8">
+
+                                <input id="doc_cliente_pse" name="doc_cliente_pse" type="text"
+                                               placeholder="Número de Documento" class="form-control required"
+                                               "/>
+
+                                       
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="form-group clearfix">
+
+                            <label class="col-md-3 control-label" for="nombre_producto">Email</label>
+
+                            <div class="col-sm-8">
+
+                                <input style="margin: 4px 0;" id="email_pse" name="email_pse" type="text" placeholder="Email" class="form-control">
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group clearfix">
+
+                            <label class="col-md-3 control-label" for="nombre_producto">Entidad Financiera</label>
+
+                            <div class="col-sm-8">
+
+                                <select class="form-control required" title="Entidad Financiera." name="id_fi_pse" id="id_fi_pse">
+
+                                    
+
+                                    <option value="">Selecciona Entidad Financiera *</option>
+                                    @foreach($payment_methods['response'] as $pm)
+
+                                        @if($pm['id']=='pse')
+
+                                            @foreach($pm['financial_institutions'] as $fi)
+
+                                                <option value="{{ $fi['id'] }}">{{ $fi['description'] }}</option>
+
+                                            @endforeach
+
+                                        @endif
+
+
+                                    @endforeach
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+                    <div class="row resPse" ></div>
+                
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn  btn-primary sendPse" >Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Direccion -->
+
+
+
+
 <!-- Modal Direccion -->
  <div class="modal fade" id="modalCupones" role="dialog" aria-labelledby="modalLabeldanger">
             <div class="modal-dialog modal-lg" role="document">
@@ -870,6 +1019,110 @@ $('.sendCupon').click(function () {
 
 
 
+   $(document).on('click', '.pse', function (){
+
+            //llenamos los campos necesarios para procesar 
+
+            id_direccion= $("#id_direccion").val(); 
+            
+            id_forma_envio=$("input[name='id_forma_envio']:checked").val(); 
+            
+            id_forma_pago=$(this).data('id');
+
+
+            $('#modalPse').modal('show');
+
+       });
+
+
+
+
+  $('.sendPse').click(function () {
+    
+    var $validator = $('#addPseForm').data('bootstrapValidator').validate();
+
+    if ($validator.isValid()) {
+
+        nombre=$("#nombre_pse").val();
+
+        id_type_doc=$("#id_type_doc_pse").val();
+
+        doc_cliente=$("#doc_cliente_pse").val();
+
+        email=$("#email_pse").val();
+
+        id_fi=$("#id_fi_pse").val();
+
+       // alert(nombre+' '+id_type_doc+' '+doc_cliente+' '+email+' '+id_fi);
+
+        /*********************************************/ 
+
+        id_direccion= $("#id_direccion").val(); 
+            
+        id_forma_envio=$("input[name='id_forma_envio']:checked").val(); 
+            
+        id_forma_pago='2';
+
+        var base = $('#base').val();
+
+
+         $.ajax({
+            type: "POST",
+
+            data:{id_forma_envio, id_direccion, id_forma_pago},
+
+            url: base+"/cart/verificarDireccion",
+                
+            complete: function(datos){     
+
+               if(datos.responseText=='true'){
+
+                    //$('#procesarForm').submit();
+
+                    $.ajax({
+                        type: "POST",
+                        data:{nombre, id_type_doc, doc_cliente, email, id_fi},
+
+                        url: base+"/order/getpse",
+                            
+                        complete: function(datos){  
+
+                           if(datos.responseText.substr(0, 5)=='https'){
+
+                            //alert(datos.responseText);
+
+                              $(location).attr("href", datos.responseText);
+
+                           }else{
+
+                            $('.res_env').html('<div class="alert alert-danger" role="alert">Ha ocurrido un error, intente nuevamente.</div>');
+
+                           }
+                                                    
+                        }
+
+                    });
+
+                }else{
+
+                    $('.res_env').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+
+                }
+            
+            }
+        });
+
+        
+        //document.getElementById("addDireccionForm").submit();
+    }
+
+});
+
+
+
+
+
+
 
         /*Funciones para cipones */
 
@@ -915,7 +1168,7 @@ $('.sendCupon').click(function () {
 
                         $.ajax({
                             type: "POST",
-                            data:{id_forma_envio, id_direccion},
+                            data:{id_forma_envio, id_direccion, id_forma_pago},
 
                             url: base+"/cart/verificarDireccion",
                                 
@@ -969,7 +1222,7 @@ $('.sendCupon').click(function () {
 
                     $.ajax({
                         type: "POST",
-                        data:{id_forma_envio, id_direccion},
+                        data:{id_forma_envio, id_direccion, id_forma_pago},
                         url: base+"/cart/verificarDireccion",
                         
                         complete: function(datos){     
@@ -1143,6 +1396,61 @@ $("#addCuponForm").bootstrapValidator({
         }
     }
 });
+        
+
+        
+
+
+$("#addPseForm").bootstrapValidator({
+    fields: {
+        nombre_pse: {
+            validators: {
+                notEmpty: {
+                    message: 'Nombre es Requerido'
+                }
+            },
+            required: true,
+            minlength: 3
+        },
+        id_type_doc_pse: {
+            validators:{
+                notEmpty:{
+                    message: 'Debe seleccionar un tipo de Documento'
+                }
+            }
+        },
+        doc_cliente_pse: {
+            validators: {
+                notEmpty: {
+                    message: 'Numero de Documento  es Requerido'
+                    
+                }
+            },
+            required: true,
+            minlength: 3
+        },
+        
+        email_pse: {
+            validators: {
+                notEmpty: {
+                    message: 'Email no puede esta vacio'
+                },
+                emailAddress: {
+                        message: 'No es un email valido'
+                }
+            },
+        },
+
+        id_fi_pse: {
+            validators:{
+                notEmpty:{
+                    message: 'Debe seleccionar una Institucion Financiera'
+                }
+            }
+        }
+    }
+});
+
         
         
 
