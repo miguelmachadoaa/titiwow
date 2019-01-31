@@ -93,6 +93,13 @@ Mis Compras
                         <td>    
                                
 
+                                   @if($row->json==null)
+
+                                <a  class="btn  btn-xs btn-info" href="{{ secure_url('clientes/pagar/'.$row->id) }}">Pagar Orden</a>
+
+
+                                @endif 
+
                                   <button class="btn btn-info btn-xs seeDetalle" data-url="{{ secure_url('clientes/'.$row->id.'/detalle') }}" data-id="{{ $row->id }}" href="{{ secure_url('clientes/'.$row->id.'/detalle') }}">
                                     <i class="livicon "  data-name="eye" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Ver Detalle"></i>
                                  </button>

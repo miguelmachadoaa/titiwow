@@ -8,6 +8,8 @@ use App\Models\AlpProductos;
 use App\Models\AlpClientes;
 use App\Models\AlpEmpresas;
 use App\Models\AlpDirecciones;
+use App\Models\AlpCarrito;
+use App\Models\AlpDetalles;
 use App\Models\AlpAmigos;
 use App\Models\AlpPuntos;
 use App\Models\AlpConfiguracion;
@@ -631,11 +633,13 @@ class ClientesFrontController extends Controller
             $user_id = Sentinel::getUser()->id;
 
     
-            $compras =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre')
+            $compras =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_ordenes_pagos.json as json')
             ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
             ->join('alp_formas_envios','alp_ordenes.id_forma_envio' , '=', 'alp_formas_envios.id')
             ->join('alp_formas_pagos','alp_ordenes.id_forma_pago' , '=', 'alp_formas_pagos.id')
             ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
+            ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
+             ->groupBy('alp_ordenes.id')
             ->where('alp_ordenes.id_cliente', $user_id)->get();
 
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
@@ -658,6 +662,69 @@ class ClientesFrontController extends Controller
         }
 
        
+    }
+
+
+     public function pagar( $orden)
+    {
+
+
+
+
+        $cart= \Session::forget('cart');
+
+        $cart= array();
+
+       $carrito= \Session::forget('cr');
+
+
+       if (!\Session::has('cr')) {
+
+          \Session::put('cr', '0');
+
+          $ciudad= \Session::get('ciudad');
+
+          $data = array(
+            'referencia' => time(), 
+            'id_city' => $ciudad, 
+            'id_user' => '0'
+          );
+
+          $carr=AlpCarrito::create($data);
+
+          \Session::put('cr', $carr->id);
+       
+        }
+
+
+
+
+        $detalles=AlpDetalles::where('id_orden', $orden)->get();
+
+        foreach ($detalles as $det) {
+
+
+            $producto=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
+          ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
+          ->where('alp_productos.id', $det->id_producto)
+          ->first();
+
+          $producto->cantidad=$det->cantidad;
+
+          if (isset($producto->id)) {
+
+            $cart[$producto->slug]=$producto;
+
+          }
+
+        }
+
+         \Session::put('cart', $cart);
+
+         \Session::put('orden', $orden);
+
+          return redirect('order/detail');
+
     }
 
     /*muestra el detalle de una compra*/

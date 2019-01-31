@@ -74,6 +74,7 @@ class AlpOrdenesController extends JoshController
           ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
           ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
           ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+           ->groupBy('alp_ordenes.id')
           ->get();
 
         //  dd($ordenes);

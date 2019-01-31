@@ -203,6 +203,9 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
         Route::get('{id}/direcciones', 'Admin\AlpClientesController@direcciones')->name('clientes.direcciones');
 
+
+
+
         Route::get('/empresas/list', 'Admin\AlpClientesController@empresas')->name('clientes.empresas');
 
         Route::get('/inactivos', 'Admin\AlpClientesController@inactivos')->name('clientes.inactivos');
@@ -764,6 +767,9 @@ Route::post('storeamigo', 'Frontend\ClientesFrontController@storeamigo')->name('
 
 
 Route::post('delamigo', 'Frontend\ClientesFrontController@delamigo')->name('frontend.clientes.delamigo');
+
+
+        Route::get('clientes/pagar/{orden}',['as'=>'clientes.pagar', 'uses'=>'Frontend\ClientesFrontController@pagar']);
 
 Route::post('clientes/deleteamigo', 'Frontend\ClientesFrontController@deleteamigo')->name('frontend.clientes.deleteamigo');
 
