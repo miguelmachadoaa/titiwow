@@ -1336,6 +1336,7 @@ $('.sendCupon').click(function () {
 
                 $.ajax({
                     type: "POST",
+                    
                     data:{id_forma_envio, id_direccion, id_forma_pago},
 
                     url: base+"/cart/verificarDireccion",
