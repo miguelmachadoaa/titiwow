@@ -49,6 +49,7 @@ class AlpOrdenesController extends JoshController
           ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
           ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
           ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+          ->groupBy('alp_ordenes.id')
           ->get();
 
         //  dd($ordenes);
@@ -120,6 +121,7 @@ echo '<br>fin: '.$date_fin;*/
           ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
           ->where('alp_ordenes.created_at', '>=', $date_inicio)
           ->where('alp_ordenes.created_at', '<=', $date_fin)
+
           ->get();
        
         // Show the page
@@ -143,6 +145,7 @@ echo '<br>fin: '.$date_fin;*/
           ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
           ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
           ->where('alp_ordenes.estatus', '8')
+          ->groupBy('alp_ordenes.id')
           ->get();
        
         // Show the page
@@ -166,6 +169,7 @@ echo '<br>fin: '.$date_fin;*/
           ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
           ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
           ->where('alp_ordenes.estatus', '5')
+          ->groupBy('alp_ordenes.id')
           ->get();
        
         // Show the page
@@ -189,6 +193,7 @@ echo '<br>fin: '.$date_fin;*/
           ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
           ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
           ->where('alp_ordenes.estatus', '1')
+          ->groupBy('alp_ordenes.id')
           ->get();
        
         // Show the page
@@ -212,6 +217,7 @@ echo '<br>fin: '.$date_fin;*/
           ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
           ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
           ->where('alp_ordenes.estatus', '6')
+          ->groupBy('alp_ordenes.id')
           ->get();
        
         // Show the page
@@ -235,6 +241,7 @@ echo '<br>fin: '.$date_fin;*/
           ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
           ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
           ->where('alp_ordenes.estatus', '7')
+          ->groupBy('alp_ordenes.id')
           ->get();
        
         // Show the page
@@ -258,6 +265,7 @@ echo '<br>fin: '.$date_fin;*/
           ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
           ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
           ->where('alp_ordenes.estatus', '4')
+          ->groupBy('alp_ordenes.id')
           ->get();
        
         // Show the page
@@ -285,6 +293,7 @@ echo '<br>fin: '.$date_fin;*/
            ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
           
           ->Join('alp_empresas', 'alp_clientes.id_empresa', '=', 'alp_empresas.id')
+          ->groupBy('alp_ordenes.id')
           ->get();
        
         // Show the page

@@ -28,6 +28,8 @@ use App\Models\AlpCarritoDetalle;
 use App\Models\AlpCupones;
 use App\Models\AlpPreOrdenes;
 use App\Models\AlpPreDetalles;
+use App\Models\AlpOrdenesHistory;
+
 use App\Country;
 use App\State;
 use App\City;
@@ -355,6 +357,12 @@ $payment_methods = MP::get("/v1/payment_methods");
 
         if (isset($pago->id)) {
 
+
+          $orden=AlpOrdenes::where('id', $pago->id_orden)->first();
+
+
+           
+
           try {
 
             $pse = MP::get("/v1/payments/".$input['data_id']);
@@ -363,6 +371,87 @@ $payment_methods = MP::get("/v1/payment_methods");
 
             $pse = $input;
             
+          }
+
+
+
+
+       
+
+
+
+          if (  isset($pse['response']['status'])) {
+
+              if ( $pse['response']['status']=='rejected' or $pse['response']['status']=='cancelled' ) 
+              {
+
+                 
+                    $data_update = array(
+                      'estatus' =>4, 
+                      'estatus_pago' =>3,
+                       );
+
+                     $orden->update($data_update);
+
+                      $data_history = array(
+                          'id_orden' => $orden->id, 
+                         'id_status' => '4', 
+                          'notas' => 'Notificacion Mercadopago', 
+                         'id_user' => 1
+                      );
+
+                        $history=AlpOrdenesHistory::create($data_history);
+               
+              }
+
+              if ( $pse['response']['status']=='approved' ) 
+              {
+
+                 
+                    $data_update = array(
+                      'estatus' =>1, 
+                      'estatus_pago' =>2,
+                       );
+
+                     $orden->update($data_update);
+
+                     $data_history = array(
+                          'id_orden' => $orden->id, 
+                         'id_status' => '1', 
+                          'notas' => 'Notificacion Mercadopago', 
+                         'id_user' => 1
+                      );
+
+                        $history=AlpOrdenesHistory::create($data_history);
+
+               
+              }
+
+              if ( $pse['response']['status']=='in_process' || $pse['response']['status']=='pending' ) 
+              {
+
+                 
+                    $data_update = array(
+                      'estatus' =>8, 
+                      'estatus_pago' =>4,
+                       );
+
+                     $orden->update($data_update);
+
+                      $data_history = array(
+                          'id_orden' => $orden->id, 
+                         'id_status' => '8', 
+                          'notas' => 'Notificacion Mercadopago', 
+                         'id_user' => 1
+                      );
+
+                        $history=AlpOrdenesHistory::create($data_history);
+
+
+
+               
+              }
+
           }
 
          // $pse = MP::get("/v1/payments/".$input['data_id']);
@@ -1216,6 +1305,16 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago){
         );
 
          AlpPagos::create($data_pago);
+
+
+         $data_history = array(
+                        'id_orden' => $orden->id, 
+                       'id_status' => $estatus_orden, 
+                        'notas' => 'Orden procesada', 
+                       'id_user' => 1
+                    );
+
+        $history=AlpOrdenesHistory::create($data_history);
 
 
          //se limpian las sessiones
@@ -2453,6 +2552,16 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago){
              );
 
            $orden->update($data_update);
+
+
+            $data_history = array(
+                          'id_orden' => $orden->id, 
+                         'id_status' => '8', 
+                          'notas' => 'Orden Creada', 
+                         'id_user' => 1
+                      );
+
+                        $history=AlpOrdenesHistory::create($data_history);
 
 
 
