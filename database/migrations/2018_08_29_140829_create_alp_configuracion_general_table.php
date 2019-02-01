@@ -30,7 +30,12 @@ class CreateAlpConfiguracionGeneralTable extends Migration
             $table->string('correo_cedi')->nullable();
             $table->string('correo_logistica')->nullable();
             $table->string('correo_finanzas')->nullable();
-
+            $table->string('seo_title')->nullable();
+            $table->string('seo_type')->nullable();
+            $table->string('seo_url')->nullable();
+            $table->string('seo_image')->nullable();
+            $table->string('seo_site_name')->nullable();
+            $table->string('seo_description')->nullable();
             $table->integer('estado_registro')->default(1);
             $table->integer('id_user');
             $table->timestamps();

@@ -166,7 +166,7 @@ class AlpProductosController extends JoshController
             $file = $request->file('image');
             $extension = $file->extension()?: 'jpg';
             $picture = str_random(10) . '.' . $extension;    
-            $destinationPath = base_path('public/uploads/productos/' . $picture);
+            $destinationPath = public_path('uploads/productos/' . $picture);
             Image::make($file)->resize(600, 600)->save($destinationPath);            
             $imagen = $picture;
 
@@ -595,7 +595,7 @@ class AlpProductosController extends JoshController
           $file = $request->file('image');
           $extension = $file->extension()?: 'jpg';
           $picture = str_random(10) . '.' . $extension;    
-          $destinationPath = base_path('public/uploads/productos/' . $picture);
+          $destinationPath = public_path('uploads/productos/' . $picture);
           Image::make($file)->resize(600, 600)->save($destinationPath);            
           $imagen = $picture;
 
