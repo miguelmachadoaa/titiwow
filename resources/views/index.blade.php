@@ -5,8 +5,13 @@
 Inicio @parent
 @stop
 @section('meta_tags')
-<meta property="og:title" content="Inicio | Alpina Go!">
-<meta property="og:description" content="Bienvenidos a Alpina Go!">
+<link rel="canonical" href="{{$configuracion->seo_url}}" />
+<meta property="og:title" content="{{ $configuracion->seo_title}} | Alpina Go!">
+<meta property="og:type" content="{{$configuracion->seo_type}}" />
+<meta property="og:image" content="{{$configuracion->seo_image}}" />
+<meta property="og:site_name" content="{{$configuracion->seo_site_name}}" />
+<meta property="og:url" content="{{$configuracion->seo_url}}" />
+<meta property="og:description" content="{{$configuracion->seo_description}}">
 <meta property="og:robots" content="index, follow">
 <meta property="og:revisit-after" content="3 days">
 @endsection

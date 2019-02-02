@@ -194,6 +194,89 @@ Editar Configuracion
                                
                             </div>
 
+                            <br />
+                                <h4>Seo Principal</h4>
+                                <hr>
+
+                                <div class="form-group {{ $errors->first('seo_title', 'has-error') }}">
+                                    <label for="seo_title" class="col-sm-2 control-label">
+                                        SEO Title
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="seo_title" name="seo_title" class="form-control" placeholder="SEO Title"
+                                            value="{!! old('seo_title', $configuracion->seo_title) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('seo_title', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group {{ $errors->first('seo_type', 'has-error') }}">
+                                    <label for="seo_type" class="col-sm-2 control-label">
+                                        SEO Type
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="seo_type" name="seo_type" class="form-control" placeholder="SEO Type"
+                                            value="{!! old('seo_type', $configuracion->seo_type) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('seo_type', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+                                <div class="form-group {{ $errors->first('seo_url', 'has-error') }}">
+                                    <label for="seo_url" class="col-sm-2 control-label">
+                                        SEO URL
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="seo_url" name="seo_url" class="form-control" placeholder="SEO URL"
+                                            value="{!! old('seo_url', $configuracion->seo_url) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('seo_url', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+                                <div class="form-group {{ $errors->first('seo_image', 'has-error') }}">
+                                    <label for="seo_image" class="col-sm-2 control-label">
+                                        SEO Image
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="seo_image" name="seo_image" class="form-control" placeholder="SEO Image"
+                                            value="{!! old('seo_image', $configuracion->seo_image) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('seo_image', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+                                <div class="form-group {{ $errors->first('seo_site_name', 'has-error') }}">
+                                    <label for="seo_site_name" class="col-sm-2 control-label">
+                                        SEO Title
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="seo_site_name" name="seo_site_name" class="form-control" placeholder="SEO Site Name"
+                                            value="{!! old('seo_site_name', $configuracion->seo_site_name) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('seo_site_name', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+                                <div class="form-group {{ $errors->first('seo_description', 'has-error') }}">
+                                    <label for="seo_description" class="col-sm-2 control-label">
+                                        SEO Description
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="seo_description" name="seo_description" class="form-control" placeholder="SEO Description"
+                                            value="{!! old('seo_description', $configuracion->seo_description) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('seo_description', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
                             <fieldset>
                                 
                                 <legend>Correos para notificacion</legend>

@@ -68,7 +68,7 @@ class AlpMarcasController extends JoshController
             $file = $request->file('image');
             $extension = $file->extension()?: 'png';
             $picture = str_random(10) . '.' . $extension;    
-            $destinationPath = base_path('public/uploads/marcas/' . $picture);
+            $destinationPath = public_path('uploads/marcas/' . $picture);    
             Image::make($file)->resize(600, 600)->save($destinationPath);            
             $imagen = $picture;
 
@@ -129,7 +129,7 @@ class AlpMarcasController extends JoshController
         $file = $request->file('image');
         $extension = $file->extension()?: 'png';
         $picture = str_random(10) . '.' . $extension;    
-        $destinationPath = base_path('public/uploads/marcas/' . $picture);
+        $destinationPath = public_path('uploads/marcas/' . $picture);    
         Image::make($file)->resize(600, 600)->save($destinationPath);            
         $imagen = $picture;
 

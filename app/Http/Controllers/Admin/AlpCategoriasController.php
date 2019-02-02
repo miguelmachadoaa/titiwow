@@ -66,8 +66,8 @@ class AlpCategoriasController extends JoshController
 
             $file = $request->file('image');
             $extension = $file->extension()?: 'png';
-            $picture = str_random(10) . '.' . $extension;    
-            $destinationPath = base_path('public/uploads/categorias/' . $picture);
+            $picture = str_random(10) . '.' . $extension;
+            $destinationPath = public_path('uploads/categorias/' . $picture);    
             Image::make($file)->resize(800, 800)->save($destinationPath);            
             $imagen = $picture;
 
@@ -136,7 +136,7 @@ class AlpCategoriasController extends JoshController
             $file = $request->file('image');
             $extension = $file->extension()?: 'png';
             $picture = str_random(10) . '.' . $extension;    
-            $destinationPath = base_path('public/uploads/categorias/' . $picture);
+            $destinationPath = public_path('uploads/categorias/' . $picture);    
             Image::make($file)->resize(800, 800)->save($destinationPath);            
             $imagen = $picture;
 
@@ -278,7 +278,7 @@ class AlpCategoriasController extends JoshController
             $file = $request->file('image');
             $extension = $file->extension()?: 'png';
             $picture = str_random(10) . '.' . $extension;    
-            $destinationPath = base_path('public/uploads/categorias/' . $picture);
+            $destinationPath = public_path('uploads/categorias/' . $picture);    
             Image::make($file)->resize(800, 800)->save($destinationPath);            
             $imagen = $picture;
 
@@ -341,7 +341,7 @@ class AlpCategoriasController extends JoshController
             $file = $request->file('image');
             $extension = $file->extension()?: 'png';
             $picture = str_random(10) . '.' . $extension;    
-            $destinationPath = base_path('public/uploads/categorias/' . $picture);
+            $destinationPath = public_path('uploads/categorias/' . $picture);    
             Image::make($file)->resize(800, 800)->save($destinationPath);            
             $imagen = $picture;
 
