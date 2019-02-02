@@ -109,7 +109,7 @@ Editar Configuracion
 
                             <div class="form-group {{ $errors->first('public_key_mercadopago', 'has-error') }}">
                                 <label for="title" class="col-sm-2 control-label">
-                                    Public Key Mercadopago
+                                    Public Key Mercadopago Produccion
                                 </label>
                                 <div class="col-sm-5">
                                     <input type="text" id="public_key_mercadopago" name="public_key_mercadopago" class="form-control" placeholder="Key Mercadopago"
@@ -117,6 +117,19 @@ Editar Configuracion
                                 </div>
                                 <div class="col-sm-4">
                                     {!! $errors->first('public_key_mercadopago', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+
+                            <div class="form-group {{ $errors->first('public_key_mercadopago_test', 'has-error') }}">
+                                <label for="title" class="col-sm-2 control-label">
+                                    Public Key Mercadopago Test
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="public_key_mercadopago_test" name="public_key_mercadopago_test" class="form-control" placeholder="Key Mercadopago"
+                                        value="{!! old('public_key_mercadopago_test', $configuracion->public_key_mercadopago_test) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('public_key_mercadopago_test', '<span class="help-block">:message</span> ') !!}
                                 </div>
                             </div>
 

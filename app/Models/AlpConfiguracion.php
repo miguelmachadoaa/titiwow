@@ -24,6 +24,7 @@ class AlpConfiguracion extends Model
         'id_mercadopago',
         'key_mercadopago',
         'public_key_mercadopago',
+        'public_key_mercadopago_test',
         'mercadopago_sand',
         'minimo_compra',
         'registro_publico',

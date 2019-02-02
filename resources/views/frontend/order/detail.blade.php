@@ -413,9 +413,31 @@ div.overlay > div {
 
                     <div class="col-sm-4 col-xs-12" style="background-color:#3c763d;color:#ffffff;">
 
-                       <form action="{{ secure_url('/order/creditcard') }}" method="POST">
+                        @if($configuracion->mercadopago_sand=='1')
+
+                        <form action="{{ secure_url('/order/creditcard') }}" method="POST">
                           <script
                             src="https://www.mercadopago.com.co/integrations/v1/web-tokenize-checkout.js"
+
+                            data-public-key="{{ $configuracion->public_key_mercadopago_test }}"
+                            data-button-label="Pagar"
+                            data-transaction-amount="{{ $total }}"
+                          
+                            data-summary-product="{{ $total }}"
+                            data-summary-taxes="{{ $impuesto }}"
+                            >
+                          </script>
+                        </form>
+
+
+                        @endif
+
+                        @if($configuracion->mercadopago_sand=='2')
+
+                         <form action="{{ secure_url('/order/creditcard') }}" method="POST">
+                          <script
+                            src="https://www.mercadopago.com.co/integrations/v1/web-tokenize-checkout.js"
+
                             data-public-key="{{ $configuracion->public_key_mercadopago }}"
                             data-button-label="Pagar"
                             data-transaction-amount="{{ $total }}"
@@ -425,6 +447,11 @@ div.overlay > div {
                             >
                           </script>
                         </form>
+
+                        @endif
+
+
+                      
 
                     </div>
 
@@ -498,7 +525,7 @@ div.overlay > div {
 
                         <div class="hidden-xs col-sm-2 ">
 
-                           <a href="{{ route('producto', [$car->slug]) }}"> <img width="3em" src="{{ secure_url('/').'/uploads/productos/'.$car->imagen_producto }}"></a>
+                           <a href="{{ route('producto', [$car->slug]) }}"> <img width="50em" src="{{ secure_url('/').'/uploads/productos/'.$car->imagen_producto }}"></a>
 
                         </div>
 

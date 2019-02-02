@@ -205,6 +205,18 @@ $payment_methods = MP::get("/v1/payment_methods");
 
         $mp = new MP();
 
+        if ($configuracion->mercadopago_sand=='1') {
+          
+          $mp::sandbox_mode(TRUE);
+
+        }
+
+        if ($configuracion->mercadopago_sand=='2') {
+          
+          $mp::sandbox_mode(FALSE);
+
+        }
+
         MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
         $net_amount=$total-$impuesto;
@@ -270,6 +282,18 @@ $payment_methods = MP::get("/v1/payment_methods");
         $configuracion = AlpConfiguracion::where('id', '1')->first();
 
             $mp = new MP();
+
+            if ($configuracion->mercadopago_sand=='1') {
+          
+          $mp::sandbox_mode(TRUE);
+
+        }
+
+        if ($configuracion->mercadopago_sand=='2') {
+          
+          $mp::sandbox_mode(FALSE);
+
+        }
 
             MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
@@ -349,6 +373,17 @@ $payment_methods = MP::get("/v1/payment_methods");
       $configuracion = AlpConfiguracion::where('id', '1')->first();
 
         $mp = new MP();
+        if ($configuracion->mercadopago_sand=='1') {
+          
+          $mp::sandbox_mode(TRUE);
+
+        }
+
+        if ($configuracion->mercadopago_sand=='2') {
+          
+          $mp::sandbox_mode(FALSE);
+
+        }
 
         MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
@@ -757,6 +792,18 @@ $payment_methods = MP::get("/v1/payment_methods");
 
            $mp = new MP();
 
+           if ($configuracion->mercadopago_sand=='1') {
+          
+          $mp::sandbox_mode(TRUE);
+
+        }
+
+        if ($configuracion->mercadopago_sand=='2') {
+          
+          $mp::sandbox_mode(FALSE);
+
+        }
+
             MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
           $preference = MP::post("/checkout/preferences",$preference_data);
@@ -934,6 +981,18 @@ $payment_methods = MP::get("/v1/payment_methods");
             ];
 
            $mp = new MP();
+
+           if ($configuracion->mercadopago_sand=='1') {
+          
+          $mp::sandbox_mode(TRUE);
+
+        }
+
+        if ($configuracion->mercadopago_sand=='2') {
+          
+          $mp::sandbox_mode(FALSE);
+
+        }
 
             MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
@@ -2712,6 +2771,18 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago){
             ];
 
            $mp = new MP();
+
+           if ($configuracion->mercadopago_sand=='1') {
+          
+          $mp::sandbox_mode(TRUE);
+
+        }
+
+        if ($configuracion->mercadopago_sand=='2') {
+          
+          $mp::sandbox_mode(FALSE);
+
+        }
 
             MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
