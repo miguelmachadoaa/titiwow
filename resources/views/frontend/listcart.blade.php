@@ -6,7 +6,7 @@
 
         @if(count($cart))
 
-            <div class="row">
+            <div class="row" style="    padding: 1em;">
 
 
 
@@ -14,11 +14,11 @@
                     <hr>
                     <div class="row" style="text-align: left;">
                         
-                        <div class="col-sm-2 col-xs-2">
+                        <div class="col-sm-2 col-xs-4">
                             <a target="_blank"  href="{{ route('producto', [$row->slug]) }}" ><img style="padding: 5px 0px; height: 8em;"  src="../uploads/productos/{{$row->imagen_producto}}"></a>
                         </div>
 
-                        <div class="col-sm-6 col-xs-6">
+                        <div class="col-sm-6 col-xs-8">
                             <div class="col-xs-12"><a target="_blank"  href="{{ route('producto', [$row->slug]) }}" >{{$row->nombre_producto}}</a></div>    
                             <div class="col-xs-12">Precio: {{ number_format($row->precio_oferta, 0,",",".") }}</div>    
                             <div class="col-xs-12">Subtotal:{{ number_format($row->cantidad*$row->precio_oferta, 0,",",".") }}</div>    
@@ -28,7 +28,7 @@
                            
                         </div>
 
-                        <div class="col-sm-2 col-xs-2">
+                        <div class="col-sm-2 col-xs-9">
 
 
                                <div class="input-group">
@@ -52,7 +52,7 @@
                             
                         </div>
 
-                        <div class="col-sm-2 col-xs-2">
+                        <div class="col-sm-2 col-xs-3">
                             <a class="btn btn-danger btn-xs" href="{{secure_url('cart/delete', [$row->slug])}}">Borrar</a>
                         </div>
 
