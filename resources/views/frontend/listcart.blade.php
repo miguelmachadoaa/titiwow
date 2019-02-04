@@ -19,9 +19,9 @@
                         </div>
 
                         <div class="col-sm-6 col-xs-8">
-                            <div class="col-xs-12"><a target="_blank"  href="{{ route('producto', [$row->slug]) }}" >{{$row->nombre_producto}}</a></div>    
-                            <div class="col-xs-12">Precio: {{ number_format($row->precio_oferta, 0,",",".") }}</div>    
-                            <div class="col-xs-12">Subtotal:{{ number_format($row->cantidad*$row->precio_oferta, 0,",",".") }}</div>    
+                            <div class="col-xs-12" style="margin-bottom:5px;"><h4><a target="_blank"  href="{{ route('producto', [$row->slug]) }}" >{{$row->nombre_producto}}</a></h4></div>    
+                            <div class="col-xs-12" style="margin-bottom:10px;"><b style="color: #143473;">Precio:</b> {{ number_format($row->precio_oferta, 0,",",".") }}</div>    
+                            <div class="col-xs-12" style="margin-bottom:10px;"><b style="color: #143473;">Subtotal:</b> {{ number_format($row->cantidad*$row->precio_oferta, 0,",",".") }}</div>    
                            
                            
                             
