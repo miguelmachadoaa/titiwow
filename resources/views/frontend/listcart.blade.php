@@ -14,38 +14,49 @@
                     <hr>
                     <div class="row" style="text-align: left;">
                         
-                        <div class="col-sm-2 col-xs-3">
+                        <div class="col-sm-2 col-xs-2">
                             <a target="_blank"  href="{{ route('producto', [$row->slug]) }}" ><img style="padding: 5px 0px; height: 8em;"  src="../uploads/productos/{{$row->imagen_producto}}"></a>
                         </div>
 
-                        <div class="col-sm-10 col-xs-9">
+                        <div class="col-sm-6 col-xs-6">
                             <div class="col-xs-12"><a target="_blank"  href="{{ route('producto', [$row->slug]) }}" >{{$row->nombre_producto}}</a></div>    
                             <div class="col-xs-12">Precio: {{ number_format($row->precio_oferta, 0,",",".") }}</div>    
                             <div class="col-xs-12">Subtotal:{{ number_format($row->cantidad*$row->precio_oferta, 0,",",".") }}</div>    
-                            <div class="col-xs-8">
-                                Cantidad: <input 
-                                    style="text-align: center;" 
-                                    class="cantidad" 
-                                    type="number" 
-                                    data-id="{{$row->id}}" 
-                                    data-slug="{{$row->slug}}" 
-                                    data-url="{{secure_url('cart/updatecart')}}" 
-                                    data-href="{{secure_url('cart/update', [$row->slug])}}"
-                                    name="producto_{{$row->id}}"
-                                    id="producto_{{$row->id}}"
-                                    min="1"
-                                    max="100"
-                                    value="{{ $row->cantidad }}" 
-                                    >
-                            </div>
-                            <div class="col-xs-4"><a class="btn btn-danger btn-xs" href="{{secure_url('cart/delete', [$row->slug])}}">Borrar</a></div>
+                           
+                           
                             
                            
                         </div>
 
-                        <div class="col-sm-2 col-xs-3">
+                        <div class="col-sm-2 col-xs-2">
+
+
+                               <div class="input-group">
+                              <span class="input-group-btn">
+                                
+                                <button data-slug="{{ $row->slug }}" data-tipo='resta' data-id="{{ $row->id }}" class="btn btn-danger updatecartdetalle" type="button"><i class="fa fa-minus"></i></button>
+
+                              </span>
+
+                              <input id="cantidad_{{ $row->id }}" name="cantidad_{{ $row->id }}" type="number" step="1" readonly class="form-control" value="{{ $row->cantidad }}" placeholder="">
+
+
+                              <span class="input-group-btn">
+
+                                <button data-slug="{{ $row->slug }}" data-tipo='suma' data-id="{{ $row->id }}" class="btn btn-success updatecartdetalle" type="button"><i class="fa fa-plus"></i></button>
+
+
+                              </span>
+
+                            </div><!-- /input-group -->
                             
                         </div>
+
+                        <div class="col-sm-2 col-xs-2">
+                            <a class="btn btn-danger btn-xs" href="{{secure_url('cart/delete', [$row->slug])}}">Borrar</a>
+                        </div>
+
+
 
 
                     </div>

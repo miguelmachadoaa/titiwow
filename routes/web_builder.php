@@ -689,6 +689,8 @@ Route::post('cart/botones/',['as'=>'cart.botones', 'uses'=>'Admin\AlpCartControl
 
 Route::post('cart/updatecartbotones/',['as'=>'cart.updatecartbotones', 'uses'=>'Admin\AlpCartController@updatecartbotones']);
 
+Route::post('cart/updatecartdetalle/',['as'=>'cart.updatecartdetalle', 'uses'=>'Admin\AlpCartController@updatecartdetalle']);
+
 Route::post('cart/getcartbotones/',['as'=>'cart.getcartbotones', 'uses'=>'Admin\AlpCartController@getcartbotones']);
 
 Route::post('cart/addcupon/',['as'=>'cart.addcupon', 'uses'=>'Admin\AlpCartController@addcupon']);

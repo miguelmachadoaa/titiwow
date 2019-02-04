@@ -2013,6 +2013,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago){
 
 
 
+
+
     public function updatecart(Request $request)
     {
        $cart= \Session::get('cart');
@@ -2324,11 +2326,17 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago){
     }
 
 
-    public function updatecartbotones(Request $request)
+
+
+    public function updatecartdetalle(Request $request)
     {
        $cart= \Session::get('cart');
 
+       $total=$this->total();
 
+      $impuesto=$this->impuesto();
+
+     $configuracion=AlpConfiguracion::where('id', '1')->first();
 
        $carrito= \Session::get('cr');
 
@@ -2361,8 +2369,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago){
 
        //dd($producto->slug.' - '.$producto->id.' - '.$request->id);
 
-
-
        $detalle=AlpCarritoDetalle::where('id_carrito', $carrito)->where('id_producto', $producto->id)->first();
 
        if (isset($detalle->id)) {
@@ -2380,7 +2386,69 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago){
 
        \Session::put('cart', $cart);
 
+
+        $view= View::make('frontend.listcart', compact('producto', 'cart', 'total', 'impuesto', 'configuracion'));
+
+        $data=$view->render();
+
+        return $data;
       
+    }
+
+
+
+
+    public function updatecartbotones(Request $request)
+    {
+       $cart= \Session::get('cart');
+
+       $carrito= \Session::get('cr');
+
+       $inv=$this->inventario();
+
+       $producto=AlpProductos::where('id', $request->id)->first();
+
+       //dd(print_r($producto));
+
+       $error='0';
+
+       if ($request->cantidad>0) {
+         
+
+           if($inv[$request->id]>=$request->cantidad){
+
+            $cart[$request->slug]->cantidad=$request->cantidad;
+
+          }else{
+
+            $error="No hay existencia suficiente de este producto";
+          }
+
+       }else{
+
+        unset( $cart[$producto->slug]);
+
+
+       }
+
+       //dd($producto->slug.' - '.$producto->id.' - '.$request->id);
+
+       $detalle=AlpCarritoDetalle::where('id_carrito', $carrito)->where('id_producto', $producto->id)->first();
+
+       if (isset($detalle->id)) {
+
+        $data = array(
+        'cantidad' => $request->cantidad, 
+        );
+
+        $detalle->update($data);
+         
+       }
+
+       // $cart=$this->reloadCart();
+
+
+       \Session::put('cart', $cart);
 
 
         $view= View::make('frontend.order.botones', compact('producto', 'cart'));

@@ -69,6 +69,45 @@ Carrito de Compras
         });
 
 
+        $('body').on('click','.updatecartdetalle', function(e){
+
+            e.preventDefault();
+
+            base=$('#base').val();
+
+            id=$(this).data('id');
+
+            tipo=$(this).data('tipo');
+
+            single=$('#single').val();
+
+
+            slug=$(this).data('slug');
+
+            cantidad=$('#cantidad_'+id+'').val();
+
+            if (tipo=='suma') {
+
+                cantidad=parseInt(cantidad);
+
+                cantidad++;
+
+            }else{
+
+                cantidad=cantidad-1;
+            }
+            
+                   $.post(base+'/cart/updatecartdetalle', {id, slug, cantidad}, function(data) {
+
+                       
+                         $('#table_detalle').html(data);
+
+
+                    });
+
+        });
+
+
         
     </script>
 @stop
