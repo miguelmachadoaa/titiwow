@@ -22,6 +22,8 @@ class CreateAlpConfiguracionGeneralTable extends Migration
             $table->string('id_mercadopago');
             $table->integer('mercadopago_sand');
             $table->string('key_mercadopago');
+            $table->string('public_key_mercadopago')->nullable();
+            $table->string('public_key_mercadopago_test')->nullable();
             $table->string('correo_admin')->nullable();
             $table->string('correo_shopmanager')->nullable();
             $table->string('correo_shopmanagercorp')->nullable();
