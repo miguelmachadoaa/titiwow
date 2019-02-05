@@ -843,6 +843,9 @@ class ClientesFrontController extends Controller
                 $role->users()->detach($user);
 
         $role = Sentinel::findRoleById(9);
+                $role->users()->detach($user);
+
+        $role = Sentinel::findRoleById(9);
                 $role->users()->attach($user);
 
         /*se eliminar la relacion cliente -> amigo */

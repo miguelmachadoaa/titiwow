@@ -59,43 +59,7 @@
                         {!! Form::model($user, ['url' => secure_url('my-account'), 'method' => 'put', 'class' => 'form-horizontal','enctype'=>"multipart/form-data"]) !!}
 
                         {{ csrf_field() }}
-                            <!--div class="form-group {{ $errors->first('pic', 'has-error') }}">
-                                <label class="col-md-2 control-label">Imagen:</label>
-                                <div class="col-md-10">
-                                    <div class="fileinput fileinput-new" data-provides="fileinput">
-                                        <div class="fileinput-new thumbnail" style="max-width: 200px; max-height: 200px;">
-                                            @if($user->pic)
-                                                @if((substr($user->pic, 0,5)) == 'https')
-                                                    <img src="{{ $user->pic }}" alt="img"
-                                                         class="img-responsive"/>
-                                                @else
-                                                    <img src="{!! secure_url('/').'/uploads/users/'.$user->pic !!}" alt="img"
-                                                         class="img-responsive"/>
-                                                @endif
-                                            @elseif($user->gender === "male")
-                                                <img src="{{ secure_asset('assets/images/authors/avatar3.png') }}" alt="..."
-                                                     class="img-responsive"/>
-                                            @elseif($user->gender === "female")
-                                                <img src="{{ secure_asset('assets/images/authors/avatar5.png') }}" alt="..."
-                                                     class="img-responsive"/>
-                                            @else
-                                                <img src="{{ secure_asset('assets/images/authors/no_avatar.jpg') }}" alt="..."
-                                                     class="img-responsive"/>
-                                            @endif
-                                        </div>
-                                        <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
-                                        <div>
-                                            <span class="btn btn-primary btn-file">
-                                                <span class="fileinput-new">Seleccionar Imagen</span>
-                                                <span class="fileinput-exists">Cambiar</span>
-                                                <input type="file" name="pic" id="pic" />
-                                            </span>
-                                            <span class="btn btn-primary fileinput-exists" data-dismiss="fileinput">Quitar</span>
-                                        </div>
-                                    </div>
-                                    <span class="help-block">{{ $errors->first('pic', ':message') }}</span>
-                                </div>
-                            </div-->
+                           
                             <div class="form-group {{ $errors->first('first_name', 'has-error') }}">
                                 <label class="col-lg-2 control-label">
                                     Nombre:
@@ -236,7 +200,71 @@
             </div>
         </div>
     </div>
+
+
+
+<div class="container">
+    <div class="form-group">
+        <div class="col-lg-offset-10 col-lg-10" style="margin-bottom:20px;">
+            @if(empty($cliente->cod_alpinista))
+                <a style="color: red !important;" href="{{ secure_url('#') }}" class="btn btn-link delete" type="button">
+                 Eliminar Cuenta 
+                </a>
+            @endif
+        </div>
+    </div>
+
+    
+    
+</div>
+
+
+
+
+
+<!-- Modal Direccion -->
+ <div class="modal fade" id="deleteModal" role="dialog" aria-labelledby="modalLabeldanger">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h4 class="modal-title" id="modalLabeldanger">Eliminar Cuenta</h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <form method="POST" action="{{secure_url('ordenes/confirmar')}}" id="aprobarOrdenForm" name="aprobarOrdenForm" class="form-horizontal">
+
+                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+                           
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-10">
+                                    <h3>Esta seguro que desea eliminar la cuenta?</h3>
+                                </div>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn  btn-primary sendEliminar" >Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
 @stop
+
+
+
 
 {{-- page level scripts --}}
 @section('footer_scripts')
@@ -247,5 +275,43 @@
     <script type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
     <script type="text/javascript" src="{{ secure_asset('assets/vendors/datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
     <script type="text/javascript" src="{{ secure_asset('assets/js/frontend/user_account.js') }}"></script>
+
+    <script type="text/javascript">
+
+
+        $('.delete').on('click', function(e){
+
+            e.preventDefault(); 
+
+            $("#deleteModal").modal('show');
+
+
+        });
+
+
+
+         $('.sendEliminar').click(function () {
+
+            base=$('#base').val();
+
+            $.ajax({
+                type: "GET",
+                url: base+"/admin/clientes/delcliente",
+                    
+                complete: function(datos){ 
+
+                   // alert(datos);    
+
+                    $("#deleteModal").modal('hide');
+                    
+
+                }
+            });
+        
+
+        });
+
+
+         </script>
 
 @stop

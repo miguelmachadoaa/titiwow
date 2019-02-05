@@ -12,11 +12,7 @@
 
 @if(count($amigos))
 
-
-
     <div class="form-group col-sm-10 col-sm-offset-1 table-responsive">
-
-
                
          <table class="table table-responsive">
                     <tr>

@@ -193,58 +193,12 @@ Area clientes
         </div>
     </div>
 </div>
-<div class="container">
-    <div class="form-group">
-        <div class="col-lg-offset-10 col-lg-10" style="margin-bottom:20px;">
-            @if(empty($cliente->cod_alpinista))
-                <a href="{{ secure_url('#') }}" class="btn btn-danger delete" type="button">
-                 Eliminar Cuenta 
-                </a>
-            @endif
-        </div>
-    </div>
 
-    
-    
-</div>
 
 
 
 
   
-<!-- Modal Direccion -->
- <div class="modal fade" id="deleteModal" role="dialog" aria-labelledby="modalLabeldanger">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header bg-primary">
-                        <h4 class="modal-title" id="modalLabeldanger">Eliminar Cuenta</h4>
-                    </div>
-                    <div class="modal-body">
-                        
-                        <form method="POST" action="{{secure_url('ordenes/confirmar')}}" id="aprobarOrdenForm" name="aprobarOrdenForm" class="form-horizontal">
-
-                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
-                           
-                            <div class="row">
-                                <div class="col-sm-1"></div>
-                                <div class="col-sm-10">
-                                    <h3>Esta seguro que desea eliminar la cuenta?</h3>
-                                </div>
-
-                            </div>
-
-                        </form>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn  btn-primary sendEliminar" >Eliminar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
 @endsection
 
 <!-- Modal Direccion -->
@@ -258,37 +212,6 @@ Area clientes
         });
 
 
-        $('.delete').on('click', function(e){
-
-            e.preventDefault(); 
-
-            $("#deleteModal").modal('show');
-
-
-        });
-
-
-
-         $('.sendEliminar').click(function () {
-
-        base=$('#base').val();
-
-        $.ajax({
-            type: "GET",
-            url: base+"/admin/clientes/delcliente",
-                
-            complete: function(datos){ 
-
-               // alert(datos);    
-
-                $("#deleteModal").modal('hide');
-                
-
-            }
-        });
-    
-
-});
 
 
 

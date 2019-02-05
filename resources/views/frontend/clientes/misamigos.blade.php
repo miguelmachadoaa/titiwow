@@ -393,7 +393,7 @@ Mis Amigos
 
         });
 
-        $('html').on('click', '.delAmigo', function(e){
+        $(document).on('click', '.delAmigo', function(e){
 
             e.preventDefault();
 
