@@ -294,69 +294,9 @@ div.overlay > div {
 
                 @if($fp->id==2)
 
-                <!--div data-href="@if($configuracion->mercadopago_sand==1){{ $preference['response']['sandbox_init_point'] }} @else {{ $preference['response']['init_point'] }} @endif" data-id={{ $fp->id }} class="row forma border pointer mercadopago ">
-
-                    <div class=" col-sm-8 img-responsive" style="min-height: 1em;" class=" col-sm-8 ">
-
-                        <img class="img-responsive" src="{{ secure_url('/uploads/files/mercado-pago.jpg') }}" >
-
-                    </div>
-
-                    <div class=" col-sm-4 " style="padding:8px;background-color:#3c763d;color:#ffffff;">
-
-                        <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
-
-                    </div>
-
-                </div-->
-                <br>
-
-                @elseif($fp->id==4)
-
-                <!--div  data-id={{ $fp->id }} class="row forma border pointer cupones">
 
 
-                    <div class="col-sm-8 col-xs-12">
 
-                       <p>{{ $fp->nombre_forma_pago.' , '.$fp->descripcion_forma_pago }}</p> 
-
-                    </div>
-
-                    <div class="col-sm-4 col-xs-12" style="padding:8px;background-color:#3c763d;color:#ffffff;">
-
-                        <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
-
-                    </div>
-
-                </div-->
-
-
-                @else
-
-                <div data-type='formaspago'  data-id="{{ $fp->id }}" class="row forma border pointer procesar">
-
-
-                    <div class="col-sm-8 col-xs-12">
-
-                       <p>{{ $fp->nombre_forma_pago.' , '.$fp->descripcion_forma_pago }}</p> 
-
-                    </div>
-
-                    <div class="col-sm-4 col-xs-12" style="padding:8px;background-color:#3c763d;color:#ffffff;">
-
-                        <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
-
-                    </div>
-
-                </div>
-                <br>
-
-                @endif
-
-                
-
-
-                @endforeach
 
                 @if(isset($pse['response']['transaction_details']['external_resource_url']))
 
@@ -486,6 +426,60 @@ div.overlay > div {
                     @endif
                  
                 @endforeach
+
+
+                    
+
+                
+                <br>
+
+                @elseif($fp->id==4)
+
+                <!--div  data-id={{ $fp->id }} class="row forma border pointer cupones">
+
+
+                    <div class="col-sm-8 col-xs-12">
+
+                       <p>{{ $fp->nombre_forma_pago.' , '.$fp->descripcion_forma_pago }}</p> 
+
+                    </div>
+
+                    <div class="col-sm-4 col-xs-12" style="padding:8px;background-color:#3c763d;color:#ffffff;">
+
+                        <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
+
+                    </div>
+
+                </div-->
+
+
+                @else
+
+                <div data-type='formaspago'  data-id="{{ $fp->id }}" class="row forma border pointer procesar">
+
+
+                    <div class="col-sm-8 col-xs-12">
+
+                       <p>{{ $fp->nombre_forma_pago.' , '.$fp->descripcion_forma_pago }}</p> 
+
+                    </div>
+
+                    <div class="col-sm-4 col-xs-12" style="padding:8px;background-color:#3c763d;color:#ffffff;">
+
+                        <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
+
+                    </div>
+
+                </div>
+                <br>
+
+                @endif
+
+                
+
+
+                @endforeach
+
 
             </div>
 
