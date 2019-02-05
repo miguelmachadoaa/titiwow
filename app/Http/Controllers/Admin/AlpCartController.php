@@ -1478,8 +1478,24 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago){
           $ciudad_forma->dias=$ciudad_forma->dias+1;
         }
 
+        for ($i=0; $i <=$ciudad_forma->dias ; $i++) { 
+
+          $date2 = Carbon::now();
+
+          if ($date2->addDays($i)->isWeekend()) {
+
+            $ciudad_forma->dias=$ciudad_forma->dias+1;
+          
+          }
+
+          
+        }
+
 
        $fecha_entrega=$date->addDays($ciudad_forma->dias)->format('d-m-Y');
+
+
+
 
 
         $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
