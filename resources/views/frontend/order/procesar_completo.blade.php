@@ -127,6 +127,15 @@ Carro de Productos
                          </td>
                      </tr>
 
+                       <tr>
+                         <td colspan="4" style="text-align: right;">
+                             <b>Monto Ahorrado: </b>
+                         </td>
+                         <td>
+                             {{number_format($compra->monto_total_base-$compra->monto_total, 0,",",".")}}
+                         </td>
+                     </tr>
+
                      
 
                  </tbody>
