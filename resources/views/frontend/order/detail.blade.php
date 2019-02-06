@@ -304,7 +304,7 @@ div.overlay > div {
 
                     <div class=" col-sm-8 img-responsive" style="min-height: 1em;" class=" col-sm-8 ">
 
-                        PSE <img src="https://www.mercadopago.com/org-img/MP3/API/logos/pse.gif" >
+                        <img alt="PSE" style="width: 15em;" src="../uploads/files/pse.jpg">
 
                     </div>
 
@@ -322,7 +322,7 @@ div.overlay > div {
 
                     <div class=" col-sm-8 img-responsive" style="min-height: 1em;" class=" col-sm-8 ">
 
-                        PSE <img src="https://www.mercadopago.com/org-img/MP3/API/logos/pse.gif" >
+                        <img alt="PSE" style="width: 15em;" src="../uploads/files/pse.jpg">
 
                     </div>
 
@@ -342,11 +342,10 @@ div.overlay > div {
 
                     <div class="col-sm-8 col-xs-12">
 
-                       <p>Tarjeta de Crédito 
-                        <img src="https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif" > 
-                        <img src="https://www.mercadopago.com/org-img/MP3/API/logos/amex.gif" > 
-                        <img src="https://www.mercadopago.com/org-img/MP3/API/logos/master.gif" > 
-                        <img src="https://www.mercadopago.com/org-img/MP3/API/logos/diners.gif" > 
+                       <p>
+
+                        <img alt="PSE" style="width: 15em;" src="../uploads/files/tdc.jpg">
+                         
                     </p> 
 
                     </div>
@@ -410,7 +409,9 @@ div.overlay > div {
 
                         <div class="col-sm-8 col-xs-12">
 
-                           {{ $pm['name'] }}  <img src="{{ $pm['secure_thumbnail'] }} ">
+                          
+                           <img alt="{{ $pm['name'] }}" style="width: 15em;" src="../uploads/files/{{ $pm['id'].'.jpg' }}">
+
                           
 
                         </div>
