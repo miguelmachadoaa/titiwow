@@ -86,7 +86,7 @@
             <th><b>EC</b></th>
             <th><b>{{ $row->first_name.' '.$row->last_name }}</b></th>
             <th><b>{{ $row->first_name.' '.$row->last_name }}</b></th>
-            <th><b>{{ 'E'.$row->doc_cliente }}</b></th>
+            <th><b>{{ $row->doc_cliente }}</b></th>
             <th><b></b></th>
             <th><b></b></th>
             <th><b></b></th>
