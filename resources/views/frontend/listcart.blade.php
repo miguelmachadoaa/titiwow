@@ -1,5 +1,15 @@
     <div class="row" style="    margin: 15px;">
 
+      @if(isset($aviso))
+                        @if($aviso!='')
+
+                        <div class="alert alert-danger">
+                            {{ $aviso }}
+                        </div>
+
+                        @endif
+                    @endif
+
         <h2>Carrito de Compras</h2>
 
         <a class="btn  btn-link" href="{{secure_url('cart/vaciar')}}">Vaciar</a>
