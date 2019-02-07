@@ -302,13 +302,13 @@ div.overlay > div {
 
                  <div data-href="{{ $pse['response']['transaction_details']['external_resource_url'] }}" data-id="2" class="row forma border pointer mercadopago ">
 
-                    <div class=" col-sm-8 img-responsive" style="min-height: 1em;" class=" col-sm-8 ">
+                    <div class=" col-sm-8 col-xs-6 img-responsive" style="min-height: 1em;" class=" col-sm-8 ">
 
-                        <img alt="PSE" style="width: 15em;" src="../uploads/files/pse.jpg">
+                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 1em 0em;" src="../uploads/files/pse.jpg">
 
                     </div>
 
-                    <div class=" col-sm-4 " style="padding:8px;background-color:#3c763d;color:#ffffff;">
+                    <div class=" col-sm-4 col-xs-6" style="padding:8px;background-color:#3c763d;color:#ffffff;">
 
                         <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
 
@@ -320,13 +320,13 @@ div.overlay > div {
 
                  <div data-href="#" data-id="2" class="row forma border pointer pse ">
 
-                    <div class=" col-sm-8 img-responsive" style="min-height: 1em;" class=" col-sm-8 ">
+                    <div class=" col-sm-8 col-xs-6 img-responsive" style="min-height: 1em;" class=" col-sm-8 ">
 
-                        <img alt="PSE" style="width: 15em;" src="../uploads/files/pse.jpg">
+                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 1em 0em;" src="../uploads/files/pse.jpg">
 
                     </div>
 
-                    <div class=" col-sm-4 " style="padding:8px;background-color:#3c763d;color:#ffffff;">
+                    <div class=" col-sm-4 col-xs-6" style="padding:8px;background-color:#3c763d;color:#ffffff;">
 
                         <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
 
@@ -340,17 +340,17 @@ div.overlay > div {
                 <div data-type='creditcard' id="creditcard" data-id="2" class="row forma border pointer">
 
 
-                    <div class="col-sm-8 col-xs-12">
+                    <div class="col-sm-8 col-xs-6 img-responsive">
 
                        <p>
 
-                        <img alt="PSE" style="width: 15em;" src="../uploads/files/tdc.jpg">
+                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 1em 0em;" src="../uploads/files/tdc.jpg">
                          
                     </p> 
 
                     </div>
 
-                    <div class="col-sm-4 col-xs-12" style="background-color:#3c763d;color:#ffffff;">
+                    <div class="col-sm-4 col-xs-6 " style="background-color:#3c763d;color:#ffffff;">
 
                         @if($configuracion->mercadopago_sand=='1')
 
@@ -407,16 +407,16 @@ div.overlay > div {
 
                     <div data-idpago="{{ $pm['id'] }}" data-type="ticket" data-id="2" class="row forma border pointer  procesar  ">
 
-                        <div class="col-sm-8 col-xs-12">
+                        <div class="col-sm-8 col-xs-6 img-responsive">
 
                           
-                           <img alt="{{ $pm['name'] }}" style="width: 15em;" src="../uploads/files/{{ $pm['id'].'.jpg' }}">
+                           <img class="img-responsive" alt="{{ $pm['name'] }}" style="width: 15em;     padding: 1em 0em;" src="../uploads/files/{{ $pm['id'].'.jpg' }}">
 
                           
 
                         </div>
 
-                        <div class="col-sm-4 col-xs-12" style="padding:8px;background-color:#3c763d;color:#ffffff;">
+                        <div class="col-sm-4 col-xs-6" style="padding:8px;background-color:#3c763d;color:#ffffff;">
 
                             <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
 
@@ -459,13 +459,13 @@ div.overlay > div {
                 <div data-type='formaspago'  data-id="{{ $fp->id }}" class="row forma border pointer procesar">
 
 
-                    <div class="col-sm-8 col-xs-12">
+                    <div class="col-sm-8 col-xs-6 img-responsive">
 
-                       <p>{{ $fp->nombre_forma_pago.' , '.$fp->descripcion_forma_pago }}</p> 
+                       <p>{{ $fp->nombre_forma_pago }}</p> 
 
                     </div>
 
-                    <div class="col-sm-4 col-xs-12" style="padding:8px;background-color:#3c763d;color:#ffffff;">
+                    <div class="col-sm-4 col-xs-6" style="padding:8px;background-color:#3c763d;color:#ffffff;">
 
                         <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
 
