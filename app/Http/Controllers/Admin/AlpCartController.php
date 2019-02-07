@@ -2162,7 +2162,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago){
     {
        $cart= \Session::get('cart');
 
-       $total=$this->total();
 
       $impuesto=$this->impuesto();
 
@@ -2215,6 +2214,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago){
 
 
        \Session::put('cart', $cart);
+
+       $total=$this->total();
+       
 
 
         $view= View::make('frontend.listcart', compact('producto', 'cart', 'total', 'impuesto', 'configuracion'));
