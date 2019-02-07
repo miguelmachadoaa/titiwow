@@ -245,7 +245,7 @@ div.overlay > div {
 
                     <div class="col-sm-6 col-xs-6 border">
 
-                        <p>{{ $fe->nombre_forma_envios.' , '.$fe->descripcion_forma_envios }}</p>
+                        <p>{{ $fe->nombre_forma_envios }}</p>
 
                     </div>
 
@@ -260,7 +260,7 @@ div.overlay > div {
             </div> <!-- End form group -->
             <div class="col-sm-12">
 
-            <h6>* Los pedidos que se realicen de lunes a viernes, entre las 8:00 am y 5:00 pm serán entregados al siguiente día; por su parte, los pedidos que se realicen después de las 5:00pm serán entregados dos (2) días después. Aquellos que se realicen los sábados antes de las 3:00 pm serán entregados el lunes siguiente y los que se hagan los sábados después de las 3:00 pm, domingos y lunes antes de las 7:00 am serán entregados el martes.</h6>
+            <h6 style="text-align: justify;">* Los pedidos que se realicen de lunes a viernes, entre las 8:00 am y 5:00 pm serán entregados al siguiente día; por su parte, los pedidos que se realicen después de las 5:00pm serán entregados dos (2) días después. Aquellos que se realicen los sábados antes de las 3:00 pm serán entregados el lunes siguiente y los que se hagan los sábados después de las 3:00 pm, domingos y lunes antes de las 7:00 am serán entregados el martes.</h6>
 
             </div>  
 
@@ -304,7 +304,7 @@ div.overlay > div {
 
                     <div class=" col-sm-8 col-xs-6 img-responsive" style="min-height: 1em;" class=" col-sm-8 ">
 
-                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 1em 0em;" src="../uploads/files/pse.jpg">
+                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/pse.jpg">
 
                     </div>
 
@@ -322,7 +322,7 @@ div.overlay > div {
 
                     <div class=" col-sm-8 col-xs-6 img-responsive" style="min-height: 1em;" class=" col-sm-8 ">
 
-                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 1em 0em;" src="../uploads/files/pse.jpg">
+                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/pse.jpg">
 
                     </div>
 
@@ -344,7 +344,7 @@ div.overlay > div {
 
                        <p>
 
-                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 1em 0em;" src="../uploads/files/tdc.jpg">
+                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/tdc.jpg">
                          
                     </p> 
 
@@ -410,7 +410,7 @@ div.overlay > div {
                         <div class="col-sm-8 col-xs-6 img-responsive">
 
                           
-                           <img class="img-responsive" alt="{{ $pm['name'] }}" style="width: 15em;     padding: 1em 0em;" src="../uploads/files/{{ $pm['id'].'.jpg' }}">
+                           <img class="img-responsive" alt="{{ $pm['name'] }}" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/{{ $pm['id'].'.jpg' }}">
 
                           
 
