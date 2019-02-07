@@ -38,6 +38,8 @@ Carrito de Compras
 
     <div class="row" id="table_detalle">
 
+         
+
         @include('frontend.listcart')
 
         

@@ -634,6 +634,25 @@ $payment_methods = MP::get("/v1/payment_methods");
 
 
       if ($total<$configuracion->minimo_compra) {
+
+        $aviso='El monto minimo de compra es de '.$configuracion->minimo_compra;
+
+
+        $cart=$this->reloadCart();
+
+   
+
+      $configuracion=AlpConfiguracion::where('id', '1')->first();
+
+      $total=$this->total();
+
+     $inv=$this->inventario();
+
+      return view('frontend.cart', compact('cart', 'total', 'configuracion', 'inv', 'aviso'));
+
+
+
+
         
         return redirect('cart/show');
 
