@@ -517,6 +517,24 @@ $payment_methods = MP::get("/v1/payment_methods");
 
      public function orderCreditcard(Request $request)
     {
+
+
+      $avisos = array(
+        'cc_rejected_bad_filled_card_number' => 'No pudimos procesar su pago, Revisa el numero de tarjeta.', 
+        'cc_rejected_bad_filled_date' => 'No pudimos procesar su pago, Revisa la fecha de vencimiento.', 
+        'cc_rejected_bad_filled_other' => 'No pudimos procesar su pago, Revisa los datos.', 
+        'cc_rejected_bad_filled_security_code' => 'No pudimos procesar su pago, Revisa el codigo de seguridad.', 
+        'cc_rejected_blacklist' => 'No pudimos procesar su pago.', 
+        'cc_rejected_call_for_authorize' => 'No pudimos procesar su pago, Debes autorizar ante el banco el pago a mercadopago.', 
+        'cc_rejected_card_disabled' => 'No pudimos procesar su pago, Debes activar tu tarjeta.', 
+        'cc_rejected_card_error' => 'No pudimos procesar su pago.', 
+        'cc_rejected_duplicated_payment' => 'No pudimos procesar su pago, ya realizaste un pago por este monto', 
+        'cc_rejected_high_risk' => 'No pudimos procesar su pago, su pago fue rechazado', 
+        'cc_rejected_insufficient_amount' => 'No pudimos procesar su pago, no tiene fondos suficientes', 
+        'cc_rejected_invalid_installments' => 'No pudimos procesar su pago, no puede procesar pagos por cuotas', 
+        'cc_rejected_max_attempts' => 'No pudimos procesar su pago, llegaste al limite de intentos permitidos', 
+        'cc_rejected_other_reason' => 'No pudimos procesar su pago, el banco rechazo el pago'
+      );
       
       $cart= \Session::get('cart');
 
@@ -555,6 +573,37 @@ $payment_methods = MP::get("/v1/payment_methods");
      // dd($preference);
 
       if (isset($preference['response']['id'])) {
+
+
+        if ($preference['response']['status']=='rejected' || $preference['response']['status']=='cancelled' || $preference['response']['status']=='cancelled/expired')  {
+
+            if (isset($avisos[$preference['response']['status_detail']])) {
+
+              $aviso=$avisos[$preference['response']['status_detail']];
+              
+            }else{
+
+              $aviso='No pudimos procesar su pago, por favor intente Nuevamente.';
+
+            }
+                $data_pago = array(
+              'id_orden' => $orden->id, 
+              'id_forma_pago' => $orden->id_forma_pago, 
+              'id_estatus_pago' => '3', 
+              'monto_pago' => 0, 
+              'json' => json_encode($preference), 
+              'id_user' => '1', 
+            );
+
+             AlpPagos::create($data_pago);
+
+            return redirect('order/detail')->with('aviso', $aviso);
+
+          }
+
+
+
+
 
         if (Sentinel::check()) {
 

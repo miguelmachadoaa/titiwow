@@ -130,6 +130,13 @@ div.overlay > div {
           
          <br>
 
+
+         @if (session('aviso'))
+            <div class="alert alert-danger">
+                {{ session('aviso') }}
+            </div>
+        @endif
+
         <div class="row"> 
 
             <h3>    Dirección de Envío </h3>
