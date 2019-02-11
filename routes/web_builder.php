@@ -419,8 +419,26 @@ Route::resource('facturasmasivas', 'Admin\AlpFacturasController');
         Route::get('{id}/restore', 'Admin\AlpTransportistasController@getRestore')->name('transportistas.restore');
 
         });
+
     Route::post('transportistas/create', 'Admin\AlpTransportistasController@store');
+
     Route::resource('transportistas', 'Admin\AlpTransportistasController');
+
+
+
+    Route::group(['prefix' => 'feriados'], function () {
+
+        Route::get('{id}/delete', 'Admin\AlpFeriadosController@destroy')->name('transportistas.delete');
+
+        Route::get('{id}/confirm-delete', 'Admin\AlpFeriadosController@getModalDelete')->name('transportistas.confirm-delete');
+
+        Route::get('{id}/restore', 'Admin\AlpFeriadosController@getRestore')->name('transportistas.restore');
+
+        });
+    
+    Route::post('feriados/create', 'Admin\AlpFeriadosController@store');
+
+    Route::resource('feriados', 'Admin\AlpFeriadosController');
 
     //tipos de documentos
 

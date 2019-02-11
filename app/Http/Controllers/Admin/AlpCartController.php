@@ -30,9 +30,7 @@ use App\Models\AlpPreOrdenes;
 use App\Models\AlpPreDetalles;
 use App\Models\AlpOrdenesHistory;
 use App\Models\AlpEstructuraAddress;
-
-
-
+use App\Models\AlpFeriados;
 use App\Country;
 use App\State;
 use App\City;
@@ -131,6 +129,12 @@ class AlpCartController extends JoshController
     {
 
 
+        $feriados=AlpFeriados::feriados();
+
+
+        dd($feriados);
+
+
     $configuracion = AlpConfiguracion::where('id', '1')->first();
 
      $date = Carbon::now();
@@ -175,11 +179,7 @@ $payment_methods = MP::get("/v1/payment_methods");
 
       $preference = MP::post("/v1/payments",$preference_data);
 
-
     dd($preference);
-
-   
-
     }
 
 
@@ -1169,6 +1169,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago){
 
         $direccion=AlpDirecciones::where('id', $orden->id_address)->first();
 
+        $feriados=AlpFeriados::feriados();
+
         $ciudad_forma=AlpFormaCiudad::where('id_forma', $orden->id_forma_envio)->where('id_ciudad', $direccion->city_id)->first();
 
 
@@ -1194,6 +1196,14 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago){
 
             $ciudad_forma->dias=$ciudad_forma->dias+1;
           
+          }else{
+
+            if (isset($feriados[$date->format('Y-m-d')])) {
+
+                $ciudad_forma->dias=$ciudad_forma->dias+1;
+             
+            }
+
           }
 
           

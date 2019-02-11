@@ -288,6 +288,19 @@
         </ul>
     @endif
 
+    @if (Sentinel::getUser()->hasAnyAccess(['feriados.*']))
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/feriados*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.feriados.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Feriados
+                </a>
+            </li>
+        </ul>
+    @endif
+
+
+
     @if (Sentinel::getUser()->hasAnyAccess(['formaspago.*']))
         <ul class="sub-menu">
             <li {!! (Request::is('admin/formaspago*') ? 'class="active"' : '') !!}>
