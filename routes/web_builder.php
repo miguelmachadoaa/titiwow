@@ -428,11 +428,11 @@ Route::resource('facturasmasivas', 'Admin\AlpFacturasController');
 
     Route::group(['prefix' => 'feriados'], function () {
 
-        Route::get('{id}/delete', 'Admin\AlpFeriadosController@destroy')->name('transportistas.delete');
+        Route::get('{id}/delete', 'Admin\AlpFeriadosController@destroy')->name('feriados.delete');
 
-        Route::get('{id}/confirm-delete', 'Admin\AlpFeriadosController@getModalDelete')->name('transportistas.confirm-delete');
+        Route::get('{id}/confirm-delete', 'Admin\AlpFeriadosController@getModalDelete')->name('feriados.confirm-delete');
 
-        Route::get('{id}/restore', 'Admin\AlpFeriadosController@getRestore')->name('transportistas.restore');
+        Route::get('{id}/restore', 'Admin\AlpFeriadosController@getRestore')->name('feriados.restore');
 
         });
     
