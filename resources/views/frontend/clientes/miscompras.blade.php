@@ -77,7 +77,22 @@ Mis Compras
                             {{ $row->nombre_forma_envios }}
                         </td>
                         <td>
-                            {{ $row->nombre_forma_pago }}
+                             @if($row->json!=null)
+
+                                    @if(isset(json_decode($row->json)->response->payment_type_id))
+
+                                {{ $row->nombre_forma_pago.' '.json_decode($row->json)->response->payment_type_id }}
+
+
+                                    @endif 
+
+
+
+                            @else
+
+                                {{ $row->nombre_forma_pago}}
+
+                            @endif 
                         </td>
                         <td>
                             {{ number_format($row->monto_total,0,",",".") }}
@@ -93,12 +108,24 @@ Mis Compras
                         <td>    
                                
 
-                                   @if($row->json==null)
+                                   @if($row->id_forma_pago=='2') 
+                                @if(!isset($pagos[$row->id]))
 
-                                <a  class="btn  btn-xs btn-info" href="{{ secure_url('clientes/pagar/'.$row->id) }}">Pagar Orden</a>
+                                    @if($row->json!=null)
 
+                                            @if(isset(json_decode($row->json)->response->status))
+                                                @if(json_decode($row->json)->response->status!='pending' && json_decode($row->json)->response->status!='aproved')
+
+                                                    <a  class="btn  btn-xs btn-info" href="{{ secure_url('clientes/pagar/'.$row->id) }}">Pagar Orden</a>
+                                                
+                                                @endif 
+                                            @endif 
+
+
+                                    @endif 
 
                                 @endif 
+                            @endif 
 
                                   <button class="btn btn-info btn-xs seeDetalle" data-url="{{ secure_url('clientes/'.$row->id.'/detalle') }}" data-id="{{ $row->id }}" href="{{ secure_url('clientes/'.$row->id.'/detalle') }}">
                                     <i class="livicon "  data-name="eye" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Ver Detalle"></i>

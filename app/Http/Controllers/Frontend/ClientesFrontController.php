@@ -642,6 +642,20 @@ class ClientesFrontController extends Controller
              ->groupBy('alp_ordenes.id')
             ->where('alp_ordenes.id_cliente', $user_id)->get();
 
+            $pagos = array();
+
+            foreach ($compras as $c) {
+
+                    $p =  DB::table('alp_ordenes_pagos')
+                    ->where('alp_ordenes_pagos.id_orden', $c->id)
+                    ->where('alp_ordenes_pagos.id_estatus_pago', '2')
+                    ->first();
+
+                        if ( isset($p->id)) {
+                            $pagos[$c->id]=1;
+                        }
+            }
+
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
 
             $user = User::where('id', $user_id )->first();
@@ -650,7 +664,7 @@ class ClientesFrontController extends Controller
 
              $cart= \Session::get('cart');
 
-            return \View::make('frontend.clientes.miscompras', compact('compras', 'cliente', 'user', 'states', 'cart'));
+            return \View::make('frontend.clientes.miscompras', compact('compras', 'cliente', 'user', 'states', 'cart', 'pagos'));
 
             }else{
 
