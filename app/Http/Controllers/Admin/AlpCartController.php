@@ -131,8 +131,12 @@ class AlpCartController extends JoshController
 
         $feriados=AlpFeriados::feriados();
 
+        $date = Carbon::now();
 
-        dd($feriados);
+      $hoy=$date->format('Y-m-d');
+
+
+        dd($feriados[$hoy]);
 
 
     $configuracion = AlpConfiguracion::where('id', '1')->first();
@@ -333,9 +337,9 @@ $payment_methods = MP::get("/v1/payment_methods");
           $texto='Se ha creado la siguiente orden '.$compra->id.' y esta a espera de aprobacion  ';
 
 
-        Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
+      //  Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
 
-        Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
+      //  Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
           
 
           return view('frontend.order.procesar_completo', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
@@ -380,6 +384,8 @@ $payment_methods = MP::get("/v1/payment_methods");
 
           $orden=AlpOrdenes::where('id', $pago->id_orden)->first();
 
+        
+
           try {
 
             $pse = MP::get("/v1/payments/".$input['data_id']);
@@ -415,6 +421,9 @@ $payment_methods = MP::get("/v1/payment_methods");
               if ( $pse['response']['status']=='approved' ) 
               {
 
+                  $envio=AlpEnvios::where('id_orden', $pago->id_orden)->first();
+
+
                     $data_update = array(
                       'estatus' =>1, 
                       'estatus_pago' =>2,
@@ -429,7 +438,23 @@ $payment_methods = MP::get("/v1/payment_methods");
                          'id_user' => 1
                       );
 
-                        $history=AlpOrdenesHistory::create($data_history);
+                      $history=AlpOrdenesHistory::create($data_history);
+
+            $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
+            ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
+            ->join('alp_clientes','alp_ordenes.id_cliente' , '=', 'alp_clientes.id_user_client')
+            ->join('alp_formas_envios','alp_ordenes.id_forma_envio' , '=', 'alp_formas_envios.id')
+            ->join('alp_formas_pagos','alp_ordenes.id_forma_pago' , '=', 'alp_formas_pagos.id')
+            ->where('alp_ordenes.id', $id_orden)->first();
+
+        $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug')
+          ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
+          ->where('alp_ordenes_detalle.id_orden', $id_orden)->get();
+
+
+              Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $envio->fecha_envio));
+
+              Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $envio->fecha_envio));
                
               }
 
@@ -1105,9 +1130,9 @@ $payment_methods = MP::get("/v1/payment_methods");
            // Mail::to($configuracion->correo_cedi)->send(new \App\Mail\NotificacionOrden($compra->id, $texto));
 
 
-          Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
+        //  Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
 
-          Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
+        //  Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
             
 
             return view('frontend.order.procesarticket', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago', 'payment'));
@@ -1176,8 +1201,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago){
 
         $date = Carbon::now();
 
-        
-
         $hora=$date->format('hi');
 
         $hora_base=str_replace(':', '', $ciudad_forma->hora);
@@ -1198,7 +1221,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago){
           
           }else{
 
-            if (isset($feriados[$date->format('Y-m-d')])) {
+            if (isset($feriados[$date2->addDays($i)->format('Y-m-d')])) {
 
                 $ciudad_forma->dias=$ciudad_forma->dias+1;
              
@@ -1212,9 +1235,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago){
         $fecha_entrega=$date->addDays($ciudad_forma->dias)->format('d-m-Y');
 
         $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
-
-     
-
 
         $cliente=AlpClientes::where('id_user_client', $user_id)->first();
 
@@ -1545,6 +1565,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago){
 
         $ciudad_forma=AlpFormaCiudad::where('id_forma', $orden->id_forma_envio)->where('id_ciudad', $direccion->city_id)->first();
 
+        $feriados=AlpFeriados::feriados();
+
+
 
         $date = Carbon::now();
 
@@ -1564,6 +1587,14 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago){
 
             $ciudad_forma->dias=$ciudad_forma->dias+1;
           
+          }else{
+
+            if (isset($feriados[$date2->addDays($i)->format('Y-m-d')])) {
+
+                $ciudad_forma->dias=$ciudad_forma->dias+1;
+             
+            }
+
           }
 
           
