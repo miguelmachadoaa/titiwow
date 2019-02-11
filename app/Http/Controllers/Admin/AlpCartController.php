@@ -128,15 +128,63 @@ class AlpCartController extends JoshController
     public function mercadopago()
     {
 
-
         $feriados=AlpFeriados::feriados();
+
+      $dias=1;
+        
+       $date = Carbon::now();
+
+        for ($i=0; $i<=$dias ; $i++) { 
+          $date2 = Carbon::now();
+
+
+          echo  '_____________________'.'<br>';
+          echo $date2->addDays($i)->format('Y-m-d').' a verificar <br>';
+
+
+
+          if ($date2->isWeekend()) {
+
+            echo $date2->addDays($i)->format('Y-m-d').' es fin de seaman <br>';
+            echo $i.'<br>';
+
+            $dias=$dias+1;
+
+            echo $dias.'<br>';
+
+          
+          }else{
+
+            if (isset($feriados[$date2->format('Y-m-d')])) {
+
+              echo $date2->format('Y-m-d').' es feriado <br>';
+
+            echo $i.'<br>';
+
+                $dias=$dias+1;
+            echo $dias.'<br>';
+             
+            }
+
+          }
+
+        }
+
+
+
+
+
+
+
+/*
+
 
         $date = Carbon::now();
 
       $hoy=$date->format('Y-m-d');
 
 
-        dd($feriados[$hoy]);
+      //  dd($feriados[$hoy]);
 
 
     $configuracion = AlpConfiguracion::where('id', '1')->first();
@@ -183,7 +231,7 @@ $payment_methods = MP::get("/v1/payment_methods");
 
       $preference = MP::post("/v1/payments",$preference_data);
 
-    dd($preference);
+    dd($preference);*/
     }
 
 
@@ -1215,13 +1263,15 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago){
 
           $date2 = Carbon::now();
 
-          if ($date2->addDays($i)->isWeekend()) {
+          $date2->addDays($i);
+
+          if ($date2->isWeekend()) {
 
             $ciudad_forma->dias=$ciudad_forma->dias+1;
           
           }else{
 
-            if (isset($feriados[$date2->addDays($i)->format('Y-m-d')])) {
+            if (isset($feriados[$date2->format('Y-m-d')])) {
 
                 $ciudad_forma->dias=$ciudad_forma->dias+1;
              
@@ -1583,13 +1633,15 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago){
 
           $date2 = Carbon::now();
 
-          if ($date2->addDays($i)->isWeekend()) {
+          $date2->addDays($i);
+
+          if ($date2->isWeekend()) {
 
             $ciudad_forma->dias=$ciudad_forma->dias+1;
           
           }else{
 
-            if (isset($feriados[$date2->addDays($i)->format('Y-m-d')])) {
+            if (isset($feriados[$date2->format('Y-m-d')])) {
 
                 $ciudad_forma->dias=$ciudad_forma->dias+1;
              
