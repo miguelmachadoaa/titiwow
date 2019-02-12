@@ -11,7 +11,7 @@
             <th><b>Valor_Pagado</b></th>
             <th><b>Forma de Pago </b></th>
             <th><b>Tipo de Pago</b></th>
-            <th><b>Base Imponible</b></th>
+            <th><b>Base Impuesto</b></th>
             <th><b>Valor Impuesto</b></th>
             <th><b>Monto Impuesto</b></th>
             <th><b>Rol</b></th>

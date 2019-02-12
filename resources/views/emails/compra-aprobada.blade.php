@@ -30,7 +30,7 @@ Su compra {{ $compra->referencia }},  ya se encuentra en proceso de empaque. La 
 </table>
 
 El total de la compra fue de {{ number_format($compra->monto_total, 0,",",".") }}
-Base Imponible {{ number_format($compra->base_impuesto, 0,",",".") }}
+Base Impuesto {{ number_format($compra->base_impuesto, 0,",",".") }}
 Monto Impuesto{{ number_format($compra->monto_impuesto, 0,",",".") }}
 
 

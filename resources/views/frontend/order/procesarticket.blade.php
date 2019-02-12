@@ -61,7 +61,7 @@
                      </tr>
                      <tr>
                          <td colspan="4" style="text-align: right;">
-                             <b>Base Imponible: </b>
+                             <b>Base Impuesto: </b>
                          </td>
                          <td>
                              {{number_format($compra->base_impuesto, 0,",",".")}}
