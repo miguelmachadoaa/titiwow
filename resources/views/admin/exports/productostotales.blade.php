@@ -9,7 +9,7 @@
             <th><b>Producto</b></th>
             <th><b>Cantidad de unidades</b></th>
             <th><b>Monto venta</b></th>
-            <th><b>Base Imponible</b></th>
+            <th><b>Base Impuesto</b></th>
             <th><b>Monto Impuesto</b></th>
             <th><b>Numero de Pedidos</b></th>
             <th><b>Fecha</b></th>

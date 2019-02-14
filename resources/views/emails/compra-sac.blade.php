@@ -8,7 +8,7 @@ Detalles del Pedido
 <b>ID usuario masterfile:</b> {{ $compra->cod_oracle_cliente }}
 <b>Documento:</b> {{ 'E'.$compra->doc_cliente }}
 <b>Valor Pagado:</b> {{ $compra->monto_total }}
-<b>Base Imponible:</b> {{ $compra->base_impuesto }}
+<b>Base Impuesto:</b> {{ $compra->base_impuesto }}
 <b>Valor Iva:</b> {{ $compra->monto_impuesto }}
 <b>Fecha de Entrega:</b> {{ $fecha_entrega }}
 
