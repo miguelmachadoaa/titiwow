@@ -60,7 +60,7 @@ class NuevosUsuarios extends Command
 
 
 
-        $archivo='/reportes/exportcronlogisticaexport';
+        $archivo='/reportes/cronnuevosusuariosexport';
 
 
 

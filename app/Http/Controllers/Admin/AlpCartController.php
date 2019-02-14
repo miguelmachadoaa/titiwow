@@ -128,110 +128,29 @@ class AlpCartController extends JoshController
     public function mercadopago()
     {
 
-        $feriados=AlpFeriados::feriados();
-
-      $dias=1;
-        
-       $date = Carbon::now();
-
-        for ($i=0; $i<=$dias ; $i++) { 
-          $date2 = Carbon::now();
-
-
-          echo  '_____________________'.'<br>';
-          echo $date2->addDays($i)->format('Y-m-d').' a verificar <br>';
 
 
 
-          if ($date2->isWeekend()) {
+    $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
+            ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
+            ->join('alp_clientes','alp_ordenes.id_cliente' , '=', 'alp_clientes.id_user_client')
+            ->join('alp_formas_envios','alp_ordenes.id_forma_envio' , '=', 'alp_formas_envios.id')
+            ->join('alp_formas_pagos','alp_ordenes.id_forma_pago' , '=', 'alp_formas_pagos.id')
+            ->where('alp_ordenes.id', 85)->first();
+ $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto','alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto' ,'alp_productos.slug as slug')
+          ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
+          ->where('alp_ordenes_detalle.id_orden', 85)->get();
 
-            echo $date2->addDays($i)->format('Y-m-d').' es fin de seaman <br>';
-            echo $i.'<br>';
+ $states=State::where('config_states.country_id', '47')->get();
 
-            $dias=$dias+1;
+ $aviso_pago='esto es una prueba para el diseño de procesar';
 
-            echo $dias.'<br>';
 
-          
-          }else{
-
-            if (isset($feriados[$date2->format('Y-m-d')])) {
-
-              echo $date2->format('Y-m-d').' es feriado <br>';
-
-            echo $i.'<br>';
-
-                $dias=$dias+1;
-            echo $dias.'<br>';
-             
-            }
-
-          }
-
-        }
+return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
 
 
 
 
-
-
-
-/*
-
-
-        $date = Carbon::now();
-
-      $hoy=$date->format('Y-m-d');
-
-
-      //  dd($feriados[$hoy]);
-
-
-    $configuracion = AlpConfiguracion::where('id', '1')->first();
-
-     $date = Carbon::now();
-
-      $hoy=$date->format('Y-m-d');
-
-    
-     MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
-
-
-$payment_methods = MP::get("/v1/payment_methods");
-
-         // dd($payment_methods);
-   
-    $preference_data = '{
-         "payer": {
-             "email": "dfgdf@sd.csdf",
-             "entity_type": "individual",
-             "identification": {
-                 "type": "CC",
-                 "number": "123456"
-             }
-         },
-         "description": "Pago de tiquete via web BOG-BUC",
-         "callback_url": "http://vos.berlinasdelfonce.com/compra/respuestapse/",
-         "additional_info": {
-             "ip_address": "172.17.0.1"
-         },
-         "payment_method_id": "pse",
-         "transaction_amount": 10000,
-         "transaction_details": {
-             "financial_institution": 1007
-         },
-         "net_amount": 9500,
-         "taxes":[{
-                             "value": 500,
-                             "type": "IVA"
-                     }]
-     }' ;
-
-      
-
-      $preference = MP::post("/v1/payments",$preference_data);
-
-    dd($preference);*/
     }
 
 
@@ -282,7 +201,7 @@ $payment_methods = MP::get("/v1/payment_methods");
            "external_reference": "ALP'.$orden->id.'",
            "callback_url": "https://crearemosdev.com/pruebas/order/pse",
            "additional_info": {
-               "ip_address": "3.17.57.158"
+               "ip_address": "'.request()->ip().'"
            },
            "payment_method_id": "pse",
            "transaction_amount": '.$total.',
@@ -357,7 +276,8 @@ $payment_methods = MP::get("/v1/payment_methods");
         $user_id = Sentinel::getUser()->id;
 
         // 1.- eststus orden, 2.- estatus pago, 3 json pedido 
-        $data=$this->generarPedido('8', '4', $input);
+        $data=$this->generarPedido('8', '4', $input, 'mercadopago');
+       // $data=$this->generarPedido('8', '4', $input, 'credit_card');
 
         $id_orden=$data['id_orden'];
 
@@ -625,6 +545,13 @@ $payment_methods = MP::get("/v1/payment_methods");
 
      //dd($input);
 
+  if (Sentinel::check()) {
+
+    $user_id = Sentinel::getUser()->id;
+
+    $user_cliente=User::where('id', $user_id)->first();
+
+
      $configuracion = AlpConfiguracion::where('id', '1')->first();
 
      MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
@@ -638,7 +565,7 @@ $payment_methods = MP::get("/v1/payment_methods");
         "payment_method_id" => $request->payment_method_id,
         "issuer_id" => $request->issuer_id,
         "payer" => [
-          "email"=>"miguel@gmail.com"]
+          "email"=>$user_cliente->email]
       ];
 
       $preference = MP::post("/v1/payments",$preference_data);
@@ -674,16 +601,8 @@ $payment_methods = MP::get("/v1/payment_methods");
 
           }
 
-
-
-
-
-        if (Sentinel::check()) {
-
-        $user_id = Sentinel::getUser()->id;
-
        
-          $data=$this->generarPedido('1', '2', $preference);
+          $data=$this->generarPedido('1', '2', $preference, 'credit_card');
 
           $id_orden=$data['id_orden'];
 
@@ -712,7 +631,6 @@ $payment_methods = MP::get("/v1/payment_methods");
 
          $configuracion = AlpConfiguracion::where('id','1')->first();
 
-          $user_cliente=User::where('id', $user_id)->first();
 
           $texto='Se ha creado la siguiente orden '.$compra->id.' y esta a espera de aprobacion  ';
 
@@ -725,17 +643,20 @@ $payment_methods = MP::get("/v1/payment_methods");
           return view('frontend.order.procesar_completo', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
         
 
-      }else{
-
-          return redirect('login');
-      }
+     
 
         
-      }else{
+        }else{
 
-        return redirect('order/detail');
+          return redirect('order/detail');
 
-      }
+        }
+
+
+  }else{
+
+          return redirect('login');
+    }
 
     }
 
@@ -1141,7 +1062,7 @@ $payment_methods = MP::get("/v1/payment_methods");
            
           
           // 1.- eststus orden, 2.- estatus pago, 3 json pedido 
-          $data=$this->generarPedido('8', '4', $payment);
+          $data=$this->generarPedido('8', '4', $payment, 'mercadopago');
 
           $id_orden=$data['id_orden'];
 
@@ -1209,11 +1130,11 @@ $payment_methods = MP::get("/v1/payment_methods");
 
 
 
-public function generarPedido($estatus_orden, $estatus_pago, $json_pago){
+public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
     $id_pago='0';
 
-    
+    //dd($tipo);
 
     if(isset($json_pago['response']['id'])){
 
@@ -1231,12 +1152,15 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago){
 
         $cart= \Session::get('cart');
 
+        $configuracion = AlpConfiguracion::where('id','1')->first();
+
+
+
         $id_orden= \Session::get('orden');
 
         $orden=AlpOrdenes::where('id', $id_orden)->first();
 
         $total=$this->total();
-
 
         $user_id = Sentinel::getUser()->id;
 
@@ -1326,10 +1250,40 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago){
 
         AlpEnviosHistory::create($data_envio_history);
 
-         $data_update = array(
+        $comision_mp=$configuracion->comision_mp/100;
+        $retencion_fuente_mp=$configuracion->retencion_fuente_mp/100;
+        $retencion_iva_mp=$configuracion->retencion_iva_mp/100;
+        $retencion_ica_mp=$configuracion->retencion_ica_mp/100;
+
+       // dd($orden);
+
+        if ($tipo=='credit_card') {
+
+         
+          $data_update = array(
           'estatus' =>$estatus_orden, 
           'estatus_pago' =>$estatus_pago,
+          'comision_mp' =>(($orden->monto_total*$comision_mp)+($orden->monto_total*$comision_mp*0.19)),
+          'retencion_fuente_mp' =>$orden->base_impuesto*$retencion_fuente_mp,
+          'retencion_iva_mp' =>$orden->monto_impuesto*$retencion_iva_mp,
+          'retencion_ica_mp' =>$orden->base_impuesto*$retencion_ica_mp
            );
+
+        }else{
+
+          $data_update = array(
+          'estatus' =>$estatus_orden, 
+          'estatus_pago' =>$estatus_pago,
+          'comision_mp' =>(($orden->monto_total*$comision_mp)+($orden->monto_total*$comision_mp*0.19)),
+          'retencion_fuente_mp' =>0,
+          'retencion_iva_mp' =>0,
+          'retencion_ica_mp' =>0
+           );
+
+        }
+
+        //dd($data_update);
+
 
          $orden->update($data_update);
 
@@ -1346,11 +1300,11 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago){
 
 
          $data_history = array(
-                        'id_orden' => $orden->id, 
-                       'id_status' => $estatus_orden, 
-                        'notas' => 'Orden procesada', 
-                       'id_user' => 1
-                    );
+              'id_orden' => $orden->id, 
+             'id_status' => $estatus_orden, 
+              'notas' => 'Orden procesada', 
+             'id_user' => 1
+          );
 
         $history=AlpOrdenesHistory::create($data_history);
 
@@ -1389,7 +1343,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago){
 
         $user_id = Sentinel::getUser()->id;
 
-        $data=$this->generarPedido('1', '2', $input);
+        $data=$this->generarPedido('1', '2', $input, 'mercadopago');
 
         $id_orden=$data['id_orden'];
         
@@ -1460,7 +1414,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago){
 
         $user_id = Sentinel::getUser()->id;
 
-         $data=$this->generarPedido('8', '4', $input);
+         $data=$this->generarPedido('8', '4', $input, 'mercadopago');
 
         $id_orden=$data['id_orden'];
         

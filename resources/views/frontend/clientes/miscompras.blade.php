@@ -108,7 +108,7 @@ Mis Compras
                         <td>    
                                
 
-                                   @if($row->id_forma_pago=='2') 
+                            @if($row->id_forma_pago=='2') 
                                 @if(!isset($pagos[$row->id]))
 
                                     @if($row->json!=null)

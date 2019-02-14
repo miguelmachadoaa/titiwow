@@ -663,7 +663,7 @@ Route::post(    'order/getpse',     [
         'uses'=>'Admin\AlpCartController@getPse'
     ]);
 
-Route::get(    'order/notificacion',     [ 
+Route::post(    'order/notificacion',     [ 
         'as'=>'order.notificacion', 
         'uses'=>'Admin\AlpCartController@notificacion'
     ]);
