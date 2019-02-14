@@ -15,6 +15,10 @@
             <th><b>Base Imponible</b></th>
             <th><b>Valor Iva</b></th>
             <th><b>Monto Iva</b></th>
+            <th><b>Comision Mercadopago</b></th>
+            <th><b>Retencion Fuente Mercadopago</b></th>
+            <th><b>Retencion IVA Mercadopago</b></th>
+            <th><b>Retencion ICA Mercadopago</b></th>
         </tr>
     </thead>
     <tbody>
@@ -40,14 +44,29 @@
             <td>{!! $row->cod_oracle_cliente!!}</td>
             <td>{!! $row->doc_cliente !!}</td>
             <td>{!! $row->first_name.' '.$row->last_name !!}</td>
-            <td> @if($row->json!=null) {!! json_decode($row->json)->merchant_order_id !!} @endif </td>
+            <td> 
+                @if($row->json!=null) 
+                    @if(isset(json_decode($row->json)->merchant_order_id ))
+                        {!! json_decode($row->json)->merchant_order_id !!} 
+                    @else 
+                        {!! json_decode($row->json)->response->id !!} 
+
+                    @endif 
+                @endif 
+            </td>
             <td>{!! $row->ordencompra !!}</td>
             <td>{!! $row->nombre_forma_pago  !!}</td>
             <td>
 
                 @if($row->json)
 
-                    {{  json_decode($row->json)->payment_type }}
+
+                    @if(isset(json_decode($row->json)->payment_type ))
+                        {!! json_decode($row->json)->payment_type !!} 
+                    @else 
+                        {!! json_decode($row->json)->response->payment_type_id   !!} 
+
+                    @endif
 
                 @endif
 
@@ -57,6 +76,11 @@
             <td>{!! $row->base_impuesto !!}</td>
             <td>{!! $row->valor_impuesto*100 !!} %</td>
             <td>{!! $row->monto_impuesto !!}</td>
+            <td>{!! $row->comision_mp !!}</td>
+            <td>{!! $row->retencion_fuente_mp !!}</td>
+            <td>{!! $row->retencion_iva_mp !!}</td>
+            <td>{!! $row->retencion_ica_mp !!}</td>
+
           
         </tr>
         @endforeach
