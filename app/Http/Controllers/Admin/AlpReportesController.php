@@ -14,6 +14,7 @@ use App\Exports\UsersExport;
 use App\Exports\VentasExport;
 use App\Exports\VentastotalesExport;
 use App\Exports\ProductosExport;
+use App\Exports\ProductosExportB;
 use App\Exports\ProductostotalesExport;
 use App\Exports\CarritoExport;
 use App\User;
@@ -66,6 +67,9 @@ class AlpReportesController extends Controller
 
         return Excel::download(new ProductosExport($request->desde, $request->hasta), 'ventas_desde_'.$request->desde.'_hasta_'.$request->hasta.'_producto_'.$request->producto.'.xlsx');
     }
+
+
+
 
     public function productostotales() 
     {
@@ -261,6 +265,25 @@ class AlpReportesController extends Controller
 
        return Excel::download(new UsersActivarExport(), $archivo);
 
+    }
+
+
+
+     public function productosb() 
+    {
+
+        $productos=AlpProductos::all();
+
+        return view('admin.reportes.productosb', compact('productos'));
+
+    }
+
+     public function exportproductosb(Request $request) 
+    {
+
+       // dd($request->all());
+
+        return Excel::download(new ProductosExportB($request->desde, $request->hasta), 'ventas_desde_'.$request->desde.'_hasta_'.$request->hasta.'_producto_'.$request->producto.'.xlsx');
     }
 
 
