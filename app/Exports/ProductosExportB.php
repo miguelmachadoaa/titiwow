@@ -35,7 +35,7 @@ class ProductosExportB implements FromView
           'users.last_name as last_name', 
           'users.email as email', 
            DB::raw('DATE_FORMAT(alp_ordenes_detalle.created_at, "%d/%m/%Y")  as fecha'),
-           DB::raw('sum(alp_ordenes_detalle.cantidad)  as total_cantidad'),
+          // DB::raw('sum(alp_ordenes_detalle.cantidad)  as total_cantidad'),
           'alp_productos.nombre_producto as nombre_producto',
           'alp_productos.referencia_producto as referencia_producto',
           'alp_productos.referencia_producto_sap as referencia_producto_sap',
@@ -51,8 +51,9 @@ class ProductosExportB implements FromView
           ->join('alp_marcas', 'alp_productos.id_marca', '=', 'alp_marcas.id')
          // ->groupBy('alp_ordenes_detalle.id_producto')
           ->whereNull('alp_ordenes.factura')
-          ->whereDate('alp_ordenes_detalle.created_at', '>=', $this->desde)
-          ->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta)
+          ->where('alp_ordenes.estatus_pago','=', '2')
+          //->whereDate('alp_ordenes_detalle.created_at', '>=', $this->desde)
+          //->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta)
           ->get();
 
 
