@@ -133,6 +133,57 @@ Editar Configuracion
                                 </div>
                             </div>
 
+                             <div class="form-group {{ $errors->first('comision_mp', 'has-error') }}">
+                                <label for="title" class="col-sm-2 control-label">
+                                    % Comision Mercado Pago
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="comision_mp" name="comision_mp" class="form-control" placeholder="Key Mercadopago"
+                                        value="{!! old('comision_mp', $configuracion->comision_mp) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('comision_mp', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+
+                             <div class="form-group {{ $errors->first('retencion_fuente_mp', 'has-error') }}">
+                                <label for="title" class="col-sm-2 control-label">
+                                    % Retencion de Fuente Mercado Pago
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="retencion_fuente_mp" name="retencion_fuente_mp" class="form-control" placeholder="Key Mercadopago"
+                                        value="{!! old('retencion_fuente_mp', $configuracion->retencion_fuente_mp) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('retencion_fuente_mp', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+
+                             <div class="form-group {{ $errors->first('retencion_iva_mp', 'has-error') }}">
+                                <label for="title" class="col-sm-2 control-label">
+                                    % Retencion de IVA Mercado Pago
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="retencion_iva_mp" name="retencion_iva_mp" class="form-control" placeholder="Key Mercadopago"
+                                        value="{!! old('retencion_iva_mp', $configuracion->retencion_iva_mp) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('retencion_iva_mp', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+
+                             <div class="form-group {{ $errors->first('retencion_ica_mp', 'has-error') }}">
+                                <label for="title" class="col-sm-2 control-label">
+                                    % Retencion de ICA Mercado Pago
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="retencion_ica_mp" name="retencion_ica_mp" class="form-control" placeholder="Key Mercadopago"
+                                        value="{!! old('retencion_ica_mp', $configuracion->retencion_ica_mp) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('retencion_ica_mp', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
                            <!-- <div class="form-group {{ $errors->first('key_mercadopago', 'has-error') }}">
                                 <label for="title" class="col-sm-2 control-label">
                                     Key Mercadopago
