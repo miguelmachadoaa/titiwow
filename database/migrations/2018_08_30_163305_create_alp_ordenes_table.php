@@ -25,6 +25,10 @@ class CreateAlpOrdenesTable extends Migration
             $table->decimal('base_impuesto',20,2);
             $table->decimal('valor_impuesto',20,2);
             $table->decimal('monto_impuesto',20,2);
+            $table->decimal('comision_mp',20,4);
+            $table->decimal('retencion_fuente_mp',20,4);
+            $table->decimal('retencion_iva_mp',20,4);
+            $table->decimal('retencion_ica_mp',20,4);
             $table->string('cod_oracle_pedido')->nullable();
             $table->string('ordencompra')->nullable();
             $table->string('factura')->nullable();
