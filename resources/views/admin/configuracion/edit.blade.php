@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Editar Configuracion
+Editar Configuracion General
 @parent
 @stop
 
@@ -10,7 +10,7 @@ Editar Configuracion
 @section('content')
 <section class="content-header">
     <h1>
-        Editar Configuracion
+        Editar Configuracion General
     </h1>
     <ol class="breadcrumb">
         <li>
@@ -19,7 +19,7 @@ Editar Configuracion
                 Inicio
             </a>
         </li>
-        <li>Configuracions</li>
+        <li>Configuracion</li>
         <li class="active">Editar</li>
     </ol>
 </section>
@@ -44,7 +44,7 @@ Editar Configuracion
                             {{ csrf_field() }}
                           
                             <div class="form-group {{ $errors->first('nombre_tienda', 'has-error') }}">
-                                <label for="title" class="col-sm-2 control-label">
+                                <label for="nombre_tienda" class="col-sm-2 control-label">
                                     Nombre Tienda
                                 </label>
                                 <div class="col-sm-5">
@@ -57,7 +57,7 @@ Editar Configuracion
                             </div>
                             <hr />
                             <div class="form-group {{ $errors->first('limite_amigos', 'has-error') }}">
-                                <label for="title" class="col-sm-2 control-label">
+                                <label for="limite_amigos" class="col-sm-2 control-label">
                                     Limite de Amigos Alpina
                                 </label>
                                 <div class="col-sm-5">
@@ -70,7 +70,7 @@ Editar Configuracion
                             </div>
 
                             <div class="form-group {{ $errors->first('minimo_compra', 'has-error') }}">
-                                <label for="title" class="col-sm-2 control-label">
+                                <label for="minimo_compra" class="col-sm-2 control-label">
                                     Minimo de Compra
                                 </label>
                                 <div class="col-sm-5">
@@ -83,7 +83,7 @@ Editar Configuracion
                             </div>
                             <hr />
                             <div class="form-group {{ $errors->first('id_mercadopago', 'has-error') }}">
-                                <label for="title" class="col-sm-2 control-label">
+                                <label for="id_mercadopago" class="col-sm-2 control-label">
                                     ID Mercadopago
                                 </label>
                                 <div class="col-sm-5">
@@ -95,7 +95,7 @@ Editar Configuracion
                                 </div>
                             </div>
                             <div class="form-group {{ $errors->first('key_mercadopago', 'has-error') }}">
-                                <label for="title" class="col-sm-2 control-label">
+                                <label for="key_mercadopago" class="col-sm-2 control-label">
                                     Key Mercadopago
                                 </label>
                                 <div class="col-sm-5">
@@ -108,7 +108,7 @@ Editar Configuracion
                             </div>
 
                             <div class="form-group {{ $errors->first('public_key_mercadopago', 'has-error') }}">
-                                <label for="title" class="col-sm-2 control-label">
+                                <label for="public_key_mercadopago" class="col-sm-2 control-label">
                                     Public Key Mercadopago Produccion
                                 </label>
                                 <div class="col-sm-5">
@@ -121,7 +121,7 @@ Editar Configuracion
                             </div>
 
                             <div class="form-group {{ $errors->first('public_key_mercadopago_test', 'has-error') }}">
-                                <label for="title" class="col-sm-2 control-label">
+                                <label for="public_key_mercadopago_test" class="col-sm-2 control-label">
                                     Public Key Mercadopago Test
                                 </label>
                                 <div class="col-sm-5">
@@ -134,11 +134,11 @@ Editar Configuracion
                             </div>
 
                              <div class="form-group {{ $errors->first('comision_mp', 'has-error') }}">
-                                <label for="title" class="col-sm-2 control-label">
+                                <label for="comision_mp" class="col-sm-2 control-label">
                                     % Comision Mercado Pago
                                 </label>
                                 <div class="col-sm-5">
-                                    <input type="text" id="comision_mp" name="comision_mp" class="form-control" placeholder="Key Mercadopago"
+                                    <input type="text" id="comision_mp" name="comision_mp" class="form-control" placeholder="% Comision Mercado Pago"
                                         value="{!! old('comision_mp', $configuracion->comision_mp) !!}">
                                 </div>
                                 <div class="col-sm-4">
@@ -147,11 +147,11 @@ Editar Configuracion
                             </div>
 
                              <div class="form-group {{ $errors->first('retencion_fuente_mp', 'has-error') }}">
-                                <label for="title" class="col-sm-2 control-label">
+                                <label for="retencion_fuente_mp" class="col-sm-2 control-label">
                                     % Retencion de Fuente Mercado Pago
                                 </label>
                                 <div class="col-sm-5">
-                                    <input type="text" id="retencion_fuente_mp" name="retencion_fuente_mp" class="form-control" placeholder="Key Mercadopago"
+                                    <input type="text" id="retencion_fuente_mp" name="retencion_fuente_mp" class="form-control" placeholder="% Retencion de Fuente Mercado Pago"
                                         value="{!! old('retencion_fuente_mp', $configuracion->retencion_fuente_mp) !!}">
                                 </div>
                                 <div class="col-sm-4">
@@ -160,11 +160,11 @@ Editar Configuracion
                             </div>
 
                              <div class="form-group {{ $errors->first('retencion_iva_mp', 'has-error') }}">
-                                <label for="title" class="col-sm-2 control-label">
+                                <label for="retencion_iva_mp" class="col-sm-2 control-label">
                                     % Retencion de IVA Mercado Pago
                                 </label>
                                 <div class="col-sm-5">
-                                    <input type="text" id="retencion_iva_mp" name="retencion_iva_mp" class="form-control" placeholder="Key Mercadopago"
+                                    <input type="text" id="retencion_iva_mp" name="retencion_iva_mp" class="form-control" placeholder="% Retencion de IVA Mercado Pago"
                                         value="{!! old('retencion_iva_mp', $configuracion->retencion_iva_mp) !!}">
                                 </div>
                                 <div class="col-sm-4">
@@ -173,11 +173,11 @@ Editar Configuracion
                             </div>
 
                              <div class="form-group {{ $errors->first('retencion_ica_mp', 'has-error') }}">
-                                <label for="title" class="col-sm-2 control-label">
+                                <label for="retencion_ica_mp" class="col-sm-2 control-label">
                                     % Retencion de ICA Mercado Pago
                                 </label>
                                 <div class="col-sm-5">
-                                    <input type="text" id="retencion_ica_mp" name="retencion_ica_mp" class="form-control" placeholder="Key Mercadopago"
+                                    <input type="text" id="retencion_ica_mp" name="retencion_ica_mp" class="form-control" placeholder="% Retencion de ICA Mercado Pago"
                                         value="{!! old('retencion_ica_mp', $configuracion->retencion_ica_mp) !!}">
                                 </div>
                                 <div class="col-sm-4">
@@ -333,7 +333,7 @@ Editar Configuracion
                                 <legend>Correos para notificacion</legend>
 
                                 <div class="form-group {{ $errors->first('correo_admin', 'has-error') }}">
-                                    <label for="title" class="col-sm-2 control-label">
+                                    <label for="correo_admin" class="col-sm-2 control-label">
                                         Correo Admin
                                     </label>
                                     <div class="col-sm-5">
@@ -346,7 +346,7 @@ Editar Configuracion
                                 </div>
 
                                 <div class="form-group {{ $errors->first('correo_shopmanager', 'has-error') }}">
-                                    <label for="title" class="col-sm-2 control-label">
+                                    <label for="correo_shopmanager" class="col-sm-2 control-label">
                                         Correo Shop Manager
                                     </label>
                                     <div class="col-sm-5">
@@ -360,7 +360,7 @@ Editar Configuracion
 
 
                                 <div class="form-group {{ $errors->first('correo_shopmanagercorp', 'has-error') }}">
-                                    <label for="title" class="col-sm-2 control-label">
+                                    <label for="correo_shopmanagercorp" class="col-sm-2 control-label">
                                         Correo Shop Manager Corporativo
                                     </label>
                                     <div class="col-sm-5">
@@ -373,7 +373,7 @@ Editar Configuracion
                                 </div>
 
                                 <div class="form-group {{ $errors->first('correo_masterfile', 'has-error') }}">
-                                    <label for="title" class="col-sm-2 control-label">
+                                    <label for="correo_masterfile" class="col-sm-2 control-label">
                                         Correo Masterfile
                                     </label>
                                     <div class="col-sm-5">
@@ -386,7 +386,7 @@ Editar Configuracion
                                 </div>
 
                                 <div class="form-group {{ $errors->first('correo_sac', 'has-error') }}">
-                                    <label for="title" class="col-sm-2 control-label">
+                                    <label for="correo_sac" class="col-sm-2 control-label">
                                         Correo Sac
                                     </label>
                                     <div class="col-sm-5">
@@ -399,7 +399,7 @@ Editar Configuracion
                                 </div>
 
                                 <div class="form-group {{ $errors->first('correo_cedi', 'has-error') }}">
-                                    <label for="title" class="col-sm-2 control-label">
+                                    <label for="correo_cedi" class="col-sm-2 control-label">
                                         Correo Cedi
                                     </label>
                                     <div class="col-sm-5">
@@ -412,7 +412,7 @@ Editar Configuracion
                                 </div>
 
                                 <div class="form-group {{ $errors->first('correo_logistica', 'has-error') }}">
-                                    <label for="title" class="col-sm-2 control-label">
+                                    <label for="correo_logistica" class="col-sm-2 control-label">
                                         Correo Logistica
                                     </label>
                                     <div class="col-sm-5">
@@ -426,7 +426,7 @@ Editar Configuracion
 
 
                                 <div class="form-group {{ $errors->first('correo_finanzas', 'has-error') }}">
-                                    <label for="title" class="col-sm-2 control-label">
+                                    <label for="correo_finanzas" class="col-sm-2 control-label">
                                         Correo Finanzas
                                     </label>
                                     <div class="col-sm-5">
