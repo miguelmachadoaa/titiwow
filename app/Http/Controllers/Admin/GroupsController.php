@@ -177,6 +177,8 @@ class GroupsController extends JoshController
         
         $routes = Route::getRoutes();
 
+        //dd($routes);
+
         $iterator=$routes->getIterator();
 
         //dd($iterator);
@@ -204,7 +206,7 @@ class GroupsController extends JoshController
             
         }
 
-       // dd($listado);
+        //dd($listado);
 
         //Api Route
         // $api = app('api.router');
