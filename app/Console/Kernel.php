@@ -32,7 +32,7 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
         $schedule->command('generate:sitemap')->weekly();
         $schedule->command('pedidos:day')->dailyAt('17:00');
-        $schedule->command('usuarios:activar')->dailyAt('23:00');
+      //  $schedule->command('usuarios:activar')->dailyAt('23:00');
         $schedule->command('pedidos:venta')->dailyAt('17:00');
         $schedule->command('usuarios:new')->dailyAt('08:00');
         $schedule->command('usuarios:new')->dailyAt('15:00');

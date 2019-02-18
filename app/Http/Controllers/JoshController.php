@@ -393,8 +393,8 @@ class JoshController extends Controller {
 
         
         $ordenes_total = AlpOrdenes::select(DB::raw( "SUM(monto_total) as count_row"))
-           // ->orderBy("created_at")
-           // ->groupBy(DB::raw("month(created_at)"))
+            ->orderBy("created_at")
+            ->groupBy(DB::raw("year(created_at)"))
             ->first();
 
              if (isset($ordenes_total->count_row)) {
@@ -431,8 +431,8 @@ class JoshController extends Controller {
 
 
         $ordenes_total_count = AlpOrdenes::select(DB::raw( "COUNT(monto_total) as count_row"))
-           // ->orderBy("created_at")
-           // ->groupBy(DB::raw("month(created_at)"))
+            ->orderBy("created_at")
+            ->groupBy(DB::raw("year(created_at)"))
             ->first();
 
                    if (isset($ordenes_total_count->count_row)) {
@@ -471,7 +471,19 @@ class JoshController extends Controller {
 
         $usuarios = User::count();
 
-        $clientes = AlpClientes::count();
+       // $clientes = AlpClientes::count();
+
+        $clientes = AlpClientes::select(DB::raw( "COUNT(id) as count_row"))
+            ->orderBy("created_at")
+            ->groupBy(DB::raw("year(created_at)"))
+            ->first();
+
+        if (isset($clientes->count_row)) {
+            $clientes=$clientes->count_row;
+        }else{
+            $clientes=0;
+
+        }
 
         $clientes_mes = AlpClientes::select(DB::raw( "COUNT(id) as count_row"))
             ->orderBy("created_at")
@@ -499,6 +511,18 @@ class JoshController extends Controller {
 
 
         $clientes_des = AlpClientes::whereNull('estado_masterfile')->count();
+
+        $clientes_des = AlpClientes::whereNull('estado_masterfile')->select(DB::raw( "COUNT(id) as count_row"))
+            ->orderBy("created_at")
+            ->groupBy(DB::raw("year(created_at)"))
+            ->first();
+
+               if (isset($clientes_des->count_row)) {
+            $clientes_des=$clientes_des->count_row;
+        }else{
+            $clientes_des=0;
+
+        }
 
         $clientes_mes_des = AlpClientes::whereNull('estado_masterfile')->select(DB::raw( "COUNT(id) as count_row"))
             ->orderBy("created_at")
