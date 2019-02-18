@@ -317,29 +317,38 @@ var useOnComplete = false,
         decimal: '.' // character to use as a decimal
     };
 
-var demo = new CountUp("myTargetElement1", 12.52, 9500, 0, 6, options);
+info=$('#data').data('info');
+
+console.log(info.clientes_hoy);
+console.log(info.ordenes_hoy);
+console.log(info.ordenes_hoy_count);
+console.log(info.clientes_hoy_des);
+
+
+
+var demo = new CountUp("myTargetElement1", 12.52, info.clientes_hoy, 0, 6, options);
 demo.start();
-var demo = new CountUp("myTargetElement2", 1, 100, 0, 6, options);
+var demo = new CountUp("myTargetElement2", 1, info.ordenes_hoy, 0, 6, options);
 demo.start();
-var demo = new CountUp("myTargetElement3", 24.02, 5000, 0, 6, options);
+var demo = new CountUp("myTargetElement3", 24.02, info.ordenes_hoy_count, 0, 6, options);
 demo.start();
-var demo = new CountUp("myTargetElement4", 1254, 8000, 0, 6, options);
+var demo = new CountUp("myTargetElement4", 1254, info.clientes_hoy_des, 0, 6, options);
 demo.start();
-var demo = new CountUp("myTargetElement1.1", 1254, 98000, 0, 6, options);
+var demo = new CountUp("myTargetElement1.1", 1254, info.clientes_mes, 0, 6, options);
 demo.start();
-var demo = new CountUp("myTargetElement1.2", 1254, 396000, 0, 6, options);
+var demo = new CountUp("myTargetElement1.2", 1254, info.clientes, 0, 6, options);
 demo.start();
-var demo = new CountUp("myTargetElement2.1", 154, 920, 0, 6, options);
+var demo = new CountUp("myTargetElement2.1", 154, info.ordenes_mes, 0, 6, options);
 demo.start();
-var demo = new CountUp("myTargetElement2.2", 2582, 3929, 0, 6, options);
+var demo = new CountUp("myTargetElement2.2", 2582, info.ordenes_total, 0, 6, options);
 demo.start();
-var demo = new CountUp("myTargetElement3.1", 2582, 42000, 0, 6, options);
+var demo = new CountUp("myTargetElement3.1", 2582, info.ordenes_mes_count, 0, 6, options);
 demo.start();
-var demo = new CountUp("myTargetElement3.2", 25858, 173929, 0, 6, options);
+var demo = new CountUp("myTargetElement3.2", 25858, info.ordenes_total_count, 0, 6, options);
 demo.start();
-var demo = new CountUp("myTargetElement4.1", 2544, 56000, 0, 6, options);
+var demo = new CountUp("myTargetElement4.1", 2544, info.clientes_mes_des, 0, 6, options);
 demo.start();
-var demo = new CountUp("myTargetElement4.2", 1584, 219864, 0, 6, options);
+var demo = new CountUp("myTargetElement4.2", 1584, info.clientes_des, 0, 6, options);
 demo.start();
 var my_posts = $("[rel=tooltip]");
 

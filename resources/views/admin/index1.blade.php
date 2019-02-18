@@ -39,6 +39,8 @@
     <input type="hidden" name="input_usuarios" id="input_usuarios" value="{{ $usuarios  }}">
     <input type="hidden" name="input_ordenes" id="input_ordenes" value="@if(isset($ordenes_mes->count_row)) {{ $ordenes_mes->count_row  }} @else {{ 0 }} @endif">
 
+    <div id="data" data-info="{{ json_encode($data_info) }}"></div>
+
 
     <section class="content">
     @if (Sentinel::getUser()->hasAnyAccess(['productos.*']))
@@ -50,7 +52,7 @@
                         <div class="col-xs-12 pull-left nopadmar">
                             <div class="row">
                                 <div class="square_box col-xs-7 text-right">
-                                    <span> Clientes</span>
+                                    <span> Clientes Registrados Hoy</span>
 
                                     <div class="number" id="myTargetElement1"></div>
                                 </div>
@@ -59,11 +61,11 @@
                             </div>
                             <div class="row">
                                 <div class="col-xs-6">
-                                    <small class="stat-label">Semana</small>
+                                    <small class="stat-label">Mes</small>
                                     <h4 id="myTargetElement1.1"></h4>
                                 </div>
                                 <div class="col-xs-6 text-right">
-                                    <small class="stat-label">Mes</small>
+                                    <small class="stat-label">Total</small>
                                     <h4 id="myTargetElement1.2"></h4>
                                 </div>
                             </div>
@@ -78,7 +80,7 @@
                         <div class="col-xs-12 pull-left nopadmar">
                             <div class="row">
                                 <div class="square_box col-xs-7 pull-left">
-                                    <span>Ventas</span>
+                                    <span>Monto de Ventas Hoy</span>
 
                                     <div class="number" id="myTargetElement2"></div>
                                 </div>
@@ -87,11 +89,11 @@
                             </div>
                             <div class="row">
                                 <div class="col-xs-6">
-                                    <small class="stat-label">Semana</small>
+                                    <small class="stat-label">Mes </small>
                                     <h4 id="myTargetElement2.1"></h4>
                                 </div>
                                 <div class="col-xs-6 text-right">
-                                    <small class="stat-label">Mes</small>
+                                    <small class="stat-label">Total</small>
                                     <h4 id="myTargetElement2.2"></h4>
                                 </div>
                             </div>
@@ -106,7 +108,7 @@
                         <div class="col-xs-12 pull-left nopadmar">
                             <div class="row">
                                 <div class="square_box col-xs-7 pull-left">
-                                    <span>Productos</span>
+                                    <span>Cantidad de Ventas Hoy</span>
 
                                     <div class="number" id="myTargetElement3"></div>
                                 </div>
@@ -115,11 +117,11 @@
                             </div>
                             <div class="row">
                                 <div class="col-xs-6">
-                                    <small class="stat-label">Semana</small>
+                                    <small class="stat-label">Mes</small>
                                     <h4 id="myTargetElement3.1"></h4>
                                 </div>
                                 <div class="col-xs-6 text-right">
-                                    <small class="stat-label">Mes</small>
+                                    <small class="stat-label">Total</small>
                                     <h4 id="myTargetElement3.2"></h4>
                                 </div>
                             </div>
@@ -134,7 +136,7 @@
                         <div class="col-xs-12 pull-left nopadmar">
                             <div class="row">
                                 <div class="square_box col-xs-7 pull-left">
-                                    <span>Usuarios</span>
+                                    <span>Clientes Desactivados Hoy</span>
 
                                     <div class="number" id="myTargetElement4"></div>
                                 </div>
@@ -143,11 +145,11 @@
                             </div>
                             <div class="row">
                                 <div class="col-xs-6">
-                                    <small class="stat-label">Semana</small>
+                                    <small class="stat-label">Mes</small>
                                     <h4 id="myTargetElement4.1"></h4>
                                 </div>
                                 <div class="col-xs-6 text-right">
-                                    <small class="stat-label">Mes</small>
+                                    <small class="stat-label">Total</small>
                                     <h4 id="myTargetElement4.2"></h4>
                                 </div>
                             </div>
@@ -157,85 +159,8 @@
             </div>
         </div>
         <!--/row-->
-        <div class="row ">
-            <div class="col-md-8 col-sm-6">
-                <div class="panel panel-border">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            <i class="livicon" data-name="dashboard" data-size="20" data-loop="true" data-c="#F89A14"
-                               data-hc="#F89A14"></i>
-                            Gráfica de Ejemplo
-                            <small>- Ventas</small>
-                        </h3>
-                    </div>
-                    <div class="panel-body">
-                        <div id="realtimechart" style="height:350px;"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="panel blue_gradiant_bg">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            <i class="livicon" data-name="linechart" data-size="16" data-loop="true" data-c="#fff"
-                               data-hc="white"></i>
-                            Reporte de Ventas
-                            <small class="white-text">- general</small>
-                        </h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="sparkline-chart">
-                                    <div class="number" id="sparkline_bar"></div>
-                                    <h3 class="title">Por Rol</h3>
-                                </div>
-                            </div>
-                            <div class="margin-bottom-10 visible-sm"></div>
-                            <div class="margin-bottom-10 visible-sm"></div>
-                            <div class="col-sm-6">
-                                <div class="sparkline-chart">
-                                    <div class="number" id="sparkline_line"></div>
-                                    <h3 class="title">Por Ubicación</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- BEGIN Percentage monitor -->
-                <div class="panel green_gradiante_bg ">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            <i class="livicon" data-name="spinner-six" data-size="16" data-loop="false" data-c="#fff"
-                               data-hc="white"></i>
-                            Ventas por Rol
-                        </h3>
-                    </div>
-                    <div class="panel-body nopadmar">
-                        <div class="row">
-                            <div class="col-sm-6 text-center">
-                                <h4 class="small-heading">General</h4>
-                            <span class="chart cir chart-widget-pie widget-easy-pie-1" data-percent="45"><span
-                                        class="percent">45</span>
-                            </span>
-                            </div>
-                            <!-- /.col-sm-4 -->
-                            <div class="col-sm-6 text-center">
-                                <h4 class="small-heading">Corporativo</h4>
-                            <span class="chart cir chart-widget-pie widget-easy-pie-3" data-percent="25">
-                                <span class="percent">25</span>
-                            </span>
-                            </div>
-                            <!-- /.col-sm-4 -->
-                        </div>
 
-                        <!-- /.row -->
-                    </div>
-                    <!-- /.panel-body -->
-                </div>
-                <!-- END BEGIN Percentage monitor-->
-            </div>
-        </div>
+
     @else
         <div class="row">
             <div class="col-md-6 col-lg-6 col-12 my-3">
