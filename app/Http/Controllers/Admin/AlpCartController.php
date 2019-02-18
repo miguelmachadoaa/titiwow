@@ -199,7 +199,8 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
            },
            "description": "Pago de orden Nro. '.$orden->id.'",
            "external_reference": "ALP'.$orden->id.'",
-           "callback_url": "https://crearemosdev.com/pruebas/order/pse",
+           "callback_url": "https://localhost/laravel55/order/pse",
+           
            "additional_info": {
                "ip_address": "'.request()->ip().'"
            },
@@ -240,6 +241,8 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
     {
 
       $input=$request->all();
+
+      dd($input);
 
 
        if (\Session::has('pse')) {

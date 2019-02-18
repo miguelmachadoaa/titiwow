@@ -21,7 +21,7 @@
         <tr>
             <td>{!! $row->id_orden!!}</td>
             <td>{!! $row->ordencompra!!}</td>
-            <td>{!! $row->id_usuario!!}</td>
+            <td>{!! $row->doc_cliente!!}</td>
             <td>{!! $row->first_name.' '.$row->last_name!!}</td>
             <td>{!! $row->referencia_producto!!}</td>
             <td>{!! $row->referencia_producto_sap!!}</td>
