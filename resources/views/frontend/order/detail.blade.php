@@ -684,7 +684,7 @@ div.overlay > div {
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header bg-primary">
-                <h4 class="modal-title" id="modalLabeldanger">Aplicar Cupon</h4>
+                <h4 class="modal-title" id="modalLabeldanger">Pago con PSE</h4>
             </div>
             <div class="modal-body">
 
@@ -733,8 +733,7 @@ div.overlay > div {
                             <div class="col-sm-8">
 
                                 <input id="doc_cliente_pse" name="doc_cliente_pse" type="text"
-                                               placeholder="Número de Documento" class="form-control required"
-                                               "/>
+                                               placeholder="Número de Documento" class="form-control required"/>
 
                                        
                             </div>
@@ -798,7 +797,7 @@ div.overlay > div {
             </div>
             <div class="modal-footer">
                 <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn  btn-primary sendPse" >Agregar</button>
+                <button type="button" class="btn  btn-primary sendPse" >Continuar</button>
             </div>
         </div>
     </div>
