@@ -244,16 +244,18 @@
                                             </div>
                                             <span class="help-block">{{ $errors->first('group', ':message') }}</span>
                                         </div>
-                                        <!--div class="form-group">
-                                            <label for="activate" class="col-sm-2 control-label"> Activar Cliente *</label>
+                                        @if(!empty($clien->first_name))
+                                        <div class="form-group {{ $errors->first('embajador', 'has-error') }}">
+                                            <label for="embajador" class="col-sm-2 control-label">Embajador</label>
                                             <div class="col-sm-10">
-                                                <input id="activate" name="activate" type="checkbox"
-                                                       class="pos-rel p-l-30 custom-checkbox"
-                                                       value="1"  @if($status) checked="checked" @endif >
-                                                <span>¿Desea Activar la cuenta del cliente de forma automática?</span></div>
-
-                                        </div-->
+                                                <input id="embajador" name="embajador" placeholder="E-mail" type="text"
+                                                       class="form-control required embajador" value="{!! old('first_name', $clien->first_name.' '.$clien->last_name) !!}" readonly/>
+                                                {!! $errors->first('embajador', '<span class="help-block">:message</span>') !!}
+                                            </div>
+                                        </div>
+                                        @endif
                                     </div>
+
                                     <ul class="pager wizard">
                                         <li class="previous"><a href="#">@lang('clientes/title.previous')</a></li>
                                         <li class="next"><a href="#">@lang('clientes/title.next')</a></li>

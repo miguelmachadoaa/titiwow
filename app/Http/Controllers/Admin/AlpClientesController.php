@@ -230,8 +230,11 @@ class AlpClientesController extends JoshController
     {
         $user = User::findOrFail($id);
 
-        $cliente = DB::table('alp_clientes')->where('alp_clientes.id_user_client', '=', $id)->get();
-
+        
+        $cliente = DB::table('alp_clientes')
+        ->leftJoin('users', 'alp_clientes.id_embajador', '=', 'users.id')
+        ->where('alp_clientes.id_user_client', '=', $id)->get();
+        
         // Get this user groups
         $userRoles = $user->getRoles()->pluck('name', 'id')->all();
         // Get a list of all the available groups
