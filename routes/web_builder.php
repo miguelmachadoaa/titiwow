@@ -246,9 +246,9 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
     /******************Rutas para descarga de archivs*************************/
 
-    Route::get('reportes/exportcronlogisticaexport', 'Admin\AlpReportesController@exportcronlogisticaexport');
+    Route::get('reportes/exportcronlogisticaexport', 'Admin\AlpReportesController@exportcronlogisticaexport')->name('reportes.exportcronlogisticaexport');
 
-    Route::get('reportes/cronnuevosusuariosexport', 'Admin\AlpReportesController@cronnuevosusuariosexport');
+    Route::get('reportes/cronnuevosusuariosexport', 'Admin\AlpReportesController@cronnuevosusuariosexport')->name('reportes.cronnuevosusuariosexport');
 
 
     /*******************************************/
@@ -264,13 +264,13 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
 
 
-   Route::get('reportes/registrados', 'Admin\AlpReportesController@indexreg');
+   Route::get('reportes/registrados', 'Admin\AlpReportesController@indexreg')->name('reportes.registrados');
    
-   Route::post('reportes/registrados/export', 'Admin\AlpReportesController@export');
+   Route::post('reportes/registrados/export', 'Admin\AlpReportesController@export')->name('reportes.export');
 
-   Route::get('reportes/ventastotales', 'Admin\AlpReportesController@ventastotales');
+   Route::get('reportes/ventastotales', 'Admin\AlpReportesController@ventastotales')->name('reportes.ventastotales');
    
-   Route::post('reportes/exportventastotales', 'Admin\AlpReportesController@exportventastotales');
+   Route::post('reportes/exportventastotales', 'Admin\AlpReportesController@exportventastotales')->name('reportes.exportventastotales');
 
    
 
@@ -278,61 +278,61 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
 
 
-   Route::get('reportes/ventas', 'Admin\AlpReportesController@ventas');
+   Route::get('reportes/ventas', 'Admin\AlpReportesController@ventas')->name('reportes.ventas');
    //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
-   Route::post('reportes/exportventas', 'Admin\AlpReportesController@exportventas');
+   Route::post('reportes/exportventas', 'Admin\AlpReportesController@exportventas')->name('reportes.exportventas');
 
 
-    Route::get('reportes/productos', 'Admin\AlpReportesController@productos');
+    Route::get('reportes/productos', 'Admin\AlpReportesController@productos')->name('reportes.productos');
    //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
-   Route::post('reportes/exportproductos', 'Admin\AlpReportesController@exportproductos');
+   Route::post('reportes/exportproductos', 'Admin\AlpReportesController@exportproductos')->name('reportes.exportproductos');
 
 
-   Route::get('reportes/productosb', 'Admin\AlpReportesController@productosb');
+   Route::get('reportes/productosb', 'Admin\AlpReportesController@productosb')->name('reportes.productosb');
    //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
-   Route::post('reportes/exportproductosb', 'Admin\AlpReportesController@exportproductosb');
+   Route::post('reportes/exportproductosb', 'Admin\AlpReportesController@exportproductosb')->name('reportes.exportproductosb');
 
 
-    Route::get('reportes/carrito', 'Admin\AlpReportesController@carrito');
+    Route::get('reportes/carrito', 'Admin\AlpReportesController@carrito')->name('reportes.carrito');
    //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
-   Route::post('reportes/exportcarrito', 'Admin\AlpReportesController@exportcarrito');
+   Route::post('reportes/exportcarrito', 'Admin\AlpReportesController@exportcarrito')->name('reportes.exportcarrito');
 
 
-   Route::get('reportes/financiero', 'Admin\AlpReportesController@financiero');
+   Route::get('reportes/financiero', 'Admin\AlpReportesController@financiero')->name('reportes.financiero');
    //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
-   Route::post('reportes/exportfinanciero', 'Admin\AlpReportesController@exportfinanciero');
+   Route::post('reportes/exportfinanciero', 'Admin\AlpReportesController@exportfinanciero')->name('reportes.exportfinanciero');
 
     
 
-    Route::get('reportes/masterfile', 'Admin\AlpReportesController@masterfile');
+    Route::get('reportes/masterfile', 'Admin\AlpReportesController@masterfile')->name('reportes.masterfile');
    //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
-   Route::post('reportes/exportmasterfile', 'Admin\AlpReportesController@exportmasterfile');
+   Route::post('reportes/exportmasterfile', 'Admin\AlpReportesController@exportmasterfile')->name('reportes.exportmasterfile');
 
 
-   Route::get('reportes/masterfileembajadores', 'Admin\AlpReportesController@masterfileembajadores');
+   Route::get('reportes/masterfileembajadores', 'Admin\AlpReportesController@masterfileembajadores')->name('reportes.masterfileembajadores');
    //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
-   Route::post('reportes/exportmasterfileembajadores', 'Admin\AlpReportesController@exportmasterfileembajadores');
+   Route::post('reportes/exportmasterfileembajadores', 'Admin\AlpReportesController@exportmasterfileembajadores')->name('reportes.exportmasterfileembajadores');
 
 
-   Route::get('reportes/masterfileamigos', 'Admin\AlpReportesController@masterfileamigos');
+   Route::get('reportes/masterfileamigos', 'Admin\AlpReportesController@masterfileamigos')->name('reportes.masterfileamigos');
    //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
-   Route::post('reportes/exportmasterfileamigos', 'Admin\AlpReportesController@exportmasterfileamigos');
+   Route::post('reportes/exportmasterfileamigos', 'Admin\AlpReportesController@exportmasterfileamigos')->name('reportes.exportmasterfileamigos');
 
 
 
-    Route::get('reportes/logistica', 'Admin\AlpReportesController@logistica');
+    Route::get('reportes/logistica', 'Admin\AlpReportesController@logistica')->name('reportes.logistica');
    //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
-   Route::post('reportes/exportlogistica', 'Admin\AlpReportesController@exportlogistica');
+   Route::post('reportes/exportlogistica', 'Admin\AlpReportesController@exportlogistica')->name('reportes.exportlogistica');
 
 
-    Route::get('reportes/consolidado', 'Admin\AlpReportesController@consolidado');
+    Route::get('reportes/consolidado', 'Admin\AlpReportesController@consolidado')->name('reportes.consolidado');
    //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
-   Route::post('reportes/exportconsolidado', 'Admin\AlpReportesController@exportconsolidado');
+   Route::post('reportes/exportconsolidado', 'Admin\AlpReportesController@exportconsolidado')->name('reportes.exportconsolidado');
 
 
-   Route::get('reportes/productostotales', 'Admin\AlpReportesController@productostotales');
+   Route::get('reportes/productostotales', 'Admin\AlpReportesController@productostotales')->name('reportes.productostotales');
    //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
-   Route::post('reportes/exportproductostotales', 'Admin\AlpReportesController@exportproductostotales');
+   Route::post('reportes/exportproductostotales', 'Admin\AlpReportesController@exportproductostotales')->name('reportes.exportproductostotales');
 
 //Fin Reportes generales
 
