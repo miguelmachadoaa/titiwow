@@ -75,7 +75,7 @@ Reporte de Ventas por Producto
                     </div>-->
 
 
-                    <div class="form-group">
+                    <!--div class="form-group">
 
                                 <label class="col-md-2 control-label text-right">Desde - Hasta:</label>
 
@@ -100,7 +100,7 @@ Reporte de Ventas por Producto
                             </div>
                         </div>
                             <!-- /.input group -->
-                    </div>
+                    <!--/div-->
 
 
 

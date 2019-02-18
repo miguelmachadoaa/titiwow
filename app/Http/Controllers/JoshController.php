@@ -392,19 +392,180 @@ class JoshController extends Controller {
         $users = User::orderBy('id', 'desc')->take(6)->get();
 
         
+        $ordenes_total = AlpOrdenes::select(DB::raw( "SUM(monto_total) as count_row"))
+            ->orderBy("created_at")
+            ->groupBy(DB::raw("year(created_at)"))
+            ->first();
+
+             if (isset($ordenes_total->count_row)) {
+            $ordenes_total=$ordenes_total->count_row;
+        }else{
+            $ordenes_total=0;
+
+        }
+
         $ordenes_mes = AlpOrdenes::select(DB::raw( "SUM(monto_total) as count_row"))
             ->orderBy("created_at")
             ->groupBy(DB::raw("month(created_at)"))
             ->first();
 
-        $ordenes_hoy = AlpOrdenes::select(DB::raw( "COUNT(monto_total) as count_row"))
+            if (isset($ordenes_mes->count_row)) {
+            $ordenes_mes=$ordenes_mes->count_row;
+        }else{
+            $ordenes_mes=0;
+
+        }
+
+        $ordenes_hoy = AlpOrdenes::select(DB::raw( "SUM(monto_total) as count_row"))
             ->orderBy("created_at")
             ->groupBy(DB::raw("day(created_at)"))
             ->first();
 
+               if (isset($ordenes_hoy->count_row)) {
+            $ordenes_hoy=$ordenes_hoy->count_row;
+        }else{
+            $ordenes_hoy=0;
+
+        }
+
+
+
+        $ordenes_total_count = AlpOrdenes::select(DB::raw( "COUNT(monto_total) as count_row"))
+            ->orderBy("created_at")
+            ->groupBy(DB::raw("year(created_at)"))
+            ->first();
+
+                   if (isset($ordenes_total_count->count_row)) {
+            $ordenes_total_count=$ordenes_total_count->count_row;
+        }else{
+            $ordenes_total_count=0;
+
+        }
+
+        $ordenes_mes_count = AlpOrdenes::select(DB::raw( "COUNT(monto_total) as count_row"))
+            ->orderBy("created_at")
+            ->groupBy(DB::raw("month(created_at)"))
+            ->first();
+
+                   if (isset($ordenes_mes_count->count_row)) {
+            $ordenes_mes_count=$ordenes_mes_count->count_row;
+        }else{
+            $ordenes_mes_count=0;
+
+        }
+
+        $ordenes_hoy_count = AlpOrdenes::select(DB::raw( "COUNT(monto_total) as count_row"))
+            ->orderBy("created_at")
+            ->groupBy(DB::raw("day(created_at)"))
+            ->first();
+
+                   if (isset($ordenes_hoy_count->count_row)) {
+            $ordenes_hoy_count=$ordenes_hoy_count->count_row;
+        }else{
+            $ordenes_hoy_count=0;
+
+        }
+
+
+
+
         $usuarios = User::count();
 
-        $clientes = AlpClientes::count();
+       // $clientes = AlpClientes::count();
+
+        $clientes = AlpClientes::select(DB::raw( "COUNT(id) as count_row"))
+            ->orderBy("created_at")
+            ->groupBy(DB::raw("year(created_at)"))
+            ->first();
+
+        if (isset($clientes->count_row)) {
+            $clientes=$clientes->count_row;
+        }else{
+            $clientes=0;
+
+        }
+
+        $clientes_mes = AlpClientes::select(DB::raw( "COUNT(id) as count_row"))
+            ->orderBy("created_at")
+            ->groupBy(DB::raw("month(created_at)"))
+            ->first();
+
+        if (isset($clientes_mes->count_row)) {
+            $clientes_mes=$clientes_mes->count_row;
+        }else{
+            $clientes_mes=0;
+
+        }
+
+        $clientes_hoy = AlpClientes::select(DB::raw( "COUNT(id) as count_row"))
+            ->orderBy("created_at")
+            ->groupBy(DB::raw("day(created_at)"))
+            ->first();
+
+             if (isset($clientes_hoy->count_row)) {
+            $clientes_hoy=$clientes_hoy->count_row;
+        }else{
+            $clientes_hoy=0;
+
+        }
+
+
+        $clientes_des = AlpClientes::whereNull('estado_masterfile')->count();
+
+        $clientes_des = AlpClientes::whereNull('estado_masterfile')->select(DB::raw( "COUNT(id) as count_row"))
+            ->orderBy("created_at")
+            ->groupBy(DB::raw("year(created_at)"))
+            ->first();
+
+               if (isset($clientes_des->count_row)) {
+            $clientes_des=$clientes_des->count_row;
+        }else{
+            $clientes_des=0;
+
+        }
+
+        $clientes_mes_des = AlpClientes::whereNull('estado_masterfile')->select(DB::raw( "COUNT(id) as count_row"))
+            ->orderBy("created_at")
+            ->groupBy(DB::raw("month(created_at)"))
+            ->first();
+
+               if (isset($clientes_mes_des->count_row)) {
+            $clientes_mes_des=$clientes_mes_des->count_row;
+        }else{
+            $clientes_mes_des=0;
+
+        }
+
+        $clientes_hoy_des = AlpClientes::whereNull('estado_masterfile')->select(DB::raw( "COUNT(id) as count_row"))
+            ->orderBy("created_at")
+            ->groupBy(DB::raw("day(created_at)"))
+            ->first();
+
+              if (isset($clientes_hoy_des->count_row)) {
+            $clientes_hoy_des=$clientes_hoy_des->count_row;
+        }else{
+            $clientes_hoy_des=0;
+
+        }
+
+
+        $data_info = array(
+            'ordenes_total'=> $ordenes_total,
+            'ordenes_mes'=> $ordenes_mes,
+            'ordenes_hoy'=> $ordenes_hoy,
+            'ordenes_total_count'=> $ordenes_total_count,
+            'ordenes_mes_count'=> $ordenes_mes_count,
+            'ordenes_hoy_count'=> $ordenes_hoy_count,
+            'clientes'=> $clientes,
+            'clientes_mes'=> $clientes_mes,
+            'clientes_hoy'=> $clientes_hoy,
+            'clientes_des'=> $clientes_des,
+            'clientes_mes_des'=> $clientes_mes_des,
+            'clientes_hoy_des'=> $clientes_hoy_des
+        );
+
+//dd($data_info);
+
 
         $productos = AlpProductos::count();
 
@@ -451,7 +612,7 @@ class JoshController extends Controller {
 
            
 
-            return view('admin.index1',[ 'analytics_error'=>$analytics_error,'chart_data'=>$chart_data, 'blog_count'=>$blog_count,'user_count'=>$user_count,'users'=>$users,'db_chart'=>$db_chart,'geo'=>$geo,'user_roles'=>$user_roles,'blogs'=>$blogs,'visitors'=>$visitors,'pageVisits'=>$pageVisits,'line_chart'=>$line_chart,'month_visits'=>$month_visits,'year_visits'=>$year_visits, 'ordenes_mes'=>$ordenes_mes, 'ordenes_hoy'=>$ordenes_hoy, 'usuarios'=>$usuarios, 'clientes'=>$clientes, 'productos'=>$productos] );
+            return view('admin.index1',[ 'analytics_error'=>$analytics_error,'chart_data'=>$chart_data, 'blog_count'=>$blog_count,'user_count'=>$user_count,'users'=>$users,'db_chart'=>$db_chart,'geo'=>$geo,'user_roles'=>$user_roles,'blogs'=>$blogs,'visitors'=>$visitors,'pageVisits'=>$pageVisits,'line_chart'=>$line_chart,'month_visits'=>$month_visits,'year_visits'=>$year_visits, 'ordenes_mes'=>$ordenes_mes, 'ordenes_hoy'=>$ordenes_hoy, 'usuarios'=>$usuarios, 'clientes'=>$clientes, 'productos'=>$productos, 'data_info'=>$data_info] );
         
         else
             return redirect('admin/signin')->with('error', 'Debes Iniciar Sesión');
