@@ -314,6 +314,9 @@
 
             base=$('#base').val();
 
+            imagen=base+'/uploads/files/loader.gif';
+
+
             id=$(this).data('id');
 
             price=$(this).data('price');
@@ -323,6 +326,8 @@
             single=$('#single').val();
 
             url=$(this).attr('href');
+
+            $('.boton_'+id+'').html('<img style="max-width:32px; max-height:32px;" src="'+imagen+'">');
 
             $.post(base+'/cart/agregar', {price, slug}, function(data) {
 
@@ -347,6 +352,11 @@
             base=$('#base').val();
 
             id=$(this).data('id');
+
+            imagen=base+'/uploads/files/loader.gif';
+
+            $('.boton_'+id+'').html('<img style="max-width:32px; max-height:32px;" src="'+imagen+'">');
+
 
             tipo=$(this).data('tipo');
 
@@ -396,6 +406,10 @@
 
             id=$(this).data('id');
 
+            imagen=base+'/uploads/files/loader.gif';
+
+            $('.boton_'+id+'').html('<img style="max-width:32px; max-height:32px;" src="'+imagen+'">');
+
             cantidad=$(this).val();
 
                     $.post(base+'/cart/updatecantidad', { slug, cantidad}, function(data) {
@@ -426,6 +440,10 @@
             slug=$(this).data('slug');
 
             id=$(this).data('id');
+
+            imagen=base+'/uploads/files/loader.gif';
+
+            $('.boton_'+id+'').html('<img style="max-width:32px; max-height:32px;" src="'+imagen+'">');
 
             //alert(id);
 
