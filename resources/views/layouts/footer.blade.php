@@ -353,15 +353,11 @@
 
             id=$(this).data('id');
 
-            imagen=base+'/uploads/files/loader.gif';
-
-            $('.boton_'+id+'').html('<img style="max-width:32px; max-height:32px;" src="'+imagen+'">');
-
+            
 
             tipo=$(this).data('tipo');
 
             single=$('#single').val();
-
 
             slug=$(this).data('slug');
 
@@ -377,6 +373,10 @@
 
                 cantidad=cantidad-1;
             }
+
+            imagen=base+'/uploads/files/loader.gif';
+
+            $('.boton_'+id+'').html('<img style="max-width:32px; max-height:32px;" src="'+imagen+'">');
             
                    $.post(base+'/cart/updatecartbotones', {id, slug, cantidad}, function(data) {
 
@@ -406,11 +406,13 @@
 
             id=$(this).data('id');
 
-            imagen=base+'/uploads/files/loader.gif';
-
-            $('.boton_'+id+'').html('<img style="max-width:32px; max-height:32px;" src="'+imagen+'">');
+           
 
             cantidad=$(this).val();
+
+             imagen=base+'/uploads/files/loader.gif';
+
+            $('.boton_'+id+'').html('<img style="max-width:32px; max-height:32px;" src="'+imagen+'">');
 
                     $.post(base+'/cart/updatecantidad', { slug, cantidad}, function(data) {
 
@@ -441,9 +443,7 @@
 
             id=$(this).data('id');
 
-            imagen=base+'/uploads/files/loader.gif';
-
-            $('.boton_'+id+'').html('<img style="max-width:32px; max-height:32px;" src="'+imagen+'">');
+            
 
             //alert(id);
 
@@ -452,7 +452,9 @@
             cantidad=0;
 
 
-           
+           imagen=base+'/uploads/files/loader.gif';
+
+            $('.boton_'+id+'').html('<img style="max-width:32px; max-height:32px;" src="'+imagen+'">');
 
                     $.post(base+'/cart/delproducto', { slug}, function(data) {
 
