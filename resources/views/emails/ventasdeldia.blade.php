@@ -10,7 +10,7 @@
 <br>
  
 
-@component('mail::button', ['url' => secure_url($enlace)])
+@component('mail::button', ['url' => $enlace])
 Descargar Archivo
 @endcomponent
 

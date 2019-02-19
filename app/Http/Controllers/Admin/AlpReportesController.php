@@ -287,4 +287,17 @@ class AlpReportesController extends Controller
     }
 
 
+    public function cronexportproductosb(Request $request) 
+    {
+        $date = Carbon::now();
+
+        $hoy=$date->format('Y-m-d');
+
+        $archivo='ventas_productos'.$hoy.'.xlsx';
+
+         return Excel::download(new ProductosExportB($hoy, $hoy), $archivo);
+
+    }
+
+
 }

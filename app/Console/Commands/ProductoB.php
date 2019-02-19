@@ -53,7 +53,7 @@ class ProductoB extends Command
 
         $hoy=$date->format('Y-m-d');
 
-        $archivo='/reportes/productosb';
+        $archivo=$configuracion->base_url.'reportes/cronexportproductosb';
 
 
        // Excel::store(new CronLogisticaExport(), $archivo);

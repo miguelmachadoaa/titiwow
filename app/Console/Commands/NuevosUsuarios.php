@@ -60,7 +60,7 @@ class NuevosUsuarios extends Command
 
 
 
-        $archivo='/reportes/cronnuevosusuariosexport';
+        $archivo=$configuracion->base_url.'reportes/cronnuevosusuariosexport';
 
 
 
@@ -98,11 +98,13 @@ class NuevosUsuarios extends Command
          
 
 
+  $archivo=$configuracion->base_url.'reportes/cronnuevosusuariosexport';
+
        // Excel::store(new CronLogisticaExport(), $archivo);
 
-            $enlace=storage_path('/app/'.$archivo);
+            //$enlace=storage_path('/app/'.$archivo);
 
-            Mail::to($configuracion->correo_masterfile)->send(new \App\Mail\CronNuevosUsuarios($enlace, $hoy));
+            Mail::to($configuracion->correo_masterfile)->send(new \App\Mail\CronNuevosUsuarios($archivo, $hoy));
 
          }
 

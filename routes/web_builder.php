@@ -21,6 +21,14 @@ Route::post('admin/ordenes/storeconfirm', 'Admin\AlpOrdenesController@storeconfi
 
 
 
+ Route::get('reportes/exportcronlogisticaexport', 'Admin\AlpReportesController@exportcronlogisticaexport')->name('reportes.exportcronlogisticaexport');
+
+Route::get('reportes/cronnuevosusuariosexport', 'Admin\AlpReportesController@cronnuevosusuariosexport')->name('reportes.cronnuevosusuariosexport');
+
+Route::get('reportes/cronexportproductosb', 'Admin\AlpReportesController@cronexportproductosb')->name('reportes.cronexportproductosb');
+
+
+
 
 
 Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.'), function () {
@@ -290,6 +298,7 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
    Route::get('reportes/productosb', 'Admin\AlpReportesController@productosb')->name('reportes.productosb');
    //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
+  
    Route::post('reportes/exportproductosb', 'Admin\AlpReportesController@exportproductosb')->name('reportes.exportproductosb');
 
 

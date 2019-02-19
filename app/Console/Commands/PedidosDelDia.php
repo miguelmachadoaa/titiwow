@@ -53,7 +53,7 @@ class PedidosDelDia extends Command
 
         $hoy=$date->format('Y-m-d');
 
-        $archivo='/reportes/exportcronlogisticaexport';
+        $archivo=$configuracion->base_url.'reportes/exportcronlogisticaexport';
 
 
        // Excel::store(new CronLogisticaExport(), $archivo);

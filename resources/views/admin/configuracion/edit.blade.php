@@ -55,6 +55,19 @@ Editar Configuracion General
                                     {!! $errors->first('nombre_tienda', '<span class="help-block">:message</span> ') !!}
                                 </div>
                             </div>
+
+                            <div class="form-group {{ $errors->first('base_url', 'has-error') }}">
+                                <label for="base_url" class="col-sm-2 control-label">
+                                    Base Url
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="base_url" name="base_url" class="form-control" placeholder="Nombre Tienda"
+                                        value="{!! old('base_url', $configuracion->base_url) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('base_url', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
                             <hr />
                             <div class="form-group {{ $errors->first('limite_amigos', 'has-error') }}">
                                 <label for="limite_amigos" class="col-sm-2 control-label">

@@ -56,6 +56,7 @@ class AlpConfiguracionController extends JoshController
     {
        $data = array(
             'nombre_tienda' => $request->nombre_tienda,
+            'base_url' => $request->base_url,
             'limite_amigos' => $request->limite_amigos,
             'id_mercadopago' => $request->id_mercadopago,
             'key_mercadopago' => $request->key_mercadopago, 
