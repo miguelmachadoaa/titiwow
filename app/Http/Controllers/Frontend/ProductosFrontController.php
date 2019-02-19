@@ -377,7 +377,7 @@ class ProductosFrontController extends Controller
 
         $precio = array(); 
 
-            $producto =  DB::table('alp_productos')->select('alp_productos.*','alp_marcas.nombre_marca','alp_marcas.slug')
+            $producto =  DB::table('alp_productos')->select('alp_productos.*','alp_marcas.nombre_marca','alp_marcas.slug  as marca_slug')
             ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
             ->where('alp_productos.estado_registro','=',1)
             ->where('alp_productos.slug','=', $slug)->first(); 
@@ -489,10 +489,9 @@ class ProductosFrontController extends Controller
 
 
 
-         $states=State::where('config_states.country_id', '47')->get();
+        $states=State::where('config_states.country_id', '47')->get();
 
-         $cart= \Session::get('cart');
-
+        $cart= \Session::get('cart');
 
         $total=0;
 

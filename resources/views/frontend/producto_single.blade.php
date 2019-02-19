@@ -58,7 +58,7 @@
         <div class="row">
             <div class="mart10">
                 <!--product view-->
-                <div class="col-sm-8">
+                <div class="col-sm-4 col-md-4">
                     <div class="row">
                         <div class="product_wrapper">
                             <img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" data-zoom-image="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive" alt="{{ $producto->nombre_producto}} | Alpina Go!" title="{{ $producto->nombre_producto}} | Alpina Go!"/>
@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 <!--individual product description-->
-                <div class="col-sm-4">
+                <div class="col-sm-8 col-md-8">
                     <h2 class="text-primary" id="titulo_single">{{ $producto->nombre_producto}} </h2>
                     <p class="descripcion">{{ $producto->descripcion_corta}}</p>
                     <p class="descripcion">
@@ -102,6 +102,7 @@
                     <div class="box-info-product"> 
                         <div class="row">
                             <div class="col-md-4">
+
                             <div class="text-big3">
                                
                                 @if($descuento==1)
@@ -156,6 +157,8 @@
 
                                 <div class="col-md-4">
                                     <div class="product_botones boton_{{ $producto->id }}" id="boton_single">
+
+                                      
 
                                                 @if(isset($cart[$producto->slug]))
 
