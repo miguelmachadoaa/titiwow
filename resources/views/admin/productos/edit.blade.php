@@ -287,10 +287,6 @@
 
                         </div>
 
-
-
-
-
                                             <div class="acc-wizard-step"></div>
 
 
@@ -415,10 +411,6 @@
                                     <!--/.panel-body --> </div>
                                 <!-- /#adjusthtml --> </div>
 
-
-
-
-
                             <div class="panel panel-danger">
 
                                 <div class="panel-heading">
@@ -456,14 +448,8 @@
                                                     </select>
                                                         {!! $errors->first('id_impuesto', '<span class="help-block">:message</span>') !!}
                                                 </div>
-
-                                               
-
                                                
                                             </div>
-
-
-
 
                                             <div class="form-group  col-sm-12  {{ $errors->first('id_categoria_default', 'has-error') }}">
 
@@ -486,9 +472,6 @@
                                                     </select>
                                                         {!! $errors->first('id_categoria_default', '<span class="help-block">:message</span>') !!}
                                                 </div>
-
-                                               
-
                                                
                                             </div>
 
@@ -771,8 +754,6 @@
                                                     </div>
 
                                                 </div>
-
-
                                                 
                                                 <div class="col-sm-3">
                                                     <input id="test_precio" step="0.01" name="test_precio" type="number" placeholder="Valor" class="form-control" readonly="" value="{{ old('precio_role') }}"  >
@@ -783,11 +764,7 @@
                                                 <div class="col-sm-3">
                                                     <input id="test_pum"  name="test_pum" type="text" placeholder="PUM" class="form-control" value="{{ old('pum') }}"  >
 
-                                                    
                                                 </div>
-
-
-
 
                                                 <div class="col-sm-1">
                                                     <button class="btn btn-xs btn-danger">x</button>
