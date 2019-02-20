@@ -706,6 +706,8 @@ Route::get('cart/addtocart/{product}',['as'=>'cart.addtocart', 'uses'=>'Admin\Al
 
 Route::post('cart/agregar/',['as'=>'cart.agregar', 'uses'=>'Admin\AlpCartController@addtocart']);
 
+Route::post('cart/agregarsingle/',['as'=>'cart.agregar', 'uses'=>'Admin\AlpCartController@addtocartsingle']);
+
 //eliminar item del carro
 Route::get('cart/delete/{product}',['as'=>'cart.add', 'uses'=>'Admin\AlpCartController@delete']);
 
@@ -714,11 +716,15 @@ Route::get('cart/update/{product}/{cantidad}',['as'=>'cart.update', 'uses'=>'Adm
 
 Route::post('cart/updatecart/',['as'=>'cart.updatecart', 'uses'=>'Admin\AlpCartController@updatecart']);
 
+Route::post('cart/updatecartsingle/',['as'=>'cart.updatecartsingle', 'uses'=>'Admin\AlpCartController@updatecartsingle']);
+
 Route::post('cart/updatecantidad/',['as'=>'cart.updatecantidad', 'uses'=>'Admin\AlpCartController@updatecantidad']);
 
 Route::post('cart/delproducto/',['as'=>'cart.delproducto', 'uses'=>'Admin\AlpCartController@delproducto']);
 
 Route::post('cart/botones/',['as'=>'cart.botones', 'uses'=>'Admin\AlpCartController@botones']);
+
+Route::post('cart/updatecartbotonessingle/',['as'=>'cart.updatecartbotonessingle', 'uses'=>'Admin\AlpCartController@updatecartbotonessingle']);
 
 Route::post('cart/updatecartbotones/',['as'=>'cart.updatecartbotones', 'uses'=>'Admin\AlpCartController@updatecartbotones']);
 

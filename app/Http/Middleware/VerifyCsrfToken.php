@@ -32,14 +32,17 @@ class VerifyCsrfToken extends Middleware
        'admin/clientes/eliminar/cliente', //
        'empresas/delamigo', //
        'cart/updatecart', //
+       'cart/updatecartsingle', //
        'cart/updatecantidad', //
        'cart/delproducto', //
        'cart/updatecartbotones', //
+       'cart/updatecartbotonessingle', //
        'cart/updatecartdetalle', //
        'cart/getcartbotones', //
        'cart/botones', //
        'cart/detalle', //
        'cart/agregar', //
+       'cart/agregarsingle', //
        'formasenvio/storecity', //
        'formasenvio/delcity', //
        'configuracion/storecity', //

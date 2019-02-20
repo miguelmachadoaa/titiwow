@@ -1878,6 +1878,89 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       
     }
 
+
+
+    public function addtocartsingle( Request $request)
+    {
+
+
+          $producto=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
+          ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
+          ->where('alp_productos.slug', $request->slug)
+          ->first();
+
+
+        if (!\Session::has('cr')) {
+
+          \Session::put('cr', '0');
+
+          $ciudad= \Session::get('ciudad');
+
+          $data = array(
+            'referencia' => time(), 
+            'id_city' => $ciudad, 
+            'id_user' => '0'
+          );
+
+          $carr=AlpCarrito::create($data);
+
+          \Session::put('cr', $carr->id);
+       
+        }
+
+       $cart= \Session::get('cart');
+
+
+       $carrito= \Session::get('cr');
+
+       $descuento='1'; 
+
+       $error='0'; 
+
+       $precio = array();
+
+       $inv=$this->inventario();
+
+
+      $producto->precio_oferta=$request->price;
+
+      $producto->cantidad=1;
+      $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
+
+      if($inv[$producto->id]>=$producto->cantidad){
+
+        $cart[$producto->slug]=$producto;
+
+      }else{
+
+        $error="No hay existencia suficiente de este producto";
+
+      }
+
+
+       \Session::put('cart', $cart);
+
+       $data_detalle = array(
+        'id_carrito' => $carrito, 
+        'id_producto' => $producto->id, 
+        'cantidad' => $producto->cantidad
+      );
+
+       AlpCarritoDetalle::create($data_detalle);
+
+       $single=1;
+
+       $view= View::make('frontend.order.botones', compact('producto', 'cart', 'single'));
+
+          $data=$view->render();
+
+          $res = array('data' => $data);
+
+          return $data;
+       // return json_encode($cart);
+      
+    }
+
     public function delete( AlpProductos $producto)
     {
        $cart= \Session::get('cart');
@@ -2373,6 +2456,65 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
         $view= View::make('frontend.order.botones', compact('producto', 'cart'));
+
+        $data=$view->render();
+
+        return $data;
+
+      
+    }
+
+    public function updatecartbotonessingle(Request $request)
+    {
+       $cart= \Session::get('cart');
+
+       $carrito= \Session::get('cr');
+
+       $inv=$this->inventario();
+
+       $producto=AlpProductos::where('id', $request->id)->first();
+
+       //dd(print_r($producto));
+
+       $error='0';
+
+       if ($request->cantidad>0) {
+         
+
+           if($inv[$request->id]>=$request->cantidad){
+
+            $cart[$request->slug]->cantidad=$request->cantidad;
+
+          }else{
+
+            $error="No hay existencia suficiente de este producto";
+          }
+
+       }else{
+
+        unset( $cart[$producto->slug]);
+
+
+       }
+
+       $detalle=AlpCarritoDetalle::where('id_carrito', $carrito)->where('id_producto', $producto->id)->first();
+
+       if (isset($detalle->id)) {
+
+        $data = array(
+        'cantidad' => $request->cantidad, 
+        );
+
+        $detalle->update($data);
+         
+       }
+
+       \Session::put('cart', $cart);
+
+       $single=1;
+
+
+        $view= View::make('frontend.order.botones', compact('producto', 'cart', 'single'));
 
         $data=$view->render();
 

@@ -5,6 +5,26 @@
 
    @if(isset($cart[$producto->slug]))
 
+        @if(isset($single))
+
+          <div class="row" style="margin-top:5px;">
+            <div class="col-sm-10 col-sm-offset-1">
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <button data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-danger updatecartsingle" type="button"><i class="fa fa-minus"></i></button>
+                </span>
+                <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
+                <span class="input-group-btn">
+                  <button data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecartsingle" type="button"><i class="fa fa-plus"></i></button>
+                  
+                </span>
+              </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+           
+          </div><!-- /.row -->
+
+        @else
+
           <div class="row" style="margin-top:5px;">
             <div class="col-sm-10 col-sm-offset-1">
               <div class="input-group">
@@ -21,16 +41,37 @@
            
           </div><!-- /.row -->
 
+
+        @endif
+
+
+          
+
     @else
 
+        @if(isset($single))
+
         <a 
-        data-slug="{{ $producto->slug }}" 
-        data-price="{{ intval($producto->precio_base) }}" 
-        data-id="{{ $producto->id }}" 
-        data-name="{{ $producto->nombre_producto }}" 
-        data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" 
-        class="btn btn-md btn-cart addtocart" 
-        href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
+                data-slug="{{ $producto->slug }}" 
+                data-price="{{ intval($producto->precio_base) }}" 
+                data-id="{{ $producto->id }}" 
+                data-name="{{ $producto->nombre_producto }}" 
+                data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" 
+                class="btn btn-md btn-cart addtocart" 
+                href="{{secure_url('cart/addtocartsingle', [$producto->slug])}}" alt="Agregar al Carrito">Agregar al Carrito</a>
+
+        @else
+        <a 
+                data-slug="{{ $producto->slug }}" 
+                data-price="{{ intval($producto->precio_base) }}" 
+                data-id="{{ $producto->id }}" 
+                data-name="{{ $producto->nombre_producto }}" 
+                data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" 
+                class="btn btn-md btn-cart addtocart" 
+                href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
+
+        @endif
+        
 
 
     @endif

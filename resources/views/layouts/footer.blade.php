@@ -345,6 +345,44 @@
 
         });
 
+
+         $(document).on('click','.addtocartsingle', function(e){
+
+            e.preventDefault();
+
+            base=$('#base').val();
+
+            imagen=base+'/uploads/files/loader.gif';
+
+
+            id=$(this).data('id');
+
+            price=$(this).data('price');
+
+            slug=$(this).data('slug');
+
+            single=$('#single').val();
+
+            url=$(this).attr('href');
+
+            $('.boton_'+id+'').html('<img style="max-width:32px; max-height:32px;" src="'+imagen+'">');
+
+            $.post(base+'/cart/agregarsingle', {price, slug}, function(data) {
+
+                $('.boton_'+id+'').html(data);
+
+
+                       if (single==1) {
+
+                            $('.vermas').remove();
+                        }
+
+               
+
+            });
+
+        });
+
         $('body').on('click','.updatecart', function(e){
 
             e.preventDefault();
@@ -379,6 +417,56 @@
             $('.boton_'+id+'').html('<img style="max-width:32px; max-height:32px;" src="'+imagen+'">');
             
                    $.post(base+'/cart/updatecartbotones', {id, slug, cantidad}, function(data) {
+
+                        $('.boton_'+id+'').html('');
+                        $('.boton_'+id+'').html(data);
+
+                         if (single==1) {
+
+                            $('.vermas').remove();
+                        }
+
+
+
+                    });
+
+        });
+
+
+         $('body').on('click','.updatecartsingle', function(e){
+
+            e.preventDefault();
+
+            base=$('#base').val();
+
+            id=$(this).data('id');
+
+            
+
+            tipo=$(this).data('tipo');
+
+            single=$('#single').val();
+
+            slug=$(this).data('slug');
+
+            cantidad=$('#cantidad_'+id+'').val();
+
+            if (tipo=='suma') {
+
+                cantidad=parseInt(cantidad);
+
+                cantidad++;
+
+            }else{
+
+                cantidad=cantidad-1;
+            }
+
+            imagen=base+'/uploads/files/loader.gif';
+
+            $('.boton_'+id+'').html('<img style="max-width:32px; max-height:32px;" src="'+imagen+'">');
+            
+                   $.post(base+'/cart/updatecartbotonessingle', {id, slug, cantidad}, function(data) {
 
                         $('.boton_'+id+'').html('');
                         $('.boton_'+id+'').html(data);
