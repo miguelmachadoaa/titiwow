@@ -316,7 +316,6 @@
 
             imagen=base+'/uploads/files/loader.gif';
 
-
             id=$(this).data('id');
 
             price=$(this).data('price');

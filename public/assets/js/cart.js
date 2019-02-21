@@ -29,8 +29,43 @@ jQuery(document).ready(function($){
 
             });
 
+		$(document).on('click', '.addtocartsingle', function(e){
+
+			e.preventDefault();
+
+            addToCart2($(this));
+
+            });
+
 
 		$(document).on('click', '.updatecart', function(){
+
+			tipo=$(this).data('tipo');
+			id=$(this).data('id');
+			cantidad=$('#cantidad_'+id+'').val();
+
+			//alert(cantidad+'-'+id+'-'+tipo);
+
+			if(tipo=='suma'){
+
+				cantidad=parseInt(cantidad)+1;
+
+			}else{
+
+				cantidad=cantidad-1;
+
+			}
+
+			//alert(cantidad+'-'+id+'-'+tipo);
+
+
+			$('#cd-product-'+id+'').val(cantidad);
+
+			quickUpdateCart();
+
+		});
+
+		$(document).on('click', '.updatecartsingle', function(){
 
 			tipo=$(this).data('tipo');
 			id=$(this).data('id');

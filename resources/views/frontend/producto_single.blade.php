@@ -272,7 +272,7 @@
 @section('footer_scripts')
     <!--page level js start-->
     <script type="text/javascript" src="{{ secure_asset('assets/vendors/bootstrap-rating/bootstrap-rating.js') }}"></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/js/frontend/cart.js') }}"></script>
+   
     <!--page level js start-->
 
     <script src="{{ secure_asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>

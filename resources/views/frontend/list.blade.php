@@ -126,8 +126,6 @@ Productos @parent
 
                                                             <button data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
 
-                                                            
-
                                                           </span>
 
                                                         </div><!-- /input-group -->

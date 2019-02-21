@@ -7,6 +7,7 @@
             <th><b>Tipo de pago efectivo o postpago</b></th>
             <th><b>Valor Total Productos</b></th>
             <th><b>Nombre Cliente</b></th>
+            <th><b>Documento Cliente</b></th>
             <th><b>Telefono Cliente</b></th>
             <th><b>Ruta</b></th>
             <th><b>Observaciones</b></th>
@@ -22,6 +23,7 @@
             <td>3</td>
             <td>{!! $row->monto_total !!}</td>
             <td>{!! $row->first_name.' '.$row->last_name !!}</td>
+            <td>{!! $row->doc_cliente !!}</td>
             <td>{!! $row->telefono_cliente !!}</td>
             <td></td>
             <td>{!! $row->barrio_address !!}</td>
