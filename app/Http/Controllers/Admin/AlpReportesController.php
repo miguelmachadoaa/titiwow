@@ -283,7 +283,11 @@ class AlpReportesController extends Controller
 
        // dd($request->all());
 
-        return Excel::download(new ProductosExportB($request->desde, $request->hasta), 'ventas_desde_'.$request->desde.'_hasta_'.$request->hasta.'_producto_'.$request->producto.'.xlsx');
+        $date = Carbon::now();
+
+        $hoy=$date->format('Y-m-d');
+
+        return Excel::download(new ProductosExportB($hoy, $hoy), 'ventas_desde_'.$hoy.'_hasta_'.$hoy.'_producto.xlsx');
     }
 
 
