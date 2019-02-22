@@ -167,7 +167,8 @@
                                                         <div class="input-group">
                                                           <span class="input-group-btn">
                                                             
-                                                           <button data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-danger updatecartsingle" type="button"><i class="fa fa-minus"></i></button>
+                                                           <button data-cantidad="{{ $cart[$producto->slug]->cantidad }}" data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" data-single="1"
+                                                            class="btn btn-danger updatecart" type="button"><i class="fa fa-minus"></i></button>
 
                                                           </span>
 
@@ -176,7 +177,7 @@
 
                                                           <span class="input-group-btn">
 
-                                                             <button data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecartsingle" type="button"><i class="fa fa-plus"></i></button>
+                                                             <button data-cantidad="{{ $cart[$producto->slug]->cantidad }}" data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" data-single="1" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
 
                                                             
 
@@ -189,7 +190,7 @@
 
                                                 @else
                                                      
-                                                        <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocartsingle" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito">Agregar al Carrito<i class="fa fa-cart-arrow-down" aria-hidden="true" style="margin-left:10px"></i></a>
+                                                        <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" data-single="1" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito">Agregar al Carrito<i class="fa fa-cart-arrow-down" aria-hidden="true" style="margin-left:10px"></i></a>
                                                     
                                                 @endif
 

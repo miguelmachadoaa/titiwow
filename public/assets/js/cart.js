@@ -42,9 +42,10 @@ jQuery(document).ready(function($){
 
 			tipo=$(this).data('tipo');
 			id=$(this).data('id');
-			cantidad=$('#cantidad_'+id+'').val();
+			cantidad=$(this).data('cantidad');
+			//cantidad=$('#cantidad_'+id+'').val();
 
-			//alert(cantidad+'-'+id+'-'+tipo);
+			
 
 			if(tipo=='suma'){
 
@@ -56,8 +57,7 @@ jQuery(document).ready(function($){
 
 			}
 
-			//alert(cantidad+'-'+id+'-'+tipo);
-
+			
 
 			$('#cd-product-'+id+'').val(cantidad);
 
