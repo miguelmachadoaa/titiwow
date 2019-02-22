@@ -9,11 +9,11 @@ Página No Encontrada
 {{-- page level styles --}}
 @section('header_styles')
     <!--page level css starts-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/tabbular.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/animate/animate.min.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/jquery.circliful.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/owl_carousel/css/owl.carousel.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/owl_carousel/css/owl.theme.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/tabbular.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/jquery.circliful.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/owl_carousel/css/owl.carousel.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/owl_carousel/css/owl.theme.css') }}">
 
     <!--end of page level css-->
 @stop
@@ -65,13 +65,13 @@ Página No Encontrada
 {{-- footer scripts --}}
 @section('footer_scripts')
     <!-- page level js starts-->
-    <script src="{{ asset('assets/js/jquery-1.11.1.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/js/bootstrap.min.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/js/jquery-1.11.1.min.js') }}" type="text/javascript"></script>
+    <script src="{{ secure_asset('assets/js/bootstrap.min.js') }}" type="text/javascript"></script>
     <!--livicons-->
-    <script src="{{ asset('assets/js/raphael-min.js') }}"></script>
-    <script src="{{ asset('assets/js/livicons-1.4.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/js/raphael-min.js') }}"></script>
+    <script src="{{ secure_asset('assets/js/livicons-1.4.min.js') }}"></script>
     <!-- end of global js -->
     <!-- begining of page level js-->
-    <script src="{{ asset('assets/js/frontend/404.js') }}"></script>
+    <script src="{{ secure_asset('assets/js/frontend/404.js') }}"></script>
     <!--page level js ends-->
 @stop
