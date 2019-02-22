@@ -677,8 +677,6 @@ div.overlay > div {
 </div>
 
 
-
-
 <!-- Modal Direccion -->
  <div class="modal fade" id="modalPse" role="dialog" aria-labelledby="modalLabeldanger">
     <div class="modal-dialog modal-lg" role="document">
@@ -686,7 +684,7 @@ div.overlay > div {
             <div class="modal-header bg-primary">
                 <h4 class="modal-title" id="modalLabeldanger">Pago con PSE</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="    padding: 2em;">
 
                 <form method="POST" action="{{secure_url('cart/storedir')}}" id="addPseForm" name="addPseForm" class="form-horizontal">
 
@@ -734,13 +732,10 @@ div.overlay > div {
 
                                 <input id="doc_cliente_pse" name="doc_cliente_pse" type="text"
                                                placeholder="Número de Documento" class="form-control required"/>
-
                                        
                             </div>
 
                         </div>
-
-
 
                         <div class="form-group clearfix">
 
@@ -754,7 +749,6 @@ div.overlay > div {
 
                         </div>
 
-
                         <div class="form-group clearfix">
 
                             <label class="col-md-3 control-label" for="nombre_producto">Entidad Financiera</label>
@@ -763,9 +757,8 @@ div.overlay > div {
 
                                 <select class="form-control required" title="Entidad Financiera." name="id_fi_pse" id="id_fi_pse">
 
-                                    
-
-                                    <option value="">Selecciona Entidad Financiera *</option>
+                                 
+                                   <option value="">Selecciona Entidad Financiera *</option>
                                     @foreach($payment_methods['response'] as $pm)
 
                                         @if($pm['id']=='pse')
@@ -777,7 +770,6 @@ div.overlay > div {
                                             @endforeach
 
                                         @endif
-
 
                                     @endforeach
                                 </select>
@@ -792,8 +784,6 @@ div.overlay > div {
 
                     <div class="row resPse" ></div>
                 
-
-
             </div>
             <div class="modal-footer">
                 <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
@@ -804,9 +794,6 @@ div.overlay > div {
 </div>
 
 <!-- Modal Direccion -->
-
-
-
 
 <!-- Modal Direccion -->
  <div class="modal fade" id="modalCupones" role="dialog" aria-labelledby="modalLabeldanger">
@@ -832,13 +819,10 @@ div.overlay > div {
                                     </div>
                                 </div>
 
-
-
                             </div>
 
                             <div class="row resCupon" ></div>
                         </form>
-
 
                     </div>
                     <div class="modal-footer">
@@ -875,9 +859,6 @@ div.overlay > div {
                                     </div>
                                 </div>
 
-                               
-
-
                                 <div class="form-group col-sm-12">
                                     <label for="select21" class="col-md-3 control-label">
                                         Pais
@@ -902,8 +883,6 @@ div.overlay > div {
                                     <div class="col-md-8" >
                                         <select style="margin: 4px 0;" id="state_id" name="state_id" class="form-control ">
                                             <option value="">Seleccione</option>
-                                           
-                                            
                                           
                                         </select>
                                     </div>
@@ -916,8 +895,6 @@ div.overlay > div {
                                     <div class="col-md-8" >
                                         <select style="margin: 4px 0;" id="city_id" name="city_id" class="form-control ">
                                             <option value="">Seleccione</option>
-                                           
-                                            
                                           
                                         </select>
                                     </div>

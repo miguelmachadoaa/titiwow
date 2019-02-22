@@ -814,6 +814,8 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
           $payment_methods = MP::get("/v1/payment_methods");
 
+        //  dd($payment_methods);
+
 
           $carro=AlpCarrito::where('id', $carrito)->first();
 
