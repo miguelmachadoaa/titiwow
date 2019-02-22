@@ -59,7 +59,7 @@ jQuery(document).ready(function($){
 
 			if (cantidad==0) {
 
-				alert($('#cd-product-'+id+'').parents('.product'));
+				//alert($('#cd-product-'+id+'').parents('.product'));
 
 				removeProduct($('#cd-product-'+id+'').parents('.product'));
 

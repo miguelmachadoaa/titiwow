@@ -37,8 +37,11 @@ class ProductosExport implements FromView
           'alp_marcas.nombre_marca as nombre_marca'
           )
           ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
+          ->join('alp_ordenes', 'alp_ordenes_detalle.id_orden', '=', 'alp_ordenes.id')
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
           ->join('alp_marcas', 'alp_productos.id_marca', '=', 'alp_marcas.id')
+          ->where('alp_ordenes.estatus', '1')
+          ->where('alp_ordenes.estatus_pago', '2')
           ->groupBy('alp_ordenes_detalle.id_producto')
           ->whereDate('alp_ordenes_detalle.created_at', '>=', $this->desde)
           ->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta)
