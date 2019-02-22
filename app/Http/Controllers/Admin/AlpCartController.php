@@ -199,8 +199,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
            },
            "description": "Pago de orden Nro. '.$orden->id.'",
            "external_reference": "ALP'.$orden->id.'",
-           "callback_url": "https://localhost/laravel55/order/pse",
-           
+           "callback_url": "'.secure_url('/order/pse').'",
            "additional_info": {
                "ip_address": "'.request()->ip().'"
            },
