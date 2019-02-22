@@ -680,7 +680,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
       if ($total<$configuracion->minimo_compra) {
 
-        $aviso='El monto minimo de compra es de '.$configuracion->minimo_compra;
+        $aviso='El monto mínimo de compra es de $'.number_format($configuracion->minimo_compra,0,",",".");
 
 
         $cart=$this->reloadCart();
