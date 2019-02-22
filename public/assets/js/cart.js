@@ -57,9 +57,20 @@ jQuery(document).ready(function($){
 
 			}
 
+			if (cantidad==0) {
+
+				alert($('#cd-product-'+id+'').parents('.product'));
+
+				removeProduct($('#cd-product-'+id+'').parents('.product'));
+
+			}else{
+
+				$('#cd-product-'+id+'').val(cantidad);
+
+			}
+
 			
 
-			$('#cd-product-'+id+'').val(cantidad);
 
 			quickUpdateCart();
 
@@ -83,10 +94,19 @@ jQuery(document).ready(function($){
 
 			}
 
-			//alert(cantidad+'-'+id+'-'+tipo);
+			alert(cantidad+'-'+id+'-'+tipo);
 
+			if (cantidad==0) {
 
-			$('#cd-product-'+id+'').val(cantidad);
+				alert($('#cd-product-'+id+'').parents('.product'));
+
+				removeProduct($('#cd-product-'+id+'').parents('.product'));
+
+			}else{
+
+				$('#cd-product-'+id+'').val(cantidad);
+
+			}
 
 			quickUpdateCart();
 
