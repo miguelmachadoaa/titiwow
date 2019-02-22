@@ -5,10 +5,10 @@
     <title>503 Internal Error | Welcome to Josh Frontend</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- global level js -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/bootstrap.min.css') }}">
     <!-- end of global js-->
     <!-- page level styles-->
-    <link href="{{ asset('assets/css/frontend/500.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ secure_asset('assets/css/frontend/500.css') }}" rel="stylesheet" type="text/css" />
     <!-- end of page level styles-->
 </head>
 <body>
@@ -27,11 +27,11 @@
     </div>
 </div>
 <!-- global js -->
-<script src="{{ asset('assets/js/jquery-1.11.1.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/js/bootstrap.min.js') }}" type="text/javascript"></script>
+<script src="{{ secure_asset('assets/js/jquery-1.11.1.min.js') }}" type="text/javascript"></script>
+<script src="{{ secure_asset('assets/js/bootstrap.min.js') }}" type="text/javascript"></script>
 <!--livicons-->
-<script src="{{ asset('assets/vendors/livicons/minified/raphael-min.js') }}"></script>
-<script src="{{ asset('assets/vendors/livicons/minified/livicons-1.4.min.js') }}"></script>
+<script src="{{ secure_asset('assets/vendors/livicons/minified/raphael-min.js') }}"></script>
+<script src="{{ secure_asset('assets/vendors/livicons/minified/livicons-1.4.min.js') }}"></script>
 <!-- end of global js -->
 <!-- begining of page level js-->
 <script>

@@ -39,7 +39,7 @@ class ProductosRequest extends FormRequest {
             'medida' => 'required',
             'inventario_inicial' => 'required',
 			'precio_base' => 'required',
-			'image' => 'image|mimes:jpg,png| max:1000',
+			'image' => 'image',
 		];
 	}
 

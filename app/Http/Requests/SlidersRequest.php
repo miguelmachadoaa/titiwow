@@ -26,7 +26,7 @@ class SlidersRequest extends FormRequest {
 		return [
             'nombre_slider' => 'required|min:3',
 			'descripcion_slider' => 'required|min:5',
-			'image' => 'image|mimes:jpg,png| max:2000',
+			'image' => 'image',
 		];
 	}
 

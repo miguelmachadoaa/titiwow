@@ -19,6 +19,7 @@ class CreateAlpConfiguracionGeneralTable extends Migration
             $table->string('limite_amigos');
             $table->string('minimo_compra');
             $table->integer('registro_publico');
+            $table->string('base_url');
             $table->string('id_mercadopago');
             $table->integer('mercadopago_sand');
             $table->string('key_mercadopago');
