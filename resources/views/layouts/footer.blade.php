@@ -318,6 +318,8 @@
 
             id=$(this).data('id');
 
+            datasingle=$(this).data('single');
+
             price=$(this).data('price');
 
             slug=$(this).data('slug');
@@ -328,7 +330,7 @@
 
             $('.boton_'+id+'').html('<img style="max-width:32px; max-height:32px;" src="'+imagen+'">');
 
-            $.post(base+'/cart/agregar', {price, slug}, function(data) {
+            $.post(base+'/cart/agregar', {price, slug, datasingle}, function(data) {
 
                 $('.boton_'+id+'').html(data);
 
@@ -388,7 +390,10 @@
 
             base=$('#base').val();
 
+
             id=$(this).data('id');
+
+            datasingle=$(this).data('single');
 
             
 
@@ -415,7 +420,7 @@
 
             $('.boton_'+id+'').html('<img style="max-width:32px; max-height:32px;" src="'+imagen+'">');
             
-                   $.post(base+'/cart/updatecartbotones', {id, slug, cantidad}, function(data) {
+                   $.post(base+'/cart/updatecartbotones', {id, slug, cantidad, datasingle}, function(data) {
 
                         $('.boton_'+id+'').html('');
                         $('.boton_'+id+'').html(data);

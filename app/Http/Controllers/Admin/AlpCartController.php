@@ -1802,6 +1802,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
     {
 
 
+
+
           $producto=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
           ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
           ->where('alp_productos.slug', $request->slug)
@@ -1866,7 +1868,19 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        AlpCarritoDetalle::create($data_detalle);
 
+       if (isset($request->datasingle)) {
+
+        $datasingle=$request->datasingle;
+       
+        $view= View::make('frontend.order.botones', compact('producto', 'cart', 'datasingle'));
+        
+       }else{
+
        $view= View::make('frontend.order.botones', compact('producto', 'cart'));
+
+
+       }
+
 
           $data=$view->render();
 
@@ -2453,8 +2467,18 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        \Session::put('cart', $cart);
 
+      if (isset($request->datasingle)) {
 
-        $view= View::make('frontend.order.botones', compact('producto', 'cart'));
+        $datasingle=$request->datasingle;
+        
+         $view= View::make('frontend.order.botones', compact('producto', 'cart', 'datasingle'));
+           
+
+      }else{
+
+         $view= View::make('frontend.order.botones', compact('producto', 'cart'));
+
+      }
 
         $data=$view->render();
 

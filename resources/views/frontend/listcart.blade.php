@@ -44,7 +44,7 @@
                                <div class="input-group">
                               <span class="input-group-btn">
                                 
-                                <button data-slug="{{ $row->slug }}" data-tipo='resta' data-id="{{ $row->id }}" class="btn btn-danger updatecartdetalle" type="button"><i class="fa fa-minus"></i></button>
+                                <button data-cantidad="{{ $row->cantidad }}" data-slug="{{ $row->slug }}" data-tipo='resta' data-id="{{ $row->id }}" class="btn btn-danger updatecartdetalle" type="button"><i class="fa fa-minus"></i></button>
 
                               </span>
 
@@ -53,7 +53,7 @@
 
                               <span class="input-group-btn">
 
-                                <button data-slug="{{ $row->slug }}" data-tipo='suma' data-id="{{ $row->id }}" class="btn btn-success updatecartdetalle" type="button"><i class="fa fa-plus"></i></button>
+                                <button data-cantidad="{{ $row->cantidad }}" data-slug="{{ $row->slug }}" data-tipo='suma' data-id="{{ $row->id }}" class="btn btn-success updatecartdetalle" type="button"><i class="fa fa-plus"></i></button>
 
 
                               </span>
