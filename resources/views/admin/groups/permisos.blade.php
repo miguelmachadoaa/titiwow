@@ -45,7 +45,12 @@
 
 
                 
-        {{ Form::open(array('url' => route('admin.groups.save', $role->id), 'class' => 'form-horizontal')) }}
+        
+
+         <form class="form-horizontal" role="form" method="post" action="{{ secure_url('admin/groups/'.$role->id.'/guardar') }}">
+
+        <!-- CSRF Token -->
+            {{ csrf_field() }}
     <ul>
 
     <div class="row">

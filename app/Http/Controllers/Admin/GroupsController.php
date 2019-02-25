@@ -261,6 +261,47 @@ class GroupsController extends JoshController
     }
 
 
+ public function guardar($id, Request $request){
+        $role = Sentinel::findRoleById($id);
+        
+
+
+
+        $input=$request->all();
+
+       // dd($input);
+
+
+        $per = array( );
+
+        foreach ($input as $key => $value) {
+           
+            if ($key!='_token') {
+                
+               foreach ($value as $key2 => $value2) {
+                 
+                 $per[$key.'.'.$value2]=true;
+
+               }
+
+            }
+
+
+
+
+        }
+
+        $role->permissions = $per;
+        
+        
+        $role->save();
+        
+       // Session::flash('message', 'Success! Permissions are stored successfully.');
+        //Session::flash('status', 'success');
+        return redirect('admin/groups');
+    }
+
+
 
 
 
