@@ -20,7 +20,7 @@ class AlpinistasImport implements ToCollection
                 AlpAlpinistas::create([
                     'documento_alpi'     => $row[0],
                     'codigo_alpi'    => $row[1], 
-                    'cod_oracle_cliente'    => $row[2], 
+                    //'cod_oracle_cliente'    => $row[2], 
                     'estatus_alpinista' => 1
                 ]);
     
