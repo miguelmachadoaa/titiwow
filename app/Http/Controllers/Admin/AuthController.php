@@ -360,13 +360,10 @@ class AuthController extends JoshController
     {
 
         $input=$request->all();
-
-        //print_r($input);
-       // dd($input);
+        
 
         $amigo=AlpAmigos::where('token', $request->referido)->first();
-          //  dd($amigo);
-       // print_r($amigo);
+
 
         if (isset($amigo->id)) {
             # code...
@@ -374,9 +371,6 @@ class AuthController extends JoshController
 
         try {
 
-            
-            // Register the user
-            //$user = Sentinel::registerAndActivate([
             $user = Sentinel::register([
                 'first_name' => $request->get('first_name'),
                 'last_name' => $request->get('last_name'),
@@ -387,25 +381,6 @@ class AuthController extends JoshController
             //add user to 'User' group
             $role = Sentinel::findRoleById(11);
             $role->users()->attach($user);
-
-
-            // Log the user in
-           /* $name = Sentinel::login($user, false);
-
-             Activation::remove($user);
-                    //add new record
-                    Activation::create($user);
-            //Activity log
-
-            activity($name->full_name)
-                ->performedOn($user)
-                ->causedBy($user)
-                ->log('Registered');*/
-
-
-            
-
-             //echo 'Referido: '.$referido.'<br>';
 
 
              $data = array(
@@ -425,7 +400,6 @@ class AuthController extends JoshController
 
 
 
-             //dd($data);
 
             AlpClientes::create($data);
 
@@ -452,20 +426,16 @@ class AuthController extends JoshController
 
             //activity log ends
             // Redirect to the home page with success menu
-           // return Redirect::route("admin.dashboard")->with('success', trans('auth/message.signup.success'));
 
             if ($request->back=='0') {
 
-                   // return Redirect::route($request->back)->with('success', trans('auth/message.signin.success'));
 
                  $mensaje="Ha sido registrado satisfactoriamente como Amigo Alpina, debe esperar que su Usuario sea activado en un proceso interno, le notificaremos vía email";
 
                 return view('frontend.clientes.aviso',  compact('mensaje'));
 
-
-                   // return Redirect::route("admin.dashboard")->with('success', trans('auth/message.signin.success'));
                    
-                }else{
+              }else{
 
                     return Redirect::route($request->back)->with('success', trans('auth/message.signin.success'));
                     
