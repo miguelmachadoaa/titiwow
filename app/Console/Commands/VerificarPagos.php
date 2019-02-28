@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\User;
 use App\Models\AlpConfiguracion;
 use App\Models\AlpPagos;
+use App\Models\AlpEnvios;
 use App\Models\AlpOrdenes;
 use App\Models\AlpOrdenesHistory;
 use App\Exports\CronNuevosUsuarios;
@@ -109,7 +110,7 @@ class VerificarPagos extends Command
             if ( $preference['response']['results'][0]['status']=='approved' ) 
               {
 
-                  $envio=AlpEnvios::where('id_orden', $pago->id_orden)->first();
+                  $envio=AlpEnvios::where('id_orden', $orden->id)->first();
 
                     $data_update = array(
                       'estatus' =>1, 

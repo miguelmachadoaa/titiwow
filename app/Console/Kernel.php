@@ -18,7 +18,7 @@ class Kernel extends ConsoleKernel
         Commands\PedidosDelDia::class,
         Commands\NuevosUsuarios::class,
         Commands\VerificarPagos::class,
-        Commands\ProductosB::class,
+        Commands\ProductoB::class,
 
     ];
 
