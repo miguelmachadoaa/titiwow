@@ -132,13 +132,18 @@ Mis Compras
                                  </button>
 
 
-                                @if($row->estatus!='7')
+                                @if($row->estatus!='4')
+
+                                    @if($row->estatus!='7')
+
                                 
                                     <div style="display: inline-block;" class="estatus_{{ $row->id }}">
 
                                     <button data-id="{{ $row->id }}"  data-codigo="{{ $row->ordencompra }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-danger confirmar" > Cancelar Orden  </button>
 
                                     </div>
+
+                                    @endif
 
                                 @endif
                                  
