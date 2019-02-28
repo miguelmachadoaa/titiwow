@@ -691,6 +691,10 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
       $impuesto=$this->impuesto();
 
+      
+
+    
+
 
       if ($total<$configuracion->minimo_compra) {
 
@@ -844,7 +848,16 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
           $estructura = AlpEstructuraAddress::where('estado_registro','=',1)->get();
 
-          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura'));
+          $labelpagos = array(
+        'pse' => 'Tarjeta débito', 
+        'visa' => 'Tarjeta crédito', 
+        'efecty' => 'Pago en efectivo a través de Efecty', 
+        'efecty' => 'Pago en efectivo a través de Efecty', 
+        'davivienda' => 'Pago en efectivo a través de Davivienda', 
+        'baloto' => 'Pago en efectivo a través de Baloto'
+      );
+
+          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos'));
 
          }
 
