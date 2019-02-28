@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-Carrito de Compras 
+Checkout
 @parent
 @stop
 
