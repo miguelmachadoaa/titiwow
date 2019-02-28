@@ -1520,8 +1520,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
             AlpPreDetalles::create($data_detalle);
 
-         
-
          }
 
 

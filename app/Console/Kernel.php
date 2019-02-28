@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
         Commands\GenerateSitemap::class,
         Commands\PedidosDelDia::class,
         Commands\NuevosUsuarios::class,
+        Commands\VerificarPagos::class,
 
     ];
 
@@ -36,6 +37,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('pedidos:venta')->dailyAt('17:00');
         $schedule->command('usuarios:new')->dailyAt('08:00');
         $schedule->command('usuarios:new')->dailyAt('15:00');
+        $schedule->command('verificar:pagos')->everyFiveMinutes();
+
     }
 
     /**

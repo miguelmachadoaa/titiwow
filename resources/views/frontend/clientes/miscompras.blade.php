@@ -79,12 +79,12 @@ Mis Compras
                         <td>
                              @if($row->json!=null)
 
-                                    @if(isset(json_decode($row->json)->response->payment_type_id))
+                                @if(isset(json_decode($row->json)->response->payment_type_id))
 
-                                {{ $row->nombre_forma_pago.' '.json_decode($row->json)->response->payment_type_id }}
+                                    {{ $row->nombre_forma_pago.' '.json_decode($row->json)->response->payment_type_id }}
 
 
-                                    @endif 
+                                @endif 
 
 
 
@@ -108,12 +108,14 @@ Mis Compras
                         <td>    
                                
 
-                            @if($row->id_forma_pago=='2') 
+                            @if($row->id_forma_pago=='2')
+
                                 @if(!isset($pagos[$row->id]))
 
                                     @if($row->json!=null)
 
                                             @if(isset(json_decode($row->json)->response->status))
+
                                                 @if(json_decode($row->json)->response->status!='pending' && json_decode($row->json)->response->status!='aproved')
 
                                                     <a  class="btn  btn-xs btn-info" href="{{ secure_url('clientes/pagar/'.$row->id) }}">Pagar Orden</a>
@@ -132,13 +134,18 @@ Mis Compras
                                  </button>
 
 
-                                @if($row->estatus!='7')
+                                @if($row->estatus!='4')
+
+                                    @if($row->estatus!='7')
+
                                 
                                     <div style="display: inline-block;" class="estatus_{{ $row->id }}">
 
                                     <button data-id="{{ $row->id }}"  data-codigo="{{ $row->ordencompra }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-danger confirmar" > Cancelar Orden  </button>
 
                                     </div>
+
+                                    @endif
 
                                 @endif
                                  
@@ -215,35 +222,11 @@ Mis Compras
 
                             {{ csrf_field() }}
                             <div class="row">
-
+                                <div class="col-sm-12">
+                                    <h3>¿Estas Seguro que quieres cancelar el pedido?</h3>
+                                </div>
                                 
-
-                                <div class="form-group col-sm-12">
-                                    <label for="select21" class="col-md-3 control-label">
-                                        Estatus Ordenes
-                                    </label>
-                                    <div class="col-md-8" >
-                                        <select style="margin: 4px 0;" id="id_status" name="id_status" class="form-control ">
-                                            <option value="">Seleccione</option>
-                                            
-                                            <option value="4"
-                                                     selected="selected" >Cancelado</option>
-                                          
-                                        </select>
-                                    </div>
-                                </div>
-
-
-                               
-
-                                <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Notas</label>
-
-                                    <div class="col-sm-8">
-                                        <textarea style="margin: 4px 0;" id="notas" name="notas" type="text" placeholder="Notas" class="form-control"></textarea>
-                                    </div>
-                                </div>
-
+                                
 
                             </div>
                         </form>
@@ -321,9 +304,9 @@ Mis Compras
 
         base=$('#base').val();
         confirm_id=$('#confirm_id').val();
-        id_status=$('#id_status').val();
+        id_status=4;
         cod_oracle_pedido=$('#cod_oracle_pedido').val();
-        notas=$('#notas').val();
+        notas='Cancelado por el cliente';
 
 
         $.ajax({
@@ -336,13 +319,8 @@ Mis Compras
                 $(".estatus_"+confirm_id+'').html(datos.responseText);
 
                 $('#confirmarOrdenModal').modal('hide');
-
                 
                 $('#confirm_id').val('');
-                $('#id_status').val('');
-                $('#cod_oracle_pedido').val('');
-                $('#notas').val('');
-        
             
             }
         });

@@ -62,9 +62,11 @@ class CronLogisticaExport implements FromView
           ->whereNull('alp_ordenes.factura')
           ->where('alp_ordenes.ordencompra', '!=', NULL)
 
-         /* ->whereIn('alp_ordenes.estatus', [5,6,7])
+         /*
+         ->whereIn('alp_ordenes.estatus', [5,6,7])
           ->whereDate('alp_ordenes.created_at', '>=', $this->desde)
-          ->whereDate('alp_ordenes.created_at', '<=', $this->hasta)*/
+          ->whereDate('alp_ordenes.created_at', '<=', $this->hasta)
+          */
           ->get();
 
           //dd($ordenes);
