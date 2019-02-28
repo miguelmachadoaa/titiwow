@@ -19,6 +19,8 @@
             <th><b>Retencion Fuente Mercadopago</b></th>
             <th><b>Retencion IVA Mercadopago</b></th>
             <th><b>Retencion ICA Mercadopago</b></th>
+            <th><b>Total a Transferir</b></th>
+
         </tr>
     </thead>
     <tbody>
@@ -80,6 +82,7 @@
             <td>{!! $row->retencion_fuente_mp !!}</td>
             <td>{!! $row->retencion_iva_mp !!}</td>
             <td>{!! $row->retencion_ica_mp !!}</td>
+            <td>{!! $row->monto_total-$row->comision_mp-$row->retencion_fuente_mp-$row->retencion_iva_mp-$row->retencion_ica_mp  !!}</td>
 
           
         </tr>

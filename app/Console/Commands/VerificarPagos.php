@@ -4,9 +4,10 @@ namespace App\Console\Commands;
 
 use App\User;
 use App\Models\AlpConfiguracion;
-use App\Models\AlpOrdenes;
-use App\Models\AlpPagos;
 
+use App\Models\AlpPagos;
+use App\Models\AlpEnvios;
+use App\Models\AlpOrdenes;
 use App\Models\AlpOrdenesHistory;
 use App\Exports\CronNuevosUsuarios;
 use Maatwebsite\Excel\Facades\Excel;
@@ -110,7 +111,9 @@ class VerificarPagos extends Command
             if ( $preference['response']['results'][0]['status']=='approved' ) 
               {
 
-                  $envio=AlpEnvios::where('id_orden', $pago->id_orden)->first();
+
+                  $envio=AlpEnvios::where('id_orden', $orden->id)->first();
+
 
                     $data_update = array(
                       'estatus' =>1, 
@@ -189,7 +192,7 @@ class VerificarPagos extends Command
               'json' => json_encode($res), 
               'id_user' => '0' 
             );
-                
+
 
            AlpPagos::create($data_pago);
               }

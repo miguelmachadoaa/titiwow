@@ -80,7 +80,7 @@ Ordenes En Espera
 
 
                                             <div style="display: inline-block;" class="recibir_{{ $row->id }}">
-                                            <button data-id="{{ $row->id }}"  data-codigo="{{ $row->factura }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-info recibir" > Recibir </button></div>
+                                            <!--button data-id="{{ $row->id }}"  data-codigo="{{ $row->factura }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-info recibir" > Recibir </button></div-->
 
 
 

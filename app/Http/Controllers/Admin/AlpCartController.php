@@ -218,9 +218,23 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
           $pse = MP::post("/v1/payments",$preference_data);
 
+          $user_id = Sentinel::getUser()->id;
          
 
           if (isset($pse['response']['id'])) {
+
+
+             $data_pago = array(
+          'id_orden' => $orden->id, 
+          'id_forma_pago' => $orden->id_forma_pago, 
+          'id_estatus_pago' => '4', 
+          'monto_pago' => '0', 
+          'json' => json_encode($pse), 
+          'id_user' => $user_id
+        );
+
+         AlpPagos::create($data_pago);
+
 
       \Session::put('pse', $pse['response']['id']);
 
@@ -241,7 +255,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
       $input=$request->all();
 
-      dd($input);
+      //dd($input);
 
 
        if (\Session::has('pse')) {
@@ -813,8 +827,6 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
          $pse = array();
 
           $payment_methods = MP::get("/v1/payment_methods");
-
-        //  dd($payment_methods);
 
 
           $carro=AlpCarrito::where('id', $carrito)->first();

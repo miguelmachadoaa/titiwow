@@ -19,6 +19,7 @@ class Kernel extends ConsoleKernel
         Commands\NuevosUsuarios::class,
         Commands\VerificarPagos::class,
 
+
     ];
 
     /**
