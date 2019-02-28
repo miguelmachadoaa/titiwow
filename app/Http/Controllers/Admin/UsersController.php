@@ -166,7 +166,7 @@ class UsersController extends JoshController
                 ->causedBy($user)
                 ->log('New User Created by '.Sentinel::getUser()->full_name);
             // Redirect to the home page with success menu
-            return Redirect::secure_url('admin.users.index')->with('success', trans('users/message.success.create'));
+            return redirect('admin.users.index')->with('success', trans('users/message.success.create'));
 
         } catch (LoginRequiredException $e) {
             $error = trans('admin/users/message.user_login_required');
@@ -299,7 +299,7 @@ class UsersController extends JoshController
                     ->causedBy($user)
                     ->log('User Updated by '.Sentinel::getUser()->full_name);
                 // Redirect to the user page
-                return Redirect::secure_url('admin.users.edit', $user)->with('success', $success);
+                return redirect('admin.users.edit', $user)->with('success', $success);
             }
 
             // Prepare the error message
@@ -309,11 +309,11 @@ class UsersController extends JoshController
             $error = trans('users/message.user_not_found', compact('id'));
 
             // Redirect to the user management page
-            return Redirect::secure_url('admin.users.index')->with('error', $error);
+            return redirect('admin.users.index')->with('error', $error);
         }
 
         // Redirect to the user page
-        return Redirect::secure_url('admin.users.edit', $user)->withInput()->with('error', $error);
+        return redirect('admin.users.edit', $user)->withInput()->with('error', $error);
     }
 
     /**
@@ -377,7 +377,7 @@ class UsersController extends JoshController
                 // Prepare the error message
                 $error = trans('admin/users/message.error.delete');
                 // Redirect to the user management page
-                return Redirect::secure_url('admin.users.index')->with('error', $error);
+                return redirect('admin.users.index')->with('error', $error);
             }
             // Delete the user
             //to allow soft deleted, we are performing query on users model instead of Sentinel model
@@ -391,13 +391,13 @@ class UsersController extends JoshController
                 ->causedBy($user)
                 ->log('User deleted by '.Sentinel::getUser()->full_name);
             // Redirect to the user management page
-            return Redirect::secure_url('admin.users.index')->with('success', $success);
+            return redirect('admin.users.index')->with('success', $success);
         } catch (UserNotFoundException $e) {
             // Prepare the error message
             $error = trans('admin/users/message.user_not_found', compact('id'));
 
             // Redirect to the user management page
-            return Redirect::secure_url('admin.users.index')->with('error', $error);
+            return redirect('admin.users.index')->with('error', $error);
         }
     }
 
@@ -438,13 +438,13 @@ class UsersController extends JoshController
                 ->causedBy($user)
                 ->log('User restored by '.Sentinel::getUser()->full_name);
             // Redirect to the user management page
-            return Redirect::secure_url('admin.deleted_users')->with('success', $success);
+            return redirect('admin.deleted_users')->with('success', $success);
         } catch (UserNotFoundException $e) {
             // Prepare the error message
             $error = trans('users/message.user_not_found', compact('id'));
 
             // Redirect to the user management page
-            return Redirect::secure_url('admin.deleted_users')->with('error', $error);
+            return redirect('admin.deleted_users')->with('error', $error);
         }
     }
 
@@ -467,7 +467,7 @@ class UsersController extends JoshController
             // Prepare the error message
             $error = trans('users/message.user_not_found', compact('id'));
             // Redirect to the user management page
-            return Redirect::secure_url('admin.users.index')->with('error', $error);
+            return redirect('admin.users.index')->with('error', $error);
         }
         // Show the page
         return view('admin.users.show', compact('user'));
