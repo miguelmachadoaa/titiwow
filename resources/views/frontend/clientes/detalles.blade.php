@@ -28,13 +28,29 @@
                             <td>{{ $row->cantidad }}</td>
                             <td>{{ number_format($row->precio_total,0,",",".") }}</td>                           
                         </tr>
-
-        
-   
         
 
     @endforeach  
+    <tr>
+        <td colspan="3"></td>
+        <td>Base Imponible:</td>
+        <td>{{ $orden->base_impuesto }}</td>
+      
+    </tr>
 
+    <tr>
+        <td colspan="3"></td>
+        <td>Iva {{ $orden->valor_impuesto*100 }}%:</td>
+        <td>{{ $orden->monto_impuesto }}</td>
+      
+    </tr>
+
+    <tr>
+        <td colspan="3"></td>
+        <td>Total :</td>
+        <td>{{ $orden->monto_total }}</td>
+      
+    </tr>
     </table>
 
 </div>

@@ -186,7 +186,7 @@ Mis Compras
                         <h4 class="modal-title" id="modalLabeldanger">Detalle de Compra</h4>
                     </div>
                     <div class="modal-body">
-
+                        <h3>Detalle de la Compra</h3>
                          <div class="" id="tbDetalle"> 
 
                         </div>
@@ -234,8 +234,8 @@ Mis Compras
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn  btn-primary sendConfirmar" >Agregar</button>
+                        <button type="button"  class="btn  btn-danger" data-dismiss="modal">Volver</button>
+                        <button type="button" class="btn  btn-primary sendConfirmar" >Cancelar</button>
                     </div>
                 </div>
             </div>
