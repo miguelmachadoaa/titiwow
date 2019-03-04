@@ -540,13 +540,13 @@ class FrontEndController extends JoshController
 
                     $role->users()->attach($user);
                     
-                    //$activation = Activation::exists($user);
+                    $activation = Activation::exists($user);
 
-                    /*if ($activation) {
+                    if ($activation) {
 
                         Activation::complete($user, $activation->code);
 
-                    }*/
+                    }
                 }
 
 
@@ -567,7 +567,7 @@ class FrontEndController extends JoshController
 
 
             //if you set $activate=false above then user will receive an activation mail
-            /*if (!$activate) {
+            if (!$activate) {
                 // Data to be used on the email view
 
                 $data=[
@@ -578,7 +578,7 @@ class FrontEndController extends JoshController
                 //Mail::to($user->email)->send(new Register($data));
                 //Redirect to login page
                 return redirect('login')->with('success', trans('auth/message.signup.success'));
-            }*/
+            }
             // login user automatically
             Sentinel::login($user, false);
             //Activity log for new account

@@ -90,7 +90,7 @@ class VerificarPagos extends Command
 
           $preference = MP::get("/v1/payments/search?external_reference=".$ord->referencia);
 
-          
+
 
           if (isset($preference['response']['results'][0])) {
 
@@ -172,9 +172,6 @@ class VerificarPagos extends Command
                 );
 
                 $envio=AlpEnvios::create($data_envio);
-
-
-                 
 
                      $data_history = array(
                           'id_orden' => $ord->id, 
