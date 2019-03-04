@@ -62,6 +62,7 @@ class AlpClientesController extends JoshController
         ->join('roles', 'role_users.role_id', '=', 'roles.id')
         ->where('role_users.role_id', '<>', 1)
         ->where('alp_clientes.estado_masterfile', '=', 0)
+        ->whereNull('alp_clientes.deleted_at')
         ->get();
 
 
