@@ -252,11 +252,11 @@ div.overlay > div {
 
                     <div class="col-sm-6 col-xs-6 border">
 
-                        <p>{{ $fe->nombre_forma_envios }}</p>
+                        <p style="font-family: 'PlutoRegular';font-size:14px;">{{ $fe->nombre_forma_envios }}</p>
 
                     </div>
 
-                    <div class="col-sm-3 col-xs-3 border">  Gratis </div>
+                    <div class="col-sm-3 col-xs-3 border" style="font-family: 'PlutoRegular';font-size:14px;">  Gratis </div>
 
                 </div>
 
@@ -329,8 +329,8 @@ div.overlay > div {
 
                     <div class=" col-sm-8 col-xs-6 img-responsive" style="min-height: 1em;" class=" col-sm-8 ">
 
-                        <p><span class="hidden-xs">  {{ $labelpagos['pse'] }} </span>
-                        <img  alt="PSE" style="width: 10em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/pse.jpg"></p>
+                        <p><span class="hidden-xs" style="font-family: 'PlutoRegular';font-size:12px;">  {{ $labelpagos['pse'] }} </span>
+                        <img  alt="PSE" style="width: 15em;     padding: 0.2em 0em 0em 0em;" src="../uploads/files/pse.jpg"></p>
 
                     </div>
 
@@ -351,8 +351,8 @@ div.overlay > div {
                     <div class="col-sm-8 col-xs-6 img-responsive">
 
                       
-                        <p ><span class="hidden-xs"> {{ $labelpagos['visa'] }} </span>
-                        <img class="" alt="PSE" style="width: 10em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/tdc.jpg"></p>
+                        <p ><span class="hidden-xs" style="font-family: 'PlutoRegular';font-size:12px;"> {{ $labelpagos['visa'] }} </span>
+                        <img class="" alt="PSE" style="width: 13em;     padding: 0.2em 0em 0em 0em;" src="../uploads/files/tdc.jpg"></p>
                          
                     
 
@@ -417,8 +417,8 @@ div.overlay > div {
 
                         <div class="col-sm-8 col-xs-6 img-responsive">
 
-                          <p><span class="hidden-xs"> {{ $labelpagos[$pm['id']] }}</span>
-                           <img class="" alt="{{ $pm['name'] }}" style="width: 10em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/{{ $pm['id'].'.jpg' }}">
+                          <p><span class="hidden-xs" style="font-family: 'PlutoRegular';font-size:12px;"> {{ $labelpagos[$pm['id']] }}</span>
+                           <img class="" alt="{{ $pm['name'] }}" style="width: 15em;     padding: 0.2em 0em 0em 0em;" src="../uploads/files/{{ $pm['id'].'.jpg' }}">
                         </p>
                           
 
