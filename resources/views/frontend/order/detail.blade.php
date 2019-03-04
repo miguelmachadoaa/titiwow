@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-Carrito de Compras 
+Checkout
 @parent
 @stop
 
@@ -329,7 +329,8 @@ div.overlay > div {
 
                     <div class=" col-sm-8 col-xs-6 img-responsive" style="min-height: 1em;" class=" col-sm-8 ">
 
-                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/pse.jpg">
+                        <p><span class="hidden-xs">  {{ $labelpagos['pse'] }} </span>
+                        <img  alt="PSE" style="width: 10em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/pse.jpg"></p>
 
                     </div>
 
@@ -349,11 +350,11 @@ div.overlay > div {
 
                     <div class="col-sm-8 col-xs-6 img-responsive">
 
-                       <p>
-
-                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/tdc.jpg">
+                      
+                        <p ><span class="hidden-xs"> {{ $labelpagos['visa'] }} </span>
+                        <img class="" alt="PSE" style="width: 10em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/tdc.jpg"></p>
                          
-                    </p> 
+                    
 
                     </div>
 
@@ -416,9 +417,9 @@ div.overlay > div {
 
                         <div class="col-sm-8 col-xs-6 img-responsive">
 
-                          
-                           <img class="img-responsive" alt="{{ $pm['name'] }}" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/{{ $pm['id'].'.jpg' }}">
-
+                          <p><span class="hidden-xs"> {{ $labelpagos[$pm['id']] }}</span>
+                           <img class="" alt="{{ $pm['name'] }}" style="width: 10em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/{{ $pm['id'].'.jpg' }}">
+                        </p>
                           
 
                         </div>
