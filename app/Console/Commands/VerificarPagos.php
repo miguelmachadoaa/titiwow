@@ -90,14 +90,7 @@ class VerificarPagos extends Command
 
           $preference = MP::get("/v1/payments/search?external_reference=".$ord->referencia);
 
-          $preference=array(
-            'response' => array(
-              'results' => array(
-                0 => array(
-                  'status' => 'approved' )
-                ) 
-              ) 
-          );
+          
 
           if (isset($preference['response']['results'][0])) {
 
