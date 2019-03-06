@@ -91,7 +91,6 @@ class VerificarPagos extends Command
           $preference = MP::get("/v1/payments/search?external_reference=".$ord->referencia);
 
 
-
           if (isset($preference['response']['results'][0])) {
 
             $cantidad=count($preference['response']['results']);
