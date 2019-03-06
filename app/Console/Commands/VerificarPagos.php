@@ -94,8 +94,12 @@ class VerificarPagos extends Command
 
           if (isset($preference['response']['results'][0])) {
 
+            $cantidad=count($preference['response']['results']);
 
-            if ( $preference['response']['results'][0]['status']=='rejected' or $preference['response']['results'][0]['status']=='cancelled' ) 
+            $cantidad=$cantidad-1;
+
+
+            if ( $preference['response']['results'][$cantidad]['status']=='rejected' or $preference['response']['results'][$cantidad]['status']=='cancelled' ) 
               {
                     $data_update = array(
                       'estatus' =>4, 
@@ -115,7 +119,7 @@ class VerificarPagos extends Command
                
               }
 
-            if ( $preference['response']['results'][0]['status']=='approved' ) 
+            if ( $preference['response']['results'][$cantidad]['status']=='approved' ) 
               {
 
                   $direccion=AlpDirecciones::where('id', $ord->id_address)->first();
@@ -203,8 +207,6 @@ class VerificarPagos extends Command
                   ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
                   ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
 
-            
-
                   Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
 
                  Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
@@ -216,9 +218,9 @@ class VerificarPagos extends Command
           if (isset($preference['response']['results'][0])) {
             # code...
 
-              $res = array('response' => $preference['response']['results'][0] );
+              $res = array('response' => $preference['response']['results'][$cantidad] );
 
-              if ( $preference['response']['results'][0]['status']=='in_process' || $preference['response']['results'][0]['status']=='pending' ) 
+              if ( $preference['response']['results'][$cantidad]['status']=='in_process' || $preference['response']['results'][$cantidad]['status']=='pending' ) 
                 {
 
                 }else{

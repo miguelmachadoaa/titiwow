@@ -48,6 +48,7 @@ class VerifyCsrfToken extends Middleware
        'configuracion/storecity', //
        'configuracion/delcity', //
        'configuracion/verificarciudad', //
+       'productos/addrelacionado', //
        'delamigo' //
     ];
 }

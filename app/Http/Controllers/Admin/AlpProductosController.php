@@ -6,6 +6,7 @@ use App\Http\Controllers\JoshController;
 use App\Http\Requests\ProductosRequest;
 use App\Http\Requests\ProductosUpdateRequest;
 use App\Models\AlpProductos;
+use App\Models\AlpProductosRelacionados;
 use App\Models\AlpCategorias;
 use App\Models\AlpCategoriasProductos;
 use App\Models\AlpInventario;
@@ -399,6 +400,22 @@ class AlpProductosController extends JoshController
      * @param  Blog $blog
      * @return view
      */
+    public function relacionado($id){
+
+      $producto=AlpProductos::where('id', $id)->first();
+
+      $productos=AlpProductos::get();
+
+      $relacionados=AlpProductosRelacionados::where('id_producto', $id)->get();
+
+
+
+        return view('admin.productos.relacionados', compact('producto', 'productos', 'relacionados'));
+
+
+
+    }
+
     public function edit($id)
     {
         $inventario=AlpInventario::where('id_producto', $id)->first();
@@ -936,5 +953,34 @@ class AlpProductosController extends JoshController
           return json_encode( array('valid' => true ));
 
         }
+    }
+
+     public function addrelacionado(Request $request)
+    {
+
+        $input = $request->all();
+
+        $user_id = Sentinel::getUser()->id;
+
+        
+        //dd($input['referencia_producto_sap']);
+
+        $data = array(
+          'id_producto' => $input['id_producto'], 
+          'id_relacionado' => $input['id_relacionado'], 
+          'id_user' => $user_id, 
+        );
+
+        AlpProductosRelacionados::create($data);
+
+        $relacionados=AlpProductosRelacionados::where('id_producto', $input['id_producto'])->get();
+
+
+        $view= View::make('admin.productos.tabla_relacionados', compact('relacionados'));
+
+        $data=$view->render();
+
+        return $data;
+
     }
 }

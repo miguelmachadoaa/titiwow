@@ -61,6 +61,12 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
     Route::get('productos/{id}/confirmar', array('as' => 'productos.confirmar', 'uses' => 'Admin\AlpProductosController@confirmar'));
 
+    Route::get('productos/{id}/relacionado', array('as' => 'productos.relacionado', 'uses' => 'Admin\AlpProductosController@relacionado'));
+
+    Route::post('productos/addrelacionado', array('as' => 'productos.addrelacionado', 'uses' => 'Admin\AlpProductosController@addrelacionado'));
+
+    Route::post('productos/delrelacionado', array('as' => 'productos.delrelacionado', 'uses' => 'Admin\AlpProductosController@delrelacionado'));
+
 
     Route::get('productos/{id}/confirm-delete', array('as' => 'productos.confirm-delete', 'uses' => 'Admin\AlpProductosController@getModalDelete'));
 
