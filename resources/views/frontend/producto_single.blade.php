@@ -204,22 +204,44 @@
             </div>
         </div>
         <!--item view end-->
-
-
-
-
-
-
-
-
-
+        <!--item desciption start-->
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- Tabbable-Panel Start -->
+                <div class="tabbable-panel">
+                    <!-- Tabbablw-line Start -->
+                    <div class="tabbable-line">
+                        <!-- Nav Nav-tabs Start -->
+                        <ul class="nav nav-tabs ">
+                            <li class="active">
+                                <a href="#tab_default_1" data-toggle="tab">
+                                Descripción </a>
+                            </li>
+                           
+                        </ul>
+                        <!-- //Nav Nav-tabs End -->
+                        <!-- Tab-content Start -->
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab_default_1">
+                                <p>{{ $producto->descripcion_larga}}</p>
+                            </div>
+                            
+                            <!-- Tab-content End -->
+                        </div>
+                        <!-- //Tabbable-line End -->
+                    </div>
+                    <!-- Tabbable_panel End -->
+                </div>
+            </div>
+        </div>
+        <!-- Productos Relacionados -->
         <div class="products">
         <div class="row">
         @if(count($relacionados)>0)
 
         @if(count($prods)>0)
         <div class="col-md-12 col-sm-12 text-center">
-                    <h3 class="catego">Productos Más Vendidos</h3>
+                    <h3 class="catego">También te puede Interesar</h3>
                     <div class="separador"></div>
                 </div>
 
@@ -335,48 +357,7 @@
 
     </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-        <!--item desciption start-->
-        <div class="row">
-            <div class="col-sm-12">
-                <!-- Tabbable-Panel Start -->
-                <div class="tabbable-panel">
-                    <!-- Tabbablw-line Start -->
-                    <div class="tabbable-line">
-                        <!-- Nav Nav-tabs Start -->
-                        <ul class="nav nav-tabs ">
-                            <li class="active">
-                                <a href="#tab_default_1" data-toggle="tab">
-                                Descripción </a>
-                            </li>
-                           
-                        </ul>
-                        <!-- //Nav Nav-tabs End -->
-                        <!-- Tab-content Start -->
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="tab_default_1">
-                                <p>{{ $producto->descripcion_larga}}</p>
-                            </div>
-                            
-                            <!-- Tab-content End -->
-                        </div>
-                        <!-- //Tabbable-line End -->
-                    </div>
-                    <!-- Tabbable_panel End -->
-                </div>
-            </div>
-        </div>
+<!-- Productos Relacionados -->
         
     </div>
     <!-- //Container Section End -->
