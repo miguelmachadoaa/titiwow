@@ -711,9 +711,6 @@ class ClientesFrontController extends Controller
        
         }
 
-
-
-
         $detalles=AlpDetalles::where('id_orden', $orden)->get();
 
         foreach ($detalles as $det) {
@@ -734,11 +731,21 @@ class ClientesFrontController extends Controller
 
         }
 
+        $ord=AlpOrdenes::where('id', $orden)->first();
+
+        
+        $data_update = array(
+                      'estatus' =>8, 
+                      'estatus_pago' =>4,
+                       );
+
+        $ord->update($data_update);
+
          \Session::put('cart', $cart);
 
          \Session::put('orden', $orden);
 
-          return redirect('order/detail');
+        return redirect('order/detail');
 
     }
 
