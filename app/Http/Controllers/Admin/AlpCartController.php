@@ -490,14 +490,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
     public function orderRapipago(Request $request)
     {
-      
-      $cart= \Session::get('cart');
-
-      $total=$this->total();
-
-      $impuesto=$this->impuesto();
-
-     # dd($input);
+    
 
       $configuracion = AlpConfiguracion::where('id', '1')->first();
 
@@ -505,21 +498,53 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
       MP::sandbox_mode(TRUE);
 
-    // MP::setAccessToken('TEST-8070538380314059-092518-cdecd433d6d7253ead0520424d7c08e6-353183830');
+    
+      $preference = MP::get("/v1/payments/search?external_reference=ALP59");
+
+      if (isset($preference['response']['results'][0])) {
+
+        $aproved=0;
+        $cancel=0;
+        $pending=0;
+
+        foreach ($preference['response']['results'] as $r) {
+              
+            if ($r['status']=='rejected' || $r['status']=='cancelled' || $r['status']=='refunded') {
+              $cancel=1;
+            }
+
+            if ($r['status']=='approved') {
+              $aproved=1;
+            }
+
+            if ($r['status']=='in_process' || $r['status']=='pending') {
+
+              $pending=1;
+            }
+
+            //echo $r['status'].'<br>';
 
 
-       $preference_data = [
-        "transaction_amount" => $total,
-        "description" => 'Pago de orden',
-        "payment_method_id" => "efecty",
-        "payer" => [
-          "email"=>"miguel@gmail.com"]
-      ];
+        }
 
+        if ($aproved) {
 
-      $preference = MP::post("/v1/payments",$preference_data);
+          echo "aprobado";
 
-      dd($preference);
+        }elseif($pending){
+
+          echo "pendiente";
+
+        }elseif($cancel){
+
+          echo "cancelado";
+        }
+
+        
+
+      }
+
+//dd($preference);
 
     }
 

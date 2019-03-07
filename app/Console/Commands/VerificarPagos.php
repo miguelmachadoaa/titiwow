@@ -95,30 +95,32 @@ class VerificarPagos extends Command
 
             $cantidad=count($preference['response']['results']);
 
-            $cantidad=$cantidad-1;
+            $aproved=0;
+            $cancel=0;
+            $pending=0;
 
+            foreach ($preference['response']['results'] as $r) {
+                    
+                  if ($r['status']=='rejected' || $r['status']=='cancelled' || $r['status']=='refunded') {
+                    $cancel=1;
+                 
 
-            if ( $preference['response']['results'][$cantidad]['status']=='rejected' or $preference['response']['results'][$cantidad]['status']=='cancelled' ) 
-              {
-                    $data_update = array(
-                      'estatus' =>4, 
-                      'estatus_pago' =>3,
-                       );
+                  }
 
-                     $orden->update($data_update);
+                  if ($r['status']=='approved') {
+                    $aproved=1;
+                  }
 
-                      $data_history = array(
-                          'id_orden' => $orden->id, 
-                         'id_status' => '4', 
-                          'notas' => 'Notificacion Mercadopago', 
-                         'id_user' => 1
-                      );
+                  if ($r['status']=='in_process' || $r['status']=='pending') {
 
-                        $history=AlpOrdenesHistory::create($data_history);
-               
-              }
+                    $pending=1;
+                  }
 
-            if ( $preference['response']['results'][$cantidad]['status']=='approved' ) 
+                  //echo $r['status'].'<br>';
+
+            }
+
+            if ( $aproved ) 
               {
 
                   $direccion=AlpDirecciones::where('id', $ord->id_address)->first();
@@ -210,34 +212,59 @@ class VerificarPagos extends Command
 
                  Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
                
+            }elseif($pending){
+
+
+            }elseif($cancel){
+
+                $data_update = array(
+                      'estatus' =>4, 
+                      'estatus_pago' =>3,
+                       );
+
+                     $orden->update($data_update);
+
+                      $data_history = array(
+                          'id_orden' => $orden->id, 
+                         'id_status' => '4', 
+                          'notas' => 'Notificacion Mercadopago', 
+                         'id_user' => 1
+                      );
+
+                        $history=AlpOrdenesHistory::create($data_history);
+
+
+
+
             }
+
 
           } //si hay resultados 
 
           if (isset($preference['response']['results'][0])) {
             # code...
 
-              $res = array('response' => $preference['response']['results'][$cantidad] );
+              
 
-              if ( $preference['response']['results'][$cantidad]['status']=='in_process' || $preference['response']['results'][$cantidad]['status']=='pending' ) 
-                {
+              if ( $pending ) 
+              {
 
-                }else{
+              }else{
 
 
                   $data_pago = array(
-                'id_orden' => $orden->id, 
-                'id_forma_pago' => $orden->id_forma_pago, 
+                'id_orden' => $ord->id, 
+                'id_forma_pago' => $ord->id_forma_pago, 
                 'id_estatus_pago' => 4, 
-                'monto_pago' => $orden->monto_total, 
-                'json' => json_encode($res), 
+                'monto_pago' => $ord->monto_total, 
+                'json' => json_encode($preference['response']['results']), 
                 'id_user' => '0' 
-              );
+                  );
 
-             AlpPagos::create($data_pago);
-                }
+                 AlpPagos::create($data_pago);
+              }
 
-           }
+          }
 
 
         }//endforeach ordenes
