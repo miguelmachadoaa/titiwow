@@ -1,7 +1,7 @@
 @extends('admin/layouts/default')
 
 @section('title')
-@lang('productos/title.edit') :: @parent
+Relacionar Productos :: @parent
 @parent
 @stop
 
@@ -49,7 +49,7 @@
 @section('content')
   @include('core-templates::common.errors')
     <section class="content-header">
-     <h1>@lang('productos/title.edit')</h1>
+     <h1>Productos Relacionados</h1>
      <ol class="breadcrumb">
          <li>
              <a href="{{ secure_url('admin') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
@@ -57,7 +57,7 @@
              </a>
          </li>
          <li>@lang('productos/title.title')</li>
-         <li class="active">@lang('productos/title.edit') </li>
+         <li class="active">Relacionados</li>
      </ol>
     </section>
     <section class="content paddingleft_right15">
@@ -65,7 +65,7 @@
       <div class="panel panel-primary">
             <div class="panel-heading">
                 <h4 class="panel-title"> <i class="livicon" data-name="user" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                    @lang('productos/title.edit')
+                   Productos Relacionados
                 </h4></div>
             <br />
         <div class="panel-body">
@@ -121,7 +121,7 @@
                </div>
 
 
-               <div class="row tabla_relacionado">
+               <div class="row " id="tabla_relacionado">
 
                   @include('admin.productos.tabla_relacionados')
 
@@ -142,7 +142,29 @@
  @stop
 
 @section('footer_scripts')
-    
+
+<div class="modal fade" id="deleteRelacionado" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Eliminar Relacion</h4>
+      </div>
+      <div class="modal-body">
+                <input type="hidden" name="delete_id" id="delete_id" value="">
+
+                <h3>Estas seguro que deseas eliminar el registro?</h3>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Volver</button>
+        <button type="button" class="btn btn-danger sendDeleteRelacionado">Eliminar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
   
     <!-- js para la carga de imahenes  -->
 <script src="{{ secure_asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
@@ -199,13 +221,9 @@
 
                     url: base+"/admin/productos/addrelacionado",
                         
-                    complete: function(datos){     
+                    complete: function(datos){   
 
-                           // data=JSON.parse(datos.responseText);
-
-                           // localStorage.setItem('ubicacion', datos.responseText);
-
-                            $('.tabla_relacionado').html(datos);
+                            $('#tabla_relacionado').html(datos.responseText);
 
                             
 
@@ -217,6 +235,51 @@
 
 
         });
+
+
+        $(document).on('click', '.delRelacionado', function(){
+
+            $('#delete_id').val($(this).data('id'));
+
+            $('#deleteRelacionado').modal('show');
+
+
+
+        });
+
+
+        $('.sendDeleteRelacionado').on('click', function(){
+
+            id=$('#delete_id').val();
+
+
+            if (id==null || id=='' || id==undefined) {}else{
+
+
+
+                 $.ajax({
+                    type: "POST",
+                    data:{  id },
+
+                    url: base+"/admin/productos/delrelacionado",
+                        
+                    complete: function(datos){   
+
+                            $('#tabla_relacionado').html(datos.responseText);
+            $('#deleteRelacionado').modal('hide');
+
+
+                    }
+                });
+
+            }
+
+
+
+        });
+
+
+
 
          $('.select21').select2({
             placeholder: "select",

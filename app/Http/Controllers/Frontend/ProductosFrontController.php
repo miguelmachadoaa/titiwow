@@ -383,6 +383,14 @@ class ProductosFrontController extends Controller
             ->where('alp_productos.slug','=', $slug)->first(); 
 
            if($producto){
+
+
+            $relacionados = AlpProductos::select('alp_productos.*', 'alp_productos_relacionados.id_relacionado as id_relacionado')
+          ->join('alp_productos_relacionados', 'alp_productos.id', '=', 'alp_productos_relacionados.id_relacionado')
+          ->whereNull('alp_productos_relacionados.deleted_at')
+          ->where('alp_productos_relacionados.id_producto', '=',$producto->id)->get();
+
+
             $categos = DB::table('alp_categorias')->select('alp_categorias.nombre_categoria as nombre_categoria','alp_categorias.slug as categ_slug')
             ->join('alp_productos_category','alp_categorias.id' , '=', 'alp_productos_category.id_categoria')
             ->where('id_producto','=', $producto->id)->where('alp_categorias.estado_registro','=', 1)->groupBy('alp_categorias.id')->get();
@@ -392,7 +400,9 @@ class ProductosFrontController extends Controller
             ->where('alp_productos.id','=', $producto->id)->where('alp_productos.estado_registro','=', 1)->get();
 
            }else{
+
             abort('404');
+
            }
 
         if (Sentinel::check()) {
@@ -428,6 +438,20 @@ class ProductosFrontController extends Controller
                         $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
                         $precio[$producto->id]['pum']=$pregiogrupo->pum;
 
+                    }
+
+                    foreach ($relacionados as $r) {
+
+                        $pregiogrupo=AlpPrecioGrupo::where('id_producto', $r->id)->where('id_role', $role->role_id)->first();
+
+                    if (isset($pregiogrupo->id)) {
+                       
+                        $precio[$producto->id]['precio']=$pregiogrupo->precio;
+                        $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$producto->id]['pum']=$pregiogrupo->pum;
+
+                    }
+                        
                     }
 
             }
@@ -480,11 +504,10 @@ class ProductosFrontController extends Controller
 
        }
 
+    
+    $prods=$this->addOferta($relacionados, $precio, $descuento);
 
-
-
-
-
+    //dd($prods);
 
 
 
@@ -506,7 +529,7 @@ class ProductosFrontController extends Controller
 
 
         
-        return \View::make('frontend.producto_single', compact('producto', 'descuento', 'precio','categos', 'states', 'cart', 'total','catprincipal'));
+        return \View::make('frontend.producto_single', compact('producto', 'descuento', 'precio','categos', 'states', 'cart', 'total','catprincipal', 'relacionados', 'prods'));
 
     }
 

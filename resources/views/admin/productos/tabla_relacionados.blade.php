@@ -9,7 +9,7 @@
                         @foreach($relacionados as $r)
 
                         <tr>
-                            <td>{{ $r->id }}</td>
+                            <td>{{ $r->nombre_producto }}</td>
                             <td>
                                 <button data-id="{{ $r->id }}" type="button" class="btn btn-danger delRelacionado"><i class="fa fa-trash"></i></button>
                             </td>

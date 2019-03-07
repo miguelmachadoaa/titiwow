@@ -22,7 +22,7 @@ class AlpProductosRelacionados extends Model
      */
    
 
-    public $table = 'alp_productos_ralacionados';
+    public $table = 'alp_productos_relacionados';
     
 
     protected $dates = ['deleted_at'];

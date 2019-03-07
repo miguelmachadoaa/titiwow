@@ -406,7 +406,11 @@ class AlpProductosController extends JoshController
 
       $productos=AlpProductos::get();
 
-      $relacionados=AlpProductosRelacionados::where('id_producto', $id)->get();
+
+      $relacionados = AlpProductos::select('alp_productos.nombre_producto as nombre_producto', 'alp_productos_relacionados.id as id')
+          ->join('alp_productos_relacionados', 'alp_productos.id', '=', 'alp_productos_relacionados.id_relacionado')
+          ->whereNull('alp_productos_relacionados.deleted_at')
+          ->where('alp_productos_relacionados.id_producto', '=',$id)->get();
 
 
 
@@ -973,7 +977,41 @@ class AlpProductosController extends JoshController
 
         AlpProductosRelacionados::create($data);
 
-        $relacionados=AlpProductosRelacionados::where('id_producto', $input['id_producto'])->get();
+       
+
+        $relacionados = AlpProductos::select('alp_productos.nombre_producto as nombre_producto', 'alp_productos_relacionados.id as id')
+          ->join('alp_productos_relacionados', 'alp_productos.id', '=', 'alp_productos_relacionados.id_relacionado')
+          ->whereNull('alp_productos_relacionados.deleted_at')
+          ->where('alp_productos_relacionados.id_producto', '=',$input['id_producto'])->get();
+
+
+
+        $view= View::make('admin.productos.tabla_relacionados', compact('relacionados'));
+
+        $data=$view->render();
+
+        return $data;
+
+    }
+
+    public function delrelacionado(Request $request)
+    {
+
+        $input = $request->all();
+
+        $relacionado=AlpProductosRelacionados::where('id', $input['id'])->first();
+
+        //dd($relacionado);
+
+        $id_producto=$relacionado->id_producto;
+
+        $relacionado->delete();
+       
+
+        $relacionados = AlpProductos::select('alp_productos.nombre_producto as nombre_producto', 'alp_productos_relacionados.id as id')
+          ->join('alp_productos_relacionados', 'alp_productos.id', '=', 'alp_productos_relacionados.id_relacionado')
+          ->whereNull('alp_productos_relacionados.deleted_at')
+          ->where('alp_productos_relacionados.id_producto', '=',$id_producto)->get();
 
 
         $view= View::make('admin.productos.tabla_relacionados', compact('relacionados'));
