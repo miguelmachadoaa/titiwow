@@ -54,8 +54,10 @@ Carro de Productos
     <div class="row">
 
         @if($aviso_pago!='0')
+
+
         <div class="col-sm-12">
-            <div class="alert alert-success alertita" >
+            <div class="alert @if(isset($estatus_aviso)) alert-{{ $estatus_aviso }} @else alert-success @endif  alertita" >
                 
                <span class="texto_pagho">{{ $aviso_pago }}</span> 
             </div>
