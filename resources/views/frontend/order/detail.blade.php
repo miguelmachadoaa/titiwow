@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-Checkout
+Carrito de Compras 
 @parent
 @stop
 
@@ -252,11 +252,11 @@ div.overlay > div {
 
                     <div class="col-sm-6 col-xs-6 border">
 
-                        <p style="font-family: 'PlutoRegular';font-size:14px;">{{ $fe->nombre_forma_envios }}</p>
+                        <p>{{ $fe->nombre_forma_envios }}</p>
 
                     </div>
 
-                    <div class="col-sm-3 col-xs-3 border" style="font-family: 'PlutoRegular';font-size:14px;">  Gratis </div>
+                    <div class="col-sm-3 col-xs-3 border">  Gratis </div>
 
                 </div>
 
@@ -329,8 +329,7 @@ div.overlay > div {
 
                     <div class=" col-sm-8 col-xs-6 img-responsive" style="min-height: 1em;" class=" col-sm-8 ">
 
-                        <p><span class="hidden-xs" style="font-family: 'PlutoRegular';font-size:12px;">  {{ $labelpagos['pse'] }} </span>
-                        <img  alt="PSE" style="width: 15em;     padding: 0.2em 0em 0em 0em;" src="../uploads/files/pse.jpg"></p>
+                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/pse.jpg">
 
                     </div>
 
@@ -342,19 +341,16 @@ div.overlay > div {
 
                 </div><br>
                 
-
-                
-
                 <div data-type='creditcard' id="creditcard" data-id="2" class="row forma border pointer">
 
 
                     <div class="col-sm-8 col-xs-6 img-responsive">
 
-                      
-                        <p ><span class="hidden-xs" style="font-family: 'PlutoRegular';font-size:12px;"> {{ $labelpagos['visa'] }} </span>
-                        <img class="" alt="PSE" style="width: 13em;     padding: 0.2em 0em 0em 0em;" src="../uploads/files/tdc.jpg"></p>
+                       <p>
+
+                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/tdc.jpg">
                          
-                    
+                    </p> 
 
                     </div>
 
@@ -362,7 +358,7 @@ div.overlay > div {
 
                         @if($configuracion->mercadopago_sand=='1')
 
-                        <form action="{{ secure_url('/order/creditcard') }}" method="POST">
+                        <form action="../order/creditcard" method="POST" class="form_creditcard">
                           <script
                             src="https://www.mercadopago.com.co/integrations/v1/web-tokenize-checkout.js"
 
@@ -381,7 +377,7 @@ div.overlay > div {
 
                         @if($configuracion->mercadopago_sand=='2')
 
-                         <form action="{{ secure_url('/order/creditcard') }}" method="POST">
+                         <form action="../order/creditcard" method="POST" class="form_creditcard">
                           <script
                             src="https://www.mercadopago.com.co/integrations/v1/web-tokenize-checkout.js"
 
@@ -397,17 +393,11 @@ div.overlay > div {
 
                         @endif
 
-
-                      
-
                     </div>
 
                 </div>
 
-
                 <br>
-
-                
 
                 @foreach($payment_methods['response'] as $pm)
 
@@ -417,9 +407,9 @@ div.overlay > div {
 
                         <div class="col-sm-8 col-xs-6 img-responsive">
 
-                          <p><span class="hidden-xs" style="font-family: 'PlutoRegular';font-size:12px;"> {{ $labelpagos[$pm['id']] }}</span>
-                           <img class="" alt="{{ $pm['name'] }}" style="width: 15em;     padding: 0.2em 0em 0em 0em;" src="../uploads/files/{{ $pm['id'].'.jpg' }}">
-                        </p>
+                          
+                           <img class="img-responsive" alt="{{ $pm['name'] }}" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/{{ $pm['id'].'.jpg' }}">
+
                           
 
                         </div>
@@ -977,6 +967,9 @@ div.overlay > div {
     <script>
 
 
+    	 
+
+
         /*funciones para cpones */
 
         $('body').on('click', '.cupones', function (){
@@ -1318,7 +1311,9 @@ $('.sendCupon').click(function () {
         });
 
 
-        $('body').on('click', '#creditcard', function (){
+        $('body').on('click', '#creditcard', function (e){
+
+            //e.preventDefault();
 
             id_direccion= $("#id_direccion").val(); 
             
@@ -1350,6 +1345,9 @@ $('.sendCupon').click(function () {
                     complete: function(datos){     
 
                        if(datos.responseText=='true'){
+
+
+                           // $('.form_creditcard').submit();
 
                             //window.location.href = url;
 

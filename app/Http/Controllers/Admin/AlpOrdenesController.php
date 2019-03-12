@@ -12,7 +12,7 @@ use App\Models\AlpPagos;
 use App\Models\AlpPuntos;
 use App\Models\AlpConfiguracion;
 use App\Models\AlpEnvios;
-use App\Users;
+use App\User;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Mail;
@@ -837,7 +837,7 @@ echo '<br>fin: '.$date_fin;*/
 
           $texto="La orden ".$orden->id." Ha sido Enviada  !";
 
-          $user_cliente=Users::where('id', $orden->id_cliente)->first();
+          $user_cliente=User::where('id', $orden->id_cliente)->first();
           
           Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionOrden($orden->id, $texto));
 
