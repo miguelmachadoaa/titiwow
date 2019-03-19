@@ -1,8 +1,8 @@
 @component('mail::message')
 
- <h3><b>Hola {{ $name.' '.$lastname }}.</b></h3>
+ <h3><b>Hola Embajador.</b></h3>
  
- <h3><b>Tu amigo ha completado su registro en Alpina Go!</b></h3>
+ <h3><b>Tu amigo {{ $name.' '.$lastname }} ha completado su registro en Alpina Go!</b></h3>
 
 <p>Por cada amigo que registres tendrás acceso a beneficios y premios exclusivos dentro de nuestra plataforma.</p>
 
