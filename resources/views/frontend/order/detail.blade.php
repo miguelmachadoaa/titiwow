@@ -362,7 +362,7 @@ div.overlay > div {
 
                         @if($configuracion->mercadopago_sand=='1')
 
-                        <form action="{{ secure_url('/order/creditcard') }}" method="POST">
+                        <form class="form_creditcard" action="{{ secure_url('/order/creditcard') }}" method="POST">
                           <script
                             src="https://www.mercadopago.com.co/integrations/v1/web-tokenize-checkout.js"
 
@@ -381,7 +381,7 @@ div.overlay > div {
 
                         @if($configuracion->mercadopago_sand=='2')
 
-                         <form action="{{ secure_url('/order/creditcard') }}" method="POST">
+                         <form class="form_creditcard" action="{{ secure_url('/order/creditcard') }}" method="POST">
                           <script
                             src="https://www.mercadopago.com.co/integrations/v1/web-tokenize-checkout.js"
 
@@ -975,6 +975,22 @@ div.overlay > div {
 
 
     <script>
+
+
+        $(document).ready(function($){
+  var ventana_ancho = $(window).width();
+
+  if (ventana_ancho<=768) {
+    $('.form_creditcard').attr('action', 'pruebas/order/creditcard');
+  }else{
+    $('.form_creditcard').attr('action', './order/creditcard');
+
+  }
+  
+  alert(ventana_ancho);
+});
+
+
 
 
         /*funciones para cpones */

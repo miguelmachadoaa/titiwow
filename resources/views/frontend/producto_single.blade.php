@@ -219,7 +219,7 @@
 
         @if(count($prods)>0)
         <div class="col-md-12 col-sm-12 text-center">
-                    <h3 class="catego">Productos Más Vendidos</h3>
+                    <h3 class="catego">Productos Relacionados</h3>
                     <div class="separador"></div>
                 </div>
 

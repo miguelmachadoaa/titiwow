@@ -299,7 +299,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
         $fecha_entrega=$data['fecha_entrega'];
        
-         $aviso_pago="Estamos procesando su pago, una vez sea confirmado, Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!";
+         $aviso_pago="Estamos verificando su pago, una vez sea confirmado, Le llegará un email con la descripción de su pedido. En caso de existir algún error en el pago le invitamos a Mis Compras desde su perfil para intentar pagar nuevamente";
 
         $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
             ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
@@ -498,53 +498,104 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
       MP::sandbox_mode(TRUE);
 
-    
-      $preference = MP::get("/v1/payments/search?external_reference=ALP59");
-
-      if (isset($preference['response']['results'][0])) {
-
-        $aproved=0;
-        $cancel=0;
-        $pending=0;
-
-        foreach ($preference['response']['results'] as $r) {
-              
-            if ($r['status']=='rejected' || $r['status']=='cancelled' || $r['status']=='refunded') {
-              $cancel=1;
-            }
-
-            if ($r['status']=='approved') {
-              $aproved=1;
-            }
-
-            if ($r['status']=='in_process' || $r['status']=='pending') {
-
-              $pending=1;
-            }
-
-            //echo $r['status'].'<br>';
 
 
-        }
+       $carrito= \Session::get('cr');
 
-        if ($aproved) {
+     // $id_orden= \Session::get('orden');
+      $id_orden= "95";
 
-          echo "aprobado";
+      $orden=AlpOrdenes::where('id', $id_orden)->first();
 
-        }elseif($pending){
+      $detalles=AlpDetalles::where('id_orden', $id_orden)->get();
 
-          echo "pendiente";
 
-        }elseif($cancel){
+        $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug')
+          ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
+          ->where('alp_ordenes_detalle.id_orden', $id_orden)->get();
 
-          echo "cancelado";
-        }
+      $det_array = array();
 
-        
 
+
+      foreach ($detalles as $d ) {
+
+
+        $det_array[]= array(
+
+                "id"          => $d->id_producto,
+                "title"       => $d->nombre_producto,
+                "description" => $d->descripcion_corta,
+                "quantity"    => (int)number_format($d->cantidad, 0, '.', ''),
+                "unit_price"  => (float)number_format($d->precio_unitario, 2, '.', ''),
+                "taxes"=> array(
+                    "value" => (float)number_format($d->monto_impuesto, 2, '.', ''), 
+                    "type"=>"IVA" 
+              ));
+
+       
       }
 
-//dd($preference);
+      $total=$orden->monto_total;
+
+      $impuesto=$orden->monto_impuesto;
+      
+      $configuracion = AlpConfiguracion::where('id', '1')->first();
+
+        $mp = new MP();
+
+        if ($configuracion->mercadopago_sand=='1') {
+          
+          $mp::sandbox_mode(TRUE);
+
+        }
+
+        if ($configuracion->mercadopago_sand=='2') {
+          
+          $mp::sandbox_mode(FALSE);
+
+        }
+
+        MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+
+        $net_amount=$total-$impuesto;
+
+        $preference_data = '{
+           "payer": {
+               "email": "'.$request->email.'",
+               "entity_type": "individual",
+               "identification": {
+                   "type": "'.$request->id_type_doc.'",
+                   "number": "'.$request->doc_cliente.'"
+               }
+           },
+           "description": "Pago de orden Nro. '.$orden->id.'",
+           "external_reference": "ALP'.$orden->id.'",
+           "callback_url": "'.secure_url('/order/pse').'",
+           "additional_info": {
+               "ip_address": "'.request()->ip().'"
+           },
+           "payment_method_id": "pse",
+           "transaction_amount": '.$total.',
+           "transaction_details": {
+               "financial_institution": "1001"
+           },
+           "net_amount": '.$net_amount.',
+           "taxes":[{
+                               "value": '.$impuesto.',
+                               "type": "IVA"
+                       }],
+            "items":'.json_encode($det_array).'
+       }' ;
+
+       //dd($preference_data);
+
+
+          $pse = MP::post("/v1/payments",$preference_data);
+
+
+      dd($pse);
+  
 
     }
 
