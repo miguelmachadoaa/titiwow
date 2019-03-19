@@ -585,10 +585,11 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
                                "value": '.$impuesto.',
                                "type": "IVA"
                        }],
-            "items":'.json_encode($det_array).'
+            "additional_info":{
+            "items":'.json_encode($det_array).'}
        }' ;
 
-       //dd($preference_data);
+       dd($preference_data);
 
 
           $pse = MP::post("/v1/payments",$preference_data);

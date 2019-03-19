@@ -10,6 +10,7 @@
             <th ><b>Producto</b></th>
             <th><b>Precio</b></th>
             <th><b>Cantidad</b></th>
+            <th><b>Base de Iva</b></th>
             <th><b>Subtotal</b></th>
             <th><b>Iva</b></th>
             <th><b>Monto Iva</b></th>
@@ -30,6 +31,7 @@
             <td>{!! $row->nombre_producto !!}</td>
             <td>{!! $row->precio_unitario !!}</td>
             <td>{!! $row->cantidad !!}</td>
+            <td>{!! $row->precio_total-$row->monto_impuesto !!}</td>
             <td>{!! $row->precio_total !!}</td>
             <td>{!! $row->valor_impuesto*100 !!}%</td>
             <td>{!! $row->monto_impuesto !!}</td>
