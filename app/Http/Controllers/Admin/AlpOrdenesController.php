@@ -839,7 +839,7 @@ echo '<br>fin: '.$date_fin;*/
 
           $user_cliente=User::where('id', $orden->id_cliente)->first();
           
-          Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionOrden($orden->id, $texto));
+          //Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionOrden($orden->id, $texto));
 
           Mail::to($configuracion->correo_shopmanager)->send(new \App\Mail\NotificacionOrden($orden->id, $texto));
 
