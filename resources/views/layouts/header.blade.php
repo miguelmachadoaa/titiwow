@@ -35,7 +35,7 @@
     <!--page level css-->
     @yield('header_styles')
     <!--end of page level css-->
-        @if (App::environment('local')) 
+        @if (App::environment('production')) 
 
             <!-- Global site tag (gtag.js) - Google Analytics -->
             <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129370910-1"></script>
@@ -57,7 +57,7 @@
 </head>
 
 <body>
-    @if (App::environment('local')) 
+    @if (App::environment('production')) 
         <!-- Google Tag Manager (noscript) -->
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PG9RTMH"
         height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

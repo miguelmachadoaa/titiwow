@@ -164,7 +164,7 @@
                                             <div class="col-sm-10">
                                                 <input id="telefono_cliente" name="telefono_cliente" type="number"
                                                        placeholder="Número Telefónico" class="form-control required"
-                                                       value="{!! old('doc_cliente', $clien->doc_cliente) !!}"/>
+                                                       value="{!! old('telefono_cliente', $clien->telefono_cliente) !!}"/>
 
                                                 {!! $errors->first('telefono_cliente', '<span class="help-block">:message</span>') !!}
                                             </div>

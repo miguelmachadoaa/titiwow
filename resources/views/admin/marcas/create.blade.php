@@ -96,7 +96,7 @@
 
                         <div class="form-group">
 
-                            <label for="title" class="col-sm-2 control-label">Imagen de Categoría</label>
+                            <label for="title" class="col-sm-2 control-label">Imagen de Marca</label>
 
 
                             <div class="col-sm-5">
