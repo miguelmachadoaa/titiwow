@@ -20,6 +20,7 @@
             <th><b>Retencion IVA Mercadopago</b></th>
             <th><b>Retencion ICA Mercadopago</b></th>
             <th><b>Total a Transferir</b></th>
+            <th><b>Embajador</b></th>
 
         </tr>
     </thead>
@@ -83,7 +84,11 @@
             <td>{!! $row->retencion_iva_mp !!}</td>
             <td>{!! $row->retencion_ica_mp !!}</td>
             <td>{!! $row->monto_total-$row->comision_mp-$row->retencion_fuente_mp-$row->retencion_iva_mp-$row->retencion_ica_mp  !!}</td>
-
+            @if($row->id_embajador == 0)
+                <td>No Aplica</td>
+            @else
+                <td>{!! $row->id_embajador !!}</td>
+            @endif
           
         </tr>
         @endforeach

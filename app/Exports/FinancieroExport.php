@@ -43,6 +43,7 @@ class FinancieroExport implements FromView
           'alp_ordenes.ordencompra as ordencompra', 
           'alp_ordenes.monto_total as monto_total', 
           'alp_clientes.cod_oracle_cliente as cod_oracle_cliente', 
+          'alp_clientes.id_embajador as id_embajador', 
           'alp_clientes.doc_cliente as doc_cliente', 
           'users.first_name as first_name', 
           'users.last_name as last_name', 
@@ -54,6 +55,7 @@ class FinancieroExport implements FromView
           ->join('role_users', 'alp_ordenes.id_cliente', '=', 'role_users.user_id')
           ->join('roles', 'role_users.role_id', '=', 'roles.id')
           ->join('alp_clientes', 'alp_ordenes.id_cliente', '=', 'alp_clientes.id_user_client')
+          ->join('users as emabaj', 'alp_clientes.id_embajador', '=', 'emabaj.id')
           ->join('alp_ordenes_detalle', 'alp_ordenes.id', '=', 'alp_ordenes_detalle.id_orden')
           ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
           ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
