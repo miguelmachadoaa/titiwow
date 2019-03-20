@@ -503,7 +503,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
        $carrito= \Session::get('cr');
 
      // $id_orden= \Session::get('orden');
-      $id_orden= "95";
+      $id_orden= "98";
 
       $orden=AlpOrdenes::where('id', $id_orden)->first();
 
@@ -528,10 +528,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
                 "description" => $d->descripcion_corta,
                 "quantity"    => (int)number_format($d->cantidad, 0, '.', ''),
                 "unit_price"  => (float)number_format($d->precio_unitario, 2, '.', ''),
-                "taxes"=> array(
-                    "value" => (float)number_format($d->monto_impuesto, 2, '.', ''), 
-                    "type"=>"IVA" 
-              ));
+                );
 
        
       }
@@ -2813,10 +2810,17 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
             $base_imponible_detalle=$total_detalle/(1+$detalle->valor_impuesto);
 
-            $base_impuesto=$base_impuesto+$base_imponible_detalle;
+            $base_impuesto=$base_impuesto+$total_detalle;
 
             $valor_impuesto=$detalle->valor_impuesto;
             
+          }else{
+
+            $base_imponible_detalle=0;
+
+            $base_impuesto=$base_impuesto+$total_detalle;
+
+            //$valor_impuesto=0;
           }
 
           $imp=$detalle->valor_impuesto+1;
@@ -2831,8 +2835,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
             'precio_base' =>$detalle->precio_base, 
             'precio_total' =>$detalle->cantidad*$detalle->precio_oferta,
             'precio_total_base' =>$detalle->cantidad*$detalle->precio_base,
-            'valor_impuesto' =>$detalle->valor_impuesto,
-            'monto_impuesto' =>$detalle->valor_impuesto*$detalle->precio_oferta,
+            'valor_impuesto' =>$valor_impuesto,
+            'monto_impuesto' =>$base_imponible_detalle*$valor_impuesto,
             'id_user' =>$user_id 
           );
 
@@ -2853,7 +2857,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
             'referencia' => 'ALP'.$orden->id,
             'monto_total_base' => $monto_total_base,
             'base_impuesto' => $base_impuesto,
-            'monto_impuesto' => $monto_impuesto,
+            'monto_impuesto' => ($base_impuesto/(1+$valor_impuesto))*$valor_impuesto,
             'valor_impuesto' => $valor_impuesto
 
              );
