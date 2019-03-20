@@ -85,9 +85,9 @@
             <td>{!! $row->retencion_ica_mp !!}</td>
             <td>{!! $row->monto_total-$row->comision_mp-$row->retencion_fuente_mp-$row->retencion_iva_mp-$row->retencion_ica_mp  !!}</td>
             @if($row->id_embajador == 0)
-                <td>No Aplica</td>
+                <td>No aplica</td>
             @else
-                <td>{!! $row->id_embajador !!}</td>
+                <td>{!! $embajadores[$row->id_embajador]->first_name.' '.$embajadores[$row->id_embajador]->last_name !!}</td>
             @endif
           
         </tr>

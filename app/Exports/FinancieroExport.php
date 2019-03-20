@@ -55,7 +55,7 @@ class FinancieroExport implements FromView
           ->join('role_users', 'alp_ordenes.id_cliente', '=', 'role_users.user_id')
           ->join('roles', 'role_users.role_id', '=', 'roles.id')
           ->join('alp_clientes', 'alp_ordenes.id_cliente', '=', 'alp_clientes.id_user_client')
-          ->join('users as emabaj', 'alp_clientes.id_embajador', '=', 'emabaj.id')
+         // ->join('users as emabaj', 'alp_clientes.id_embajador', '=', 'emabaj.id')
           ->join('alp_ordenes_detalle', 'alp_ordenes.id', '=', 'alp_ordenes_detalle.id_orden')
           ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
           ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
@@ -66,8 +66,23 @@ class FinancieroExport implements FromView
 
           //dd($ordenes);
 
+          $d = array();
+
+          foreach ($ordenes as $ord) {
+            
+            if ($ord->id_embajador!=0) {
+             
+              $e=User::where('id', $ord->id_embajador)->first();
+
+              $d[$ord->id_embajador]=$e;
+
+            }
+
+
+          }
+
         return view('admin.exports.financiero', [
-            'ventas' => $ordenes
+            'ventas' => $ordenes, 'embajadores'=>$d
         ]);
     }
 }
