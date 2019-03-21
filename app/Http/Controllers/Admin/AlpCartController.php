@@ -188,6 +188,30 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
         $net_amount=$total-$impuesto;
 
+
+                       $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug')
+          ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
+          ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
+
+      $det_array = array();
+
+
+
+      foreach ($detalles as $d ) {
+
+
+        $det_array[]= array(
+
+                "id"          => $d->id_producto,
+                "title"       => $d->nombre_producto,
+                "description" => $d->descripcion_corta,
+                "quantity"    => (int)number_format($d->cantidad, 0, '.', ''),
+                "unit_price"  => (float)number_format($d->precio_unitario, 2, '.', ''),
+                );
+
+       
+      }
+
         $preference_data = '{
            "payer": {
                "email": "'.$request->email.'",
@@ -201,7 +225,8 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
            "external_reference": "ALP'.$orden->id.'",
            "callback_url": "'.secure_url('/order/pse').'",
            "additional_info": {
-               "ip_address": "'.request()->ip().'"
+               "ip_address": "'.request()->ip().'",
+               "items":'.json_encode($det_array).'
            },
            "payment_method_id": "pse",
            "transaction_amount": '.$total.',
@@ -623,9 +648,6 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
       $carrito= \Session::get('cr');
 
-      $total=$this->total();
-
-      $impuesto=$this->impuesto();
 
        $id_orden= \Session::get('orden');
 
@@ -646,13 +668,55 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
      MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
+
+      $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug')
+          ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
+          ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
+
+           $total=$orden->monto_total;
+
+      $impuesto=$orden->monto_impuesto;
+$net_amount=$total-$impuesto;
+
+
+
+      $det_array = array();
+
+
+
+      foreach ($detalles as $d ) {
+
+
+        $det_array[]= array(
+
+                "id"          => $d->id_producto,
+                "title"       => $d->nombre_producto,
+                "description" => $d->descripcion_corta,
+                "quantity"    => (int)number_format($d->cantidad, 0, '.', ''),
+                "unit_price"  => (float)number_format($d->precio_unitario, 2, '.', ''),
+                );
+
+       
+      }
+
+          
+
+
+
+
        $preference_data = [
         "transaction_amount" => doubleval($orden->monto_total),
+        "net_amount"=>$net_amount,
+            "taxes"=>[[
+              "value"=>(float)number_format($impuesto, 2, '.', ''),
+              "type"=>"IVA"]],
         "token" => $request->token,
         "description" => 'Pago de orden: '.$orden->id,
         "installments" => intval($request->installments),
         "external_reference"=> "ALP".$orden->id."",
         "payment_method_id" => $request->payment_method_id,
+        "additional_info"=> [
+                "items" => $det_array ],
         "issuer_id" => $request->issuer_id,
         "payer" => [
           "email"=>$user_cliente->email]
@@ -1128,11 +1192,16 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
       $id_orden= \Session::get('orden');
 
+
+
       $orden=AlpOrdenes::where('id', $id_orden)->first();
 
-      $total=$this->total();
+      $total=$orden->monto_total;
 
-      $impuesto=$this->impuesto();
+      $impuesto=$orden->monto_impuesto;
+
+        $net_amount=$total-$impuesto;
+
 
       if (Sentinel::check()) {
 
@@ -1146,7 +1215,28 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
           MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
      
+           $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug')
+          ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
+          ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
 
+      $det_array = array();
+
+
+
+      foreach ($detalles as $d ) {
+
+
+        $det_array[]= array(
+
+                "id"          => $d->id_producto,
+                "title"       => $d->nombre_producto,
+                "description" => $d->descripcion_corta,
+                "quantity"    => (int)number_format($d->cantidad, 0, '.', ''),
+                "unit_price"  => (float)number_format($d->precio_unitario, 2, '.', ''),
+                );
+
+       
+      }
 
            $preference_data = [
             "transaction_amount" => doubleval($orden->monto_total),
@@ -1154,8 +1244,16 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
             "description" => 'Pago de orden: '.$orden->id,
             "payment_method_id" => $request->idpago,
             "payer" => [
-              "email"=>$user_cliente->email]
+              "email"=>$user_cliente->email],
+              "additional_info"=> [
+                "items" => $det_array ],
+            "net_amount"=>$net_amount,
+            "taxes"=>[[
+              "value"=>(float)number_format($impuesto, 2, '.', ''),
+              "type"=>"IVA"]]
           ];
+
+
 
 
           $payment = MP::post("/v1/payments",$preference_data);

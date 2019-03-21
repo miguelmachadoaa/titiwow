@@ -129,7 +129,7 @@ class ClientesFrontController extends Controller
 
             //dd($puntos);
 
-            return \View::make('frontend.clientes.index', compact('referidos', 'cliente', 'user', 'states', 'cart', 'puntos'));
+            return \View::make('frontend.clientes.index', compact( 'cliente', 'user', 'states', 'cart', 'puntos'));
     
             }else{
 
