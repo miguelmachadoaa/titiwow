@@ -229,16 +229,18 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
                "items":'.json_encode($det_array).'
            },
            "payment_method_id": "pse",
-           "transaction_amount": '.$total.',
+           "transaction_amount": '.(float)number_format($total, 2, '.', '').',
            "transaction_details": {
                "financial_institution": '.$request->id_fi.'
            },
-           "net_amount": '.$net_amount.',
+           "net_amount": '.(float)number_format($net_amount, 2, '.', '').',
            "taxes":[{
-                               "value": '.$impuesto.',
+                               "value": '.(float)number_format($impuesto, 2, '.', '').',
                                "type": "IVA"
                        }]
        }' ;
+
+       
 
 
           $pse = MP::post("/v1/payments",$preference_data);
@@ -678,14 +680,9 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
       $impuesto=$orden->monto_impuesto;
 $net_amount=$total-$impuesto;
 
-
-
       $det_array = array();
 
-
-
       foreach ($detalles as $d ) {
-
 
         $det_array[]= array(
 
@@ -695,14 +692,7 @@ $net_amount=$total-$impuesto;
                 "quantity"    => (int)number_format($d->cantidad, 0, '.', ''),
                 "unit_price"  => (float)number_format($d->precio_unitario, 2, '.', ''),
                 );
-
-       
       }
-
-          
-
-
-
 
        $preference_data = [
         "transaction_amount" => doubleval($orden->monto_total),
@@ -715,12 +705,14 @@ $net_amount=$total-$impuesto;
         "installments" => intval($request->installments),
         "external_reference"=> "ALP".$orden->id."",
         "payment_method_id" => $request->payment_method_id,
-        "additional_info"=> [
-                "items" => $det_array ],
+        
         "issuer_id" => $request->issuer_id,
         "payer" => [
           "email"=>$user_cliente->email]
       ];
+
+
+
 
       $preference = MP::post("/v1/payments",$preference_data);
 
@@ -1247,7 +1239,7 @@ $net_amount=$total-$impuesto;
               "email"=>$user_cliente->email],
               "additional_info"=> [
                 "items" => $det_array ],
-            "net_amount"=>$net_amount,
+            "net_amount"=>(float)number_format($net_amount, 2, '.', ''),
             "taxes"=>[[
               "value"=>(float)number_format($impuesto, 2, '.', ''),
               "type"=>"IVA"]]
