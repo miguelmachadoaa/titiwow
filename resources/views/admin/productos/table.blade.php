@@ -35,9 +35,9 @@
                      <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="edit alpProductos"></i>
                  </a>
 
-                  <a class="btn btn-xs btn-info" href="{{ secure_url('admin/productos/'.collect($alpProductos)->first().'/relacionado') }}">
+                  <!--a class="btn btn-xs btn-info" href="{{ secure_url('admin/productos/'.collect($alpProductos)->first().'/relacionado') }}">
                      <i class="fa fa-refresh"></i>
-                 </a>
+                 </a-->
 
                   <div style=" display: inline-block; padding: 0; margin: 0;" id="td_{{ $alpProductos->id }}">
                 
