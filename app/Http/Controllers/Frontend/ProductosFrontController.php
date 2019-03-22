@@ -385,11 +385,19 @@ class ProductosFrontController extends Controller
            if($producto){
 
 
-            $relacionados = AlpProductos::select('alp_productos.*', 'alp_productos_relacionados.id_relacionado as id_relacionado')
+            $relacionados =  DB::table('alp_productos')->select('alp_productos.*','alp_marcas.nombre_marca','alp_marcas.slug  as marca_slug')
+            ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+            ->where('alp_productos.estado_registro','=',1)
+            ->where('alp_productos.id_categoria_default','=', $producto->id_categoria_default)
+            ->inRandomOrder()
+          ->take(4)->get();
+
+
+            /*$relacionados = AlpProductos::select('alp_productos.*', 'alp_productos_relacionados.id_relacionado as id_relacionado')
           ->join('alp_productos_relacionados', 'alp_productos.id', '=', 'alp_productos_relacionados.id_relacionado')
           ->whereNull('alp_productos_relacionados.deleted_at')
           ->where('alp_productos_relacionados.id_producto', '=',$producto->id)->inRandomOrder()
-          ->take(4)->get();
+          ->take(4)->get();*/
 
 
             $categos = DB::table('alp_categorias')->select('alp_categorias.nombre_categoria as nombre_categoria','alp_categorias.slug as categ_slug')
