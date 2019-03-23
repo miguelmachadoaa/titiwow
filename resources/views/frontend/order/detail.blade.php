@@ -1368,6 +1368,62 @@ $('.sendCupon').click(function () {
 
         });
 
+        
+        $('body').on('click', '.mercadopago-button', function (e){
+
+            e.preventDefault();
+
+            id_direccion= $("#id_direccion").val(); 
+            
+            id_forma_envio=$("input[name='id_forma_envio']:checked").val(); 
+            
+            id_forma_pago=$(this).data('id');
+
+            url=$(this).data('href');
+
+            if (id_forma_envio==undefined || id_direccion==undefined || id_forma_pago==undefined) {
+
+               // alert('Todos los capos son obligatorios');
+
+                $('.res_env').html('<div class="alert alert-danger" role="alert">Todos los campos son obligatorios</div>');
+
+            }else{
+
+                $('#id_forma_pago').val(id_forma_pago);
+
+                base=$('#base').val();
+
+                $.ajax({
+                    type: "POST",
+                    
+                    data:{id_forma_envio, id_direccion, id_forma_pago},
+
+                    url: base+"/cart/verificarDireccion",
+                        
+                    complete: function(datos){     
+
+                       if(datos.responseText=='true'){
+
+
+                            $('.form_creditcard').submit();
+
+                            //window.location.href = url;
+
+                       }else{
+
+                            $('.res_env').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+
+                       }
+                    
+                    }
+                });
+
+            }
+
+        });
+
+
+
 
         jQuery(document).ready(function () {
             new WOW().init();

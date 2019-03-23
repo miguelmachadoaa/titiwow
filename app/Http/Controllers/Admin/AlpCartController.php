@@ -94,7 +94,125 @@ class AlpCartController extends JoshController
 
      $inv=$this->inventario();
 
-      return view('frontend.cart', compact('cart', 'total', 'configuracion', 'states', 'inv'));
+
+     /**Mostar mas vendidos en el carro*/
+
+        $descuento='1'; 
+
+        $precio = array();
+
+
+     $productos = DB::table('alp_productos')->select('alp_productos.*')->where('destacado','=', 1)->where('alp_productos.estado_registro','=',1)->orderBy('order', 'asc')->limit(12)->get();
+
+
+      if (Sentinel::check()) {
+
+            $user_id = Sentinel::getUser()->id;
+
+            $role=RoleUser::where('user_id', $user_id)->first();
+
+            $cliente = AlpClientes::where('id_user_client', $user_id )->first();
+
+            if (isset($cliente) ) {
+
+                if ($cliente->id_empresa!=0) {
+                    
+                    /* $empresa=AlpEmpresas::find($cliente->id_empresa);
+
+                    $cliente['nombre_empresa']=$empresa->nombre_empresa;
+
+                    $descuento=(1-($empresa->descuento_empresa/100));*/
+
+                    $role->role_id='E'.$role->role_id.'';
+                }
+               
+            }
+
+            if ($role->role_id) {
+
+               
+                foreach ($productos as  $row) {
+                    
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $role->role_id)->first();
+
+                    if (isset($pregiogrupo->id)) {
+                       
+                        $precio[$row->id]['precio']=$pregiogrupo->precio;
+                        $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$row->id]['pum']=$pregiogrupo->pum;
+
+                    }
+
+                }
+                
+            }
+
+        }
+
+
+
+        $prods = array( );
+
+        foreach ($productos as $producto) {
+
+      if ($descuento=='1') {
+
+        if (isset($precio[$producto->id])) {
+          # code...
+         
+          switch ($precio[$producto->id]['operacion']) {
+
+            case 1:
+
+              $producto->precio_oferta=$producto->precio_base*$descuento;
+
+              break;
+
+            case 2:
+
+              $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
+              
+              break;
+
+            case 3:
+
+              $producto->precio_oferta=$precio[$producto->id]['precio'];
+              
+              break;
+            
+            default:
+            
+             $producto->precio_oferta=$producto->precio_base*$descuento;
+              # code...
+              break;
+          }
+
+        }else{
+
+          $producto->precio_oferta=$producto->precio_base*$descuento;
+
+        }
+
+
+       }else{
+
+       $producto->precio_oferta=$producto->precio_base*$descuento;
+
+
+       }
+
+
+       // $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
+
+
+      // $cart[$producto->slug]=$producto;
+
+       $prods[]=$producto;
+       
+      }
+
+
+      return view('frontend.cart', compact('cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento'));
     }
 
     public function detalle()
@@ -353,6 +471,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
       //  Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
           
           $estatus_aviso='warning';
+          
           return view('frontend.order.procesar_completo', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago', 'estatus_aviso'));
         
 
