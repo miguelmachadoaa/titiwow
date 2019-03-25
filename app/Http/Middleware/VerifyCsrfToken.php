@@ -43,6 +43,7 @@ class VerifyCsrfToken extends Middleware
        'cart/detalle', //
        'cart/agregar', //
        'cart/agregarsingle', //
+       'cart/agregardetail', //
        'formasenvio/storecity', //
        'formasenvio/delcity', //
        'configuracion/storecity', //

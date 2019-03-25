@@ -34,7 +34,7 @@ Carrito de Compras
 
 {{-- Page content --}}
 @section('content')
-<div class="container contain_body text-center" id="">
+<div class="container contain_body text-center" id="cartshow">
 
     <div class="row" id="table_detalle">
 
@@ -55,6 +55,154 @@ Carrito de Compras
         </div>
 
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+                <div class="col-md-12 col-sm-12 text-center">
+                    <h3 class="catego">Productos Más Vendidos</h3>
+                    <div class="separador"></div>
+                </div>
+                <div class="col-md-12 col-sm-12 wow bounceInUp center" data-wow-duration="1.5s"> 
+                    <div class="products">
+                        <div class="row">
+                        @if(!$productos->isEmpty())
+
+                       
+
+                            @foreach($prods as $producto)
+
+
+                                <div class="col-md-2 col-sm-6 col-xs-6 ">
+                                    <div class="productos">
+                                        <div class="text-align:center;">
+                                            <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive homi"></a>
+                                        </div>
+                                        <a href="{{ route('producto', [$producto->slug]) }}" ><h3>{{ $producto->nombre_producto }}</h3></a>
+                                        <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="text-align:center;">{{ $producto->presentacion_producto }}</h6></a>
+                                        <div class="product_info">
+
+                                        @if($descuento==1)
+
+                                            @if(isset($precio[$producto->id]))
+
+                                                @switch($precio[$producto->id]['operacion'])
+
+                                                    @case(1)
+
+                                                        <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
+                                                        
+                                                        @break
+
+                                                    @case(2)
+
+                                                        <p id="precio_prod"><del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*(1-($precio[$producto->id]['precio']/100)),0,",",".") }}</span></p>
+                                                        @break
+
+                                                    @case(3)
+
+                                                        <p id="precio_prod"><del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($precio[$producto->id]['precio'],0,",",".") }}</span></p>
+                                                        @break
+
+                                                    
+                                                @endswitch
+
+                                                <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $precio[$producto->id]['pum'] }}</h6></a>
+
+                                            @else
+
+                                                <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
+
+                                                <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
+
+                                            @endif
+
+                                        @else
+
+                                            <p id="precio_prod"><del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base,0,",",".")}}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
+
+                                            <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
+
+                                        @endif
+
+                                            
+
+                                        <div class="product_botones boton_{{ $producto->id }}">
+
+                                                @if(isset($cart[$producto->slug]))
+
+
+                                                    <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+
+
+                                                @else
+                                                     <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                                     
+                                                     <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocartDetail" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
+
+                                                @endif
+
+
+                                                
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @if ($loop->iteration % 6 == 0)
+                                    </div>
+                                    <div class="row">
+                                @endif
+                            @endforeach
+                            @else
+                            <div class="alert alert-danger">
+                                <strong>Lo Sentimos!</strong> No Existen productos en esta categoría.
+                            </div>
+                        @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -112,6 +260,47 @@ Carrito de Compras
 
 
                     });
+
+        });
+
+
+         $(document).on('click','.addtocartDetail', function(e){
+
+            $(this).fadeOut();
+
+            e.preventDefault();
+
+            base=$('#base').val();
+
+            imagen=base+'/uploads/files/loader.gif';
+
+            id=$(this).data('id');
+
+            datasingle=$(this).data('single');
+
+            price=$(this).data('price');
+
+            slug=$(this).data('slug');
+
+            single=$('#single').val();
+
+            url=$(this).attr('href');
+
+            //$('.boton_'+id+'').html('<img style="max-width:32px; max-height:32px;" src="'+imagen+'">');
+
+            $.post(base+'/cart/agregardetail', {price, slug, datasingle}, function(data) {
+
+                $('#table_detalle').html(data);
+
+
+                       if (single==1) {
+
+                            $('.vermas').remove();
+                        }
+
+               
+
+            });
 
         });
 

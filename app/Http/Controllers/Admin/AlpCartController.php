@@ -2202,6 +2202,97 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
     }
 
 
+        public function addtocartdetail( Request $request)
+    {
+
+
+
+
+          $producto=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
+          ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
+          ->where('alp_productos.slug', $request->slug)
+          ->first();
+
+
+        if (!\Session::has('cr')) {
+
+          \Session::put('cr', '0');
+
+          $ciudad= \Session::get('ciudad');
+
+          $data = array(
+            'referencia' => time(), 
+            'id_city' => $ciudad, 
+            'id_user' => '0'
+          );
+
+          $carr=AlpCarrito::create($data);
+
+          \Session::put('cr', $carr->id);
+       
+        }
+
+       $cart= \Session::get('cart');
+
+
+       $carrito= \Session::get('cr');
+
+       $descuento='1'; 
+
+       $error='0'; 
+
+       $precio = array();
+
+       $inv=$this->inventario();
+
+
+      $producto->precio_oferta=$request->price;
+
+      $producto->cantidad=1;
+      $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
+
+      if($inv[$producto->id]>=$producto->cantidad){
+
+        $cart[$producto->slug]=$producto;
+
+      }else{
+
+        $error="No hay existencia suficiente de este producto";
+
+      }
+
+
+       \Session::put('cart', $cart);
+
+       $data_detalle = array(
+        'id_carrito' => $carrito, 
+        'id_producto' => $producto->id, 
+        'cantidad' => $producto->cantidad
+      );
+
+       AlpCarritoDetalle::create($data_detalle);
+
+
+      $impuesto=$this->impuesto();
+
+       $total=$this->total();
+
+     $configuracion=AlpConfiguracion::where('id', '1')->first();
+       
+
+        $view= View::make('frontend.listcart', compact('producto', 'cart', 'total', 'impuesto', 'configuracion'));
+        
+
+          $data=$view->render();
+
+          $res = array('data' => $data);
+
+          return $data;
+       // return json_encode($cart);
+      
+    }
+
+
 
     public function addtocartsingle( Request $request)
     {
@@ -2668,9 +2759,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
        $cart= \Session::get('cart');
 
 
-      $impuesto=$this->impuesto();
 
-     $configuracion=AlpConfiguracion::where('id', '1')->first();
 
        $carrito= \Session::get('cr');
 
@@ -2720,7 +2809,13 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        \Session::put('cart', $cart);
 
+      $impuesto=$this->impuesto();
+
+
        $total=$this->total();
+
+     $configuracion=AlpConfiguracion::where('id', '1')->first();
+
 
         $view= View::make('frontend.listcart', compact('producto', 'cart', 'total', 'impuesto', 'configuracion'));
 

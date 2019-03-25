@@ -714,6 +714,8 @@ Route::get('cart/addtocart/{product}',['as'=>'cart.addtocart', 'uses'=>'Admin\Al
 
 Route::post('cart/agregar/',['as'=>'cart.agregar', 'uses'=>'Admin\AlpCartController@addtocart']);
 
+Route::post('cart/agregardetail/',['as'=>'cart.agregardetail', 'uses'=>'Admin\AlpCartController@addtocartdetail']);
+
 //eliminar item del carro
 Route::get('cart/delete/{product}',['as'=>'cart.add', 'uses'=>'Admin\AlpCartController@delete']);
 

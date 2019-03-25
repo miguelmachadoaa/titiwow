@@ -347,6 +347,9 @@
         });
 
 
+        
+
+
          $(document).on('click','.addtocartsingle', function(e){
 
             e.preventDefault();
