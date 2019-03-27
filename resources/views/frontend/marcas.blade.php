@@ -13,7 +13,7 @@
         $marcago = $marca->seo_titulo;
         $marcades = $marca->seo_descripcion
 @endphp
-<meta property="og:title" content="{{$marcago}} | Alpina Go!">
+<meta property="og:title" content="{{$marcago}} | Alpina GO!">
 <meta property="og:description" content="{{$marcades}}">
 <meta property="og:robots" content="index, follow">
 <meta property="og:revisit-after" content="3 days">
