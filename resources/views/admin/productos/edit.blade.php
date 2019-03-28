@@ -226,7 +226,12 @@
 
                                             <div class="col-sm-9 col-xs-12">
 
-                                                <textarea class="form-control col-sm-12  {{ $errors->first('descripcion_larga', 'has-error') }} resize_vertical" id="descripcion_larga" name="descripcion_larga" placeholder="Descripcion Larga" rows="5">{!! old('Descripción Larga', $producto->descripcion_larga) !!}</textarea>{!! $errors->first('descripcion_larga', '<span class="help-block">:message</span>') !!}
+                                                <textarea 
+                                                class="form-control col-sm-12  {{ $errors->first('descripcion_larga', 'has-error') }} resize_vertical"
+                                                 id="descripcion_larga" 
+                                                 name="descripcion_larga" 
+                                                 placeholder="Descripcion Larga" 
+                                                 rows="5">{!! old('Descripción Larga', $producto->descripcion_larga) !!}</textarea>{!! $errors->first('descripcion_larga', '<span class="help-block">:message</span>') !!}
 
                                             </div>
 
