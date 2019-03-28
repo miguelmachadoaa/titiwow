@@ -102,7 +102,8 @@ class AlpCartController extends JoshController
         $precio = array();
 
 
-     $productos = DB::table('alp_productos')->select('alp_productos.*')->where('sugerencia','=', 1)->where('alp_productos.estado_registro','=',1)->orderBy('order', 'asc')->limit(12)->get();
+     $productos = DB::table('alp_productos')->select('alp_productos.*')->where('sugerencia','=', 1)->where('alp_productos.estado_registro','=',1)->orderBy('order', 'asc')->inRandomOrder()
+     ->take(6)->get();
 
 
       if (Sentinel::check()) {

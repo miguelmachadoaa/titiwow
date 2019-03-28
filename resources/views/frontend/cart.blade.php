@@ -76,11 +76,10 @@ Carrito de Compras
 
 
 
-
-
+@if(!$productos->isEmpty())
 <div class="row">
                 <div class="col-md-12 col-sm-12 text-center">
-                    <h3 class="catego">Productos Más Vendidos</h3>
+                    <h3 class="catego">Últimos Antojos</h3>
                     <div class="separador"></div>
                 </div>
                 <div class="col-md-12 col-sm-12 wow bounceInUp center" data-wow-duration="1.5s"> 
@@ -182,7 +181,7 @@ Carrito de Compras
                     </div>
                 </div>
             </div>
-
+ @endif
 
 
 
