@@ -298,13 +298,9 @@ Carrito de Compras
                             $('.vermas').remove();
                         }
 
-               
-
             });
 
         });
 
-
-        
     </script>
 @stop

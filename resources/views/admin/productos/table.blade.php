@@ -43,12 +43,28 @@
                 
                     @if($alpProductos->destacado=='1')
 
-                        <button title="Destacado" data-url="{{ secure_url('productos/destacado') }}" data-destacado="0" data-id="{{ $alpProductos->id  }}"   class="btn btn-xs btn-link  destacado">  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>   </button>
+                        <button title="Sugerencia" data-url="{{ secure_url('productos/destacado') }}" data-destacado="0" data-id="{{ $alpProductos->id  }}"   class="btn btn-xs btn-link  destacado">  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>   </button>
 
 
                     @else
 
                         <button title="Normal" data-url="{{ secure_url('productos/destacado') }}" data-destacado="1" data-id="{{ $alpProductos->id  }}"   class="btn btn-xs btn-link  destacado">  <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>   </button>
+
+                    @endif
+
+            </div>
+
+
+            <div style=" display: inline-block; padding: 0; margin: 0;" id="td_sugerencia_{{ $alpProductos->id }}">
+                
+                    @if($alpProductos->sugerencia=='1')
+
+                        <button title="Sugerencia" data-url="{{ secure_url('productos/sugerencia') }}" data-sugerencia="0" data-id="{{ $alpProductos->id  }}"   class="btn btn-xs btn-link  sugerencia">  <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>   </button>
+
+
+                    @else
+
+                        <button title="Normal" data-url="{{ secure_url('productos/sugerencia') }}" data-sugerencia="1" data-id="{{ $alpProductos->id  }}"   class="btn btn-xs btn-link  sugerencia">  <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>   </button>
 
                     @endif
 
@@ -99,6 +115,22 @@
             $.post(url, {id, destacado}, function(data) {
 
                     $('#td_'+id).html(data);
+
+            });
+           
+        });
+
+         $('#alpProductos-table').on('click', '.sugerencia', function(){
+
+
+            var id=$(this).data('id');
+            var sugerencia=$(this).data('sugerencia');
+            var url=$(this).data('url');
+
+
+            $.post(url, {id, sugerencia}, function(data) {
+
+                    $('#td_sugerencia_'+id).html(data);
 
             });
            

@@ -899,6 +899,29 @@ class AlpProductosController extends JoshController
         return $data;
     }
 
+    public function sugerencia(Request $request)
+    {
+
+        $input = $request->all();
+
+        $producto=AlpProductos::find($request->id);
+
+        $data = array('sugerencia' => $request->sugerencia );
+
+
+
+        $producto->update($data);
+
+        $producto=AlpProductos::find($request->id);
+
+
+        $view= View::make('admin.productos.sugerencia', compact('producto'));
+
+        $data=$view->render();
+        
+        return $data;
+    }
+
     public function desactivar(Request $request)
     {
 

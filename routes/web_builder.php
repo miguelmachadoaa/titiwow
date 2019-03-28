@@ -838,6 +838,9 @@ Route::get('clientes/{id}/detalle', 'Frontend\ClientesFrontController@detalle')-
 
 
 Route::post('productos/destacado', ['as'=> 'productos.destacado', 'uses' => 'Admin\AlpProductosController@destacado']);
+
+Route::post('productos/sugerencia', ['as'=> 'productos.sugerencia', 'uses' => 'Admin\AlpProductosController@sugerencia']);
+
 Route::post('productos/desactivar', ['as'=> 'productos.desactivar', 'uses' => 'Admin\AlpProductosController@desactivar']);
 
 

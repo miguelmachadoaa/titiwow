@@ -54,6 +54,7 @@ class AlpProductos extends Model
         'pum',
         'medida',
         'destacado',
+        'sugerencia',
         'orden',
         'estado_registro',
         'id_user'
