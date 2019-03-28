@@ -6,7 +6,7 @@
 {{$cms->titulo_pagina}} @parent
 @stop
 @section('meta_tags')
-<meta property="og:title" content="{{$cms->seo_titulo}} | AlpinaGo">
+<meta property="og:title" content="{{$cms->seo_titulo}} | Alpina GO!">
 <meta property="og:description" content="{{$cms->seo_descripcion}}">
 <meta property="og:robots" content="index, follow">
 <meta property="og:revisit-after" content="3 days">

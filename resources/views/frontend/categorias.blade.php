@@ -13,7 +13,7 @@
         $catego = $catana->seo_titulo;
         $categodes = $catana->seo_descripcion
 @endphp
-<meta property="og:title" content="{{$catego}} | Alpina Go!">
+<meta property="og:title" content="{{$catego}} | Alpina GO!">
 <meta property="og:description" content="{{$categodes}}">
 <meta property="og:robots" content="index, follow">
 <meta property="og:revisit-after" content="3 days">
