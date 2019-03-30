@@ -749,6 +749,53 @@ class ClientesFrontController extends Controller
 
     }
 
+     public function carrito( $carrito)
+    {
+
+
+        $cart= \Session::forget('cart');
+
+        $cart= array();
+
+       $carrito= \Session::forget('cr');
+
+
+       if (!\Session::has('cr')) {
+
+          \Session::put('cr', $carrito);
+
+        }
+
+         $detalles =  DB::table('alp_carrito_detalle')->select('alp_carrito_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.precio_base as precio_base')
+          ->join('alp_productos','alp_carrito_detalle.id_producto' , '=', 'alp_productos.id')
+          ->where('alp_carrito_detalle.id_carrito', $carrito)->get();
+
+
+        foreach ($detalles as $det) {
+
+            $producto=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
+          ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
+          ->where('alp_productos.id', $det->id_producto)
+          ->first();
+
+          $producto->cantidad=$det->cantidad;
+
+          if (isset($producto->id)) {
+
+            $cart[$producto->slug]=$producto;
+
+          }
+
+        }
+
+        $ord=AlpOrdenes::where('id', $orden)->first();
+
+         \Session::put('cart', $cart);
+
+        return redirect('order/detail');
+
+    }
+
     /*muestra el detalle de una compra*/
 
     public function detalle($id)

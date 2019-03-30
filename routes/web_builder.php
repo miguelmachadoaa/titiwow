@@ -814,7 +814,9 @@ Route::post('storeamigo', 'Frontend\ClientesFrontController@storeamigo')->name('
 Route::post('delamigo', 'Frontend\ClientesFrontController@delamigo')->name('frontend.clientes.delamigo');
 
 
-        Route::get('clientes/pagar/{orden}',['as'=>'clientes.pagar', 'uses'=>'Frontend\ClientesFrontController@pagar']);
+Route::get('clientes/pagar/{orden}',['as'=>'clientes.pagar', 'uses'=>'Frontend\ClientesFrontController@pagar']);
+
+Route::get('clientes/carrito/{carrito}',['as'=>'clientes.carrito', 'uses'=>'Frontend\ClientesFrontController@carrito']);
 
 Route::post('clientes/deleteamigo', 'Frontend\ClientesFrontController@deleteamigo')->name('frontend.clientes.deleteamigo');
 

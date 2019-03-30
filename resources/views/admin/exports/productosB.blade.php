@@ -31,7 +31,7 @@
             <td>{!! $row->nombre_producto !!}</td>
             <td>{!! $row->precio_unitario !!}</td>
             <td>{!! $row->cantidad !!}</td>
-            <td>{!! $row->precio_total/(1+$row->valor_impuesto) !!}</td>
+            <td>   @if($row->valor_impuesto!=0) {!!  $row->precio_total/(1+$row->valor_impuesto) !!}  @else   {{ 0 }} @endif      </td>
             <td>{!! $row->precio_total !!}</td>
             <td>{!! $row->valor_impuesto*100 !!}%</td>
             <td>{!! $row->monto_impuesto !!}</td>
