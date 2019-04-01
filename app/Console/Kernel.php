@@ -19,6 +19,7 @@ class Kernel extends ConsoleKernel
         Commands\NuevosUsuarios::class,
         Commands\VerificarPagos::class,
         Commands\ProductoB::class,
+        Commands\NotificacionCarrito::class
 
 
     ];
@@ -40,6 +41,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('usuarios:new')->dailyAt('08:00');
         $schedule->command('usuarios:new')->dailyAt('15:00');
         $schedule->command('verificar:pagos')->everyFiveMinutes();
+        $schedule->command('notificacion:carrito')->hourly();
+
 
     }
 

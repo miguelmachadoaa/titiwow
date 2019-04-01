@@ -70,42 +70,36 @@ class NotificacionCarrito extends Command
 
       foreach ($carritos  as $car) {
 
+        $date = Carbon::parse($car->created_at); 
+
+        $now = Carbon::now();
+
+        $diff = $date->diffInHours($now); 
+
+        if ($diff>0) {
+            # code...
+
         $detalles =  DB::table('alp_carrito_detalle')->select('alp_carrito_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.precio_base as precio_base')
           ->join('alp_productos','alp_carrito_detalle.id_producto' , '=', 'alp_productos.id')
           ->where('alp_carrito_detalle.id_carrito', $car->id)->get();
 
-       
-
         
-        Mail::to($car->email)->send(new \App\Mail\NotificacionCarrito($car, $detalles, $configuracion));
+            Mail::to($car->email)->send(new \App\Mail\NotificacionCarrito($car, $detalles, $configuracion));
 
-        $arrayName = array('notificacion' => 1 );
+            $arrayName = array('notificacion' => 1 );
 
 
-        $ord=AlpCarrito::where('id', $car->id)->first();
+            $ord=AlpCarrito::where('id', $car->id)->first();
 
-        $ord->update($arrayName);
+            $ord->update($arrayName);
+
+        }
+
 
 
       }
 
 
-
-
-          if (count($users)>0) {
-              
-         
-
-
-  $archivo=$configuracion->base_url.'reportes/cronnuevosusuariosexport';
-
-       // Excel::store(new CronLogisticaExport(), $archivo);
-
-            //$enlace=storage_path('/app/'.$archivo);
-
-            Mail::to($configuracion->correo_masterfile)->send(new \App\Mail\CronNuevosUsuarios($archivo, $hoy));
-
-         }
 
     }
 }
