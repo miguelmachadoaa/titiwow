@@ -76,12 +76,16 @@ class NotificacionCarrito extends Command
 
         $diff = $date->diffInHours($now); 
 
+        //dd($diff);
+
         if ($diff>0) {
             # code...
+
 
         $detalles =  DB::table('alp_carrito_detalle')->select('alp_carrito_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.precio_base as precio_base')
           ->join('alp_productos','alp_carrito_detalle.id_producto' , '=', 'alp_productos.id')
           ->where('alp_carrito_detalle.id_carrito', $car->id)->get();
+
 
         
             Mail::to($car->email)->send(new \App\Mail\NotificacionCarrito($car, $detalles, $configuracion));
@@ -90,6 +94,7 @@ class NotificacionCarrito extends Command
 
 
             $ord=AlpCarrito::where('id', $car->id)->first();
+
 
             $ord->update($arrayName);
 

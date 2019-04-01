@@ -21,6 +21,7 @@ class AlpCarrito extends Model
         'id',
         'referencia',
         'id_city',
+        'notificacion',
         'id_user'
     ];
 
