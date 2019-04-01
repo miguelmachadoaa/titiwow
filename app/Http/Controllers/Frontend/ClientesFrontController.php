@@ -757,7 +757,7 @@ class ClientesFrontController extends Controller
 
         $cart= array();
 
-       $carrito= \Session::forget('cr');
+       $c= \Session::forget('cr');
 
 
        if (!\Session::has('cr')) {
@@ -780,6 +780,12 @@ class ClientesFrontController extends Controller
 
           $producto->cantidad=$det->cantidad;
 
+
+      $producto->precio_oferta=$producto->precio_base;
+
+      
+      $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
+
           if (isset($producto->id)) {
 
             $cart[$producto->slug]=$producto;
@@ -788,11 +794,11 @@ class ClientesFrontController extends Controller
 
         }
 
-        $ord=AlpOrdenes::where('id', $orden)->first();
+      //  $ord=AlpOrdenes::where('id', $orden)->first();
 
          \Session::put('cart', $cart);
 
-        return redirect('order/detail');
+        return redirect('cart/show');
 
     }
 
