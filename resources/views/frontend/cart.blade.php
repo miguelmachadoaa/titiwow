@@ -77,7 +77,7 @@ Carrito de Compras
 
 
 
-
+@if(isset($productos))
 @if(!$productos->isEmpty())
 <div class="row">
                 <div class="col-md-12 col-sm-12 text-center">
@@ -183,6 +183,7 @@ Carrito de Compras
                     </div>
                 </div>
             </div>
+ @endif
  @endif
 
 

@@ -459,7 +459,7 @@ class ProductosFrontController extends Controller
 
                     }
 
-                    foreach ($relacionados as $r) {
+                    /*foreach ($relacionados as $r) {
 
                         $pregiogrupo=AlpPrecioGrupo::where('id_producto', $r->id)->where('id_role', $role->role_id)->first();
 
@@ -471,7 +471,7 @@ class ProductosFrontController extends Controller
 
                     }
                         
-                    }
+                    }*/
 
             }
 
