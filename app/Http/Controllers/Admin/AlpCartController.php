@@ -837,10 +837,6 @@ $net_amount=$total-$impuesto;
 
       $impuesto=$this->impuesto();
 
-      
-
-    
-
 
       if ($total<$configuracion->minimo_compra) {
 
@@ -849,7 +845,6 @@ $net_amount=$total-$impuesto;
 
         $cart=$this->reloadCart();
 
-   
 
       $configuracion=AlpConfiguracion::where('id', '1')->first();
 
@@ -859,10 +854,6 @@ $net_amount=$total-$impuesto;
 
       return view('frontend.cart', compact('cart', 'total', 'configuracion', 'inv', 'aviso'));
 
-
-
-
-        
         return redirect('cart/show');
 
       }
@@ -967,16 +958,20 @@ $net_amount=$total-$impuesto;
 
             MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
-          $preference = MP::post("/checkout/preferences",$preference_data);
+         // $preference = MP::post("/checkout/preferences",$preference_data);
 
-          $this->saveOrden($preference);
+          $preference = array( );
+
+         // $this->saveOrden($preference);
 
           $net_amount=$total-$impuesto;
 
 
          $pse = array();
 
-          $payment_methods = MP::get("/v1/payment_methods");
+          //$payment_methods = MP::get("/v1/payment_methods");
+
+          $payment_methods = array('response'=>array());
 
 
           $carro=AlpCarrito::where('id', $carrito)->first();

@@ -73,6 +73,8 @@ Carrito de Compras
 
 
 
+@if(isset($productos))
+
 
 
 
@@ -186,6 +188,7 @@ Carrito de Compras
 
 
 
+@endif
 
 
 
