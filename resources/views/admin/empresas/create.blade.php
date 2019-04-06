@@ -6,6 +6,16 @@
     @parent
 @stop
 
+@section('header_styles')
+
+    <link href="{{ secure_asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
+
+    <link href="{{ secure_asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
+
+@stop
+
 {{-- Content --}}
 @section('content')
 <section class="content-header">
@@ -47,7 +57,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form class="form-horizontal" role="form" method="post" action="{{ secure_url('admin/empresas/create') }}">
+                    <form enctype="multipart/form-data" class="form-horizontal" role="form" method="post" action="{{ secure_url('admin/empresas/create') }}">
                         <!-- CSRF Token -->
 
                         {{ csrf_field() }}
@@ -97,6 +107,49 @@
 
 
 
+                         <div class="form-group clearfix">
+
+                            <label for="title" class="col-md-2 control-label">Imagen </label>
+
+
+                            <div class="col-md-5">
+
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+
+                                <div class="fileinput-new thumbnail" style="max-width: 200px; max-height: 200px;">
+
+                                    <img src="{{ secure_asset('assets/images/authors/no_avatar.jpg') }}" alt="..."class="img-responsive"/>
+
+                                </div>
+
+                                <div class="fileinput-preview fileinput-exists thumbnail"
+                                     style="max-width: 200px; max-height: 150px;">
+                                         
+                                </div>
+
+                                <div>
+                                    <span class="btn btn-primary btn-file">
+
+                                        <span class="fileinput-new">Seleccione Imagen </span>
+
+                                        <span class="fileinput-exists">Cambiar</span>
+
+                                        <input type="file" name="image" id="pic" accept="image/*"/>
+
+                                    </span>
+                                   
+                                    <span class="btn btn-primary fileinput-exists"
+                                          data-dismiss="fileinput">Eliminar</span>
+
+                                </div>
+
+                            </div>
+                            </div>
+
+                        </div>
+
+
+
 
 
                         <div class="form-group">
@@ -118,4 +171,12 @@
     </div>
     <!-- row-->
 </section>
+@stop
+@section('footer_scripts')
+
+
+<script src="{{ secure_asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
+
+<script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
+
 @stop

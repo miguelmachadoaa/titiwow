@@ -65,10 +65,43 @@ class AlpEmpresasController extends JoshController
 
         //var_dump($input);
 
+
+          $imagen='default.png';
+
+         $picture = "";
+
+        
+        if ($request->hasFile('image')) {
+            
+            $file = $request->file('image');    
+
+            #echo $file.'<br>';
+            
+            $extension = $file->extension()?: 'png';
+            
+
+            $picture = str_random(10) . '.' . $extension;
+
+            #echo $picture.'<br>';
+
+            $destinationPath = public_path() . '/uploads/sliders/';
+
+            #echo $destinationPath.'<br>';
+
+            
+            $file->move($destinationPath, $picture);
+            
+            $imagen = $picture;
+
+        }
+
+
+
         $data = array(
             'nombre_empresa' => $request->nombre_empresa, 
             'descripcion_empresa' => $request->descripcion_empresa, 
             'descuento_empresa' => $request->descuento_empresa, 
+            'imagen' => $imagen, 
             'id_user' =>$user_id
         );
          
@@ -107,11 +140,50 @@ class AlpEmpresasController extends JoshController
      */
     public function update(EmpresaRequest $request, $id)
     {
-       $data = array(
+
+
+
+        if ($request->hasFile('image')) {
+            
+            $file = $request->file('image');
+
+            #echo $file.'<br>';
+            
+            $extension = $file->extension()?: 'png';
+            
+
+            $picture = str_random(10) . '.' . $extension;
+
+            #echo $picture.'<br>';
+
+            $destinationPath = public_path() . '/uploads/sliders/';
+
+            #echo $destinationPath.'<br>';
+
+            
+            $file->move($destinationPath, $picture);
+            
+            $imagen = $picture;
+
+             $data = array(
+            'nombre_empresa' => $request->nombre_empresa, 
+            'descripcion_empresa' => $request->descripcion_empresa,
+            'descuento_empresa' => $request->descuento_empresa,
+            'imagen' => $imagen
+        );
+
+
+
+        }else{
+
+                $data = array(
             'nombre_empresa' => $request->nombre_empresa, 
             'descripcion_empresa' => $request->descripcion_empresa,
             'descuento_empresa' => $request->descuento_empresa
-        );
+                );
+
+        }
+
          
        $empresas = AlpEmpresas::find($id);
     

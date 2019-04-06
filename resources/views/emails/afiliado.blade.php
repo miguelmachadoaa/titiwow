@@ -2,12 +2,14 @@
 
 <p style="text-align: center;"><img src="{{ secure_url('assets/img/login.png') }}"></p>
 
-Hola {{ $name.' '.$lastname }}, ¡LA empresa te ha agregado a su grupo Corporativo en Alpina Go!
 
-Acepta la  invitación y regístrate para comprar tus productos favoritos.
-Se te ha enviado una invitacion para registrarte como afiliado por la empresa {{ $empresa }}
 
-¡Acepta la  invitación y regístrate ahora! 
+
+Hola {{ $name.' '.$lastname }}, has sido invitado a registrarse en AlpinaGO.com por ser parte de {{ $empresa }}.
+
+Regístrate con el sigueinte link para aceptar la invitación y poder comprar los productos de Alpina a  precios especiales.
+
+AlpinaGO es el portal exclusivo de comercio electrónico de Alpina. Recuerda que todas tus compras son con envío gratis.
 
 
 @component('mail::button', ['url' => secure_url('/registroafiliado/'.$token)])
