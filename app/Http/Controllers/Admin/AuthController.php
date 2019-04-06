@@ -17,6 +17,8 @@ use App\User;
 use App\Models\AlpClientes;
 use App\Models\AlpAmigos;
 use App\Models\AlpDirecciones;
+use App\Models\AlpEmpresas;
+
 use Mail;
 use Reminder;
 use Sentinel;
@@ -469,9 +471,16 @@ class AuthController extends JoshController
 
          $amigo=AlpAmigos::where('token', $request->empresa)->first();
 
+
+
         //print_r($amigo);
 
         if (isset($amigo->id)) {
+
+
+            $id_empresa=substr($amigo->id_cliente, 1);
+
+            $empresa=AlpEmpresas::where('id', $id_empresa)->first();
 
 
         try {
@@ -544,9 +553,11 @@ class AuthController extends JoshController
 
             if ($request->back=='0') {
 
-                $mensaje="Ha sido registrado satisfactoriamente como Amigo Alpina, debe esperar que su Usuario sea activado en un proceso interno, le notificaremos vía email";
+                //$mensaje="Ha sido registrado satisfactoriamente como Amigo Alpina, debe esperar que su Usuario sea activado en un proceso interno, le notificaremos vía email";
 
-                return view('frontend.clientes.aviso',  compact('mensaje'));
+                $mensaje="Ha sido registrado satisfactoriamente bajo la empresa ".$empresa->nombre_empresa.", debe esperar que su Usuario sea activado en un proceso interno, te notificaremos vía email su activación.";
+
+                return view('frontend.clientes.aviso_empresa',  compact('mensaje'));
                    
                 }else{
 
