@@ -407,6 +407,8 @@ div.overlay > div {
 
                     @if($pm['payment_type_id']=='ticket')
 
+                    @if($pm['id']!='davivienda')
+
                     <div data-idpago="{{ $pm['id'] }}" data-type="ticket" data-id="2" class="row forma border pointer  procesar  ">
 
                         <div class="col-sm-8 col-xs-6 img-responsive">
@@ -426,6 +428,7 @@ div.overlay > div {
 
                     </div>
 
+                    @endif
                     @endif
                  
                 @endforeach
