@@ -283,11 +283,26 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
       $orden=AlpOrdenes::where('id', $id_orden)->first();
 
+
+
+
+
       $total=$orden->monto_total;
 
       $impuesto=$orden->monto_impuesto;
       
       $configuracion = AlpConfiguracion::where('id', '1')->first();
+
+      $comision_mp=$configuracion->comision_mp/100;
+
+      $data_update = array(
+        
+          'comision_mp' =>(($orden->monto_total*$comision_mp)+($orden->monto_total*$comision_mp*0.19)),
+         
+           );
+
+      $orden->update($data_update);
+
 
         $mp = new MP();
 
@@ -958,20 +973,20 @@ $net_amount=$total-$impuesto;
 
             MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
-         // $preference = MP::post("/checkout/preferences",$preference_data);
+          $preference = MP::post("/checkout/preferences",$preference_data);
 
-          $preference = array( );
+          //$preference = array( );
 
-         // $this->saveOrden($preference);
+          $this->saveOrden($preference);
 
           $net_amount=$total-$impuesto;
 
 
          $pse = array();
 
-          //$payment_methods = MP::get("/v1/payment_methods");
+          $payment_methods = MP::get("/v1/payment_methods");
 
-          $payment_methods = array('response'=>array());
+         // $payment_methods = array('response'=>array());
 
 
           $carro=AlpCarrito::where('id', $carrito)->first();
