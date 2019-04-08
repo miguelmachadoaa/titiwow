@@ -76,7 +76,7 @@
             </td>
 
             <td>{!! $row->monto_total !!}</td>
-            <td>{!! $row->base_impuesto !!}</td>
+            <td>@if($row->valor_impuesto!=0) {!!  $row->base_impuesto/(1+$row->valor_impuesto) !!}  @else   {{ 0 }} @endif </td>
             <td>{!! $row->valor_impuesto*100 !!} %</td>
             <td>{!! $row->monto_impuesto !!}</td>
             <td>{!! $row->comision_mp !!}</td>
