@@ -1318,7 +1318,7 @@ $('.sendCupon').click(function () {
         });
 
 
-        $('body').on('click', '#creditcard', function (e){
+      /*  $('body').on('click', '#creditcard', function (e){
 
             //e.preventDefault();
 
@@ -1369,7 +1369,7 @@ $('.sendCupon').click(function () {
 
             }
 
-        });
+        });*/
 
         
         $('body').on('click', '.mercadopago-button', function (e){
@@ -1380,15 +1380,16 @@ $('.sendCupon').click(function () {
             
             id_forma_envio=$("input[name='id_forma_envio']:checked").val(); 
             
-            id_forma_pago=$(this).data('id');
+            id_forma_pago='2';
 
             url=$(this).data('href');
 
             if (id_forma_envio==undefined || id_direccion==undefined || id_forma_pago==undefined) {
+           // if (1!=1) {
 
                // alert('Todos los capos son obligatorios');
 
-                $('.res_env').html('<div class="alert alert-danger" role="alert">Todos los campos son obligatorios</div>');
+               // $('.res_env').html('<div class="alert alert-danger" role="alert">Todos los campos son obligatorios</div>');
 
             }else{
 
@@ -1408,7 +1409,7 @@ $('.sendCupon').click(function () {
                        if(datos.responseText=='true'){
 
 
-                            $('.form_creditcard').submit();
+                         //   $('.form_creditcard').submit();
 
                             //window.location.href = url;
 
