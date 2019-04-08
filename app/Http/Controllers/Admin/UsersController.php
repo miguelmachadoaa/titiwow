@@ -35,6 +35,11 @@ class UsersController extends JoshController
 //        $user = Sentinel::findUserById(2);
 //        $activation = Activation::completed($user);
 //        return dd($activation);
+
+        $users = DB::table('users')->get();
+
+        //dd($users);
+
         // Show the page
         return view('admin.users.index', compact('users'));
     }
@@ -78,7 +83,7 @@ class UsersController extends JoshController
 
         $users =  User::select('users.*')
         ->join('role_users', 'users.id', '=', 'role_users.user_id')
-        ->whereIn('role_users.role_id', [1, 2, 3, 4, 5, 6, 7, 8])->get();
+        ->whereIn('role_users.role_id', [1, 2, 3, 4, 5, 6, 7, 8,9,10,11,12])->get();
 
         return DataTables::of($users)
             ->editColumn('created_at',function(User $user) {
