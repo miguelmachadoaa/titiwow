@@ -362,7 +362,8 @@ class UsersController extends JoshController
             $error = trans('users/message.user_not_found', compact('id'));
             return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
         }
-        $confirm_route = secure_url('admin.users.delete', ['id' => $user->id]);
+        //$confirm_route = secure_url('admin.users.delete', ['id' => $user->id]);
+        $confirm_route = secure_url('admin/users/'.$user->id.'/delete');
         return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
     }
 
@@ -402,7 +403,7 @@ class UsersController extends JoshController
             $error = trans('admin/users/message.user_not_found', compact('id'));
 
             // Redirect to the user management page
-            return redirect('admin.users.index')->with('error', $error);
+            return redirect('admin/users/index')->with('error', $error);
         }
     }
 
