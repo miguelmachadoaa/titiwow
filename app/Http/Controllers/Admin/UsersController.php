@@ -383,7 +383,7 @@ class UsersController extends JoshController
                 // Prepare the error message
                 $error = trans('admin/users/message.error.delete');
                 // Redirect to the user management page
-                return redirect('admin.users.index')->with('error', $error);
+                return redirect('admin/users')->with('error', $error);
             }
             // Delete the user
             //to allow soft deleted, we are performing query on users model instead of Sentinel model
@@ -397,13 +397,13 @@ class UsersController extends JoshController
                 ->causedBy($user)
                 ->log('User deleted by '.Sentinel::getUser()->full_name);
             // Redirect to the user management page
-            return redirect('admin.users.index')->with('success', $success);
+            return redirect('admin/users')->with('success', $success);
         } catch (UserNotFoundException $e) {
             // Prepare the error message
             $error = trans('admin/users/message.user_not_found', compact('id'));
 
             // Redirect to the user management page
-            return redirect('admin/users/index')->with('error', $error);
+            return redirect('admin/users')->with('error', $error);
         }
     }
 
