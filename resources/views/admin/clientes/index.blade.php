@@ -98,11 +98,11 @@ Todos los @lang('clientes/title.clientes')
                                             <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar cliente"></i>
                                         </a>
                                         <!-- let's not delete 'Admin' group by accident -->                                       
-                                        <a href="{{ secure_url('admin.clientes.confirm-delete', $row->id) }}" data-toggle="modal" data-target="#delete_confirm">
+                                        <button class="btn btn-link deleteCliente" data-id="{{$row->id}}" data-url="{{secure_url('admin/clientes/'.$row->id.'/delete')}}">
                                         <i class="livicon" data-name="remove-alt" data-size="18"
                                             data-loop="true" data-c="#f56954" data-hc="#f56954"
                                             title="Eliminar"></i>
-                                        </a>
+                                        </button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -125,12 +125,8 @@ Todos los @lang('clientes/title.clientes')
 
 {{-- Body Bottom confirm modal --}}
 @section('footer_scripts')
-<div class="modal fade" id="delete_confirm" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-    </div>
-  </div>
-</div>
+
+
 <div class="modal fade" id="users_exists" tabindex="-2" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -145,6 +141,40 @@ Todos los @lang('clientes/title.clientes')
     </div>
 </div>
 
+
+<div class="modal fade" id="delete_confirm" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+
+
+        
+<div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h4 class="modal-title" id="user_delete_confirm_title">Eliminar</h4>
+    </div>
+    <div class="modal-body">
+        
+           <p> ¿Esta seguro que desea eliminar el Registro?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+
+        <a id="enlace_eliminar" href="#" type="button" class="btn btn-danger">Confirmar</a>
+      
+    </div>
+
+
+
+
+
+
+
+        
+    </div>
+  </div>
+</div>
+
 <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
     <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
 
@@ -156,9 +186,23 @@ Todos los @lang('clientes/title.clientes')
 
 <script>
 
-     $(document).ready(function() {
+    
+
+    $(document).ready(function() {
 
             $('#table').DataTable();
+
+            $('.deleteCliente').on('click', function(){
+
+                url=$(this).data('url');
+
+                    $('#enlace_eliminar').attr('href', url);
+
+                    $('#delete_confirm').modal('show');
+
+
+
+            })
             
         });
 
@@ -169,4 +213,9 @@ Todos los @lang('clientes/title.clientes')
         var group_name = $(this).data('name');
         $(".modal-header h4").text( group_name+" Group" );
     });</script>
+
+
+
+   
+
 @stop

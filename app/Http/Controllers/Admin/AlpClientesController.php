@@ -433,9 +433,9 @@ class AlpClientesController extends JoshController
         try {
             // Get group information
             
-            $categoria = AlpCategorias::find($id);
+            $cliente = AlpClientes::find($id);
 
-            $confirm_route = route('admin.categorias.delete', ['id' => $categoria->id]);
+            $confirm_route = route('admin/clientes/'.$cliente->id.'/delete');
 
             return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
         } catch (GroupNotFoundException $e) {
@@ -455,17 +455,26 @@ class AlpClientesController extends JoshController
         try {
             // Get group information
            
-            $categoria = AlpCategorias::find($id);
+            $cliente = AlpClientes::where('id_user_client', $id)->first();
+
+            //dd($cliente);
+
+
+            $user = User::find($id);
+
+
 
 
             // Delete the group
-            $categoria->delete();
+            $cliente->delete();
+
+            $user->delete();
 
             // Redirect to the group management page
-            return Redirect::route('admin.categorias.index')->with('success', trans('Se ha eliminado el registro satisfactoriamente'));
+            return Redirect::route('admin.clientes.index')->with('success', trans('Se ha eliminado el registro satisfactoriamente'));
         } catch (GroupNotFoundException $e) {
             // Redirect to the group management page
-            return Redirect::route('admin.categorias.index')->with('error', trans('Error al eliminar el registro'));
+            return Redirect::route('admin.clientes.index')->with('error', trans('Error al eliminar el registro'));
         }
     }
 
