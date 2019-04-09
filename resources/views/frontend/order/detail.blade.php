@@ -354,9 +354,22 @@ div.overlay > div {
 
                     </div>
 
-                    <div class="col-sm-4 col-xs-6 " style="background-color:#3c763d;color:#ffffff;">
 
-                        @if($configuracion->mercadopago_sand=='1')
+                     <div class=" col-sm-4 col-xs-6" style="padding:8px;background-color:#3c763d;color:#ffffff;">
+
+                        <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
+
+                    </div>
+
+
+
+
+                       
+
+
+                </div>
+
+                 @if($configuracion->mercadopago_sand=='1')
 
 
                         <form action="../order/creditcard" method="POST" class="form_creditcard">
@@ -396,10 +409,6 @@ div.overlay > div {
                         </form>
 
                         @endif
-
-                    </div>
-
-                </div>
 
                 <br>
 
@@ -973,7 +982,25 @@ div.overlay > div {
 
     <script>
 
+        $(document).ready(function(){
 
+            $('button.mercadopago-button').hide();
+
+           //  $('body').on('click', 'button.mercadopago-button', function (e){
+        //$('.mercadopago-button').on('click', function (e){
+
+           //   alert($(this).attr('class'));
+          //  e.preventDefault();
+
+          //  return false;
+           
+
+        });
+
+
+
+
+     
 
 
 
@@ -1318,15 +1345,15 @@ $('.sendCupon').click(function () {
         });
 
 
-      /*  $('body').on('click', '#creditcard', function (e){
+        $('body').on('click', '#creditcard', function (e){
 
-            //e.preventDefault();
+           // e.preventDefault();
 
             id_direccion= $("#id_direccion").val(); 
             
             id_forma_envio=$("input[name='id_forma_envio']:checked").val(); 
             
-            id_forma_pago=$(this).data('id');
+            id_forma_pago='2';
 
             url=$(this).data('href');
 
@@ -1353,63 +1380,11 @@ $('.sendCupon').click(function () {
 
                        if(datos.responseText=='true'){
 
+                            $('button.mercadopago-button').trigger('click');
 
-                           // $('.form_creditcard').submit();
+                          //  $('button.mercadopago-button').hide();
 
-                            //window.location.href = url;
-
-                       }else{
-
-                            $('.res_env').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
-
-                       }
-                    
-                    }
-                });
-
-            }
-
-        });*/
-
-        
-        $('body').on('click', '.mercadopago-button', function (e){
-
-            e.preventDefault();
-
-            id_direccion= $("#id_direccion").val(); 
-            
-            id_forma_envio=$("input[name='id_forma_envio']:checked").val(); 
-            
-            id_forma_pago='2';
-
-            url=$(this).data('href');
-
-            if (id_forma_envio==undefined || id_direccion==undefined || id_forma_pago==undefined) {
-           // if (1!=1) {
-
-               // alert('Todos los capos son obligatorios');
-
-               // $('.res_env').html('<div class="alert alert-danger" role="alert">Todos los campos son obligatorios</div>');
-
-            }else{
-
-                $('#id_forma_pago').val(id_forma_pago);
-
-                base=$('#base').val();
-
-                $.ajax({
-                    type: "POST",
-                    
-                    data:{id_forma_envio, id_direccion, id_forma_pago},
-
-                    url: base+"/cart/verificarDireccion",
-                        
-                    complete: function(datos){     
-
-                       if(datos.responseText=='true'){
-
-
-                         //   $('.form_creditcard').submit();
+                          // $('.form_creditcard').submit();
 
                             //window.location.href = url;
 
@@ -1425,6 +1400,9 @@ $('.sendCupon').click(function () {
             }
 
         });
+
+        
+      
 
 
 
