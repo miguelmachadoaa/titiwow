@@ -63,7 +63,7 @@ Empresa
                                 @foreach ($empresas as $row)
                                 <tr>
                                     <td>{!! $row->id !!}</td>
-                                    <td><img style="width:  80px;" src="{{URL::to('uploads/sliders/'.$row->imagen)}}" class="img-responsive" alt="Image"></td>
+                                    <td><img style="width:  80px;" src="{{URL::to('uploads/empresas/'.$row->imagen)}}" class="img-responsive" alt="Image"></td>
                                     <td>{!! $row->nombre_empresa!!}</td>
                                     <td>{!! $row->descripcion_empresa !!}</td>
                                     <td>{!! $row->descuento_empresa !!}</td>

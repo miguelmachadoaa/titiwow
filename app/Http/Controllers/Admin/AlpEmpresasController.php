@@ -12,6 +12,7 @@ use App\Http\Requests\EmpresaRequest;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 use Redirect;
 use Sentinel;
 use View;
@@ -73,24 +74,11 @@ class AlpEmpresasController extends JoshController
         
         if ($request->hasFile('image')) {
             
-            $file = $request->file('image');    
-
-            #echo $file.'<br>';
-            
+            $file = $request->file('image');
             $extension = $file->extension()?: 'png';
-            
-
             $picture = str_random(10) . '.' . $extension;
-
-            #echo $picture.'<br>';
-
-            $destinationPath = public_path() . '/uploads/sliders/';
-
-            #echo $destinationPath.'<br>';
-
-            
-            $file->move($destinationPath, $picture);
-            
+            $destinationPath = public_path('uploads/empresas/' . $picture);    
+            Image::make($file)->resize(400, 400)->save($destinationPath);            
             $imagen = $picture;
 
         }
@@ -146,23 +134,10 @@ class AlpEmpresasController extends JoshController
         if ($request->hasFile('image')) {
             
             $file = $request->file('image');
-
-            #echo $file.'<br>';
-            
             $extension = $file->extension()?: 'png';
-            
-
             $picture = str_random(10) . '.' . $extension;
-
-            #echo $picture.'<br>';
-
-            $destinationPath = public_path() . '/uploads/sliders/';
-
-            #echo $destinationPath.'<br>';
-
-            
-            $file->move($destinationPath, $picture);
-            
+            $destinationPath = public_path('uploads/empresas/' . $picture);    
+            Image::make($file)->resize(400, 400)->save($destinationPath);            
             $imagen = $picture;
 
              $data = array(
