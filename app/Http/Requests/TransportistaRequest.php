@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FeriadosRequest extends FormRequest {
+class TransportistaRequest extends FormRequest {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class FeriadosRequest extends FormRequest {
 	public function rules()
 	{
 		return [
-            'feriado' => 'required|min:3',
+            'nombre_transportista' => 'required|min:3',
 		];
 	}
 

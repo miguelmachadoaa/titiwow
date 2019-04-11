@@ -13,6 +13,10 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
+
+use App\Imports\InvitacionesImport;
+use Maatwebsite\Excel\Facades\Excel;
+
 use Redirect;
 use Sentinel;
 use View;
@@ -320,5 +324,22 @@ class AlpEmpresasController extends JoshController
         
     }
 
+    public function invitacionesmasiv()
+    {
+
+        $empresa = AlpEmpresas::all();
+
+        /*$invitaciones = AlpAmigos::where('id_cliente', 'E'.$id)->get();*/
+        // Show the page
+        return view('admin.empresas.cargar', compact('empresa'));
+    }
+
+    public function import(Request $request) 
+    {
+        $archivo = $request->file('file_invitaciones');
+        Excel::import(new InvitacionesImport, $archivo);
+        
+        return redirect('admin/empresas/invitacionesmasiv')->with('success', 'Invitaciones Cargadas Exitosamente');
+    }
 
 }

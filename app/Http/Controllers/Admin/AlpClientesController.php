@@ -360,8 +360,8 @@ class AlpClientesController extends JoshController
                     'activationUrl' => URL::route('activate', [$user->id, Activation::exists($user)->code])
                     ];
                     // Send the activation code through email
-                    Mail::to($user->email)
-                        ->send(new Restore($data));
+                    /*Mail::to($user->email)
+                        ->send(new Restore($data));*/
 
                 }
             }
