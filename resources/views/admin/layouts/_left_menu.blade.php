@@ -8,68 +8,11 @@
         </a>
     </li>
 
-    @if (Sentinel::getUser()->hasAnyAccess(['productos.*']) || Sentinel::getUser()->hasAnyAccess(['categorias.*']) ||Sentinel::getUser()->hasAnyAccess(['marcas.*']))
-
-    <li class="{{ Request::is('admin/productos*') ? 'active' : '' }}">
-        <a href="#">
-            <i class="livicon" data-name="shopping-cart" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
-               data-loop="true"></i>
-            <span class="title">Catálogo</span>
-            <span class="fa arrow"></span>
-        </a>
-
-        <ul class="sub-menu">
-            @if (Sentinel::getUser()->hasAnyAccess(['productos.*']))
-
-            <li {!! (Request::is('admin/productos*') ? 'class="active"' : '') !!}>
-                <a href="{!! route('admin.productos.index') !!}">
-                    <i class="fa fa-angle-double-right"></i>
-                    Productos
-                </a>
-            </li>
-            @endif
-            @if (Sentinel::getUser()->hasAnyAccess(['categorias.*']))
-
-            
-
-            <li {!! (Request::is('admin/categorias*') ? 'class="active"' : '') !!}>
-                <a href="{!! route('admin.categorias.index') !!}">
-                    <i class="fa fa-angle-double-right"></i>
-                    Categorias
-                </a>
-            </li>
-            @endif
-            @if (Sentinel::getUser()->hasAnyAccess(['marcas.*']))
-
-            
-
-            <li {!! (Request::is('admin/marcas*') ? 'class="active"' : '') !!}>
-                <a href="{!! route('admin.marcas.index') !!}">
-                    <i class="fa fa-angle-double-right"></i>
-                    Marcas
-                </a>
-            </li>
-            @endif
-
-            @if (Sentinel::getUser()->hasAnyAccess(['inventario.*']))
-            <li {!! (Request::is('admin/inventario*') ? 'class="active"' : '') !!}>
-                <a href="{!! route('admin.inventario.index') !!}">
-                    <i class="fa fa-angle-double-right"></i>
-                    Inventario
-                </a>
-            </li>
-            @endif
-        </ul>
-    </li>
-
-    @endif
-
-    
     @if (Sentinel::getUser()->hasAnyAccess(['ordenes.*']))
 
      <li class="{{ Request::is('admin/ordenes*') ? 'active' : '' }}">
         <a href="#">
-            <i class="livicon" data-name="shopping-cart" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
+            <i class="livicon" data-name="inbox" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
                data-loop="true"></i>
             <span class="title">Ordenes</span>
             <span class="fa arrow"></span>
@@ -173,12 +116,68 @@
 
     @endif
 
+    @if (Sentinel::getUser()->hasAnyAccess(['productos.*']) || Sentinel::getUser()->hasAnyAccess(['categorias.*']) ||Sentinel::getUser()->hasAnyAccess(['marcas.*']))
+
+<li class="{{ Request::is('admin/productos*') ? 'active' : '' }}">
+    <a href="#">
+        <i class="livicon" data-name="notebook" data-size="18" data-c="#5bc0de" data-hc="#5bc0de"
+           data-loop="true"></i>
+        <span class="title">Catálogo</span>
+        <span class="fa arrow"></span>
+    </a>
+
+    <ul class="sub-menu">
+        @if (Sentinel::getUser()->hasAnyAccess(['productos.*']))
+
+        <li {!! (Request::is('admin/productos*') ? 'class="active"' : '') !!}>
+            <a href="{!! route('admin.productos.index') !!}">
+                <i class="fa fa-angle-double-right"></i>
+                Productos
+            </a>
+        </li>
+        @endif
+        @if (Sentinel::getUser()->hasAnyAccess(['categorias.*']))
+
+        
+
+        <li {!! (Request::is('admin/categorias*') ? 'class="active"' : '') !!}>
+            <a href="{!! route('admin.categorias.index') !!}">
+                <i class="fa fa-angle-double-right"></i>
+                Categorias
+            </a>
+        </li>
+        @endif
+        @if (Sentinel::getUser()->hasAnyAccess(['marcas.*']))
+
+        
+
+        <li {!! (Request::is('admin/marcas*') ? 'class="active"' : '') !!}>
+            <a href="{!! route('admin.marcas.index') !!}">
+                <i class="fa fa-angle-double-right"></i>
+                Marcas
+            </a>
+        </li>
+        @endif
+
+        @if (Sentinel::getUser()->hasAnyAccess(['inventario.*']))
+        <li {!! (Request::is('admin/inventario*') ? 'class="active"' : '') !!}>
+            <a href="{!! route('admin.inventario.index') !!}">
+                <i class="fa fa-angle-double-right"></i>
+                Inventario
+            </a>
+        </li>
+        @endif
+    </ul>
+</li>
+
+@endif
+
 
     @if (Sentinel::getUser()->hasAnyAccess(['envios.*']))
 
      <li class="{{ Request::is('admin/envios*') ? 'active' : '' }}">
         <a href="#">
-            <i class="livicon" data-name="shopping-cart" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
+            <i class="livicon" data-name="truck" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
                data-loop="true"></i>
             <span class="title">Envios</span>
             <span class="fa arrow"></span>
@@ -639,6 +638,7 @@
             </li>
         </ul>
     @endif
+
 
     @if (Sentinel::getUser()->hasAnyAccess(['groups.*']))
 
