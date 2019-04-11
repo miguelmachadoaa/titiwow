@@ -148,6 +148,23 @@ class AlpCartController extends JoshController
                 
             }
 
+        }else{
+
+            $r='9';
+                foreach ($productos as  $row) {
+                    
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $r)->first();
+
+                    if (isset($pregiogrupo->id)) {
+                       
+                        $precio[$row->id]['precio']=$pregiogrupo->precio;
+                        $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$row->id]['pum']=$pregiogrupo->pum;
+
+                    }
+
+                }
+                
         }
 
 
@@ -656,7 +673,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 }
 
 
-     public function orderCreditcard(Request $request)
+  public function orderCreditcard(Request $request)
     {
 
 
@@ -682,40 +699,40 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
       $carrito= \Session::get('cr');
 
 
-       $id_orden= \Session::get('orden');
+      $id_orden= \Session::get('orden');
 
-       $orden=AlpOrdenes::where('id', $id_orden)->first();
+      $orden=AlpOrdenes::where('id', $id_orden)->first();
 
-        $input=$request->all();
+      $input=$request->all();
 
      //dd($input);
 
-  if (Sentinel::check()) {
+      if (Sentinel::check()) {
 
-    $user_id = Sentinel::getUser()->id;
+        $user_id = Sentinel::getUser()->id;
 
-    $user_cliente=User::where('id', $user_id)->first();
+        $user_cliente=User::where('id', $user_id)->first();
+
+        $configuracion = AlpConfiguracion::where('id', '1')->first();
+
+        MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
 
-     $configuracion = AlpConfiguracion::where('id', '1')->first();
-
-     MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
-
-
-      $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug')
+        $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug')
           ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
           ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
 
-           $total=$orden->monto_total;
+        $total=$orden->monto_total;
 
-      $impuesto=$orden->monto_impuesto;
-$net_amount=$total-$impuesto;
+        $impuesto=$orden->monto_impuesto;
+        
+        $net_amount=$total-$impuesto;
 
-      $det_array = array();
+        $det_array = array();
 
-      foreach ($detalles as $d ) {
+        foreach ($detalles as $d ) {
 
-        $det_array[]= array(
+          $det_array[]= array(
 
                 "id"          => $d->id_producto,
                 "title"       => $d->nombre_producto,
@@ -723,54 +740,51 @@ $net_amount=$total-$impuesto;
                 "quantity"    => (int)number_format($d->cantidad, 0, '.', ''),
                 "unit_price"  => (float)number_format($d->precio_unitario, 2, '.', ''),
                 );
-      }
+        }
 
-       $preference_data = [
+        $preference_data = [
         "transaction_amount" => doubleval($orden->monto_total),
         "net_amount"=>$net_amount,
             "taxes"=>[[
               "value"=>(float)number_format($impuesto, 2, '.', ''),
               "type"=>"IVA"]],
-        "token" => $request->token,
-        "description" => 'Pago de orden: '.$orden->id,
-        "installments" => intval($request->installments),
-        "external_reference"=> "ALP".$orden->id."",
-        "payment_method_id" => $request->payment_method_id,
-        
-        "issuer_id" => $request->issuer_id,
-        "payer" => [
-          "email"=>$user_cliente->email]
-      ];
+          "token" => $request->token,
+          "description" => 'Pago de orden: '.$orden->id,
+          "installments" => intval($request->installments),
+          "external_reference"=> "ALP".$orden->id."",
+          "payment_method_id" => $request->payment_method_id,
+          
+          "issuer_id" => $request->issuer_id,
+          "payer" => [
+            "email"=>$user_cliente->email]
+        ];
+
+        $preference = MP::post("/v1/payments",$preference_data);
+
+        // dd($preference);
+
+        if (isset($preference['response']['id'])) {
 
 
+          if ($preference['response']['status']=='rejected' || $preference['response']['status']=='cancelled' || $preference['response']['status']=='cancelled/expired')  {
 
+              if (isset($avisos[$preference['response']['status_detail']])) {
 
-      $preference = MP::post("/v1/payments",$preference_data);
+                $aviso=$avisos[$preference['response']['status_detail']];
+                
+              }else{
 
-     // dd($preference);
+                $aviso='No pudimos procesar su pago, por favor intente Nuevamente.';
 
-      if (isset($preference['response']['id'])) {
-
-
-        if ($preference['response']['status']=='rejected' || $preference['response']['status']=='cancelled' || $preference['response']['status']=='cancelled/expired')  {
-
-            if (isset($avisos[$preference['response']['status_detail']])) {
-
-              $aviso=$avisos[$preference['response']['status_detail']];
-              
-            }else{
-
-              $aviso='No pudimos procesar su pago, por favor intente Nuevamente.';
-
-            }
+              }
                 $data_pago = array(
-              'id_orden' => $orden->id, 
-              'id_forma_pago' => $orden->id_forma_pago, 
-              'id_estatus_pago' => '3', 
-              'monto_pago' => 0, 
-              'json' => json_encode($preference), 
-              'id_user' => '1', 
-            );
+                'id_orden' => $orden->id, 
+                'id_forma_pago' => $orden->id_forma_pago, 
+                'id_estatus_pago' => '3', 
+                'monto_pago' => 0, 
+                'json' => json_encode($preference), 
+                'id_user' => '1', 
+                );
 
              AlpPagos::create($data_pago);
 
@@ -779,17 +793,17 @@ $net_amount=$total-$impuesto;
           }
 
        
-          $data=$this->generarPedido('1', '2', $preference, 'credit_card');
+            $data=$this->generarPedido('1', '2', $preference, 'credit_card');
 
-          $id_orden=$data['id_orden'];
+            $id_orden=$data['id_orden'];
 
-          $fecha_entrega=$data['fecha_entrega'];
+            $fecha_entrega=$data['fecha_entrega'];
 
-         $aviso_pago="Hemos recibido su pago satisfactoriamente, una vez sea confirmado, Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!";
+            $aviso_pago="Hemos recibido su pago satisfactoriamente, una vez sea confirmado, Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!";
 
-       //  $datalles=AlpDetalles::where('id_orden', $orden->id)->get();
+            //  $datalles=AlpDetalles::where('id_orden', $orden->id)->get();
 
-        $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
+            $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
             ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
             ->join('alp_clientes','alp_ordenes.id_cliente' , '=', 'alp_clientes.id_user_client')
             ->join('alp_formas_envios','alp_ordenes.id_forma_envio' , '=', 'alp_formas_envios.id')
@@ -797,31 +811,27 @@ $net_amount=$total-$impuesto;
             ->where('alp_ordenes.id', $id_orden)->first();
 
 
-        $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug')
+           $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug')
           ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
           ->where('alp_ordenes_detalle.id_orden', $id_orden)->get();
 
 
-         $cart= \Session::forget('cart');
+            $cart= \Session::forget('cart');
 
-         $states=State::where('config_states.country_id', '47')->get();
+           $states=State::where('config_states.country_id', '47')->get();
 
-         $configuracion = AlpConfiguracion::where('id','1')->first();
-
-
-          $texto='Se ha creado la siguiente orden '.$compra->id.' y esta a espera de aprobacion  ';
+           $configuracion = AlpConfiguracion::where('id','1')->first();
 
 
-        Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
+           $texto='Se ha creado la siguiente orden '.$compra->id.' y esta a espera de aprobacion  ';
 
-        Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
+
+            Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
+
+           Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
           
 
-          return view('frontend.order.procesar_completo', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
-        
-
-     
-
+           return view('frontend.order.procesar_completo', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
         
         }else{
 
@@ -830,10 +840,10 @@ $net_amount=$total-$impuesto;
         }
 
 
-  }else{
+      }else{
 
-          return redirect('login');
-    }
+          return redirect('login'); //sino esta logueado
+      }
 
     }
 
@@ -902,10 +912,10 @@ $net_amount=$total-$impuesto;
 
           $countries = Country::all();
 
-           $inv = $this->inventario();
+          $inv = $this->inventario();
 
 
-           $pagos=AlpPagos::where('id_orden', $carrito)->get();
+          $pagos=AlpPagos::where('id_orden', $carrito)->get();
 
           $total_pagos=0;
 
@@ -927,15 +937,14 @@ $net_amount=$total-$impuesto;
           $items = array();
 
           $list=array();
-
          
-              $items["id"]=$carrito;
-              $items["title"]='Orden Alpina Nro. '.$carrito;
-              $items["description"]='Orden Alpina Nro. '.$carrito;
-              $items["picture_url"]= '#';
-              $items["quantity"]=1;
-              $items["currency_id"]='COP';
-              $items["unit_price"]=intval($total-$total_pagos);
+            $items["id"]=$carrito;
+            $items["title"]='Orden Alpina Nro. '.$carrito;
+            $items["description"]='Orden Alpina Nro. '.$carrito;
+            $items["picture_url"]= '#';
+            $items["quantity"]=1;
+            $items["currency_id"]='COP';
+            $items["unit_price"]=intval($total-$total_pagos);
 
               $list[]=$items;
 
@@ -994,7 +1003,12 @@ $net_amount=$total-$impuesto;
           $data_carrito = array(
             'id_user' => $user_id );
 
-          $carro->update($data_carrito);
+          if (isset($carro['id'])) {
+             $data_carrito = array(
+              'id_user' => $user_id );
+
+            $carro->update($data_carrito);
+          }
 
           /*actualizamos la data del carrito */
 
@@ -1374,8 +1388,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         $cart= \Session::get('cart');
 
         $configuracion = AlpConfiguracion::where('id','1')->first();
-
-
 
         $id_orden= \Session::get('orden');
 
