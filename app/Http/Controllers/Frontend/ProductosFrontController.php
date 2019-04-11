@@ -717,7 +717,7 @@ class ProductosFrontController extends Controller
         ->whereNull('alp_productos_category.deleted_at')
         ->where('alp_productos.estado_registro','=',1)
         ->groupBy('alp_productos.id')
-        ->paginate(12); 
+        ->paginate(36); 
 
          if (Sentinel::check()) {
 
@@ -824,7 +824,7 @@ class ProductosFrontController extends Controller
         ->where('alp_productos.id_marca','=', $marca->id)
         ->where('alp_productos.estado_registro','=',1)
         ->groupBy('alp_productos.id')
-        ->paginate(12); 
+        ->paginate(36); 
 
          if (Sentinel::check()) {
 
@@ -920,7 +920,7 @@ class ProductosFrontController extends Controller
 
         $termino = $request->get('buscar');
 
-        $productos = AlpProductos::search($request->get('buscar'))->where('alp_productos.estado_registro','=', 1)->orderBy('id', 'asc')->paginate(12); 	
+        $productos = AlpProductos::search($request->get('buscar'))->where('alp_productos.estado_registro','=', 1)->orderBy('id', 'asc')->paginate(36); 	
         $productos->appends(['buscar' => $request->get('buscar')]);
 
         if (Sentinel::check()) {
