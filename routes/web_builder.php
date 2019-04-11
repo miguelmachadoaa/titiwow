@@ -376,6 +376,14 @@ Route::group(['prefix' => 'facturasmasivas'], function () {
     Route::post('import', 'Admin\AlpFacturasController@import');
 
 });
+
+/*Inicio Invitaciones Import*/
+Route::group(['prefix' => 'invitacionesmasivas'], function () {
+
+    Route::post('import', 'Admin\AlpEmpresasController@import');
+
+});
+/*Fin import invitaciones */
 Route::resource('facturasmasivas', 'Admin\AlpFacturasController');
 
 /* Facturas Masivas Fin*/
@@ -389,6 +397,9 @@ Route::resource('facturasmasivas', 'Admin\AlpFacturasController');
 
 
         Route::get('{id}/afiliados', 'Admin\AlpEmpresasController@afiliados')->name('empresas.afiliados');
+
+
+        Route::get('invitacionesmasiv', 'Admin\AlpEmpresasController@invitacionesmasiv')->name('empresas.invitacionesmasiv');
 
         });
     Route::post('empresas/create', 'Admin\AlpEmpresasController@store');

@@ -287,6 +287,17 @@
         </ul>
     @endif
 
+    @if (Sentinel::getUser()->hasAnyAccess(['empresas.*']))
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/invitacionesmasiv*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.empresas.invitacionesmasiv') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Invitaciones Masivas Empresas
+                </a>
+            </li>
+        </ul>
+    @endif
+
     @if (Sentinel::getUser()->hasAnyAccess(['feriados.*']))
         <ul class="sub-menu">
             <li {!! (Request::is('admin/feriados*') ? 'class="active"' : '') !!}>
