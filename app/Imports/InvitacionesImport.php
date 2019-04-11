@@ -45,7 +45,7 @@ class InvitacionesImport implements ToCollection
 
                 $empresa = AlpEmpresas::find($row[3]);
 
-               // Mail::to($row[2])->send(new \App\Mail\NotificacionAfiliado($row[0], $row[1], $token, $empresa->nombre_empresa));
+                Mail::to($row[2])->send(new \App\Mail\NotificacionAfiliado($row[0], $row[1], $token, $empresa->nombre_empresa));
             }
 
         }
