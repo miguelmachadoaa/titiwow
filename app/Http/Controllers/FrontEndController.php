@@ -211,8 +211,10 @@ class FrontEndController extends JoshController
       
         $sliders=AlpSliders::orderBy("order")->get();
 
+        $inventario=$this->inventario();
 
-        return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion'));
+
+        return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion','inventario'));
 
     }
 
@@ -965,6 +967,41 @@ class FrontEndController extends JoshController
         $states['0'] = 'Seleccione Ciudad';
         return json_encode($cities);
     }
+
+
+     private function inventario()
+    {
+       
+
+      $entradas = AlpInventario::groupBy('id_producto')
+              ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
+              ->where('alp_inventarios.operacion', '1')
+              ->get();
+
+              $inv = array();
+
+              foreach ($entradas as $row) {
+                
+                $inv[$row->id_producto]=$row->cantidad_total;
+
+              }
+
+
+            $salidas = AlpInventario::select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
+              ->groupBy('id_producto')
+              ->where('operacion', '2')
+              ->get();
+
+              foreach ($salidas as $row) {
+                
+                $inv[$row->id_producto]= $inv[$row->id_producto]-$row->cantidad_total;
+
+            }
+
+            return $inv;
+      
+    }
+
 
 
 }

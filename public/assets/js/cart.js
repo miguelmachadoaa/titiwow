@@ -40,8 +40,6 @@ jQuery(document).ready(function($){
 
 			window.setTimeout(addToCart2($(this)), 2000);
 
-
-
             });
 
 

@@ -210,8 +210,6 @@ class AlpInventarioController extends JoshController
             }
 
             return $inv;
-
-
       
     }
 

@@ -910,6 +910,113 @@ class ProductosFrontController extends Controller
 
     }
 
+    public function all()
+    {
+
+
+        $descuento='1'; 
+
+        $precio = array();
+
+
+        $productos =  DB::table('alp_productos')->select('alp_productos.*')
+        ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
+        ->whereNull('alp_productos_category.deleted_at')
+        ->where('alp_productos.estado_registro','=',1)
+        ->groupBy('alp_productos.id')
+        ->paginate(36); 
+
+         if (Sentinel::check()) {
+
+            $user_id = Sentinel::getUser()->id;
+
+            $role=RoleUser::where('user_id', $user_id)->first();
+
+            $cliente = AlpClientes::where('id_user_client', $user_id )->first();
+
+            if (isset($cliente) ) {
+
+                if ($cliente->id_empresa!=0) {
+                    
+                    /* $empresa=AlpEmpresas::find($cliente->id_empresa);
+
+                    $cliente['nombre_empresa']=$empresa->nombre_empresa;
+
+                    $descuento=(1-($empresa->descuento_empresa/100));*/
+
+                    $role->role_id='E'.$cliente->id_empresa.'';
+                }
+               
+            }
+
+            if ($role->role_id) {
+               
+                foreach ($productos as  $row) {
+                    
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $role->role_id)->first();
+
+                    if (isset($pregiogrupo->id)) {
+                       
+                        $precio[$row->id]['precio']=$pregiogrupo->precio;
+                        $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$row->id]['pum']=$pregiogrupo->pum;
+                        $precio[$row->id]['role']=$pregiogrupo->id_role;
+
+                    }
+
+                }
+                
+            }
+
+        }else{
+
+            $r='9';
+                foreach ($productos as  $row) {
+                    
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $r)->first();
+
+                    if (isset($pregiogrupo->id)) {
+                       
+                        $precio[$row->id]['precio']=$pregiogrupo->precio;
+                        $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$row->id]['pum']=$pregiogrupo->pum;
+
+                    }
+
+                }
+                
+        }
+
+        //print_r($precio);
+       // print_r($role->role_id);
+
+    $prods=$this->addOferta($productos, $precio, $descuento);
+
+
+         $states=State::where('config_states.country_id', '47')->get();
+
+         $cart= \Session::get('cart');
+
+
+        $total=0;
+
+        if($cart!=NULL){
+
+            foreach($cart as $row) {
+
+                $total=$total+($row->cantidad*$row->precio_oferta);
+
+            }
+        }
+
+
+
+        return \View::make('frontend.all', compact('productos', 'descuento', 'precio', 'states', 'cart', 'total', 'prods'));
+
+    }
+
+ 
+
 
     public function mySearch(Request $request)
     {
@@ -1019,5 +1126,42 @@ class ProductosFrontController extends Controller
     }
 
     /*Fin CMS */
+
+
+     private function inventario()
+    {
+       
+
+      $entradas = AlpInventario::groupBy('id_producto')
+              ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
+              ->where('alp_inventarios.operacion', '1')
+              ->get();
+
+              $inv = array();
+
+              foreach ($entradas as $row) {
+                
+                $inv[$row->id_producto]=$row->cantidad_total;
+
+              }
+
+
+            $salidas = AlpInventario::select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
+              ->groupBy('id_producto')
+              ->where('operacion', '2')
+              ->get();
+
+              foreach ($salidas as $row) {
+                
+                $inv[$row->id_producto]= $inv[$row->id_producto]-$row->cantidad_total;
+
+            }
+
+            return $inv;
+      
+    }
+
+
+
 
 }

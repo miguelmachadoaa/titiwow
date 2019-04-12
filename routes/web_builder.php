@@ -108,6 +108,7 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
  	});
     Route::post('categorias/create', 'Admin\AlpCategoriasController@store');
+
     Route::resource('categorias', 'Admin\AlpCategoriasController');
 
     //fin direcciones categorias
@@ -791,8 +792,10 @@ Route::post('configuracion/verificarciudad', 'Admin\AlpConfiguracionController@v
 
 Route::get('producto/{slug}', ['as' => 'producto', 'uses' => 'Frontend\ProductosFrontController@show']);
 
-Route::get('productos', 'Frontend\ProductosFrontController@index');
+Route::get('productos', 'Frontend\ProductosFrontController@all');
 
+
+Route::get('categoria', ['as' => 'un_categoria', 'uses' => 'Frontend\ProductosFrontController@index']);
 
 Route::get('categoria/{slug}', ['as' => 'categoria', 'uses' => 'Frontend\ProductosFrontController@categorias']);
 
