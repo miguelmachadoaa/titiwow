@@ -45,7 +45,6 @@ class UserRequest extends FormRequest
                     'principal_address' => 'required',
                     'secundaria_address' => 'required',
                     'edificio_address' => 'required',
-                    'detalle_address' => 'required|min:2',
                     'g-recaptcha-response' => new Captcha(),
                 ];
             }
@@ -64,7 +63,6 @@ class UserRequest extends FormRequest
                     'principal_address' => 'required',
                     'secundaria_address' => 'required',
                     'edificio_address' => 'required',
-                    'detalle_address' => 'required|min:2',
                     'g-recaptcha-response' => new Captcha(),
                 ];
             }
