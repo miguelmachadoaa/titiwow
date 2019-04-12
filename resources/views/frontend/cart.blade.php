@@ -72,8 +72,7 @@ Carrito de Compras
 
 
 
-
-@if(isset($productos))
+@if(isset($productos)) 
 
 
 

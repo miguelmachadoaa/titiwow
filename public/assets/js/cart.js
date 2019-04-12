@@ -23,17 +23,24 @@ jQuery(document).ready(function($){
 
 		$(document).on('click', '.addtocart', function(e){
 
+
+
 			e.preventDefault();
 
-            addToCart2($(this));
+			window.setTimeout(addToCart2($(this)), 2000);
+
 
             });
 
 		$(document).on('click', '.addtocartsingle', function(e){
 
+
+
 			e.preventDefault();
 
-            addToCart2($(this));
+			window.setTimeout(addToCart2($(this)), 2000);
+
+
 
             });
 
@@ -41,11 +48,12 @@ jQuery(document).ready(function($){
 		$(document).on('click', '.updatecart', function(){
 
 			tipo=$(this).data('tipo');
-			id=$(this).data('id');
-			cantidad=$(this).data('cantidad');
-			//cantidad=$('#cantidad_'+id+'').val();
 
+			id=$(this).data('id');
+
+			cantidad=$(this).data('cantidad');
 			
+			//cantidad=$('#cantidad_'+id+'').val();
 
 			if(tipo=='suma'){
 
@@ -220,10 +228,12 @@ jQuery(document).ready(function($){
 		precio=trigger.data('id').toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.'); 
 		precio.slice(0,-3);
 
-
 		productId = trigger.data('id');
+
 		var productAdded = $('<li class="product"><div class="product-image"><a href="#0"><img class="img-responsive" src="'+trigger.data('imagen')+'" alt="placeholder"></a></div><div class="product-details"><h3><a href="#0">'+trigger.data('name')+'</a></h3><span class="price">'+trigger.data('price')+'</span><div class="actions"><a href="#0" data-id="'+trigger.data('id')+'" data-slug="'+trigger.data('slug')+'" class="delete-item col-xs-3">Borrar</a><div class="quantity col-xs-8"><label for="cd-product-'+ productId +'">Cantidad: </label><span class="select"><select class="cartselect" data-id="'+trigger.data('id')+'"  data-slug="'+trigger.data('slug')+'" id="cd-product-'+ productId +'" name="quantity"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select></span></div></div></div></li>');
+		
 		cartList.prepend(productAdded);
+
 	}
 
 	function removeProduct(product) {
