@@ -21,6 +21,7 @@ use App\Models\AlpEstructuraAddress;
 use App\Models\AlpConfiguracion;
 use App\Models\AlpDirecciones;
 use App\Models\AlpCodAlpinistas;
+use App\Models\AlpInventario;
 use App\User;
 use App\State;
 use App\RoleUser;

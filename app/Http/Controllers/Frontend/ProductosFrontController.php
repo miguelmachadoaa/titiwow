@@ -10,6 +10,7 @@ use App\Models\AlpMarcas;
 use App\Models\AlpClientes;
 use App\Models\AlpEmpresas;
 use App\Models\AlpPrecioGrupo;
+use App\Models\AlpInventario;
 use App\Models\AlpCms;
 use App\RoleUser;
 use App\State;
@@ -506,8 +507,10 @@ class ProductosFrontController extends Controller
 
         $states=State::where('config_states.country_id', '47')->get();
 
+        $inventario=$this->inventario();
 
-        return \View::make('frontend.list', compact('leche','lacteos','quesos','postres','esparcibles','bebidas','finess','baby','nolacteos','descuento', 'precio', 'states', 'cart', 'total'));
+
+        return \View::make('frontend.list', compact('leche','lacteos','quesos','postres','esparcibles','bebidas','finess','baby','nolacteos','descuento', 'precio', 'states', 'cart', 'total', 'inventario'));
     }
  
     public function show($slug)
@@ -692,9 +695,10 @@ class ProductosFrontController extends Controller
             }
         }
 
+        $inventario=$this->inventario();
 
         
-        return \View::make('frontend.producto_single', compact('producto', 'descuento', 'precio','categos', 'states', 'cart', 'total','catprincipal', 'relacionados', 'prods'));
+        return \View::make('frontend.producto_single', compact('producto', 'descuento', 'precio','categos', 'states', 'cart', 'total','catprincipal', 'relacionados', 'prods', 'inventario'));
 
     }
 
@@ -802,9 +806,10 @@ class ProductosFrontController extends Controller
             }
         }
 
+        $inventario=$this->inventario();
 
 
-        return \View::make('frontend.categorias', compact('productos','cataname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods'));
+        return \View::make('frontend.categorias', compact('productos','cataname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario'));
 
     }
     public function marcas($slug)
@@ -906,7 +911,10 @@ class ProductosFrontController extends Controller
 
          $states=State::where('config_states.country_id', '47')->get();
 
-        return \View::make('frontend.marcas', compact('productos','marcaname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods'));
+        $inventario=$this->inventario();
+
+
+        return \View::make('frontend.marcas', compact('productos','marcaname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario'));
 
     }
 
@@ -1009,9 +1017,10 @@ class ProductosFrontController extends Controller
             }
         }
 
+        $inventario=$this->inventario();
 
 
-        return \View::make('frontend.all', compact('productos', 'descuento', 'precio', 'states', 'cart', 'total', 'prods'));
+        return \View::make('frontend.all', compact('productos', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario'));
 
     }
 
@@ -1109,10 +1118,12 @@ class ProductosFrontController extends Controller
             }
         }
 
+        $inventario=$this->inventario();
+
 
          $states=State::where('config_states.country_id', '47')->get();
 
-        return \View::make('frontend.buscar', compact('productos', 'descuento', 'precio', 'states','termino', 'cart', 'total', 'prods'));
+        return \View::make('frontend.buscar', compact('productos', 'descuento', 'precio', 'states','termino', 'cart', 'total', 'prods', 'inventario'));
 
     }
 

@@ -32,6 +32,20 @@
     <link href="https://fonts.googleapis.com/css?family=Comfortaa|Oswald|Montserrat:300,400,600|Roboto" rel="stylesheet">    
     <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
     <!--end of global css-->
+
+    <style>
+
+        .agotado{
+        position: absolute;    
+        top: 21px;    
+        left: 1em;    
+        float: left;    
+        width: 8em !important;    
+        height: 8em !important;
+
+
+        }
+    </style>
     <!--page level css-->
     @yield('header_styles')
     <!--end of page level css-->

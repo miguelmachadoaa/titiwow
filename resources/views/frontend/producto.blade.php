@@ -1,94 +1,124 @@
-<div class="col-lg-3 col-md-4 col-sm-6 woman bags">
+<div class="col-md-3 col-sm-6 col-xs-6">
+                    <div class="productos">
+                        <div class="text-align:center;">
+                            <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive"></a>
 
-                        <div class="l_product_item">
-                                <div class="l_p_img">
-                                    <a href="{{ route('producto', [$producto->slug]) }}"><img class="img-fluid" src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" alt=""></a>
-                                </div>
-                                <div class="l_p_desc">
+                             @if(isset($inventario[$producto->id]))
 
-                                          <h4 style="text-align: center; padding:1em 0em;">{{ $producto->nombre_producto }}</h4>
-                                   
-                                    @if($producto->precio_base!=$producto->precio_oferta)
+                                @if($inventario[$producto->id]<=0)
 
-                                        <h5 style="padding:0.5em; background: #000; color: #fff; border-radius: 5px;">  Descuento {{ (1-($producto->precio_oferta/$producto->precio_base))*100 }} % </h5>
+                                    <img class="agotado" style="" src="{{ secure_url('/').'/uploads/files/agotado.png' }}" alt="">
 
-                                        <h3 style="color: #dd3333; text-align: center; "><del>{{ $producto->precio_base }}</del>  {{ $producto->precio_oferta }}</h3>
+                                @endif
 
-                                    @else
-                                          <h3 style="color: #dd3333; text-align: center;">{{ $producto->precio_oferta }}</h3>
-                                    @endif
+                            @endif
 
 
-                                    <div style="padding: 2em;">   
+                        </div>
+                        <a href="{{ route('producto', [$producto->slug]) }}" ><h3>{{ $producto->nombre_producto }}</h3></a>
+                        <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="text-align:center;">{{ $producto->presentacion_producto }}</h6></a>
+                        <div class="product_info">
+                            
+                            @if($descuento==1)
 
-                                            <img src="{{ secure_url('/').'/uploads/marcas/'.$producto->imagen_marca }}" class="img-responsive" title="{{ $producto->nombre_producto }}" alt="{{ $producto->nombre_producto }}">
+                                @if(isset($precio[$producto->id]))
 
-                                    </div>
+                                    @switch($precio[$producto->id]['operacion'])
+
+                                        @case(1)
+
+                                            <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
+                                            
+                                            @break
+
+                                        @case(2)
+
+                                            <p id="precio_prod"><del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*(1-($precio[$producto->id]['precio']/100)),0,",",".") }}</span></p>
+                                            @break
+
+                                        @case(3)
+
+                                            <p id="precio_prod"><del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($precio[$producto->id]['precio'],0,",",".") }}</span></p>
+                                            @break
+
+                                        
+                                    @endswitch
+
+                                    <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $precio[$producto->id]['pum'] }}</h6></a>
+
+                                @else
+
+                                    <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
+
+                                    <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
+
+                                @endif
 
 
-                                    <ul>
+                               
+
+                            @else
+
+                                <p id="precio_prod"><del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base,0,",",".").' -'.$producto->operacion }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".").' -'.$producto->operacion }}</span></p>
+
+                                <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
+
+                            @endif
+                            
+                            <div class="product_botones boton_{{ $producto->id }}">
+
+                              @if(isset($inventario[$producto->id]))
+
+                              @if($inventario[$producto->id]>0)
 
 
+                              
+
+                                @if(isset($cart[$producto->slug]))
+
+                                    <div class="row" style="margin-bottom:5px;">
+                                    <div class="col-sm-10 col-sm-offset-1">
+                                        <div class="input-group">
+                                        <span class="input-group-btn">
+                                            
+                                            <button data-cantidad="{{ $cart[$producto->slug]->cantidad }}" data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-danger updatecart" type="button"><i class="fa fa-minus"></i></button>
+
+                                        </span>
+
+                                        <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
 
 
-                                    @if($producto->id_tipo_producto == 1)
+                                        <span class="input-group-btn">
 
-
-
-
-                                        @if(isset($cart[$producto->slug]))
-
-                                      
+                                            <button data-cantidad="{{ $cart[$producto->slug]->cantidad }}" data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
 
                                             
-                                           <li class="boton_{{ $producto->id }} ">
-                                               <div class="row" style="margin-bottom:5px;">
-                                                      <div class="col-sm-10 col-sm-offset-1">
-                                                        <div class="input-group">
-                                                          <span class="input-group-btn">
-                                                            
-                                                            <button style="border-radius: 0;" data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-default updatecart" type="button"><i class="fa fa-minus"></i></button>
 
-                                                          </span>
+                                        </span>
 
-                                                          <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
-
-
-                                                          <span class="input-group-btn">
-
-                                                            <button style="border-radius: 0;"  data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-default updatecart" type="button"><i class="fa fa-plus"></i></button>
-
-                                                            
-
-                                                          </span>
-
-                                                        </div><!-- /input-group -->
-                                                      </div><!-- /.col-lg-6 -->
-                                                     
-                                                    </div><!-- /.row -->
-                                           </li>
-
-                                        @else
-
-                                            <li class="boton_{{ $producto->id }} ">
-                                                <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class=" addtocart add_cart_btn btn-cart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"  >Agregar</a>
-
-                                                <!--a class="add_cart_btn btn-cart" href="{{ route('producto', [$producto->slug]) }} ">Ver Producto</a-->
-                                            </li>
-
-                                        @endif
-                                        
-                                    @else
-
-                                        <li class="boton_{{ $producto->id }} ">
-                                            <a class="add_cart_btn btn-cart"  href="{{ $producto->link_producto }}" class="add_cart_btn btn-cart" target="_blank" alt="Ver Producto"  >Ver Producto</a>
-                                        </li>
-
-                                        
-                                    @endif
-
-                                    </ul>
+                                        </div><!-- /input-group -->
+                                    </div><!-- /.col-lg-6 -->
                                     
+                                    </div><!-- /.row -->
+
+                                    <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+
+                                @else
+
+                                    <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                    <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
+
+                                @endif
+
+                              @else
+
+                                <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                
+                              @endif
+
+                              @endif
+
                                 </div>
-                            </div>
                         </div>
+                    </div>
+                </div>
