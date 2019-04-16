@@ -263,11 +263,13 @@
                 </div>
 
             @foreach($prods as $producto)
-                
 
                 @include('frontend.producto')
+
                 @if ($loop->iteration % 4 == 0)
+
                     </div>
+                    
                     <div class="row">
                 @endif
             @endforeach

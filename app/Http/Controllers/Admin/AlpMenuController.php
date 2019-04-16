@@ -254,6 +254,7 @@ class AlpMenuController extends JoshController
                 $data = array(
             'name' => $request->name, 
             'slug' => $request->slug, 
+            'order' => $request->order, 
             'parent' =>$request->parent
                 );
 
@@ -276,11 +277,14 @@ class AlpMenuController extends JoshController
 
      public function submenu($id)
     {
+
+     //   dd($id);
        
         $detalle = AlpDetalleSubmenu::find($id);
 
-        $detalles = DB::select('alp_menu_detalles.*')
-        ->where('alp_menu_detalles.parent',$id)->get(); 
+        
+
+        $detalles = AlpDetalleSubmenu::where('alp_menu_detalles.parent',$id) ->get();
 
         return view('admin.menus.submenu', compact('detalle', 'detalles'));
 

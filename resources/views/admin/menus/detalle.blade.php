@@ -143,6 +143,7 @@ Menu {{$menu->id}}
                                     <th>Id</th>
                                     <th>Nombre</th>
                                     <th>Slug</th>
+                                    <th>Orden</th>
                                     <th>Accion</th>
                                 </tr>
                             </thead>
@@ -153,6 +154,7 @@ Menu {{$menu->id}}
                                     <td>{!! $row->id !!}</td>
                                     <td>{!! $row->name!!}</td>
                                     <td>{!! $row->slug !!}</td>
+                                    <td>{!! $row->order !!}</td>
                                     
                                     <td>
                                             

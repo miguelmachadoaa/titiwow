@@ -54,7 +54,7 @@ Editar Sub Menu
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
 
-                            <input type="hidden" name="parent" id="parent" value="{{$detalle->parent}}">
+                            <!--input type="hidden" name="parent" id="parent" value="{{$detalle->parent}}"-->
                           
                             <div class="form-group {{ $errors->
                             first('name', 'has-error') }}">
@@ -77,6 +77,28 @@ Editar Sub Menu
                             </div>
                             <div class="col-sm-4">
                                 {!! $errors->first('slug', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+                         <div class="form-group {{ $errors->first('order', 'has-error') }}">
+
+                            <label for="title" class="col-sm-2 control-label"> order </label>
+                            <div class="col-sm-5">
+                                <input type="text" id="order" name="order" class="form-control" placeholder="Orden Sub Menu" value="{!! old('order', $detalle->order) !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('order', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+                        <div class="form-group {{ $errors->first('parent', 'has-error') }}">
+
+                            <label for="title" class="col-sm-2 control-label"> parent </label>
+                            <div class="col-sm-5">
+                                <input type="text" id="parent" name="parent" class="form-control" placeholder="Orden Sub Menu" value="{!! old('parent', $detalle->parent) !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('parent', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
 

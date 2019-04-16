@@ -36,7 +36,7 @@ class UsersController extends JoshController
 //        $activation = Activation::completed($user);
 //        return dd($activation);
 
-        //$users = DB::table('users')->get();
+        $users = '';
 
         //dd($users);
 
