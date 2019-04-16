@@ -62,6 +62,16 @@
                     <div class="row">
                         <div class="product_wrapper">
                             <img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" data-zoom-image="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive" alt="{{ $producto->nombre_producto}} | Alpina Go!" title="{{ $producto->nombre_producto}} | Alpina Go!"/>
+
+                             @if(isset($inventario[$producto->id]))
+
+                                @if($inventario[$producto->id]<=0)
+
+                                    <img style="    position: absolute;    top: 9px;    left: 0em;    float: left;    width: 8em !important;    height: 8em !important;" class="" style="" src="{{ secure_url('/').'/uploads/files/agotado.png' }}" alt="">
+
+                                @endif
+
+                            @endif
                         </div>
                     </div>
                 </div>
