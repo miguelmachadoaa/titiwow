@@ -287,123 +287,172 @@ div.overlay > div {
 
                 @foreach($formaspago as $fp)
 
-                @if($fp->id==2)
+                    @if($fp->id==2)
+
+                        
+                          <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingPSE">
+                              <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsePSE" aria-expanded="true" aria-controls="collapsePSE">
+                                  PSE
+                                </a>
+                              </h4>
+                            </div>
+                            <div id="collapsePSE" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingPSE">
+                              <div class="panel-body">
+
+                                <p>
+                                    <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/pse.jpg">
+                                </p>
+
+                                <div data-id="2" class="pse col-sm-4 col-xs-6" style="padding:8px;background-color:#3c763d;color:#ffffff;">
+
+                                    <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
+
+                                </div>
 
 
 
+                              </div>
+                            </div>
+                          </div>
+
+
+                            <br>
+
+                           <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingTDC">
+                              <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTDC" aria-expanded="true" aria-controls="collapseTDC">
+                                  Tarjeta de Credito
+                                </a>
+                              </h4>
+                            </div>
+                            <div id="collapseTDC" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingTDC">
+                              <div class="panel-body">
+
+
+                                   <p>
+                                    <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/tdc.jpg">
+                                    </p> 
+
+                                 <div data-type='creditcard' id="creditcard" data-id="2" class=" col-sm-4 col-xs-6" style="padding:8px;background-color:#3c763d;color:#ffffff;">
+
+                                    <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
+
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+
+
+                            <br>
+                            
 
 
                     
-                 <div data-href="#" data-id="2" class="row forma border pointer pse ">
 
-                    <div class=" col-sm-8 col-xs-6 img-responsive" style="min-height: 1em;" class=" col-sm-8 ">
-
-                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/pse.jpg">
-
-                    </div>
-
-                    <div class=" col-sm-4 col-xs-6" style="padding:8px;background-color:#3c763d;color:#ffffff;">
-
-                        <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
-
-                    </div>
-
-                </div><br>
-                
-                <div data-type='creditcard' id="creditcard" data-id="2" class="row forma border pointer">
+                     @if($configuracion->mercadopago_sand=='1')
 
 
-                    <div class="col-sm-8 col-xs-6 img-responsive">
+                            <form action="../order/creditcard" method="POST" class="form_creditcard">
 
-                       <p>
+                              <script
+                                src="https://www.mercadopago.com.co/integrations/v1/web-tokenize-checkout.js"
 
-                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/tdc.jpg">
-                         
-                    </p> 
-
-                    </div>
-
-
-                     <div class=" col-sm-4 col-xs-6" style="padding:8px;background-color:#3c763d;color:#ffffff;">
-
-                        <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
-
-                    </div>
-
-                </div>
-
-                 @if($configuracion->mercadopago_sand=='1')
+                                data-public-key="{{ $configuracion->public_key_mercadopago_test }}"
+                                data-button-label="Pagar"
+                                data-transaction-amount="{{ $total }}"
+                              
+                                data-summary-product="{{ $total }}"
+                                data-summary-taxes="{{ $impuesto }}"
+                                >
+                              </script>
+                            </form>
 
 
-                        <form action="../order/creditcard" method="POST" class="form_creditcard">
+                            @endif
 
-                          <script
-                            src="https://www.mercadopago.com.co/integrations/v1/web-tokenize-checkout.js"
+                            @if($configuracion->mercadopago_sand=='2')
 
-                            data-public-key="{{ $configuracion->public_key_mercadopago_test }}"
-                            data-button-label="Pagar"
-                            data-transaction-amount="{{ $total }}"
-                          
-                            data-summary-product="{{ $total }}"
-                            data-summary-taxes="{{ $impuesto }}"
-                            >
-                          </script>
-                        </form>
+
+                             <form action="../order/creditcard" method="POST" class="form_creditcard">
+
+                              <script
+                                src="https://www.mercadopago.com.co/integrations/v1/web-tokenize-checkout.js"
+
+                                data-public-key="{{ $configuracion->public_key_mercadopago }}"
+                                data-button-label="Pagar"
+                                data-transaction-amount="{{ $total }}"
+                              
+                                data-summary-product="{{ $total }}"
+                                data-summary-taxes="{{ $impuesto }}"
+                                >
+                              </script>
+                            </form>
+
+                            @endif
+
+
+                    @foreach($payment_methods['response'] as $pm)
+
+                        @if($pm['payment_type_id']=='ticket')
+
+                        @if($pm['id']!='davivienda')
+
+
+
+
+
+                             <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="heading{{ $pm['id'] }}">
+                              <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $pm['id'] }}" aria-expanded="true" aria-controls="collapse{{ $pm['id'] }}">
+                                  {{ $pm['id'] }}
+                                </a>
+                              </h4>
+                            </div>
+                            <div id="collapse{{ $pm['id'] }}" class="panel-collapse collapse " role="tabpanel" aria-labelledby="heading{{ $pm['id'] }}">
+                              <div class="panel-body">
+
+
+                                   <p>
+                                    <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/{{ $pm['id'] }}.jpg">
+                                    </p> 
+
+                                 <div data-idpago="{{ $pm['id'] }}" data-type="ticket" data-id="2" class=" col-sm-4 col-xs-6 procesar" style="padding:8px;background-color:#3c763d;color:#ffffff;">
+
+                                    <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
+
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+
+
+                            <br>
+                            
+
+
+
+
+
+
+
+
+
+
+
 
 
                         @endif
-
-                        @if($configuracion->mercadopago_sand=='2')
-
-
-                         <form action="../order/creditcard" method="POST" class="form_creditcard">
-
-                          <script
-                            src="https://www.mercadopago.com.co/integrations/v1/web-tokenize-checkout.js"
-
-                            data-public-key="{{ $configuracion->public_key_mercadopago }}"
-                            data-button-label="Pagar"
-                            data-transaction-amount="{{ $total }}"
-                          
-                            data-summary-product="{{ $total }}"
-                            data-summary-taxes="{{ $impuesto }}"
-                            >
-                          </script>
-                        </form>
-
                         @endif
+                     
+                    @endforeach
 
-                <br>
-
-                @foreach($payment_methods['response'] as $pm)
-
-                    @if($pm['payment_type_id']=='ticket')
-
-                    @if($pm['id']!='davivienda')
-
-                    <div data-idpago="{{ $pm['id'] }}" data-type="ticket" data-id="2" class="row forma border pointer  procesar  ">
-
-                        <div class="col-sm-8 col-xs-6 img-responsive">
-
-                          
-                           <img class="img-responsive" alt="{{ $pm['name'] }}" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/{{ $pm['id'].'.jpg' }}">
-
-                        </div>
-
-                        <div class="col-sm-4 col-xs-6" style="padding:8px;background-color:#3c763d;color:#ffffff;">
-
-                            <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
-
-                        </div>
-
-                    </div>
-
-                    @endif
-                    @endif
-                 
-                @endforeach
-
-                <br>
+                    <br>
 
                 @elseif($fp->id==4)
 
