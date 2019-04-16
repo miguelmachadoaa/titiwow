@@ -153,64 +153,15 @@ div.overlay > div {
 
                         <input type="hidden" name="id_direccion"  id="id_direccion" value="{{ $direcciones->id }}" >
 
-                        <div class="panel">
+                        <div class="list-group">
+                            
+                            <div class="col-sm-12" style="font-weight: 600;">
 
-                            <div class="panel-body">
-
-                                  <div class="row text-center">
-                                        <div class="col-md-3 col-md-offset-3">
-                                            <h5>Departamento:</h5>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <h6>{{ $direcciones->state_name }}</h6>
-                                        </div>
-                                    </div>
-                                    <div class="row text-center">
-                                        <div class="col-md-3 col-md-offset-3">
-                                            <h5>Ciudad:</h5>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <h6>{{ $direcciones->city_name }}</h6>
-                                        </div>
-                                    </div>
-                                    <div class="row text-center">
-                                        <div class="col-md-3 col-md-offset-3">
-                                            <h5>Dirección:</h5>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <h6>{{ $direcciones->nombre_estructura.' '.$direcciones->principal_address .' #'. $direcciones->secundaria_address .'-'.$direcciones->edificio_address }}</h6>
-                                        </div>
-                                    </div>
-                                    <div class="row text-center">
-                                        <div class="col-md-3 col-md-offset-3">
-                                            <h5>Información Adicional:</h5>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <h6>{{ $direcciones->detalle_address }}</h6>
-                                        </div>
-                                    </div>
-                                    <div class="row text-center">
-                                        <div class="col-md-3 col-md-offset-3">
-                                            <h5>Barrio:</h5>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <h6>{{ $direcciones->barrio_address }}</h6>
-                                        </div>
-                                    </div>
-                                    <div class="row text-center">
-                                        <div class="col-md-3 col-md-offset-3">
-                                            <h5>Notas:</h5>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <h6>{{ $direcciones->notas }}</h6>
-                                        </div>
-                                    </div>
-
+                                <p>{{ $direcciones->state_name.' , '.$direcciones->city_name   }}</p>
+                                <p>{{ $direcciones->nombre_estructura.' '.$direcciones->principal_address .' #'. $direcciones->secundaria_address .'-'.$direcciones->edificio_address.', '.$direcciones->detalle_address.', '.$direcciones->barrio_address }}</p>
+                                <p>{{ $direcciones->notas }}</p>
                             </div>
-
                         </div>
-
-                        <!-- Se construyen las opciones de envios -->
 
                     @else
 
@@ -303,6 +254,29 @@ div.overlay > div {
 
             <div class="col-sm-12 ">
 
+
+
+            
+
+
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 <h3>    Formas de pago</h3>
 
                 <input type="hidden" name="id_forma_pago" id="id_forma_pago" value="">
@@ -319,26 +293,7 @@ div.overlay > div {
 
 
 
-                @if(isset($pse['response']['transaction_details']['external_resource_url']))
-
-                 <div data-href="{{ $pse['response']['transaction_details']['external_resource_url'] }}" data-id="2" class="row forma border pointer mercadopago ">
-
-                    <div class=" col-sm-8 col-xs-6 img-responsive" style="min-height: 1em;" class=" col-sm-8 ">
-
-                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/pse.jpg">
-
-                    </div>
-
-                    <div class=" col-sm-4 col-xs-6" style="padding:8px;background-color:#3c763d;color:#ffffff;">
-
-                        <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
-
-                    </div>
-
-                </div><br>
-
-                @endif
-
+                    
                  <div data-href="#" data-id="2" class="row forma border pointer pse ">
 
                     <div class=" col-sm-8 col-xs-6 img-responsive" style="min-height: 1em;" class=" col-sm-8 ">
@@ -374,12 +329,6 @@ div.overlay > div {
                         <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
 
                     </div>
-
-
-
-
-                       
-
 
                 </div>
 
@@ -439,8 +388,6 @@ div.overlay > div {
                           
                            <img class="img-responsive" alt="{{ $pm['name'] }}" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/{{ $pm['id'].'.jpg' }}">
 
-                          
-
                         </div>
 
                         <div class="col-sm-4 col-xs-6" style="padding:8px;background-color:#3c763d;color:#ffffff;">
@@ -456,30 +403,9 @@ div.overlay > div {
                  
                 @endforeach
 
-
-                    
-
-                
                 <br>
 
                 @elseif($fp->id==4)
-
-                <!--div  data-id={{ $fp->id }} class="row forma border pointer cupones">
-
-
-                    <div class="col-sm-8 col-xs-12">
-
-                       <p>{{ $fp->nombre_forma_pago.' , '.$fp->descripcion_forma_pago }}</p> 
-
-                    </div>
-
-                    <div class="col-sm-4 col-xs-12" style="padding:8px;background-color:#3c763d;color:#ffffff;">
-
-                        <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
-
-                    </div>
-
-                </div-->
 
 
                 @else
@@ -511,6 +437,9 @@ div.overlay > div {
 
 
             </div>
+
+    </div> <!-- end collapse -->
+
 
             <br>
 
