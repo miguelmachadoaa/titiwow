@@ -86,6 +86,11 @@ div.overlay > div {
     vertical-align:    middle;
 }
 
+.panel-title a {
+    color: #d5006e;
+}
+
+
 
 
     </style>
@@ -187,33 +192,21 @@ div.overlay > div {
 
                 <?php $c="checked"; ?> 
 
+                    <select class="form-control">
+
+
                  @foreach($formasenvio as $fe)
 
-                 <div class="row forma">
+                 
 
-                    <div class="col-sm-3 col-xs-3 border" >
+                        <option value="{{ $fe->id }}">{{ $fe->nombre_forma_envios }}</option>
+                        
 
-                        <div class="radio">
-
-                            <label><input type="radio" name="id_forma_envio" class="custom-radio" id="id_forma_envio" value="{{ $fe->id }}" {{ $c }}>&nbsp; </label>
-
-                        </div>
-
-                    </div>
-
-                    <div class="col-sm-6 col-xs-6 border">
-
-                        <p>{{ $fe->nombre_forma_envios }}</p>
-
-                    </div>
-
-                    <div class="col-sm-3 col-xs-3 border">  Gratis </div>
-
-                </div>
-
-                <?php $c=""; ?> 
 
                 @endforeach
+
+                    </select>
+
 
             </div> <!-- End form group -->
             <div class="col-sm-12">
@@ -234,8 +227,6 @@ div.overlay > div {
 
             <!-- End formas de pago -->
 
-           
-
     </div>
 
     </div> <!-- end Row --><!-- col-sm-8 -->
@@ -254,34 +245,70 @@ div.overlay > div {
 
             <div class="col-sm-12 ">
 
-
-
-            
-
-
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-  
 
-  
+               <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingPSE">
+                      <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsePSE" aria-expanded="true" aria-controls="collapsePSE">
+                         Detalle de la compra
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapsePSE" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingPSE">
+                      <div class="panel-body">
 
+                
+                            <div class="col-sm-12 col-xs-12">
 
+                                @foreach($cart as $car)
 
+                                <li style="list-style-type: none;">
 
+                                    <div class="row">
 
+                                        <div class="hidden-xs col-sm-2 ">
 
+                                           <a href="{{ route('producto', [$car->slug]) }}"> <img width="50em" src="{{ secure_url('/').'/uploads/productos/'.$car->imagen_producto }}"></a>
 
+                                        </div>
 
+                                        <div class="col-xs-9 col-sm-8 ">
 
+                                            <a href="{{ route('producto', [$car->slug]) }}" ><p>{{ $car->nombre_producto.' X '.$car->cantidad }}</p></a>
 
+                                        </div>
 
+                                        <div class="col-xs-3 col-sm-2 ">{{  number_format($car->precio_oferta*$car->cantidad,0,",",".")  }} COP</div>
 
+                                    </div>
+
+                                </li>
+
+                                @endforeach
+
+                            </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingTotal">
+                      <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTOTAL" aria-expanded="true" aria-controls="collapseTOTAL">
+                          Monto total {{ $total }}
+                        </a>
+                      </h4>
+                    </div>
+                    
+
+                  </div>
 
 
                 <h3>    Formas de pago</h3>
 
                 <input type="hidden" name="id_forma_pago" id="id_forma_pago" value="">
-
-                <?php $c="checked"; ?>
 
                 <!-- Se construyen las opciones de envios -->
 
@@ -294,29 +321,26 @@ div.overlay > div {
                             <div class="panel-heading" role="tab" id="headingPSE">
                               <h4 class="panel-title">
                                 <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsePSE" aria-expanded="true" aria-controls="collapsePSE">
-                                  PSE
+                                 PSE
                                 </a>
                               </h4>
                             </div>
                             <div id="collapsePSE" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingPSE">
                               <div class="panel-body">
 
-                                <p>
+                                <p class=" col-sm-6 col-xs-12">
                                     <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/pse.jpg">
                                 </p>
 
-                                <div data-id="2" class="pse col-sm-4 col-xs-6" style="padding:8px;background-color:#3c763d;color:#ffffff;">
+                                <div data-id="2" class="pse col-sm-6 col-xs-12" style="padding:8px;background-color:#3c763d;color:#ffffff;">
 
                                     <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
 
                                 </div>
 
-
-
                               </div>
                             </div>
                           </div>
-
 
                             <br>
 
@@ -331,12 +355,11 @@ div.overlay > div {
                             <div id="collapseTDC" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingTDC">
                               <div class="panel-body">
 
-
-                                   <p>
+                                   <p class=" col-sm-6 col-xs-12">
                                     <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/tdc.jpg">
                                     </p> 
 
-                                 <div data-type='creditcard' id="creditcard" data-id="2" class=" col-sm-4 col-xs-6" style="padding:8px;background-color:#3c763d;color:#ffffff;">
+                                 <div data-type='creditcard' id="creditcard" data-id="2" class=" col-sm-6 col-xs-12" style="padding:8px;background-color:#3c763d;color:#ffffff;">
 
                                     <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
 
@@ -348,10 +371,6 @@ div.overlay > div {
 
 
                             <br>
-                            
-
-
-                    
 
                      @if($configuracion->mercadopago_sand=='1')
 
@@ -401,15 +420,11 @@ div.overlay > div {
 
                         @if($pm['id']!='davivienda')
 
-
-
-
-
                              <div class="panel panel-default">
                             <div class="panel-heading" role="tab" id="heading{{ $pm['id'] }}">
                               <h4 class="panel-title">
                                 <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $pm['id'] }}" aria-expanded="true" aria-controls="collapse{{ $pm['id'] }}">
-                                  {{ $pm['id'] }}
+                                  {{ ucfirst ($pm['id']) }}
                                 </a>
                               </h4>
                             </div>
@@ -417,11 +432,11 @@ div.overlay > div {
                               <div class="panel-body">
 
 
-                                   <p>
+                                   <p class=" col-sm-6 col-xs-12">
                                     <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/{{ $pm['id'] }}.jpg">
                                     </p> 
 
-                                 <div data-idpago="{{ $pm['id'] }}" data-type="ticket" data-id="2" class=" col-sm-4 col-xs-6 procesar" style="padding:8px;background-color:#3c763d;color:#ffffff;">
+                                 <div data-idpago="{{ $pm['id'] }}" data-type="ticket" data-id="2" class=" col-sm-6 col-xs-12 procesar" style="padding:8px;background-color:#3c763d;color:#ffffff;">
 
                                     <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
 
@@ -431,22 +446,8 @@ div.overlay > div {
                             </div>
                           </div>
 
-
                             <br>
                             
-
-
-
-
-
-
-
-
-
-
-
-
-
                         @endif
                         @endif
                      
@@ -458,29 +459,35 @@ div.overlay > div {
 
 
                 @else
+                             <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="heading{{ $fp->id }}">
+                              <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $fp->id }}" aria-expanded="true" aria-controls="collapse{{ $fp->id }}">
+                                  {{ $fp->nombre_forma_pago }}
+                                </a>
+                              </h4>
+                            </div>
+                            <div id="collapse{{ $fp->id }}" class="panel-collapse collapse " role="tabpanel" aria-labelledby="heading{{ $fp->id }}">
+                              <div class="panel-body">
 
-                <div data-type='formaspago'  data-id="{{ $fp->id }}" class="row forma border pointer procesar">
 
+                                   <p class=" col-sm-6 col-xs-12">
+                                    {{ $fp->nombre_forma_pago }}
+                                    </p> 
 
-                    <div class="col-sm-8 col-xs-6 img-responsive">
+                                 <div data-type='formaspago'  data-id="{{ $fp->id }}" class=" col-sm-6 col-xs-12 procesar" style="padding:8px;background-color:#3c763d;color:#ffffff;">
 
-                       <p>{{ $fp->nombre_forma_pago }}</p> 
+                                    <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
 
-                    </div>
+                                </div>
 
-                    <div class="col-sm-4 col-xs-6" style="padding:8px;background-color:#3c763d;color:#ffffff;">
+                              </div>
+                            </div>
+                          </div>
 
-                        <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
-
-                    </div>
-
-                </div>
-                <br>
+                            <br>
 
                 @endif
-
-                
-
 
                 @endforeach
 
@@ -501,20 +508,6 @@ div.overlay > div {
             </div> 
 
             @endif 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
