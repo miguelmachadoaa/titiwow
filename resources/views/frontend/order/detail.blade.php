@@ -299,7 +299,8 @@ div.overlay > div {
                     <h3>  Monto</h3>
 
                     @include('frontend.includes.detallescompra')
-                  
+                    
+                    <div class="clearfix"></div>
                     <h3 >  Formas de pago</h3>
 
                         <input type="hidden" name="id_forma_pago" id="id_forma_pago" value="">
@@ -321,7 +322,7 @@ div.overlay > div {
                                     </a>
                                   </h4>
                                 </div>
-                                <div id="collapsePSE" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingPSE">
+                                <div id="collapsePSE" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingPSE">
                                   <div class="panel-body">
 
                                     <p class=" col-sm-6 col-xs-12">
