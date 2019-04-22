@@ -21,6 +21,7 @@
             <th><b>Retencion ICA Mercadopago</b></th>
             <th><b>Total a Transferir</b></th>
             <th><b>Embajador</b></th>
+            <th><b>Empresa Asociada</b></th>
 
         </tr>
     </thead>
@@ -85,10 +86,38 @@
             <td>{!! $row->retencion_ica_mp !!}</td>
             <td>{!! $row->monto_total-$row->comision_mp-$row->retencion_fuente_mp-$row->retencion_iva_mp-$row->retencion_ica_mp  !!}</td>
             @if($row->id_embajador == 0)
+
                 <td>No aplica</td>
+
             @else
+
+                @if(isset($embajadores[$row->id_embajador]))
+
+
                 <td>{!! $embajadores[$row->id_embajador]->first_name.' '.$embajadores[$row->id_embajador]->last_name !!}</td>
+
+                @else
+
+                <td>No aplica</td>
+
+
+                @endif
+
             @endif
+
+                
+                @if(isset($empresas[$row->id_empresa]))
+
+                <td>{!! $empresas[$row->id_empresa]->nombre_empresa !!}</td>
+                        
+
+                @else
+
+                <td>No Aplica</td>
+
+
+                @endif
+
           
         </tr>
         @endforeach

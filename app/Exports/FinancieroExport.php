@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use App\User;
 use App\Models\AlpOrdenes;
+use App\Models\AlpEmpresas;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -45,6 +46,7 @@ class FinancieroExport implements FromView
           'alp_clientes.cod_oracle_cliente as cod_oracle_cliente', 
           'alp_clientes.id_embajador as id_embajador', 
           'alp_clientes.doc_cliente as doc_cliente', 
+          'alp_clientes.id_empresa as id_empresa', 
           'users.first_name as first_name', 
           'users.last_name as last_name', 
           'users.email as email', 
@@ -81,8 +83,16 @@ class FinancieroExport implements FromView
 
           }
 
+          $e=AlpEmpresas::get();
+
+          $empresas = array();
+
+          foreach ($e as $em ) {
+            $empresas[$em->id]=$em;
+          }
+
         return view('admin.exports.financiero', [
-            'ventas' => $ordenes, 'embajadores'=>$d
+            'ventas' => $ordenes, 'embajadores'=>$d, 'empresas'=>$empresas
         ]);
     }
 }
