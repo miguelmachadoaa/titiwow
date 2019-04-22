@@ -264,9 +264,6 @@ class AlpCartController extends JoshController
     public function mercadopago()
     {
 
-
-
-
     $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
             ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
             ->join('alp_clientes','alp_ordenes.id_cliente' , '=', 'alp_clientes.id_user_client')
@@ -1062,173 +1059,6 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
     }
 
-     public function failure(Request $request)
-    {
-       
-      $configuracion=AlpConfiguracion::where('id', '1')->first();
-
-      $carrito= \Session::get('cr');   
-
-       $impuesto=$this->impuesto();   
-
-        $cart= \Session::get('cart');
-
-        $total=$this->total();
-
-      if (!isset($request->collection_status) || $request->collection_status=='null') {
-
-       
-
-        if (Sentinel::check()) {
-
-        $user_id = Sentinel::getUser()->id;
-
-        $usuario=User::where('id', $user_id)->first();
-
-        $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
-
-        $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-          ->where('alp_direcciones.id_client', $user_id)->first();
-
-           $formasenvio = AlpFormasenvio::select('alp_formas_envios.*')
-          ->join('alp_rol_envio', 'alp_formas_envios.id', '=', 'alp_rol_envio.id_forma_envio')
-          ->where('alp_rol_envio.id_rol', $role->role_id)->get();
-
-
-          $formaspago = AlpFormaspago::select('alp_formas_pagos.*')
-          ->join('alp_rol_pago', 'alp_formas_pagos.id', '=', 'alp_rol_pago.id_forma_pago')
-          ->where('alp_rol_pago.id_rol', $role->role_id)->get();
-
-          $countries = Country::all();
-
-          $inv = $this->inventario();
-
-          $pagos=AlpPagos::where('id_orden', $carrito)->get();
-
-          $total_pagos=0;
-
-          foreach ($pagos as $pago) {
-
-            $total_pagos=$total_pagos+$pago->monto_pago;
-
-          }
-
-         if(count($cart)<=0){
-
-            return redirect('productos');
-
-         }else{
-
-          $items = array();
-
-          $list=array();
-
-         
-              $items["id"]=$carrito;
-              $items["title"]='Orden Alpina Nro. '.$carrito;
-              $items["description"]='Orden Alpina Nro. '.$carrito;
-              $items["picture_url"]= '#';
-              $items["quantity"]=1;
-              $items["currency_id"]='COP';
-              $items["unit_price"]=intval($total-$total_pagos);
-
-              $list[]=$items;
-
-
-            $preference_data = [
-              "items" => $list,
-              "payer" => [
-                "name" => $usuario->first_name,
-                "surname" => $usuario->last_name,
-                "email" => $usuario->email,
-              ],
-              "auto_return" => 'approved',
-              "back_urls" => [
-                "success" => secure_url('/order/success'),
-                "failure" => secure_url('/order/failure'),
-                "pending" => secure_url('/order/pending')
-              ],
-              "notification_url" =>secure_url('/order/mercadopago'),
-              "external_reference" =>time()
-            ];
-
-           $mp = new MP();
-
-           if ($configuracion->mercadopago_sand=='1') {
-          
-          $mp::sandbox_mode(TRUE);
-
-        }
-
-        if ($configuracion->mercadopago_sand=='2') {
-          
-          $mp::sandbox_mode(FALSE);
-
-        }
-
-            MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
-
-          $preference = MP::post("/checkout/preferences",$preference_data);
-
-          $this->saveOrden($preference);
-
-
-
-        /*  $pse_data = '{
-         "payer": {
-             "email": "'.$usuario->email.'",
-             "entity_type": "individual",
-             "identification": {
-                 "type": "CC",
-                 "number": "123456"
-             }
-         },
-         "description": "'.'Pago de orden Nro.'.$carrito.'",
-         "callback_url": "https://alpinago.com/public/orden/pse",
-         "additional_info": {
-             "ip_address": "172.17.0.1"
-         },
-         "payment_method_id": "pse",
-         "transaction_amount": '.$total.',
-         "transaction_details": {
-             "financial_institution": 1007
-         },
-         "net_amount": '.$net_amount.',
-         "taxes":[{
-                             "value": '.$impuesto.',
-                             "type": "IVA"
-                     }]
-     }';
-
-
-          $pse = MP::post("/v1/payments",$pse_data);*/
-
-           $pse = array();
-
-          $payment_methods = MP::get("/v1/payment_methods");
-            //$preference=null;
-
-            ///print_r($preference);
-
-            $states=State::where('config_states.country_id', '47')->get();
-
-            $tdocumento=AlpTDocumento::get();
-
-            return view('frontend.order.failure', compact('cart', 'total', 'impuesto', 'direcciones', 'formasenvio', 'formaspago', 'countries','preference', 'states', 'configuracion', 'inv', 'pagos', 'total_pagos', 'payment_methods', 'pse', 'tdocumento'));
-
-
-         }
-
-      }
-
-    }
-
-  }
-
 
   public function orderProcesarTicket(Request $request)
     {
@@ -1358,10 +1188,12 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
             $aviso_pago="Hemos procesado su orden satisfactoriamente, Su id para realizar el deposito en efectivo es <h4>".$payment['response']['id']."</h4>. Las indicaciones para finalizar su pago puede seguirlas en este enlace <a target='_blank' href='".$payment['response']['transaction_details']['external_resource_url']."' >Ticket</a>. Tiene 72 Horas para realizar el pago, o su orden sera cancelada. ¡Muchas gracias por su Compra!";
 
+            $metodo=$payment['response']['payment_method_id'];
+
 
             
 
-            return view('frontend.order.procesarticket', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago', 'payment', 'estatus_aviso'));
+            return view('frontend.order.procesarticket', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago', 'payment', 'estatus_aviso', 'metodo'));
 
         }else{
 
@@ -1577,149 +1409,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
 
-
-
-
-      public function success(Request $request)
-    {
-
-
-   /* if ($request->collection_status=='approved') {*/
-     
-      $input=$request->all();
-
-      $cart= \Session::get('cart');
-
-      $id_orden= \Session::get('orden');
-
-      $total=$this->total();
-
-      if (Sentinel::check()) {
-
-        $user_id = Sentinel::getUser()->id;
-
-        $data=$this->generarPedido('1', '2', $input, 'mercadopago');
-
-        $id_orden=$data['id_orden'];
-        
-        $fecha_entrega=$data['fecha_entrega'];
-
-         $aviso_pago="Hemos recibido su pago satisfactoriamente, una vez sea confirmado, Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!";
-
-       //  $datalles=AlpDetalles::where('id_orden', $orden->id)->get();
-
-        $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
-            ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
-            ->join('alp_clientes','alp_ordenes.id_cliente' , '=', 'alp_clientes.id_user_client')
-            ->join('alp_formas_envios','alp_ordenes.id_forma_envio' , '=', 'alp_formas_envios.id')
-            ->join('alp_formas_pagos','alp_ordenes.id_forma_pago' , '=', 'alp_formas_pagos.id')
-            ->where('alp_ordenes.id', $id_orden)->first();
-
-
-        $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug')
-          ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
-          ->where('alp_ordenes_detalle.id_orden', $id_orden)->get();
-
-
-         $cart= \Session::forget('cart');
-
-         $states=State::where('config_states.country_id', '47')->get();
-
-         $configuracion = AlpConfiguracion::where('id','1')->first();
-
-          $user_cliente=User::where('id', $user_id)->first();
-
-          $texto='Se ha creado la siguiente orden '.$compra->id.' y esta a espera de aprobacion  ';
-
-          //Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionOrden($compra->id, $texto));
-
-         // Mail::to($configuracion->correo_cedi)->send(new \App\Mail\NotificacionOrden($compra->id, $texto));
-
-
-        Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
-
-        Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
-          
-
-          return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
-        
-
-      }else{
-
-          return redirect('login');
-      }
-
-
-}
-
-      public function pending(Request $request)
-    {
-
-    //if ($request->collection_status=='approved') {
-     
-      $input=$request->all();
-
-      $cart= \Session::get('cart');
-
-      $orden_data= \Session::get('orden');
-
-      $total=$this->total();
-
-      if (Sentinel::check()) {
-
-        $user_id = Sentinel::getUser()->id;
-
-         $data=$this->generarPedido('8', '4', $input, 'mercadopago');
-
-        $id_orden=$data['id_orden'];
-        
-        $fecha_entrega=$data['fecha_entrega'];
-
-         $aviso_pago="Su pago está siendo procesado , deberá finalizar el proceso en 24 horas o su pedido será cancelado.!";
-
-       //  $datalles=AlpDetalles::where('id_orden', $orden->id)->get();
-
-        $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
-            ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
-            ->join('alp_clientes','alp_ordenes.id_cliente' , '=', 'alp_clientes.id_user_client')
-            ->join('alp_formas_envios','alp_ordenes.id_forma_envio' , '=', 'alp_formas_envios.id')
-            ->join('alp_formas_pagos','alp_ordenes.id_forma_pago' , '=', 'alp_formas_pagos.id')
-            ->where('alp_ordenes.id', $id_orden)->first();
-
-
-        $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto','alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug')
-          ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
-          ->where('alp_ordenes_detalle.id_orden', $id_orden)->get();
-
-         $cart= \Session::forget('cart');
-
-         $states=State::where('config_states.country_id', '47')->get();
-
-         $configuracion = AlpConfiguracion::where('id','1')->first();
-
-          $user_cliente=User::where('id', $user_id)->first();
-
-          $texto='Se ha creado la siguiente orden '.$compra->id.' y está en proceso de espera para aprobación de pago, deberá completar el pago en 24 horas o la orden será cancelada';
-
-
-        Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
-
-        Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
-          
-
-          return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
-
-      }else{
-
-          return redirect('login');
-      }
-
-
-}
-
-
-
-
  public function saveOrden($preference){
 
 
@@ -1784,9 +1473,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
     }
-
-
-
 
 
 
@@ -1861,10 +1547,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
        $fecha_entrega=$date->addDays($ciudad_forma->dias)->format('d-m-Y');
-
-
-
-
 
         $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
 
@@ -2147,8 +1829,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
     {
 
 
-
-
           $producto=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
           ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
           ->where('alp_productos.slug', $request->slug)
@@ -2232,8 +1912,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
        // return json_encode($cart);
       
     }
-
-
 
     public function addtocartsingle( Request $request)
     {
