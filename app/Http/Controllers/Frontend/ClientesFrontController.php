@@ -1022,7 +1022,6 @@ class ClientesFrontController extends Controller
 
         if ($direccion->id) {
 
-
             Activation::remove($user);
                         //add new record
             Activation::create($user);   
@@ -1040,7 +1039,8 @@ class ClientesFrontController extends Controller
             AlpClientesHistory::create($data_history);
 
             $data_cliente = array(
-            'estado_masterfile' => 0
+            'estado_masterfile' => 0,
+            'cod_oracle_cliente' => ''
              );
 
         $cliente=AlpClientes::where('id_user_client', $user->id)->withTrashed()->first();
