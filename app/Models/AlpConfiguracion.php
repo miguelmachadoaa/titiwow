@@ -50,6 +50,7 @@ class AlpConfiguracion extends Model
         'seo_image',
         'seo_site_name',
         'seo_description',
+        'vence_ordenes',
         'estado_registro',
         'id_user'
     ];

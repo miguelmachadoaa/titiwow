@@ -43,6 +43,7 @@ class CreateAlpConfiguracionGeneralTable extends Migration
             $table->string('seo_image')->nullable();
             $table->string('seo_site_name')->nullable();
             $table->string('seo_description')->nullable();
+            $table->integer('vence_ordenes')->nullable();
             $table->integer('estado_registro')->default(1);
             $table->integer('id_user');
             $table->timestamps();
