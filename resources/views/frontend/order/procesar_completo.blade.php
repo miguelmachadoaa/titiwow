@@ -22,6 +22,25 @@ Carro de Productos
 
     <link href="{{ secure_asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
 
+    <style>
+        
+
+        .texto_pago_yellow {
+            color: #333 !important;
+            margin-bottom: 15px !important;
+            font-size: 22px !important;
+        }
+
+
+        .alert-yellow {
+            color: #333;
+            background-color: #ffff52!important;
+            border-color: #ffff52!important;
+        }
+
+
+    </style>
+
 @stop
 
 {{-- breadcrumb --}}
@@ -56,19 +75,19 @@ Carro de Productos
         @if($aviso_pago!='0')
 
 
-        <div class="col-sm-12">
-            <div class="alert @if(isset($estatus_aviso)) alert-{{ $estatus_aviso }} @else alert-success @endif  alertita" >
-                
-               <span class="texto_pagho">{{ $aviso_pago }}</span> 
+            <div class="col-sm-12">
+                <div class="alert alert-{{$aviso_pago['tipo']}}  alertita" >
+                    
+                   <span class="texto_pago_{{$aviso_pago['tipo']}}">{{ $aviso_pago['mensaje'] }}</span> 
+                </div>
             </div>
-        </div>
         @endif
 
         <div class="col-sm-12">
 
             <h3>Gracias por su compra, recibirá un correo con el detalle de su pedido</h3>
 
-            <h5>Su forma de Pago fue: <b>{{ $compra->nombre_forma_pago }}</b> </h5>
+            <h5>Su forma de Pago fue: <b>{{ $aviso_pago['medio'] }}</b> </h5>
 
             <h5>Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y será entregado {{ $fecha_entrega }}</h5>
 

@@ -477,7 +477,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
         $fecha_entrega=$data['fecha_entrega'];
        
-         $aviso_pago="Estamos verificando su pago, una vez sea confirmado, Le llegará un email con la descripción de su pedido. En caso de existir algún error en el pago le invitamos a Mis Compras desde su perfil para intentar pagar nuevamente";
+         
 
         $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
             ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
@@ -504,6 +504,15 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
       //  Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
           
           $estatus_aviso='warning';
+
+          $aviso_pago="Estamos verificando su pago, una vez sea confirmado, Le llegará un email con la descripción de su pedido. En caso de existir algún error en el pago le invitamos a Mis Compras desde su perfil para intentar pagar nuevamente";
+
+
+          $aviso_pago = array(
+            'tipo' => 'yellow', 
+            'medio' => 'PSE', 
+            'mensaje' => 'Estamos verificando su pago, una vez sea confirmado, Le llegará un email con la descripción de su pedido. En caso de existir algún error en el pago le invitamos a Mis Compras desde su perfil para intentar pagar nuevamente', 
+          );
           
           return view('frontend.order.procesar_completo', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago', 'estatus_aviso'));
         
@@ -799,7 +808,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
             $fecha_entrega=$data['fecha_entrega'];
 
-            $aviso_pago="Hemos recibido su pago satisfactoriamente, una vez sea confirmado, Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!";
+
 
             //  $datalles=AlpDetalles::where('id_orden', $orden->id)->get();
 
@@ -824,6 +833,15 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
 
            $texto='Se ha creado la siguiente orden '.$compra->id.' y esta a espera de aprobacion  ';
+
+           $aviso_pago="Hemos recibido su pago satisfactoriamente, una vez sea confirmado, Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!";
+
+            $aviso_pago = array(
+            'tipo' => 'success', 
+            'texto' => 'yellow', 
+            'medio' => 'Targeta de Credito', 
+            'mensaje' => 'Hemos recibido su pago satisfactoriamente, una vez sea confirmado, Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!', 
+          );
 
 
             Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
@@ -1303,7 +1321,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
 
 
-           $aviso_pago="Hemos procesado su orden satisfactoriamente, Su id para realizar el deposito en efectivo es <h4>".$payment['response']['id']."</h4>. Las indicaciones para finalizar su pago puede seguirlas en este enlace <a target='_blank' href='".$payment['response']['transaction_details']['external_resource_url']."' >Ticket</a>. Tiene 72 Horas para realizar el pago, o su orden sera cancelada. ¡Muchas gracias por su Compra!";
+           
 
          //  $datalles=AlpDetalles::where('id_orden', $orden->id)->get();
 
@@ -1337,6 +1355,10 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
         //  Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
 
             $estatus_aviso='success';
+
+            $aviso_pago="Hemos procesado su orden satisfactoriamente, Su id para realizar el deposito en efectivo es <h4>".$payment['response']['id']."</h4>. Las indicaciones para finalizar su pago puede seguirlas en este enlace <a target='_blank' href='".$payment['response']['transaction_details']['external_resource_url']."' >Ticket</a>. Tiene 72 Horas para realizar el pago, o su orden sera cancelada. ¡Muchas gracias por su Compra!";
+
+
             
 
             return view('frontend.order.procesarticket', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago', 'payment', 'estatus_aviso'));
