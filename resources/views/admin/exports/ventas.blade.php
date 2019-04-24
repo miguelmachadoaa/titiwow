@@ -32,9 +32,21 @@
             <td>{!! $venta->nombre_forma_pago !!}</td>
             <td>
 
-                @if($venta->json)
+                  @if(isset($venta->json))
+            
+                    @if(isset(json_decode($venta->json)->payment_type))
 
-                    {{  json_decode($venta->json)->payment_type }}
+                        {{  json_decode($venta->json)->payment_type }}
+
+                    @endif
+
+                    @if(isset(json_decode($venta->json)->response->payment_type))
+
+                        {{  json_decode($venta->json)->response->payment_type }}
+
+                    @endif
+
+
 
                 @endif
 

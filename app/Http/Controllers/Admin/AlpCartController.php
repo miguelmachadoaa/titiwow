@@ -675,6 +675,30 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
     public function orderRapipago(Request $request)
     {
+
+       $configuracion=AlpConfiguracion::where('id', '1')->first();
+
+        $mp = new MP();
+
+        MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+
+           if ($configuracion->mercadopago_sand=='1') {
+          
+          $mp::sandbox_mode(TRUE);
+
+        }
+
+        if ($configuracion->mercadopago_sand=='2') {
+          
+          $mp::sandbox_mode(FALSE);
+
+        }
+      
+      $payment_methods = MP::get("/v1/payment_methods");
+
+      dd($payment_methods);
+
+
     
 }
 
@@ -1351,9 +1375,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           'estatus' =>$estatus_orden, 
           'estatus_pago' =>$estatus_pago,
           'comision_mp' =>(($orden->monto_total*$comision_mp)+($orden->monto_total*$comision_mp*0.19)),
-          'retencion_fuente_mp' =>$orden->base_impuesto*$retencion_fuente_mp,
+          'retencion_fuente_mp' =>($orden->monto_total-$orden->monto_impuesto)*$retencion_fuente_mp,
           'retencion_iva_mp' =>$orden->monto_impuesto*$retencion_iva_mp,
-          'retencion_ica_mp' =>$orden->base_impuesto*$retencion_ica_mp
+          'retencion_ica_mp' =>($orden->monto_total-$orden->monto_impuesto)*$retencion_ica_mp
            );
 
         }else{
