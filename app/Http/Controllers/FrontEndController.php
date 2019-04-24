@@ -430,6 +430,7 @@ class FrontEndController extends JoshController
             if($request->chkalpinista == 1) {
 
                 $codalpin = AlpCodAlpinistas::where('documento_alpi', $request->doc_cliente)->where('codigo_alpi', $request->cod_alpinista)->where('estatus_alpinista',1)->first();
+
                 if ($codalpin) {
 
                     $activate=false;
@@ -439,11 +440,14 @@ class FrontEndController extends JoshController
 
 
                 }else{
-                    return redirect('registro')->with('error', trans('auth/message.failure.error'))->withInput();;
+
+                    return redirect('registro')->with('error', trans('auth/message.failure.error'))->withInput();
 
                 }
 
             }else{
+
+
                 $activate=false;
 
 
@@ -503,7 +507,21 @@ class FrontEndController extends JoshController
             }else{
 
 
-                $masterfi=0;
+
+                $dominio=explode('@', $request->email);
+
+                $empresa=AlpEmpresas::where('dominio',$dominio[1])->first();
+
+               // dd($empresa);
+
+                $id_empresa=0;
+
+                if (isset($empresa->id)) {
+
+                    $id_empresa=$empresa->id;
+
+                   
+                }
 
                     $data = array(
                     'id_user_client' => $user->id, 
@@ -512,7 +530,7 @@ class FrontEndController extends JoshController
                     'telefono_cliente' => $request->telefono_cliente,
                     'habeas_cliente' => $request->habeas_cliente,
                     'estado_masterfile' =>0,
-                    'id_empresa' =>'0',               
+                    'id_empresa' =>$id_empresa,               
                     'id_embajador' =>'0',               
                     'id_user' =>0,               
                 );
@@ -576,7 +594,16 @@ class FrontEndController extends JoshController
             }else{
 
                 //add user to 'Cliente' group
-                $role = Sentinel::findRoleById(9);
+
+                if ($id_empresa==0) {
+
+                    $role = Sentinel::findRoleById(9);
+
+                }else{
+
+                    $role = Sentinel::findRoleById(12);
+
+                }
 
                 $role->users()->attach($user);
 
@@ -597,7 +624,29 @@ class FrontEndController extends JoshController
                 // Send the activation code through email
                 //Mail::to($user->email)->send(new Register($data));
                 //Redirect to login page
+
+                if ($id_empresa==0) {
+
+                   
                 return redirect('login')->with('success', trans('auth/message.signup.success'));
+                 
+
+
+                }else{
+
+                    $mensaje="Ha sido registrado satisfactoriamente bajo la empresa ".$empresa->nombre_empresa.", debe esperar que su Usuario sea activado en un proceso interno, te notificaremos vía email su activación.";
+
+                return redirect('login')->with('success', trans($mensaje));
+
+                }
+
+
+
+
+
+
+
+
             }
             // login user automatically
             Sentinel::login($user, false);
@@ -607,7 +656,11 @@ class FrontEndController extends JoshController
                 ->causedBy($user)
                 ->log('Nueva Cuenta Creada');
             // Redirect to the home page with success menu
+
+
             return Redirect::route("clientes")->with('success', trans('auth/message.signup.success'));
+
+
 
         } catch (UserExistsException $e) {
             $this->messageBag->add('email', trans('auth/message.account_already_exists'));
