@@ -145,6 +145,22 @@ Editar Empresa
 
                         </div>
 
+                        <div class="form-group {{ $errors->
+                            first('dominio', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Dominio Empresa
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="text" id="dominio" name="dominio" class="form-control" placeholder="Dominio de Empresa"
+                                       value="{!! old('dominio', $empresas->dominio) !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('dominio', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
+
 
 
 

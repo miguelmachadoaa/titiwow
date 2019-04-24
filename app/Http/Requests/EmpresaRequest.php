@@ -28,6 +28,7 @@ class EmpresaRequest extends FormRequest {
             'nombre_empresa' => 'required|min:3',
             'descripcion_empresa' => 'required|min:3',
 			'descuento_empresa' => 'required',
+			'dominio' => 'required',
 		];
 	}
 

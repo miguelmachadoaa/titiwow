@@ -16,6 +16,7 @@ class CreateAlpEmpresasTable extends Migration
         Schema::create('alp_empresas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre_empresa');
+            $table->string('dominio');
             $table->text('descripcion_empresa')->nullable();
             $table->decimal('descuento_empresa');
             $table->integer('estado_registro')->default(1);
