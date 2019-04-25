@@ -6,6 +6,11 @@
 @parent
 @stop
 
+@section('header_styles')
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
+    <link href="{{ secure_asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
+@stop
+
 {{-- Content --}}
 @section('content')
 <section class="content-header">
@@ -38,7 +43,7 @@
                     @if ($clientes->count() >= 1)
                         <div class="table-responsive">
 
-                        <table class="table table-bordered">
+                        <table class="table table-bordered" id="table">
                             <thead>
                                 <tr>
                                     <th>Id</th>
@@ -247,6 +252,8 @@
 
 <!-- Modal Direccion -->
 
+<script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
 
 
 
@@ -261,6 +268,9 @@
 
 <script type="text/javascript">
 
+    $(document).ready(function(){
+         $('#table').DataTable();
+    });
 
 
     $("#activarUsuarioForm").bootstrapValidator({
