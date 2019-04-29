@@ -31,8 +31,8 @@ Editar Cupon
             <div class="panel panel-primary ">
                 <div class="panel-heading">
                     <h4 class="panel-title"> <i class="livicon" data-name="wrench" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Configurar Cupon 
-                    </h4>
+                       Configurar Cupon  Categorias y productos
+                    </h4> 
                 </div>
                 <div class="panel-body">
 
@@ -85,56 +85,7 @@ Editar Cupon
                         </div>
                     </fieldset>
 
-                    <hr>
-
-
-
-                    <fieldset>
-                        <legend>Filtro para Empresas</legend>
-
-                        <div class="row">
-                                
-                             <div class="form-group col-sm-8 {{ $errors->first('id_empresa', 'has-error') }}">
-                                <label for="select21" class="col-sm-4 control-label">
-                                  Empresas
-                                </label>
-                                <div class="col-sm-8">   
-
-                                 <select id="id_empresa" name="id_empresa" class="form-control ">
-                                    
-                                    <option value="">Seleccione</option>
-                                    @foreach($empresas as $empresa)
-
-                                        <option value="{{$empresa->id}}">{{$empresa->nombre_empresa}}</option>
-                                    @endforeach
-
-                                </select>
-
-                                  {!! $errors->first('id_empresa', '<span class="help-block">:message</span> ') !!}
-                                </div>
-                           
-                            </div>
-
-                            <div class="form-group col-sm-4">
-                                <div class="col-sm-offset-2 col-sm-4">
-                                    
-
-                                    <button type="button" class="btn btn-success addEmpresaCupon" >
-                                        Agregar
-                                    </button>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="row listempresas">
-
-                          @include('frontend.cupones.listempresas')
-
-
-                        </div>
-                    </fieldset>
-
+                   
 
                     <hr>
 
@@ -179,6 +130,83 @@ Editar Cupon
                         <div class="row listproductos">
 
                           @include('frontend.cupones.listproductoss')
+
+
+                        </div>
+                    </fieldset>
+
+
+                   
+                      
+                      
+                   
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="panel panel-primary ">
+                <div class="panel-heading">
+                    <h4 class="panel-title"> <i class="livicon" data-name="wrench" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                       Configurar Cupon  Empresas, roles y clientes
+                    </h4>
+                </div>
+                <div class="panel-body">
+
+                    <input type="hidden" name="id_cupon" id="id_cupon" value="{{ $cupon->id }}">
+
+                        
+                    <fieldset>
+                        <legend>Filtro para Empresas</legend>
+
+                        <div class="row">
+                                
+                             <div class="form-group col-sm-8 {{ $errors->first('id_empresa', 'has-error') }}">
+                                <label for="select21" class="col-sm-4 control-label">
+                                  Empresas
+                                </label>
+                                <div class="col-sm-8">   
+
+                                 <select id="id_empresa" name="id_empresa" class="form-control ">
+                                    
+                                    <option value="">Seleccione</option>
+                                    @foreach($empresas as $empresa)
+
+                                        <option value="{{$empresa->id}}">{{$empresa->nombre_empresa}}</option>
+                                    @endforeach
+
+                                </select>
+
+                                  {!! $errors->first('id_empresa', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                           
+                            </div>
+
+                            <div class="form-group col-sm-4">
+                                <div class="col-sm-offset-2 col-sm-4">
+                                    
+
+                                    <button type="button" class="btn btn-success addEmpresaCupon" >
+                                        Agregar
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row listempresas">
+
+                          @include('frontend.cupones.listempresas')
 
 
                         </div>
@@ -232,10 +260,65 @@ Editar Cupon
 
                         </div>
                     </fieldset>
+
+                     <hr>
+
+                    <fieldset>
+                        <legend>Filtro para Roles</legend>
+
+                        <div class="row">
+                                
+                             <div class="form-group col-sm-8 {{ $errors->first('id_rol', 'has-error') }}">
+                                <label for="select21" class="col-sm-4 control-label">
+                                  Cliente
+                                </label>
+                                <div class="col-sm-8">   
+
+                                 <select id="id_rol" name="id_rol" class="form-control ">
+                                    
+                                    <option value="">Seleccione</option>
+                                    @foreach($roles as $rol)
+
+                                        <option value="{{$rol->id}}">{{$rol->name}}</option>
+
+                                    @endforeach
+
+                                </select>
+
+                                  {!! $errors->first('id_rol', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                           
+                            </div>
+
+                            <div class="form-group col-sm-4">
+                                <div class="col-sm-offset-2 col-sm-4">
+                                    
+
+                                    <button type="button" class="btn btn-success addRol" >
+                                        Agregar
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row listroles">
+
+                          @include('frontend.cupones.listroles')
+
+
+                        </div>
+                    </fieldset>
+                      
                       
                    
                 </div>
             </div>
+
+
+
+
+
         </div>
     </div>
 
@@ -454,6 +537,57 @@ Editar Cupon
             complete: function(datos){     
 
                 $(".listclientes").html(datos.responseText);
+
+            }
+        });
+
+    });
+
+
+       $('.addRol').on('click', function(){
+
+        base = $('#base').val();
+
+        id_rol = $('#id_rol').val();
+
+        id_cupon = $('#id_cupon').val();
+
+        _token = $('#_token').val();
+
+
+         $.ajax({
+            type: "POST",
+            data:{ id_rol, id_cupon, _token},
+            url: base+"/admin/cupones/"+id_rol+"/addrol",
+                
+            complete: function(datos){     
+
+                $(".listroles").html(datos.responseText);
+
+            }
+        });
+
+    });
+
+    $(document).on('click','.delcuponrol',  function(){
+
+        base = $('#base').val();
+
+        id = $(this).data('id');
+
+        id_cupon = $(this).data('idcupon');
+
+        _token = $('#_token').val();
+
+
+         $.ajax({
+            type: "POST",
+            data:{ id, id_cupon, _token},
+            url: base+"/admin/cupones/"+id+"/delrol",
+                
+            complete: function(datos){     
+
+                $(".listroles").html(datos.responseText);
 
             }
         });

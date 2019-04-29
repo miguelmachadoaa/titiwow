@@ -28,7 +28,7 @@
 
 @else
 
-<div class="alert alert-danger">
+<div class="badge badge-danger">
     No hay categorias asignadas
 </div>
 

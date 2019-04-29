@@ -1,4 +1,4 @@
-  @if(count($empresas_list)>0)
+  @if(count($roles_list)>0)
 
                             <table class="table">
                                 <thead>
@@ -8,12 +8,12 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($empresas_list as $empresa)
+                                    @foreach($roles_list as $rol)
             
                                     <tr>
-                                        <td>{{$empresa->nombre_empresa}}</td>
+                                        <td>{{$rol->name}}</td>
                                         <td>
-                                            <button data-idcupon="{{$empresa->id_cupon}}" data-id="{{$empresa->id}}" class="btn btn-danger delcuponempresa">
+                                            <button data-idcupon="{{$rol->id_cupon}}" data-id="{{$rol->id}}" class="btn btn-danger delcuponrol">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         </td>
@@ -29,7 +29,7 @@
                             @else
             
                             <div class="badge badge-danger">
-                                No hay Empresas asignadas
+                                No hay Roles asignados
                             </div>
 
                             @endif

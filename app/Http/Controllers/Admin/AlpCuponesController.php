@@ -346,17 +346,78 @@ class AlpCuponesController extends JoshController
 
 
 
+      public function addrol(Request $request)
+    {
+
+         $user_id = Sentinel::getUser()->id;
+
+       
+        $data = array(
+            'id_cupon' => $request->id_cupon, 
+            'id_rol' => $request->id_rol, 
+            'user_id' => $request->user_id
+        );
+
+
+
+        AlpCuponesRol::create($data);
+
+      
+          
+            $roles_list = AlpCuponesRol::select('alp_cupones_rol.*', 'roles.name as name')
+          ->join('roles', 'alp_cupones_rol.id_rol', '=', 'roles.id')
+          ->where('alp_cupones_rol.id_cupon', $request->id_cupon)
+          ->get();
+
+
+          $view= View::make('frontend.cupones.listroles', compact('roles_list'));
+
+      $data=$view->render();
+
+      return $data;
+
+
+    }
+
+ public function delrol(Request $request)
+    {
+
+         $user_id = Sentinel::getUser()->id;
+
+
+         $cat=AlpCuponesRol::where('id', $request->id)->first();
+
+         $cat->delete();
+       
+
+           
+            $roles_list = AlpCuponesRol::select('alp_cupones_rol.*', 'roles.name as name')
+          ->join('roles', 'alp_cupones_rol.id_rol', '=', 'roles.id')
+          ->where('alp_cupones_rol.id_cupon', $request->id_cupon)
+          ->get();
+
+
+          $view= View::make('frontend.cupones.listroles', compact('roles_list'));
+
+      $data=$view->render();
+
+      return $data;
+
+
+    }
+
+
+
 
     public function configurar($id)
     {
        
        $cupon = AlpCupones::find($id);
 
-       $clientes=AlpClientes::get();
-
+       
        $empresas=AlpEmpresas::get();
 
-     //  $roles=Roles::select('roles.id', 'roles.name')->get();
+       $roles=Roles::select('roles.id', 'roles.name')->get();
 
        $productos=AlpProductos::get();
 
@@ -365,6 +426,9 @@ class AlpCuponesController extends JoshController
        $clientes = AlpClientes::select('alp_clientes.*', 'users.first_name as first_name', 'users.last_name as last_name')
           ->join('users', 'alp_clientes.id_user_client', '=', 'users.id')
           ->get();
+
+        $roles = Roles::all();
+
 
 
 
@@ -393,8 +457,14 @@ class AlpCuponesController extends JoshController
           ->get();
 
 
+          $roles_list = AlpCuponesRol::select('alp_cupones_rol.*', 'roles.name as name')
+          ->join('roles', 'alp_cupones_rol.id_rol', '=', 'roles.id')
+          ->where('alp_cupones_rol.id_cupon', $id)
+          ->get();
 
-        return view('admin.cupones.configurar', compact('cupon', 'categorias', 'clientes', 'empresas', 'productos', 'categorias_list', 'empresas_list', 'clientes_list', 'productos_list'));
+
+
+        return view('admin.cupones.configurar', compact('cupon', 'categorias', 'clientes', 'empresas', 'productos', 'categorias_list', 'empresas_list', 'clientes_list', 'productos_list', 'roles', 'roles_list'));
     }
 
     /**
