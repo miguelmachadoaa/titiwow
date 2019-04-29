@@ -146,6 +146,11 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
         Route::post('{id}/delcliente', 'Admin\AlpCuponesController@delcliente')->name('cupones.delcliente');
 
 
+         Route::post('{id}/addrol', 'Admin\AlpCuponesController@addrol')->name('cupones.addrol');
+
+        Route::post('{id}/delrol', 'Admin\AlpCuponesController@delrol')->name('cupones.delrol');
+
+
 
     });
     Route::post('cupones/create', 'Admin\AlpCuponesController@store');

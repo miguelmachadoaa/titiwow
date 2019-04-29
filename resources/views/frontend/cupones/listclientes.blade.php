@@ -28,8 +28,8 @@
 
                             @else
             
-                            <div class="alert alert-danger">
-                                No hay productos asignados
+                            <div class="badge badge-danger">
+                                No hay Clientes asignados
                             </div>
 
                             @endif
