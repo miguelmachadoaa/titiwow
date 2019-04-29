@@ -6,6 +6,14 @@ Editar Cupon
 @parent
 @stop
 
+{{-- page level styles --}}
+@section('header_styles')
+
+<link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+
+<link href="{{ secure_asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
+@stop
+
 {{-- Content --}}
 @section('content')
 <section class="content-header">
@@ -50,7 +58,7 @@ Editar Cupon
                                   Categoria de Productos 
                                 </label>
                                 <div class="col-sm-8">   
-                                 <select id="id_categoria" name="id_categoria" class="form-control ">
+                                 <select id="id_categoria" name="id_categoria" class="form-control select2">
                                     
                                     <option value="">Seleccione</option>
                                     @foreach($categorias as $categoria)
@@ -100,7 +108,7 @@ Editar Cupon
                                 </label>
                                 <div class="col-sm-8">   
 
-                                 <select id="id_producto" name="id_producto" class="form-control ">
+                                 <select id="id_producto" name="id_producto" class="form-control select2">
                                     
                                     <option value="">Seleccione</option>
                                     @foreach($productos as $producto)
@@ -177,7 +185,7 @@ Editar Cupon
                                 </label>
                                 <div class="col-sm-8">   
 
-                                 <select id="id_empresa" name="id_empresa" class="form-control ">
+                                 <select id="id_empresa" name="id_empresa" class="form-control select2">
                                     
                                     <option value="">Seleccione</option>
                                     @foreach($empresas as $empresa)
@@ -226,7 +234,7 @@ Editar Cupon
                                 </label>
                                 <div class="col-sm-8">   
 
-                                 <select id="id_cliente" name="id_cliente" class="form-control ">
+                                 <select id="id_cliente" name="id_cliente" class="form-control select2">
                                     
                                     <option value="">Seleccione</option>
                                     @foreach($clientes as $cliente)
@@ -270,11 +278,11 @@ Editar Cupon
                                 
                              <div class="form-group col-sm-8 {{ $errors->first('id_rol', 'has-error') }}">
                                 <label for="select21" class="col-sm-4 control-label">
-                                  Cliente
+                                  Rol
                                 </label>
                                 <div class="col-sm-8">   
 
-                                 <select id="id_rol" name="id_rol" class="form-control ">
+                                 <select id="id_rol" name="id_rol" class="form-control select2">
                                     
                                     <option value="">Seleccione</option>
                                     @foreach($roles as $rol)
@@ -332,6 +340,7 @@ Editar Cupon
 
 @section('footer_scripts')
 
+<script src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
 
 <script >
     
@@ -602,6 +611,11 @@ Editar Cupon
 
  $(document).ready(function(){
         //Inicio select región
+
+        $('.select2').select2({
+            placeholder: "Seleccionar",
+            theme:"bootstrap"
+        });
                         
             $(document).on('click', '.delCiudad', function(){
                 id=$(this).data('id');
