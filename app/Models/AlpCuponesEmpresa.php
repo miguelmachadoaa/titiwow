@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class AlpCupones extends Model
+class AlpCuponesEmpresa extends Model
 {
     use SoftDeletes;
 
-    public $table = 'alp_cupones';
+    public $table = 'alp_cupones_empresa';
     
 
     protected $dates = ['deleted_at'];
@@ -19,13 +19,8 @@ class AlpCupones extends Model
 
     public $fillable = [
         'id',
-        'codigo_cupon',
-        'valor_cupon',
-        'tipo_reduccion',
-        'limite_uso',
-        'fecha_inicio',
-        'fecha_final',
-        'monto_minimo',
+        'id_cupon',
+        'id_empresa',
         'estado_registro',
         'id_user'
     ];
@@ -36,7 +31,7 @@ class AlpCupones extends Model
      * @var array
      */
     protected $casts = [
-        'codigo_cupon' => 'string'
+        'id_cupon' => 'string'
     ];
 
     /**
@@ -45,6 +40,6 @@ class AlpCupones extends Model
      * @var array
      */
     public static $rules = [
-        'codigo_cupon' => 'required'
+        'id_cupon' => 'required'
     ];
 }

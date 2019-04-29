@@ -68,15 +68,14 @@ Cupones
                                     <td>{!! $row->limite_uso !!}</td>
                                     <td>{!! $row->created_at->diffForHumans() !!}</td>
                                     <td>
-                                            
-                                            
-
-
 
                                             <a href="{{ route('admin.cupones.edit', $row->id) }}">
-                                                <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar cupon"></i>
+                                                <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Editar Cupon"></i>
                                             </a>
 
+                                            <a href="{{ url('admin/cupones/'.$row->id.'/configurar') }}">
+                                                <i class="livicon" data-name="gear" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Configurar Cupon"></i>
+                                            </a>
 
 
                                             <!-- let's not delete 'Admin' group by accident -->
@@ -86,10 +85,7 @@ Cupones
                                                 data-loop="true" data-c="#f56954" data-hc="#f56954"
                                                 title="Eliminar"></i>
                                              </a>
-
-
                                               
-
                                     </td>
                                 </tr>
                                 @endforeach
