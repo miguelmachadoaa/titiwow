@@ -54,21 +54,6 @@ Editar Cupon
                             </div>
                         </div>
 
-                        <div class="form-group {{ $errors->
-                            first('valor_cupon', 'has-error') }}">
-                            <label for="title" class="col-sm-2 control-label">
-                                Valor Cupón
-                            </label>
-                            <div class="col-sm-5">
-                                <input type="number" step="0.01" min="0" id="valor_cupon" name="valor_cupon" class="form-control" placeholder="Valor Cupon"
-                                       value="{!! old('valor_cupon', $cupon->valor_cupon) !!}">
-                            </div>
-                            <div class="col-sm-4">
-                                {!! $errors->first('valor_cupon', '<span class="help-block">:message</span> ') !!}
-                            </div>
-                        </div>
-
-
                         <div class="form-group {{ $errors->first('tipo_reduccion', 'has-error') }}">
                             <label for="select21" class="col-sm-2 control-label">
                               Tipo de Cupón
@@ -86,6 +71,23 @@ Editar Cupon
                             </div>
                            
                         </div>
+
+                        <div class="form-group {{ $errors->
+                            first('valor_cupon', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Valor Cupón
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="number" step="0.01" min="0" id="valor_cupon" name="valor_cupon" class="form-control" placeholder="Valor Cupon"
+                                       value="{!! old('valor_cupon', $cupon->valor_cupon) !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('valor_cupon', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
+                        
 
 
 
