@@ -115,6 +115,49 @@
                             </div>
                         </div>
 
+                         <div class="form-group {{ $errors->
+                            first('fecha_inicio', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                               Fecha de Inicio 
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-control" placeholder="Nombre de transportistas"
+                                       value="{!! old('fecha_inicio') !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('fecha_inicio', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+                        <div class="form-group {{ $errors->
+                            first('fecha_final', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                               Fecha Final
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="date" id="fecha_final" name="fecha_final" class="form-control" placeholder="Nombre de transportistas"
+                                       value="{!! old('fecha_final') !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('fecha_final', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+                        <div class="form-group {{ $errors->
+                            first('monto_minimo', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Monto Minimo en el Carro 
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="number" step="1" min="0" id="monto_minimo" name="monto_minimo" class="form-control" placeholder="Monto Minimo en el Carro"
+                                       value="{!! old('monto_minimo') !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('monto_minimo', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
 
 
 

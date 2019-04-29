@@ -125,10 +125,35 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
         Route::get('{id}/restore', 'Admin\AlpCuponesController@getRestore')->name('cupones.restore');
 
+        Route::get('{id}/configurar', 'Admin\AlpCuponesController@configurar')->name('cupones.configurar');
+
+        Route::post('{id}/addcategoria', 'Admin\AlpCuponesController@addcategoria')->name('cupones.addcategoria');
+
+        Route::post('{id}/delcategoria', 'Admin\AlpCuponesController@delcategoria')->name('cupones.delcategoria');
+
+         Route::post('{id}/addempresa', 'Admin\AlpCuponesController@addempresa')->name('cupones.addempresa');
+
+        Route::post('{id}/delempresa', 'Admin\AlpCuponesController@delempresa')->name('cupones.delempresa');
+
+
+        Route::post('{id}/addproducto', 'Admin\AlpCuponesController@addproducto')->name('cupones.addproducto');
+
+        Route::post('{id}/delproducto', 'Admin\AlpCuponesController@delproducto')->name('cupones.delproducto');
+
+
+        Route::post('{id}/addcliente', 'Admin\AlpCuponesController@addcliente')->name('cupones.addcliente');
+
+        Route::post('{id}/delcliente', 'Admin\AlpCuponesController@delcliente')->name('cupones.delcliente');
+
+
 
     });
     Route::post('cupones/create', 'Admin\AlpCuponesController@store');
+
     Route::resource('cupones', 'Admin\AlpCuponesController');
+
+
+
 
     //fin cupones 
 
