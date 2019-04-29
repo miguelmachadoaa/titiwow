@@ -820,7 +820,7 @@ Route::get('producto/{slug}', ['as' => 'producto', 'uses' => 'Frontend\Productos
 Route::get('productos', 'Frontend\ProductosFrontController@all');
 
 
-Route::get('categoria', ['as' => 'un_categoria', 'uses' => 'Frontend\ProductosFrontController@index']);
+Route::get('categorias', ['as' => 'un_categoria', 'uses' => 'Frontend\ProductosFrontController@index']);
 
 Route::get('categoria/{slug}', ['as' => 'categoria', 'uses' => 'Frontend\ProductosFrontController@categorias']);
 
