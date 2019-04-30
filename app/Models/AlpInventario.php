@@ -22,6 +22,7 @@ class AlpInventario extends Model
         'id_producto',
         'cantidad',
         'operacion',
+        'notas',
         'estado_registro',
         'id_user'
     ];

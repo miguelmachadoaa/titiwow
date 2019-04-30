@@ -65,8 +65,8 @@ Inventario
                                     <td>{!! $row->created_at->diffForHumans() !!}</td>
                                     <td>
                                             
-                                            <a href="{{ secure_url('admin/inventario/'.$row->id.'/edit') }}">
-                                                <i class="fa fa-plus"></i>
+                                            <a class="btn btn-xs btn-info" href="{{ secure_url('admin/inventario/'.$row->id.'/edit') }}">
+                                                Gestionar
                                             </a>
 
                                     </td>

@@ -112,9 +112,9 @@ class AlpInventarioController extends JoshController
        $data = array(
             'id_producto' => $id, 
             'cantidad' => $request->cantidad, 
-            'operacion' => '1', 
-            'id_user' => '1', 
-            'descripcion_forma_pago' => $user_id
+            'operacion' => $request->operacion, 
+            'notas' => $request->notas, 
+            'id_user' => $user_id
         );
          
        $inventario = AlpInventario::create($data);
