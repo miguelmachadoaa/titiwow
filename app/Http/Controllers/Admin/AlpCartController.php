@@ -774,7 +774,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
         $preference_data = [
         "transaction_amount" => doubleval($orden->monto_total),
-        "net_amount"=>$net_amount,
+        "net_amount"=>(float)number_format($net_amount, 2, '.', ''),
             "taxes"=>[[
               "value"=>(float)number_format($impuesto, 2, '.', ''),
               "type"=>"IVA"]],
@@ -899,6 +899,8 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
       $total=$this->total();
 
+      $total_base=$this->precio_base();
+
       $impuesto=$this->impuesto();
 
 
@@ -942,7 +944,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
            $formasenvio = AlpFormasenvio::select('alp_formas_envios.*')
           ->join('alp_rol_envio', 'alp_formas_envios.id', '=', 'alp_rol_envio.id_forma_envio')
-          ->where('alp_rol_envio.id_rol', $role->role_id)->get();
+          ->where('alp_rol_envio.id_rol', $role->role_id)->get()->toArray();
 
 
           $formaspago = AlpFormaspago::select('alp_formas_pagos.*')
@@ -1066,7 +1068,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
         'baloto' => 'Pago en efectivo a través de Baloto'
       );
 
-          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos'));
+          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base'));
 
          }
 
@@ -2160,6 +2162,23 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       foreach($cart as $row) {
 
         $total=$total+($row->cantidad*$row->precio_oferta);
+
+      }
+
+       return $total;
+      
+    }
+
+
+    private function precio_base()
+    {
+       $cart= \Session::get('cart');
+
+      $total=0;
+
+      foreach($cart as $row) {
+
+        $total=$total+($row->cantidad*$row->precio_base);
 
       }
 

@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="col-sm-4 col-xs-4">
 
-                                    <h4 style="color:#143473;">Gratis</h4> 
+                                    <h4 style="color: #22b14c;">Gratis</h4> 
 
                                 </div>
                                 
@@ -117,6 +117,20 @@
                                 <div class="col-sm-4 col-xs-4">
 
                                        <h4 style="color:#143473;">{{ number_format($total-$total_pagos,0,",",".")}}</h4> 
+
+                                </div>
+
+                            </div>
+
+
+                             <div class="col-sm-12" style="    border-top: 1px solid rgba(0,0,0,0.1);">
+
+                                <div class="col-sm-8 col-xs-8" >
+                                    <h4>Ahorro</h4>
+                                </div>
+                                <div class="col-sm-4 col-xs-4">
+
+                                       <h4 style="color:#22b14c;">{{ number_format($total_base-$total-$total_pagos,0,",",".")}}</h4> 
 
                                 </div>
 
