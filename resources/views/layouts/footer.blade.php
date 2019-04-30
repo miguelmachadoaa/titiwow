@@ -40,6 +40,7 @@
                         <p>Cualquier inconveniente o duda, comunícate con nuestra línea de atención Alpina en Bogotá
                         
                         </p>
+                        <p style="text-align:left !important;">Km 3, vía Briceño Sopó, Edificio Administrativo Alpina Cundinamarca, Colombia</p>
                         <ul id="menu-contacto" class="menu_footer">
                             <li class="menu-item">(+57) 4238600</li>
                             <li class="menu-item">(+57) 5718600</li>
@@ -52,6 +53,8 @@
                 <!-- Pare y Compare Section Start -->
                 <div class="col-sm-3 clearfix">
                     <img src="{{ secure_asset('uploads/files/pareycompare.png') }}" alt="Pare y Compare" title="Pare y Compare" class="img-responsive" style="margin:10px auto;width:160px;">
+                    <img src="{{ secure_asset('uploads/files/logosic.png') }}" alt="Camara de Comercio Colombiana" title="Pare y Compare" class="img-responsive" style="margin:10px auto;width:160px;">
+                    <img src="{{ secure_asset('uploads/files/ccce.png') }}" alt="Secretaria de Industria y Comercio" title="Pare y Compare" class="img-responsive" style="margin:10px auto;width:160px;">
                 </div>
                 <!-- //redes Section End -->
             <!-- //Pare y Compare Section End -->
@@ -69,7 +72,7 @@
     <!-- //Footer Section End -->
     <div class="copyright">
         <div class="container">
-        <p>Todos los derechos reservados &copy; Alpina Productos Alimenticios S.A., {{ date('Y') }} </p>
+        <p>Todos los derechos reservados &copy; Alpina Productos Alimenticios S.A. NIT: 860025900-2, {{ date('Y') }} </p>
         </div>
     </div>
     <!--a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Return to top" data-toggle="tooltip" data-placement="left">

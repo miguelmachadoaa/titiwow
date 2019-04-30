@@ -427,7 +427,8 @@ class AlpCuponesController extends JoshController
           ->join('users', 'alp_clientes.id_user_client', '=', 'users.id')
           ->get();
 
-        $roles = Roles::all();
+        //$roles = Roles::all();
+        $roles = DB::table('roles')->whereIn('roles.id', [9, 10, 11, 12])->get();
 
 
 
