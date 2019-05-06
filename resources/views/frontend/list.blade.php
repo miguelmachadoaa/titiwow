@@ -60,92 +60,14 @@ Productos @parent
             <div class="col-md-9">
                 @if(count($leche)>0)
                     @foreach($leche as $producto)
-                        <div class="col-md-3 col-sm-6 col-xs-6">
-                            <div class="productos">
-                                <div class="text-align:center;">
-                                    <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive"></a>
-                                </div>
-                                <a href="{{ route('producto', [$producto->slug]) }}" ><h3>{{ $producto->nombre_producto }}</h3></a>
-                                <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="text-align:center;">{{ $producto->presentacion_producto }}</h6></a>
-                                <div class="product_info">
-                                    
-                                    @if($descuento==1)
-
-                                            @if(isset($precio[$producto->id]))
-
-                                                @switch($precio[$producto->id]['operacion'])
-
-                                                    @case(1)
-
-                                                        <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-                                                        
-                                                        @break
-
-                                                    @case(2)
-
-                                                        <p id="precio_prod"><del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*(1-($precio[$producto->id]['precio']/100)),0,",",".") }}</span></p>
-                                                        @break
-
-                                                    @case(3)
-
-                                                        <p id="precio_prod"><del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($precio[$producto->id]['precio'],0,",",".") }}</span></p>
-                                                        @break
-                                                    
-                                                @endswitch
-
-                                            @else
-
-                                                <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-
-                                            @endif
-
-                                        @else
-
-                                            <p id="precio_prod"><del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base,0,",",".")}}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-
-                                        @endif
-                                    <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
-
-                                    <div class="product_botones boton_{{ $producto->id }}">
-
-                                                @if(isset($cart[$producto->slug]))
-
-                                                    <div class="row" style="margin-bottom:5px;">
-                                                      <div class="col-sm-10 col-sm-offset-1">
-                                                        <div class="input-group">
-                                                          <span class="input-group-btn">
-                                                            
-                                                            <button data-cantidad="{{ $cart[$producto->slug]->cantidad }}" data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-danger updatecart" type="button"><i class="fa fa-minus"></i></button>
-
-                                                          </span>
-
-                                                          <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
 
 
-                                                          <span class="input-group-btn">
-
-                                                            <button data-cantidad="{{ $cart[$producto->slug]->cantidad }}" data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
-
-                                                          </span>
-
-                                                        </div><!-- /input-group -->
-                                                      </div><!-- /.col-lg-6 -->
-                                                     
-                                                    </div><!-- /.row -->
-
-                                                    <a class="btn btn-md btn-vermas2" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
-
-                                                @else
-
-                                                    <a class="btn btn-md btn-vermas2" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
-                                                    <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
-
-                                                @endif
-                                                
-                                        </div>
-                                </div>
+                        @include('frontend.producto')
+                        @if ($loop->iteration % 4 == 0)
                             </div>
-                        </div>
+                            <div class="row">
+                        @endif
+                       
                     @endforeach
                         
                     @else
@@ -171,98 +93,12 @@ Productos @parent
             <div class="col-md-9">
                 @if(count($lacteos)>0)
                     @foreach($lacteos as $producto)
-                        <div class="col-md-3 col-sm-6 col-xs-6">
-                            <div class="productos">
-                                <div class="text-align:center;">
-                                    <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive"></a>
-                                </div>
-                                <a href="{{ route('producto', [$producto->slug]) }}" ><h3>{{ $producto->nombre_producto }}</h3></a>
-                                <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="text-align:center;">{{ $producto->presentacion_producto }}</h6></a>
-                                <div class="product_info">
-                                    
-                                    @if($descuento==1)
-
-                                        @if(isset($precio[$producto->id]))
-
-                                            @switch($precio[$producto->id]['operacion'])
-
-                                                @case(1)
-
-                                                    <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-                                                    
-                                                    @break
-
-                                                @case(2)
-
-                                                    <p id="precio_prod"><del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*(1-($precio[$producto->id]['precio']/100)),0,",",".") }}</span></p>
-                                                    @break
-
-                                                @case(3)
-
-                                                    <p id="precio_prod"><del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($precio[$producto->id]['precio'],0,",",".") }}</span></p>
-                                                    @break
-
-                                                
-                                            @endswitch
-
-                                        @else
-
-                                            <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-
-                                        @endif
-                                    
-
-                                    @else
-
-                                        <p id="precio_prod"><del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-
-                                    @endif
-                                    <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
-
-
-                                    <div class="product_botones boton_{{ $producto->id }}">
-
-                                    @if(isset($cart[$producto->slug]))
-
-                                        <div class="row" style="margin-bottom:5px;">
-                                        <div class="col-sm-10 col-sm-offset-1">
-                                            <div class="input-group">
-                                            <span class="input-group-btn">
-                                                
-                                                <button data-cantidad="{{ $cart[$producto->slug]->cantidad }}" data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-danger updatecart" type="button"><i class="fa fa-minus"></i></button>
-
-                                            </span>
-
-                                            <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
-
-
-
-                                            <span class="input-group-btn">
-
-                                                <button data-cantidad="{{ $cart[$producto->slug]->cantidad }}" data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
-
-                                                
-
-                                            </span>
-
-                                            </div><!-- /input-group -->
-                                        </div><!-- /.col-lg-6 -->
-                                        
-                                        </div><!-- /.row -->
-
-                                        <a class="btn btn-md btn-vermas2" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
-
-                                    @else
-
-                                        <a class="btn btn-md btn-vermas2" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
-                                        <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
-
-                                    @endif
-
-                                    </div>
-                                </div>
+                         
+                        @include('frontend.producto')
+                        @if ($loop->iteration % 4 == 0)
                             </div>
-                        </div>
+                            <div class="row">
+                        @endif
                     @endforeach
                         
                     @else
@@ -288,96 +124,14 @@ Productos @parent
             <div class="col-md-9">
                 @if(count($quesos)>0)
                     @foreach($quesos as $producto)
-                        <div class="col-md-3 col-sm-6 col-xs-6">
-                            <div class="productos">
-                                <div class="text-align:center;">
-                                    <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive"></a>
-                                </div>
-                                <a href="{{ route('producto', [$producto->slug]) }}" ><h3>{{ $producto->nombre_producto }}</h3></a>
-                                <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="text-align:center;">{{ $producto->presentacion_producto }}</h6></a>
-                                <div class="product_info">
-                                    
-                                    @if($descuento==1)
+                       
 
-                                        @if(isset($precio[$producto->id]))
+                @include('frontend.producto')
+                @if ($loop->iteration % 4 == 0)
+                    </div>
+                    <div class="row">
+                @endif
 
-                                            @switch($precio[$producto->id]['operacion'])
-
-                                                @case(1)
-
-                                                    <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-                                                    
-                                                    @break
-
-                                                @case(2)
-
-                                                    <p id="precio_prod"><del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*(1-($precio[$producto->id]['precio']/100)),0,",",".") }}</span></p>
-                                                    @break
-
-                                                @case(3)
-
-                                                    <p id="precio_prod"><del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($precio[$producto->id]['precio'],0,",",".") }}</span></p>
-                                                    @break
-
-                                                
-                                            @endswitch
-
-                                        @else
-
-                                            <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-
-                                        @endif
-                                    
-
-                                    @else
-
-                                        <p id="precio_prod"><del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-
-                                    @endif
-                                    <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
-
-                                    <div class="product_botones boton_{{ $producto->id }}">
-
-                                        @if(isset($cart[$producto->slug]))
-
-                                            <div class="row" style="margin-bottom:5px;">
-                                            <div class="col-sm-10 col-sm-offset-1">
-                                                <div class="input-group">
-                                                <span class="input-group-btn">
-                                                    
-                                                    <button data-cantidad="{{ $cart[$producto->slug]->cantidad }}" data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-danger updatecart" type="button"><i class="fa fa-minus"></i></button>
-
-                                                </span>
-
-                                                <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
-
-
-                                                <span class="input-group-btn">
-
-                                                    <button data-cantidad="{{ $cart[$producto->slug]->cantidad }}" data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
-
-                                                    
-
-                                                </span>
-
-                                                </div><!-- /input-group -->
-                                            </div><!-- /.col-lg-6 -->
-                                            
-                                            </div><!-- /.row -->
-
-                                            <a class="btn btn-md btn-vermas2" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
-
-                                        @else
-
-                                            <a class="btn btn-md btn-vermas2" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
-                                            <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
-
-                                        @endif
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     @endforeach
                         
                     @else
@@ -403,95 +157,16 @@ Productos @parent
             <div class="col-md-9">
                 @if(count($postres)>0)
                     @foreach($postres as $producto)
-                        <div class="col-md-3 col-sm-6 col-xs-6">
-                            <div class="productos">
-                                <div class="text-align:center;">
-                                    <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive"></a>
-                                </div>
-                                <a href="{{ route('producto', [$producto->slug]) }}" ><h3>{{ $producto->nombre_producto }}</h3></a>
-                                <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="text-align:center;">{{ $producto->presentacion_producto }}</h6></a>
-                                <div class="product_info">
-                                    
-                                    @if($descuento==1)
-
-                                        @if(isset($precio[$producto->id]))
-
-                                            @switch($precio[$producto->id]['operacion'])
-
-                                                @case(1)
-
-                                                    <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-                                                    
-                                                    @break
-
-                                                @case(2)
-
-                                                    <p id="precio_prod"><del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*(1-($precio[$producto->id]['precio']/100)),0,",",".") }}</span></p>
-                                                    @break
-
-                                                @case(3)
-
-                                                    <p id="precio_prod"><del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($precio[$producto->id]['precio'],0,",",".") }}</span></p>
-                                                    @break
-
-                                                
-                                            @endswitch
-
-                                        @else
-
-                                            <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-
-                                        @endif
-
-                                    @else
-
-                                        <p id="precio_prod"><del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-
-                                    @endif
-                                    <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
-
-                                    <div class="product_botones boton_{{ $producto->id }}">
-
-                                        @if(isset($cart[$producto->slug]))
-
-                                            <div class="row" style="margin-bottom:5px;">
-                                            <div class="col-sm-10 col-sm-offset-1">
-                                                <div class="input-group">
-                                                <span class="input-group-btn">
-                                                    
-                                                    <button data-cantidad="{{ $cart[$producto->slug]->cantidad }}" data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-danger updatecart" type="button"><i class="fa fa-minus"></i></button>
-
-                                                </span>
-
-                                                <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
+                      
 
 
-                                                <span class="input-group-btn">
+                @include('frontend.producto')
+                @if ($loop->iteration % 4 == 0)
+                    </div>
+                    <div class="row">
+                @endif
 
-                                                    
 
-                                                    <button data-cantidad="{{ $cart[$producto->slug]->cantidad }}" data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
-
-                                                </span>
-
-                                                </div><!-- /input-group -->
-                                            </div><!-- /.col-lg-6 -->
-                                            
-                                            </div><!-- /.row -->
-
-                                            <a class="btn btn-md btn-vermas2" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
-
-                                        @else
-
-                                            <a class="btn btn-md btn-vermas2" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
-                                            <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
-
-                                        @endif
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     @endforeach
                         
                     @else
@@ -517,95 +192,16 @@ Productos @parent
             <div class="col-md-9">
                 @if(count($esparcibles)>0)
                     @foreach($esparcibles as $producto)
-                        <div class="col-md-3 col-sm-6 col-xs-6">
-                            <div class="productos">
-                                <div class="text-align:center;">
-                                    <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive"></a>
-                                </div>
-                                <a href="{{ route('producto', [$producto->slug]) }}" ><h3>{{ $producto->nombre_producto }}</h3></a>
-                                <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="text-align:center;">{{ $producto->presentacion_producto }}</h6></a>
-                                <div class="product_info">
-                                    
-                                    @if($descuento==1)
-
-                                        @if(isset($precio[$producto->id]))
-
-                                            @switch($precio[$producto->id]['operacion'])
-
-                                                @case(1)
-
-                                                    <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-                                                    
-                                                    @break
-
-                                                @case(2)
-
-                                                    <p id="precio_prod"><del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*(1-($precio[$producto->id]['precio']/100)),0,",",".") }}</span></p>
-                                                    @break
-
-                                                @case(3)
-
-                                                    <p id="precio_prod"><del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($precio[$producto->id]['precio'],0,",",".") }}</span></p>
-                                                    @break
-
-                                                
-                                            @endswitch
-
-                                        @else
-
-                                            <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-
-                                        @endif
-
-                                    @else
-
-                                        <p id="precio_prod"><del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-
-                                    @endif
-                                    <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
-
-                                    <div class="product_botones boton_{{ $producto->id }}">
-
-                                        @if(isset($cart[$producto->slug]))
-
-                                            <div class="row" style="margin-bottom:5px;">
-                                            <div class="col-sm-10 col-sm-offset-1">
-                                                <div class="input-group">
-                                                <span class="input-group-btn">
-                                                    
-                                                    <button data-cantidad="{{ $cart[$producto->slug]->cantidad }}" data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-danger updatecart" type="button"><i class="fa fa-minus"></i></button>
-
-                                                </span>
-
-                                                <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
+                       
 
 
-                                                <span class="input-group-btn">
+                @include('frontend.producto')
+                @if ($loop->iteration % 4 == 0)
+                    </div>
+                    <div class="row">
+                @endif
 
-                                                    
 
-                                                    <button data-cantidad="{{ $cart[$producto->slug]->cantidad }}" data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
-
-                                                </span>
-
-                                                </div><!-- /input-group -->
-                                            </div><!-- /.col-lg-6 -->
-                                            
-                                            </div><!-- /.row -->
-
-                                            <a class="btn btn-md btn-vermas2" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
-
-                                        @else
-
-                                            <a class="btn btn-md btn-vermas2" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
-                                            <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
-
-                                        @endif
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     @endforeach
                         
                     @else
@@ -631,95 +227,16 @@ Productos @parent
             <div class="col-md-9">
                 @if(count($bebidas)>0)
                     @foreach($bebidas as $producto)
-                        <div class="col-md-3 col-sm-6 col-xs-6">
-                            <div class="productos">
-                                <div class="text-align:center;">
-                                    <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive"></a>
-                                </div>
-                                <a href="{{ route('producto', [$producto->slug]) }}" ><h3>{{ $producto->nombre_producto }}</h3></a>
-                                <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="text-align:center;">{{ $producto->presentacion_producto }}</h6></a>
-                                <div class="product_info">
-                                    
-                                    @if($descuento==1)
-
-                                        @if(isset($precio[$producto->id]))
-
-                                            @switch($precio[$producto->id]['operacion'])
-
-                                                @case(1)
-
-                                                    <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-                                                    
-                                                    @break
-
-                                                @case(2)
-
-                                                    <p id="precio_prod"><del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*(1-($precio[$producto->id]['precio']/100)),0,",",".") }}</span></p>
-                                                    @break
-
-                                                @case(3)
-
-                                                    <p id="precio_prod"><del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($precio[$producto->id]['precio'],0,",",".") }}</span></p>
-                                                    @break
-
-                                                
-                                            @endswitch
-
-                                        @else
-
-                                            <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-
-                                        @endif
-
-                                    @else
-
-                                        <p id="precio_prod"><del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-
-                                    @endif
-                                    <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
-
-                                    <div class="product_botones boton_{{ $producto->id }}">
-
-                                        @if(isset($cart[$producto->slug]))
-
-                                            <div class="row" style="margin-bottom:5px;">
-                                            <div class="col-sm-10 col-sm-offset-1">
-                                                <div class="input-group">
-                                                <span class="input-group-btn">
-                                                    
-                                                    <button data-cantidad="{{ $cart[$producto->slug]->cantidad }}" data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-danger updatecart" type="button"><i class="fa fa-minus"></i></button>
-
-                                                </span>
-
-                                                <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
+                     
 
 
-                                                <span class="input-group-btn">
+                @include('frontend.producto')
+                @if ($loop->iteration % 4 == 0)
+                    </div>
+                    <div class="row">
+                @endif
 
-                                                    <button data-cantidad="{{ $cart[$producto->slug]->cantidad }}" data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
 
-                                                    
-
-                                                </span>
-
-                                                </div><!-- /input-group -->
-                                            </div><!-- /.col-lg-6 -->
-                                            
-                                            </div><!-- /.row -->
-
-                                            <a class="btn btn-md btn-vermas2" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
-
-                                        @else
-
-                                            <a class="btn btn-md btn-vermas2" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
-                                            <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
-
-                                        @endif
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     @endforeach
                         
                     @else
@@ -745,94 +262,16 @@ Productos @parent
             <div class="col-md-9">
                 @if(count($finess)>0)
                     @foreach($finess as $producto)
-                        <div class="col-md-3 col-sm-6 col-xs-6">
-                            <div class="productos">
-                                <div class="text-align:center;">
-                                    <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive"></a>
-                                </div>
-                                <a href="{{ route('producto', [$producto->slug]) }}" ><h3>{{ $producto->nombre_producto }}</h3></a>
-                                <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="text-align:center;">{{ $producto->presentacion_producto }}</h6></a>
-                                <div class="product_info">
-                                    
-                                    @if($descuento==1)
-
-                                        @if(isset($precio[$producto->id]))
-
-                                            @switch($precio[$producto->id]['operacion'])
-
-                                                @case(1)
-
-                                                    <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-                                                    
-                                                    @break
-
-                                                @case(2)
-
-                                                    <p id="precio_prod"><del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*(1-($precio[$producto->id]['precio']/100)),0,",",".") }}</span></p>
-                                                    @break
-
-                                                @case(3)
-
-                                                    <p id="precio_prod"><del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($precio[$producto->id]['precio'],0,",",".") }}</span></p>
-                                                    @break
-                                                
-                                            @endswitch
-
-                                        @else
-
-                                            <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-
-                                        @endif
-
-                                    @else
-
-                                        <p id="precio_prod"><del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-
-                                    @endif
-                                    <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
-
-                                    <div class="product_botones boton_{{ $producto->id }}">
-
-                                        @if(isset($cart[$producto->slug]))
-
-                                            <div class="row" style="margin-bottom:5px;">
-                                            <div class="col-sm-10 col-sm-offset-1">
-                                                <div class="input-group">
-                                                <span class="input-group-btn">
-                                                    
-                                                    <button data-cantidad="{{ $cart[$producto->slug]->cantidad }}" data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-danger updatecart" type="button"><i class="fa fa-minus"></i></button>
-
-                                                </span>
-
-                                                <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
+                       
 
 
-                                                <span class="input-group-btn">
+                @include('frontend.producto')
+                @if ($loop->iteration % 4 == 0)
+                    </div>
+                    <div class="row">
+                @endif
 
-                                                    <button data-cantidad="{{ $cart[$producto->slug]->cantidad }}" data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
 
-                                                    
-
-                                                </span>
-
-                                                </div><!-- /input-group -->
-                                            </div><!-- /.col-lg-6 -->
-                                            
-                                            </div><!-- /.row -->
-
-                                            <a class="btn btn-md btn-vermas2" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
-
-                                        @else
-
-                                            <a class="btn btn-md btn-vermas2" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
-                                            <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
-
-                                        @endif
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     @endforeach
                         
                     @else
@@ -858,100 +297,16 @@ Productos @parent
             <div class="col-md-9">
                 @if(count($baby)>0)
                     @foreach($baby as $producto)
-                        <div class="col-md-3 col-sm-6 col-xs-6">
-                            <div class="productos">
-                                <div class="text-align:center;">
-                                    <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive"></a>
-                                </div>
-                                <a href="{{ route('producto', [$producto->slug]) }}" ><h3>{{ $producto->nombre_producto }}</h3></a>
-                                <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="text-align:center;">{{ $producto->presentacion_producto }}</h6></a>
-                                <div class="product_info">
-                                    
-                                    @if($descuento==1)
-
-                                        @if(isset($precio[$producto->id]))
-
-                                            @switch($precio[$producto->id]['operacion'])
-
-                                                @case(1)
-
-                                                    <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-                                                    
-                                                    @break
-
-                                                @case(2)
-
-                                                    <p id="precio_prod"><del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*(1-($precio[$producto->id]['precio']/100)),0,",",".") }}</span></p>
-                                                    @break
-
-                                                @case(3)
-
-                                                    <p id="precio_prod"><del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($precio[$producto->id]['precio'],0,",",".") }}</span></p>
-                                                    @break
-                                                
-                                            @endswitch
-
-                                            <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $precio[$producto->id]['pum'] }}</h6></a>
-
-                                        @else
-
-                                            <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-
-                                            <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
-
-                                        @endif
-
-                                    @else
-
-                                        <p id="precio_prod"><del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-
-                                        <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
-
-                                    @endif
-                                    
-
-                                    <div class="product_botones boton_{{ $producto->id }}">
-
-                                        @if(isset($cart[$producto->slug]))
-
-                                            <div class="row" style="margin-bottom:5px;">
-                                            <div class="col-sm-10 col-sm-offset-1">
-                                                <div class="input-group">
-                                                <span class="input-group-btn">
-                                                    
-                                                    <button data-cantidad="{{ $cart[$producto->slug]->cantidad }}" data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-danger updatecart" type="button"><i class="fa fa-minus"></i></button>
-
-                                                </span>
-
-                                                <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
+                        
 
 
-                                                <span class="input-group-btn">
+                @include('frontend.producto')
+                @if ($loop->iteration % 4 == 0)
+                    </div>
+                    <div class="row">
+                @endif
 
-                                                    <button data-cantidad="{{ $cart[$producto->slug]->cantidad }}" data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
 
-                                                    
-
-                                                </span>
-
-                                                </div><!-- /input-group -->
-                                            </div><!-- /.col-lg-6 -->
-                                            
-                                            </div><!-- /.row -->
-
-                                            <a class="btn btn-md btn-vermas2" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
-
-                                        @else
-
-                                            <a class="btn btn-md btn-vermas2" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
-                                            <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
-
-                                        @endif
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     @endforeach
                         
                     @else
@@ -977,95 +332,14 @@ Productos @parent
             <div class="col-md-9">
                 @if(count($nolacteos)>0)
                     @foreach($nolacteos as $producto)
-                        <div class="col-md-3 col-sm-6 col-xs-6">
-                            <div class="productos">
-                                <div class="text-align:center;">
-                                    <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive"></a>
-                                </div>
-                                <a href="{{ route('producto', [$producto->slug]) }}" ><h3>{{ $producto->nombre_producto }}</h3></a>
-                                <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="text-align:center;">{{ $producto->presentacion_producto }}</h6></a>
-                                <div class="product_info">
-                                    
-                                    @if($descuento==1)
+                        
+                         
+                @include('frontend.producto')
+                @if ($loop->iteration % 4 == 0)
+                    </div>
+                    <div class="row">
+                @endif
 
-                                        @if(isset($precio[$producto->id]))
-
-                                            @switch($precio[$producto->id]['operacion'])
-
-                                                @case(1)
-
-                                                    <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-                                                    
-                                                    @break
-
-                                                @case(2)
-
-                                                    <p id="precio_prod"><del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*(1-($precio[$producto->id]['precio']/100)),0,",",".") }}</span></p>
-                                                    @break
-
-                                                @case(3)
-
-                                                    <p id="precio_prod"><del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($precio[$producto->id]['precio'],0,",",".") }}</span></p>
-                                                    @break
-                                                
-                                            @endswitch
-
-                                        @else
-
-                                            <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-
-                                        @endif
-
-                                    @else
-
-                                        <p id="precio_prod"><del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-
-                                    @endif
-                                    <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
-
-
-                                    <div class="product_botones boton_{{ $producto->id }}">
-
-                                        @if(isset($cart[$producto->slug]))
-
-                                            <div class="row" style="margin-bottom:5px;">
-                                            <div class="col-sm-10 col-sm-offset-1">
-                                                <div class="input-group">
-                                                <span class="input-group-btn">
-                                                    
-                                                    <button data-cantidad="{{ $cart[$producto->slug]->cantidad }}" data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-danger updatecart" type="button"><i class="fa fa-minus"></i></button>
-
-                                                </span>
-
-                                                <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
-
-
-                                                <span class="input-group-btn">
-
-                                                    
-
-                                                    <button data-cantidad="{{ $cart[$producto->slug]->cantidad }}" data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
-
-                                                </span>
-
-                                                </div><!-- /input-group -->
-                                            </div><!-- /.col-lg-6 -->
-                                            
-                                            </div><!-- /.row -->
-
-                                            <a class="btn btn-md btn-vermas2" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
-
-                                        @else
-
-                                            <a class="btn btn-md btn-vermas2" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
-                                            <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
-
-                                        @endif
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     @endforeach
                         
                     @else
