@@ -178,6 +178,8 @@ Mis Compras
     </div>
 </div>
 
+
+
 <!-- Modal Detalle -->
  <div class="modal fade" id="detalleModal" role="dialog" aria-labelledby="modalLabeldanger">
             <div class="modal-dialog modal-lg" role="document">
