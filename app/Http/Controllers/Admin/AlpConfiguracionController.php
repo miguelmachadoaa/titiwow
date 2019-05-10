@@ -68,6 +68,7 @@ class AlpConfiguracionController extends JoshController
             'retencion_ica_mp' => $request->retencion_ica_mp, 
             'mercadopago_sand' => $request->mercadopago_sand, 
             'registro_publico' => $request->registro_publico, 
+            'user_activacion' => $request->user_activacion, 
             'minimo_compra' => $request->minimo_compra, 
             'correo_admin' => $request->correo_admin, 
             'correo_shopmanager' => $request->correo_shopmanager, 

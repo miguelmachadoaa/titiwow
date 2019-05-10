@@ -424,6 +424,27 @@ class FrontEndController extends JoshController
     public function postRegister(UserRequest $request)
     {
 
+
+         $configuracion=AlpConfiguracion::where('id', '1')->first();
+
+
+
+         if($configuracion->user_activacion==0){
+
+            $activate=true;
+
+            $masterfi=1;
+
+         }else{
+
+            $activate=false;
+
+            $masterfi=0;
+
+         }
+
+         
+
         //$activate = $this->user_activation; //make it false if you don't want to activate user automatically it is declared above as global variable
         try {
 
@@ -433,7 +454,7 @@ class FrontEndController extends JoshController
 
                 if ($codalpin) {
 
-                    $activate=false;
+                  //  $activate=false;
 
                     // Register the user
                     $user = Sentinel::register($request->only(['first_name', 'last_name', 'email', 'password']), $activate);
@@ -448,7 +469,7 @@ class FrontEndController extends JoshController
             }else{
 
 
-                $activate=false;
+               // $activate=false;
 
 
                 // Register the user
@@ -468,7 +489,6 @@ class FrontEndController extends JoshController
 
                 if ($codalpin) {
 
-                    $masterfi=0;
 
                     $data = array(
                     'id_user_client' => $user->id, 
@@ -486,7 +506,7 @@ class FrontEndController extends JoshController
 
                 }else{
 
-                    $masterfi=0;
+                    
 
                     $data = array(
                     'id_user_client' => $user->id, 
@@ -629,7 +649,6 @@ class FrontEndController extends JoshController
 
                    
                 return redirect('login')->with('success', trans('auth/message.signup.success'));
-                 
 
 
                 }else{
@@ -639,10 +658,6 @@ class FrontEndController extends JoshController
                 return redirect('login')->with('success', trans($mensaje));
 
                 }
-
-
-
-
 
 
 
@@ -925,11 +940,29 @@ class FrontEndController extends JoshController
     public function postRegisterEmbajador(UserRequest $request)
     {
 
+         $configuracion=AlpConfiguracion::where('id', '1')->first();
+
+         if($configuracion->user_activation=0){
+
+            $activate=true;
+
+            $masterfi=1;
+
+         }else{
+
+            $activate=false;
+
+            $masterfi=0;
+
+         }
+
+
+
         /*$input=$request->all();
 
         print_r($input);*/
 
-        $activate = false;//$this->user_activation; //make it false if you don't want to activate user automatically it is declared above as global variable
+        //$activate = false;//$this->user_activation; //make it false if you don't want to activate user automatically it is declared above as global variable
         try {
             // Register the user
             $user = Sentinel::register($request->only(['first_name', 'last_name', 'email', 'password', 'gender']), $activate);

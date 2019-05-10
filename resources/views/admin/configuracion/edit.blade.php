@@ -258,6 +258,31 @@ Editar Configuracion General
                                
                             </div>
 
+
+                             <div class="form-group  {{ $errors->first('user_activacion', 'has-error') }}">
+                                <label for="select21" class="col-sm-2 control-label">
+                                    Activacion de Usuario
+                                </label>
+                                <div class="col-sm-5">   
+                                 <select id="user_activacion" name="user_activacion" class="form-control ">
+                                    <option value="">Seleccione</option>
+                                        
+                                       
+                                        <option value="{{ 0 }}"
+                                                @if($configuracion->user_activacion == 0) selected="selected" @endif >Automatico</option>
+
+                                        <option value="{{ 1}}"
+                                                @if($configuracion->user_activacion == 1) selected="selected" @endif >Manual</option>
+                                       
+                                </select>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('user_activacion', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                                  
+                                </div>
+                               
+                            </div>
+
                             <br />
                                 <h4>Seo Principal</h4>
                                 <hr>
