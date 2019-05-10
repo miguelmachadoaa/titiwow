@@ -7,10 +7,12 @@ use App\Models\AlpCuponesCategorias;
 use App\Models\AlpCuponesEmpresa;
 use App\Models\AlpCuponesProducto;
 use App\Models\AlpCuponesRol;
+use App\Models\AlpCuponesMarcas;
 use App\Models\AlpCuponesUser;
 use App\Models\AlpCategorias;
 use App\Models\AlpProductos;
 use App\Models\AlpEmpresas;
+use App\Models\AlpMarcas;
 use App\Models\AlpClientes;
 use App\Roles;
 use App\User;
@@ -407,6 +409,64 @@ class AlpCuponesController extends JoshController
     }
 
 
+      public function addmarca(Request $request)
+    {
+
+         $user_id = Sentinel::getUser()->id;
+
+       
+        $data = array(
+            'id_cupon' => $request->id_cupon, 
+            'id_marca' => $request->id_marca, 
+            'user_id' => $request->user_id
+        );
+
+
+
+        AlpCuponesMarcas::create($data);
+
+        
+
+       $marcas_list = AlpCuponesMarcas::select('alp_cupones_marca.*', 'alp_marcas.nombre_marca as nombre_marca')
+          ->join('alp_marcas', 'alp_cupones_marca.id_marca', '=', 'alp_marcas.id')
+          ->where('alp_cupones_marca.id_cupon', $request->id_cupon)
+          ->get();
+
+          $view= View::make('frontend.cupones.listmarcas', compact('marcas_list'));
+
+      $data=$view->render();
+
+      return $data;
+
+
+    }
+
+ public function delmarca(Request $request)
+    {
+
+         $user_id = Sentinel::getUser()->id;
+
+
+         $cat=AlpCuponesMarcas::where('id', $request->id)->first();
+
+         $cat->delete();
+       
+
+       $marcas_list = AlpCuponesMarcas::select('alp_cupones_marca.*', 'alp_marcas.nombre_marca as nombre_marca')
+          ->join('alp_marcas', 'alp_cupones_marca.id_marca', '=', 'alp_marcas.id')
+          ->where('alp_cupones_marca.id_cupon', $request->id_cupon)
+          ->get();
+
+         $view= View::make('frontend.cupones.listmarcas', compact('marcas_list'));
+
+      $data=$view->render();
+
+      return $data;
+
+
+    }
+
+
 
 
     public function configurar($id)
@@ -416,6 +476,8 @@ class AlpCuponesController extends JoshController
 
        
        $empresas=AlpEmpresas::get();
+
+       $marcas=AlpMarcas::get();
 
        $roles=Roles::select('roles.id', 'roles.name')->get();
 
@@ -450,6 +512,11 @@ class AlpCuponesController extends JoshController
           ->where('alp_cupones_producto.id_cupon', $id)
           ->get();
 
+          $marcas_list = AlpCuponesMarcas::select('alp_cupones_marca.*', 'alp_marcas.nombre_marca as nombre_marca')
+          ->join('alp_marcas', 'alp_cupones_marca.id_marca', '=', 'alp_marcas.id')
+          ->where('alp_cupones_marca.id_cupon', $id)
+          ->get();
+
 
            $clientes_list = AlpCuponesUser::select('alp_cupones_user.*', 'users.first_name as first_name', 'users.last_name as last_name')
           ->join('alp_clientes', 'alp_cupones_user.id_cliente', '=', 'alp_clientes.id_user_client')
@@ -465,7 +532,7 @@ class AlpCuponesController extends JoshController
 
 
 
-        return view('admin.cupones.configurar', compact('cupon', 'categorias', 'clientes', 'empresas', 'productos', 'categorias_list', 'empresas_list', 'clientes_list', 'productos_list', 'roles', 'roles_list'));
+        return view('admin.cupones.configurar', compact('cupon', 'categorias', 'clientes', 'empresas', 'productos', 'categorias_list', 'empresas_list', 'clientes_list', 'productos_list', 'roles', 'roles_list', 'marcas', 'marcas_list'));
     }
 
     /**
@@ -474,7 +541,7 @@ class AlpCuponesController extends JoshController
      * @param  int $id
      * @return Redirect
      */
-    public function update(CuponesRequest $request, $id)
+    public function update(Request $request, $id)
     {
        $data = array(
             'codigo_cupon' => $request->codigo_cupon, 

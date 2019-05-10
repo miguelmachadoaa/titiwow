@@ -10,7 +10,7 @@
                 @if ($submenu['submenu'] == [])
                     <li><a href="{{ secure_url('categoria',[ 'slug' => $submenu['slug']]) }}">{{ $submenu['name'] }} </a></li>
                 @else
-                    @include('partials.menu-item', [ 'item' => $submenu ])
+                  <!--  @include('partials.menu-item', [ 'item' => $submenu ])-->
                 @endif
             @endforeach
         </ul>

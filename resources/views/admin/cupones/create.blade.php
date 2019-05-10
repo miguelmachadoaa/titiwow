@@ -117,6 +117,21 @@
                             </div>
                         </div>
 
+
+                          <div class="form-group {{ $errors->
+                            first('limite_uso_persona', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Limite de Uso
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="number" step="1" min="1" id="limite_uso_persona" name="limite_uso_persona" class="form-control" placeholder="Limite de Uso"
+                                       value="{!! old('limite_uso_persona') !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('limite_uso_persona', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
                          <div class="form-group {{ $errors->
                             first('fecha_inicio', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">

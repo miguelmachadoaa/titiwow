@@ -19,6 +19,7 @@ class CreateAlpCuponesTable extends Migration
             $table->string('valor_cupon');
             $table->string('tipo_reduccion');
             $table->string('limite_uso');
+            $table->string('limite_uso_persona');
             $table->integer('estado_registro')->default(1);
             $table->integer('id_user');
             $table->timestamps();

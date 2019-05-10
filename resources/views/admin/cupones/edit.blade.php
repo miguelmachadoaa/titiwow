@@ -97,11 +97,25 @@ Editar Cupon
                                 Limite de Uso
                             </label>
                             <div class="col-sm-5">
-                                <input type="number" step="0.01" min="0" id="limite_uso" name="limite_uso" class="form-control" placeholder="Limite de Uso"
+                                <input type="number" step="1" min="0" id="limite_uso" name="limite_uso" class="form-control" placeholder="Limite de Uso"
                                        value="{!! old('limite_uso', $cupon->limite_uso) !!}">
                             </div>
                             <div class="col-sm-4">
                                 {!! $errors->first('limite_uso', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+                        <div class="form-group {{ $errors->
+                            first('limite_uso_perosna', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Limite de Uso por persona
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="number" step="1" min="1" id="limite_uso_perosna" name="limite_uso_perosna" class="form-control" placeholder="Limite de Uso"
+                                       value="{!! old('limite_uso_perosna', $cupon->limite_uso_perosna) !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('limite_uso_perosna', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
 

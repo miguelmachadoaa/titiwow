@@ -33,7 +33,7 @@
                                         <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/pse.jpg">
                                     </p>
 
-                                    <div data-id="2" class="pse col-sm-6 col-xs-12" style="padding:8px;background-color:#3c763d;color:#ffffff;">
+                                    <div data-id="2" class="pse col-sm-6 col-xs-12" style="padding:8px;background-color:#3c763d;color:#ffffff; cursor: pointer;">
 
                                         <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
 
@@ -60,7 +60,7 @@
                                         <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/tdc.jpg">
                                         </p> 
 
-                                     <div data-type='creditcard' id="creditcard" data-id="2" class=" col-sm-6 col-xs-12" style="padding:8px;background-color:#3c763d;color:#ffffff;">
+                                     <div data-type='creditcard' id="creditcard" data-id="2" class=" col-sm-6 col-xs-12" style="padding:8px;background-color:#3c763d;color:#ffffff; cursor: pointer;">
 
                                         <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
 
@@ -137,7 +137,7 @@
                                         <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/{{ $pm['id'] }}.jpg">
                                         </p> 
 
-                                     <div data-idpago="{{ $pm['id'] }}" data-type="ticket" data-id="2" class=" col-sm-6 col-xs-12 procesar" style="padding:8px;background-color:#3c763d;color:#ffffff;">
+                                     <div data-idpago="{{ $pm['id'] }}" data-type="ticket" data-id="2" class=" col-sm-6 col-xs-12 procesar" style="padding:8px;background-color:#3c763d;color:#ffffff; cursor: pointer;">
 
                                         <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
 
@@ -176,7 +176,7 @@
                                         {{ $fp->nombre_forma_pago }}
                                         </p> 
 
-                                     <div data-type='formaspago'  data-id="{{ $fp->id }}" class=" col-sm-6 col-xs-12 procesar" style="padding:8px;background-color:#3c763d;color:#ffffff;">
+                                     <div data-type='formaspago'  data-id="{{ $fp->id }}" class=" col-sm-6 col-xs-12 procesar" style="padding:8px;background-color:#3c763d;color:#ffffff; cursor: pointer;">
 
                                         <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
 

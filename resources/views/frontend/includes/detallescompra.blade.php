@@ -41,9 +41,47 @@
                                 
                             </div>
 
-                            <div class=" text-center " style="display: none">
+                           
+                        @if(isset($total))
+                            <div class="col-sm-12" style="    border-top: 1px solid rgba(0,0,0,0.1);">
 
-                                <div class="col-sm-12 col-xs-12">
+                                <div class="col-sm-8 col-xs-8" >
+                                    <h4>Total a Pagar</h4>
+                                </div>
+                                <div class="col-sm-4 col-xs-4">
+
+                                       <h4 style="color:#143473;">{{ number_format($total-$total_pagos,0,",",".")}}</h4> 
+
+                                </div>
+
+                            </div>
+
+
+                             <div class="col-sm-12" style="    border-top: 1px solid rgba(0,0,0,0.1);">
+
+                                <div class="col-sm-8 col-xs-8" >
+                                    <h4>Ahorro</h4>
+                                </div>
+                                <div class="col-sm-4 col-xs-4">
+
+                                       <h4 style="color:#22b14c;">{{ number_format($total_base-$total-$total_pagos,0,",",".")}}</h4> 
+
+                                </div>
+
+                            </div>
+
+                        @endif
+
+                        </div>
+
+                    </div>
+
+
+<div class="col-sm-12">
+    
+ <div class=" text-center " style="margin-top: 1em;">
+
+                                <div class="col-sm-12 col-xs-12" style="padding: 1em;">
 
                                     <div  data-id="4" class="row forma border pointer cupones">
 
@@ -108,36 +146,49 @@
 
                                     @endif
 
-                        @if(isset($total))
-                            <div class="col-sm-12" style="    border-top: 1px solid rgba(0,0,0,0.1);">
 
-                                <div class="col-sm-8 col-xs-8" >
-                                    <h4>Total a Pagar</h4>
-                                </div>
-                                <div class="col-sm-4 col-xs-4">
+                                    @if(isset($descuentos))
 
-                                       <h4 style="color:#143473;">{{ number_format($total-$total_pagos,0,",",".")}}</h4> 
+                            <!--h4 style="margin-left: 1em;">Pagos </h4-->
 
-                                </div>
+                                        <div class="row">
 
-                            </div>
+                                            <div class="col-sm-12">
+
+                                                @foreach($descuentos as $pago)
+
+                                                    <li style="list-style-type: none;">
+
+                                                    
+
+                                                        
+                                                        <div class="row text-center">
+
+                                                            <div class="col-sm-8 col-xs-8">
+                                                                <h4>{{ $pago->codigo_cupon }}</h4>
+                                                            </div>
+                                                            <div class="col-sm-4 col-xs-4">
+
+                                                                <h4 style="color:#143473;">{{   number_format($pago->monto_descuento,0,",",".") }}</h4> 
+
+                                                             </div>
+
+                                                        </div>
 
 
-                             <div class="col-sm-12" style="    border-top: 1px solid rgba(0,0,0,0.1);">
+                                                    
 
-                                <div class="col-sm-8 col-xs-8" >
-                                    <h4>Ahorro</h4>
-                                </div>
-                                <div class="col-sm-4 col-xs-4">
+                                                    </li>
 
-                                       <h4 style="color:#22b14c;">{{ number_format($total_base-$total-$total_pagos,0,",",".")}}</h4> 
+                                                @endforeach
 
-                                </div>
+                                            </div>
 
-                            </div>
+                                        </div>
 
-                        @endif
+                                    @endif
 
-                        </div>
 
-                    </div>
+
+
+</div>

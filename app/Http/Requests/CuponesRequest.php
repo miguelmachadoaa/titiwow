@@ -28,6 +28,7 @@ class CuponesRequest extends FormRequest {
             'valor_cupon' => 'required',
             'tipo_reduccion' => 'required',
             'limite_uso' => 'required',
+            'limite_uso_persona' => 'required',
             'fecha_inicio' => 'required',
             'fecha_final' => 'required',
             'monto_minimo' => 'required',

@@ -50,6 +50,16 @@ use View;
 use MP;
 use Mail;
 
+
+
+use App\Models\AlpCuponesCategorias;
+use App\Models\AlpCuponesEmpresa;
+use App\Models\AlpCuponesProducto;
+use App\Models\AlpCuponesRol;
+use App\Models\AlpCuponesMarcas;
+use App\Models\AlpCuponesUser;
+use App\Models\AlpOrdenesDescuento;
+
 use Illuminate\Support\Facades\Storage;
 
 class AlpCartController extends JoshController
@@ -673,35 +683,6 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
     }
 
-    public function orderRapipago(Request $request)
-    {
-
-       $configuracion=AlpConfiguracion::where('id', '1')->first();
-
-        $mp = new MP();
-
-        MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
-
-           if ($configuracion->mercadopago_sand=='1') {
-          
-          $mp::sandbox_mode(TRUE);
-
-        }
-
-        if ($configuracion->mercadopago_sand=='2') {
-          
-          $mp::sandbox_mode(FALSE);
-
-        }
-      
-      $payment_methods = MP::get("/v1/payment_methods");
-
-      dd($payment_methods);
-
-
-    
-}
-
 
   public function orderCreditcard(Request $request)
     {
@@ -967,6 +948,15 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
           }
 
 
+          $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
+
+            foreach ($descuentos as $pago) {
+
+              $total_pagos=$total_pagos+$pago->monto_descuento;
+
+            }
+
+
 
 
          if(count($cart)<=0){
@@ -1068,7 +1058,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
         'baloto' => 'Pago en efectivo a través de Baloto'
       );
 
-          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base'));
+          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos'));
 
          }
 
@@ -2855,14 +2845,334 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
     }
 
 
- public function addcupon(Request $request)
-    {
+
+
+    private function asignaCupon($codigo){
+
+     $configuracion=AlpConfiguracion::where('id', '1')->first();
       
       $carrito= \Session::get('cr');
 
-      //$cart=$this->reloadCart();
+      $cart=$this->reloadCart();
 
       $total=$this->total();
+
+      $total_base=$this->precio_base();
+
+      $impuesto=$this->impuesto();
+
+
+        $date = Carbon::now();
+
+
+        $hoy=$date->format('Y-m-d');
+
+
+
+        $user_id = Sentinel::getUser()->id;
+
+        $usuario=User::where('id', $user_id)->first();
+
+        $user_cliente=User::where('id', $user_id)->first();
+
+
+
+
+
+      $cupon=AlpCupones::where('codigo_cupon', $codigo)
+          ->whereDate('fecha_inicio','<',$hoy)
+          ->whereDate('fecha_final','>',$hoy)
+          ->first();
+
+      $usados=AlpOrdenesDescuento::where('codigo_cupon', $codigo)->get();
+
+
+
+
+
+          $mensaje_user='';
+            $mensaje_producto = '';
+            $pago = '';
+
+
+
+        
+
+
+
+
+      if (isset($cupon->id)) {
+
+            if($cupon->limite_uso>count($usados)){
+
+
+
+            $b_empresa=0;
+            $b_rol=0;
+            $b_user=0;
+
+
+            $b_marca=0;
+            $b_categoria=0;
+            $b_producto=0;
+
+            $b_user_valido=0;
+
+
+            $b_producto_valido=0;
+            
+
+            $c_user=AlpCuponesUser::where('id_cupon', $cupon->id)->first();
+
+            $c_rol=AlpCuponesRol::where('id_cupon', $cupon->id)->first();
+
+            $c_empresa=AlpCuponesEmpresa::where('id_cupon', $cupon->id)->first();
+
+            $c_producto=AlpCuponesProducto::where('id_cupon', $cupon->id)->first();
+
+            $c_marca=AlpCuponesMarcas::where('id_cupon', $cupon->id)->first();
+
+            $c_categoria=AlpCuponesCategorias::where('id_cupon', $cupon->id)->first();
+
+
+            if (isset($c_empresa->id)) {  $b_empresa=1;    }
+            if (isset($c_rol->id)) {  $b_rol=1;    }
+            if (isset($c_user->id)) {  $b_user=1;    }
+
+
+            if (isset($c_producto->id)) {  $b_producto=1;    }
+            if (isset($c_marca->id)) {  $b_marca=1;    }
+            if (isset($c_categoria->id)) {  $b_categoria=1;    }
+
+
+
+
+            if($b_empresa==1){
+
+              $cc=AlpCuponesEmpresa::where('id_cupon', $cupon->id)->where('id_empresa', $cliente->id_empresa)->first();
+
+              if(isset($cc->id)){
+
+                }else{
+
+                  $b_user_valido=1;
+
+                  $mensaje_user=$mensaje_user.' No aplicable por filtro empresa';
+              }
+
+            }
+
+            if($b_rol==1){
+
+              $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
+
+              $cc=AlpCuponesRol::where('id_cupon', $cupon->id)->where('id_rol', $role->role_id)->first();
+
+              if(isset($cc->id)){
+
+              }else{
+
+                $b_user_valido=1;
+
+                $mensaje_user=$mensaje_user.' No aplicable por filtro rol';
+              }
+
+            }
+
+            if($b_user==1){
+
+              $cc=AlpCuponesUser::where('id_cupon', $cupon->id)->where('id_cliente', $user_id)->first();
+
+              if(isset($cc->id)){
+
+              }else{
+
+                $b_user_valido=1;
+                $mensaje_user=$mensaje_user.' No aplicable por filtro usuario';
+              }
+
+
+            }
+
+
+            $base_descuento=0;
+
+
+
+
+            if($b_user_valido==0){
+
+
+              foreach ($cart as $detalle) {
+
+
+                  if($b_categoria==1){
+
+                      $cc=AlpCuponesCategorias::where('id_cupon', $cupon->id)->where('id_categoria', $detalle->id_categoria_default)->first();
+
+                      if(isset($cc->id)){
+
+                       
+
+                        }else{
+
+                          $b_producto_valido=1;
+
+                          $mensaje_producto=$mensaje_producto.' - '.$detalle->id_producto.' No aplicable por filtro categoria';
+                      }
+
+                    }
+
+
+
+                  if($b_marca==1){
+
+                      $cc=AlpCuponesMarcas::where('id_cupon', $cupon->id)->where('id_marca', $detalle->id_marca)->first();
+
+                      if(isset($cc->id)){
+
+                       
+
+                        }else{
+
+                          $b_producto_valido=1;
+
+                          $mensaje_producto=$mensaje_producto.' - '.$detalle->id_producto.' No aplicable por filtro marca';
+                      }
+
+                    }
+
+
+
+                    if($b_producto==1){
+
+                      $cc=AlpCuponesProducto::where('id_cupon', $cupon->id)->where('id_producto', $detalle->id_producto)->first();
+
+                      if(isset($cc->id)){
+
+                       
+
+                        }else{
+
+                          $b_producto_valido=1;
+
+                          $mensaje_producto=$mensaje_producto.' - '.$detalle->id_producto.' No aplicable por filtro producto';
+                      }
+
+                    }
+
+
+                    if ($b_producto_valido==0) {
+
+                      $base_descuento=$base_descuento+($detalle->precio_oferta*$detalle->cantidad);
+
+                    }
+
+                
+              }//endforeach detalles
+
+
+            } //en if usuario paso
+
+
+
+            $valor=0;
+
+            if ($cupon->tipo_reduccion==1) {
+              
+              $valor=$cupon->valor_cupon;
+
+              if ($valor>$base_descuento) {
+
+                $valor=$base_descuento;
+
+              }
+
+            }else{
+
+              $valor=($cupon->valor_cupon/100)*$base_descuento;
+            }
+
+
+            $data_pago = array(
+              'id_orden' => $carrito, 
+              'codigo_cupon' => $codigo, 
+              'monto_descuento' => $valor, 
+              'json' => json_encode($cupon), 
+              'id_user' => $user_id 
+            );
+
+
+            $pago=AlpOrdenesDescuento::create($data_pago);
+
+
+        }//if la cantidad de uso ya se acabo 
+            
+
+      }//end if hay cupon 
+
+
+
+
+      return array(
+        'codigo' => $codigo, 
+        'cupon' => $cupon, 
+        'pago' => $pago, 
+        'mensaje_user' => $mensaje_user, 
+        'mensaje_producto' => $mensaje_producto, 
+      );
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+public function addcupon(Request $request)
+    {
+
+      $configuracion=AlpConfiguracion::where('id', '1')->first();
+      
+      $carrito= \Session::get('cr');
+
+      $cart=$this->reloadCart();
+
+      $total=$this->total();
+
+      $total_base=$this->precio_base();
+
+      $impuesto=$this->impuesto();
+
+      $aviso='';
+
+
+      if ($total<$configuracion->minimo_compra) {
+
+            $aviso='El monto mínimo de compra es de $'.number_format($configuracion->minimo_compra,0,",",".");
+
+
+            $cart=$this->reloadCart();
+
+
+          $configuracion=AlpConfiguracion::where('id', '1')->first();
+
+          $total=$this->total();
+
+          $inv=$this->inventario();
+
+          return view('frontend.cart', compact('cart', 'total', 'configuracion', 'inv', 'aviso'));
+
+            return redirect('cart/show');
+
+      }
 
       if (Sentinel::check()) {
 
@@ -2870,52 +3180,34 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         $usuario=User::where('id', $user_id)->first();
 
-        $cupon=AlpCupones::where('codigo_cupon', $request->codigo_cupon)->first();
+        $user_cliente=User::where('id', $user_id)->first();
 
 
-        if (isset($cupon->id)) {
+        $mensaje_cupon=$this->asignaCupon($request->codigo_cupon);
 
-          $valor=0;
+        if ($mensaje_cupon['mensaje_user']=='') {
+          
+        }else{
 
-          if ($cupon->tipo_reduccion==1) {
-            
-            $valor=$cupon->valor_cupon;
-
-          }else{
-
-            $valor=($cupon->valor_cupon/100)*$total;
-          }
-
-
-          $data_pago = array(
-            'id_orden' => $carrito, 
-            'id_forma_pago' => '4', 
-            'id_estatus_pago' => '2', 
-            'monto_pago' => $valor, 
-            'json' => json_encode($cupon), 
-            'id_user' => $user_id 
-          );
-
-
-          $pago=AlpPagos::create($data_pago);
+          $aviso=$aviso.$mensaje['mensaje_user'];
 
         }
 
-        $pagos=AlpPagos::where('id_orden', $carrito)->get();
+          if ($mensaje_cupon['mensaje_producto']=='') {
+          
+        }else{
 
-        $total_pagos=0;
+          $aviso=$aviso.$mensaje_cupon['mensaje_producto'];
 
-          foreach ($pagos as $pago) {
+        }
 
-            $total_pagos=$total_pagos+$pago->monto_pago;
+        
 
-          }
 
-        $configuracion=AlpConfiguracion::where('id', '1')->first();
 
         $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
 
-       $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+        $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
           ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
           ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
@@ -2924,63 +3216,85 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
            $formasenvio = AlpFormasenvio::select('alp_formas_envios.*')
           ->join('alp_rol_envio', 'alp_formas_envios.id', '=', 'alp_rol_envio.id_forma_envio')
-          ->where('alp_rol_envio.id_rol', $role->role_id)->get();
+          ->where('alp_rol_envio.id_rol', $role->role_id)->get()->toArray();
 
 
           $formaspago = AlpFormaspago::select('alp_formas_pagos.*')
           ->join('alp_rol_pago', 'alp_formas_pagos.id', '=', 'alp_rol_pago.id_forma_pago')
           ->where('alp_rol_pago.id_rol', $role->role_id)->get();
 
-          $countries = Country::all();
+            $countries = Country::all();
 
-          $inv = $this->inventario();
-
-         if(count($cart)<=0){
-
-            return redirect('productos');
-
-         }else{
-
-          $items = array();
-
-          $list=array();
-
-         
-              $items["id"]=$carrito;
-              $items["title"]='Orden Alpina Nro. '.$carrito;
-              $items["description"]='Orden Alpina Nro. '.$carrito;
-              $items["picture_url"]= '#';
-              $items["quantity"]=1;
-              $items["currency_id"]='COP';
-              $items["unit_price"]=intval($total-$total_pagos);
-
-              $list[]=$items;
+            $inv = $this->inventario();
 
 
-            $preference_data = [
-              "items" => $list,
-              "payer" => [
-                "name" => $usuario->first_name,
-                "surname" => $usuario->last_name,
-                "email" => $usuario->email,
-              ],
-              "auto_return" => 'approved',
-              "back_urls" => [
-                "success" => secure_url('/order/success'),
-                "failure" => secure_url('/order/failure'),
-                "pending" => secure_url('/order/pending')
-              ],
-              "notification_url" =>secure_url('/order/mercadopago'),
-              "external_reference" =>time()
-            ];
+            $pagos=AlpPagos::where('id_orden', $carrito)->get();
 
-           $mp = new MP();
+            $total_pagos=0;
 
-           if ($configuracion->mercadopago_sand=='1') {
-          
-          $mp::sandbox_mode(TRUE);
+            foreach ($pagos as $pago) {
 
-        }
+              $total_pagos=$total_pagos+$pago->monto_pago;
+
+            }
+
+
+            $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
+
+            foreach ($descuentos as $pago) {
+
+              $total_pagos=$total_pagos+$pago->monto_descuento;
+
+            }
+
+
+
+
+           if(count($cart)<=0){
+
+              return redirect('productos');
+
+           }else{
+
+              $items = array();
+
+              $list=array();
+             
+                $items["id"]=$carrito;
+                $items["title"]='Orden Alpina Nro. '.$carrito;
+                $items["description"]='Orden Alpina Nro. '.$carrito;
+                $items["picture_url"]= '#';
+                $items["quantity"]=1;
+                $items["currency_id"]='COP';
+                $items["unit_price"]=intval($total-$total_pagos);
+
+                  $list[]=$items;
+
+
+                $preference_data = [
+                  "items" => $list,
+                  "payer" => [
+                    "name" => $usuario->first_name,
+                    "surname" => $usuario->last_name,
+                    "email" => $usuario->email,
+                  ],
+                  "auto_return" => 'approved',
+                  "back_urls" => [
+                    "success" => secure_url('/order/success'),
+                    "failure" => secure_url('/order/failure'),
+                    "pending" => secure_url('/order/pending')
+                  ],
+                  "notification_url" =>secure_url('/order/mercadopago'),
+                  "external_reference" =>time()
+                ];
+
+               $mp = new MP();
+
+               if ($configuracion->mercadopago_sand=='1') {
+              
+              $mp::sandbox_mode(TRUE);
+
+            }
 
         if ($configuracion->mercadopago_sand=='2') {
           
@@ -2992,35 +3306,93 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
           $preference = MP::post("/checkout/preferences",$preference_data);
 
+          //$preference = array( );
+
           $this->saveOrden($preference);
 
-          $pse = array();
+          $net_amount=$total-$impuesto;
+
+
+         $pse = array();
 
           $payment_methods = MP::get("/v1/payment_methods");
-         
-          $carro=AlpCarrito::where('id', $carrito)->first();
 
+         // $payment_methods = array('response'=>array());
+
+
+          $carro=AlpCarrito::where('id', $carrito)->first();
 
           $data_carrito = array(
             'id_user' => $user_id );
 
-          $carro->update($data_carrito);
+          if (isset($carro['id'])) {
+             $data_carrito = array(
+              'id_user' => $user_id );
+
+            $carro->update($data_carrito);
+          }
+
+          /*actualizamos la data del carrito */
 
           $states=State::where('config_states.country_id', '47')->get();
 
-            return view('frontend.order.cupon', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'pse', 'payment_methods'));
+          $tdocumento=AlpTDocumento::get();
+
+          $estructura = AlpEstructuraAddress::where('estado_registro','=',1)->get();
+
+          $labelpagos = array(
+        'pse' => 'Tarjeta débito', 
+        'visa' => 'Tarjeta crédito', 
+        'efecty' => 'Pago en efectivo a través de Efecty', 
+        'efecty' => 'Pago en efectivo a través de Efecty', 
+        'davivienda' => 'Pago en efectivo a través de Davivienda', 
+        'baloto' => 'Pago en efectivo a través de Baloto'
+      );
+
+          return view('frontend.order.cupon', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos'));
+
          }
+
 
       }else{
 
         $url='order.detail';
 
           //return redirect('login');
-          return view('frontend.order.login', compact('url'));
+        return view('frontend.order.login', compact('url'));
 
-        }
+
+      }
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
 
     
 }

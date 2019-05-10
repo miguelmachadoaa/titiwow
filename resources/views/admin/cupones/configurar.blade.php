@@ -93,6 +93,55 @@ Editar Cupon
                         </div>
                     </fieldset>
 
+                        <hr>
+
+                     <fieldset>
+                        <legend>Filtro para Marcas</legend>
+
+                        <div class="row">
+                            
+                                
+                             <div class="form-group col-sm-8 {{ $errors->first('id_marca', 'has-error') }}">
+                                <label for="select21" class="col-sm-4 control-label">
+                                  Marcas de Productos 
+                                </label>
+                                <div class="col-sm-8">   
+                                 <select id="id_marca" name="id_marca" class="form-control select2">
+                                    
+                                    <option value="">Seleccione</option>
+                                    @foreach($marcas as $marca)
+
+                                        <option value="{{$marca->id}}">{{$marca->nombre_marca}}</option>
+                                    @endforeach
+
+                                </select>
+
+                                  {!! $errors->first('id_marca', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                           
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <div class="col-sm-offset-2 col-sm-4">
+                                    
+
+                                    <button type="button" role="button" class="btn btn-success addMarcaCupon" >
+                                        Agregar
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row listmarcas">
+
+                            @include('frontend.cupones.listmarcas')
+                            
+
+
+                        </div>
+                    </fieldset>
+
+
                    
 
                     <hr>
@@ -388,6 +437,57 @@ Editar Cupon
             complete: function(datos){     
 
                 $(".listcategorias").html(datos.responseText);
+
+            }
+        });
+
+    });
+
+
+     $('.addMarcaCupon').on('click', function(){
+
+        base = $('#base').val();
+
+        id_marca = $('#id_marca').val();
+
+        id_cupon = $('#id_cupon').val();
+
+        _token = $('#_token').val();
+
+
+         $.ajax({
+            type: "POST",
+            data:{ id_marca, id_cupon, _token},
+            url: base+"/admin/cupones/"+id_marca+"/addmarca",
+                
+            complete: function(datos){     
+
+                $(".listmarcas").html(datos.responseText);
+
+            }
+        });
+
+    });
+
+    $(document).on('click','.delcuponmarca',  function(){
+
+        base = $('#base').val();
+
+        id = $(this).data('id');
+
+        id_cupon = $(this).data('idcupon');
+
+        _token = $('#_token').val();
+
+
+         $.ajax({
+            type: "POST",
+            data:{ id, id_cupon, _token},
+            url: base+"/admin/cupones/"+id+"/delmarca",
+                
+            complete: function(datos){     
+
+                $(".listmarcas").html(datos.responseText);
 
             }
         });
