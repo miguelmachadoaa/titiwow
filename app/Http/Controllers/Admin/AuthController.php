@@ -18,6 +18,7 @@ use App\Models\AlpClientes;
 use App\Models\AlpAmigos;
 use App\Models\AlpDirecciones;
 use App\Models\AlpEmpresas;
+use App\Models\AlpConfiguracion;
 
 use Mail;
 use Reminder;
@@ -103,6 +104,27 @@ class AuthController extends JoshController
     public function postSignup(UserRequest $request)
     {
 
+
+         $configuracion=AlpConfiguracion::where('id', '1')->first();
+
+
+
+         if($configuracion->user_activacion==0){
+
+            $activate=true;
+
+            $masterfi=1;
+
+         }else{
+
+            $activate=false;
+
+            $masterfi=0;
+
+         }
+
+
+
         try {
             // Register the user
             $user = Sentinel::registerAndActivate([
@@ -129,7 +151,9 @@ class AuthController extends JoshController
             // Redirect to the home page with success menu
            // return Redirect::route("admin.dashboard")->with('success', trans('auth/message.signup.success'));
 
-             Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name));
+                 $mensaje='Gracias por registrarte en AlpinaGo, Ya puedes disfrutar de nuestros productos con un descuento especial.';
+
+             Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $mensaje));
 
              if ($request->back=='0') {
 
@@ -361,6 +385,28 @@ class AuthController extends JoshController
     public function postSignupEmbajador(UserRequest $request)
     {
 
+
+        $configuracion=AlpConfiguracion::where('id', '1')->first();
+
+
+
+         if($configuracion->user_activacion==0){
+
+            $activate=true;
+
+            $masterfi=1;
+
+         }else{
+
+            $activate=false;
+
+            $masterfi=0;
+
+         }
+
+
+
+
         $input=$request->all();
         
 
@@ -378,7 +424,7 @@ class AuthController extends JoshController
                 'last_name' => $request->get('last_name'),
                 'email' => $request->get('email'),
                 'password' => $request->get('password'),
-            ]);
+            ], $activate);
 
             //add user to 'User' group
             $role = Sentinel::findRoleById(11);
@@ -422,9 +468,45 @@ class AuthController extends JoshController
 
             $amigo->delete();
 
-             Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name));
 
-             Mail::to($embajador->email)->send(new \App\Mail\AmigoRegistrado($user->first_name, $user->last_name));
+
+
+            if ($activate) {
+
+                  $name = Sentinel::login($user, false);
+            //Activity log
+
+                activity($name->full_name)
+                ->performedOn($user)
+                ->causedBy($user)
+                ->log('Registered');
+
+
+                $mensaje='Gracias por registrarte en AlpinaGo, Ya puedes disfrutar de nuestros productos con un descuento especial.';
+
+
+                 Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $mensaje));
+
+                  Mail::to($embajador->email)->send(new \App\Mail\AmigoRegistrado($user->first_name, $user->last_name));
+
+
+
+                return Redirect::route("clientes")->with('success', trans('auth/message.signup.success'));
+
+
+            }else{
+
+                $mensaje='Estamos procesando tu solicitud de registro, te notificaremos una vez haya finalizado el proceso, este proceso puede tomar hasta 24 horas.';
+
+                 Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $mensaje));
+
+                  Mail::to($embajador->email)->send(new \App\Mail\AmigoRegistrado($user->first_name, $user->last_name));
+
+
+            }
+
+
+            
 
             //activity log ends
             // Redirect to the home page with success menu
@@ -465,6 +547,28 @@ class AuthController extends JoshController
     public function postSignupAfiliado(UserRequest $request)
     {
 
+
+        $configuracion=AlpConfiguracion::where('id', '1')->first();
+
+
+
+         if($configuracion->user_activacion==0){
+
+            $activate=true;
+
+            $masterfi=1;
+
+         }else{
+
+            $activate=false;
+
+            $masterfi=0;
+
+         }
+
+
+
+
         $input=$request->all();
 
         //print_r($input);
@@ -490,7 +594,7 @@ class AuthController extends JoshController
                 'last_name' => $request->get('last_name'),
                 'email' => $request->get('email'),
                 'password' => $request->get('password'),
-            ]);
+            ], $activate);
 
 
 
@@ -499,18 +603,7 @@ class AuthController extends JoshController
             $role->users()->attach($user);
 
 
-            // Log the user in
-           /* $name = Sentinel::login($user, false);
-            //Activity log
-
-            activity($name->full_name)
-                ->performedOn($user)
-                ->causedBy($user)
-                ->log('Registered');*/
-
-
-             //echo 'Referido: '.$referido.'<br>';
-
+            
 
 
 
@@ -529,7 +622,9 @@ class AuthController extends JoshController
 
              //print_r($data);
 
-             Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name));
+
+
+            
 
             AlpClientes::create($data);
 
@@ -548,6 +643,37 @@ class AuthController extends JoshController
             AlpDirecciones::create($direccion);
 
              $amigo->delete();
+
+
+             if ($activate) {
+
+                  $name = Sentinel::login($user, false);
+            //Activity log
+
+                activity($name->full_name)
+                ->performedOn($user)
+                ->causedBy($user)
+                ->log('Registered');
+
+
+                $mensaje='Gracias por registrarte en AlpinaGo, Ya puedes disfrutar de nuestros productos con un descuento especial.';
+
+
+                 Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $mensaje));
+
+
+
+                return Redirect::route("clientes")->with('success', trans('auth/message.signup.success'));
+
+
+            }else{
+
+                $mensaje='Estamos procesando tu solicitud de registro, te notificaremos una vez haya finalizado el proceso, este proceso puede tomar hasta 24 horas.';
+
+                 Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $mensaje));
+
+
+            }
 
            
 

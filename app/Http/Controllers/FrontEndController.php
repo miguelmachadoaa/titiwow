@@ -608,7 +608,7 @@ class FrontEndController extends JoshController
                 }
 
 
-                Mail::to($user->email)->send(new \App\Mail\WelcomeEmbajador($user->first_name, $user->last_name));
+                Mail::to($user->email)->send(new \App\Mail\($user->first_name, $user->last_name));
 
 
             }else{
@@ -627,7 +627,9 @@ class FrontEndController extends JoshController
 
                 $role->users()->attach($user);
 
-                Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name));
+                 $mensaje='Estamos procesando tu solicitud de registro, te notificaremos una vez haya finalizado el proceso, este proceso puede tomar hasta 24 horas.';
+
+                Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $mensaje));
 
             }
 
@@ -636,7 +638,6 @@ class FrontEndController extends JoshController
             //if you set $activate=false above then user will receive an activation mail
             if (!$activate) {
                 // Data to be used on the email view
-
                 $data=[
                     'user_name' => $user->first_name .' '. $user->last_name,
                     'activationUrl' => URL::route('activate', [$user->id, Activation::create($user)->code]),
@@ -646,10 +647,8 @@ class FrontEndController extends JoshController
                 //Redirect to login page
 
                 if ($id_empresa==0) {
-
                    
-                return redirect('login')->with('success', trans('auth/message.signup.success'));
-
+                    return redirect('login')->with('success', trans('auth/message.signup.success'));
 
                 }else{
 
@@ -658,9 +657,6 @@ class FrontEndController extends JoshController
                 return redirect('login')->with('success', trans($mensaje));
 
                 }
-
-
-
 
             }
             // login user automatically
