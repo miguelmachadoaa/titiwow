@@ -121,7 +121,7 @@
                           <div class="form-group {{ $errors->
                             first('limite_uso_persona', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Limite de Uso
+                                Limite de Uso por persona
                             </label>
                             <div class="col-sm-5">
                                 <input type="number" step="1" min="1" id="limite_uso_persona" name="limite_uso_persona" class="form-control" placeholder="Limite de Uso"

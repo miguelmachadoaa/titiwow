@@ -75,6 +75,7 @@ class AlpCuponesController extends JoshController
             'valor_cupon' => $request->valor_cupon, 
             'tipo_reduccion' => $request->tipo_reduccion, 
             'limite_uso' => $request->limite_uso, 
+            'limite_uso_persona' => $request->limite_uso_persona, 
             'fecha_inicio' => $request->fecha_inicio, 
             'fecha_final' => $request->fecha_final, 
             'monto_minimo' => $request->monto_minimo, 
@@ -551,6 +552,8 @@ class AlpCuponesController extends JoshController
             'fecha_inicio' => $request->fecha_inicio, 
             'fecha_final' => $request->fecha_final, 
             'monto_minimo' => $request->monto_minimo, 
+            'limite_uso_persona' => $request->limite_uso_persona, 
+
         );
          
        $cupon = AlpCupones::find($id);
