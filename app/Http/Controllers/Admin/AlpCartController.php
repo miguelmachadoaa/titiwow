@@ -2947,7 +2947,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
 
-            if($cupon->monto_minimo<=$total)){
+            if($cupon->monto_minimo<$total){}else{
 
                $b_user_valido=1;
 
@@ -3217,6 +3217,8 @@ public function addcupon(Request $request)
 
         $mensaje_cupon=$this->asignaCupon($request->codigo_cupon);
 
+
+
         if ($mensaje_cupon['mensaje_user']=='') {
           
         }else{
@@ -3225,7 +3227,7 @@ public function addcupon(Request $request)
 
         }
 
-          if ($mensaje_cupon['mensaje_producto']=='') {
+        if ($mensaje_cupon['mensaje_producto']=='') {
           
         }else{
 
