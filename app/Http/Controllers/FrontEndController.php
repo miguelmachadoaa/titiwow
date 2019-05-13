@@ -607,8 +607,10 @@ class FrontEndController extends JoshController
                     }
                 }
 
+                $mensaje='Estamos procesando tu solicitud de registro, te notificaremos una vez haya finalizado el proceso, este proceso puede tomar hasta 24 horas.';
 
-                Mail::to($user->email)->send(new \App\Mail\($user->first_name, $user->last_name));
+
+                Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $mensaje));
 
 
             }else{
