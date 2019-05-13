@@ -125,7 +125,7 @@
                             </label>
                             <div class="col-sm-5">
                                 <input type="number" step="1" min="1" id="limite_uso_persona" name="limite_uso_persona" class="form-control" placeholder="Limite de Uso"
-                                       value="{!! old('limite_uso_persona') !!}">
+                                       value="{!! '1' or old('limite_uso_persona') !!}">
                             </div>
                             <div class="col-sm-4">
                                 {!! $errors->first('limite_uso_persona', '<span class="help-block">:message</span> ') !!}
