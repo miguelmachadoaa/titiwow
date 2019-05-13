@@ -132,7 +132,7 @@ class AuthController extends JoshController
                 'last_name' => $request->get('last_name'),
                 'email' => $request->get('email'),
                 'password' => $request->get('password'),
-            ]);
+            ], $activate);
 
             //add user to 'User' group
             $role = Sentinel::findRoleById(2);
@@ -449,7 +449,7 @@ class AuthController extends JoshController
 
 
 
-            AlpClientes::create($data);
+           $cliente= AlpClientes::create($data);
 
              $direccion = array(
                 'id_client' => $user->id, 
@@ -480,6 +480,15 @@ class AuthController extends JoshController
                 ->performedOn($user)
                 ->causedBy($user)
                 ->log('Registered');
+
+
+
+                  $data_c = array(
+                    'estado_masterfile' =>$request->telefono_cliente
+                );
+
+
+            $cliente->update($data_c);
 
 
                 $mensaje='Gracias por registrarte en AlpinaGo, Ya puedes disfrutar de nuestros productos con un descuento especial.';
@@ -618,7 +627,7 @@ class AuthController extends JoshController
 
              //print_r($data);
 
-            AlpClientes::create($data);
+            $cliente=AlpClientes::create($data);
 
              $direccion = array(
                 'id_client' => $user->id, 
@@ -646,6 +655,14 @@ class AuthController extends JoshController
                 ->performedOn($user)
                 ->causedBy($user)
                 ->log('Registered');
+
+
+                  $data_c = array(
+                    'estado_masterfile' =>$request->telefono_cliente
+                );
+
+
+            $cliente->update($data_c);
 
 
                 $mensaje='Gracias por registrarte en AlpinaGo, Ya puedes disfrutar de nuestros productos con un descuento especial.';

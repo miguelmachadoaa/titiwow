@@ -559,7 +559,7 @@ class FrontEndController extends JoshController
                 
             }
 
-            AlpClientes::create($data);
+            $cliente=AlpClientes::create($data);
 
             $direccion = array(
                 'id_client' => $user->id, 
@@ -668,7 +668,14 @@ class FrontEndController extends JoshController
                 ->performedOn($user)
                 ->causedBy($user)
                 ->log('Nueva Cuenta Creada');
-            // Redirect to the home page with success menu
+
+
+            $data_c = array(
+                    'estado_masterfile' =>$request->telefono_cliente
+                );
+
+
+            $cliente->update($data_c);
 
 
            // return Redirect::route("clientes")->with('success', trans('auth/message.signup.success'));
