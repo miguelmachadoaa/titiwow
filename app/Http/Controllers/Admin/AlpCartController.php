@@ -353,6 +353,18 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
       $det_array = array();
 
+      $total_descuentos=0;
+
+
+
+      $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
+
+            foreach ($descuentos as $pago) {
+
+              $total_descuentos=$total_descuentos+$pago->monto_descuento;
+
+            }
+
 
 
       foreach ($detalles as $d ) {
@@ -364,7 +376,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
                 "title"       => $d->nombre_producto,
                 "description" => $d->descripcion_corta,
                 "quantity"    => (int)number_format($d->cantidad, 0, '.', ''),
-                "unit_price"  => (float)number_format($d->precio_unitario, 2, '.', ''),
+                "unit_price"  => intval($d->precio_unitario),
                 );
 
        
@@ -749,7 +761,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
                 "title"       => $d->nombre_producto,
                 "description" => $d->descripcion_corta,
                 "quantity"    => (int)number_format($d->cantidad, 0, '.', ''),
-                "unit_price"  => (float)number_format($d->precio_unitario, 2, '.', ''),
+                "unit_price"  => intval($d->precio_unitario),
                 );
         }
 
@@ -947,12 +959,15 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
           }
 
+          $total_descuentos=0;
+
 
           $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
 
             foreach ($descuentos as $pago) {
 
               $total_pagos=$total_pagos+$pago->monto_descuento;
+              $total_descuentos=$total_descuentos+$pago->monto_descuento;
 
             }
 
@@ -1058,7 +1073,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
         'baloto' => 'Pago en efectivo a través de Baloto'
       );
 
-          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos'));
+          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos', 'total_descuentos'));
 
          }
 
@@ -1115,8 +1130,20 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
           ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
           ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
 
-      $det_array = array();
 
+          $total_descuentos=0;
+
+
+            $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
+
+            foreach ($descuentos as $pago) {
+
+              //$total_pagos=$total_pagos+$pago->monto_descuento;
+              $total_descuentos=$total_descuentos+$pago->monto_descuento;
+
+            }
+
+      $det_array = array();
 
 
       foreach ($detalles as $d ) {
@@ -1128,7 +1155,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
                 "title"       => $d->nombre_producto,
                 "description" => $d->descripcion_corta,
                 "quantity"    => (int)number_format($d->cantidad, 0, '.', ''),
-                "unit_price"  => (float)number_format($d->precio_unitario, 2, '.', ''),
+                "unit_price"  => intval($d->precio_unitario),
                 );
 
        
@@ -1139,6 +1166,8 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
             "external_reference" =>"ALP".$orden->id."",
             "description" => 'Pago de orden: '.$orden->id,
             "payment_method_id" => $request->idpago,
+              "additional_info"=> [
+                "items" => $det_array ],
             "payer" => [
               "email"=>$user_cliente->email],
               "additional_info"=> [
@@ -1148,6 +1177,8 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
               "value"=>(float)number_format($impuesto, 2, '.', ''),
               "type"=>"IVA"]]
           ];
+
+          //dd($preference_data);
 
 
 
@@ -2147,7 +2178,15 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
     {
        $cart= \Session::get('cart');
 
+        $carrito= \Session::get('cr');
+
       $total=0;
+
+
+      $total_descuentos=0;
+
+
+            
 
       foreach($cart as $row) {
 
@@ -2155,7 +2194,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       }
 
-       return $total;
+       return $total-$total_descuentos;
       
     }
 
@@ -2182,11 +2221,53 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       $impuesto=0;
 
-      foreach($cart as $row) {
+      $valor_impuesto=0;
 
-        $impuesto=$impuesto+$row->impuesto;
+      $carrito= \Session::get('cr');
+
+
+      $base=0;
+
+      $total=$this->total();
+
+      $total_descuentos=0;
+
+
+            $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
+
+            foreach ($descuentos as $pago) {
+
+              $total_descuentos=$total_descuentos+$pago->monto_descuento;
+
+            }
+
+
+          foreach($cart as $row) {
+
+            if($row->valor_impuesto>0){
+
+              $valor_impuesto=$row->valor_impuesto;
+
+            }
+
+            $impuesto=$impuesto+($row->impuesto*$row->cantidad);
+
+            $base=$base+($row->precio_oferta*$row->cantidad);
+
+          }
+
+
+      $resto=$total-$total_descuentos;
+
+       if ($resto<$base) {
+
+        $impuesto=($resto/(1+$valor_impuesto))*$valor_impuesto;
 
       }
+
+
+
+
 
        return $impuesto;
       
@@ -2720,7 +2801,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       $ciudad=AlpFormaCiudad::where('id_forma', $request->id_forma_envio)->where('id_ciudad', $direccion->city_id)->first();
 
 
-       $carrito= \Session::get('cr');
+      $carrito= \Session::get('cr');
 
       $cart=$this->reloadCart();
 
@@ -2809,11 +2890,44 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         }//endfreach
 
+
+
+         $total_descuentos=0;
+
+
+            $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
+
+            foreach ($descuentos as $pago) {
+
+              $total_descuentos=$total_descuentos+$pago->monto_descuento;
+
+            }
+
+
+          //se calcula lo que queda luego del descuento
+
+          $resto=$total-$total_descuentos;
+
+          if ($resto<$base_impuesto) {
+
+            $base_impuesto=$resto;
+            
+          }
+
+
+        $monto_impuesto=($base_impuesto/(1+$valor_impuesto))*$valor_impuesto;
+
+        $base_imponible=($base_impuesto/(1+$valor_impuesto));
+
+
+
          $data_update = array(
             'referencia' => 'ALP'.$orden->id,
+            'monto_total' =>$resto,
+            'monto_descuento' =>$total_descuentos,
             'monto_total_base' => $monto_total_base,
-            'base_impuesto' => $base_impuesto,
-            'monto_impuesto' => ($base_impuesto/(1+$valor_impuesto))*$valor_impuesto,
+            'base_impuesto' => $base_imponible,
+            'monto_impuesto' => $monto_impuesto,
             'valor_impuesto' => $valor_impuesto
 
              );
@@ -2899,15 +3013,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           $pago = '';
 
 
-
-
-      if (isset($cupon->id)) {
-
-            
-
-
-
-            $b_empresa=0;
+           $b_empresa=0;
             $b_rol=0;
             $b_user=0;
 
@@ -2920,6 +3026,12 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
             $b_producto_valido=0;
+
+
+
+
+      if (isset($cupon->id)) {
+
             
 
             $c_user=AlpCuponesUser::where('id_cupon', $cupon->id)->first();
@@ -2947,7 +3059,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
 
-            if($cupon->monto_minimo<$total){}else{
+            if($cupon->monto_minimo<$total){
+
+            }else{
 
                $b_user_valido=1;
 
@@ -3104,45 +3218,72 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
               }//endforeach detalles
 
 
-            } //en if usuario paso
 
 
+              if ($base_descuento>0) {
 
-            $valor=0;
+                   $valor=0;
 
-            if ($cupon->tipo_reduccion==1) {
-              
-              $valor=$cupon->valor_cupon;
+                if ($cupon->tipo_reduccion==1) {
+                  
+                  $valor=$cupon->valor_cupon;
 
-              if ($valor>$base_descuento) {
+                  if ($valor>$base_descuento) {
 
-                $valor=$base_descuento;
+                    $valor=$base_descuento;
 
-              }
+                  }
 
-            }else{
+                }else{
 
-              $valor=($cupon->valor_cupon/100)*$base_descuento;
+                  $valor=($cupon->valor_cupon/100)*$base_descuento;
+                }
+
+
+                $data_pago = array(
+                  'id_orden' => $carrito, 
+                  'codigo_cupon' => $codigo, 
+                  'monto_descuento' => $valor, 
+                  'json' => json_encode($cupon), 
+                  'id_user' => $user_id 
+                );
+
             }
-
-
-            $data_pago = array(
-              'id_orden' => $carrito, 
-              'codigo_cupon' => $codigo, 
-              'monto_descuento' => $valor, 
-              'json' => json_encode($cupon), 
-              'id_user' => $user_id 
-            );
 
 
             $pago=AlpOrdenesDescuento::create($data_pago);
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+            } //en if usuario paso
+
+
+
+           
+
        
             
 
-      }//end if hay cupon 
+      }else{//end if hay cupon 
 
+            $b_user_valido=1;
+
+              $mensaje_user=$mensaje_user.'No se encontro cupon';
+
+
+      }
 
       return array(
         'codigo' => $codigo, 
@@ -3157,14 +3298,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
     }
-
-
-
-
-
-
-
-
 
 
 
@@ -3208,6 +3341,11 @@ public function addcupon(Request $request)
 
       if (Sentinel::check()) {
 
+
+
+
+
+
         $user_id = Sentinel::getUser()->id;
 
         $usuario=User::where('id', $user_id)->first();
@@ -3217,13 +3355,14 @@ public function addcupon(Request $request)
 
         $mensaje_cupon=$this->asignaCupon($request->codigo_cupon);
 
+      
 
 
         if ($mensaje_cupon['mensaje_user']=='') {
           
         }else{
 
-          $aviso=$aviso.$mensaje['mensaje_user'];
+          $aviso=$aviso.$mensaje_cupon['mensaje_user'];
 
         }
 
@@ -3235,7 +3374,7 @@ public function addcupon(Request $request)
 
         }
 
-        
+         //dd($aviso);
 
 
 
@@ -3262,6 +3401,19 @@ public function addcupon(Request $request)
             $inv = $this->inventario();
 
 
+
+         $cart=$this->reloadCart();
+
+      $total=$this->total();
+
+      $total_base=$this->precio_base();
+
+      $impuesto=$this->impuesto();
+
+
+
+
+
             $pagos=AlpPagos::where('id_orden', $carrito)->get();
 
             $total_pagos=0;
@@ -3272,12 +3424,15 @@ public function addcupon(Request $request)
 
             }
 
+            $total_descuentos=0;
+
 
             $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
 
             foreach ($descuentos as $pago) {
 
               $total_pagos=$total_pagos+$pago->monto_descuento;
+              $total_descuentos=$total_descuentos+$pago->monto_descuento;
 
             }
 
@@ -3383,7 +3538,9 @@ public function addcupon(Request $request)
         'baloto' => 'Pago en efectivo a través de Baloto'
       );
 
-          return view('frontend.order.cupon', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos'));
+
+
+          return view('frontend.order.cupon', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos', 'aviso', 'total_descuentos'));
 
          }
 

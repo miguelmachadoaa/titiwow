@@ -11,6 +11,9 @@
             </div>
         @endif
 
+
+         
+
        
 
         @include('frontend.includes.detallesventa')
@@ -46,4 +49,9 @@
 
     <br> 
 
-    <div class=" res_env">  </div> 
+    <div class=" res_env"> 
+
+
+
+
+     </div> 

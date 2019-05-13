@@ -9,7 +9,8 @@
                                 </div>
                                 <div class="col-sm-4 col-xs-4">
 
-                                    <h4 style="color:#143473;">{{ number_format($total-$total_pagos-$impuesto,0,",",".")}}</h4> 
+                                    <!--h4 style="color:#143473;">{{ number_format($total+$impuesto,0,",",".")}}</h4--> 
+                                    <h4 style="color:#143473;">{{ number_format($total-$impuesto,0,",",".")}}</h4> 
 
                                 </div>
 
@@ -41,6 +42,37 @@
                                 
                             </div>
 
+
+
+
+
+
+                            @if(isset($descuentos))
+
+
+                            <!--h4 style="margin-left: 1em;">Pagos </h4-->
+
+                                                @foreach($descuentos as $pago)
+
+
+
+                                                <div class="col-sm-12" style="    border-top: 1px solid rgba(0,0,0,0.1);">
+                                
+                                                    <div class="col-sm-8 col-xs-8" >
+                                                        <h4>Cupon {{ $pago->codigo_cupon }}</h4>
+                                                    </div>
+                                                    <div class="col-sm-4 col-xs-4">
+
+                                                        <h4 style="color: #22b14c;">{{   number_format($pago->monto_descuento,0,",",".") }}</h4> 
+
+                                                    </div>
+                                                    
+                                                </div>
+
+                                                @endforeach
+
+                                    @endif
+
                            
                         @if(isset($total))
                             <div class="col-sm-12" style="    border-top: 1px solid rgba(0,0,0,0.1);">
@@ -64,7 +96,7 @@
                                 </div>
                                 <div class="col-sm-4 col-xs-4">
 
-                                       <h4 style="color:#22b14c;">{{ number_format($total_base-$total-$total_pagos,0,",",".")}}</h4> 
+                                       <h4 style="color:#22b14c;">{{ number_format($total_base-$total+$total_descuentos,0,",",".")}}</h4> 
 
                                 </div>
 
@@ -75,6 +107,9 @@
                         </div>
 
                     </div>
+
+
+
 
 
 <div class="col-sm-12">
@@ -100,95 +135,32 @@
                                     </div>
 
                                 </div>
+                               
 
                             </div>
 
-                            @if(isset($pagos))
 
-                            <!--h4 style="margin-left: 1em;">Pagos </h4-->
+                </div>
 
-                                        <div class="row">
+                                    <div class="clearfix">  </div>
+                             
 
-                                            <div class="col-sm-12">
+                                     @if (isset($aviso))
 
-                                                @foreach($pagos as $pago)
+                                            @if($aviso=='')
 
-                                                    <li style="list-style-type: none;">
+                                            @else
+         
+                                            <div class="alert alert-danger">
 
-                                                    @if($pago->id_forma_pago=='4')
-
-                                                        
-                                                        <div class="row text-center">
-
-                                                            <div class="col-sm-8 col-xs-8">
-                                                                <h4>{{ json_decode($pago->json)->codigo_cupon }}</h4>
-                                                            </div>
-                                                            <div class="col-sm-4 col-xs-4">
-
-                                                                <h4 style="color:#143473;">{{   number_format($pago->monto_pago,0,",",".") }}</h4> 
-
-                                                             </div>
-
-                                                        </div>
-
-
-                                                    @else
-
-                                                    @endif
-
-                                                    </li>
-
-                                                @endforeach
+                                                {{ $aviso }}
 
                                             </div>
 
-                                        </div>
+                                            @endif
 
-                                    @endif
-
-
-                                    @if(isset($descuentos))
-
-                            <!--h4 style="margin-left: 1em;">Pagos </h4-->
-
-                                        <div class="row">
-
-                                            <div class="col-sm-12">
-
-                                                @foreach($descuentos as $pago)
-
-                                                    <li style="list-style-type: none;">
-
-                                                    
-
-                                                        
-                                                        <div class="row text-center">
-
-                                                            <div class="col-sm-8 col-xs-8">
-                                                                <h4>{{ $pago->codigo_cupon }}</h4>
-                                                            </div>
-                                                            <div class="col-sm-4 col-xs-4">
-
-                                                                <h4 style="color:#143473;">{{   number_format($pago->monto_descuento,0,",",".") }}</h4> 
-
-                                                             </div>
-
-                                                        </div>
-
-
-                                                    
-
-                                                    </li>
-
-                                                @endforeach
-
-                                            </div>
-
-                                        </div>
-
-                                    @endif
+                                        @endif
 
 
 
-
-</div>
+                                

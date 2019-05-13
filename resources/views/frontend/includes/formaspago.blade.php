@@ -83,8 +83,8 @@
 
                                     data-public-key="{{ $configuracion->public_key_mercadopago_test }}"
                                     data-button-label="Pagar"
-                                    data-transaction-amount="{{ $total }}"
-                                  
+                                    data-transaction-amount="{{ $total-$total_pagos }}"
+                                    
                                     data-summary-product="{{ $total }}"
                                     data-summary-taxes="{{ $impuesto }}"
                                     >
@@ -104,7 +104,7 @@
 
                                     data-public-key="{{ $configuracion->public_key_mercadopago }}"
                                     data-button-label="Pagar"
-                                    data-transaction-amount="{{ $total }}"
+                                    data-transaction-amount="{{ $total-$total_pagos }}"
                                   
                                     data-summary-product="{{ $total }}"
                                     data-summary-taxes="{{ $impuesto }}"
