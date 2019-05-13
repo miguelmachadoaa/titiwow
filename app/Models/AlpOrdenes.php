@@ -27,6 +27,7 @@ class AlpOrdenes extends Model
         'monto_total',
         'monto_total',
         'monto_total_base',
+        'monto_descuento',
         'base_impuesto',
         'valor_impuesto',
         'monto_impuesto',
