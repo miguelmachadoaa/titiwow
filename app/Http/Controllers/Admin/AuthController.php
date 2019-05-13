@@ -491,7 +491,8 @@ class AuthController extends JoshController
 
 
 
-                return Redirect::route("clientes")->with('success', trans('auth/message.signup.success'));
+                //return Redirect::route("clientes")->with('success', trans('auth/message.signup.success'));
+                return Redirect::route("/")->with('success', trans('auth/message.signup.success'));
 
 
             }else{
@@ -602,11 +603,6 @@ class AuthController extends JoshController
             $role = Sentinel::findRoleById(12);
             $role->users()->attach($user);
 
-
-            
-
-
-
               $data = array(
                     'id_user_client' => $user->id, 
                     'id_type_doc' => $request->id_type_doc, 
@@ -621,10 +617,6 @@ class AuthController extends JoshController
                 );
 
              //print_r($data);
-
-
-
-            
 
             AlpClientes::create($data);
 
@@ -663,7 +655,8 @@ class AuthController extends JoshController
 
 
 
-                return Redirect::route("clientes")->with('success', trans('auth/message.signup.success'));
+               // return Redirect::route("clientes")->with('success', trans('auth/message.signup.success'));
+                return Redirect::route("/")->with('success', trans('auth/message.signup.success'));
 
 
             }else{

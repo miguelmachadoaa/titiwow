@@ -671,7 +671,8 @@ class FrontEndController extends JoshController
             // Redirect to the home page with success menu
 
 
-            return Redirect::route("clientes")->with('success', trans('auth/message.signup.success'));
+           // return Redirect::route("clientes")->with('success', trans('auth/message.signup.success'));
+            return Redirect::route("/")->with('success', trans('auth/message.signup.success'));
 
 
 
