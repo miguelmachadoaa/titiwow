@@ -2849,6 +2849,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
     private function asignaCupon($codigo){
 
+
+
      $configuracion=AlpConfiguracion::where('id', '1')->first();
       
       $carrito= \Session::get('cr');
@@ -2886,24 +2888,22 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       $usados=AlpOrdenesDescuento::where('codigo_cupon', $codigo)->get();
 
-
+      $usados_persona=AlpOrdenesDescuento::where('codigo_cupon', $codigo)->where('id_user', $user_id)->get();
 
 
 
           $mensaje_user='';
-            $mensaje_producto = '';
-            $pago = '';
-
-
-
-        
+          
+          $mensaje_producto = '';
+          
+          $pago = '';
 
 
 
 
       if (isset($cupon->id)) {
 
-            if($cupon->limite_uso>count($usados)){
+            
 
 
 
@@ -2943,6 +2943,38 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
             if (isset($c_producto->id)) {  $b_producto=1;    }
             if (isset($c_marca->id)) {  $b_marca=1;    }
             if (isset($c_categoria->id)) {  $b_categoria=1;    }
+
+
+
+
+            if($cupon->monto_minimo<=$total)){
+
+               $b_user_valido=1;
+
+              $mensaje_user=$mensaje_user.'Debe tener un minimo de '.$cupon->monto_minimo.' en el carrito';
+
+            }
+
+               
+
+
+
+            if($cupon->limite_uso<count($usados)){
+
+               $b_user_valido=1;
+
+                $mensaje_user=$mensaje_user.'Ya se usaron los cupones ';
+
+            }
+
+
+             if($cupon->limite_uso_persona<count($usados_persona)){
+
+               $b_user_valido=1;
+
+                $mensaje_user=$mensaje_user.'Ya el usuario aplico el maximo de cupones  ';
+
+            }
 
 
 
@@ -3106,18 +3138,18 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
             $pago=AlpOrdenesDescuento::create($data_pago);
 
 
-        }//if la cantidad de uso ya se acabo 
+       
             
 
       }//end if hay cupon 
-
-
 
 
       return array(
         'codigo' => $codigo, 
         'cupon' => $cupon, 
         'pago' => $pago, 
+        'user_valido' => $b_user_valido, 
+        'producto_valido' => $b_producto_valido, 
         'mensaje_user' => $mensaje_user, 
         'mensaje_producto' => $mensaje_producto, 
       );
