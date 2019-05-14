@@ -191,7 +191,7 @@ div.overlay > div {
 
 <p style="text-align: center;">
 
-    <a class="btn btn-danger" href="{{secure_url('/productos')}}">Cancelar <i class="fa fa-times" aria-hidden="true"></i></a>
+    <a class="btn btn-danger" href="{{secure_url('/cart/vaciar')}}">Cancelar <i class="fa fa-times" aria-hidden="true"></i></a>
 
 
 </p>

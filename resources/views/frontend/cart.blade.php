@@ -58,20 +58,6 @@ Carrito de Compras
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @if(isset($productos)) 
 
 

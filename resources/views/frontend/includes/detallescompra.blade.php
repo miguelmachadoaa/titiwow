@@ -59,7 +59,7 @@
                                                 <div class="col-sm-12" style="    border-top: 1px solid rgba(0,0,0,0.1);">
                                 
                                                     <div class="col-sm-8 col-xs-8" >
-                                                        <h4>Cupón {{ $pago->codigo_cupon }}</h4>
+                                                        <h4 style="color: #d5006e;">Cupón {{ $pago->codigo_cupon }}</h4>
                                                     </div>
                                                     <div class="col-sm-4 col-xs-4">
 
@@ -110,37 +110,40 @@
 
 
 
+@if(count($descuentos)>0)
 
+@else
 
 <div class="col-sm-12">
     
- <div class=" text-center " style="margin-top: 1em;">
+    <div class=" text-center " style="margin-top: 1em;">
 
-                                <div class="col-sm-12 col-xs-12" style="padding: 1em;">
+        <div class="col-sm-12 col-xs-12" style="padding: 1em;">
 
-                                    <div  data-id="4" class="row forma border pointer cupones">
+            <div  data-id="4" class="row forma border pointer cupones">
 
-                                        <div class="col-sm-8 col-xs-12">
+                <div class="col-sm-8 col-xs-12">
 
-                                           <p>Cupon de Descuento</p> 
-
-                                        </div>
-
-                                        <div class="col-sm-4 col-xs-12" style="padding:8px;background-color:#3c763d;color:#ffffff;">
-
-                                            <h5 class="text-center">Agregar <i class="fa fa-chevron-right"></i></h5>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                               
-
-                            </div>
-
+                   <p>Cupon de Descuento</p> 
 
                 </div>
+
+                <div class="col-sm-4 col-xs-12" style="padding:8px;background-color:#3c763d;color:#ffffff;">
+
+                    <h5 class="text-center">Agregar <i class="fa fa-chevron-right"></i></h5>
+
+                </div>
+
+            </div>
+
+        </div>
+                               
+
+    </div>
+
+
+</div>
+@endif
 
                                     <div class="clearfix">  </div>
                              

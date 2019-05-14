@@ -12,7 +12,7 @@
 
         <h2>Carrito de Compras</h2>
 
-        <a class="btn  btn-link" href="{{secure_url('cart/vaciar')}}">Vaciar</a>
+        <a style="color: #d5006e !important; " class="btn  btn-link" href="{{secure_url('cart/vaciar')}}">Vaciar</a>
 
         @if(count($cart))
 

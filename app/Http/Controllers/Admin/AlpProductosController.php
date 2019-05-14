@@ -155,7 +155,7 @@ class AlpProductosController extends JoshController
 
         $input = $request->all();
 
-        //var_dump($input);
+        
 
         $imagen='default.png';
 

@@ -2166,6 +2166,28 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
     public function vaciar( )
     {
+
+
+       $carrito= \Session::get('cr');
+
+            $user_id = Sentinel::getUser()->id;
+       
+
+
+
+      $usados_orden=AlpOrdenesDescuento::where('id_orden', $carrito)->where('id_user', $user_id)->get();
+
+
+      foreach ($usados_orden as $uo) {
+        
+        $o=AlpOrdenesDescuento::where('id', $uo->id)->first();
+
+        $o->delete();
+
+      }
+
+
+
        $cart= \Session::forget('cart');
 
        $carrito= \Session::forget('cr');
@@ -2964,7 +2986,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
     private function asignaCupon($codigo){
 
 
-
      $configuracion=AlpConfiguracion::where('id', '1')->first();
       
       $carrito= \Session::get('cr');
@@ -2977,23 +2998,15 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       $impuesto=$this->impuesto();
 
-
         $date = Carbon::now();
 
-
         $hoy=$date->format('Y-m-d');
-
-
 
         $user_id = Sentinel::getUser()->id;
 
         $usuario=User::where('id', $user_id)->first();
 
         $user_cliente=User::where('id', $user_id)->first();
-
-
-
-
 
       $cupon=AlpCupones::where('codigo_cupon', $codigo)
           ->whereDate('fecha_inicio','<',$hoy)
@@ -3003,6 +3016,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       $usados=AlpOrdenesDescuento::where('codigo_cupon', $codigo)->get();
 
       $usados_persona=AlpOrdenesDescuento::where('codigo_cupon', $codigo)->where('id_user', $user_id)->get();
+
+      $usados_orden=AlpOrdenesDescuento::where('id_orden', $carrito)->where('id_user', $user_id)->get();
+
 
 
 
@@ -3028,11 +3044,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
             $b_producto_valido=0;
 
 
-
-
       if (isset($cupon->id)) {
 
-            
 
             $c_user=AlpCuponesUser::where('id_cupon', $cupon->id)->first();
 
@@ -3057,19 +3070,22 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
             if (isset($c_categoria->id)) {  $b_categoria=1;    }
 
 
-
-
-            if($cupon->monto_minimo<$total){
-
-            }else{
+            if(count($usados_orden)>0){
 
                $b_user_valido=1;
 
-              $mensaje_user=$mensaje_user.'Debe tener un mínimo de '.$cupon->monto_minimo.' en el carrito';
+              $mensaje_user=$mensaje_user.'Ya el usuario aplico un cupón en la orden ';
 
             }
 
-               
+
+            if($cupon->limite_uso<count($usados)){
+
+               $b_user_valido=1;
+
+                $mensaje_user=$mensaje_user.'Ya se usaron los cupones ';
+
+            }
 
 
 
@@ -3089,8 +3105,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                 $mensaje_user=$mensaje_user.'Ya el usuario aplico el máximo de cupones  ';
 
             }
-
-
 
 
             if($b_empresa==1){
@@ -3142,8 +3156,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
             $base_descuento=0;
-
-
 
 
             if($b_user_valido==0){
@@ -3255,26 +3267,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
             } //en if usuario paso
 
-
-
-           
-
-       
-            
 
       }else{//end if hay cupon 
 
