@@ -9,7 +9,7 @@
                                 </div>
                                 <div class="col-sm-4 col-xs-4">
 
-                                    <!--h4 style="color:#143473;">{{ number_format($total+$impuestos,0,",",".")}}</h4--> 
+                                    <!--h4 style="color:#143473;">{{ number_format($total+$impuesto,0,",",".")}}</h4--> 
                                     <h4 style="color:#143473;">{{ number_format($total-$impuesto,0,",",".")}}</h4> 
 
                                 </div>
