@@ -83,10 +83,10 @@
 
                                     data-public-key="{{ $configuracion->public_key_mercadopago_test }}"
                                     data-button-label="Pagar"
-                                    data-transaction-amount="{{ $total-$total_pagos }}"
-                                    
-                                    data-summary-product="{{ $total }}"
-                                    data-summary-taxes="{{ $impuesto }}"
+                                    data-transaction-amount="{{ (float)number_format($total-$total_pagos, 2, '.', '')}}"
+                                  
+                                    data-summary-product="{{ (float)number_format($total-$total_pagos, 2, '.', '') }}"
+                                    data-summary-taxes="{{ (float)number_format($impuesto, 2, '.', '') }}"
                                     >
                                   </script>
                                 </form>
@@ -104,10 +104,10 @@
 
                                     data-public-key="{{ $configuracion->public_key_mercadopago }}"
                                     data-button-label="Pagar"
-                                    data-transaction-amount="{{ $total-$total_pagos }}"
+                                    data-transaction-amount="{{ (float)number_format($total-$total_pagos, 2, '.', '')}}"
                                   
-                                    data-summary-product="{{ $total }}"
-                                    data-summary-taxes="{{ $impuesto }}"
+                                    data-summary-product="{{ (float)number_format($total-$total_pagos, 2, '.', '') }}"
+                                    data-summary-taxes="{{ (float)number_format($impuesto, 2, '.', '') }}"
                                     >
                                   </script>
                                 </form>

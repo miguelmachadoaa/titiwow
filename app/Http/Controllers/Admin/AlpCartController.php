@@ -3065,7 +3065,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                $b_user_valido=1;
 
-              $mensaje_user=$mensaje_user.'Debe tener un minimo de '.$cupon->monto_minimo.' en el carrito';
+              $mensaje_user=$mensaje_user.'Debe tener un mínimo de '.$cupon->monto_minimo.' en el carrito';
 
             }
 
@@ -3086,7 +3086,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                $b_user_valido=1;
 
-                $mensaje_user=$mensaje_user.'Ya el usuario aplico el maximo de cupones  ';
+                $mensaje_user=$mensaje_user.'Ya el usuario aplico el máximo de cupones  ';
 
             }
 

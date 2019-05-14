@@ -59,7 +59,7 @@
                                                 <div class="col-sm-12" style="    border-top: 1px solid rgba(0,0,0,0.1);">
                                 
                                                     <div class="col-sm-8 col-xs-8" >
-                                                        <h4>Cupon {{ $pago->codigo_cupon }}</h4>
+                                                        <h4>Cupón {{ $pago->codigo_cupon }}</h4>
                                                     </div>
                                                     <div class="col-sm-4 col-xs-4">
 

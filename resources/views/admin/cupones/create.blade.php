@@ -58,7 +58,7 @@
                                 Codigo Cupón
                             </label>
                             <div class="col-sm-5">
-                                <input type="text" id="codigo_cupon" name="codigo_cupon" class="form-control" placeholder="Codigo Cupon"
+                                <input type="text" id="codigo_cupon" name="codigo_cupon" class="form-control" placeholder="Codigo Cupón"
                                        value="{!! old('codigo_cupon') !!}">
                             </div>
                             <div class="col-sm-4">
@@ -75,7 +75,7 @@
                                 
                                 <option value="">Seleccione</option>
                                 <option value="1" >Absoluto</option>
-                                <option value="2" >Porcetual</option>
+                                <option value="2" >Porcentual</option>
 
                             </select>
 
@@ -90,7 +90,7 @@
                                 Valor Cupón
                             </label>
                             <div class="col-sm-5">
-                                <input type="number" step="0.01" min="0" id="valor_cupon" name="valor_cupon" class="form-control" placeholder="Valor Cupon"
+                                <input type="number" step="0.01" min="0" id="valor_cupon" name="valor_cupon" class="form-control" placeholder="Valor Cupón"
                                        value="{!! old('valor_cupon') !!}">
                             </div>
                             <div class="col-sm-4">
@@ -106,7 +106,7 @@
                         <div class="form-group {{ $errors->
                             first('limite_uso', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Limite de Uso
+                                Límite de Uso
                             </label>
                             <div class="col-sm-5">
                                 <input type="number" step="0.01" min="0" id="limite_uso" name="limite_uso" class="form-control" placeholder="Limite de Uso"
@@ -121,7 +121,7 @@
                           <div class="form-group {{ $errors->
                             first('limite_uso_persona', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Limite de Uso por persona
+                                Límite de Uso por persona
                             </label>
                             <div class="col-sm-5">
                                 <input type="number" step="1" min="1" id="limite_uso_persona" name="limite_uso_persona" class="form-control" placeholder="Limite de Uso"
@@ -163,7 +163,7 @@
                         <div class="form-group {{ $errors->
                             first('monto_minimo', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Monto Minimo en el Carro 
+                                Monto Mínimo en el Carro 
                             </label>
                             <div class="col-sm-5">
                                 <input type="number" step="1" min="0" id="monto_minimo" name="monto_minimo" class="form-control" placeholder="Monto Minimo en el Carro"
