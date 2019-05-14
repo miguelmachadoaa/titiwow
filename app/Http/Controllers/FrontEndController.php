@@ -679,7 +679,7 @@ class FrontEndController extends JoshController
 
 
            // return Redirect::route("clientes")->with('success', trans('auth/message.signup.success'));
-            return Redirect::route("/")->with('success', trans('auth/message.signup.success'));
+            return Redirect::route("home")->with('success', trans('auth/message.signup.success'));
 
 
 
