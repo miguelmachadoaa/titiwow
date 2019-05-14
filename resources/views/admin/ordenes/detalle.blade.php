@@ -219,21 +219,45 @@ Orden {{$orden->id}}
                 </div>
                 <div class="panel-body">
 
-                     <br>
-                        <div class="row">   
-                            <div class="col-sm-12">  
-                                    <h3>    Detalle de la orden</h3>
-                             </div>
-                            
-                        </div>
 
-                    <br> 
 
-                   <table class="table table-striped ">
 
-                  
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+
+  @foreach($pagos as $pago)
+
+
+
+     <div class="panel panel-default">
+
+      <div class="panel-heading" role="tab" id="heading{{ $loop->iteration }}">
+        <h4 class="panel-title">
+          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $loop->iteration }}" aria-expanded="true" aria-controls="collapse{{ $loop->iteration }}">
+            Pago {{ $pago->created_at->diffForHumans()}}
+          </a>
+        </h4>
+      </div>
+      <div id="collapse{{ $loop->iteration }}" class="panel-collapse collapse " role="tabpanel" aria-labelledby="heading{{ $loop->iteration }}">
+        <div class="panel-body">
+          
+
+      
+                <table class="table table-striped ">
                  
-                 <tbody>
+                  <tbody>
                      
                         <tr>
                             <td><b>Id Orden</b></td>
@@ -314,16 +338,6 @@ Orden {{$orden->id}}
                         @endif
 
                          
-
-                      
-
-
-
-
-
-
-
-
 
                       
 
@@ -450,6 +464,47 @@ Orden {{$orden->id}}
                  </tbody>
              </table>
                     
+                
+
+
+
+
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+  @endforeach
+
+
+
+
+  
+ 
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  
+
            
                    
                 </div>

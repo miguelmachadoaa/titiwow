@@ -290,6 +290,28 @@ class AlpReportesController extends Controller
         return Excel::download(new ProductosExportB($hoy, $hoy), 'ventas_desde_'.$hoy.'_hasta_'.$hoy.'_producto.xlsx');
     }
 
+     public function productosc() 
+    {
+
+        $productos=AlpProductos::all();
+
+        return view('admin.reportes.productosc', compact('productos'));
+
+    }
+
+
+     public function exportproductosc(Request $request) 
+    {
+
+       // dd($request->all());
+
+        $date = Carbon::now();
+
+        $hoy=$date->format('Y-m-d');
+
+        return Excel::download(new ProductosExportC($hoy, $hoy), 'ventas_desde_'.$hoy.'_hasta_'.$hoy.'_producto.xlsx');
+    }
+
 
     public function cronexportproductosb(Request $request) 
     {
@@ -300,6 +322,18 @@ class AlpReportesController extends Controller
         $archivo='ventas_productos'.$hoy.'.xlsx';
 
          return Excel::download(new ProductosExportB($hoy, $hoy), $archivo);
+
+    }
+
+      public function cronexportproductosc(Request $request) 
+    {
+        $date = Carbon::now();
+
+        $hoy=$date->format('Y-m-d');
+
+        $archivo='ventas_productos'.$hoy.'.xlsx';
+
+         return Excel::download(new ProductosExportC($hoy, $hoy), $archivo);
 
     }
 

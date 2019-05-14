@@ -818,6 +818,17 @@
             </li>
             @endif
 
+
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.productosc']))
+
+                <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ URL::to('admin/reportes/productosc') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Venta de productos C
+                </a>
+            </li>
+            @endif
+
             
             
 

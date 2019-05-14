@@ -27,6 +27,8 @@ Route::get('reportes/cronnuevosusuariosexport', 'Admin\AlpReportesController@cro
 
 Route::get('reportes/cronexportproductosb', 'Admin\AlpReportesController@cronexportproductosb')->name('reportes.cronexportproductosb');
 
+Route::get('reportes/cronexportproductosc', 'Admin\AlpReportesController@cronexportproductosc')->name('reportes.cronexportproductosc');
+
 
 
 
@@ -341,9 +343,13 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
 
    Route::get('reportes/productosb', 'Admin\AlpReportesController@productosb')->name('reportes.productosb');
+
+   Route::get('reportes/productosv', 'Admin\AlpReportesController@productosv')->name('reportes.productosv');
    //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
   
    Route::post('reportes/exportproductosb', 'Admin\AlpReportesController@exportproductosb')->name('reportes.exportproductosb');
+
+   Route::post('reportes/exportproductosc', 'Admin\AlpReportesController@exportproductosc')->name('reportes.exportproductosc');
 
 
     Route::get('reportes/carrito', 'Admin\AlpReportesController@carrito')->name('reportes.carrito');

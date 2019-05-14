@@ -424,6 +424,11 @@ echo '<br>fin: '.$date_fin;*/
           ->where('alp_ordenes_pagos.id_orden', $id)
           ->first();
 
+        $pagos = AlpPagos::select('alp_ordenes_pagos.*','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago')
+          ->join('alp_formas_pagos', 'alp_ordenes_pagos.id_forma_pago', '=', 'alp_formas_pagos.id')
+          ->where('alp_ordenes_pagos.id_orden', $id)
+          ->get();
+
           //dd($pago);
 
 
@@ -435,7 +440,7 @@ echo '<br>fin: '.$date_fin;*/
 
 
 
-        return view('admin.ordenes.detalle', compact('detalles', 'orden', 'history', 'pago'));
+        return view('admin.ordenes.detalle', compact('detalles', 'orden', 'history', 'pago', 'pagos'));
 
     }
 
