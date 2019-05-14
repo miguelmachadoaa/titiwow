@@ -503,6 +503,18 @@ div.overlay > div {
 
             $('button.mercadopago-button').hide();
 
+
+             var aviso = localStorage.getItem("aviso");
+
+             if (aviso==undefined) {}else{
+
+                if (aviso=='') {}else{
+
+                    $('.resaviso').html('<div class="alert alert-danger">'+aviso+'</div>');
+                }
+
+             }
+
            //  $('body').on('click', 'button.mercadopago-button', function (e){
         //$('.mercadopago-button').on('click', function (e){
 
@@ -548,7 +560,11 @@ $('.sendCupon').click(function () {
                 
             complete: function(datos){     
 
-                $(".container_cart_detail").html(datos.responseText);
+                //$(".container_cart_detail").html(datos.responseText);
+
+                localStorage.setItem("aviso", datos.responseText);
+
+                location.reload();
 
                 $('#modalCupones').modal('hide');
 

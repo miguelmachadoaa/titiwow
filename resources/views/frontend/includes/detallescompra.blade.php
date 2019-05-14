@@ -145,6 +145,7 @@
                                     <div class="clearfix">  </div>
                              
 
+                                     <div class="resaviso"></div>
                                      @if (isset($aviso))
 
                                             @if($aviso=='')
