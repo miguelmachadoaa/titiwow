@@ -506,6 +506,8 @@ div.overlay > div {
 
              var aviso = localStorage.getItem("aviso");
 
+             localStorage.setItem("aviso", '');
+
              if (aviso==undefined) {}else{
 
                 if (aviso=='') {}else{
