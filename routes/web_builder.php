@@ -344,7 +344,7 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
    Route::get('reportes/productosb', 'Admin\AlpReportesController@productosb')->name('reportes.productosb');
 
-   Route::get('reportes/productosv', 'Admin\AlpReportesController@productosv')->name('reportes.productosv');
+   Route::get('reportes/productosc', 'Admin\AlpReportesController@productosc')->name('reportes.productosc');
    //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
   
    Route::post('reportes/exportproductosb', 'Admin\AlpReportesController@exportproductosb')->name('reportes.exportproductosb');

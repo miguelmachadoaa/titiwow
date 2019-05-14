@@ -15,6 +15,7 @@ use App\Exports\VentasExport;
 use App\Exports\VentastotalesExport;
 use App\Exports\ProductosExport;
 use App\Exports\ProductosExportB;
+use App\Exports\ProductosExportC;
 use App\Exports\ProductostotalesExport;
 use App\Exports\CarritoExport;
 use App\User;
