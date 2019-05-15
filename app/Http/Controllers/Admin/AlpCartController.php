@@ -2171,7 +2171,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
        $carrito= \Session::get('cr');
 
             $user_id = Sentinel::getUser()->id;
-       
+
 
 
 
@@ -3013,6 +3013,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           ->whereDate('fecha_final','>',$hoy)
           ->first();
 
+       
+
       $usados=AlpOrdenesDescuento::where('codigo_cupon', $codigo)->get();
 
       $usados_persona=AlpOrdenesDescuento::where('codigo_cupon', $codigo)->where('id_user', $user_id)->get();
@@ -3088,16 +3090,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
             }
 
 
-
-            if($cupon->limite_uso<count($usados)){
-
-               $b_user_valido=1;
-
-                $mensaje_user=$mensaje_user.'Ya se usaron los cupones ';
-
-            }
-
-
              if($cupon->limite_uso_persona<count($usados_persona)){
 
                $b_user_valido=1;
@@ -3105,6 +3097,16 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                 $mensaje_user=$mensaje_user.'Ya el usuario aplico el máximo de cupones  ';
 
             }
+
+
+              if(intval($cupon->monto_minimo)<intval($total)){ }else{
+
+               $b_user_valido=1;
+
+                $mensaje_user=$mensaje_user.'Para usar el cupón debe tener minimo '.$cupon->monto_minimo.' en el carrito ';
+
+            }
+
 
 
             if($b_empresa==1){
@@ -3388,6 +3390,34 @@ public function addcupon(Request $request)
 
 
 
+    public function delcupon(Request $request)
+    {
+
+      $configuracion=AlpConfiguracion::where('id', '1')->first();
+      
+      $carrito= \Session::get('cr');
+
+      $cart=$this->reloadCart();
+
+      $total=$this->total();
+
+      $total_base=$this->precio_base();
+
+      $impuesto=$this->impuesto();
+
+      $aviso='El cupon ha sido eliminado';
+
+
+      $o=AlpOrdenesDescuento::where('id', $request->id)->first();
+
+      $o->delete();
+
+      return $aviso;
+
+
+
+
+    }
 
 
 
@@ -3395,24 +3425,4 @@ public function addcupon(Request $request)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-    
 }

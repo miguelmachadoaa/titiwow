@@ -791,6 +791,8 @@ Route::post('cart/getcartbotones/',['as'=>'cart.getcartbotones', 'uses'=>'Admin\
 
 Route::post('cart/addcupon/',['as'=>'cart.addcupon', 'uses'=>'Admin\AlpCartController@addcupon']);
 
+Route::post('cart/delcupon/',['as'=>'cart.delcupon', 'uses'=>'Admin\AlpCartController@delcupon']);
+
 
 
 

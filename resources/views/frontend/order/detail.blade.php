@@ -543,6 +543,33 @@ div.overlay > div {
 
        });
 
+$('.delCupon').on('click', function(){
+
+    id=$(this).data('id');
+
+    _token=$('input[name="_token"]').val();
+
+    var base = $('#base').val();
+
+        $.ajax({
+            type: "POST",
+
+            data:{id, _token},
+
+            url: base+"/cart/delcupon",
+                
+            complete: function(datos){     
+
+                localStorage.setItem("aviso", datos.responseText);
+
+                location.reload();
+            
+            }
+
+        });
+
+});
+
 
 $('.sendCupon').click(function () {
     

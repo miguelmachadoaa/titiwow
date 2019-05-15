@@ -49,29 +49,24 @@
 
                             @if(isset($descuentos))
 
+                                @foreach($descuentos as $pago)
 
-                            <!--h4 style="margin-left: 1em;">Pagos </h4-->
+                                <div class="col-sm-12" style="    border-top: 1px solid rgba(0,0,0,0.1);">
+                
+                                    <div class="col-sm-8 col-xs-8" >
+                                        <h4 style="color: #d5006e;">Cupón {{ $pago->codigo_cupon }}</h4>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-4">
 
-                                                @foreach($descuentos as $pago)
+                                        <h4 style="color: #22b14c;">{{   number_format($pago->monto_descuento,0,",",".") }}    <button data-id="{{ $pago->id }}" style="color: red !important; margin:0; padding: 0em 1em;" class="btn btn-link delCupon" ><i class="fa fa-trash"></i></button></h4> 
 
+                                    </div>
+                                    
+                                </div>
 
+                                @endforeach
 
-                                                <div class="col-sm-12" style="    border-top: 1px solid rgba(0,0,0,0.1);">
-                                
-                                                    <div class="col-sm-8 col-xs-8" >
-                                                        <h4 style="color: #d5006e;">Cupón {{ $pago->codigo_cupon }}</h4>
-                                                    </div>
-                                                    <div class="col-sm-4 col-xs-4">
-
-                                                        <h4 style="color: #22b14c;">{{   number_format($pago->monto_descuento,0,",",".") }}</h4> 
-
-                                                    </div>
-                                                    
-                                                </div>
-
-                                                @endforeach
-
-                                    @endif
+                            @endif
 
                            
                         @if(isset($total))
