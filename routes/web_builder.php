@@ -790,6 +790,7 @@ Route::post('cart/updatecartdetalle/',['as'=>'cart.updatecartdetalle', 'uses'=>'
 Route::post('cart/getcartbotones/',['as'=>'cart.getcartbotones', 'uses'=>'Admin\AlpCartController@getcartbotones']);
 
 Route::post('cart/addcupon/',['as'=>'cart.addcupon', 'uses'=>'Admin\AlpCartController@addcupon']);
+Route::post('cart/addcuponform/',['as'=>'cart.addcuponform', 'uses'=>'Admin\AlpCartController@addcuponform']);
 
 Route::post('cart/delcupon/',['as'=>'cart.delcupon', 'uses'=>'Admin\AlpCartController@delcupon']);
 

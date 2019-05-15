@@ -324,11 +324,11 @@ div.overlay > div {
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-primary">
-                        <h4 class="modal-title" id="modalLabeldanger">Aplicar Cupon</h4>
+                        <h4 class="modal-title" id="modalLabeldanger" style="color: #fff !important;">Aplicar Cupon</h4>
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{secure_url('cart/storedir')}}" id="addCuponForm" name="addCuponForm" class="form-horizontal">
+                        <form method="POST" action="{{secure_url('cart/addcuponform')}}" id="addCuponForm" name="addCuponForm" class="form-horizontal">
 
                             <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
 
@@ -336,10 +336,10 @@ div.overlay > div {
                             <div class="row">
 
                                 <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Codigo Cupon</label>
+                                    <label class="col-md-3 control-label" for="nombre_producto">Codigo Cupón</label>
 
                                     <div class="col-sm-8">
-                                        <input style="margin: 4px 0;" id="codigo_cupon" name="codigo_cupon" type="text" placeholder="Codigo de Cupon" class="form-control">
+                                        <input style="margin: 4px 0;" id="codigo_cupon" name="codigo_cupon" type="text" placeholder="Codigo de Cupón" class="form-control">
                                     </div>
                                 </div>
 
@@ -527,11 +527,6 @@ div.overlay > div {
            
 
         });
-
-
-
-
-     
 
 
 

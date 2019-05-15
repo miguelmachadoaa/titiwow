@@ -3009,8 +3009,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         $user_cliente=User::where('id', $user_id)->first();
 
       $cupon=AlpCupones::where('codigo_cupon', $codigo)
-          ->whereDate('fecha_inicio','<',$hoy)
-          ->whereDate('fecha_final','>',$hoy)
+          ->whereDate('fecha_inicio','<=',$hoy)
+          ->whereDate('fecha_final','>=',$hoy)
           ->first();
 
        
@@ -3103,7 +3103,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                $b_user_valido=1;
 
-                $mensaje_user=$mensaje_user.'Para usar el cupón debe tener minimo '.$cupon->monto_minimo.' en el carrito ';
+                $mensaje_user=$mensaje_user.'Para usar el cupón debe tener mínimo $'.intval($cupon->monto_minimo).' en el carrito ';
 
             }
 
@@ -3371,6 +3371,99 @@ public function addcupon(Request $request)
         }
 
         return $aviso;
+
+
+       
+
+
+      }else{
+
+        $url='order.detail';
+
+          //return redirect('login');
+        return view('frontend.order.login', compact('url'));
+
+
+      }
+
+    }
+
+
+
+    public function addcuponform(Request $request)
+    {
+
+      $configuracion=AlpConfiguracion::where('id', '1')->first();
+      
+      $carrito= \Session::get('cr');
+
+      $cart=$this->reloadCart();
+
+      $total=$this->total();
+
+      $total_base=$this->precio_base();
+
+      $impuesto=$this->impuesto();
+
+      $aviso='';
+
+
+      if ($total<$configuracion->minimo_compra) {
+
+            $aviso='El monto mínimo de compra es de $'.number_format($configuracion->minimo_compra,0,",",".");
+
+
+            $cart=$this->reloadCart();
+
+
+          $configuracion=AlpConfiguracion::where('id', '1')->first();
+
+          $total=$this->total();
+
+          $inv=$this->inventario();
+
+          return view('frontend.cart', compact('cart', 'total', 'configuracion', 'inv', 'aviso'));
+
+            return redirect('cart/show');
+
+      }
+
+      if (Sentinel::check()) {
+
+
+
+
+
+
+        $user_id = Sentinel::getUser()->id;
+
+        $usuario=User::where('id', $user_id)->first();
+
+        $user_cliente=User::where('id', $user_id)->first();
+
+
+        $mensaje_cupon=$this->asignaCupon($request->codigo_cupon);
+
+      
+
+
+        if ($mensaje_cupon['mensaje_user']=='') {
+          
+        }else{
+
+          $aviso=$aviso.$mensaje_cupon['mensaje_user'];
+
+        }
+
+        if ($mensaje_cupon['mensaje_producto']=='') {
+          
+        }else{
+
+          $aviso=$aviso.$mensaje_cupon['mensaje_producto'];
+
+        }
+
+        return redirect('order/detail')->with('aviso', $aviso);
 
 
        
