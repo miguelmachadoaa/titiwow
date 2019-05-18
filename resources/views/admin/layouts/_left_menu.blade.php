@@ -679,7 +679,7 @@
     @endif
     @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
 
-    <li {!! (Request::is('admin/groups') || Request::is('admin/groups/create') || Request::is('admin/groups/*') ? 'class="active"' : '') !!}>
+    <li {!! (Request::is('admin/reportes/*') || Request::is('admin/groups/create') || Request::is('admin/groups/*') ? 'class="active"' : '') !!}>
         <a href="#">
             <i class="livicon" data-name="table" data-size="18" data-c="#418BCA" data-hc="#418BCA"
                data-loop="true"></i>
@@ -691,7 +691,7 @@
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.masterfile']))
 
-                 <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
+                 <li {!! (Request::is('admin/reportes/masterfile') ? 'class="active" id="active"' : '') !!}>
                     <a href="{{ URL::to('admin/reportes/masterfile') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Masterfile Clientes
@@ -701,7 +701,7 @@
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.masterfileamigos']))
 
-                 <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
+                 <li {!! (Request::is('admin/reportes/masterfileamigos') ? 'class="active" id="active"' : '') !!}>
                     <a href="{{ URL::to('admin/reportes/masterfileamigos') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Masterfile Amigos
@@ -711,7 +711,7 @@
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.masterfileembajadores']))
 
-                 <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
+                 <li {!! (Request::is('admin/reportes/masterfileembajadores') ? 'class="active" id="active"' : '') !!}>
                     <a href="{{ URL::to('admin/reportes/masterfileembajadores') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Masterfile Embajadores
@@ -721,7 +721,7 @@
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.logistica']))
 
-                 <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
+                 <li {!! (Request::is('admin/reportes/logistica') ? 'class="active" id="active"' : '') !!}>
                     <a href="{{ URL::to('admin/reportes/logistica') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Logistica Ventas Ecommerce
@@ -731,7 +731,7 @@
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.consolidado']))
 
-                 <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
+                 <li {!! (Request::is('admin/reportes/consolidado') ? 'class="active" id="active"' : '') !!}>
                     <a href="{{ URL::to('admin/reportes/consolidado') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Consolidado
@@ -741,7 +741,7 @@
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.registrados']))
 
-                 <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
+                 <li {!! (Request::is('admin/reportes/registrados') ? 'class="active" id="active"' : '') !!}>
                     <a href="{{ URL::to('admin/reportes/registrados') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Lista de Usuarios
@@ -751,7 +751,7 @@
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.ventas']))
 
-                <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
+                <li {!! (Request::is('admin/reportes/ventas') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ URL::to('admin/reportes/ventas') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Ventas por Usuario
@@ -761,7 +761,7 @@
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.productos']))
 
-                <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
+                <li {!! (Request::is('admin/reportes/productos') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ URL::to('admin/reportes/productos') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Ventas por producto
@@ -770,7 +770,7 @@
             @endif
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.carritos']))
-                <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
+                <li {!! (Request::is('admin/reportes/carrito') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ URL::to('admin/reportes/carrito') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Carritos Abandonados
@@ -780,7 +780,7 @@
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.financiero']))
 
-                <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
+                <li {!! (Request::is('admin/reportes/financiero') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ URL::to('admin/reportes/financiero') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Conciliacion Financiera
@@ -790,7 +790,7 @@
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.ventastotales']))
 
-                <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
+                <li {!! (Request::is('admin/reportes/ventastotales') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ URL::to('admin/reportes/ventastotales') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Ventas con Impuesto
@@ -798,9 +798,19 @@
             </li>
             @endif
 
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.ventasdescuento']))
+
+                <li {!! (Request::is('admin/reportes/ventasdescuento') ? 'class="active" id="active"' : '') !!}>
+                    <a href="{{ URL::to('admin/reportes/ventasdescuento') }}">
+                        <i class="fa fa-angle-double-right"></i>
+                        Ventas con Descuento
+                    </a>
+                </li>
+            @endif
+
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.productostotales']))
 
-                <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
+                <li {!! (Request::is('admin/reportes/productostotales') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ URL::to('admin/reportes/productostotales') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Productos con Impuesto
@@ -810,7 +820,7 @@
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.productosb']))
 
-                <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
+                <li {!! (Request::is('admin/reportes/productosb') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ URL::to('admin/reportes/productosb') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Venta de productos B
@@ -821,7 +831,7 @@
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.productosc']))
 
-                <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
+                <li {!! (Request::is('admin/reportes/productosc') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ URL::to('admin/reportes/productosc') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Venta de productos C

@@ -1288,6 +1288,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         $cart= \Session::get('cart');
 
+        $carrito= \Session::get('cr');
+
         $configuracion = AlpConfiguracion::where('id','1')->first();
 
         $id_orden= \Session::get('orden');
@@ -1419,6 +1421,19 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         //dd($data_update);
 
 
+        $cupones=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
+
+        foreach ($cupones as $cupon) {
+          
+          $c=AlpOrdenesDescuento::where('id', $cupon->id)->first();
+
+          $data_cupon = array('id_orden' => $orden->id );
+
+          $c->update($data_cupon);
+
+        }
+
+
          $orden->update($data_update);
 
          $data_pago = array(
@@ -1459,7 +1474,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
  public function saveOrden($preference){
 
 
-      $carrito= \Session::get('cr');
+      $cr= \Session::get('cr');
 
       //$cart=$this->reloadCart();
 

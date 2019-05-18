@@ -326,6 +326,11 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
    
    Route::post('reportes/exportventastotales', 'Admin\AlpReportesController@exportventastotales')->name('reportes.exportventastotales');
 
+
+   Route::get('reportes/ventasdescuento', 'Admin\AlpReportesController@ventasdescuento')->name('reportes.ventasdescuento');
+   
+   Route::post('reportes/exportventasdescuento', 'Admin\AlpReportesController@exportventasdescuento')->name('reportes.exportventasdescuento');
+
    
 
 

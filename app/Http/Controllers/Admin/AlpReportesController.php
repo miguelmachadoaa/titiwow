@@ -18,6 +18,7 @@ use App\Exports\ProductosExportB;
 use App\Exports\ProductosExportC;
 use App\Exports\ProductostotalesExport;
 use App\Exports\CarritoExport;
+use App\Exports\DescuentoVentasExport;
 use App\User;
 use App\Models\AlpOrdenes;
 use App\Models\AlpProductos;
@@ -239,6 +240,22 @@ class AlpReportesController extends Controller
     {
         return Excel::download(new VentastotalesExport($request->desde, $request->hasta), 'ventastotales_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
     }
+
+    public function ventasdescuento() 
+    {
+
+        return view('admin.reportes.ventasdescuento');
+
+    }
+
+
+    public function exportventasdescuento(Request $request) 
+    {
+        return Excel::download(new DescuentoVentasExport($request->desde, $request->hasta), 'ventasdescuento_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+    }
+
+
+
 
     /*********************funciones para descarga de reporte************************/
 
