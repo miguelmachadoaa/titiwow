@@ -853,7 +853,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
             $aviso_pago = array(
             'tipo' => 'success', 
             'texto' => 'yellow', 
-            'medio' => 'Targeta de Credito', 
+            'medio' => 'Tarjeta de Credito', 
             'mensaje' => 'Hemos recibido su pago satisfactoriamente, una vez sea confirmado, Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!', 
           );
 
