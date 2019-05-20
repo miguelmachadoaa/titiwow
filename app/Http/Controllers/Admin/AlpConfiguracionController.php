@@ -70,6 +70,7 @@ class AlpConfiguracionController extends JoshController
             'registro_publico' => $request->registro_publico, 
             'user_activacion' => $request->user_activacion, 
             'minimo_compra' => $request->minimo_compra, 
+            'mensaje_bienvenida' => $request->mensaje_bienvenida, 
             'correo_admin' => $request->correo_admin, 
             'correo_shopmanager' => $request->correo_shopmanager, 
             'correo_shopmanagercorp' => $request->correo_shopmanagercorp, 

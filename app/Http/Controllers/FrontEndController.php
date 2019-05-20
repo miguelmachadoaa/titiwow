@@ -610,7 +610,7 @@ class FrontEndController extends JoshController
                 $mensaje='Estamos procesando tu solicitud de registro, te notificaremos una vez haya finalizado el proceso, este proceso puede tomar hasta 24 horas.';
 
 
-                Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $mensaje));
+                Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $configuracion->mensaje_bienvenida ));
 
 
             }else{
@@ -631,7 +631,7 @@ class FrontEndController extends JoshController
 
                  $mensaje='Estamos procesando tu solicitud de registro, te notificaremos una vez haya finalizado el proceso, este proceso puede tomar hasta 24 horas.';
 
-                Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $mensaje));
+                Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name,  $configuracion->mensaje_bienvenida));
 
             }
 
@@ -654,7 +654,7 @@ class FrontEndController extends JoshController
 
                 }else{
 
-                    $mensaje="Ha sido registrado satisfactoriamente bajo la empresa ".$empresa->nombre_empresa.", debe esperar que su Usuario sea activado en un proceso interno, te notificaremos vía email su activación.";
+                     $configuracion->mensaje_bienvenida="Ha sido registrado satisfactoriamente bajo la empresa ".$empresa->nombre_empresa.", debe esperar que su Usuario sea activado en un proceso interno, te notificaremos vía email su activación.";
 
                 return redirect('login')->with('success', trans($mensaje));
 

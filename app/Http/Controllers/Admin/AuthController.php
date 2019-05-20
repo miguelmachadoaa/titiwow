@@ -153,7 +153,7 @@ class AuthController extends JoshController
 
                  $mensaje='Gracias por registrarte en AlpinaGo, Ya puedes disfrutar de nuestros productos con un descuento especial.';
 
-             Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $mensaje));
+             Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $configuracion->mensaje_bienvenida));
 
              if ($request->back=='0') {
 
@@ -494,7 +494,7 @@ class AuthController extends JoshController
                 $mensaje='Gracias por registrarte en AlpinaGo, Ya puedes disfrutar de nuestros productos con un descuento especial.';
 
 
-                 Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $mensaje));
+                 Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name,  $configuracion->mensaje_bienvenida));
 
                   Mail::to($embajador->email)->send(new \App\Mail\AmigoRegistrado($user->first_name, $user->last_name));
 
@@ -508,7 +508,7 @@ class AuthController extends JoshController
 
                 $mensaje='Estamos procesando tu solicitud de registro, te notificaremos una vez haya finalizado el proceso, este proceso puede tomar hasta 24 horas.';
 
-                 Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $mensaje));
+                 Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name,  $configuracion->mensaje_bienvenida));
 
                   Mail::to($embajador->email)->send(new \App\Mail\AmigoRegistrado($user->first_name, $user->last_name));
 
@@ -668,7 +668,7 @@ class AuthController extends JoshController
                 $mensaje='Gracias por registrarte en AlpinaGo, Ya puedes disfrutar de nuestros productos con un descuento especial.';
 
 
-                 Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $mensaje));
+                 Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name,  $configuracion->mensaje_bienvenida));
 
 
 
@@ -680,7 +680,7 @@ class AuthController extends JoshController
 
                 $mensaje='Estamos procesando tu solicitud de registro, te notificaremos una vez haya finalizado el proceso, este proceso puede tomar hasta 24 horas.';
 
-                 Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $mensaje));
+                 Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name,  $configuracion->mensaje_bienvenida));
 
 
             }

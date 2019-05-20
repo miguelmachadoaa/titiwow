@@ -370,6 +370,24 @@ Editar Configuracion General
                                 
                                 <legend>Correos para notificacion</legend>
 
+
+                                  <div class="form-group {{ $errors->first('mensaje_bienvenida', 'has-error') }}">
+                                    <label for="mensaje_bienvenida" class="col-sm-2 control-label">
+                                        Correo Admin
+                                    </label>
+                                    <div class="col-sm-5">
+                                        
+                                        <textarea id="mensaje_bienvenida" name="mensaje_bienvenida" cols="30" rows="10" class="form-control" placeholder="Mensaje de Bienvenida">{!! old('mensaje_bienvenida', $configuracion->mensaje_bienvenida) !!}</textarea>
+                                       
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('mensaje_bienvenida', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+
+
+
                                 <div class="form-group {{ $errors->first('correo_admin', 'has-error') }}">
                                     <label for="correo_admin" class="col-sm-2 control-label">
                                         Correo Admin

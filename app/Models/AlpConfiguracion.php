@@ -32,6 +32,7 @@ class AlpConfiguracion extends Model
         'retencion_fuente_mp',
         'retencion_iva_mp',
         'retencion_ica_mp',
+        'mensaje_bienvenida',
         'minimo_compra',
         'minimo_compra',
         'minimo_compra',
