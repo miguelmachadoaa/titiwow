@@ -128,7 +128,7 @@
                     <div style="padding-right: 0;" class="form-group col-sm-6 col-xs-6  {{ $errors->first('principal_address', 'has-error') }}">
                         <div class="input-group">
                             <!--span class="input-group-addon azul" id="basic-addon2">Principal</span-->
-                            <input type="text" class="form-control" id="principal_address" name="principal_address" style="font-style:italic" placeholder="Ejemplo: 100" aria-describedby="basic-addon2">
+                            <input type="text" class="form-control" id="principal_address" name="principal_address" style="font-style:italic" value="{!! old('principal_address') !!}" placeholder="Ejemplo: 100" aria-describedby="basic-addon2">
                         </div>
                         {!! $errors->first('principal_address', '<span class="help-block">:message</span>') !!}
                     </div>
@@ -136,24 +136,24 @@
                 <div class="clearfix"></div>
                 <div style="padding: 0;" class="form-group col-sm-6  col-xs-6 {{ $errors->first('secundaria_address', 'has-error') }}">
                     <div class="input-group">
-                        <input type="text" class="form-control" id="secundaria_address" name="secundaria_address" placeholder="Ejemplo: #21" aria-describedby="basic-addon3">
+                        <input type="text" class="form-control" id="secundaria_address" name="secundaria_address" value="{!! old('secundaria_address') !!}" placeholder="Ejemplo: #21" aria-describedby="basic-addon3">
                     </div>
                     {!! $errors->first('secundaria_address', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div style="padding-right: 0;" class="form-group col-sm-6  col-xs-6 {{ $errors->first('edificio_address', 'has-error') }}">
                     <div class="input-group">
-                        <input type="text" class="form-control" id="edificio_address" name="edificio_address" placeholder="Ejemplo: -14" aria-describedby="basic-addon4">
+                        <input type="text" value="{!! old('edificio_address') !!}" class="form-control" id="edificio_address" name="edificio_address" placeholder="Ejemplo: -14" aria-describedby="basic-addon4">
                     </div>
                     {!! $errors->first('edificio_address', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="clearfix"></div>
                 <div class="form-group {{ $errors->first('detalle_address', 'has-error') }}">
-                    <input type="text" class="form-control" id="detalle_address" name="detalle_address" placeholder="Apto, Puerta, Interior"
+                    <input type="text" value="{!! old('detalle_address') !!}"  class="form-control" id="detalle_address" name="detalle_address" placeholder="Apto, Puerta, Interior"
                            value="{!! old('detalle_address') !!}" >
                     {!! $errors->first('detalle_address', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="form-group {{ $errors->first('barrio_address', 'has-error') }}">
-                    <input type="text" class="form-control" id="barrio_address" name="barrio_address" placeholder="Barrio"
+                    <input type="text" value="{!! old('barrio_address') !!}" class="form-control" id="barrio_address" name="barrio_address" placeholder="Barrio"
                            value="{!! old('barrio_address') !!}" >
                     {!! $errors->first('barrio_address', '<span class="help-block">:message</span>') !!}
                 </div>
