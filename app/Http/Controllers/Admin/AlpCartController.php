@@ -31,6 +31,8 @@ use App\Models\AlpPreDetalles;
 use App\Models\AlpOrdenesHistory;
 use App\Models\AlpEstructuraAddress;
 use App\Models\AlpFeriados;
+use App\Http\Requests\AddressRequest;
+
 use App\Country;
 use App\State;
 use App\City;
@@ -933,7 +935,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
           ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
           ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-          ->where('alp_direcciones.id_client', $user_id)->first();
+          ->where('alp_direcciones.id_client', $user_id)->get();
 
            $formasenvio = AlpFormasenvio::select('alp_formas_envios.*')
           ->join('alp_rol_envio', 'alp_formas_envios.id', '=', 'alp_rol_envio.id_forma_envio')
@@ -2748,14 +2750,22 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         $input = $request->all();
 
-        //var_dump($input);
+       // dd($input);
+
 
         $input['id_user']=$user_id;
         $input['id_client']=$user_id;
         $input['default_address']=1;
                
-         
         $direccion=AlpDirecciones::create($input);
+
+         if (isset($direccion->id)) {
+
+          DB::table('alp_direcciones')->where('id_client', $user_id)->update(['default_address'=>0]);
+          DB::table('alp_direcciones')->where('id', $direccion->id)->update(['default_address'=>1]);
+          
+        }
+
 
         $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_countries.country_name as country_name')
           ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
@@ -2766,16 +2776,12 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         if ($direccion->id) {
 
-          $view= View::make('frontend.order.direcciones', compact('direcciones'));
 
-          $data=$view->render();
-
-          $res = array('data' => $data);
-          return $data;
+          return redirect('order/detail')->withInput()->with('success', trans('Se ha creado la direccion satisfactoriamente '));
 
         } else {
 
-            return Redirect::route('order/detail')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+           return redirect('order/detail')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
         }       
 
     }

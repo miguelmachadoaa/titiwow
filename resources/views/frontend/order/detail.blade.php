@@ -499,6 +499,29 @@ div.overlay > div {
 
     <script>
 
+
+         $('.showAddAddress').on('click', function(){
+
+
+                if($('#addAddressForm').hasClass('open')){
+
+                    $('#addAddressForm').removeClass('open');
+
+                    $('#addAddressForm').fadeOut();
+
+                }else{
+
+                    $('#addAddressForm').addClass('open');
+
+                    $('#addAddressForm').fadeIn();
+                }
+
+    
+
+        });
+
+         
+
         $(document).ready(function(){
 
             $('button.mercadopago-button').hide();

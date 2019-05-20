@@ -1,26 +1,52 @@
 
  <div class="row"> 
 
-            <h3>    Dirección de Envío </h3>
+            <h3>    Dirección de Envío 
+
+            @if($configuracion->editar_direccion=='0')
+
+                <button style="float: right;" class="btn btn-primary showAddAddress">Agregar Direccion</button>
+
+            @endif</h3>
 
         </div>
+
+
+
+    
+
+    @include('frontend.includes.addaddress')
+
+
 
  <div class="row direcciones" style="text-align: left;">
 
                 <div class="col-sm-12">
 
-                    @if(isset($direcciones->id))
+                    @if(count($direcciones)>0)
 
-                        <input type="hidden" name="id_direccion"  id="id_direccion" value="{{ $direcciones->id }}" >
 
                         <div class="list-group">
                             
                             <div class="col-sm-12" style="font-weight: 600;">
 
-                                <p>{{ $direcciones->titulo   }}</p>
-                                <p>{{ $direcciones->state_name.' , '.$direcciones->city_name   }}</p>
-                                <p>{{ $direcciones->nombre_estructura.' '.$direcciones->principal_address .' #'. $direcciones->secundaria_address .'-'.$direcciones->edificio_address.', '.$direcciones->detalle_address.', '.$direcciones->barrio_address }}</p>
-                                <p>{{ $direcciones->notas }}</p>
+                                <select name="id_direccion" id="id_direccion" class="form-control">
+                                    
+                                    @foreach($direcciones as $dir)
+
+                                    <option value="{{$dir->id}}" @if($dir->default_address) {{'selected'}} @endif>
+
+                                        <p>{{ $dir->titulo   }} -</p>
+                                <p>{{ $dir->state_name.' , '.$dir->city_name   }}</p>
+                                <p>{{ $dir->nombre_estructura.' '.$dir->principal_address .' #'. $dir->secundaria_address .'-'.$dir->edificio_address.', '.$dir->detalle_address.', '.$dir->barrio_address }}</p>
+                                <p>{{ $dir->notas }}</p>
+                                        
+                                    </option>
+
+                                    @endforeach
+                                </select>
+
+                                
                             </div>
                         </div>
 
