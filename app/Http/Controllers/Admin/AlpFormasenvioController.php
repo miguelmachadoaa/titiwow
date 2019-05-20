@@ -212,7 +212,7 @@ class AlpFormasenvioController extends JoshController
         ->where('alp_forma_ciudad.id_forma', $request->id_forma)->get();
 
 
-        $view= View::make('admin.formasenvio.ciudades', compact('ciudades', 'forma'));
+        $view= View::make('admin.formasenvio.ciudades', compact('ciudades', 'formas'));
 
           $data=$view->render();
 
@@ -239,7 +239,7 @@ class AlpFormasenvioController extends JoshController
         ->where('alp_forma_ciudad.id_forma', $id_forma)->get();
 
 
-        $view= View::make('admin.formasenvio.ciudades', compact('ciudades', 'forma'));
+        $view= View::make('admin.formasenvio.ciudades', compact('ciudades', 'formas'));
 
           $data=$view->render();
 

@@ -142,6 +142,8 @@ div.overlay > div {
             </div>
         @endif
 
+        <div class="res_direccion"></div>
+
        
 
         @include('frontend.includes.detallesventa')
@@ -177,7 +179,6 @@ div.overlay > div {
 
     <br> 
 
-    <div class=" res_env">  </div> 
 
 </div> <!-- Container  -->
 
@@ -713,7 +714,7 @@ $('.sendCupon').click(function () {
 
                            }else{
 
-                            $('.res_env').html('<div class="alert alert-danger" role="alert">Ha ocurrido un error, intente nuevamente.</div>');
+                            $('.res_direccion').html('<div class="alert alert-danger" role="alert">Ha ocurrido un error, intente nuevamente.</div>');
 
                            }
                                                     
@@ -723,7 +724,7 @@ $('.sendCupon').click(function () {
 
                 }else{
 
-                    $('.res_env').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+                    $('.res_direccion').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
 
                 }
             
@@ -765,7 +766,7 @@ $('.sendCupon').click(function () {
 
                // alert('Todos los capos son obligatorios');
 
-                $('.res_env').html('<div class="alert alert-danger" role="alert">Todos los campos son obligatorios</div>');
+                $('.res_direccion').html('<div class="alert alert-danger" role="alert">Todos los campos son obligatorios</div>');
 
                 $('.overlay').fadeOut();
 
@@ -820,7 +821,9 @@ $('.sendCupon').click(function () {
 
                                 }else{
 
-                                    $('.res_env').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+                                    $('.overlay').fadeOut();
+
+                                    $('.res_direccion').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
 
                                 }
                             
@@ -872,7 +875,7 @@ $('.sendCupon').click(function () {
 
                             }else{
 
-                                $('.res_env').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+                                $('.res_direccion').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
 
                             }
                     
@@ -905,7 +908,7 @@ $('.sendCupon').click(function () {
 
                // alert('Todos los capos son obligatorios');
 
-                $('.res_env').html('<div class="alert alert-danger" role="alert">Todos los campos son obligatorios</div>');
+                $('.res_direccion').html('<div class="alert alert-danger" role="alert">Todos los campos son obligatorios</div>');
 
             }else{
 
@@ -927,7 +930,7 @@ $('.sendCupon').click(function () {
 
                        }else{
 
-                            $('.res_env').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+                            $('.res_direccion').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
 
                        }
                     
@@ -958,7 +961,7 @@ $('.sendCupon').click(function () {
 
                // alert('Todos los capos son obligatorios');
 
-                $('.res_env').html('<div class="alert alert-danger" role="alert">Todos los campos son obligatorios</div>');
+                $('.res_direccion').html('<div class="alert alert-danger" role="alert">Todos los campos son obligatorios</div>');
 
             }else{
 
@@ -987,7 +990,7 @@ $('.sendCupon').click(function () {
 
                        }else{
 
-                            $('.res_env').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+                            $('.res_direccion').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
 
                        }
                     

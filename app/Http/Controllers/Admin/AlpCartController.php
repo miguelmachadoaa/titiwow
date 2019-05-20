@@ -1327,7 +1327,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
           $date2->addDays($i);
 
-          if ($date2->isWeekend()) {
+          if ($date2->isSunday()) {
 
             $ciudad_forma->dias=$ciudad_forma->dias+1;
           
@@ -2776,6 +2776,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         if ($direccion->id) {
 
+          
 
           return redirect('order/detail')->withInput()->with('success', trans('Se ha creado la direccion satisfactoriamente '));
 
