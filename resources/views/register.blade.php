@@ -88,7 +88,7 @@
                 <h4 class="text-primary">Dirección</h4>
                 <div class="form-group {{ $errors->first('cod_alpinista', 'has-error') }}">
                     <div class="" >
-                        <select id="state_id" name="state_id" class="form-control">
+                        <select id="state_id" name="state_id" value="{!! old('state_id') !!}" class="form-control">
                             <option value="">Seleccione Departamento</option>     
                             @foreach($states as $state)
                             <option value="{{ $state->id }}">
@@ -100,7 +100,7 @@
                 </div>
                 <div class="form-group {{ $errors->first('city_id', 'has-error') }}">
                     <div class="" >
-                        <select id="city_id" name="city_id" class="form-control">
+                        <select id="city_id" name="city_id" value="{!! old('city_id') !!}" class="form-control">
                             <option value="">Seleccione Ciudad</option>
                         </select>
                     </div>
@@ -109,7 +109,7 @@
                 <div class="clearfix"></div>
                 <div class="form-group">
                     <div style="padding: 0;" class="form-group  col-sm-6  col-xs-6 {{ $errors->first('id_estructura_address', 'has-error') }}">
-                            <select id="id_estructura_address" name="id_estructura_address" class="form-control">
+                            <select id="id_estructura_address" name="id_estructura_address" value="{!! old('id_estructura_address') !!}" class="form-control">
                                 @foreach($estructura as $estru)
                                 <option value="{{ $estru->id }}">
                                 {{ $estru->abrevia_estructura}} - {{ $estru->nombre_estructura}} </option>
@@ -120,7 +120,7 @@
                     <div style="padding-right: 0;" class="form-group col-sm-6 col-xs-6  {{ $errors->first('principal_address', 'has-error') }}">
                         <div class="input-group">
                             <!--span class="input-group-addon azul" id="basic-addon2">Principal</span-->
-                            <input type="text" class="form-control" id="principal_address" name="principal_address" style="font-style:italic" placeholder="Ejemplo: 100" aria-describedby="basic-addon2">
+                            <input type="text" class="form-control" id="principal_address" name="principal_address" style="font-style:italic" value="{!! old('principal_address') !!}" placeholder="Ejemplo: 100" aria-describedby="basic-addon2">
                         </div>
                         {!! $errors->first('principal_address', '<span class="help-block">:message</span>') !!}
                     </div>
@@ -128,24 +128,24 @@
                 <div class="clearfix"></div>
                 <div style="padding: 0;" class="form-group col-sm-6  col-xs-6 {{ $errors->first('secundaria_address', 'has-error') }}">
                     <div class="input-group">
-                        <input type="text" class="form-control" id="secundaria_address" name="secundaria_address" placeholder="Ejemplo: #21" aria-describedby="basic-addon3">
+                        <input type="text" class="form-control" id="secundaria_address" name="secundaria_address" value="{!! old('secundaria_address') !!}"  placeholder="Ejemplo: #21" aria-describedby="basic-addon3">
                     </div>
                     {!! $errors->first('secundaria_address', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div style="padding-right: 0;" class="form-group col-sm-6  col-xs-6 {{ $errors->first('edificio_address', 'has-error') }}">
                     <div class="input-group">
-                        <input type="text" class="form-control" id="edificio_address" name="edificio_address" placeholder="Ejemplo: -14" aria-describedby="basic-addon4">
+                        <input type="text" class="form-control" value="{!! old('edificio_address') !!}" id="edificio_address" name="edificio_address" placeholder="Ejemplo: -14" aria-describedby="basic-addon4">
                     </div>
                     {!! $errors->first('edificio_address', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="clearfix"></div>
                 <div class="form-group {{ $errors->first('detalle_address', 'has-error') }}">
-                    <input type="text" class="form-control" id="detalle_address" name="detalle_address" placeholder="Apto, Puerta, Interior"
+                    <input type="text" class="form-control" value="{!! old('detalle_address') !!}" id="detalle_address" name="detalle_address" placeholder="Apto, Puerta, Interior"
                            value="{!! old('detalle_address') !!}" >
                     {!! $errors->first('detalle_address', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="form-group {{ $errors->first('barrio_address', 'has-error') }}">
-                    <input type="text" class="form-control" id="barrio_address" name="barrio_address" placeholder="Barrio"
+                    <input type="text" class="form-control" value="{!! old('barrio_address') !!}" id="barrio_address" name="barrio_address" placeholder="Barrio"
                            value="{!! old('barrio_address') !!}" >
                     {!! $errors->first('barrio_address', '<span class="help-block">:message</span>') !!}
                 </div>
@@ -157,7 +157,7 @@
                     </label>
                 </div>
                 <div class="form-group {{ $errors->first('cod_alpinista', 'has-error') }}">
-                    <input type="text" class="form-control" id="cod_alpinista" name="cod_alpinista" placeholder="Código de Alpinista" value="{!! old('cod_alpinista') !!}" >
+                    <input type="text" class="form-control" value="{!! old('cod_alpinista') !!}" id="cod_alpinista" name="cod_alpinista" placeholder="Código de Alpinista" value="{!! old('cod_alpinista') !!}" >
                     <div class="res_cod_alpinista"></div>
 
                     {!! $errors->first('cod_alpinista', '<span class="help-block">:message</span>') !!}

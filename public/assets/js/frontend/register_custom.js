@@ -40,6 +40,7 @@ $("#reg_form").bootstrapValidator({
             },
             required: true,
             minlength: 3
+            
         },
         telefono_cliente: {
             validators: {

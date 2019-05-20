@@ -29,6 +29,19 @@ Inicio @parent
     <!--end of page level css-->
 @stop
 
+<style>
+    
+    .modal-header {
+    min-height: 16.43px;
+    padding: 15px;
+    border-bottom: 1px solid #e5e5e5;
+    background: #187cbc;
+    color: #fff;
+}
+
+
+</style>
+
 {{-- slider --}}
 @section('top')
     <!--Carousel Start -->
@@ -46,6 +59,32 @@ Inicio @parent
 
 {{-- content --}}
 @section('content')
+
+
+@if (session('success'))
+
+
+        <div class="modal fade" id="BienvenidaModal" role="dialog" aria-labelledby="modalLabeldanger">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-sucess">
+                        <h4 class="modal-title" id="modalLabeldanger">Bienvinido</h4>
+                </div>
+                
+                <div class="modal-body cartcontenido">
+                
+                       <h3>{{session('success')}}</h3> 
+                </div>
+                <div class="modal-footer">
+                    <button type="button"  class="btn  btn-primary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+            
+        @endif
 
    
     <!-- //Layout Section Start -->
@@ -334,6 +373,8 @@ Inicio @parent
       <script>
         jQuery(document).ready(function () {
             new WOW().init();
+
+            $('#BienvenidaModal').modal('show');
         });
 
 

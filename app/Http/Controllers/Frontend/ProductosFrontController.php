@@ -629,16 +629,16 @@ class ProductosFrontController extends Controller
                     }
 
 
-                      foreach ($relacionados as $r) {
+                      foreach ($relacionados as $rela) {
 
-                        $pregiogrupo=AlpPrecioGrupo::where('id_producto', $r->id)->where('id_role', $r)->first();
+                        $pregiogrupo=AlpPrecioGrupo::where('id_producto', $rela->id)->where('id_role', $r)->first();
 
 
                         if (isset($pregiogrupo->id)) {
                            
-                            $precio[$r->id]['precio']=$pregiogrupo->precio;
-                            $precio[$r->id]['operacion']=$pregiogrupo->operacion;
-                            $precio[$r->id]['pum']=$pregiogrupo->pum;
+                            $precio[$rela->id]['precio']=$pregiogrupo->precio;
+                            $precio[$rela->id]['operacion']=$pregiogrupo->operacion;
+                            $precio[$rela->id]['pum']=$pregiogrupo->pum;
 
                         }
                         
