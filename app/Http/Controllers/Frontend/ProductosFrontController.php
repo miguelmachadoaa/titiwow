@@ -532,6 +532,7 @@ class ProductosFrontController extends Controller
             ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
             ->where('alp_productos.estado_registro','=',1)
             ->where('alp_productos.id_categoria_default','=', $producto->id_categoria_default)
+            ->where('alp_productos.id','!=', $producto->id)
             ->inRandomOrder()
           ->take(4)->get();
 
