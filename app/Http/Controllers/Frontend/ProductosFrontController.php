@@ -24,7 +24,9 @@ class ProductosFrontController extends Controller
 
     $prods = array( );
 
-        foreach ($productos as $producto) {
+
+
+    foreach ($productos as $producto) {
 
       if ($descuento=='1') {
 
@@ -533,7 +535,7 @@ class ProductosFrontController extends Controller
             ->where('alp_productos.estado_registro','=',1)
             ->where('alp_productos.id_categoria_default','=', $producto->id_categoria_default)
             ->where('alp_productos.id','!=', $producto->id)
-            ->inRandomOrder()
+           // ->inRandomOrder()
           ->take(4)->get();
 
 
@@ -594,19 +596,21 @@ class ProductosFrontController extends Controller
 
                     }
 
-                    /*foreach ($relacionados as $r) {
+                    foreach ($relacionados as $r) {
 
                         $pregiogrupo=AlpPrecioGrupo::where('id_producto', $r->id)->where('id_role', $role->role_id)->first();
 
-                    if (isset($pregiogrupo->id)) {
-                       
-                        $precio[$producto->id]['precio']=$pregiogrupo->precio;
-                        $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
-                        $precio[$producto->id]['pum']=$pregiogrupo->pum;
 
-                    }
+
+                        if (isset($pregiogrupo->id)) {
+                           
+                            $precio[$r->id]['precio']=$pregiogrupo->precio;
+                            $precio[$r->id]['operacion']=$pregiogrupo->operacion;
+                            $precio[$r->id]['pum']=$pregiogrupo->pum;
+
+                        }
                         
-                    }*/
+                    }
 
             }
 
@@ -624,8 +628,26 @@ class ProductosFrontController extends Controller
 
                     }
 
+
+                      foreach ($relacionados as $r) {
+
+                        $pregiogrupo=AlpPrecioGrupo::where('id_producto', $r->id)->where('id_role', $r)->first();
+
+
+                        if (isset($pregiogrupo->id)) {
+                           
+                            $precio[$r->id]['precio']=$pregiogrupo->precio;
+                            $precio[$r->id]['operacion']=$pregiogrupo->operacion;
+                            $precio[$r->id]['pum']=$pregiogrupo->pum;
+
+                        }
+                        
+                    }
+
                 
         }
+
+        //dd($precio);
 
         if ($descuento=='1') {
 
@@ -673,10 +695,12 @@ class ProductosFrontController extends Controller
 
        }
 
+       
+    //   dd($precio);
+
     
     $prods=$this->addOferta($relacionados, $precio, $descuento);
 
-    //dd($prods);
 
 
 
