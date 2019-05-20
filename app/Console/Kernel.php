@@ -20,6 +20,7 @@ class Kernel extends ConsoleKernel
         Commands\VerificarPagos::class,
         Commands\ProductoB::class,
         Commands\ProductoC::class,
+        Commands\TomaPedidos::class,
         Commands\NotificacionCarrito::class,
         Commands\CancelarOrdenes::class,
 
@@ -40,6 +41,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('pedidos:day')->dailyAt('17:00');
         $schedule->command('cancelar:ordenes')->dailyAt('07:00');
       //  $schedule->command('usuarios:activar')->dailyAt('23:00');
+        $schedule->command('toma:pedidos')->dailyAt('17:00');
         $schedule->command('productos:venta')->dailyAt('17:00');
         $schedule->command('productosc:venta')->dailyAt('17:00');
         $schedule->command('usuarios:new')->dailyAt('08:00');

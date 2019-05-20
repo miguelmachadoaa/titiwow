@@ -19,6 +19,7 @@ use App\Exports\ProductosExportC;
 use App\Exports\ProductostotalesExport;
 use App\Exports\CarritoExport;
 use App\Exports\DescuentoVentasExport;
+use App\Exports\TomaPedidosExport;
 use App\User;
 use App\Models\AlpOrdenes;
 use App\Models\AlpProductos;
@@ -352,6 +353,17 @@ class AlpReportesController extends Controller
         $archivo='ventas_productos'.$hoy.'.xlsx';
 
          return Excel::download(new ProductosExportC($hoy, $hoy), $archivo);
+
+    }
+    public function cronexporttomapedidos(Request $request) 
+    {
+        $date = Carbon::now();
+
+        $hoy=$date->format('Y-m-d');
+
+        $archivo='tomapedidos_'.$hoy.'.xlsx';
+
+         return Excel::download(new TomaPedidosExport(), $archivo);
 
     }
 
