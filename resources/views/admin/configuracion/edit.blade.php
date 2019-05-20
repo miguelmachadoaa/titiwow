@@ -259,6 +259,31 @@ Editar Configuracion General
                             </div>
 
 
+                             <div class="form-group  {{ $errors->first('editar_direccion', 'has-error') }}">
+                                <label for="select21" class="col-sm-2 control-label">
+                                    Editar Direccion
+                                </label>
+                                <div class="col-sm-5">   
+                                 <select id="editar_direccion" name="editar_direccion" class="form-control ">
+                                    <option value="">Seleccione</option>
+                                        
+                                       
+                                        <option value="{{ 1 }}"
+                                                @if($configuracion->editar_direccion == 1) selected="selected" @endif >Habilitado</option>
+
+                                        <option value="{{ 0}}"
+                                                @if($configuracion->editar_direccion == 0) selected="selected" @endif >Deshabilitado</option>
+                                       
+                                </select>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('editar_direccion', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                                  
+                                </div>
+                               
+                            </div>
+
+
                              <div class="form-group  {{ $errors->first('user_activacion', 'has-error') }}">
                                 <label for="select21" class="col-sm-2 control-label">
                                     Activacion de Usuario

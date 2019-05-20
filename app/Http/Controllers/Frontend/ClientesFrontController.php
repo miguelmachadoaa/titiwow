@@ -148,11 +148,13 @@ class ClientesFrontController extends Controller
     public function misdirecciones()
     {
 
+        $configuracion=AlpConfiguracion::where('id', 1)->first();
+
         if (Sentinel::check()) {
 
             $user_id = Sentinel::getUser()->id;
 
-             $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+             $direccion = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
           ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
           ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
@@ -160,27 +162,53 @@ class ClientesFrontController extends Controller
           ->where('alp_direcciones.id_client', $user_id)->first();
 
 
-        $editar=0;
 
-        if (isset($direcciones->updated_at)) {
+          $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+          ->where('alp_direcciones.id_client', $user_id)->get();
 
-             $dt = new Carbon($direcciones->updated_at);
 
+
+
+        $editar=1;
+
+        
+
+        if ($direccion->editar_direccion==1) {
             
 
-            if ($dt->diffInHours()>24) {
+            if (isset($direccion->updated_at)) {
+
+                    $editar=0;
+
+
+                 $dt = new Carbon($direccion->updated_at);
+
+                if ($dt->diffInHours()>24) {
+
+                } else{
+
+                    $editar=0;
+
+
+
+                }
+                # code...
+            }else{
 
                 $editar=1;
-            } 
-            # code...
-        }else{
+            }
 
-            $editar=1;
         }
+
+
 
             $states=State::where('config_states.country_id', '47')->get();
 
-            $cities=City::where('state_id', $direcciones->state_id)->get();
+            $cities=City::where('state_id', $direccion->state_id)->get();
 
             $t_documento = AlpTDocumento::where('estado_registro','=',1)->get();
 
@@ -194,11 +222,11 @@ class ClientesFrontController extends Controller
 
             $countries = Country::all();
 
-             $cart= \Session::get('cart');
+            $cart= \Session::get('cart');
 
 
 
-            return view('frontend.clientes.misdirecciones', compact('direcciones', 'cliente', 'user', 'countries',  'editar', 'states', 't_documento', 'estructura', 'cities', 'cart'));
+            return view('frontend.clientes.misdirecciones', compact('direcciones', 'cliente', 'user', 'countries',  'editar', 'states', 't_documento', 'estructura', 'cities', 'cart', 'configuracion', 'direccion'));
     
 
             }else{
@@ -960,10 +988,45 @@ class ClientesFrontController extends Controller
             
     }
 
-    public function deldir(Request $request)
+     public function setdir( $id)
     {
 
-        $id=$request->id;
+      $user_id = Sentinel::getUser()->id;
+
+      $direcciones=AlpDirecciones::where('id_client', $user_id)->get();
+
+      //dd($direcciones);
+
+      $data = array('default_address' => '0' );
+
+        foreach ($direcciones as $dir) {
+          
+          $dir_upd = AlpDirecciones::find($dir->id);
+
+          $dir_upd->update($data);
+
+        }
+
+      $data = array('default_address' => '1' );
+
+
+          $direccion= AlpDirecciones::find($id);
+
+          $direccion->update($data);
+
+        if ($direccion->id) {
+
+          return redirect('misdirecciones');
+
+        } else {
+
+            return Redirect::route('misdirecciones')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+        }       
+
+    }
+
+    public function deldir( $id)
+    {
 
       $user_id = Sentinel::getUser()->id;
 
@@ -971,21 +1034,7 @@ class ClientesFrontController extends Controller
 
           $direccion->delete();
 
-        $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_countries.country_name as country_name')
-          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-          ->where('alp_direcciones.id_client', $user_id)->get();
-
-        $view= View::make('frontend.clientes.direcciones', compact('direcciones'));
-
-        $data=$view->render();
-
-        $res = array('data' => $data);
-
-        //  return json_encode($res);
-        return $data;
-          
+          return redirect('misdirecciones');
     }
 
      public function storedir(Request $request)
@@ -993,34 +1042,62 @@ class ClientesFrontController extends Controller
 
         $user_id = Sentinel::getUser()->id;
 
-        $user=User::where('id', $user_id)->first();
 
-        $input = $request->all();
+         $input = $request->all();
 
-        $direccion=AlpDirecciones::where('id', $input['address_id'])->first();
+        //var_dump($input);
 
-        $direccion->update($input);
+        $input['id_user']=$user_id;
+        $input['id_client']=$user_id;
+        $input['default_address']=1;
+               
+         
+        $direccion=AlpDirecciones::create($input);
+
+        if (isset($direccion->id)) {
+
+          DB::table('alp_direcciones')->where('id_client', $user_id)->update(['default_address'=>0]);
+          DB::table('alp_direcciones')->where('id', $direccion->id)->update(['default_address'=>1]);
+          
+        }
 
         $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
           ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
           ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
           ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-          ->where('alp_direcciones.id_client', $user_id)->first();
+          ->where('alp_direcciones.id_client', $user_id)->get();
 
-          $editar=0;
+          $editar=1;
 
-        if (isset($direcciones->updated_at)) {
+         if ($direccion->editar_direccion==1) {
+            
+            if (isset($direccion->updated_at)) {
 
-             $dt = new Carbon($direcciones->updated_at);
+                $editar=0;
 
-            if ($dt->diffInHours()>24) {
+                $dt = new Carbon($direccion->updated_at);
+
+                if ($dt->diffInHours()>24) {
+
+                } else{
+
+                    $editar=0;
+
+                }
+                # code...
+            }else{
 
                 $editar=1;
-            } 
+            }
+
         }
 
         if ($direccion->id) {
+
+
+         if ($direccion->editar_direccion==1) {
+
 
             Activation::remove($user);
                         //add new record
@@ -1043,33 +1120,173 @@ class ClientesFrontController extends Controller
             'cod_oracle_cliente' => ''
              );
 
-        $cliente=AlpClientes::where('id_user_client', $user->id)->withTrashed()->first();
+             $cliente=AlpClientes::where('id_user_client', $user->id)->withTrashed()->first();
         
-        $cliente->update($data_cliente);
+            $cliente->update($data_cliente);
 
 
-         $user = Sentinel::getuser();
-            activity($user->full_name)
-                ->performedOn($user)
-                ->causedBy($user)
-                ->log('LoggedOut');
-            // Log the user out
-            Sentinel::logout();
+             $user = Sentinel::getuser();
+                activity($user->full_name)
+                    ->performedOn($user)
+                    ->causedBy($user)
+                    ->log('LoggedOut');
+                // Log the user out
+                Sentinel::logout();
+
+            }
+
+             return redirect('misdirecciones')->withInput()->with('sucess', trans('Se ha guardado la direccion correctamente'));
+        
+        }else{
+
+            return redirect::route('misdirecciones')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
 
 
 
-          $view= View::make('frontend.clientes.direcciones', compact('direcciones', 'editar'));
+        }
 
-          $data=$view->render();
 
-          return $data;
+         
 
-        } else {
+                
+
+
+
+          
+
+      /*  } else {
 
             return Redirect::route('order/detail')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
-        }    
+        }   */ 
 
     }
+
+
+
+
+      public function updatedir(Request $request)
+    {
+
+        $user_id = Sentinel::getUser()->id;
+
+
+         $input = $request->all();
+
+        //var_dump($input);
+
+        $input['id_user']=$user_id;
+        $input['id_client']=$user_id;
+        $input['default_address']=1;
+
+
+
+               
+         
+        $direccion=AlpDirecciones::where('id', $input['address_id'])->first();
+
+        $direccion->update($input);
+
+        if (isset($direccion->id)) {
+
+          DB::table('alp_direcciones')->where('id_client', $user_id)->update(['default_address'=>0]);
+          DB::table('alp_direcciones')->where('id', $direccion->id)->update(['default_address'=>1]);
+          
+        }
+
+        $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+          ->where('alp_direcciones.id_client', $user_id)->get();
+
+          $editar=1;
+
+         if ($direccion->editar_direccion==1) {
+            
+            if (isset($direccion->updated_at)) {
+
+                $editar=0;
+
+                $dt = new Carbon($direccion->updated_at);
+
+                if ($dt->diffInHours()>24) {
+
+                } else{
+
+                    $editar=0;
+
+                }
+                # code...
+            }else{
+
+                $editar=1;
+            }
+
+        }
+
+        if ($direccion->id) {
+
+
+         if ($direccion->editar_direccion==1) {
+
+
+            Activation::remove($user);
+                        //add new record
+            Activation::create($user);   
+
+
+
+            $data_history = array(
+                'id_cliente' => $user->id, 
+                'estatus_cliente' => 'Actualización de Dirección',
+                'notas' => 'Desactivado temporalmente por actualización de Dirección',
+                'id_user' => $user_id
+            );
+
+
+            AlpClientesHistory::create($data_history);
+
+            $data_cliente = array(
+            'estado_masterfile' => 0,
+            'cod_oracle_cliente' => ''
+             );
+
+             $cliente=AlpClientes::where('id_user_client', $user->id)->withTrashed()->first();
+        
+            $cliente->update($data_cliente);
+
+
+             $user = Sentinel::getuser();
+                activity($user->full_name)
+                    ->performedOn($user)
+                    ->causedBy($user)
+                    ->log('LoggedOut');
+                // Log the user out
+                Sentinel::logout();
+
+            }
+
+             return redirect('misdirecciones')->withInput()->with('sucess', trans('Se ha guardado la direccion correctamente'));
+        
+        }else{
+
+            return redirect::route('misdirecciones')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+
+
+
+        }
+
+
+          
+
+      /*  } else {
+
+            return Redirect::route('order/detail')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+        }   */ 
+
+    }
+
 
    
 

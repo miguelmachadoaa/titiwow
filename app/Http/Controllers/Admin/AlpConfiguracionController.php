@@ -69,6 +69,7 @@ class AlpConfiguracionController extends JoshController
             'mercadopago_sand' => $request->mercadopago_sand, 
             'registro_publico' => $request->registro_publico, 
             'user_activacion' => $request->user_activacion, 
+            'editar_direccion' => $request->editar_direccion, 
             'minimo_compra' => $request->minimo_compra, 
             'mensaje_bienvenida' => $request->mensaje_bienvenida, 
             'correo_admin' => $request->correo_admin, 

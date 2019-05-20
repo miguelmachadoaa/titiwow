@@ -17,6 +17,7 @@
                             
                             <div class="col-sm-12" style="font-weight: 600;">
 
+                                <p>{{ $direcciones->titulo   }}</p>
                                 <p>{{ $direcciones->state_name.' , '.$direcciones->city_name   }}</p>
                                 <p>{{ $direcciones->nombre_estructura.' '.$direcciones->principal_address .' #'. $direcciones->secundaria_address .'-'.$direcciones->edificio_address.', '.$direcciones->detalle_address.', '.$direcciones->barrio_address }}</p>
                                 <p>{{ $direcciones->notas }}</p>

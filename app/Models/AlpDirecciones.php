@@ -20,6 +20,7 @@ class AlpDirecciones extends Model
     public $fillable = [
         'id',
         'id_client',
+        'titulo',
         'city_id',
         'id_estructura_address',
         'principal_address',

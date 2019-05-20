@@ -886,6 +886,10 @@ Route::get('clientes/carrito/{carrito}',['as'=>'clientes.carrito', 'uses'=>'Fron
 Route::post('clientes/deleteamigo', 'Frontend\ClientesFrontController@deleteamigo')->name('frontend.clientes.deleteamigo');
 
 Route::post('clientes/storedir/',['as'=>'clientes.storedir', 'uses'=>'Frontend\ClientesFrontController@storedir']);
+
+Route::post('clientes/updatedir/',['as'=>'clientes.updatedir', 'uses'=>'Frontend\ClientesFrontController@updatedir']);
+
+
 Route::post('clientes/deldir/',['as'=>'clientes.deldir', 'uses'=>'Frontend\ClientesFrontController@deldir']);
 
 
@@ -898,6 +902,11 @@ Route::get('miestatus', 'Frontend\ClientesFrontController@miestatus')->name('fro
 
 Route::get('misdirecciones', 'Frontend\ClientesFrontController@misdirecciones')->name('frontend.clientes.misdirecciones');
 
+Route::get('clientes/setdir/{direccion}',['as'=>'clientes.setdir', 'uses'=>'Frontend\ClientesFrontController@setdir']);
+
+
+
+Route::get('clientes/deldir/{direccion}',['as'=>'clientes.deldir', 'uses'=>'Frontend\ClientesFrontController@deldir']);
 
 Route::get('clientes/{id}/detalle', 'Frontend\ClientesFrontController@detalle')->name('frontend.clientes.detalle');
 

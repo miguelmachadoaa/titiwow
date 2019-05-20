@@ -38,6 +38,7 @@ class AlpConfiguracion extends Model
         'minimo_compra',
         'registro_publico',
         'user_activacion',
+        'editar_direccion',
         'correo_admin',
         'correo_shopmanager',
         'correo_shopmanagercorp',
