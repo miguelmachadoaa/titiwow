@@ -91,6 +91,13 @@ div.overlay > div {
 }
 
 
+.help-block {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #e80f0f;
+}
+
 
 
     </style>
@@ -361,7 +368,7 @@ div.overlay > div {
 <!-- Modal Direccion -->
    
 <!-- Modal Direccion -->
- <div class="modal fade" id="addDireccionModal" role="dialog" aria-labelledby="modalLabeldanger">
+ <!--div class="modal fade" id="addDireccionModal" role="dialog" aria-labelledby="modalLabeldanger">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-primary">
@@ -1098,44 +1105,77 @@ $("#addPseForm").bootstrapValidator({
     }
 });
 
-        
+
         
 
 $("#addDireccionForm").bootstrapValidator({
     fields: {
-        nickname_address: {
+        titulo: {
             validators: {
                 notEmpty: {
-                    message: 'Nickname Direccion es Requerido'
+                    message: 'Titulo de  Direccion es Requerido'
                 }
             },
             required: true,
             minlength: 3
         },
-        calle_address: {
+        principal_address: {
             validators: {
                 notEmpty: {
-                    message: 'Calle  es Requerido'
+                    message: 'Prinicpal  es Requerido'
                     
                 }
             },
             required: true,
-            minlength: 3
         },
-        
-        telefono_address: {
+
+        secundaria_address: {
             validators: {
                 notEmpty: {
-                    message: 'Telefono no puede esta vacion'
+                    message: 'Secundaria  es Requerido'
+                    
                 }
             },
-            minlength: 20
+            required: true,
+        },
+
+        edificio_address: {
+            validators: {
+                notEmpty: {
+                    message: 'Edificio  es Requerido'
+                    
+                }
+            },
+            required: true,
+        },
+        
+        detalle_address: {
+            validators: {
+                notEmpty: {
+                    message: 'El Detalle  no puede esta vacion'
+                }
+            }
+        },
+        barrio_address: {
+            validators: {
+                notEmpty: {
+                    message: 'El Barrio  no puede esta vacion'
+                }
+            }
         },
 
         city_id: {
             validators:{
                 notEmpty:{
                     message: 'Debe seleccionar una ciudad'
+                }
+            }
+        },
+
+        id_estructura_address: {
+            validators:{
+                notEmpty:{
+                    message: 'Debe seleccionar una estructura'
                 }
             }
         }
@@ -1150,7 +1190,7 @@ $('.sendDireccion').click(function () {
 
     if ($validator.isValid()) {
 
-        nickname_address=$("#nickname_address").val();
+        titulo=$("#titulo").val();
         city_id=$("#city_id").val();
         calle_address=$("#calle_address").val();
         calle2_address=$("#calle2_address").val();

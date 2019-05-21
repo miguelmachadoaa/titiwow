@@ -61,19 +61,23 @@
 
                                     <div class="col-sm-6" >
                                         
-                                        <select id="edit_id_estructura_address" name="edit_id_estructura_address" class="form-control">
+                                        <select id="id_estructura_address" name="id_estructura_address" class="form-control">
                                             @foreach($estructura as $estru)
                                             <option value="{{ $estru->id }}">
                                             {{ $estru->nombre_estructura}} </option>
                                             @endforeach
                                         </select>
 
+                                        {!! $errors->first('id_estructura_address', '<span class="help-block">:message</span>') !!}
+
 
                                     </div>
 
                                 <div class="col-sm-6">
                                     
-                                    <input type="text" id="edit_principal_address" name="edit_principal_address" class="form-control" placeholder="Ejemplo: 44 " value="{!! old('principal_address') !!}" >
+                                    <input type="text" id="principal_address" name="principal_address" class="form-control" placeholder="Ejemplo: 44 " value="{!! old('principal_address') !!}" >
+
+                                     {!! $errors->first('principal_address', '<span class="help-block">:message</span>') !!}
 
                                 </div>
                                     
@@ -85,14 +89,18 @@
 
                                     <div class="col-sm-6" >
                                         
-                                        <input type="text" id="edit_secundaria_address" name="edit_secundaria_address" placeholder="Ejemplo: 14 " class="form-control" value="{!! old('secundaria_address') !!}" >
+                                        <input type="text" id="secundaria_address" name="secundaria_address" placeholder="Ejemplo: 14 " class="form-control" value="{!! old('secundaria_address') !!}" 
+
+                                         {!! $errors->first('secundaria_address', '<span class="help-block">:message</span>') !!}>
 
 
                                     </div>
 
                                 <div class="col-sm-6">
                                     
-                                    <input type="text" id="edit_edificio_address" name="edit_edificio_address" class="form-control" placeholder="Ejemplo: 100 " value="{!! old('edificio_address') !!}" >
+                                    <input type="text" id="edificio_address" name="edificio_address" class="form-control" placeholder="Ejemplo: 100 " value="{!! old('edificio_address') !!}" >
+
+                                    {!! $errors->first('edificio_address', '<span class="help-block">:message</span>') !!}
 
                                 </div>
                                     

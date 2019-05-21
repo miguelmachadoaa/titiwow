@@ -3,30 +3,54 @@
 
 {{-- Page title --}}
 @section('title')
-Mis Direcciones 
+
+    Mis Direcciones 
+    
 @parent
 @stop
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/shopping.css') }}">
-    <link href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
-@stop
 
-<style>
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/shopping.css') }}">
+
+    <link href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
+
+    <style>
     
     .elegida{
-            border: 1px solid red;
-        }
+        
+        border: 1px solid red;
+
+    }
+
+    .help-block {
+
+        display: block;
+
+        margin-top: 5px;
+
+        margin-bottom: 10px;
+
+        color: #f10e0e;
+    }
 
         
 </style>
 
+@stop
+
+
+
 {{-- breadcrumb --}}
 @section('top')
+
     <div class="breadcum">
+
         <div class="container">
+
             <ol class="breadcrumb">
+
                 <li>
                     <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>Inicio
                     </a>
@@ -40,15 +64,21 @@ Mis Direcciones
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>
                     <a href="{{ secure_url('misdirecciones') }}">Mi Dirección </a>
                 </li>
+
             </ol>
             
         </div>
+
     </div>
+
 @stop
 
 
 {{-- Page content --}}
 @section('content')
+
+
+
 <div class="container contain_body">
 
     <div class="welcome">
@@ -76,160 +106,169 @@ Mis Direcciones
         <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
 
         <div class="row" id="addAddressForm" style="margin-top: 1em; @if(count($errors)) @else display: none; @endif ">
-                            
-                            <div class="col-sm-12" style="    border: 1px solid rgba(0,0,0,0.1);    padding: 2em;    margin: 0em -2em;">
-                                
 
-                        <h3 style="text-align: center;margin-bottom: 1em;">Agregar Direccion</h3>
-                        
-                        <form method="POST" action="{{secure_url('clientes/storedir')}}" id="addDireccionForm" name="addDireccionForm" class="form-horizontal     ">
+            <div class="col-sm-12" style="border: 1px solid rgba(0,0,0,0.1);  padding: 2em; margin: 0em -2em;">
+
+                <h3 style="text-align: center;margin-bottom: 1em;">Agregar Direccion</h3>
+
+                <form method="POST" action="{{secure_url('clientes/storedir')}}" id="addDireccionForm" name="addDireccionForm" class="form-horizontal     ">
+
+                     {{ csrf_field() }}
+
+                     <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('titulo', 'has-error') }}">
 
 
-                            {{ csrf_field() }}
+                        <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Titulo" value="{!! old('titulo') !!}" >
 
-
-                             <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('titulo', 'has-error') }}">
-                                    <div class="" >
-
-                                    <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Titulo"
-                                           value="{!! old('titulo') !!}" >
-                                    
-                                        
-                                    </div>
-                                {!! $errors->first('titulo', '<span class="help-block">:message</span>') !!}
-                                </div>
+                        {!! $errors->first('titulo', '<span class="help-block">:message</span>') !!}
+                    
+                    </div>
                             
 
-                                <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('cod_alpinista', 'has-error') }}">
-                                <div class="" >
-                                    <select id="state_id" name="state_id" class="form-control">
-                                        <option value="">Seleccione Departamento</option>     
-                                        @foreach($states as $state)
-                                        <option value="{{ $state->id }}">
-                                                {{ $state->state_name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                {!! $errors->first('state_id', '<span class="help-block">:message</span>') !!}
-                            </div>
-                            <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('city_id', 'has-error') }}">
-                                <div class="" >
-                                    <select id="city_id" name="city_id" class="form-control">
-                                        <option value="">Seleccione Ciudad</option>
-                                        @foreach($cities as $city)
-                                        <option value="{{ $city->id }}">
-                                                {{ $city->city_name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                {!! $errors->first('city_id', '<span class="help-block">:message</span>') !!}
-                            </div>
+                    <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('cod_alpinista', 'has-error') }}">
+
+                        <select id="state_id" name="state_id" class="form-control">
+                            <option value="">Seleccione Departamento</option>   
+
+                            @foreach($states as $state)
+
+                                <option value="{{ $state->id }}"> {{ $state->state_name}} </option>
+
+                            @endforeach
+
+                        </select>
+
+                        {!! $errors->first('state_id', '<span class="help-block">:message</span>') !!}
+
+                    </div>
 
 
-                              <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('calle_address', 'has-error') }}">
+                    <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('city_id', 'has-error') }}">
 
-                                    <div class="col-sm-6" >
-                                        
-                                        <select id="edit_id_estructura_address" name="edit_id_estructura_address" class="form-control">
-                                            @foreach($estructura as $estru)
-                                            <option value="{{ $estru->id }}">
-                                            {{ $estru->nombre_estructura}} </option>
-                                            @endforeach
-                                        </select>
+                            <select id="city_id" name="city_id" class="form-control">
 
+                                <option value="">Seleccione Ciudad</option>
 
-                                    </div>
+                                @foreach($cities as $city)
 
-                                <div class="col-sm-6">
-                                    
-                                    <input type="text" id="edit_principal_address" name="edit_principal_address" class="form-control" placeholder="Ejemplo: 44 " value="{!! old('principal_address') !!}" >
+                                    <option value="{{ $city->id }}">{{ $city->city_name}}</option>
 
-                                </div>
-                                    
-                                
-                            </div>
+                                @endforeach
+
+                            </select>
+
+                        {!! $errors->first('city_id', '<span class="help-block">:message</span>') !!}
+
+                    </div>
 
 
-                            <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('calle_address', 'has-error') }}">
+                    <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('calle_address', 'has-error') }}">
 
-                                    <div class="col-sm-6" >
-                                        
-                                        <input type="text" id="edit_secundaria_address" name="edit_secundaria_address" placeholder="Ejemplo: 14 " class="form-control" value="{!! old('secundaria_address') !!}" >
-
-
-                                    </div>
-
-                                <div class="col-sm-6">
-                                    
-                                    <input type="text" id="edit_edificio_address" name="edit_edificio_address" class="form-control" placeholder="Ejemplo: 100 " value="{!! old('edificio_address') !!}" >
-
-                                </div>
-                                    
-                                
-                            </div>
-
-
-
+                        <div class="col-sm-6" >
                             
-                            <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('detalle_address', 'has-error') }}">
-                                <input type="text" class="form-control" id="detalle_address" name="detalle_address" placeholder="Apto, Puerta, Interior"
-                                       value="{!! old('detalle_address') !!}" >
-                                {!! $errors->first('detalle_address', '<span class="help-block">:message</span>') !!}
-                            </div>
-                            <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('barrio_address', 'has-error') }}">
-                                <input type="text" class="form-control" id="barrio_address" name="barrio_address" placeholder="Barrio"
-                                       value="{!! old('barrio_address') !!}" >
-                                {!! $errors->first('barrio_address', '<span class="help-block">:message</span>') !!}
-                            </div>
+                            <select id="id_estructura_address" name="id_estructura_address" class="form-control">
 
-                            <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('notas', 'has-error') }}">
-                                <textarea style="margin: 4px 0;" id="notas" name="notas" type="text" placeholder="Notas" class="form-control" ></textarea>
+                                @foreach($estructura as $estru)
 
-                                {!! $errors->first('notas', '<span class="help-block">:message</span>') !!}
-                            </div>
+                                <option value="{{ $estru->id }}">{{ $estru->nombre_estructura}} </option>
 
-                           
-                            <div class="clearfix"></div>
+                                @endforeach
 
-                            <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('notas', 'has-error') }}">
+                            </select>
 
-                                <button class="btn btn-primary" type="submit" >Crear </button>
+                             {!! $errors->first('id_estructura_address', '<span class="help-block">:message</span>') !!}
 
-
-                               
-
-                               
-                            </div>
-
-                        </form>
-
-                         </div>
                         </div>
 
+                        <div class="col-sm-6">
+                            
+                            <input type="text" id="principal_address" name="principal_address" class="form-control" placeholder="Ejemplo: 44 " value="{!! old('principal_address') !!}" >
 
+                            {!! $errors->first('principal_address', '<span class="help-block">:message</span>') !!}
+
+                        </div>
+                                    
+                    </div>
+
+
+                    <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('calle_address', 'has-error') }}">
+
+                        <div class="col-sm-6" >
+
+                            <input type="text" id="secundaria_address" name="secundaria_address" placeholder="Ejemplo: 14 " class="form-control" value="{!! old('secundaria_address') !!}" >
+
+                            {!! $errors->first('secundaria_address', '<span class="help-block">:message</span>') !!}
+
+                        </div>
+
+                        <div class="col-sm-6">
+
+                            <input type="text" id="edificio_address" name="edificio_address" class="form-control" placeholder="Ejemplo: 100 " value="{!! old('edificio_address') !!}" >
+
+                            {!! $errors->first('edificio_address', '<span class="help-block">:message</span>') !!}
+
+                        </div>
+
+                    </div>
+
+                    <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('detalle_address', 'has-error') }}">
+
+                        <input type="text" class="form-control" id="detalle_address" name="detalle_address" placeholder="Apto, Puerta, Interior" value="{!! old('detalle_address') !!}" >
+
+                        {!! $errors->first('detalle_address', '<span class="help-block">:message</span>') !!}
+
+                    </div>
+
+                    <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('barrio_address', 'has-error') }}">
+
+                        <input type="text" class="form-control" id="barrio_address" name="barrio_address" placeholder="Barrio" value="{!! old('barrio_address') !!}" >
+
+                        {!! $errors->first('barrio_address', '<span class="help-block">:message</span>') !!}
+
+                    </div>
+
+                    <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('notas', 'has-error') }}">
+
+                        <textarea style="margin: 4px 0;" id="notas" name="notas" type="text" placeholder="Notas" class="form-control" ></textarea>
+
+                        {!! $errors->first('notas', '<span class="help-block">:message</span>') !!}
+
+                    </div>
+
+                           
+                    <div class="clearfix"></div>
+
+                    <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('notas', 'has-error') }}">
+
+                        <button class="btn btn-primary" type="submit" >Crear </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+        
+        </div>
 
 
         <div class="col-sm-12 direcciones">   
-
         
             <br>    
 
                 @if (isset($direccion->id))
 
 
-                      <input type="hidden" name="id_direccion"  id="id_direccion" value="{{ $direccion->id }}" >  
+                    <input type="hidden" name="id_direccion"  id="id_direccion" value="{{ $direccion->id }}" >  
 
-                      @if($configuracion->editar_direccion==1)
+                    @if($configuracion->editar_direccion==1)
 
-                      <div class="col-sm-10 col-sm-offset-1">
-                             <div class="alert alert-warning">Al actualizar su dirección su usuario quedara desactivado temporalmente. </div>
+                        <div class="col-sm-10 col-sm-offset-1">
 
-                    </div>
+                            <div class="alert alert-warning">Al actualizar su dirección su usuario quedara desactivado temporalmente. </div>
 
+                        </div>
 
-                      @endif
-
-                    
+                    @endif
 
                 @else
 
@@ -237,42 +276,45 @@ Mis Direcciones
 
                 @endif
 
-
-
-
+                
                 @foreach($direcciones as $dir)
 
-
-                <div class="col-sm-6 col-md-4 col-lg-4 ">
-                                        
-                         <div class="panel panel-default">
-            
+                    <div class="col-sm-6 col-md-4 col-lg-4 ">
+                                            
+                        <div class="panel panel-default">
+                
                             <div class="panel-body @if($dir->default_address) {{  'elegida' }} @endif">
+                                
                                 <div class="box-body">
+
                                     <dl class="dl-horizontal">
 
                                         <dt>Titulo</dt>
+
                                         <dd>{{ $dir->titulo}}</dd>
 
                                         <dt>Ubicación</dt>
+                                        
                                         <dd>{{ $dir->country_name.', '.$dir->state_name.', '.$dir->city_name }}</dd>
 
-
                                         <dt>Dirección</dt>
-                                        <dd>
-                                           {{ $dir->nombre_estructura.' '.$dir->principal_address.' - '.$dir->secundaria_address.' '.$dir->edificio_address.' '.$dir->detalle_address.' '.$dir->barrio_address }}
+
+                                        <dd>{{ $dir->nombre_estructura.' '.$dir->principal_address.' - '.$dir->secundaria_address.' '.$dir->edificio_address.' '.$dir->detalle_address.' '.$dir->barrio_address }}
                                         </dd>
 
                                         <dt>Notas</dt>
-                                        <dd>{{ $dir->notas }}</dd>
-                                        
-                                    </dl>
-                                </div>
-                                <!-- /.box-body -->
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-12">
 
+                                        <dd>{{ $dir->notas }}</dd>
+
+                                    </dl>
+
+                                </div>
+                                    <!-- /.box-body -->
+                                <hr>
+
+                                <div class="row">
+
+                                    <div class="col-sm-12">
 
                                         @if($configuracion->edificio_address==0)
 
@@ -288,36 +330,39 @@ Mis Direcciones
                                             data-detalle_address="{{ $dir->detalle_address }}"
                                             data-barrio_address="{{ $dir->barrio_address }}"
                                             data-notas="{{ $dir->notas }}" 
-                                             class="btn btn-primary btn-xs editAddress">Editar</button>
+                                                 class="btn btn-primary btn-xs editAddress">Editar</button>
 
-                                         @endif
-                                        
+                                        @endif
+                                            
 
-                                         @if($dir->default_address)
-                                          
-                                          @else
-                                          <a href="{{ secure_url('/clientes/setdir/'.$dir->id) }}" class="btn btn-xs btn-primary">Favorita</a>
-                                          @endif
+                                        @if($dir->default_address)
 
-                                        
+                                        @else
+
+                                            <a href="{{ secure_url('/clientes/setdir/'.$dir->id) }}" class="btn btn-xs btn-primary">Favorita</a>
+
+                                        @endif
 
                                         <a href="{{ secure_url('/clientes/deldir/'.$dir->id) }}" class="btn btn-xs btn-danger">Eliminar</a>
-                                        
+
                                     </div>
+
                                 </div>
+
                             </div>
 
-                    </div>    
+                        </div>
+
                     </div>  
 
+                    @if($loop->iteration%3==0)
 
+                        <div class="clearfix"></div>
+
+                    @endif
 
 
                 @endforeach
-
-
-                
-
 
         </div>
     
@@ -326,32 +371,42 @@ Mis Direcciones
 </div>
 
 <div class="container">
+
     <div class="form-group">
+
         <div class="col-lg-offset-5 col-lg-10" style="margin-bottom:20px;">
+
             <a class="btn btn-danger" type="button" href="{{ secure_url('clientes') }}">Regresar</a>
+
         </div>
+
     </div>
+
 </div>
 
 <!-- Modal Direccion -->
- <div class="modal fade" id="editDireccionModal" role="dialog" aria-labelledby="modalLabeldanger">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header bg-primary">
-                        <h4 class="modal-title" id="modalLabeldanger">Editar Direccion</h4>
-                    </div>
-                    <div class="modal-body">
+<div class="modal fade" id="editDireccionModal" role="dialog" aria-labelledby="modalLabeldanger">
 
-                        <div class="row">
-                            
-                            <div class="col-sm-12">
-                                
+    <div class="modal-dialog modal-lg" role="document">
 
-                           
-                        
+        <div class="modal-content">
+
+            <div class="modal-header bg-primary">
+
+                <h4 class="modal-title" id="modalLabeldanger">Editar Direccion</h4>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="row">
+
+                    <div class="col-sm-12">
+
                         <form method="POST" action="{{secure_url('cart/storedir')}}" id="editDireccionForm" name="editDireccionForm" class="form-horizontal">
 
                             <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+
                             <input type="hidden" name="edit_address_id" id="edit_address_id" value="">
 
                             {{ csrf_field() }}
@@ -359,19 +414,16 @@ Mis Direcciones
                             <div class="row">
 
                                 <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('titulo', 'has-error') }}">
-                                    <div class="" >
 
-                                    <input type="text" class="form-control" id="edit_titulo" name="edit_titulo" placeholder="Titulo"
-                                           value="{!! old('titulo') !!}" >
-                                    
+                                    <input type="text" class="form-control" id="edit_titulo" name="edit_titulo" placeholder="Titulo" value="{!! old('edit_titulo') !!}">
                                         
-                                    </div>
-                                {!! $errors->first('titulo', '<span class="help-block">:message</span>') !!}
+                                    {!! $errors->first('titulo', '<span class="help-block">:message</span>') !!}
+
                                 </div>
 
 
                                 <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('cod_alpinista', 'has-error') }}">
-                                <div class="" >
+
                                     <select id="edit_state_id" name="edit_state_id" class="form-control">
                                         <option value="">Seleccione Departamento</option>     
                                         @foreach($states as $state)
@@ -379,49 +431,53 @@ Mis Direcciones
                                                 {{ $state->state_name}}</option>
                                         @endforeach
                                     </select>
-                                </div>
-                                {!! $errors->first('state_id', '<span class="help-block">:message</span>') !!}
-                            </div>
 
-                            <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('city_id', 'has-error') }}">
-                                <div class="" >
+                                    {!! $errors->first('state_id', '<span class="help-block">:message</span>') !!}
+                                </div>
+
+                                <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('city_id', 'has-error') }}">
+
                                     <select id="edit_city_id" name="edit_city_id" class="form-control">
-                                        <option value="">Seleccione Ciudad</option>
-                                        @foreach($cities as $city)
-                                        <option value="{{ $city->id }}">
-                                                {{ $city->city_name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                {!! $errors->first('city_id', '<span class="help-block">:message</span>') !!}
-                            </div>
 
-                           
-                            <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('calle_address', 'has-error') }}">
+                                        <option value="">Seleccione Ciudad</option>
+
+                                        @foreach($cities as $city)
+
+                                            <option value="{{ $city->id }}">{{ $city->city_name}}</option>
+
+                                        @endforeach
+
+                                    </select>
+
+                                    {!! $errors->first('city_id', '<span class="help-block">:message</span>') !!}
+
+                                </div>
+
+                                <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('calle_address', 'has-error') }}">
 
                                     <div class="col-sm-6" >
-                                        
-                                        <select id="edit_id_estructura_address" name="edit_id_estructura_address" class="form-control">
-                                            @foreach($estructura as $estru)
-                                            <option value="{{ $estru->id }}">
-                                            {{ $estru->nombre_estructura}} </option>
-                                            @endforeach
-                                        </select>
 
+                                        <select id="edit_id_estructura_address" name="edit_id_estructura_address" class="form-control">
+
+                                            @foreach($estructura as $estru)
+
+                                                <option value="{{ $estru->id }}">{{ $estru->nombre_estructura}} </option>
+
+                                            @endforeach
+
+                                        </select>
 
                                     </div>
 
-                                <div class="col-sm-6">
+                                    <div class="col-sm-6">
                                     
-                                    <input type="text" id="edit_principal_address" name="edit_principal_address" class="form-control" value="{!! old('principal_address') !!}" >
+                                        <input type="text" id="edit_principal_address" name="edit_principal_address" class="form-control" value="{!! old('principal_address') !!}" >
+
+                                    </div>
 
                                 </div>
-                                    
-                                
-                            </div>
 
-
-                            <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('calle_address', 'has-error') }}">
+                                <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('calle_address', 'has-error') }}">
 
                                     <div class="col-sm-6" >
                                         
@@ -430,117 +486,121 @@ Mis Direcciones
 
                                     </div>
 
-                                <div class="col-sm-6">
-                                    
-                                    <input type="text" id="edit_edificio_address" name="edit_edificio_address" class="form-control" value="{!! old('edificio_address') !!}" >
+                                    <div class="col-sm-6">
+
+                                        <input type="text" id="edit_edificio_address" name="edit_edificio_address" class="form-control" value="{!! old('edificio_address') !!}" >
+
+                                    </div>
 
                                 </div>
-                                    
-                                
+
+                                <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('detalle_address', 'has-error') }}">
+
+                                    <input type="text" class="form-control" id="edit_detalle_address" name="edit_detalle_address" placeholder="Apto, Puerta, Interior" value="{!! old('detalle_address') !!}" >
+
+                                    {!! $errors->first('detalle_address', '<span class="help-block">:message</span>') !!}
+
+                                </div>
+
+                                <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('barrio_address', 'has-error') }}">
+
+                                    <input type="text" class="form-control" id="edit_barrio_address" name="edit_barrio_address" placeholder="Barrio" value="{!! old('barrio_address') !!}" >
+
+                                    {!! $errors->first('barrio_address', '<span class="help-block">:message</span>') !!}
+                                </div>
+
+                                <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('notas', 'has-error') }}">
+
+                                    <textarea style="margin: 4px 0;" id="edit_notas" name="edit_notas" type="text" placeholder="Notas" class="form-control" ></textarea>
+
+                                    {!! $errors->first('notas', '<span class="help-block">:message</span>')!!}
+
+                                </div>
+
                             </div>
 
-
-                           
-                            <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('detalle_address', 'has-error') }}">
-                                <input type="text" class="form-control" id="edit_detalle_address" name="edit_detalle_address" placeholder="Apto, Puerta, Interior"
-                                       value="{!! old('detalle_address') !!}" >
-                                {!! $errors->first('detalle_address', '<span class="help-block">:message</span>') !!}
-                            </div>
-
-
-                            <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('barrio_address', 'has-error') }}">
-                                <input type="text" class="form-control" id="edit_barrio_address" name="edit_barrio_address" placeholder="Barrio"
-                                       value="{!! old('barrio_address') !!}" >
-                                {!! $errors->first('barrio_address', '<span class="help-block">:message</span>') !!}
-                            </div>
-
-
-
-                            <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('notas', 'has-error') }}">
-                                <textarea style="margin: 4px 0;" id="edit_notas" name="edit_notas" type="text" placeholder="Notas" class="form-control" ></textarea>
-
-                                {!! $errors->first('notas', '<span class="help-block">:message</span>') !!}
-                            </div>
-
-                           
                             <div class="clearfix"></div>
 
                         </form>
 
-                         </div>
-                        </div>
+                    </div>
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn  btn-primary sendDireccion" >Actualizar</button>
-                    </div>
                 </div>
+
             </div>
+
+            <div class="modal-footer">
+
+                <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
+
+                <button type="button" class="btn  btn-primary sendDireccion" >Actualizar</button>
+
+            </div>
+
         </div>
 
+    </div>
 
+</div>
 
 
 <!-- Modal Direccion -->
+
+
 @endsection
 
 {{-- page level scripts --}}
 @section('footer_scripts')
+
     <script src="{{ secure_asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
-     <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+
+    <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
     <script>
 
     $('.showAddAddress').on('click', function(){
 
+        if($('#addAddressForm').hasClass('open')){
 
-    if($('#addAddressForm').hasClass('open')){
+            $('#addAddressForm').removeClass('open');
 
-        $('#addAddressForm').removeClass('open');
+            $('#addAddressForm').fadeOut();
 
-        $('#addAddressForm').fadeOut();
+        }else{
 
-    }else{
+            $('#addAddressForm').addClass('open');
 
-        $('#addAddressForm').addClass('open');
-
-        $('#addAddressForm').fadeIn();
-    }
-
-    
-
+            $('#addAddressForm').fadeIn();
+        }
             
+        $("#addDireccionModal").modal('show');
 
-            $("#addDireccionModal").modal('show');
+    });
 
-});
+    jQuery(document).ready(function () {
+            
+        new WOW().init();
 
-
-
-
-        jQuery(document).ready(function () {
-            new WOW().init();
-        });
+    });
 
 
-        $('.addtocart').on('click', function(e){
+    $('.addtocart').on('click', function(e){
 
-            e.preventDefault();
+        e.preventDefault();
 
-            url=$(this).attr('href');
+        url=$(this).attr('href');
 
-            $.get(url, {}, function(data) {
+        $.get(url, {}, function(data) {
 
-                if (data.resultado) {
+            if (data.resultado) {
 
-                    $('#detalle_carro_front').html(data.contenido);
-                         
-                }
-
-            });
+                $('#detalle_carro_front').html(data.contenido);
+                     
+            }
 
         });
+
+    });
 
 
 
@@ -555,6 +615,16 @@ $("#editDireccionForm").bootstrapValidator({
             required: true,
             minlength: 3
         },
+        edit_titulo: {
+            validators: {
+                notEmpty: {
+                    message: 'Titulo es Requerido'
+                }
+            },
+            required: true,
+            minlength: 3
+        },
+        
         edit_secundaria_address: {
             validators: {
                 notEmpty: {
@@ -618,36 +688,113 @@ $("#editDireccionForm").bootstrapValidator({
 
     }
 });
+  
+
+$("#addAddressForm").bootstrapValidator({
+    fields: {
+        titulo: {
+            validators: {
+                notEmpty: {
+                    message: 'Titulo de  Direccion es Requerido'
+                }
+            },
+            required: true,
+            minlength: 3
+        },
+        principal_address: {
+            validators: {
+                notEmpty: {
+                    message: 'Prinicpal  es Requerido'
+                    
+                }
+            },
+            required: true,
+        },
+
+        secundaria_address: {
+            validators: {
+                notEmpty: {
+                    message: 'Secundaria  es Requerido'
+                    
+                }
+            },
+            required: true,
+        },
+
+        edificio_address: {
+            validators: {
+                notEmpty: {
+                    message: 'Edificio  es Requerido'
+                    
+                }
+            },
+            required: true,
+        },
+        
+        detalle_address: {
+            validators: {
+                notEmpty: {
+                    message: 'El Detalle  no puede esta vacion'
+                }
+            }
+        },
+        barrio_address: {
+            validators: {
+                notEmpty: {
+                    message: 'El Barrio  no puede esta vacion'
+                }
+            }
+        },
+
+        city_id: {
+            validators:{
+                notEmpty:{
+                    message: 'Debe seleccionar una ciudad'
+                }
+            }
+        },
+
+        id_estructura_address: {
+            validators:{
+                notEmpty:{
+                    message: 'Debe seleccionar una estructura'
+                }
+            }
+        }
+    }
+});
+
+
+
 
 
 $('.editAddress').on('click', function(){
 
-            $('#edit_address_id').val($(this).data('id'));
+    $('#edit_address_id').val($(this).data('id'));
 
-            $('#edit_titulo').val($(this).data('titulo'));
+    $('#edit_titulo').val($(this).data('titulo'));
 
-            $('#edit_state_id').val($(this).data('state_id'));
+    $('#edit_state_id').val($(this).data('state_id'));
 
-            $('#edit_city_id').val($(this).data('city_id'));
+    $('#edit_city_id').val($(this).data('city_id'));
 
-            $('#edit_id_estructura_address').val($(this).data('estructura_id'));
+    $('#edit_id_estructura_address').val($(this).data('estructura_id'));
 
-            $('#edit_principal_address').val($(this).data('principal_address'));
+    $('#edit_principal_address').val($(this).data('principal_address'));
 
-            $('#edit_secundaria_address').val($(this).data('secundaria_address'));
+    $('#edit_secundaria_address').val($(this).data('secundaria_address'));
 
-            $('#edit_edificio_address').val($(this).data('edificio_address'));
+    $('#edit_edificio_address').val($(this).data('edificio_address'));
 
-            $('#edit_detalle_address').val($(this).data('detalle_address'));
+    $('#edit_detalle_address').val($(this).data('detalle_address'));
 
-            $('#edit_barrio_address').val($(this).data('barrio_address'));
+    $('#edit_barrio_address').val($(this).data('barrio_address'));
 
-            $('#edit_notas').val($(this).data('notas'));
+    $('#edit_notas').val($(this).data('notas'));
 
+    $("#editDireccionModal").modal('show');
 
-            $("#editDireccionModal").modal('show');
-
-        });
+});
 
 
 $('.sendDireccion').click(function () {
@@ -706,41 +853,45 @@ $('.sendDireccion').click(function () {
 // });
 $('#addDireccionForm').keypress(
     function(event){
+
         if (event.which == '13') {
+
             event.preventDefault();
+
         }
-    });
 
- $('body').on('click', '.deldir', function(){
+});
 
-            $('#del_id').val($(this).data('id'));
+$('body').on('click', '.deldir', function(){
 
-            $("#delDireccionModal").modal('show');
+    $('#del_id').val($(this).data('id'));
 
-        });
+    $("#delDireccionModal").modal('show');
+
+});
 
 
 
 $('.delDireccion').click(function () {
     
-        id=$("#del_id").val();
-        var base = $('#base').val();
+    id=$("#del_id").val();
+    var base = $('#base').val();
 
-        $.ajax({
-            type: "POST",
-            data:{id},
-            url: base+"/clientes/deldir",
-                
-            complete: function(datos){     
-
-                $(".direcciones").html(datos.responseText);
-
-                $('#delDireccionModal').modal('hide');
-
-               $("#del_id").val('');
+    $.ajax({
+        type: "POST",
+        data:{id},
+        url: base+"/clientes/deldir",
             
-            }
-        });
+        complete: function(datos){     
+
+            $(".direcciones").html(datos.responseText);
+
+            $('#delDireccionModal').modal('hide');
+
+           $("#del_id").val('');
+        
+        }
+    });
 
 });
         
