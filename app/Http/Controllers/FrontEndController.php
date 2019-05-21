@@ -670,8 +670,9 @@ class FrontEndController extends JoshController
                 ->log('Nueva Cuenta Creada');
 
 
-            $data_c = array(
-                    'estado_masterfile' =>$request->telefono_cliente
+           $data_c = array(
+                    'cod_oracle_cliente' =>$request->telefono_cliente,
+                    'estado_masterfile' =>'1'
                 );
 
 

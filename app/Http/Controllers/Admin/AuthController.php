@@ -484,9 +484,9 @@ class AuthController extends JoshController
 
 
                   $data_c = array(
-                    'estado_masterfile' =>$request->telefono_cliente
+                    'cod_oracle_cliente' =>$request->telefono_cliente,
+                    'estado_masterfile' =>'1'
                 );
-
 
             $cliente->update($data_c);
 
@@ -658,7 +658,8 @@ class AuthController extends JoshController
 
 
                   $data_c = array(
-                    'estado_masterfile' =>$request->telefono_cliente
+                    'cod_oracle_cliente' =>$request->telefono_cliente,
+                    'estado_masterfile' =>'1'
                 );
 
 
