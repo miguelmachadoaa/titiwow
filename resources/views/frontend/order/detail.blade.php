@@ -325,7 +325,7 @@ div.overlay > div {
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-primary">
-                        <h4 class="modal-title" id="modalLabeldanger" style="color: #fff !important;">Aplicar Cupon</h4>
+                        <h4 class="modal-title" id="modalLabeldanger" style="color: #fff !important;">Aplicar Cupón</h4>
                     </div>
                     <div class="modal-body">
                         
