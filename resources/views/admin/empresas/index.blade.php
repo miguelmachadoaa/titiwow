@@ -55,6 +55,7 @@ Empresa
                                     <th>Nombre</th>
                                     <th>Descripcion</th>
                                     <th>Descuento</th>
+                                    <th>Estatus</th>
                                     <th>Accion</th>
                                 </tr>
                             </thead>
@@ -68,6 +69,21 @@ Empresa
                                     <td>{!! $row->descripcion_empresa !!}</td>
                                     <td>{!! $row->descuento_empresa !!}</td>
                                     <td>
+                                          <div class="estatus_{{$row->id}}">
+
+                                                @if($row->estado_registro=='1')
+
+                                                    <button data-url="{{secure_url('admin/empresas/estatus')}}" type="buttton" data-id="{{$row->id}}" data-estatus="0" class="btn btn-xs btn-primary estatus">Desactivar</button>
+
+                                                @else
+
+                                                    <button data-url="{{secure_url('admin/empresas/estatus')}}" type="buttton" data-id="{{$row->id}}" data-estatus="1" class="btn btn-xs btn-primary estatus">Activar</button>
+
+                                                @endif
+
+                                            </div>
+                                    </td>
+                                    <td>
                                             
                                             <a href="{{ secure_url('admin/empresas/'.$row->id.'/invitaciones') }}">
                                                 <i class="livicon" data-name="plus" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Invitaciones"></i>
@@ -77,6 +93,8 @@ Empresa
                                             <a href="{{ secure_url('admin/empresas/'.$row->id.'/edit') }}">
                                                 <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Editar Empresa"></i>
                                             </a>
+
+                                          
 
                                             
 
@@ -138,6 +156,23 @@ Empresa
 
 
 <script>
+
+
+    $('#table').on('click', '.estatus', function(){
+
+            var id=$(this).data('id');
+
+            var estatus=$(this).data('estatus');
+
+            var url=$(this).data('url');
+
+            $.post(url, {id, estatus}, function(data) {
+
+                    $('.estatus_'+id).html(data);
+
+                });
+               
+            });
 
 
      $(document).ready(function() {

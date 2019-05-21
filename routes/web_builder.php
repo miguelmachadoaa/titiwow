@@ -451,6 +451,8 @@ Route::resource('facturasmasivas', 'Admin\AlpFacturasController');
         Route::get('invitacionesmasiv', 'Admin\AlpEmpresasController@invitacionesmasiv')->name('empresas.invitacionesmasiv');
 
         });
+
+
     Route::post('empresas/create', 'Admin\AlpEmpresasController@store');
     Route::resource('empresas', 'Admin\AlpEmpresasController');
 
@@ -459,6 +461,8 @@ Route::resource('facturasmasivas', 'Admin\AlpFacturasController');
     Route::post('empresas/storeamigo', 'Admin\AlpEmpresasController@storeamigo')->name('empresas.storeamigo');
 
     Route::post('empresas/delamigo', 'Admin\AlpEmpresasController@delamigo')->name('empresas.delamigo');
+
+    Route::post('empresas/estatus', ['as'=> 'empresas.estatus', 'uses' => 'Admin\AlpEmpresasController@estatus']);
 
     /*proceso para registro de afiliado a una empresa */
 

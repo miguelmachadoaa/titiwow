@@ -268,11 +268,11 @@ Editar Configuracion General
                                     <option value="">Seleccione</option>
                                         
                                        
-                                        <option value="{{ 1 }}"
-                                                @if($configuracion->editar_direccion == 1) selected="selected" @endif >Habilitado</option>
+                                        <option value="{{ 0 }}"
+                                                @if($configuracion->editar_direccion == 0) selected="selected" @endif >Habilitado</option>
 
-                                        <option value="{{ 0}}"
-                                                @if($configuracion->editar_direccion == 0) selected="selected" @endif >Deshabilitado</option>
+                                        <option value="{{ 1}}"
+                                                @if($configuracion->editar_direccion == 1) selected="selected" @endif >Deshabilitado</option>
                                        
                                 </select>
                                 <div class="col-sm-4">
@@ -398,11 +398,11 @@ Editar Configuracion General
 
                                   <div class="form-group {{ $errors->first('mensaje_bienvenida', 'has-error') }}">
                                     <label for="mensaje_bienvenida" class="col-sm-2 control-label">
-                                        Correo Admin
+                                        Mensaje de Bienvenida Nuevos Usuarios
                                     </label>
                                     <div class="col-sm-5">
                                         
-                                        <textarea id="mensaje_bienvenida" name="mensaje_bienvenida" cols="30" rows="10" class="form-control" placeholder="Mensaje de Bienvenida">{!! old('mensaje_bienvenida', $configuracion->mensaje_bienvenida) !!}</textarea>
+                                        <textarea id="mensaje_bienvenida" name="mensaje_bienvenida" cols="30" rows="10" class="form-control" placeholder="Mensaje de Bienvenida Nuevos Usuarios">{!! old('mensaje_bienvenida', $configuracion->mensaje_bienvenida) !!}</textarea>
                                        
                                     </div>
                                     <div class="col-sm-4">

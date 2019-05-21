@@ -346,4 +346,29 @@ class AlpEmpresasController extends JoshController
         return redirect('admin/empresas/invitacionesmasiv')->with('success', 'Invitaciones Cargadas Exitosamente');
     }
 
+
+
+     public function estatus(Request $request)
+    {
+
+        $input = $request->all();
+
+        $empresa=AlpEmpresas::find($request->id);
+
+        $data = array('estado_registro' => $request->estatus );
+
+        $empresa->update($data);
+
+        $empresa=AlpEmpresas::find($request->id);
+
+
+        $view= View::make('admin.empresas.estatus', compact('empresa'));
+
+        $data=$view->render();
+        
+        return $data;
+    }
+
+
+
 }
