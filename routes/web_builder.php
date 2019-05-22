@@ -33,6 +33,24 @@ Route::get('reportes/cronexporttomapedidos', 'Admin\AlpReportesController@cronex
 
 
 Route::get('admin/clientes/data', 'Admin\AlpClientesController@data')->name('clientes.data');
+Route::get('admin/clientes/dataempresas', 'Admin\AlpClientesController@dataempresas')->name('clientes.dataempresas');
+Route::get('admin/clientes/datainactivos', 'Admin\AlpClientesController@datainactivos')->name('clientes.datainactivos');
+Route::get('admin/clientes/datarechazados', 'Admin\AlpClientesController@datarechazados')->name('clientes.datarechazados');
+
+Route::get('admin/ordenes/data', 'Admin\AlpOrdenesController@data')->name('ordenes.data');
+Route::get('admin/ordenes/dataespera', 'Admin\AlpOrdenesController@dataespera')->name('ordenes.dataespera');
+Route::get('admin/ordenes/datarecibidos', 'Admin\AlpOrdenesController@datarecibidos')->name('ordenes.datarecibidos');
+Route::get('admin/ordenes/dataaprobados', 'Admin\AlpOrdenesController@dataaprobados')->name('ordenes.dataaprobados');
+Route::get('admin/ordenes/datafacturados', 'Admin\AlpOrdenesController@datafacturados')->name('ordenes.datafacturados');
+Route::get('admin/ordenes/dataenviados', 'Admin\AlpOrdenesController@dataenviados')->name('ordenes.dataenviados');
+Route::get('admin/ordenes/dataempresas', 'Admin\AlpOrdenesController@dataempresas')->name('ordenes.dataempresas');
+Route::get('admin/ordenes/datadescuento', 'Admin\AlpOrdenesController@datadescuento')->name('ordenes.datadescuento');
+
+Route::get('admin/productos/data', 'Admin\AlpProductosController@data')->name('productos.data');
+
+Route::get('admin/categorias/data', 'Admin\AlpCategoriasController@data')->name('categorias.data');
+
+Route::get('admin/marcas/data', 'Admin\AlpMarcasController@data')->name('marcas.data');
 
 
 

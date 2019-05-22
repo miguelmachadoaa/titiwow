@@ -1,3 +1,6 @@
+           <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}" />
+            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}" />
+
 <table class="table table-responsive table-striped table-bordered" id="alpProductos-table" width="100%">
     <thead>
      <tr>
@@ -12,73 +15,7 @@
      </tr>
     </thead>
     <tbody>
-    @foreach($productos as $alpProductos)
-        <tr>
-            <td>{!! $alpProductos->id !!}</td>
-            <td>{!! $alpProductos->nombre_producto !!}</td>
-            <td>{!! $alpProductos->referencia_producto !!}</td>
-            <td><img src="../uploads/productos/{!! $alpProductos->imagen_producto !!}" height="60px"></td>
-            <td>{!! $alpProductos->nombre_categoria !!}</td>
-            <td>{!! number_format($alpProductos->precio_base,2) !!}</td>
-            <td id="acti_{{ $alpProductos->id }}">
-                @if($alpProductos->estado_registro == 1)
-                    <button type="button" data-url="{{ secure_url('productos/desactivar') }}" data-desactivar="2" data-id="{{ $alpProductos->id  }}" class="btn btn-responsive button-alignment btn-success btn_sizes desactivar" style="font-size: 12px !important;" >Activo</button>
-                @elseif($alpProductos->estado_registro == 2)
-                    <button type="button" data-url="{{ secure_url('productos/desactivar') }}" data-desactivar="1" data-id="{{ $alpProductos->id  }}" class="btn btn-responsive button-alignment btn-danger btn_sizes desactivar" style="font-size: 12px !important;">Inactivo</button>
-                @endif
-            </td>
-            <td>
-                 <a href="{{ secure_url('admin/productos/'.collect($alpProductos)->first().'/show' ) }}">
-                     <i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="view alpProductos"></i>
-                 </a>
-                 <a href="{{ secure_url('admin/productos/'.collect($alpProductos)->first().'/edit') }}">
-                     <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="edit alpProductos"></i>
-                 </a>
-
-                  <!--a class="btn btn-xs btn-info" href="{{ secure_url('admin/productos/'.collect($alpProductos)->first().'/relacionado') }}">
-                     <i class="fa fa-refresh"></i>
-                 </a-->
-
-                  <div style=" display: inline-block; padding: 0; margin: 0;" id="td_{{ $alpProductos->id }}">
-                
-                    @if($alpProductos->destacado=='1')
-
-                        <button title="Sugerencia" data-url="{{ secure_url('productos/destacado') }}" data-destacado="0" data-id="{{ $alpProductos->id  }}"   class="btn btn-xs btn-link  destacado">  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>   </button>
-
-
-                    @else
-
-                        <button title="Normal" data-url="{{ secure_url('productos/destacado') }}" data-destacado="1" data-id="{{ $alpProductos->id  }}"   class="btn btn-xs btn-link  destacado">  <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>   </button>
-
-                    @endif
-
-            </div>
-
-
-            <div style=" display: inline-block; padding: 0; margin: 0;" id="td_sugerencia_{{ $alpProductos->id }}">
-                
-                    @if($alpProductos->sugerencia=='1')
-
-                        <button title="Sugerencia" data-url="{{ secure_url('productos/sugerencia') }}" data-sugerencia="0" data-id="{{ $alpProductos->id  }}"   class="btn btn-xs btn-link  sugerencia">  <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>   </button>
-
-
-                    @else
-
-                        <button title="Normal" data-url="{{ secure_url('productos/sugerencia') }}" data-sugerencia="1" data-id="{{ $alpProductos->id  }}"   class="btn btn-xs btn-link  sugerencia">  <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>   </button>
-
-                    @endif
-
-            </div>
-
-
-                 <!--a href="{{ secure_url('admin/productos/'.$alpProductos->id.'/confirm-delete' ) }}" data-toggle="modal" data-target="#delete_confirm">
-                     <i class="livicon" data-name="remove-alt" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="delete alpProductos"></i>
-                 </a-->
-
-
-            </td>
-        </tr>
-    @endforeach
+  
     </tbody>
 </table>
 @section('footer_scripts')
@@ -148,20 +85,26 @@
         });
 
 
-         $(document).ready(function(){
+         $(document).ready(function() {
 
-            $('#alpProductos-table').DataTable({
-                          responsive: true,
-                          pageLength: 10,
-                          order: [ 0, 'desc' ]
-                      });
-            
-            $('#alpProductos-table').on( 'page.dt', function () {
-                         setTimeout(function(){
-                               $('.livicon').updateLivicon();
-                         },500);
-                      } );
-         });
+
+        base=$('#base').val();
+        
+    var table =$('#alpProductos-table').DataTable( {
+        "processing": true,
+        "ajax": {
+            "url": base+'/admin/productos/data/'
+        }
+    } );
+
+    table.on( 'draw', function () {
+            $('.livicon').each(function(){
+                $(this).updateLivicon();
+            });
+        } );
+
+
+} );
 
 
 

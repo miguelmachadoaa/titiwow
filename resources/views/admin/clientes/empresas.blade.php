@@ -6,6 +6,11 @@
 @parent
 @stop
 
+@section('header_styles')
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
+    <link href="{{ secure_asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
+@stop
+
 {{-- Content --}}
 @section('content')
 <section class="content-header">
@@ -37,6 +42,9 @@
                 </div>
                 <br />
                 <div class="panel-body">
+                     <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}" />
+            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}" />
+            
                     @if ($clientes->count() >= 1)
                         <div class="table-responsive">
 
@@ -57,47 +65,7 @@
                             </thead>
                             <tbody>
 
-                                @foreach ($clientes as $row)
-                                <tr>
-                                    <td>{!! $row->id !!}</td>
-                                    <td>{!! $row->first_name !!} {!! $row->last_name !!}</td>
-                                    <td>{!! $row->email !!}</td>
-                                    <td>{!! $row->telefono_cliente !!}</td>
-                                    <td>{!! $row->name_role !!}</td>
-                                    <td>{!! $row->nombre_empresa !!}</td>
-                                    <td class="text-center">
-                                        @if($row->estado_masterfile == 1)
-                                        <span class="label label-sm label-success">Activo</span>
-                                        @else
-                                        <span class="label label-sm label-warning">Inactivo</span>
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
-                                        @if($row->estado_registro == 1)
-                                        <span class="label label-sm label-success">Activo</span>
-                                        @elseif($row->estado_registro == 1)
-                                        <span class="label label-sm label-warning">Inactivo</span>
-                                        @endif
-                                    </td>
-                                    <td>{!! $row->created_at->diffForHumans() !!}</td>
-                                    <td>
-
-                                        <a href="{{ secure_url('admin/clientes/'.$row->id.'/direcciones') }}">
-                                            <i class="livicon" data-name="eye" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Direcciones del Cliente"></i>
-                                        </a>
-
-                                        <a href="{{ route('admin.clientes.edit', $row->id) }}">
-                                            <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar cliente"></i>
-                                        </a>
-                                        <!-- let's not delete 'Admin' group by accident -->                                       
-                                        <a href="{{ route('admin.clientes.confirm-delete', $row->id) }}" data-toggle="modal" data-target="#delete_confirm">
-                                        <i class="livicon" data-name="remove-alt" data-size="18"
-                                            data-loop="true" data-c="#f56954" data-hc="#f56954"
-                                            title="Eliminar"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                @endforeach
+                              
                             </tbody>
                         </table>
                         </div>
@@ -136,7 +104,35 @@
         </div>
     </div>
 </div>
+
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
+
 <script>
+
+     $(document).ready(function() {
+
+
+        base=$('#base').val();
+        
+    var table =$('table').DataTable( {
+        "processing": true,
+        "ajax": {
+            "url": base+'/admin/clientes/dataempresas/'
+        }
+    } );
+
+    table.on( 'draw', function () {
+            $('.livicon').each(function(){
+                $(this).updateLivicon();
+            });
+        } );
+
+
+} );
+
+
+
     $(function () {$('body').on('hidden.bs.modal', '.modal', function () {$(this).removeData('bs.modal');});});
     $(document).on("click", ".users_exists", function () {
 

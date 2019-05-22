@@ -42,6 +42,11 @@ Marca
                 </div>
                 <br />
                 <div class="panel-body">
+
+                        <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}" />
+            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}" />
+
+
                     @if ($marcas->count() >= 1)
                         <div class="table-responsive">
 
@@ -57,38 +62,7 @@ Marca
                             </thead>
                             <tbody>
 
-                                @foreach ($marcas as $row)
-                                <tr>
-                                    <td>{!! $row->id !!}</td>
-                                    <td>{!! $row->nombre_marca!!}</td>
-                                    <td>{!! $row->descripcion_marca !!}</td>
-                                    <td>{!! $row->created_at->diffForHumans() !!}</td>
-                                    <td>
-                                            
-                                            
-
-
-
-                                            <a href="{{ secure_url('admin/marcas/'.$row->id.'/edit') }}">
-                                                <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar categoria"></i>
-                                            </a>
-
-
-
-                                            <!-- let's not delete 'Admin' group by accident -->
-                                            
-                                            <a href="{{ secure_url('admin/marcas/'.$row->id.'/confirm-delete') }}" data-toggle="modal" data-target="#delete_confirm">
-                                            <i class="livicon" data-name="remove-alt" data-size="18"
-                                                data-loop="true" data-c="#f56954" data-hc="#f56954"
-                                                title="Eliminar"></i>
-                                             </a>
-
-
-                                              
-
-                                    </td>
-                                </tr>
-                                @endforeach
+                               
                             </tbody>
                         </table>
                         </div>
@@ -134,11 +108,30 @@ Marca
 <script>
 
 
+     
+
      $(document).ready(function() {
 
-            $('#table').DataTable();
-            
-        });
+
+                base=$('#base').val();
+                
+            var table =$('#table').DataTable( {
+                "processing": true,
+                "ajax": {
+                    "url": base+'/admin/marcas/data/'
+                }
+            } );
+
+            table.on( 'draw', function () {
+                    $('.livicon').each(function(){
+                        $(this).updateLivicon();
+                    });
+                } );
+
+
+        } );
+
+
      
     $(function () {$('body').on('hidden.bs.modal', '.modal', function () {$(this).removeData('bs.modal');});});
     $(document).on("click", ".users_exists", function () {

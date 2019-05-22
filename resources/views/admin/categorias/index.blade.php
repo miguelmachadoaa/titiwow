@@ -42,6 +42,11 @@ Categorias
                 </div>
                 <br />
                 <div class="panel-body">
+
+                               <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}" />
+            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}" />
+
+            
                     @if ($categorias->count() >= 1)
                         <div class="table-responsive">
 
@@ -59,57 +64,7 @@ Categorias
                             </thead>
                             <tbody>
 
-                                @foreach ($categorias as $row)
-                                <tr>
-                                    <td>{!! $row->id !!}</td>
-                                    <td>{!! $row->nombre_categoria!!}</td>
-                                    <td>{!! $row->descripcion_categoria !!}</td>
-                                    <td>{!! $row->css_categoria !!}</td>
-                                    <td>{!! $row->order !!}</td>
-                                    <td>{!! $row->created_at->diffForHumans() !!}</td>
-                                  
-                                    <td>
-                                            
-                                             <a href="{{ secure_url('admin/categorias/'.$row->id.'/detalle' ) }}">
-                                                <i class="livicon" data-name="plus" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Detalle"></i>
-                                            </a>
-
-
-
-                                            <a href="{{ secure_url('admin/categorias/'.$row->id.'/edit') }}">
-                                                <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar categoria"></i>
-                                            </a>
-
-                                              <div style="display: inline-block; padding: 0; margin: 0;" id="td_{{ $row->id }}">
-                
-                                                @if($row->destacado=='1')
-
-                                                    <button title="Destacado" data-url="{{ secure_url('categorias/destacado') }}" data-destacado="0" data-id="{{ $row->id  }}"   class="btn btn-xs btn-link     destacado">  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>   </button>
-
-                                                @else
-
-                                                    <button title="Normal" data-url="{{ secure_url('categorias/destacado') }}" data-destacado="1" data-id="{{ $row->id  }}"   class="btn btn-xs btn-link    destacado">  <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>   </button>
-
-                                                @endif
-
-                                            </div>
-
-
-
-                                            <!-- let's not delete 'Admin' group by accident -->
-                                            
-                                            <a href="{{ secure_url('admin/categorias/'.$row->id.'/confirm-delete' ) }}" data-toggle="modal" data-target="#delete_confirm">
-                                            <i class="livicon" data-name="remove-alt" data-size="18"
-                                                data-loop="true" data-c="#f56954" data-hc="#f56954"
-                                                title="Eliminar"></i>
-                                             </a>
-
-
-                                              
-
-                                    </td>
-                                </tr>
-                                @endforeach
+                              
                             </tbody>
                         </table>
                         </div>
@@ -157,11 +112,28 @@ Categorias
 
 
 
-    $(document).ready(function() {
+   
 
-            $('#categoriastable').DataTable();
-            
-        });
+     $(document).ready(function() {
+
+
+                base=$('#base').val();
+                
+            var table =$('#categoriastable').DataTable( {
+                "processing": true,
+                "ajax": {
+                    "url": base+'/admin/categorias/data/'
+                }
+            } );
+
+            table.on( 'draw', function () {
+                    $('.livicon').each(function(){
+                        $(this).updateLivicon();
+                    });
+                } );
+
+
+        } );
 
 
 

@@ -62,40 +62,7 @@ Todas las Ordenes
                             </thead>
                             <tbody>
 
-                                @foreach ($ordenes as $row)
-                                <tr id="{!! $row->id !!}">
-                                    <td>{!! $row->id !!}</td>
-                                    <td>{!! $row->referencia!!}</td>
-                                    <td>{!! $row->first_name.' '.$row->last_name !!}</td>
-                                    <td>{!! $row->nombre_forma_envios !!}</td>
-                                    <td>{!! $row->nombre_forma_pago !!}</td>
-                                   
-                                    <td>{!! number_format($row->monto_total,2) !!}</td>
-
-                                    <td>{!! $row->ordencompra!!}</td>
-                                    <td>{!! $row->factura!!}</td>
-                                    <td>{!! $row->tracking!!}</td>
-                                    <td>{!! $row->created_at->diffForHumans() !!}</td>
-                                    <td>  <div style="display: inline-block;" class="pago_{{ $row->id }}">  
-
-                                            <button data-id="{{ $row->id }}" class="btn btn-xs btn-success pago" > {{ $row->estatus_pago_nombre }} </button></div>
-</td>
-                                    <td><span class="badge badge-default" >{!! $row->estatus_nombre !!}</span></td>
-                                    <td>
-
-                                           <a class="btn btn-primary btn-xs" href="{{ route('admin.ordenes.detalle', $row->id) }}">
-                                                ver detalles
-                                            </a>
-
-                                             <div style="display: inline-block;" class="estatus_{{ $row->id }}">
-                                            <button data-id="{{ $row->id }}"  data-codigo="{{ $row->ordencompra }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-danger confirmar" > Cancelar </button></div>
-
-
-                                          
-
-                                    </td>
-                                </tr>
-                                @endforeach
+                               
                             </tbody>
                         </table>
                         </div>
@@ -392,18 +359,29 @@ $("#aprobarOrdenForm").bootstrapValidator({
 });
 
 
+   $(document).ready(function() {
 
-        $('#tbOrdenes').DataTable({
-                      responsive: true,
-                      pageLength: 10,
-                      "order": [[ 0, 'desc' ]]
-                  });
 
-        $('#tbOrdenes').on( 'page.dt', function () {
-                     setTimeout(function(){
-                           $('.livicon').updateLivicon();
-                     },500);
-                  } );
+        base=$('#base').val();
+        
+    var table =$('#tbOrdenes').DataTable( {
+        "processing": true,
+        "ajax": {
+            "url": base+'/admin/ordenes/data/'
+        }
+    } );
+
+    table.on( 'draw', function () {
+            $('.livicon').each(function(){
+                $(this).updateLivicon();
+            });
+        } );
+
+
+} );
+
+
+
 
        </script>
 

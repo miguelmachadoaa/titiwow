@@ -31,6 +31,57 @@ class AlpMarcasController extends JoshController
         return view('admin.marcas.index', compact('marcas'));
     }
 
+
+
+
+
+     public function data()
+    {
+       
+        $marcas = AlpMarcas::all();
+       
+
+            $data = array();
+
+
+          foreach($marcas as $row){
+
+
+           
+
+
+                 $actions = " <a href='".secure_url('admin/marcas/'.$row->id.'/edit')."'>
+                                                <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='editar categoria'></i>
+                                            </a>
+ <a href='".secure_url('admin/marcas/'.$row->id.'/confirm-delete')."' data-toggle='modal' data-target='#delete_confirm'>
+                                            <i class='livicon' data-name='remove-alt' data-size='18'
+                                                data-loop='true' data-c='#f56954' data-hc='#f56954'
+                                                title='Eliminar'></i>
+                                             </a>";
+
+             
+
+
+                                          
+
+
+               $data[]= array(
+                 $row->id, 
+                 $row->nombre_marca, 
+                 $row->descripcion_marca, 
+                 $row->created_at->diffForHumans(),
+                 $actions
+              );
+
+
+
+          }
+
+
+          return json_encode( array('data' => $data ));
+
+    }
+
     /**
      * Group create.
      *

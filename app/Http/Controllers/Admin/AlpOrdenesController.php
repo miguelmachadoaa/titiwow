@@ -59,6 +59,73 @@ class AlpOrdenesController extends JoshController
 
     }
 
+
+      public function data()
+    {
+       
+
+        
+
+       $ordenes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
+          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
+          ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
+          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
+          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+          ->groupBy('alp_ordenes.id')
+          ->get();
+        
+
+            $data = array();
+
+
+          foreach($ordenes as $row){
+
+
+            $pago="<div style='display: inline-block;' class='pago_".$row->id."'>  
+
+                                            <button data-id='".$row->id."' class='btn btn-xs btn-success pago' > ".$row->estatus_pago_nombre." </button></div>";
+
+             $estatus="<span class='badge badge-default' >".$row->estatus_nombre."</span>";
+
+
+
+                 $actions = " 
+                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'>
+                                                ver detalles
+                                            </a>
+
+                                             <div style='display: inline-block;' class='estatus_".$row->id."'>
+                                            <button data-id='".$row->id."'  data-codigo='".$row->ordencompra."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-danger confirmar' > Cancelar </button></div>
+                ";
+
+
+               $data[]= array(
+                 $row->id, 
+                 $row->referencia, 
+                 $row->first_name.' '.$row->last_name, 
+                 $row->nombre_forma_envios, 
+                 $row->nombre_forma_pago, 
+                 number_format($row->monto_total,2), 
+                 $row->ordencompra, 
+                 $row->factura, 
+                 $row->tracking, 
+                 $row->created_at->diffForHumans(), 
+                 $pago, 
+                 $estatus, 
+                 $actions
+              );
+
+
+
+          }
+
+
+          return json_encode( array('data' => $data ));
+
+    }
+
      public function descuento()
     {
         // Grab all the groups
@@ -83,6 +150,70 @@ class AlpOrdenesController extends JoshController
         return view('admin.ordenes.descuento', compact('ordenes', 'estatus_ordenes'));
 
     }
+
+
+
+
+     public function datadescuento()
+    {
+       
+    
+          $ordenes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
+          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
+          ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
+          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
+          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+           ->groupBy('alp_ordenes.id')
+          ->get();
+       
+
+            $data = array();
+
+
+          foreach($ordenes as $row){
+
+
+            $pago="<div style='display: inline-block;' class='pago_".$row->id."'>  
+
+                                            <button data-id='".$row->id."' class='btn btn-xs btn-success pago' > ".$row->estatus_pago_nombre." </button></div>";
+
+             $estatus="<span class='badge badge-default' >".$row->estatus_nombre."</span>";
+
+
+
+                 $actions = " 
+                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'>
+                                                ver detalles
+                                            </a>  <div style='display: inline-block;' class='estatus_".$row->id."'>
+                                           ";
+
+
+                                          
+
+
+               $data[]= array(
+                 $row->id, 
+                 $row->referencia, 
+                 $row->first_name.' '.$row->last_name, 
+                 $row->nombre_forma_envios, 
+                 $row->nombre_forma_pago, 
+                 number_format($row->monto_total,2), 
+                 number_format($row->monto_total_base,2), 
+                 $actions
+              );
+
+
+
+          }
+
+
+          return json_encode( array('data' => $data ));
+
+    }
+
+
 
     public function consolidado()
     {
@@ -154,6 +285,83 @@ echo '<br>fin: '.$date_fin;*/
 
     }
 
+
+
+      public function dataespera()
+    {
+       
+
+        
+
+       $ordenes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
+          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
+           ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
+          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
+          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+          ->where('alp_ordenes.estatus', '8')
+          ->groupBy('alp_ordenes.id')
+          ->get();
+
+            $data = array();
+
+
+          foreach($ordenes as $row){
+
+
+            $pago="<div style='display: inline-block;' class='pago_".$row->id."'>  
+
+                                            <button data-id='".$row->id."' class='btn btn-xs btn-success pago' > ".$row->estatus_pago_nombre." </button></div>";
+
+             $estatus="<span class='badge badge-default' >".$row->estatus_nombre."</span>";
+
+
+
+                 $actions = " 
+                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'>
+                                                ver detalles
+                                            </a>
+
+                                            
+                ";
+
+
+               $data[]= array(
+                 $row->id, 
+                 $row->referencia, 
+                 $row->first_name.' '.$row->last_name, 
+                 $row->nombre_forma_envios, 
+                 $row->nombre_forma_pago, 
+                 number_format($row->monto_total,2), 
+                 $row->ordencompra, 
+                 $row->factura, 
+                 $row->tracking, 
+                 $row->created_at->diffForHumans(), 
+                 $pago, 
+                 $estatus, 
+                 $actions
+              );
+
+
+
+          }
+
+
+          return json_encode( array('data' => $data ));
+
+    }
+
+
+
+
+
+
+
+
+
+
+
     public function aprobados()
     {
         // Grab all the groups
@@ -177,6 +385,100 @@ echo '<br>fin: '.$date_fin;*/
         return view('admin.ordenes.aprobados', compact('ordenes', 'estatus_ordenes'));
 
     }
+
+
+
+
+
+
+ public function dataaprobados()
+    {
+       
+
+        
+
+    
+         $ordenes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
+          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
+           ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
+          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
+          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+          ->where('alp_ordenes.estatus', '5')
+          ->groupBy('alp_ordenes.id')
+          ->get();
+
+            $data = array();
+
+
+          foreach($ordenes as $row){
+
+
+            $pago="<div style='display: inline-block;' class='pago_".$row->id."'>  
+
+                                            <button data-id='".$row->id."' class='btn btn-xs btn-success pago' > ".$row->estatus_pago_nombre." </button></div>";
+
+             $estatus="<span class='badge badge-default' >".$row->estatus_nombre."</span>";
+
+
+
+                 $actions = " 
+                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'>
+                                                ver detalles
+                                            </a> ";
+
+
+                                            if ($row->factura=='') {
+
+                                              $actions=$actions."<div style='display: inline-block;' class='facturar_".$row->id."'>
+                                            <button data-id='".$row->id."'  data-codigo='".$row->factura."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-info facturar' > Facturar </button></div>";
+ 
+                                              
+
+                                            }else{
+                                              $actions=$actions."<div style='display: inline-block;' class='facturar_".$row->id."'>
+                                            <button data-id='".$row->id."'  data-codigo='".$row->ordencompra."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-success facturar' > Facturado </button></div>";
+                                            }
+
+
+               $data[]= array(
+                 $row->id, 
+                 $row->referencia, 
+                 $row->first_name.' '.$row->last_name, 
+                 $row->nombre_forma_envios, 
+                 $row->nombre_forma_pago, 
+                 number_format($row->monto_total,2), 
+                 $row->ordencompra, 
+                 $row->factura, 
+                 $row->tracking, 
+                 $row->created_at->diffForHumans(), 
+                 $actions
+              );
+
+
+
+          }
+
+
+          return json_encode( array('data' => $data ));
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function recibidos()
     {
@@ -202,6 +504,91 @@ echo '<br>fin: '.$date_fin;*/
 
     }
 
+
+
+ public function datarecibidos()
+    {
+       
+
+        
+
+      $ordenes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
+          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
+          ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
+          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
+          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+          ->where('alp_ordenes.estatus', '1')
+          ->groupBy('alp_ordenes.id')
+          ->get();
+
+            $data = array();
+
+
+          foreach($ordenes as $row){
+
+
+            $pago="<div style='display: inline-block;' class='pago_".$row->id."'>  
+
+                                            <button data-id='".$row->id."' class='btn btn-xs btn-success pago' > ".$row->estatus_pago_nombre." </button></div>";
+
+             $estatus="<span class='badge badge-default' >".$row->estatus_nombre."</span>";
+
+
+
+                 $actions = " 
+                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'>
+                                                ver detalles
+                                            </a> ";
+
+
+                                            if ($row->ordencompra=='') {
+
+                                              $actions=$actions."<div style='display: inline-block;' class='aprobar_".$row->id."'>
+                                            <button data-id='".$row->id."'  data-codigo='".$row->ordencompra."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-info aprobar' > Aprobar </button></div>";
+ 
+                                              
+
+                                            }else{
+                                              $actions=$actions."<div style='display: inline-block;' class='aprobar_".$row->id."'>
+                                            <button data-id='".$row->id."'  data-codigo='".$row->ordencompra."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-success aprobar' > Aprobado </button></div>";
+                                            }
+
+
+               $data[]= array(
+                 $row->id, 
+                 $row->referencia, 
+                 $row->first_name.' '.$row->last_name, 
+                 $row->nombre_forma_envios, 
+                 $row->nombre_forma_pago, 
+                 number_format($row->monto_total,2), 
+                 $row->ordencompra, 
+                 $row->factura, 
+                 $row->tracking, 
+                 $row->created_at->diffForHumans(), 
+                 $actions
+              );
+
+
+
+          }
+
+
+          return json_encode( array('data' => $data ));
+
+    }
+
+
+
+
+
+
+
+
+
+
+
     public function facturados()
     {
         // Grab all the groups
@@ -226,6 +613,87 @@ echo '<br>fin: '.$date_fin;*/
 
     }
 
+
+
+
+ public function datafacturados()
+    {
+       
+    
+         $ordenes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
+          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
+          ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
+          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
+          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+          ->where('alp_ordenes.estatus', '6')
+          ->groupBy('alp_ordenes.id')
+          ->get();
+
+            $data = array();
+
+
+          foreach($ordenes as $row){
+
+
+            $pago="<div style='display: inline-block;' class='pago_".$row->id."'>  
+
+                                            <button data-id='".$row->id."' class='btn btn-xs btn-success pago' > ".$row->estatus_pago_nombre." </button></div>";
+
+             $estatus="<span class='badge badge-default' >".$row->estatus_nombre."</span>";
+
+
+
+                 $actions = " 
+                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'>
+                                                ver detalles
+                                            </a> ";
+
+
+                                            if ($row->tracking=='') {
+
+                                              $actions=$actions."<div style='display: inline-block;' class='tracking_".$row->id."'>
+                                            <button data-id='".$row->id."'  data-codigo='".$row->tracking."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-info tracking' > Enviar </button></div>";
+ 
+                                              
+
+                                            }else{
+                                              $actions=$actions."<div style='display: inline-block;' class='tracking_".$row->id."'>
+                                            <button data-id='".$row->id."'  data-codigo='".$row->tracking."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-success tracking' > Enviado </button></div>";
+                                            }
+
+
+               $data[]= array(
+                 $row->id, 
+                 $row->referencia, 
+                 $row->first_name.' '.$row->last_name, 
+                 $row->nombre_forma_envios, 
+                 $row->nombre_forma_pago, 
+                 number_format($row->monto_total,2), 
+                 $row->ordencompra, 
+                 $row->factura, 
+                 $row->tracking, 
+                 $row->created_at->diffForHumans(), 
+                 $actions
+              );
+
+
+
+          }
+
+
+          return json_encode( array('data' => $data ));
+
+    }
+
+
+
+
+
+
+
+
     public function enviados()
     {
         // Grab all the groups
@@ -249,6 +717,70 @@ echo '<br>fin: '.$date_fin;*/
         return view('admin.ordenes.enviados', compact('ordenes', 'estatus_ordenes'));
 
     }
+
+
+     public function dataenviados()
+    {
+       
+    
+           $ordenes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
+          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
+           ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
+          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
+          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+          ->where('alp_ordenes.estatus', '7')
+          ->groupBy('alp_ordenes.id')
+          ->get();
+       
+
+            $data = array();
+
+
+          foreach($ordenes as $row){
+
+
+            $pago="<div style='display: inline-block;' class='pago_".$row->id."'>  
+
+                                            <button data-id='".$row->id."' class='btn btn-xs btn-success pago' > ".$row->estatus_pago_nombre." </button></div>";
+
+             $estatus="<span class='badge badge-default' >".$row->estatus_nombre."</span>";
+
+
+
+                 $actions = " 
+                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'>
+                                                ver detalles
+                                            </a> ";
+
+
+                                          
+
+
+               $data[]= array(
+                 $row->id, 
+                 $row->referencia, 
+                 $row->first_name.' '.$row->last_name, 
+                 $row->nombre_forma_envios, 
+                 $row->nombre_forma_pago, 
+                 number_format($row->monto_total,2), 
+                 $row->ordencompra, 
+                 $row->factura, 
+                 $row->tracking, 
+                 $row->created_at->diffForHumans(), 
+                 $actions
+              );
+
+
+
+          }
+
+
+          return json_encode( array('data' => $data ));
+
+    }
+
 
     public function cancelados()
     {
@@ -301,6 +833,75 @@ echo '<br>fin: '.$date_fin;*/
         return view('admin.ordenes.empresas', compact('ordenes', 'estatus_ordenes'));
 
     }
+
+
+
+     public function dataempresas()
+    {
+       
+    
+          $ordenes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_empresas.nombre_empresa as nombre_empresa', 'alp_ordenes_pagos.json as json')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
+          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
+          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
+          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+           ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
+          
+          ->Join('alp_empresas', 'alp_clientes.id_empresa', '=', 'alp_empresas.id')
+          ->groupBy('alp_ordenes.id')
+          ->get();
+       
+
+            $data = array();
+
+
+          foreach($ordenes as $row){
+
+
+            $pago="<div style='display: inline-block;' class='pago_".$row->id."'>  
+
+                                            <button data-id='".$row->id."' class='btn btn-xs btn-success pago' > ".$row->estatus_pago_nombre." </button></div>";
+
+             $estatus="<span class='badge badge-default' >".$row->estatus_nombre."</span>";
+
+
+
+                 $actions = " 
+                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'>
+                                                ver detalles
+                                            </a>  <div style='display: inline-block;' class='estatus_".$row->id."'>
+                                            <button data-id='".$row->id."'  data-codigo='".$row->cod_oracle_pedido."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-info confirmar' > ".$row->estatus_nombre." </button></div>";
+
+
+                                          
+
+
+               $data[]= array(
+                 $row->id, 
+                 $row->referencia, 
+                 $row->first_name.' '.$row->last_name, 
+                 $row->nombre_forma_envios, 
+                 $row->nombre_forma_pago, 
+                 number_format($row->monto_total,2), 
+                 $row->ordencompra, 
+                 $row->factura, 
+                 $row->tracking, 
+                 $row->created_at->diffForHumans(), 
+                 $actions
+              );
+
+
+
+          }
+
+
+          return json_encode( array('data' => $data ));
+
+    }
+
+
 
     
 

@@ -59,55 +59,7 @@
                             </thead>
                             <tbody>
 
-                                @foreach ($clientes as $row)
-                                <tr id="tr_{{ $row->id }}" >
-                                    <td>{!! $row->id !!}</td>
-                                    <td>{!! $row->first_name !!} {!! $row->last_name !!}</td>
-                                    <td>{!! $row->email !!}</td>
-                                    <td>{!! $row->telefono_cliente !!}</td>
-                                    <td>{!! $row->name_role !!}</td>
-                                    <td class="text-center">
-                                        @if($row->estado_masterfile == 1)
-                                        <span class="label label-sm label-success">Activo</span>
-                                        @else
-                                        <span class="label label-sm label-warning">Inactivo</span>
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
-                                        @if($row->estado_registro == 1)
-                                        <span class="label label-sm label-success">Activo</span>
-                                        @elseif($row->estado_registro == 1)
-                                        <span class="label label-sm label-warning">Inactivo</span>
-                                        @endif
-                                    </td>
-                                    <td>{!! $row->created_at->diffForHumans() !!}</td>
-                                    <td>
 
-                                        <a  href="{{ secure_url('admin/clientes/'.$row->id.'/detalle') }}">
-                                            <i class="fa fa-eye" title="Detalles" alt="Detalles"></i>
-                                        </a>
-                                        <a href="{{ secure_url('admin/clientes/'.$row->id.'/direcciones') }}">
-                                            <i class="livicon" data-name="eye" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Direcciones del Cliente"></i>
-                                        </a>
-
-                                        
-
-                                        <div id="botones_{{ $row->id }}">
-
-                                       
-
-                                        <button type="button" data-id="{{ $row->id }}" class="btn btn-xs btn-primary activarUsuario" >Activar</button>
-
-                                        <button type="button" data-id="{{ $row->id }}" class="btn btn-xs btn-danger rechazarUsuario" >Rechazar</button>
-
-                                     
-
-                                        </div>
-
-                                        
-                                    </td>
-                                </tr>
-                                @endforeach
                             </tbody>
                         </table>
                         </div>
@@ -262,12 +214,26 @@
 
 <script>
 
-     $(document).ready(function() {
+ $(document).ready(function() {
 
-            $('#table').DataTable();
-            
-        });
 
+        base=$('#base').val();
+        
+    var table =$('#table').DataTable( {
+        "processing": true,
+        "ajax": {
+            "url": base+'/admin/clientes/datainactivos/'
+        }
+    } );
+
+    table.on( 'draw', function () {
+            $('.livicon').each(function(){
+                $(this).updateLivicon();
+            });
+        } );
+
+
+} );
 
 
     $(function () {$('body').on('hidden.bs.modal', '.modal', function () {$(this).removeData('bs.modal');});});

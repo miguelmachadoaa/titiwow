@@ -58,6 +58,97 @@ class AlpProductosController extends JoshController
     }
 
 
+
+
+
+     public function data()
+    {
+       
+    
+          $productos = AlpProductos::select('alp_productos.*', 'alp_categorias.nombre_categoria as nombre_categoria')
+          ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
+          ->get();
+       
+
+            $data = array();
+
+
+          foreach($productos as $alpProductos){
+
+
+            if ($alpProductos->estado_registro == 1) {
+              $estado=" <button type='button' data-url='".secure_url('productos/desactivar')."' data-desactivar='2' data-id='".$alpProductos->id ."' class='btn btn-responsive button-alignment btn-success btn_sizes desactivar' style='font-size: 12px !important;' >Activo</button>";
+            }
+
+            if ($alpProductos->estado_registro == 2) {
+              $estado=" <button type='button' data-url='".secure_url('productos/desactivar')."' data-desactivar='1' data-id='".$alpProductos->id ."' class='btn btn-responsive button-alignment btn-danger btn_sizes desactivar' style='font-size: 12px !important;'>Inactivo</button>";
+            }
+
+
+
+
+                 $actions = " 
+                  
+                  <a href='".secure_url('admin/productos/'.collect($alpProductos)->first().'/show' )."'>
+                     <i class='livicon' data-name='info' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='view alpProductos'></i>
+                 </a>
+                 <a href='".secure_url('admin/productos/'.collect($alpProductos)->first().'/edit')."'>
+                     <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='edit alpProductos'></i>
+                 </a>";
+
+
+                 if ($alpProductos->destacado == 1) {
+              $destacado=" <div style=' display: inline-block; padding: 0; margin: 0;' id='td_".$alpProductos->id."'><button title='Sugerencia' data-url='".secure_url('productos/destacado')."' data-destacado='0' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  destacado'>  <span class='glyphicon glyphicon-star' aria-hidden='true'></span>   </button></div>";
+            }else{
+
+                   $destacado="  <div style=' display: inline-block; padding: 0; margin: 0;' id='td_".$alpProductos->id."'><button title='Normal' data-url='".secure_url('productos/destacado')."' data-destacado='1' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  destacado'>  <span class='glyphicon glyphicon-star-empty' aria-hidden='true'></span>   </button></div>";
+
+
+
+            }
+
+
+
+                if ($alpProductos->sugerencia == 1) {
+              $sugerencia=" <div style=' display: inline-block; padding: 0; margin: 0;' id='td_sugerencia_".$alpProductos->id."'>
+ <button title='Sugerencia' data-url='".secure_url('productos/sugerencia')."' data-sugerencia='0' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  sugerencia'>  <span class='glyphicon glyphicon-ok-sign' aria-hidden='true'></span>   </button></div>";
+            }else{
+
+                   $sugerencia="  
+<div style=' display: inline-block; padding: 0; margin: 0;' id='td_sugerencia_".$alpProductos->id."'> <button title='Normal' data-url='".secure_url('productos/sugerencia')."' data-sugerencia='1' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  sugerencia'>  <span class='glyphicon glyphicon-remove-sign' aria-hidden='true'></span>   </button></div>";
+
+
+
+            }
+
+
+            $imagen="<img src='../uploads/productos/".$alpProductos->imagen_producto."' height='60px'>";
+
+                                          
+
+
+               $data[]= array(
+                 $alpProductos->id, 
+                 $alpProductos->nombre_producto, 
+                 $alpProductos->referencia_producto, 
+                 $imagen, 
+                 $alpProductos->nombre_categoria, 
+                 number_format($alpProductos->precio_base,2), 
+                 $estado, 
+                 $actions.$destacado.$sugerencia
+              );
+
+
+
+          }
+
+
+          return json_encode( array('data' => $data ));
+
+    }
+
+
+
      public function recargaNodes($id_padre, $categorias)
     {
         // Grab all the blogs

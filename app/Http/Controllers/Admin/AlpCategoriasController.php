@@ -35,6 +35,87 @@ class AlpCategoriasController extends JoshController
         return view('admin.categorias.index', compact('categorias'));
     }
 
+
+
+
+     public function data()
+    {
+       
+    
+          $categorias = AlpCategorias::select('alp_categorias.*')
+        ->where('alp_categorias.id_categoria_parent',0)->get(); 
+       
+
+            $data = array();
+
+
+          foreach($categorias as $row){
+
+
+           
+
+
+                 $actions = " 
+
+                 <a href='".secure_url('admin/categorias/'.$row->id.'/detalle' )."'>
+                                                <i class='livicon' data-name='plus' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Detalle'></i>
+                                            </a>
+
+
+
+                                            <a href='".secure_url('admin/categorias/'.$row->id.'/edit')."'>
+                                                <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='editar categoria'></i>
+                                            </a>
+ <a href='".secure_url('admin/categorias/'.$row->id.'/confirm-delete' )."' data-toggle='modal' data-target='#delete_confirm'>
+                                            <i class='livicon' data-name='remove-alt' data-size='18'
+                                                data-loop='true' data-c='#f56954' data-hc='#f56954'
+                                                title='Eliminar'></i>
+                                             </a>
+
+
+                  ";
+
+                if ($row->destacado=='1') {
+                    
+                    $destacado="<div style='display: inline-block; padding: 0; margin: 0;' id='td_".$row->id."'>
+ <button title='Destacado' data-url='".secure_url('categorias/destacado')."' data-destacado='0' data-id='".$row->id ."'   class='btn btn-xs btn-link     destacado'>  <span class='glyphicon glyphicon-star' aria-hidden='true'></span>   </button>
+</div>";
+
+                }else{
+
+                          $destacado="<div style='display: inline-block; padding: 0; margin: 0;' id='td_".$row->id."'>
+<button title='Normal' data-url='".secure_url('categorias/destacado')."' data-destacado='1' data-id='".$row->id ."'   class='btn btn-xs btn-link    destacado'>  <span class='glyphicon glyphicon-star-empty' aria-hidden='true'></span>   </button>
+</div>";
+
+                }
+
+
+                                          
+
+
+               $data[]= array(
+                 $row->id, 
+                 $row->nombre_categoria, 
+                 $row->descripcion_categoria, 
+                 $row->css_categoria, 
+                 $row->order, 
+                 $row->created_at->diffForHumans(),
+                 $actions.$destacado
+              );
+
+
+
+          }
+
+
+          return json_encode( array('data' => $data ));
+
+    }
+
+
+
+
+
     /**
      * Group create.
      *
