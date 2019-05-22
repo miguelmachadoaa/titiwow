@@ -50,7 +50,106 @@ class AlpClientesController extends JoshController
 
         // Show the page
         return view('admin.clientes.index', compact('clientes'));
+    }    
+
+
+
+     public function data()
+    {
+        //$users = User::get(['id', 'first_name', 'last_name', 'email','created_at']);
+
+        
+
+        $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista')
+        ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+        ->join('role_users', 'users.id', '=', 'role_users.user_id')
+        ->join('roles', 'role_users.role_id', '=', 'roles.id')
+        ->where('role_users.role_id', '<>', 1)->get();
+
+            $data = array();
+
+
+          foreach($clientes as $cliente){
+
+             if($cliente->estado_registro == 1){
+
+                $estado= "<span class='label label-sm label-success'>Activo</span>";
+
+              }else{
+
+                $estado= "<span class='label label-sm label-warning'>Inactivo</span>";
+
+              }
+
+
+              if($cliente->estado_masterfile == 1){
+
+                $masterfile= "<span class='label label-sm label-success'>Activo</span>";
+
+              }else{
+
+                $masterfile= "<span class='label label-sm label-warning'>Inactivo</span>";
+
+              }
+
+
+
+
+                 $actions = " 
+
+                 <a href='".secure_url("admin/clientes/".$cliente->id."/detalle" )."'>
+                    <i class='fa fa-eye' title='Detalles ' alt='Detalles' ></i>
+
+                 </a>
+
+                 <a href='".secure_url("admin/clientes/".$cliente->id."/direcciones" )."'>
+
+                     <i class='livicon' data-name='eye' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='view alpProductos'></i>
+                 </a>
+
+
+                  <a href='".secure_url("admin/clientes/".$cliente->id."/edit")."'>
+
+                     <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='edit alpProductos'></i>
+                 </a>
+
+
+                 <button class='btn btn-link deleteCliente' data-id='".$cliente->id."' data-url='".secure_url("admin/clientes/".$cliente->id."/delete")."'>
+                                        <i class='livicon' data-name='remove-alt' data-size='18'
+                                            data-loop='true' data-c='#f56954' data-hc='#f56954'
+                                            title='Eliminar'></i>
+                                        </button>";
+
+
+               $data[]= array(
+                 $cliente->id, 
+                 $cliente->cod_oracle_cliente, 
+                 $cliente->first_name.' '.$cliente->last_name, 
+                 $cliente->email, 
+                 $cliente->telefono_cliente, 
+                 $cliente->name_role, 
+                 $masterfile, 
+                 $estado, 
+                 $cliente->created_at->diffForHumans(),
+                 $actions
+              );
+
+
+
+          }
+
+
+          return json_encode( array('data' => $data ));
+
     }
+
+
+
+
+
+
+
+
 
     public function inactivos()
     {

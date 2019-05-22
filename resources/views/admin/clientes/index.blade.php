@@ -42,6 +42,10 @@ Todos los @lang('clientes/title.clientes')
                 </div>
                 <br />
                 <div class="panel-body">
+
+                    <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}" />
+            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}" />
+
                     @if ($clientes->count() >= 1)
                         <div class="table-responsive">
 
@@ -62,50 +66,7 @@ Todos los @lang('clientes/title.clientes')
                             </thead>
                             <tbody>
 
-                                @foreach ($clientes as $row)
-                                <tr>
-                                    <td>{!! $row->id !!}</td>
-                                    <td>{!! $row->cod_oracle_cliente !!}</td>
-                                    <td>{!! $row->first_name !!} {!! $row->last_name !!}</td>
-                                    <td>{!! $row->email !!}</td>
-                                    <td>{!! $row->telefono_cliente !!}</td>
-                                    <td>{!! $row->name_role !!}</td>
-                                    <td class="text-center">
-                                        @if($row->estado_masterfile == 1)
-                                        <span class="label label-sm label-success">Activo</span>
-                                        @else
-                                        <span class="label label-sm label-warning">Inactivo</span>
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
-                                        @if($row->estado_registro == 1)
-                                        <span class="label label-sm label-success">Activo</span>
-                                        @elseif($row->estado_registro == 1)
-                                        <span class="label label-sm label-warning">Inactivo</span>
-                                        @endif
-                                    </td>
-                                    <td>{!! $row->created_at->diffForHumans() !!}</td>
-                                    <td>
-
-                                        <a  href="{{ secure_url('admin/clientes/'.$row->id.'/detalle') }}">
-                                            <i class="fa fa-eye" title="Detalles" alt="Detalles"></i>
-                                        </a>
-                                        <a href="{{ secure_url('admin/clientes/'.$row->id.'/direcciones') }}">
-                                            <i class="livicon" data-name="eye" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Direcciones del Cliente"></i>
-                                        </a>
-
-                                        <a href="{{ route('admin.clientes.edit', $row->id) }}">
-                                            <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar cliente"></i>
-                                        </a>
-                                        <!-- let's not delete 'Admin' group by accident -->                                       
-                                        <button class="btn btn-link deleteCliente" data-id="{{$row->id}}" data-url="{{secure_url('admin/clientes/'.$row->id.'/delete')}}">
-                                        <i class="livicon" data-name="remove-alt" data-size="18"
-                                            data-loop="true" data-c="#f56954" data-hc="#f56954"
-                                            title="Eliminar"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                @endforeach
+                              
                             </tbody>
                         </table>
                         </div>
@@ -179,32 +140,31 @@ Todos los @lang('clientes/title.clientes')
     <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
 
 
-   
-
-
 
 
 <script>
 
-    
-
-    $(document).ready(function() {
-
-            $('#table').DataTable();
-
-            $('.deleteCliente').on('click', function(){
-
-                url=$(this).data('url');
-
-                    $('#enlace_eliminar').attr('href', url);
-
-                    $('#delete_confirm').modal('show');
+      $(document).ready(function() {
 
 
+        base=$('#base').val();
+        
+    var table =$('table').DataTable( {
+        "processing": true,
+        "ajax": {
+            "url": base+'/admin/clientes/data/'
+        }
+    } );
 
-            })
-            
-        });
+    table.on( 'draw', function () {
+            $('.livicon').each(function(){
+                $(this).updateLivicon();
+            });
+        } );
+
+
+} );
+
 
 
     $(function () {$('body').on('hidden.bs.modal', '.modal', function () {$(this).removeData('bs.modal');});});

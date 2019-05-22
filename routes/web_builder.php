@@ -32,6 +32,10 @@ Route::get('reportes/cronexportproductosc', 'Admin\AlpReportesController@cronexp
 Route::get('reportes/cronexporttomapedidos', 'Admin\AlpReportesController@cronexporttomapedidos')->name('reportes.cronexporttomapedidos');
 
 
+Route::get('admin/clientes/data', 'Admin\AlpClientesController@data')->name('clientes.data');
+
+
+
 
 
 
