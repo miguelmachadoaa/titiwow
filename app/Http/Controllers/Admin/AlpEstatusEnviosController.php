@@ -32,6 +32,38 @@ class AlpEstatusEnviosController extends JoshController
         return view('admin.estatusenvios.index', compact('estatus'));
     }
 
+    public function data()
+    {
+       
+         $estatus = AlpEnviosEstatus::all();
+
+        $data = array();
+
+        foreach($estatus as $row){
+
+
+        $actions = "  <a href='".secure_url('admin/estatusenvios/'.$row->id.'/edit')."'>
+            <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Editar Estado de Envio'></i>
+            </a>
+                                            
+            <a href='".secure_url('admin/estatusenvios/'.$row->id.'/confirm-delete')."' data-toggle='modal' data-target='#delete_confirm'>
+            <i class='livicon' data-name='remove-alt' data-size='18' data-loop='true' data-c='#f56954' data-hc='#f56954' title='Eliminar'></i> </a>";
+
+
+               $data[]= array(
+                 $row->id, 
+                 $row->estatus_envio_nombre, 
+                 $row->estatus_envio_descripcion, 
+                 $row->created_at->diffForHumans(),
+                 $actions
+              );
+
+          }
+
+          return json_encode( array('data' => $data ));
+          
+      }
+
     /**
      * Group create.
      *

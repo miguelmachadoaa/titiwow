@@ -42,6 +42,11 @@ Envios
                 </div>
                 <br />
                 <div class="panel-body">
+
+                    <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}" />
+            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}" />
+
+
                     @if ($envios->count() >= 1)
                         <div class="table-responsive">
 
@@ -60,31 +65,7 @@ Envios
                             </thead>
                             <tbody>
 
-                                @foreach ($envios as $row)
-                                <tr>
-                                    <td>{!! $row->id !!}</td>
-                                    <td>{!! $row->id_orden!!}</td>
-                                    <td>{!! $row->first_name.' '.$row->last_name !!}</td>
-                                    <td>{!! $row->state_name.' '.$row->city_name!!}</td>
-                                    <td>{!! $row->fecha_envio!!}</td>
-                                    <td>{!! $row->nombre_forma_envios !!}</td>
-                                    <td>{!! $row->created_at->diffForHumans() !!}</td>
-                                    <td>
-
-                                            <a class="btn btn-xs btn-default" href="{{ route('admin.envios.detalle', $row->id) }}">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-
-                                            <div style="display: inline-block;" class="estatus_{{ $row->id }}">
-                                            
-                                                <button data-id="{{ $row->id }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-info updateStatus" > {{ $row->estatus_envio_nombre }} </button>
-
-                                            </div>
-
-
-                                    </td>
-                                </tr>
-                                @endforeach
+                               
                             </tbody>
                         </table>
                         </div>
@@ -249,21 +230,28 @@ $("#estatusEnviosForm").bootstrapValidator({
 
 });
 
-        $(document).ready(function(){
+    
+
+        $(document).ready(function() {
 
 
+            base=$('#base').val();
+                
+            var table =$('#tbOrdenes').DataTable( {
+                "processing": true,
+                "ajax": {
+                    "url": base+'/admin/envios/data/'
+                }
+            } );
 
-        $('#tbOrdenes').DataTable({
-                      responsive: true,
-                      pageLength: 10
-                  });
-                  $('#tbOrdenes').on( 'page.dt', function () {
-                     setTimeout(function(){
-                           $('.livicon').updateLivicon();
-                     },500);
-                  } );
+            table.on( 'draw', function () {
+                    $('.livicon').each(function(){
+                        $(this).updateLivicon();
+                    });
+                } );
 
-        });
+
+        } );
 
        </script>
 

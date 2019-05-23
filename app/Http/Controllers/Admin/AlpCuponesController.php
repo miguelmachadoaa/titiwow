@@ -44,6 +44,54 @@ class AlpCuponesController extends JoshController
         return view('admin.cupones.index', compact('cupones'));
     }
 
+     public function data()
+    {
+       
+          $cupones = AlpCupones::all();
+
+        $data = array();
+
+        foreach($cupones as $row){
+
+
+            $actions = "   <a href='".route('admin.cupones.edit', $row->id)."'>
+                                                <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Editar Cupon'></i>
+                                            </a>
+
+                                            <a href='".url('admin/cupones/'.$row->id.'/configurar')."'>
+                                                <i class='livicon' data-name='gear' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Configurar Cupon'></i>
+                                            </a>
+
+
+                                            <!-- let's not delete 'Admin' group by accident -->
+                                            
+                                            <a href='".route('admin.cupones.confirm-delete', $row->id)."' data-toggle='modal' data-target='#delete_confirm'>
+                                            <i class='livicon' data-name='remove-alt' data-size='18'
+                                                data-loop='true' data-c='#f56954' data-hc='#f56954'
+                                                title='Eliminar'></i>
+                                             </a>";
+
+
+
+               $data[]= array(
+                 $row->id, 
+                 $row->codigo_cupon, 
+                 $row->valor_cupon, 
+                 $row->tipo_reduccion, 
+                 $row->limite_uso, 
+                 $row->created_at->diffForHumans(),
+                 $actions
+              );
+
+
+
+          }
+
+          return json_encode( array('data' => $data ));
+
+          
+      }
+
     /**
      * Group create.
      *

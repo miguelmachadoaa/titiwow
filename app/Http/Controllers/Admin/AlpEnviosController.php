@@ -50,6 +50,60 @@ class AlpEnviosController extends JoshController
 
     }
 
+
+
+     public function data()
+    {
+       
+       $envios = AlpEnvios::select('alp_envios.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios',   'config_cities.city_name as city_name', 'config_states.state_name as state_name', 'alp_envios_status.estatus_envio_nombre as estatus_envio_nombre')
+          ->join('alp_envios_status', 'alp_envios.estatus', '=', 'alp_envios_status.id')
+          ->join('alp_ordenes', 'alp_envios.id_orden', '=', 'alp_ordenes.id')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
+          ->join('alp_direcciones', 'alp_ordenes.id_address', '=', 'alp_direcciones.id')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->get();
+
+
+            $data = array();
+
+          foreach($envios as $row){
+
+
+                 $actions = "  <a class='btn btn-xs btn-default' href='".route('admin.envios.detalle', $row->id)."'>
+                                                <i class='fa fa-eye'></i>
+                                            </a>
+
+                                            <div style='display: inline-block;' class='estatus_".$row->id."'>
+                                            
+                                                <button data-id='".$row->id."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-info updateStatus' > ".$row->estatus_envio_nombre." </button>
+
+                                            </div>";
+
+
+
+               $data[]= array(
+                 $row->id, 
+                 $row->id_orden, 
+                 $row->first_name.' '.$row->last_name , 
+                 $row->state_name.' '.$row->city_name, 
+                 $row->fecha_envio, 
+                 $row->nombre_forma_envios, 
+                 $row->created_at->diffForHumans(),
+                 $actions
+              );
+
+
+
+          }
+
+
+          return json_encode( array('data' => $data ));
+
+    }
+
+
      public function empresas()
     {
         // Grab all the groups

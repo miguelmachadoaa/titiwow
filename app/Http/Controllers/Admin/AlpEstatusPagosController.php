@@ -32,6 +32,48 @@ class AlpEstatusPagosController extends JoshController
         return view('admin.estatuspagos.index', compact('estatus'));
     }
 
+
+         public function data()
+    {
+       
+              $estatus = AlpEstatusPagos::all();
+
+        $data = array();
+
+        foreach($estatus as $row){
+
+
+            $actions = "    <a href='".secure_url('admin/estatuspagos/'.$row->id.'/edit' )."'>
+                                                <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='editar categoria'></i>
+                                            </a>
+
+                                            
+                                            <a href='".secure_url('admin/estatuspagos/'.$row->id.'/confirm-delete')."' data-toggle='modal' data-target='#delete_confirm'>
+                                            <i class='livicon' data-name='remove-alt' data-size='18'
+                                                data-loop='true' data-c='#f56954' data-hc='#f56954'
+                                                title='Eliminar'></i>
+                                             </a>";
+
+
+
+               $data[]= array(
+                 $row->id, 
+                 $row->estatus_pago_nombre, 
+                 $row->estatus_pago_descripcion, 
+                 $row->created_at->diffForHumans(),
+                 $actions
+              );
+
+
+
+          }
+
+          return json_encode( array('data' => $data ));
+
+          
+      }
+
+
     /**
      * Group create.
      *

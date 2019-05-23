@@ -52,8 +52,30 @@ Route::get('admin/categorias/data', 'Admin\AlpCategoriasController@data')->name(
 
 Route::get('admin/marcas/data', 'Admin\AlpMarcasController@data')->name('marcas.data');
 
+Route::get('admin/inventario/data', 'Admin\AlpInventarioController@data')->name('inventario.data');
+
+Route::get('admin/envios/data', 'Admin\AlpEnviosController@data')->name('envios.data');
+
+Route::get('admin/sliders/data', 'Admin\AlpSlidersController@data')->name('sliders.data');
+
+Route::get('admin/cupones/data', 'Admin\AlpCuponesController@data')->name('cupones.data');
+
+Route::get('admin/estatus/data', 'Admin\AlpEstatusOrdenesController@data')->name('estatus.data');
+
+Route::get('admin/estatuspagos/data', 'Admin\AlpEstatusPagosController@data')->name('estatuspagos.data');
 
 
+Route::get('admin/estatusenvios/data', 'Admin\AlpEstatusEnviosController@data')->name('estatusenvios.data');
+
+Route::get('admin/empresas/data', 'Admin\AlpEmpresasController@data')->name('empresas.data');
+
+Route::get('admin/feriados/data', 'Admin\AlpFeriadosController@data')->name('feriados.data');
+
+Route::get('admin/formaspago/data', 'Admin\AlpFormaspagoController@data')->name('formaspago.data');
+
+Route::get('admin/formasenvio/data', 'Admin\AlpFormasenvioController@data')->name('formasenvio.data');
+
+Route::get('admin/menus/data', 'Admin\AlpMenuController@data')->name('menus.data');
 
 
 

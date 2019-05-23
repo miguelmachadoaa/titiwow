@@ -30,6 +30,49 @@ class AlpFormaspagoController extends JoshController
         return view('admin.formaspago.index', compact('formas'));
     }
 
+    public function data()
+    {
+       
+        
+       $formas = AlpFormaspago::all();
+         
+        $data = array();
+
+        foreach($formas as $row){
+
+           
+        $actions = "
+                                            <a href='".route('admin.formaspago.edit', $row->id)."'>
+                                                <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='editar categoria'></i>
+                                            </a>
+
+
+
+                                            <!-- let's not delete 'Admin' group by accident -->
+                                            
+                                            <a href='".route('admin.formaspago.confirm-delete', $row->id)."' data-toggle='modal' data-target='#delete_confirm'>
+                                            <i class='livicon' data-name='remove-alt' data-size='18'
+                                                data-loop='true' data-c='#f56954' data-hc='#f56954'
+                                                title='Eliminar'></i>
+                                             </a>";
+
+                
+
+
+               $data[]= array(
+                 $row->id, 
+                 $row->nombre_forma_pago, 
+                 $row->descripcion_forma_pago, 
+                 $row->created_at->diffForHumans(), 
+                 $actions
+              );
+
+          }
+
+          return json_encode( array('data' => $data ));
+          
+      }
+
     /**
      * Group create.
      *

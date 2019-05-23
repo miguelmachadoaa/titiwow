@@ -6,6 +6,12 @@ Feriados
 @parent
 @stop
 
+
+@section('header_styles')
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
+    <link href="{{ secure_asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
+@stop
+
 {{-- Content --}}
 @section('content')
 <section class="content-header">
@@ -37,10 +43,13 @@ Feriados
                 </div>
                 <br />
                 <div class="panel-body">
+                     <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+
+
                     @if ($feriados->count() >= 1)
                         <div class="table-responsive">
 
-                        <table class="table table-bordered">
+                        <table class="table table-bordered" id="table">
                             <thead>
                                 <tr>
                                     <th>Id</th>
@@ -51,37 +60,7 @@ Feriados
                             </thead>
                             <tbody>
 
-                                @foreach ($feriados as $row)
-                                <tr>
-                                    <td>{!! $row->id !!}</td>
-                                    <td>{!! $row->feriado!!}</td>
-                                    <td>{!! $row->created_at->diffForHumans() !!}</td>
-                                    <td>
-                                            
-                                            
-
-
-
-                                            <a href="{{ secure_url('admin/feriados/'.$row->id.'/edit') }}">
-                                                <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar categoria"></i>
-                                            </a>
-
-
-
-                                            <!-- let's not delete 'Admin' group by accident -->
-                                            
-                                            <a href="{{ secure_url('admin/feriados/'.$row->id.'/confirm-delete') }}" data-toggle="modal" data-target="#delete_confirm">
-                                            <i class="livicon" data-name="remove-alt" data-size="18"
-                                                data-loop="true" data-c="#f56954" data-hc="#f56954"
-                                                title="Eliminar"></i>
-                                             </a>
-
-
-                                              
-
-                                    </td>
-                                </tr>
-                                @endforeach
+                                
                             </tbody>
                         </table>
                         </div>
@@ -120,7 +99,39 @@ Feriados
         </div>
     </div>
 </div>
+
+<script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
+
+
+
 <script>
+
+
+
+        $(document).ready(function() {
+
+
+                base=$('#base').val();
+                
+            var table =$('#table').DataTable( {
+                "processing": true,
+                "ajax": {
+                    "url": base+'/admin/feriados/data/'
+                }
+            } );
+
+            table.on( 'draw', function () {
+                    $('.livicon').each(function(){
+                        $(this).updateLivicon();
+                    });
+                } );
+
+
+        } );
+
+
+
     $(function () {$('body').on('hidden.bs.modal', '.modal', function () {$(this).removeData('bs.modal');});});
     $(document).on("click", ".users_exists", function () {
 

@@ -42,6 +42,11 @@ Inventario
                 </div>
                 <br />
                 <div class="panel-body">
+
+                    <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}" />
+            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}" />
+
+
                     @if ($productos->count() >= 1)
                         <div class="table-responsive">
 
@@ -57,21 +62,6 @@ Inventario
                             </thead>
                             <tbody>
 
-                                @foreach ($productos as $row)
-                                <tr>
-                                    <td>{!! $row->id !!}</td>
-                                    <td>{!! $row->nombre_producto!!}</td>
-                                    <td>{!! $inventario[$row->id]!!}</td>
-                                    <td>{!! $row->created_at->diffForHumans() !!}</td>
-                                    <td>
-                                            
-                                            <a class="btn btn-xs btn-info" href="{{ secure_url('admin/inventario/'.$row->id.'/edit') }}">
-                                                Gestionar
-                                            </a>
-
-                                    </td>
-                                </tr>
-                                @endforeach
                             </tbody>
                         </table>
                         </div>
@@ -129,15 +119,28 @@ Inventario
         $(".modal-header h4").text( group_name+" Group" );
     });
 
-    $(document).ready(function(){
+      $(document).ready(function() {
 
-         $('#tbInventario').DataTable({
-                      responsive: true,
-                      pageLength: 10
-                  });
 
-         
-    });
+                base=$('#base').val();
+                
+            var table =$('#tbInventario').DataTable( {
+                "processing": true,
+                "ajax": {
+                    "url": base+'/admin/inventario/data/'
+                }
+            } );
+
+            table.on( 'draw', function () {
+                    $('.livicon').each(function(){
+                        $(this).updateLivicon();
+                    });
+                } );
+
+
+        } );
+
+   
 
     
 

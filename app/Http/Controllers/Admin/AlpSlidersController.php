@@ -42,6 +42,55 @@ class AlpSlidersController extends JoshController
     }
 
 
+     public function data()
+    {
+       
+        $sliders = AlpSliders::get();
+
+        $data = array();
+
+        foreach($sliders as $row){
+
+            $imagen="<img src='../uploads/sliders/".$row->imagen_slider."' height='60px'>";
+
+            $actions = "   <a href='".secure_url('admin/sliders/'.$row->id.'/edit')."'>
+                                                <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Editar Estado de Envio'></i>
+                                            </a>
+
+
+
+                                            <!-- let's not delete 'Admin' group by accident -->
+                                            
+                                            <a href='".secure_url('admin/sliders/'.$row->id.'/confirm-delete')."' data-toggle='modal' data-target='#delete_confirm'>
+                                            <i class='livicon' data-name='remove-alt' data-size='18'
+                                                data-loop='true' data-c='#f56954' data-hc='#f56954'
+                                                title='Eliminar'></i>
+                                             </a>";
+
+
+
+               $data[]= array(
+                 $row->id, 
+                 $row->nombre_slider, 
+                 $row->descripcion_slider, 
+                 $row->link_slider, 
+                 $imagen, 
+                 $row->order, 
+                 $row->created_at->diffForHumans(),
+                 $actions
+              );
+
+
+
+          }
+
+
+          return json_encode( array('data' => $data ));
+
+    }
+
+
+
 
     /**
      * Show the form for creating a new resource.

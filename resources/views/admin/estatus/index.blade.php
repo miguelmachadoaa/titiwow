@@ -44,6 +44,11 @@ Estatus Ordenes
                 </div>
                 <br />
                 <div class="panel-body">
+
+                         <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+                            <input type="hidden" name="envio_id" id="envio_id" value="">
+
+
                     @if ($estatus->count() >= 1)
                         <div class="table-responsive">
 
@@ -59,38 +64,7 @@ Estatus Ordenes
                             </thead>
                             <tbody>
 
-                                @foreach ($estatus as $row)
-                                <tr>
-                                    <td>{!! $row->id !!}</td>
-                                    <td>{!! $row->estatus_nombre!!}</td>
-                                    <td>{!! $row->descripcion_estatus !!}</td>
-                                    <td>{!! $row->created_at->diffForHumans() !!}</td>
-                                    <td>
-                                            
-                                            
-
-
-
-                                            <a href="{{ route('admin.estatus.edit', $row->id) }}">
-                                                <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar categoria"></i>
-                                            </a>
-
-
-
-                                            <!-- let's not delete 'Admin' group by accident -->
-                                            
-                                            <a href="{{ secure_url('admin/estatus/'.$row->id.'/confirm-delete') }}" data-toggle="modal" data-target="#delete_confirm">
-                                            <i class="livicon" data-name="remove-alt" data-size="18"
-                                                data-loop="true" data-c="#f56954" data-hc="#f56954"
-                                                title="Eliminar"></i>
-                                             </a>
-
-
-                                              
-
-                                    </td>
-                                </tr>
-                                @endforeach
+                               
                             </tbody>
                         </table>
                         </div>
@@ -136,11 +110,29 @@ Estatus Ordenes
 <script>
 
 
-     $(document).ready(function() {
+    $(document).ready(function() {
 
-            $('#table').DataTable();
-            
-        });
+
+                base=$('#base').val();
+                
+            var table =$('#table').DataTable( {
+                "processing": true,
+                "ajax": {
+                    "url": base+'/admin/estatus/data/'
+                }
+            } );
+
+            table.on( 'draw', function () {
+                    $('.livicon').each(function(){
+                        $(this).updateLivicon();
+                    });
+                } );
+
+
+        } );
+
+
+
      
     $(function () {$('body').on('hidden.bs.modal', '.modal', function () {$(this).removeData('bs.modal');});});
     $(document).on("click", ".users_exists", function () {

@@ -43,6 +43,8 @@ Estatus Envios
                 </div>
                 <br />
                 <div class="panel-body">
+                     <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+
                     @if ($estatus->count() >= 1)
                         <div class="table-responsive">
 
@@ -58,38 +60,7 @@ Estatus Envios
                             </thead>
                             <tbody>
 
-                                @foreach ($estatus as $row)
-                                <tr>
-                                    <td>{!! $row->id !!}</td>
-                                    <td>{!! $row->estatus_envio_nombre!!}</td>
-                                    <td>{!! $row->estatus_envio_descripcion !!}</td>
-                                    <td>{!! $row->created_at->diffForHumans() !!}</td>
-                                    <td>
-                                            
-                                            
-
-
-
-                                            <a href="{{ secure_url('admin/estatusenvios/'.$row->id.'/edit') }}">
-                                                <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Editar Estado de Envio"></i>
-                                            </a>
-
-
-
-                                            <!-- let's not delete 'Admin' group by accident -->
-                                            
-                                            <a href="{{ secure_url('admin/estatusenvios/'.$row->id.'/confirm-delete') }}" data-toggle="modal" data-target="#delete_confirm">
-                                            <i class="livicon" data-name="remove-alt" data-size="18"
-                                                data-loop="true" data-c="#f56954" data-hc="#f56954"
-                                                title="Eliminar"></i>
-                                             </a>
-
-
-                                              
-
-                                    </td>
-                                </tr>
-                                @endforeach
+                                
                             </tbody>
                         </table>
                         </div>
@@ -135,11 +106,29 @@ Estatus Envios
 <script>
 
 
-     $(document).ready(function() {
+     
+       $(document).ready(function() {
 
-            $('#table').DataTable();
-            
-        });
+
+                base=$('#base').val();
+                
+            var table =$('#table').DataTable( {
+                "processing": true,
+                "ajax": {
+                    "url": base+'/admin/estatusenvios/data/'
+                }
+            } );
+
+            table.on( 'draw', function () {
+                    $('.livicon').each(function(){
+                        $(this).updateLivicon();
+                    });
+                } );
+
+
+        } );
+
+       
     $(function () {$('body').on('hidden.bs.modal', '.modal', function () {$(this).removeData('bs.modal');});});
     $(document).on("click", ".users_exists", function () {
 

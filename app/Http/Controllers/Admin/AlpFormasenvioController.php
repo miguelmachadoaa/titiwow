@@ -30,6 +30,49 @@ class AlpFormasenvioController extends JoshController
         return view('admin.formasenvio.index', compact('formas'));
     }
 
+
+      public function data()
+    {
+       
+        
+      $formas = AlpFormasenvio::all();
+         
+        $data = array();
+
+        foreach($formas as $row){
+
+           
+        $actions = "<a  href='". secure_url('admin/formasenvio').'/'.$row->id.'/ubicacion' ."'><i class='fa fa-map-marker'></i></a>
+
+                                            <a href='". secure_url('admin/formasenvio/'.$row->id.'/edit' ) ."'>
+                                                <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='editar categoria'></i>
+                                            </a>
+                                            
+                                            <a href='". secure_url('admin/formasenvio/'.$row->id.'/confirm-delete') ."' data-toggle='modal' data-target='#delete_confirm'>
+                                            <i class='livicon' data-name='remove-alt' data-size='18'
+                                                data-loop='true' data-c='#f56954' data-hc='#f56954'
+                                                title='Eliminar'></i>
+                                             </a>
+";
+
+                
+
+
+               $data[]= array(
+                 $row->id, 
+                 $row->nombre_forma_envios, 
+                 $row->descripcion_forma_envios, 
+                 $row->created_at->diffForHumans(), 
+                 $actions
+              );
+
+          }
+
+          return json_encode( array('data' => $data ));
+          
+      }
+
+
     
 
 

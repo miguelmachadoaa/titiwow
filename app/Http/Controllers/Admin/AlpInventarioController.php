@@ -34,6 +34,40 @@ class AlpInventarioController extends JoshController
         return view('admin.inventario.index', compact('productos', 'inventario'));
     }
 
+
+     public function data()
+    {
+       
+        $productos = AlpProductos::all();
+
+        $inventario=$this->inventario();
+
+            $data = array();
+
+          foreach($productos as $row){
+
+                $actions = "  <a class='btn btn-xs btn-info' href='".secure_url('admin/inventario/'.$row->id.'/edit')."'>
+                                                Gestionar
+                                            </a>";
+
+               $data[]= array(
+                 $row->id, 
+                 $row->nombre_producto, 
+                 $inventario[$row->id], 
+                 $row->created_at->diffForHumans(),
+                 $actions
+              );
+
+
+
+          }
+
+
+          return json_encode( array('data' => $data ));
+
+    }
+
+
     /**
      * Group create.
      *
