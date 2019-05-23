@@ -8,10 +8,6 @@ use App\Models\AlpDirecciones;
 use App\Models\AlpFeriados;
 use App\Models\AlpFormaCiudad;
 
-
-
-
-
 use App\Models\AlpPagos;
 use App\Models\AlpEnvios;
 use App\Models\AlpOrdenes;
@@ -89,7 +85,6 @@ class VerificarPagos extends Command
           $user_cliente=User::where('id', $ord->id_user)->first();
 
           $preference = MP::get("/v1/payments/search?external_reference=".$ord->referencia);
-
 
           if (isset($preference['response']['results'][0])) {
 
@@ -231,9 +226,6 @@ class VerificarPagos extends Command
 
                         $history=AlpOrdenesHistory::create($data_history);
 
-
-
-
             }
 
 
@@ -241,8 +233,6 @@ class VerificarPagos extends Command
 
           if (isset($preference['response']['results'][0])) {
             # code...
-
-              
 
               if ( $pending ) 
               {

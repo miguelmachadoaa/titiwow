@@ -42,6 +42,9 @@ Tipos de Documentos
                 </div>
                 <br />
                 <div class="panel-body">
+
+                    <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+
                     @if ($documentos->count() >= 1)
                         <div class="table-responsive">
 
@@ -57,38 +60,7 @@ Tipos de Documentos
                             </thead>
                             <tbody>
 
-                                @foreach ($documentos as $row)
-                                <tr>
-                                    <td>{!! $row->id !!}</td>
-                                    <td>{!! $row->nombre_tipo_documento!!}</td>
-                                    <td>{!! $row->abrev_tipo_documento !!}</td>
-                                    <td>{!! $row->created_at->diffForHumans() !!}</td>
-                                    <td>
-                                            
-                                            
-
-
-
-                                            <a href="{{ secure_url('admin/documentos/'.$row->id.'/edit') }}">
-                                                <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="editar Documentos"></i>
-                                            </a>
-
-
-
-                                            <!-- let's not delete 'Admin' group by accident -->
-                                            
-                                            <a href="{{ secure_url('admin/documentos/'.$row->id.'/confirm-delete') }}" data-toggle="modal" data-target="#delete_confirm">
-                                            <i class="livicon" data-name="remove-alt" data-size="18"
-                                                data-loop="true" data-c="#f56954" data-hc="#f56954"
-                                                title="Eliminar"></i>
-                                             </a>
-
-
-                                              
-
-                                    </td>
-                                </tr>
-                                @endforeach
+                                
                             </tbody>
                         </table>
                         </div>
@@ -137,9 +109,24 @@ Tipos de Documentos
 
      $(document).ready(function() {
 
-            $('#table').DataTable();
-            
-        });
+
+                base=$('#base').val();
+                
+            var table =$('#table').DataTable( {
+                "processing": true,
+                "ajax": {
+                    "url": base+'/admin/documentos/data/'
+                }
+            } );
+
+            table.on( 'draw', function () {
+                    $('.livicon').each(function(){
+                        $(this).updateLivicon();
+                    });
+                } );
+
+
+        } );
 
 
     $(function () {$('body').on('hidden.bs.modal', '.modal', function () {$(this).removeData('bs.modal');});});

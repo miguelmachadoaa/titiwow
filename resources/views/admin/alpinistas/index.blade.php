@@ -44,6 +44,9 @@ Alpinistas
                 </div>
                 <br />
                 <div class="panel-body">
+
+                    <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+                    
                     @if ($alpinistas->count() >= 1)
                         <div class="table-responsive">
 
@@ -62,30 +65,7 @@ Alpinistas
                             </thead>
                             <tbody>
 
-                                @foreach ($alpinistas as $row)
-                                <tr>
-                                    <td>{!! $row->id !!}</td>
-                                    @if(!$row->nombre_alpinista)
-                                        <td>No Creado</td>
-                                        <td>No Creado</td>
-                                    @else
-                                        <td>{!! $row->nombre_alpinista !!}</td>
-                                        <td>{!! $row->email !!}</td>
-                                    @endif
-                                    <td>{!! $row->documento_alpi !!}</td>
-                                    <td>{!! $row->codigo_alpi !!}</td>
-                                    <td>{!! $row->cod_oracle_cliente !!}</td>
-                                    @if($row->estatus_alpinista == 1)
-                                        <td><span class="label label-sm label-info">Cargado</span></td>
-                                    @elseif($row->estatus_alpinista == 2)
-                                        <td><span class="label label-sm label-success">Usuario Creado</span></td>
-                                    @elseif($row->estatus_alpinista == 3)
-                                        <td><span class="label label-sm label-danger">Retirado</span></td>
-                                    @endif
-                                    <td>{!! $row->created_at->diffForHumans() !!}</td>
-                                    
-                                </tr>
-                                @endforeach
+                               
                             </tbody>
                         </table>
                         </div>
@@ -108,10 +88,29 @@ Alpinistas
     <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
     <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
     <script>
-        $(document).ready(function() {
+      
 
-            $('#table').DataTable();
-            
-        });
+     $(document).ready(function() {
+
+
+                base=$('#base').val();
+                
+            var table =$('#table').DataTable( {
+                "processing": true,
+                "ajax": {
+                    "url": base+'/admin/alpinistas/data/'
+                }
+            } );
+
+            table.on( 'draw', function () {
+                    $('.livicon').each(function(){
+                        $(this).updateLivicon();
+                    });
+                } );
+
+
+        } );
+
+
     </script>
 @stop

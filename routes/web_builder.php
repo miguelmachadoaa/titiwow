@@ -77,6 +77,12 @@ Route::get('admin/formasenvio/data', 'Admin\AlpFormasenvioController@data')->nam
 
 Route::get('admin/menus/data', 'Admin\AlpMenuController@data')->name('menus.data');
 
+Route::get('admin/documentos/data', 'Admin\AlpTipoDocumentosController@data')->name('documentos.data');
+Route::get('admin/transportistas/data', 'Admin\AlpTransportistasController@data')->name('transportistas.data');
+
+Route::get('admin/alpinistas/data', 'Admin\AlpAlpinistasController@data')->name('alpinistas.data');
+
+
 
 
 Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.'), function () {

@@ -33,6 +33,69 @@ class AlpAlpinistasController extends Controller
         return view('admin.alpinistas.index', compact('alpinistas'));
     }
 
+
+
+ public function data()
+    {
+       
+         $alpinistas =  AlpAlpinistas::select('alp_cod_alpinistas.*',DB::raw('CONCAT(users.first_name, " ", users.last_name) AS nombre_alpinista'),'users.email as email','roles.name as name_role')
+        ->leftJoin('users', 'alp_cod_alpinistas.id_usuario_creado', '=', 'users.id')
+        ->leftJoin('role_users', 'alp_cod_alpinistas.id_usuario_creado', '=', 'role_users.user_id')
+        ->leftJoin('roles', 'role_users.role_id', '=', 'roles.id')
+        ->get();
+
+        $data = array();
+
+        foreach($alpinistas as $row){
+
+
+            if (!$row->nombre_alpinista) {
+              $nombre="No Creado";
+            }else{
+
+              $nombre=$row->nombre_alpinista;
+
+            }
+
+            if (!$row->nombre_alpinista) {
+              $email="No Creado";
+            }else{
+                
+              $email=$row->email;
+                
+            }
+
+
+            if ($row->estatus_alpinista == 1) {
+                $estatus="<td><span class='label label-sm label-info'>Cargado</span></td>";
+            }elseif($row->estatus_alpinista == 2){
+                $estatus="<td><span class='label label-sm label-success'>Usuario Creado</span></td>";
+            }elseif ($row->estatus_alpinista == 3) {
+                $estatus="<td><span class='label label-sm label-danger'>Retirado</span></td>";
+            }
+
+
+        
+
+
+               $data[]= array(
+                 $row->id, 
+                 $nombre, 
+                 $email, 
+                 $row->documento_alpi, 
+                 $row->codigo_alpi, 
+                 $row->documento_alpi, 
+                 $row->cod_oracle_cliente, 
+                 $estatus, 
+                 $row->created_at->diffForHumans()
+              );
+
+          }
+
+          return json_encode( array('data' => $data ));
+          
+      }
+
     /**
      * Show the form for creating a new resource.
      *
