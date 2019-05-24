@@ -17,7 +17,7 @@
                             <div class="col-sm-12" style="    border: 1px solid rgba(0,0,0,0.1);    padding: 1em;    margin: 0em 0em;">
                                 
 
-                        <h3 style="text-align: center;margin-bottom: 1em;">Agregar Direccion</h3>
+                        <h3 style="text-align: center;margin-bottom: 1em;">Agregar Dirección</h3>
                         
                         <form method="POST" action="{{secure_url('cart/storedir')}}" id="addDireccionForm" name="addDireccionForm" class="form-horizontal">
 
@@ -27,7 +27,7 @@
 
                              <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('titulo', 'has-error') }}">
                                 <div class="" >
-                                     <input required="true" type="text" id="titulo" name="titulo" placeholder="Titulo" class="form-control" value="{!! old('titulo') !!}" >
+                                     <input required="true" type="text" id="titulo" name="titulo" placeholder="Nombre para esta dirección" class="form-control" value="{!! old('titulo') !!}" >
                                 </div>
                                 {!! $errors->first('titulo', '<span class="help-block">:message</span>') !!}
                             </div>

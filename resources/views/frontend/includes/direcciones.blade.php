@@ -5,7 +5,7 @@
 
             @if($configuracion->editar_direccion=='0')
 
-                <button style="float: right;" class="btn btn-primary showAddAddress">Agregar Direccion</button>
+                <button style="float: right;" class="btn btn-primary showAddAddress">Agregar Dirección</button>
 
             @endif</h3>
 

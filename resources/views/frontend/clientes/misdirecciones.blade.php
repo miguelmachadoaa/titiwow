@@ -40,8 +40,6 @@
 
 @stop
 
-
-
 {{-- breadcrumb --}}
 @section('top')
 
@@ -95,7 +93,7 @@
 
         <div class="col-sm-12" style="text-align: right;">
 
-            <button type="button" class="btn btn-raised btn-primary md-trigger showAddAddress" data-toggle="modal" data-target="#modal-21">Agregar Nueva Direccion </button>
+            <button type="button" class="btn btn-raised btn-primary md-trigger showAddAddress" data-toggle="modal" data-target="#modal-21">Agregar Nueva Dirección </button>
 
         </div>
 
@@ -109,7 +107,7 @@
 
             <div class="col-sm-12" style="border: 1px solid rgba(0,0,0,0.1);  padding: 2em; margin: 0em -2em;">
 
-                <h3 style="text-align: center;margin-bottom: 1em;">Agregar Direccion</h3>
+                <h3 style="text-align: center;margin-bottom: 1em;">Agregar Dirección</h3>
 
                 <form method="POST" action="{{secure_url('clientes/storedir')}}" id="addDireccionForm" name="addDireccionForm" class="form-horizontal     ">
 
@@ -118,7 +116,7 @@
                      <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('titulo', 'has-error') }}">
 
 
-                        <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Titulo" value="{!! old('titulo') !!}" >
+                        <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Nombre para esta dirección" value="{!! old('titulo') !!}" >
 
                         {!! $errors->first('titulo', '<span class="help-block">:message</span>') !!}
                     
@@ -289,7 +287,7 @@
 
                                     <dl class="dl-horizontal">
 
-                                        <dt>Titulo</dt>
+                                        <dt>Nombre Dirección</dt>
 
                                         <dd>{{ $dir->titulo}}</dd>
 
@@ -393,7 +391,7 @@
 
             <div class="modal-header bg-primary">
 
-                <h4 class="modal-title" id="modalLabeldanger">Editar Direccion</h4>
+                <h4 class="modal-title" id="modalLabeldanger">Editar Dirección</h4>
 
             </div>
 
@@ -415,7 +413,7 @@
 
                                 <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('titulo', 'has-error') }}">
 
-                                    <input type="text" class="form-control" id="edit_titulo" name="edit_titulo" placeholder="Titulo" value="{!! old('edit_titulo') !!}">
+                                    <input type="text" class="form-control" id="edit_titulo" name="edit_titulo" placeholder="Nombre para esta dirección" value="{!! old('edit_titulo') !!}">
                                         
                                     {!! $errors->first('titulo', '<span class="help-block">:message</span>') !!}
 

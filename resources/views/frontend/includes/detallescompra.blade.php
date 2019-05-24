@@ -119,7 +119,7 @@
 
                 <div class="col-sm-8 col-xs-12">
 
-                   <p>Cupon de Descuento</p> 
+                   <p>Cupón de Descuento</p> 
 
                 </div>
 
