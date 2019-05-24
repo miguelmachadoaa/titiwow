@@ -3187,6 +3187,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
               foreach ($cart as $detalle) {
 
+                  $b_producto_valido=0;
+
 
                   if($b_categoria==1){
 
@@ -3200,7 +3202,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                           $b_producto_valido=1;
 
-                          $mensaje_producto=$mensaje_producto.' - '.$detalle->id_producto.' No aplicable por filtro categoria';
+                          $mensaje_producto=' No aplicable por filtro categoria';
                       }
 
                     }
@@ -3219,7 +3221,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                           $b_producto_valido=1;
 
-                          $mensaje_producto=$mensaje_producto.' - '.$detalle->id_producto.' No aplicable por filtro marca';
+                          $mensaje_producto=' No aplicable por filtro marca';
                       }
 
                     }
@@ -3228,17 +3230,18 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                     if($b_producto==1){
 
-                      $cc=AlpCuponesProducto::where('id_cupon', $cupon->id)->where('id_producto', $detalle->id_producto)->first();
+                      $cc=AlpCuponesProducto::where('id_cupon', $cupon->id)->where('id_producto', $detalle->id)->first();
 
                       if(isset($cc->id)){
 
-                       
+                        
+
 
                         }else{
 
                           $b_producto_valido=1;
 
-                          $mensaje_producto=$mensaje_producto.' - '.$detalle->id_producto.' No aplicable por filtro producto';
+                          $mensaje_producto=' No aplicable por filtro producto';
                       }
 
                     }
@@ -3253,10 +3256,12 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                 
               }//endforeach detalles
 
-
+            
 
 
               if ($base_descuento>0) {
+
+                  $mensaje_producto='';
 
                    $valor=0;
 
@@ -3284,14 +3289,13 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                   'id_user' => $user_id 
                 );
 
+              
+              $pago=AlpOrdenesDescuento::create($data_pago);
+
+
             }
 
-
-            $pago=AlpOrdenesDescuento::create($data_pago);
-
-
-
-            } //en if usuario paso
+          } //en if usuario paso
 
 
       }else{//end if hay cupon 
