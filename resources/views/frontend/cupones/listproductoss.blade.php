@@ -3,7 +3,7 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                    <th>Empresa</th>
+                                    <th>Producto</th>
                                     <th>Accion</th>
                                 </tr>
                                 </thead>
