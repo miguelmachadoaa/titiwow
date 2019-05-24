@@ -1008,11 +1008,6 @@ $('.sendCupon').click(function () {
 
         });
 
-        
-      
-
-
-
 
         jQuery(document).ready(function () {
             new WOW().init();
@@ -1069,14 +1064,14 @@ $("#addPseForm").bootstrapValidator({
         id_type_doc_pse: {
             validators:{
                 notEmpty:{
-                    message: 'Debe seleccionar un tipo de Documento'
+                    message: 'Debe seleccionar un tipo de documento'
                 }
             }
         },
         doc_cliente_pse: {
             validators: {
                 notEmpty: {
-                    message: 'Numero de Documento  es Requerido'
+                    message: 'Numero de Documento  es requerido'
                     
                 }
             },
@@ -1113,7 +1108,7 @@ $("#addDireccionForm").bootstrapValidator({
         titulo: {
             validators: {
                 notEmpty: {
-                    message: 'Titulo de  Direccion es Requerido'
+                    message: 'Nombre de Dirección es Requerido'
                 }
             },
             required: true,
@@ -1122,7 +1117,7 @@ $("#addDireccionForm").bootstrapValidator({
         principal_address: {
             validators: {
                 notEmpty: {
-                    message: 'Prinicpal  es Requerido'
+                    message: 'Calle Prinicpal  es Requerido'
                     
                 }
             },
@@ -1132,7 +1127,7 @@ $("#addDireccionForm").bootstrapValidator({
         secundaria_address: {
             validators: {
                 notEmpty: {
-                    message: 'Secundaria  es Requerido'
+                    message: 'Calle Secundaria  es Requerido'
                     
                 }
             },
@@ -1152,14 +1147,14 @@ $("#addDireccionForm").bootstrapValidator({
         detalle_address: {
             validators: {
                 notEmpty: {
-                    message: 'El Detalle  no puede esta vacion'
+                    message: 'El Detalle de la direccion no puede estar vacio'
                 }
             }
         },
         barrio_address: {
             validators: {
                 notEmpty: {
-                    message: 'El Barrio  no puede esta vacion'
+                    message: 'El Barrio no puede esta vacio'
                 }
             }
         },
@@ -1175,7 +1170,7 @@ $("#addDireccionForm").bootstrapValidator({
         id_estructura_address: {
             validators:{
                 notEmpty:{
-                    message: 'Debe seleccionar una estructura'
+                    message: 'Debe seleccionar una Estructura '
                 }
             }
         }

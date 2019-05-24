@@ -616,7 +616,7 @@ $("#editDireccionForm").bootstrapValidator({
         edit_titulo: {
             validators: {
                 notEmpty: {
-                    message: 'Titulo es Requerido'
+                    message: 'Nombre de la dirección es Requerido'
                 }
             },
             required: true,
@@ -626,7 +626,7 @@ $("#editDireccionForm").bootstrapValidator({
         edit_secundaria_address: {
             validators: {
                 notEmpty: {
-                    message: 'Secundaria  es Requerido'
+                    message: 'Calle Secundaria  es Requerido'
                     
                 }
             },
@@ -646,7 +646,7 @@ $("#editDireccionForm").bootstrapValidator({
          edit_detalle_address: {
             validators: {
                 notEmpty: {
-                    message: 'Edificio  es Requerido'
+                    message: 'Detalle de la dirección  es Requerido'
                     
                 }
             },
@@ -657,7 +657,7 @@ $("#editDireccionForm").bootstrapValidator({
         edit_barrio_address: {
             validators: {
                 notEmpty: {
-                    message: 'Edificio  es Requerido'
+                    message: 'Barrio de la dirección  es Requerido'
                     
                 }
             },
@@ -678,7 +678,7 @@ $("#editDireccionForm").bootstrapValidator({
         edit_id_estructura_address: {
             validators:{
                 notEmpty:{
-                    message: 'Debe seleccionar una ciudad'
+                    message: 'Debe seleccionar una estructura'
                 }
             }
         }
@@ -693,7 +693,7 @@ $("#addAddressForm").bootstrapValidator({
         titulo: {
             validators: {
                 notEmpty: {
-                    message: 'Titulo de  Direccion es Requerido'
+                    message: 'Nombre de  Direccion es Requerido'
                 }
             },
             required: true,
@@ -702,7 +702,7 @@ $("#addAddressForm").bootstrapValidator({
         principal_address: {
             validators: {
                 notEmpty: {
-                    message: 'Prinicpal  es Requerido'
+                    message: 'Calle Prinicpal  es Requerido'
                     
                 }
             },
@@ -712,7 +712,7 @@ $("#addAddressForm").bootstrapValidator({
         secundaria_address: {
             validators: {
                 notEmpty: {
-                    message: 'Secundaria  es Requerido'
+                    message: 'Calle Secundaria  es Requerido'
                     
                 }
             },
@@ -732,14 +732,14 @@ $("#addAddressForm").bootstrapValidator({
         detalle_address: {
             validators: {
                 notEmpty: {
-                    message: 'El Detalle  no puede esta vacion'
+                    message: 'El Detalle de la dirección  no puede esta vacion'
                 }
             }
         },
         barrio_address: {
             validators: {
                 notEmpty: {
-                    message: 'El Barrio  no puede esta vacion'
+                    message: 'El Barrio  no puede esta vacio'
                 }
             }
         },
