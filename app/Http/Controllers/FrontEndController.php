@@ -22,6 +22,7 @@ use App\Models\AlpConfiguracion;
 use App\Models\AlpDirecciones;
 use App\Models\AlpCodAlpinistas;
 use App\Models\AlpInventario;
+use App\Models\AlpOrdenesDescuento;
 use App\User;
 use App\State;
 use App\RoleUser;
@@ -925,6 +926,24 @@ class FrontEndController extends JoshController
     public function getLogout()
     {
         if (Sentinel::check()) {
+
+        $carrito= \Session::get('cr');
+
+        $cupones=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
+
+        foreach ($cupones as $cupon) {
+          
+          $c=AlpOrdenesDescuento::where('id', $cupon->id)->first();
+
+          $c->delete();
+
+        }
+
+         \Session::forget('cart');
+             \Session::forget('orden');
+             \Session::forget('cr');
+
+
             //Activity log
             $user = Sentinel::getuser();
             activity($user->full_name)
@@ -933,6 +952,12 @@ class FrontEndController extends JoshController
                 ->log('LoggedOut');
             // Log the user out
             Sentinel::logout();
+
+
+
+
+
+            
 
             // Redirect to the users page
             return redirect('login')->with('success', 'Cerró Sesión Exitosamente');

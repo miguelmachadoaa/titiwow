@@ -3521,7 +3521,7 @@ public function addcupon(Request $request)
 
       $impuesto=$this->impuesto();
 
-      $aviso='El cupon ha sido eliminado';
+      $aviso='El cupón ha sido eliminado';
 
 
       $o=AlpOrdenesDescuento::where('id', $request->id)->first();
