@@ -3234,9 +3234,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                       if(isset($cc->id)){
 
-                        
-
-
                         }else{
 
                           $b_producto_valido=1;

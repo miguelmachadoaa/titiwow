@@ -162,7 +162,7 @@ Editar Cupon
                                     <option value="">Seleccione</option>
                                     @foreach($productos as $producto)
 
-                                        <option value="{{$producto->id}}">{{$producto->nombre_producto}}</option>
+                                        <option value="{{$producto->id}}">{{$producto->nombre_producto.' - '.$producto->referencia_producto}}</option>
                                     @endforeach
 
                                 </select>
@@ -288,7 +288,7 @@ Editar Cupon
                                     <option value="">Seleccione</option>
                                     @foreach($clientes as $cliente)
 
-                                        <option value="{{$cliente->id_user_client}}">{{$cliente->first_name.' '.$cliente->last_name}}</option>
+                                        <option value="{{$cliente->id_user_client}}">{{$cliente->first_name.' '.$cliente->last_name.' - '.$cliente->doc_cliente}}</option>
                                     @endforeach
 
                                 </select>

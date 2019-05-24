@@ -524,18 +524,19 @@ class AlpCuponesController extends JoshController
        $cupon = AlpCupones::find($id);
 
        
-       $empresas=AlpEmpresas::get();
+       $empresas=AlpEmpresas::where('estado_registro', '1')->get();
 
-       $marcas=AlpMarcas::get();
+       $marcas=AlpMarcas::where('estado_registro', '1')->get();
 
        $roles=Roles::select('roles.id', 'roles.name')->get();
 
-       $productos=AlpProductos::get();
+       $productos=AlpProductos::where('estado_registro', '1')->get();
 
-       $categorias=AlpCategorias::get();
+       $categorias=AlpCategorias::where('estado_registro', '1')->get();
 
        $clientes = AlpClientes::select('alp_clientes.*', 'users.first_name as first_name', 'users.last_name as last_name')
           ->join('users', 'alp_clientes.id_user_client', '=', 'users.id')
+          ->where('alp_clientes.estado_registro', '1')
           ->get();
 
         //$roles = Roles::all();
