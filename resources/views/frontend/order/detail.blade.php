@@ -1037,7 +1037,7 @@ $("#addCuponForm").bootstrapValidator({
         codigo_cupon: {
             validators: {
                 notEmpty: {
-                    message: 'El Codigo es requerido '
+                    message: 'El Código es requerido '
                 }
             },
             required: true,
@@ -1117,7 +1117,7 @@ $("#addDireccionForm").bootstrapValidator({
         principal_address: {
             validators: {
                 notEmpty: {
-                    message: 'Calle Prinicpal  es Requerido'
+                    message: 'Calle Principal  es Requerido'
                     
                 }
             },
@@ -1147,7 +1147,7 @@ $("#addDireccionForm").bootstrapValidator({
         detalle_address: {
             validators: {
                 notEmpty: {
-                    message: 'El Detalle de la direccion no puede estar vacio'
+                    message: 'El Detalle de la dirección no puede estar vacio'
                 }
             }
         },

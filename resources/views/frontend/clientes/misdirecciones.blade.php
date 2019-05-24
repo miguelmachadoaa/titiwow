@@ -693,7 +693,7 @@ $("#addAddressForm").bootstrapValidator({
         titulo: {
             validators: {
                 notEmpty: {
-                    message: 'Nombre de  Direccion es Requerido'
+                    message: 'Nombre de  Dirección es Requerido'
                 }
             },
             required: true,
@@ -702,7 +702,7 @@ $("#addAddressForm").bootstrapValidator({
         principal_address: {
             validators: {
                 notEmpty: {
-                    message: 'Calle Prinicpal  es Requerido'
+                    message: 'Calle Principal  es Requerido'
                     
                 }
             },
@@ -732,7 +732,7 @@ $("#addAddressForm").bootstrapValidator({
         detalle_address: {
             validators: {
                 notEmpty: {
-                    message: 'El Detalle de la dirección  no puede esta vacion'
+                    message: 'El Detalle de la dirección  no puede esta vacio'
                 }
             }
         },
