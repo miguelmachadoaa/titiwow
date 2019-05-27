@@ -13,6 +13,7 @@ use App\Models\AlpInventario;
 use App\Models\AlpPrecioGrupo;
 use App\Models\AlpImpuestos;
 use App\Models\AlpEmpresas;
+use App\Models\AlpCombosProductos;
 use App\State;
 use App\City;
 use App\Roles;
@@ -85,8 +86,6 @@ class AlpProductosController extends JoshController
             }
 
 
-
-
                  $actions = " 
                   
                   <a href='".secure_url('admin/productos/'.collect($alpProductos)->first().'/show' )."'>
@@ -104,10 +103,7 @@ class AlpProductosController extends JoshController
                    $destacado="  <div style=' display: inline-block; padding: 0; margin: 0;' id='td_".$alpProductos->id."'><button title='Normal' data-url='".secure_url('productos/destacado')."' data-destacado='1' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  destacado'>  <span class='glyphicon glyphicon-star-empty' aria-hidden='true'></span>   </button></div>";
 
 
-
             }
-
-
 
                 if ($alpProductos->sugerencia == 1) {
               $sugerencia=" <div style=' display: inline-block; padding: 0; margin: 0;' id='td_sugerencia_".$alpProductos->id."'>
@@ -117,15 +113,10 @@ class AlpProductosController extends JoshController
                    $sugerencia="  
 <div style=' display: inline-block; padding: 0; margin: 0;' id='td_sugerencia_".$alpProductos->id."'> <button title='Normal' data-url='".secure_url('productos/sugerencia')."' data-sugerencia='1' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  sugerencia'>  <span class='glyphicon glyphicon-remove-sign' aria-hidden='true'></span>   </button></div>";
 
-
-
             }
 
 
             $imagen="<img src='../uploads/productos/".$alpProductos->imagen_producto."' height='60px'>";
-
-                                          
-
 
                $data[]= array(
                  $alpProductos->id, 
@@ -138,16 +129,11 @@ class AlpProductosController extends JoshController
                  $actions.$destacado.$sugerencia
               );
 
-
-
           }
-
 
           return json_encode( array('data' => $data ));
 
     }
-
-
 
      public function recargaNodes($id_padre, $categorias)
     {
@@ -171,8 +157,6 @@ class AlpProductosController extends JoshController
                 );
 
                 $arbol[]=$elemento;
-
-               
 
             }
 
@@ -231,7 +215,10 @@ class AlpProductosController extends JoshController
         $impuestos = AlpImpuestos::all();
 
 
-        return view('admin.productos.create', compact('categorias', 'marcas', 'tree', 'check', 'roles', 'states', 'impuestos', 'empresas'));
+        $productos=AlpProductos::where('estado_registro', '1')->get();
+
+
+        return view('admin.productos.create', compact('categorias', 'marcas', 'tree', 'check', 'roles', 'states', 'impuestos', 'empresas', 'productos'));
     }
 
     /**
@@ -246,7 +233,7 @@ class AlpProductosController extends JoshController
 
         $input = $request->all();
 
-        
+      
 
         $imagen='default.png';
 
@@ -266,6 +253,7 @@ class AlpProductosController extends JoshController
                
 
         $data = array(
+            'tipo_producto' => $request->tipo_producto, 
             'nombre_producto' => $request->nombre_producto, 
             'presentacion_producto' => $request->presentacion_producto,
             'referencia_producto' => $request->referencia_producto, 
@@ -375,6 +363,27 @@ class AlpProductosController extends JoshController
 
         }
 
+
+         foreach ($input as $key => $value) {
+
+          if (substr($key, 0, 2)=='c_') {
+
+
+            $data_combo = array(
+              'id_combo' => $producto->id, 
+              'id_producto' => $value, 
+              'id_user' => $user_id
+            );
+
+            AlpCombosProductos::create($data_combo);
+
+           // print_r($data_precio).'<br>';
+            
+          }
+
+        }
+
+
         if ($producto->id) {
 
             return redirect('admin/productos');
@@ -384,7 +393,6 @@ class AlpProductosController extends JoshController
         }   
 
     }
-
 
     /**
      * Display the specified resource.
@@ -671,11 +679,16 @@ class AlpProductosController extends JoshController
 
         $empresas = AlpEmpresas::all();
 
+        $productos=AlpProductos::where('estado_registro', '1')->get();
+
+
+        $productos_list=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.nombre_producto as nombre_producto', 'alp_productos.referencia_producto as referencia_producto')->join('alp_productos', 'alp_combos_productos.id_producto', '=', 'alp_productos.id')->where('id_combo', $producto->id)->get();
+
 
 
         $roles = DB::table('roles')->select('id', 'name')->where('roles.tipo', 2)->get();
 
-        return view('admin.productos.edit', compact('producto', 'categorias', 'marcas', 'check', 'tree', 'roles',  'precio_grupo',  'precio_grupo_corporativo', 'states', 'impuestos', 'empresas'));
+        return view('admin.productos.edit', compact('producto', 'categorias', 'marcas', 'check', 'tree', 'roles',  'precio_grupo',  'precio_grupo_corporativo', 'states', 'impuestos', 'empresas', 'productos', 'productos_list'));
 
     }
 
@@ -712,6 +725,7 @@ class AlpProductosController extends JoshController
           $imagen = $picture;
 
              $data = array(
+                'tipo_producto' => $request->tipo_producto, 
                 'nombre_producto' => $request->nombre_producto, 
                 'presentacion_producto' => $request->presentacion_producto,
                 'referencia_producto' => $request->referencia_producto, 
@@ -849,6 +863,35 @@ class AlpProductosController extends JoshController
           }
 
         }
+
+        $combos=AlpCombosProductos::where('id_combo', $producto->id)->get();
+
+        $ids = array( );
+
+        foreach ($combos as $com ) {
+
+          $ids[]=$com->id;
+
+        }
+
+        AlpCombosProductos::whereIn('id', $ids)->delete();
+
+         foreach ($input as $key => $value) {
+
+          if (substr($key, 0, 2)=='c_') {
+
+            $data_combo = array(
+              'id_combo' => $producto->id, 
+              'id_producto' => $value, 
+              'id_user' => $user_id
+            );
+
+            AlpCombosProductos::create($data_combo);
+
+          }
+
+        }
+
 
 
         if ($producto->id) {

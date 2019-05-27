@@ -43,6 +43,7 @@ return array(
 	'tax' => 'Impuesto',
 	'pum' => 'Pum',
 	'medida' => 'Medida',
+	'tipo' => 'Tipo de Producto',
 
 
 

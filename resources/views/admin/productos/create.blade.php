@@ -147,7 +147,9 @@
                         </ol>
                     </div>
                     <div class="col-md-9 pd-r">
+
                         <div id="accordion-demo" class="panel-group">
+                            
                             <div class="panel panel-success">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
@@ -197,14 +199,134 @@
 
                                                 </div>
                                             </div>
+
+
+
+                                            <div class="form-group col-sm-12  {{ $errors->first('tipo_producto', 'has-error') }}">
+
+                                                <label for="select21" class="col-sm-3 col-xs-12 control-label">
+                                                    @lang('productos/title.tipo')
+                                                </label>
+
+                                                <div class="col-sm-9 col-xs-12" >
+
+                                                    <select id="tipo_producto" name="tipo_producto" class="form-control  {{ $errors->first('tipo_producto', 'has-error') }}  ">
+
+                                                        
+                                                        <option value="1"  >Normal</option>
+
+                                                         <option value="2"  >Combo</option>
+                                                       
+
+                                                    </select>
+                                                        {!! $errors->first('tipo_producto', '<span class="help-block">:message</span>') !!}
+                                                </div>
+                                                
+                                            </div>
+
+
+                                            
+
+
+
+
                                             <div class="acc-wizard-step"></div>
 
                                              <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
                                         
                                     </div>
-                                    <!--/.panel-body --> </div>
-                                <!-- /#prerequisites --> </div>
+
+                                </div>
+
+                            </div>
                             <!-- /.panel.panel-default -->
+
+
+
+                            <div class="panel panel-success @if(old('tipo_producto')!=null) @if(old('tipo_producto')==1) {{ 'hidden' }}  @endif @else {{'hidden'}} @endif" id="panelComboProductos">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a href="#addProductos" data-parent="#accordion-demo" data-toggle="collapse">Incluir Productos</a>
+                                    </h4>
+                                </div>
+                                <div id="addProductos" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                        
+                                        
+                                        <div class="form-group col-sm-12 {{ $errors->first('id_impuesto', 'has-error') }}">
+                                            <label for="select21" class="col-md-3 control-label">
+                                               Productos
+                                            </label>
+                                            <div class="col-md-7">   
+                                             <select id="id_producto" name="id_producto" class="form-control select2">
+                                                <option value="">Seleccione</option>
+                                                    
+                                                    @foreach($productos as $pro)
+                                                        
+                                                        <option value="{{ $pro->id }}">{{ $pro->nombre_producto.' - '.$pro->referencia_producto}}
+                                                        </option>
+
+                                                    @endforeach
+                                            </select>
+
+                                              {!! $errors->first('id_producto', '<span class="help-block">:message</span> ') !!}
+                                            </div>
+
+
+                                            <div class="col-md-2">   
+
+                                                <button type="button" class="btn btn-primary addProductoCupon" > Agregar</button>
+                                             
+
+                                              
+                                            </div>
+                                               
+                                        </div>
+
+
+                                        <div class="col-sm-12 listaProducos"> 
+
+                                                
+                                            <table class="table table-responsive" id="tableListProductos">
+                                                <thead>
+                                                    <tr>
+                                                        <td>Producto</td>
+                                                        <td>Accion</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    
+                                                </tbody>
+                                            </table>    
+
+
+                                        </div>
+                                           
+
+
+                                            
+
+
+
+
+                                            <div class="acc-wizard-step"></div>
+
+                                             <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
+                                        
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!-- /.panel.panel-default -->
+
+
+
+
+
+
+
+
 
                             <div class="panel panel-info">
                                 <div class="panel-heading">
@@ -668,16 +790,8 @@
                                                 </div>
                                             </div>
 
-
-
-
                                              </div>
 
-                                           
-
-
-                                            <!--  Botons anterior sguiente-->
-                        
                                            
                                             <div class="acc-wizard-step">
                                                 
@@ -690,16 +804,6 @@
                                     </div>
                                     <!--/.panel-body --> </div>
                          </div><!-- end panel -->
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -942,9 +1046,6 @@
         }
 
 
-
-
-
           function verificarCategorias (){
 
             cat='';            
@@ -1005,6 +1106,65 @@
     <script type="text/javascript">
         
 base=$('#base').val();        
+
+
+$(document).on('click', '.delProductoCombo', function(){
+
+    id=$(this).data('id');
+
+    $('#tr'+id+'').remove();
+});
+
+
+
+$('#tipo_producto').change(function(){
+
+    if ($(this).val()=='1') {
+
+        $('#panelComboProductos').addClass('hidden');
+
+    }else{
+
+        $('#panelComboProductos').removeClass('hidden');
+
+
+    }
+
+});
+
+
+
+$('.addProductoCupon').click(function(){
+
+    id_producto=$('#id_producto').val();
+
+    name=$('select[name="id_producto"] option:selected').text();
+
+
+    include='';
+
+    if (id_producto !='') {
+
+         include=include+'<tr id="tr'+id_producto+'">';
+            include=include+'<td>'+name+'</td>';
+            include=include+'<td> <button data-id="'+id_producto+'" class="btn btn-danger delProductoCombo"><i class="fa fa-trash "></i></button> <input type="hidden" name="c_pro_'+id_producto+'" id="c_pro_'+id_producto+'" value="'+id_producto+'"> </td>';
+            include=include+'</tr>';
+
+
+
+        
+
+
+        $('#tableListProductos tbody').append(include);
+
+
+    }
+
+
+});
+
+
+
 
 $("#productosForm").bootstrapValidator({
     fields: {
