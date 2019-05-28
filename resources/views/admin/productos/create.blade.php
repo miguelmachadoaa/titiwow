@@ -263,7 +263,7 @@
                                                     
                                                     @foreach($productos as $pro)
                                                         
-                                                        <option value="{{ $pro->id }}">{{ $pro->nombre_producto.' - '.$pro->referencia_producto}}
+                                                        <option value="{{ $pro->id }}">{{ $pro->nombre_producto.' - '.$pro->referencia_producto.' - Disp:'.$inventario[$pro->id]}}
                                                         </option>
 
                                                     @endforeach

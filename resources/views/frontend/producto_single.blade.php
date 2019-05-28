@@ -79,7 +79,35 @@
                 <div class="col-sm-8 col-md-8">
                     <h2 class="text-primary" id="titulo_single">{{ $producto->nombre_producto}} </h2>
                     <p class="descripcion">{{ $producto->descripcion_corta}}</p>
-                    <p class="descripcion">
+                    
+                    <p class="">
+
+
+                         @if($producto->tipo_producto=='2')
+
+                                @if(isset($combos[$producto->id]))
+
+                                <b style="color: #143473;">Incluye:</b>
+
+                                    @foreach($combos[$producto->id] as $cp)
+
+                                        <div class="col-xs-12" style=" @if($loop->last) {{'margin-bottom:10px;'}} @endif padding-left: 4em;">
+
+                                            <h6><a target="_blank"  href="{{ route('producto', [$cp->slug]) }}" style="color: #143473; " ><i class="fa fa-angle-double-right"></i>{{$cp->nombre_producto}}</a></h6>
+
+                                        </div>  
+
+                                    @endforeach
+
+                                @endif
+
+
+                            @endif
+
+
+
+
+
                         <b>Marca:</b> {{ $producto->nombre_marca}} <br />
                         <b>Categorías:</b> 
                         @foreach ($categos as $cats)
@@ -107,7 +135,13 @@
                         <br />
                         <b>Medida:</b> {{ $producto->medida}}<br />
                         <b>Referencia:</b> {{ $producto->referencia_producto}}<br />
+
+
+
+
                     </p>
+
+                    
 
                     <div class="box-info-product"> 
                         <div class="row">

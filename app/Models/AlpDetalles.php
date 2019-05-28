@@ -28,6 +28,7 @@ class AlpDetalles extends Model
         'precio_total_base',
         'valor_impuesto',
         'monto_impuesto',
+        'id_combo',
         'id_user'
     ];
 

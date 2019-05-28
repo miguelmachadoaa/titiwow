@@ -978,29 +978,29 @@
 
     <script type="text/javascript">
 
-$(document).on('click', '.delProductoCombo', function(){
+    $(document).on('click', '.delProductoCombo', function(){
 
-    id=$(this).data('id');
+        id=$(this).data('id');
 
-    $('#tr'+id+'').remove();
-});
-
-
-
-$('#tipo_producto').change(function(){
-
-    if ($(this).val()=='1') {
-
-        $('#panelComboProductos').addClass('hidden');
-
-    }else{
-
-        $('#panelComboProductos').removeClass('hidden');
+        $('#tr'+id+'').remove();
+    });
 
 
-    }
 
-});
+    $('#tipo_producto').change(function(){
+
+        if ($(this).val()=='1') {
+
+            $('#panelComboProductos').addClass('hidden');
+
+        }else{
+
+            $('#panelComboProductos').removeClass('hidden');
+
+
+        }
+
+    });
 
 
 

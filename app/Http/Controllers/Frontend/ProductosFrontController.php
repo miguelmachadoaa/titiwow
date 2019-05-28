@@ -12,6 +12,7 @@ use App\Models\AlpEmpresas;
 use App\Models\AlpPrecioGrupo;
 use App\Models\AlpInventario;
 use App\Models\AlpCms;
+use App\Models\AlpCombosProductos;
 use App\RoleUser;
 use App\State;
 use DB;
@@ -722,8 +723,10 @@ class ProductosFrontController extends Controller
 
         $inventario=$this->inventario();
 
+        $combos=$this->combos();
+
         
-        return \View::make('frontend.producto_single', compact('producto', 'descuento', 'precio','categos', 'states', 'cart', 'total','catprincipal', 'relacionados', 'prods', 'inventario'));
+        return \View::make('frontend.producto_single', compact('producto', 'descuento', 'precio','categos', 'states', 'cart', 'total','catprincipal', 'relacionados', 'prods', 'inventario', 'combos'));
 
     }
 
@@ -833,8 +836,9 @@ class ProductosFrontController extends Controller
 
         $inventario=$this->inventario();
 
+        $combos=$this->combos();
 
-        return \View::make('frontend.categorias', compact('productos','cataname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario'));
+        return \View::make('frontend.categorias', compact('productos','cataname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos'));
 
     }
     public function marcas($slug)
@@ -938,8 +942,10 @@ class ProductosFrontController extends Controller
 
         $inventario=$this->inventario();
 
+          $combos=$this->combos();
 
-        return \View::make('frontend.marcas', compact('productos','marcaname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario'));
+
+        return \View::make('frontend.marcas', compact('productos','marcaname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos'));
 
     }
 
@@ -1020,6 +1026,8 @@ class ProductosFrontController extends Controller
                 
         }
 
+
+
         //print_r($precio);
        // print_r($role->role_id);
 
@@ -1045,11 +1053,12 @@ class ProductosFrontController extends Controller
         $inventario=$this->inventario();
 
 
-        return \View::make('frontend.all', compact('productos', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario'));
+          $combos=$this->combos();
+
+
+        return \View::make('frontend.all', compact('productos', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos'));
 
     }
-
- 
 
 
     public function mySearch(Request $request)
@@ -1145,10 +1154,11 @@ class ProductosFrontController extends Controller
 
         $inventario=$this->inventario();
 
+        $combos=$this->combos();
 
          $states=State::where('config_states.country_id', '47')->get();
 
-        return \View::make('frontend.buscar', compact('productos', 'descuento', 'precio', 'states','termino', 'cart', 'total', 'prods', 'inventario'));
+        return \View::make('frontend.buscar', compact('productos', 'descuento', 'precio', 'states','termino', 'cart', 'total', 'prods', 'inventario', 'combos'));
 
     }
 
@@ -1197,6 +1207,54 @@ class ProductosFrontController extends Controller
       
     }
 
+
+    private function combos()
+    {
+
+      $c=AlpProductos::where('tipo_producto', '2')->get();
+      
+      $inventario=$this->inventario();
+
+      $combos = array();
+
+      foreach ($c as $co) {
+
+        $ban=0;
+        
+        $lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.slug as slug', 'alp_productos.nombre_producto as nombre_producto', 'alp_productos.imagen_producto as imagen_producto')
+        ->join('alp_productos', 'alp_combos_productos.id_producto', '=', 'alp_productos.id')
+        ->where('id_combo', $co->id)
+        ->get();
+
+        foreach ($lista as $l) {
+
+            if (isset($inventario[$l->id_producto])) {
+                
+                if($inventario[$l->id_producto]>0){
+
+                }else{
+
+                $ban=1;
+
+                }
+
+            }else{
+
+                $ban=1;
+            }
+            
+        }
+
+
+        if ($ban==0) {
+
+            $combos[$co->id]=$lista;
+        }
+
+      }
+
+      return $combos;
+    }
 
 
 

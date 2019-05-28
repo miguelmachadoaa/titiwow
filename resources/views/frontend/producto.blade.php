@@ -3,13 +3,29 @@
                         <div class="text-align:center;">
                             <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive"></a>
 
-                             @if(isset($inventario[$producto->id]))
+                            
+                            @if($producto->tipo_producto=='1')
 
-                                @if($inventario[$producto->id]<=0)
+                                @if(isset($inventario[$producto->id]))
 
-                                    <img class="agotado" style="" src="{{ secure_url('/').'/uploads/files/agotado.png' }}" alt="">
+                                    @if($inventario[$producto->id]<=0)
+
+                                        <img class="agotado" style="" src="{{ secure_url('/').'/uploads/files/agotado.png' }}" alt="">
+
+                                    @endif
 
                                 @endif
+
+                            @else
+
+                                @if(isset($combos[$producto->id]))
+
+                                @else
+
+                                        <img class="agotado" style="" src="{{ secure_url('/').'/uploads/files/agotado.png' }}" alt="">
+
+                                @endif
+
 
                             @endif
 
@@ -67,14 +83,13 @@
                             
                             <div class="product_botones boton_{{ $producto->id }}">
 
-                              @if(isset($inventario[$producto->id]))
-
-                              @if($inventario[$producto->id]>0)
-
-
+                        @if($producto->tipo_producto=='1')  
+                        
+                            @if(isset($inventario[$producto->id]))
                               
+                                @if($inventario[$producto->id]>0)
 
-                                @if(isset($cart[$producto->slug]))
+                                    @if(isset($cart[$producto->slug]))
 
                                     <div class="row" style="margin-bottom:5px;">
                                     <div class="col-sm-10 col-sm-offset-1">
@@ -103,20 +118,80 @@
 
                                     <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
 
-                                @else
+                                    @else
 
                                     <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
                                     <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
 
+                                    @endif
+
+                                @else <!-- si hay inventario  -->
+
+                                    <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                
                                 @endif
 
-                              @else
+                            @endif
+
+                        @else
+
+                        <!-- Proceso para productos de tipo combo -->
+
+                            @if(isset($combos[$producto->id]))
+                              
+                                @if($inventario[$producto->id]>0)
+
+                                    @if(isset($cart[$producto->slug]))
+
+                                    <div class="row" style="margin-bottom:5px;">
+                                    <div class="col-sm-10 col-sm-offset-1">
+                                        <div class="input-group">
+                                        <span class="input-group-btn">
+                                            
+                                            <button data-cantidad="{{ $cart[$producto->slug]->cantidad }}" data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-danger updatecart" type="button"><i class="fa fa-minus"></i></button>
+
+                                        </span>
+
+                                        <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
+
+
+                                        <span class="input-group-btn">
+
+                                            <button data-cantidad="{{ $cart[$producto->slug]->cantidad }}" data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
+
+                                            
+
+                                        </span>
+
+                                        </div><!-- /input-group -->
+                                    </div><!-- /.col-lg-6 -->
+                                    
+                                    </div><!-- /.row -->
+
+                                    <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+
+                                    @else
+
+                                    <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                    <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
+
+                                    @endif
+
+                                @else <!-- si hay inventario  -->
+
+                                    <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                
+                                @endif
+
+                            @else <!-- si hay inventario  -->
 
                                 <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
-                                
-                              @endif
+                            
+                            @endif
 
-                              @endif
+
+                    
+                        @endif
 
                                 </div>
                         </div>

@@ -23,6 +23,7 @@ use App\Models\AlpDirecciones;
 use App\Models\AlpCodAlpinistas;
 use App\Models\AlpInventario;
 use App\Models\AlpOrdenesDescuento;
+use App\Models\AlpCombosProductos;
 use App\User;
 use App\State;
 use App\RoleUser;
@@ -215,8 +216,10 @@ class FrontEndController extends JoshController
 
         $inventario=$this->inventario();
 
+        $combos=$this->combos();
 
-        return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion','inventario'));
+
+        return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion','inventario', 'combos'));
 
     }
 
@@ -1120,6 +1123,58 @@ class FrontEndController extends JoshController
             return $inv;
       
     }
+
+
+    private function combos()
+    {
+
+      $c=AlpProductos::where('tipo_producto', '2')->get();
+      
+      $inventario=$this->inventario();
+
+      $combos = array();
+
+      foreach ($c as $co) {
+
+        $ban=0;
+        
+        $lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.slug as slug', 'alp_productos.nombre_producto as nombre_producto', 'alp_productos.imagen_producto as imagen_producto')
+        ->join('alp_productos', 'alp_combos_productos.id_producto', '=', 'alp_productos.id')
+        ->where('id_combo', $co->id)
+        ->get();
+
+        foreach ($lista as $l) {
+
+            if (isset($inventario[$l->id_producto])) {
+                
+                if($inventario[$l->id_producto]>0){
+
+                }else{
+
+                $ban=1;
+
+                }
+
+            }else{
+
+                $ban=1;
+            }
+            
+        }
+
+
+        if ($ban==0) {
+
+            $combos[$co->id]=$lista;
+        }
+
+      }
+
+      return $combos;
+    }
+
+
+
 
 
 

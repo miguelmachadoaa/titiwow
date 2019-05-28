@@ -214,11 +214,13 @@ class AlpProductosController extends JoshController
 
         $impuestos = AlpImpuestos::all();
 
+        $inventario=$this->inventario();
+
 
         $productos=AlpProductos::where('estado_registro', '1')->get();
 
 
-        return view('admin.productos.create', compact('categorias', 'marcas', 'tree', 'check', 'roles', 'states', 'impuestos', 'empresas', 'productos'));
+        return view('admin.productos.create', compact('categorias', 'marcas', 'tree', 'check', 'roles', 'states', 'impuestos', 'empresas', 'productos', 'inventario'));
     }
 
     /**
@@ -892,14 +894,14 @@ class AlpProductosController extends JoshController
 
         }
 
-
-
         if ($producto->id) {
 
             return redirect('admin/productos');
 
         } else {
+
             return Redirect::route('admin/productos')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+
         }
 
 
@@ -1170,7 +1172,6 @@ class AlpProductosController extends JoshController
           ->whereNull('alp_productos_relacionados.deleted_at')
           ->where('alp_productos_relacionados.id_producto', '=',$id_producto)->get();
 
-
         $view= View::make('admin.productos.tabla_relacionados', compact('relacionados'));
 
         $data=$view->render();
@@ -1178,4 +1179,38 @@ class AlpProductosController extends JoshController
         return $data;
 
     }
+
+
+    private function inventario()
+    {
+
+      $entradas = AlpInventario::groupBy('id_producto')
+              ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
+              ->where('alp_inventarios.operacion', '1')
+              ->get();
+
+              $inv = array();
+
+              foreach ($entradas as $row) {
+                
+                $inv[$row->id_producto]=$row->cantidad_total;
+
+              }
+
+            $salidas = AlpInventario::select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
+              ->groupBy('id_producto')
+              ->where('operacion', '2')
+              ->get();
+
+              foreach ($salidas as $row) {
+                
+                $inv[$row->id_producto]= $inv[$row->id_producto]-$row->cantidad_total;
+
+            }
+
+            return $inv;
+      
+    }
+
+    
 }

@@ -52,8 +52,6 @@ use View;
 use MP;
 use Mail;
 
-
-
 use App\Models\AlpCuponesCategorias;
 use App\Models\AlpCuponesEmpresa;
 use App\Models\AlpCuponesProducto;
@@ -61,6 +59,7 @@ use App\Models\AlpCuponesRol;
 use App\Models\AlpCuponesMarcas;
 use App\Models\AlpCuponesUser;
 use App\Models\AlpOrdenesDescuento;
+use App\Models\AlpCombosProductos;
 
 use Illuminate\Support\Facades\Storage;
 
@@ -98,16 +97,14 @@ class AlpCartController extends JoshController
 
       $cart=$this->reloadCart();
 
-   
+      $combos=$this->combos();
+
 
       $configuracion=AlpConfiguracion::where('id', '1')->first();
 
       $total=$this->total();
 
      $inv=$this->inventario();
-
-
-     /**Mostar mas vendidos en el carro*/
 
         $descuento='1'; 
 
@@ -130,12 +127,6 @@ class AlpCartController extends JoshController
 
                 if ($cliente->id_empresa!=0) {
                     
-                    /* $empresa=AlpEmpresas::find($cliente->id_empresa);
-
-                    $cliente['nombre_empresa']=$empresa->nombre_empresa;
-
-                    $descuento=(1-($empresa->descuento_empresa/100));*/
-
                     $role->role_id='E'.$role->role_id.'';
                 }
                
@@ -178,8 +169,6 @@ class AlpCartController extends JoshController
                 }
                 
         }
-
-
 
         $prods = array( );
 
@@ -231,18 +220,12 @@ class AlpCartController extends JoshController
 
        }
 
-
-       // $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
-
-
-      // $cart[$producto->slug]=$producto;
-
        $prods[]=$producto;
        
       }
 
 
-      return view('frontend.cart', compact('cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento'));
+      return view('frontend.cart', compact('cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos'));
     }
 
     public function detalle()
@@ -266,8 +249,6 @@ class AlpCartController extends JoshController
       $view= View::make('frontend.order.detalle', compact('cart'));
 
       $data=$view->render();
-
-      
 
       return $data;
 
@@ -294,10 +275,7 @@ class AlpCartController extends JoshController
 return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
 
 
-
-
     }
-
 
 
     public function getPse(Request $request)
@@ -308,9 +286,6 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
       $id_orden= \Session::get('orden');
 
       $orden=AlpOrdenes::where('id', $id_orden)->first();
-
-
-
 
 
       $total=$orden->monto_total;
@@ -454,9 +429,6 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
       $input=$request->all();
 
-      //dd($input);
-
-
        if (\Session::has('pse')) {
 
         $id_pago=\Session::get('pse');
@@ -498,8 +470,6 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
         $fecha_entrega=$data['fecha_entrega'];
        
-         
-
         $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
             ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
             ->join('alp_clientes','alp_ordenes.id_cliente' , '=', 'alp_clientes.id_user_client')
@@ -2187,10 +2157,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        $carrito= \Session::get('cr');
 
-            $user_id = Sentinel::getUser()->id;
-
-
-
+      $user_id = Sentinel::getUser()->id;
 
       $usados_orden=AlpOrdenesDescuento::where('id_orden', $carrito)->where('id_user', $user_id)->get();
 
@@ -2358,6 +2325,29 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
             return $inv;
       
     }
+
+
+    private function combos()
+    {
+
+      $c=AlpProductos::where('tipo_producto', '2')->get();
+
+      $combos = array();
+
+      foreach ($c as $co) {
+        
+        $lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.slug as slug', 'alp_productos.nombre_producto as nombre_producto', 'alp_productos.imagen_producto as imagen_producto')
+        ->join('alp_productos', 'alp_combos_productos.id_producto', '=', 'alp_productos.id')
+        ->where('id_combo', $co->id)
+        ->get();
+
+        $combos[$co->id]=$lista;
+
+      }
+
+      return $combos;
+    }
+
 
 
     private function reloadCart()
@@ -2844,7 +2834,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       $ciudad=AlpFormaCiudad::where('id_forma', $request->id_forma_envio)->where('id_ciudad', $direccion->city_id)->first();
 
-
       $carrito= \Session::get('cr');
 
       $cart=$this->reloadCart();
@@ -2876,8 +2865,11 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         $orden=AlpOrdenes::create($data_orden);
 
         $monto_total_base=0;
+
         $base_impuesto=0;
+
         $monto_impuesto=0;
+
         $valor_impuesto=0;
 
         foreach ($cart as $detalle) {
@@ -2887,7 +2879,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
            $total_detalle=$detalle->precio_oferta*$detalle->cantidad;
 
             if ($detalle->valor_impuesto!=0) {
-
 
             $base_imponible_detalle=$total_detalle/(1+$detalle->valor_impuesto);
 
@@ -2901,7 +2892,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
             $base_impuesto=$base_impuesto+$total_detalle;
 
-            //$valor_impuesto=0;
           }
 
           $imp=$detalle->valor_impuesto+1;
@@ -2931,6 +2921,54 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           AlpDetalles::create($data_detalle);
 
           AlpInventario::create($data_inventario);
+
+
+
+
+          if ($detalle->tipo_producto=='2') {
+            
+               $lista=AlpCombosProductos::select(
+                'alp_combos_productos.*', 
+                'alp_productos.slug as slug', 
+                'alp_productos.nombre_producto as nombre_producto', 
+                'alp_productos.imagen_producto as imagen_producto'
+              )
+                ->join('alp_productos', 'alp_combos_productos.id_producto', '=', 'alp_productos.id')
+                ->where('id_combo', $detalle->id)
+                ->get();
+
+                foreach ($lista as $l) {
+                  
+
+                  $data_detalle = array(
+                    'id_orden' => $orden->id, 
+                    'id_producto' => $l->id_producto, 
+                    'cantidad' =>1, 
+                    'precio_unitario' =>0, 
+                    'precio_base' =>0, 
+                    'precio_total' =>0,
+                    'precio_total_base' =>0,
+                    'valor_impuesto' =>0,
+                    'monto_impuesto' =>0,
+                    'id_combo' =>$detalle->id,
+                    'id_user' =>$user_id 
+                  );
+
+                  $data_inventario = array(
+                    'id_producto' => $l->id_producto, 
+                    'cantidad' =>1, 
+                    'operacion' =>'2', 
+                    'id_user' =>$user_id 
+                  );
+
+                  AlpDetalles::create($data_detalle);
+
+                  AlpInventario::create($data_inventario);
+
+              }
+
+          }
+
 
         }//endfreach
 
