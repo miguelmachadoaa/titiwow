@@ -258,7 +258,7 @@
                                                Productos
                                             </label>
                                             <div class="col-md-7">   
-                                             <select id="id_producto" name="id_producto" class="form-control select2">
+                                             <select style="width: 50%" id="id_producto" name="id_producto" class="form-control select2 js-example-responsive">
                                                 <option value="">Seleccione</option>
                                                     
                                                     @foreach($productos as $pro)
