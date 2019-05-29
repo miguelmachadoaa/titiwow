@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class AlpOrdenesDescuento extends Model
+class AlpCuponesDescuento extends Model
 {
     use SoftDeletes;
 
