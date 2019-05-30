@@ -689,11 +689,11 @@ $("#editDireccionForm").bootstrapValidator({
   
 
 $("#addAddressForm").bootstrapValidator({
-    fields: {
+     fields: {
         titulo: {
             validators: {
                 notEmpty: {
-                    message: 'Nombre de  Dirección es Requerido'
+                    message: 'Nombre de Dirección es Requerido'
                 }
             },
             required: true,
@@ -708,7 +708,6 @@ $("#addAddressForm").bootstrapValidator({
             },
             required: true,
         },
-
         secundaria_address: {
             validators: {
                 notEmpty: {
@@ -728,22 +727,20 @@ $("#addAddressForm").bootstrapValidator({
             },
             required: true,
         },
-        
         detalle_address: {
             validators: {
                 notEmpty: {
-                    message: 'El Detalle de la dirección  no puede esta vacio'
+                    message: 'El Detalle de la dirección no puede estar vacio'
                 }
             }
         },
         barrio_address: {
             validators: {
                 notEmpty: {
-                    message: 'El Barrio  no puede esta vacio'
+                    message: 'El Barrio no puede esta vacio'
                 }
             }
         },
-
         city_id: {
             validators:{
                 notEmpty:{
@@ -755,7 +752,7 @@ $("#addAddressForm").bootstrapValidator({
         id_estructura_address: {
             validators:{
                 notEmpty:{
-                    message: 'Debe seleccionar una estructura'
+                    message: 'Debe seleccionar una Estructura '
                 }
             }
         }
