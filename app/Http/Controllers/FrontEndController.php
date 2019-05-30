@@ -449,7 +449,6 @@ class FrontEndController extends JoshController
 
          
 
-        //$activate = $this->user_activation; //make it false if you don't want to activate user automatically it is declared above as global variable
         try {
 
             if($request->chkalpinista == 1) {
@@ -473,21 +472,11 @@ class FrontEndController extends JoshController
             }else{
 
 
-               // $activate=false;
-
-
-                // Register the user
                 $user = Sentinel::register($request->only(['first_name', 'last_name', 'email', 'password']), $activate);
 
             }
 
-            //crear registro en la tabla clientes 
-
-           /* if ($request->gender=='male') {
-               $genero=2;
-           }else{
-                $genero=1;
-           }*/
+        
 
            if($request->chkalpinista == 1) {
 
@@ -684,7 +673,7 @@ class FrontEndController extends JoshController
 
 
            // return Redirect::route("clientes")->with('success', trans('auth/message.signup.success'));
-            return Redirect::route("home")->with('success', trans('Gracias por registrarte en AlpinaGo, Ya puedes disfrutar de nuestros productos con un descuento especial. '));
+            return Redirect::route("home")->with('success', trans('Bienvenido a Alpina GO!. Ya puedes comprar todos nuestro productos y promociones. Alpina Alimenta tu vida. '));
 
 
 

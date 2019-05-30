@@ -154,11 +154,6 @@ div.overlay > div {
        
 
         @include('frontend.includes.detallesventa')
-        
-          
-
-
-
      
 
     </div> <!-- end Row --><!-- col-sm-8 -->
@@ -543,7 +538,7 @@ div.overlay > div {
 
                 if (aviso=='') {}else{
 
-                    $('.resaviso').html('<div class="alert alert-danger">'+aviso+'</div>');
+                    $('.resaviso').html(aviso);
                 }
 
              }

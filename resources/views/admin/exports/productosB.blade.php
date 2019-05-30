@@ -16,6 +16,8 @@
             <th><b>Monto Iva</b></th>
             <th><b>Fecha</b></th>
             <th><b>Id Factura</b></th>
+            <th><b>Monto Descuesto</b></th>
+            <th><b>Codigo Cupon</b></th>
         </tr>
     </thead>
     <tbody>
@@ -37,6 +39,8 @@
             <td>{!! $row->monto_impuesto !!}</td>
             <td>{!! $row->fecha !!}</td>
             <td></td>
+            <td>{!! $row->monto_descuento !!}</td>
+            <td>{!! $row->codigo_cupon !!}</td>
           
         </tr>
         @endforeach

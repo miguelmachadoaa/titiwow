@@ -20,6 +20,7 @@ use App\Exports\ProductostotalesExport;
 use App\Exports\CarritoExport;
 use App\Exports\DescuentoVentasExport;
 use App\Exports\TomaPedidosExport;
+use App\Exports\CuponesDescuentoExport;
 use App\User;
 use App\Models\AlpOrdenes;
 use App\Models\AlpProductos;
@@ -242,6 +243,20 @@ class AlpReportesController extends Controller
         return Excel::download(new VentastotalesExport($request->desde, $request->hasta), 'ventastotales_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
     }
 
+
+     public function cuponesdescuento() 
+    {
+
+        return view('admin.reportes.cuponesdescuento');
+
+    }
+
+
+    public function exportcuponesdescuento(Request $request) 
+    {
+        return Excel::download(new CuponesDescuentoExport(), 'cuponesdescuento.xlsx');
+    }
+
     public function ventasdescuento() 
     {
 
@@ -364,6 +379,19 @@ class AlpReportesController extends Controller
         $archivo='tomapedidos_'.$hoy.'.xlsx';
 
          return Excel::download(new TomaPedidosExport(), $archivo);
+
+    }
+
+
+    public function cronexportcuponesdescuento(Request $request) 
+    {
+        $date = Carbon::now();
+
+        $hoy=$date->format('Y-m-d');
+
+        $archivo='cuponesdescuento_'.$hoy.'.xlsx';
+
+         return Excel::download(new CuponesDescuentoExport(), $archivo);
 
     }
 

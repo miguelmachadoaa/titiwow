@@ -14,13 +14,12 @@ use Illuminate\Contracts\View\View;
 use \DB;
 
 
-class ProductosExportB implements FromView
+class CuponesDescuentoExport implements FromView
 {
     
-    public function __construct(string $desde, string $hasta)
+    public function __construct()
     {
-        $this->desde = $desde;
-        $this->hasta = $hasta;
+        
     }
 
 
@@ -31,6 +30,8 @@ class ProductosExportB implements FromView
           'alp_ordenes_detalle.*', 
           'alp_clientes.doc_cliente as doc_cliente',
           'alp_ordenes.ordencompra as ordencompra',
+          'alp_ordenes.monto_descuento as monto_descuento',
+          'alp_ordenes_descuento.codigo_cupon as codigo_cupon',
           'users.id as id_usuario', 
           'users.first_name as first_name', 
           'users.last_name as last_name', 
@@ -42,9 +43,7 @@ class ProductosExportB implements FromView
           'alp_productos.referencia_producto_sap as referencia_producto_sap',
           'alp_productos.referencia_producto as referencia_producto',
           'alp_categorias.nombre_categoria as nombre_categoria',
-          'alp_marcas.nombre_marca as nombre_marca',
-          'alp_ordenes_descuento.codigo_cupon as codigo_cupon',
-          'alp_ordenes.monto_descuento as monto_descuento',
+          'alp_marcas.nombre_marca as nombre_marca'
           )
           ->join('alp_ordenes', 'alp_ordenes_detalle.id_orden', '=', 'alp_ordenes.id')
           ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
@@ -55,7 +54,7 @@ class ProductosExportB implements FromView
           ->leftJoin('alp_ordenes_descuento', 'alp_ordenes.id', '=', 'alp_ordenes_descuento.id_orden')
          // ->groupBy('alp_ordenes_detalle.id_producto')
           ->whereNull('alp_ordenes.factura')
-          ->whereIn('alp_ordenes.estatus', [1])
+          ->whereIn('alp_ordenes.estatus', [1,5,6,7])
           ->where('alp_ordenes.estatus_pago','=', '2')
           //->whereDate('alp_ordenes_detalle.created_at', '>=', $this->desde)
           //->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta)
@@ -71,14 +70,7 @@ class ProductosExportB implements FromView
           )
           ->groupBy('alp_ordenes_detalle.id_orden')
           ->where('alp_ordenes_detalle.id_producto', '=', $producto->id_producto)
-          ->whereDate('alp_ordenes_detalle.created_at', '>=', $this->desde)
-          ->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta)
           ->first();
-
-           if ($producto->id_combo!=0) {
-            
-            $producto->nombre_producto='Combo - '.$producto->nombre_producto;
-          }
 
           //dd($p);
 
@@ -98,7 +90,7 @@ class ProductosExportB implements FromView
 
           //dd($ordenes);
 
-        return view('admin.exports.productosB', [
+        return view('admin.exports.cuponesdescuento', [
             'productos' => $pro
         ]);
     }

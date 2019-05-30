@@ -11,6 +11,7 @@
             <th><b>Orden_pedido_sac</b></th>
             <th><b>Medio Pago</b></th>
             <th><b>Tipo de Pago</b></th>
+            <th><b>Monto Descuento</b></th>
             <th><b>ValorPedido</b></th>
             <th><b>Base Imponible</b></th>
             <th><b>Valor Iva</b></th>
@@ -76,6 +77,7 @@
 
             </td>
 
+            <td>{!! $row->monto_descuento !!}</td>
             <td>{!! $row->monto_total !!}</td>
             <td>@if($row->valor_impuesto!=0) {!!  $row->base_impuesto/(1+$row->valor_impuesto) !!}  @else   {{ 0 }} @endif </td>
             <td>{!! $row->valor_impuesto*100 !!} %</td>

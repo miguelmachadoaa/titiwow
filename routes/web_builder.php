@@ -31,6 +31,13 @@ Route::get('reportes/cronexportproductosc', 'Admin\AlpReportesController@cronexp
 
 Route::get('reportes/cronexporttomapedidos', 'Admin\AlpReportesController@cronexporttomapedidos')->name('reportes.cronexporttomapedidos');
 
+Route::get('reportes/cronexportcuponesdescuento', 'Admin\AlpReportesController@cronexportcuponesdescuento')->name('reportes.cronexportcuponesdescuento');
+
+
+
+
+
+
 
 Route::get('admin/clientes/data', 'Admin\AlpClientesController@data')->name('clientes.data');
 Route::get('admin/clientes/dataempresas', 'Admin\AlpClientesController@dataempresas')->name('clientes.dataempresas');
@@ -444,6 +451,10 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
     Route::get('reportes/consolidado', 'Admin\AlpReportesController@consolidado')->name('reportes.consolidado');
    //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
    Route::post('reportes/exportconsolidado', 'Admin\AlpReportesController@exportconsolidado')->name('reportes.exportconsolidado');
+
+   Route::get('reportes/cuponesdescuento', 'Admin\AlpReportesController@cuponesdescuento')->name('reportes.cuponesdescuento');
+
+Route::post('reportes/exportcuponesdescuento', 'Admin\AlpReportesController@exportcuponesdescuento')->name('reportes.exportcuponesdescuento');
 
 
    Route::get('reportes/productostotales', 'Admin\AlpReportesController@productostotales')->name('reportes.productostotales');

@@ -42,6 +42,7 @@ class FinancieroExport implements FromView
           'alp_ordenes.retencion_ica_mp as retencion_ica_mp',
           'alp_ordenes.factura as factura', 
           'alp_ordenes.ordencompra as ordencompra', 
+          'alp_ordenes.monto_descuento as monto_descuento', 
           'alp_ordenes.monto_total as monto_total', 
           'alp_clientes.cod_oracle_cliente as cod_oracle_cliente', 
           'alp_clientes.id_embajador as id_embajador', 

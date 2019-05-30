@@ -46,6 +46,8 @@
                                     @endforeach
                                 </select>
 
+                                <p>Si quieres editar una dirección <a class="btn btn-link" target="_blank" style="color: #d5006e !important;" href="{{secure_url('misdirecciones')}}">Clic aqui </a></p>
+
                                 
                             </div>
                         </div>

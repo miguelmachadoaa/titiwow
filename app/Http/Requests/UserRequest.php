@@ -18,6 +18,30 @@ class UserRequest extends FormRequest
         return true;
     }
 
+
+        public function messages()
+    {
+        return [
+                    'first_name.required' => 'El Nombre es requerido',
+                    'first_name.min' => 'El Nombre de contener como minimo 3 caracteres',
+                    'last_name.required' => 'El Apellido es requerido',
+                    'last_name.min' => 'El Apellido debe ser mayor a 3 caracteres',
+                    'email.required' => 'El Email es requerido',
+                    'password.required' => 'La Clave es requerido',
+                    'password.between' => 'La clave debe contener entre 3 y 32 caracteres',
+                    'password_confirm.required' => 'El Confirmacion de Clave es requerido',
+                    'doc_cliente.required' => 'El Documento es requerido',
+                    'id_type_doc.required' => 'El Tipo de Documento  es requerido',
+                    'telefono_cliente.required' => 'El Telefono  es requerido',
+                    'habeas_cliente.required' => 'Aceptar Terminos y condiciones  es requerido',
+                    'id_estructura_address' => 'La Estructura es Requerida',
+                    'principal_address' => 'La Principal es requerida',
+                    'secundaria_address' => 'La Secundaria es requerida',
+                    'edificio_address' => 'El Edifico es requerido',
+                    'g-recaptcha-response' => new Captcha(),
+                ];
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

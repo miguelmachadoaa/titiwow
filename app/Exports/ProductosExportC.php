@@ -58,7 +58,6 @@ class ProductosExportC implements FromView
           //->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta)
           ->get();
 
-
           $pro = array();
 
           foreach ($productos as $producto) {
@@ -71,6 +70,12 @@ class ProductosExportC implements FromView
           ->whereDate('alp_ordenes_detalle.created_at', '>=', $this->desde)
           ->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta)
           ->first();
+
+
+          if ($producto->id_combo!=0) {
+            
+            $producto->nombre_producto='Combo - '.$producto->nombre_producto;
+          }
 
           //dd($p);
 

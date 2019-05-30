@@ -7,8 +7,6 @@
     <div class="form-group col-sm-10 col-sm-offset-1">
 
     @foreach($direcciones as $direccion)
-               
-        
 
         <!-- Se construyen las opciones de envios -->
 

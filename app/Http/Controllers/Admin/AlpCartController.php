@@ -3042,9 +3042,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
 
-
     private function asignaCupon($codigo){
-
 
      $configuracion=AlpConfiguracion::where('id', '1')->first();
       
@@ -3073,7 +3071,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           ->whereDate('fecha_final','>=',$hoy)
           ->first();
 
-       
 
       $usados=AlpOrdenesDescuento::where('codigo_cupon', $codigo)->get();
 
@@ -3082,13 +3079,13 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       $usados_orden=AlpOrdenesDescuento::where('id_orden', $carrito)->where('id_user', $user_id)->get();
 
 
-
-
           $mensaje_user='';
           
           $mensaje_producto = '';
           
           $pago = '';
+
+          $clase='info';
 
 
            $b_empresa=0;
@@ -3137,6 +3134,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                $b_user_valido=1;
 
               $mensaje_user=$mensaje_user.'Ya el usuario aplico un cupón en la orden ';
+               $clase='info';
 
             }
 
@@ -3146,6 +3144,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                $b_user_valido=1;
 
                 $mensaje_user=$mensaje_user.'Ya se usaron los cupones ';
+               $clase='info';
+
 
             }
 
@@ -3155,6 +3155,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                $b_user_valido=1;
 
                 $mensaje_user=$mensaje_user.'Ya el usuario aplico el máximo de cupones  ';
+               $clase='info';
+
 
             }
 
@@ -3164,6 +3166,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                $b_user_valido=1;
 
                 $mensaje_user=$mensaje_user.'Para usar el cupón debe tener mínimo $'.intval($cupon->monto_minimo).' en el carrito ';
+
+               $clase='info';
+
 
             }
 
@@ -3180,6 +3185,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                   $b_user_valido=1;
 
                   $mensaje_user=$mensaje_user.' No aplicable por filtro empresa';
+
+               $clase='danger';
+
               }
 
             }
@@ -3197,6 +3205,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                 $b_user_valido=1;
 
                 $mensaje_user=$mensaje_user.' No aplicable por filtro rol';
+
+               $clase='danger';
+
               }
 
             }
@@ -3211,11 +3222,12 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                 $b_user_valido=1;
                 $mensaje_user=$mensaje_user.' No aplicable por filtro usuario';
+
+               $clase='danger';
+
               }
 
-
             }
-
 
             $base_descuento=0;
 
@@ -3234,13 +3246,13 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                       if(isset($cc->id)){
 
-                       
 
                         }else{
 
                           $b_producto_valido=1;
 
                           $mensaje_producto=' No aplicable por filtro categoria';
+                          $clase='info';
                       }
 
                     }
@@ -3260,6 +3272,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                           $b_producto_valido=1;
 
                           $mensaje_producto=' No aplicable por filtro marca';
+                          $clase='info';
+
                       }
 
                     }
@@ -3277,6 +3291,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                           $b_producto_valido=1;
 
                           $mensaje_producto=' No aplicable por filtro producto';
+                          $clase='info';
+
                       }
 
                     }
@@ -3285,6 +3301,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                     if ($b_producto_valido==0) {
 
                       $base_descuento=$base_descuento+($detalle->precio_oferta*$detalle->cantidad);
+
+                      
 
                     }
 
@@ -3328,6 +3346,11 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
               $pago=AlpOrdenesDescuento::create($data_pago);
 
 
+              $mensaje_producto='Cupón aplicado satisfactoriamente ';
+
+                      $clase='info';
+
+
             }
 
           } //en if usuario paso
@@ -3337,9 +3360,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
             $b_user_valido=1;
 
-              $mensaje_user=$mensaje_user.'No se encontro cupon';
-
-
+              $mensaje_user=$mensaje_user.'Lo sentimos, es código no esta disponible';
+              $clase='danger';
       }
 
       return array(
@@ -3350,6 +3372,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         'producto_valido' => $b_producto_valido, 
         'mensaje_user' => $mensaje_user, 
         'mensaje_producto' => $mensaje_producto, 
+        'clase' => $clase
       );
 
 
@@ -3398,11 +3421,6 @@ public function addcupon(Request $request)
 
       if (Sentinel::check()) {
 
-
-
-
-
-
         $user_id = Sentinel::getUser()->id;
 
         $usuario=User::where('id', $user_id)->first();
@@ -3412,7 +3430,6 @@ public function addcupon(Request $request)
 
         $mensaje_cupon=$this->asignaCupon($request->codigo_cupon);
 
-      
 
 
         if ($mensaje_cupon['mensaje_user']=='') {
@@ -3431,10 +3448,10 @@ public function addcupon(Request $request)
 
         }
 
-        return $aviso;
+        $texto="<div class='alert alert-".$mensaje_cupon['clase']."'>".$aviso."</div>";
 
 
-       
+        return $texto;
 
 
       }else{
@@ -3491,22 +3508,13 @@ public function addcupon(Request $request)
 
       if (Sentinel::check()) {
 
-
-
-
-
-
         $user_id = Sentinel::getUser()->id;
 
         $usuario=User::where('id', $user_id)->first();
 
         $user_cliente=User::where('id', $user_id)->first();
 
-
         $mensaje_cupon=$this->asignaCupon($request->codigo_cupon);
-
-      
-
 
         if ($mensaje_cupon['mensaje_user']=='') {
           
@@ -3526,17 +3534,12 @@ public function addcupon(Request $request)
 
         return redirect('order/detail')->with('aviso', $aviso);
 
-
-       
-
-
       }else{
 
         $url='order.detail';
 
           //return redirect('login');
         return view('frontend.order.login', compact('url'));
-
 
       }
 
@@ -3559,24 +3562,14 @@ public function addcupon(Request $request)
 
       $impuesto=$this->impuesto();
 
-      $aviso='El cupón ha sido eliminado';
-
+      $texto="<div class='alert alert-danger'>El cupón ha sido eliminado</div>";
 
       $o=AlpOrdenesDescuento::where('id', $request->id)->first();
 
       $o->delete();
 
-      return $aviso;
-
-
-
+      return $texto;
 
     }
-
-
-
-
-
-
 
 }

@@ -193,7 +193,7 @@
 
                         <div class="col-sm-6" >
 
-                            <input type="text" id="secundaria_address" name="secundaria_address" placeholder="Ejemplo: 14 " class="form-control" value="{!! old('secundaria_address') !!}" >
+                            <input type="text" id="secundaria_address" name="secundaria_address" placeholder="Ejemplo: #14 " class="form-control" value="{!! old('secundaria_address') !!}" >
 
                             {!! $errors->first('secundaria_address', '<span class="help-block">:message</span>') !!}
 
