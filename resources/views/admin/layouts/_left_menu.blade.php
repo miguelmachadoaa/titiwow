@@ -769,6 +769,16 @@
             </li>
             @endif
 
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.cuponesdescuento']))
+
+                <li {!! (Request::is('admin/reportes/cuponesdescuento') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ URL::to('admin/reportes/cuponesdescuento') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Cupones de Descuento
+                </a>
+            </li>
+            @endif
+
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.carritos']))
                 <li {!! (Request::is('admin/reportes/carrito') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ URL::to('admin/reportes/carrito') }}">
