@@ -159,6 +159,28 @@ Ordenes Aprobadas
 
 
 
+       $(document).ready(function() {
+
+
+        base=$('#base').val();
+        
+    var table =$('#tbOrdenes').DataTable( {
+        "processing": true,
+        "ajax": {
+            "url": base+'/admin/ordenes/dataaprobados/'
+        }
+    } );
+
+    table.on( 'draw', function () {
+            $('.livicon').each(function(){
+                $(this).updateLivicon();
+            });
+        } );
+
+
+
+
+
 $("#facturarOrdenForm").bootstrapValidator({
     fields: {
         facturarOrdenForm: {
@@ -212,7 +234,7 @@ $("#facturarOrdenForm").bootstrapValidator({
             complete: function(datos){     
 
                 //$(".facturar_"+id+'').html(datos.responseText);
-                $("#"+id+'').remove();
+                table.ajax.reload();
 
                 $('#facturarOrdenModal').modal('hide');
                 
@@ -234,23 +256,10 @@ $("#facturarOrdenForm").bootstrapValidator({
 
 
 
-       $(document).ready(function() {
 
 
-        base=$('#base').val();
-        
-    var table =$('#tbOrdenes').DataTable( {
-        "processing": true,
-        "ajax": {
-            "url": base+'/admin/ordenes/dataaprobados/'
-        }
-    } );
 
-    table.on( 'draw', function () {
-            $('.livicon').each(function(){
-                $(this).updateLivicon();
-            });
-        } );
+
 
 
 } );

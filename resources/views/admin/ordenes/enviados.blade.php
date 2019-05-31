@@ -187,45 +187,6 @@ $("#enviarOrdenForm").bootstrapValidator({
 
 
 
- $('.sendEnviar').click(function () {
-    
-    var $validator = $('#enviarOrdenForm').data('bootstrapValidator').validate();
-
-    if ($validator.isValid()) {
-
-        base=$('#base').val();
-        id=$('#enviar_id').val();
-        codigo=$('#tracking').val();
-        notas=$('#notas').val();
-
-
-        $.ajax({
-            type: "POST",
-            data:{ base, id, codigo,  notas },
-            url: base+"/admin/ordenes/enviar",
-                
-            complete: function(datos){     
-
-                $("#"+id+'').remove();
-
-                $('#enviarOrdenModal').modal('hide');
-                
-                $('#enviar_id').val('');
-                $('#tracking').val('');
-                $('#notas').val('');
-            
-            }
-        });
-
-
-        //document.getElementById("addDireccionForm").submit();
-
-
-    }
-
-});
-
-
 
        
          $(document).ready(function() {
@@ -245,6 +206,48 @@ $("#enviarOrdenForm").bootstrapValidator({
                 $(this).updateLivicon();
             });
         } );
+
+
+
+
+ $('.sendEnviar').click(function () {
+    
+    var $validator = $('#enviarOrdenForm').data('bootstrapValidator').validate();
+
+    if ($validator.isValid()) {
+
+        base=$('#base').val();
+        id=$('#enviar_id').val();
+        codigo=$('#tracking').val();
+        notas=$('#notas').val();
+
+
+        $.ajax({
+            type: "POST",
+            data:{ base, id, codigo,  notas },
+            url: base+"/admin/ordenes/enviar",
+                
+            complete: function(datos){     
+
+                table.ajax.reload();
+
+                $('#enviarOrdenModal').modal('hide');
+                
+                $('#enviar_id').val('');
+                $('#tracking').val('');
+                $('#notas').val('');
+            
+            }
+        });
+
+
+        //document.getElementById("addDireccionForm").submit();
+
+
+    }
+
+});
+
 
 
 } );

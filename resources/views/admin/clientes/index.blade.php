@@ -144,26 +144,25 @@ Todos los @lang('clientes/title.clientes')
 
 <script>
 
-      $(document).ready(function() {
-
+     $(document).ready(function() {
 
         base=$('#base').val();
         
-    var table =$('table').DataTable( {
-        "processing": true,
-        "ajax": {
-            "url": base+'/admin/clientes/data/'
-        }
-    } );
+	    var table =$('table').DataTable( {
+	        "processing": true,
+	        "ajax": {
+	            "url": base+'/admin/clientes/data/'
+	        }
+	    });
 
-    table.on( 'draw', function () {
-            $('.livicon').each(function(){
-                $(this).updateLivicon();
-            });
-        } );
+	    table.on( 'draw', function () {
+	            $('.livicon').each(function(){
+	                $(this).updateLivicon();
+	            });
+	        } );
 
 
-} );
+	});
 
 
 

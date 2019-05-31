@@ -275,6 +275,27 @@ $("#aprobarOrdenForm").bootstrapValidator({
         });
 
 
+
+$(document).ready(function() {
+
+    base=$('#base').val();
+        
+    var table =$('#tbOrdenes').DataTable({
+        "processing": true,
+        "ajax": {
+            "url": base+'/admin/ordenes/data/'
+        }
+    });
+
+    table.on( 'draw', function () {
+        $('.livicon').each(function(){
+            $(this).updateLivicon();
+        });
+    });
+
+
+
+
  $('.sendConfirmar').click(function () {
     
     var $validator = $('#confirmarOrdenForm').data('bootstrapValidator').validate();
@@ -287,7 +308,6 @@ $("#aprobarOrdenForm").bootstrapValidator({
         cod_oracle_pedido=$('#cod_oracle_pedido').val();
         notas=$('#notas').val();
 
-
         $.ajax({
             type: "POST",
             data:{ base, confirm_id, id_status, cod_oracle_pedido, notas },
@@ -295,7 +315,7 @@ $("#aprobarOrdenForm").bootstrapValidator({
                 
             complete: function(datos){     
 
-                $(".estatus_"+confirm_id+'').html(datos.responseText);
+                table.ajax.reload();
 
                 $('#confirmarOrdenModal').modal('hide');
 
@@ -338,7 +358,7 @@ $("#aprobarOrdenForm").bootstrapValidator({
                 
             complete: function(datos){     
 
-                $(".aprobar_"+id+'').html(datos.responseText);
+               table.ajax.reload();
 
                 $('#aprobarOrdenModal').modal('hide');
                 
@@ -359,26 +379,10 @@ $("#aprobarOrdenForm").bootstrapValidator({
 });
 
 
-   $(document).ready(function() {
 
 
-        base=$('#base').val();
-        
-    var table =$('#tbOrdenes').DataTable( {
-        "processing": true,
-        "ajax": {
-            "url": base+'/admin/ordenes/data/'
-        }
-    } );
 
-    table.on( 'draw', function () {
-            $('.livicon').each(function(){
-                $(this).updateLivicon();
-            });
-        } );
-
-
-} );
+});
 
 
 

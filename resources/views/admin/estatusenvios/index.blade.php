@@ -109,7 +109,6 @@ Estatus Envios
      
        $(document).ready(function() {
 
-
                 base=$('#base').val();
                 
             var table =$('#table').DataTable( {

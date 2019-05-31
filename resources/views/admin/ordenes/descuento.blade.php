@@ -270,6 +270,30 @@ $("#aprobarOrdenForm").bootstrapValidator({
         });
 
 
+
+
+      
+          $(document).ready(function() {
+
+
+        base=$('#base').val();
+        
+    var table =$('#tbOrdenes').DataTable( {
+        "processing": true,
+        "ajax": {
+            "url": base+'/admin/ordenes/datadescuento/'
+        }
+    } );
+
+    table.on( 'draw', function () {
+            $('.livicon').each(function(){
+                $(this).updateLivicon();
+            });
+        } );
+
+
+
+
  $('.sendConfirmar').click(function () {
     
     var $validator = $('#confirmarOrdenForm').data('bootstrapValidator').validate();
@@ -290,7 +314,7 @@ $("#aprobarOrdenForm").bootstrapValidator({
                 
             complete: function(datos){     
 
-                $(".estatus_"+confirm_id+'').html(datos.responseText);
+                table.ajax.reload();
 
                 $('#confirmarOrdenModal').modal('hide');
 
@@ -335,6 +359,8 @@ $("#aprobarOrdenForm").bootstrapValidator({
 
                 $(".aprobar_"+id+'').html(datos.responseText);
 
+                table.ajax.reload();
+
                 $('#aprobarOrdenModal').modal('hide');
                 
                 $('#aprobar_id').val('');
@@ -353,26 +379,6 @@ $("#aprobarOrdenForm").bootstrapValidator({
 
 });
 
-
-
-      
-          $(document).ready(function() {
-
-
-        base=$('#base').val();
-        
-    var table =$('#tbOrdenes').DataTable( {
-        "processing": true,
-        "ajax": {
-            "url": base+'/admin/ordenes/datadescuento/'
-        }
-    } );
-
-    table.on( 'draw', function () {
-            $('.livicon').each(function(){
-                $(this).updateLivicon();
-            });
-        } );
 
 
 } );

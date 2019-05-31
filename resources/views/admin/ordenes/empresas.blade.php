@@ -203,6 +203,29 @@ $("#confirmarOrdenForm").bootstrapValidator({
         });
 
 
+
+
+          $(document).ready(function() {
+
+
+        base=$('#base').val();
+        
+    var table =$('#tbOrdenes').DataTable( {
+        "processing": true,
+        "ajax": {
+            "url": base+'/admin/ordenes/dataempresas/'
+        }
+    } );
+
+    table.on( 'draw', function () {
+            $('.livicon').each(function(){
+                $(this).updateLivicon();
+            });
+        } );
+
+
+
+
  $('.sendConfirmar').click(function () {
     
     var $validator = $('#confirmarOrdenForm').data('bootstrapValidator').validate();
@@ -223,7 +246,7 @@ $("#confirmarOrdenForm").bootstrapValidator({
                 
             complete: function(datos){     
 
-                $(".estatus_"+confirm_id+'').html(datos.responseText);
+               table.ajax.reload();
 
                 $('#confirmarOrdenModal').modal('hide');
 
@@ -245,25 +268,6 @@ $("#confirmarOrdenForm").bootstrapValidator({
 
 });
 
-
-
-          $(document).ready(function() {
-
-
-        base=$('#base').val();
-        
-    var table =$('#tbOrdenes').DataTable( {
-        "processing": true,
-        "ajax": {
-            "url": base+'/admin/ordenes/dataempresas/'
-        }
-    } );
-
-    table.on( 'draw', function () {
-            $('.livicon').each(function(){
-                $(this).updateLivicon();
-            });
-        } );
 
 
 } );

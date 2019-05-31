@@ -253,9 +253,9 @@ $("#enviarOrdenForm").bootstrapValidator({
 
 });
 
+$(document).ready(function(){
 
-
-        $('#tbOrdenes').DataTable({
+	 $('#tbOrdenes').DataTable({
                       responsive: true,
                       pageLength: 10,
                       "order": [[ 0, 'desc' ]]
@@ -265,6 +265,12 @@ $("#enviarOrdenForm").bootstrapValidator({
                            $('.livicon').updateLivicon();
                      },500);
                   } );
+
+
+	
+});
+
+       
 
        </script>
 

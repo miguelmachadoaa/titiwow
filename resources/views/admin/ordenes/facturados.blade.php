@@ -187,6 +187,26 @@ $("#enviarOrdenForm").bootstrapValidator({
 
 
 
+         $(document).ready(function() {
+
+
+        base=$('#base').val();
+        
+    var table =$('#tbOrdenes').DataTable( {
+        "processing": true,
+        "ajax": {
+            "url": base+'/admin/ordenes/datafacturados/'
+        }
+    } );
+
+    table.on( 'draw', function () {
+            $('.livicon').each(function(){
+                $(this).updateLivicon();
+            });
+        } );
+
+
+
 
  $('.sendEnviar').click(function () {
     
@@ -207,7 +227,7 @@ $("#enviarOrdenForm").bootstrapValidator({
                 
             complete: function(datos){     
 
-                $("#"+id+'').remove();
+                table.ajax.reload();
 
                 $('#enviarOrdenModal').modal('hide');
                 
@@ -228,23 +248,6 @@ $("#enviarOrdenForm").bootstrapValidator({
 
 
 
-         $(document).ready(function() {
-
-
-        base=$('#base').val();
-        
-    var table =$('#tbOrdenes').DataTable( {
-        "processing": true,
-        "ajax": {
-            "url": base+'/admin/ordenes/datafacturados/'
-        }
-    } );
-
-    table.on( 'draw', function () {
-            $('.livicon').each(function(){
-                $(this).updateLivicon();
-            });
-        } );
 
 
 } );

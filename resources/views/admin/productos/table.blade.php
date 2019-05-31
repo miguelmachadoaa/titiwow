@@ -41,22 +41,7 @@
 
 
 
-         $('#alpProductos-table').on('click', '.destacado', function(){
-
-
-            var id=$(this).data('id');
-            var destacado=$(this).data('destacado');
-            var url=$(this).data('url');
-
-
-            $.post(url, {id, destacado}, function(data) {
-
-                    $('#td_'+id).html(data);
-
-            });
-           
-        });
-
+        
          $('#alpProductos-table').on('click', '.sugerencia', function(){
 
 
@@ -74,18 +59,10 @@
         });
 
 
-         $('#alpProductos-table').on('click', '.desactivar', function(){
-            var id=$(this).data('id');
-            var desactivar=$(this).data('desactivar');
-            var url=$(this).data('url');
-            $.post(url, {id, desactivar}, function(data) {
-                    $('#acti_'+id).html(data);
-            });
-
-        });
+         
 
 
-         $(document).ready(function() {
+      $(document).ready(function() {
 
 
         base=$('#base').val();
@@ -102,6 +79,38 @@
                 $(this).updateLivicon();
             });
         } );
+
+
+   	$('#alpProductos-table').on('click', '.desactivar', function(){
+            var id=$(this).data('id');
+            var desactivar=$(this).data('desactivar');
+            var url=$(this).data('url');
+            $.post(url, {id, desactivar}, function(data) {
+                    table.ajax.reload();
+            });
+
+        });
+
+
+
+     $('#alpProductos-table').on('click', '.destacado', function(){
+
+
+            var id=$(this).data('id');
+            var destacado=$(this).data('destacado');
+            var url=$(this).data('url');
+
+
+            $.post(url, {id, destacado}, function(data) {
+
+            	alert(data);
+
+                    //$('#td_destacado_'+id).html(data);
+
+            });
+           
+        });
+
 
 
 } );

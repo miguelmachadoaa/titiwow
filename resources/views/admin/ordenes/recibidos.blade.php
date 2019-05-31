@@ -337,6 +337,28 @@ $("#aprobarOrdenForm").bootstrapValidator({
 
 
 
+       
+       $(document).ready(function() {
+
+
+        base=$('#base').val();
+        
+    var table =$('#tbOrdenes').DataTable( {
+        "processing": true,
+        "ajax": {
+            "url": base+'/admin/ordenes/datarecibidos/'
+        }
+    } );
+
+    table.on( 'draw', function () {
+            $('.livicon').each(function(){
+                $(this).updateLivicon();
+            });
+        } );
+
+
+
+
  $('.sendAprobar').click(function () {
     
     var $validator = $('#aprobarOrdenForm').data('bootstrapValidator').validate();
@@ -357,7 +379,7 @@ $("#aprobarOrdenForm").bootstrapValidator({
             complete: function(datos){     
 
                 //$(".aprobar_"+id+'').html(datos.responseText);
-                $("#"+id+'').remove();
+                table.ajax.reload();
 
                 $('#aprobarOrdenModal').modal('hide');
                 
@@ -378,25 +400,6 @@ $("#aprobarOrdenForm").bootstrapValidator({
 });
 
 
-
-       
-       $(document).ready(function() {
-
-
-        base=$('#base').val();
-        
-    var table =$('#tbOrdenes').DataTable( {
-        "processing": true,
-        "ajax": {
-            "url": base+'/admin/ordenes/datarecibidos/'
-        }
-    } );
-
-    table.on( 'draw', function () {
-            $('.livicon').each(function(){
-                $(this).updateLivicon();
-            });
-        } );
 
 
 } );
