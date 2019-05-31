@@ -379,7 +379,7 @@ Editar Cupon
         </div>
     </div>
 
-    <input type="hidden" value="{{url('/')}}" id="base" name="base">
+    <input type="hidden" value="{{secure_url('/')}}" id="base" name="base">
     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
     <!-- row-->
 </section>
