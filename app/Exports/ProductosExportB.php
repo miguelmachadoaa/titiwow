@@ -44,8 +44,7 @@ class ProductosExportB implements FromView
           'alp_categorias.nombre_categoria as nombre_categoria',
           'alp_marcas.nombre_marca as nombre_marca',
           'alp_ordenes_descuento.codigo_cupon as codigo_cupon',
-          'alp_ordenes.monto_descuento as monto_descuento',
-          )
+          'alp_ordenes.monto_descuento as monto_descuento')
           ->join('alp_ordenes', 'alp_ordenes_detalle.id_orden', '=', 'alp_ordenes.id')
           ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
