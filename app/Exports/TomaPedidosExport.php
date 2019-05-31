@@ -22,8 +22,6 @@ class TomaPedidosExport implements FromView
         
     }
 
-
-
     public function view(): View
     {
          $productos= AlpDetalles::select(
@@ -85,7 +83,6 @@ class TomaPedidosExport implements FromView
             
           }
 
-          //dd($ordenes);
 
         return view('admin.exports.tomapedidos', [
             'productos' => $pro

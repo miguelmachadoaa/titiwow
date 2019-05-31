@@ -17,6 +17,8 @@ use App\Models\AlpConfiguracion;
 use App\Models\AlpTDocumento;
 use App\Models\AlpEstructuraAddress;
 use App\Models\AlpClientesHistory;
+use App\Http\Requests\DireccionRequest;
+
 use App\User;
 use App\Country;
 use App\State;
@@ -1037,7 +1039,7 @@ class ClientesFrontController extends Controller
           return redirect('misdirecciones');
     }
 
-     public function storedir(Request $request)
+     public function storedir(DireccionRequest $request)
     {
 
         $user_id = Sentinel::getUser()->id;

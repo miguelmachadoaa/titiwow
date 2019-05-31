@@ -107,7 +107,11 @@
 
             <div class="col-sm-12" style="border: 1px solid rgba(0,0,0,0.1);  padding: 2em; margin: 0em -2em;">
 
+
+
                 <h3 style="text-align: center;margin-bottom: 1em;">Agregar Dirección</h3>
+
+                
 
                 <form method="POST" action="{{secure_url('clientes/storedir')}}" id="addDireccionForm" name="addDireccionForm" class="form-horizontal     ">
 
@@ -688,7 +692,7 @@ $("#editDireccionForm").bootstrapValidator({
 });
   
 
-$("#addAddressForm").bootstrapValidator({
+$("#addAddr222essForm").bootstrapValidator({
      fields: {
         titulo: {
             validators: {

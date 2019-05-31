@@ -22,8 +22,6 @@ class CuponesDescuentoExport implements FromView
         
     }
 
-
-
     public function view(): View
     {
          $productos= AlpDetalles::select(
