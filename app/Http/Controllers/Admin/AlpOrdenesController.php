@@ -97,8 +97,19 @@ class AlpOrdenesController extends JoshController
                                             </a>
 
                                              <div style='display: inline-block;' class='estatus_".$row->id."'>
-                                            <button data-id='".$row->id."'  data-codigo='".$row->ordencompra."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-danger confirmar' > Cancelar </button></div>
+                                           
                 ";
+
+
+                if ($row->estatus!=4) {
+                	
+                	$cancelado = " <button data-id='".$row->id."'  data-codigo='".$row->ordencompra."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-danger confirmar' > Cancelar </button></div>";
+
+                }else{
+
+                	$cancelado = " ";
+                	
+                }
 
 
                $data[]= array(
@@ -114,7 +125,7 @@ class AlpOrdenesController extends JoshController
                  $row->created_at->diffForHumans(), 
                  $pago, 
                  $estatus, 
-                 $actions
+                 $actions.$cancelado
               );
 
 
