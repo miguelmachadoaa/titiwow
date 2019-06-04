@@ -1291,7 +1291,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         }
 
-        for ($i=1; $i <=$ciudad_forma->dias ; $i++) { 
+        for ($i=0; $i <=$ciudad_forma->dias ; $i++) { 
 
           $date2 = Carbon::now();
 
