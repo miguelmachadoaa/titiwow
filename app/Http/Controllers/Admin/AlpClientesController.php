@@ -517,9 +517,14 @@ class AlpClientesController extends JoshController
     public function detalle($id)
     {
         // Grab all the groups
+
         $user_id = Sentinel::getUser()->id;
 
-        $cliente=AlpClientes::where('id_user_client', $id)->first();
+        $cliente=AlpClientes::select('alp_clientes.*', 'alp_tipo_documento.nombre_tipo_documento as nombre_tipo_documento')
+        ->join('alp_tipo_documento', 'alp_clientes.id_type_doc', '=', 'alp_tipo_documento.id')
+        ->where('id_user_client', $id)->first();
+
+        $usuario=User::where('id', $id)->first();
 
         $history = AlpClientesHistory::select('alp_clientes_history.*', 'users.first_name as first_name', 'users.last_name as last_name' )
           ->join('users', 'alp_clientes_history.id_user', '=', 'users.id')
@@ -528,7 +533,7 @@ class AlpClientesController extends JoshController
 
       
         // Show the page
-        return view('admin.clientes.detalle', compact('history', 'cliente'));
+        return view('admin.clientes.detalle', compact('history', 'cliente', 'usuario'));
     }
 
 

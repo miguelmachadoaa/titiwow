@@ -2538,7 +2538,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                 if ($configuracion->maximo_productos<$request->cantidad) {
 
-                $error="No puede añadir mas de ".$configuracion->maximo_productos." unidades al carrito  ";
+                $error="No puede añadir más de ".$configuracion->maximo_productos." Unidades al carrito";
 
                 
               }else{
@@ -2619,7 +2619,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
               if ($configuracion->maximo_productos<$request->cantidad) {
 
-                $error="No hay existencia suficiente de este producto";
+                $error="No puede añadir más de ".$configuracion->maximo_productos." Unidades al carrito";
 
                 
               }else{
@@ -2694,7 +2694,16 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
            if($inv[$request->id]>=$request->cantidad){
 
-            $cart[$request->slug]->cantidad=$request->cantidad;
+            if ($configuracion->maximo_productos<$request->cantidad) {
+
+                $error="No puede añadir más de ".$configuracion->maximo_productos." Unidades al carrito";
+
+                
+              }else{
+
+                $cart[$request->slug]->cantidad=$request->cantidad;
+
+              }
 
           }else{
 
@@ -3274,7 +3283,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                       $b_cantidad=1;
 
-                      $mensaje_user='La cantidad maxima por producto es de '.$cupon->maximo_productos.'';
+                      $mensaje_user='La cantidad de: '.$detalle->nombre_producto.', en el carrito excede lo permitido para comprar con este cupón. El Máximo permitido es de: '.$cupon->maximo_productos.' Unidades';
 
                     }
 

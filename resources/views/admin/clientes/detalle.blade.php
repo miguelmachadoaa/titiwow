@@ -43,6 +43,70 @@ Cliente
 <!-- Main content -->
 <section class="content">
 
+
+     <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <i class="livicon" data-name="share" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                                    Datos del Cliente
+                                </h3>
+                                
+                            </div>
+                            <div class="panel-body">
+
+
+                                <div class="col-md-8">
+                                                <div class="table-responsive-lg table-responsive-sm table-responsive-md table-responsive">
+                                                    <table class="table table-bordered table-striped" id="users">
+
+                                                        <tr>
+                                                            <td>Nombre</td>
+                                                            <td>
+                                                                <p class="user_name_max">{{ $usuario->first_name }}</p>
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Apellido</td>
+                                                            <td>
+                                                                <p class="user_name_max">{{ $usuario->last_name }}</p>
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Email</td>
+                                                            <td>
+                                                                {{ $usuario->email }}
+                                                            </td>
+                                                        </tr>
+
+                                                          <tr>
+                                                            <td>Documento</td>
+                                                            <td>
+                                                                {{ $cliente->nombre_tipo_documento.': '.$cliente->doc_cliente }}
+                                                            </td>
+                                                        </tr>
+
+                                                         <tr>
+                                                            <td>Teléfono</td>
+                                                            <td>
+                                                                {{ $cliente->telefono_cliente }}
+                                                            </td>
+                                                        </tr>
+
+                                                       
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
     
 
 
@@ -128,6 +192,11 @@ Cliente
                 <!--timeline2-->
 
         <br>
+
+    
+
+
+
                 <div class="row">
                 
             <p style="text-align: center;"> 
