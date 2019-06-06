@@ -1769,13 +1769,10 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
     {
 
 
-
-
           $producto=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
           ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
           ->where('alp_productos.slug', $request->slug)
           ->first();
-
 
         if (!\Session::has('cr')) {
 
@@ -2520,7 +2517,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
     {
        $cart= \Session::get('cart');
 
-
+       $configuracion=AlpConfiguracion::where('id', '1')->first();
 
 
        $carrito= \Session::get('cr');
@@ -2538,7 +2535,19 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
            if($inv[$request->id]>=$request->cantidad){
 
-            $cart[$request->slug]->cantidad=$request->cantidad;
+
+                if ($configuracion->maximo_productos<$request->cantidad) {
+
+                $error="No puede añadir mas de ".$configuracion->maximo_productos." unidades al carrito  ";
+
+                
+              }else{
+
+                $cart[$request->slug]->cantidad=$request->cantidad;
+
+              }
+
+            
 
           }else{
 
@@ -2579,7 +2588,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
      $configuracion=AlpConfiguracion::where('id', '1')->first();
 
 
-        $view= View::make('frontend.listcart', compact('producto', 'cart', 'total', 'impuesto', 'configuracion'));
+        $view= View::make('frontend.listcart', compact('producto', 'cart', 'total', 'impuesto', 'configuracion', 'error'));
 
         $data=$view->render();
 
@@ -2590,6 +2599,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
     public function updatecartbotones(Request $request)
     {
        $cart= \Session::get('cart');
+
+        $configuracion=AlpConfiguracion::where('id', '1')->first();
 
        $carrito= \Session::get('cr');
 
@@ -2602,11 +2613,21 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
        $error='0';
 
        if ($request->cantidad>0) {
-         
+
 
            if($inv[$request->id]>=$request->cantidad){
 
-            $cart[$request->slug]->cantidad=$request->cantidad;
+              if ($configuracion->maximo_productos<$request->cantidad) {
+
+                $error="No hay existencia suficiente de este producto";
+
+                
+              }else{
+
+                $cart[$request->slug]->cantidad=$request->cantidad;
+
+              }
+
 
           }else{
 
@@ -3120,12 +3141,16 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
             if (isset($c_empresa->id)) {  $b_empresa=1;    }
+
             if (isset($c_rol->id)) {  $b_rol=1;    }
+
             if (isset($c_user->id)) {  $b_user=1;    }
 
 
             if (isset($c_producto->id)) {  $b_producto=1;    }
+
             if (isset($c_marca->id)) {  $b_marca=1;    }
+
             if (isset($c_categoria->id)) {  $b_categoria=1;    }
 
 
@@ -3139,7 +3164,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
             }
 
 
-            if($cupon->limite_uso<count($usados)){
+            if($cupon->limite_uso<=count($usados)){
 
                $b_user_valido=1;
 
@@ -3150,7 +3175,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
             }
 
 
-             if($cupon->limite_uso_persona<count($usados_persona)){
+             if($cupon->limite_uso_persona<=count($usados_persona)){
 
                $b_user_valido=1;
 
@@ -3334,6 +3359,17 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                 }
 
 
+                $cupones=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
+
+                foreach ($cupones as $cupon) {
+                  
+                  $c=AlpOrdenesDescuento::where('id', $cupon->id)->first();
+
+                  $c->delete();
+
+                }
+
+
                 $data_pago = array(
                   'id_orden' => $carrito, 
                   'codigo_cupon' => $codigo, 
@@ -3341,7 +3377,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                   'json' => json_encode($cupon), 
                   'id_user' => $user_id 
                 );
-
               
               $pago=AlpOrdenesDescuento::create($data_pago);
 
@@ -3403,7 +3438,6 @@ public function addcupon(Request $request)
 
             $aviso='El monto mínimo de compra es de $'.number_format($configuracion->minimo_compra,0,",",".");
 
-
             $cart=$this->reloadCart();
 
 
@@ -3427,10 +3461,7 @@ public function addcupon(Request $request)
 
         $user_cliente=User::where('id', $user_id)->first();
 
-
         $mensaje_cupon=$this->asignaCupon($request->codigo_cupon);
-
-
 
         if ($mensaje_cupon['mensaje_user']=='') {
           

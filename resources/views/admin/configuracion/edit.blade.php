@@ -93,6 +93,19 @@ Editar Configuracion General
                                 <div class="col-sm-4">
                                     {!! $errors->first('minimo_compra', '<span class="help-block">:message</span> ') !!}
                                 </div>
+                            </div> 
+
+                            <div class="form-group {{ $errors->first('maximo_productos', 'has-error') }}">
+                                <label for="maximo_productos" class="col-sm-2 control-label">
+                                    Maximo Productos
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="number" step="0.01" min="0"  id="maximo_productos" name="maximo_productos" class="form-control" placeholder="Minimo Compra"
+                                        value="{!! old('maximo_productos', $configuracion->maximo_productos) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('maximo_productos', '<span class="help-block">:message</span> ') !!}
+                                </div>
                             </div>
                             <hr />
                             <div class="form-group {{ $errors->first('id_mercadopago', 'has-error') }}">

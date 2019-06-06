@@ -10,6 +10,16 @@
                         @endif
                     @endif
 
+     @if(isset($error))
+                        @if($error!='0')
+
+                        <div class="alert alert-danger">
+                            {{ $error }}
+                        </div>
+
+                        @endif
+                    @endif
+
         <h2>Carrito de Compras</h2>
 
         <a style="color: #d5006e !important; " class="btn  btn-link" href="{{secure_url('cart/vaciar')}}">Vaciar</a>
