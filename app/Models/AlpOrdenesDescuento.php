@@ -23,6 +23,7 @@ class AlpOrdenesDescuento extends Model
         'codigo_cupon',
         'monto_descuento',
         'json',
+        'aplicado',
         'estado_registro',
         'id_user'
     ];

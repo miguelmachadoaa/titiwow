@@ -24,6 +24,7 @@ class AlpCuponesDescuento extends Model
         'valor_cupon',
         'monto_descuento',
         'json',
+        'aplicado',
         'estado_registro',
         'id_user'
     ];

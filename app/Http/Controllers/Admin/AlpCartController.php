@@ -1399,7 +1399,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           
           $c=AlpOrdenesDescuento::where('id', $cupon->id)->first();
 
-          $data_cupon = array('id_orden' => $orden->id );
+          $data_cupon = array('id_orden' => $orden->id, 'aplicado'=>'1' );
 
           $c->update($data_cupon);
 
@@ -3086,6 +3086,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         $usuario=User::where('id', $user_id)->first();
 
         $user_cliente=User::where('id', $user_id)->first();
+
+        $cliente=AlpClientes::where('id_user_client', $user_id)->first();
 
       $cupon=AlpCupones::where('codigo_cupon', $codigo)
           ->whereDate('fecha_inicio','<=',$hoy)
