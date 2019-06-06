@@ -3093,9 +3093,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           ->first();
 
 
-      $usados=AlpOrdenesDescuento::where('codigo_cupon', $codigo)->get();
+      $usados=AlpOrdenesDescuento::where('codigo_cupon', $codigo)->where('aplicado', '1')->get();
 
-      $usados_persona=AlpOrdenesDescuento::where('codigo_cupon', $codigo)->where('id_user', $user_id)->get();
+      $usados_persona=AlpOrdenesDescuento::where('codigo_cupon', $codigo)->where('id_user', $user_id)->where('aplicado', '1')->get();
 
       $usados_orden=AlpOrdenesDescuento::where('id_orden', $carrito)->where('id_user', $user_id)->get();
 
@@ -3117,6 +3117,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
             $b_marca=0;
             $b_categoria=0;
             $b_producto=0;
+
+            $b_cantidad=0;
 
             $b_user_valido=0;
 
@@ -3265,6 +3267,16 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                   $b_producto_valido=0;
 
 
+
+                  if($cupon->maximo_productos<$detalle->cantidad){
+
+                      $b_cantidad=1;
+
+                      $mensaje_user='La cantidad maxima por producto es de '.$cupon->maximo_productos.'';
+
+                    }
+
+
                   if($b_categoria==1){
 
                       $cc=AlpCuponesCategorias::where('id_cupon', $cupon->id)->where('id_categoria', $detalle->id_categoria_default)->first();
@@ -3335,7 +3347,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
               }//endforeach detalles
 
             
-
+            if ($b_cantidad==0) {
+              
 
               if ($base_descuento>0) {
 
@@ -3387,6 +3400,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
             }
+
+          }
 
           } //en if usuario paso
 

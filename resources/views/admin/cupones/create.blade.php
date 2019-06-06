@@ -175,6 +175,22 @@
                         </div>
 
 
+                        <div class="form-group {{ $errors->
+                            first('maximo_productos', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Maximo cantidad por productos
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="number" step="1" min="0" id="maximo_productos" name="maximo_productos" class="form-control" placeholder="Monto Minimo en el Carro"
+                                       value="{!! old('maximo_productos') !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('maximo_productos', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
+
 
 
 
