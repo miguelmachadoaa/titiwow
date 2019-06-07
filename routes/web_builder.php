@@ -216,7 +216,8 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
         Route::post('{id}/delrol', 'Admin\AlpCuponesController@delrol')->name('cupones.delrol');
 
-
+        Route::get('cargar', 'Admin\AlpCuponesController@cargarcupones')->name('cupones.cargar');
+        Route::post('import', 'Admin\AlpCuponesController@import');
 
     });
     Route::post('cupones/create', 'Admin\AlpCuponesController@store');

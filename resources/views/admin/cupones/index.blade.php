@@ -38,6 +38,7 @@ Cupones
                     </h4>
                     <div class="pull-right">
                     <a href="{{ route('admin.cupones.create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Cupón</a>
+                    <a href="{{ route('admin.cupones.cargar') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Cargar CSV</a>
                     </div>
                 </div>
                 <br />
