@@ -100,7 +100,7 @@ Editar Configuracion General
                                     Maximo Productos
                                 </label>
                                 <div class="col-sm-5">
-                                    <input type="number" step="0.01" min="0"  id="maximo_productos" name="maximo_productos" class="form-control" placeholder="Minimo Compra"
+                                    <input type="number" step="0.01" min="0"  id="maximo_productos" name="maximo_productos" class="form-control" placeholder="Maximo Productos"
                                         value="{!! old('maximo_productos', $configuracion->maximo_productos) !!}">
                                 </div>
                                 <div class="col-sm-4">

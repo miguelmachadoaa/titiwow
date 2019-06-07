@@ -37,7 +37,7 @@ Cupones
                        Cupones
                     </h4>
                     <div class="pull-right">
-                    <a href="{{ route('admin.cupones.create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Cupon</a>
+                    <a href="{{ route('admin.cupones.create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Cupón</a>
                     </div>
                 </div>
                 <br />
@@ -119,7 +119,7 @@ Cupones
             var table =$('#table').DataTable( {
                 "processing": true,
                 "ajax": {
-                    "url": base+'/admin/cupones/data/'
+                    "url": base+'/admin/cupones/data'
                 }
             } );
 
