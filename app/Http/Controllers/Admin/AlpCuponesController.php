@@ -14,6 +14,10 @@ use App\Models\AlpProductos;
 use App\Models\AlpEmpresas;
 use App\Models\AlpMarcas;
 use App\Models\AlpClientes;
+
+use App\Imports\CuponesImport;
+use Maatwebsite\Excel\Facades\Excel;
+
 use App\Roles;
 use App\User;
 use App\Http\Requests;
@@ -670,6 +674,24 @@ class AlpCuponesController extends JoshController
         }
     }
 
+        /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function cargarcupones()
+    {
+        return view('admin.cupones.cargar');
+    }
     
+
+
+    public function import(Request $request) 
+    {
+        $archivo = $request->file('file_cupones');
+        Excel::import(new CuponesImport, $archivo);
+        
+        return redirect('admin/cupones')->with('success', 'Cupones Cargados Exitosamente');
+    }
 
 }

@@ -31,7 +31,8 @@ class CuponesRequest extends FormRequest {
             'limite_uso_persona' => 'required',
             'fecha_inicio' => 'required',
             'fecha_final' => 'required',
-            'monto_minimo' => 'required',
+			'monto_minimo' => 'required',
+			'maximo_productos' => 'required',
 		];
 	}
 

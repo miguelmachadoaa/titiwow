@@ -181,7 +181,7 @@
                                 Maximo cantidad por productos
                             </label>
                             <div class="col-sm-5">
-                                <input type="number" step="1" min="0" id="maximo_productos" name="maximo_productos" class="form-control" placeholder="Monto Minimo en el Carro"
+                                <input type="number" step="1" min="0" id="maximo_productos" name="maximo_productos" class="form-control" placeholder="Maximo cantidad por productos"
                                        value="{!! old('maximo_productos') !!}">
                             </div>
                             <div class="col-sm-4">

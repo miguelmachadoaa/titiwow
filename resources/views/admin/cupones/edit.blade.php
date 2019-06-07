@@ -10,7 +10,7 @@ Editar Cupon
 @section('content')
 <section class="content-header">
     <h1>
-        Editar Cupon
+        Editar Cupón
     </h1>
     <ol class="breadcrumb">
         <li>
@@ -19,7 +19,7 @@ Editar Cupon
                 Inicio
             </a>
         </li>
-        <li>Cupons</li>
+        <li>Cupones</li>
         <li class="active">Editar</li>
     </ol>
 </section>
@@ -31,7 +31,7 @@ Editar Cupon
             <div class="panel panel-primary ">
                 <div class="panel-heading">
                     <h4 class="panel-title"> <i class="livicon" data-name="wrench" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Editar Cupon
+                       Editar Cupón
                     </h4>
                 </div>
                 <div class="panel-body">
@@ -46,7 +46,7 @@ Editar Cupon
                                 Código Cupón
                             </label>
                             <div class="col-sm-5">
-                                <input type="text" id="codigo_cupon" name="codigo_cupon" class="form-control" placeholder="Codigo Cupon"
+                                <input type="text" id="codigo_cupon" name="codigo_cupon" class="form-control" placeholder="Codigo Cupón"
                                        value="{!! old('codigo_cupon', $cupon->codigo_cupon) !!}">
                             </div>
                             <div class="col-sm-4">
@@ -154,7 +154,7 @@ Editar Cupon
                                 Monto Minimo en el carro
                             </label>
                             <div class="col-sm-5">
-                                <input type="text" id="monto_minimo" name="monto_minimo" class="form-control" placeholder="Codigo Cupon"
+                                <input type="text" id="monto_minimo" name="monto_minimo" class="form-control" placeholder="Monto Minimo en el Carro"
                                        value="{!! old('monto_minimo', $cupon->monto_minimo) !!}">
                             </div>
                             <div class="col-sm-4">
@@ -168,7 +168,7 @@ Editar Cupon
                                 Maxima cantidad por productos
                             </label>
                             <div class="col-sm-5">
-                                <input type="number"  min="0" step="1" id="maximo_productos" name="maximo_productos" class="form-control" placeholder="Codigo Cupon"
+                                <input type="number"  min="0" step="1" id="maximo_productos" name="maximo_productos" class="form-control" placeholder="Maximo cantidad por productos"
                                        value="{!! old('maximo_productos', $cupon->maximo_productos) !!}">
                             </div>
                             <div class="col-sm-4">
@@ -180,7 +180,7 @@ Editar Cupon
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                 
-                                <a class="btn btn-danger" href="{{ secure_url('admin/formaspago') }}">
+                                <a class="btn btn-danger" href="{{ secure_url('admin/cupones') }}">
                                     Cancelar
                                 </a>
 
