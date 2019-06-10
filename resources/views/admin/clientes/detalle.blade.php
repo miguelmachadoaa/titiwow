@@ -62,35 +62,42 @@ Cliente
                                                     <table class="table table-bordered table-striped" id="users">
 
                                                         <tr>
-                                                            <td>Nombre</td>
+                                                            <td><b> Rol</b></td>
+                                                            <td>
+                                                                <b></b>{{ $usuario->name_rol }}
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td><b> Nombre</b></td>
                                                             <td>
                                                                 <p class="user_name_max">{{ $usuario->first_name }}</p>
                                                             </td>
 
                                                         </tr>
                                                         <tr>
-                                                            <td>Apellido</td>
+                                                            <td><b>Apellido </b></td>
                                                             <td>
                                                                 <p class="user_name_max">{{ $usuario->last_name }}</p>
                                                             </td>
 
                                                         </tr>
                                                         <tr>
-                                                            <td>Email</td>
+                                                            <td><b> Email</b></td>
                                                             <td>
                                                                 {{ $usuario->email }}
                                                             </td>
                                                         </tr>
 
                                                           <tr>
-                                                            <td>Documento</td>
+                                                            <td><b> Documento</b></td>
                                                             <td>
                                                                 {{ $cliente->nombre_tipo_documento.': '.$cliente->doc_cliente }}
                                                             </td>
                                                         </tr>
 
                                                          <tr>
-                                                            <td>Teléfono</td>
+                                                            <td><b> Teléfono</b></td>
                                                             <td>
                                                                 {{ $cliente->telefono_cliente }}
                                                             </td>

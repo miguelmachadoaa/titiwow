@@ -524,7 +524,11 @@ class AlpClientesController extends JoshController
         ->join('alp_tipo_documento', 'alp_clientes.id_type_doc', '=', 'alp_tipo_documento.id')
         ->where('id_user_client', $id)->first();
 
-        $usuario=User::where('id', $id)->first();
+        $usuario=User::select('users.*','roles.name as name_rol', 'role_users.role_id as role_id' )
+        ->join('role_users', 'users.id', '=', 'role_users.user_id')
+        ->join('roles', 'role_users.role_id', '=', 'roles.id')
+        ->where('users.id', $id)
+        ->first();
 
         $history = AlpClientesHistory::select('alp_clientes_history.*', 'users.first_name as first_name', 'users.last_name as last_name' )
           ->join('users', 'alp_clientes_history.id_user', '=', 'users.id')
@@ -676,6 +680,17 @@ class AlpClientesController extends JoshController
     {
 
         $user_id = Sentinel::getUser()->id;
+
+
+         $user_history = array(
+                'id_cliente' => $request->id_cliente,
+                'estatus_cliente' => "Edicion",
+                'notas' => "Se ha editado el cliente ",
+                'id_user'=>$user_id
+                 );
+
+            AlpClientesHistory::create($user_history);
+            
 
         try {
 

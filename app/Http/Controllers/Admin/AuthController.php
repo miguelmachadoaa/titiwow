@@ -15,6 +15,7 @@ use App\Roles;
 use App\RoleUser;
 use App\User;
 use App\Models\AlpClientes;
+use App\Models\AlpClientesHistory;
 use App\Models\AlpAmigos;
 use App\Models\AlpDirecciones;
 use App\Models\AlpEmpresas;
@@ -469,6 +470,20 @@ class AuthController extends JoshController
             $amigo->delete();
 
 
+            $emb=User::where('id',$amigo->id_cliente )->first();
+
+
+             $user_history = array(
+                        'id_cliente' => $user->id,
+                        'estatus_cliente' => "Activado",
+                        'notas' => "Ha sido registrado satisfactoriamente como amigo de  ".$emb->emb,
+                        'id_user'=>$user->id
+                         );
+
+            AlpClientesHistory::create($user_history);
+
+
+
 
 
             if ($activate) {
@@ -628,6 +643,19 @@ class AuthController extends JoshController
              //print_r($data);
 
             $cliente=AlpClientes::create($data);
+
+                      $user_history = array(
+                        'id_cliente' => $user->id,
+                        'estatus_cliente' => "Activado",
+                        'notas' => "Ha sido registrado satisfactoriamente bajo la empresa ".$empresa->nombre_empresa,
+                        'id_user'=>$user->id
+                         );
+
+                        AlpClientesHistory::create($user_history);
+
+
+
+
 
              $direccion = array(
                 'id_client' => $user->id, 

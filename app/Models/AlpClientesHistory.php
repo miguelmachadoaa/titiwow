@@ -21,7 +21,7 @@ class AlpClientesHistory extends Model
         'id',
         'id_cliente',
         'estatus_cliente',        
-        'nota',        
+        'notas',        
         'estatus',
         'id_user'
     ];

@@ -24,6 +24,7 @@ use App\Models\AlpCodAlpinistas;
 use App\Models\AlpInventario;
 use App\Models\AlpOrdenesDescuento;
 use App\Models\AlpCombosProductos;
+use App\Models\AlpClientesHistory;
 use App\User;
 use App\State;
 use App\RoleUser;
@@ -546,7 +547,7 @@ class FrontEndController extends JoshController
                     'id_empresa' =>$id_empresa,               
                     'id_embajador' =>'0',               
                     'id_user' =>0,               
-                );
+                    );
 
                 
                 
@@ -614,13 +615,38 @@ class FrontEndController extends JoshController
 
                     $role = Sentinel::findRoleById(9);
 
+
+                        $user_history = array(
+                        'id_cliente' => $user->id,
+                        'estatus_cliente' => "Activado",
+                        'notas' => "Ha sido registrado satisfactoriamente",
+                        'id_user'=>$user->id
+                         );
+
+                        AlpClientesHistory::create($user_history);
+
+
                 }else{
 
                     $role = Sentinel::findRoleById(12);
 
+
+                       $user_history = array(
+                        'id_cliente' => $user->id,
+                        'estatus_cliente' => "Activado",
+                        'notas' => "Ha sido registrado satisfactoriamente bajo la empresa ".$empresa->nombre_empresa,
+                        'id_user'=>$user->id
+                         );
+
+                        AlpClientesHistory::create($user_history);
+
+
+
                 }
 
                 $role->users()->attach($user);
+
+
 
                  $mensaje='Estamos procesando tu solicitud de registro, te notificaremos una vez haya finalizado el proceso, este proceso puede tomar hasta 24 horas.';
 
@@ -647,6 +673,17 @@ class FrontEndController extends JoshController
 
                 }else{
 
+                    $user_history = array(
+                        'id_client' => $user->id,
+                        'estatus_cliente' => "Activado",
+                        'notas' => "Ha sido registrado satisfactoriamente bajo la empresa ".$empresa->nombre_empresa,
+                        'id_user'=>$user->id
+                         );
+
+                    AlpClientesHistory::create($user_history);
+
+
+
                      $configuracion->mensaje_bienvenida="Ha sido registrado satisfactoriamente bajo la empresa ".$empresa->nombre_empresa.", debe esperar que su Usuario sea activado en un proceso interno, te notificaremos vía email su activación.";
 
                 return redirect('login')->with('success', trans($mensaje));
@@ -654,6 +691,8 @@ class FrontEndController extends JoshController
                 }
 
             }
+
+
             // login user automatically
             Sentinel::login($user, false);
             //Activity log for new account
@@ -1013,6 +1052,19 @@ class FrontEndController extends JoshController
             AlpClientes::create($data);
 
 
+            $referido=User::where('id',$request->referido )->firts();
+
+
+            $user_history = array(
+            'id_cliente' => $user->id,
+            'estatus_cliente' => "Pendiente",
+            'notas' => "Ha sido registrado satisfactoriamente como referido de ".$referido->first_name." ".$referido->last_name,
+            'id_user'=>$user->id
+             );
+
+            AlpClientesHistory::create($user_history);
+
+
             //add user to 'User' group
             $role = Sentinel::findRoleById(11);
             $role->users()->attach($user);
@@ -1025,6 +1077,12 @@ class FrontEndController extends JoshController
                     'activationUrl' => URL::route('activate', [$user->id, Activation::create($user)->code]),
                 ];
                 // Send the activation code through email
+
+
+                 
+
+
+
                 
                 Mail::to($user->email)
                     ->send(new Register($data));

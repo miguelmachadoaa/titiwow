@@ -1806,6 +1806,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        $inv=$this->inventario();
 
+       if ( isset($producto->id)) {
+        
+      
 
       $producto->precio_oferta=$producto->precio_base;
 
@@ -1813,15 +1816,17 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
 
-      if($inv[$producto->id]>=$producto->cantidad){
+      
 
-        $cart[$producto->slug]=$producto;
+        if($inv[$producto->id]>=$producto->cantidad){
 
-      }else{
+          $cart[$producto->slug]=$producto;
 
-        $error="No hay existencia suficiente de este producto";
+        }else{
 
-      }
+          $error="No hay existencia suficiente de este producto";
+
+        }
 
 
        \Session::put('cart', $cart);
@@ -1850,6 +1855,16 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
        $this->reloadCart();
 
           return redirect('cart/show');
+
+
+           }else{
+
+          return redirect('cart/show');
+            
+
+        
+       }
+
       
     }
 
