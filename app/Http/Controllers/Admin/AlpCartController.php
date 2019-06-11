@@ -1859,7 +1859,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
            }else{
 
-          return redirect('cart/show');
+          return redirect('404');
             
 
         
