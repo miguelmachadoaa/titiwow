@@ -53,6 +53,9 @@ Agregar Inventario
                                     </select>
                                     {!! $errors->first('operacion', '<span class="help-block">:message</span>') !!}
                                 </div>
+                                <div class="col-sm-5">
+                                    {{ 'Disponible: '.$inventario[$producto->id] }}
+                                </div>
                                 <span class="help-block">{{ $errors->first('operacion', ':message') }}</span>
                             </div>
                           

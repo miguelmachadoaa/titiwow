@@ -125,8 +125,6 @@ class AlpInventarioController extends JoshController
 
         $inventario=$this->inventario();
 
-
-
         return view('admin.inventario.edit', compact('producto', 'inventario'));
     }
 
