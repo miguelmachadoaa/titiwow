@@ -301,11 +301,54 @@
                         $('select[name="state_id_ubicacion"]').empty();
 
                         $.each(data, function(key, value) {
+
+                             if (key=='9') {
+
+                                   $('select[name="state_id_ubicacion"]').append('<option selected value="'+ key +'">'+ value +'</option>');
+
+
+                                    }else{
+
+                                    $('select[name="state_id_ubicacion"]').append('<option value="'+ key +'">'+ value +'</option>');
+
+
+                                    }
+
+
                             $('select[name="state_id_ubicacion"]').append('<option value="'+ key +'">'+ value +'</option>');
                         });
 
                     }
                 });
+
+                        $.ajax({
+                            url: base+'/configuracion/cities/9',
+                            type: "GET",
+                            dataType: "json",
+                            success:function(data) {
+
+                                
+                                $('select[name="city_id_ubicacion"]').empty();
+                                $.each(data, function(key, value) {
+
+                                    if (key=='62') {
+
+                                    $('select[name="city_id_ubicacion"]').append('<option selected value="'+ key +'">'+ value +'</option>');
+
+
+                                    }else{
+
+                                    $('select[name="city_id_ubicacion"]').append('<option value="'+ key +'">'+ value +'</option>');
+
+
+                                    }
+                                });
+
+                            }
+                        });
+
+
+
 
          });
 
