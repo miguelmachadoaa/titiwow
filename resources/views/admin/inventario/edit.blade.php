@@ -42,6 +42,25 @@ Agregar Inventario
                             {{ csrf_field() }}
 
 
+                            <div class="form-group required">
+                                <label for="operacion" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-5">
+                                    <h3>{{ $producto->nombre_producto}}</h3>
+                                 <p>{{ $producto->referencia_producto }}</p>
+
+                                 <p><b> {{ 'Disponible: '.$inventario[$producto->id] }}</b></p>
+
+
+                                </div>
+                               
+                               
+                            </div>
+
+
+
+                           
+
+
 
                             <div class="form-group required">
                                 <label for="operacion" class="col-sm-2 control-label">Operacion</label>
@@ -54,7 +73,7 @@ Agregar Inventario
                                     {!! $errors->first('operacion', '<span class="help-block">:message</span>') !!}
                                 </div>
                                 <div class="col-sm-5">
-                                    {{ 'Disponible: '.$inventario[$producto->id] }}
+                                    
                                 </div>
                                 <span class="help-block">{{ $errors->first('operacion', ':message') }}</span>
                             </div>
