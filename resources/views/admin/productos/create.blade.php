@@ -54,6 +54,10 @@
         .dropzone .dz-preview .dz-image img {
             width :100%;
         }
+
+        .select2{
+            width: 100%;   height: 2.5em;
+        }
     </style>
     
 @stop
@@ -210,7 +214,7 @@
 
                                                 <div class="col-sm-9 col-xs-12" >
 
-                                                    <select id="tipo_producto" name="tipo_producto" class="form-control  {{ $errors->first('tipo_producto', 'has-error') }}  ">
+                                                    <select style="width: 100%; height: 2.5em;" id="tipo_producto" name="tipo_producto" class="form-control  select2 {{ $errors->first('tipo_producto', 'has-error') }}  ">
 
                                                         
                                                         <option value="1"  >Normal</option>
@@ -258,7 +262,7 @@
                                                Productos
                                             </label>
                                             <div class="col-md-7">   
-                                             <select style="width: 50%" id="id_producto" name="id_producto" class="form-control select2 js-example-responsive">
+                                             <select style="width: 100%; height: 2.5em;" style="width: 50%" id="id_producto" name="id_producto" class="form-control select2 js-example-responsive">
                                                 <option value="">Seleccione</option>
                                                     
                                                     @foreach($productos as $pro)
@@ -520,7 +524,7 @@
                                                     @lang('productos/title.tax')
                                                 </label>
                                                 <div class="col-md-9">   
-                                                 <select id="id_impuesto" name="id_impuesto" class="form-control ">
+                                                 <select style="width: 100%; height: 2.5em;" id="id_impuesto" name="id_impuesto" class="form-control select2 ">
                                                     <option value="">Seleccione</option>
                                                         
                                                          @foreach($impuestos as $imp)
@@ -541,7 +545,7 @@
                                                     @lang('productos/title.category_default')
                                                 </label>
                                                 <div class="col-md-9">   
-                                                 <select id="id_categoria_default" name="id_categoria_default" class="form-control ">
+                                                 <select style="width: 100%; height: 2.5em;" id="id_categoria_default" name="id_categoria_default" class="form-control select2 ">
                                                     <option value="">Seleccione</option>
                                                         
                                                          @foreach($categorias as $cat)
@@ -561,7 +565,7 @@
                                                     @lang('productos/title.marca')
                                                 </label>
                                                 <div class="col-md-9" >
-                                                    <select id="id_marca" name="id_marca" class="form-control ">
+                                                    <select style="width: 100%; height: 2.5em;" id="id_marca" name="id_marca" class="form-control select2 ">
                                                         <option value="">Seleccione</option>
                                                        
                                                         @foreach($marcas as $marca)
@@ -675,7 +679,7 @@
 
                                                 <div class="" >
 
-                                                    <select id="role_precio" name="role_precio" class="form-control ">
+                                                    <select style="width: 100%; height: 2.5em;" id="role_precio" name="role_precio" class="form-control ">
                                                         <option value="">Seleccione</option>
 
                                                        <optgroup label="Roles">
@@ -703,7 +707,7 @@
                                                     Estado
                                                 </label>
                                                 <div class="" >
-                                                    <select id="state_id" name="state_id" class="form-control ">
+                                                    <select style="width: 100%; height: 2.5em;" id="state_id" name="state_id" class="form-control select2">
                                                         <option value="">Seleccione</option>
                                                         
                                                         @foreach($states as $state)
@@ -722,7 +726,7 @@
                                                     Ciudad
                                                 </label>
                                                 <div class="" >
-                                                    <select id="city_id" name="city_id" class="form-control ">
+                                                    <select style="width: 100%; height: 2.5em;" id="city_id" name="city_id" class="form-control select2">
                                                         <option value="">Seleccione</option>
                                                        
                                                         
@@ -757,7 +761,7 @@
                                                
                                                     <div class="" >
 
-                                                        <select id="test_tipo" name="test_tipo" class="form-control">
+                                                        <select style="width: 100%; height: 2.5em;" id="test_tipo" name="test_tipo" class="form-control select2">
 
                                                             <option value="1" Selected>Dejar Precio Base</option>
                                                             <option value="2">Porcentaje Descuento</option>

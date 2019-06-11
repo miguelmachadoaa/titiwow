@@ -187,7 +187,7 @@
 
                                                 <div class="col-sm-9 col-xs-12" >
 
-                                                    <select id="tipo_producto" name="tipo_producto" class="form-control   {{ $errors->first('tipo_producto', 'has-error') }}  ">
+                                                    <select style="width: 100%; height: 2.5em;" id="tipo_producto" name="tipo_producto" class="form-control  select2 {{ $errors->first('tipo_producto', 'has-error') }}  ">
 
                                                         
                                                         <option value="1" @if($producto->tipo_producto==1) {{ 'Selected' }} @endif >Normal</option>
@@ -231,7 +231,7 @@
                                                Productos
                                             </label>
                                             <div class="col-md-7">   
-                                             <select  style="width: 50%" id="id_producto" name="id_producto" class="form-control select2 js-example-responsive">
+                                             <select style="width: 100%; height: 2.5em;"  style="width: 50%" id="id_producto" name="id_producto" class="form-control select2 js-example-responsive">
                                                 <option value="">Seleccione</option>
                                                     
                                                     @foreach($productos as $pro)
@@ -563,7 +563,7 @@
 
                                                 <div class="col-sm-9 col-xs-12"> 
 
-                                                 <select id="id_impuesto" name="id_impuesto" class="form-control   {{ $errors->first('id_impuesto', 'has-error') }} ">
+                                                 <select style="width: 100%; height: 2.5em;" id="id_impuesto" name="id_impuesto" class="form-control  select2 {{ $errors->first('id_impuesto', 'has-error') }} ">
 
                                                     <option value="">Seleccione</option>
 
@@ -587,7 +587,7 @@
 
                                                 <div class="col-sm-9 col-xs-12"> 
 
-                                                 <select id="id_categoria_default" name="id_categoria_default" class="form-control  select2 {{ $errors->first('id_categoria_default', 'has-error') }} ">
+                                                 <select style="width: 100%; height: 2.5em;" id="id_categoria_default" name="id_categoria_default" class="form-control  select2 {{ $errors->first('id_categoria_default', 'has-error') }} ">
 
                                                     <option value="">Seleccione</option>
 
@@ -614,7 +614,7 @@
 
                                                 <div class="col-sm-9 col-xs-12" >
 
-                                                    <select id="id_marca" name="id_marca" class="form-control select2  {{ $errors->first('id_marca', 'has-error') }}  ">
+                                                    <select style="width: 100%; height: 2.5em;" id="id_marca" name="id_marca" class="form-control select2  {{ $errors->first('id_marca', 'has-error') }}  ">
 
                                                         <option value="">Seleccione</option>
                                                          @foreach($marcas as $marca)
@@ -739,7 +739,7 @@
 
                                                 <div class="" >
 
-                                                    <select id="role_precio" name="role_precio" class="form-control select2">
+                                                    <select style="width: 100%; height: 2.5em;" id="role_precio" name="role_precio" class="form-control select2">
                                                         <option value="">Seleccione</option>
                                                        
                                                           <optgroup label="Roles">
@@ -767,7 +767,7 @@
                                                     Estado
                                                 </label>
                                                 <div class="" >
-                                                    <select id="state_id" name="state_id" class="form-control select2">
+                                                    <select style="width: 100%; height: 2.5em;" id="state_id" name="state_id" class="form-control select2">
                                                         <option value="">Seleccione</option>
                                                         
                                                         @foreach($states as $state)
@@ -786,7 +786,7 @@
                                                     Ciudad
                                                 </label>
                                                 <div class="" >
-                                                    <select id="city_id" name="city_id" class="form-control select2">
+                                                    <select style="width: 100%; height: 2.5em;" id="city_id" name="city_id" class="form-control select2">
                                                         <option value="">Seleccione</option>
                                                        
                                                         
@@ -818,7 +818,7 @@
                                                
                                                     <div class="" >
 
-                                                        <select id="{{ 'select_'.$pg->id_role.'_'.$pg->city_id }}" name="{{ 'select_'.$pg->id_role.'_'.$pg->city_id }}" data-rc="{{ $pg->id_role.'_'.$pg->city_id }}" class="form-control selectprecio">
+                                                        <select style="width: 100%; height: 2.5em;" id="{{ 'select_'.$pg->id_role.'_'.$pg->city_id }}" name="{{ 'select_'.$pg->id_role.'_'.$pg->city_id }}" data-rc="{{ $pg->id_role.'_'.$pg->city_id }}" class="form-control selectprecio select2">
 
                                                             <option value="1"  @if($pg->operacion == '1') selected="selected" @endif  >Dejar Precio Base</option>
                                                             <option value="2" @if($pg->operacion == '2') selected="selected" @endif  >Porcentaje Descuento</option>
@@ -872,7 +872,7 @@
                                                
                                                     <div class="" >
 
-                                                        <select id="test_tipo" name="test_tipo" class="form-control">
+                                                        <select style="width: 100%; height: 2.5em;" id="test_tipo" name="test_tipo" class="form-control select2">
 
                                                             <option value="1" Selected>Dejar Precio Base</option>
                                                             <option value="2">Porcentaje Descuento</option>
@@ -1403,11 +1403,11 @@ $('#productosForm').keypress(
 
 
     $(document).ready(function(){
-        $('.select21').select2({
+        $('.select2').select2({
             placeholder: "select",
             theme:"bootstrap"
         });
-    })
+    });
 
 
      function setprecio(){
