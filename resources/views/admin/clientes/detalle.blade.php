@@ -105,6 +105,17 @@ Cliente
 
                                                        
                                                     </table>
+
+                                                    <br>
+
+
+                
+                    <div class="col-sm-12">
+                        <button data-id="{{$usuario->id}}"  class="btn btn-primary changerol">Asignar usuario a Invitados Alpina </button>
+                    </div>
+
+
+
                                                 </div>
                                             </div>
 
@@ -113,6 +124,70 @@ Cliente
                         </div>
                     </div>
                 </div>
+
+
+
+
+<div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <i class="livicon" data-name="share" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                                    Amigos
+                                </h3>
+                                
+                            </div>
+                            <div class="panel-body">
+
+                                
+
+                                    <table class="table table-responsive" id="tbAmigos">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Email</th>
+                                <th>Puntos</th>
+                                <th>Creado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        @foreach($referidos as $referido)
+
+                                <tr>
+                                    <td>
+                                        {{ $referido->first_name }}
+                                    </td>
+                                    <td>
+                                        {{ $referido->last_name }}
+                                    </td>
+                                    <td>
+                                        {{ $referido->email }}
+                                    </td>
+                                    <td>
+                                        {{ number_format($referido->puntos,0,",",".")  }}
+                                    </td>
+                                    <td>
+                                        {{ $referido->created_at }}
+                                    </td>
+
+                                    
+                                </tr>
+                            
+                        @endforeach
+                        </tbody>
+                    </table>
+
+                                
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+              
 
     
 
@@ -213,6 +288,8 @@ Cliente
 
         </div>
 
+        <input type="hidden" name="base" id="base" value{{ secure_url('/')}}>
+
 
 </section>
 
@@ -224,6 +301,42 @@ Cliente
 
 {{-- page level scripts --}}
 @section('footer_scripts')
+
+
+
+    <!-- Modal Direccion -->
+    <div class="modal fade" id="rolModal" role="dialog" aria-labelledby="modalLabeldanger">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-sucess">
+                        <h4 class="modal-title" id="modalLabeldanger">Confirmar </h4>
+                        
+                </div>
+                
+                <div class="modal-body " style="min-height: 10em;">
+                    <input type="hidden" name="usuario_id" id="usuario_id" value="">
+                     
+                    <h3>Esta seguro de que desea asignar el usuario a Invitados Alpina, tenga en cuenta que si este usuario tiene amigos, ellos tambien se asignaran a Invitados Alpina.</h3>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="button"   class="btn  btn-primary saveInvitacion" >Aceptar</button>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
 <!-- begining of page level js -->
 <!--edit blog-->
 <script src="{{ secure_asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
@@ -235,5 +348,49 @@ Cliente
 <script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
 
 <script src="{{ secure_asset('assets/js/pages/add_newblog.js') }}" type="text/javascript"></script>
+
+
+
+    <script>
+        $(document).ready(function(){
+
+            $('.changerol').on('click', function(){
+
+                $('#usuario_id').val($(this).data('id'));
+                $('#rolModal').modal('show');
+            });
+
+
+            $('.saveInvitacion').on('click', function(){
+
+                cliente=$('#usuario_id').val();
+                base=$('#base').val();
+
+                $.ajax({
+                    type: "POST",
+                    data:{  cliente },
+                    url: base+"/admin/clientes/updaterol",
+                        
+                    complete: function(datos){     
+
+                        if (datos.responseText=='true') {
+
+                            location.reload();
+
+
+                        }else{
+
+                            alert('Hubo un error al actualizar intente nuevamente');
+                        }
+
+                    }
+                });
+
+            });
+
+
+
+        });
+    </script>
 
 @stop

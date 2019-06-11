@@ -39,6 +39,8 @@ Route::get('reportes/cronexportcuponesdescuento', 'Admin\AlpReportesController@c
 
 
 
+Route::post('admin/clientes/updaterol', 'Admin\AlpClientesController@updaterol')->name('clientes.updaterol');
+
 Route::get('admin/clientes/data', 'Admin\AlpClientesController@data')->name('clientes.data');
 Route::get('admin/clientes/dataempresas', 'Admin\AlpClientesController@dataempresas')->name('clientes.dataempresas');
 Route::get('admin/clientes/datainactivos', 'Admin\AlpClientesController@datainactivos')->name('clientes.datainactivos');

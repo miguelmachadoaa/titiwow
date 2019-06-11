@@ -15,6 +15,7 @@ use App\Models\AlpTDocumento;
 use App\Models\AlpEmpresas;
 use App\Models\AlpConfiguracion;
 use App\User;
+use App\Roles;
 use App\RoleUser;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -505,15 +506,6 @@ class AlpClientesController extends JoshController
 
 
 
-
-
-
-
-
-
-
-
-
     public function detalle($id)
     {
         // Grab all the groups
@@ -523,6 +515,13 @@ class AlpClientesController extends JoshController
         $cliente=AlpClientes::select('alp_clientes.*', 'alp_tipo_documento.nombre_tipo_documento as nombre_tipo_documento')
         ->join('alp_tipo_documento', 'alp_clientes.id_type_doc', '=', 'alp_tipo_documento.id')
         ->where('id_user_client', $id)->first();
+
+
+         $referidos =  DB::table('alp_clientes')->select('alp_clientes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email', DB::raw("SUM(alp_ordenes.monto_total) as puntos"))
+            ->join('users','alp_clientes.id_user_client' , '=', 'users.id')
+            ->leftJoin('alp_ordenes','users.id' , '=', 'alp_ordenes.id_cliente')
+            ->groupBy('alp_clientes.id')
+            ->where('alp_clientes.id_embajador', $id)->get();
 
         $usuario=User::select('users.*','roles.name as name_rol', 'role_users.role_id as role_id' )
         ->join('role_users', 'users.id', '=', 'role_users.user_id')
@@ -535,9 +534,11 @@ class AlpClientesController extends JoshController
           ->where('alp_clientes_history.id_cliente', $id)
           ->get();
 
+          $roles=Roles::all();
+
       
         // Show the page
-        return view('admin.clientes.detalle', compact('history', 'cliente', 'usuario'));
+        return view('admin.clientes.detalle', compact('history', 'cliente', 'usuario', 'roles', 'referidos'));
     }
 
 
@@ -983,17 +984,96 @@ class AlpClientesController extends JoshController
           
     }
 
+
+    public function updaterol(Request $request)
+    {
+        $user_id = Sentinel::getUser()->id;
+
+           $configuracion = AlpConfiguracion::where('id','1')->first();
+
+       try {
+
+
+            $user=User::where('id', $request->cliente)->first();
+
+            $roleusuario=RoleUser::where('user_id', $request->cliente)->first();
+
+            //Elimanr el rol del cliente
+
+
+            $role = Sentinel::findRoleById($roleusuario->role_id);
+
+            $role->users()->detach($request->cliente);
+
+            //Asignar al rol amigo 
+
+            $role = Sentinel::findRoleById(11);
+            
+            $role->users()->attach($request->cliente);
+
+            
+
+             $data_history = array(
+                'id_cliente' => $request->cliente, 
+                'estatus_cliente' => 'Cambio de Rol',
+                'notas' => 'Este usuario ha dejado de ser Embajador y ahora es amigo alpina del Embajador invitadosalpina@yopmail.com',
+                'id_user' => $user_id
+            );
+
+
+            AlpClientesHistory::create($data_history);
+
+            $data = array('id_embajador' => '632');
+
+
+            $cliente=AlpClientes::where('id_user_client', $request->cliente)->first();
+
+            $cliente->update($data);
+
+            $amigos=AlpClientes::where('id_embajador', $request->cliente )->get();
+
+            foreach ($amigos as $amigo) {
+
+                 $data = array('id_embajador' => '632');
+
+                $c=AlpClientes::where('id_user_client', $amigo->id_user_client)->first();
+
+                $c->update($data);
+
+
+
+             $data_history = array(
+                'id_cliente' => $amigo->id_user_client, 
+                'estatus_cliente' => 'Cambio de Rol',
+                'notas' => 'Ha sido asignado como  amigo alpina del Embajador invitadosalpina@yopmail.com ',
+                'id_user' => $user_id
+            );
+
+
+            AlpClientesHistory::create($data_history);
+
+
+
+
+            }
+
+            return 'true';
+            
+        } catch (Exception $e) {
+
+            return 'false';
+            
+        }
+
+    }
+
     public function eliminar(Request $request)
     {
         
        
-        $input=$request->all();
-
-        dd($input);
+       /* $input=$request->all();
 
         $user_id = Sentinel::getUser()->id;
-
-        
 
             $user=User::where('id', $user_id)->first();
             
@@ -1026,7 +1106,7 @@ class AlpClientesController extends JoshController
 
             return 1;
 
-            Sentinel::logout();
+            Sentinel::logout();*/
                          
           
     }
