@@ -53,6 +53,7 @@ class AlpInventarioController extends JoshController
                $data[]= array(
                  $row->id, 
                  $row->nombre_producto, 
+                 $row->referencia_producto, 
                  $inventario[$row->id], 
                  $row->created_at->diffForHumans(),
                  $actions

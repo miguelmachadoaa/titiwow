@@ -55,6 +55,7 @@ Inventario
                                 <tr>
                                     <th>Id</th>
                                     <th>Nombre</th>
+                                    <th>Referencia</th>
                                     <th>Inventario Disponible</th>
                                     <th>Creado</th>
                                     <th>Accion</th>
