@@ -309,7 +309,7 @@ Cliente
 
         </div>
 
-        <input type="hidden" name="base" id="base" value{{ secure_url('/')}}>
+        <input type="hidden" name="base" id="base" value="{{ secure_url('/')}}">
 
 
 </section>
@@ -348,13 +348,6 @@ Cliente
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
 
 
 
@@ -397,7 +390,6 @@ Cliente
                         if (datos.responseText=='true') {
 
                             location.reload();
-
 
                         }else{
 
