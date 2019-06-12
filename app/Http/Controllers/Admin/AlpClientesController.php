@@ -516,8 +516,17 @@ class AlpClientesController extends JoshController
         ->join('alp_tipo_documento', 'alp_clientes.id_type_doc', '=', 'alp_tipo_documento.id')
         ->where('id_user_client', $id)->first();
 
+        if ($cliente->id_embajador!=0) {
+                
+             $embajador=User::where('users.id', $cliente->id_embajador)->first();
 
-         $referidos =  DB::table('alp_clientes')->select('alp_clientes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email', DB::raw("SUM(alp_ordenes.monto_total) as puntos"))
+             $cliente->embajador=$embajador;
+
+        }
+
+
+
+        $referidos =  DB::table('alp_clientes')->select('alp_clientes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email', DB::raw("SUM(alp_ordenes.monto_total) as puntos"))
             ->join('users','alp_clientes.id_user_client' , '=', 'users.id')
             ->leftJoin('alp_ordenes','users.id' , '=', 'alp_ordenes.id_cliente')
             ->groupBy('alp_clientes.id')

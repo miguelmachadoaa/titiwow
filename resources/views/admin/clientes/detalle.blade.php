@@ -103,16 +103,37 @@ Cliente
                                                             </td>
                                                         </tr>
 
+                                                        @if( isset($cliente->embajador) )
+
+                                                        <tr>
+                                                            <td><b> Embajador</b></td>
+                                                            <td>
+                                                                {{ $cliente->embajador->first_name.' '.$cliente->embajador->last_name }}
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td><b> Embajador Email</b></td>
+                                                            <td>
+                                                                {{ $cliente->embajador->email }}
+                                                            </td>
+                                                        </tr>
+
+
+                                                        @endif
+
                                                        
                                                     </table>
 
                                                     <br>
 
-
+                    @if($usuario->role_id=='10')
                 
                     <div class="col-sm-12">
                         <button data-id="{{$usuario->id}}"  class="btn btn-primary changerol">Asignar usuario a Invitados Alpina </button>
                     </div>
+
+                    @endif
 
 
 
@@ -126,7 +147,7 @@ Cliente
                 </div>
 
 
-
+@if($usuario->role_id==10)
 
 <div class="row">
                     <div class="col-md-12">
@@ -188,7 +209,7 @@ Cliente
                 </div>
 
               
-
+@endif
     
 
 
@@ -316,7 +337,7 @@ Cliente
                 <div class="modal-body " style="min-height: 10em;">
                     <input type="hidden" name="usuario_id" id="usuario_id" value="">
                      
-                    <h3>Esta seguro de que desea asignar el usuario a Invitados Alpina, tenga en cuenta que si este usuario tiene amigos, ellos tambien se asignaran a Invitados Alpina.</h3>
+                    <h3>Esta seguro de que desea asignar el usuario a <b>Invitados Alpina</b>, tenga en cuenta que si este usuario tiene amigos, ellos tambien se asignaran a Invitados Alpina.</h3>
 
                 </div>
                 <div class="modal-footer">

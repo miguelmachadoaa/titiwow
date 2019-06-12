@@ -76,6 +76,7 @@ class ClientesFrontController extends Controller
                     }
 
                 }
+                
 
             $user = User::where('id', $user_id )->first();
 
@@ -131,7 +132,7 @@ class ClientesFrontController extends Controller
 
             //dd($puntos);
 
-            return \View::make('frontend.clientes.index', compact( 'cliente', 'user', 'states', 'cart', 'puntos'));
+            return \View::make('frontend.clientes.index', compact( 'cliente', 'user', 'states', 'cart', 'puntos', 'role'));
     
             }else{
 

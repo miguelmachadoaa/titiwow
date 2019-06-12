@@ -80,19 +80,19 @@ Area clientes
         <div class="alert alert-default">
         @if(isset($cliente))
 
-            @if($cliente->id_empresa!=0)
+            @if($role->role_id==12)
 
                 <h4>Cliente afiliado por la empresa: {{ $cliente->nombre_empresa }}</h4>
 
             @endif
 
-            @if($cliente->id_embajador!=0)
+            @if($role->role_id==11)
 
                 <h4>Usted es parte de los amigos alpina de: {{ $cliente->nombre_embajador }}</h4>
 
             @endif
 
-            @if($cliente->cod_alpinista!=0)
+            @if($role->role_id==10)
 
              <h4>Bienvenido a AlpinaGo, ya eres un Embajador Alpina. Invita a tus Amigos y familiares para empezar a disfrutar de nuestro producto.</h4>
 
