@@ -89,11 +89,11 @@ class TomaPedidosExport implements FromView
 
           $fecha->addDays(1);
 
-          $fecha->format('d-m-Y');
+          $hoy=$fecha->format('d-m-Y');
 
 
         return view('admin.exports.tomapedidos', [
-            'productos' => $pro, 'fecha' => $fecha
+            'productos' => $pro, 'fecha' => $hoy
         ]);
     }
 }
