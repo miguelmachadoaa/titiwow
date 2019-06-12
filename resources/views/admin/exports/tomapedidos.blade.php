@@ -10,21 +10,26 @@
         <td > </td>
     </tr>
     <tr>
+        <td colspan="7">
+            
+        </td>
+    </tr>
+    <tr>
         <td>Tipo de Solicitud (*)</td>
         <td>Creación Pedido</td>
         <td>No.pedido SAP (aplica para modificación/ eliminación de pedido)</td>
         <td></td>
         <td>Fecha de entrega (*)</td>
-        <td>Dia mas 1</td>
+        <td>{{$fecha}}</td>
         <td ></td>
     </tr>
     <tr>
         <td>Canal (*)</td>
         <td>ALTERNATIVOS</td>
-        <td>Código CEDI</td>
         <td></td>
-        <td>Código Cliente (*)</td>
         <td>1000030242</td>
+        <td></td>
+        <td></td>
         <td ></td>
     </tr>
 
@@ -34,6 +39,10 @@
         <td>Referencia Cliente</td>
         <td></td>
         <td ></td>
+    </tr>
+
+    <tr>
+        <td colspan="7" ></td>
     </tr>
 
 
@@ -50,8 +59,8 @@
 
         @foreach ($productos as $row)
         <tr>
-            <td>{!! $row->referencia_producto_sap!!}</td>
             <td>{!! $row->referencia_producto!!}</td>
+            <td>{!! $row->referencia_producto_sap!!}</td>
             <td>{!! $row->nombre_producto !!}</td>
             <td>{!! $row->cantidad !!}</td>
             <td>Producto de Línea</td>

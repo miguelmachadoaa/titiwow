@@ -12,6 +12,7 @@ use Maatwebsite\Excel\Concerns\FromView;
 use Illuminate\Contracts\View\View;
 
 use \DB;
+use Carbon\Carbon;
 
 
 class TomaPedidosExport implements FromView
@@ -84,8 +85,15 @@ class TomaPedidosExport implements FromView
           }
 
 
+          $fecha = Carbon::now();
+
+          $fecha->addDays(1);
+
+          $fecha->format('d-m-Y');
+
+
         return view('admin.exports.tomapedidos', [
-            'productos' => $pro
+            'productos' => $pro, 'fecha' => $fecha
         ]);
     }
 }
