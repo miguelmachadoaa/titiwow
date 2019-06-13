@@ -36,7 +36,7 @@
                             <span class="price">{{ intval($row->precio_oferta) }}</span>
                             <div class="actions">
                                 <a data-id="{{ $row->id }}" data-slug="{{ $row->slug }}" href="#0" class="delete-item col-xs-3">Borrar</a>
-                                    <!--div class="quantity col-xs-8">
+                                    <div class="quantity col-xs-8">
                                         <label for="cd-product-{{ $row->id }}">Cantidad</label>
                                             <span class="select">
                                                 <select class="cartselect" data-id="{{ $row->id }}" data-slug="{{ $row->slug }}" id="cd-product-{{ $row->id }}" name="quantity">
@@ -50,9 +50,10 @@
                                                     <option value="7">7</option>
                                                     <option value="8">8</option>
                                                     <option value="9">9</option>
+                                                    <option value="10">10</option>
                                                 </select>
                                             </span>
-                                    </div-->
+                                    </div>
                             </div>
                         </div>
                     </li>

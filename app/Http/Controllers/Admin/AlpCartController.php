@@ -2257,18 +2257,23 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        $carrito= \Session::get('cr');
 
-      $user_id = Sentinel::getUser()->id;
+       if (Sentinel::check()) {
 
-      $usados_orden=AlpOrdenesDescuento::where('id_orden', $carrito)->where('id_user', $user_id)->get();
+         $user_id = Sentinel::getUser()->id;
+
+          $usados_orden=AlpOrdenesDescuento::where('id_orden', $carrito)->where('id_user', $user_id)->get();
 
 
-      foreach ($usados_orden as $uo) {
-        
-        $o=AlpOrdenesDescuento::where('id', $uo->id)->first();
+          foreach ($usados_orden as $uo) {
+            
+            $o=AlpOrdenesDescuento::where('id', $uo->id)->first();
 
-        $o->delete();
+            $o->delete();
 
-      }
+          }
+
+
+       }
 
 
 
