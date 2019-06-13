@@ -689,6 +689,7 @@ class AlpCuponesController extends JoshController
     public function import(Request $request) 
     {
         $archivo = $request->file('file_cupones');
+
         Excel::import(new CuponesImport, $archivo);
         
         return redirect('admin/cupones')->with('success', 'Cupones Cargados Exitosamente');

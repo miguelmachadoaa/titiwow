@@ -67,11 +67,24 @@ class ClientesFrontController extends Controller
                     }
 
                     if ($cliente->id_embajador!=0) {
+
+
                         
                         $user_embajador = User::where('id', $cliente->id_embajador )->first();
 
+                        if (isset($user_embajador->first_name)) {
 
                         $cliente['nombre_embajador']=$user_embajador->first_name.' '.$user_embajador->last_name;
+
+                            
+                        }else{
+
+                            $cliente['nombre_embajador']=$cliente->id_embajador;
+
+
+                        }
+
+
                         
                     }
 

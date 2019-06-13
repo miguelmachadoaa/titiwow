@@ -98,7 +98,19 @@
 
                               <span class="input-group-btn">
 
-                                <button data-cantidad="{{ $row->cantidad }}" data-slug="{{ $row->slug }}" data-tipo='suma' data-id="{{ $row->id }}" class="btn btn-success updatecartdetalle" type="button"><i class="fa fa-plus"></i></button>
+
+                                    @if($configuracion->maximo_productos==$row->cantidad) 
+
+                                    <button disabled="disabled" data-cantidad="{{ $row->cantidad }}" data-slug="{{ $row->slug }}" data-tipo='suma' data-id="{{ $row->id }}" class="btn btn-success " type="button"><i class="fa fa-plus"></i></button>
+
+                                    @else
+
+                                    <button data-cantidad="{{ $row->cantidad }}" data-slug="{{ $row->slug }}" data-tipo='suma' data-id="{{ $row->id }}" class="btn btn-success updatecartdetalle" type="button"><i class="fa fa-plus"></i></button>
+
+                                     @endif 
+
+
+                                
 
 
                               </span>

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\AlpMenuDetalle;
+use App\Models\AlpConfiguracion;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
@@ -29,6 +30,12 @@ class AppServiceProvider extends ServiceProvider
 
             view()->composer('layouts.sidebar', function($view) {
                 $view->with('marcas', AlpMenuDetalle::menus(3));
+            });
+
+
+            view()->composer('*', function($view) {
+                $config = AlpConfiguracion::where('alp_configuracion_general.id', '1')->first();
+                $view->with('configuracion',$config);
             });
             
     }

@@ -2762,6 +2762,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         $datasingle=$request->datasingle;
         
+        
          $view= View::make('frontend.order.botones', compact('producto', 'cart', 'datasingle'));
            
 
