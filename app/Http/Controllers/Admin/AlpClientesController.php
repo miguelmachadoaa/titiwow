@@ -10,6 +10,7 @@ use App\Mail\Restore;
 use Cartalyst\Sentinel\Laravel\Facades\Activation;
 use App\Models\AlpClientes;
 use App\Models\AlpClientesHistory;
+use App\Models\AlpClientesEmbajador;
 use App\Models\AlpDirecciones;
 use App\Models\AlpTDocumento;
 use App\Models\AlpEmpresas;
@@ -1020,7 +1021,7 @@ class AlpClientesController extends JoshController
             
             $role->users()->attach($request->cliente);
 
-            
+            //HIstorico de cambios de cliente 
 
              $data_history = array(
                 'id_cliente' => $request->cliente, 
@@ -1029,8 +1030,22 @@ class AlpClientesController extends JoshController
                 'id_user' => $user_id
             );
 
+             //Registro de historico de embajador 
+
 
             AlpClientesHistory::create($data_history);
+
+            $data_embajador = array(
+                'id_cliente' => $request->cliente, 
+                'id_embajador' => '632', 
+                'notas'=>'Este usuario ha dejado de ser Embajador y ahora es amigo alpina del Embajador invitadosalpina@yopmail.com',
+                'id_user' => $user_id
+            );
+
+            AlpClientesEmbajador::create($data_embajador);
+
+
+
 
             $data = array('id_embajador' => '632');
 
@@ -1059,7 +1074,19 @@ class AlpClientesController extends JoshController
             );
 
 
+
+
             AlpClientesHistory::create($data_history);
+
+
+             $data_embajador = array(
+                'id_cliente' => $amigo->id_user_client, 
+                'id_embajador' => '632', 
+                'notas'=>'Este usuario ha dejado de ser Embajador y ahora es amigo alpina del Embajador invitadosalpina@yopmail.com',
+                'id_user' => $user_id
+            );
+
+            AlpClientesEmbajador::create($data_embajador);
 
 
 

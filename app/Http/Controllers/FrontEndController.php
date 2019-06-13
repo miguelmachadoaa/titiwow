@@ -11,6 +11,7 @@ use App\Mail\ContactUser;
 use App\Mail\ForgotPassword;
 use App\Mail\Register;
 use App\Models\AlpClientes;
+use App\Models\AlpClientesEmbajador;
 use App\Models\AlpCategorias;
 use App\Models\AlpEmpresas;
 use App\Models\AlpPrecioGrupo;
@@ -1050,6 +1051,26 @@ class FrontEndController extends JoshController
             );
 
             AlpClientes::create($data);
+
+            $user_embajador=User::where('id', $request->referido)->first();
+
+             $data_embajador = array(
+                'id_cliente' => $user->id, 
+                'id_embajador' => $request->referido, 
+                'notas'=>'Se ha registrado asignado el embajador id '.$user_embajador->first_name.' '.$user_embajador->last_name,
+                'id_user' => $user->id
+            );
+
+            AlpClientesEmbajador::create($data_embajador);
+
+            $user_history = array(
+            'id_cliente' => $user->id,
+            'estatus_cliente' => "Activado",
+            'notas' => "Ha sido registrado satisfactoriamente",
+            'id_user'=>$user->id
+             );
+
+            AlpClientesHistory::create($user_history);
 
 
             $referido=User::where('id',$request->referido )->firts();

@@ -16,6 +16,7 @@ use App\RoleUser;
 use App\User;
 use App\Models\AlpClientes;
 use App\Models\AlpClientesHistory;
+use App\Models\AlpClientesEmbajador;
 use App\Models\AlpAmigos;
 use App\Models\AlpDirecciones;
 use App\Models\AlpEmpresas;
@@ -481,6 +482,15 @@ class AuthController extends JoshController
                          );
 
             AlpClientesHistory::create($user_history);
+
+             $data_embajador = array(
+                'id_cliente' => $user->id, 
+                'id_embajador' => $amigo->id_cliente, 
+                'notas'=>'Se ha registrado asignado el embajador id '.$emb->first_name.' '.$emb->last_name,
+                'id_user' => $user->id
+            );
+
+            AlpClientesEmbajador::create($data_embajador);
 
 
 
