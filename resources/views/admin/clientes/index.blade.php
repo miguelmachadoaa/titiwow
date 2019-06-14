@@ -151,7 +151,7 @@ Todos los @lang('clientes/title.clientes')
 	    var table =$('table').DataTable( {
 	        "processing": true,
 	        "ajax": {
-	            "url": base+'/admin/clientes/data/'
+	            "url": base+'/admin/clientes/data'
 	        }
 	    });
 

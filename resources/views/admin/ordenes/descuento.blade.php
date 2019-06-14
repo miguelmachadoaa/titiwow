@@ -281,7 +281,7 @@ $("#aprobarOrdenForm").bootstrapValidator({
     var table =$('#tbOrdenes').DataTable( {
         "processing": true,
         "ajax": {
-            "url": base+'/admin/ordenes/datadescuento/'
+            "url": base+'/admin/ordenes/datadescuento'
         }
     } );
 

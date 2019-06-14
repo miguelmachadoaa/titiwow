@@ -121,7 +121,7 @@ Sliders
             var table =$('#table').DataTable( {
                 "processing": true,
                 "ajax": {
-                    "url": base+'/admin/sliders/data/'
+                    "url": base+'/admin/sliders/data'
                 }
             } );
 

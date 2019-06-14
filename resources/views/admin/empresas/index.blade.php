@@ -134,7 +134,7 @@ Empresa
             var table =$('#table').DataTable( {
                 "processing": true,
                 "ajax": {
-                    "url": base+'/admin/empresas/data/'
+                    "url": base+'/admin/empresas/data'
                 }
             } );
 

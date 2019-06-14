@@ -122,7 +122,7 @@ Categorias
             var table =$('#categoriastable').DataTable( {
                 "processing": true,
                 "ajax": {
-                    "url": base+'/admin/categorias/data/'
+                    "url": base+'/admin/categorias/data'
                 }
             } );
 

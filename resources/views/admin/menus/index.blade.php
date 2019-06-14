@@ -116,7 +116,7 @@ Menús
             var table =$('#table').DataTable( {
                 "processing": true,
                 "ajax": {
-                    "url": base+'/admin/menus/data/'
+                    "url": base+'/admin/menus/data'
                 }
             } );
 

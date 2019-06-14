@@ -118,7 +118,7 @@
     var table =$('table').DataTable( {
         "processing": true,
         "ajax": {
-            "url": base+'/admin/clientes/dataempresas/'
+            "url": base+'/admin/clientes/dataempresas'
         }
     } );
 

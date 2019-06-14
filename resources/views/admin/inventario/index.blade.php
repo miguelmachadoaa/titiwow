@@ -128,7 +128,7 @@ Inventario
             var table =$('#tbInventario').DataTable( {
                 "processing": true,
                 "ajax": {
-                    "url": base+'/admin/inventario/data/'
+                    "url": base+'/admin/inventario/data'
                 }
             } );
 

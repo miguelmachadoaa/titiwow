@@ -118,7 +118,7 @@ Marca
             var table =$('#table').DataTable( {
                 "processing": true,
                 "ajax": {
-                    "url": base+'/admin/marcas/data/'
+                    "url": base+'/admin/marcas/data'
                 }
             } );
 

@@ -117,7 +117,7 @@ Feriados
             var table =$('#table').DataTable( {
                 "processing": true,
                 "ajax": {
-                    "url": base+'/admin/feriados/data/'
+                    "url": base+'/admin/feriados/data'
                 }
             } );
 

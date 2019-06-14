@@ -167,7 +167,7 @@ Ordenes Aprobadas
     var table =$('#tbOrdenes').DataTable( {
         "processing": true,
         "ajax": {
-            "url": base+'/admin/ordenes/dataaprobados/'
+            "url": base+'/admin/ordenes/dataaprobados'
         }
     } );
 

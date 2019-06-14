@@ -114,7 +114,7 @@ Transportistas
             var table =$('#table').DataTable( {
                 "processing": true,
                 "ajax": {
-                    "url": base+'/admin/transportistas/data/'
+                    "url": base+'/admin/transportistas/data'
                 }
             } );
 

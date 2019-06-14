@@ -195,7 +195,7 @@ $("#enviarOrdenForm").bootstrapValidator({
     var table =$('#tbOrdenes').DataTable( {
         "processing": true,
         "ajax": {
-            "url": base+'/admin/ordenes/datafacturados/'
+            "url": base+'/admin/ordenes/datafacturados'
         }
     } );
 

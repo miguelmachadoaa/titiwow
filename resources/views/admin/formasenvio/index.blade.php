@@ -106,7 +106,7 @@ Formas de Envio
             var table =$('#table').DataTable( {
                 "processing": true,
                 "ajax": {
-                    "url": base+'/admin/formasenvio/data/'
+                    "url": base+'/admin/formasenvio/data'
                 }
             } );
 

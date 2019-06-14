@@ -116,7 +116,7 @@ Formas de Pago
             var table =$('#table').DataTable( {
                 "processing": true,
                 "ajax": {
-                    "url": base+'/admin/formaspago/data/'
+                    "url": base+'/admin/formaspago/data'
                 }
             } );
 

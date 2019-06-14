@@ -240,7 +240,7 @@ $("#estatusEnviosForm").bootstrapValidator({
             var table =$('#tbOrdenes').DataTable( {
                 "processing": true,
                 "ajax": {
-                    "url": base+'/admin/envios/data/'
+                    "url": base+'/admin/envios/data'
                 }
             } );
 

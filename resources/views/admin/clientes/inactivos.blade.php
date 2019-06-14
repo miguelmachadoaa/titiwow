@@ -222,7 +222,7 @@
     var table =$('#table').DataTable( {
         "processing": true,
         "ajax": {
-            "url": base+'/admin/clientes/datainactivos/'
+            "url": base+'/admin/clientes/datainactivos'
         }
     } );
 

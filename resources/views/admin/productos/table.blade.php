@@ -59,18 +59,14 @@
         });
 
 
-         
-
-
       $(document).ready(function() {
-
 
         base=$('#base').val();
         
     var table =$('#alpProductos-table').DataTable( {
         "processing": true,
         "ajax": {
-            "url": base+'/admin/productos/data/'
+            "url": base+'/admin/productos/data'
         }
     } );
 

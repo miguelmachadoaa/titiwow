@@ -118,7 +118,7 @@ Estatus Ordenes
             var table =$('#table').DataTable( {
                 "processing": true,
                 "ajax": {
-                    "url": base+'/admin/estatus/data/'
+                    "url": base+'/admin/estatus/data'
                 }
             } );
 

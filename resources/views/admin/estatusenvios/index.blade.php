@@ -114,7 +114,7 @@ Estatus Envios
             var table =$('#table').DataTable( {
                 "processing": true,
                 "ajax": {
-                    "url": base+'/admin/estatusenvios/data/'
+                    "url": base+'/admin/estatusenvios/data'
                 }
             } );
 

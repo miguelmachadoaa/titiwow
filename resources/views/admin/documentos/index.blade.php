@@ -115,7 +115,7 @@ Tipos de Documentos
             var table =$('#table').DataTable( {
                 "processing": true,
                 "ajax": {
-                    "url": base+'/admin/documentos/data/'
+                    "url": base+'/admin/documentos/data'
                 }
             } );
 

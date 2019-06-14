@@ -213,7 +213,7 @@ $("#confirmarOrdenForm").bootstrapValidator({
     var table =$('#tbOrdenes').DataTable( {
         "processing": true,
         "ajax": {
-            "url": base+'/admin/ordenes/dataempresas/'
+            "url": base+'/admin/ordenes/dataempresas'
         }
     } );
 

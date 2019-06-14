@@ -116,7 +116,7 @@ Estatus Pagos
             var table =$('#table').DataTable( {
                 "processing": true,
                 "ajax": {
-                    "url": base+'/admin/estatuspagos/data/'
+                    "url": base+'/admin/estatuspagos/data'
                 }
             } );
 
