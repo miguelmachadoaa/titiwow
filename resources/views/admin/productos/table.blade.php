@@ -41,24 +41,6 @@
 
 
 
-        
-         $('#alpProductos-table').on('click', '.sugerencia', function(){
-
-
-            var id=$(this).data('id');
-            var sugerencia=$(this).data('sugerencia');
-            var url=$(this).data('url');
-
-
-            $.post(url, {id, sugerencia}, function(data) {
-
-                    $('#td_sugerencia_'+id).html(data);
-
-            });
-           
-        });
-
-
       $(document).ready(function() {
 
         base=$('#base').val();
@@ -88,7 +70,6 @@
         });
 
 
-
      $('#alpProductos-table').on('click', '.destacado', function(){
 
 
@@ -99,14 +80,31 @@
 
             $.post(url, {id, destacado}, function(data) {
 
-            	alert(data);
+            	//alert(data);
 
-                    //$('#td_destacado_'+id).html(data);
+                   // $('#td_destacado_'+id).html(data);
+                     table.ajax.reload();
 
             });
            
         });
 
+
+     $('#alpProductos-table').on('click', '.sugerencia', function(){
+
+
+            var id=$(this).data('id');
+            var sugerencia=$(this).data('sugerencia');
+            var url=$(this).data('url');
+
+            $.post(url, {id, sugerencia}, function(data) {
+
+                    //$('#td_sugerencia_'+id).html(data);
+                    table.ajax.reload();
+
+            });
+           
+        });
 
 
 } );
