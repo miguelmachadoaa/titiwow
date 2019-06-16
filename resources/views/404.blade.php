@@ -26,12 +26,6 @@ Página No Encontrada
             @include('layouts.sidebar')
             </div>
             <div class="col-md-9">
-                <div id="animate" class="row">
-                    <div class="number">4</div>
-                    <div class="icon"> <i class="livicon" data-name="pacman" data-size="105" data-c="#f6c500" data-hc="#f1b21d" data-eventtype="click" data-iteration="15"></i>
-                    </div>
-                    <div class="number">4</div>
-                </div>
                 <div class="hgroup">
                     <h1>Página No Encontrada</h1>
                     <h2>Al parecer la página que busca no se encontró.</h2>
