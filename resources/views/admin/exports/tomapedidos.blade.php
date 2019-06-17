@@ -73,13 +73,13 @@
 
         @foreach ($productos as $row)
         <tr>
-            <td>{!! $row->referencia_producto!!}</td>
             <td>{!! $row->referencia_producto_sap!!}</td>
+            <td>{!! $row->referencia_producto!!}</td>
             <td>{!! $row->nombre_producto !!}</td>
             <td>{!! $row->cantidad !!}</td>
             <td>Producto de Línea</td>
+            <td></td>
             <td>{!! $row->id_orden!!}</td>
-            <td> </td>
             <td> </td>
             <td> </td>
            
