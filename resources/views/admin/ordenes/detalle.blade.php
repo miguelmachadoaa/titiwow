@@ -142,6 +142,81 @@ Orden {{$orden->id}}
 
 
 
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary ">
+                <div class="panel-heading">
+                    <h4 class="panel-title"> <i class="livicon" data-name="wrench" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                       Detalles del Clientes {{$orden->referencia}}
+                    </h4>
+                </div>
+                <div class="panel-body">
+
+                     <br>
+                        <div class="row">   
+                            <div class="col-sm-12">  
+                                    <h3>    Detalle del Clientes </h3>
+                             </div>
+                            
+                        </div>
+
+                    <br> 
+
+                   <table class="table table-striped ">
+                 <tbody>
+                     <tr>
+                         <td>Nombre</td>
+                         <td>{{$cliente->first_name.' '.$cliente->last_name}}</td>
+                     </tr>
+
+                     <tr>
+                         <td>Documento</td>
+                         <td>{{$cliente->doc_cliente}}</td>
+                     </tr>
+
+                     <tr>
+                         <td>Email</td>
+                         <td>{{$cliente->email}}</td>
+                     </tr>
+
+                     <tr>
+                         <td>Telefono</td>
+                         <td>{{$cliente->telefono_cliente}}</td>
+                     </tr>
+
+
+
+                     <tr>
+                         <td>Ubicacion </td>
+                         <td>{{ $direccion->country_name.', '.$direccion->state_name.', '.$direccion->city_name }}</td>
+                     </tr>
+
+                     <tr>
+                         <td>Direccion de Envio </td>
+                         <td>{{ $direccion->nombre_estructura.' '.$direccion->principal_address.' - '.$direccion->secundaria_address.' '.$direccion->edificio_address.' '.$direccion->detalle_address.' '.$direccion->barrio_address }}</td>
+                     </tr>
+
+                    
+                 </tbody>
+                 
+             </table>
+                    
+            <p style="text-align: center;"> 
+                    <a class="btn btn-default" href="{{ secure_url('admin/ordenes') }}">Regresar</a>
+
+            </p>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- row-->
+
+
+
+
+
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-primary ">
@@ -166,6 +241,7 @@ Orden {{$orden->id}}
                  <thead>
                      <tr>
                          <th>Imagen</th>
+                         <th>Referencia</th>
                          <th>Producto</th>
                          <th>Precio</th>
                          <th>Cantidad</th>
@@ -176,6 +252,7 @@ Orden {{$orden->id}}
                      @foreach($detalles as $row)
                         <tr>
                             <td><img height="60px" src="{{ secure_url('/') }}/uploads/productos/{{$row->imagen_producto}}"></td>
+                            <td>{{$row->referencia_producto}}</td>
                             <td>{{$row->nombre_producto}}</td>
                             <td>{{number_format($row->precio_unitario,2)}}</td>
                             <td>
@@ -187,9 +264,57 @@ Orden {{$orden->id}}
                      @endforeach
 
                      <tr>
-                         <td style="text-align: right;" colspan="4"><b> Total: </b></td>
+                         <td style="text-align: right;" colspan="5"><b> Subtotal: </b></td>
                          <td >{{ number_format($orden->monto_total, 2) }}</td>
                      </tr>
+
+                      <tr>
+                         <td style="text-align: right;" colspan="5"><b> Envio: </b></td>
+                         <td >
+
+                          @if(isset($envio->costo))
+                              @if(intval($envio->costo)==0)
+
+                                {{'Gratis'}}
+
+                              @else
+
+                                {{ number_format($envio->costo, 2) }}
+
+                              @endif
+
+                          @else
+
+                            {{'Gratis'}}
+
+
+                          @endif
+                        </td>
+                     </tr>
+
+                     <tr>
+                         <td style="text-align: right;" colspan="5"><b> Total: </b></td>
+
+                          @if(isset($envio->costo))
+
+                              <td >{{ number_format($envio->costo+$orden->monto_total, 2) }}</td>
+
+
+                          @else
+
+                            <td >{{ number_format($orden->monto_total, 2) }}</td>
+
+                          @endif
+                          
+
+
+                     </tr>
+
+                     <tr>
+                         <td style="text-align: right;" colspan="5"><b> Descuento: </b></td>
+                         <td >{{ number_format($orden->monto_total_base-$orden->monto_total, 2) }}</td>
+                     </tr>
+
 
                  </tbody>
              </table>
@@ -206,6 +331,29 @@ Orden {{$orden->id}}
     <!-- row-->
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     @if(isset($pago->id))
 
 
@@ -218,11 +366,6 @@ Orden {{$orden->id}}
                     </h4>
                 </div>
                 <div class="panel-body">
-
-
-
-
-
 
 
 
@@ -493,18 +636,7 @@ Orden {{$orden->id}}
 
 
 
-
-
-
-
-
-
-
-
-
-
-                  
-
+                    
            
                    
                 </div>

@@ -12,6 +12,8 @@ use App\Models\AlpPagos;
 use App\Models\AlpPuntos;
 use App\Models\AlpConfiguracion;
 use App\Models\AlpEnvios;
+use App\Models\AlpDirecciones;
+
 use App\User;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -1022,11 +1024,11 @@ echo '<br>fin: '.$date_fin;*/
     public function detalle($id)
     {
        
-       $orden = AlpOrdenes::find($id);
+    $orden = AlpOrdenes::find($id);
 
       
 
-    $detalles = AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto')
+    $detalles = AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto','alp_productos.referencia_producto as referencia_producto')
           ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
           ->where('alp_ordenes_detalle.id_orden', $id)
           ->get();
@@ -1043,7 +1045,6 @@ echo '<br>fin: '.$date_fin;*/
 
           //dd($pago);
 
-
     $history = AlpOrdenesHistory::select('alp_ordenes_history.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre' )
           ->join('alp_ordenes_estatus', 'alp_ordenes_history.id_status', '=', 'alp_ordenes_estatus.id')
           ->join('users', 'alp_ordenes_history.id_user', '=', 'users.id')
@@ -1051,8 +1052,25 @@ echo '<br>fin: '.$date_fin;*/
           ->get();
 
 
+          $cliente =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista','alp_clientes.doc_cliente as doc_cliente')
+        ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+        ->join('role_users', 'users.id', '=', 'role_users.user_id')
+        ->join('roles', 'role_users.role_id', '=', 'roles.id')
+        ->where('users.id', '=', $orden->id_user)->first();
 
-        return view('admin.ordenes.detalle', compact('detalles', 'orden', 'history', 'pago', 'pagos'));
+
+          $direccion = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+          ->where('alp_direcciones.id', $orden->id_address)->first();
+
+
+
+
+
+        return view('admin.ordenes.detalle', compact('detalles', 'orden', 'history', 'pago', 'pagos', 'cliente', 'direccion'));
 
     }
 
