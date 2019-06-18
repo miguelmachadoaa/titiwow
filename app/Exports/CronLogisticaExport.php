@@ -53,7 +53,7 @@ class CronLogisticaExport implements FromView
            DB::raw('DATE_FORMAT(alp_ordenes.created_at, "%d/%m/%Y")  as fecha'),
           'roles.name as name_rol' )
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
-          ->join('alp_direcciones', 'users.id', '=', 'alp_direcciones.id_client')
+          ->join('alp_direcciones', 'alp_ordenes.id_address', '=', 'alp_direcciones.id')
           ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
           ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
