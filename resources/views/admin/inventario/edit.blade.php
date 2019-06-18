@@ -126,6 +126,74 @@ Agregar Inventario
         </div>
     </div>
     <!-- row-->
+
+
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary ">
+                <div class="panel-heading">
+                    <h4 class="panel-title"> <i class="livicon" data-name="wrench" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                       Historico Movimientos
+                    </h4>
+                </div>
+                <div class="panel-body">
+
+                    @if ($movimientos->count() >= 1)
+                        <div class="table-responsive">
+
+                        <table class="table table-bordered" id="tbInventario">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nombre</th>
+                                    <th>Referencia</th>
+                                    <th>Inventario Disponible</th>
+                                    <th>Usuario</th>
+                                    <th>Creado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach($movimientos as $movimiento)
+
+                                <tr>
+                                    <td>{{$movimiento->id}}</td>
+                                    <td>{{$movimiento->nombre_producto}}</td>
+                                    <td>{{$movimiento->referencia_producto}}</td>
+                                    <td>
+                                        @if($movimiento->operacion==1)
+
+                                            {{'AGREGAR'}}
+
+                                        @else
+                                            
+                                            {{'DESCONTAR'}}
+
+                                        @endif
+
+                                    </td>
+                                    <td>{{$movimiento->cantidad}}</td>
+                                    <td>{{$movimiento->first_name.' '.$movimiento->last_name}}</td>
+                                </tr>
+
+                                @endforeach
+
+
+                            </tbody>
+                        </table>
+                        </div>
+                    @else
+                        No se encontraron registros
+                    @endif   
+                    
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- row-->
 </section>
 
 @stop
