@@ -39,13 +39,15 @@
 
         <div class="row">
 
-            @if (isset($direcciones->id))
+            @if (count($direcciones)>0)
+
+                @foreach($direcciones as $direccion)
+
 
 
                 
                     <div class="form-group ">
 
-                    <input type="hidden" name="id_direccion"  id="id_direccion" value="{{ $direcciones->id }}" >  
 
 
                 <div class="col-sm-10 col-sm-offset-1">
@@ -53,27 +55,27 @@
                         
                         <div class="panel-body">
                             <div class="box-body">
-                                <dl class="dl-horizontal">
+                                <dl class="dl-horizontal" style="    padding: 1EM 0EM;">
 
                                     <dt>Departamento</dt>
-                                    <dd>{{ $direcciones->state_name }}</dd>
+                                    <dd>{{ $direccion->state_name }}</dd>
 
                                     <dt>Ciudad</dt>
-                                    <dd>{{$direcciones->city_name }}</dd>
+                                    <dd>{{$direccion->city_name }}</dd>
 
                                    
                                     <dt>Direccion</dt>
                                     <dd>
-                                       {{ $direcciones->nombre_estructura.' '.$direcciones->principal_address.'  #'.$direcciones->secundaria_address .'-'.$direcciones->edificio_address.' '.$direcciones->detalle_address  }}
+                                       {{ $direccion->nombre_estructura.' '.$direccion->principal_address.'  #'.$direccion->secundaria_address .'-'.$direccion->edificio_address.' '.$direccion->detalle_address  }}
                                     </dd>
 
                                     <dt>Barrio</dt>
                                     <dd>
-                                       {{ $direcciones->barrio_address }}
+                                       {{ $direccion->barrio_address }}
                                     </dd>
 
                                     <dt>Notas</dt>
-                                    <dd>{{ $direcciones->notas }}</dd>
+                                    <dd>{{ $direccion->notas }}</dd>
                                     
                                 </dl>
                             </div>
@@ -89,7 +91,8 @@
                        
 
 
-                       
+                @endforeach
+                        
 
             @else
                 <div class="alert alert-danger">
@@ -105,14 +108,9 @@
             
 
         </div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
+       
+
+
 
         <div class="row">
                 
