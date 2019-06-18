@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\JoshController;
 use App\Http\Requests\OrdenesRequest;
 use App\Models\AlpOrdenes;
+use App\Models\AlpOrdenesDescuento;
 use App\Models\AlpEstatusOrdenes;
 use App\Models\AlpOrdenesHistory;
 use App\Models\AlpDetalles;
@@ -1067,10 +1068,13 @@ echo '<br>fin: '.$date_fin;*/
           ->where('alp_direcciones.id', $orden->id_address)->first();
 
 
+          $cupones=AlpOrdenesDescuento::where('id_orden', $orden->id)->get();
 
 
 
-        return view('admin.ordenes.detalle', compact('detalles', 'orden', 'history', 'pago', 'pagos', 'cliente', 'direccion'));
+
+
+        return view('admin.ordenes.detalle', compact('detalles', 'orden', 'history', 'pago', 'pagos', 'cliente', 'direccion', 'cupones'));
 
     }
 

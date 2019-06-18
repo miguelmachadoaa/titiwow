@@ -265,7 +265,7 @@ Orden {{$orden->id}}
 
                      <tr>
                          <td style="text-align: right;" colspan="5"><b> Subtotal: </b></td>
-                         <td >{{ number_format($orden->monto_total, 2) }}</td>
+                         <td >{{ number_format($orden->monto_total_base, 2) }}</td>
                      </tr>
 
                       <tr>
@@ -316,6 +316,20 @@ Orden {{$orden->id}}
                      </tr>
 
 
+                     @if(count($cupones)>0)
+
+                       @foreach($cupones as $cupon)
+
+                       <tr>
+                         <td style="text-align: right;" colspan="5"><b> Cupon {{ $cupon->codigo_cupon}}: </b></td>
+                         <td >{{ number_format($cupon->monto_descuento, 2) }}</td>
+                     </tr>
+
+                       @endforeach
+
+                     @endif 
+
+
                  </tbody>
              </table>
                     
@@ -329,8 +343,6 @@ Orden {{$orden->id}}
         </div>
     </div>
     <!-- row-->
-
-
 
 
 
