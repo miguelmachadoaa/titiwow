@@ -7,7 +7,7 @@
                     <table class="footer" align="center" width="570" cellpadding="0" cellspacing="0">
 			            <tr>
 			                <td class="content-cell" align="left" style="font-style: 0.5em;">
-			                    <p style="text-align: center;"><img src="{{ secure_url('assets/images/alimenta.png') }}"></p>
+			                    <p style="text-align: center;"><img src="https://www.alpinago.com/assets/images/alimenta.png"></p>
 			                </td>
 			                <td class="content-cell" align="left">
 			                    <p style="margin-bottom: 0; text-align: left; color:#ffffff;font-size:14px;">Bogota, Colombia </p>
