@@ -33,7 +33,7 @@ class NovedadMail extends Mailable
     public function build()
     {
         return $this->from('noresponder@alpinago.com')
-        ->subject('Novedad con tu pedido: '.$this->data['orden']->referencia.' | Alpina Alimenta tu vida')
+        ->subject('Novedad con tu pedido: '.$this->data['orden']->referencia.' | Alpina GO!')
         ->markdown('emails.novedad');
     }
 }
