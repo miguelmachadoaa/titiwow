@@ -864,7 +864,7 @@
        
         $(document).ready(function(){
 
-                $(document).on('change', '.selectprecio', function(e) {
+                 $(document).on('change', '.selectprecio', function(e) {
 
                     precio_base=$('#precio_base').val();
 
@@ -878,6 +878,8 @@
                     if (valor==1) {
 
                         $('#rolprecio_'+rc+'').attr('readonly','true');
+
+
                         $('.spanprecio_'+rc+'').html('Precio para la seleccion: '+precio_base);
                        
 
@@ -886,6 +888,9 @@
                     if (valor==2) {
 
                         $('#rolprecio_'+rc+'').removeAttr('readonly');
+
+                        $('#rolprecio_'+rc+'').val('');
+
                        
 
                     }
@@ -893,6 +898,8 @@
                      if (valor==3) {
 
                         $('#rolprecio_'+rc+'').removeAttr('readonly','false');
+                        $('#rolprecio_'+rc+'').val('');
+                        
                        
 
                     }
@@ -900,7 +907,7 @@
 
                 });
 
-                $(document).on('blur', '.rolprecio', function(e) {
+                $(document).on('keyup', '.rolprecio', function(e) {
 
                     precio_base=$('#precio_base').val();
 
@@ -916,6 +923,7 @@
                     if (valor_select==1) {
 
                         $('#rolprecio_'+rc+'').attr('readonly','true');
+
                         $('.spanprecio_'+rc+'').html('Precio para la seleccion: '+precio_base);
                        
 
@@ -925,9 +933,25 @@
 
                         $('#rolprecio_'+rc+'').removeAttr('readonly');
 
-                        let total=precio_base*(1-(valor/100));
+                        if (valor>100) {
+
+                            valor=0;
+
+                            ele.val('');
+
+                            let total=precio_base*(1-(valor/100));
+
+                            $('.spanprecio_'+rc+'').html('Precio para la seleccion: '+total);
+
+                        }else{
+
+                            let total=precio_base*(1-(valor/100));
 
                         $('.spanprecio_'+rc+'').html('Precio para la seleccion: '+total);
+
+                        }
+
+                        
 
                        
 
@@ -936,6 +960,7 @@
                      if (valor_select==3) {
 
                         $('#rolprecio_'+rc+'').removeAttr('readonly','false');
+
 
                         $('.spanprecio_'+rc+'').html('Precio para la seleccion: '+valor);
 

@@ -345,6 +345,9 @@ class AlpProductosController extends JoshController
 
            // echo $key.':'.$value.'<br>';
 
+            if ($value>0) {
+              # code...
+
             $par=explode('_', $key);
 
             $data_precio = array(
@@ -358,6 +361,9 @@ class AlpProductosController extends JoshController
             );
 
             AlpPrecioGrupo::create($data_precio);
+
+            }
+
 
            // print_r($data_precio).'<br>';
             
@@ -846,6 +852,9 @@ class AlpProductosController extends JoshController
 
            # echo $key.':'.$value.'<br>';
 
+            if ($value>0) {
+              # code...
+
             $par=explode('_', $key);
 
             $data_precio = array(
@@ -859,6 +868,9 @@ class AlpProductosController extends JoshController
             );
 
             AlpPrecioGrupo::create($data_precio);
+
+            }
+            
 
             #print_r($data_precio).'<br>';
             
@@ -1210,6 +1222,220 @@ class AlpProductosController extends JoshController
 
             return $inv;
       
+    }
+
+
+
+        public function precio()
+    {
+        // Grab all the blogs
+        
+
+       $productos = AlpProductos::select('alp_productos.*', 'alp_categorias.nombre_categoria as nombre_categoria')
+          ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
+          ->get();
+
+           $descuento='1'; 
+
+          $precio = array();
+
+          $r='12';
+          
+                foreach ($productos as  $row) {
+                    
+                    $pregiogrupo=AlpPrecioGrupo::select('alp_precios_grupos.*','config_cities.city_name as city_name', 'roles.name as name' )
+                    ->join('config_cities', 'alp_precios_grupos.city_id','=', 'config_cities.id')
+                    ->join('roles', 'alp_precios_grupos.id_role','=', 'roles.id')
+                    ->where('id_producto', $row->id)
+                    ->where('id_role', $r)
+                    ->first();
+
+                    if (isset($pregiogrupo->id)) {
+                       
+                        $precio[$row->id]['precio']=$pregiogrupo->precio;
+                        $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$row->id]['pum']=$pregiogrupo->pum;
+                        $precio[$row->id]['city_id']=$pregiogrupo->city_name;
+                        $precio[$row->id]['id_role']=$pregiogrupo->name;
+
+                    }
+
+                }
+
+
+            $prods=$this->addOferta($productos, $precio, $descuento);
+
+
+
+        // Show the page
+        return view('admin.productos.precio', compact('productos', 'precio', 'prods'));
+    }
+
+
+     public function dataprecio()
+    {
+       
+    
+          $productos = AlpProductos::select('alp_productos.*', 'alp_categorias.nombre_categoria as nombre_categoria')
+          ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
+          ->get();
+
+           $descuento='1'; 
+
+          $precio = array();
+
+          $r='9';
+          
+                foreach ($productos as  $row) {
+                    
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $r)->first();
+
+                    if (isset($pregiogrupo->id)) {
+                       
+                        $precio[$row->id]['precio']=$pregiogrupo->precio;
+                        $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$row->id]['pum']=$pregiogrupo->pum;
+
+                    }
+
+                }
+
+
+            $prods=$this->addOferta($productos, $precio, $descuento);
+       
+
+            $data = array();
+
+
+          foreach($productos as $alpProductos){
+
+
+            if ($alpProductos->estado_registro == 1) {
+              $estado=" <div id='td_destacado_".$alpProductos->id."'><button type='button' data-url='".secure_url('productos/desactivar')."' data-desactivar='2' data-id='".$alpProductos->id ."' class='btn btn-responsive button-alignment btn-success btn_sizes desactivar' style='font-size: 12px !important;' >Activo</button></div>";
+            }
+
+            if ($alpProductos->estado_registro == 2) {
+              $estado=" <div id='td_destacado_".$alpProductos->id."'><button type='button' data-url='".secure_url('productos/desactivar')."' data-desactivar='1' data-id='".$alpProductos->id ."' class='btn btn-responsive button-alignment btn-danger btn_sizes desactivar' style='font-size: 12px !important;'>Inactivo</button></div>";
+            }
+
+
+                 $actions = " 
+                  
+                  <a href='".secure_url('admin/productos/'.collect($alpProductos)->first().'/show' )."'>
+                     <i class='livicon' data-name='info' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='view alpProductos'></i>
+                 </a>
+                 <a href='".secure_url('admin/productos/'.collect($alpProductos)->first().'/edit')."'>
+                     <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='edit alpProductos'></i>
+                 </a>";
+
+
+                 if ($alpProductos->destacado == 1) {
+              $destacado=" <div style=' display: inline-block; padding: 0; margin: 0;' id='td_".$alpProductos->id."'><button title='Sugerencia' data-url='".secure_url('productos/destacado')."' data-destacado='0' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  destacado'>  <span class='glyphicon glyphicon-star' aria-hidden='true'></span>   </button></div>";
+            }else{
+
+                   $destacado="  <div style=' display: inline-block; padding: 0; margin: 0;' id='td_".$alpProductos->id."'><button title='Normal' data-url='".secure_url('productos/destacado')."' data-destacado='1' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  destacado'>  <span class='glyphicon glyphicon-star-empty' aria-hidden='true'></span>   </button></div>";
+
+
+            }
+
+                if ($alpProductos->sugerencia == 1) {
+              $sugerencia=" <div style=' display: inline-block; padding: 0; margin: 0;' id='td_sugerencia_".$alpProductos->id."'>
+ <button title='Sugerencia' data-url='".secure_url('productos/sugerencia')."' data-sugerencia='0' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  sugerencia'>  <span class='glyphicon glyphicon-ok-sign' aria-hidden='true'></span>   </button></div>";
+            }else{
+
+                   $sugerencia="  
+<div style=' display: inline-block; padding: 0; margin: 0;' id='td_sugerencia_".$alpProductos->id."'> <button title='Normal' data-url='".secure_url('productos/sugerencia')."' data-sugerencia='1' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  sugerencia'>  <span class='glyphicon glyphicon-remove-sign' aria-hidden='true'></span>   </button></div>";
+
+            }
+
+
+           // $imagen="<img src='../uploads/productos/".$alpProductos->imagen_producto."' height='60px'>";
+
+               $data[]= array(
+                 $alpProductos->id, 
+                 $alpProductos->nombre_producto, 
+                 $alpProductos->referencia_producto, 
+              //   $imagen, 
+                 $alpProductos->nombre_categoria, 
+                 number_format($precio[$alpProductos->id],2), 
+                 $estado, 
+                 $actions.$destacado.$sugerencia
+              );
+
+          }
+
+          return json_encode( array('data' => $data ));
+
+    }
+
+
+     private function addOferta($productos, $precio, $descuento){
+
+    $prods = array( );
+
+
+
+    foreach ($productos as $producto) {
+
+      if ($descuento=='1') {
+
+        if (isset($precio[$producto->id])) {
+          # code...
+         
+          switch ($precio[$producto->id]['operacion']) {
+
+            case 1:
+
+              $producto->precio_oferta=$producto->precio_base*$descuento;
+
+              break;
+
+            case 2:
+
+              $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
+              
+              break;
+
+            case 3:
+
+              $producto->precio_oferta=$precio[$producto->id]['precio'];
+              
+              break;
+            
+            default:
+            
+             $producto->precio_oferta=$producto->precio_base*$descuento;
+              # code...
+              break;
+          }
+
+        }else{
+
+          $producto->precio_oferta=$producto->precio_base*$descuento;
+
+        }
+
+
+       }else{
+
+       $producto->precio_oferta=$producto->precio_base*$descuento;
+
+
+       }
+
+
+       // $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
+
+
+      // $cart[$producto->slug]=$producto;
+
+       $prods[]=$producto;
+       
+      }
+
+      return $prods;
+
+
     }
 
     
