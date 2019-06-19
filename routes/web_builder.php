@@ -115,8 +115,14 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
 
 
+Route::post('productos/importupdate/', ['as'=> 'productos.importupdate', 'uses' => 'Admin\AlpProductosController@importupdate']);
+
+Route::get('productos/cargarupdate/', ['as'=> 'productos.cargarupdate', 'uses' => 'Admin\AlpProductosController@cargarupdate']);
+
+Route::post('productos/dataprecio', ['as'=> 'productos.dataprecio', 'uses' => 'Admin\AlpProductosController@dataprecio']);
 
 
+Route::get('productos/precio/', ['as'=> 'productos.precio', 'uses' => 'Admin\AlpProductosController@precio']);
 
 
 
@@ -697,6 +703,8 @@ Route::resource('facturasmasivas', 'Admin\AlpFacturasController');
 
         Route::get('/descuento/list', 'Admin\AlpOrdenesController@descuento')->name('ordenes.descuento');
 
+        Route::get('/sendmail/{id}', 'Admin\AlpOrdenesController@sendmail')->name('ordenes.sendmail');
+
     });
 
 
@@ -979,6 +987,8 @@ Route::get('clientes/setdir/{direccion}',['as'=>'clientes.setdir', 'uses'=>'Fron
 Route::get('clientes/deldir/{direccion}',['as'=>'clientes.deldir', 'uses'=>'Frontend\ClientesFrontController@deldir']);
 
 Route::get('clientes/{id}/detalle', 'Frontend\ClientesFrontController@detalle')->name('frontend.clientes.detalle');
+
+
 
 
 

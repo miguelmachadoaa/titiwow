@@ -37,6 +37,46 @@ class AlpOrdenesController extends JoshController
      *
      * @return View
      */
+
+       public function sendmail($id)
+    {
+        
+         $configuracion = AlpConfiguracion::where('id', '1')->first();
+
+
+        $orden = AlpOrdenes::find($id);
+
+
+        $cliente =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista','alp_clientes.doc_cliente as doc_cliente')
+        ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+        ->join('role_users', 'users.id', '=', 'role_users.user_id')
+        ->join('roles', 'role_users.role_id', '=', 'roles.id')
+        ->where('users.id', '=', $orden->id_user)->first();
+
+
+
+        $data = [
+            'cliente' => $cliente,
+            'orden' => $orden
+        ];
+
+
+        // Send Email to admin
+        Mail::to($cliente->email)
+            ->send( new \App\Mail\NovedadMail($data));
+
+        // Send Email to user
+        Mail::to($configuracion->correo_admin)
+            ->send( new \App\Mail\NovedadMail($data));
+
+        //Redirect to contact page
+        return redirect('admin/ordenes/'.$orden->id.'/detalle/')->with('success', trans('Su correo ha sido enviado'));
+    }
+
+
+
+
+
     public function index()
     {
         // Grab all the groups
@@ -1120,6 +1160,9 @@ echo '<br>fin: '.$date_fin;*/
 
         }
 
+
+
+
          
         $history=AlpOrdenesHistory::create($data_history);
 
@@ -1137,6 +1180,26 @@ echo '<br>fin: '.$date_fin;*/
           ->first();
 
         if ($orden->id) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
           $view= View::make('admin.ordenes.storeconfirm', compact('orden'));
 
