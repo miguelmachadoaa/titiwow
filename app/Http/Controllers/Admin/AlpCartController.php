@@ -1996,6 +1996,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           $ciudad= \Session::get('ciudad');
 
           $data = array(
+            'id' => time(), 
             'referencia' => time(), 
             'id_city' => $ciudad, 
             'id_user' => '0'
@@ -3278,6 +3279,21 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                         $history=AlpOrdenesHistory::create($data_history);
 
           \Session::put('orden', $orden->id);
+
+
+          $cupones=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
+
+          foreach ($cupones as $cupon) {
+            
+            $c=AlpOrdenesDescuento::where('id', $cupon->id)->first();
+
+            $data_cupon = array('id_orden' => $orden->id );
+
+            $c->update($data_cupon);
+
+          }
+
+          \Session::put('cr', $orden->id);
 
        }
 
