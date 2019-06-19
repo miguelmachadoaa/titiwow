@@ -150,7 +150,7 @@ Agregar Inventario
                                     <th>Nombre</th>
                                     <th>Referencia</th>
                                     <th>Operacion</th>
-                                    <th>Cantifaf</th>
+                                    <th>Cantidad</th>
                                     <th>Usuario</th>
                                     <th>Orden</th>
                                     <th>Creado</th>
