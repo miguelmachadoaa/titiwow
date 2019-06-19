@@ -201,6 +201,8 @@ Orden {{$orden->id}}
                  </tbody>
                  
              </table>
+
+             <a href="{{secure_url('admin/ordenes/sendmail/'.$orden->id )}}" class="btn btn-danger">Notificar</a>
                     
             <p style="text-align: center;"> 
                     <a class="btn btn-default" href="{{ secure_url('admin/ordenes') }}">Regresar</a>
