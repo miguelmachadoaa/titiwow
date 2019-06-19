@@ -140,7 +140,7 @@ Agregar Inventario
                 </div>
                 <div class="panel-body">
 
-                    @if ($movimientos->count() >= 1)
+                    @if (count($m) >= 1)
                         <div class="table-responsive">
 
                         <table class="table table-bordered" id="tbInventario">
@@ -149,14 +149,16 @@ Agregar Inventario
                                     <th>Id</th>
                                     <th>Nombre</th>
                                     <th>Referencia</th>
-                                    <th>Inventario Disponible</th>
+                                    <th>Operacion</th>
+                                    <th>Cantifaf</th>
                                     <th>Usuario</th>
+                                    <th>Orden</th>
                                     <th>Creado</th>
                                 </tr>
                             </thead>
                             <tbody>
 
-                                @foreach($movimientos as $movimiento)
+                                @foreach($m as $movimiento)
 
                                 <tr>
                                     <td>{{$movimiento->id}}</td>
@@ -176,6 +178,20 @@ Agregar Inventario
                                     </td>
                                     <td>{{$movimiento->cantidad}}</td>
                                     <td>{{$movimiento->first_name.' '.$movimiento->last_name}}</td>
+
+                                    @if(isset($movimiento->orden))
+
+                                    <td><a target="_blank" href="{{secure_url('admin/ordenes/'.$movimiento->orden->id_orden.'/detalle')}}">{{$movimiento->orden->id_orden}}</a></td>
+
+                                    @else
+
+                                    <td>No Aplica</td>
+
+
+                                    @endif
+
+
+                                    <td>{{$movimiento->created_at->diffForHumans()}}</td>
                                 </tr>
 
                                 @endforeach

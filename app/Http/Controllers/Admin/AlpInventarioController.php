@@ -133,7 +133,29 @@ class AlpInventarioController extends JoshController
         ->orderBy('alp_inventarios.id', 'desc')
         ->get();
 
-        return view('admin.inventario.edit', compact('producto', 'inventario', 'movimientos'));
+        $m = array();
+        foreach ($movimientos as $movimiento) {
+
+
+            $orden=AlpInventario::select('alp_inventarios.*', 'alp_ordenes_detalle.id_orden as id_orden')
+            ->join('alp_ordenes_detalle', function ($join) {
+            $join->on('alp_ordenes_detalle.id_user', '=', 'alp_inventarios.id_user');
+            })
+            ->where('alp_ordenes_detalle.id_producto', '=', $movimiento->id_producto)
+            ->where('alp_ordenes_detalle.id_user', '=', $movimiento->id_user)
+            ->first();
+
+            if (isset($orden->id)) {
+
+                $movimiento->orden=$orden;
+                # code...
+            }
+
+            $m[]=$movimiento;
+
+        }
+
+        return view('admin.inventario.edit', compact('producto', 'inventario', 'm'));
     }
 
     /**
