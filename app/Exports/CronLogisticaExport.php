@@ -30,9 +30,9 @@ class CronLogisticaExport implements FromView
           'alp_ordenes.ordencompra as ordencompra',
           'alp_ordenes.referencia as referencia', 
           'alp_ordenes.monto_total as monto_total',
+          'alp_ordenes.base_impuesto as base_impuesto',
           'alp_ordenes.valor_impuesto as valor_impuesto',
           'alp_ordenes.monto_impuesto as monto_impuesto',
-          'alp_ordenes.base_impuesto as base_impuesto',
         'config_cities.city_name as city_name',
         'config_states.state_name as state_name',
         'alp_direcciones.principal_address as principal_address',
@@ -62,15 +62,14 @@ class CronLogisticaExport implements FromView
           ->join('alp_clientes', 'alp_ordenes.id_cliente', '=', 'alp_clientes.id_user_client')
           ->join('alp_ordenes_detalle', 'alp_ordenes.id', '=', 'alp_ordenes_detalle.id_orden')
           ->groupBy('alp_ordenes.id')
-          ->whereNull('alp_ordenes.factura')
           ->where('alp_ordenes.ordencompra', '!=', NULL)
-
-         /*
-         ->whereIn('alp_ordenes.estatus', [5,6,7])
-          ->whereDate('alp_ordenes.created_at', '>=', $this->desde)
-          ->whereDate('alp_ordenes.created_at', '<=', $this->hasta)
-          */
+          //->whereIn('alp_ordenes.estatus', [5,6,7])
+          //->whereDate('alp_ordenes.created_at', '>=', $this->desde)
+          //->whereDate('alp_ordenes.created_at', '<=', $this->hasta)
           ->get();
+
+
+
 
           //dd($ordenes);
 
