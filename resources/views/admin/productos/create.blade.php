@@ -761,7 +761,7 @@
                                                
                                                     <div class="" >
 
-                                                        <select style="width: 100%; height: 2.5em;" id="test_tipo" name="test_tipo" class="form-control select2">
+                                                        <select style="width: 100%; height: 2.5em;" id="test_tipo" name="test_tipo" class="form-control ">
 
                                                             <option value="1" Selected>Dejar Precio Base</option>
                                                             <option value="2">Porcentaje Descuento</option>
@@ -864,7 +864,7 @@
        
         $(document).ready(function(){
 
-                 $(document).on('change', '.selectprecio', function(e) {
+               $(document).on('change', '.selectprecio', function(e) {
 
                     precio_base=$('#precio_base').val();
 
@@ -879,9 +879,7 @@
 
                         $('#rolprecio_'+rc+'').attr('readonly','true');
 
-
                         $('.spanprecio_'+rc+'').html('Precio para la seleccion: '+precio_base);
-                       
 
                     }
 
@@ -898,8 +896,9 @@
                      if (valor==3) {
 
                         $('#rolprecio_'+rc+'').removeAttr('readonly','false');
+
                         $('#rolprecio_'+rc+'').val('');
-                        
+
                        
 
                     }

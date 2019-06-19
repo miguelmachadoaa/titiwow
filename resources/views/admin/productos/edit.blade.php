@@ -872,7 +872,7 @@
                                                
                                                     <div class="" >
 
-                                                        <select style="width: 100%; height: 2.5em;" id="test_tipo" name="test_tipo" class="form-control select2">
+                                                        <select style="width: 100%; height: 2.5em;" id="test_tipo" name="test_tipo" class="form-control ">
 
                                                             <option value="1" Selected>Dejar Precio Base</option>
                                                             <option value="2">Porcentaje Descuento</option>
@@ -1055,9 +1055,7 @@ $('.addProductoCupon').click(function(){
 
                         $('#rolprecio_'+rc+'').attr('readonly','true');
 
-
                         $('.spanprecio_'+rc+'').html('Precio para la seleccion: '+precio_base);
-                       
 
                     }
 
@@ -1074,8 +1072,9 @@ $('.addProductoCupon').click(function(){
                      if (valor==3) {
 
                         $('#rolprecio_'+rc+'').removeAttr('readonly','false');
+
                         $('#rolprecio_'+rc+'').val('');
-                        
+
                        
 
                     }
@@ -1202,7 +1201,7 @@ $('.addProductoCupon').click(function(){
 
                     ele.addClass('element_'+role_separado[0]+'_'+city_separado[0]+'');
 
-                    ele.find('label').html('Precio para el '+role_separado[1]+' '+city_separado[1]+'');
+                    ele.find('.producto_label').html('Precio para el '+role_separado[1]+' '+city_separado[1]+'');
                     
                     
                     ele.find('#test_precio').attr('name', 'rolprecio_'+role_separado[0]+'_'+city_separado[0]+'');
