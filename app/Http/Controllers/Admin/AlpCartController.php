@@ -111,6 +111,34 @@ class AlpCartController extends JoshController
         $precio = array();
 
 
+
+
+         if (\Session::has('cr')) {
+          
+          $carrito= \Session::get('cr');
+
+          $cupones=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
+
+        foreach ($cupones as $cupon) {
+          
+          $c=AlpOrdenesDescuento::where('id', $cupon->id)->first();
+
+          $c->delete();
+
+        }
+
+
+
+
+
+
+        }
+
+
+
+
+        
+
      $productos = DB::table('alp_productos')->select('alp_productos.*')->where('sugerencia','=', 1)->where('alp_productos.estado_registro','=',1)->orderBy('order', 'asc')->inRandomOrder()
      ->take(6)->get();
 
@@ -238,6 +266,90 @@ class AlpCartController extends JoshController
       $data=$view->render();
 
       return $data;
+
+    }
+
+
+    public function orderRapipago(){
+
+
+        $configuracion = AlpConfiguracion::where('id', '1')->first();
+
+       if ($configuracion->mercadopago_sand=='1') {
+          
+          MP::sandbox_mode(TRUE);
+
+        }
+
+        if ($configuracion->mercadopago_sand=='2') {
+          
+          MP::sandbox_mode(FALSE);
+
+        }
+
+        MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+
+      //  $acc=MP::getAccessToken();
+
+       // dd($acc);
+        
+
+         $preference = MP::get("/v1/payments/search?external_reference="."ALP465");
+
+         //dd($preference['response']['results'][0]['id']);
+
+         
+
+
+
+          $valor=$preference['response']['results'][0]['id'];
+         // $status2=$values["status"];
+        
+         
+
+            //Los cancelo
+
+            //Ejecuto el CURL
+          $at="APP_USR-4315108748962805-061815-4d0de1b207468fc94c86096dea57ad7a-378099268";
+
+            $ch = curl_init();
+
+            curl_setopt($ch, CURLOPT_URL, 'https://api.mercadopago.com/v1/payments/'.$valor.'?access_token='.$at);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, "{\"status\":\"cancelled\"}\n\n");
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+
+
+            $headers = array();
+            $headers[] = "Cache-Control: no-cache";
+            $headers[] = "Content-Type: application/x-www-form-urlencoded";
+            $headers[] = "Postman-Token: 0073aa65-4164-4889-8fb6-1ec2e3bba048";
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+            $result = curl_exec($ch);
+            if (curl_errno($ch)) {
+                echo 'Error:' . curl_error($ch);
+            }
+            curl_close ($ch);
+
+
+              //Definir el nombre del archivo donde se van a guardar los id
+                //$fichero = 'log.txt';
+                // Abre el fichero para obtener el contenido existente
+               // $actual = file_get_contents($fichero);
+
+                 // Escribe el contenido al fichero
+                      
+                //file_put_contents($fichero, $result, FILE_APPEND);
+
+                dd($result);
+
+
+
+
+
+
+
 
     }
 
