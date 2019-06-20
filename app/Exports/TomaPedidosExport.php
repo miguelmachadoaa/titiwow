@@ -50,7 +50,7 @@ class TomaPedidosExport implements FromView
           ->join('alp_marcas', 'alp_productos.id_marca', '=', 'alp_marcas.id')
          // ->groupBy('alp_ordenes_detalle.id_producto')
           ->whereNull('alp_ordenes.factura')
-          ->whereIn('alp_ordenes.estatus', [5])
+          ->whereIn('alp_ordenes.estatus', [1])
           ->where('alp_ordenes.estatus_pago','=', '2')
           //->whereDate('alp_ordenes_detalle.created_at', '>=', $this->desde)
           //->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta)
