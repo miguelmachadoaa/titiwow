@@ -65,10 +65,10 @@ class Kernel extends ConsoleKernel
         $schedule->command('productos:venta')->fridays('17:00');
         $schedule->command('productosc:venta')->fridays('17:00');
 
-        $schedule->command('pedidos:day')->dailyAt('14:00');
-        $schedule->command('toma:pedidos')->dailyAt('14:00');
-        $schedule->command('productos:venta')->dailyAt('14:00');
-        $schedule->command('productosc:venta')->dailyAt('14:00');
+        $schedule->command('pedidos:day')->saturdays('14:00');
+        $schedule->command('toma:pedidos')->saturdays('14:00');
+        $schedule->command('productos:venta')->saturdays('14:00');
+        $schedule->command('productosc:venta')->saturdays('14:00');
 
 
         $schedule->command('cancelar:ordenes')->dailyAt('07:00');
