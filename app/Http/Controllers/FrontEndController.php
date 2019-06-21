@@ -465,25 +465,6 @@ class FrontEndController extends JoshController
                     $user = Sentinel::register($request->only(['first_name', 'last_name', 'email', 'password']), $activate);
 
 
-                }else{
-
-                    return redirect('registro')->with('error', trans('auth/message.failure.error'))->withInput();
-
-                }
-
-            }else{
-
-
-                $user = Sentinel::register($request->only(['first_name', 'last_name', 'email', 'password']), $activate);
-
-            }
-
-        
-
-           if($request->chkalpinista == 1) {
-
-                if ($codalpin) {
-
 
                     $data = array(
                     'id_user_client' => $user->id, 
@@ -497,84 +478,12 @@ class FrontEndController extends JoshController
                     'id_empresa' =>'0',               
                     'id_embajador' =>'0',               
                     'id_user' =>0,               
-                );
-
-                }else{
-
-                    
-
-                    $data = array(
-                    'id_user_client' => $user->id, 
-                    'id_type_doc' => $request->id_type_doc, 
-                    'doc_cliente' =>$request->doc_cliente, 
-                    'telefono_cliente' => $request->telefono_cliente,
-                    'habeas_cliente' => $request->habeas_cliente,
-                    'estado_masterfile' =>0,
-                    'id_empresa' =>'0',               
-                    'id_embajador' =>'0',               
-                    'id_user' =>0,               
-                );
-
-                }
-
-                
-
-            }else{
-
-
-
-                $dominio=explode('@', $request->email);
-
-                $empresa=AlpEmpresas::where('dominio',$dominio[1])->first();
-
-               // dd($empresa);
-
-                $id_empresa=0;
-
-                if (isset($empresa->id)) {
-
-                    $id_empresa=$empresa->id;
-
-                   
-                }
-
-                    $data = array(
-                    'id_user_client' => $user->id, 
-                    'id_type_doc' => $request->id_type_doc, 
-                    'doc_cliente' =>$request->doc_cliente, 
-                    'telefono_cliente' => $request->telefono_cliente,
-                    'habeas_cliente' => $request->habeas_cliente,
-                    'estado_masterfile' =>0,
-                    'id_empresa' =>$id_empresa,               
-                    'id_embajador' =>'0',               
-                    'id_user' =>0,               
                     );
 
-                
-                
-            }
+                    $cliente=AlpClientes::create($data);
 
-            $cliente=AlpClientes::create($data);
 
-            $direccion = array(
-                'id_client' => $user->id, 
-                'city_id' => $request->city_id, 
-                'id_estructura_address' => $request->id_estructura_address, 
-                'principal_address' => $request->principal_address,
-                'secundaria_address' => $request->secundaria_address,
-                'edificio_address' => $request->edificio_address,
-                'detalle_address' => $request->detalle_address,
-                'barrio_address'=> $request->barrio_address,             
-                'id_user' => 0,               
-            );
-
-            AlpDirecciones::create($direccion);
-
-            if($request->chkalpinista == 1) {
-                
-                if ($codalpin) {
-
-                   $sialpin = array(
+                    $sialpin = array(
                         'id_usuario_creado' => $user->id, 
                         'estatus_alpinista' => 2    
                     );
@@ -600,19 +509,56 @@ class FrontEndController extends JoshController
                         Activation::complete($user, $activation->code);
 
                     }
-                }
 
-                $mensaje='Estamos procesando tu solicitud de registro, te notificaremos una vez haya finalizado el proceso, este proceso puede tomar hasta 24 horas.';
+                       $mensaje='Estamos procesando tu solicitud de registro, te notificaremos una vez haya finalizado el proceso, este proceso puede tomar hasta 24 horas.';
 
 
-                Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $configuracion->mensaje_bienvenida ));
+                      Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $configuracion->mensaje_bienvenida ));
 
+
+                    }else{
+
+                        return redirect('registro')->with('error', trans('auth/message.failure.error'))->withInput();
+
+                    }
 
             }else{
 
-                //add user to 'Cliente' group
 
-                if ($id_empresa==0) {
+                  $user = Sentinel::register($request->only(['first_name', 'last_name', 'email', 'password']), $activate);
+
+
+                   $dominio=explode('@', $request->email);
+
+                  $empresa=AlpEmpresas::where('dominio',$dominio[1])->first();
+
+                 // dd($empresa);
+
+                  $id_empresa=0;
+
+                  if (isset($empresa->id)) {
+
+                      $id_empresa=$empresa->id;
+                     
+                  }
+
+                    $data = array(
+                    'id_user_client' => $user->id, 
+                    'id_type_doc' => $request->id_type_doc, 
+                    'doc_cliente' =>$request->doc_cliente, 
+                    'telefono_cliente' => $request->telefono_cliente,
+                    'habeas_cliente' => $request->habeas_cliente,
+                    'cod_oracle_cliente' =>$request->telefono_cliente,
+                    'estado_masterfile' =>'1',
+                    'id_empresa' =>$id_empresa,               
+                    'id_embajador' =>'0',               
+                    'id_user' =>0,               
+                    );
+
+
+                  $cliente=AlpClientes::create($data);
+
+                   if ($id_empresa==0) {
 
                     $role = Sentinel::findRoleById(9);
 
@@ -627,10 +573,9 @@ class FrontEndController extends JoshController
                         AlpClientesHistory::create($user_history);
 
 
-                }else{
+                    }else{
 
-                    $role = Sentinel::findRoleById(12);
-
+                      $role = Sentinel::findRoleById(12);
 
                        $user_history = array(
                         'id_cliente' => $user->id,
@@ -641,20 +586,34 @@ class FrontEndController extends JoshController
 
                         AlpClientesHistory::create($user_history);
 
+                    }
+
+                    $role->users()->attach($user);
+
+                     $mensaje='Estamos procesando tu solicitud de registro, te notificaremos una vez haya finalizado el proceso, este proceso puede tomar hasta 24 horas.';
+
+                    Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name,  $configuracion->mensaje_bienvenida));
 
 
-                }
-
-                $role->users()->attach($user);
-
-
-
-                 $mensaje='Estamos procesando tu solicitud de registro, te notificaremos una vez haya finalizado el proceso, este proceso puede tomar hasta 24 horas.';
-
-                Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name,  $configuracion->mensaje_bienvenida));
 
             }
 
+
+            $direccion = array(
+                'id_client' => $user->id, 
+                'city_id' => $request->city_id, 
+                'id_estructura_address' => $request->id_estructura_address, 
+                'principal_address' => $request->principal_address,
+                'secundaria_address' => $request->secundaria_address,
+                'edificio_address' => $request->edificio_address,
+                'detalle_address' => $request->detalle_address,
+                'barrio_address'=> $request->barrio_address,             
+                'id_user' => 0,               
+            );
+
+            AlpDirecciones::create($direccion);
+
+            
 
 
             //if you set $activate=false above then user will receive an activation mail
@@ -710,7 +669,6 @@ class FrontEndController extends JoshController
 
 
             $cliente->update($data_c);
-
 
            // return Redirect::route("clientes")->with('success', trans('auth/message.signup.success'));
             return Redirect::route("home")->with('success', trans('Bienvenido a Alpina GO!. Ya puedes comprar todos nuestro productos y promociones. Alpina Alimenta tu vida. '));
