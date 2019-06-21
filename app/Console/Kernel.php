@@ -37,13 +37,42 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-        $schedule->command('generate:sitemap')->weekly();
-        $schedule->command('pedidos:day')->dailyAt('17:00');
+
+        //  $schedule->command('usuarios:activar')->dailyAt('23:00');
+       
+        $schedule->command('pedidos:day')->mondays('17:00');
+        $schedule->command('toma:pedidos')->mondays('17:00');
+        $schedule->command('productos:venta')->mondays('17:00');
+        $schedule->command('productosc:venta')->mondays('17:00');
+
+        $schedule->command('pedidos:day')->tuesdays('17:00');
+        $schedule->command('toma:pedidos')->tuesdays('17:00');
+        $schedule->command('productos:venta')->tuesdays('17:00');
+        $schedule->command('productosc:venta')->tuesdays('17:00');
+
+        $schedule->command('pedidos:day')->wednesdays('17:00');
+        $schedule->command('toma:pedidos')->wednesdays('17:00');
+        $schedule->command('productos:venta')->wednesdays('17:00');
+        $schedule->command('productosc:venta')->wednesdays('17:00');
+
+        $schedule->command('pedidos:day')->thursdays('17:00');
+        $schedule->command('toma:pedidos')->thursdays('17:00');
+        $schedule->command('productos:venta')->thursdays('17:00');
+        $schedule->command('productosc:venta')->thursdays('17:00');
+
+        $schedule->command('pedidos:day')->fridays('17:00');
+        $schedule->command('toma:pedidos')->fridays('17:00');
+        $schedule->command('productos:venta')->fridays('17:00');
+        $schedule->command('productosc:venta')->fridays('17:00');
+
+        $schedule->command('pedidos:day')->dailyAt('14:00');
+        $schedule->command('toma:pedidos')->dailyAt('14:00');
+        $schedule->command('productos:venta')->dailyAt('14:00');
+        $schedule->command('productosc:venta')->dailyAt('14:00');
+
+
         $schedule->command('cancelar:ordenes')->dailyAt('07:00');
-      //  $schedule->command('usuarios:activar')->dailyAt('23:00');
-        $schedule->command('toma:pedidos')->dailyAt('17:00');
-        $schedule->command('productos:venta')->dailyAt('17:00');
-        $schedule->command('productosc:venta')->dailyAt('17:00');
+         $schedule->command('generate:sitemap')->weekly();
         $schedule->command('usuarios:new')->dailyAt('08:00');
         $schedule->command('usuarios:new')->dailyAt('15:00');
         $schedule->command('verificar:pagos')->everyFiveMinutes();
