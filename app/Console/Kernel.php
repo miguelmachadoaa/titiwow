@@ -40,35 +40,35 @@ class Kernel extends ConsoleKernel
 
         //  $schedule->command('usuarios:activar')->dailyAt('23:00');
        
-        $schedule->command('pedidos:day')->mondays('17:00');
-        $schedule->command('toma:pedidos')->mondays('17:00');
-        $schedule->command('productos:venta')->mondays('17:00');
-        $schedule->command('productosc:venta')->mondays('17:00');
+        $schedule->command('pedidos:day')->mondays()->at('17:00');
+        $schedule->command('toma:pedidos')->mondays()->at('17:00');
+        $schedule->command('productos:venta')->mondays()->at('17:00');
+        $schedule->command('productosc:venta')->mondays()->at('17:00');
 
-        $schedule->command('pedidos:day')->tuesdays('17:00');
-        $schedule->command('toma:pedidos')->tuesdays('17:00');
-        $schedule->command('productos:venta')->tuesdays('17:00');
-        $schedule->command('productosc:venta')->tuesdays('17:00');
+        $schedule->command('pedidos:day')->tuesdays()->at('17:00');
+        $schedule->command('toma:pedidos')->tuesdays()->at('17:00');
+        $schedule->command('productos:venta')->tuesdays()->at('17:00');
+        $schedule->command('productosc:venta')->tuesdays()->at('17:00');
 
-        $schedule->command('pedidos:day')->wednesdays('17:00');
-        $schedule->command('toma:pedidos')->wednesdays('17:00');
-        $schedule->command('productos:venta')->wednesdays('17:00');
-        $schedule->command('productosc:venta')->wednesdays('17:00');
+        $schedule->command('pedidos:day')->wednesdays()->at('17:00');
+        $schedule->command('toma:pedidos')->wednesdays()->at('17:00');
+        $schedule->command('productos:venta')->wednesdays()->at('17:00');
+        $schedule->command('productosc:venta')->wednesdays()->at('17:00');
 
-        $schedule->command('pedidos:day')->thursdays('17:00');
-        $schedule->command('toma:pedidos')->thursdays('17:00');
-        $schedule->command('productos:venta')->thursdays('17:00');
-        $schedule->command('productosc:venta')->thursdays('17:00');
+        $schedule->command('pedidos:day')->thursdays()->at('17:00');
+        $schedule->command('toma:pedidos')->thursdays()->at('17:00');
+        $schedule->command('productos:venta')->thursdays()->at('17:00');
+        $schedule->command('productosc:venta')->thursdays()->at('17:00');
 
-        $schedule->command('pedidos:day')->fridays('17:00');
-        $schedule->command('toma:pedidos')->fridays('17:00');
-        $schedule->command('productos:venta')->fridays('17:00');
-        $schedule->command('productosc:venta')->fridays('17:00');
+        $schedule->command('pedidos:day')->fridays()->at('17:00');
+        $schedule->command('toma:pedidos')->fridays()->at('17:00');
+        $schedule->command('productos:venta')->fridays()->at('17:00');
+        $schedule->command('productosc:venta')->fridays()->at('17:00');
 
-        $schedule->command('pedidos:day')->saturdays('14:00');
-        $schedule->command('toma:pedidos')->saturdays('14:00');
-        $schedule->command('productos:venta')->saturdays('14:00');
-        $schedule->command('productosc:venta')->saturdays('14:00');
+        $schedule->command('pedidos:day')->saturdays()->at('14:00');
+        $schedule->command('toma:pedidos')->saturdays()->at('14:00');
+        $schedule->command('productos:venta')->saturdays()->at('14:00');
+        $schedule->command('productosc:venta')->saturdays()->at('14:00');
 
 
         $schedule->command('cancelar:ordenes')->dailyAt('07:00');
