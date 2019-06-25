@@ -59,15 +59,15 @@
 
 
         <tr>
-            <th ><b>Código SKU (*)</b></th>
-            <th ><b>EAN13 / Código de barra (si aplica)</b></th>
-            <th ><b>Descripción SKU (*)</b></th>
-            <th><b>Cantidad (*)</b></th>
-            <th><b>Tipo Producto</b></th>
-            <th ><b>Resultado (uso exclusivo Pedidos Alpina)</b></th>
-            <th ><b>ID Pedido AlpinaGo(*)</b></th>
-            <th><b>Combo (uso exclusivo pedidos Alpina)</b></th>
-            <th><b>Resultado pedido AlpinaGo (uso exclusivo pedidos Alpina)</b></th>
+            <td >Código SKU (*)</td>
+            <td >EAN13 / Código de barra (si aplica)</td>
+            <td >Descripción SKU (*)</td>
+            <td>Cantidad (*)</td>
+            <td>Tipo Producto (*)</td>
+            <td >Resultado (uso exclusivo Pedidos Alpina)</td>
+            <td >ID Pedido AlpinaGo(*)</td>
+            <td>Combo (uso exclusivo pedidos Alpina)</td>
+            <td>Resultado pedido AlpinaGo (uso exclusivo pedidos Alpina)</td>
 
         </tr>
 
