@@ -229,14 +229,9 @@
                                             </div>
 
 
-                                            
-
-
-
-
                                             <div class="acc-wizard-step"></div>
 
-                                             <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
+                                             <a id="panel_combo" class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
                                         
                                     </div>
 
@@ -271,6 +266,7 @@
                                                         </option>
 
                                                     @endforeach
+
                                             </select>
 
                                               {!! $errors->first('id_producto', '<span class="help-block">:message</span> ') !!}
@@ -306,11 +302,6 @@
 
                                         </div>
                                            
-
-
-                                            
-
-
 
 
                                             <div class="acc-wizard-step"></div>
@@ -1145,20 +1136,7 @@ $(document).on('click', '.delProductoCombo', function(){
 
 
 
-$('#tipo_producto').change(function(){
 
-    if ($(this).val()=='1') {
-
-        $('#panelComboProductos').addClass('hidden');
-
-    }else{
-
-        $('#panelComboProductos').removeClass('hidden');
-
-
-    }
-
-});
 
 
 
@@ -1371,7 +1349,38 @@ $('#productosForm').keypress(
             //fin select ciudad
         });
 
+
+
+
+
+
+$('#tipo_producto').change(function(){
+
+    if ($(this).val()=='1') {
+
+        $('#panelComboProductos').addClass('hidden');
+
+         $('#panel_combo').attr('href', '#addwizard');
+
+    }else{
+
+        $('#panelComboProductos').removeClass('hidden');
+
+        $('#panel_combo').attr('href', '#addProductos');
+
+
+    }
+
+});
+
+
+
+
+
+
      </script>
+
+
 
 
 @stop

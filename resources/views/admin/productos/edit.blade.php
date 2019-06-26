@@ -205,7 +205,19 @@
 
                                             <div class="acc-wizard-step"></div>
 
-                                        <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
+                                            @if($producto->tipo_producto==1)
+
+                                             <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
+
+
+                                            @else
+
+                                             <a class="btn btn-default" href="#addProductos" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
+
+
+                                            @endif
+
+                                       
 
 
                                         
@@ -989,18 +1001,23 @@
 
     $('#tipo_producto').change(function(){
 
-        if ($(this).val()=='1') {
+    if ($(this).val()=='1') {
 
-            $('#panelComboProductos').addClass('hidden');
+        $('#panelComboProductos').addClass('hidden');
 
-        }else{
+         $('#panel_combo').attr('href', '#addwizard');
 
-            $('#panelComboProductos').removeClass('hidden');
+    }else{
+
+        $('#panelComboProductos').removeClass('hidden');
+
+        $('#panel_combo').attr('href', '#addProductos');
 
 
-        }
+    }
 
-    });
+});
+
 
 
 
