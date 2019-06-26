@@ -207,12 +207,12 @@
 
                                             @if($producto->tipo_producto==1)
 
-                                             <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
+                                             <a id="panel_combo"  class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
 
 
                                             @else
 
-                                             <a class="btn btn-default" href="#addProductos" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
+                                             <a id="panel_combo" class="btn btn-default" href="#addProductos" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
 
 
                                             @endif

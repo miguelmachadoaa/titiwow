@@ -18,7 +18,7 @@ Precios Productos
 {{-- Page content --}}
 @section('content')
 <section class="content-header">
-    <h1>Productos</h1>
+    <h1>Precios de Productos</h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ secure_url('admin') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
@@ -58,7 +58,7 @@ Precios Productos
 
                 <div class="form-group col-sm-3">
                     <label for="exampleInputName2">Producto</label>
-                    <select class="form-control" name="producto" id="producto">
+                    <select class="form-control select2" name="producto" id="producto">
 
                         <option value="0">Todos</option>
                         @foreach($productos_list as $p)
@@ -73,7 +73,7 @@ Precios Productos
 
                   <div class="form-group col-sm-3">
                     <label for="exampleInputName2">Rol</label>
-                    <select class="form-control" name="rol" id="rol">
+                    <select class="form-control select2" name="rol" id="rol">
                           <option value="0">Todos</option>
                         @foreach($roles as $rol)
 
@@ -99,11 +99,13 @@ Precios Productos
 
                   <div class="form-group col-sm-3">
                     <label for="exampleInputEmail2">Ciudad</label>
-                  <select class="form-control" name="cities" id="cities">
+                  <select class="form-control select2" name="cities" id="cities">
                       <option value="0">Todos</option>
                        
                     </select>
                   </div>
+
+                  <div class="clearfix"></div>
 
                 <div class="col-sm-3">
                     <br>
@@ -144,6 +146,8 @@ Precios Productos
 
 
 <script>
+
+    $('.select2').select2();
 
      $(document).ready(function(){
 
