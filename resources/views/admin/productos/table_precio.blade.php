@@ -9,7 +9,9 @@
         <th>Referencia</th>
         <th>Ciudad</th>
         <th>Rol</th>
+        <th>Tipo Descuento</th>
         <th>Precio</th>
+        <th>Id Usuario</th>
         <th>Estatus</th>
      </tr>
     </thead>
@@ -18,7 +20,7 @@
         @foreach($precio_grupo as $producto)
             <tr>
                 
-            <td>{{$producto->id_producto}}</td>
+            <td>{{$producto->id}}</td>
             <td>{{$producto->nombre_producto}}</td>
             <td>{{$producto->referencia_producto}}</td>
            
@@ -27,7 +29,24 @@
                 <td>{{ $producto->city_name }}</td>
                 <td>{{ $producto->name  }}</td>
 
+<td>
 
+               @if($producto->operacion==1)
+
+                   Precio Base
+               @endif
+
+               @if($producto->operacion==2)
+
+                    Porcentual 
+               @endif
+
+               @if($producto->operacion==3)
+
+                    Absoluto
+               @endif
+
+        </td>
               
 
             <td>
@@ -47,6 +66,10 @@
                     {{ $producto->precio }}
                @endif
 
+        </td>
+
+        <td>
+            {{$producto->id_user}}
         </td>
 
             @if($producto->deleted_at==NULL)

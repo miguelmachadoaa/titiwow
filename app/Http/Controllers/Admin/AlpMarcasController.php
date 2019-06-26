@@ -69,6 +69,7 @@ class AlpMarcasController extends JoshController
                  $row->id, 
                  $row->nombre_marca, 
                  $row->descripcion_marca, 
+                 $row->order, 
                  $row->created_at->diffForHumans(),
                  $actions
               );

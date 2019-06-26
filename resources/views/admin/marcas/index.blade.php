@@ -56,6 +56,7 @@ Marca
                                     <th>Id</th>
                                     <th>Nombre</th>
                                     <th>Descripcion</th>
+                                    <th>Orden</th>
                                     <th>Creado</th>
                                     <th>Accion</th>
                                 </tr>

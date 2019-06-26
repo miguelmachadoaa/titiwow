@@ -138,11 +138,57 @@ Actualizar Precios
 
 
 
-
 @stop
 @section('footer_scripts')
 
+
+<script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
+
+    <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
+
+    
+
 <script>
+
+
+
+     $(document).ready(function(){
+
+    $('.select2').select2();
+        
+
+       
+        //Inicio select región
+                
+
+            //inicio select ciudad
+            $('select[name="state"]').on('change', function() {
+                    var stateID = $(this).val();
+                var base = $('#base').val();
+
+                    if(stateID) {
+                        $.ajax({
+                            url: base+'/configuracion/cities/'+stateID,
+                            type: "GET",
+                            dataType: "json",
+                            success:function(data) {
+
+                                
+                                $('select[name="cities"]').empty();
+                                $.each(data, function(key, value) {
+                                    $('select[name="cities"]').append('<option value="'+ key+'_'+value +'">'+ value +'</option>');
+                                });
+
+                            }
+                        });
+                    }else{
+                        $('select[name="cities"]').empty();
+                    }
+                });
+            //fin select ciudad
+        });
+
+
         
    
 </script>
