@@ -127,7 +127,7 @@ class VerificarPagos extends Command
 
                 $date = Carbon::now();
 
-                $hora=$date->format('hi');
+                $hora=$date->format('Hi');
 
                 $hora_base=str_replace(':', '', $ciudad_forma->hora);
 

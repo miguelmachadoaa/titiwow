@@ -1390,7 +1390,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         $date = Carbon::now();
 
-        $hora=$date->format('hi');
+        $hora=$date->format('Hi');
 
         $hora_base=str_replace(':', '', $ciudad_forma->hora);
 
@@ -1657,7 +1657,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         $date = Carbon::now();
 
-        $hora=$date->format('hi');
+        $hora=$date->format('Hi');
 
         $hora_base=str_replace(':', '', $ciudad_forma->hora);
 

@@ -1411,9 +1411,13 @@ class AlpOrdenesController extends JoshController
 
         $date = Carbon::now();
 
-        $hora=$date->format('hi');
+        $hora=$date->format('Hi');
+
+       
 
         $hora_base=str_replace(':', '', $ciudad_forma->hora);
+
+        
 
         if (intval($hora)>intval($hora_base)) {
 
@@ -1422,6 +1426,7 @@ class AlpOrdenesController extends JoshController
         }
 
         for ($i=0; $i <=$ciudad_forma->dias ; $i++) { 
+
 
           $date2 = Carbon::now();
 
