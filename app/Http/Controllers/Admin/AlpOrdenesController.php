@@ -14,8 +14,11 @@ use App\Models\AlpPuntos;
 use App\Models\AlpConfiguracion;
 use App\Models\AlpEnvios;
 use App\Models\AlpDirecciones;
+use App\Models\AlpFeriados;
+use App\Models\AlpFormaCiudad;
 
 use App\User;
+use App\RoleUser;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Mail;
@@ -105,7 +108,21 @@ class AlpOrdenesController extends JoshController
 
       public function data()
     {
+
+      $permiso_cancelar = array('1','2','3' );
        
+
+       $id_rol=0;
+
+        if (Sentinel::check()) {
+
+            $user_id = Sentinel::getUser()->id;
+
+            $role=RoleUser::where('user_id', $user_id)->first();
+
+            $id_rol=$role->role_id;
+        }
+      
 
         
 
@@ -143,16 +160,23 @@ class AlpOrdenesController extends JoshController
                                            
                 ";
 
+                if (in_array($id_rol, $permiso_cancelar)) {
+                  
+                  if ($row->estatus!=4) {
+                  	
+                  	$cancelado = " <button data-id='".$row->id."'  data-codigo='".$row->ordencompra."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-danger confirmar' > Cancelar </button></div>";
 
-                if ($row->estatus!=4) {
-                	
-                	$cancelado = " <button data-id='".$row->id."'  data-codigo='".$row->ordencompra."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-danger confirmar' > Cancelar </button></div>";
+                  }else{
 
-                }else{
+                  	$cancelado = " ";
+                  	
+                  }
 
-                	$cancelado = " ";
-                	
-                }
+              }else{
+
+                  $cancelado = " ";
+
+              }
 
 
                $data[]= array(
@@ -284,17 +308,8 @@ class AlpOrdenesController extends JoshController
 
         $date_fin = Carbon::create($dt->year, $dt->month, $dt->day, 6, 0, 0); 
 
-         
-/*echo 'dt: '.$dt;
-echo '<br>inicio: '.$date_inicio;
-echo '<br>fin: '.$date_fin;*/
-
-
-
-      
+              
         $ordenes = AlpOrdenes::all();
-
-
 
         $estatus_ordenes = AlpEstatusOrdenes::all();
 
@@ -407,19 +422,11 @@ echo '<br>fin: '.$date_fin;*/
     }
 
 
-
-
-
-
-
-
-
-
-
     public function aprobados()
     {
         // Grab all the groups
-      
+
+
         $ordenes = AlpOrdenes::all();
 
         $estatus_ordenes = AlpEstatusOrdenes::all();
@@ -1395,19 +1402,73 @@ echo '<br>fin: '.$date_fin;*/
 
         if ($orden->id) {
 
-          //$user_cliente=Users::where('id', $orden->id_cliente)->first();
+          $direccion=AlpDirecciones::where('id', $orden->id_address)->first();
 
-          $texto="La orden ".$orden->id." Ha sido aprobada y espera para ser facturada!";
+        $feriados=AlpFeriados::feriados();
 
-           //return $texto;
+        $ciudad_forma=AlpFormaCiudad::where('id_forma', $orden->id_forma_envio)->where('id_ciudad', $direccion->city_id)->first();
 
-          //Mail::to($configuracion->correo_cedi)->send(new \App\Mail\NotificacionOrden($orden->id, $texto));
+
+        $date = Carbon::now();
+
+        $hora=$date->format('hi');
+
+        $hora_base=str_replace(':', '', $ciudad_forma->hora);
+
+        if (intval($hora)>intval($hora_base)) {
+
+          $ciudad_forma->dias=$ciudad_forma->dias+1;
+
+        }
+
+        for ($i=0; $i <=$ciudad_forma->dias ; $i++) { 
+
+          $date2 = Carbon::now();
+
+          $date2->addDays($i);
+
+          if ($date2->isSunday()) {
+
+            $ciudad_forma->dias=$ciudad_forma->dias+1;
+          
+          }else{
+
+            if (isset($feriados[$date2->format('Y-m-d')])) {
+
+                $ciudad_forma->dias=$ciudad_forma->dias+1;
+             
+            }
+
+          }
 
           
-          Mail::to($orden->email)->send(new \App\Mail\CompraAprobada($orden, $detalles, $envio->fecha_envio));
+        }
+
+        $fecha_entrega=$date->addDays($ciudad_forma->dias)->format('d-m-Y');
 
 
-          Mail::to($configuracion->correo_cedi)->send(new \App\Mail\CompraSac($orden, $detalles, $envio->fecha_envio));
+        $data_envio = array('fecha_envio' =>  $fecha_entrega);
+
+        $envio->update($data_envio);
+
+
+
+
+
+
+
+
+
+
+
+
+          $texto="La orden ".$orden->id." Ha sido aprobada y espera para ser facturada!";
+          
+          Mail::to($orden->email)->send(new \App\Mail\CompraAprobada($orden, $detalles, $fecha_entrega));
+
+          Mail::to($configuracion->correo_cedi)->send(new \App\Mail\CompraSac($orden, $detalles, $fecha_entrega));
+
+
 
 
          // Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionOrden($orden->id, $texto));

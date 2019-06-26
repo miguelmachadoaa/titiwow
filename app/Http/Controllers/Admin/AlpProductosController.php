@@ -1225,43 +1225,14 @@ class AlpProductosController extends JoshController
     public function precio()
     {
         // Grab all the blogs
+
+
+      $productos_list=AlpProductos::all();
         
 
-       $productos = AlpProductos::select('alp_productos.*', 'alp_categorias.nombre_categoria as nombre_categoria')
-          ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
-          ->get();
+       $precio_grupo = array();
 
-           $descuento='1'; 
-
-          $precio = array();
-
-          $r='9';
           
-                foreach ($productos as  $row) {
-                    
-                    $pregiogrupo=AlpPrecioGrupo::select('alp_precios_grupos.*','config_cities.city_name as city_name', 'roles.name as name' )
-                    ->join('config_cities', 'alp_precios_grupos.city_id','=', 'config_cities.id')
-                    ->join('roles', 'alp_precios_grupos.id_role','=', 'roles.id')
-                    ->where('id_producto', $row->id)
-                    ->where('id_role', $r)
-                    ->first();
-
-                    if (isset($pregiogrupo->id)) {
-                       
-                        $precio[$row->id]['precio']=$pregiogrupo->precio;
-                        $precio[$row->id]['operacion']=$pregiogrupo->operacion;
-                        $precio[$row->id]['pum']=$pregiogrupo->pum;
-                        $precio[$row->id]['city_id']=$pregiogrupo->city_name;
-                        $precio[$row->id]['id_role']=$pregiogrupo->name;
-
-                    }
-
-                }
-
-
-            $prods=$this->addOferta($productos, $precio, $descuento);
-
-
 
             $states = State::where('country_id','47')->get();
             
@@ -1269,7 +1240,7 @@ class AlpProductosController extends JoshController
 
 
         // Show the page
-        return view('admin.productos.precio', compact('productos', 'precio', 'prods', 'states', 'roles'));
+        return view('admin.productos.precio', compact('precio_grupo', 'states', 'roles', 'productos_list'));
     }
 
 
@@ -1277,41 +1248,32 @@ class AlpProductosController extends JoshController
     {
         // Grab all the blogs
         
-
-       $productos = AlpProductos::select('alp_productos.*', 'alp_categorias.nombre_categoria as nombre_categoria')
-          ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
-          ->get();
-
-           $descuento='1'; 
-
-          $precio = array();
-
-          $r=$request->rol;
-          
-                foreach ($productos as  $row) {
-                    
-                    $pregiogrupo=AlpPrecioGrupo::select('alp_precios_grupos.*','config_cities.city_name as city_name', 'roles.name as name' )
-                    ->join('config_cities', 'alp_precios_grupos.city_id','=', 'config_cities.id')
-                    ->join('roles', 'alp_precios_grupos.id_role','=', 'roles.id')
-                    ->where('id_producto', $row->id)
-                    ->where('id_role', $r)
-                    ->where('city_id', $request->cities)
-                    ->first();
-
-                    if (isset($pregiogrupo->id)) {
-                       
-                        $precio[$row->id]['precio']=$pregiogrupo->precio;
-                        $precio[$row->id]['operacion']=$pregiogrupo->operacion;
-                        $precio[$row->id]['pum']=$pregiogrupo->pum;
-                        $precio[$row->id]['city_id']=$pregiogrupo->city_name;
-                        $precio[$row->id]['id_role']=$pregiogrupo->name;
-
-                    }
-
-                }
+        $productos_list=AlpProductos::all();
 
 
-            $prods=$this->addOferta($productos, $precio, $descuento);
+
+
+
+
+            $query=AlpPrecioGrupo::select('alp_precios_grupos.*','config_cities.city_name as city_name', 'roles.name as name', 'alp_productos.nombre_producto as nombre_producto', 'alp_productos.referencia_producto  as referencia_producto', 'alp_productos.precio_base  as precio_base' )
+            ->join('alp_productos', 'alp_precios_grupos.id_producto','=', 'alp_productos.id')
+            ->join('config_cities', 'alp_precios_grupos.city_id','=', 'config_cities.id')
+            ->join('roles', 'alp_precios_grupos.id_role','=', 'roles.id');
+
+            if ($request->cities!=0) {
+              $query->where('alp_precios_grupos.city_id', $request->cities);
+            }
+
+            if ($request->rol!=0) {
+              $query->where('alp_precios_grupos.id_role', $request->rol);
+            }
+
+            if ($request->producto!=0) {
+              $query->where('alp_precios_grupos.id_producto', $request->producto);
+            }
+
+            $precio_grupo=$query->get();
+        
 
             $states = State::where('country_id','47')->get();
             
@@ -1319,7 +1281,7 @@ class AlpProductosController extends JoshController
 
 
         // Show the page
-        return view('admin.productos.precio', compact('productos', 'precio', 'prods', 'states', 'roles'));
+        return view('admin.productos.precio', compact( 'precio_grupo', 'states', 'roles', 'productos_list'));
     }
 
 

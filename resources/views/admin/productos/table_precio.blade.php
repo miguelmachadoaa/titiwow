@@ -15,23 +15,39 @@
     </thead>
     <tbody>
 
-        @foreach($prods as $producto)
+        @foreach($precio_grupo as $producto)
             <tr>
                 
-            <td>{{$producto->id}}</td>
+            <td>{{$producto->id_producto}}</td>
             <td>{{$producto->nombre_producto}}</td>
             <td>{{$producto->referencia_producto}}</td>
-            @if(isset($precio[$producto->id]))
-                <td>{{ $precio[$producto->id]['city_id'] }}</td>
-                <td>{{ $precio[$producto->id]['id_role'] }}</td>
+           
+            
 
-                @else
+                <td>{{ $producto->city_name }}</td>
+                <td>{{ $producto->name  }}</td>
 
-                <td>No Aplica</td>
-                <td>No Aplica</td>
 
-            @endif
-            <td>{{$producto->precio_oferta}}</td>
+              
+
+            <td>
+
+               @if($producto->operacion==1)
+
+                    {{ $producto->precio_base}}
+               @endif
+
+               @if($producto->operacion==2)
+
+                    {{ $producto->precio_base*(1-($producto->precio/100))}}
+               @endif
+
+               @if($producto->operacion==3)
+
+                    {{ $producto->precio }}
+               @endif
+
+        </td>
 
             @if($producto->estado_registro==1)
             <td>Activo</td>

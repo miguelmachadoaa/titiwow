@@ -39,9 +39,7 @@ Precios Productos
                     Listado de Productos
                 </h4>
                 <div class="pull-right">
-                    <a href="{{ secure_url('admin/productos/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> @lang('button.create')</a>
-
-                    <a href="{{ secure_url('admin/productos/cargarupdate') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-upload"></span>Actulizar Precios</a>
+                    
                 </div>
             </div>
             <br />
@@ -58,9 +56,25 @@ Precios Productos
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
 
+                <div class="form-group col-sm-3">
+                    <label for="exampleInputName2">Producto</label>
+                    <select class="form-control" name="producto" id="producto">
+
+                        <option value="0">Todos</option>
+                        @foreach($productos_list as $p)
+
+
+                        <option value="{{$p->id}}">{{$p->nombre_producto}}</option>
+
+                        @endforeach
+                    </select>
+                </div>
+
+
                   <div class="form-group col-sm-3">
                     <label for="exampleInputName2">Rol</label>
                     <select class="form-control" name="rol" id="rol">
+                          <option value="0">Todos</option>
                         @foreach($roles as $rol)
 
                         <option value="{{$rol->id}}">{{$rol->name}}</option>
@@ -73,6 +87,7 @@ Precios Productos
                   <div class="form-group col-sm-3">
                     <label for="exampleInputEmail2">Departamento</label>
                   <select class="form-control" name="state" id="state">
+                      <option value="0">Todos</option>
                         @foreach($states as $state)
 
                         <option value="{{$state->id}}">{{$state->state_name}}</option>
@@ -85,6 +100,7 @@ Precios Productos
                   <div class="form-group col-sm-3">
                     <label for="exampleInputEmail2">Ciudad</label>
                   <select class="form-control" name="cities" id="cities">
+                      <option value="0">Todos</option>
                        
                     </select>
                   </div>
@@ -103,9 +119,11 @@ Precios Productos
 
                 </div>
 
+                @if(count($precio_grupo))
 
+                    @include('admin.productos.table_precio')
 
-                 @include('admin.productos.table_precio')
+                 @endif
                  
             </div>
         </div>
