@@ -23,6 +23,8 @@ class ProductosUpdateImport implements ToCollection
 
         $rol= \Session::get('rol');
 
+        $cities= \Session::get('cities');
+
         $datos = array();
 
         $productos = array();
@@ -31,37 +33,40 @@ class ProductosUpdateImport implements ToCollection
         {
 
             $row->rol=$rol;
+            $row->city_id=$cities;
+
 
             $datos[]=$row;
 
             if ($row[0]!=NULL) {
 
                 if ($row[1]!=0) {
+
+
                    
                         $p=AlpProductos::select('alp_productos.id as id', 'alp_productos.precio_base as precio_base', 'alp_productos.referencia_producto as referencia_producto')->where('referencia_producto', $row[0])->first();
 
+
+
                         if (isset($p->id)) {
+
+            
+
                             
-                            $precio=AlpPrecioGrupo::where('id_producto', $p->id)->where('id_role', $rol)->first();
+                            $precio=AlpPrecioGrupo::where('id_producto', $p->id)->where('id_role', $rol)->where('city_id', $cities)->first();
 
                             if (isset($precio->id)) {
 
-                                
-                                $data_precio = array(
-                                    'operacion' => 2, 
-                                    'precio' => $row[1], 
-                                );
+                                $precio->delete();   
 
-                                $precio->update($data_precio);   
-
-                            }else{
+                            }
 
                                 $data_precio_new = array(
-                                    'operacion' => 2, 
+                                    'operacion' => 3, 
                                     'precio' => $row[1], 
                                     'id_producto' => $p->id, 
-                                    'city_id' => '0', 
-                                    'pum' => NULL, 
+                                    'city_id' => $cities, 
+                                    'pum' => $row[2], 
                                     'id_role' => $rol, 
                                     'id_user' => $user_id, 
                                 );
@@ -69,34 +74,11 @@ class ProductosUpdateImport implements ToCollection
                                 AlpPrecioGrupo::create($data_precio_new);
 
 
-                            }
 
                             $productos[]=$p;
 
-                            $update = array(
-                                'precio_base' => $row[2]
-                            );
-
-                            $p->update($update);
-
                         }
-                }else{
-
-                        $p=AlpProductos::select('alp_productos.id as id', 'alp_productos.precio_base as precio_base', 'alp_productos.referencia_producto as referencia_producto')->where('referencia_producto', $row[0])->first();
-
-                        if (isset($p->id)) {
-
-                            $productos[]=$p;
-
-                             $update = array(
-                                'precio_base' => $row[2]
-                            );
-
-                            $p->update();
-
-                        }
-                        
-                }//endif row!=0
+                }
 
             }//if row->0 != NULL
 

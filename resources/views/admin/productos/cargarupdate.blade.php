@@ -6,6 +6,17 @@ Actualizar Precios
 @parent
 @stop
 
+
+
+
+@section('header_styles')
+
+    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+
+    <link href="{{ secure_asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
+
+@stop
+
 {{-- page level styles --}}
 @section('header_styles')
 
@@ -82,14 +93,15 @@ Actualizar Precios
                 </div>
                 <br />
                 <div class="panel-body">
-                <form class="form-horizontal" enctype="multipart/form-data" role="form" method="post" action="{{ secure_url('admin/productos/importupdate') }}">
+                <form class="" enctype="multipart/form-data" role="form" method="post" action="{{ secure_url('admin/productos/importupdate') }}">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
-                        <div class="form-group">
-                            <div class="row">
-                                <label class="col-md-3 col-lg-3 col-12 control-label" for="upload">Rol</label>
-                                <div class="col-md-9 col-12 col-lg-9">
-                                    <select name="rol" id="rol" class="form-control">
+                    <div class="row">
+                        
+                         <div class="form-group {{ $errors->
+                            first('rol', 'has-error') }} col-sm-3" style="margin: :1em;">
+                                <label class="control-label" for="upload">Rol</label>
+                                    <select name="rol" id="rol" class="form-control select2">
 
                                         @foreach($roles as $rol)
 
@@ -102,16 +114,66 @@ Actualizar Precios
                                         @endforeach
                                         
                                     </select><!-- rename it -->
-                                </div>
-                            </div>
+
+                                    {!! $errors->first('rol', '<span class="help-block">:message</span> ') !!}
                         </div>
 
 
-                        <div class="form-group">
-                            <div class="row">
+                         <div class="form-group {{ $errors->
+                            first('state', 'has-error') }} col-sm-3" style="margin: :1em;">
+                                <label for="exampleInputEmail2">Departamento</label>
+                              <select class="form-control select2" name="state" id="state">
+                                    
+                                    @foreach($states as $state)
+
+                                    <option value="{{$state->id}}">{{$state->state_name}}</option>
+
+                                    @endforeach
+                                </select>
+
+                                {!! $errors->first('state', '<span class="help-block">:message</span> ') !!}
+                              </div>
+
+
+                              <div class="form-group col-sm-3 {{ $errors->
+                            first('cities', 'has-error') }}" style="margin: :1em;">
+
+                                <label for="exampleInputEmail2">Ciudad</label>
+
+                              <select class="form-control select2" name="cities" id="cities">
+
+                                </select>
+
+                                {!! $errors->first('cities', '<span class="help-block">:message</span> ') !!}
+
+                              </div>
+
+
+
+
+                    </div>
+
+                       
+                  <div class="clearfix"></div>
+
+
+                        <div class="form-group {{ $errors->
+                            first('file', 'has-error') }}">
+                            <div class="row" style="margin-top: 1em;">
                                 <label class="col-md-3 col-lg-3 col-12 control-label" for="upload">Archivo CSV (Referencia_producto, Precio, Producto Padres)</label>
+
+
                                 <div class="col-md-9 col-12 col-lg-9">
                                     <input type="file" accept=".csv" name="file_update"  id="file_update"> <!-- rename it -->
+
+
+                                    {!! $errors->first('file', '<span class="help-block">:message</span> ') !!}
+
+
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <a class="btn btn-primary" target="_blank" href="{{secure_url('uploads/flies/libro_productos_import.xlsx')}}">Descargar Archivo de Muestra</a>
                                 </div>
                             </div>
                         </div>
@@ -136,7 +198,7 @@ Actualizar Precios
     </div>    <!-- row-->
 </section>
 
-
+<input type="hidden" name="base" id="base" value="{{  secure_url('/') }}">
 
 @stop
 @section('footer_scripts')
@@ -146,7 +208,7 @@ Actualizar Precios
 
     <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
 
-    
+
 
 <script>
 
@@ -156,13 +218,14 @@ Actualizar Precios
 
     $('.select2').select2();
         
-
        
         //Inicio select región
                 
 
             //inicio select ciudad
             $('select[name="state"]').on('change', function() {
+
+
                     var stateID = $(this).val();
                 var base = $('#base').val();
 

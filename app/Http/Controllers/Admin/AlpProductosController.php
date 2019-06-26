@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\JoshController;
+use App\Http\Requests\CargaRequest;
 use App\Http\Requests\ProductosRequest;
 use App\Http\Requests\ProductosUpdateRequest;
 use App\Models\AlpProductos;
@@ -1469,15 +1470,22 @@ class AlpProductosController extends JoshController
       $roles = Sentinel::getRoleRepository()->all();
       //$roles=Roles::select('roles.id as id,roles.name as name, ')->whereIn('id', $ids)->get();
 
-        return view('admin.productos.cargarupdate', compact('roles', 'ids'));
+
+       $states = State::where('country_id','47')->get();
+            
+
+        return view('admin.productos.cargarupdate', compact('roles', 'ids', 'states'));
     }
 
 
-    public function importupdate(Request $request) 
+    public function importupdate(CargaRequest $request) 
     {
         $archivo = $request->file('file_update');
 
+        $porciones = explode("_", $request->cities);
+
         \Session::put('rol', $request->rol);
+        \Session::put('cities', $porciones[0]);
 
         Excel::import(new ProductosUpdateImport, $archivo);
         
