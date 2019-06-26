@@ -103,9 +103,11 @@ Actualizar Precios
                                 <label class="control-label" for="upload">Rol</label>
                                     <select name="rol" id="rol" class="form-control select2">
 
+                                        <option value="">Seleccione</option>
+                                        
+
                                         @foreach($roles as $rol)
 
-                                        <option value="">Seleccione</option>
 
                                             @if(in_array($rol->id, $ids))
 
