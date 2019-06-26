@@ -127,15 +127,27 @@
     </a>
 
     <ul class="sub-menu">
-        @if (Sentinel::getUser()->hasAnyAccess(['productos.*']))
+        @if (Sentinel::getUser()->hasAnyAccess(['productos.index']))
 
-        <li {!! (Request::is('admin/productos*') ? 'class="active"' : '') !!}>
+        <li {!! (Request::is('admin/productos/index') ? 'class="active"' : '') !!}>
             <a href="{!! route('admin.productos.index') !!}">
                 <i class="fa fa-angle-double-right"></i>
                 Productos
             </a>
         </li>
         @endif
+
+        @if (Sentinel::getUser()->hasAnyAccess(['productos.precio']))
+
+        <li {!! (Request::is('admin/productos/precio') ? 'class="active"' : '') !!}>
+            <a href="{!! route('admin.productos.precio') !!}">
+                <i class="fa fa-angle-double-right"></i>
+                Lista de Precios
+            </a>
+        </li>
+        @endif
+
+
         @if (Sentinel::getUser()->hasAnyAccess(['categorias.*']))
 
         

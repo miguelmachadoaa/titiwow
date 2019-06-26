@@ -147,7 +147,7 @@ Precios Productos
 
      $(document).ready(function(){
 
-        alert('cargo');
+       
         //Inicio select región
                 
 
