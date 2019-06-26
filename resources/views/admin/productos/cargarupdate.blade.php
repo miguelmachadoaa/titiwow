@@ -164,7 +164,7 @@ Actualizar Precios
 
 
                                 <div class="col-md-9 col-12 col-lg-9">
-                                    <input type="file" accept=".csv" name="file_update"  id="file_update"> <!-- rename it -->
+                                    <input type="file" accept=".xlsx" name="file_update"  id="file_update"> <!-- rename it -->
 
 
                                     {!! $errors->first('file', '<span class="help-block">:message</span> ') !!}
