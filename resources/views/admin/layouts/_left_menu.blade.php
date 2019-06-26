@@ -137,15 +137,7 @@
         </li>
         @endif
 
-        @if (Sentinel::getUser()->hasAnyAccess(['productos.precio']))
-
-        <li {!! (Request::is('admin/productos/precio') ? 'class="active"' : '') !!}>
-            <a href="{!! route('admin.productos.precio') !!}">
-                <i class="fa fa-angle-double-right"></i>
-                Lista de Precios
-            </a>
-        </li>
-        @endif
+        
 
 
         @if (Sentinel::getUser()->hasAnyAccess(['categorias.*']))
@@ -179,6 +171,29 @@
             </a>
         </li>
         @endif
+
+        @if (Sentinel::getUser()->hasAnyAccess(['productos.precio']))
+
+        <li {!! (Request::is('admin/productos/precio') ? 'class="active"' : '') !!}>
+            <a href="{!! route('admin.productos.precio') !!}">
+                <i class="fa fa-angle-double-right"></i>
+                Lista de Precios
+            </a>
+        </li>
+        @endif
+
+         @if (Sentinel::getUser()->hasAnyAccess(['productos.cargarupdate']))
+
+        <li {!! (Request::is('admin/productos/cargarupdate') ? 'class="active"' : '') !!}>
+            <a href="{!! route('admin.productos.cargarupdate') !!}">
+                <i class="fa fa-angle-double-right"></i>
+                Actualización de Precios
+            </a>
+        </li>
+        @endif
+
+
+        
     </ul>
 </li>
 

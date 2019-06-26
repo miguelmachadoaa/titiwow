@@ -14,6 +14,10 @@ use App\Models\AlpPrecioGrupo;
 use App\Models\AlpImpuestos;
 use App\Models\AlpEmpresas;
 use App\Models\AlpCombosProductos;
+
+use App\Imports\ProductosUpdateImport;
+
+
 use App\State;
 use App\City;
 use App\Roles;
@@ -1272,7 +1276,7 @@ class AlpProductosController extends JoshController
               $query->where('alp_precios_grupos.id_producto', $request->producto);
             }
 
-            $precio_grupo=$query->get();
+            $precio_grupo=$query->withTrashed()->get();
         
 
             $states = State::where('country_id','47')->get();
@@ -1453,6 +1457,30 @@ class AlpProductosController extends JoshController
       return $prods;
 
 
+    }
+
+
+     public function cargarupdate()
+    {
+
+      $ids = array(9,10,11,12);
+
+      $roles = Sentinel::getRoleRepository()->all();
+      //$roles=Roles::select('roles.id as id,roles.name as name, ')->whereIn('id', $ids)->get();
+
+        return view('admin.productos.cargarupdate', compact('roles', 'ids'));
+    }
+
+
+    public function importupdate(Request $request) 
+    {
+        $archivo = $request->file('file_update');
+
+        \Session::put('rol', $request->rol);
+
+        Excel::import(new ProductosUpdateImport, $archivo);
+        
+        return redirect('admin/productos/cargarupdate')->with('success', 'Productos Actualizados Exitosamente');
     }
 
     

@@ -49,12 +49,12 @@
 
         </td>
 
-            @if($producto->estado_registro==1)
-            <td>Activo</td>
+            @if($producto->deleted_at==NULL)
+            <td style="color: green; font-weight: 600;" >Activo</td>
 
             @else
 
-            <td>Inactivo</td>
+            <td style="color: red; font-weight: 600;">Eliminado</td>
 
             @endif
 

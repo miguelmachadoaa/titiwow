@@ -64,7 +64,7 @@ Precios Productos
                         @foreach($productos_list as $p)
 
 
-                        <option value="{{$p->id}}">{{$p->nombre_producto}}</option>
+                        <option value="{{$p->id}}">{{$p->nombre_producto.' - '.$p->referencia_producto}}</option>
 
                         @endforeach
                     </select>
