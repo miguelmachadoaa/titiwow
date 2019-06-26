@@ -1056,8 +1056,6 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
             }
 
 
-
-
          if(count($cart)<=0){
 
             return redirect('productos');
@@ -1077,7 +1075,6 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
             $items["unit_price"]=intval($total-$total_pagos);
 
               $list[]=$items;
-
 
             $preference_data = [
               "items" => $list,

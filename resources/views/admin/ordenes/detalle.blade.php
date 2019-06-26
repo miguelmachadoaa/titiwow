@@ -87,9 +87,27 @@ Orden {{$orden->id}}
                 </div>
                 <div class="panel-body">
 
-                    
+
+                        @if($orden->estatus=='4')
+
+                        <div class="col-sm-3"></div>
+
+                        <div class="col-sm-6 ">
+
+                        <div class="alert alert-danger" style="text-align: center;">
+                            
+                            <p style="color: #fff; font-size: 2em;"> <b>Este pedido ha sido cancelado</b></p>
+                        </div>
+
+                        </div>
+
+
+                        @else
 
                     <div class="col-sm-12">
+                
+
+
 
             <div class="row bs-wizard" style="border-bottom:0;">
                 
@@ -120,13 +138,17 @@ Orden {{$orden->id}}
                   <a href="#" class="bs-wizard-dot"></a>
                   <div class="bs-wizard-danger text-center"> 4</div>
                 </div>
+
+               
             </div>
+
+</div>
+
         
-        
+         @endif
         
         
 
-</div>
 
                   
                     

@@ -728,6 +728,8 @@ $('.sendCupon').click(function () {
 
                     $('.res_direccion').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
 
+                     $('#modalPse').modal('hidden');
+
                 }
             
             }
