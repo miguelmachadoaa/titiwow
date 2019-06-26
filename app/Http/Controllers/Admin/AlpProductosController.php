@@ -58,10 +58,6 @@ class AlpProductosController extends JoshController
         return view('admin.productos.index', compact('productos'));
     }
 
-
-
-
-
      public function data()
     {
        
@@ -1226,7 +1222,7 @@ class AlpProductosController extends JoshController
 
 
 
-        public function precio()
+    public function precio()
     {
         // Grab all the blogs
         
@@ -1239,7 +1235,7 @@ class AlpProductosController extends JoshController
 
           $precio = array();
 
-          $r='12';
+          $r='9';
           
                 foreach ($productos as  $row) {
                     
@@ -1267,9 +1263,68 @@ class AlpProductosController extends JoshController
 
 
 
+            $states = State::where('country_id','47')->get();
+            
+            $roles = DB::table('roles')->select('id', 'name')->where('roles.tipo', 2)->get();
+
+
         // Show the page
-        return view('admin.productos.precio', compact('productos', 'precio', 'prods'));
+        return view('admin.productos.precio', compact('productos', 'precio', 'prods', 'states', 'roles'));
     }
+
+
+     public function postprecio(Request $request)
+    {
+        // Grab all the blogs
+        
+
+       $productos = AlpProductos::select('alp_productos.*', 'alp_categorias.nombre_categoria as nombre_categoria')
+          ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
+          ->get();
+
+           $descuento='1'; 
+
+          $precio = array();
+
+          $r=$request->rol;
+          
+                foreach ($productos as  $row) {
+                    
+                    $pregiogrupo=AlpPrecioGrupo::select('alp_precios_grupos.*','config_cities.city_name as city_name', 'roles.name as name' )
+                    ->join('config_cities', 'alp_precios_grupos.city_id','=', 'config_cities.id')
+                    ->join('roles', 'alp_precios_grupos.id_role','=', 'roles.id')
+                    ->where('id_producto', $row->id)
+                    ->where('id_role', $r)
+                    ->where('city_id', $request->cities)
+                    ->first();
+
+                    if (isset($pregiogrupo->id)) {
+                       
+                        $precio[$row->id]['precio']=$pregiogrupo->precio;
+                        $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$row->id]['pum']=$pregiogrupo->pum;
+                        $precio[$row->id]['city_id']=$pregiogrupo->city_name;
+                        $precio[$row->id]['id_role']=$pregiogrupo->name;
+
+                    }
+
+                }
+
+
+            $prods=$this->addOferta($productos, $precio, $descuento);
+
+            $states = State::where('country_id','47')->get();
+            
+            $roles = DB::table('roles')->select('id', 'name')->where('roles.tipo', 2)->get();
+
+
+        // Show the page
+        return view('admin.productos.precio', compact('productos', 'precio', 'prods', 'states', 'roles'));
+    }
+
+
+
+
 
 
      public function dataprecio()

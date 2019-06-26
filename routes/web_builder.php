@@ -123,6 +123,7 @@ Route::post('productos/dataprecio', ['as'=> 'productos.dataprecio', 'uses' => 'A
 
 
 Route::get('productos/precio/', ['as'=> 'productos.precio', 'uses' => 'Admin\AlpProductosController@precio']);
+Route::post('productos/postprecio/', ['as'=> 'productos.postprecio', 'uses' => 'Admin\AlpProductosController@postprecio']);
 
 
 
