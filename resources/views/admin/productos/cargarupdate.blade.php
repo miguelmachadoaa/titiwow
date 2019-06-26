@@ -105,6 +105,8 @@ Actualizar Precios
 
                                         @foreach($roles as $rol)
 
+                                        <option value="">Seleccione</option>
+
                                             @if(in_array($rol->id, $ids))
 
                                                 <option value="{{$rol->id}}">{{$rol->name}}</option>
@@ -173,7 +175,7 @@ Actualizar Precios
                                 </div>
 
                                 <div class="col-sm-12">
-                                    <a class="btn btn-primary" target="_blank" href="{{secure_url('uploads/files/libro_productos_import.xlsx')}}">Descargar Archivo de Muestra</a>
+                                    <a class="btn btn-link" target="_blank" href="{{secure_url('uploads/files/libro_productos_import.xlsx')}}">Descargar Archivo de Muestra</a>
                                 </div>
                             </div>
                         </div>
