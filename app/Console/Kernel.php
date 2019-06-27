@@ -73,8 +73,8 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('cancelar:ordenes')->dailyAt('07:00');
          $schedule->command('generate:sitemap')->weekly();
-        $schedule->command('usuarios:new')->dailyAt('08:00');
-        $schedule->command('usuarios:new')->dailyAt('15:00');
+        //$schedule->command('usuarios:new')->dailyAt('08:00');
+        //$schedule->command('usuarios:new')->dailyAt('15:00');
         $schedule->command('verificar:pagos')->everyFiveMinutes();
        /* $schedule->command('notificacion:carrito')->hourly();*/
 
