@@ -246,7 +246,7 @@ Ordenes En Espera
     var table =$('#tbOrdenes').DataTable( {
         "processing": true,
         "ajax": {
-            "url": base+'/admin/ordenes/dataespera/'
+            "url": base+'/admin/ordenes/dataespera'
         }
     } );
 
