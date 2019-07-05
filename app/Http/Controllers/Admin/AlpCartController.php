@@ -575,7 +575,10 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
         $user_id = Sentinel::getUser()->id;
 
         // 1.- eststus orden, 2.- estatus pago, 3 json pedido 
+
         $data=$this->generarPedido('8', '4', $input, 'mercadopago');
+
+
        // $data=$this->generarPedido('8', '4', $input, 'credit_card');
 
         $id_orden=$data['id_orden'];
@@ -1051,6 +1054,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
             foreach ($descuentos as $pago) {
 
               $total_pagos=$total_pagos+$pago->monto_descuento;
+
               $total_descuentos=$total_descuentos+$pago->monto_descuento;
 
             }
@@ -1192,7 +1196,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
       $impuesto=$orden->monto_impuesto;
 
-        $net_amount=$total-$impuesto;
+      $net_amount=$total-$impuesto;
 
 
       if (Sentinel::check()) {
@@ -2284,11 +2288,28 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       
       $cart= \Session::get('cart');
 
-      $cart[$request->slug]->cantidad=$request->cantidad;
+      $inv=$this->inventario();
 
-      \Session::put('cart', $cart);
 
-      return 'true';
+       if($inv[$request->id]>=$request->cantidad){
+
+        $cart[$request->slug]->cantidad=$request->cantidad;
+
+        \Session::put('cart', $cart);
+
+        return 'true';
+
+
+
+      }else{
+
+        return 'false';
+
+        
+      }
+
+
+
 
       
     }
