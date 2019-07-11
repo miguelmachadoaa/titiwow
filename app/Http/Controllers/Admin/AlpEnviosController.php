@@ -28,6 +28,24 @@ class AlpEnviosController extends JoshController
     public function index()
     {
         // Grab all the groups
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('envios/index ');
+
+        }else{
+
+          activity()
+          ->log('envios/index');
+
+
+        }
+      
       
 
         $estatus_envios = AlpEnviosEstatus::all();
@@ -107,6 +125,23 @@ class AlpEnviosController extends JoshController
      public function empresas()
     {
         // Grab all the groups
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('envios/empresas ');
+
+        }else{
+
+          activity()
+          ->log('envios/empresas');
+
+
+        }
       
         $ordenes = AlpOrdenes::all();
 
@@ -135,6 +170,25 @@ class AlpEnviosController extends JoshController
      */
     public function create()
     {
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('envios/create ');
+
+        }else{
+
+          activity()
+          ->log('envios/create');
+
+
+        }
+
+
         // Show the page
         return view ('admin.envios.create');
     }
@@ -207,6 +261,26 @@ class AlpEnviosController extends JoshController
      */
     public function destroy($id)
     {
+
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('envios/destroy ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('envios/destroy');
+
+
+        }
+
+
         try {
             // Get group information
            
@@ -232,6 +306,24 @@ class AlpEnviosController extends JoshController
      */
     public function detalle($id)
     {
+
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('envios/detalle ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('envios/detalle');
+
+
+        }
        
        $orden = AlpOrdenes::find($id);
 
@@ -269,6 +361,26 @@ class AlpEnviosController extends JoshController
 
     public function updatestatus(Request $request)
     {
+
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('envios/detalle ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('envios/detalle');
+
+
+        }
+
+        
 
         $user_id = Sentinel::getUser()->id;
 

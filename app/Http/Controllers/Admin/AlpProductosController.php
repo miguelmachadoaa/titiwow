@@ -54,6 +54,25 @@ class AlpProductosController extends JoshController
     public function index()
     {
         // Grab all the blogs
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpProductosController/index ');
+
+        }else{
+
+          activity()
+          ->log('AlpProductosController/index');
+
+
+        }
+
+
         
 
         $productos = AlpProductos::select('alp_productos.*', 'alp_categorias.nombre_categoria as nombre_categoria')
@@ -174,6 +193,26 @@ class AlpProductosController extends JoshController
      */
     public function create()
     {
+
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpProductosController/create ');
+
+        }else{
+
+          activity()
+          ->log('AlpProductosController/create');
+
+
+        }
+
+
         $categorias = AlpCategorias::where('id_categoria_parent','0')->get();
 
         $categorias_todas = AlpCategorias::all();
@@ -232,6 +271,25 @@ class AlpProductosController extends JoshController
      */
     public function store(ProductosRequest $request)
     {
+
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpProductosController/store ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpProductosController/store');
+
+
+        }
+
 
         $user_id = Sentinel::getUser()->id;
 
@@ -412,6 +470,25 @@ class AlpProductosController extends JoshController
      */
     public function show($id)
     {
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpProductosController/show ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpProductosController/show');
+
+
+        }
+
+
          $categorias = AlpCategoriasProductos::select('alp_productos_category.*', 'alp_categorias.nombre_categoria as nombre_categoria')
           ->join('alp_categorias', 'alp_productos_category.id_categoria', '=', 'alp_categorias.id')
          
@@ -511,6 +588,26 @@ class AlpProductosController extends JoshController
      */
     public function relacionado($id){
 
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpProductosController/relacionado ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpProductosController/relacionado');
+
+
+        }
+
+
+
+
       $producto=AlpProductos::where('id', $id)->first();
 
       $productos=AlpProductos::get();
@@ -531,6 +628,26 @@ class AlpProductosController extends JoshController
 
     public function edit($id)
     {
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpProductosController/edit ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpProductosController/edit');
+
+
+        }
+
+
+
         $inventario=AlpInventario::where('id_producto', $id)->first();
 
         $cats=AlpCategoriasProductos::where('id_producto', $id)->get();
@@ -710,6 +827,25 @@ class AlpProductosController extends JoshController
      */
     public function update(ProductosUpdateRequest $request, $id)
     {
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpProductosController/update ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpProductosController/update');
+
+
+        }
+
+
 
         $producto = AlpProductos::find($id);
 
@@ -959,6 +1095,24 @@ class AlpProductosController extends JoshController
     public function destroy( $producto)
     {
 
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$producto])->log('AlpProductosController/edit ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$producto])->log('AlpProductosController/edit');
+
+
+        }
+
+
 
       $id_producto=$producto;
 
@@ -1029,6 +1183,24 @@ class AlpProductosController extends JoshController
     public function destacado(Request $request)
     {
 
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpProductosController/destacado ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpProductosController/destacado');
+
+
+        }
+
+
         $input = $request->all();
 
         $producto=AlpProductos::find($request->id);
@@ -1051,6 +1223,25 @@ class AlpProductosController extends JoshController
 
     public function sugerencia(Request $request)
     {
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpProductosController/sugerencia ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpProductosController/sugerencia');
+
+
+        }
+
+
 
         $input = $request->all();
 
@@ -1075,6 +1266,23 @@ class AlpProductosController extends JoshController
     public function desactivar(Request $request)
     {
 
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpProductosController/desactivar ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpProductosController/desactivar');
+
+
+        }
+
         $input = $request->all();
         
         $producto=AlpProductos::find($request->id);
@@ -1098,6 +1306,25 @@ class AlpProductosController extends JoshController
     public function referenciasap(Request $request)
     {
 
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpProductosController/referenciasap ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpProductosController/referenciasap');
+
+
+        }
+
+
+
         $input = $request->all();
         
         //dd($input['referencia_producto_sap']);
@@ -1114,6 +1341,24 @@ class AlpProductosController extends JoshController
 
     public function referencia(Request $request)
     {
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpProductosController/referencia ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpProductosController/referencia');
+
+
+        }
+
 
         $input = $request->all();
         
@@ -1134,6 +1379,25 @@ class AlpProductosController extends JoshController
 
      public function addrelacionado(Request $request)
     {
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpProductosController/addrelacionado ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpProductosController/addrelacionado');
+
+
+        }
+
+
 
         $input = $request->all();
 
@@ -1170,6 +1434,24 @@ class AlpProductosController extends JoshController
     public function delrelacionado(Request $request)
     {
 
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpProductosController/delrelacionado ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpProductosController/delrelacionado');
+
+
+        }
+
+
         $input = $request->all();
 
         $relacionado=AlpProductosRelacionados::where('id', $input['id'])->first();
@@ -1197,6 +1479,8 @@ class AlpProductosController extends JoshController
 
     private function inventario()
     {
+
+
 
       $entradas = AlpInventario::groupBy('id_producto')
               ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
@@ -1252,6 +1536,25 @@ class AlpProductosController extends JoshController
 
      public function postprecio(Request $request)
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpProductosController/postprecio ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpProductosController/postprecio');
+
+
+        }
+
+
         // Grab all the blogs
         
         $productos_list=AlpProductos::all();
@@ -1465,6 +1768,26 @@ class AlpProductosController extends JoshController
      public function cargarupdate()
     {
 
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpProductosController/cargarupdate ');
+
+        }else{
+
+          activity()
+          ->log('AlpProductosController/cargarupdate');
+
+
+        }
+
+
+
+
       $ids = array(9,10,11,12);
 
       $roles = Sentinel::getRoleRepository()->all();
@@ -1480,6 +1803,25 @@ class AlpProductosController extends JoshController
 
     public function importupdate(CargaRequest $request) 
     {
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpProductosController/importupdate  ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpProductosController/importupdate ');
+
+
+        }
+
+
         $archivo = $request->file('file_update');
 
         $porciones = explode("_", $request->cities);

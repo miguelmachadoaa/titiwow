@@ -25,6 +25,29 @@ class AlpConfiguracionController extends JoshController
     public function index()
     {
         // Grab all the groups
+
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        #->withProperties($request->all())
+                        ->log('configuracion/index ');
+
+        }else{
+
+          activity()
+          #->withProperties($request->all())
+          ->log('configuracion/index');
+
+
+        }
+
+
+
       
 
         $configuracion = AlpConfiguracion::where('id', '1')->first();
@@ -54,6 +77,27 @@ class AlpConfiguracionController extends JoshController
      */
     public function update(Request $request, $id)
     {
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('configuracion/update ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('configuracion/update');
+
+
+        }
+
+
        $data = array(
             'nombre_tienda' => $request->nombre_tienda,
             'base_url' => $request->base_url,
@@ -138,6 +182,28 @@ class AlpConfiguracionController extends JoshController
 
     public function storecity(Request $request)
     {
+
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('configuracion/storecity ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('configuracion/storecity');
+
+
+        }
+
+
         
         $user_id = Sentinel::getUser()->id;
 
@@ -165,6 +231,26 @@ class AlpConfiguracionController extends JoshController
 
     public function delcity(Request $request)
     {
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('configuracion/delcity ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('configuracion/delcity');
+
+
+        }
+
         
         $user_id = Sentinel::getUser()->id;
 
@@ -192,6 +278,27 @@ class AlpConfiguracionController extends JoshController
 
     public function verificarciudad(Request $request)
     {
+
+
+      
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('configuracion/verificarciudad ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('configuracion/verificarciudad');
+
+
+        }
         
           \Session::put('ciudad', $request->city_id);
       

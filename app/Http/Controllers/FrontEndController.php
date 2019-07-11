@@ -74,6 +74,10 @@ class FrontEndController extends JoshController
 
             $user_id = Sentinel::getUser()->id;
 
+            $user=Sentinel::getUser();
+
+
+             
             $role=RoleUser::where('user_id', $user_id)->first();
 
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();

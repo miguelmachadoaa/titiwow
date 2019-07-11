@@ -42,6 +42,24 @@ class AlpClientesController extends JoshController
     public function index()
     {
         // Grab all the groups
+
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        
+                        ->log('clientes/index ');
+
+        }else{
+
+          activity()->log('clientes/index');
+
+
+        }
       
         $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista')
         ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
@@ -156,6 +174,27 @@ class AlpClientesController extends JoshController
     public function inactivos()
     {
         // Grab all the groups
+
+
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        
+                        ->log('clientes/inactivos ');
+
+        }else{
+
+          activity()->log('clientes/inactivos');
+
+
+        }
+
+
       
         $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente')
         ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
@@ -277,6 +316,25 @@ class AlpClientesController extends JoshController
     public function rechazados()
     {
         // Grab all the groups
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        
+                        ->log('clientes/rechazados ');
+
+        }else{
+
+          activity()->log('clientes/rechazados');
+
+
+        }
+
+
       
         $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente')
         ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
@@ -398,6 +456,25 @@ class AlpClientesController extends JoshController
     public function empresas()
     {
         // Grab all the groups
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        
+                        ->log('clientes/empresas ');
+
+        }else{
+
+          activity()->log('clientes/empresas');
+
+
+        }
+
+
       
         $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_empresas.nombre_empresa as nombre_empresa')
         ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
@@ -511,6 +588,27 @@ class AlpClientesController extends JoshController
     {
         // Grab all the groups
 
+           if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])
+                        ->log('clientes/detalle ');
+
+        }else{
+
+          activity()->withProperties(['id'=>$id])
+                        ->log('clientes/detalle');
+
+
+        }
+
+
+
+
         $user_id = Sentinel::getUser()->id;
 
         $cliente=AlpClientes::select('alp_clientes.*', 'alp_tipo_documento.nombre_tipo_documento as nombre_tipo_documento')
@@ -559,6 +657,27 @@ class AlpClientesController extends JoshController
      */
     public function create()
     {
+
+
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        
+                        ->log('clientes/create ');
+
+        }else{
+
+          activity()->log('clientes/create');
+
+
+        }
+
+
         // Get all the available groups
         $groups = DB::table('roles')->whereIn('roles.id', [9, 10, 11])->get();
 
@@ -576,6 +695,24 @@ class AlpClientesController extends JoshController
     public function store(ClientesRequest $request)
     {
         $user_id = Sentinel::getUser()->id;
+
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('clientes/store ');
+
+        }else{
+
+          activity()->withProperties($request->all())->log('clientes/store');
+
+
+        }
 
          //upload image
         /*if ($file = $request->file('pic_file')) {
@@ -662,6 +799,24 @@ class AlpClientesController extends JoshController
     {
         $user = User::findOrFail($id);
 
+
+            if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])
+                        ->log('clientes/edit ');
+
+        }else{
+
+          activity()->withProperties(['id'=>$id])->log('clientes/edit');
+
+
+        }
+
         
         $cliente = DB::table('alp_clientes')
         ->leftJoin('users', 'alp_clientes.id_embajador', '=', 'users.id')
@@ -691,6 +846,27 @@ class AlpClientesController extends JoshController
     {
 
         $user_id = Sentinel::getUser()->id;
+
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id, 'request'=>$request->all()])
+                        ->log('clientes/update ');
+
+        }else{
+
+          activity()->withProperties(['id'=>$id, 'request'=>$request->all()])->log('clientes/update');
+
+
+        }
+
+
+
 
 
          $user_history = array(
@@ -844,6 +1020,27 @@ class AlpClientesController extends JoshController
      */
     public function show($id)
     {
+
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])
+                        ->log('clientes/show ');
+
+        }else{
+
+          activity()->withProperties(['id'=>$id])->log('clientes/show');
+
+
+        }
+
+
+
         try {
             // Get the user information
             $user = Sentinel::findUserById($id);
@@ -894,6 +1091,25 @@ class AlpClientesController extends JoshController
      */
     public function destroy($id)
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])
+                        ->log('clientes/destroy ');
+
+        }else{
+
+          activity()->withProperties(['id'=>$id])->log('clientes/destroy');
+
+
+        }
+
+
         try {
             // Get group information
            
@@ -923,6 +1139,24 @@ class AlpClientesController extends JoshController
 
     public function direcciones($id)
     {
+
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])
+                        ->log('clientes/direcciones ');
+
+        }else{
+
+          activity()->withProperties(['id'=>$id])->log('clientes/direcciones');
+
+
+        }
         $user = User::findOrFail($id);
 
         $cliente = DB::table('alp_clientes')->where('alp_clientes.id_user_client', '=', $id)->get();
@@ -942,6 +1176,25 @@ class AlpClientesController extends JoshController
 
     public function rechazar(Request $request)
     {
+
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('clientes/rechazar ');
+
+        }else{
+
+          activity()->withProperties($request->all())->log('clientes/rechazar');
+
+
+        }
+
         $user_id = Sentinel::getUser()->id;
 
            $configuracion = AlpConfiguracion::where('id','1')->first();
@@ -997,6 +1250,25 @@ class AlpClientesController extends JoshController
 
     public function updaterol(Request $request)
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('clientes/updaterol ');
+
+        }else{
+
+          activity()->withProperties($request->all())->log('clientes/updaterol');
+
+
+        }
+
+
         $user_id = Sentinel::getUser()->id;
 
            $configuracion = AlpConfiguracion::where('id','1')->first();
@@ -1105,7 +1377,22 @@ class AlpClientesController extends JoshController
 
     public function eliminar(Request $request)
     {
-        
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('clientes/eliminar ');
+
+        }else{
+
+          activity()->withProperties($request->all())->log('clientes/eliminar');
+
+
+        }
        
        /* $input=$request->all();
 
@@ -1150,6 +1437,28 @@ class AlpClientesController extends JoshController
 
     public function activar(Request $request)
     {
+
+
+
+           if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('clientes/activar ');
+
+        }else{
+
+          activity()->withProperties($request->all())->log('clientes/activar');
+
+
+        }
+
+
+        
         $user_id = Sentinel::getUser()->id;
 
         $user=User::where('id', $request->cliente_id)->first();

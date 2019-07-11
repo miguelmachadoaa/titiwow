@@ -22,6 +22,25 @@ class AlpRolPagosController extends JoshController
     public function index()
     {
         // Grab all the groups
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpRolPagosController/index ');
+
+        }else{
+
+          activity()
+          ->log('AlpRolPagosController/index');
+
+
+        }
+
+
       
 
         $formas = AlpFormaspago::all();
@@ -50,6 +69,25 @@ class AlpRolPagosController extends JoshController
     public function create()
     {
         // Show the page
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpRolPagosController/index ');
+
+        }else{
+
+          activity()
+          ->log('AlpRolPagosController/index');
+
+
+        }
+
+
         return view ('admin.rolpagos.create');
     }
 
@@ -60,6 +98,25 @@ class AlpRolPagosController extends JoshController
      */
     public function store(Request $request)
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpRolPagosController/store ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpRolPagosController/store');
+
+
+        }
+
+        
         
          $user_id = Sentinel::getUser()->id;
 

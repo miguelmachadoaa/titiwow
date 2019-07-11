@@ -62,6 +62,7 @@ use App\Models\AlpOrdenesDescuento;
 use App\Models\AlpCombosProductos;
 
 use Illuminate\Support\Facades\Storage;
+use Spatie\Activitylog\Models\Activity;
 
 class AlpCartController extends JoshController
 {
@@ -111,8 +112,6 @@ class AlpCartController extends JoshController
         $precio = array();
 
 
-
-
          if (\Session::has('cr')) {
           
           $carrito= \Session::get('cr');
@@ -129,13 +128,7 @@ class AlpCartController extends JoshController
 
 
 
-
-
-
         }
-
-
-
 
         
 
@@ -146,6 +139,14 @@ class AlpCartController extends JoshController
       if (Sentinel::check()) {
 
             $user_id = Sentinel::getUser()->id;
+
+            $user = Sentinel::getUser();
+
+
+            activity($user->full_name)
+                    ->performedOn($user)
+                    ->causedBy($user)
+                    ->withProperties($cart)->log('Show Cart');
 
             $role=RoleUser::where('user_id', $user_id)->first();
 
@@ -400,6 +401,14 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
       $orden=AlpOrdenes::where('id', $id_orden)->first();
 
 
+      $user = Sentinel::getUser();
+
+       activity($user->full_name)
+                    ->performedOn($user)
+                    ->causedBy($user)
+                    ->withProperties($request->all())->log('Get Pse');
+
+
       $total=$orden->monto_total;
 
       $impuesto=$orden->monto_impuesto;
@@ -541,6 +550,18 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
       $input=$request->all();
 
+
+      $user = Sentinel::getUser();
+
+
+            activity($user->full_name)
+                    ->performedOn($user)
+                    ->causedBy($user)
+                    ->withProperties($input)->log('Order Pse, captura de pago con pse');
+
+
+
+
        if (\Session::has('pse')) {
 
         $id_pago=\Session::get('pse');
@@ -635,6 +656,9 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
     {
       
       $input=$request->all();
+
+
+            activity()->withProperties($input)->log('Notificacion mercadopago');
 
       $configuracion = AlpConfiguracion::where('id', '1')->first();
 
@@ -785,6 +809,15 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
   public function orderCreditcard(Request $request)
     {
+
+
+      $user = Sentinel::getUser();
+
+       activity($user->full_name)
+                    ->performedOn($user)
+                    ->causedBy($user)
+                    ->withProperties($request->all())
+                    ->log('orderCreditcard captura de pago con creditcard');
 
 
       $avisos = array(
@@ -1006,6 +1039,17 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
       if (Sentinel::check()) {
 
+
+        $user = Sentinel::getUser();
+
+       activity($user->full_name)
+                    ->performedOn($user)
+                    ->causedBy($user)
+                    ->withProperties($cart)
+                    ->log('Orden Detail');
+
+
+
         $user_id = Sentinel::getUser()->id;
 
         $usuario=User::where('id', $user_id)->first();
@@ -1181,6 +1225,14 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
      
       $input=$request->all();
+
+         $user = Sentinel::getUser();
+
+       activity($user->full_name)
+                    ->performedOn($user)
+                    ->causedBy($user)
+                    ->withProperties($input)
+                    ->log('orderProcesarTicket pago con ticket');
 
       $cart= \Session::get('cart');
 
@@ -1882,6 +1934,26 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
      public function addlink( $id_producto)
     {
 
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id_producto'=>$id_producto])
+                        ->log('Agregar producto desde link ');
+
+        }else{
+
+          activity()->withProperties(['id_producto'=>$id_producto])
+                        ->log('Agregar producto desde link ');
+
+
+        }
+
+
+
 
           $producto=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
           ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
@@ -2063,6 +2135,29 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
        }
 
 
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($cart)
+                        ->log('addtocart ');
+
+        }else{
+
+          activity()->withProperties($cart)
+                        ->log('addtocart');
+
+
+        }
+
+
+
+
+
           $data=$view->render();
 
           $res = array('data' => $data);
@@ -2146,10 +2241,32 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        $total=$this->total();
 
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($cart)
+                        ->log('addtocartdetail ');
+
+        }else{
+
+          activity()->withProperties($cart)
+                        ->log('addtocartdetail');
+
+
+        }
+
+
+
      $configuracion=AlpConfiguracion::where('id', '1')->first();
        
 
         $view= View::make('frontend.listcart', compact('producto', 'cart', 'total', 'impuesto', 'configuracion'));
+
         
 
           $data=$view->render();
@@ -2227,6 +2344,28 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         'cantidad' => $producto->cantidad
       );
 
+
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($cart)
+                        ->log('addtocartsingle ');
+
+        }else{
+
+          activity()->withProperties($cart)
+                        ->log('addtocartsingle');
+
+
+        }
+
+
+
        AlpCarritoDetalle::create($data_detalle);
 
        $single=1;
@@ -2253,6 +2392,25 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       $detalle=AlpCarritoDetalle::where('id_carrito', $carrito)->where('id_producto', $producto->id)->first();
 
       $detalle->delete();
+
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($cart)
+                        ->log('delete ');
+
+        }else{
+
+          activity()->withProperties($cart)
+                        ->log('delete');
+
+
+        }
        
 
        \Session::put('cart', $cart);
@@ -2270,6 +2428,27 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
        $cart[$producto->slug]->cantidad=$cantidad;
+
+
+
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($cart)
+                        ->log('cartcontroller/update ');
+
+        }else{
+
+          activity()->withProperties($cart)
+                        ->log('cartcontroller/update');
+
+
+        }
 
        
       // return $cart;
@@ -2291,6 +2470,27 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       $inv=$this->inventario();
 
 
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cartcontroller/updatecantidad ');
+
+        }else{
+
+          activity()->withProperties($request->all())
+                        ->log('cartcontroller/updatecantidad');
+
+
+        }
+
+
+
+
        if($inv[$request->id]>=$request->cantidad){
 
         $cart[$request->slug]->cantidad=$request->cantidad;
@@ -2308,9 +2508,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         
       }
 
-
-
-
       
     }
 
@@ -2319,11 +2516,36 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
        $cart= \Session::get('cart');
 
        $producto=AlpProductos::where('slug', $request->slug)->first();
+
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cartcontroller/delproducto ');
+
+        }else{
+
+          activity()->withProperties($request->all())
+                        ->log('cartcontroller/delproducto');
+
+
+        }
+
+
  
 
       unset( $cart[$request->slug]);
 
        \Session::put('cart', $cart);
+
+
+
+
 
        $view= View::make('frontend.order.botones', compact('producto', 'cart'));
 
@@ -2339,6 +2561,27 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
     public function updatecart(Request $request)
     {
        $cart= \Session::get('cart');
+
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cartcontroller/updatecart ');
+
+        }else{
+
+          activity()->withProperties($request->all())
+                        ->log('cartcontroller/updatecart');
+
+
+        }
+
+
 
 
        $carrito= \Session::get('cr');
@@ -2384,6 +2627,26 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
     public function vaciar( )
     {
+
+
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('cartcontroller/vaciar ');
+
+        }else{
+
+          activity()->log('cartcontroller/vaciar');
+
+
+        }
+
+
 
 
        $carrito= \Session::get('cr');
@@ -2727,6 +2990,24 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         $producto=AlpProductos::where('id', $request->id)->first();
 
+           if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cartcontroller/botones ');
+
+        }else{
+
+          activity()->withProperties($request->all())
+                        ->log('cartcontroller/botones');
+
+
+        }
+
 
        $cart= \Session::get('cart');
 
@@ -2754,6 +3035,27 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
     public function updatecartdetalle(Request $request)
     {
+
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cartcontroller/updatecartdetalle ');
+
+        }else{
+
+          activity()->withProperties($request->all())
+                        ->log('cartcontroller/updatecartdetalle');
+
+
+        }
+
+
        $cart= \Session::get('cart');
 
        $configuracion=AlpConfiguracion::where('id', '1')->first();
@@ -2837,6 +3139,27 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
     public function updatecartbotones(Request $request)
     {
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cartcontroller/updatecartbotones ');
+
+        }else{
+
+          activity()->withProperties($request->all())
+                        ->log('cartcontroller/updatecartbotones');
+
+
+        }
+
+
+
        $cart= \Session::get('cart');
 
         $configuracion=AlpConfiguracion::where('id', '1')->first();
@@ -2917,6 +3240,27 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
     public function updatecartbotonessingle(Request $request)
     {
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cartcontroller/updatecartbotonessingle ');
+
+        }else{
+
+          activity()->withProperties($request->all())
+                        ->log('cartcontroller/updatecartbotonessingle');
+
+
+        }
+
+
+
        $cart= \Session::get('cart');
 
        $carrito= \Session::get('cr');
@@ -2986,6 +3330,29 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       public function getcartbotones(Request $request)
     {
+
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cartcontroller/getcartbotones ');
+
+        }else{
+
+          activity()->withProperties($request->all())
+                        ->log('cartcontroller/getcartbotones');
+
+
+        }
+
+
+
+
        $cart= \Session::get('cart');
 
        $producto=AlpProductos::where('slug', $request->slug)->first();
@@ -3005,6 +3372,28 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
      public function storedir(Request $request)
     {
+
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cartcontroller/storedir ');
+
+        }else{
+
+          activity()->withProperties($request->all())
+                        ->log('cartcontroller/storedir');
+
+
+        }
+
+
+
 
         $user_id = Sentinel::getUser()->id;
 
@@ -3050,6 +3439,29 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
     public function setdir( $id)
     {
 
+
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])
+                        ->log('cartcontroller/setdir ');
+
+        }else{
+
+          activity()->withProperties(['id'=>$id])
+                        ->log('cartcontroller/setdir');
+
+
+        }
+
+
+
+
       $user_id = Sentinel::getUser()->id;
 
       $direcciones=AlpDirecciones::where('id_client', $user_id)->get();
@@ -3086,6 +3498,26 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
     public function deldir( $id)
     {
 
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])
+                        ->log('cartcontroller/deldir ');
+
+        }else{
+
+          activity()->withProperties(['id'=>$id])
+                        ->log('cartcontroller/deldir');
+
+
+        }
+
+
+
       $user_id = Sentinel::getUser()->id;
 
           $direccion= AlpDirecciones::find($id);
@@ -3097,6 +3529,28 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
     public function verificarDireccion( Request $request)
     {
+
+
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cartcontroller/verificarDireccion ');
+
+        }else{
+
+          activity()->withProperties($request->all())
+                        ->log('cartcontroller/verificarDireccion');
+
+
+        }
+
+
 
       $user_id = Sentinel::getUser()->id;
 
@@ -3328,6 +3782,24 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
     private function asignaCupon($codigo){
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['codigo'=>$codigo])
+                        ->log('cartcontroller/asignaCupon ');
+
+        }else{
+
+          activity()->withProperties(['codigo'=>$codigo])
+                        ->log('cartcontroller/asignaCupon');
+
+
+        }
 
      $configuracion=AlpConfiguracion::where('id', '1')->first();
       
@@ -3700,6 +4172,25 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 public function addcupon(Request $request)
     {
 
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cartcontroller/addcupon ');
+
+        }else{
+
+          activity()->withProperties($request->all())
+                        ->log('cartcontroller/addcupon');
+
+
+        }
+
       $configuracion=AlpConfiguracion::where('id', '1')->first();
       
       $carrito= \Session::get('cr');
@@ -3783,6 +4274,25 @@ public function addcupon(Request $request)
     public function addcuponform(Request $request)
     {
 
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cartcontroller/addcuponform ');
+
+        }else{
+
+          activity()->withProperties($request->all())
+                        ->log('cartcontroller/addcuponform');
+
+
+        }
+
       $configuracion=AlpConfiguracion::where('id', '1')->first();
       
       $carrito= \Session::get('cr');
@@ -3861,6 +4371,27 @@ public function addcupon(Request $request)
 
     public function delcupon(Request $request)
     {
+
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cartcontroller/delcupon ');
+
+        }else{
+
+          activity()->withProperties($request->all())
+                        ->log('cartcontroller/delcupon');
+
+
+        }
+
+        
 
       $configuracion=AlpConfiguracion::where('id', '1')->first();
       

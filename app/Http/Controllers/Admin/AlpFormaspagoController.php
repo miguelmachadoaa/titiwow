@@ -20,6 +20,25 @@ class AlpFormaspagoController extends JoshController
     public function index()
     {
         // Grab all the groups
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpFormaspagoController/index ');
+
+        }else{
+
+          activity()
+          ->log('AlpFormaspagoController/index');
+
+
+        }
+
+
       
 
         $formas = AlpFormaspago::all();
@@ -80,6 +99,24 @@ class AlpFormaspagoController extends JoshController
      */
     public function create()
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpFormaspagoController/create ');
+
+        }else{
+
+          activity()
+          ->log('AlpFormaspagoController/create');
+
+
+        }
+
         // Show the page
         return view ('admin.formaspago.create');
     }
@@ -91,6 +128,23 @@ class AlpFormaspagoController extends JoshController
      */
     public function store(FormapagoRequest $request)
     {
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpFormaspagoController/store ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpFormaspagoController/store');
+
+
+        }
         
          $user_id = Sentinel::getUser()->id;
 
@@ -125,6 +179,25 @@ class AlpFormaspagoController extends JoshController
      */
     public function edit($id)
     {
+
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpFormaspagoController/edit ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpFormaspagoController/edit');
+
+
+        }
+
        
        $forma = AlpFormaspago::find($id);
 
@@ -139,6 +212,27 @@ class AlpFormaspagoController extends JoshController
      */
     public function update(FormapagoRequest $request, $id)
     {
+
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpFormaspagoController/update ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpFormaspagoController/update');
+
+
+        }
+        
+
+
        $data = array(
             'nombre_forma_pago' => $request->nombre_forma_pago, 
             'descripcion_forma_pago' => $request->descripcion_forma_pago
@@ -190,6 +284,25 @@ class AlpFormaspagoController extends JoshController
      */
     public function destroy($id)
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpFormaspagoController/destroy ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpFormaspagoController/destroy');
+
+
+        }
+
+        
         try {
             // Get group information
            

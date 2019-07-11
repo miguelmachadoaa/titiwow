@@ -22,6 +22,23 @@ class AlpInventarioController extends JoshController
     public function index()
     {
         // Grab all the groups
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpInventarioController/index ');
+
+        }else{
+
+          activity()
+          ->log('AlpInventarioController/index');
+
+
+        }
       
 
         $productos = AlpProductos::all();
@@ -77,6 +94,25 @@ class AlpInventarioController extends JoshController
     public function create()
     {
         // Show the page
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpInventarioController/create ');
+
+        }else{
+
+          activity()
+          ->log('AlpInventarioController/create');
+
+
+        }
+
+
         return view ('admin.inventario.create');
     }
 
@@ -87,6 +123,25 @@ class AlpInventarioController extends JoshController
      */
     public function store(FormapagoRequest $request)
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpInventarioController/store ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpInventarioController/store');
+
+
+        }
+
+
         
          $user_id = Sentinel::getUser()->id;
 
@@ -122,6 +177,25 @@ class AlpInventarioController extends JoshController
     public function edit($id)
     {
        
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpInventarioController/edit ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpInventarioController/edit');
+
+
+        }
+
+
        $producto = AlpProductos::find($id);
 
         $inventario=$this->inventario();
@@ -166,6 +240,24 @@ class AlpInventarioController extends JoshController
      */
     public function update(Request $request, $id)
     {
+
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpInventarioController/update ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpInventarioController/update');
+
+
+        }
 
 
          $user_id = Sentinel::getUser()->id;
@@ -225,6 +317,25 @@ class AlpInventarioController extends JoshController
      */
     public function destroy($id)
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpInventarioController/destroy ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpInventarioController/destroy');
+
+
+        }
+
+
         try {
             // Get group information
            
@@ -245,6 +356,25 @@ class AlpInventarioController extends JoshController
     private function inventario()
     {
        
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpInventarioController/inventario ');
+
+        }else{
+
+          activity()
+          ->log('AlpInventarioController/inventario');
+
+
+        }
+
+        
 
       $entradas = AlpInventario::groupBy('id_producto')
               ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))

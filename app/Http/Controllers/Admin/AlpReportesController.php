@@ -21,6 +21,7 @@ use App\Exports\CarritoExport;
 use App\Exports\DescuentoVentasExport;
 use App\Exports\TomaPedidosExport;
 use App\Exports\CuponesDescuentoExport;
+use App\Exports\CuponesUsadosExport;
 use App\User;
 use App\Models\AlpOrdenes;
 use App\Models\AlpProductos;
@@ -30,6 +31,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DB;
+use Sentinel;
 
 use Carbon\Carbon;
 
@@ -37,11 +39,47 @@ class AlpReportesController extends Controller
 {
     public function indexreg() 
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/indexreg ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/indexreg');
+
+
+        }
+
+
         return view('admin.reportes.registrados');
     }
 
     public function ventas() 
     {
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/ventas ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/ventas');
+
+
+        }
 
        // $clientes=User::all();
 
@@ -58,6 +96,24 @@ class AlpReportesController extends Controller
     public function productos() 
     {
 
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/productos ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/productos');
+
+
+        }
+
+
         $productos=AlpProductos::all();
 
         return view('admin.reportes.productos', compact('productos'));
@@ -66,6 +122,24 @@ class AlpReportesController extends Controller
 
      public function exportproductos(Request $request) 
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exportproductos ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exportproductos');
+
+
+        }
+        
 
        // dd($request->all());
 
@@ -78,6 +152,24 @@ class AlpReportesController extends Controller
     public function productostotales() 
     {
 
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/productostotales ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/productostotales');
+
+
+        }
+
+
         $productos=AlpProductos::all();
 
         return view('admin.reportes.productostotales', compact('productos'));
@@ -86,6 +178,25 @@ class AlpReportesController extends Controller
 
      public function exportproductostotales(Request $request) 
     {
+
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exportproductostotales ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exportproductostotales');
+
+
+        }
+
 
        // dd($request->all());
 
@@ -96,6 +207,22 @@ class AlpReportesController extends Controller
     {
 
         
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/carrito ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/carrito');
+
+
+        }
 
         return view('admin.reportes.carrito');
 
@@ -103,6 +230,26 @@ class AlpReportesController extends Controller
 
      public function exportcarrito(Request $request) 
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exportcarrito ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exportcarrito');
+
+
+        }
+        
+
+
 
        // dd($request->all());
 
@@ -113,6 +260,25 @@ class AlpReportesController extends Controller
     public function exportventas(Request $request) 
     {
 
+
+            if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exportventas ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exportventas');
+
+
+        }
+
+
        // dd($request->all());
 
         return Excel::download(new VentasExport($request->desde, $request->hasta, $request->clientes), 'ventas_desde_'.$request->desde.'_hasta_'.$request->hasta.'_usuario_'.$request->clientes.'.xlsx');
@@ -120,6 +286,25 @@ class AlpReportesController extends Controller
 
     public function export(Request $request) 
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/export ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/export');
+
+
+        }
+
+
 
         //dd($request->all());
 
@@ -136,6 +321,23 @@ class AlpReportesController extends Controller
     public function financiero() 
     {
 
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/financiero ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/financiero');
+
+
+        }
+
         
 
         return view('admin.reportes.financiero');
@@ -146,6 +348,25 @@ class AlpReportesController extends Controller
     public function exportfinanciero(Request $request) 
     {
 
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exportfinanciero ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exportfinanciero');
+
+
+        }
+
+
+
        // dd($request->all());
 
         return Excel::download(new FinancieroExport($request->desde, $request->hasta), 'financiero_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
@@ -155,6 +376,26 @@ class AlpReportesController extends Controller
      public function masterfile() 
     {
 
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/masterfile ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/masterfile');
+
+
+        }
+
+
+
         return view('admin.reportes.masterfile');
 
     }
@@ -162,11 +403,50 @@ class AlpReportesController extends Controller
 
     public function exportmasterfile(Request $request) 
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exportmasterfile ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exportmasterfile');
+
+
+        }
+
+
+
         return Excel::download(new MasterfileExport($request->desde, $request->hasta), 'masterfile_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
     }
 
      public function masterfileamigos() 
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/masterfileamigos ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/masterfileamigos');
+
+
+        }
+
+
 
         return view('admin.reportes.masterfileamigos');
 
@@ -175,11 +455,49 @@ class AlpReportesController extends Controller
 
     public function exportmasterfileamigos(Request $request) 
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exportmasterfileamigos ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exportmasterfileamigos');
+
+
+        }
+
+
+
         return Excel::download(new MasterfileAmigosExport($request->desde, $request->hasta), 'masterfile_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
     }
 
      public function masterfileembajadores() 
     {
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/masterfileembajadores ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/masterfileembajadores');
+
+
+        }
+
 
         return view('admin.reportes.masterfileembajador');
 
@@ -188,12 +506,49 @@ class AlpReportesController extends Controller
 
     public function exportmasterfileembajadores(Request $request) 
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exportmasterfileembajadores ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exportmasterfileembajadores');
+
+
+        }
+
+
         return Excel::download(new MasterfileEmbajadoresExport($request->desde, $request->hasta), 'masterfile_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
     }
 
 
      public function logistica() 
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/logistica ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/logistica');
+
+
+        }
+
 
         return view('admin.reportes.logistica');
 
@@ -203,6 +558,25 @@ class AlpReportesController extends Controller
     public function exportlogistica(Request $request) 
     {
 
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exportlogistica ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exportlogistica');
+
+
+        }
+
+
+
         Excel::store(new LogisticaExport($request->desde, $request->hasta), 'logistica_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx', 'public');
 
 
@@ -211,6 +585,25 @@ class AlpReportesController extends Controller
 
     public function storeexportlogistica(Request $request) 
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/storeexportlogistica ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/storeexportlogistica');
+
+
+        }
+
+
          Excel::store(new LogisticaExport($request->desde, $request->hasta), 'logistica_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
 
          return true;
@@ -220,6 +613,25 @@ class AlpReportesController extends Controller
     public function consolidado() 
     {
 
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/consolidado ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/consolidado');
+
+
+        }
+
+
+
         return view('admin.reportes.consolidado');
 
     }
@@ -227,11 +639,49 @@ class AlpReportesController extends Controller
 
     public function exportconsolidado(Request $request) 
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exportconsolidado ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exportconsolidado');
+
+
+        }
+
+
         return Excel::download(new ConsolidadoExport($request->desde), 'consolidado_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
     }
 
      public function ventastotales() 
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/ventastotales ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/ventastotales');
+
+
+        }
+
+
 
         return view('admin.reportes.ventastotales');
 
@@ -240,12 +690,50 @@ class AlpReportesController extends Controller
 
     public function exportventastotales(Request $request) 
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exportventastotales ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exportventastotales');
+
+
+        }
+
+
         return Excel::download(new VentastotalesExport($request->desde, $request->hasta), 'ventastotales_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
     }
 
 
      public function cuponesdescuento() 
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/cuponesdescuento ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/cuponesdescuento');
+
+
+        }
+
+
 
         return view('admin.reportes.cuponesdescuento');
 
@@ -254,11 +742,49 @@ class AlpReportesController extends Controller
 
     public function exportcuponesdescuento(Request $request) 
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exportcuponesdescuento ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exportcuponesdescuento');
+
+
+        }
+
+
         return Excel::download(new CuponesDescuentoExport(), 'cuponesdescuento.xlsx');
     }
 
     public function ventasdescuento() 
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/ventasdescuento ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/ventasdescuento');
+
+
+        }
+
+
 
         return view('admin.reportes.ventasdescuento');
 
@@ -267,6 +793,26 @@ class AlpReportesController extends Controller
 
     public function exportventasdescuento(Request $request) 
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exportventasdescuento ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exportventasdescuento');
+
+
+        }
+
+
+
         return Excel::download(new DescuentoVentasExport($request->desde, $request->hasta), 'ventasdescuento_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
     }
 
@@ -277,6 +823,26 @@ class AlpReportesController extends Controller
 
     public function exportcronlogisticaexport(Request $request) 
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exportcronlogisticaexport ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exportcronlogisticaexport');
+
+
+        }
+
+
+
         $date = Carbon::now();
 
         $hoy=$date->format('Y-m-d');
@@ -290,6 +856,25 @@ class AlpReportesController extends Controller
 
     public function cronnuevosusuariosexport(Request $request) 
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/cronnuevosusuariosexport ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/cronnuevosusuariosexport');
+
+
+        }
+
+
         $date = Carbon::now();
 
         $hoy=$date->format('Y-m-d');
@@ -306,6 +891,24 @@ class AlpReportesController extends Controller
      public function productosb() 
     {
 
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/productosb ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/productosb');
+
+
+        }
+
+
         $productos=AlpProductos::all();
 
         return view('admin.reportes.productosb', compact('productos'));
@@ -314,6 +917,24 @@ class AlpReportesController extends Controller
 
      public function exportproductosb(Request $request) 
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exportproductosb ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exportproductosb');
+
+
+        }
+
 
        // dd($request->all());
 
@@ -327,6 +948,24 @@ class AlpReportesController extends Controller
      public function productosc() 
     {
 
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/productosc ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/productosc');
+
+
+        }
+
+
         $productos=AlpProductos::all();
 
         return view('admin.reportes.productosc', compact('productos'));
@@ -336,6 +975,25 @@ class AlpReportesController extends Controller
 
      public function exportproductosc(Request $request) 
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exportproductos ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exportproductos');
+
+
+        }
+
+
 
        // dd($request->all());
 
@@ -349,6 +1007,25 @@ class AlpReportesController extends Controller
 
     public function cronexportproductosb(Request $request) 
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/cronexportproductosb ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/cronexportproductosb');
+
+
+        }
+
+
         $date = Carbon::now();
 
         $hoy=$date->format('Y-m-d');
@@ -361,6 +1038,25 @@ class AlpReportesController extends Controller
 
       public function cronexportproductosc(Request $request) 
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/cronexportproductosc ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/cronexportproductosc');
+
+
+        }
+
+
         $date = Carbon::now();
 
         $hoy=$date->format('Y-m-d');
@@ -372,6 +1068,25 @@ class AlpReportesController extends Controller
     }
     public function cronexporttomapedidos(Request $request) 
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/cronexporttomapedidos ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/cronexporttomapedidos');
+
+
+        }
+
+
         $date = Carbon::now();
 
         $hoy=$date->format('Y-m-d');
@@ -385,6 +1100,24 @@ class AlpReportesController extends Controller
 
     public function cronexportcuponesdescuento(Request $request) 
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/cronexportcuponesdescuento ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/cronexportcuponesdescuento');
+
+
+        }
+
         $date = Carbon::now();
 
         $hoy=$date->format('Y-m-d');
@@ -392,6 +1125,39 @@ class AlpReportesController extends Controller
         $archivo='cuponesdescuento_'.$hoy.'.xlsx';
 
          return Excel::download(new CuponesDescuentoExport(), $archivo);
+
+    }
+
+    public function cronexportcuponesusados(Request $request) 
+    {
+
+
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/cronexportcuponesusados ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/cronexportcuponesusados');
+
+
+        }
+
+
+        $date = Carbon::now();
+
+        $hoy=$date->format('Y-m-d');
+
+        $archivo='cuponesusados_'.$hoy.'.xlsx';
+
+         return Excel::download(new CuponesUsadosExport(), $archivo);
 
     }
 

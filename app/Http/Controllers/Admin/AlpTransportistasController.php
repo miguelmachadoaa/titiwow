@@ -21,6 +21,25 @@ class AlpTransportistasController extends JoshController
     public function index()
     {
         // Grab all the groups
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpTransportistasController/index ');
+
+        }else{
+
+          activity()
+          ->log('AlpTransportistasController/index');
+
+
+        }
+
+
       
 
         $transportistas = AlpTransportistas::all();
@@ -77,6 +96,26 @@ class AlpTransportistasController extends JoshController
     public function create()
     {
         // Show the page
+
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpTransportistasController/create ');
+
+        }else{
+
+          activity()
+          ->log('AlpTransportistasController/create');
+
+
+        }
+
+
         return view ('admin.transportistas.create');
     }
 
@@ -87,6 +126,25 @@ class AlpTransportistasController extends JoshController
      */
     public function store(TransportistaRequest $request)
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpTransportistasController/store ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpTransportistasController/store');
+
+
+        }
+
+
         
          $user_id = Sentinel::getUser()->id;
 
@@ -121,6 +179,26 @@ class AlpTransportistasController extends JoshController
      */
     public function edit($id)
     {
+
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpTransportistasController/edit ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpTransportistasController/edit');
+
+
+        }
+
+
        
        $transportistas = AlpTransportistas::find($id);
 
@@ -135,6 +213,25 @@ class AlpTransportistasController extends JoshController
      */
     public function update(TransportistaRequest $request, $id)
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpTransportistasController/update ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpTransportistasController/update');
+
+
+        }
+
+
        $data = array(
             'nombre_transportista' => $request->nombre_transportista, 
             'descripcion_transportista' => $request->descripcion_transportista
@@ -186,6 +283,26 @@ class AlpTransportistasController extends JoshController
      */
     public function destroy($id)
     {
+
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpTransportistasController/destroy ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpTransportistasController/destroy');
+
+
+        }
+
+        
         try {
             // Get group information
            

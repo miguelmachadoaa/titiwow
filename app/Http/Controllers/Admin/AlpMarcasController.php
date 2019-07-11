@@ -21,6 +21,25 @@ class AlpMarcasController extends JoshController
     public function index()
     {
         // Grab all the groups
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpMarcasController/index ');
+
+        }else{
+
+          activity()
+          ->log('AlpMarcasController/index');
+
+
+        }
+
+
       
 
         $marcas = AlpMarcas::all();
@@ -91,6 +110,25 @@ class AlpMarcasController extends JoshController
     public function create()
     {
         // Show the page
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpMarcasController/create ');
+
+        }else{
+
+          activity()
+          ->log('AlpMarcasController/create');
+
+
+        }
+
+
         return view ('admin.marcas.create');
     }
 
@@ -101,6 +139,25 @@ class AlpMarcasController extends JoshController
      */
     public function store(MarcaRequest $request)
     {
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpMarcasController/store ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpMarcasController/store');
+
+
+        }
+
+
         
          $user_id = Sentinel::getUser()->id;
 
@@ -159,6 +216,25 @@ class AlpMarcasController extends JoshController
      */
     public function edit($id)
     {
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpMarcasController/edit ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpMarcasController/edit');
+
+
+        }
+
+
        
        $marca = AlpMarcas::find($id);
 
@@ -173,6 +249,25 @@ class AlpMarcasController extends JoshController
      */
     public function update(MarcaRequest $request, $id)
     {
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpMarcasController/store ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpMarcasController/store');
+
+
+        }
+
+
        $imagen='0';
        $picture = "";
 
@@ -262,6 +357,25 @@ class AlpMarcasController extends JoshController
      */
     public function destroy($id)
     {
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpMarcasController/edit ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpMarcasController/edit');
+
+
+        }
+
+        
         try {
             // Get group information
            

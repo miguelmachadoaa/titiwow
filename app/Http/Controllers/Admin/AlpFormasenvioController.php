@@ -22,6 +22,24 @@ class AlpFormasenvioController extends JoshController
     public function index()
     {
         // Grab all the groups
+
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpFormasenvioController/index ');
+
+        }else{
+
+          activity()
+          ->log('AlpFormasenvioController/index');
+
+
+        }
       
 
         $formas = AlpFormasenvio::all();
@@ -83,6 +101,26 @@ class AlpFormasenvioController extends JoshController
      */
     public function create()
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpFormasenvioController/create ');
+
+        }else{
+
+          activity()
+          ->log('AlpFormasenvioController/create');
+
+
+        }
+      
+
+
         // Show the page
         return view ('admin.formasenvio.create');
     }
@@ -95,6 +133,25 @@ class AlpFormasenvioController extends JoshController
     public function store(FormaenvioRequest $request)
     {
         
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpFormasenvioController/store ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpFormasenvioController/store');
+
+
+        }
+
+
          $user_id = Sentinel::getUser()->id;
 
         //$input = $request->all();
@@ -128,6 +185,23 @@ class AlpFormasenvioController extends JoshController
      */
     public function edit($id)
     {
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpFormasenvioController/edit ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpFormasenvioController/edit');
+
+
+        }
        
        $forma = AlpFormasenvio::find($id);
 
@@ -142,6 +216,26 @@ class AlpFormasenvioController extends JoshController
      */
     public function update(FormaenvioRequest $request, $id)
     {
+
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpFormasenvioController/update ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpFormasenvioController/update');
+
+
+        }
+
+
        $data = array(
             'nombre_forma_envios' => $request->nombre_forma_envios, 
             'descripcion_forma_envios' => $request->descripcion_forma_envios
@@ -193,6 +287,25 @@ class AlpFormasenvioController extends JoshController
      */
     public function destroy($id)
     {
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpFormasenvioController/destroy ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpFormasenvioController/destroy');
+
+
+        }
+
+
         try {
             // Get group information
            
@@ -212,6 +325,25 @@ class AlpFormasenvioController extends JoshController
 
      public function ubicacion($id)
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpFormasenvioController/ubicacion ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpFormasenvioController/ubicacion');
+
+
+        }
+
+
         // Grab all the groups
 
         $formas = AlpFormasenvio::where('id', $id)->first();
@@ -235,6 +367,26 @@ class AlpFormasenvioController extends JoshController
     {
         
          $user_id = Sentinel::getUser()->id;
+
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpFormasenvioController/storecity ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpFormasenvioController/storecity');
+
+
+        }
+
+
 
        
          
@@ -266,6 +418,27 @@ class AlpFormasenvioController extends JoshController
 
     public function delcity(Request $request)
     {
+
+
+           if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpFormasenvioController/delcity ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpFormasenvioController/delcity');
+
+
+        }
+
+
+
         
         $user_id = Sentinel::getUser()->id;
 

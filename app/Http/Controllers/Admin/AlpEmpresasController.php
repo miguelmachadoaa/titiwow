@@ -32,6 +32,23 @@ class AlpEmpresasController extends JoshController
     public function index()
     {
         // Grab all the groups
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('empresas/index ');
+
+        }else{
+
+          activity()
+          ->log('empresas/index');
+
+
+        }
       
 
         $empresas = AlpEmpresas::all();
@@ -112,6 +129,26 @@ class AlpEmpresasController extends JoshController
      */
     public function create()
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('empresas/create ');
+
+        }else{
+
+          activity()
+          ->log('empresas/create');
+
+
+        }
+      
+
+
         // Show the page
         return view ('admin.empresas.create');
     }
@@ -123,6 +160,23 @@ class AlpEmpresasController extends JoshController
      */
     public function store(EmpresaRequest $request)
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('empresas/store ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('empresas/store');
+
+
+        }
         
          $user_id = Sentinel::getUser()->id;
 
@@ -179,6 +233,22 @@ class AlpEmpresasController extends JoshController
      */
     public function edit($id)
     {
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('empresas/edit ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('empresas/edit');
+
+
+        }
        
        $empresas = AlpEmpresas::find($id);
 
@@ -193,6 +263,24 @@ class AlpEmpresasController extends JoshController
      */
     public function update(EmpresaRequest $request, $id)
     {
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('empresas/update ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('empresas/update');
+
+
+        }
+
 
 
 
@@ -274,6 +362,25 @@ class AlpEmpresasController extends JoshController
      */
     public function destroy($id)
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('empresas/destroy ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('empresas/destroy');
+
+
+        }
+
+
         try {
             // Get group inempresastion
            
@@ -293,6 +400,24 @@ class AlpEmpresasController extends JoshController
      public function invitaciones($id)
     {
 
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('empresas/invitaciones ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('empresas/invitaciones');
+
+
+        }
+
+
         $empresa = AlpEmpresas::find($id);
 
         $invitaciones = AlpAmigos::where('id_cliente', 'E'.$id)->get();
@@ -304,6 +429,25 @@ class AlpEmpresasController extends JoshController
 
     public function storeamigo(Request $request)
     {
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('empresas/storeamigo ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('empresas/storeamigo');
+
+
+        }
+
+
 
         if (Sentinel::check()) {
 
@@ -343,6 +487,24 @@ class AlpEmpresasController extends JoshController
     public function delamigo(Request $request)
     {
 
+
+           if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('empresas/delamigo ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('empresas/delamigo');
+
+
+        }
+
             $user_id = Sentinel::getUser()->id;
 
             $amigo=AlpAmigos::find($request->id);
@@ -366,6 +528,26 @@ class AlpEmpresasController extends JoshController
 
      public function afiliado($id)
     {
+
+             if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('empresas/afiliado ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('empresas/afiliado');
+
+
+        }
+
+
+
 
         $amigo=AlpAmigos::where('token', $id)->first();
 
@@ -391,6 +573,23 @@ class AlpEmpresasController extends JoshController
     public function invitacionesmasiv()
     {
 
+           if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('empresas/invitacionesmasiv ');
+
+        }else{
+
+          activity()
+          ->log('empresas/invitacionesmasiv');
+
+
+        }
+
         $empresa = AlpEmpresas::all();
 
         /*$invitaciones = AlpAmigos::where('id_cliente', 'E'.$id)->get();*/
@@ -410,6 +609,23 @@ class AlpEmpresasController extends JoshController
 
      public function estatus(Request $request)
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('empresas/estatus ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('empresas/estatus');
+
+
+        }
 
         $input = $request->all();
 

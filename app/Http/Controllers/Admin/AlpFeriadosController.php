@@ -21,6 +21,23 @@ class AlpFeriadosController extends JoshController
     public function index()
     {
         // Grab all the groups
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpFeriadosController/edit ');
+
+        }else{
+
+          activity()
+          ->log('AlpFeriadosController/edit');
+
+
+        }
       
 
         $feriados = AlpFeriados::all();
@@ -81,6 +98,25 @@ class AlpFeriadosController extends JoshController
      */
     public function create()
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpFeriadosController/create ');
+
+        }else{
+
+          activity()
+          ->log('AlpFeriadosController/create');
+
+
+        }
+
+
         // Show the page
         return view ('admin.feriados.create');
     }
@@ -92,6 +128,25 @@ class AlpFeriadosController extends JoshController
      */
     public function store(FeriadosRequest $request)
     {
+
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpFeriadosController/store ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpFeriadosController/store');
+
+
+        }
+
         
          $user_id = Sentinel::getUser()->id;
 
@@ -125,7 +180,24 @@ class AlpFeriadosController extends JoshController
      */
     public function edit($id)
     {
-       
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpFeriadosController/edit ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpFeriadosController/edit');
+
+
+        }
+
+
        $feriados = AlpFeriados::find($id);
 
         return view('admin.feriados.edit', compact('feriados'));
@@ -137,8 +209,28 @@ class AlpFeriadosController extends JoshController
      * @param  int $id
      * @return Redirect
      */
-    public function update(TransportistaRequest $request, $id)
+    public function update(FeriadosRequest $request, $id)
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpFeriadosController/update ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpFeriadosController/update');
+
+
+        }
+
+
+       
        $data = array(
             'feriado' => $request->feriado, 
         );
@@ -189,6 +281,25 @@ class AlpFeriadosController extends JoshController
      */
     public function destroy($id)
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpFeriadosController/destroy ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpFeriadosController/destroy');
+
+
+        }
+
+        
         try {
             // Get group information
            

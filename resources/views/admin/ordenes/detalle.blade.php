@@ -373,23 +373,6 @@ Orden {{$orden->id}}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @if(isset($pago->id))
 
 

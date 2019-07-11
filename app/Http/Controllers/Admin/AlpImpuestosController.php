@@ -20,6 +20,24 @@ class AlpImpuestosController extends JoshController
     public function index()
     {
         // Grab all the groups
+
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpImpuestosController/index ');
+
+        }else{
+
+          activity()
+          ->log('AlpImpuestosController/index');
+
+
+        }
       
 
         $impuestos = AlpImpuestos::all();
@@ -37,6 +55,26 @@ class AlpImpuestosController extends JoshController
      */
     public function create()
     {
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpImpuestosController/create ');
+
+        }else{
+
+          activity()
+          ->log('AlpImpuestosController/create');
+
+
+        }
+      
+
+
         // Show the page
         return view ('admin.impuestos.create');
     }
@@ -48,6 +86,26 @@ class AlpImpuestosController extends JoshController
      */
     public function store(ImpuestoRequest $request)
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpImpuestosController/store ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpImpuestosController/store');
+
+
+        }
+
+
+
         
          $user_id = Sentinel::getUser()->id;
 
@@ -82,6 +140,24 @@ class AlpImpuestosController extends JoshController
      */
     public function edit($id)
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpImpuestosController/edit ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpImpuestosController/edit');
+
+
+        }
+
        
        $impuestos = AlpImpuestos::find($id);
 
@@ -96,6 +172,26 @@ class AlpImpuestosController extends JoshController
      */
     public function update(ImpuestoRequest $request, $id)
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpImpuestosController/update ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpImpuestosController/update');
+
+
+        }
+
+
+
        $data = array(
             'nombre_impuesto' => $request->nombre_impuesto, 
             'valor_impuesto' => $request->valor_impuesto
@@ -147,6 +243,25 @@ class AlpImpuestosController extends JoshController
      */
     public function destroy($id)
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpImpuestosController/destroy ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpImpuestosController/destroy');
+
+
+        }
+
+        
         try {
             // Get group information
            

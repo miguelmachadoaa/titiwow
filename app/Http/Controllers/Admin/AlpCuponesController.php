@@ -38,6 +38,25 @@ class AlpCuponesController extends JoshController
     public function index()
     {
         // Grab all the groups
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        #->withProperties($request->all())
+                        ->log('cupones/index ');
+
+        }else{
+
+          activity()
+          #->withProperties($request->all())
+          ->log('cupones/index');
+
+
+        }
       
 
         $cupones = AlpCupones::all();
@@ -104,6 +123,27 @@ class AlpCuponesController extends JoshController
      */
     public function create()
     {
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        #->withProperties($request->all())
+                        ->log('cupones/create ');
+
+        }else{
+
+          activity()
+          #->withProperties($request->all())
+          ->log('cupones/create');
+
+
+        }
+
+
         // Show the page
         return view ('admin.cupones.create');
     }
@@ -115,6 +155,26 @@ class AlpCuponesController extends JoshController
      */
     public function store(CuponesRequest $request)
     {
+
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cupones/store ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('cupones/store');
+
+
+        }
         
          $user_id = Sentinel::getUser()->id;
 
@@ -157,6 +217,28 @@ class AlpCuponesController extends JoshController
      */
     public function edit($id)
     {
+
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])
+                        #->withProperties($request->all())
+                        ->log('cupones/edit ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])
+          #->withProperties($request->all())
+          ->log('cupones/edit');
+
+
+        }
        
        $cupon = AlpCupones::find($id);
 
@@ -166,6 +248,28 @@ class AlpCuponesController extends JoshController
 
      public function addcategoria(Request $request)
     {
+
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        #->withProperties(['id'=>$id]))
+                        ->withProperties($request->all())
+                        ->log('cupones/addcategoria ');
+
+        }else{
+
+          activity()
+          #->withProperties(['id'=>$id])
+          ->withProperties($request->all())
+          ->log('cupones/addcategoria');
+
+
+        }
 
          $user_id = Sentinel::getUser()->id;
 
@@ -201,6 +305,27 @@ class AlpCuponesController extends JoshController
  public function delcategoria(Request $request)
     {
 
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cupones/delcategoria ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('cupones/delcategoria');
+
+
+        }
+
+
+
          $user_id = Sentinel::getUser()->id;
 
 
@@ -226,6 +351,28 @@ class AlpCuponesController extends JoshController
 
     public function addempresa(Request $request)
     {
+
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cupones/addempresa ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('cupones/addempresa');
+
+
+        }
+
+
 
          $user_id = Sentinel::getUser()->id;
 
@@ -259,6 +406,25 @@ class AlpCuponesController extends JoshController
  public function delempresa(Request $request)
     {
 
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cupones/delempresa ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('cupones/delempresa');
+
+
+        }
+
          $user_id = Sentinel::getUser()->id;
 
 
@@ -284,6 +450,25 @@ class AlpCuponesController extends JoshController
 
     public function addproducto(Request $request)
     {
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cupones/addproducto ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('cupones/addproducto');
+
+
+        }
 
          $user_id = Sentinel::getUser()->id;
 
@@ -316,6 +501,25 @@ class AlpCuponesController extends JoshController
  public function delproducto(Request $request)
     {
 
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cupones/delproducto ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('cupones/delproducto');
+
+
+        }
+
          $user_id = Sentinel::getUser()->id;
 
 
@@ -342,6 +546,27 @@ class AlpCuponesController extends JoshController
 
     public function addcliente(Request $request)
     {
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cupones/addcliente ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('cupones/addcliente');
+
+
+        }
+
+
 
          $user_id = Sentinel::getUser()->id;
 
@@ -377,6 +602,26 @@ class AlpCuponesController extends JoshController
  public function delcliente(Request $request)
     {
 
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cupones/delcliente ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('cupones/delcliente');
+
+
+        }
+
          $user_id = Sentinel::getUser()->id;
 
 
@@ -405,6 +650,27 @@ class AlpCuponesController extends JoshController
 
       public function addrol(Request $request)
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cupones/addrol ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('cupones/addrol');
+
+
+        }
+
+
 
          $user_id = Sentinel::getUser()->id;
 
@@ -439,6 +705,27 @@ class AlpCuponesController extends JoshController
  public function delrol(Request $request)
     {
 
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cupones/delrol ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('cupones/delrol');
+
+
+        }
+
+
+
          $user_id = Sentinel::getUser()->id;
 
 
@@ -466,6 +753,28 @@ class AlpCuponesController extends JoshController
 
       public function addmarca(Request $request)
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cupones/addmarca ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('cupones/addmarca');
+
+
+        }
+
+
+
 
          $user_id = Sentinel::getUser()->id;
 
@@ -499,6 +808,27 @@ class AlpCuponesController extends JoshController
  public function delmarca(Request $request)
     {
 
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cupones/delmarca ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('cupones/delmarca');
+
+
+        }
+
+
+
          $user_id = Sentinel::getUser()->id;
 
 
@@ -526,6 +856,27 @@ class AlpCuponesController extends JoshController
 
     public function configurar($id)
     {
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])
+                        ->log('cupones/configurar ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])
+          ->log('cupones/configurar');
+
+
+        }
+
+
        
        $cupon = AlpCupones::find($id);
 
@@ -599,6 +950,26 @@ class AlpCuponesController extends JoshController
      */
     public function update(Request $request, $id)
     {
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cupones/update ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('cupones/update');
+
+
+        }
+
        $data = array(
             'codigo_cupon' => $request->codigo_cupon, 
             'valor_cupon' => $request->valor_cupon, 
@@ -658,6 +1029,27 @@ class AlpCuponesController extends JoshController
      */
     public function destroy($id)
     {
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])
+                        ->log('cupones/destroy ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])
+          ->log('cupones/destroy');
+
+
+        }
+
+
         try {
             // Get group information
            
@@ -682,6 +1074,24 @@ class AlpCuponesController extends JoshController
      */
     public function cargarcupones()
     {
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('cupones/cargarcupones ');
+
+        }else{
+
+          activity()
+          ->log('cupones/cargarcupones');
+
+
+        }
+
         return view('admin.cupones.cargar');
     }
     
@@ -689,6 +1099,26 @@ class AlpCuponesController extends JoshController
 
     public function import(Request $request) 
     {
+
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('cupones/cargarcupones ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('cupones/cargarcupones');
+
+
+        }
+
+
         $archivo = $request->file('file_cupones');
 
         Excel::import(new CuponesImport, $archivo);

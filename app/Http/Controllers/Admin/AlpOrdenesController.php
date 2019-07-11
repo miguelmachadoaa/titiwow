@@ -16,6 +16,7 @@ use App\Models\AlpEnvios;
 use App\Models\AlpDirecciones;
 use App\Models\AlpFeriados;
 use App\Models\AlpFormaCiudad;
+use App\Models\AlpInventario;
 
 use App\User;
 use App\RoleUser;
@@ -43,6 +44,26 @@ class AlpOrdenesController extends JoshController
 
        public function sendmail($id)
     {
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpOrdenesController/sendmail ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpOrdenesController/sendmail');
+
+
+        }
+
+
+
         
          $configuracion = AlpConfiguracion::where('id', '1')->first();
 
@@ -83,6 +104,23 @@ class AlpOrdenesController extends JoshController
     public function index()
     {
         // Grab all the groups
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpOrdenesController/index ');
+
+        }else{
+
+          activity()
+          ->log('AlpOrdenesController/index');
+
+
+        }
       
         $ordenes = AlpOrdenes::all();
 
@@ -206,6 +244,24 @@ class AlpOrdenesController extends JoshController
 
      public function descuento()
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpOrdenesController/descuento ');
+
+        }else{
+
+          activity()
+          ->log('AlpOrdenesController/descuento');
+
+        }
+
+
         // Grab all the groups
       
         $ordenes = AlpOrdenes::all();
@@ -297,6 +353,23 @@ class AlpOrdenesController extends JoshController
     {
         // Grab all the groups
 
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpOrdenesController/consolidado ');
+
+        }else{
+
+          activity()
+          ->log('AlpOrdenesController/consolidado');
+
+        }
+
+
       
 
         $dt = Carbon::now();
@@ -333,6 +406,25 @@ class AlpOrdenesController extends JoshController
     public function espera()
     {
         // Grab all the groups
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpOrdenesController/espera ');
+
+        }else{
+
+          activity()
+          ->log('AlpOrdenesController/espera');
+
+        }
+
+
+
       
         $ordenes = AlpOrdenes::all();
 
@@ -425,6 +517,24 @@ class AlpOrdenesController extends JoshController
     public function aprobados()
     {
         // Grab all the groups
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpOrdenesController/aprobados ');
+
+        }else{
+
+          activity()
+          ->log('AlpOrdenesController/aprobados');
+
+        }
+
+
 
 
         $ordenes = AlpOrdenes::all();
@@ -544,6 +654,25 @@ class AlpOrdenesController extends JoshController
     public function recibidos()
     {
         // Grab all the groups
+
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpOrdenesController/recibidos ');
+
+        }else{
+
+          activity()
+          ->log('AlpOrdenesController/recibidos');
+
+        }
+
+
       
         $ordenes = AlpOrdenes::all();
 
@@ -653,6 +782,24 @@ class AlpOrdenesController extends JoshController
     public function facturados()
     {
         // Grab all the groups
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpOrdenesController/facturados ');
+
+        }else{
+
+          activity()
+          ->log('AlpOrdenesController/facturados');
+
+        }
+
+
       
         $ordenes = AlpOrdenes::all();
 
@@ -758,6 +905,25 @@ class AlpOrdenesController extends JoshController
     public function enviados()
     {
         // Grab all the groups
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpOrdenesController/enviados ');
+
+        }else{
+
+          activity()
+          ->log('AlpOrdenesController/enviados');
+
+        }
+
+
+
       
         $ordenes = AlpOrdenes::all();
 
@@ -846,6 +1012,24 @@ class AlpOrdenesController extends JoshController
     public function cancelados()
     {
         // Grab all the groups
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpOrdenesController/cancelados ');
+
+        }else{
+
+          activity()
+          ->log('AlpOrdenesController/cancelados');
+
+        }
+
+
       
         $ordenes = AlpOrdenes::all();
 
@@ -872,6 +1056,24 @@ class AlpOrdenesController extends JoshController
      public function empresas()
     {
         // Grab all the groups
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpOrdenesController/empresas ');
+
+        }else{
+
+          activity()
+          ->log('AlpOrdenesController/empresas');
+
+        }
+
+
       
         $ordenes = AlpOrdenes::all();
 
@@ -974,6 +1176,24 @@ class AlpOrdenesController extends JoshController
      */
     public function create()
     {
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpOrdenesController/create ');
+
+        }else{
+
+          activity()
+          ->log('AlpOrdenesController/create');
+
+        }
+
+
         // Show the page
         return view ('admin.ordenes.create');
     }
@@ -1046,6 +1266,25 @@ class AlpOrdenesController extends JoshController
      */
     public function destroy($id)
     {
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpOrdenesController/destroy ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpOrdenesController/destroy');
+
+
+        }
+
+
         try {
             // Get group information
            
@@ -1071,6 +1310,25 @@ class AlpOrdenesController extends JoshController
      */
     public function detalle($id)
     {
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpOrdenesController/detalle ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpOrdenesController/detalle');
+
+
+        }
+
+
        
     $orden = AlpOrdenes::find($id);
 
@@ -1128,11 +1386,30 @@ class AlpOrdenesController extends JoshController
     public function storeconfirm(Request $request)
     {
 
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpOrdenesController/storeconfirm ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpOrdenesController/storeconfirm');
+
+
+        }
+
+
+
         $user_id = Sentinel::getUser()->id;
 
         $input = $request->all();
 
-        
 
         //var_dump($input);
 
@@ -1158,16 +1435,25 @@ class AlpOrdenesController extends JoshController
             $punto->update($data_estatus_puntos);
 
             $punto->delete();
-
-
           
           }
 
-         
+        $detalles=AlpDetalles::where('id_orden', $input['confirm_id'])->get();
 
-        }
+          foreach ($detalles as $detalle) {
 
+              $data_inventario = array(
+                'id_producto' => $detalle->id_producto, 
+                'cantidad' =>$detalle->cantidad, 
+                'operacion' =>'1', 
+                'id_user' =>$user_id 
+              );
 
+              AlpInventario::create($data_inventario);
+            
+          }
+
+        }//endif
 
 
          
@@ -1227,6 +1513,25 @@ class AlpOrdenesController extends JoshController
 
        public function recibir(Request $request)
     {
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpOrdenesController/recibir ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpOrdenesController/recibir');
+
+
+        }
+
+
 
         $user_id = Sentinel::getUser()->id;
 
@@ -1333,6 +1638,25 @@ class AlpOrdenesController extends JoshController
 
      public function aprobar(Request $request)
     {
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpOrdenesController/aprobar');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpOrdenesController/aprobar');
+
+
+        }
+
+
 
         $user_id = Sentinel::getUser()->id;
 
@@ -1496,6 +1820,25 @@ class AlpOrdenesController extends JoshController
     public function facturar(Request $request)
     {
 
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpOrdenesController/facturar');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpOrdenesController/facturar');
+
+
+        }
+
+
+
         $user_id = Sentinel::getUser()->id;
 
         $input = $request->all();
@@ -1561,6 +1904,25 @@ class AlpOrdenesController extends JoshController
 
     public function enviar(Request $request)
     {
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpOrdenesController/enviar');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpOrdenesController/enviar');
+
+
+        }
+
+
 
         $user_id = Sentinel::getUser()->id;
 

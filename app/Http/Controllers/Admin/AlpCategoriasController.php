@@ -24,6 +24,22 @@ class AlpCategoriasController extends JoshController
     public function index()
     {
         // Grab all the groups
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpCategoriasController/index ');
+
+        }else{
+
+          activity()->log('AlpCategoriasController/index');
+
+
+        }
       
 
         //$categorias = AlpCategorias::all();
@@ -123,6 +139,24 @@ class AlpCategoriasController extends JoshController
      */
     public function create()
     {
+
+           if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpCategoriasController/create ');
+
+        }else{
+
+          activity()->log('AlpCategoriasController/create');
+
+
+        }
+
+
         // Show the page
         return view ('admin.categorias.create');
     }
@@ -136,6 +170,26 @@ class AlpCategoriasController extends JoshController
     {
         
          $user_id = Sentinel::getUser()->id;
+
+
+              if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('categorias/store ');
+
+        }else{
+
+          activity()->withProperties($request->all())
+                        ->log('categorias/store');
+
+
+        }
+
 
 
          $imagen='0';
@@ -190,6 +244,26 @@ class AlpCategoriasController extends JoshController
      */
     public function edit($id)
     {
+
+             if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])
+                        ->log('categorias/edit ');
+
+        }else{
+
+          activity()->withProperties(['id'=>$id])
+                        ->log('categorias/edit');
+
+
+        }
+
+
        
        $categoria = AlpCategorias::find($id);
 
@@ -204,6 +278,26 @@ class AlpCategoriasController extends JoshController
      */
     public function update(Request $request, $id)
     {
+
+             if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('categorias/update ');
+
+        }else{
+
+          activity()->withProperties($request->all())
+                        ->log('categorias/update');
+
+
+        }
+
+
       
 
         $imagen='0';
@@ -301,6 +395,27 @@ class AlpCategoriasController extends JoshController
      */
     public function destroy($id)
     {
+
+             if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])
+                        ->log('categorias/destroy ');
+
+        }else{
+
+          activity()->withProperties(['id'=>$id])
+                        ->log('categorias/destroy');
+
+
+        }
+
+
+
         try {
             // Get group information
            
@@ -326,6 +441,29 @@ class AlpCategoriasController extends JoshController
      */
     public function detalle($id)
     {
+
+            
+        
+            if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])
+                        ->log('categorias/detalle ');
+
+        }else{
+
+          activity()->withProperties(['id'=>$id])
+                        ->log('categorias/detalle');
+
+
+        }
+
+
+
        
        $categoria = AlpCategorias::find($id);
 
@@ -342,6 +480,25 @@ class AlpCategoriasController extends JoshController
 
     public function storeson(Request $request, $padre)
     {
+
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$padre, 'request'=>$request->all()])
+                        ->log('categorias/storeson ');
+
+        }else{
+
+          activity()->withProperties(['id'=>$padre, 'request'=>$request->all()])
+                        ->log('categorias/storeson');
+
+
+        }
         
          $user_id = Sentinel::getUser()->id;
 
@@ -397,6 +554,24 @@ class AlpCategoriasController extends JoshController
      */
     public function editson($id)
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])
+                        ->log('categorias/editson ');
+
+        }else{
+
+          activity()->withProperties(['id'=>$id])
+                        ->log('categorias/editson');
+
+
+        }
        
        $categoria = AlpCategorias::find($id);
 
@@ -411,6 +586,26 @@ class AlpCategoriasController extends JoshController
      */
     public function updson(Request $request, $id)
     {
+
+if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id, 'request'=>$request->all()])
+                        ->log('categorias/updson ');
+
+        }else{
+
+          activity()->withProperties(['id'=>$id, 'request'=>$request->all()])
+                        ->log('categorias/updson');
+
+
+        }
+
+
        
          $imagen='0';
 
@@ -469,6 +664,25 @@ class AlpCategoriasController extends JoshController
 
     public function destacado(Request $request)
     {
+
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('categorias/destacado ');
+
+        }else{
+
+          activity()->withProperties($request->all())
+                        ->log('categorias/destacado');
+
+
+        }
 
         $input = $request->all();
 

@@ -20,7 +20,24 @@ class AlpEstatusOrdenesController extends JoshController
     public function index()
     {
         // Grab all the groups
-      
+
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('estatusordenes/index ');
+
+        }else{
+
+          activity()
+          ->log('estatusordenes/index');
+
+
+        }
 
         $estatus = AlpEstatusOrdenes::all();
        
@@ -82,6 +99,25 @@ class AlpEstatusOrdenesController extends JoshController
      */
     public function create()
     {
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('estatusordenes/create ');
+
+        }else{
+
+          activity()
+          ->log('estatusordenes/create');
+
+
+        }
+
+
         // Show the page
         return view ('admin.estatus.create');
     }
@@ -93,6 +129,25 @@ class AlpEstatusOrdenesController extends JoshController
      */
     public function store(EstatusOrdenesRequest $request)
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('estatusordenes/store ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('estatusordenes/store');
+
+
+        }
+
+
         
          $user_id = Sentinel::getUser()->id;
 
@@ -127,6 +182,41 @@ class AlpEstatusOrdenesController extends JoshController
      */
     public function edit($id)
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('estatusordenes/edit ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('estatusordenes/edit');
+
+
+        }
+
+
+           if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('estatusordenes/edit ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('estatusordenes/edit');
+
+
+        }
        
        $estatus = AlpEstatusOrdenes::find($id);
 
@@ -141,6 +231,25 @@ class AlpEstatusOrdenesController extends JoshController
      */
     public function update(EstatusOrdenesRequest $request, $id)
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('estatusordenes/edit ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('estatusordenes/edit');
+
+
+        }
+
+        
        $data = array(
             'estatus_nombre' => $request->estatus_nombre, 
             'descripcion_estatus' => $request->descripcion_estatus
@@ -192,6 +301,26 @@ class AlpEstatusOrdenesController extends JoshController
      */
     public function destroy($id)
     {
+
+
+            if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('estatusordenes/destroy ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('estatusordenes/destroy');
+
+
+        }
+
+
         try {
             // Get group information
            

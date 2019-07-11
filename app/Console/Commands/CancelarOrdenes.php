@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\User;
 use App\Models\AlpOrdenes;
+use App\Models\AlpInventario;
 use App\Models\AlpConfiguracion;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
@@ -79,6 +80,22 @@ class CancelarOrdenes extends Command
             $arrayName = array('estatus' => 4 );
 
             $ord->update($arrayName);
+
+
+            $detalles=AlpDetalles::where('id_orden', $input['confirm_id'])->get();
+
+              foreach ($detalles as $detalle) {
+
+                  $data_inventario = array(
+                    'id_producto' => $detalle->id_producto, 
+                    'cantidad' =>$detalle->cantidad, 
+                    'operacion' =>'1', 
+                    'id_user' =>'1'
+                  );
+
+                  AlpInventario::create($data_inventario);
+                
+              }
 
         }
 

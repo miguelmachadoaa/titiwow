@@ -31,6 +31,25 @@ class AlpCmsController extends JoshController
      */
     public function index()
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('cms/index ');
+
+        }else{
+
+          activity()->log('cms/index');
+
+
+        }
+
+
+
         // Grab all the blogs
         $cmss = AlpCms::all();
         // Show the page
@@ -44,6 +63,25 @@ class AlpCmsController extends JoshController
      */
     public function create()
     {
+
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('cms/create ');
+
+        }else{
+
+          activity()->log('cms/create');
+
+
+        }
+
+
         return view('admin.cms.create');
     }
 
@@ -54,6 +92,26 @@ class AlpCmsController extends JoshController
      */
     public function store(CmsRequest $request)
     {
+
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('cms/store ');
+
+        }else{
+
+          activity()->withProperties($request->all())->log('cms/store');
+
+
+        }
+
+
+
         $cms = new AlpCms($request->all());
         $message=$request->get('texto_pagina');
         libxml_use_internal_errors(true);
@@ -82,6 +140,25 @@ class AlpCmsController extends JoshController
      */
     public function show(Blog $blog)
     {
+
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$blog])->log('cms/update ');
+
+        }else{
+
+          activity()->withProperties(['id'=>$blog])->log('cms/update');
+
+
+        }
+
+
         /*$comments = Blog::find($blog->id)->comments;
 
         return view('admin.blog.show', compact('blog', 'comments', 'tags'));*/
@@ -95,6 +172,24 @@ class AlpCmsController extends JoshController
      */
     public function edit($id)
     {
+
+
+             if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('cms/update ');
+
+        }else{
+
+          activity()->withProperties(['id'=>$id])->log('cms/update');
+
+
+        }
+
         $cms = AlpCms::find($id);
         return view('admin.cms.edit', compact('cms'));
     }
@@ -107,6 +202,22 @@ class AlpCmsController extends JoshController
      */
     public function update(CmsUpdateRequest $request, $id)
     {
+
+             if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('cms/update ');
+
+        }else{
+
+          activity()->withProperties($request->all())->log('cms/update');
+
+
+        }
         
         $message=$request->get('texto_pagina');
         libxml_use_internal_errors(true);
@@ -140,6 +251,26 @@ class AlpCmsController extends JoshController
      */
     public function getModalDelete(cms $cms)
     {
+
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$cms])->log('cms/getModalDelete ');
+
+        }else{
+
+          activity()->withProperties(['id'=>$cms])->log('cms/getModalDelete');
+
+
+        }
+
+
+
         $model = 'AlpCms';
         $confirm_route = $error = null;
         try {
@@ -160,6 +291,24 @@ class AlpCmsController extends JoshController
      */
     public function destroy(Cms $cms)
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$cms])->log('cms/destroy ');
+
+        }else{
+
+          activity()->withProperties(['id'=>$cms])->log('cms/destroy');
+
+
+        }
+
+        
         if ($cms->delete()) {
             return redirect('admin/cms')->with('success', 'Página Eliminada con exito');
         } else {

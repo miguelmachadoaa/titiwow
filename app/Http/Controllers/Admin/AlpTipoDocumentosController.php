@@ -20,6 +20,25 @@ class AlpTipoDocumentosController extends JoshController
     public function index()
     {
         // Grab all the groups
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpTipoDocumentosController/index ');
+
+        }else{
+
+          activity()
+          ->log('AlpTipoDocumentosController/index');
+
+
+        }
+
+
       
 
         $documentos = AlpTDocumento::all();
@@ -75,6 +94,27 @@ class AlpTipoDocumentosController extends JoshController
     public function create()
     {
         // Show the page
+
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpTipoDocumentosController/create ');
+
+        }else{
+
+          activity()
+          ->log('AlpTipoDocumentosController/create');
+
+
+        }
+
+
+
         return view ('admin.documentos.create');
     }
 
@@ -85,6 +125,25 @@ class AlpTipoDocumentosController extends JoshController
      */
     public function store(TipoDocumentoRequest $request)
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpTipoDocumentosController/store ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpTipoDocumentosController/store');
+
+
+        }
+
+
         
          $user_id = Sentinel::getUser()->id;
 
@@ -119,6 +178,25 @@ class AlpTipoDocumentosController extends JoshController
      */
     public function edit($id)
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpTipoDocumentosController/edit ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpTipoDocumentosController/edit');
+
+
+        }
+
+
        
        $documentos = AlpTDocumento::find($id);
 
@@ -133,6 +211,25 @@ class AlpTipoDocumentosController extends JoshController
      */
     public function update(TipoDocumentoRequest $request, $id)
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpTipoDocumentosController/update ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpTipoDocumentosController/update');
+
+
+        }
+
+
        $data = array(
             'nombre_tipo_documento' => $request->nombre_tipo_documento, 
             'abrev_tipo_documento' => $request->abrev_tipo_documento
@@ -184,6 +281,25 @@ class AlpTipoDocumentosController extends JoshController
      */
     public function destroy($id)
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpTipoDocumentosController/edit ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpTipoDocumentosController/edit');
+
+
+        }
+
+        
         try {
             // Get group information
            

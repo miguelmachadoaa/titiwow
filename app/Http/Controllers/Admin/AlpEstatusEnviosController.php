@@ -22,6 +22,24 @@ class AlpEstatusEnviosController extends JoshController
     public function index()
     {
         // Grab all the groups
+
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('estatusenvios/index ');
+
+        }else{
+
+          activity()
+          ->log('estatusenvios/index');
+
+
+        }
       
 
         $estatus = AlpEnviosEstatus::all();
@@ -71,6 +89,25 @@ class AlpEstatusEnviosController extends JoshController
      */
     public function create()
     {
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('estatusenvios/create ');
+
+        }else{
+
+          activity()
+          ->log('estatusenvios/create');
+
+
+        }
+
+
         // Show the page
         return view ('admin.estatusenvios.create');
     }
@@ -82,6 +119,23 @@ class AlpEstatusEnviosController extends JoshController
      */
     public function store(EstatusEnviosRequest $request)
     {
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('estatusenvios/store ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('estatusenvios/store');
+
+
+        }
         
          $user_id = Sentinel::getUser()->id;
 
@@ -116,6 +170,25 @@ class AlpEstatusEnviosController extends JoshController
      */
     public function edit($id)
     {
+
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('estatusenvios/edit ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('estatusenvios/edit');
+
+
+        }
+
        
        $estatus = AlpEnviosEstatus::find($id);
 
@@ -130,6 +203,28 @@ class AlpEstatusEnviosController extends JoshController
      */
     public function update(EstatusEnviosRequest $request, $id)
     {
+
+
+
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('estatusenvios/update ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('estatusenvios/update');
+
+
+        }
+
+
        $data = array(
             'estatus_envio_nombre' => $request->estatus_envio_nombre, 
             'estatus_envio_descripcion' => $request->estatus_envio_descripcion
@@ -181,6 +276,25 @@ class AlpEstatusEnviosController extends JoshController
      */
     public function destroy($id)
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('estatusenvios/destroy ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('estatusenvios/destroy');
+
+
+        }
+
+        
         try {
             // Get group information
            

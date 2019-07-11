@@ -20,6 +20,27 @@ class AlpSedesController extends JoshController
     public function index()
     {
         // Grab all the groups
+
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpSedesController/index ');
+
+        }else{
+
+          activity()
+          ->log('AlpSedesController/index');
+
+
+        }
+
+
+
       
 
         $sedes = AlpSedes::all();
@@ -38,6 +59,27 @@ class AlpSedesController extends JoshController
     public function create()
     {
         // Show the page
+
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpSedesController/index ');
+
+        }else{
+
+          activity()
+          ->log('AlpSedesController/index');
+
+
+        }
+
+
+
         return view ('admin.sedes.create');
     }
 
@@ -49,6 +91,26 @@ class AlpSedesController extends JoshController
     public function store(SedeRequest $request)
     {
         
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpSedesController/store ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpSedesController/store');
+
+
+        }
+
+
+
          $user_id = Sentinel::getUser()->id;
 
         //$input = $request->all();
@@ -91,6 +153,25 @@ class AlpSedesController extends JoshController
        
        $sedes = AlpSedes::find($id);
 
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpSedesController/edit ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpSedesController/edit');
+
+
+        }
+
+
+
         return view('admin.sedes.edit', compact('sedes'));
     }
 
@@ -102,6 +183,26 @@ class AlpSedesController extends JoshController
      */
     public function update(SedeRequest $request, $id)
     {
+
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpSedesController/update ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpSedesController/update');
+
+
+        }
+
+
 
 
          $coords=str_replace(array('(',')'),'',$request->coords);
@@ -163,6 +264,25 @@ class AlpSedesController extends JoshController
      */
     public function destroy($id)
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpSedesController/destroy ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpSedesController/destroy');
+
+
+        }
+
+
         try {
             // Get group insedetion
            

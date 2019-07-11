@@ -32,6 +32,7 @@ Route::get('reportes/cronexportproductosc', 'Admin\AlpReportesController@cronexp
 Route::get('reportes/cronexporttomapedidos', 'Admin\AlpReportesController@cronexporttomapedidos')->name('reportes.cronexporttomapedidos');
 
 Route::get('reportes/cronexportcuponesdescuento', 'Admin\AlpReportesController@cronexportcuponesdescuento')->name('reportes.cronexportcuponesdescuento');
+Route::get('reportes/cronexportcuponesusados', 'Admin\AlpReportesController@cronexportcuponesusados')->name('reportes.cronexportcuponesusados');
 
 
 
@@ -283,7 +284,8 @@ Route::post('productos/postprecio/', ['as'=> 'productos.postprecio', 'uses' => '
 
  	});
 
-    Route::post('formasenvio/create', 'Admin\AlpFormasenvioController@store');
+    Route::post('formasenvio/store', 'Admin\AlpFormasenvioController@store');
+    
     Route::resource('formasenvio', 'Admin\AlpFormasenvioController');
 
     Route::post('rolpagos/create', 'Admin\AlpRolPagosController@store');

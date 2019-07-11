@@ -24,6 +24,24 @@ class AlpMenuController extends JoshController
     public function index()
     {
         // Grab all the groups
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpMenuController/index ');
+
+        }else{
+
+          activity()
+          ->log('AlpMenuController/index');
+
+
+        }
+
       
 
         $menus = AlpMenu::all();
@@ -92,6 +110,25 @@ class AlpMenuController extends JoshController
      */
     public function create()
     {
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpMenuController/create ');
+
+        }else{
+
+          activity()
+          ->log('AlpMenuController/create');
+
+
+        }
+
+
         // Show the page
         return view ('admin.menus.create');
     }
@@ -103,6 +140,25 @@ class AlpMenuController extends JoshController
      */
     public function store(Request $request)
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpMenuController/store ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpMenuController/store');
+
+
+        }
+
+
         
          $user_id = Sentinel::getUser()->id;
 
@@ -139,6 +195,26 @@ class AlpMenuController extends JoshController
      */
     public function edit($id)
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpMenuController/edit ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpMenuController/edit');
+
+
+        }
+
+
+
        
        $menu = AlpMenu::find($id);
 
@@ -155,7 +231,22 @@ class AlpMenuController extends JoshController
     {
       
 
-       
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpMenuController/store ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpMenuController/store');
+
+
+        }
 
             $data = array(
                 'nombre_menu' => $request->nombre_menu
@@ -209,6 +300,26 @@ class AlpMenuController extends JoshController
      */
     public function destroy($id)
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpMenuController/destroy ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpMenuController/destroy');
+
+
+        }
+
+
+
         try {
             // Get group information
            
@@ -234,6 +345,26 @@ class AlpMenuController extends JoshController
      */
     public function detalle($id)
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpMenuController/detalle ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpMenuController/detalle');
+
+
+        }
+
+
+
        
        $menu = AlpMenu::find($id);
 
@@ -248,6 +379,23 @@ class AlpMenuController extends JoshController
 
     public function storeson(Request $request, $id_menu)
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpMenuController/storeson ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpMenuController/storeson');
+
+
+        }
         
          $user_id = Sentinel::getUser()->id;
 
@@ -286,6 +434,26 @@ class AlpMenuController extends JoshController
      */
     public function editson($id)
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpMenuController/editson ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpMenuController/editson');
+
+
+        }
+
+
+
        
        $detalle = AlpDetalleSubmenu::find($id);
 
@@ -300,7 +468,22 @@ class AlpMenuController extends JoshController
      */
     public function updson(Request $request, $id)
     {
-       
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpMenuController/updson ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpMenuController/updson');
+
+
+        }
        
 
                 $data = array(
@@ -331,6 +514,24 @@ class AlpMenuController extends JoshController
     {
 
      //   dd($id);
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpMenuController/submenu ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpMenuController/submenu');
+
+
+        }
+
        
         $detalle = AlpDetalleSubmenu::find($id);
 
@@ -344,6 +545,26 @@ class AlpMenuController extends JoshController
 
     public function storesub(Request $request, $id_detalle)
     {
+
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpMenuController/storesub ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpMenuController/storesub');
+
+
+        }
+
+        
         
          $user_id = Sentinel::getUser()->id;
 

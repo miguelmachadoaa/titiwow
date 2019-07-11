@@ -22,7 +22,24 @@ class AlpRolConfiguracionController extends JoshController
     public function index()
     {
         // Grab all the groups
-      
+
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpRolConfiguracionController/index ');
+
+        }else{
+
+          activity()
+          ->log('AlpRolConfiguracionController/index');
+
+
+        }
 
 
         $roles = DB::table('roles')->select('id', 'name')->get();
@@ -51,6 +68,24 @@ class AlpRolConfiguracionController extends JoshController
      */
     public function create()
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpRolConfiguracionController/create ');
+
+        }else{
+
+          activity()
+          ->log('AlpRolConfiguracionController/create');
+
+
+        }
+
         // Show the page
         return view ('admin.rolpagos.create');
     }
@@ -62,6 +97,25 @@ class AlpRolConfiguracionController extends JoshController
      */
     public function store(Request $request)
     {
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpRolConfiguracionController/store ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpRolConfiguracionController/store');
+
+
+        }
+
+        
         
         $user_id = Sentinel::getUser()->id;
 

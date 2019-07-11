@@ -22,6 +22,24 @@ class AlpEstatusPagosController extends JoshController
     public function index()
     {
         // Grab all the groups
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpEstatusPagosController/index ');
+
+        }else{
+
+          activity()
+          ->log('AlpEstatusPagosController/index');
+
+
+        }
+
       
 
         $estatus = AlpEstatusPagos::all();
@@ -81,6 +99,25 @@ class AlpEstatusPagosController extends JoshController
      */
     public function create()
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpEstatusPagosController/create ');
+
+        }else{
+
+          activity()
+          ->log('AlpEstatusPagosController/create');
+
+
+        }
+
+
         // Show the page
         return view ('admin.estatuspagos.create');
     }
@@ -92,6 +129,22 @@ class AlpEstatusPagosController extends JoshController
      */
     public function store(EstatusPagosRequest $request)
     {
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpEstatusPagosController/store ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpEstatusPagosController/store');
+
+
+        }
         
          $user_id = Sentinel::getUser()->id;
 
@@ -126,6 +179,23 @@ class AlpEstatusPagosController extends JoshController
      */
     public function edit($id)
     {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpEstatusPagosController/edit ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpEstatusPagosController/edit');
+
+
+        }
        
        $estatus = AlpEstatusPagos::find($id);
 
@@ -140,6 +210,25 @@ class AlpEstatusPagosController extends JoshController
      */
     public function update(EstatusPagosRequest $request, $id)
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpEstatusPagosController/update ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpEstatusPagosController/update');
+
+
+        }
+
+
        $data = array(
             'estatus_pago_nombre' => $request->estatus_pago_nombre, 
             'estatus_pago_descripcion' => $request->estatus_pago_descripcion
@@ -191,6 +280,25 @@ class AlpEstatusPagosController extends JoshController
      */
     public function destroy($id)
     {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpEstatusPagosController/destroy ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpEstatusPagosController/destroy');
+
+
+        }
+
+        
         try {
             // Get group information
            
