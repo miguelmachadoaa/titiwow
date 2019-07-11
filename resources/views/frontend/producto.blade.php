@@ -1,3 +1,4 @@
+@if($producto->precio_oferta>0)
 <div class="col-md-3 col-sm-6 col-xs-6">
                     <div class="productos">
                         <div class="text-align:center;">
@@ -207,3 +208,5 @@
                         </div>
                     </div>
                 </div>
+
+@endif

@@ -649,7 +649,7 @@
                             first('precio_base', 'has-error') }}">
                                        <label class="col-md-3 control-label producto_label" for="referencia_producto">@lang('productos/title.price') </label>
                                         <div class="col-md-9">
-                                            <input id="precio_base" step="0.01" name="precio_base" type="number" placeholder="Precio" class="form-control" value="{{ old('precio_base') }}" onblur="setprecio();" >{!! $errors->first('precio_base', '<span class="help-block">:message</span> ') !!}
+                                            <input id="precio_base" step="0.01" name="precio_base" type="number" placeholder="Precio" class="form-control" value="{{ old('precio_base') }}"  >{!! $errors->first('precio_base', '<span class="help-block">:message</span> ') !!}
                                         </div>
                                     </div>
 

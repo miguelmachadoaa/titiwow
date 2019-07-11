@@ -722,7 +722,7 @@
                                             <div class="form-group clearfix col-sm-12 {{ $errors->first('precio_base', 'has-error') }}">
                                                 <label class="col-sm-3 col-xs-12 control-label" for="referencia_producto">@lang('productos/title.price') </label>
                                                 <div class="col-sm-9 col-xs-12">
-                                                    <input id="precio_base" step="0.01" name="precio_base" type="number" placeholder="Precio" class="form-control" value="{{$producto->precio_base}}" onblur="setprecio();" >
+                                                    <input id="precio_base" step="0.01" name="precio_base" type="number" placeholder="Precio" class="form-control" value="{{$producto->precio_base}}"  >
 
                                                      {!! $errors->first('precio_base', '<span class="help-block">:message</span> ') !!}
 
