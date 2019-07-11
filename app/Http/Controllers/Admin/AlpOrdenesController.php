@@ -119,7 +119,6 @@ class AlpOrdenesController extends JoshController
           activity()
           ->log('AlpOrdenesController/index');
 
-
         }
       
         $ordenes = AlpOrdenes::all();
@@ -162,8 +161,6 @@ class AlpOrdenesController extends JoshController
         }
       
 
-        
-
        $ordenes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
           ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
@@ -177,9 +174,7 @@ class AlpOrdenesController extends JoshController
 
             $data = array();
 
-
           foreach($ordenes as $row){
-
 
             $pago="<div style='display: inline-block;' class='pago_".$row->id."'>  
 
@@ -1451,6 +1446,17 @@ class AlpOrdenesController extends JoshController
 
               AlpInventario::create($data_inventario);
             
+          }
+
+
+          $descuentos=AlpOrdenesDescuento::where('id_orden',$input['confirm_id'])->get();
+
+          foreach ($descuentos as $desc) {
+            
+            $d=AlpOrdenesDescuento::where('id', $desc->id)->first();
+
+            $d->delete();
+
           }
 
         }//endif

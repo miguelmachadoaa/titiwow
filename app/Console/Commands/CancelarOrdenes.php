@@ -82,7 +82,7 @@ class CancelarOrdenes extends Command
             $ord->update($arrayName);
 
 
-            $detalles=AlpDetalles::where('id_orden', $input['confirm_id'])->get();
+            $detalles=AlpDetalles::where('id_orden', $orden->id)->get();
 
               foreach ($detalles as $detalle) {
 
@@ -96,6 +96,19 @@ class CancelarOrdenes extends Command
                   AlpInventario::create($data_inventario);
                 
               }
+
+
+              $descuentos=AlpOrdenesDescuento::where('id_orden',$orden->id)->get();
+
+          foreach ($descuentos as $desc) {
+            
+            $d=AlpOrdenesDescuento::where('id', $desc->id)->first();
+
+            $d->delete();
+
+          }
+
+          
 
         }
 
