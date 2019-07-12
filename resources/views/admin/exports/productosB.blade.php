@@ -18,6 +18,13 @@
             <th><b>Id Factura</b></th>
             <th><b>Monto Descuesto</b></th>
             <th><b>Codigo Cupon</b></th>
+            <th><b>Ciudad</b></th>
+            <th><b>Direccion</b></th>
+            <th><b>Valor Total Orden</b></th>
+            <th><b>Base Imponible Orden</b></th>
+            <th><b>Valor Impuesto Orden</b></th>
+            <th><b>Monto Impuesto Orden</b></th>
+            <th><b>OBSERVACIONES</b></th>
         </tr>
     </thead>
     <tbody>
@@ -41,6 +48,14 @@
             <td></td>
             <td>{!! $row->monto_descuento !!}</td>
             <td>{!! $row->codigo_cupon !!}</td>
+            <td>{!! $row->city_name !!}</td>
+            <td>{{ $row->abrevia_estructura.' '.$row->principal_address.' '.$row->secundaria_address.' '.$row->edificio_address.' '.$row->detalle_address     }}</td>
+            <td>{!! $row->monto_total_orden !!}</td>
+            <td>{!! $row->base_impuesto_orden !!}</td>
+            <td>{!! $row->valor_impuesto_orden !!}</td>
+            <td>{!! $row->monto_impuesto_orden !!}</td>
+            <td></td>
+
           
         </tr>
         @endforeach

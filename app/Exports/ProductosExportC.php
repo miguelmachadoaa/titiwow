@@ -35,6 +35,29 @@ class ProductosExportC implements FromView
           'users.first_name as first_name', 
           'users.last_name as last_name', 
           'users.email as email', 
+
+
+           'alp_ordenes.monto_total as monto_total_orden',
+          'alp_ordenes.base_impuesto as base_impuesto_orden',
+          'alp_ordenes.monto_impuesto as monto_impuesto_orden',
+          'alp_ordenes.valor_impuesto as valor_impuesto_orden',
+
+          
+
+
+           'config_cities.city_name as city_name',
+        'config_states.state_name as state_name',
+        'alp_direcciones.principal_address as principal_address',
+        'alp_direcciones.secundaria_address as secundaria_address',
+        'alp_direcciones.edificio_address as edificio_address',
+        'alp_direcciones.detalle_address as detalle_address',
+        'alp_direcciones.barrio_address as barrio_address',
+        'alp_direcciones_estructura.nombre_estructura as nombre_estructura',
+        'alp_direcciones_estructura.abrevia_estructura as abrevia_estructura',
+
+
+
+
            DB::raw('DATE_FORMAT(alp_ordenes_detalle.created_at, "%d/%m/%Y")  as fecha'),
           // DB::raw('sum(alp_ordenes_detalle.cantidad)  as total_cantidad'),
           'alp_productos.nombre_producto as nombre_producto',
@@ -50,6 +73,14 @@ class ProductosExportC implements FromView
           ->join('alp_clientes', 'alp_ordenes.id_cliente', '=', 'alp_clientes.id_user_client')
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
           ->join('alp_marcas', 'alp_productos.id_marca', '=', 'alp_marcas.id')
+
+
+          ->join('alp_direcciones', 'alp_ordenes.id_address', '=', 'alp_direcciones.id')
+          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+
+
          // ->groupBy('alp_ordenes_detalle.id_producto')
           ->whereNull('alp_ordenes.factura')
           ->whereIn('alp_ordenes.estatus', [5])
