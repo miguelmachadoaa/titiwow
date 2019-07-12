@@ -22,6 +22,7 @@ use App\Exports\DescuentoVentasExport;
 use App\Exports\TomaPedidosExport;
 use App\Exports\CuponesDescuentoExport;
 use App\Exports\CuponesUsadosExport;
+use App\Exports\InventarioExport;
 use App\User;
 use App\Models\AlpOrdenes;
 use App\Models\AlpProductos;
@@ -1131,8 +1132,6 @@ class AlpReportesController extends Controller
     public function cronexportcuponesusados(Request $request) 
     {
 
-
-
         if (Sentinel::check()) {
 
           $user = Sentinel::getUser();
@@ -1147,9 +1146,7 @@ class AlpReportesController extends Controller
           activity()
           ->withProperties($request->all())->log('AlpReportesController/cronexportcuponesusados');
 
-
         }
-
 
         $date = Carbon::now();
 
@@ -1160,6 +1157,38 @@ class AlpReportesController extends Controller
          return Excel::download(new CuponesUsadosExport(), $archivo);
 
     }
+
+
+
+    public function exportinventario(Request $request) 
+    {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exportinventario ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exportinventario');
+
+        }
+
+        $date = Carbon::now();
+
+        $hoy=$date->format('Y-m-d');
+
+        $archivo='invenatrio_'.$hoy.'.xlsx';
+
+         return Excel::download(new InventarioExport(), $archivo);
+
+    }
+
 
 
 }

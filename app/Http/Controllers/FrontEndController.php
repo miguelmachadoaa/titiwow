@@ -1061,11 +1061,6 @@ class FrontEndController extends JoshController
                 ];
                 // Send the activation code through email
 
-
-                 
-
-
-
                 
                 Mail::to($user->email)
                     ->send(new Register($data));

@@ -71,6 +71,7 @@ class AlpInventarioController extends JoshController
                  $row->id, 
                  $row->nombre_producto, 
                  $row->referencia_producto, 
+                 $row->referencia_producto_sap, 
                  $inventario[$row->id], 
                  $row->created_at->diffForHumans(),
                  $actions
