@@ -2134,8 +2134,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        }
 
-
-
         if (Sentinel::check()) {
 
           $user = Sentinel::getUser();
@@ -2153,9 +2151,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
         }
-
-
-
 
 
           $data=$view->render();
@@ -3667,7 +3662,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                   $data_detalle = array(
                     'id_orden' => $orden->id, 
                     'id_producto' => $l->id_producto, 
-                    'cantidad' =>1, 
+                    'cantidad' =>$detalle->cantidad, 
                     'precio_unitario' =>0, 
                     'precio_base' =>0, 
                     'precio_total' =>0,
@@ -3680,7 +3675,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                   $data_inventario = array(
                     'id_producto' => $l->id_producto, 
-                    'cantidad' =>1, 
+                    'cantidad' =>$detalle->cantidad, 
                     'operacion' =>'2', 
                     'id_user' =>$user_id 
                   );
