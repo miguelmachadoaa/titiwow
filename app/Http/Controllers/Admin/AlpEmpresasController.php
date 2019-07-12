@@ -7,6 +7,7 @@ use App\State;
 use App\Models\AlpTDocumento;
 use App\Models\AlpEstructuraAddress;
 use App\Models\AlpEmpresas;
+use App\Models\AlpClientes;
 use App\Models\AlpAmigos;
 use App\Http\Requests\EmpresaRequest;
 use App\Http\Requests;
@@ -17,6 +18,7 @@ use Intervention\Image\Facades\Image;
 use App\Imports\InvitacionesImport;
 use Maatwebsite\Excel\Facades\Excel;
 
+use Activation;
 use Redirect;
 use Sentinel;
 use View;
@@ -637,6 +639,31 @@ class AlpEmpresasController extends JoshController
 
         $empresa=AlpEmpresas::find($request->id);
 
+        $clientes=AlpClientes::Where('id_empresa', $empresa->id)->get();
+
+        foreach ($clientes as $cliente) {
+
+
+           if ($request->estatus==0) {
+          
+
+            Activation::where('user_id',$cliente->id_user_client)->delete();
+
+
+          }else{
+
+            $user = Sentinel::findById($cliente->id_user_client);
+
+            $activation = Activation::create($user);
+
+            Activation::complete($user, $activation->code);
+
+          }
+
+
+
+        }
+       
 
         $view= View::make('admin.empresas.estatus', compact('empresa'));
 
