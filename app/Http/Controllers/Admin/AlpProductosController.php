@@ -1804,6 +1804,8 @@ class AlpProductosController extends JoshController
     public function importupdate(CargaRequest $request) 
     {
 
+     // dd($request);
+
        if (Sentinel::check()) {
 
           $user = Sentinel::getUser();
@@ -1821,13 +1823,13 @@ class AlpProductosController extends JoshController
 
         }
 
-
         $archivo = $request->file('file_update');
 
-        $porciones = explode("_", $request->cities);
+        //$porciones = explode("_", $request->cities);
 
         \Session::put('rol', $request->rol);
-        \Session::put('cities', $porciones[0]);
+
+        \Session::put('cities', $request->cities);
 
         Excel::import(new ProductosUpdateImport, $archivo);
         

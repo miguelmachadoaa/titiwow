@@ -21,7 +21,7 @@ class ProductosUpdateImport implements ToCollection
     {
         $user_id = Sentinel::getUser()->id;
 
-        $rol= \Session::get('rol');
+        $roles= \Session::get('rol');
 
         $cities= \Session::get('cities');
 
@@ -29,11 +29,17 @@ class ProductosUpdateImport implements ToCollection
 
         $productos = array();
 
+foreach ($cities as $city) {
+
+    foreach ($roles  as $rol) {
+                
+
         foreach ($rows as $row) 
         {
 
             $row->rol=$rol;
-            $row->city_id=$cities;
+
+            $row->city_id=$city;
 
 
             $datos[]=$row;
@@ -41,19 +47,12 @@ class ProductosUpdateImport implements ToCollection
             if ($row[0]!=NULL) {
 
                 if ($row[1]!=0) {
-
-
                    
                         $p=AlpProductos::select('alp_productos.id as id', 'alp_productos.precio_base as precio_base', 'alp_productos.referencia_producto as referencia_producto')->where('referencia_producto', $row[0])->first();
 
-
-
                         if (isset($p->id)) {
 
-            
-
-                            
-                            $precio=AlpPrecioGrupo::where('id_producto', $p->id)->where('id_role', $rol)->where('city_id', $cities)->first();
+                            $precio=AlpPrecioGrupo::where('id_producto', $p->id)->where('id_role', $rol)->where('city_id', $city)->first();
 
                             if (isset($precio->id)) {
 
@@ -65,15 +64,13 @@ class ProductosUpdateImport implements ToCollection
                                     'operacion' => 3, 
                                     'precio' => $row[1], 
                                     'id_producto' => $p->id, 
-                                    'city_id' => $cities, 
+                                    'city_id' => $city, 
                                     'pum' => $row[2], 
                                     'id_role' => $rol, 
                                     'id_user' => $user_id, 
                                 );
 
                                 AlpPrecioGrupo::create($data_precio_new);
-
-
 
                             $productos[]=$p;
 
@@ -82,9 +79,11 @@ class ProductosUpdateImport implements ToCollection
 
             }//if row->0 != NULL
 
-
         }//endforeach
 
+    } //cities 
+            
+    }// roles
 
         $data_carga = array(
             'data_subida' => json_encode($datos), 

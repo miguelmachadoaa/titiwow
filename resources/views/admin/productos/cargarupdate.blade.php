@@ -101,7 +101,7 @@ Actualizar Precios
                          <div class="form-group {{ $errors->
                             first('rol', 'has-error') }} col-sm-3" style="margin: :1em;">
                                 <label class="control-label" for="upload">Rol</label>
-                                    <select name="rol" id="rol" class="form-control select2">
+                                    <select  id="rol" name="rol[]" multiple="multiple" class="form-control select2">
 
                                         <option value="">Seleccione</option>
                                         
@@ -144,7 +144,7 @@ Actualizar Precios
 
                                 <label for="exampleInputEmail2">Ciudad</label>
 
-                              <select class="form-control select2" name="cities" id="cities">
+                              <select class="form-control select2"  id="cities"  name="cities[]" multiple="multiple">
 
                                 </select>
 
@@ -224,7 +224,6 @@ Actualizar Precios
         
        
         //Inicio select región
-                
 
             //inicio select ciudad
             $('select[name="state"]').on('change', function() {
@@ -240,10 +239,19 @@ Actualizar Precios
                             dataType: "json",
                             success:function(data) {
 
-                                
                                 $('select[name="cities"]').empty();
+
+
+
                                 $.each(data, function(key, value) {
-                                    $('select[name="cities"]').append('<option value="'+ key+'_'+value +'">'+ value +'</option>');
+
+
+                                    var newOption = new Option(value, key, false, false);
+
+                                    $('#cities').append(newOption).trigger('change');
+
+
+                                    //$('select[name="cities"]').append('<option value="'+ key+'_'+value +'">'+ value +'</option>');
                                 });
 
                             }
