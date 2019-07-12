@@ -19,7 +19,7 @@ Route::get('registroafiliado/{id}', 'Admin\AlpEmpresasController@afiliado')->nam
 
 Route::post('admin/ordenes/storeconfirm', 'Admin\AlpOrdenesController@storeconfirm')->name('ordenes.storeconfirm');
 
-
+Route::get('reportes/exportinventario', 'Admin\AlpReportesController@exportinventario')->name('reportes.exportinventario');
 
  Route::get('reportes/exportcronlogisticaexport', 'Admin\AlpReportesController@exportcronlogisticaexport')->name('reportes.exportcronlogisticaexport');
 

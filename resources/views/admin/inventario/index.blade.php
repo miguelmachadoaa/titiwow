@@ -36,9 +36,9 @@ Inventario
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
                        Inventario
                     </h4>
-                    <!--div class="pull-right">
-                    <a href="{{ secure_url('admin/inventario/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Agregar Inventario</a>
-                    </div-->
+                    <div class="pull-right">
+                    <a href="{{ secure_url('reportes/exportinventario') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-export"></span> Exportar Inventario</a>
+                    </div>
                 </div>
                 <br />
                 <div class="panel-body">
@@ -55,6 +55,7 @@ Inventario
                                 <tr>
                                     <th>Id</th>
                                     <th>Nombre</th>
+                                    <th>EAN</th>
                                     <th>Referencia</th>
                                     <th>Inventario Disponible</th>
                                     <th>Creado</th>
