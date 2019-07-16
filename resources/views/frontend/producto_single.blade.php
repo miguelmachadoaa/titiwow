@@ -108,7 +108,7 @@
 
 
 
-                        <b>Marca:</b> {{ $producto->nombre_marca}} <br />
+                        <b>Marca:</b> <a href="{{ secure_url('marcas/'.$producto->marca_slug) }}" >{{ $producto->nombre_marca}}</a> <br />
                         <b>Categorías:</b> 
                         @foreach ($categos as $cats)
                             @if($loop->last)
