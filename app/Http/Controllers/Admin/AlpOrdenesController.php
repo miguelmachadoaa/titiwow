@@ -1782,7 +1782,7 @@ class AlpOrdenesController extends JoshController
 
           $texto="La orden ".$orden->id." Ha sido aprobada y espera para ser facturada!";
           
-          Mail::to($orden->email)->send(new \App\Mail\CompraAprobada($orden, $detalles, $fecha_entrega));
+         // Mail::to($orden->email)->send(new \App\Mail\CompraAprobada($orden, $detalles, $fecha_entrega));
 
           Mail::to($configuracion->correo_cedi)->send(new \App\Mail\CompraSac($orden, $detalles, $fecha_entrega));
 
