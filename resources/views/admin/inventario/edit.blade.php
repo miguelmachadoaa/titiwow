@@ -46,7 +46,8 @@ Agregar Inventario
                                 <label for="operacion" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-5">
                                     <h3>{{ $producto->nombre_producto}}</h3>
-                                 <p>{{ $producto->referencia_producto }}</p>
+                                 <p><b>EAN:</b> {{ $producto->referencia_producto }}</p>
+                                 <p><b>SKU:</b> {{ $producto->referencia_producto_sap }}</p>
 
                                  <p><b> {{ 'Disponible: '.$inventario[$producto->id] }}</b></p>
 
@@ -148,7 +149,8 @@ Agregar Inventario
                                 <tr>
                                     <th>Id</th>
                                     <th>Nombre</th>
-                                    <th>Referencia</th>
+                                    <th>EAN</th>
+                                    <th>SKU</th>
                                     <th>Operacion</th>
                                     <th>Cantidad</th>
                                     <th>Usuario</th>
@@ -164,6 +166,7 @@ Agregar Inventario
                                     <td>{{$movimiento->id}}</td>
                                     <td>{{$movimiento->nombre_producto}}</td>
                                     <td>{{$movimiento->referencia_producto}}</td>
+                                    <td>{{$movimiento->referencia_producto_sap}}</td>
                                     <td>
                                         @if($movimiento->operacion==1)
 
