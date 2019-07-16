@@ -63,15 +63,34 @@
                         <div class="product_wrapper">
                             <img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" data-zoom-image="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive" alt="{{ $producto->nombre_producto}} | Alpina Go!" title="{{ $producto->nombre_producto}} | Alpina Go!"/>
 
-                             @if(isset($inventario[$producto->id]))
+                             @if($producto->tipo_producto=='1')
 
-                                @if($inventario[$producto->id]<=0)
+                                @if(isset($inventario[$producto->id]))
 
-                                    <img style="    position: absolute;    top: 9px;    left: 0em;    float: left;    width: 8em !important;    height: 8em !important;" class="" style="" src="{{ secure_url('/').'/uploads/files/agotado.png' }}" alt="">
+                                    @if($inventario[$producto->id]<=0)
+
+                                        <img style="    position: absolute;    top: 9px;    left: 0em;    float: left;    width: 8em !important;    height: 8em !important;" class="" style="" src="{{ secure_url('/').'/uploads/files/agotado.png' }}" alt="">
+
+                                    @endif
 
                                 @endif
 
+                            @else
+
+                                @if(isset($combos[$producto->id]))
+
+                                @else
+
+                                        <img style="    position: absolute;    top: 9px;    left: 0em;    float: left;    width: 8em !important;    height: 8em !important;" class="" style="" src="{{ secure_url('/').'/uploads/files/agotado.png' }}" alt="">
+
+                                @endif
+
+
                             @endif
+
+
+
+
                         </div>
                     </div>
                 </div>
@@ -234,10 +253,6 @@
 
                                                              @endif 
                                                             
-
-
-                                                             
-
                                                             
 
                                                           </span>
@@ -248,8 +263,34 @@
                                                     </div><!-- /.row -->
 
                                                 @else
+
+
+
+                                                         @if($producto->tipo_producto=='1')
+
+                                                          <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" data-single="1" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito">Agregar al Carrito<i class="fa fa-cart-arrow-down" aria-hidden="true" style="margin-left:10px"></i></a>
+
+                                                        @else
+
+                                                            @if(isset($combos[$producto->id]))
+
+
+                                                             <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" data-single="1" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito">Agregar al Carrito<i class="fa fa-cart-arrow-down" aria-hidden="true" style="margin-left:10px"></i></a>
+
+                                                            @else
+
+
+
+                                                            @endif
+
+                                                        @endif
+                                                    
+
+
+
                                                      
-                                                        <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" data-single="1" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito">Agregar al Carrito<i class="fa fa-cart-arrow-down" aria-hidden="true" style="margin-left:10px"></i></a>
+                                                       
+
                                                     
                                                 @endif
                                             @endif

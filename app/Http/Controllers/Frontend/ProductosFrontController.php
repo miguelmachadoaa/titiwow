@@ -540,13 +540,6 @@ class ProductosFrontController extends Controller
           ->take(4)->get();
 
 
-            /*$relacionados = AlpProductos::select('alp_productos.*', 'alp_productos_relacionados.id_relacionado as id_relacionado')
-          ->join('alp_productos_relacionados', 'alp_productos.id', '=', 'alp_productos_relacionados.id_relacionado')
-          ->whereNull('alp_productos_relacionados.deleted_at')
-          ->where('alp_productos_relacionados.id_producto', '=',$producto->id)->inRandomOrder()
-          ->take(4)->get();*/
-
-
             $categos = DB::table('alp_categorias')->select('alp_categorias.nombre_categoria as nombre_categoria','alp_categorias.slug as categ_slug')
             ->join('alp_productos_category','alp_categorias.id' , '=', 'alp_productos_category.id_categoria')
             ->whereNull('alp_productos_category.deleted_at')
@@ -711,7 +704,6 @@ class ProductosFrontController extends Controller
         $cart= \Session::get('cart');
 
         $total=0;
-
         if($cart!=NULL){
 
             foreach($cart as $row) {
@@ -722,6 +714,8 @@ class ProductosFrontController extends Controller
         }
 
         $inventario=$this->inventario();
+
+        //dd($inventario[$producto->id]);
 
         $combos=$this->combos();
 
@@ -1145,9 +1139,6 @@ class ProductosFrontController extends Controller
 
     $prods=$this->addOferta($productos, $precio, $descuento);
 
-
-
-
         $total=0;
 
         if($cart!=NULL){
@@ -1162,6 +1153,8 @@ class ProductosFrontController extends Controller
         $inventario=$this->inventario();
 
         $combos=$this->combos();
+
+        //dd($inventario);
 
          $states=State::where('config_states.country_id', '47')->get();
 
