@@ -777,8 +777,6 @@ class AlpProductosController extends JoshController
               $pre->role_name='';
 
             }
-
-
            
           }else{
 
@@ -786,15 +784,11 @@ class AlpProductosController extends JoshController
 
             $pre->role_name=$nr->name;
 
-           
-
           }
 
            $pre->city_name=$nc->city_name;
 
             $precio_grupo[]=$pre;
-                
-          
 
         }
 

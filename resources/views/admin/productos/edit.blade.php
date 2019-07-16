@@ -1020,13 +1020,11 @@
 
 
 
-
 $('.addProductoCupon').click(function(){
 
     id_producto=$('#id_producto').val();
 
     name=$('select[name="id_producto"] option:selected').text();
-
 
     include='';
 
