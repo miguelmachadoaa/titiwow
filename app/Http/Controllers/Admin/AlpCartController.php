@@ -100,7 +100,6 @@ class AlpCartController extends JoshController
 
       $combos=$this->combos();
 
-
       $configuracion=AlpConfiguracion::where('id', '1')->first();
 
       $total=$this->total();
@@ -3599,102 +3598,89 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
             if ($detalle->valor_impuesto!=0) {
 
-            $base_imponible_detalle=$total_detalle/(1+$detalle->valor_impuesto);
+              $base_imponible_detalle=$total_detalle/(1+$detalle->valor_impuesto);
 
-            $base_impuesto=$base_impuesto+$total_detalle;
+              $base_impuesto=$base_impuesto+$total_detalle;
 
-            $valor_impuesto=$detalle->valor_impuesto;
+              $valor_impuesto=$detalle->valor_impuesto;
             
-          }else{
+            }else{
 
-            $base_imponible_detalle=0;
+              $base_imponible_detalle=0;
 
-            $base_impuesto=$base_impuesto+$total_detalle;
+              $base_impuesto=$base_impuesto+$total_detalle;
 
-          }
+            }
 
-          $imp=$detalle->valor_impuesto+1;
+            $imp=$detalle->valor_impuesto+1;
 
-          $monto_impuesto=$monto_impuesto+$detalle->valor_impuesto*($total_detalle/$imp);
+            $monto_impuesto=$monto_impuesto+$detalle->valor_impuesto*($total_detalle/$imp);
 
-          $data_detalle = array(
-            'id_orden' => $orden->id, 
-            'id_producto' => $detalle->id, 
-            'cantidad' =>$detalle->cantidad, 
-            'precio_unitario' =>$detalle->precio_oferta, 
-            'precio_base' =>$detalle->precio_base, 
-            'precio_total' =>$detalle->cantidad*$detalle->precio_oferta,
-            'precio_total_base' =>$detalle->cantidad*$detalle->precio_base,
-            'valor_impuesto' =>$valor_impuesto,
-            'monto_impuesto' =>$base_imponible_detalle*$valor_impuesto,
-            'id_user' =>$user_id 
-          );
+            $data_detalle = array(
+              'id_orden' => $orden->id, 
+              'id_producto' => $detalle->id, 
+              'cantidad' =>$detalle->cantidad, 
+              'precio_unitario' =>$detalle->precio_oferta, 
+              'precio_base' =>$detalle->precio_base, 
+              'precio_total' =>$detalle->cantidad*$detalle->precio_oferta,
+              'precio_total_base' =>$detalle->cantidad*$detalle->precio_base,
+              'valor_impuesto' =>$valor_impuesto,
+              'monto_impuesto' =>$base_imponible_detalle*$valor_impuesto,
+              'id_user' =>$user_id 
+            );
 
-          $data_inventario = array(
-            'id_producto' => $detalle->id, 
-            'cantidad' =>$detalle->cantidad, 
-            'operacion' =>'2', 
-            'id_user' =>$user_id 
-          );
+            $data_inventario = array(
+              'id_producto' => $detalle->id, 
+              'cantidad' =>$detalle->cantidad, 
+              'operacion' =>'2', 
+              'id_user' =>$user_id 
+            );
 
-          AlpDetalles::create($data_detalle);
+            AlpDetalles::create($data_detalle);
 
-          AlpInventario::create($data_inventario);
+            AlpInventario::create($data_inventario);
 
+            if ($detalle->tipo_producto=='2') {
+              
+                
 
+                  $lista=AlpCombosProductos::where('id_combo', $detalle->id)->get();
 
+                  foreach ($lista as $l) {
 
-          if ($detalle->tipo_producto=='2') {
-            
-               $lista=AlpCombosProductos::select(
-                'alp_combos_productos.*', 
-                'alp_productos.slug as slug', 
-                'alp_productos.nombre_producto as nombre_producto', 
-                'alp_productos.imagen_producto as imagen_producto'
-              )
-                ->join('alp_productos', 'alp_combos_productos.id_producto', '=', 'alp_productos.id')
-                ->where('id_combo', $detalle->id)
-                ->get();
+                      $data_detalle_l = array(
+                        'id_orden' => $orden->id, 
+                        'id_producto' => $l->id_producto, 
+                        'cantidad' =>$detalle->cantidad, 
+                        'precio_unitario' =>0, 
+                        'precio_base' =>0, 
+                        'precio_total' =>0,
+                        'precio_total_base' =>0,
+                        'valor_impuesto' =>0,
+                        'monto_impuesto' =>0,
+                        'id_combo' =>$detalle->id,
+                        'id_user' =>$user_id 
+                      );
 
-                foreach ($lista as $l) {
-                  
+                      $data_inventario_l = array(
+                        'id_producto' => $l->id_producto, 
+                        'cantidad' =>$detalle->cantidad, 
+                        'operacion' =>'2', 
+                        'id_user' =>$user_id 
+                      );
 
-                  $data_detalle = array(
-                    'id_orden' => $orden->id, 
-                    'id_producto' => $l->id_producto, 
-                    'cantidad' =>$detalle->cantidad, 
-                    'precio_unitario' =>0, 
-                    'precio_base' =>0, 
-                    'precio_total' =>0,
-                    'precio_total_base' =>0,
-                    'valor_impuesto' =>0,
-                    'monto_impuesto' =>0,
-                    'id_combo' =>$detalle->id,
-                    'id_user' =>$user_id 
-                  );
+                      AlpDetalles::create($data_detalle_l);
 
-                  $data_inventario = array(
-                    'id_producto' => $l->id_producto, 
-                    'cantidad' =>$detalle->cantidad, 
-                    'operacion' =>'2', 
-                    'id_user' =>$user_id 
-                  );
+                      AlpInventario::create($data_inventario_l);
 
-                  AlpDetalles::create($data_detalle);
+                }
 
-                  AlpInventario::create($data_inventario);
-
-              }
-
-          }
+            }
 
 
         }//endfreach
 
-
-
          $total_descuentos=0;
-
 
             $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
 
@@ -3703,7 +3689,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
               $total_descuentos=$total_descuentos+$pago->monto_descuento;
 
             }
-
 
           //se calcula lo que queda luego del descuento
 
@@ -3714,7 +3699,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
             $base_impuesto=$resto;
             
           }
-
 
         $monto_impuesto=($base_impuesto/(1+$valor_impuesto))*$valor_impuesto;
 

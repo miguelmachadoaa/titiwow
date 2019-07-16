@@ -528,6 +528,10 @@ class ProductosFrontController extends Controller
             ->where('alp_productos.estado_registro','=',1)
             ->where('alp_productos.slug','=', $slug)->first(); 
 
+
+      
+
+
            if($producto){
 
 
@@ -718,6 +722,13 @@ class ProductosFrontController extends Controller
         //dd($inventario[$producto->id]);
 
         $combos=$this->combos();
+
+
+        if ($producto->precio_base<=0 || $producto->precio_oferta<=0) {
+
+        return redirect('/');
+
+      }
 
         
         return \View::make('frontend.producto_single', compact('producto', 'descuento', 'precio','categos', 'states', 'cart', 'total','catprincipal', 'relacionados', 'prods', 'inventario', 'combos'));

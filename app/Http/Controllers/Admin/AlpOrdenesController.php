@@ -1396,10 +1396,7 @@ class AlpOrdenesController extends JoshController
           activity()
           ->withProperties($request->all())->log('AlpOrdenesController/storeconfirm');
 
-
         }
-
-
 
         $user_id = Sentinel::getUser()->id;
 
@@ -1448,7 +1445,6 @@ class AlpOrdenesController extends JoshController
             
           }
 
-
           $descuentos=AlpOrdenesDescuento::where('id_orden',$input['confirm_id'])->get();
 
           foreach ($descuentos as $desc) {
@@ -1479,19 +1475,6 @@ class AlpOrdenesController extends JoshController
           ->first();
 
         if ($orden->id) {
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

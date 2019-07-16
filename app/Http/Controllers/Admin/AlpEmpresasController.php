@@ -73,13 +73,13 @@ class AlpEmpresasController extends JoshController
            if ($row->estado_registro=='1') {
 
              $estatus=" <div class='estatus_".$row->id."'>
- <button data-url='".secure_url('admin/empresas/estatus')."' type='buttton' data-id='".$row->id."' data-estatus='0' class='btn btn-xs btn-primary estatus'>Desactivar</button>
+ <button data-url='".secure_url('admin/empresas/estatus')."' type='buttton' data-id='".$row->id."' data-estatus='0' class='btn btn-xs btn-danger estatus'>Desactivar</button>
 </div>";
 
            }else{
 
             $estatus="<div class='estatus_".$row->id."'>
-<button data-url='".secure_url('admin/empresas/estatus')."' type='buttton' data-id='".$row->id."' data-estatus='1' class='btn btn-xs btn-primary estatus'>Activar</button>
+<button data-url='".secure_url('admin/empresas/estatus')."' type='buttton' data-id='".$row->id."' data-estatus='1' class='btn btn-xs btn-success estatus'>Activar</button>
  </div>";
 
            }
@@ -644,6 +644,12 @@ class AlpEmpresasController extends JoshController
         foreach ($clientes as $cliente) {
 
 
+          $c=AlpClientes::where('id', $cliente->id)->first();
+
+            $data_cliente_update = array('estado_registro' =>$request->estatus );
+
+            $c->update($data_cliente_update);
+
            if ($request->estatus==0) {
           
 
@@ -659,7 +665,6 @@ class AlpEmpresasController extends JoshController
             Activation::complete($user, $activation->code);
 
           }
-
 
 
         }
