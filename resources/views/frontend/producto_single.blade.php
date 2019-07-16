@@ -134,7 +134,10 @@
 
                         <br />
                         <b>Medida:</b> {{ $producto->medida}}<br />
+                        <b>SKU:</b> {{ $producto->referencia_producto_sap}}<br />
                         <b>Referencia:</b> {{ $producto->referencia_producto}}<br />
+
+                    
 
 
 
