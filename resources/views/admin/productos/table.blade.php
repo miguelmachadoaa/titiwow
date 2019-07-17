@@ -7,6 +7,7 @@
         <th>ID</th>
         <th>Nombre de Producto</th>
         <th>Referencia</th>
+        <th>SKU</th>
         <th>Imagen</th>
         <th>Categoria Principal</th>
         <th>Precio</th>

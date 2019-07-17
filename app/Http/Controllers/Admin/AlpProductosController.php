@@ -143,6 +143,7 @@ class AlpProductosController extends JoshController
                  $alpProductos->id, 
                  $alpProductos->nombre_producto, 
                  $alpProductos->referencia_producto, 
+                 $alpProductos->referencia_producto_sap, 
                  $imagen, 
                  $alpProductos->nombre_categoria, 
                  number_format($alpProductos->precio_base,2), 
