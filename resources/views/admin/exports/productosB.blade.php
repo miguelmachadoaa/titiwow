@@ -54,7 +54,7 @@
             <td>{!! $row->base_impuesto_orden !!}</td>
             <td>{!! $row->valor_impuesto_orden !!}</td>
             <td>{!! $row->monto_impuesto_orden !!}</td>
-            <td></td>
+            <td>{!! $row->barrio_address !!}</td>
 
           
         </tr>
