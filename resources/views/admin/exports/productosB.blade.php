@@ -5,6 +5,7 @@
             <th ><b>Cod OC SAC</b></th>
             <th ><b>Id Usuario</b></th>
             <th ><b>Nombre Usuario</b></th>
+            <th ><b>Telefono</b></th>
             <th ><b>EAN</b></th>
             <th ><b>SKU</b></th>
             <th ><b>Producto</b></th>
@@ -35,6 +36,7 @@
             <td>{!! $row->ordencompra!!}</td>
             <td>{!! $row->doc_cliente!!}</td>
             <td>{!! $row->first_name.' '.$row->last_name!!}</td>
+            <td>{!! $row->telefono_cliente!!}</td>
             <td>{!! $row->referencia_producto!!}</td>
             <td>{!! $row->referencia_producto_sap!!}</td>
             <td>{!! $row->nombre_producto !!}</td>

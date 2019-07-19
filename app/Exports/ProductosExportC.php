@@ -30,6 +30,7 @@ class ProductosExportC implements FromView
          $productos= AlpDetalles::select(
           'alp_ordenes_detalle.*', 
           'alp_clientes.doc_cliente as doc_cliente',
+          'alp_clientes.telefono_cliente as telefono_cliente',
           'alp_ordenes.ordencompra as ordencompra',
           'users.id as id_usuario', 
           'users.first_name as first_name', 
