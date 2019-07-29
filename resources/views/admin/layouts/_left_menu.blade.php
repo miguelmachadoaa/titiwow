@@ -193,6 +193,17 @@
         @endif
 
 
+        @if (Sentinel::getUser()->hasAnyAccess(['productos.grid']))
+
+        <li {!! (Request::is('admin/productos/grid') ? 'class="active"' : '') !!}>
+            <a href="{!! route('admin.productos.grid') !!}">
+                <i class="fa fa-angle-double-right"></i>
+                Generar plantilla productos
+            </a>
+        </li>
+        @endif
+
+
         
     </ul>
 </li>
