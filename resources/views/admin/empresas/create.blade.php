@@ -165,6 +165,35 @@
 
 
 
+                           <div class="form-group  {{ $errors->first('precio_empresa', 'has-error') }}">
+                                <label for="select21" class="col-sm-2 control-label">
+                                    Copiar precios
+                                </label>
+                                <div class="col-sm-5">   
+                                 <select id="precio_empresa" name="precio_empresa" class="form-control ">
+
+                                    <option value="0">Seleccione</option>
+
+                                    @foreach($empresas as $empresa)
+                                    
+                                        <option value="{{$empresa->id}}">{{$empresa->nombre_empresa}}</option>
+
+                                    @endforeach
+                                        
+                                       
+                                       
+                                       
+                                </select>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('precio_empresa', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                                  
+                                </div>
+                               
+                            </div>
+
+
+
 
 
                         <div class="form-group">

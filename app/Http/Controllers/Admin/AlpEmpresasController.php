@@ -9,6 +9,7 @@ use App\Models\AlpEstructuraAddress;
 use App\Models\AlpEmpresas;
 use App\Models\AlpClientes;
 use App\Models\AlpAmigos;
+use App\Models\AlpPrecioGrupo;
 use App\User;
 
 use App\Models\AlpEmpresasUser;
@@ -151,11 +152,13 @@ class AlpEmpresasController extends JoshController
 
 
         }
+
+        $empresas=AlpEmpresas::get();
       
 
 
         // Show the page
-        return view ('admin.empresas.create');
+        return view ('admin.empresas.create', compact('empresas'));
     }
 
     /**
@@ -218,6 +221,30 @@ class AlpEmpresasController extends JoshController
         );
          
         $empresas=AlpEmpresas::create($data);
+
+
+
+
+        if ($request->precio_empresa!=0) {
+            
+          $precios=AlpPrecioGrupo::where('id_role','E'.$request->precio_empresa )->get();
+
+          foreach ($precios as $pg) {
+            $pge = array(
+              'id_producto' => $pg->id_producto, 
+              'id_role' =>'E'.$empresas->id, 
+              'operacion' => $pg->operacion, 
+              'city_id' => $pg->city_id, 
+              'precio' => $pg->precio, 
+              'pum' => $pg->pum, 
+              'id_user' => $user->id
+            );
+
+            AlpPrecioGrupo::create($pge);
+          }
+
+
+        }
 
         if ($empresas->id) {
 

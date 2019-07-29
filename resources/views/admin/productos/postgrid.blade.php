@@ -529,7 +529,7 @@
                                     <tr>
                                     <td align="center" valign="top" width="600" style="width:600px;">
                                     <![endif]-->
-                                    <table id="tb3" align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer">
+                                    <table id="tb3" style="background: #fff;" align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer">
                                         <tr>
                                             <td valign="top" class="bodyContainer"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnDividerBlock" style="min-width:100%;">
     <tbody class="mcnDividerBlockOuter">
@@ -594,9 +594,9 @@
                                         <img style="    margin-bottom: 0;" alt="" src="https://www.alpinago.com/{{'uploads/productos/'.$pro->imagen_producto}}" width="263" style="max-width:1000px; padding-bottom: 0;" class="mcnImage">
                                     </a>
 
-                                     <p style="      margin-top: -7px;  text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >{{$pro->precio_base}}</p>
-                                    <p style="    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >{{$pro->precio_oferta}}</p>
-                                    <p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >{{$pro->pum}}</p>
+                                       <a style="text-decoration: none;" href="https://www.alpinago.com/producto/{{$pro->slug}}"><p style="      margin-top: -7px;  text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >{{$pro->precio_base}}</p></a>
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/{{$pro->slug}}"><p style="    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >{{$pro->precio_oferta}}</p></a>
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/{{$pro->slug}}"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >{{$pro->pum}}</p></a>
                                 
                                 </td>
                             </tr>
@@ -623,9 +623,9 @@
                                         <img style="    margin-bottom: 0;" alt="" src="https://www.alpinago.com/{{'uploads/productos/'.$pro->imagen_producto}}" width="263" style="max-width:1000px; padding-bottom: 0;" class="mcnImage">
                                     </a>
 
-                                    <p style="      margin-top: -7px;  text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >{{$pro->precio_base}}</p>
-                                    <p style="    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >{{$pro->precio_oferta}}</p>
-                                    <p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >{{$pro->pum}}</p>
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/{{$pro->slug}}"><p style="      margin-top: -7px;  text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >{{$pro->precio_base}}</p></a>
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/{{$pro->slug}}"><p style="    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >{{$pro->precio_oferta}}</p></a>
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/{{$pro->slug}}"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >{{$pro->pum}}</p></a>
                                 
                                 </td>
                             </tr>
