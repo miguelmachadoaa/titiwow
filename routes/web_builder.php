@@ -127,6 +127,11 @@ Route::get('productos/precio/', ['as'=> 'productos.precio', 'uses' => 'Admin\Alp
 Route::post('productos/postprecio/', ['as'=> 'productos.postprecio', 'uses' => 'Admin\AlpProductosController@postprecio']);
 
 
+Route::get('productos/grid/', ['as'=> 'productos.grid', 'uses' => 'Admin\AlpProductosController@grid']);
+
+Route::post('productos/postgrid/', ['as'=> 'productos.postgrid', 'uses' => 'Admin\AlpProductosController@postgrid']);
+
+
 
     Route::resource('productos', 'Admin\AlpProductosController');
 

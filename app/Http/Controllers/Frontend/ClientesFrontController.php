@@ -53,14 +53,20 @@ class ClientesFrontController extends Controller
 
             $role=RoleUser::where('user_id', $user_id)->first();
 
+            //dd($role);
+
 
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
+
+           // dd($cliente);
 
                 if (!is_null($cliente)) {
 
                     if ($cliente->id_empresa!=0) {
                         
                         $empresa=AlpEmpresas::find($cliente->id_empresa);
+
+                       // dd($empresa);
 
                         $cliente['nombre_empresa']=$empresa->nombre_empresa;
 

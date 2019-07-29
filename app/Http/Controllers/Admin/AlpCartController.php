@@ -98,6 +98,8 @@ class AlpCartController extends JoshController
 
       $cart=$this->reloadCart();
 
+      //dd($cart);
+
       $combos=$this->combos();
 
       $configuracion=AlpConfiguracion::where('id', '1')->first();
@@ -269,89 +271,58 @@ class AlpCartController extends JoshController
 
     }
 
-
     public function orderRapipago(){
 
+      $path='uploads/productos/';
 
-        $configuracion = AlpConfiguracion::where('id', '1')->first();
+      $dir = opendir($path);
 
-       if ($configuracion->mercadopago_sand=='1') {
-          
-          MP::sandbox_mode(TRUE);
+      $files = array();
 
-        }
+      while ($current = readdir($dir)){
 
-        if ($configuracion->mercadopago_sand=='2') {
-          
-          MP::sandbox_mode(FALSE);
+          if( $current != "." && $current != "..") {
 
-        }
+              if(is_dir($path.$current)) {
 
-        MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+                  //showFiles($path.$current.'/');
 
-      //  $acc=MP::getAccessToken();
+              }
 
-       // dd($acc);
-        
+              else {
 
-         $preference = MP::get("/v1/payments/search?external_reference="."ALP465");
-
-         //dd($preference['response']['results'][0]['id']);
-
-         
+                  echo $current.'<br>';
 
 
+                  $imageSizeArray = getimagesize($path.$current);
+                $imageTypeArray = $imageSizeArray[2];
 
-          $valor=$preference['response']['results'][0]['id'];
-         // $status2=$values["status"];
-        
-         
-
-            //Los cancelo
-
-            //Ejecuto el CURL
-          $at="APP_USR-4315108748962805-061815-4d0de1b207468fc94c86096dea57ad7a-378099268";
-
-            $ch = curl_init();
-
-            curl_setopt($ch, CURLOPT_URL, 'https://api.mercadopago.com/v1/payments/'.$valor.'?access_token='.$at);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, "{\"status\":\"cancelled\"}\n\n");
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+                if (in_array($imageTypeArray , array(IMAGETYPE_GIF , IMAGETYPE_JPEG ,IMAGETYPE_PNG , IMAGETYPE_BMP))) {
 
 
-            $headers = array();
-            $headers[] = "Cache-Control: no-cache";
-            $headers[] = "Content-Type: application/x-www-form-urlencoded";
-            $headers[] = "Postman-Token: 0073aa65-4164-4889-8fb6-1ec2e3bba048";
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+                   $image = \Image::make(file_get_contents(public_path().'/'.$path.$current));
+                   
+                   $image->resize(200,200);
+                   // Guardar
+                   $image->save($path.'150/'.$current);
 
-            $result = curl_exec($ch);
-            if (curl_errno($ch)) {
-                echo 'Error:' . curl_error($ch);
-            }
-            curl_close ($ch);
+                  
+                }
 
 
-              //Definir el nombre del archivo donde se van a guardar los id
-                //$fichero = 'log.txt';
-                // Abre el fichero para obtener el contenido existente
-               // $actual = file_get_contents($fichero);
+              }
 
-                 // Escribe el contenido al fichero
-                      
-                //file_put_contents($fichero, $result, FILE_APPEND);
+          }
 
-                dd($result);
-
-
-
-
-
-
+      }
+     
 
 
     }
+
+
+
+  
 
     public function detalle2()
     {
@@ -855,6 +826,8 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
         $user_cliente=User::where('id', $user_id)->first();
 
+        $datos_cliente=AlpClientes::where('id_user_client', $user_id)->first();
+
         $configuracion = AlpConfiguracion::where('id', '1')->first();
 
         MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
@@ -884,6 +857,42 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
                 );
         }
 
+        $phone= array(
+          'area_code' =>'+57' , 
+          'number' => $datos_cliente->telefono_cliente, 
+        );
+
+
+        $direccion = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+          ->where('alp_direcciones.id', $orden->id)->first();
+
+
+        $address = array(
+          //'state_name' => $direccion->state_name, 
+         //'city_name' => $direccion->city_name, 
+          'street_name' => $direccion->nombre_estructura.' '.$direccion->principal_address.' - '.$direccion->secundaria_address.' '.$direccion->edificio_address.' '.$direccion->detalle_address.' '.$direccion->barrio_address, 
+          'street_number' => $direccion->principal_address
+        );
+
+        $fecha = Carbon::now()->format('c');
+
+        $payer = array(
+          'first_name' => $user_cliente->first_name, 
+          'last_name' => $user_cliente->last_name, 
+          'registration_date' => $fecha, 
+          'phone' => $phone, 
+          'address' => $address
+        );
+
+        $additional_info = array(
+          'items' => $det_array, 
+          'payer' => $payer, 
+        );  
+
         $preference_data = [
         "transaction_amount" => doubleval($orden->monto_total),
         "net_amount"=>(float)number_format($net_amount, 2, '.', ''),
@@ -895,6 +904,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
           "installments" => intval($request->installments),
           "external_reference"=> "ALP".$orden->id."",
           "payment_method_id" => $request->payment_method_id,
+          "additional_info" => $additional_info,
           
           "issuer_id" => $request->issuer_id,
           "payer" => [
@@ -1372,9 +1382,6 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
             $aviso_pago="Hemos procesado su orden satisfactoriamente, Su id para realizar el deposito en efectivo es <h4>".$payment['response']['id']."</h4>. Las indicaciones para finalizar su pago puede seguirlas en este enlace <a target='_blank' href='".$payment['response']['transaction_details']['external_resource_url']."' >Ticket</a>. Tiene 72 Horas para realizar el pago, o su orden sera cancelada. ¡Muchas gracias por su Compra!";
 
             $metodo=$payment['response']['payment_method_id'];
-
-
-            
 
             return view('frontend.order.procesarticket', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago', 'payment', 'estatus_aviso', 'metodo'));
 

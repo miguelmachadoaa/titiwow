@@ -18,7 +18,7 @@
 
             <h5>Su forma de Pago fue: <b>{{ ucwords($metodo) }}</b> </h5>
 
-            <h5>Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y será entregado {{ $fecha_entrega }}</h5>
+            <h5>Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y se calculara la fecha de entrega una vez aprobado el pago.</h5>
 
             <h5>De igual forma puede consultar la información y estatus de su pedido en su</h5> <a class="btn btn-sm btn-info" href="{{secure_url('clientes')}}">Perfil</a> 
 

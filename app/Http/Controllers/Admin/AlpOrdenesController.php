@@ -1726,11 +1726,7 @@ class AlpOrdenesController extends JoshController
 
         $hora=$date->format('Hi');
 
-       
-
         $hora_base=str_replace(':', '', $ciudad_forma->hora);
-
-        
 
         if (intval($hora)>intval($hora_base)) {
 
@@ -1768,14 +1764,6 @@ class AlpOrdenesController extends JoshController
         $data_envio = array('fecha_envio' =>  $fecha_entrega);
 
         $envio->update($data_envio);
-
-
-
-
-
-
-
-
 
 
 

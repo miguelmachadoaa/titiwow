@@ -192,6 +192,110 @@ class AlpProductosController extends JoshController
      *
      * @return Response
      */
+
+
+    public function grid()
+    {
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpProductosController/grid ');
+
+        }else{
+
+          activity()
+          ->log('AlpProductosController/grid');
+
+        }
+
+        $inventario=$this->inventario();
+
+        $productos=AlpProductos::where('estado_registro', '1')->get();
+
+        return view('admin.productos.grid', compact( 'productos', 'inventario'));
+    }
+
+
+    public function postgrid(Request $request)
+    {
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpProductosController/grid ');
+
+        }else{
+
+          activity()
+          ->log('AlpProductosController/grid');
+
+        }
+
+        $input=$request->all();
+
+        //dd($input);
+
+        $productos = array();
+
+
+        foreach ($input as $key => $value) {
+
+          if (substr($key, 0, 2)=='c_') {
+
+            $p=AlpProductos::where('id', $value)->first();
+
+            $productos[]=$p;
+
+          }
+
+        }
+
+
+
+
+         $descuento='1'; 
+
+          $precio = array();
+
+          $r='9';
+          
+                foreach ($productos as  $row) {
+                    
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $r)->first();
+
+                    if (isset($pregiogrupo->id)) {
+                       
+                        $precio[$row->id]['precio']=$pregiogrupo->precio;
+                        $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$row->id]['pum']=$pregiogrupo->pum;
+
+                    }
+
+                }
+
+                $data='';
+
+
+      $prods=$this->addOferta($productos, $precio, $descuento);
+
+       $view= View::make('admin.productos.postgrid', compact( 'productos', 'prods'));
+
+        $data=$view->render();
+
+        return view('admin.productos.postgrid', compact( 'productos', 'prods', 'data'));
+    }
+
+
+
     public function create()
     {
 

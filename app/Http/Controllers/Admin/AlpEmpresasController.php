@@ -9,6 +9,9 @@ use App\Models\AlpEstructuraAddress;
 use App\Models\AlpEmpresas;
 use App\Models\AlpClientes;
 use App\Models\AlpAmigos;
+use App\User;
+
+use App\Models\AlpEmpresasUser;
 use App\Http\Requests\EmpresaRequest;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Mail;
@@ -626,7 +629,6 @@ class AlpEmpresasController extends JoshController
           activity()
           ->withProperties($request->all())->log('empresas/estatus');
 
-
         }
 
         $input = $request->all();
@@ -637,38 +639,81 @@ class AlpEmpresasController extends JoshController
 
         $empresa->update($data);
 
-        $empresa=AlpEmpresas::find($request->id);
 
-        $clientes=AlpClientes::Where('id_empresa', $empresa->id)->get();
+             if ($request->estatus==0) {
 
-        foreach ($clientes as $cliente) {
+              $clientes=AlpClientes::Where('id_empresa', $empresa->id)->get();
 
+                foreach ($clientes as $cliente) {
 
-          $c=AlpClientes::where('id', $cliente->id)->first();
+                  $usuario=User::where('id', $cliente->id_user_client)->first();
 
-            $data_cliente_update = array('estado_registro' =>$request->estatus );
+                   $role = Sentinel::findRoleById(12);
 
-            $c->update($data_cliente_update);
+                  $role->users()->detach($usuario);
 
-           if ($request->estatus==0) {
-          
+                  $role = Sentinel::findRoleById(9);
 
-            Activation::where('user_id',$cliente->id_user_client)->delete();
+                  $role->users()->detach($usuario);
 
+                  $role->users()->attach($usuario);
 
-          }else{
+                  $c=AlpClientes::where('id', $cliente->id)->first();
 
-            $user = Sentinel::findById($cliente->id_user_client);
+                      $data_cliente_update = array(
+                      'estado_registro' =>$request->estatus,
+                      'id_empresa' =>'0'
+                       );
 
-            $activation = Activation::create($user);
+                    $c->update($data_cliente_update);
 
-            Activation::complete($user, $activation->code);
+                    $data_empresa = array(
+                      'id_empresa' => $empresa->id, 
+                      'id_cliente' => $cliente->id_user_client, 
+                      'id_user' => $user->id
+                    );
 
-          }
+                    AlpEmpresasUser::create($data_empresa);
 
+                }
 
-        }
-       
+            }else{
+
+              $clientes=AlpEmpresasUser::Where('id_empresa', $empresa->id)->get();
+
+              //dd($clientes);  
+
+                foreach ($clientes as $cliente) {
+
+                  $c=AlpClientes::where('id_user_client', $cliente->id_cliente)->first();
+
+                  $usuario=User::where('id', $c->id_user_client)->first();
+
+                  $role = Sentinel::findRoleById(9);
+
+                  $role->users()->detach($usuario);
+
+                  $role = Sentinel::findRoleById(12);
+
+                  $role->users()->detach($usuario);
+
+                  $role->users()->attach($usuario);
+
+                  //$c=AlpClientes::where('id', $cliente->id)->first();
+
+                      $data_cliente_update = array(
+                      'estado_registro' =>$request->estatus,
+                      'id_empresa' =>$cliente->id_empresa
+                       );
+
+                    $c->update($data_cliente_update);
+
+                    AlpEmpresasUser::where('id_cliente', $cliente->id_cliente)->delete();
+
+                }
+
+            }
+
 
         $view= View::make('admin.empresas.estatus', compact('empresa'));
 
