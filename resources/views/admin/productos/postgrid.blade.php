@@ -11,12 +11,7 @@
 </textarea> 
 </div>
 
-
-
 @endif
-
-
-
 
 
 <!DOCTYPE html>
@@ -576,10 +571,8 @@
 
         @if($loop->iteration%2!=0)
 
-
-
         <table id="tb_{{$pro->id}}" border="0" cellpadding="0" cellspacing="0" width="600px" align="center" class="mcnImageGroupBlock">
-    <tbody class="mcnImageGroupBlockOuter">
+            <tbody class="mcnImageGroupBlockOuter">
         
             <tr>
                 <td valign="top" style="padding:9px" class="mcnImageGroupBlockInner">
@@ -600,7 +593,8 @@
                                 
                                 </td>
                             </tr>
-                        </tbody></table>
+                        </tbody>
+                    </table>
 
 
 
@@ -629,7 +623,9 @@
                                 
                                 </td>
                             </tr>
-                        </tbody></table>
+                        </tbody>
+
+                    </table>
                     
                 </td>
             </tr>
@@ -644,9 +640,8 @@
         @if($loop->last%2==0)
 
         @else
-        </td>
-            </tr>
-        
+            </td>
+        </tr>
     </tbody>
 </table>
 
@@ -654,8 +649,6 @@
         @endif
 
         @endforeach
-
-
 
 
 
@@ -674,7 +667,9 @@
                                 
                             </td>
                         </tr>
-                    </tbody></table>
+                    </tbody>
+
+                </table>
                 </td>
             </tr>
     </tbody>
