@@ -223,8 +223,6 @@ class AlpEmpresasController extends JoshController
         $empresas=AlpEmpresas::create($data);
 
 
-
-
         if ($request->precio_empresa!=0) {
             
           $precios=AlpPrecioGrupo::where('id_role','E'.$request->precio_empresa )->get();
@@ -688,7 +686,6 @@ class AlpEmpresasController extends JoshController
                   $c=AlpClientes::where('id', $cliente->id)->first();
 
                       $data_cliente_update = array(
-                      'estado_registro' =>$request->estatus,
                       'id_empresa' =>'0'
                        );
 
@@ -729,7 +726,6 @@ class AlpEmpresasController extends JoshController
                   //$c=AlpClientes::where('id', $cliente->id)->first();
 
                       $data_cliente_update = array(
-                      'estado_registro' =>$request->estatus,
                       'id_empresa' =>$cliente->id_empresa
                        );
 
