@@ -287,9 +287,33 @@ class AlpProductosController extends JoshController
 
       $prods=$this->addOferta($productos, $precio, $descuento);
 
-       $view= View::make('admin.productos.postgrid', compact( 'productos', 'prods'));
+      $view= View::make('admin.productos.datagrid', compact( 'productos', 'prods'));
 
-        $data=$view->render();
+      $data=$view->render();
+
+
+
+
+        $nombre_archivo = "uploads/files/plantilla.txt"; 
+ 
+         
+       
+          if($archivo = fopen($nombre_archivo, "a"))
+          {
+              if(fwrite($archivo, $data))
+              {
+                 // echo "Se ha ejecutado correctamente";
+              }
+              else
+              {
+                  //echo "Ha habido un problema al crear el archivo";
+              }
+       
+              fclose($archivo);
+          }
+
+        //  rename ("uploads/files/plantilla.txt", "uploads/files/plantilla.html");
+
 
         return view('admin.productos.postgrid', compact( 'productos', 'prods', 'data'));
     }
