@@ -553,97 +553,25 @@
 
    
         
-        <table id="tb_1" border="0" cellpadding="0" cellspacing="0" width="600px" align="center" class="mcnImageGroupBlock">
+        <table id="tb_2" border="0" cellpadding="0" cellspacing="0" width="600px" align="center" class="mcnImageGroupBlock">
             <tbody class="mcnImageGroupBlockOuter">
         
             <tr>
                 <td valign="top" style="padding:9px" class="mcnImageGroupBlockInner">
                     
-                    <table id="tb2_1" align="left" width="272.9999694824219" border="0" cellpadding="0" cellspacing="0" class="mcnImageGroupContentContainer">
+                    <table id="tb2_2" align="left" width="272.9999694824219" border="0" cellpadding="0" cellspacing="0" class="mcnImageGroupContentContainer">
                             <tbody><tr>
                                 <td class="mcnImageGroupContent" valign="top" style="padding-left: 9px; padding-top: 0; padding-bottom: 0;">
                                     
-                                     <p style="    text-align: center;    color: #fff;    background: #fff;    margin: 0;    padding-top: 1em;"> <a style="    color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/alpinito-multisabor-packx3">Alpinito Multisabor Pack x 12</a></p>
+                                     <p style="    text-align: center;    color: #fff;    background: #fff;    margin: 0;    padding-top: 1em;"> <a style="    color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/alimeto-lacteo-finesse-muslix4">Alimento Lácteo Finesse con Musli x 4</a></p>
                                     
-                                    <a href="https://www.alpinago.com/producto/alpinito-multisabor-packx3?utm_source=mailmarketing&amp;utm_medium=email&amp;utm_campaign=alpinago_2019_M07&amp;utm_content=cpc&amp;utm_term=alpinago_2703_piazza" title="Alpinito Multisabor Pack x 12" class="" target="_blank">
-                                        <img style="    margin-bottom: 0;" alt="" src="https://www.alpinago.com/uploads/productos/sbHnVk4j6y.jpeg" width="263" style="max-width:1000px; padding-bottom: 0;" class="mcnImage">
-                                    </a>
-
-                                       <a style="text-decoration: none;" href="https://www.alpinago.com/producto/alpinito-multisabor-packx3"><p style="      margin-top: -7px;  text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >10090.00</p></a>
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/alpinito-multisabor-packx3"><p style="    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >-9999.00</p></a>
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/alpinito-multisabor-packx3"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >Gramo a $18,68 pesos</p></a>
-                                
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-
-
-
-
-
-       
-
-        
-        
-        
-        
-        
-
-     <table id="tb3_2" align="right" width="272.9999694824219" border="0" cellpadding="0" cellspacing="0" class="mcnImageGroupContentContainer">
-                            <tbody><tr>
-                                <td class="mcnImageGroupContent" valign="top" style="padding-right: 9px; padding-top: 0; padding-bottom: 0;">
-
-                                    <p style="    text-align: center;    color: #fff;    background: #fff;    margin: 0;    padding-top: 1em;"> <a style="    color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/alimeto-lacteo-finesse-muslix4">Alimento Lácteo Finesse con Musli x 4</a></p>
-                                    
-                                
-                                    <a href="https://www.alpinago.com/producto/alimeto-lacteo-finesse-muslix4?utm_source=mailmarketing&amp;utm_medium=email&amp;utm_campaign=alpinago_2020&amp;utm_content=cpc&amp;utm_term=botonhome" title="Alimento Lácteo Finesse con Musli x 4" class="" target="_blank">
+                                    <a href="https://www.alpinago.com/producto/alimeto-lacteo-finesse-muslix4?utm_source=mailmarketing&amp;utm_medium=email&amp;utm_campaign=alpinago_2019_M07&amp;utm_content=cpc&amp;utm_term=alpinago_2703_piazza" title="Alimento Lácteo Finesse con Musli x 4" class="" target="_blank">
                                         <img style="    margin-bottom: 0;" alt="" src="https://www.alpinago.com/uploads/productos/HyYtZGgZpG.jpeg" width="263" style="max-width:1000px; padding-bottom: 0;" class="mcnImage">
                                     </a>
 
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/alimeto-lacteo-finesse-muslix4"><p style="      margin-top: -7px;  text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >10200.00</p></a>
+                                       <a style="text-decoration: none;" href="https://www.alpinago.com/producto/alimeto-lacteo-finesse-muslix4"><p style="      margin-top: -7px;  text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >10200.00</p></a>
                                     <a style="text-decoration: none;" href="https://www.alpinago.com/producto/alimeto-lacteo-finesse-muslix4"><p style="    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >9999.00</p></a>
                                     <a style="text-decoration: none;" href="https://www.alpinago.com/producto/alimeto-lacteo-finesse-muslix4"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >Gramo a $15 pesos</p></a>
-                                
-                                </td>
-                            </tr>
-                        </tbody>
-
-                    </table>
-                    
-                </td>
-            </tr>
-        
-    </tbody>
-</table>
-
-       
-
-        
-        
-        
-        
-        
-        <table id="tb_3" border="0" cellpadding="0" cellspacing="0" width="600px" align="center" class="mcnImageGroupBlock">
-            <tbody class="mcnImageGroupBlockOuter">
-        
-            <tr>
-                <td valign="top" style="padding:9px" class="mcnImageGroupBlockInner">
-                    
-                    <table id="tb2_3" align="left" width="272.9999694824219" border="0" cellpadding="0" cellspacing="0" class="mcnImageGroupContentContainer">
-                            <tbody><tr>
-                                <td class="mcnImageGroupContent" valign="top" style="padding-left: 9px; padding-top: 0; padding-bottom: 0;">
-                                    
-                                     <p style="    text-align: center;    color: #fff;    background: #fff;    margin: 0;    padding-top: 1em;"> <a style="    color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/regeneris-pitaya-x-6">Regeneris Pitaya x 6</a></p>
-                                    
-                                    <a href="https://www.alpinago.com/producto/regeneris-pitaya-x-6?utm_source=mailmarketing&amp;utm_medium=email&amp;utm_campaign=alpinago_2019_M07&amp;utm_content=cpc&amp;utm_term=alpinago_2703_piazza" title="Regeneris Pitaya x 6" class="" target="_blank">
-                                        <img style="    margin-bottom: 0;" alt="" src="https://www.alpinago.com/uploads/productos/oOfVIQGBbT.jpeg" width="263" style="max-width:1000px; padding-bottom: 0;" class="mcnImage">
-                                    </a>
-
-                                       <a style="text-decoration: none;" href="https://www.alpinago.com/producto/regeneris-pitaya-x-6"><p style="      margin-top: -7px;  text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >10200.00</p></a>
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/regeneris-pitaya-x-6"><p style="    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >9999.00</p></a>
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/regeneris-pitaya-x-6"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >Gramo a $11,33 pesos</p></a>
                                 
                                 </td>
                             </tr>
