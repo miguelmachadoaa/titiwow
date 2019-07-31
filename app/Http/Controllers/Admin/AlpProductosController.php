@@ -295,6 +295,13 @@ class AlpProductosController extends JoshController
 
 
         $nombre_archivo = "uploads/files/plantilla.txt"; 
+
+
+        if (file_exists($nombre_archivo))
+          {
+            $borrado = unlink($nombre_archivo);
+            
+          }
  
          
        
