@@ -1,22 +1,12 @@
-
-
-
 @if(isset($data))
 <div style="margin:2em">
-   <label for="">Codigo Html</label>
-<textarea style="width: 100%" name="data" id="data" cols="30" rows="10">
-    
-    {{$data}}
-
-</textarea> 
-</div>
-
+   
 
     <p style="margin:1em;"><a style="    padding: 1em;    text-decoration: none;    color: #f9f4f4;    background: #de0a6a;    margin: 1em;" download="plantilla.html" href="{{secure_url('/uploads/files/plantilla.txt')}}">Descargar Html</a></p>
 
+</div>
+
 @endif
-
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
     <head>
