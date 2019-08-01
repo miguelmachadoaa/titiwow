@@ -567,13 +567,13 @@
                             <tbody><tr>
                                 <td class="mcnImageGroupContent" valign="top" style="padding-left: 9px; padding-top: 0; padding-bottom: 0;">
                                     
-                                     <p style="   color: #193366;
+                                     <p style=" text-align: center;  color: #193366;
     text-decoration: none;
     font-family: verdana;
     font-weight: 800;
     font-size: 14px;" href="https://www.alpinago.com/producto/{{$pro->slug}}">{{$pro->nombre_producto}}</a><td class="mcnImageGroupContent" valign="top" style="padding-right: 9px; padding-top: 0; padding-bottom: 0;">
 
-                                    <p style="   color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/{{$pro->slug}}">{{$pro->nombre_producto}}</a></p>
+                                    <p style=" text-align: center;  color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/{{$pro->slug}}">{{$pro->nombre_producto}}</a></p>
                                     
                                 
                                     <a href="https://www.alpinago.com/producto/{{$pro->slug}}?utm_source=mailmarketing&amp;utm_medium=email&amp;utm_campaign=alpinago_2020&amp;utm_content=cpc&amp;utm_term=botonhome" title="{{$pro->nombre_producto}}" class="" target="_blank">
@@ -607,7 +607,7 @@
                             <tbody><tr>
                                 <td class="mcnImageGroupContent" valign="top" style="padding-right: 9px; padding-top: 0; padding-bottom: 0;">
 
-                                    <p style="   color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/{{$pro->slug}}">{{$pro->nombre_producto}}</a></p>
+                                    <p style=" text-align: center;  color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/{{$pro->slug}}">{{$pro->nombre_producto}}</a></p>
                                     
                                 
                                     <a href="https://www.alpinago.com/producto/{{$pro->slug}}?utm_source=mailmarketing&amp;utm_medium=email&amp;utm_campaign=alpinago_2020&amp;utm_content=cpc&amp;utm_term=botonhome" title="{{$pro->nombre_producto}}" class="" target="_blank">
