@@ -578,7 +578,7 @@
                             <tbody><tr>
                                 <td class="mcnImageGroupContent" valign="top" style="padding-right: 9px; padding-top: 0; padding-bottom: 0;">
 
-                                    <p style="   color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/{{$pro->slug}}">{{$pro->nombre_producto}}</a></p>
+                                    <p style="  text-align: center; color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/{{$pro->slug}}">{{$pro->nombre_producto}}</a></p>
                                     
                                 
                                     <a href="https://www.alpinago.com/producto/{{$pro->slug}}?utm_source=mailmarketing&amp;utm_medium=email&amp;utm_campaign=alpinago_2020&amp;utm_content=cpc&amp;utm_term=botonhome" title="{{$pro->nombre_producto}}" class="" target="_blank">
@@ -612,7 +612,7 @@
                             <tbody><tr>
                                 <td class="mcnImageGroupContent" valign="top" style="padding-right: 9px; padding-top: 0; padding-bottom: 0;">
 
-                                    <p style="   color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/{{$pro->slug}}">{{$pro->nombre_producto}}</a></p>
+                                    <p style=" text-align: center;  color: #193366; text-align: center;   text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/{{$pro->slug}}">{{$pro->nombre_producto}}</a></p>
                                     
                                 
                                     <a href="https://www.alpinago.com/producto/{{$pro->slug}}?utm_source=mailmarketing&amp;utm_medium=email&amp;utm_campaign=alpinago_2020&amp;utm_content=cpc&amp;utm_term=botonhome" title="{{$pro->nombre_producto}}" class="" target="_blank">
@@ -620,12 +620,12 @@
                                     </a>
 
                                     <a style="text-decoration: none;" href="https://www.alpinago.com/producto/{{$pro->slug}}">
-                                        <p style="     font-size: 14px;    margin-top: -7px;    text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >${{$pro->precio_base}}</p>
+                                        <p style="  text-align: center;   font-size: 14px;    margin-top: -7px;    text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >${{$pro->precio_base}}</p>
                                     </a>
                                     <a style="text-decoration: none;" href="https://www.alpinago.com/producto/{{$pro->slug}}">
-                                        <p style="   font-size: 22px;    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >${{$pro->precio_oferta}}</p>
+                                        <p style="  text-align: center; font-size: 22px;    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >${{$pro->precio_oferta}}</p>
                                     </a>
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/{{$pro->slug}}"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >{{$pro->pum}}</p></a>
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/{{$pro->slug}}"><p style="font-size: 10px;    color: #afafaf;  text-align: center;  padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >{{$pro->pum}}</p></a>
                                 
                                 </td>
                             </tr>
