@@ -13,7 +13,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Nuevas promociones AlpinaGO</title>
+        <title>Productos destacados de esta semana | Alpina</title>
         
     <style type="text/css">
         p{
@@ -564,14 +564,25 @@
                             <tbody><tr>
                                 <td class="mcnImageGroupContent" valign="top" style="padding-left: 9px; padding-top: 0; padding-bottom: 0;">
                                     
-                                     <p style="    text-align: center;    color: #fff;    background: #fff;    margin: 0;    padding-top: 1em;"> <a style="    color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/alpinito-multisabor-packx3">Alpinito Multisabor Pack x 12</a></p>
+                                     <p style="   color: #193366;
+    text-decoration: none;
+    font-family: verdana;
+    font-weight: 800;
+    font-size: 14px;" href="https://www.alpinago.com/producto/alpinito-multisabor-packx3">Alpinito Multisabor Pack x 12</a><td class="mcnImageGroupContent" valign="top" style="padding-right: 9px; padding-top: 0; padding-bottom: 0;">
+
+                                    <p style="   color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/alpinito-multisabor-packx3">Alpinito Multisabor Pack x 12</a></p>
                                     
-                                    <a href="https://www.alpinago.com/producto/alpinito-multisabor-packx3?utm_source=mailmarketing&amp;utm_medium=email&amp;utm_campaign=alpinago_2019_M07&amp;utm_content=cpc&amp;utm_term=alpinago_2703_piazza" title="Alpinito Multisabor Pack x 12" class="" target="_blank">
+                                
+                                    <a href="https://www.alpinago.com/producto/alpinito-multisabor-packx3?utm_source=mailmarketing&amp;utm_medium=email&amp;utm_campaign=alpinago_2020&amp;utm_content=cpc&amp;utm_term=botonhome" title="Alpinito Multisabor Pack x 12" class="" target="_blank">
                                         <img style="    margin-bottom: 0;" alt="" src="https://www.alpinago.com/uploads/productos/sbHnVk4j6y.jpeg" width="263" style="max-width:1000px; padding-bottom: 0;" class="mcnImage">
                                     </a>
 
-                                       <a style="text-decoration: none;" href="https://www.alpinago.com/producto/alpinito-multisabor-packx3"><p style="      margin-top: -7px;  text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >10090.00</p></a>
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/alpinito-multisabor-packx3"><p style="    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >-9999.00</p></a>
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/alpinito-multisabor-packx3">
+                                        <p style="     font-size: 14px;    margin-top: -7px;    text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >$10090.00</p>
+                                    </a>
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/alpinito-multisabor-packx3">
+                                        <p style="   font-size: 22px;    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >$-9999.00</p>
+                                    </a>
                                     <a style="text-decoration: none;" href="https://www.alpinago.com/producto/alpinito-multisabor-packx3"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >Gramo a $18,68 pesos</p></a>
                                 
                                 </td>
@@ -592,20 +603,24 @@
         
         
 
-     <table id="tb3_2" align="right" width="272.9999694824219" border="0" cellpadding="0" cellspacing="0" class="mcnImageGroupContentContainer">
+     <table id="tb3_3" align="right" width="272.9999694824219" border="0" cellpadding="0" cellspacing="0" class="mcnImageGroupContentContainer">
                             <tbody><tr>
                                 <td class="mcnImageGroupContent" valign="top" style="padding-right: 9px; padding-top: 0; padding-bottom: 0;">
 
-                                    <p style="    text-align: center;    color: #fff;    background: #fff;    margin: 0;    padding-top: 1em;"> <a style="    color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/alimeto-lacteo-finesse-muslix4">Alimento Lácteo Finesse con Musli x 4</a></p>
+                                    <p style="   color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/regeneris-pitaya-x-6">Regeneris Pitaya x 6</a></p>
                                     
                                 
-                                    <a href="https://www.alpinago.com/producto/alimeto-lacteo-finesse-muslix4?utm_source=mailmarketing&amp;utm_medium=email&amp;utm_campaign=alpinago_2020&amp;utm_content=cpc&amp;utm_term=botonhome" title="Alimento Lácteo Finesse con Musli x 4" class="" target="_blank">
-                                        <img style="    margin-bottom: 0;" alt="" src="https://www.alpinago.com/uploads/productos/HyYtZGgZpG.jpeg" width="263" style="max-width:1000px; padding-bottom: 0;" class="mcnImage">
+                                    <a href="https://www.alpinago.com/producto/regeneris-pitaya-x-6?utm_source=mailmarketing&amp;utm_medium=email&amp;utm_campaign=alpinago_2020&amp;utm_content=cpc&amp;utm_term=botonhome" title="Regeneris Pitaya x 6" class="" target="_blank">
+                                        <img style="    margin-bottom: 0;" alt="" src="https://www.alpinago.com/uploads/productos/oOfVIQGBbT.jpeg" width="263" style="max-width:1000px; padding-bottom: 0;" class="mcnImage">
                                     </a>
 
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/alimeto-lacteo-finesse-muslix4"><p style="      margin-top: -7px;  text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >10200.00</p></a>
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/alimeto-lacteo-finesse-muslix4"><p style="    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >9999.00</p></a>
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/alimeto-lacteo-finesse-muslix4"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >Gramo a $15 pesos</p></a>
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/regeneris-pitaya-x-6">
+                                        <p style="     font-size: 14px;    margin-top: -7px;    text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >$10200.00</p>
+                                    </a>
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/regeneris-pitaya-x-6">
+                                        <p style="   font-size: 22px;    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >$9999.00</p>
+                                    </a>
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/regeneris-pitaya-x-6"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >Gramo a $11,33 pesos</p></a>
                                 
                                 </td>
                             </tr>
@@ -626,25 +641,36 @@
         
         
         
-        <table id="tb_3" border="0" cellpadding="0" cellspacing="0" width="600px" align="center" class="mcnImageGroupBlock">
+        <table id="tb_51" border="0" cellpadding="0" cellspacing="0" width="600px" align="center" class="mcnImageGroupBlock">
             <tbody class="mcnImageGroupBlockOuter">
         
             <tr>
                 <td valign="top" style="padding:9px" class="mcnImageGroupBlockInner">
                     
-                    <table id="tb2_3" align="left" width="272.9999694824219" border="0" cellpadding="0" cellspacing="0" class="mcnImageGroupContentContainer">
+                    <table id="tb2_51" align="left" width="272.9999694824219" border="0" cellpadding="0" cellspacing="0" class="mcnImageGroupContentContainer">
                             <tbody><tr>
                                 <td class="mcnImageGroupContent" valign="top" style="padding-left: 9px; padding-top: 0; padding-bottom: 0;">
                                     
-                                     <p style="    text-align: center;    color: #fff;    background: #fff;    margin: 0;    padding-top: 1em;"> <a style="    color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/regeneris-pitaya-x-6">Regeneris Pitaya x 6</a></p>
+                                     <p style="   color: #193366;
+    text-decoration: none;
+    font-family: verdana;
+    font-weight: 800;
+    font-size: 14px;" href="https://www.alpinago.com/producto/bon-yurt-piazza-170g">Bon Yurt Piazza</a><td class="mcnImageGroupContent" valign="top" style="padding-right: 9px; padding-top: 0; padding-bottom: 0;">
+
+                                    <p style="   color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/bon-yurt-piazza-170g">Bon Yurt Piazza</a></p>
                                     
-                                    <a href="https://www.alpinago.com/producto/regeneris-pitaya-x-6?utm_source=mailmarketing&amp;utm_medium=email&amp;utm_campaign=alpinago_2019_M07&amp;utm_content=cpc&amp;utm_term=alpinago_2703_piazza" title="Regeneris Pitaya x 6" class="" target="_blank">
-                                        <img style="    margin-bottom: 0;" alt="" src="https://www.alpinago.com/uploads/productos/oOfVIQGBbT.jpeg" width="263" style="max-width:1000px; padding-bottom: 0;" class="mcnImage">
+                                
+                                    <a href="https://www.alpinago.com/producto/bon-yurt-piazza-170g?utm_source=mailmarketing&amp;utm_medium=email&amp;utm_campaign=alpinago_2020&amp;utm_content=cpc&amp;utm_term=botonhome" title="Bon Yurt Piazza" class="" target="_blank">
+                                        <img style="    margin-bottom: 0;" alt="" src="https://www.alpinago.com/uploads/productos/MxH4lREMm5.jpeg" width="263" style="max-width:1000px; padding-bottom: 0;" class="mcnImage">
                                     </a>
 
-                                       <a style="text-decoration: none;" href="https://www.alpinago.com/producto/regeneris-pitaya-x-6"><p style="      margin-top: -7px;  text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >10200.00</p></a>
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/regeneris-pitaya-x-6"><p style="    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >9999.00</p></a>
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/regeneris-pitaya-x-6"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >Gramo a $11,33 pesos</p></a>
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/bon-yurt-piazza-170g">
+                                        <p style="     font-size: 14px;    margin-top: -7px;    text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >$2500.00</p>
+                                    </a>
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/bon-yurt-piazza-170g">
+                                        <p style="   font-size: 22px;    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >$2300.00</p>
+                                    </a>
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/bon-yurt-piazza-170g"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >Gramo a $14,71 pesos</p></a>
                                 
                                 </td>
                             </tr>
@@ -664,20 +690,24 @@
         
         
 
-     <table id="tb3_4" align="right" width="272.9999694824219" border="0" cellpadding="0" cellspacing="0" class="mcnImageGroupContentContainer">
+     <table id="tb3_78" align="right" width="272.9999694824219" border="0" cellpadding="0" cellspacing="0" class="mcnImageGroupContentContainer">
                             <tbody><tr>
                                 <td class="mcnImageGroupContent" valign="top" style="padding-right: 9px; padding-top: 0; padding-bottom: 0;">
 
-                                    <p style="    text-align: center;    color: #fff;    background: #fff;    margin: 0;    padding-top: 1em;"> <a style="    color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/pudin-alpina-arequipe-x-2">Pudín Alpina Arequipe x 2</a></p>
+                                    <p style="   color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/regeneris-trozos-fresa-1000g">Regeneris Trozos Fresa</a></p>
                                     
                                 
-                                    <a href="https://www.alpinago.com/producto/pudin-alpina-arequipe-x-2?utm_source=mailmarketing&amp;utm_medium=email&amp;utm_campaign=alpinago_2020&amp;utm_content=cpc&amp;utm_term=botonhome" title="Pudín Alpina Arequipe x 2" class="" target="_blank">
-                                        <img style="    margin-bottom: 0;" alt="" src="https://www.alpinago.com/uploads/productos/yPi2268gJI.jpeg" width="263" style="max-width:1000px; padding-bottom: 0;" class="mcnImage">
+                                    <a href="https://www.alpinago.com/producto/regeneris-trozos-fresa-1000g?utm_source=mailmarketing&amp;utm_medium=email&amp;utm_campaign=alpinago_2020&amp;utm_content=cpc&amp;utm_term=botonhome" title="Regeneris Trozos Fresa" class="" target="_blank">
+                                        <img style="    margin-bottom: 0;" alt="" src="https://www.alpinago.com/uploads/productos/qcf7wiuU0g.jpeg" width="263" style="max-width:1000px; padding-bottom: 0;" class="mcnImage">
                                     </a>
 
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/pudin-alpina-arequipe-x-2"><p style="      margin-top: -7px;  text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >3100.00</p></a>
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/pudin-alpina-arequipe-x-2"><p style="    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >9999.00</p></a>
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/pudin-alpina-arequipe-x-2"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >Gramo a $15,5 pesos</p></a>
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/regeneris-trozos-fresa-1000g">
+                                        <p style="     font-size: 14px;    margin-top: -7px;    text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >$9400.00</p>
+                                    </a>
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/regeneris-trozos-fresa-1000g">
+                                        <p style="   font-size: 22px;    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >$8648.00</p>
+                                    </a>
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/regeneris-trozos-fresa-1000g"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >Gramo a $9,4 pesos</p></a>
                                 
                                 </td>
                             </tr>
@@ -1002,8 +1032,7 @@
 Visítanos en </span><a href="https://na01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.alpina.com&amp;data=02%7C01%7Csantiago.jaramillo%40alpina.com%7Cf44f9a6ec7dc40e3c2fa08d62ede0a50%7Ca83d52082c5a42a78db753e3bdb6bdbc%7C0%7C0%7C636747928539734761&amp;sdata=7N0RaVoTRdYUD7TBR%2FUfBZfkXiXZO4dKDq9Dn0eSCnA%3D&amp;reserved=0" originalsrc="https://www.alpina.com" shash="zlcZOUecx5WdBMLMjE/t7UcQIMxEpp/CSfIfHJIFCH2GcVyyB5UAbtCBxKhG2hSlxjVqIg7olM+HKo4IwGnDMAWbUXIs9JHv/fNqBAx5IcR9T9ter6Hmu7qHOfSkv1OX1WaZkjdKsr9bVH+6J5KO7vmt70bZmrkUZNYLUgEWPs4="><span style="color:#696969">www.alpina.com</span></a><br>
 <span style="color:#696969">Si tienes dudas o inconvenientes, por favor escribenos a </span><a href="mailto:contaccenter@alpina.com"><span style="color:#696969">contaccenter@alpina.com</span></a><br>
 <br>
-<span style="color:#696969">Para los precios con descuento debes estar registrado. Aplica solamente en la ciudad de Bogotá. Todos los pedidos realizados de lunes a viernes entre las 8:00 am y 5:00 pm serán entregados al día siguiente. Los que se realicen después de este horario, se entregarán un día después. Los pedidos realizados el sábado entre las 8:00 am y las 2:00 pm se entregarán el siguiente lunes, después de ese horario y el resto del fin de semana serán entregados el siguiente martes. Los pedidos pueden ser entregados en una franja horaria que va desde las 6:00 am hasta las 6:00 pm en el día indicado. Los términos y condiciones pueden ser consultados en www.alpinago.com<br>
-El Pack Alpijuguete contiene: 1 multiempaque de Alpinito fresa-Mora de 45g x 6 unidades + 1 multiempaque de Alpinito Frutos Rojos-Galleta de 90g x 4 unidades + 1 Alpijuguete – Son 4 mundos coleccionables. Cada plegadiza contiene solo un elemento del mundo: muñeco, carro, cohete, camión u hospital.</span>
+<span style="color:#696969">Para los precios con descuento debes estar registrado. Aplica solamente en la ciudad de Bogotá. Todos los pedidos realizados de lunes a viernes entre las 8:00 am y 5:00 pm serán entregados al día siguiente. Los que se realicen después de este horario, se entregarán un día después. Los pedidos realizados el sábado entre las 8:00 am y las 2:00 pm se entregarán el siguiente lunes, después de ese horario y el resto del fin de semana serán entregados el siguiente martes. Los pedidos pueden ser entregados en una franja horaria que va desde las 6:00 am hasta las 6:00 pm en el día indicado. Los términos y condiciones pueden ser consultados en www.alpinago.com.</span>
                         </td>
                     </tr>
                 </tbody></table>
