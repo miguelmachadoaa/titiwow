@@ -23,6 +23,7 @@ class AlpEmpresas extends Model
         'descripcion_empresa',
         'descuento_empresa',
         'dominio',
+        'convenio',
         'imagen',
         'estado_registro',
         'id_user'

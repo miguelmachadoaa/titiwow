@@ -99,7 +99,6 @@ Editar Empresa
 
                             <label for="title" class="col-sm-3 col-xs-12 control-label">Imagen </label>
 
-
                             <div class="col-sm-9 col-xs-12">
 
                             <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -156,6 +155,21 @@ Editar Empresa
                             </div>
                             <div class="col-sm-4">
                                 {!! $errors->first('dominio', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
+                        <div class="form-group {{ $errors->
+                            first('convenio', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Convenio
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="text" id="convenio" name="convenio" class="form-control" placeholder="convenio de Empresa"
+                                       value="{!! old('convenio', $empresas->convenio) !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('convenio', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
 
