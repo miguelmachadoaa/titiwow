@@ -531,10 +531,23 @@ class FrontEndController extends JoshController
 
                   $user = Sentinel::register($request->only(['first_name', 'last_name', 'email', 'password']), $activate);
 
+                  if ($request->convenio!='') {
+                    
+                    $empresa=AlpEmpresas::where('convenio', $request->codigo)->first();
 
-                   $dominio=explode('@', $request->email);
 
-                  $empresa=AlpEmpresas::where('dominio',$dominio[1])->first();
+                  }
+
+                  if (isset($empresa->id)) {
+                    
+                  }else{
+
+                    $dominio=explode('@', $request->email);
+
+                    $empresa=AlpEmpresas::where('dominio',$dominio[1])->first();
+
+                  }
+
 
                  // dd($empresa);
 

@@ -111,7 +111,7 @@
                 <div class="clearfix"></div>
                 <hr />
                 <h4 class="text-primary">Dirección</h4>
-                <div class="form-group {{ $errors->first('cod_alpinista', 'has-error') }}">
+                <div class="form-group {{ $errors->first('state_id', 'has-error') }}">
                     <div class="" >
                         <select id="state_id" name="state_id" value="{!! old('state_id') !!}" class="form-control">
                             <option value="">Seleccione Departamento</option>     
@@ -173,6 +173,17 @@
                     <input type="text" class="form-control" value="{!! old('barrio_address') !!}" id="barrio_address" name="barrio_address" placeholder="Barrio"
                            value="{!! old('barrio_address') !!}" >
                     {!! $errors->first('barrio_address', '<span class="help-block">:message</span>') !!}
+                </div>
+
+                <div class="clearfix"></div>
+                <hr />
+
+
+                <div class="form-group {{ $errors->first('convenio', 'has-error') }}">
+                    <label for="">Código de Convenio Empresa <small>(Opcional)</small></label>
+                    <input type="text" class="form-control" value="{!! old('convenio') !!}" id="convenio" name="convenio" placeholder="Código de Convenio"
+                           value="{!! old('convenio') !!}" >
+                    {!! $errors->first('convenio', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="clearfix"></div>
                 <hr />
@@ -241,6 +252,25 @@
         </div>
     </div>
     <!-- //Content Section End -->
+
+<div class="modal fade" id="ModalConvenido" tabindex="-2" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Error</h4>
+            </div>
+            <div class="modal-body">
+               <h3>El código que intento usar no existe, Desea registrarse sin convenio.</h3> 
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
 </div>
 <!--global js starts-->
 <script src='https://www.google.com/recaptcha/api.js'></script>
@@ -267,13 +297,27 @@ $(document).ready(function(){
                 $('#btnsubmit').removeAttr('disabled');             
         })
 
-
-
         $(document).on('click','#btnsubmit', function(e){
+
+            codigo=0;
 
             e.preventDefault();
 
-            $('.res_cod_alpinista').html('');
+            base=$('#base').val();
+
+         _token=$('input[name="_token"]').val();
+
+         convenio=$('#convenio').val();
+
+            if (convenio!='' && convenio!=undefined) {
+
+                $.post('/postconveniosregistro', { convenio, _token}, function(data) {
+
+                   // alert(data+'d');
+
+                    if (data==1) {
+
+                        $('.res_cod_alpinista').html('');
 
 
             var $validator = $('#reg_form').data('bootstrapValidator').validate();
@@ -309,6 +353,60 @@ $(document).ready(function(){
                                
                         }
                 }
+
+                    }else{
+
+                        $('#ModalConvenido').modal('show');
+                        $('#convenio').val('');
+                    }
+
+                });
+
+            }else{
+
+                $('.res_cod_alpinista').html('');
+
+
+            var $validator = $('#reg_form').data('bootstrapValidator').validate();
+
+
+                if( $('#chkalpinista').is(':checked') ) {
+
+
+                    if ($('#cod_alpinista').val()!='') {
+
+
+                     if ($validator.isValid()) {
+
+
+                            $("#reg_form")[0].submit();
+
+                       }
+
+                    }else{
+
+
+                        $('.res_cod_alpinista').html('<span class="help-block">Código de Alpinista es requerido</span>');
+
+                       //$('#btnsubmit').attr('disabled', '1');
+                    }
+
+                }else{
+
+
+                        if ($validator.isValid()) {
+
+                           $("#reg_form")[0].submit();
+                               
+                        }
+                }
+
+
+            }
+
+
+            //alert(codigo);
+
 
         });
 

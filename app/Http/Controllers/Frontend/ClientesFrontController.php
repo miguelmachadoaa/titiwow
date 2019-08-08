@@ -8,6 +8,7 @@ use App\Models\AlpOrdenes;
 use App\Models\AlpProductos;
 use App\Models\AlpClientes;
 use App\Models\AlpEmpresas;
+use App\Models\AlpEmpresasUser;
 use App\Models\AlpDirecciones;
 use App\Models\AlpCarrito;
 use App\Models\AlpDetalles;
@@ -43,9 +44,7 @@ class ClientesFrontController extends Controller
 
         $dt = Carbon::now(); 
 
-// These getters specifically return integers, ie intval()
-       //echo  $dt->year;                                         // int(2012)
-       // echo $dt->month;  
+
 
         if (Sentinel::check()) {
 
@@ -54,7 +53,6 @@ class ClientesFrontController extends Controller
             $role=RoleUser::where('user_id', $user_id)->first();
 
             //dd($role);
-
 
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
 
@@ -149,7 +147,7 @@ class ClientesFrontController extends Controller
 
             }
 
-            //dd($puntos);
+            //dd($cliente);
 
             return \View::make('frontend.clientes.index', compact( 'cliente', 'user', 'states', 'cart', 'puntos', 'role'));
     
@@ -164,6 +162,96 @@ class ClientesFrontController extends Controller
 
        
     }
+
+
+     public function convenios()
+    {
+
+        /*solo muestra el menu de opciones del cliente 
+        verifi si esta logueado        */
+
+        $dt = Carbon::now(); 
+
+
+
+        if (Sentinel::check()) {
+
+            $user_id = Sentinel::getUser()->id;
+
+            $role=RoleUser::where('user_id', $user_id)->first();
+
+            //dd($role);
+
+            $cliente = AlpClientes::where('id_user_client', $user_id )->first();
+
+           // dd($cliente);
+
+                if (!is_null($cliente)) {
+
+                    if ($cliente->id_empresa!=0) {
+                        
+                        $empresa=AlpEmpresas::find($cliente->id_empresa);
+
+                       // dd($empresa);
+
+                        $cliente['nombre_empresa']=$empresa->nombre_empresa;
+
+                    }
+
+                    if ($cliente->id_embajador!=0) {
+
+
+                        
+                        $user_embajador = User::where('id', $cliente->id_embajador )->first();
+
+                        if (isset($user_embajador->first_name)) {
+
+                        $cliente['nombre_embajador']=$user_embajador->first_name.' '.$user_embajador->last_name;
+
+                            
+                        }else{
+
+                            $cliente['nombre_embajador']=$cliente->id_embajador;
+
+
+                        }
+
+
+                        
+                    }
+
+                }
+                
+
+            $user = User::where('id', $user_id )->first();
+
+            $states=State::where('config_states.country_id', '47')->get();
+
+            $cart= \Session::get('cart');
+
+            $puntos = array();
+
+
+           
+
+            //dd($cliente);
+
+            return \View::make('frontend.clientes.convenios', compact( 'cliente', 'user', 'states', 'cart', 'puntos', 'role'));
+    
+            }else{
+
+                $url='clientes';
+
+                  //return redirect('login');
+                return view('frontend.order.login', compact('url'));
+
+        }
+
+       
+    }
+
+
+
 
     /*mmuestra el listado de direcciones del cliente logueado */
 
@@ -1294,22 +1382,117 @@ class ClientesFrontController extends Controller
         }else{
 
             return redirect::route('misdirecciones')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+        }
 
+    }
 
+     public function postconvenios(Request $request)
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('ClientesFrontController/postconvenios ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('ClientesFrontController/postconvenios');
 
         }
 
+        $user = Sentinel::getUser();
 
-          
+        $input = $request->all();
 
-      /*  } else {
+        $empresa=AlpEmpresas::where('convenio', $request->codigo)->first();
 
-            return Redirect::route('order/detail')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
-        }   */ 
+
+
+        if(isset($empresa->id)){
+
+            $usuario=User::where('id', $user->id)->first();
+
+            $role = Sentinel::findRoleById(12);
+
+            $role->users()->detach($usuario);
+
+            $role = Sentinel::findRoleById(9);
+
+            $role->users()->detach($usuario);
+
+            $role = Sentinel::findRoleById(12);
+
+            $role->users()->attach($usuario);
+
+            $c=AlpClientes::where('id_user_client', $user->id)->first();
+
+            $data_cliente_update = array(
+                'id_empresa' =>$empresa->id
+            );
+
+            $c->update($data_cliente_update);
+
+            $data_empresa = array(
+              'id_empresa' => $empresa->id, 
+              'id_cliente' => $user->id, 
+              'id_user' => $user->id
+            );
+
+           // dd($empresa);
+
+            $de=AlpEmpresasUser::create($data_empresa);
+
+            return 1;
+
+        }else{
+
+            return 0;
+
+        }
 
     }
 
 
-   
+    public function postconveniosregistro(Request $request)
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('ClientesFrontController/postconveniosregistro ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('ClientesFrontController/postconveniosregistro');
+
+        }
+        
+
+        $empresa=AlpEmpresas::where('convenio', $request->convenio)->first();
+
+        if(isset($empresa->id)){
+
+            return 1;
+
+        }else{
+
+            return 0;
+
+        }
+
+    }
+
+
+
 
 }

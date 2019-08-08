@@ -98,6 +98,12 @@ Area clientes
 
             @endif
 
+            @if($role->role_id==9)
+
+             <h4>Bienvenido a AlpinaGo, Ya eres un Cliente AlpinaGo.</h4>
+
+            @endif
+
         @else
 
             <h4>Bienvenido a Tu Perfil</h4>
@@ -167,6 +173,31 @@ Area clientes
                 </a>
                 </div> 
                 @endif
+
+
+                
+                <div class="col-sm-2 text-center"> 
+                <a  href="{{ secure_url('convenios') }}" class=" btn-medium cajita">
+                    <div class="row">
+                    <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-industry"></i></div>
+                    
+
+                    @if(isset($cliente->nombre_empresa))
+
+                        <div class="col-sm-12">Convenio: {{$cliente->nombre_empresa}}</div>
+
+                    @else
+
+                        <div class="col-sm-12">Convenio: {{$cliente->nombre_empresa}}</div>
+
+
+                    @endif
+
+                    </div>
+                </a>
+                </div> 
+
+
 
                 @if (Sentinel::getUser()->hasAnyAccess(['clientes.misamigos']))
                 <!--div class="col-sm-2 text-center"> 

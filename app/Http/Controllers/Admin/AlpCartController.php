@@ -523,13 +523,10 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
       $user = Sentinel::getUser();
 
-
             activity($user->full_name)
                     ->performedOn($user)
                     ->causedBy($user)
                     ->withProperties($input)->log('Order Pse, captura de pago con pse');
-
-
 
 
        if (\Session::has('pse')) {

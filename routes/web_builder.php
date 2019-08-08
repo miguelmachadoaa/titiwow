@@ -984,6 +984,15 @@ Route::get('miscompras', 'Frontend\ClientesFrontController@miscompras')->name('f
 
 Route::get('misamigos', 'Frontend\ClientesFrontController@misamigos')->name('frontend.clientes.misamigos');
 
+Route::get('convenios', 'Frontend\ClientesFrontController@convenios')->name('frontend.clientes.convenios');
+
+
+
+Route::post('postconvenios', 'Frontend\ClientesFrontController@postconvenios')->name('frontend.clientes.postconvenios');
+
+Route::post('postconveniosregistro', 'Frontend\ClientesFrontController@postconveniosregistro')->name('frontend.clientes.postconveniosregistro');
+
+
 Route::get('miestatus', 'Frontend\ClientesFrontController@miestatus')->name('frontend.clientes.miestatus');
 
 Route::get('misdirecciones', 'Frontend\ClientesFrontController@misdirecciones')->name('frontend.clientes.misdirecciones');
