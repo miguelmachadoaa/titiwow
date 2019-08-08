@@ -18,6 +18,7 @@ class CreateAlpEmpresasTable extends Migration
             $table->string('nombre_empresa');
             $table->string('dominio');
             $table->text('descripcion_empresa')->nullable();
+            $table->string('convenio')->nullable();
             $table->decimal('descuento_empresa');
             $table->integer('estado_registro')->default(1);
             $table->integer('id_user');
