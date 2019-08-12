@@ -663,7 +663,7 @@ class FrontEndController extends JoshController
 
                      $configuracion->mensaje_bienvenida="Ha sido registrado satisfactoriamente bajo la empresa ".$empresa->nombre_empresa.", debe esperar que su Usuario sea activado en un proceso interno, te notificaremos vía email su activación.";
 
-                return redirect('login')->with('success', trans($mensaje));
+                return redirect('login?registro='.$user->id)->with('success', trans($mensaje));
 
                 }
 
@@ -688,7 +688,7 @@ class FrontEndController extends JoshController
             $cliente->update($data_c);
 
            // return Redirect::route("clientes")->with('success', trans('auth/message.signup.success'));
-            return Redirect::route("home")->with('success', trans('Bienvenido a Alpina GO!. Ya puedes comprar todos nuestro productos y promociones. Alpina Alimenta tu vida. '));
+            return redirect("/?registro=".$user->id)->with('success', trans('Bienvenido a Alpina GO!. Ya puedes comprar todos nuestro productos y promociones. Alpina Alimenta tu vida. '));
 
 
 

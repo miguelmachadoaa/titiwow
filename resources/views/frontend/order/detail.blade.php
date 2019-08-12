@@ -360,123 +360,7 @@ div.overlay > div {
             </div>
         </div>
 
-<!-- Modal Direccion -->
-   
-<!-- Modal Direccion -->
- <!--div class="modal fade" id="addDireccionModal" role="dialog" aria-labelledby="modalLabeldanger">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header bg-primary">
-                        <h4 class="modal-title" id="modalLabeldanger">Agregar Dirección</h4>
-                    </div>
-                    <div class="modal-body">
-                        
-                        <form method="POST" action="{{secure_url('cart/storedir')}}" id="addDireccionForm" name="addDireccionForm" class="form-horizontal">
 
-                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
-
-                            {{ csrf_field() }}
-                            <div class="row">
-
-                                <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Nickname Dirección</label>
-
-                                    <div class="col-sm-8">
-                                        <input style="margin: 4px 0;" id="nickname_address" name="nickname_address" type="text" placeholder="Nickname Direccion" class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-sm-12">
-                                    <label for="select21" class="col-md-3 control-label">
-                                        Pais
-                                    </label>
-                                    <div class="col-md-8" >
-                                        <select style="margin: 4px 0;" id="country_id" name="country_id" class="form-control ">
-                                            <option value="">Seleccione</option>
-                                           
-                                            @foreach($countries as $pais)
-                                            <option value="{{ $pais->id }}"
-                                                    @if($pais->id == old('country_id')) selected="selected" @endif >{{ $pais->country_name}}</option>
-                                            @endforeach
-                                          
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-sm-12">
-                                    <label for="select21" class="col-md-3 control-label">
-                                        Departamento
-                                    </label>
-                                    <div class="col-md-8" >
-                                        <select style="margin: 4px 0;" id="state_id" name="state_id" class="form-control ">
-                                            <option value="">Seleccione</option>
-                                          
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-sm-12">
-                                    <label for="select21" class="col-md-3 control-label">
-                                        Ciudad
-                                    </label>
-                                    <div class="col-md-8" >
-                                        <select style="margin: 4px 0;" id="city_id" name="city_id" class="form-control ">
-                                            <option value="">Seleccione</option>
-                                          
-                                        </select>
-                                    </div>
-                                </div>
-
-
-
-                                <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Calle </label>
-
-                                    <div class="col-sm-8">
-                                        <input style="margin: 4px 0;" id="calle_address" name="calle_address" type="text" placeholder="Calle" class="form-control">
-                                    </div>
-                                </div>
-                                
-
-                                <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Código Postal</label>
-
-                                    <div class="col-sm-8">
-                                     <input style="margin: 4px 0;" id="codigo_postal_address" name="codigo_postal_address" type="text" placeholder="Codigo Postal" class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Teléfono</label>
-
-                                    <div class="col-sm-8">
-                                        <input style="margin: 4px 0;" id="telefono_address" name="telefono_address" type="text" placeholder="Telefono" class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Notas</label>
-
-                                    <div class="col-sm-8">
-                                        <textarea style="margin: 4px 0;" id="notas" name="notas" type="text" placeholder="Notas" class="form-control"></textarea>
-                                    </div>
-                                </div>
-
-
-                            </div>
-                        </form>
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn  btn-primary sendDireccion" >Agregar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-<!-- Modal Direccion -->
 
 
   
@@ -815,6 +699,9 @@ $('.sendCupon').click(function () {
                                             
                                         complete: function(datos){     
 
+                                            $(location).attr("href", datos.responseText);
+
+
                                             $('.contain_body').html(datos.responseText);
 
                                             $('.overlay').fadeOut();
@@ -868,6 +755,8 @@ $('.sendCupon').click(function () {
                                     url: base+"/order/procesar",
                                     
                                     complete: function(datos){     
+
+                                         $(location).attr("href", datos.responseText);
 
                                         $('.contain_body').html(datos.responseText);
 

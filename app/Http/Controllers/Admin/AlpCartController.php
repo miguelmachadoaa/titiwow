@@ -271,6 +271,108 @@ class AlpCartController extends JoshController
 
     }
 
+
+     public function gracias($id)
+    {
+
+      $id=$id/1024;
+
+      $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
+              ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
+              ->join('alp_clientes','alp_ordenes.id_cliente' , '=', 'alp_clientes.id_user_client')
+              ->join('alp_formas_envios','alp_ordenes.id_forma_envio' , '=', 'alp_formas_envios.id')
+              ->join('alp_formas_pagos','alp_ordenes.id_forma_pago' , '=', 'alp_formas_pagos.id')
+              ->where('alp_ordenes.id', $id)->first();
+
+
+          $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug')
+            ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
+            ->where('alp_ordenes_detalle.id_orden', $id)->get();
+
+            $pago=AlpPagos::where('id_orden', $id)->first();
+
+          // dd($pago);
+
+            $payment=json_decode($pago->json);
+
+          $envio=AlpEnvios::where('id_orden', $id)->first();
+
+          $fecha_entrega=$envio->fecha_envio;
+
+          $states=State::where('config_states.country_id', '47')->get();
+
+          $configuracion = AlpConfiguracion::where('id','1')->first();
+
+          $user_cliente=User::where('id', $compra->id_cliente)->first();
+
+         // $aviso_pago='';
+
+
+          
+
+
+ 
+          $estatus_aviso='success';
+
+          if (isset($payment->response->payment_method_id)) {
+
+
+            if ($payment->response->payment_method_id=='pse') {
+
+
+               $estatus_aviso='warning';
+
+              $aviso_pago="Estamos verificando su pago, una vez sea confirmado, Le llegará un email con la descripción de su pedido. En caso de existir algún error en el pago le invitamos a Mis Compras desde su perfil para intentar pagar nuevamente";
+
+              $metodo=$payment->response->payment_method_id;
+
+
+              
+            }
+
+
+            if ($payment->response->payment_type_id=='ticket'  ) {
+
+              $metodo=$payment->response->payment_method_id;
+
+
+               $estatus_aviso='warning';
+
+                
+              $aviso_pago="Hemos procesado su orden satisfactoriamente, Su id para realizar el deposito en efectivo es <h4> ".$payment->response->id." </h4>. Las indicaciones para finalizar su pago puede seguirlas en este enlace <a target='_blank' href='".$payment->response->transaction_details->external_resource_url."' >Ticket</a>. Tiene 72 Horas para realizar el pago, o su orden sera cancelada. ¡Muchas gracias por su Compra!";
+
+              
+            }
+
+
+            if ($payment->response->payment_type_id=='credit_card' ) {
+
+
+               $estatus_aviso='warnsing';
+                
+              $aviso_pago="Hemos recibido su pago satisfactoriamente, una vez sea confirmado, Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!";
+
+              $metodo=$payment->response->payment_type_id;
+
+              
+            }
+
+
+
+            //$metodo=$payment->response->payment_method_id;
+
+          }
+          
+
+
+
+        return view('frontend.order.gracias', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago', 'payment', 'estatus_aviso', 'metodo'));
+
+    }
+
+
+
+
     public function orderRapipago(){
 
       $path='uploads/productos/';
@@ -607,8 +709,13 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
             'medio' => 'PSE', 
             'mensaje' => 'Estamos verificando su pago, una vez sea confirmado, Le llegará un email con la descripción de su pedido. En caso de existir algún error en el pago le invitamos a Mis Compras desde su perfil para intentar pagar nuevamente', 
           );
+
+          $idc=$id_orden*1024;
+
+
+          return redirect('cart/'.$idc.'/gracias?pago=pendiente');
           
-          return view('frontend.order.procesar_completo', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago', 'estatus_aviso'));
+        #  return view('frontend.order.procesar_completo', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago', 'estatus_aviso'));
         
 
       }else{
@@ -987,9 +1094,14 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
             Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
 
            Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
+
+           $idc=$compra->id*1024;
+
+
+           return redirect('cart/'.$idc.'/gracias?pago=aprobado');
           
 
-           return view('frontend.order.procesar_completo', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
+         #  return view('frontend.order.procesar_completo', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
         
         }else{
 
@@ -1380,7 +1492,15 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
             $metodo=$payment['response']['payment_method_id'];
 
-            return view('frontend.order.procesarticket', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago', 'payment', 'estatus_aviso', 'metodo'));
+            $idc=$compra->id*1024;
+
+
+            return secure_url('cart/'.$idc.'/gracias?pago=pendiente');
+
+
+            //return redirect('cart/'.$idc.'/gracias?pago=pendiente');
+
+            //return view('frontend.order.procesarticket', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago', 'payment', 'estatus_aviso', 'metodo'));
 
         }else{
 
@@ -1873,7 +1993,12 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
           //Mail::to($configuracion->correo_cedi)->send(new \App\Mail\NotificacionOrden($compra->id, $texto));
 
-          return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
+
+           $idc=$orden->id*1024;
+
+          return redirect('cart/'.$idc.'/gracias?pago=pendiente');
+
+          #return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
 
       }else{
 

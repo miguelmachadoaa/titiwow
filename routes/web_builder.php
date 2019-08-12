@@ -787,6 +787,11 @@ Route::get('cart/add/{id}', ['as'=>'cart.addlink', 'uses'=>'Admin\AlpCartControl
 
 Route::get('cart/mercadopago', ['as'=>'cart.mercadopago', 'uses'=>'Admin\AlpCartController@mercadopago']);
 
+
+Route::get('cart/{id}/gracias', ['as'=>'cart.gracias', 'uses'=>'Admin\AlpCartController@gracias']);
+
+
+
 Route::get(    'order/detail',     [
         //'middleware'=>'auth', 
         'as'=>'order.detail', 

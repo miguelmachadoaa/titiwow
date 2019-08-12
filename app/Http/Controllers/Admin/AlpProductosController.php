@@ -139,6 +139,8 @@ class AlpProductosController extends JoshController
 
             $imagen="<img src='../uploads/productos/".$alpProductos->imagen_producto."' height='60px'>";
 
+            //dd($alpProductos);
+
                $data[]= array(
                  $alpProductos->id, 
                  $alpProductos->nombre_producto, 
