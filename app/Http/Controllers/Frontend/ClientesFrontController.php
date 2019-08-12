@@ -21,6 +21,7 @@ use App\Models\AlpClientesHistory;
 use App\Http\Requests\DireccionRequest;
 
 use App\User;
+use App\Roles;
 use App\Country;
 use App\State;
 use App\City;
@@ -67,6 +68,7 @@ class ClientesFrontController extends Controller
                        // dd($empresa);
 
                         $cliente['nombre_empresa']=$empresa->nombre_empresa;
+                        $cliente['imagen_empresa']=$empresa->imagen;
 
                     }
 
@@ -149,7 +151,9 @@ class ClientesFrontController extends Controller
 
             //dd($cliente);
 
-            return \View::make('frontend.clientes.index', compact( 'cliente', 'user', 'states', 'cart', 'puntos', 'role'));
+            $rol=Roles::where('id', $role->role_id)->first();
+
+            return \View::make('frontend.clientes.index', compact( 'cliente', 'user', 'states', 'cart', 'puntos', 'role', 'rol'));
     
             }else{
 

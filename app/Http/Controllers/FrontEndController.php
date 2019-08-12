@@ -66,7 +66,11 @@ class FrontEndController extends JoshController
 
         $categorias = DB::table('alp_categorias')->select('alp_categorias.*')->where('destacado','=', 1)->where('alp_categorias.estado_registro','=',1)->orderBy('order', 'asc')->limit(9)->get();
 
-        $productos = DB::table('alp_productos')->select('alp_productos.*')->where('destacado','=', 1)->where('alp_productos.estado_registro','=',1)->orderBy('order', 'asc')->limit(12)->get();
+        $productos = DB::table('alp_productos')->select('alp_productos.*')->where('destacado','=', 1)->where('alp_productos.estado_registro','=',1)
+        ->orderBy('order', 'asc')
+        ->orderBy('created_at', 'desc')
+        ->orderBy('updated_at', 'desc')
+        ->limit(12)->get();
 
         $marcas = DB::table('alp_marcas')->select('alp_marcas.*')->where('destacado','=', 1)->where('alp_marcas.estado_registro','=',1)->orderBy('order', 'asc')->limit(12)->get();
 
@@ -688,7 +692,7 @@ class FrontEndController extends JoshController
             $cliente->update($data_c);
 
            // return Redirect::route("clientes")->with('success', trans('auth/message.signup.success'));
-            return redirect("/?registro=".$user->id)->with('success', trans('Bienvenido a Alpina GO!. Ya puedes comprar todos nuestro productos y promociones. Alpina Alimenta tu vida. '));
+            return redirect("/?registro=".time())->with('success', trans('Bienvenido a Alpina GO!. Ya puedes comprar todos nuestro productos y promociones. Alpina Alimenta tu vida. '));
 
 
 
@@ -946,10 +950,9 @@ class FrontEndController extends JoshController
 
         }
 
-         \Session::forget('cart');
-             \Session::forget('orden');
-             \Session::forget('cr');
-
+            \Session::forget('cart');
+            \Session::forget('orden');
+            \Session::forget('cr');
 
             //Activity log
             $user = Sentinel::getuser();
@@ -959,12 +962,6 @@ class FrontEndController extends JoshController
                 ->log('LoggedOut');
             // Log the user out
             Sentinel::logout();
-
-
-
-
-
-            
 
             // Redirect to the users page
             return redirect('login')->with('success', 'Cerró Sesión Exitosamente');

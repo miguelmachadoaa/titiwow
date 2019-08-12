@@ -80,13 +80,29 @@ Area clientes
         <div class="alert alert-default">
         @if(isset($cliente))
 
+
+
+
+
+
             @if($role->role_id==12)
 
-                <h4>Cliente afiliado por la empresa: {{ $cliente->nombre_empresa }}</h4>
+            <div class="col-sm-6"><h4> Hola: {{$user->first_name.' '.$user->last_name}}</h4>
+        <h4> Perteneces al rol: {{$rol->name}}</h4>
+
+                <h4>Cliente afiliado por la empresa: {{ $cliente->nombre_empresa }}</h4></div>
+            <div class="col-sm-6">
+                <img style="width:  80px;" src='{{secure_url('uploads/empresas/'.$cliente->imagen_empresa)}}'class='img-responsive' alt='Image'>
+            </div>
+
+            
 
             @endif
 
             @if($role->role_id==11)
+
+            <h4> Hola: {{$user->first_name.' '.$user->last_name}}</h4>
+        <h4> Perteneces al rol: {{$rol->name}}</h4>
 
                 <h4>Usted es parte de los amigos alpina de: {{ $cliente->nombre_embajador }}</h4>
 
@@ -94,11 +110,18 @@ Area clientes
 
             @if($role->role_id==10)
 
+            <h4> Hola: {{$user->first_name.' '.$user->last_name}}</h4>
+        <h4> Perteneces al rol: {{$rol->name}}</h4>
+
              <h4>Bienvenido a AlpinaGo, ya eres un Embajador Alpina. Invita a tus Amigos y familiares para empezar a disfrutar de nuestro producto.</h4>
 
             @endif
 
             @if($role->role_id==9)
+
+            <h4> Hola: {{$user->first_name.' '.$user->last_name}}</h4>
+        <h4> Perteneces al rol: {{$rol->name}}</h4>
+
 
              <h4>Bienvenido a AlpinaGo, Ya eres un Cliente AlpinaGo.</h4>
 
@@ -125,7 +148,7 @@ Area clientes
         @endif-->
 
         
-        <div class="col-sm-12">
+        <div class="col-sm-12" style="margin-top: 1em;">
             <div class="row">
             <div class="col-sm-2 text-center">
                 <a href="{{ secure_url('my-account') }}" class=" btn-medium cajita">
