@@ -201,17 +201,9 @@ Area clientes
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-industry"></i></div>
                     
+                        <div class="col-sm-12">Convenio</div>
 
-                    @if(isset($cliente->nombre_empresa))
-
-                        <div class="col-sm-12">Convenio: {{$cliente->nombre_empresa}}</div>
-
-                    @else
-
-                        <div class="col-sm-12">Convenio: {{$cliente->nombre_empresa}}</div>
-
-
-                    @endif
+                    
 
                     </div>
                 </a>
