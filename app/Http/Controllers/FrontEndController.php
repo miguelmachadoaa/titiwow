@@ -441,6 +441,10 @@ class FrontEndController extends JoshController
 
          $configuracion=AlpConfiguracion::where('id', '1')->first();
 
+         $input=$request->all();
+
+        // dd($input);
+
 
 
          if($configuracion->user_activacion==0){
@@ -537,7 +541,9 @@ class FrontEndController extends JoshController
 
                   if ($request->convenio!='') {
                     
-                    $empresa=AlpEmpresas::where('convenio', $request->codigo)->first();
+                    $empresa=AlpEmpresas::where('convenio', $request->convenio)->first();
+
+                    #dd($empresa);
 
 
                   }
