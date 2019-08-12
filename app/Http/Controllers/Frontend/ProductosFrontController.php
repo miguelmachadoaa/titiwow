@@ -978,9 +978,7 @@ class ProductosFrontController extends Controller
         ->whereNull('alp_productos_category.deleted_at')
         ->where('alp_productos.estado_registro','=',1)
         ->groupBy('alp_productos.id')
-        ->orderBy('alp_marcas.order')
-
-        
+        ->orderBy('alp_marcas.order', 'desc')
         ->orderBy('alp_productos.updated_at', 'desc') 
         ->paginate(36); 
 
@@ -1045,8 +1043,6 @@ class ProductosFrontController extends Controller
                 
         }
 
-
-
         //print_r($precio);
        // print_r($role->role_id);
 
@@ -1056,7 +1052,6 @@ class ProductosFrontController extends Controller
          $states=State::where('config_states.country_id', '47')->get();
 
          $cart= \Session::get('cart');
-
 
         $total=0;
 
@@ -1071,9 +1066,7 @@ class ProductosFrontController extends Controller
 
         $inventario=$this->inventario();
 
-
           $combos=$this->combos();
-
 
         return \View::make('frontend.all', compact('productos', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos'));
 
