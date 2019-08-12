@@ -261,11 +261,11 @@
                 <h4 class="modal-title" id="myModalLabel">Error</h4>
             </div>
             <div class="modal-body">
-               <h3>El código que intento usar no existe, Desea registrarse sin convenio.</h3> 
+               <h3>El código que intento utilizar no existe, ¿Desea registrarse sin convenio?.</h3> 
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger " data-dismiss="modal" aria-label="Close"><span aria-hidden="true">Cerrar</span></button>
+                <button type="button" class="btn btn-primary " data-dismiss="modal" aria-label="Close"><span aria-hidden="true">Ok</span></button>
             </div>
         </div>
     </div>

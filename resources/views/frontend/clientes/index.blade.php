@@ -95,8 +95,6 @@ Area clientes
                 <img style="width:  80px;" src='{{secure_url('uploads/empresas/'.$cliente->imagen_empresa)}}'class='img-responsive' alt='Image'>
             </div>
 
-            
-
             @endif
 
             @if($role->role_id==11)
@@ -122,8 +120,7 @@ Area clientes
             <h4> Hola: {{$user->first_name.' '.$user->last_name}}</h4>
         <h4> Perteneces al rol: {{$rol->name}}</h4>
 
-
-             <h4>Bienvenido a AlpinaGo, Ya eres un Cliente AlpinaGo.</h4>
+                 <h4>Bienvenido a AlpinaGo, Ya eres un Cliente AlpinaGo.</h4>
 
             @endif
 

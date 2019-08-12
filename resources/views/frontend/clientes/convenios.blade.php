@@ -146,7 +146,7 @@ Area clientes
                 <h4 class="modal-title" id="myModalLabel">Error</h4>
             </div>
             <div class="modal-body">
-               <h3>El código que intento usar no existe, por favor intente nuevamente.</h3> 
+               <h3>El código que intento utilizar no existe, por favor intente nuevamente.</h3> 
             </div>
 
             <div class="modal-footer">

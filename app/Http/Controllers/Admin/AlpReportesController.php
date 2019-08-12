@@ -1033,9 +1033,53 @@ class AlpReportesController extends Controller
 
         $archivo='ventas_productos'.$hoy.'.xlsx';
 
-         return Excel::download(new ProductosExportB($hoy, $hoy), $archivo);
+         //return Excel::download(new ProductosExportB($hoy, $hoy), $archivo);
+         $archivo= Excel::store(new ProductosExportB($hoy, $hoy), $archivo, 'excel');
+
+        // dd($archivo);
 
     }
+
+
+    public function cronexportproductosb(Request $request) 
+    {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/cronexportproductosb ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/cronexportproductosb');
+
+
+        }
+
+
+        $date = Carbon::now();
+
+        $hoy=$date->format('Y-m-d');
+
+        $archivo='ventas_productos'.$hoy.'.xlsx';
+
+         //return Excel::download(new ProductosExportB($hoy, $hoy), $archivo);
+         $archivo= Excel::store(new ProductosExportB($hoy, $hoy), $archivo, 'excel');
+
+        // dd($archivo);
+
+    }
+
+
+
+
+
+
 
       public function cronexportproductosc(Request $request) 
     {
