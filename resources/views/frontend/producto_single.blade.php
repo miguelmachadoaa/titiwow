@@ -355,13 +355,21 @@
 
             @foreach($prods as $producto)
 
-                @include('frontend.producto')
+                @if(isset($inventario[$producto->id]))
 
-                @if ($loop->iteration % 4 == 0)
+                    @if($inventario[$producto->id]>0)
 
-                    </div>
+                        @include('frontend.producto')
+
+                        @if ($loop->iteration % 4 == 0)
+
+                            </div>
+                            
+                            <div class="row">
+                        @endif
                     
-                    <div class="row">
+                    @endif
+
                 @endif
             @endforeach
            

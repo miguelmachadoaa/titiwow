@@ -74,9 +74,17 @@ Carrito de Compras
                         <div class="row">
                         @if(!$productos->isEmpty())
 
-                       
+
+
+
 
                             @foreach($prods as $producto)
+
+
+                            @if(isset($inventario[$producto->id]))
+
+                                @if($inventario[$producto->id]>0)
+
 
 
                                 <div class="col-md-2 col-sm-6 col-xs-6 ">
@@ -158,6 +166,12 @@ Carrito de Compras
                                     </div>
                                     <div class="row">
                                 @endif
+
+                            @endif
+
+                            @endif
+
+
                             @endforeach
                             @else
                             <div class="alert alert-danger">

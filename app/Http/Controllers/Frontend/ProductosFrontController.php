@@ -529,9 +529,6 @@ class ProductosFrontController extends Controller
             ->where('alp_productos.slug','=', $slug)->first(); 
 
 
-      
-
-
            if($producto){
 
 

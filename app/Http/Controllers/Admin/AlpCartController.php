@@ -254,8 +254,10 @@ class AlpCartController extends JoshController
        
       }
 
+      $inventario=$this->inventario();
 
-      return view('frontend.cart', compact('cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos'));
+
+      return view('frontend.cart', compact('cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario'));
     }
 
     public function detalle()
