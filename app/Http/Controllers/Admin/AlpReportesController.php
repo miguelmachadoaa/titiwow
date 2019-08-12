@@ -1098,9 +1098,7 @@ class AlpReportesController extends Controller
           activity()
           ->withProperties($request->all())->log('AlpReportesController/cronexportproductosc');
 
-
         }
-
 
         $date = Carbon::now();
 

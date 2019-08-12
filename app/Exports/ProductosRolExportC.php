@@ -14,7 +14,7 @@ use Illuminate\Contracts\View\View;
 use \DB;
 
 
-class ProductosRolExportB implements FromView
+class ProductosRolExportC implements FromView
 {
     
     public function __construct(string $desde, string $hasta, string $rol)
@@ -33,18 +33,18 @@ class ProductosRolExportB implements FromView
           'alp_clientes.doc_cliente as doc_cliente',
           'alp_clientes.telefono_cliente as telefono_cliente',
           'alp_ordenes.ordencompra as ordencompra',
-
-          'alp_ordenes.monto_total as monto_total_orden',
-          'alp_ordenes.base_impuesto as base_impuesto_orden',
-          'alp_ordenes.monto_impuesto as monto_impuesto_orden',
-          'alp_ordenes.valor_impuesto as valor_impuesto_orden',
-
           'users.id as id_usuario', 
           'users.first_name as first_name', 
           'users.last_name as last_name', 
           'users.email as email', 
 
-          'config_cities.city_name as city_name',
+
+           'alp_ordenes.monto_total as monto_total_orden',
+          'alp_ordenes.base_impuesto as base_impuesto_orden',
+          'alp_ordenes.monto_impuesto as monto_impuesto_orden',
+          'alp_ordenes.valor_impuesto as valor_impuesto_orden',
+
+           'config_cities.city_name as city_name',
         'config_states.state_name as state_name',
         'alp_direcciones.principal_address as principal_address',
         'alp_direcciones.secundaria_address as secundaria_address',
@@ -62,9 +62,8 @@ class ProductosRolExportB implements FromView
           'alp_productos.referencia_producto_sap as referencia_producto_sap',
           'alp_productos.referencia_producto as referencia_producto',
           'alp_categorias.nombre_categoria as nombre_categoria',
-          'alp_marcas.nombre_marca as nombre_marca',
-          'alp_ordenes_descuento.codigo_cupon as codigo_cupon',
-          'alp_ordenes.monto_descuento as monto_descuento')
+          'alp_marcas.nombre_marca as nombre_marca'
+          )
           ->join('alp_ordenes', 'alp_ordenes_detalle.id_orden', '=', 'alp_ordenes.id')
           ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
@@ -72,23 +71,22 @@ class ProductosRolExportB implements FromView
           ->join('alp_clientes', 'alp_ordenes.id_cliente', '=', 'alp_clientes.id_user_client')
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
           ->join('alp_marcas', 'alp_productos.id_marca', '=', 'alp_marcas.id')
-          ->leftJoin('alp_ordenes_descuento', 'alp_ordenes.id', '=', 'alp_ordenes_descuento.id_orden')
+
 
           ->join('alp_direcciones', 'alp_ordenes.id_address', '=', 'alp_direcciones.id')
           ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
           ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-         
+
 
          // ->groupBy('alp_ordenes_detalle.id_producto')
           ->whereNull('alp_ordenes.factura')
-          ->whereIn('alp_ordenes.estatus', [1])
+          ->whereIn('alp_ordenes.estatus', [5])
           ->where('alp_ordenes.estatus_pago','=', '2')
           ->where('role_users.role_id','=', $this->rol)
           //->whereDate('alp_ordenes_detalle.created_at', '>=', $this->desde)
           //->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta)
           ->get();
-
 
           $pro = array();
 
@@ -103,7 +101,8 @@ class ProductosRolExportB implements FromView
           ->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta)
           ->first();
 
-           if ($producto->id_combo!=0) {
+
+          if ($producto->id_combo!=0) {
             
             $producto->nombre_producto='Combo - '.$producto->nombre_producto;
           }

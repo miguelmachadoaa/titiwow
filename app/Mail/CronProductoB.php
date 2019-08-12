@@ -20,11 +20,12 @@ class CronProductoB extends Mailable
      *
      * @return void
      */
-    public function __construct($enlace, $fecha)
+    public function __construct($enlace, $fecha, $documentos)
     {
         //
         $this->enlace=$enlace;
         $this->fecha=$fecha;    
+        $this->documentos=$documentos;    
     }
 
     /**
@@ -34,8 +35,14 @@ class CronProductoB extends Mailable
      */
     public function build()
     {
-        return $this->from('noresponder@alpinago.com')
+        $email= $this->from('noresponder@alpinago.com')
         ->subject('Ventas ALPINA GO '.$this->fecha.' | ApinaGo')
         ->markdown('emails.ventasdeldiab');
+
+        foreach ($this->documentos as $doc) {
+           $email->attach($doc);
+        }
+
+        return $email;
     }
 }

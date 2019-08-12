@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\AlpConfiguracion;
-use App\Exports\CronLogisticaExport;
+use App\Exports\ProductosRolExportB;
 use Maatwebsite\Excel\Facades\Excel;
 
 use Carbon\Carbon;
@@ -56,11 +56,32 @@ class ProductoB extends Command
         $archivo=$configuracion->base_url.'reportes/cronexportproductosb';
 
 
-       // Excel::store(new CronLogisticaExport(), $archivo);
+        $documentos = array();
+
+        $archivo_clientes='ventas_productos_clientes'.$hoy.'.xlsx';
+
+        if (Excel::store(new ProductosRolExportB($hoy, $hoy, '9'), $archivo_clientes, 'excel')) {
+            $docuemntos[]=secure_url('/uploads/excel/'.$archivo_clientes);
+        }
+
+
+        $archivo_embajador='ventas_productos_embajador'.$hoy.'.xlsx';
+
+        if ( Excel::store(new ProductosRolExportB($hoy, $hoy, '10'), $archivo_embajador, 'excel')) {
+            $docuemntos[]=secure_url('/uploads/excel/'.$archivo_embajador);
+        }
+
+
+        $archivo_amigoalpina='ventas_productos_amigoalpina'.$hoy.'.xlsx';
+
+           if ( Excel::store(new ProductosRolExportB($hoy, $hoy, '11'), $archivo_amigoalpina, 'excel')) {
+            $docuemntos[]=secure_url('/uploads/excel/'.$archivo_amigoalpina);
+        }
+
 
         $enlace=storage_path('/app/'.$archivo);
 
-        Mail::to($configuracion->correo_cedi)->send(new \App\Mail\CronProductoB($archivo, $hoy));
+        Mail::to($configuracion->correo_cedi)->send(new \App\Mail\CronProductoB($archivo, $hoy, $documentos));
 
     }
 }
