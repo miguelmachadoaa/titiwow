@@ -201,7 +201,7 @@ Area clientes
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-industry"></i></div>
                     
-                        <div class="col-sm-12">Convenio</div>
+                        <div class="col-sm-12">Mi Convenio</div>
 
                     
 
