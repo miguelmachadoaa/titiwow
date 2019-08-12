@@ -134,7 +134,7 @@ Mis Compras
                                  </button>
 
 
-                                @if($row->estatus!='4')
+                                <!--@if($row->estatus!='4')
 
                                     @if($row->estatus!='7')
 
@@ -147,7 +147,7 @@ Mis Compras
 
                                     @endif
 
-                                @endif
+                                @endif-->
                                  
                                  <!-- let's not delete 'Admin' group by accident -->
                                             
