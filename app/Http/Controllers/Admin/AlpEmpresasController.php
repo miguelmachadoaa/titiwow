@@ -114,6 +114,7 @@ class AlpEmpresasController extends JoshController
                  $imagen, 
                  $row->nombre_empresa, 
                  $row->descripcion_empresa, 
+                 $row->convenio, 
                  $row->descuento_empresa, 
                  $estatus, 
                  $actions

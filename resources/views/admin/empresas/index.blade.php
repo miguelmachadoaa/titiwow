@@ -56,6 +56,7 @@ Empresa
                                     <th>Imagen</th>
                                     <th>Nombre</th>
                                     <th>Descripcion</th>
+                                    <th>Convenio</th>
                                     <th>Descuento</th>
                                     <th>Estatus</th>
                                     <th>Accion</th>
