@@ -614,9 +614,8 @@
 
                                     <p style=" text-align: center;  color: #193366; text-align: center;   text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/{{$pro->slug}}">{{$pro->nombre_producto}}</a></p>
                                     
-                                
                                     <a href="https://www.alpinago.com/producto/{{$pro->slug}}?utm_source=mailmarketing&amp;utm_medium=email&amp;utm_campaign=alpinago_2020&amp;utm_content=cpc&amp;utm_term=botonhome" title="{{$pro->nombre_producto}}" class="" target="_blank">
-                                        <img style="    margin-bottom: 0;" alt="" src="https://www.alpinago.com/{{'uploads/productos/'.$pro->imagen_producto}}" width="263" style="max-width:1000px; padding-bottom: 0;" class="mcnImage">
+                                        <img style=" margin-bottom: 0;" alt="" src="https://www.alpinago.com/{{'uploads/productos/'.$pro->imagen_producto}}" width="263" style="max-width:1000px; padding-bottom: 0;" class="mcnImage">
                                     </a>
 
                                     <a style="text-decoration: none;" href="https://www.alpinago.com/producto/{{$pro->slug}}">
