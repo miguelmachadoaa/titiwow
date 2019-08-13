@@ -35,7 +35,8 @@
         <td>Canal (*)</td>
         <td>ALTERNATIVOS</td>
         <td>Código Cliente (*)</td>
-        <td>1000030242</td>
+        <td>8000007882</td>
+        <!--td>1000030242</td-->
         <td>Código CEDI</td>
         <td></td>
         <td ></td>
