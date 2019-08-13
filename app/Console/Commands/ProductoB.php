@@ -62,14 +62,14 @@ class ProductoB extends Command
 
        Excel::store(new ProductosRolExportB($hoy, $hoy, '9'), $archivo_clientes, 'excel');
             
-        $documentos[]='/uploads/excel/'.$archivo_clientes;
+        $documentos[]='C:\xampp\htdocs\alpinav2\public\uploads\excel/'.$archivo_clientes;
      
 
         $archivo_embajador='ventas_productos_embajador'.$hoy.'.xlsx';
 
         Excel::store(new ProductosRolExportB($hoy, $hoy, '10'), $archivo_embajador, 'excel');
             
-        $documentos[]='/uploads/excel/'.$archivo_embajador;
+        $documentos[]='C:\xampp\htdocs\alpinav2\public\uploads\excel/'.$archivo_embajador;
       
 
 
@@ -77,7 +77,7 @@ class ProductoB extends Command
 
          Excel::store(new ProductosRolExportB($hoy, $hoy, '11'), $archivo_amigoalpina, 'excel');
 
-        $documentos[]='/uploads/excel/'.$archivo_amigoalpina;
+        $documentos[]='C:\xampp\htdocs\alpinav2\public\uploads\excel/'.$archivo_amigoalpina;
 
       
 
