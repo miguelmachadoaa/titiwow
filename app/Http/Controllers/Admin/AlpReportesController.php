@@ -1033,15 +1033,15 @@ class AlpReportesController extends Controller
 
         $archivo='ventas_productos'.$hoy.'.xlsx';
 
-         //return Excel::download(new ProductosExportB($hoy, $hoy), $archivo);
-         $archivo= Excel::store(new ProductosExportB($hoy, $hoy), $archivo, 'excel');
+         return Excel::download(new ProductosExportB($hoy, $hoy), $archivo);
+         //$archivo= Excel::store(new ProductosExportB($hoy, $hoy), $archivo, 'excel');
 
         // dd($archivo);
 
     }
 
 
-    public function cronexportproductosb(Request $request) 
+    public function cronexportproductosbc(Request $request) 
     {
 
         if (Sentinel::check()) {

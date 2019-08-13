@@ -315,7 +315,7 @@ $(document).ready(function(){
 
             if (convenio!='' && convenio!=undefined) {
 
-                $.post('/postconveniosregistro', { convenio, _token}, function(data) {
+                $.post('postconveniosregistro', { convenio, _token}, function(data) {
 
                    // alert(data+'d');
 
