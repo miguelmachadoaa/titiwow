@@ -62,27 +62,22 @@ class ProductoC extends Command
         $archivo_clientes='ventas_productosc_clientes_'.$hoy.'.xlsx';
 
         if (Excel::store(new ProductosRolExportC($hoy, $hoy, '9'), $archivo_clientes, 'excel')) {
-            $docuemntos[]='/uploads/excel/'.$archivo_clientes;
+            $documentos[]='/var/www/pruebas/public/html/pruebas/uploads/excel/'.$archivo_clientes;
         }
 
 
         $archivo_embajador='ventas_productosc_embajado_r'.$hoy.'.xlsx';
 
         if ( Excel::store(new ProductosRolExportC($hoy, $hoy, '10'), $archivo_embajador, 'excel')) {
-            $docuemntos[]='/uploads/excel/'.$archivo_embajador;
+            $documentos[]='/var/www/pruebas/public/html/pruebas/uploads/excel/'.$archivo_embajador;
         }
 
 
         $archivo_amigoalpina='ventas_productosc_amigoalpina_'.$hoy.'.xlsx';
 
            if ( Excel::store(new ProductosRolExportC($hoy, $hoy, '11'), $archivo_amigoalpina, 'excel')) {
-            $docuemntos[]='/uploads/excel/'.$archivo_amigoalpina;
+            $documentos[]='/var/www/pruebas/public/html/pruebas/uploads/excel/'.$archivo_amigoalpina;
         }
-
-
-
-
-
 
        // Excel::store(new CronLogisticaExport(), $archivo);
 
