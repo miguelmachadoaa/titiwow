@@ -82,19 +82,19 @@ Area clientes
 
         
         
-        <div class="alert alert-default">
+        <div class="alert alert-default text-center">
         @if(isset($cliente))
 
 
 
             @if($role->role_id==12)
 
-            <div class="col-sm-6" style="text-align: center;"><h4> <span>{{$user->first_name.' '.$user->last_name}}</span> </h4>
+            <div class="col-sm-9" style="text-align: center;"><h4> <span>{{$user->first_name.' '.$user->last_name}}</span> </h4>
         <h4> Perteneces al rol: <span>{{$rol->name}}</span></h4>
 
                 <h4>Cliente afiliado por la empresa: <span> {{ $cliente->nombre_empresa }}</span>        </h4></div>
-            <div class="col-sm-6">
-                <img style="width:  80px;" src='{{secure_url('uploads/empresas/'.$cliente->imagen_empresa)}}'class='img-responsive' alt='Image'>
+            <div class="col-sm-3">
+                <img style="width:84px;border:2px solid #f5ecec;" src='{{secure_url('uploads/empresas/'.$cliente->imagen_empresa)}}'class='img-responsive' alt='Image'>
             </div>
 
             @endif

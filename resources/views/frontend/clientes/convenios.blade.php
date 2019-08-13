@@ -90,22 +90,17 @@ Area clientes
 
 
         
-        <div class="alert alert-default">
+        <div class="alert alert-default text-center">
 
             @if(isset($cliente))
 
                 @if($role->role_id==12)
 
-                <div class="col-sm-6"><h4>Cliente afiliado al convenio de la  empresa: <span>{{ $cliente->nombre_empresa }}</span>       </h4></div>
-
-
-                    <div class="col-sm-6">
-                <img style="width:  80px;" src='{{secure_url('uploads/empresas/'.$cliente->imagen_empresa)}}'class='img-responsive' alt='Image'>
-            </div>
+                <div class="col-sm-12 text-center"><h4>Cliente afiliado al convenio de la  empresa: <span>{{ $cliente->nombre_empresa }}</span>       </h4></div>
 
                 @else
 
-                    <h4>Actualmente no se encuentra afiliado a ningun convenio.</h4>
+                    <h4>Actualmente no se encuentra afiliado a ningún convenio.</h4>
 
 
                 @endif
@@ -118,7 +113,7 @@ Area clientes
        
 
 
-        <div class="col-sm-12">
+        <div class="col-sm-12 text-center">
             
             <form class="form-inline" method="post" action="{{secure_url('/postconvenios')}}">
                 
@@ -128,23 +123,21 @@ Area clientes
 
 
 
-                <label for="exampleInputName2">Codigo de convenio </label>
+                <label for="exampleInputName2">Código de convenio </label>
 
-                <input type="text" class="form-control" id="codigo" name="codigo" placeholder="Codigo Convenio" required="true">
+                <input type="text" class="form-control" id="codigo" name="codigo" placeholder="Ingrese el Código Convenio" required="true">
               
               </div>
 
               <br>
-              <button type="button" class="btn btn-primary btn_convenio">Asignar Convenio</button>
+              <br />
+              <button type="button" class="btn btn-primary btn_convenio">Click para Asignar Convenio</button>
             </form>
 
 
             <div class="res">
                 
             </div>
-
-
-
 
 
         </div>
