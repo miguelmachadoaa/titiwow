@@ -61,21 +61,21 @@ class ProductoB extends Command
         $archivo_clientes='ventas_productos_clientes'.$hoy.'.xlsx';
 
         if (Excel::store(new ProductosRolExportB($hoy, $hoy, '9'), $archivo_clientes, 'excel')) {
-            $docuemntos[]=secure_url('/uploads/excel/'.$archivo_clientes);
+            $docuemntos[]='/uploads/excel/'.$archivo_clientes;
         }
 
 
         $archivo_embajador='ventas_productos_embajador'.$hoy.'.xlsx';
 
         if ( Excel::store(new ProductosRolExportB($hoy, $hoy, '10'), $archivo_embajador, 'excel')) {
-            $docuemntos[]=secure_url('/uploads/excel/'.$archivo_embajador);
+            $docuemntos[]='/uploads/excel/'.$archivo_embajador;
         }
 
 
         $archivo_amigoalpina='ventas_productos_amigoalpina'.$hoy.'.xlsx';
 
            if ( Excel::store(new ProductosRolExportB($hoy, $hoy, '11'), $archivo_amigoalpina, 'excel')) {
-            $docuemntos[]=secure_url('/uploads/excel/'.$archivo_amigoalpina);
+            $docuemntos[]='/uploads/excel/'.$archivo_amigoalpina;
         }
 
 

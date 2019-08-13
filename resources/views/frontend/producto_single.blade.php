@@ -157,10 +157,6 @@
                         <b>Referencia:</b> {{ $producto->referencia_producto}}<br />
 
                     
-
-
-
-
                     </p>
 
                     
@@ -305,6 +301,11 @@
                                     </div>
                         </div>
                     </div>
+
+                    <!--div class="col-sm-12" style="padding:0; margin:0;">
+                        
+                        <img src="{{secure_url('uploads/files/banner-300x100.jpg')}}" alt="banner">
+                    </div-->
                     
                 </div>
             </div>

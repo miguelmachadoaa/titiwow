@@ -54,13 +54,45 @@ Carrito de Compras
 
         <div class="col-sm-12">
 
+            @if($metodo=='ticket')
+
+                <h3>Gracias por su compra, recibirá un correo con el detalle de su pedido</h3>
+
+                <h5>Su forma de Pago fue: <b>{{ $compra->nombre_forma_pago }}</b> </h5>
+
+                <h5>Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y se programará la entrega una vez se realice el pago.</h5>
+
+                <h5>De igual forma puede consultar la información y estatus de su pedido en su</h5> <a class="btn btn-sm btn-info" href="{{secure_url('clientes')}}">Perfil</a> 
+
+
+            @elseif($metodo=='credit_card')
+
+             <h3>Gracias por su compra, recibirá un correo con el detalle de su pedido</h3>
+
+                <h5>Su forma de Pago fue: <b>{{ $compra->nombre_forma_pago }}</b> </h5>
+
+                <h5>Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y será entregado {{ $fecha_entrega }}</h5>
+
+                <h5>De igual forma puede consultar la información y estatus de su pedido en su</h5> <a class="btn btn-sm btn-info" href="{{secure_url('clientes')}}">Perfil</a>
+
+
+                
+
+
+            @else
+
             <h3>Gracias por su compra, recibirá un correo con el detalle de su pedido</h3>
 
-            <h5>Su forma de Pago fue: <b>{{ $compra->nombre_forma_pago }}</b> </h5>
+                <h5>Su forma de Pago fue: <b>{{ $compra->nombre_forma_pago }}</b> </h5>
 
-            <h5>Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y será entregado {{ $fecha_entrega }}</h5>
+                <h5>Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }} y se programará la entrega una vez el pago sea efectivo</b></h5>
 
-            <h5>De igual forma puede consultar la información y estatus de su pedido en su</h5> <a class="btn btn-sm btn-info" href="{{secure_url('clientes')}}">Perfil</a> 
+                <h5>De igual forma puede consultar la información y estatus de su pedido en su</h5> <a class="btn btn-sm btn-info" href="{{secure_url('clientes')}}">Perfil</a> 
+
+
+            @endif
+
+            
 
 
 

@@ -42,6 +42,11 @@ Area clientes
             font-size: 3.6rem;
         }
 
+           h4 span {
+            color: #007add;
+        }
+
+
 
 
     </style>
@@ -72,6 +77,18 @@ Area clientes
 @section('content')
 <div class="container contain_body">
     <div class="row">
+
+
+
+         <div class="welcome">
+
+        <h3>Mi Convenio</h3>
+
+    </div>
+    
+    <hr>
+
+
         
         <div class="alert alert-default">
 
@@ -79,7 +96,12 @@ Area clientes
 
                 @if($role->role_id==12)
 
-                    <h4>Cliente afiliado al convenio de la  empresa: {{ $cliente->nombre_empresa }}</h4>
+                <div class="col-sm-6"><h4>Cliente afiliado al convenio de la  empresa: <span>{{ $cliente->nombre_empresa }}</span>       </h4></div>
+
+
+                    <div class="col-sm-6">
+                <img style="width:  80px;" src='{{secure_url('uploads/empresas/'.$cliente->imagen_empresa)}}'class='img-responsive' alt='Image'>
+            </div>
 
                 @else
 
@@ -103,6 +125,8 @@ Area clientes
                 {{ csrf_field() }}
 
               <div class="form-group">
+
+
 
                 <label for="exampleInputName2">Codigo de convenio </label>
 

@@ -45,6 +45,11 @@ Area clientes
         }
 
 
+        h4 span {
+    color: #007add;
+}
+
+
 
     </style>
 @stop
@@ -82,15 +87,12 @@ Area clientes
 
 
 
-
-
-
             @if($role->role_id==12)
 
-            <div class="col-sm-6"><h4> Hola: {{$user->first_name.' '.$user->last_name}}</h4>
-        <h4> Perteneces al rol: {{$rol->name}}</h4>
+            <div class="col-sm-6" style="text-align: center;"><h4> <span>{{$user->first_name.' '.$user->last_name}}</span> </h4>
+        <h4> Perteneces al rol: <span>{{$rol->name}}</span></h4>
 
-                <h4>Cliente afiliado por la empresa: {{ $cliente->nombre_empresa }}</h4></div>
+                <h4>Cliente afiliado por la empresa: <span> {{ $cliente->nombre_empresa }}</span>        </h4></div>
             <div class="col-sm-6">
                 <img style="width:  80px;" src='{{secure_url('uploads/empresas/'.$cliente->imagen_empresa)}}'class='img-responsive' alt='Image'>
             </div>
@@ -99,26 +101,28 @@ Area clientes
 
             @if($role->role_id==11)
 
-            <h4> Hola: {{$user->first_name.' '.$user->last_name}}</h4>
-        <h4> Perteneces al rol: {{$rol->name}}</h4>
+            <h4>   <span>{{$user->first_name.' '.$user->last_name}}</span> </h4>
+        <h4> Perteneces al rol:  <span>{{$rol->name}}</span> </h4>
 
-                <h4>Usted es parte de los amigos alpina de: {{ $cliente->nombre_embajador }}</h4>
+                <h4>Usted es parte de los amigos alpina de:  <span> {{ $cliente->nombre_embajador }}</span></h4>
 
             @endif
 
             @if($role->role_id==10)
 
-            <h4> Hola: {{$user->first_name.' '.$user->last_name}}</h4>
-        <h4> Perteneces al rol: {{$rol->name}}</h4>
+            <h4>Bienvenido a AlpinaGo, ya eres un Embajador Alpina. Invita a tus Amigos y familiares para empezar a disfrutar de nuestro producto.</h4>
 
-             <h4>Bienvenido a AlpinaGo, ya eres un Embajador Alpina. Invita a tus Amigos y familiares para empezar a disfrutar de nuestro producto.</h4>
+            <h4>   <span><{{$user->first_name.' '.$user->last_name}}/span> </h4>
+        <h4> Perteneces al rol:  <span>{{$rol->name}}</span> </h4>
+
+             
 
             @endif
 
             @if($role->role_id==9)
 
-            <h4> Hola: {{$user->first_name.' '.$user->last_name}}</h4>
-        <h4> Perteneces al rol: {{$rol->name}}</h4>
+            <h4>   <span>{{$user->first_name.' '.$user->last_name}}</span> </h4>
+        <h4> Perteneces al rol: <span> {{$rol->name}}</span> </h4>
 
                  <h4>Bienvenido a AlpinaGo, Ya eres un Cliente AlpinaGo.</h4>
 

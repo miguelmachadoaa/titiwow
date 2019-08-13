@@ -199,6 +199,7 @@ class ClientesFrontController extends Controller
                        // dd($empresa);
 
                         $cliente['nombre_empresa']=$empresa->nombre_empresa;
+                        $cliente['imagen_empresa']=$empresa->imagen;
 
                     }
 

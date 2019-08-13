@@ -50,6 +50,8 @@ Editar Empresa
                         {!! Form::model($empresas, ['url' => secure_url('admin/empresas/'. $empresas->id), 'method' => 'put', 'class' => 'form-horizontal', 'files'=> true]) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
+
+                            <input type="hidden" name="id_empresa" id="id_empresa" value="{{$empresas->id}}">
                           
                         <div class="form-group {{ $errors->
                             first('nombre_empresa', 'has-error') }}">
