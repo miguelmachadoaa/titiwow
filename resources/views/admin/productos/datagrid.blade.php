@@ -567,11 +567,7 @@
                             <tbody><tr>
                                 <td class="mcnImageGroupContent" valign="top" style="padding-left: 9px; padding-top: 0; padding-bottom: 0;">
                                     
-                                     <p style=" text-align: center;  color: #193366;
-    text-decoration: none;
-    font-family: verdana;
-    font-weight: 800;
-    font-size: 14px;" href="https://www.alpinago.com/producto/{{$pro->slug}}">{{$pro->nombre_producto}}</a><td class="mcnImageGroupContent" valign="top" style="padding-right: 9px; padding-top: 0; padding-bottom: 0;">
+                                     
 
                                     <p style=" text-align: center;  color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/{{$pro->slug}}">{{$pro->nombre_producto}}</a></p>
                                     
