@@ -79,8 +79,6 @@ class ProductoB extends Command
 
         $documentos[]='/var/www/pruebas/public/html/pruebas/uploads/excel/'.$archivo_amigoalpina;
 
-     //  dd($documentos);
-
 
         $enlace=storage_path('/app/'.$archivo);
 

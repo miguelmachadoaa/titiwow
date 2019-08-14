@@ -13,6 +13,7 @@ class CronTomaPedidos extends Mailable
 
 
     public $enlace;
+    public $documentos;
     public $fecha;
 
     /**
@@ -20,11 +21,12 @@ class CronTomaPedidos extends Mailable
      *
      * @return void
      */
-    public function __construct($enlace, $fecha)
+    public function __construct($enlace, $fecha, $documentos)
     {
         //
         $this->enlace=$enlace;
-        $this->fecha=$fecha;    
+        $this->fecha=$fecha;
+        $this->documentos=$documentos;    
     }
 
     /**
@@ -34,8 +36,15 @@ class CronTomaPedidos extends Mailable
      */
     public function build()
     {
-        return $this->from('noresponder@alpinago.com')
+        $email= $this->from('noresponder@alpinago.com')
         ->subject('Ventas ALPINA GO '.$this->fecha.' | ApinaGo')
         ->markdown('emails.tomapedidos');
+
+         foreach ($this->documentos as $doc) {
+           $email->attach($doc);
+        }
+
+        return $email;
+
     }
 }
