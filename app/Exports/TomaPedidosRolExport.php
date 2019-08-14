@@ -14,7 +14,6 @@ use Illuminate\Contracts\View\View;
 use \DB;
 use Carbon\Carbon;
 
-
 class TomaPedidosRolExport implements FromView
 {
     
@@ -83,13 +82,11 @@ class TomaPedidosRolExport implements FromView
             
           }
 
-
           $fecha = Carbon::now();
 
           $fecha->addDays(1);
 
           $hoy=$fecha->format('d/m/Y');
-
 
         return view('admin.exports.tomapedidos', [
             'productos' => $pro, 'fecha' => $hoy
