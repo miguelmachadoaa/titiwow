@@ -61,14 +61,14 @@ class TomaPedidos extends Command
 
         $documentos = array();
 
-        $archivo_clientes='ventas_productos_clientes'.$hoy.'.xlsx';
+        $archivo_clientes='toma_pedidos_clientes'.$hoy.'.xlsx';
 
        Excel::store(new TomaPedidosRolExport('9'), $archivo_clientes, 'excel');
             
         $documentos[]='/var/www/pruebas/public/html/pruebas/uploads/excel/'.$archivo_clientes;
      
 
-        $archivo_embajador='ventas_productos_embajador'.$hoy.'.xlsx';
+        $archivo_embajador='toma_pedidos_embajador'.$hoy.'.xlsx';
 
         Excel::store(new TomaPedidosRolExport('10'), $archivo_embajador, 'excel');
             
@@ -76,7 +76,7 @@ class TomaPedidos extends Command
       
 
 
-        $archivo_amigoalpina='ventas_productos_amigoalpina'.$hoy.'.xlsx';
+        $archivo_amigoalpina='toma_pedidos_amigoalpina'.$hoy.'.xlsx';
 
          Excel::store(new TomaPedidosRolExport('11'), $archivo_amigoalpina, 'excel');
 
