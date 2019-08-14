@@ -13,7 +13,6 @@ use Illuminate\Contracts\View\View;
 
 use \DB;
 
-
 class ProductosRolExportB implements FromView
 {
     
@@ -23,8 +22,6 @@ class ProductosRolExportB implements FromView
         $this->hasta = $hasta;
         $this->rol = $rol;
     }
-
-
 
     public function view(): View
     {
