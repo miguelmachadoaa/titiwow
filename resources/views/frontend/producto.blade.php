@@ -4,6 +4,9 @@
                         <div class="text-align:center;">
                             <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive"></a>
 
+                           <!--p>{{$producto->order}}</p> 
+                                <p>{{$producto->updated_at}}</p-->
+
                             
                             @if($producto->tipo_producto=='1')
 

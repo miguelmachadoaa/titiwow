@@ -978,7 +978,7 @@ class ProductosFrontController extends Controller
         ->whereNull('alp_productos_category.deleted_at')
         ->where('alp_productos.estado_registro','=',1)
         ->groupBy('alp_productos.id')
-        ->orderBy('alp_marcas.order', 'desc')
+        ->orderBy('alp_marcas.order', 'asc')
         ->orderBy('alp_productos.updated_at', 'desc') 
         ->paginate(36); 
 
@@ -1082,9 +1082,12 @@ class ProductosFrontController extends Controller
 
         $termino = $request->get('buscar');
 
-        $productos = AlpProductos::search($request->get('buscar'))->where('alp_productos.estado_registro','=', 1)->orderBy('id', 'asc')
+        $productos = AlpProductos::
+        search($request->get('buscar'))->select('alp_productos.*', 'alp_marcas.order as order')
+        ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
 
-        
+        ->where('alp_productos.estado_registro','=', 1)
+        ->orderBy('alp_marcas.order', 'asc')
         ->orderBy('alp_productos.updated_at', 'desc')
         ->paginate(36); 	
         $productos->appends(['buscar' => $request->get('buscar')]);
