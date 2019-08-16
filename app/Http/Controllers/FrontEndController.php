@@ -543,6 +543,14 @@ class FrontEndController extends JoshController
                     
                     $empresa=AlpEmpresas::where('convenio', $request->convenio)->first();
 
+                    if (isset($empresa->id)) {
+                      # code...
+                    }else{
+
+                      return redirect('registro')->with('error', trans('El Código de Convenio no existe'))->withInput();
+
+                    }
+
                     #dd($empresa);
 
 

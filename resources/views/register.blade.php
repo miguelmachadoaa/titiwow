@@ -180,9 +180,10 @@
 
 
                 <div class="form-group {{ $errors->first('convenio', 'has-error') }}">
-                    <label for="">Código de Convenio Empresa <small>(Opcional)</small></label>
+                    <label for="">¿Tienes un número de convenio? (Opcional) <small>(Opcional)</small></label>
                     <input type="text" class="form-control" value="{!! old('convenio') !!}" id="convenio" name="convenio" placeholder="Código de Convenio"
                            value="{!! old('convenio') !!}" >
+                    <div class="res_convenio"></div>
                     {!! $errors->first('convenio', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="clearfix"></div>
@@ -309,58 +310,60 @@ $(document).ready(function(){
 
             base=$('#base').val();
 
-         _token=$('input[name="_token"]').val();
+            _token=$('input[name="_token"]').val();
 
-         convenio=$('#convenio').val();
+            convenio=$('#convenio').val();
 
             if (convenio!='' && convenio!=undefined) {
 
                 $.post('postconveniosregistro', { convenio, _token}, function(data) {
 
-                   // alert(data+'d');
+                    // alert(data+'d');
 
                     if (data==1) {
 
                         $('.res_cod_alpinista').html('');
 
 
-            var $validator = $('#reg_form').data('bootstrapValidator').validate();
+                        var $validator = $('#reg_form').data('bootstrapValidator').validate();
 
 
-                if( $('#chkalpinista').is(':checked') ) {
+                        if( $('#chkalpinista').is(':checked') ) {
 
 
-                    if ($('#cod_alpinista').val()!='') {
+                            if ($('#cod_alpinista').val()!='') {
 
 
-                     if ($validator.isValid()) {
+                                if ($validator.isValid()) {
 
 
-                            $("#reg_form")[0].submit();
+                                    $("#reg_form")[0].submit();
 
-                       }
+                                }
+
+                            }else{
+
+
+                                $('.res_cod_alpinista').html('<span class="help-block">Código de Alpinista es requerido</span>');
+
+                                //$('#btnsubmit').attr('disabled', '1');
+                            }
+
+                        }else{
+
+
+                            if ($validator.isValid()) {
+
+                               $("#reg_form")[0].submit();
+                                   
+                            }
+
+                        }   
 
                     }else{
 
+                        $('.res_convenio').html('<span class="help-block">El Código de convenio no existe</span>');
 
-                        $('.res_cod_alpinista').html('<span class="help-block">Código de Alpinista es requerido</span>');
-
-                       //$('#btnsubmit').attr('disabled', '1');
-                    }
-
-                }else{
-
-
-                        if ($validator.isValid()) {
-
-                           $("#reg_form")[0].submit();
-                               
-                        }
-                }
-
-                    }else{
-
-                        $('#ModalConvenido').modal('show');
                         $('#convenio').val('');
                     }
 
@@ -370,52 +373,41 @@ $(document).ready(function(){
 
                 $('.res_cod_alpinista').html('');
 
-
-            var $validator = $('#reg_form').data('bootstrapValidator').validate();
-
+                var $validator = $('#reg_form').data('bootstrapValidator').validate();
 
                 if( $('#chkalpinista').is(':checked') ) {
 
-
                     if ($('#cod_alpinista').val()!='') {
 
-
-                     if ($validator.isValid()) {
-
+                        if ($validator.isValid()) {
 
                             $("#reg_form")[0].submit();
 
-                       }
+                        }
 
                     }else{
 
-
                         $('.res_cod_alpinista').html('<span class="help-block">Código de Alpinista es requerido</span>');
 
-                       //$('#btnsubmit').attr('disabled', '1');
+                        //$('#btnsubmit').attr('disabled', '1');
+
                     }
 
                 }else{
 
 
-                        if ($validator.isValid()) {
+                    if ($validator.isValid()) {
 
-                           $("#reg_form")[0].submit();
-                               
-                        }
+                       $("#reg_form")[0].submit();
+                           
+                    }
                 }
-
 
             }
 
-
             //alert(codigo);
 
-
         });
-
-         
-
 
 
         $("#state_id").select2();
