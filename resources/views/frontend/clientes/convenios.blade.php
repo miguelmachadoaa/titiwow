@@ -115,7 +115,7 @@ Area clientes
 
         <div class="col-sm-12 text-center">
             
-            <form class="form-inline" method="post" action="{{secure_url('/postconvenios')}}">
+            <form class="form-inline" method="post" action="{{secure_url('postconvenios')}}">
                 
                 {{ csrf_field() }}
 
@@ -206,7 +206,7 @@ Area clientes
 
         if (codigo!='' && codigo!=undefined) {
 
-            $.post('/postconvenios', { codigo, _token}, function(data) {
+            $.post('postconvenios', { codigo, _token}, function(data) {
 
                     
                     if (data==1) {
