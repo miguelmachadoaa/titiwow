@@ -199,20 +199,20 @@ Area clientes
                 @endif
 
 
-                
-                <div class="col-sm-2 text-center"> 
+                 @if($role->role_id==9 || $role->role_id==12)
+
+                  <div class="col-sm-2 text-center"> 
                 <a  href="{{ secure_url('convenios') }}" class=" btn-medium cajita">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-industry"></i></div>
                     
                         <div class="col-sm-12">Mi Convenio</div>
 
-                    
-
                     </div>
                 </a>
                 </div> 
 
+                @endif
 
 
                 @if (Sentinel::getUser()->hasAnyAccess(['clientes.misamigos']))
