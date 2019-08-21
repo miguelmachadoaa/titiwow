@@ -190,7 +190,7 @@
                 <hr />
                 <div class="form-group checkbox">
                     <label>
-                        <input type="checkbox" name="chkalpinista" id="chkalpinista" value="1"> ¡Soy Alpinista!</a>
+                        <input type="checkbox" name="chkalpinista" id="chkalpinista" value="1"> ¡Soy Alpinista! <small>(Opcional)</small> </a>
                     </label>
                 </div>
                 <div class="form-group {{ $errors->first('cod_alpinista', 'has-error') }}">
