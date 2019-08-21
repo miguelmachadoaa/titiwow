@@ -50,45 +50,60 @@ class TomaPedidos extends Command
         //
         $configuracion=AlpConfiguracion::where('id', '1')->first();
 
-         $date = Carbon::now();
+         #$date = Carbon::now();
+
+        #$hoy=$date->format('Y-m-d');
+
+        #$archivo=$configuracion->base_url.'reportes/cronexporttomapedidos';
+
+
+
+
+        #$documentos = array();
+
+        #$archivo_clientes='toma_pedidos_clientes'.$hoy.'.xlsx';
+
+       #Excel::store(new TomaPedidosRolExport('9'), $archivo_clientes, 'excel');
+            
+        #$documentos[]='/var/www/pruebas/public/html/pruebas/uploads/excel/'.$archivo_clientes;
+     
+
+        #$archivo_embajador='toma_pedidos_embajador'.$hoy.'.xlsx';
+
+        #Excel::store(new TomaPedidosRolExport('10'), $archivo_embajador, 'excel');
+            
+        #$documentos[]='/var/www/pruebas/public/html/pruebas/uploads/excel/'.$archivo_embajador;
+      
+
+
+        #$archivo_amigoalpina='toma_pedidos_amigoalpina'.$hoy.'.xlsx';
+
+        # Excel::store(new TomaPedidosRolExport('11'), $archivo_amigoalpina, 'excel');
+
+        #$documentos[]='/var/www/pruebas/public/html/pruebas/uploads/excel/'.$archivo_amigoalpina;
+
+
+
+       // Excel::store(new CronLogisticaExport(), $archivo);
+
+         #$enlace=storage_path('/app/'.$archivo);
+
+        #Mail::to($configuracion->correo_cedi)->send(new \App\Mail\CronTomaPedidos($archivo,$hoy,  $documentos));
+
+        $vacio = array();
+
+        $date = Carbon::now();
 
         $hoy=$date->format('Y-m-d');
 
         $archivo=$configuracion->base_url.'reportes/cronexporttomapedidos';
 
 
-
-
-        $documentos = array();
-
-        $archivo_clientes='toma_pedidos_clientes'.$hoy.'.xlsx';
-
-       Excel::store(new TomaPedidosRolExport('9'), $archivo_clientes, 'excel');
-            
-        $documentos[]='/var/www/pruebas/public/html/pruebas/uploads/excel/'.$archivo_clientes;
-     
-
-        $archivo_embajador='toma_pedidos_embajador'.$hoy.'.xlsx';
-
-        Excel::store(new TomaPedidosRolExport('10'), $archivo_embajador, 'excel');
-            
-        $documentos[]='/var/www/pruebas/public/html/pruebas/uploads/excel/'.$archivo_embajador;
-      
-
-
-        $archivo_amigoalpina='toma_pedidos_amigoalpina'.$hoy.'.xlsx';
-
-         Excel::store(new TomaPedidosRolExport('11'), $archivo_amigoalpina, 'excel');
-
-        $documentos[]='/var/www/pruebas/public/html/pruebas/uploads/excel/'.$archivo_amigoalpina;
-
-
-
        // Excel::store(new CronLogisticaExport(), $archivo);
 
-         $enlace=storage_path('/app/'.$archivo);
+        $enlace=storage_path('/app/'.$archivo);
 
-        Mail::to($configuracion->correo_cedi)->send(new \App\Mail\CronTomaPedidos($archivo,$hoy,  $documentos));
+        Mail::to($configuracion->correo_cedi)->send(new \App\Mail\CronTomaPedidos($archivo, $hoy, $vacio));
 
     }
 }
