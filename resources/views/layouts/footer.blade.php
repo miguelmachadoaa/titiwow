@@ -166,7 +166,7 @@
 
                     $('.ubicacion_header a').html(ubicacion.city_name+' '+ubicacion.state_name);
 
-                                $('.addtocart').removeClass('hidden');
+                    $('.addtocart').removeClass('hidden');
 
 
                 }else{
@@ -180,7 +180,13 @@
 
             }else{
 
-                $('#ubicacionModal').modal('show');
+                data='{"status":"true","city_name":"Bogot\u00e1","state_name":"Cundinamarca","id_ciudad":"62"}';
+
+                localStorage.setItem('ubicacion', data);
+
+                 $('.ubicacion_header a').html('BOGOTÁ CUNDINAMARCA');
+
+                //$('#ubicacionModal').modal('show');
             }
 
         });

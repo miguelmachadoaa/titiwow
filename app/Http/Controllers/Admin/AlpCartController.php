@@ -3691,6 +3691,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       $impuesto=$this->impuesto();
 
+      $clientIP = \Request::getClientIp(true);
+
       if (isset($ciudad->id)) {
 
         if (!\Session::has('orden')) {
@@ -3708,6 +3710,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
             'base_impuesto' =>'0',
             'valor_impuesto' =>'0',
             'monto_impuesto' =>'0',
+            'ip' =>$clientIP,
             'id_user' =>$user_id
         );
 

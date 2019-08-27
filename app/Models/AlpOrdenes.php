@@ -39,6 +39,7 @@ class AlpOrdenes extends Model
         'ordencompra',
         'tracking',
         'factura',
+        'ip',
         'estatus',
         'estatus_pago',
         'id_user'

@@ -42,11 +42,6 @@ Carrito de Compras
             <div class="alert alert-success alertita" >
 
 
-
-
-
-
-                
                <span class="texto_pagho">{!!$aviso_pago !!}</span> 
             </div>
         </div>
@@ -172,7 +167,15 @@ Carrito de Compras
      <div class="row">
          <div class="col-md-10 col-md-offset-1 table-responsive" style="padding-bottom:20px;">
              
-            <a class="label label-seguir"  href="{{ secure_url('/productos') }}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
+            <a class="btn btn-primary"  href="{{ secure_url('/productos') }}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
+
+            <br>
+            <br>
+            <br>
+
+            <a class="btn btn-danger "  href="{{ secure_url('/logout') }}">Cerrar Sesión <i class="fa fa-sign-out-alt" aria-hidden="true"></i></a>
+
+
          </div>
      </div>
 

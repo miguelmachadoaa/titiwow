@@ -15,6 +15,7 @@
             <th><b>Valor Impuesto</b></th>
             <th><b>Monto Impuesto</b></th>
             <th><b>Rol</b></th>
+            <th><b>IP</b></th>
         </tr>
     </thead>
     <tbody>
@@ -59,6 +60,7 @@
 
 
             <td>{!! $venta->name_rol !!}</td>
+            <td>{!! $venta->ip !!}</td>
           
         </tr>
         @endforeach

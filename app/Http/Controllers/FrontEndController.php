@@ -60,6 +60,8 @@ class FrontEndController extends JoshController
     {
         $descuento='1'; 
 
+        $clientIP = \Request::getClientIp(true);
+
         $precio = array();
 
         $configuracion=AlpConfiguracion::where('id', '1')->first();
