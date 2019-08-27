@@ -76,7 +76,7 @@ class Kernel extends ConsoleKernel
         //$schedule->command('usuarios:new')->dailyAt('08:00');
         //$schedule->command('usuarios:new')->dailyAt('15:00');
         $schedule->command('verificar:pagos')->everyFiveMinutes();
-       /* $schedule->command('notificacion:carrito')->hourly();*/
+        $schedule->command('notificacion:carrito')->hourly();
 
 
     }
