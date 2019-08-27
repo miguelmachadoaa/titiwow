@@ -302,7 +302,7 @@
                     dataType: "json",
                     success:function(data) {
 
-                        localStorage.setItem('states', data.responseText);
+                       // localStorage.setItem('states', data.responseText());
 
                         $('select[name="state_id_ubicacion"]').empty();
 
@@ -320,8 +320,6 @@
 
                                     }
 
-
-                            $('select[name="state_id_ubicacion"]').append('<option value="'+ key +'">'+ value +'</option>');
                         });
 
                     }
@@ -543,15 +541,11 @@
 
          $(document).on('change','.cartselect', function(){
 
-            
-
             base=$('#base').val();
 
             slug=$(this).data('slug');
 
             id=$(this).data('id');
-
-           
 
             cantidad=$(this).val();
 
