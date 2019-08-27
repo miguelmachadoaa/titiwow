@@ -15,18 +15,20 @@ class WelcomeUser extends Mailable
     public $name;
     public $lastname;
     public $mensaje;
+    public $role;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($name, $lastname, $mensaje)
+    public function __construct($name, $lastname, $mensaje, $role)
     {
         //
         $this->name=$name;
         $this->lastname=$lastname;
         $this->mensaje=$mensaje;
+        $this->role=$role;
     }
 
     /**

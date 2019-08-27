@@ -71,9 +71,23 @@ Inicio @parent
                         <h4 class="modal-title" id="modalLabeldanger">Bienvenido</h4>
                 </div>
                 
-                <div class="modal-body cartcontenido">
+                <div class="modal-body cartcontenido row">
                 
-                       <h3>{{session('success')}}</h3> 
+                    <h3>{{session('success')}}</h3> 
+
+                    <p>@if(isset($role->role_id))
+
+                        @if($role->role_id!='9')
+
+                            <div class="col-sm-12" style="padding:0; margin:0;">
+                                
+                                <img src="{{secure_url('uploads/files/banner-300x100.jpg')}}" alt="banner">
+
+                            </div>
+
+                        @endif
+                    
+                    @endif
 
                 </div>
 

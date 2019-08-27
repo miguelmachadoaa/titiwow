@@ -76,6 +76,8 @@ class FrontEndController extends JoshController
 
         $marcas = DB::table('alp_marcas')->select('alp_marcas.*')->where('destacado','=', 1)->where('alp_marcas.estado_registro','=',1)->orderBy('order', 'asc')->limit(12)->get();
 
+
+
         if (Sentinel::check()) {
 
             $user_id = Sentinel::getUser()->id;
@@ -123,6 +125,8 @@ class FrontEndController extends JoshController
             }
 
         }else{
+
+          $role = array( );
 
             $r='9';
                 foreach ($productos as  $row) {
@@ -203,11 +207,6 @@ class FrontEndController extends JoshController
        
       }
 
-
-
-
-     
-
        $cart= \Session::get('cart');
 
         $total=0;
@@ -230,8 +229,10 @@ class FrontEndController extends JoshController
 
         $combos=$this->combos();
 
+        //dd($role);
 
-        return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion','inventario', 'combos'));
+
+        return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion','inventario', 'combos', 'role'));
 
     }
 
@@ -527,7 +528,12 @@ class FrontEndController extends JoshController
                        $mensaje='Estamos procesando tu solicitud de registro, te notificaremos una vez haya finalizado el proceso, este proceso puede tomar hasta 24 horas.';
 
 
-                      Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $configuracion->mensaje_bienvenida ));
+                       $roleusuario=RoleUser::where('user_id', $user->id)->first();
+
+ 
+
+
+                      Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $configuracion->mensaje_bienvenida, $roleusuario ));
 
 
                     }else{
@@ -627,11 +633,12 @@ class FrontEndController extends JoshController
 
                     $role->users()->attach($user);
 
+
+                    $roleusuario=RoleUser::where('user_id', $user->id)->first();
+
                      $mensaje='Estamos procesando tu solicitud de registro, te notificaremos una vez haya finalizado el proceso, este proceso puede tomar hasta 24 horas.';
 
-                    Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name,  $configuracion->mensaje_bienvenida));
-
-
+                    Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name,  $configuracion->mensaje_bienvenida, $roleusuario));
 
             }
 
@@ -678,7 +685,6 @@ class FrontEndController extends JoshController
                          );
 
                     AlpClientesHistory::create($user_history);
-
 
 
                      $configuracion->mensaje_bienvenida="Ha sido registrado satisfactoriamente bajo la empresa ".$empresa->nombre_empresa.", debe esperar que su Usuario sea activado en un proceso interno, te notificaremos vía email su activación.";
