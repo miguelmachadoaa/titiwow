@@ -86,8 +86,6 @@ class NotificacionCarrito extends Command
           ->join('alp_productos','alp_carrito_detalle.id_producto' , '=', 'alp_productos.id')
           ->where('alp_carrito_detalle.id_carrito', $car->id)->get();
 
-
-        
             Mail::to($car->email)->send(new \App\Mail\NotificacionCarrito($car, $detalles, $configuracion));
 
             $arrayName = array('notificacion' => 1 );
