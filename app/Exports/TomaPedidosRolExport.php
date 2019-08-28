@@ -89,7 +89,7 @@ class TomaPedidosRolExport implements FromView
           $hoy=$fecha->format('d/m/Y');
 
         return view('admin.exports.tomapedidos', [
-            'productos' => $pro, 'fecha' => $hoy
+            'productos' => $pro, 'fecha' => $hoy, 'rol' => $this->rol
         ]);
     }
 }

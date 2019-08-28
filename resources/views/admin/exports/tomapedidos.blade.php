@@ -35,7 +35,26 @@
         <td>Canal (*)</td>
         <td>ALTERNATIVOS</td>
         <td>Código Cliente (*)</td>
-        <td>8000007882</td>
+        
+        @if($rol==9)
+
+            <td>8000007883 </td>
+
+
+        @elseif($rol==10)
+
+            <td>8000007884 </td>
+
+        @elseif($rol==11)
+
+            <td>8000007882  </td>
+
+        @else
+
+            <td>8000007882</td>
+
+        @endif
+
         <!--td>1000030242</td-->
         <td>Código CEDI</td>
         <td></td>

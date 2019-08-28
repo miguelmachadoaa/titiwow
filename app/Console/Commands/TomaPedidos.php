@@ -57,8 +57,6 @@ class TomaPedidos extends Command
         $archivo=$configuracion->base_url.'reportes/cronexporttomapedidos';
 
 
-
-
         $documentos = array();
 
         $archivo_clientes='toma_pedidos_clientes'.$hoy.'.xlsx';
