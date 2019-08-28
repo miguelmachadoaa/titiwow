@@ -1339,8 +1339,6 @@ class AlpProductosController extends JoshController
 
         $data = array('destacado' => $request->destacado );
 
-
-
         $producto->update($data);
 
         $producto=AlpProductos::find($request->id);

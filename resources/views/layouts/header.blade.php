@@ -89,7 +89,7 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-7 hidden-xs" >
+                    <div class="col-sm-6 hidden-xs" >
 
                          <form method="GET" action="{{ secure_url('buscar') }}">
 
@@ -107,12 +107,46 @@
                     </div>
 
 
-                    <div class="col-sm-2 pull-right col-xs-4" >
-                    <button type="button" class="navbar-toggle collapsed " data-toggle="collapse" data-target="#collapse">
+                     
+
+
+
+
+
+                    <div class="col-sm-3  col-xs-4" style="text-align: right;" >
+
+                        <button style="float: none; display: inline-block;" type="button" class="navbar-toggle collapsed " data-toggle="collapse" data-target="#collapse">
                             <span><a href="#"><i class="livicon" data-name="responsive-menu" data-size="25" data-loop="false" data-c="#ffffff" data-hc="#ccc"></i>
                             </a></span>
                         </button>
+
+                        <a class="hidden-xs" style="float: none; display: inline-block; margin-top: 8px;margin-right: 15px; margin-bottom: 8px;" class="" role="button"  aria-expanded="false"  href="{{ secure_url('cart/show') }}" alt="Ir a Mi Carrito de Compras"><i class="livicon" data-name="shopping-cart" data-size="25" data-loop="false" data-c="#ffffff" data-hc="#ccc"></i></a>
+
+
+                        
+                        @if(Sentinel::guest())
+
+                            <a class="hidden-xs" style="float: none; display: inline-block;" href="{{secure_url('login')}}" ><i class="livicon" data-name="sign-in" data-size="25" data-loop="false" data-c="#ffffff" data-hc="#ccc"></i></a>
+
+                        @else
+
+                            <a class="hidden-xs" style="float: none; display: inline-block;" href="{{ secure_url('logout') }}"><i class="livicon" data-name="sign-out" data-size="25" data-loop="false" data-c="#ffffff" data-hc="#ccc"></i></a>
+                        
+                        @endif
+
+
+
+
+
+
+
                     </div>
+
+
+                    
+
+
+
                 </div>
                 <div class="col-sm-4 " >
                    

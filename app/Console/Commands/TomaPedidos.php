@@ -81,7 +81,7 @@ class TomaPedidos extends Command
         $documentos[]='/var/www/pruebas/public/html/pruebas/uploads/excel/'.$archivo_amigoalpina;
 
 
-
+        //dd($documentos);
        // Excel::store(new CronLogisticaExport(), $archivo);
 
          $enlace=storage_path('/app/'.$archivo);
