@@ -155,7 +155,7 @@
                 width: 'resolve'
             });
 
-             $('.addtocart').addClass('hidden');
+             //$('.addtocart').addClass('hidden');
 
 
             if (localStorage.getItem('ubicacion')!=undefined) {
