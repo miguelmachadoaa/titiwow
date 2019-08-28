@@ -40,6 +40,8 @@ Detalles del Pedido
 El total de la compra fue de {{ number_format($compra->monto_total, 0,",",".") }}
 El Ahorro de su compra fue  {{ number_format($compra->monto_total_base-$compra->monto_total, 0,",",".") }}
 
+Ip: {{$compra->ip}}
+
 
 @component('mail::button', ['url' => secure_url('/admin')])
 Visitar página

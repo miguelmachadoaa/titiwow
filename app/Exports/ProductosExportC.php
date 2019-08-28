@@ -32,6 +32,7 @@ class ProductosExportC implements FromView
           'alp_clientes.doc_cliente as doc_cliente',
           'alp_clientes.telefono_cliente as telefono_cliente',
           'alp_ordenes.ordencompra as ordencompra',
+          'alp_ordenes.ip as ip',
           'users.id as id_usuario', 
           'users.first_name as first_name', 
           'users.last_name as last_name', 

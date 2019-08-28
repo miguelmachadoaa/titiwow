@@ -34,6 +34,10 @@ Base Impuesto:  {{ number_format($compra->base_impuesto/(1+$compra->valor_impues
 Monto Impuesto: {{ number_format($compra->monto_impuesto, 0,",",".") }} COP
 
 
+Ip: {{$compra->ip}}
+
+
+
 @component('mail::button', ['url' => secure_url('/')])
 Sigue Comprando
 @endcomponent

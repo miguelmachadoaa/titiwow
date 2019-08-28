@@ -47,6 +47,11 @@ El total de la compra fué de {{ number_format($compra->monto_total, 0,",",".") 
 El Ahorro de su compra fue  {{ number_format($compra->monto_total_base-$compra->monto_total, 0,",",".") }}
 
 
+
+
+
+
+
 @component('mail::button', ['url' => secure_url('/')])
 Sigue Comprando
 @endcomponent

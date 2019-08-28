@@ -126,7 +126,7 @@
                         
                         @if(Sentinel::guest())
 
-                            <a class="hidden-xs" style="float: none; display: inline-block;" href="{{secure_url('login')}}" ><i class="livicon" data-name="sign-in" data-size="25" data-loop="false" data-c="#ffffff" data-hc="#ccc"></i></a>
+                            <a class="hidden-xs" style="float: none; display: inline-block;" href="{{secure_url('login')}}" ><i class="livicon" data-name="user" data-size="25" data-loop="false" data-c="#ffffff" data-hc="#ccc"></i></a>
 
                         @else
 

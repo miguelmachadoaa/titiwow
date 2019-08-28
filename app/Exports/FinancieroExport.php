@@ -32,6 +32,7 @@ class FinancieroExport implements FromView
         $ordenes=AlpOrdenes::query()->select(
            DB::raw('DATE_FORMAT(alp_ordenes.created_at, "%d/%m/%Y")  as fecha'),
           'alp_ordenes.id as id',
+          'alp_ordenes.ip as ip',
           
           'alp_ordenes.base_impuesto as base_impuesto',
           'alp_ordenes.valor_impuesto as valor_impuesto',

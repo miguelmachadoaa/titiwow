@@ -32,6 +32,7 @@ class ProductosExportB implements FromView
           'alp_clientes.doc_cliente as doc_cliente',
           'alp_clientes.telefono_cliente as telefono_cliente',
           'alp_ordenes.ordencompra as ordencompra',
+          'alp_ordenes.ip as ip',
 
           'alp_ordenes.monto_total as monto_total_orden',
           'alp_ordenes.base_impuesto as base_impuesto_orden',

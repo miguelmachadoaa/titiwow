@@ -23,6 +23,7 @@
             <th><b>Total a Transferir</b></th>
             <th><b>Embajador</b></th>
             <th><b>Empresa Asociada</b></th>
+            <th><b>Ip</b></th>
 
         </tr>
     </thead>
@@ -117,9 +118,9 @@
 
                 <td>No Aplica</td>
 
-
                 @endif
 
+                <td>{!! $row->ip !!}</td>
           
         </tr>
         @endforeach

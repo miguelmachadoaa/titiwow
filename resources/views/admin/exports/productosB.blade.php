@@ -25,6 +25,7 @@
             <th><b>Base Imponible Orden</b></th>
             <th><b>Valor Impuesto Orden</b></th>
             <th><b>Monto Impuesto Orden</b></th>
+            <th><b>Ip</b></th>
             <th><b>OBSERVACIONES</b></th>
         </tr>
     </thead>
@@ -56,6 +57,7 @@
             <td>{!! $row->base_impuesto_orden !!}</td>
             <td>{!! $row->valor_impuesto_orden !!}</td>
             <td>{!! $row->monto_impuesto_orden !!}</td>
+            <td>{!! $row->ip !!}</td>
             <td>{!! $row->barrio_address !!}</td>
 
           
