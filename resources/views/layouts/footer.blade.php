@@ -1,7 +1,7 @@
  <!-- Footer Section Start -->
  <footer>
         <div class="container footer-text">
-            <div >
+            <div class="row">
                 <!-- Categorias Section Start -->
                 <div class="col-sm-3 clearfix">
                     <h4>Categorías</h4>
@@ -49,7 +49,6 @@
                             <!--li class="menu-item">Formulario de <a href="#">Contacto</a></li-->
                         </ul>
                     </div>
-                </div>
                 <!-- Pare y Compare Section Start -->
                 <div class="col-sm-3 clearfix">
                     <img src="{{ secure_asset('uploads/files/pareycompare.png') }}" alt="Pare y Compare" title="Pare y Compare" class="img-responsive" style="margin:10px auto;width:160px;">
@@ -57,8 +56,12 @@
                     <a href="https://www.ccce.org.co" target="_blank"><img src="{{ secure_asset('uploads/files/ccce.png') }}" alt="Secretaria de Industria y Comercio" title="Pare y Compare" class="img-responsive" style="margin:10px auto;width:160px;"></a>
                 </div>
                 <!-- //redes Section End -->
+
+                </div>
+
+
             <!-- //Pare y Compare Section End -->
-            <div>
+            <div class="row">
                 <div class="col-md-12 text-center">
                 <div class="separador" style="    border-bottom: 2px solid #ffffff;margin-bottom: 10px; width:20%"></div>
                 <a href="{{ secure_url('paginas/terminos-condiciones')}}" class="menu-item" target="_blank" alt="Términos y Condiciones de Acceso a Alpina Go" title="Términos y Condiciones de Acceso a Alpina Go">Términos y Condiciones de Acceso a Alpina Go</a> | <a href="{{ secure_asset('uploads/files/politica_de_tratamiento_de_la_informacion.PDF') }}" class="menu-item" target="_blank" title="Políticas de Tratamiento de la Información" alt="Políticas de Tratamiento de la Información">Políticas de Tratamiento de la Información</a>

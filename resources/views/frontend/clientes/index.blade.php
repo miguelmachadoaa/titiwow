@@ -149,9 +149,9 @@ Area clientes
         @endif-->
 
         
-        <div class="col-sm-12" style="margin-top: 1em;">
+        <div class="col-sm-12 " style="margin-top: 1em;">
             <div class="row">
-            <div class="col-sm-2 text-center">
+            <div class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center">
                 <a href="{{ secure_url('my-account') }}" class=" btn-medium cajita">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-user"></i></div>
@@ -161,7 +161,7 @@ Area clientes
 
                 </a>
             </div>    
-            <div class="col-sm-2 text-center">
+            <div class="col-xs-6 col-sm-3 col-lg-2 col-md-3 col-md-3 text-center">
                 <a href="{{ secure_url('miscompras') }}" class=" btn-medium cajita">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-shopping-cart"></i></div>
@@ -171,7 +171,7 @@ Area clientes
 
                 </a>
             </div>    
-            <div class="col-sm-2 text-center">
+            <div class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center">
                 <a href="{{ secure_url('misdirecciones') }}" class=" btn-medium cajita">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-map"></i></div>
@@ -179,7 +179,7 @@ Area clientes
                     </div>
                 </a>
             </div> 
-            <div class="col-sm-2 text-center">   
+            <div class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center">   
                 <a href="{{ secure_url('productos') }}" class=" btn-medium cajita">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-shopping-cart"></i></div>
@@ -188,7 +188,7 @@ Area clientes
                 </a>
             </div> 
                 @if (Sentinel::getUser()->hasAnyAccess(['clientes.misamigos']))
-                <div class="col-sm-2 text-center"> 
+                <div class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center"> 
                 <a  href="{{ secure_url('misamigos') }}" class=" btn-medium cajita">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-users"></i></div>
@@ -201,7 +201,7 @@ Area clientes
 
                  @if($role->role_id==9 || $role->role_id==12)
 
-                  <div class="col-sm-2 text-center"> 
+                  <div class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center"> 
                 <a  href="{{ secure_url('convenios') }}" class=" btn-medium cajita">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-industry"></i></div>
@@ -216,7 +216,7 @@ Area clientes
 
 
                 @if (Sentinel::getUser()->hasAnyAccess(['clientes.misamigos']))
-                <!--div class="col-sm-2 text-center"> 
+                <!--div class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center"> 
                 <a  href="{{ secure_url('miestatus') }}" class=" btn-medium cajita">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-users"></i></div>
@@ -227,7 +227,7 @@ Area clientes
                 </div> 
             <div class="row">
                 @endif
-                <div class="col-sm-2 text-center"> 
+                <div class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center"> 
                 <a href="{{ secure_url('paginas/faqs') }}" class=" btn-medium cajita">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-question-circle"></i></div>
