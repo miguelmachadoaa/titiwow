@@ -823,11 +823,11 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
             ->join('alp_clientes','alp_ordenes.id_cliente' , '=', 'alp_clientes.id_user_client')
             ->join('alp_formas_envios','alp_ordenes.id_forma_envio' , '=', 'alp_formas_envios.id')
             ->join('alp_formas_pagos','alp_ordenes.id_forma_pago' , '=', 'alp_formas_pagos.id')
-            ->where('alp_ordenes.id', $id_orden)->first();
+            ->where('alp_ordenes.id', $$orden->id)->first();
 
         $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug')
           ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
-          ->where('alp_ordenes_detalle.id_orden', $id_orden)->get();
+          ->where('alp_ordenes_detalle.id_orden', $$orden->id)->get();
 
 
               Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $envio->fecha_envio));

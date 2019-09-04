@@ -193,6 +193,17 @@
         @endif
 
 
+         @if (Sentinel::getUser()->hasAnyAccess(['productos.cargarpreciobase']))
+
+        <li {!! (Request::is('admin/productos/cargarpreciobase') ? 'class="active"' : '') !!}>
+            <a href="{!! route('admin.productos.cargarpreciobase') !!}">
+                <i class="fa fa-angle-double-right"></i>
+                Actualización de Precios Base 
+            </a>
+        </li>
+        @endif
+
+
         @if (Sentinel::getUser()->hasAnyAccess(['productos.grid']))
 
         <li {!! (Request::is('admin/productos/grid') ? 'class="active"' : '') !!}>

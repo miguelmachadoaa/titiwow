@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\JoshController;
 use App\Http\Requests\CargaRequest;
+use App\Http\Requests\PrecioBaseRequest;
 use App\Http\Requests\ProductosRequest;
 use App\Http\Requests\ProductosUpdateRequest;
 use App\Models\AlpProductos;
@@ -17,6 +18,7 @@ use App\Models\AlpEmpresas;
 use App\Models\AlpCombosProductos;
 
 use App\Imports\ProductosUpdateImport;
+use App\Imports\ProductosPrecioBase;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -1931,6 +1933,13 @@ class AlpProductosController extends JoshController
     }
 
 
+
+
+
+
+
+
+
     public function importupdate(CargaRequest $request) 
     {
 
@@ -1965,6 +1974,60 @@ class AlpProductosController extends JoshController
         
         return redirect('admin/productos/cargarupdate')->with('success', 'Productos Actualizados Exitosamente');
     }
+
+
+     public function cargarpreciobase()
+    {
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpProductosController/cargarpreciobase ');
+
+        }else{
+
+          activity()
+          ->log('AlpProductosController/cargarpreciobase');
+
+        }
+
+        return view('admin.productos.cargarpreciobase');
+    }
+
+
+    public function postpreciobase(PrecioBaseRequest $request) 
+    {
+
+     // dd($request);
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpProductosController/importupdate  ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpProductosController/importupdate ');
+
+        }
+
+        $archivo = $request->file('file_update');
+
+        Excel::import(new ProductosPrecioBase, $archivo);
+        
+        return redirect('admin/productos/cargarpreciobase')->with('success', 'Productos Actualizados Exitosamente');
+    }
+
+
 
     
 }

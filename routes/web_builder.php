@@ -120,6 +120,10 @@ Route::post('productos/importupdate/', ['as'=> 'productos.importupdate', 'uses' 
 
 Route::get('productos/cargarupdate/', ['as'=> 'productos.cargarupdate', 'uses' => 'Admin\AlpProductosController@cargarupdate']);
 
+Route::get('productos/cargarpreciobase/', ['as'=> 'productos.cargarpreciobase', 'uses' => 'Admin\AlpProductosController@cargarpreciobase']);
+
+Route::post('productos/postpreciobase/', ['as'=> 'productos.postpreciobase', 'uses' => 'Admin\AlpProductosController@postpreciobase']);
+
 Route::post('productos/dataprecio', ['as'=> 'productos.dataprecio', 'uses' => 'Admin\AlpProductosController@dataprecio']);
 
 
