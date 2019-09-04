@@ -797,7 +797,7 @@ class AlpClientesController extends JoshController
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
+       
 
 
             if (Sentinel::check()) {
@@ -817,10 +817,14 @@ class AlpClientesController extends JoshController
 
         }
 
-        
+         
+
+
         $cliente = DB::table('alp_clientes')
-        ->leftJoin('users', 'alp_clientes.id_embajador', '=', 'users.id')
-        ->where('alp_clientes.id_user_client', '=', $id)->get();
+        //->leftJoin('users', 'alp_clientes.id_embajador', '=', 'users.id')
+        ->where('alp_clientes.id', '=', $id)->first();
+
+        $user = User::findOrFail($cliente->id);
         
         // Get this user groups
         $userRoles = $user->getRoles()->pluck('name', 'id')->all();

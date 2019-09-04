@@ -187,7 +187,7 @@
         <li {!! (Request::is('admin/productos/cargarupdate') ? 'class="active"' : '') !!}>
             <a href="{!! route('admin.productos.cargarupdate') !!}">
                 <i class="fa fa-angle-double-right"></i>
-                Actualización de Precios
+                Actualización de Precios Roles
             </a>
         </li>
         @endif

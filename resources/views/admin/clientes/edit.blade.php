@@ -128,8 +128,8 @@
                                                 <select class="form-control required" title="Selecciona Genero" name="genero_cliente" id="genero_cliente">
                                                     <option value="">Seleccionar</option>
                                                     @foreach($cliente as $clien)
-                                                    <option value="1" @if( $clien->genero_cliente === 2) selected="selected" @endif >Femenino</option>
-                                                    <option value="2" @if( $clien->genero_cliente === 2) selected="selected" @endif >Masculino</option>
+                                                    <option value="1" @if( $cliente->genero_cliente === 2) selected="selected" @endif >Femenino</option>
+                                                    <option value="2" @if( $cliente->genero_cliente === 2) selected="selected" @endif >Masculino</option>
                                                     @endforeach
                                                 </select>
                                                 {!! $errors->first('genero_cliente', '<span class="help-block">:message</span>') !!}
@@ -140,7 +140,7 @@
                                         <div class="form-group required">
                                             <label for="id_type_doc" class="col-sm-2 control-label">Tipo de Documento *</label>
                                             <div class="col-sm-10">
-                                            {!! Form::select('id_type_doc', $tdocumento,$clien->id_type_doc,array('class'=>'form-control required'));!!}
+                                            {!! Form::select('id_type_doc', $tdocumento,$cliente->id_type_doc,array('class'=>'form-control required'));!!}
 
                                                 
                                                 {!! $errors->first('id_type_doc', '<span class="help-block">:message</span>') !!}
@@ -153,7 +153,7 @@
                                             <div class="col-sm-10">
                                                 <input id="doc_cliente" name="doc_cliente" type="text"
                                                        placeholder="Número de Documento" class="form-control required"
-                                                       value="{!! old('doc_cliente', $clien->doc_cliente) !!}"/>
+                                                       value="{!! old('doc_cliente', $cliente->doc_cliente) !!}"/>
 
                                                 {!! $errors->first('doc_cliente', '<span class="help-block">:message</span>') !!}
                                             </div>
@@ -164,7 +164,7 @@
                                             <div class="col-sm-10">
                                                 <input id="telefono_cliente" name="telefono_cliente" type="number"
                                                        placeholder="Número Telefónico" class="form-control required"
-                                                       value="{!! old('telefono_cliente', $clien->telefono_cliente) !!}"/>
+                                                       value="{!! old('telefono_cliente', $cliente->telefono_cliente) !!}"/>
 
                                                 {!! $errors->first('telefono_cliente', '<span class="help-block">:message</span>') !!}
                                             </div>
@@ -216,7 +216,7 @@
                                             <div class="col-sm-10">
                                                 <input id="marketing_cliente" name="marketing_cliente" type="checkbox"
                                                        class="pos-rel p-l-30 custom-checkbox "
-                                                       value="1" @if(old('marketing_cliente', $clien->marketing_cliente) ) checked="checked" @endif >
+                                                       value="1" @if(old('marketing_cliente', $cliente->marketing_cliente) ) checked="checked" @endif >
                                                 <span>¿Acepta recibir campañas de marketing en su email?</span></div>
 
                                         </div>
@@ -244,12 +244,12 @@
                                             </div>
                                             <span class="help-block">{{ $errors->first('group', ':message') }}</span>
                                         </div>
-                                        @if(!empty($clien->first_name))
+                                        @if(!empty($cliente->first_name))
                                         <div class="form-group {{ $errors->first('embajador', 'has-error') }}">
                                             <label for="embajador" class="col-sm-2 control-label">Embajador</label>
                                             <div class="col-sm-10">
                                                 <input id="embajador" name="embajador" placeholder="E-mail" type="text"
-                                                       class="form-control required embajador" value="{!! old('first_name', $clien->first_name.' '.$clien->last_name) !!}" readonly/>
+                                                       class="form-control required embajador" value="{!! old('first_name', $cliente->first_name.' '.$cliente->last_name) !!}" readonly/>
                                                 {!! $errors->first('embajador', '<span class="help-block">:message</span>') !!}
                                             </div>
                                         </div>
