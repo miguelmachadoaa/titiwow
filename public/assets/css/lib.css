@@ -1650,6 +1650,6 @@ footer a:hover, footer a:active{
 .navbar {
     position: relative;
     min-height: 0px;
-    margin-bottom: 0px;
+    margin-bottom: 6px;
     border: 0px solid transparent;
 }
