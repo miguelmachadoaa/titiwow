@@ -993,7 +993,7 @@ footer a:hover, footer a:active{
 /*bloque logo inicio*/
      #header_logo {
         padding-left:0; 
-        float:left;
+        /*float:left;*/
         position: relative;
         vertical-align: middle; 
         text-align: center;
