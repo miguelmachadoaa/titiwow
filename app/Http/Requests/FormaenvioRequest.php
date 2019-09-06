@@ -24,6 +24,7 @@ class FormaenvioRequest extends FormRequest {
 	public function rules()
 	{
 		return [
+            'sku' => 'required|min:3',
             'nombre_forma_envios' => 'required|min:3',
             'descripcion_forma_envios' => 'required|min:3',
 		];

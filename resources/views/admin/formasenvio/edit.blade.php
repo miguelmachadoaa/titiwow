@@ -39,6 +39,22 @@ Editar Forma de Envio
                         {!! Form::model($forma, ['url' => secure_url('admin/formasenvio/'. $forma->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
+
+                            <div class="form-group {{ $errors->
+                            first('sku', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Sku Forma de envios
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="text" id="sku" name="sku" class="form-control" placeholder="Sku de Forma de Envio"
+                                       value="{!! old('sku', $forma->sku) !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('nombre_forma_envios', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
                           
                              <div class="form-group {{ $errors->
                             first('nombre_forma_envios', 'has-error') }}">

@@ -58,7 +58,7 @@ Ciudades de envio
                                     <th>Id</th>
                                     <th>Ciudad</th>
                                     <th>Dias para entrega</th>
-                                    <th>Hora limite recepcion</th>
+                                    <th>Hora limite recepción</th>
                                     <th>Accion</th>
                                 </tr>
                             </thead>
@@ -70,6 +70,7 @@ Ciudades de envio
                                     <td>{!! $row->state_name.' - '.$row->city_name!!}</td>
                                     <td>{!! $row->dias !!}</td>
                                     <td>{!! $row->hora !!}</td>
+                                    <td>{!! number_format($row->costo, 2)  !!}</td>
                                     <td>
                                             
                                             
@@ -184,6 +185,17 @@ Ciudades de envio
                                      <input style="margin: 4px 0;" id="hora" name="hora" type="text" placeholder="Hora maxima de recepcion de ordenes" class="form-control">
                                     </div>
                                 </div>
+
+
+                                <div class="form-group clearfix">
+                                    <label class="col-md-3 control-label" for="costo">Costo del Envio </label>
+
+                                    <div class="col-sm-8">
+                                     <input  type="number" step="1" min="0" id="costo" name="costo" placeholder="Costo del Envio" class="form-control"  style="margin: 4px 0;">
+                                    </div>
+                                </div>
+
+
 
 
                             </div>
@@ -301,6 +313,13 @@ $('.delCiudad').click(function () {
                     message: 'Debe seleccionar una ciudad'
                 }
             }
+        },
+         costo: {
+            validators:{
+                required:{
+                    message: 'El costo es requerido'
+                }
+            }
         }
     }
 });
@@ -316,13 +335,14 @@ $('.delCiudad').click(function () {
         city_id=$("#city_id").val();
         dias=$("#dias").val();
         hora=$("#hora").val();
+        costo=$("#costo").val();
 
              
         var base = $('#base').val();
 
         $.ajax({
             type: "POST",
-            data:{ city_id, dias, hora, id_forma},
+            data:{ city_id, dias, hora, id_forma, costo},
             url: base+"/admin/formasenvio/storecity",
                 
             complete: function(datos){     

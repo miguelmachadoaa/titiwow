@@ -151,36 +151,21 @@ div.overlay > div {
 
         <div class="res_direccion"></div>
 
-       
-
         @include('frontend.includes.detallesventa')
-     
 
     </div> <!-- end Row --><!-- col-sm-8 -->
 
-
     <div class="col-sm-6">
 
-         @include('frontend.includes.direcciones')
+        @include('frontend.includes.direcciones')
 
-
-
-
-
-           @include('frontend.includes.formasenvio')
-
-
-
-
+        @include('frontend.includes.formasenvio')
 
         @include('frontend.includes.formaspago')
-
-     
 
     </div>
 
     <br> 
-
 
 </div> <!-- Container  -->
 
@@ -196,13 +181,11 @@ div.overlay > div {
 
     <a class="btn btn-danger" href="{{secure_url('/cart/vaciar')}}">Cancelar <i class="fa fa-times" aria-hidden="true"></i></a>
 
-
 </p>
 
 <!--{!! Form::close() !!}-->
 
 </div>
-
 
 <!-- Modal Direccion -->
  <div class="modal fade" id="modalPse" role="dialog" aria-labelledby="modalLabeldanger">
@@ -619,21 +602,12 @@ $('.sendCupon').click(function () {
             }
         });
 
-        
         //document.getElementById("addDireccionForm").submit();
     }
 
 });
 
-
-
-
-
-
-
         /*Funciones para cipones */
-
-
 
         $('body').on('click', '.procesar', function (){
 
@@ -724,19 +698,9 @@ $('.sendCupon').click(function () {
                     }else{
 
 
-
-
-
-
-
-
                     }
 
-                   
-
-
                 }else{
-
 
                     $.ajax({
                         type: "POST",
@@ -931,9 +895,6 @@ $("#addCuponForm").bootstrapValidator({
         }
     }
 });
-        
-
-        
 
 
 $("#addPseForm").bootstrapValidator({
@@ -1104,23 +1065,16 @@ $('.sendDireccion').click(function () {
         });
 
 
-        //document.getElementById("addDireccionForm").submit();
-
-
     }
 
 });
-// $('#activate').on('ifChanged', function(event){
-//     $('#commentForm').bootstrapValidator('revalidateField', $('#activate'));
-// });
+
 $('#addDireccionForm').keypress(
     function(event){
         if (event.which == '13') {
             event.preventDefault();
         }
     });
-
-
 
     $(document).ready(function(){
         $('.select2').select2({
@@ -1132,72 +1086,86 @@ $('#addDireccionForm').keypress(
     </script>
 
 
-
 <script type="text/javascript">
         
-            $(document).ready(function(){
+    $(document).ready(function(){
         //Inicio select región
-                $('select[name="country_id"]').on('change', function() {
-                    $('select[name="city_id"]').empty();
-                var countryID = $(this).val();
-                var base = $('#base').val();
-                    if(countryID) {
-                        $.ajax({
-                            url: base+'/configuracion/states/'+countryID,
-                            type: "GET",
-                            dataType: "json",
-                            success:function(data) {
+        $('select[name="country_id"]').on('change', function() {
+            $('select[name="city_id"]').empty();
+        var countryID = $(this).val();
+        var base = $('#base').val();
+            if(countryID) {
+                $.ajax({
+                    url: base+'/configuracion/states/'+countryID,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
 
-                                
-                                $('select[name="state_id"]').empty();
-                                $.each(data, function(key, value) {
-                                    $('select[name="state_id"]').append('<option value="'+ key +'">'+ value +'</option>');
-                                });
-
-                            }
-                        });
-                    }else{
+                        
                         $('select[name="state_id"]').empty();
-                    }
-                });
-            //fin select región
-
-            //inicio select ciudad
-            $('select[name="state_id"]').on('change', function() {
-                    var stateID = $(this).val();
-                var base = $('#base').val();
-
-                    if(stateID) {
-                        $.ajax({
-                            url: base+'/configuracion/cities/'+stateID,
-                            type: "GET",
-                            dataType: "json",
-                            success:function(data) {
-
-                                
-                                $('select[name="city_id"]').empty();
-                                $.each(data, function(key, value) {
-                                    $('select[name="city_id"]').append('<option value="'+ key +'">'+ value +'</option>');
-                                });
-
-                            }
+                        $.each(data, function(key, value) {
+                            $('select[name="state_id"]').append('<option value="'+ key +'">'+ value +'</option>');
                         });
-                    }else{
-                        $('select[name="city_id"]').empty();
+
                     }
                 });
-            //fin select ciudad
+            }else{
+                $('select[name="state_id"]').empty();
+            }
+        });
+    //fin select región
+
+    //inicio select ciudad
+    $('select[name="state_id"]').on('change', function() {
+            var stateID = $(this).val();
+        var base = $('#base').val();
+
+            if(stateID) {
+                $.ajax({
+                    url: base+'/configuracion/cities/'+stateID,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+
+                        
+                        $('select[name="city_id"]').empty();
+                        $.each(data, function(key, value) {
+                            $('select[name="city_id"]').append('<option value="'+ key +'">'+ value +'</option>');
+                        });
+
+                    }
+                });
+            }else{
+                $('select[name="city_id"]').empty();
+            }
+        });
+    //fin select ciudad
+});
+
+    $('#id_forma_envio').change(function () {
+    
+                base=$('#base').val();
+
+                _token=$('input[name="_token"]').val();
+
+                id_forma_envio=$('#id_forma_envio').val();
+
+                $.ajax({
+                    type: "POST",
+                    data:{  id_forma_envio, _token},
+                    url: base+"/cart/setformaenvio",
+                        
+                    complete: function(datos){     
+
+                      location.reload()    
+
+                    }
+
+                });
+
         });
 
-
- 
-
-
     </script>
-
-
-
-
 
 @stop
 

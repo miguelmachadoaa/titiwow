@@ -62,15 +62,15 @@ class AlpFormasenvioController extends JoshController
            
         $actions = "<a  href='". secure_url('admin/formasenvio').'/'.$row->id.'/ubicacion' ."'><i class='fa fa-map-marker'></i></a>
 
-                                            <a href='". secure_url('admin/formasenvio/'.$row->id.'/edit' ) ."'>
-                                                <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='editar categoria'></i>
-                                            </a>
-                                            
-                                            <a href='". secure_url('admin/formasenvio/'.$row->id.'/confirm-delete') ."' data-toggle='modal' data-target='#delete_confirm'>
-                                            <i class='livicon' data-name='remove-alt' data-size='18'
-                                                data-loop='true' data-c='#f56954' data-hc='#f56954'
-                                                title='Eliminar'></i>
-                                             </a>
+        <a href='". secure_url('admin/formasenvio/'.$row->id.'/edit' ) ."'>
+            <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='editar categoria'></i>
+        </a>
+        
+        <a href='". secure_url('admin/formasenvio/'.$row->id.'/confirm-delete') ."' data-toggle='modal' data-target='#delete_confirm'>
+        <i class='livicon' data-name='remove-alt' data-size='18'
+            data-loop='true' data-c='#f56954' data-hc='#f56954'
+            title='Eliminar'></i>
+         </a>
 ";
 
                 
@@ -78,6 +78,7 @@ class AlpFormasenvioController extends JoshController
 
                $data[]= array(
                  $row->id, 
+                 $row->sku, 
                  $row->nombre_forma_envios, 
                  $row->descripcion_forma_envios, 
                  $row->created_at->diffForHumans(), 
@@ -159,6 +160,7 @@ class AlpFormasenvioController extends JoshController
         //var_dump($input);
 
         $data = array(
+            'sku' => $request->sku, 
             'nombre_forma_envios' => $request->nombre_forma_envios, 
             'descripcion_forma_envios' => $request->descripcion_forma_envios, 
             'id_user' =>$user_id
@@ -237,6 +239,7 @@ class AlpFormasenvioController extends JoshController
 
 
        $data = array(
+            'sku' => $request->sku, 
             'nombre_forma_envios' => $request->nombre_forma_envios, 
             'descripcion_forma_envios' => $request->descripcion_forma_envios
         );
@@ -386,16 +389,12 @@ class AlpFormasenvioController extends JoshController
 
         }
 
-
-
-       
-         
-
         $data = array(
             'id_forma' => $request->id_forma, 
             'id_ciudad' => $request->city_id, 
             'dias' => $request->dias, 
             'hora' => $request->hora, 
+            'costo' => $request->costo, 
             'id_user' =>$user_id
         );
          

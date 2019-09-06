@@ -910,6 +910,8 @@ Route::post('cart/storedir/',['as'=>'cart.storedir', 'uses'=>'Admin\AlpCartContr
 
 Route::post('cart/verificarDireccion/',['as'=>'cart.verificarDireccion', 'uses'=>'Admin\AlpCartController@verificarDireccion']);
 
+Route::post('cart/setformaenvio/',['as'=>'cart.setformaenvio', 'uses'=>'Admin\AlpCartController@setformaenvio']);
+
 
 Route::get('cart/setdir/{direccion}',['as'=>'cart.setdir', 'uses'=>'Admin\AlpCartController@setdir']);
 

@@ -31,6 +31,7 @@ use App\Models\AlpPreDetalles;
 use App\Models\AlpOrdenesHistory;
 use App\Models\AlpEstructuraAddress;
 use App\Models\AlpFeriados;
+use App\Models\AlpImpuestos;
 use App\Http\Requests\AddressRequest;
 
 use App\Country;
@@ -80,6 +81,16 @@ class AlpCartController extends JoshController
 
         if (!\Session::has('user')) {
           \Session::put('user', '0');
+        }
+
+
+        if (!\Session::has('envio')) {
+          \Session::put('envio', '1');
+        }
+
+
+        if (!\Session::has('direccion')) {
+          \Session::put('direccion', '0');
         }
 
        
@@ -475,6 +486,31 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
       $orden=AlpOrdenes::where('id', $id_orden)->first();
 
 
+      $envio=$this->envio();
+
+
+      $valor_impuesto=AlpImpuestos::where('id', '1')->first();
+
+      if ($envio>0) {
+       
+         $envio_base=$envio/(1+$valor_impuesto->valor_impuesto);
+
+      $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
+
+
+      }else{
+
+        $envio_base=0;
+
+        $envio_impuesto=0;
+
+      }
+      
+     
+
+     
+
+
       $user = Sentinel::getUser();
 
        activity($user->full_name)
@@ -483,9 +519,9 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
                     ->withProperties($request->all())->log('Get Pse');
 
 
-      $total=$orden->monto_total;
+      $total=$orden->monto_total+$envio;
 
-      $impuesto=$orden->monto_impuesto;
+      $impuesto=$orden->monto_impuesto+$envio_impuesto;
       
       $configuracion = AlpConfiguracion::where('id', '1')->first();
 
@@ -943,9 +979,33 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
           ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
           ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
 
-        $total=$orden->monto_total;
+          $envio=$this->envio();
 
-        $impuesto=$orden->monto_impuesto;
+
+      $valor_impuesto=AlpImpuestos::where('id', '1')->first();
+
+      if ($envio>0) {
+       
+         $envio_base=$envio/(1+$valor_impuesto->valor_impuesto);
+
+      $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
+
+
+      }else{
+
+        $envio_base=0;
+
+        $envio_impuesto=0;
+
+      }
+
+
+
+
+
+        $total=$orden->monto_total+$envio;
+
+        $impuesto=$orden->monto_impuesto+$envio_impuesto;
         
         $net_amount=$total-$impuesto;
 
@@ -1000,7 +1060,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
         );  
 
         $preference_data = [
-        "transaction_amount" => doubleval($orden->monto_total),
+        "transaction_amount" => doubleval($orden->monto_total+$envio),
         "net_amount"=>(float)number_format($net_amount, 2, '.', ''),
             "taxes"=>[[
               "value"=>(float)number_format($impuesto, 2, '.', ''),
@@ -1017,9 +1077,11 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
             "email"=>$user_cliente->email]
         ];
 
+        //dd($preference_data);
+
         $preference = MP::post("/v1/payments",$preference_data);
 
-        // dd($preference);
+         
 
         if (isset($preference['response']['id'])) {
 
@@ -1159,7 +1221,6 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
       if (Sentinel::check()) {
 
-
         $user = Sentinel::getUser();
 
        activity($user->full_name)
@@ -1167,7 +1228,6 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
                     ->causedBy($user)
                     ->withProperties($cart)
                     ->log('Orden Detail');
-
 
 
         $user_id = Sentinel::getUser()->id;
@@ -1186,9 +1246,44 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
           ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
           ->where('alp_direcciones.id_client', $user_id)->get();
 
+
+          $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+          ->where('alp_direcciones.id_client', $user_id)
+          ->where('alp_direcciones.default_address', '=', '1')
+          ->first();
+
+          if (isset($d->id)) {
+            
+              \Session::put('direccion', $d->id);
+
+          }else{
+
+              $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+            ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+            ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+            ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+            ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+            ->where('alp_direcciones.id_client', $user_id)
+            ->first();
+
+              if (isset($d->id)) {
+            
+                  \Session::put('direccion', $d->id);
+
+              }
+
+          }
+
+
            $formasenvio = AlpFormasenvio::select('alp_formas_envios.*')
           ->join('alp_rol_envio', 'alp_formas_envios.id', '=', 'alp_rol_envio.id_forma_envio')
-          ->where('alp_rol_envio.id_rol', $role->role_id)->get()->toArray();
+          ->where('alp_rol_envio.id_rol', $role->role_id)->get();
+
+         //dd($formasenvio);
 
 
           $formaspago = AlpFormaspago::select('alp_formas_pagos.*')
@@ -1285,7 +1380,6 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
           $net_amount=$total-$impuesto;
 
-
          $pse = array();
 
           $payment_methods = MP::get("/v1/payment_methods");
@@ -1322,7 +1416,29 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
         'baloto' => 'Pago en efectivo a través de Baloto'
       );
 
-          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos', 'total_descuentos'));
+        $costo_envio=$this->envio();
+
+        $id_forma_envio= \Session::get('envio');
+
+
+        $valor_impuesto=AlpImpuestos::where('id', '1')->first();
+
+      if ($costo_envio>0) {
+       
+         $envio_base=$costo_envio/(1+$valor_impuesto->valor_impuesto);
+
+      $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
+
+
+      }else{
+
+        $envio_base=0;
+
+        $envio_impuesto=0;
+
+      }
+
+          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos', 'total_descuentos', 'costo_envio', 'id_forma_envio', 'envio_base', 'envio_impuesto'));
 
          }
 
@@ -1361,12 +1477,32 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
       $id_orden= \Session::get('orden');
 
 
+      $envio=$this->envio();
+
+      $valor_impuesto=AlpImpuestos::where('id', '1')->first();
+
+      if ($envio>0) {
+       
+         $envio_base=$envio/(1+$valor_impuesto->valor_impuesto);
+
+      $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
+
+
+      }else{
+
+        $envio_base=0;
+
+        $envio_impuesto=0;
+
+      }
+
+
 
       $orden=AlpOrdenes::where('id', $id_orden)->first();
 
-      $total=$orden->monto_total;
+      $total=$orden->monto_total+$envio;
 
-      $impuesto=$orden->monto_impuesto;
+      $impuesto=$orden->monto_impuesto+$envio_impuesto;
 
       $net_amount=$total-$impuesto;
 
@@ -1419,7 +1555,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
       }
 
            $preference_data = [
-            "transaction_amount" => doubleval($orden->monto_total),
+            "transaction_amount" => doubleval($orden->monto_total+$envio),
             "external_reference" =>"ALP".$orden->id."",
             "description" => 'Pago de orden: '.$orden->id,
             "payment_method_id" => $request->idpago,
@@ -1436,8 +1572,6 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
           ];
 
           //dd($preference_data);
-
-
 
 
           $payment = MP::post("/v1/payments",$preference_data);
@@ -3133,7 +3267,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         }
 
-
        $cart= \Session::get('cart');
 
        //print_r($cart);
@@ -3517,9 +3650,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         }
 
-
-
-
         $user_id = Sentinel::getUser()->id;
 
         $input = $request->all();
@@ -3534,6 +3664,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         $direccion=AlpDirecciones::create($input);
 
          if (isset($direccion->id)) {
+
+          \Session::put('direccion', $direccion->id);
+
 
           DB::table('alp_direcciones')->where('id_client', $user_id)->update(['default_address'=>0]);
           DB::table('alp_direcciones')->where('id', $direccion->id)->update(['default_address'=>1]);
@@ -3564,8 +3697,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
     public function setdir( $id)
     {
 
-
-
       if (Sentinel::check()) {
 
           $user = Sentinel::getUser();
@@ -3583,9 +3714,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
         }
-
-
-
 
       $user_id = Sentinel::getUser()->id;
 
@@ -3609,6 +3737,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           $direccion->update($data);
 
         if ($direccion->id) {
+
+          \Session::put('direccion', $direccion->id);
 
           return redirect('order/detail');
             
@@ -3645,36 +3775,34 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       $user_id = Sentinel::getUser()->id;
 
-          $direccion= AlpDirecciones::find($id);
+      $direccion= AlpDirecciones::find($id);
 
-          $direccion->delete();
+      $direccion->delete();
 
-          return redirect('order/detail');
+      return redirect('order/detail');
+
+
     }
 
     public function verificarDireccion( Request $request)
     {
 
+   if (Sentinel::check()) {
 
+      $user = Sentinel::getUser();
 
-       if (Sentinel::check()) {
+       activity($user->full_name)
+                    ->performedOn($user)
+                    ->causedBy($user)
+                    ->withProperties($request->all())
+                    ->log('cartcontroller/verificarDireccion ');
 
-          $user = Sentinel::getUser();
+    }else{
 
-           activity($user->full_name)
-                        ->performedOn($user)
-                        ->causedBy($user)
-                        ->withProperties($request->all())
-                        ->log('cartcontroller/verificarDireccion ');
+      activity()->withProperties($request->all())
+                    ->log('cartcontroller/verificarDireccion');
 
-        }else{
-
-          activity()->withProperties($request->all())
-                        ->log('cartcontroller/verificarDireccion');
-
-
-        }
-
+    }
 
 
       $user_id = Sentinel::getUser()->id;
@@ -3690,6 +3818,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       $total=$this->total();
 
       $impuesto=$this->impuesto();
+
+      $envio=$this->envio();
 
       $clientIP = \Request::getClientIp(true);
 
@@ -3775,8 +3905,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
             AlpInventario::create($data_inventario);
 
             if ($detalle->tipo_producto=='2') {
-              
-                
 
                   $lista=AlpCombosProductos::where('id_combo', $detalle->id)->get();
 
@@ -3806,11 +3934,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                       AlpDetalles::create($data_detalle_l);
 
                       AlpInventario::create($data_inventario_l);
-
                 }
 
             }
-
 
         }//endfreach
 
@@ -3855,16 +3981,15 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
             $data_history = array(
-                          'id_orden' => $orden->id, 
-                         'id_status' => '8', 
-                          'notas' => 'Orden Creada', 
-                         'id_user' => 1
-                      );
+              'id_orden' => $orden->id, 
+             'id_status' => '8', 
+              'notas' => 'Orden Creada', 
+             'id_user' => 1
+            );
 
-                        $history=AlpOrdenesHistory::create($data_history);
+          $history=AlpOrdenesHistory::create($data_history);
 
           \Session::put('orden', $orden->id);
-
 
           $cupones=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
 
@@ -3898,21 +4023,20 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       if (Sentinel::check()) {
 
-          $user = Sentinel::getUser();
+      $user = Sentinel::getUser();
 
-           activity($user->full_name)
-                        ->performedOn($user)
-                        ->causedBy($user)
-                        ->withProperties(['codigo'=>$codigo])
-                        ->log('cartcontroller/asignaCupon ');
+       activity($user->full_name)
+                    ->performedOn($user)
+                    ->causedBy($user)
+                    ->withProperties(['codigo'=>$codigo])
+                    ->log('cartcontroller/asignaCupon ');
 
-        }else{
+      }else{
 
-          activity()->withProperties(['codigo'=>$codigo])
-                        ->log('cartcontroller/asignaCupon');
+      activity()->withProperties(['codigo'=>$codigo])
+                    ->log('cartcontroller/asignaCupon');
 
-
-        }
+      }
 
      $configuracion=AlpConfiguracion::where('id', '1')->first();
       
@@ -4377,7 +4501,6 @@ public function addcupon(Request $request)
           //return redirect('login');
         return view('frontend.order.login', compact('url'));
 
-
       }
 
     }
@@ -4481,7 +4604,6 @@ public function addcupon(Request $request)
     }
 
 
-
     public function delcupon(Request $request)
     {
 
@@ -4527,5 +4649,74 @@ public function addcupon(Request $request)
       return $texto;
 
     }
+
+
+    public function envio(){
+
+      $formasenvio= \Session::get('envio');
+
+      $direccion= \Session::get('direccion');
+
+      $dir=AlpDirecciones::where('id', $direccion)->first();
+
+      if (isset($dir->id)) {
+
+        $ciudad=AlpFormaCiudad::where('id_forma', $formasenvio)->where('id_ciudad', $dir->city_id)->first();
+
+        if (isset($ciudad->id)) {
+
+          $envio=$ciudad->costo;
+          
+        }else{
+
+          $envio=-1;
+
+        }
+
+        
+      }else{
+
+        $envio=-1;
+      }
+
+      return $envio;
+
+    } 
+
+
+    public function setformaenvio(Request $request)
+    {
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cartcontroller/setformaenvio ');
+
+        }else{
+
+          activity()->withProperties($request->all())
+                        ->log('cartcontroller/setformaenvio');
+
+        }
+
+        $user_id = Sentinel::getUser()->id;
+
+        $input = $request->all();
+
+         \Session::put('envio', $input['id_forma_envio']);
+
+         $envio=$this->envio();
+
+        return $envio;
+
+    }
+
+
+
 
 }

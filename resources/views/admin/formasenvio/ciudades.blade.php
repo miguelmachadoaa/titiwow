@@ -8,7 +8,8 @@
                                     <th>Id</th>
                                     <th>Ciudad</th>
                                     <th>Dias para entrega</th>
-                                    <th>Hora limite recepcion</th>
+                                    <th>Hora limite recepción</th>
+                                    <th>Costo</th>
                                     <th>Accion</th>
                                 </tr>
                             </thead>
@@ -20,6 +21,7 @@
                                     <td>{!! $row->state_name.' - '.$row->city_name!!}</td>
                                     <td>{!! $row->dias !!}</td>
                                     <td>{!! $row->hora !!}</td>
+                                    <td>{!! number_format($row->costo, 2)  !!}</td>
                                     <td>
                                             
                                             

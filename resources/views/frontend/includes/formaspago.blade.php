@@ -83,10 +83,10 @@
 
                                     data-public-key="{{ $configuracion->public_key_mercadopago_test }}"
                                     data-button-label="Pagar"
-                                    data-transaction-amount="{{ (float)number_format($total-$total_pagos, 2, '.', '')}}"
+                                    data-transaction-amount="{{ (float)number_format($total-$total_pagos+$envio_base+$envio_impuesto, 2, '.', '')}}"
                                   
-                                    data-summary-product="{{ (float)number_format($total-$total_pagos, 2, '.', '') }}"
-                                    data-summary-taxes="{{ (float)number_format($impuesto, 2, '.', '') }}"
+                                    data-summary-product="{{ (float)number_format($total-$total_pagos+$envio_base+$envio_impuesto, 2, '.', '') }}"
+                                    data-summary-taxes="{{ (float)number_format($impuesto+$envio_impuesto, 2, '.', '') }}"
                                     >
                                   </script>
                                 </form>
@@ -104,10 +104,10 @@
 
                                     data-public-key="{{ $configuracion->public_key_mercadopago }}"
                                     data-button-label="Pagar"
-                                    data-transaction-amount="{{ (float)number_format($total-$total_pagos, 2, '.', '')}}"
+                                    data-transaction-amount="{{ (float)number_format($total-$total_pagos+$envio_base+$envio_impuesto, 2, '.', '')}}"
                                   
-                                    data-summary-product="{{ (float)number_format($total-$total_pagos, 2, '.', '') }}"
-                                    data-summary-taxes="{{ (float)number_format($impuesto, 2, '.', '') }}"
+                                    data-summary-product="{{ (float)number_format($total-$total_pagos+$envio_base+$envio_impuesto, 2, '.', '') }}"
+                                    data-summary-taxes="{{ (float)number_format($impuesto+$envio_impuesto, 2, '.', '') }}"
                                     >
                                   </script>
                                 </form>

@@ -52,6 +52,7 @@ Formas de Envio
                             <thead>
                                 <tr>
                                     <th>Id</th>
+                                    <th>Sku</th>
                                     <th>Nombre</th>
                                     <th>Descripcion</th>
                                     <th>Creado</th>

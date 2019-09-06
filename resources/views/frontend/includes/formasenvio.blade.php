@@ -6,19 +6,30 @@
 
                 <h3>    Formas de Envios</h3>
 
-                <input type="hidden" id="id_forma_envio" name="id_forma_envio"  value="1" >
+                <!--input type="hidden" id="id_forma_envio" name="id_forma_envio"  value="1" -->
 
-                <div class="col-sm-12" style="    border: 1px solid rgba(0,0,0,0.1);">
+                <select class="form-control" name="id_forma_envio" id="id_forma_envio">
 
-                                <div class="col-sm-12 col-xs-12" >
-                                    <h4>{{ $formasenvio[0]['descripcion_forma_envios']}}</h4>
-                                </div>
-                              
 
-                            </div>
+                    @foreach($formasenvio as $fe)
 
-                   
+                    <option  value="{{$fe->id}}"   @if($fe->id==$id_forma_envio) {{'Selected'}} @endif      >{{$fe->nombre_forma_envios}}</option>
 
+                    @endforeach
+
+                </select>
+
+                <!--div class="col-sm-12" style="    border: 1px solid rgba(0,0,0,0.1);">
+
+
+
+                    <div class="col-sm-12 col-xs-12" >
+
+                        <h4>{{ $formasenvio[0]['descripcion_forma_envios']}}</h4>
+                    
+                    </div>
+
+                </div-->
 
             </div> <!-- End form group -->
             <div class="col-sm-12">

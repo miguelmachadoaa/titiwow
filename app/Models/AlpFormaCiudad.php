@@ -23,6 +23,7 @@ class AlpFormaCiudad extends Model
         'id_ciudad',       
         'dias',       
         'hora',       
+        'costo',       
         'estado_registro',
         'id_user'
     ];
