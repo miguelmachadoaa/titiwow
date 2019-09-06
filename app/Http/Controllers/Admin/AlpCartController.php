@@ -1768,10 +1768,37 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
          }
 
+
+         $envio=$this->envio();
+
+
+      $valor_impuesto=AlpImpuestos::where('id', '1')->first();
+
+      if ($envio>0) {
+       
+         $envio_base=$envio/(1+$valor_impuesto->valor_impuesto);
+
+      $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
+
+
+      }else{
+
+        $envio_base=0;
+
+        $envio_impuesto=0;
+
+      }
+
+
+
+
+
         $data_envio = array(
           'id_orden' => $orden->id, 
           'fecha_envio' => $date->addDays($ciudad_forma->dias)->format('Y-m-d'),
-          'costo' => $this->envio(), 
+          'costo' => $envio, 
+          'costo_base' => $envio_base, 
+          'costo_impuesto' => $envio_impuesto, 
           'estatus' => 1, 
           'id_user' =>$user_id                   
 
