@@ -1653,3 +1653,20 @@ footer a:hover, footer a:active{
     margin-bottom: 6px;
     border: 0px solid transparent;
 }
+
+
+.form-check{
+
+	border: 1px solid rgba(0,0,0,0.1);
+padding: 0.3em 0.3em 0em 1em;
+
+}
+
+
+.form-check label{
+	
+    color: #418bca;
+    font-weight: bold;
+    padding: 10px 5px;
+
+}

@@ -21,6 +21,7 @@ class AlpEnvios extends Model
         'id',
         'id_orden',
         'fecha_envio',        
+        'costo',        
         'estatus',
         'id_user'
     ];

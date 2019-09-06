@@ -308,7 +308,26 @@ class AlpCartController extends JoshController
 
             $payment=json_decode($pago->json);
 
+
           $envio=AlpEnvios::where('id_orden', $id)->first();
+
+          $valor_impuesto=AlpImpuestos::where('id', '1')->first();
+
+          if ($envio->costo>0) {
+           
+             $envio_base=$envio->costo/(1+$valor_impuesto->valor_impuesto);
+
+          $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
+
+
+          }else{
+
+            $envio_base=0;
+
+            $envio_impuesto=0;
+
+          }
+      
 
           $fecha_entrega=$envio->fecha_envio;
 
@@ -338,8 +357,6 @@ class AlpCartController extends JoshController
               $aviso_pago="Estamos verificando su pago, una vez sea confirmado, Le llegará un email con la descripción de su pedido. En caso de existir algún error en el pago le invitamos a Mis Compras desde su perfil para intentar pagar nuevamente";
 
               $metodo=$payment->response->payment_method_id;
-
-
               
             }
 
@@ -353,7 +370,6 @@ class AlpCartController extends JoshController
 
                 
               $aviso_pago="Hemos procesado su orden satisfactoriamente, Su id para realizar el deposito en efectivo es <h4> ".$payment->response->id." </h4>. Las indicaciones para finalizar su pago puede seguirlas en este enlace <a target='_blank' href='".$payment->response->transaction_details->external_resource_url."' >Ticket</a>. Tiene 72 Horas para realizar el pago, o su orden sera cancelada. ¡Muchas gracias por su Compra!";
-
               
             }
 
@@ -366,20 +382,14 @@ class AlpCartController extends JoshController
               $aviso_pago="Hemos recibido su pago satisfactoriamente, una vez sea confirmado, Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!";
 
               $metodo=$payment->response->payment_type_id;
-
               
             }
-
-
 
             //$metodo=$payment->response->payment_method_id;
 
           }
           
-
-
-
-        return view('frontend.order.gracias', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago', 'payment', 'estatus_aviso', 'metodo'));
+        return view('frontend.order.gracias', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago', 'payment', 'estatus_aviso', 'metodo', 'envio', 'envio_base', 'envio_impuesto'));
 
     }
 
@@ -1408,13 +1418,13 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
           $estructura = AlpEstructuraAddress::where('estado_registro','=',1)->get();
 
           $labelpagos = array(
-        'pse' => 'Tarjeta débito', 
-        'visa' => 'Tarjeta crédito', 
-        'efecty' => 'Pago en efectivo a través de Efecty', 
-        'efecty' => 'Pago en efectivo a través de Efecty', 
-        'davivienda' => 'Pago en efectivo a través de Davivienda', 
-        'baloto' => 'Pago en efectivo a través de Baloto'
-      );
+            'pse' => 'Tarjeta débito', 
+            'visa' => 'Tarjeta crédito', 
+            'efecty' => 'Pago en efectivo a través de Efecty', 
+            'efecty' => 'Pago en efectivo a través de Efecty', 
+            'davivienda' => 'Pago en efectivo a través de Davivienda', 
+            'baloto' => 'Pago en efectivo a través de Baloto'
+          );
 
         $costo_envio=$this->envio();
 
@@ -1449,7 +1459,6 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
           //return redirect('login');
         return view('frontend.order.login', compact('url'));
-
 
       }
 
@@ -1587,9 +1596,6 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
           $fecha_entrega=$data['fecha_entrega'];
 
-
-
-           
 
          //  $datalles=AlpDetalles::where('id_orden', $orden->id)->get();
 
@@ -1765,6 +1771,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         $data_envio = array(
           'id_orden' => $orden->id, 
           'fecha_envio' => $date->addDays($ciudad_forma->dias)->format('Y-m-d'),
+          'costo' => $this->envio(), 
           'estatus' => 1, 
           'id_user' =>$user_id                   
 
@@ -1859,6 +1866,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
          \Session::forget('cart');
          \Session::forget('orden');
          \Session::forget('cr');
+         \Session::forget('direccion');
+         \Session::forget('envio');
 
          return array('id_orden' => $orden->id, 'fecha_entrega' => $fecha_entrega   );
 

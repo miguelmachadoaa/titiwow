@@ -123,7 +123,7 @@ Carrito de Compras
                              <b>Total: </b>
                          </td>
                          <td>
-                             {{number_format($compra->monto_total, 0,",",".")}}
+                             {{number_format($compra->monto_total+$envio->costo, 0,",",".")}}
                          </td>
                      </tr>
                      <tr>
@@ -131,7 +131,7 @@ Carrito de Compras
                              <b>Base Impuesto: </b>
                          </td>
                          <td>
-                             {{number_format($compra->base_impuesto, 0,",",".")}}
+                             {{number_format($compra->base_impuesto+$envio_base, 0,",",".")}}
                          </td>
                      </tr>
 
@@ -140,7 +140,7 @@ Carrito de Compras
                              <b>Iva:</b> {{ $compra->valor_impuesto*100 }}%: 
                          </td>
                          <td>
-                             {{number_format($compra->monto_impuesto, 0,",",".")}}
+                             {{number_format($compra->monto_impuesto+$envio_impuesto, 0,",",".")}}
                          </td>
                      </tr>
 
@@ -150,6 +150,24 @@ Carrito de Compras
                          </td>
                          <td>
                              {{number_format($compra->monto_total_base-$compra->monto_total, 0,",",".")}}
+                         </td>
+                     </tr>
+
+                     <tr>
+                         <td colspan="4" style="text-align: right;">
+                             <b>Costo Envio: </b>
+                         </td>
+                         <td>
+                            @if($envio->costo==0)
+                                
+                                {{'Gratis'}}
+
+                            @else
+                            
+                                {{number_format($envio->costo, 0,",",".")}}
+
+                            @endif
+                             
                          </td>
                      </tr>
 

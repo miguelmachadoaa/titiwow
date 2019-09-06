@@ -51,7 +51,7 @@
 
                                     @else
                                     
-                                    {{ $costo_envio }}
+                                    {{ number_format($costo_envio,0,',','.')  }}
 
                                     @endif
 
@@ -61,10 +61,6 @@
                                 </div>
                                 
                             </div>
-
-
-
-
 
 
                             @if(isset($descuentos))

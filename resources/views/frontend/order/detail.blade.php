@@ -1165,6 +1165,33 @@ $('#addDireccionForm').keypress(
 
         });
 
+
+    $('input[type=radio][name=formaenvio]').change(function() {
+       // alert($(this).val());
+
+        base=$('#base').val();
+
+        _token=$('input[name="_token"]').val();
+
+        id_forma_envio=$(this).val();
+
+        $.ajax({
+            type: "POST",
+            data:{  id_forma_envio, _token},
+            url: base+"/cart/setformaenvio",
+                
+            complete: function(datos){     
+
+              location.reload()    
+
+            }
+
+        });
+
+
+
+    });
+
     </script>
 
 @stop

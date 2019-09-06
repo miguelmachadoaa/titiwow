@@ -6,18 +6,25 @@
 
                 <h3>    Formas de Envios</h3>
 
-                <!--input type="hidden" id="id_forma_envio" name="id_forma_envio"  value="1" -->
+                <input type="hidden" id="id_forma_envio" name="id_forma_envio"  value="{{$id_forma_envio}}">
 
-                <select class="form-control" name="id_forma_envio" id="id_forma_envio">
+                <!--select class="form-control" name="id_forma_envio" id="id_forma_envio"-->
 
 
                     @foreach($formasenvio as $fe)
 
-                    <option  value="{{$fe->id}}"   @if($fe->id==$id_forma_envio) {{'Selected'}} @endif      >{{$fe->nombre_forma_envios}}</option>
+                    <!--option  value="{{$fe->id}}"   @if($fe->id==$id_forma_envio) {{'Selected'}} @endif      >{{$fe->nombre_forma_envios}}</option-->
+
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="formaenvio" id="formaenvio{{$fe->id}}" value="{{$fe->id}}"  @if($fe->id==$id_forma_envio) {{'checked'}} @endif  >
+                      <label class="form-check-label" for="exampleRadios1">
+                        {{$fe->nombre_forma_envios}}
+                      </label>
+                    </div>
 
                     @endforeach
 
-                </select>
+                <!--/select-->
 
                 <!--div class="col-sm-12" style="    border: 1px solid rgba(0,0,0,0.1);">
 
