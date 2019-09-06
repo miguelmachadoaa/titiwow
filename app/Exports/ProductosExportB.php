@@ -33,11 +33,14 @@ class ProductosExportB implements FromView
           'alp_clientes.telefono_cliente as telefono_cliente',
           'alp_ordenes.ordencompra as ordencompra',
           'alp_ordenes.ip as ip',
+        
 
           'alp_ordenes.monto_total as monto_total_orden',
           'alp_ordenes.base_impuesto as base_impuesto_orden',
           'alp_ordenes.monto_impuesto as monto_impuesto_orden',
           'alp_ordenes.valor_impuesto as valor_impuesto_orden',
+
+          'alp_envios.costo as costo_envio',
 
           'users.id as id_usuario', 
           'users.first_name as first_name', 
@@ -71,6 +74,7 @@ class ProductosExportB implements FromView
           ->join('alp_clientes', 'alp_ordenes.id_cliente', '=', 'alp_clientes.id_user_client')
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
           ->join('alp_marcas', 'alp_productos.id_marca', '=', 'alp_marcas.id')
+          ->leftJoin('alp_envios', 'alp_ordenes.id', '=', 'alp_envios.id_orden')
           ->leftJoin('alp_ordenes_descuento', 'alp_ordenes.id', '=', 'alp_ordenes_descuento.id_orden')
 
           ->join('alp_direcciones', 'alp_ordenes.id_address', '=', 'alp_direcciones.id')
