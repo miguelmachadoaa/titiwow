@@ -29,6 +29,14 @@ class TomaPedidosExport implements FromView
           'alp_ordenes_detalle.*', 
           'alp_clientes.doc_cliente as doc_cliente',
           'alp_ordenes.ordencompra as ordencompra',
+          'alp_ordenes.referencia as referencia',
+
+          'alp_envios.costo as costo_envio',
+          'alp_formas_envios.sku as sku_envio',
+          'alp_envios.costo_base as costo_base_envio',
+          'alp_envios.costo_impuesto as costo_impuesto_envio',
+
+
           'users.id as id_usuario', 
           'users.first_name as first_name', 
           'users.last_name as last_name', 
@@ -48,6 +56,8 @@ class TomaPedidosExport implements FromView
           ->join('alp_clientes', 'alp_ordenes.id_cliente', '=', 'alp_clientes.id_user_client')
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
           ->join('alp_marcas', 'alp_productos.id_marca', '=', 'alp_marcas.id')
+          ->leftJoin('alp_envios', 'alp_ordenes.id', '=', 'alp_envios.id_orden')
+          ->leftJoin('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
          // ->groupBy('alp_ordenes_detalle.id_producto')
           ->whereNull('alp_ordenes.factura')
           ->whereIn('alp_ordenes.estatus', [1])

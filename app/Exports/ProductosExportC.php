@@ -38,14 +38,15 @@ class ProductosExportC implements FromView
           'users.last_name as last_name', 
           'users.email as email', 
 
-
            'alp_ordenes.monto_total as monto_total_orden',
           'alp_ordenes.base_impuesto as base_impuesto_orden',
           'alp_ordenes.monto_impuesto as monto_impuesto_orden',
           'alp_ordenes.valor_impuesto as valor_impuesto_orden',
-
-          
-
+            
+          'alp_envios.costo as costo_envio',
+          'alp_formas_envios.sku as sku_envio',
+          'alp_envios.costo_base as costo_base_envio',
+          'alp_envios.costo_impuesto as costo_impuesto_envio',
 
            'config_cities.city_name as city_name',
         'config_states.state_name as state_name',
@@ -56,9 +57,6 @@ class ProductosExportC implements FromView
         'alp_direcciones.barrio_address as barrio_address',
         'alp_direcciones_estructura.nombre_estructura as nombre_estructura',
         'alp_direcciones_estructura.abrevia_estructura as abrevia_estructura',
-
-
-
 
            DB::raw('DATE_FORMAT(alp_ordenes_detalle.created_at, "%d/%m/%Y")  as fecha'),
           // DB::raw('sum(alp_ordenes_detalle.cantidad)  as total_cantidad'),
@@ -75,6 +73,8 @@ class ProductosExportC implements FromView
           ->join('alp_clientes', 'alp_ordenes.id_cliente', '=', 'alp_clientes.id_user_client')
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
           ->join('alp_marcas', 'alp_productos.id_marca', '=', 'alp_marcas.id')
+          ->leftJoin('alp_envios', 'alp_ordenes.id', '=', 'alp_envios.id_orden')
+          ->leftJoin('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
 
 
           ->join('alp_direcciones', 'alp_ordenes.id_address', '=', 'alp_direcciones.id')
@@ -126,7 +126,7 @@ class ProductosExportC implements FromView
             
           }
 
-          //dd($ordenes);
+         // dd($pro);
 
         return view('admin.exports.productosB', [
             'productos' => $pro
