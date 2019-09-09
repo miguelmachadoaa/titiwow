@@ -45,8 +45,6 @@ class ClientesFrontController extends Controller
 
         $dt = Carbon::now(); 
 
-
-
         if (Sentinel::check()) {
 
             $user_id = Sentinel::getUser()->id;
@@ -98,6 +96,8 @@ class ClientesFrontController extends Controller
                 
 
             $user = User::where('id', $user_id )->first();
+
+            $role=RoleUser::where('user_id', $user_id)->first();
 
             $states=State::where('config_states.country_id', '47')->get();
 

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Redirect;
 use Sentinel;
 use View;
+use DB;
 
 
 class AlpFormasenvioController extends JoshController
@@ -352,15 +353,20 @@ class AlpFormasenvioController extends JoshController
         $formas = AlpFormasenvio::where('id', $id)->first();
 
         
-         $ciudades=AlpFormaCiudad::select('alp_forma_ciudad.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name')
+         $ciudades=AlpFormaCiudad::select('alp_forma_ciudad.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name', 'roles.name as name')
+        ->join('roles','alp_forma_ciudad.id_rol' , '=', 'roles.id')
         ->join('config_cities','alp_forma_ciudad.id_ciudad' , '=', 'config_cities.id')
         ->join('config_states','config_cities.state_id' , '=', 'config_states.id')
         ->where('alp_forma_ciudad.id_forma', $id)->get();
 
+        $roles = DB::table('roles')->whereIn('id', ['9','10', '11', '12'])->select('id', 'name')->get();
+
+
+
         $states=State::where('config_states.country_id', '47')->get();
 
         // Show the page
-        return view('admin.formasenvio.ubicacion', compact('formas', 'ciudades', 'states'));
+        return view('admin.formasenvio.ubicacion', compact('formas', 'ciudades', 'states', 'roles'));
 
     }
 
@@ -391,6 +397,7 @@ class AlpFormasenvioController extends JoshController
 
         $data = array(
             'id_forma' => $request->id_forma, 
+            'id_rol' => $request->id_rol, 
             'id_ciudad' => $request->city_id, 
             'dias' => $request->dias, 
             'hora' => $request->hora, 
@@ -400,7 +407,8 @@ class AlpFormasenvioController extends JoshController
          
         $formas=AlpFormaCiudad::create($data);
 
-         $ciudades=AlpFormaCiudad::select('alp_forma_ciudad.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name')
+         $ciudades=AlpFormaCiudad::select('alp_forma_ciudad.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name', 'roles.name as name')
+        ->join('roles','alp_forma_ciudad.id_rol' , '=', 'roles.id')
         ->join('config_cities','alp_forma_ciudad.id_ciudad' , '=', 'config_cities.id')
         ->join('config_states','config_cities.state_id' , '=', 'config_states.id')
         ->where('alp_forma_ciudad.id_forma', $request->id_forma)->get();

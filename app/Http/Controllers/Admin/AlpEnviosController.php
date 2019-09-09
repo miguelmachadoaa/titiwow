@@ -112,15 +112,11 @@ class AlpEnviosController extends JoshController
                  $actions
               );
 
-
-
           }
-
 
           return json_encode( array('data' => $data ));
 
     }
-
 
      public function empresas()
     {

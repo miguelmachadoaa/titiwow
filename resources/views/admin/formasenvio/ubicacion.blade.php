@@ -56,9 +56,11 @@ Ciudades de envio
                             <thead>
                                 <tr>
                                     <th>Id</th>
+                                    <th>Rol</th>
                                     <th>Ciudad</th>
                                     <th>Dias para entrega</th>
                                     <th>Hora limite recepción</th>
+                                    <th>Costo</th>
                                     <th>Accion</th>
                                 </tr>
                             </thead>
@@ -67,18 +69,16 @@ Ciudades de envio
                                 @foreach ($ciudades as $row)
                                 <tr>
                                     <td>{!! $row->id !!}</td>
+                                    <td>{!! $row->name !!}</td>
                                     <td>{!! $row->state_name.' - '.$row->city_name!!}</td>
                                     <td>{!! $row->dias !!}</td>
                                     <td>{!! $row->hora !!}</td>
                                     <td>{!! number_format($row->costo, 2)  !!}</td>
                                     <td>
-                                            
-                                            
 
                                         <button data-id="{{ $row->id }}" type="button" class=" btn btn-danger delciudad"><i class="fa fa-trash"></i></button>
 
                                             <!-- let's not delete 'Admin' group by accident -->
-                                              
 
                                     </td>
                                 </tr>
@@ -134,6 +134,26 @@ Ciudades de envio
 
                             {{ csrf_field() }}
                             <div class="row">
+
+                                <div class="form-group col-sm-12">
+                                    <label for="select21" class="col-md-3 control-label">
+                                        Rol
+                                    </label>
+                                    <div class="col-md-8" >
+                                        <select style="margin: 4px 0;" id="id_rol" name="id_rol" class="form-control ">
+                                            <option value="">Seleccione</option>
+
+                                                @foreach($roles as $rol)
+
+                                                    <option value="{{ $rol->id }}">
+                                                        {{ $rol->name}}</option>
+                                                @endforeach
+                                                        
+                                        </select>
+                                    </div>
+                                </div>
+
+
 
                                 <div class="form-group col-sm-12">
                                     <label for="select21" class="col-md-3 control-label">
@@ -314,6 +334,16 @@ $('.delCiudad').click(function () {
                 }
             }
         },
+
+         id_rol: {
+            validators:{
+                notEmpty:{
+                    message: 'Debe seleccionar un rol'
+                }
+            }
+        },
+
+
          costo: {
             validators:{
                 required:{
@@ -332,17 +362,17 @@ $('.delCiudad').click(function () {
     if ($validator.isValid()) {
 
         id_forma=$("#id_forma").val();
+        id_rol=$("#id_rol").val();
         city_id=$("#city_id").val();
         dias=$("#dias").val();
         hora=$("#hora").val();
         costo=$("#costo").val();
-
              
         var base = $('#base').val();
 
         $.ajax({
             type: "POST",
-            data:{ city_id, dias, hora, id_forma, costo},
+            data:{ city_id,id_rol, dias, hora, id_forma, costo},
             url: base+"/admin/formasenvio/storecity",
                 
             complete: function(datos){     
@@ -368,11 +398,8 @@ $('.delCiudad').click(function () {
 
  $('select[name="state_id"]').on('change', function() {
                     var stateID = $(this).val();
-
-            
                     
-
-                var base = $('#base').val();
+                    var base = $('#base').val();
 
                     if(stateID) {
                         $.ajax({
@@ -395,20 +422,12 @@ $('.delCiudad').click(function () {
                 });
 
 
-
-
-
-
-
-
     $(function () {$('body').on('hidden.bs.modal', '.modal', function () {$(this).removeData('bs.modal');});});
     $(document).on("click", ".users_exists", function () {
 
         var group_name = $(this).data('name');
         $(".modal-header h4").text( group_name+" Group" );
     });</script>
-
-
 
 
 @stop

@@ -4693,27 +4693,63 @@ public function addcupon(Request $request)
 
       $direccion= \Session::get('direccion');
 
+      $user_id = Sentinel::getUser()->id;
+      
+      $role=RoleUser::where('user_id', $user_id)->first();
+      
+      
+
       $dir=AlpDirecciones::where('id', $direccion)->first();
 
-      if (isset($dir->id)) {
+      if ($formasenvio==1) {
 
-        $ciudad=AlpFormaCiudad::where('id_forma', $formasenvio)->where('id_ciudad', $dir->city_id)->first();
+        if (isset($dir->id)) {
 
-        if (isset($ciudad->id)) {
+          $ciudad=AlpFormaCiudad::where('id_forma', $formasenvio)->where('id_ciudad', $dir->city_id)->first();
 
-          $envio=$ciudad->costo;
+          if (isset($ciudad->id)) {
+
+            $envio=$ciudad->costo;
+            
+          }else{
+
+            $envio=-1;
+
+          }
+
           
         }else{
 
           $envio=-1;
-
         }
 
-        
       }else{
 
-        $envio=-1;
+
+        if (isset($dir->id)) {
+
+          $ciudad=AlpFormaCiudad::where('id_forma', $formasenvio)->where('id_ciudad', $dir->city_id)->where('id_rol', $role->role_id)->first();
+
+          if (isset($ciudad->id)) {
+
+            $envio=$ciudad->costo;
+            
+          }else{
+
+            $envio=-1;
+
+          }
+
+          
+        }else{
+
+          $envio=-1;
+        }
+
+
+
       }
+
 
       return $envio;
 
