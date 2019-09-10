@@ -22,6 +22,10 @@
                       </label>
                     </div>
 
+                    <h6 style="text-align: justify;">{{$fe->descripcion_forma_envios}}</h6>
+
+
+
                     @endforeach
 
                 <!--/select-->
@@ -41,7 +45,7 @@
             </div> <!-- End form group -->
             <div class="col-sm-12">
 
-            <h6 style="text-align: justify;">* Los pedidos que se realicen de lunes a viernes, entre las 8:00 am y 5:00 pm serán entregados al siguiente día; por su parte, los pedidos que se realicen después de las 5:00pm serán entregados dos (2) días después. Aquellos que se realicen los sábados antes de las 3:00 pm serán entregados el lunes siguiente y los que se hagan los sábados después de las 3:00 pm, domingos y lunes antes de las 7:00 am serán entregados el martes.</h6>
+            
 
             </div>  
 
