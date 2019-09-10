@@ -22,7 +22,7 @@
                       </label>
                     </div>
 
-                    <h6 style="text-align: justify;">{{$fe->descripcion_forma_envios}}</h6>
+                    <h6 class="dfe" style="display: none;" id="descripcion{{$fe->id}}" style="text-align: justify;">{{$fe->descripcion_forma_envios}}</h6>
 
 
 

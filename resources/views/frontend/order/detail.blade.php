@@ -394,6 +394,20 @@ div.overlay > div {
 
         $(document).ready(function(){
 
+
+        fe=$("#id_forma_envio").val();
+
+        $('.dfe').fadeOut();
+
+        $('#descripcion'+fe+'').fadeIn();
+
+
+
+
+
+
+
+
             $('button.mercadopago-button').hide();
 
 
@@ -410,14 +424,6 @@ div.overlay > div {
 
              }
 
-           //  $('body').on('click', 'button.mercadopago-button', function (e){
-        //$('.mercadopago-button').on('click', function (e){
-
-           //   alert($(this).attr('class'));
-          //  e.preventDefault();
-
-          //  return false;
-           
 
         });
 
