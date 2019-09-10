@@ -299,16 +299,34 @@ class FrontEndController extends JoshController
                     ->causedBy($user)
                     ->log('LoggedIn');
 
-                if ($request->back=='0') {
- 
-                   
-                    return Redirect::route("clientes")->with('success', trans('auth/message.login.success'));
-                   
-                }else{
 
-                    return Redirect::route($request->back)->with('success', trans('auth/message.signin.success'));
+                $role = DB::table('role_users')
+               ->select('role_users.role_id')
+               ->where('user_id','=', $user->id)
+               ->first();
 
-                }
+               if ( $role->role_id>'8') {
+
+                  if ($request->back=='0') {
+                     
+                      return Redirect::route("clientes")->with('success', trans('auth/message.login.success'));
+                     
+                  }else{
+
+                      return Redirect::route($request->back)->with('success', trans('auth/message.signin.success'));
+
+                  }
+                  
+                  
+
+               }else{
+
+                  return redirect("admin")->with('success', trans('auth/message.login.success'));
+
+
+               }     
+
+               
 
                 
             } else {
@@ -986,11 +1004,11 @@ class FrontEndController extends JoshController
             Sentinel::logout();
 
             // Redirect to the users page
-            return redirect('login')->with('success', 'Cerró Sesión Exitosamente');
+            return redirect('/')->with('success', 'Cerró Sesión Exitosamente');
         } else {
 
             // Redirect to the users page
-            return redirect('admin/signin')->with('error', 'Debes Iniciar Sesión');
+            return redirect('/')->with('error', 'Debes Iniciar Sesión');
         }
 
     }
