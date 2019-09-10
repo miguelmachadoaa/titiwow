@@ -71,7 +71,7 @@ Inicio @parent
                         <h4 class="modal-title" id="modalLabeldanger">Bienvenido</h4>
                 </div>
                 
-                <div class="modal-body cartcontenido row">
+                <div class="modal-body cartcontenido " style="text-align: center;">
                 
                     <h3>{{session('success')}}</h3> 
 

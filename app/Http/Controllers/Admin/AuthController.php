@@ -331,7 +331,7 @@ class AuthController extends JoshController
             // Log the user out
             Sentinel::logout();
             // Redirect to the users page
-            return redirect('/')->with('success', 'Cerró Sesión Exitosamente');
+            return redirect('/')->with('success', 'Gracias por su visita');
         } else {
 
         // Redirect to the users page
