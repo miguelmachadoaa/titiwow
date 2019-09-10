@@ -128,6 +128,23 @@ Carrito de Compras
                      </tr>
                      <tr>
                          <td colspan="4" style="text-align: right;">
+                             <b>Costo Envio: </b>
+                         </td>
+                         <td>
+                            @if($envio->costo==0)
+                                
+                                {{'Gratis'}}
+
+                            @else
+                            
+                                {{number_format($envio->costo, 0,",",".")}}
+
+                            @endif
+                             
+                         </td>
+                     </tr>
+                     <tr>
+                         <td colspan="4" style="text-align: right;">
                              <b>Base Impuesto: </b>
                          </td>
                          <td>
@@ -153,23 +170,7 @@ Carrito de Compras
                          </td>
                      </tr>
 
-                     <tr>
-                         <td colspan="4" style="text-align: right;">
-                             <b>Costo Envio: </b>
-                         </td>
-                         <td>
-                            @if($envio->costo==0)
-                                
-                                {{'Gratis'}}
-
-                            @else
-                            
-                                {{number_format($envio->costo, 0,",",".")}}
-
-                            @endif
-                             
-                         </td>
-                     </tr>
+                     
 
                      
 
