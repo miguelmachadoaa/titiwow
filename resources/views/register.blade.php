@@ -288,6 +288,18 @@
 <!--global js end-->
 <script >
 $(document).ready(function(){
+
+
+        $('#Password1').on('focus', function() {
+            $('#Password1').val('');
+          });
+
+
+        $('#Password2').on('focus', function() {
+            $('#Password2').val('');
+          });
+
+
         $('#cod_alpinista').hide();
         $('#chkalpinista' ).on( 'click', function() {
             if( $(this).is(':checked') ){

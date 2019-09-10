@@ -252,6 +252,19 @@
 
 <script >
 $(document).ready(function(){
+
+
+     $('#password').on('focus', function() {
+            $('#password').val('');
+          });
+
+
+        $('#password_confirm').on('focus', function() {
+            $('#password_confirm').val('');
+          });
+
+
+
         $("#state_id").select2();
         $("#city_id").select2();
         $("#id_type_doc").select2();
