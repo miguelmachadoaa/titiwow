@@ -35,19 +35,27 @@
         <td>Canal (*)</td>
         <td>ALTERNATIVOS</td>
         <td>Código Cliente (*)</td>
+
+        @if(isset($rol))
         
-        @if($rol==9)
+            @if($rol==9)
 
-            <td>8000007883 </td>
+                <td>8000007883 </td>
 
 
-        @elseif($rol==10)
+            @elseif($rol==10)
 
-            <td>8000007884 </td>
+                <td>8000007884 </td>
 
-        @elseif($rol==11)
+            @elseif($rol==11)
 
-            <td>8000007882  </td>
+                <td>8000007882  </td>
+
+            @else
+
+                <td>8000007882</td>
+
+            @endif
 
         @else
 
@@ -91,12 +99,27 @@
 
         </tr>
 
+
+        @php    
+
+         $ban = array();   
+
+        @endphp
+
+
+
         @foreach ($productos as $row)
-        <tr>
-            <td>{!! $row->sku_envio!!}</td>
-            <td>{!! $row->sku_envio!!}</td>
-            <td>{!! 'Envio Orden '.$row->referencia !!}</td>
-            <td>{!! '1'!!}</td>
+
+
+
+
+
+
+     <tr>
+            <td>{!! $row->referencia_producto_sap!!}</td>
+            <td>{!! $row->referencia_producto!!}</td>
+            <td>{!! $row->nombre_producto !!}</td>
+            <td>{!! $row->cantidad !!}</td>
             <td>Producto de Línea</td>
             <td></td>
             <td>{!! $row->id_orden!!}</td>
@@ -105,6 +128,35 @@
            
           
         </tr>
+
+        @if($row->costo_envio>0)
+
+            @if(isset($ban[$row->id_orden]))
+
+            @else
+
+                @php    
+
+                $ban[$row->id_orden]='1';
+
+                @endphp 
+    
+                <tr>
+                    <td>{!! $row->sku_envio!!}</td>
+                    <td>{!! $row->sku_envio!!}</td>
+                    <td>{!! 'Envio Orden '.$row->referencia !!}</td>
+                    <td>{!! '1'!!}</td>
+                    <td>Producto de Línea</td>
+                    <td></td>
+                    <td>{!! $row->id_orden!!}</td>
+                    <td> </td>
+                    <td> </td>
+                   
+                  
+                </tr>
+
+            @endif
+            @endif
         @endforeach
 </table>
                        
