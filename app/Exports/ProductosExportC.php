@@ -126,7 +126,9 @@ class ProductosExportC implements FromView
             
           }
 
-         // dd($pro);
+         // print_r($pro);
+
+        //  die;
 
         return view('admin.exports.productosB', [
             'productos' => $pro
