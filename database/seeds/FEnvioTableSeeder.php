@@ -13,9 +13,9 @@ class FEnvioTableSeeder extends Seeder
     public function run()
     {
         DB::table('alp_formas_envios')->insert([
-            ['nombre_forma_envios' => 'Estandart','descripcion_forma_envios' => 'Envio Regular 24 Horas','id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            ['nombre_forma_envios' => 'Express','descripcion_forma_envios' => 'Envio Express 1 Hora','id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            ['nombre_forma_envios' => 'Click & Collect','descripcion_forma_envios' => 'Compra y Recogida en Tienda','id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['nombre_forma_envios' => 'Estandart','sku' => 'E00001','email' => 'estandar@gmail.com','descripcion_forma_envios' => 'Envio Regular 24 Horas','id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['nombre_forma_envios' => 'Express','sku' => 'E00002','email' => 'express@gmail.com','descripcion_forma_envios' => 'Envio Express 1 Hora','id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['nombre_forma_envios' => 'Click & Collect','sku' => 'E00003','email' => 'click@gmail.com','descripcion_forma_envios' => 'Compra y Recogida en Tienda','id_user' => 1,'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
         ]);
     }
 }

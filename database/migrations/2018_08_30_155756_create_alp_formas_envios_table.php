@@ -15,6 +15,8 @@ class CreateAlpFormasEnviosTable extends Migration
     {
         Schema::create('alp_formas_envios', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('sku');
+            $table->string('email');
             $table->string('nombre_forma_envios');
             $table->text('descripcion_forma_envios')->nullable();
             $table->integer('estado_registro')->default(1);
