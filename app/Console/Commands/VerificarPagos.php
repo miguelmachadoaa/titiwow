@@ -7,6 +7,7 @@ use App\Models\AlpConfiguracion;
 use App\Models\AlpDirecciones;
 use App\Models\AlpFeriados;
 use App\Models\AlpFormaCiudad;
+use App\Models\AlpFormasenvio;
 
 use App\Models\AlpPagos;
 use App\Models\AlpEnvios;
@@ -200,6 +201,14 @@ class VerificarPagos extends Command
                 $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug')
                   ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
                   ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
+
+                  if ($compra->id_forma_envio!=1) {
+
+                    $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
+
+                    Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
+                      
+                  }
 
                   Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
 
