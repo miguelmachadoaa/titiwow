@@ -20,6 +20,7 @@ class AlpFormasenvio extends Model
     public $fillable = [
         'id',
         'sku',
+        'email',
         'nombre_forma_envios',
         'descripcion_forma_envios',
         'estado_registro',

@@ -4,6 +4,19 @@ Se ha registrado un pedido por el usuario {{ $compra->first_name.' '.$compra->la
 
 Detalles del Pedido 
 
+
+@if($envio->costo>0)
+
+<b>ID pedido:</b> {{ $compra->id }}
+<b>ID usuario masterfile:</b> {{ $compra->cod_oracle_cliente }}
+<b>Documento:</b> {{ 'E'.$compra->doc_cliente }}
+<b>Valor Pagado:</b> {{ $compra->monto_total+$envio->costo }}
+<p><b>Base Impuesto: </b>{{ number_format(($compra->base_impuesto/(1+$compra->valor_impuesto)+$envio->costo_base),0,",",".")}}</p>
+<b>Valor Iva:</b> {{ $compra->monto_impuesto+$envio->costo_impuesto }}
+<b>Fecha de Entrega:</b> {{ $fecha_entrega }}
+
+@else
+
 <b>ID pedido:</b> {{ $compra->id }}
 <b>ID usuario masterfile:</b> {{ $compra->cod_oracle_cliente }}
 <b>Documento:</b> {{ 'E'.$compra->doc_cliente }}
@@ -11,6 +24,9 @@ Detalles del Pedido
 <b>Base Impuesto:</b> {{ $compra->base_impuesto/(1+$compra->valor_impuesto) }}
 <b>Valor Iva:</b> {{ $compra->monto_impuesto }}
 <b>Fecha de Entrega:</b> {{ $fecha_entrega }}
+
+@endif
+
 
 
 <h3>Detalle de cada producto</h3>
@@ -37,8 +53,22 @@ Detalles del Pedido
 
 </table>
 
+
+
+@if($envio->costo>0)
+
+El Costo del envio fue de {{ number_format($envio->costo, 0,",",".") }}
+El total de la compra fue de {{ number_format($compra->monto_total+$envio->costo, 0,",",".") }}
+El Ahorro de su compra fue  {{ number_format($compra->monto_total_base-$compra->monto_total, 0,",",".") }}
+
+@else
+
+El Costo del envio fue Gratis
 El total de la compra fue de {{ number_format($compra->monto_total, 0,",",".") }}
 El Ahorro de su compra fue  {{ number_format($compra->monto_total_base-$compra->monto_total, 0,",",".") }}
+
+
+@endif
 
 Ip: {{$compra->ip}}
 

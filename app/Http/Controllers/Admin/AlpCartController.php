@@ -1133,7 +1133,9 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
             //  $datalles=AlpDetalles::where('id_orden', $orden->id)->get();
 
-            $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
+            $compra =  DB::table('alp_ordenes')->select(
+              'alp_ordenes.*',
+              'users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
             ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
             ->join('alp_clientes','alp_ordenes.id_cliente' , '=', 'alp_clientes.id_user_client')
             ->join('alp_formas_envios','alp_ordenes.id_forma_envio' , '=', 'alp_formas_envios.id')
@@ -1152,6 +1154,8 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
            $configuracion = AlpConfiguracion::where('id','1')->first();
 
+           $envio=AlpEnvios::where('id_orden', $compra->id)->first();
+
 
            $texto='Se ha creado la siguiente orden '.$compra->id.' y esta a espera de aprobacion  ';
 
@@ -1164,6 +1168,13 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
             'mensaje' => 'Hemos recibido su pago satisfactoriamente, una vez sea confirmado, Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!', 
           );
 
+            if ($compra->id_forma_envio!=1) {
+
+              $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
+
+              Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
+                
+            }
 
             Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
 

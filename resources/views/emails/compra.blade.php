@@ -5,12 +5,33 @@ Hemos registrado una compra {{ $compra->referencia }},  Ha seleccionado enviar e
 
 Datos de la compra
 
+
+
+@if($envio->costo>0)
+
+
+<p><b>IdPedido: </b>{{ $compra->id }}</p>
+<p><b>Documento: </b>{{ $compra->doc_cliente }}</p>
+<p><b>Valor Pagado: </b>{{ $compra->monto_total+$envio->costo_envio }}</p>
+<p><b>Base Impuesto: </b>{{ number_format(($compra->base_impuesto/(1+$compra->valor_impuesto)+$envio->costo_base),0,",",".")}}</p>
+<p><b>Valor Iva: </b>{{ number_format($compra->monto_impuesto+$envio->costo_impuesto,0,",",".")}}</p>
+<p><b>Fecha de Entrega: </b>{{ $fecha_entrega }}</p>
+
+
+@else
+
+
 <p><b>IdPedido: </b>{{ $compra->id }}</p>
 <p><b>Documento: </b>{{ $compra->doc_cliente }}</p>
 <p><b>Valor Pagado: </b>{{ $compra->monto_total }}</p>
 <p><b>Base Impuesto: </b>{{ number_format($compra->base_impuesto/(1+$compra->valor_impuesto),0,",",".")}}</p>
 <p><b>Valor Iva: </b>{{ number_format($compra->monto_impuesto,0,",",".")}}</p>
 <p><b>Fecha de Entrega: </b>{{ $fecha_entrega }}</p>
+
+@endif
+
+
+
 
 
 
@@ -43,8 +64,25 @@ Datos de la compra
 
 </table>
 <br />
-El total de la compra fué de {{ number_format($compra->monto_total, 0,",",".") }}
+
+
+
+@if($envio->costo>0)
+
+El Costo del envio fue de {{ number_format($envio->costo, 0,",",".") }}
+El total de la compra fue de {{ number_format($compra->monto_total+$envio->costo, 0,",",".") }}
 El Ahorro de su compra fue  {{ number_format($compra->monto_total_base-$compra->monto_total, 0,",",".") }}
+
+@else
+
+El Costo del envio fue Gratis
+El total de la compra fue de {{ number_format($compra->monto_total, 0,",",".") }}
+El Ahorro de su compra fue  {{ number_format($compra->monto_total_base-$compra->monto_total, 0,",",".") }}
+
+
+@endif
+
+
 
 
 

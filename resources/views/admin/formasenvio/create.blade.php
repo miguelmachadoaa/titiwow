@@ -53,21 +53,36 @@
                         {{ csrf_field() }}
 
                         <div class="form-group {{ $errors->
-                            first('nombre_forma_envios', 'has-error') }}">
+                            first('sku', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
                                 Sku Forma de envios
                             </label>
                             <div class="col-sm-5">
-                                <input type="text" id="nombre_forma_envios" name="nombre_forma_envios" class="form-control" placeholder="Sku de Forma de Envio"
-                                       value="{!! old('nombre_forma_envios') !!}">
+                                <input type="text" id="sku" name="sku" class="form-control" placeholder="Nombre de Forma de Envio"
+                                       value="{!! old('sku') !!}">
                             </div>
                             <div class="col-sm-4">
-                                {!! $errors->first('nombre_forma_envios', '<span class="help-block">:message</span> ') !!}
+                                {!! $errors->first('sku', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
 
 
-                         <div class="form-group {{ $errors->
+
+                        <div class="form-group {{ $errors->
+                            first('email', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                 Email de Notificación
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="text" id="email" name="email" class="form-control" placeholder="Sku de Forma de Envio"
+                                       value="{!! old('email') !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('email', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+                        <div class="form-group {{ $errors->
                             first('sku', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
                                 Nombre  Forma de envio
@@ -80,6 +95,11 @@
                                 {!! $errors->first('sku', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
+
+
+
+
+                         
 
 
 

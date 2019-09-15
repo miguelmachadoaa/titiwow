@@ -16,6 +16,7 @@ use App\Models\AlpEnvios;
 use App\Models\AlpDirecciones;
 use App\Models\AlpFeriados;
 use App\Models\AlpFormaCiudad;
+use App\Models\AlpFormasenvio;
 use App\Models\AlpInventario;
 
 use App\User;
@@ -1771,6 +1772,15 @@ class AlpOrdenesController extends JoshController
           $texto="La orden ".$orden->id." Ha sido aprobada y espera para ser facturada!";
           
          // Mail::to($orden->email)->send(new \App\Mail\CompraAprobada($orden, $detalles, $fecha_entrega));
+
+
+          if ($compra->id_forma_envio!=1) {
+
+              $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
+
+              Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
+                
+            }
 
           Mail::to($configuracion->correo_cedi)->send(new \App\Mail\CompraSac($orden, $detalles, $fecha_entrega));
 

@@ -5,10 +5,8 @@ namespace App\Console\Commands;
 use App\Models\AlpConfiguracion;
 use App\Exports\ProductosRolExportB;
 use Maatwebsite\Excel\Facades\Excel;
-
 use Carbon\Carbon;
 use Mail;
-
 
 
 use Illuminate\Console\Command;

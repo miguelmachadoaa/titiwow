@@ -53,6 +53,7 @@ Formas de Envio
                                 <tr>
                                     <th>Id</th>
                                     <th>Sku</th>
+                                    <th>Email</th>
                                     <th>Nombre</th>
                                     <th>Descripcion</th>
                                     <th>Creado</th>

@@ -80,6 +80,7 @@ class AlpFormasenvioController extends JoshController
                $data[]= array(
                  $row->id, 
                  $row->sku, 
+                 $row->email, 
                  $row->nombre_forma_envios, 
                  $row->descripcion_forma_envios, 
                  $row->created_at->diffForHumans(), 
@@ -162,6 +163,7 @@ class AlpFormasenvioController extends JoshController
 
         $data = array(
             'sku' => $request->sku, 
+            'email' => $request->email, 
             'nombre_forma_envios' => $request->nombre_forma_envios, 
             'descripcion_forma_envios' => $request->descripcion_forma_envios, 
             'id_user' =>$user_id
@@ -241,6 +243,7 @@ class AlpFormasenvioController extends JoshController
 
        $data = array(
             'sku' => $request->sku, 
+            'email' => $request->email, 
             'nombre_forma_envios' => $request->nombre_forma_envios, 
             'descripcion_forma_envios' => $request->descripcion_forma_envios
         );

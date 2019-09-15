@@ -54,6 +54,21 @@ Editar Forma de Envio
                             </div>
                         </div>
 
+                        <div class="form-group {{ $errors->
+                            first('email', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Email de Notificación
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="text" id="email" name="email" class="form-control" placeholder="Nombre de Forma de Envio"
+                                       value="{!! old('email', $forma->email) !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('email', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
 
                           
                              <div class="form-group {{ $errors->
@@ -73,7 +88,7 @@ Editar Forma de Envio
                         <div class="form-group {{ $errors->
                             first('descripcion_forma_envios', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Descaripcion Forma de Envio
+                                Descripción Forma de Envio
                             </label>
                             <div class="col-sm-5">
                                 
