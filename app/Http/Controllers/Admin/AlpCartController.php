@@ -3854,6 +3854,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       $user_id = Sentinel::getUser()->id;
 
+      \Session::put('direccion', $request->id_direccion);
+
       $direccion=AlpDirecciones::where('id', $request->id_direccion)->first();
 
       $ciudad=AlpFormaCiudad::where('id_forma', $request->id_forma_envio)->where('id_ciudad', $direccion->city_id)->first();
@@ -4708,8 +4710,6 @@ public function addcupon(Request $request)
       
       $role=RoleUser::where('user_id', $user_id)->first();
       
-      
-
       $dir=AlpDirecciones::where('id', $direccion)->first();
 
       if ($formasenvio==1) {
@@ -4760,7 +4760,6 @@ public function addcupon(Request $request)
 
 
       }
-
 
       return $envio;
 

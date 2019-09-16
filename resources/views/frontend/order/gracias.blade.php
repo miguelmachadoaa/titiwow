@@ -131,7 +131,7 @@ Carrito de Compras
                              <b>Costo Envio: </b>
                          </td>
                          <td>
-                            @if($envio->costo==0)
+                            @if($envio->costo<=0)
                                 
                                 {{'Gratis'}}
 
