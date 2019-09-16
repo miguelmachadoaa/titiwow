@@ -1300,6 +1300,8 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
           }
 
 
+
+
            $formasenvio = AlpFormasenvio::select('alp_formas_envios.*')
           ->join('alp_rol_envio', 'alp_formas_envios.id', '=', 'alp_rol_envio.id_forma_envio')
           ->where('alp_rol_envio.id_rol', $role->role_id)->get();
@@ -1440,6 +1442,8 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
         $costo_envio=$this->envio();
 
         $id_forma_envio= \Session::get('envio');
+
+
 
 
         $valor_impuesto=AlpImpuestos::where('id', '1')->first();
@@ -3762,6 +3766,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         }
 
+        \Session::put('direccion', $id);
+
       $user_id = Sentinel::getUser()->id;
 
       $direcciones=AlpDirecciones::where('id_client', $user_id)->get();
@@ -4705,6 +4711,8 @@ public function addcupon(Request $request)
       $formasenvio= \Session::get('envio');
 
       $direccion= \Session::get('direccion');
+
+     //dd($formasenvio.' '.$direccion);
 
       $user_id = Sentinel::getUser()->id;
       

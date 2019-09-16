@@ -1172,6 +1172,32 @@ $('#addDireccionForm').keypress(
         });
 
 
+    $('#id_direccion').change(function () {
+    
+                base=$('#base').val();
+
+                _token=$('input[name="_token"]').val();
+
+                id_direccion=$('#id_direccion').val();
+
+                $.ajax({
+                    type: "GET",
+                    data:{  id_direccion, _token},
+                    url: base+"/cart/setdir/"+id_direccion,
+                        
+                    complete: function(datos){     
+
+                      location.reload()    
+
+                     //alert(datos);
+
+                    }
+
+                });
+
+        });
+
+
     $('input[type=radio][name=formaenvio]').change(function() {
        // alert($(this).val());
 
