@@ -12,7 +12,7 @@ Datos de la compra
 
 <p><b>IdPedido: </b>{{ $compra->id }}</p>
 <p><b>Documento: </b>{{ $compra->doc_cliente }}</p>
-<p><b>Valor Pagado: </b>{{ $compra->monto_total+$envio->costo_envio }}</p>
+<p><b>Valor Pagado: </b>{{ $compra->monto_total+$envio->costo }}</p>
 <p><b>Base Impuesto: </b>{{ number_format(($compra->base_impuesto/(1+$compra->valor_impuesto)+$envio->costo_base),0,",",".")}}</p>
 <p><b>Valor Iva: </b>{{ number_format($compra->monto_impuesto+$envio->costo_impuesto,0,",",".")}}</p>
 <p><b>Fecha de Entrega: </b>{{ $fecha_entrega }}</p>
