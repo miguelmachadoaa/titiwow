@@ -10,7 +10,7 @@ Su compra {{ $compra->referencia }},  ya se encuentra en proceso de empaque. La 
 
 @else
 
-Su compra {{ $compra->referencia }},  ya se encuentra en proceso de empaque. La misma sera entregada Pronto. 
+Su compra {{ $compra->referencia }},  ya se encuentra en proceso de empaque. La misma sera entregada pronto. 
 
 @endif
 

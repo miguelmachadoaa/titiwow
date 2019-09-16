@@ -9,7 +9,7 @@ Hemos registrado una compra {{ $compra->referencia }},  Ha seleccionado enviar e
 
 @else
 
-Hemos registrado una compra {{ $compra->referencia }},  Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y será entregado Pronto. 
+Hemos registrado una compra {{ $compra->referencia }},  Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y será entregado pronto. 
 
 
 @endif

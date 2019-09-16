@@ -72,7 +72,7 @@ Carrito de Compras
 
                 @else
 
-                <h5>Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y será entregado Pronto</h5>
+                <h5>Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y será entregado pronto.</h5>
 
                 @endif
 
