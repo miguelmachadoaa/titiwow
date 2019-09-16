@@ -1,4 +1,5 @@
 @component('mail::message')
+
 Gracias por su compra <b>{{ $compra->first_name.' '.$compra->last_name }}</b>
 
 Hemos registrado una compra {{ $compra->referencia }},  Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y será entregado {{ $fecha_entrega }}. 
@@ -6,12 +7,11 @@ Hemos registrado una compra {{ $compra->referencia }},  Ha seleccionado enviar e
 Datos de la compra
 
 
-
 @if($envio->costo>0)
 
 
 <p><b>IdPedido: </b>{{ $compra->id }}</p>
-<p><b>Documento: </b>{{ $compra->doc_cliente+$envio->costo_envio  }}</p>
+<p><b>Documento: </b>{{ $compra->doc_cliente }}</p>
 <p><b>Valor Pagado: </b>{{ $compra->monto_total+$envio->costo_envio }}</p>
 <p><b>Base Impuesto: </b>{{ number_format(($compra->base_impuesto/(1+$compra->valor_impuesto)+$envio->costo_base),0,",",".")}}</p>
 <p><b>Valor Iva: </b>{{ number_format($compra->monto_impuesto+$envio->costo_impuesto,0,",",".")}}</p>
