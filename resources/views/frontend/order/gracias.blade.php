@@ -66,10 +66,15 @@ Carrito de Compras
 
                 <h5>Su forma de Pago fue: <b>{{ $compra->nombre_forma_pago }}</b> </h5>
 
-                <h5>Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y será entregado {{ $fecha_entrega }}</h5>
+                @if($compra->id_forma_envio==1)
 
-                <h5>De igual forma puede consultar la información y estatus de su pedido en su</h5> <a class="btn btn-sm btn-info" href="{{secure_url('clientes')}}">Perfil</a>
+                    <h5>Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y será entregado {{ $fecha_entrega }}</h5>
 
+                @else
+
+                <h5>Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y será entregado Pronto</h5>
+
+                @endif
 
                 
 
@@ -86,9 +91,6 @@ Carrito de Compras
 
 
             @endif
-
-            
-
 
 
         <div class="row">
