@@ -36,7 +36,7 @@ class CompraSac extends Mailable
         $this->envio=AlpEnvios::where('id_orden', $compra->id)->first();
 
         if ($asunto==0) {
-            $asunto= 'Nuevo Pedido Nro.: '.$this->compra->id.' | SAC'
+            $asunto= 'Nuevo Pedido Nro.: '.$this->compra->id.' | SAC';
         }else{
 
             $asunto= ' ENVIO EXPRESS | Nuevo Pedido Nro.: '.$this->compra->id.'';
