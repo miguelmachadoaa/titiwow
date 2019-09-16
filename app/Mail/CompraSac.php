@@ -41,6 +41,8 @@ class CompraSac extends Mailable
 
             $asunto= ' ENVIO EXPRESS | Nuevo Pedido Nro.: '.$this->compra->id.'';
         }
+
+        $this->asunto=$asunto;
     }
 
     /**
