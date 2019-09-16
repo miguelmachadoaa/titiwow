@@ -206,7 +206,7 @@ class VerificarPagos extends Command
 
                     $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
 
-                    Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
+                    Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega,1));
                       
                   }
 

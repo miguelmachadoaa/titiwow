@@ -876,6 +876,15 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
           ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
 
 
+          if ($compra->id_forma_envio!=1) {
+
+                    $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
+
+                    Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega,1));
+                      
+                  }
+
+
               Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $envio->fecha_envio));
 
               Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $envio->fecha_envio));
@@ -1172,7 +1181,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
               $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
 
-              Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
+              Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega, 1));
                 
             }
 
