@@ -2,7 +2,18 @@
 
 Gracias por su compra {{ $compra->first_name.' '.$compra->last_name }}
 
+
+
+@if($compra->id_forma_envio==1)
+
 Su compra {{ $compra->referencia }},  ya se encuentra en proceso de empaque. La misma sera entregada para la fecha  {{ $fecha_entrega }}. 
+
+@else
+
+Su compra {{ $compra->referencia }},  ya se encuentra en proceso de empaque. La misma sera entregada Pronto. 
+
+@endif
+
 
 
 

@@ -2,7 +2,20 @@
 
 Gracias por su compra <b>{{ $compra->first_name.' '.$compra->last_name }}</b>
 
+@if($compra->id_forma_envio==1)
+
 Hemos registrado una compra {{ $compra->referencia }},  Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y será entregado {{ $fecha_entrega }}. 
+
+
+@else
+
+Hemos registrado una compra {{ $compra->referencia }},  Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y será entregado Pronto. 
+
+
+@endif
+
+
+
 
 Datos de la compra
 
