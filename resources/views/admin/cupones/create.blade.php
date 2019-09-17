@@ -213,6 +213,21 @@
                             </div>
 
 
+                            <div class="form-group {{ $errors->
+                            first('registrado', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                               Solo aplicable a usuarios registrados desde: (Si no aplica dejar vacio)
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="date" id="registrado" name="registrado" class="form-control" placeholder="Nombre de transportistas"
+                                       value="{!! old('registrado') !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('registrado', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
 
 
 

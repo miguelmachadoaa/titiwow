@@ -183,6 +183,8 @@ class AlpCuponesController extends JoshController
 
         //var_dump($input);
 
+        if($request->primeracompra==NULL){$request->primeracompra==0;}
+
         $data = array(
             'codigo_cupon' => $request->codigo_cupon, 
             'valor_cupon' => $request->valor_cupon, 
@@ -194,6 +196,7 @@ class AlpCuponesController extends JoshController
             'monto_minimo' => $request->monto_minimo, 
             'maximo_productos' => $request->maximo_productos, 
             'primeracompra' => $request->primeracompra, 
+            'registrado' => $request->registrado, 
             'id_user' =>$user_id
         );
          
@@ -971,6 +974,8 @@ class AlpCuponesController extends JoshController
 
         }
 
+        if($request->primeracompra==NULL){$request->primeracompra==0;}
+
        $data = array(
             'codigo_cupon' => $request->codigo_cupon, 
             'valor_cupon' => $request->valor_cupon, 
@@ -981,6 +986,7 @@ class AlpCuponesController extends JoshController
             'monto_minimo' => $request->monto_minimo, 
             'maximo_productos' => $request->maximo_productos, 
             'primeracompra' => $request->primeracompra, 
+            'registrado' => $request->registrado, 
             'limite_uso_persona' => $request->limite_uso_persona, 
 
         );

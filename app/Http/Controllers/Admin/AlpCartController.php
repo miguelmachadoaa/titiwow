@@ -4217,10 +4217,45 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
               }
 
-               
+            }
 
+            if($cupon->registrado!= NULL){
+
+             $f=Carbon::parse($cupon->registrado);
+
+             $fecha=Carbon::parse($cupon->registrado)->timestamp;
+
+
+
+             $fecha_cliente=Carbon::parse($usuario->created_at)->timestamp;
+
+             if ($fecha_cliente>=$fecha) {
+               
+             }else{
+
+              $b_user_valido=1;
+
+                $mensaje_user=$mensaje_user.'Este Cupon es para ser usado para personas que se registraron despues del '.$f->format('d/m/Y');
+                
+                $clase='info';
+
+
+             }
+
+
+              if (isset($orden->id)) {
+                
+                $b_user_valido=1;
+
+                $mensaje_user=$mensaje_user.'Este Cupon es para ser usado en la primera compra.';
+                
+                $clase='info';
+
+              }
 
             }
+
+
 
 
             if($cupon->limite_uso<=count($usados)){
