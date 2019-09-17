@@ -276,6 +276,7 @@
                                                 <thead>
                                                     <tr>
                                                         <td>Producto</td>
+                                                        <td>Cantidad</td>
                                                         <td>Accion</td>
                                                     </tr>
                                                 </thead>
@@ -288,6 +289,10 @@
                                                     <tr id="tr{{$pl->id_producto}}">
                                                         <td>
                                                             {{$pl->nombre_producto.' - '.$pl->referencia_producto}}
+                                                        </td>
+                                                        <td>
+                                                            <input type="number" step="1" min="1" name="c_can_{{$pl->id_producto}}" id="c_can_{{$pl->id_producto}}" value="{{$pl->cantidad}}"> 
+                                                            
                                                         </td>
                                                         <td>
                                                             <button data-id="{{$pl->id_producto}}" class="btn btn-danger delProductoCombo"><i class="fa fa-trash"></i></button>
@@ -1026,14 +1031,38 @@ $('.addProductoCupon').click(function(){
 
     name=$('select[name="id_producto"] option:selected').text();
 
+    cantidad='1';
+
     include='';
 
     if (id_producto !='') {
 
-         include=include+'<tr id="tr'+id_producto+'">';
+
+        if ( $("#tr"+id_producto+"").length ) {
+
+
+            cantidad=$('#c_can_'+id_producto).val();
+
+            cantidad=parseInt(cantidad)+1;
+
+            $('#c_can_'+id_producto).val(cantidad);
+
+
+
+        }else{
+
+            include=include+'<tr id="tr'+id_producto+'">';
+
             include=include+'<td>'+name+'</td>';
-            include=include+'<td> <button data-id="'+id_producto+'" class="btn btn-danger delProductoCombo"><i class="fa fa-trash "></i></button> <input type="hidden" name="c_pro_'+id_producto+'" id="c_pro_'+id_producto+'" value="'+id_producto+'"> </td>';
+            include=include+'<td> <input type="number" step="1" min="1" name="c_can_'+id_producto+'" id="c_can_'+id_producto+'" value="'+cantidad+'">  </td>';
+
+            include=include+'<td> <button data-id="'+id_producto+'" class="btn btn-danger delProductoCombo"><i class="fa fa-trash "></i></button>';
+
+            include=include+' <input type="hidden" name="c_pro_'+id_producto+'" id="c_pro_'+id_producto+'" value="'+id_producto+'"> </td>';
+
             include=include+'</tr>';
+
+        }
 
 
         $('#tableListProductos tbody').append(include);
@@ -1042,12 +1071,6 @@ $('.addProductoCupon').click(function(){
 
 
 });
-
-
-
-
-
-
 
 
 
@@ -1089,8 +1112,6 @@ $('.addProductoCupon').click(function(){
                         $('#rolprecio_'+rc+'').removeAttr('readonly','false');
 
                         $('#rolprecio_'+rc+'').val('');
-
-                       
 
                     }
 
@@ -1141,9 +1162,6 @@ $('.addProductoCupon').click(function(){
 
                         }
 
-                        
-
-                       
 
                     }
 
@@ -1153,8 +1171,6 @@ $('.addProductoCupon').click(function(){
 
 
                         $('.spanprecio_'+rc+'').html('Precio para la seleccion: '+valor);
-
-                       
 
                     }
 
@@ -1314,10 +1330,7 @@ $('.addProductoCupon').click(function(){
 
                $checkableTree.treeview('checkNode', [b, { silent: $('#chk-check-silent').is(':checked') }]);
 
-
             } );
-
-           
 
         });
 

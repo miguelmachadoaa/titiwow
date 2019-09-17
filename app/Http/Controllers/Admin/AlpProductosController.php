@@ -945,6 +945,7 @@ class AlpProductosController extends JoshController
 
         $productos_list=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.nombre_producto as nombre_producto', 'alp_productos.referencia_producto as referencia_producto')->join('alp_productos', 'alp_combos_productos.id_producto', '=', 'alp_productos.id')->where('id_combo', $producto->id)->get();
 
+        //dd($productos_list);
 
 
         $roles = DB::table('roles')->select('id', 'name')->where('roles.tipo', 2)->get();
@@ -1162,13 +1163,21 @@ class AlpProductosController extends JoshController
 
         AlpCombosProductos::whereIn('id', $ids)->delete();
 
+        $cantidad_combo = array();
+
+        //dd($input);
+
+
+
+
          foreach ($input as $key => $value) {
 
-          if (substr($key, 0, 2)=='c_') {
+          if (substr($key, 0, 5)=='c_pro') {
 
             $data_combo = array(
               'id_combo' => $producto->id, 
               'id_producto' => $value, 
+              'cantidad' => $input['c_can_'.$value], 
               'id_user' => $user_id
             );
 
@@ -1187,8 +1196,6 @@ class AlpProductosController extends JoshController
             return Redirect::route('admin/productos')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
 
         }
-
-
       
     }
 
@@ -1236,7 +1243,7 @@ class AlpProductosController extends JoshController
            activity($user->full_name)
                         ->performedOn($user)
                         ->causedBy($user)
-                        ->withProperties(['id'=>$producto])->log('AlpProductosController/edit ');
+                        ->withProperties(['id'=>$producto])->log('AlpProductosController/edit');
 
         }else{
 
