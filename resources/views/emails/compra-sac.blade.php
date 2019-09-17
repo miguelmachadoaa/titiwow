@@ -2,32 +2,52 @@
 
 Se ha registrado un pedido por el usuario {{ $compra->first_name.' '.$compra->last_name }}
 
-Detalles del Pedido 
+
+<b>Datos Del Clliente</b>
+
+
+<b>Nombre: </b> {{ $compra->first_name.' '.$compra->last_name }}<br>
+<b>Documento: </b> {{ $cliente->doc_cliente }}<br>
+<b>Teléfono</b> {{$cliente->telefono_cliente}}<br>
+
+<b>Direccion de Envio</b>
+
+ <p>{{ $direccion->titulo   }} </p>
+<p>{{ $direccion->state_name.' , '.$direccion->city_name   }}</p>
+<p>{{ $direccion->nombre_estructura.' '.$direccion->principal_address .' #'. $direccion->secundaria_address .'-'.$direccion->edificio_address.', '.$direccion->detalle_address.', '.$direccion->barrio_address }}</p>
+<p>{{ $direccion->notas }}</p>
+
+<b></b>
+
+
+<b>Detalles del Pedido </b>
+
+<b>Forma de Envio: </b> {{$formaenvio->nombre_forma_envios}}
 
 
 @if($envio->costo>0)
 
-<b>ID pedido:</b> {{ $compra->id }}
-<b>ID usuario masterfile:</b> {{ $compra->cod_oracle_cliente }}
-<b>Documento:</b> {{ 'E'.$compra->doc_cliente }}
-<b>Valor Pagado:</b> {{ $compra->monto_total+$envio->costo }}
-<p><b>Base Impuesto: </b>{{ number_format(($compra->base_impuesto/(1+$compra->valor_impuesto)+$envio->costo_base),0,",",".")}}</p>
-<b>Valor Iva:</b> {{ $compra->monto_impuesto+$envio->costo_impuesto }}
-<b>Fecha de Entrega:</b> {{ $fecha_entrega }}
+<b>ID pedido:</b> {{ $compra->id }}<br>
+<b>ID usuario masterfile:</b> {{ $compra->cod_oracle_cliente }}<br>
+<b>Documento:</b> {{ 'E'.$compra->doc_cliente }}<br>
+<b>Valor Pagado:</b> {{ $compra->monto_total+$envio->costo }}<br>
+<b>Base Impuesto: </b>{{ number_format(($compra->base_impuesto/(1+$compra->valor_impuesto)+$envio->costo_base),0,",",".")}}<br>
+<b>Valor Iva:</b> {{ $compra->monto_impuesto+$envio->costo_impuesto }}<br>
+<b>Fecha de Entrega:</b> {{ $fecha_entrega }}<br>
 
 @else
 
-<b>ID pedido:</b> {{ $compra->id }}
-<b>ID usuario masterfile:</b> {{ $compra->cod_oracle_cliente }}
-<b>Documento:</b> {{ 'E'.$compra->doc_cliente }}
-<b>Valor Pagado:</b> {{ $compra->monto_total}}
-<b>Base Impuesto:</b> {{ $compra->base_impuesto/(1+$compra->valor_impuesto) }}
-<b>Valor Iva:</b> {{ $compra->monto_impuesto }}
-<b>Fecha de Entrega:</b> {{ $fecha_entrega }}
+<b>ID pedido:</b> {{ $compra->id }}<br>
+<b>ID usuario masterfile:</b> {{ $compra->cod_oracle_cliente }}<br>
+<b>Documento:</b> {{ 'E'.$compra->doc_cliente }}<br>
+<b>Valor Pagado:</b> {{ $compra->monto_total}}<br>
+<b>Base Impuesto:</b> {{ $compra->base_impuesto/(1+$compra->valor_impuesto) }} <br>
+<b>Valor Iva:</b> {{ $compra->monto_impuesto }}<br>
+<b>Fecha de Entrega:</b> {{ $fecha_entrega }}<br>
 
 @endif
 
-
+<br>
 
 <h3>Detalle de cada producto</h3>
 
@@ -54,18 +74,18 @@ Detalles del Pedido
 </table>
 
 
-
+<br>
 @if($envio->costo>0)
 
-El Costo del envio fue de {{ number_format($envio->costo, 0,",",".") }}
-El total de la compra fue de {{ number_format($compra->monto_total+$envio->costo, 0,",",".") }}
-El Ahorro de su compra fue  {{ number_format($compra->monto_total_base-$compra->monto_total, 0,",",".") }}
+<b></b>El Costo del envio fue de <b>{{ number_format($envio->costo, 0,",",".") }}</b> <br>
+El total de la compra fue de <b>{{ number_format($compra->monto_total+$envio->costo, 0,",",".") }}</b><br>
+El Ahorro de su compra fue  <b>{{ number_format($compra->monto_total_base-$compra->monto_total, 0,",",".") }}</b><br>
 
 @else
 
-El Costo del envio fue Gratis
-El total de la compra fue de {{ number_format($compra->monto_total, 0,",",".") }}
-El Ahorro de su compra fue  {{ number_format($compra->monto_total_base-$compra->monto_total, 0,",",".") }}
+El Costo del envio fue <b>Gratis</b><br>
+El total de la compra fue de <b>{{ number_format($compra->monto_total, 0,",",".") }}</b><br>
+El Ahorro de su compra fue  <b>{{ number_format($compra->monto_total_base-$compra->monto_total, 0,",",".") }}</b><br>
 
 
 @endif
