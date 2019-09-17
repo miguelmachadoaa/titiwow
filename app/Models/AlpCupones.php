@@ -28,6 +28,7 @@ class AlpCupones extends Model
         'fecha_final',
         'monto_minimo',
         'maximo_productos',
+        'primeracompra',
         'estado_registro',
         'id_user'
     ];

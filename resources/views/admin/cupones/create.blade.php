@@ -190,6 +190,30 @@
                         </div>
 
 
+                         <div class="form-group  {{ $errors->first('primeracompra', 'has-error') }}">
+                                <label for="select21" class="col-sm-2 control-label">
+                                    Solo aplicable en primera compra
+                                </label>
+                                <div class="col-sm-5">   
+                                 <select id="primeracompra" name="primeracompra" class="form-control ">
+                                    <option value="">Seleccione</option>
+                                        
+                                       
+                                        <option value="{{ 1 }}" >SI</option>
+
+                                        <option value="{{ 0 }}" >NO</option>
+                                       
+                                </select>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('primeracompra', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                                  
+                                </div>
+                               
+                            </div>
+
+
+
 
 
 

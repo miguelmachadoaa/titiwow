@@ -4131,7 +4131,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           ->whereDate('fecha_final','>=',$hoy)
           ->first();
 
-
       $usados=AlpOrdenesDescuento::where('codigo_cupon', $codigo)->where('aplicado', '1')->get();
 
       $usados_persona=AlpOrdenesDescuento::where('codigo_cupon', $codigo)->where('id_user', $user_id)->where('aplicado', '1')->get();
@@ -4201,6 +4200,25 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
               $mensaje_user=$mensaje_user.'Ya el usuario aplico un cupón en la orden ';
                $clase='info';
+
+            }
+
+            if($cupon->primeracompra=='1'){
+
+              $orden=AlpOrdenes::where('id_cliente', $user_id)->first();
+
+              if (isset($orden->id)) {
+                
+                $b_user_valido=1;
+
+                $mensaje_user=$mensaje_user.'Este Cupon es para ser usado en la primera compra.';
+                
+                $clase='info';
+
+              }
+
+               
+
 
             }
 

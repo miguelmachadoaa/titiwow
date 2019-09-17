@@ -193,6 +193,7 @@ class AlpCuponesController extends JoshController
             'fecha_final' => $request->fecha_final, 
             'monto_minimo' => $request->monto_minimo, 
             'maximo_productos' => $request->maximo_productos, 
+            'primeracompra' => $request->primeracompra, 
             'id_user' =>$user_id
         );
          
@@ -979,6 +980,7 @@ class AlpCuponesController extends JoshController
             'fecha_final' => $request->fecha_final, 
             'monto_minimo' => $request->monto_minimo, 
             'maximo_productos' => $request->maximo_productos, 
+            'primeracompra' => $request->primeracompra, 
             'limite_uso_persona' => $request->limite_uso_persona, 
 
         );
