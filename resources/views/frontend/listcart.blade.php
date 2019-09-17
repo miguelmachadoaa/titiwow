@@ -67,7 +67,7 @@
 
                                         <div class="col-xs-12" style=" @if($loop->last) {{'margin-bottom:10px;'}} @endif padding-left: 4em;">
 
-                                            <h6><a target="_blank"  href="{{ route('producto', [$cp->slug]) }}" ><i class="fa fa-angle-double-right"></i>{{$cp->nombre_producto}}</a></h6>
+                                            <h6><a target="_blank"  href="{{ route('producto', [$cp->slug]) }}" ><i class="fa fa-angle-double-right"></i>{{$cp->cantidad.'- '.$cp->nombre_producto}}</a></h6>
 
                                         </div>  
 

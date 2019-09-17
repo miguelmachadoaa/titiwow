@@ -722,6 +722,8 @@ class ProductosFrontController extends Controller
 
         $combos=$this->combos();
 
+       // dd($combos);
+
 
         if ($producto->precio_base<=0 || $producto->precio_oferta<=0) {
 
