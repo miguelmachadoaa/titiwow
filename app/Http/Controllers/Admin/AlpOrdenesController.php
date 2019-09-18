@@ -1371,11 +1371,15 @@ class AlpOrdenesController extends JoshController
 
           $cupones=AlpOrdenesDescuento::where('id_orden', $orden->id)->get();
 
+          $formaenvio=AlpFormasenvio::where('id', $orden->id_forma_envio)->first();
+
+          $envio=AlpEnvios::where('id_orden', $orden->id)->first();
 
 
 
 
-        return view('admin.ordenes.detalle', compact('detalles', 'orden', 'history', 'pago', 'pagos', 'cliente', 'direccion', 'cupones'));
+
+        return view('admin.ordenes.detalle', compact('detalles', 'orden', 'history', 'pago', 'pagos', 'cliente', 'direccion', 'cupones', 'formaenvio', 'envio'));
 
     }
 

@@ -219,6 +219,12 @@ Orden {{$orden->id}}
                          <td>{{ $direccion->nombre_estructura.' '.$direccion->principal_address.' - '.$direccion->secundaria_address.' '.$direccion->edificio_address.' '.$direccion->detalle_address.' '.$direccion->barrio_address }}</td>
                      </tr>
 
+
+                     <tr>
+                         <td>Forma de Envio </td>
+                         <td>{{ $formaenvio->nombre_forma_envios}}</td>
+                     </tr>
+
                     
                  </tbody>
                  
