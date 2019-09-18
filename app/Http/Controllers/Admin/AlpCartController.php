@@ -4198,7 +4198,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                $b_user_valido=1;
 
-              $mensaje_user=$mensaje_user.'Ya el usuario aplico un cupón en la orden ';
+              $mensaje_user=$mensaje_user.'Ya el usuario aplico un cupón en la orden. ';
                $clase='info';
 
             }
@@ -4211,9 +4211,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                 
                 $b_user_valido=1;
 
-                $mensaje_user=$mensaje_user.'Este Cupon es para ser usado en la primera compra.';
+                $mensaje_user=$mensaje_user.'Este cupón solo puede ser usado en la primera compra de cada cliente. ';
                 
-                $clase='info';
+                $clase='danger';
 
               }
 
@@ -4235,23 +4235,13 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
               $b_user_valido=1;
 
-                $mensaje_user=$mensaje_user.'Este Cupon es para ser usado para personas que se registraron despues del '.$f->format('d/m/Y');
+                $mensaje_user=$mensaje_user.'Este Cupón solo esta disponible para clientes que se registraron después del '.$f->format('d/m/Y').'. ';
                 
-                $clase='info';
+                $clase='danger';
 
 
              }
-
-
-              if (isset($orden->id)) {
-                
-                $b_user_valido=1;
-
-                $mensaje_user=$mensaje_user.'Este Cupon es para ser usado en la primera compra.';
-                
-                $clase='info';
-
-              }
+              
 
             }
 
@@ -4262,7 +4252,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                $b_user_valido=1;
 
-                $mensaje_user=$mensaje_user.'Ya se usaron los cupones ';
+                $mensaje_user=$mensaje_user.'Ya se usaron los cupones disponibles. ';
                $clase='info';
 
 
@@ -4273,7 +4263,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                $b_user_valido=1;
 
-                $mensaje_user=$mensaje_user.'Ya el usuario aplico el máximo de cupones  ';
+                $mensaje_user=$mensaje_user.'Ya el usuario aplico el máximo de cupones disponibles.  ';
                $clase='info';
 
 
@@ -4284,7 +4274,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                $b_user_valido=1;
 
-                $mensaje_user=$mensaje_user.'Para usar el cupón debe tener mínimo $'.intval($cupon->monto_minimo).' en el carrito ';
+                $mensaje_user=$mensaje_user.'Para usar el cupón debe tener mínimo $'.intval($cupon->monto_minimo).' en el carrito. ';
 
                $clase='info';
 
@@ -4303,7 +4293,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                   $b_user_valido=1;
 
-                  $mensaje_user=$mensaje_user.' No aplicable por filtro empresa';
+                  $mensaje_user=$mensaje_user.' No aplicable por filtro empresa. ';
 
                $clase='danger';
 
@@ -4323,7 +4313,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                 $b_user_valido=1;
 
-                $mensaje_user=$mensaje_user.' No aplicable por filtro rol';
+                $mensaje_user=$mensaje_user.' No aplicable por filtro rol. ';
 
                $clase='danger';
 
@@ -4340,7 +4330,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
               }else{
 
                 $b_user_valido=1;
-                $mensaje_user=$mensaje_user.' No aplicable por filtro usuario';
+                $mensaje_user=$mensaje_user.' No aplicable por filtro usuario. ';
 
                $clase='danger';
 
@@ -4364,7 +4354,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                       $b_cantidad=1;
 
-                      $mensaje_user='La cantidad de: '.$detalle->nombre_producto.', en el carrito excede lo permitido para comprar con este cupón. El Máximo permitido es de: '.$cupon->maximo_productos.' Unidades';
+                      $mensaje_user='La cantidad de: '.$detalle->nombre_producto.', en el carrito excede lo permitido para comprar con este cupón. El Máximo permitido es de: '.$cupon->maximo_productos.' Unidades. ';
 
                     }
 
@@ -4380,7 +4370,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                           $b_producto_valido=1;
 
-                          $mensaje_producto=' No aplicable por filtro categoria';
+                          $mensaje_producto=' No aplicable por filtro categoria. ';
                           $clase='info';
                       }
 
@@ -4400,7 +4390,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                           $b_producto_valido=1;
 
-                          $mensaje_producto=' No aplicable por filtro marca';
+                          $mensaje_producto=' No aplicable por filtro marca. ';
                           $clase='info';
 
                       }
@@ -4419,7 +4409,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                           $b_producto_valido=1;
 
-                          $mensaje_producto=' No aplicable por filtro producto';
+                          $mensaje_producto=' No aplicable por filtro producto. ';
                           $clase='info';
 
                       }

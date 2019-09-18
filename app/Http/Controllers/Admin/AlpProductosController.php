@@ -572,21 +572,20 @@ class AlpProductosController extends JoshController
         }
 
 
+         
          foreach ($input as $key => $value) {
 
-          if (substr($key, 0, 2)=='c_') {
-
+          if (substr($key, 0, 5)=='c_pro') {
 
             $data_combo = array(
               'id_combo' => $producto->id, 
               'id_producto' => $value, 
+              'cantidad' => $input['c_can_'.$value], 
               'id_user' => $user_id
             );
 
             AlpCombosProductos::create($data_combo);
 
-           // print_r($data_precio).'<br>';
-            
           }
 
         }
