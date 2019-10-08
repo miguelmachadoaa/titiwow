@@ -1472,7 +1472,48 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
       }
 
-          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos', 'total_descuentos', 'costo_envio', 'id_forma_envio', 'envio_base', 'envio_impuesto'));
+
+      /*limitar forma de envio segun la hora o dias feriados */
+
+      $express=0;
+
+
+      $ciudad_forma=AlpFormaCiudad::where('id_forma', '2')->where('id_ciudad', '62')->first();
+
+
+        $date = Carbon::now();
+
+        $hora=$date->format('Hi');
+
+        $hora_base=str_replace(':', '', $ciudad_forma->hora);
+
+        if (intval($hora)>intval($hora_base)) {
+
+          $express=1;
+
+        }
+
+        $feriados=AlpFeriados::feriados();
+
+
+         if ($date->isSunday()) {
+
+             $express=1;
+          
+          }else{
+
+            if (isset($feriados[$date->format('Y-m-d')])) {
+
+                $express=1;
+             
+            }
+
+          }
+
+
+
+
+          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos', 'total_descuentos', 'costo_envio', 'id_forma_envio', 'envio_base', 'envio_impuesto', 'express'));
 
          }
 

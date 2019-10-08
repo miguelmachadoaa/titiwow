@@ -15,14 +15,39 @@
 
                     <!--option  value="{{$fe->id}}"   @if($fe->id==$id_forma_envio) {{'Selected'}} @endif      >{{$fe->nombre_forma_envios}}</option-->
 
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="formaenvio" id="formaenvio{{$fe->id}}" value="{{$fe->id}}"  @if($fe->id==$id_forma_envio) {{'checked'}} @endif  >
-                      <label class="form-check-label" for="exampleRadios1">
-                        {{$fe->nombre_forma_envios}}
-                      </label>
-                    </div>
+                    @if ($fe->id=='2')
+                        
+                        @if (isset($express))
+                            
+                            @if ($express=='0')
 
-                    <h6 class="dfe" style="display: none;" id="descripcion{{$fe->id}}" style="text-align: justify;">{{$fe->descripcion_forma_envios}}</h6>
+                             <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="formaenvio" id="formaenvio{{$fe->id}}" value="{{$fe->id}}"  @if($fe->id==$id_forma_envio) {{'checked'}} @endif  >
+                                  <label class="form-check-label" for="exampleRadios1">
+                                    {{$fe->nombre_forma_envios}}
+                                  </label>
+                                </div>
+
+                                <h6 class="dfe" style="display: none;" id="descripcion{{$fe->id}}" style="text-align: justify;">{{$fe->descripcion_forma_envios}}</h6>
+                                {{-- expr --}}
+                            @endif
+                                
+
+                        @endif
+
+                    @else
+
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="formaenvio" id="formaenvio{{$fe->id}}" value="{{$fe->id}}"  @if($fe->id==$id_forma_envio) {{'checked'}} @endif  >
+                          <label class="form-check-label" for="exampleRadios1">
+                            {{$fe->nombre_forma_envios}}
+                          </label>
+                        </div>
+
+                        <h6 class="dfe" style="display: none;" id="descripcion{{$fe->id}}" style="text-align: justify;">{{$fe->descripcion_forma_envios}}</h6>
+
+                    @endif
+                    
 
 
 
