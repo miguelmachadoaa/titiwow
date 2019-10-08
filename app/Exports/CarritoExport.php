@@ -52,6 +52,7 @@ class CarritoExport implements FromView
           foreach ($carrito as $c) {
 
             $detalles= AlpCarritoDetalle::select( 
+            'alp_productos.presentacion as presentacion',
             'alp_productos.nombre_producto as nombre_producto',
             'alp_carrito_detalle.id_carrito as id_carrito',
              DB::raw('sum(alp_carrito_detalle.cantidad*alp_productos.precio_base)  as monto'),

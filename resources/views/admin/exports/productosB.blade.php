@@ -9,6 +9,7 @@
             <th ><b>EAN</b></th>
             <th ><b>SKU</b></th>
             <th ><b>Producto</b></th>
+            <th ><b>Presentación</b></th>
             <th><b>Precio</b></th>
             <th><b>Cantidad</b></th>
             <th><b>Base de Iva</b></th>
@@ -47,6 +48,7 @@
             <td>{!! $row->referencia_producto!!}</td>
             <td>{!! $row->referencia_producto_sap!!}</td>
             <td>{!! $row->nombre_producto !!}</td>
+            <td>{!! $row->presentacion_producto !!}</td>
             <td>{!! $row->precio_unitario !!}</td>
             <td>{!! $row->cantidad !!}</td>
             <td>   @if($row->valor_impuesto!=0) {!!  $row->precio_total/(1+$row->valor_impuesto) !!}  @else   {{ 0 }} @endif      </td>

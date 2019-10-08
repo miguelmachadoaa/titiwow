@@ -7,6 +7,7 @@
             <th><b>EAN</b></th>
             <th ><b>SKU</b></th>
             <th ><b>Producto</b></th>
+            <th ><b>Presentacion</b></th>
             <th ><b>Cantidad</b></th>
             <th ><b>Total Producto</b></th>
             <th ><b>Total Descuento</b></th>
@@ -22,6 +23,7 @@
                 <td>{!! $row->referencia_producto !!}</td>
                 <td>{!! $row->referencia_producto_sape !!}</td>
                 <td>{!! $row->nombre_producto !!}</td>
+                <td>{!! $row->presentacion_producto !!}</td>
                 <td>{!! $row->cantidad !!}</td>
                 <td>{!! $row->precio_total !!}</td>
                 <td>{!! $row->monto_descuento !!}</td>

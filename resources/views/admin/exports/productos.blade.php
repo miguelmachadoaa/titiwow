@@ -7,6 +7,7 @@
             <th ><b>Categoria</b></th>
             <th ><b>Marca</b></th>
             <th><b>Producto</b></th>
+            <th><b>Presentacion</b></th>
             <th><b>Cantidad de unidades</b></th>
             <th><b>Numero de Pedidos</b></th>
             <th><b>Fecha</b></th>
@@ -22,6 +23,7 @@
             <td>{!! $row->nombre_categoria!!}</td>
             <td>{!! $row->nombre_marca!!}</td>
             <td>{!! $row->nombre_producto !!}</td>
+            <td>{!! $row->presentacion_producto !!}</td>
             <td>{!! $row->total_cantidad !!}</td>
             <td>{!! $row->num_pedidos !!}</td>
             <td>{!! $row->fecha !!}</td>

@@ -7,6 +7,7 @@
             <th ><b>Categoria</b></th>
             <th ><b>Marca</b></th>
             <th><b>Producto</b></th>
+            <th><b>Presentación</b></th>
             <th><b>Cantidad de unidades</b></th>
             <th><b>Monto venta</b></th>
             <th><b>Base Impuesto</b></th>
@@ -25,6 +26,7 @@
             <td>{!! $row->nombre_categoria!!}</td>
             <td>{!! $row->nombre_marca!!}</td>
             <td>{!! $row->nombre_producto !!}</td>
+            <td>{!! $row->presentacion_producto !!}</td>
             <td>{!! $row->cantidad !!}</td>
             <td>{!! $row->precio_total !!}</td>
             <td>

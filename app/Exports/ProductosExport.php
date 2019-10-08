@@ -32,6 +32,8 @@ class ProductosExport implements FromView
            DB::raw('DATE_FORMAT(alp_ordenes_detalle.created_at, "%d/%m/%Y")  as fecha'),
            DB::raw('sum(alp_ordenes_detalle.cantidad)  as total_cantidad'),
           'alp_productos.nombre_producto as nombre_producto',
+          'alp_productos.presentacion_producto as presentacion_producto',
+          
           'alp_productos.referencia_producto as referencia_producto',
           'alp_categorias.nombre_categoria as nombre_categoria',
           'alp_marcas.nombre_marca as nombre_marca'

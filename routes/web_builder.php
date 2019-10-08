@@ -787,7 +787,7 @@ Route::resource('facturasmasivas', 'Admin\AlpFacturasController');
 
 Route::get('cart/show', ['as'=>'cart.show', 'uses'=>'Admin\AlpCartController@show']);
 
-Route::get('cart/add/{id}', ['as'=>'cart.addlink', 'uses'=>'Admin\AlpCartController@addlink']);
+Route::get('cart/add/{id}/{b?}/{c?}/{d?}/{e?}/{f?}/{g?}/{h?}/{i?}/{j?}', ['as'=>'cart.addlink', 'uses'=>'Admin\AlpCartController@addlink']);
 
 Route::get('cart/mercadopago', ['as'=>'cart.mercadopago', 'uses'=>'Admin\AlpCartController@mercadopago']);
 
