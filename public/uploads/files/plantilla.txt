@@ -573,13 +573,13 @@
                                         <img style="    margin-bottom: 0;" alt="" src="https://www.alpinago.com/uploads/productos/sbHnVk4j6y.jpeg" width="263" style="max-width:1000px; padding-bottom: 0;" class="mcnImage">
                                     </a>
 
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/alpinito-multisabor-packx3">
-                                        <p style="     font-size: 14px;    margin-top: -7px;    text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >$10090.00</p>
+                                   <a style="text-decoration: none;" href="https://www.alpinago.com/producto/alpinito-multisabor-packx3">
+                                        <p style="     font-size: 14px;    margin-top: -7px;    text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >$10.800</p>
                                     </a>
                                     <a style="text-decoration: none;" href="https://www.alpinago.com/producto/alpinito-multisabor-packx3">
-                                        <p style="   font-size: 22px;    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >$9283.00</p>
+                                        <p style="   font-size: 30px;    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >$9.999</p>
                                     </a>
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/alpinito-multisabor-packx3"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >Gramo a $18,68 pesos</p></a>
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/alpinito-multisabor-packx3"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >Gramo a $20 pesos</p></a>
                                 
                                 </td>
                             </tr>
@@ -610,13 +610,13 @@
                                         <img style="    margin-bottom: 0;" alt="" src="https://www.alpinago.com/uploads/productos/HyYtZGgZpG.jpeg" width="263" style="max-width:1000px; padding-bottom: 0;" class="mcnImage">
                                     </a>
 
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/alimeto-lacteo-finesse-muslix4">
-                                        <p style="     font-size: 14px;    margin-top: -7px;    text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >$10200.00</p>
+                                   <a style="text-decoration: none;" href="https://www.alpinago.com/producto/alimeto-lacteo-finesse-muslix4">
+                                        <p style="     font-size: 14px;    margin-top: -7px;    text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >$10.800</p>
                                     </a>
                                     <a style="text-decoration: none;" href="https://www.alpinago.com/producto/alimeto-lacteo-finesse-muslix4">
-                                        <p style="   font-size: 22px;    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >$9384.00</p>
+                                        <p style="   font-size: 30px;    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >$9.999</p>
                                     </a>
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/alimeto-lacteo-finesse-muslix4"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >Gramo a $15 pesos</p></a>
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/alimeto-lacteo-finesse-muslix4"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >Mililitro a $15,88 pesos</p></a>
                                 
                                 </td>
                             </tr>
@@ -637,32 +637,32 @@
         
         
         
-        <table id="tb_4" border="0" cellpadding="0" cellspacing="0" width="600px" align="center" class="mcnImageGroupBlock">
+        <table id="tb_3" border="0" cellpadding="0" cellspacing="0" width="600px" align="center" class="mcnImageGroupBlock">
             <tbody class="mcnImageGroupBlockOuter">
         
             <tr>
                 <td valign="top" style="padding:9px" class="mcnImageGroupBlockInner">
                     
-                    <table id="tb2_4" align="left" width="272.9999694824219" border="0" cellpadding="0" cellspacing="0" class="mcnImageGroupContentContainer">
+                    <table id="tb2_3" align="left" width="272.9999694824219" border="0" cellpadding="0" cellspacing="0" class="mcnImageGroupContentContainer">
                             <tbody><tr>
                                 <td class="mcnImageGroupContent" valign="top" style="padding-left: 9px; padding-top: 0; padding-bottom: 0;">
                                     
                                      
 
-                                    <p style=" text-align: center;  color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/pudin-alpina-arequipe-x-2">Pudín Alpina Arequipe x 2</a></p>
+                                    <p style=" text-align: center;  color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/regeneris-pitaya-x-6">Regeneris Pitaya x 6</a></p>
                                     
                                 
-                                    <a href="https://www.alpinago.com/producto/pudin-alpina-arequipe-x-2?utm_source=mailmarketing&amp;utm_medium=email&amp;utm_campaign=alpinago_2020&amp;utm_content=cpc&amp;utm_term=botonhome" title="Pudín Alpina Arequipe x 2" class="" target="_blank">
-                                        <img style="    margin-bottom: 0;" alt="" src="https://www.alpinago.com/uploads/productos/yPi2268gJI.jpeg" width="263" style="max-width:1000px; padding-bottom: 0;" class="mcnImage">
+                                    <a href="https://www.alpinago.com/producto/regeneris-pitaya-x-6?utm_source=mailmarketing&amp;utm_medium=email&amp;utm_campaign=alpinago_2020&amp;utm_content=cpc&amp;utm_term=botonhome" title="Regeneris Pitaya x 6" class="" target="_blank">
+                                        <img style="    margin-bottom: 0;" alt="" src="https://www.alpinago.com/uploads/productos/oOfVIQGBbT.jpeg" width="263" style="max-width:1000px; padding-bottom: 0;" class="mcnImage">
                                     </a>
 
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/pudin-alpina-arequipe-x-2">
-                                        <p style="     font-size: 14px;    margin-top: -7px;    text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >$3100.00</p>
+                                   <a style="text-decoration: none;" href="https://www.alpinago.com/producto/regeneris-pitaya-x-6">
+                                        <p style="     font-size: 14px;    margin-top: -7px;    text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >$10.932</p>
                                     </a>
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/pudin-alpina-arequipe-x-2">
-                                        <p style="   font-size: 22px;    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >$2852.00</p>
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/regeneris-pitaya-x-6">
+                                        <p style="   font-size: 30px;    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >$9.999</p>
                                     </a>
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/pudin-alpina-arequipe-x-2"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >Gramo a $15,5 pesos</p></a>
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/regeneris-pitaya-x-6"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >Mililitro a $12,15 pesos</p></a>
                                 
                                 </td>
                             </tr>
@@ -682,24 +682,24 @@
         
         
 
-     <table id="tb3_6" align="right" width="272.9999694824219" border="0" cellpadding="0" cellspacing="0" class="mcnImageGroupContentContainer">
+     <table id="tb3_4" align="right" width="272.9999694824219" border="0" cellpadding="0" cellspacing="0" class="mcnImageGroupContentContainer">
                             <tbody><tr>
                                 <td class="mcnImageGroupContent" valign="top" style="padding-right: 9px; padding-top: 0; padding-bottom: 0;">
 
-                                    <p style=" text-align: center;  color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/mini-bonyurt-chococandy-x-4-100g">Mini Bonyurt Chococandy x 4</a></p>
+                                    <p style=" text-align: center;  color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/pudin-alpina-arequipe-x-2">Pudín Alpina Arequipe x 2</a></p>
                                     
                                 
-                                    <a href="https://www.alpinago.com/producto/mini-bonyurt-chococandy-x-4-100g?utm_source=mailmarketing&amp;utm_medium=email&amp;utm_campaign=alpinago_2020&amp;utm_content=cpc&amp;utm_term=botonhome" title="Mini Bonyurt Chococandy x 4" class="" target="_blank">
-                                        <img style="    margin-bottom: 0;" alt="" src="https://www.alpinago.com/uploads/productos/WpU6uqkGqA.jpeg" width="263" style="max-width:1000px; padding-bottom: 0;" class="mcnImage">
+                                    <a href="https://www.alpinago.com/producto/pudin-alpina-arequipe-x-2?utm_source=mailmarketing&amp;utm_medium=email&amp;utm_campaign=alpinago_2020&amp;utm_content=cpc&amp;utm_term=botonhome" title="Pudín Alpina Arequipe x 2" class="" target="_blank">
+                                        <img style="    margin-bottom: 0;" alt="" src="https://www.alpinago.com/uploads/productos/yPi2268gJI.jpeg" width="263" style="max-width:1000px; padding-bottom: 0;" class="mcnImage">
                                     </a>
 
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/mini-bonyurt-chococandy-x-4-100g">
-                                        <p style="     font-size: 14px;    margin-top: -7px;    text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >$7590.00</p>
+                                   <a style="text-decoration: none;" href="https://www.alpinago.com/producto/pudin-alpina-arequipe-x-2">
+                                        <p style="     font-size: 14px;    margin-top: -7px;    text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >$3.685</p>
                                     </a>
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/mini-bonyurt-chococandy-x-4-100g">
-                                        <p style="   font-size: 22px;    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >$6983.00</p>
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/pudin-alpina-arequipe-x-2">
+                                        <p style="   font-size: 30px;    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >$9.999</p>
                                     </a>
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/mini-bonyurt-chococandy-x-4-100g"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >Gramo a $18,98 pesos</p></a>
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/pudin-alpina-arequipe-x-2"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >Gramo a $18,43 pesos</p></a>
                                 
                                 </td>
                             </tr>

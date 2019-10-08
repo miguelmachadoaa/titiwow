@@ -576,11 +576,11 @@
                                         <img style="    margin-bottom: 0;" alt="" src="https://www.alpinago.com/{{'uploads/productos/'.$pro->imagen_producto}}" width="263" style="max-width:1000px; padding-bottom: 0;" class="mcnImage">
                                     </a>
 
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/{{$pro->slug}}">
-                                        <p style="     font-size: 14px;    margin-top: -7px;    text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >${{$pro->precio_base}}</p>
+                                   <a style="text-decoration: none;" href="https://www.alpinago.com/producto/{{$pro->slug}}">
+                                        <p style="     font-size: 14px;    margin-top: -7px;    text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >${{ number_format($pro->precio_base, 0, '', '.') }}</p>
                                     </a>
                                     <a style="text-decoration: none;" href="https://www.alpinago.com/producto/{{$pro->slug}}">
-                                        <p style="   font-size: 22px;    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >${{$pro->precio_oferta}}</p>
+                                        <p style="   font-size: 30px;    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >${{ number_format($pro->precio_oferta, 0, '', '.')}}</p>
                                     </a>
                                     <a style="text-decoration: none;" href="https://www.alpinago.com/producto/{{$pro->slug}}"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >{{$pro->pum}}</p></a>
                                 
@@ -610,11 +610,11 @@
                                         <img style="    margin-bottom: 0;" alt="" src="https://www.alpinago.com/{{'uploads/productos/'.$pro->imagen_producto}}" width="263" style="max-width:1000px; padding-bottom: 0;" class="mcnImage">
                                     </a>
 
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/{{$pro->slug}}">
-                                        <p style="     font-size: 14px;    margin-top: -7px;    text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >${{$pro->precio_base}}</p>
+                                   <a style="text-decoration: none;" href="https://www.alpinago.com/producto/{{$pro->slug}}">
+                                        <p style="     font-size: 14px;    margin-top: -7px;    text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >${{ number_format($pro->precio_base, 0, '', '.') }}</p>
                                     </a>
                                     <a style="text-decoration: none;" href="https://www.alpinago.com/producto/{{$pro->slug}}">
-                                        <p style="   font-size: 22px;    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >${{$pro->precio_oferta}}</p>
+                                        <p style="   font-size: 30px;    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >${{ number_format($pro->precio_oferta, 0, '', '.')}}</p>
                                     </a>
                                     <a style="text-decoration: none;" href="https://www.alpinago.com/producto/{{$pro->slug}}"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >{{$pro->pum}}</p></a>
                                 
