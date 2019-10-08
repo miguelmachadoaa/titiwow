@@ -543,10 +543,7 @@ class AlpProductosController extends JoshController
 
           if (substr($key, 0, 9)=='rolprecio') {
 
-           // echo $key.':'.$value.'<br>';
-
             if ($value>0) {
-              # code...
 
             $par=explode('_', $key);
 
