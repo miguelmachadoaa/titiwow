@@ -74,9 +74,6 @@ class AlpProductosController extends JoshController
 
         }
 
-
-        
-
         $productos = AlpProductos::select('alp_productos.*', 'alp_categorias.nombre_categoria as nombre_categoria')
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
           ->get();
@@ -87,7 +84,6 @@ class AlpProductosController extends JoshController
 
      public function data()
     {
-       
     
           $productos = AlpProductos::select('alp_productos.*', 'alp_categorias.nombre_categoria as nombre_categoria')
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
@@ -96,9 +92,7 @@ class AlpProductosController extends JoshController
 
             $data = array();
 
-
           foreach($productos as $alpProductos){
-
 
             if ($alpProductos->estado_registro == 1) {
               $estado=" <div id='td_destacado_".$alpProductos->id."'><button type='button' data-url='".secure_url('productos/desactivar')."' data-desactivar='2' data-id='".$alpProductos->id ."' class='btn btn-responsive button-alignment btn-success btn_sizes desactivar' style='font-size: 12px !important;' >Activo</button></div>";
@@ -107,7 +101,6 @@ class AlpProductosController extends JoshController
             if ($alpProductos->estado_registro == 2) {
               $estado=" <div id='td_destacado_".$alpProductos->id."'><button type='button' data-url='".secure_url('productos/desactivar')."' data-desactivar='1' data-id='".$alpProductos->id ."' class='btn btn-responsive button-alignment btn-danger btn_sizes desactivar' style='font-size: 12px !important;'>Inactivo</button></div>";
             }
-
 
                  $actions = " 
                   
@@ -146,6 +139,7 @@ class AlpProductosController extends JoshController
                $data[]= array(
                  $alpProductos->id, 
                  $alpProductos->nombre_producto, 
+                 $alpProductos->presentacion_producto, 
                  $alpProductos->referencia_producto, 
                  $alpProductos->referencia_producto_sap, 
                  $imagen, 
@@ -1699,7 +1693,7 @@ class AlpProductosController extends JoshController
 
 
 
-            $query=AlpPrecioGrupo::select('alp_precios_grupos.*','config_cities.city_name as city_name', 'roles.name as name', 'alp_productos.nombre_producto as nombre_producto', 'alp_productos.referencia_producto  as referencia_producto', 'alp_productos.precio_base  as precio_base' )
+            $query=AlpPrecioGrupo::select('alp_precios_grupos.*','config_cities.city_name as city_name', 'roles.name as name', 'alp_productos.nombre_producto as nombre_producto', 'alp_productos.referencia_producto  as referencia_producto', 'alp_productos.precio_base  as precio_base' , 'alp_productos.presentacion_producto  as presentacion_producto' )
             ->join('alp_productos', 'alp_precios_grupos.id_producto','=', 'alp_productos.id')
             ->join('config_cities', 'alp_precios_grupos.city_id','=', 'config_cities.id')
             ->join('roles', 'alp_precios_grupos.id_role','=', 'roles.id');
@@ -1815,6 +1809,7 @@ class AlpProductosController extends JoshController
                $data[]= array(
                  $alpProductos->id, 
                  $alpProductos->nombre_producto, 
+                 $alpProductos->presentacion_producto, 
                  $alpProductos->referencia_producto, 
               //   $imagen, 
                  $alpProductos->nombre_categoria, 

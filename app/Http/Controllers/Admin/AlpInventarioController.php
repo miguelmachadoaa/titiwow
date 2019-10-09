@@ -70,6 +70,7 @@ class AlpInventarioController extends JoshController
                $data[]= array(
                  $row->id, 
                  $row->nombre_producto, 
+                 $row->presentacion_producto, 
                  $row->referencia_producto, 
                  $row->referencia_producto_sap, 
                  $inventario[$row->id], 

@@ -6,6 +6,7 @@
      <tr>
         <th>ID</th>
         <th>Nombre de Producto</th>
+        <th>Presentación de Producto</th>
         <th>Referencia</th>
         <th>Ciudad</th>
         <th>Rol</th>
@@ -22,6 +23,7 @@
                 
             <td>{{$producto->id}}</td>
             <td>{{$producto->nombre_producto}}</td>
+            <td>{{$producto->presentacion_producto}}</td>
             <td>{{$producto->referencia_producto}}</td>
            
             
