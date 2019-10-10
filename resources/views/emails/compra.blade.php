@@ -6,16 +6,12 @@ Gracias por su compra <b>{{ $compra->first_name.' '.$compra->last_name }}</b>
 
 Hemos registrado una compra {{ $compra->referencia }},  Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y será entregado {{ $fecha_entrega }}. 
 
-
 @else
 
 Hemos registrado una compra {{ $compra->referencia }},  Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y será entregado pronto. 
 
 
 @endif
-
-
-
 
 Datos de la compra
 
@@ -30,7 +26,6 @@ Datos de la compra
 <p><b>Valor Iva: </b>{{ number_format($compra->monto_impuesto+$envio->costo_impuesto,0,",",".")}}</p>
 <p><b>Fecha de Entrega: </b>{{ $fecha_entrega }}</p>
 
-
 @else
 
 
@@ -44,10 +39,6 @@ Datos de la compra
 @endif
 
 
-
-
-
-
 <h3>Detalle de compra</h3>
 
 <table width="100%" style="border-collapse: collapse;border: solid 2px #e9e9e9;" cellpadding="10px">
@@ -56,6 +47,7 @@ Datos de la compra
 		<th style="border: solid 2px #e9e9e9;">Sku</th>
 		<th style="border: solid 2px #e9e9e9;">idProducto</th>
 		<th style="border: solid 2px #e9e9e9;">Producto</th>
+		<th style="border: solid 2px #e9e9e9;">Presentación</th>
         <th style="border: solid 2px #e9e9e9;">Precio</th>
         <th style="border: solid 2px #e9e9e9;">Cantidad</th>
         <th style="border: solid 2px #e9e9e9;">SubTotal</th>
@@ -68,16 +60,16 @@ Datos de la compra
 		<td style="border: solid 2px #e9e9e9;">{{$row->referencia_producto_sap}}</td>
 		<td style="border: solid 2px #e9e9e9;">{{$row->id_producto}}</td>
 		<td style="border: solid 2px #e9e9e9;">{{$row->nombre_producto}}</td>
+		<td style="border: solid 2px #e9e9e9;">{{$row->presentacion_producto}}</td>
         <td style="border: solid 2px #e9e9e9;">{{number_format($row->precio_unitario,0,",",".")}}</td>
         <td style="border: solid 2px #e9e9e9;"> {{ $row->cantidad }} </td>
-        <td style="border: solid 2px #e9e9e9;">{{ number_format($row->precio_total, 0,",",".") }}</td>
+        <td style="border: solid 2px #e9e9e9;">{{ number_format($row->precio_unitario*$row->cantidad, 0,",",".") }}</td>
 	</tr>
 
 	@endforeach
 
 </table>
 <br />
-
 
 
 @if($envio->costo>0)
@@ -92,15 +84,7 @@ El Costo del envio fue Gratis
 El total de la compra fue de {{ number_format($compra->monto_total, 0,",",".") }}
 El Ahorro de su compra fue  {{ number_format($compra->monto_total_base-$compra->monto_total, 0,",",".") }}
 
-
 @endif
-
-
-
-
-
-
-
 
 
 @component('mail::button', ['url' => secure_url('/')])

@@ -225,6 +225,16 @@ Orden {{$orden->id}}
                          <td>{{ $formaenvio->nombre_forma_envios}}</td>
                      </tr>
 
+                     <tr>
+                         <td>Fecha de Entrega Pedido </td>
+                         <td>{{ $envio->fecha_envio}}</td>
+                     </tr>
+
+
+                      <tr>
+                         <td>Fecha de Creación de la Orden </td>
+                         <td>{{ $envio->fecha_envio}}</td>
+                     </tr>
                     
                  </tbody>
                  

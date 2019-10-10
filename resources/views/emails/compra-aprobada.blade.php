@@ -22,6 +22,7 @@ Su compra {{ $compra->referencia }},  ya se encuentra en proceso de empaque. La 
 <table width="100%" style="border-collapse: collapse;border: solid 2px #e9e9e9;" cellpadding="10px">
 	<tr>
 		<th style="border: solid 2px #e9e9e9;">Producto</th>
+		<th style="border: solid 2px #e9e9e9;">Presenctación</th>
          <th style="border: solid 2px #e9e9e9;">Precio</th>
          <th style="border: solid 2px #e9e9e9;">Cantidad</th>
          <th style="border: solid 2px #e9e9e9;">SubTotal</th>
@@ -31,6 +32,7 @@ Su compra {{ $compra->referencia }},  ya se encuentra en proceso de empaque. La 
 
 		<tr>
 		<td style="border: solid 2px #e9e9e9;">{{$row->nombre_producto}}</td>
+		<td style="border: solid 2px #e9e9e9;">{{$row->presentacion_producto}}</td>
         <td style="border: solid 2px #e9e9e9;">{{number_format($row->precio_unitario,0,",",".")}}</td>
         <td style="border: solid 2px #e9e9e9;"> {{ $row->cantidad }} </td>
         <td style="border: solid 2px #e9e9e9;">{{ number_format($row->precio_total, 0,",",".") }}</td>

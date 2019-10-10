@@ -1722,15 +1722,9 @@ class AlpProductosController extends JoshController
         return view('admin.productos.precio', compact( 'precio_grupo', 'states', 'roles', 'productos_list'));
     }
 
-
-
-
-
-
      public function dataprecio()
     {
        
-    
           $productos = AlpProductos::select('alp_productos.*', 'alp_categorias.nombre_categoria as nombre_categoria')
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
           ->get();

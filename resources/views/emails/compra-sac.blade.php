@@ -55,8 +55,10 @@ Se ha registrado un pedido por el usuario {{ $compra->first_name.' '.$compra->la
 	<tr>
 		<th style="border: solid 2px #e9e9e9;">Sku</th>
          <th style="border: solid 2px #e9e9e9;">Nombre Producto</th>
+         <th style="border: solid 2px #e9e9e9;">Presentación Producto</th>
          <th style="border: solid 2px #e9e9e9;">Cantidad</th>
-         <th style="border: solid 2px #e9e9e9;">Valor</th>
+         <th style="border: solid 2px #e9e9e9;">Precio Unitario</th>
+         <th style="border: solid 2px #e9e9e9;">Subtotal</th>
 	</tr>
 
 	@foreach($detalles as $row)
@@ -64,8 +66,10 @@ Se ha registrado un pedido por el usuario {{ $compra->first_name.' '.$compra->la
 		<tr>
 		<td style="border: solid 2px #e9e9e9;">{{$row->referencia_producto}}</td>
 		<td style="border: solid 2px #e9e9e9;">{{$row->nombre_producto}}</td>
+		<td style="border: solid 2px #e9e9e9;">{{$row->presentacion_producto}}</td>
         <td style="border: solid 2px #e9e9e9;"> {{ $row->cantidad }} </td>
         <td style="border: solid 2px #e9e9e9;">{{number_format($row->precio_unitario,0,",",".")}}</td>
+        <td style="border: solid 2px #e9e9e9;">{{number_format($row->precio_unitario*$row->cantidad,0,",",".")}}</td>
         
 	</tr>
 

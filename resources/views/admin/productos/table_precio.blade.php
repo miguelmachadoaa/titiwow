@@ -25,8 +25,6 @@
             <td>{{$producto->nombre_producto}}</td>
             <td>{{$producto->presentacion_producto}}</td>
             <td>{{$producto->referencia_producto}}</td>
-           
-            
 
                 <td>{{ $producto->city_name }}</td>
                 <td>{{ $producto->name  }}</td>
