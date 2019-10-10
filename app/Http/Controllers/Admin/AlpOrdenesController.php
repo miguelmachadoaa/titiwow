@@ -1328,7 +1328,7 @@ class AlpOrdenesController extends JoshController
        
     $orden = AlpOrdenes::find($id);
 
-      
+      //dd($orden);
 
     $detalles = AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto','alp_productos.referencia_producto as referencia_producto')
           ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
@@ -1338,6 +1338,13 @@ class AlpOrdenesController extends JoshController
     $pago = AlpPagos::select('alp_ordenes_pagos.*','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago')
           ->join('alp_formas_pagos', 'alp_ordenes_pagos.id_forma_pago', '=', 'alp_formas_pagos.id')
           ->where('alp_ordenes_pagos.id_orden', $id)
+          ->first();
+
+
+    $pago_aprobado = AlpPagos::select('alp_ordenes_pagos.*','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago')
+          ->join('alp_formas_pagos', 'alp_ordenes_pagos.id_forma_pago', '=', 'alp_formas_pagos.id')
+          ->where('alp_ordenes_pagos.id_orden', $id)
+          ->where('alp_ordenes_pagos.id_estatus_pago', '2')
           ->first();
 
         $pagos = AlpPagos::select('alp_ordenes_pagos.*','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago')
@@ -1376,10 +1383,7 @@ class AlpOrdenesController extends JoshController
           $envio=AlpEnvios::where('id_orden', $orden->id)->first();
 
 
-
-
-
-        return view('admin.ordenes.detalle', compact('detalles', 'orden', 'history', 'pago', 'pagos', 'cliente', 'direccion', 'cupones', 'formaenvio', 'envio'));
+        return view('admin.ordenes.detalle', compact('detalles', 'orden', 'history', 'pago', 'pagos', 'cliente', 'direccion', 'cupones', 'formaenvio', 'envio', 'pago_aprobado'));
 
     }
 

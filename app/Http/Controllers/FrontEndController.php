@@ -305,7 +305,7 @@ class FrontEndController extends JoshController
                ->where('user_id','=', $user->id)
                ->first();
 
-               if ( $role->role_id>'8') {
+               if ( $role->role_id>'8' || $role->role_id=='13') {
 
                   if ($request->back=='0') {
                      
