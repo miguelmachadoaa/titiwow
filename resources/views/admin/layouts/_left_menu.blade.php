@@ -643,7 +643,7 @@
 
     @endif
 
-    @if (Sentinel::getUser()->hasAnyAccess(['clientes.*']))
+    @if (Sentinel::getUser()->hasAnyAccess(['alpinistas.*']))
 
         <li {!! (Request::is('admin/alpinistas') ? 'class="active"' : '') !!}>
         <a href="#">
