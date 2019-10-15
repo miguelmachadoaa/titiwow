@@ -104,6 +104,8 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
 
     Route::post('groups/{role}/guardar', ['uses' => 'Admin\GroupsController@guardar', 'as' => 'groups.guardar']);
 
+    Route::post('groups/store', ['uses' => 'Admin\GroupsController@store', 'as' => 'groups.store']);
+
 
 
 

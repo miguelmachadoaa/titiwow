@@ -54,7 +54,7 @@ class GroupsController extends JoshController
             'slug' => str_slug($request->get('name'))
         ])
         ) {
-            dd($request->all());
+           // dd($request->all());
             if ($request->has('permissions')) {
                 foreach ($request->permissions as $permission_name) {
 
