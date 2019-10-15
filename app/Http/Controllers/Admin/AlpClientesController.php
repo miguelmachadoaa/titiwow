@@ -1690,15 +1690,8 @@ class AlpClientesController extends JoshController
             return redirect('admin/clientes/'.$direccion->id_client.'/direcciones')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
 
         }
- 
 
     }
-
-
-
-
-
-
 
 
 }
