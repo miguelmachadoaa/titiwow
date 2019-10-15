@@ -351,8 +351,11 @@ Route::post('productos/postgrid/', ['as'=> 'productos.postgrid', 'uses' => 'Admi
         Route::post('storedir', 'Admin\AlpClientesController@storedir')->name('clientes.storedir');
 
         Route::get('editdir/{id}', 'Admin\AlpClientesController@editdir')->name('clientes.editdir');
+       
 
         Route::post('upddir', 'Admin\AlpClientesController@upddir')->name('clientes.upddir');
+
+         Route::get('setdir/{id}', 'Admin\AlpClientesController@setdir')->name('clientes.setdir');
 
 
 

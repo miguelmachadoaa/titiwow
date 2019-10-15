@@ -199,18 +199,9 @@ class AlpClientesController extends JoshController
     }
 
 
-
-
-
-
-
-
-
     public function inactivos()
     {
         // Grab all the groups
-
-
 
         if (Sentinel::check()) {
 
@@ -287,9 +278,6 @@ class AlpClientesController extends JoshController
                 $masterfile= "<span class='label label-sm label-warning'>Inactivo</span>";
 
               }
-
-
-
 
                  $actions = " 
 
@@ -385,14 +373,9 @@ class AlpClientesController extends JoshController
     }
 
 
-
-
-
       public function datarechazados()
     {
         //$users = User::get(['id', 'first_name', 'last_name', 'email','created_at']);
-
-        
 
         $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente')
         ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
@@ -428,8 +411,6 @@ class AlpClientesController extends JoshController
                 $masterfile= "<span class='label label-sm label-warning'>Inactivo</span>";
 
               }
-
-
 
 
                  $actions = " 
@@ -485,9 +466,6 @@ class AlpClientesController extends JoshController
 
     }
 
-
-
-
     public function empresas()
     {
         // Grab all the groups
@@ -508,8 +486,6 @@ class AlpClientesController extends JoshController
 
 
         }
-
-
       
         $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_empresas.nombre_empresa as nombre_empresa')
         ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
@@ -522,9 +498,6 @@ class AlpClientesController extends JoshController
         // Show the page
         return view('admin.clientes.empresas', compact('clientes'));
     }
-
-
-
 
      public function dataempresas()
     {
@@ -564,9 +537,6 @@ class AlpClientesController extends JoshController
                 $masterfile= "<span class='label label-sm label-warning'>Inactivo</span>";
 
               }
-
-
-
 
                  $actions = " 
 
@@ -616,9 +586,6 @@ class AlpClientesController extends JoshController
 
     }
 
-
-
-
     public function detalle($id)
     {
         // Grab all the groups
@@ -641,9 +608,6 @@ class AlpClientesController extends JoshController
 
         }
 
-
-
-
         $user_id = Sentinel::getUser()->id;
 
         $cliente=AlpClientes::select('alp_clientes.*', 'alp_tipo_documento.nombre_tipo_documento as nombre_tipo_documento')
@@ -657,8 +621,6 @@ class AlpClientesController extends JoshController
              $cliente->embajador=$embajador;
 
         }
-
-
 
         $referidos =  DB::table('alp_clientes')->select('alp_clientes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email', DB::raw("SUM(alp_ordenes.monto_total) as puntos"))
             ->join('users','alp_clientes.id_user_client' , '=', 'users.id')
@@ -693,8 +655,6 @@ class AlpClientesController extends JoshController
     public function create()
     {
 
-
-
         if (Sentinel::check()) {
 
           $user = Sentinel::getUser();
@@ -709,9 +669,7 @@ class AlpClientesController extends JoshController
 
           activity()->log('clientes/create');
 
-
         }
-
 
         // Get all the available groups
         $groups = DB::table('roles')->whereIn('roles.id', [9, 10, 11])->get();
@@ -749,15 +707,7 @@ class AlpClientesController extends JoshController
 
         }
 
-         //upload image
-        /*if ($file = $request->file('pic_file')) {
-            $extension = $file->extension()?: 'png';
-            $destinationPath = public_path() . '/uploads/perfiles/';
-            $safeName = str_random(10) . '.' . $extension;
-            $file->move($destinationPath, $safeName);
-            $request['pic'] = $safeName;
-        }*/
-        //check whether use should be activated by default or not
+        
         $activate = $request->get('activate') ? true : false;
 
         try {
@@ -833,8 +783,6 @@ class AlpClientesController extends JoshController
     public function edit($id)
     {
        
-
-
             if (Sentinel::check()) {
 
           $user = Sentinel::getUser();
@@ -849,11 +797,7 @@ class AlpClientesController extends JoshController
 
           activity()->withProperties(['id'=>$id])->log('clientes/edit');
 
-
         }
-
-         
-
 
         $cliente = DB::table('alp_clientes')
         //->leftJoin('users', 'alp_clientes.id_embajador', '=', 'users.id')
@@ -903,10 +847,6 @@ class AlpClientesController extends JoshController
 
 
         }
-
-
-
-
 
          $user_history = array(
                 'id_cliente' => $request->id_cliente,
@@ -1686,7 +1626,7 @@ class AlpClientesController extends JoshController
                
         if (isset($direccion->id)) {
 
-          DB::table('alp_direcciones')->where('id_client', $direccion->id_clinet)->update(['default_address'=>0]);
+          DB::table('alp_direcciones')->where('id_client', $direccion->id_client)->update(['default_address'=>0]);
           DB::table('alp_direcciones')->where('id', $direccion->id)->update(['default_address'=>1]);
           
         }
@@ -1696,7 +1636,7 @@ class AlpClientesController extends JoshController
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
           ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
           ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-          ->where('alp_direcciones.id_client', $direccion->id_clinet)->get();
+          ->where('alp_direcciones.id_client', $direccion->id_client)->get();
 
 
         if ($direccion->id) {
@@ -1713,6 +1653,49 @@ class AlpClientesController extends JoshController
  
 
     }
+
+
+      public function setdir( $id)
+    {
+
+
+         $direccion=AlpDirecciones::where('id', $id)->first();
+
+
+               
+        if (isset($direccion->id)) {
+
+          DB::table('alp_direcciones')->where('id_client', $direccion->id_client)->update(['default_address'=>0]);
+
+          DB::table('alp_direcciones')->where('id', $direccion->id)->update(['default_address'=>1]);
+          
+        }
+
+        $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+          ->where('alp_direcciones.id_client', $direccion->id_client)->get();
+
+
+        if ($direccion->id) {
+
+
+             return redirect('admin/clientes/'.$direccion->id_client.'/direcciones')->withInput()->with('sucess', trans('Se ha Editado la direccion correctamente'));
+
+        
+        }else{
+
+            return redirect('admin/clientes/'.$direccion->id_client.'/direcciones')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+
+        }
+ 
+
+    }
+
+
+
 
 
 

@@ -39,10 +39,6 @@
 
         <div class="row">
 
-            
-
-
-
             @if (count($direcciones)>0)
 
                 @foreach($direcciones as $direccion)
@@ -51,7 +47,8 @@
 
                         <div class="col-sm-10 col-sm-offset-1">
 
-                            <div class="panel panel-default" style="padding: 1em;">
+                            <div class="panel panel-default" style="padding: 1em;   @if ($direccion->default_address=='1'){{'border: red 5px solid; '}}
+                            @endif   ">
                                 
                                 <div class="panel-body">
                                     <div class="box-body">
@@ -83,6 +80,11 @@
                                 </div>
 
                                 <a class="btn btn-info btn-xs" href="{{ secure_url('admin/clientes/editdir/'.$direccion->id) }}">Editar</a>
+
+
+                                @if ($direccion->default_address=='0')
+                                    <a class="btn btn-success btn-xs" href="{{ secure_url('admin/clientes/setdir/'.$direccion->id) }}">Definir por Defecto</a>
+                                @endif
 
                             </div>
 

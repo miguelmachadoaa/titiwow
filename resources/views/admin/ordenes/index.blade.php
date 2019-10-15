@@ -279,6 +279,7 @@ $(document).ready(function() {
         
     var table =$('#tbOrdenes').DataTable({
         "processing": true,
+        "order": [[ 0, "desc" ]],
         "ajax": {
             "url": base+'/admin/ordenes/data'
         }
