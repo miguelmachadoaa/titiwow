@@ -90,6 +90,15 @@ class AlpClientesController extends JoshController
     {
         //$users = User::get(['id', 'first_name', 'last_name', 'email','created_at']);
 
+         if (Sentinel::check()) {
+
+            $user_id = Sentinel::getUser()->id;
+
+            $role=RoleUser::where('user_id', $user_id)->first();
+
+            $id_rol=$role->role_id;
+        }
+      
         
 
         $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista')
@@ -124,7 +133,23 @@ class AlpClientesController extends JoshController
 
               }
 
+              if ($id_rol=='13') {
 
+                 $actions = " 
+
+                 <a href='".secure_url("admin/clientes/".$cliente->id."/detalle" )."'>
+                    <i class='fa fa-eye' title='Detalles ' alt='Detalles' ></i>
+
+                 </a>
+
+                 <a href='".secure_url("admin/clientes/".$cliente->id."/direcciones" )."'>
+
+                     <i class='livicon' data-name='location' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='view alpProductos'></i>
+                 </a> ";
+
+
+                # code...
+              }else{
 
 
                  $actions = " 
@@ -146,11 +171,9 @@ class AlpClientesController extends JoshController
                  </a>
 
 
-                 <button class='btn btn-link deleteCliente' data-id='".$cliente->id."' data-url='".secure_url("admin/clientes/".$cliente->id."/delete")."'>
-                                        <i class='livicon' data-name='remove-alt' data-size='18'
-                                            data-loop='true' data-c='#f56954' data-hc='#f56954'
-                                            title='Eliminar'></i>
-                                        </button>";
+                 <button class='btn btn-link deleteCliente' data-id='".$cliente->id."' data-url='".secure_url("admin/clientes/".$cliente->id."/delete")."'> <i class='livicon' data-name='remove-alt' data-size='18' data-loop='true' data-c='#f56954' data-hc='#f56954'  title='Eliminar'></i> </button>";
+
+              }
 
 
                $data[]= array(

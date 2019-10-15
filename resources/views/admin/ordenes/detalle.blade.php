@@ -225,6 +225,8 @@ Orden {{$orden->id}}
                          <td>{{ $formaenvio->nombre_forma_envios}}</td>
                      </tr>
 
+
+
                      @if(isset($envio->id))
 
                         <tr>
@@ -250,12 +252,23 @@ Orden {{$orden->id}}
                          <td>{{ date("d/m/Y", strtotime($orden->created_at)) }}</td>
                      </tr>
 
-                     @if(isset($pago_aprobado->id))
+                     @if($orden->estatus!=4 && $orden->estatus!=8)
 
-                         <tr>
-                             <td>Fecha de pago Aprobado </td>
-                             <td>{{ date("d/m/Y", strtotime($pago_aprobado->created_at)) }}</td>
-                         </tr>
+                         @if(isset($pago_aprobado->id))
+
+                             <tr>
+                                 <td>Fecha de pago Aprobado </td>
+                                 <td>{{ date("d/m/Y", strtotime($pago_aprobado->created_at)) }}</td>
+                             </tr>
+
+                         @else
+
+                            <tr>
+                                 <td>Fecha de pago Aprobado </td>
+                                 <td> Aun No hay pago aprobado </td>
+                             </tr>
+
+                         @endif
 
                      @else
 
@@ -265,6 +278,7 @@ Orden {{$orden->id}}
                          </tr>
 
                      @endif
+                         
                     
                  </tbody>
                  

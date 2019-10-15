@@ -178,8 +178,7 @@ class AlpOrdenesController extends JoshController
           foreach($ordenes as $row){
 
             $pago="<div style='display: inline-block;' class='pago_".$row->id."'>  
-
-                                            <button data-id='".$row->id."' class='btn btn-xs btn-success pago' > ".$row->estatus_pago_nombre." </button></div>";
+            <button data-id='".$row->id."' class='btn btn-xs btn-success pago' > ".$row->estatus_pago_nombre." </button></div>";
 
              $estatus="<span class='badge badge-default' >".$row->estatus_nombre."</span>";
 
@@ -187,12 +186,10 @@ class AlpOrdenesController extends JoshController
 
                  $actions = " 
                   <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'>
-                                                ver detalles
-                                            </a>
+                      ver detalles
+                  </a>
 
-                                             <div style='display: inline-block;' class='estatus_".$row->id."'>
-                                           
-                ";
+                   <div style='display: inline-block;' class='estatus_".$row->id."'>";
 
                 if (in_array($id_rol, $permiso_cancelar)) {
                   
@@ -1344,7 +1341,7 @@ class AlpOrdenesController extends JoshController
     $pago_aprobado = AlpPagos::select('alp_ordenes_pagos.*','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago')
           ->join('alp_formas_pagos', 'alp_ordenes_pagos.id_forma_pago', '=', 'alp_formas_pagos.id')
           ->where('alp_ordenes_pagos.id_orden', $id)
-          ->where('alp_ordenes_pagos.id_estatus_pago', '2')
+          ->orderBy('alp_ordenes_pagos.id', 'desc')
           ->first();
 
         $pagos = AlpPagos::select('alp_ordenes_pagos.*','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago')
@@ -1484,11 +1481,6 @@ class AlpOrdenesController extends JoshController
           ->first();
 
         if ($orden->id) {
-
-
-
-
-
 
 
 
