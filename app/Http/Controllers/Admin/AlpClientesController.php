@@ -5,6 +5,7 @@ use App\Http\Controllers\JoshController;
 use Intervention\Image\Facades\Image;
 use DOMDocument;
 use App\Http\Requests\ClientesRequest;
+use App\Http\Requests\DireccionRequest;
 use App\Mail\Register;
 use App\Mail\Restore;
 use Cartalyst\Sentinel\Laravel\Facades\Activation;
@@ -18,6 +19,17 @@ use App\Models\AlpConfiguracion;
 use App\User;
 use App\Roles;
 use App\RoleUser;
+
+
+use App\Models\AlpEstructuraAddress;
+
+use App\State;
+use App\Country;
+
+use App\City;
+
+
+
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Redirect;
@@ -124,7 +136,7 @@ class AlpClientesController extends JoshController
 
                  <a href='".secure_url("admin/clientes/".$cliente->id."/direcciones" )."'>
 
-                     <i class='livicon' data-name='eye' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='view alpProductos'></i>
+                     <i class='livicon' data-name='location' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='view alpProductos'></i>
                  </a>
 
 
@@ -1166,6 +1178,8 @@ class AlpClientesController extends JoshController
         $cliente = DB::table('alp_clientes')->where('alp_clientes.id_user_client', '=', $id)->get();
 
 
+
+
         $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
           ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
@@ -1530,5 +1544,155 @@ class AlpClientesController extends JoshController
         }
           
     }
+
+     public function adddir($id)
+    {
+
+        $configuracion=AlpConfiguracion::where('id', 1)->first();
+
+        $states=State::where('config_states.country_id', '47')->get();
+
+        $t_documento = AlpTDocumento::where('estado_registro','=',1)->get();
+
+        $estructura = AlpEstructuraAddress::where('estado_registro','=',1)->get();
+
+        $cities = array();
+
+
+        $cliente = AlpClientes::where('id_user_client', $id )->first();
+
+        $user = User::where('id', $id )->first();
+
+        $countries = Country::all();
+
+         return view('admin.clientes.adddir', compact( 'cliente', 'user', 'countries', 'states', 't_documento', 'estructura', 'cities', 'configuracion'));
+       
+    }
+
+
+    public function editdir($id)
+    {
+
+
+        $configuracion=AlpConfiguracion::where('id', 1)->first();
+
+        $direccion=AlpDirecciones::where('id', $id)->first();
+
+        $ciudad = City::where('id', $direccion->city_id)->first();
+
+        $cities = City::where('state_id', $ciudad->state_id)->get();
+
+        $states=State::where('config_states.country_id', '47')->get();
+
+        $t_documento = AlpTDocumento::where('estado_registro','=',1)->get();
+
+        $estructura = AlpEstructuraAddress::where('estado_registro','=',1)->get();
+
+        
+
+        $cliente = AlpClientes::where('id_user_client', $direccion->id_client)->first();
+
+        $user = User::where('id', $id )->first();
+
+        $countries = Country::all();
+
+         return view('admin.clientes.editdir', compact( 'cliente', 'user', 'countries', 'states', 't_documento', 'estructura', 'cities', 'configuracion', 'ciudad', 'direccion'));
+       
+    }
+
+
+     public function storedir(DireccionRequest $request)
+    {
+
+         $input = $request->all();
+
+
+
+
+        $user_id = $input['id_user'];
+
+
+
+        $input['id_client']=$input['id_user'];
+        $input['default_address']=1;
+               
+         
+        $direccion=AlpDirecciones::create($input);
+
+        if (isset($direccion->id)) {
+
+          DB::table('alp_direcciones')->where('id_client', $user_id)->update(['default_address'=>0]);
+          DB::table('alp_direcciones')->where('id', $direccion->id)->update(['default_address'=>1]);
+          
+        }
+
+        $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+          ->where('alp_direcciones.id_client', $user_id)->get();
+
+
+        if ($direccion->id) {
+
+
+             return redirect('admin/clientes/'.$user_id.'/direcciones')->withInput()->with('sucess', trans('Se ha guardado la direccion correctamente'));
+
+        
+        }else{
+
+            return redirect('admin/clientes/'.$user_id.'/direcciones')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+
+        }
+ 
+
+    }
+
+
+     public function upddir(DireccionRequest $request)
+    {
+
+         $input = $request->all();
+
+
+         $direccion=AlpDirecciones::where('id', $input['id_address'])->first();
+
+
+         $direccion->update($input);
+               
+        if (isset($direccion->id)) {
+
+          DB::table('alp_direcciones')->where('id_client', $direccion->id_clinet)->update(['default_address'=>0]);
+          DB::table('alp_direcciones')->where('id', $direccion->id)->update(['default_address'=>1]);
+          
+        }
+
+        $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+          ->where('alp_direcciones.id_client', $direccion->id_clinet)->get();
+
+
+        if ($direccion->id) {
+
+
+             return redirect('admin/clientes/'.$direccion->id_client.'/direcciones')->withInput()->with('sucess', trans('Se ha Editado la direccion correctamente'));
+
+        
+        }else{
+
+            return redirect('admin/clientes/'.$direccion->id_client.'/direcciones')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+
+        }
+ 
+
+    }
+
+
+
+
 
 }

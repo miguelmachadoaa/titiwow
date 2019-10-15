@@ -39,51 +39,57 @@
 
         <div class="row">
 
+            
+
+
+
             @if (count($direcciones)>0)
 
                 @foreach($direcciones as $direccion)
 
-
-
-                
                     <div class="form-group ">
 
+                        <div class="col-sm-10 col-sm-offset-1">
 
+                            <div class="panel panel-default" style="padding: 1em;">
+                                
+                                <div class="panel-body">
+                                    <div class="box-body">
+                                        <dl class="dl-horizontal" style="    padding: 1EM 0EM;">
 
-                <div class="col-sm-10 col-sm-offset-1">
-                    <div class="panel panel-default">
-                        
-                        <div class="panel-body">
-                            <div class="box-body">
-                                <dl class="dl-horizontal" style="    padding: 1EM 0EM;">
+                                            <dt>Departamento</dt>
+                                            <dd>{{ $direccion->state_name }}</dd>
 
-                                    <dt>Departamento</dt>
-                                    <dd>{{ $direccion->state_name }}</dd>
+                                            <dt>Ciudad</dt>
+                                            <dd>{{$direccion->city_name }}</dd>
 
-                                    <dt>Ciudad</dt>
-                                    <dd>{{$direccion->city_name }}</dd>
+                                           
+                                            <dt>Direccion</dt>
+                                            <dd>
+                                               {{ $direccion->nombre_estructura.' '.$direccion->principal_address.'  #'.$direccion->secundaria_address .'-'.$direccion->edificio_address.' '.$direccion->detalle_address  }}
+                                            </dd>
 
-                                   
-                                    <dt>Direccion</dt>
-                                    <dd>
-                                       {{ $direccion->nombre_estructura.' '.$direccion->principal_address.'  #'.$direccion->secundaria_address .'-'.$direccion->edificio_address.' '.$direccion->detalle_address  }}
-                                    </dd>
+                                            <dt>Barrio</dt>
+                                            <dd>
+                                               {{ $direccion->barrio_address }}
+                                            </dd>
 
-                                    <dt>Barrio</dt>
-                                    <dd>
-                                       {{ $direccion->barrio_address }}
-                                    </dd>
+                                            <dt>Notas</dt>
+                                            <dd>{{ $direccion->notas }}</dd>
+                                            
+                                        </dl>
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
 
-                                    <dt>Notas</dt>
-                                    <dd>{{ $direccion->notas }}</dd>
-                                    
-                                </dl>
+                                <a class="btn btn-info btn-xs" href="{{ secure_url('admin/clientes/editdir/'.$direccion->id) }}">Editar</a>
+
                             </div>
-                            <!-- /.box-body -->
-                        </div>
 
-                    </div>
-                </div>
+                             
+
+
+                        </div>
                      
 
                         <!-- Se construyen las opciones de envios -->
@@ -100,24 +106,17 @@
                     </div>
             @endif     
 
-            
-
-            
-             
-            
-            
-
         </div>
-       
-
-
 
         <div class="row">
-                
-            <p style="text-align: center;"> 
-                    <a class="btn btn-default" href="{{ secure_url('admin/clientes') }}">Volver</a>
 
-            </p>
+            <div class="col-sm-12">
+                
+                <a class="btn btn-primary" href="{{ secure_url('admin/clientes/adddir/'.$user->id) }}">Agregar Dirección</a>
+
+                <a class="btn btn-default" href="{{ secure_url('admin/clientes') }}">Volver</a>
+
+            </div>
 
         </div>
         
@@ -128,6 +127,9 @@
 @section('footer_scripts')
     <!-- Bootstrap WYSIHTML5 -->
     <script  src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}" type="text/javascript"></script>
+        <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
+
+        
 
     <script type="text/javascript">
         $(document).ready(function () {
