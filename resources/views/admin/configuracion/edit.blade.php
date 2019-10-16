@@ -107,6 +107,32 @@ Editar Configuracion General
                                     {!! $errors->first('maximo_productos', '<span class="help-block">:message</span> ') !!}
                                 </div>
                             </div>
+
+                             <div class="form-group  {{ $errors->first('explicacion_precios', 'has-error') }}">
+                                <label for="select21" class="col-sm-2 control-label">
+                                    Explicacion de Precios
+                                </label>
+                                <div class="col-sm-5">   
+                                 <select id="explicacion_precios" name="explicacion_precios" class="form-control ">
+                                    <option value="">Seleccione</option>
+                                        
+                                       
+                                        <option value="{{ 1 }}"
+                                                @if($configuracion->explicacion_precios == 1) selected="selected" @endif >Mostrar</option>
+
+                                        <option value="{{ 0}}"
+                                                @if($configuracion->explicacion_precios == 0) selected="selected" @endif >No Mostrar</option>
+                                       
+                                </select>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('explicacion_precios', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                                  
+                                </div>
+                               
+                            </div>
+
+
                             <hr />
                             <div class="form-group {{ $errors->first('id_mercadopago', 'has-error') }}">
                                 <label for="id_mercadopago" class="col-sm-2 control-label">
