@@ -1,1 +1,0 @@
-ALTER TABLE `alp_cupones` ADD `registrado` DATE NULL DEFAULT NULL AFTER `primeracompra`;
