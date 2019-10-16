@@ -599,24 +599,24 @@
         
         
 
-     <table id="tb3_2" align="right" width="272.9999694824219" border="0" cellpadding="0" cellspacing="0" class="mcnImageGroupContentContainer">
+     <table id="tb3_3" align="right" width="272.9999694824219" border="0" cellpadding="0" cellspacing="0" class="mcnImageGroupContentContainer">
                             <tbody><tr>
                                 <td class="mcnImageGroupContent" valign="top" style="padding-right: 9px; padding-top: 0; padding-bottom: 0;">
 
-                                    <p style=" text-align: center;  color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/alimeto-lacteo-finesse-muslix4">Alimento Lácteo Finesse con Musli x 4</a></p>
+                                    <p style=" text-align: center;  color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/regeneris-pitaya-x-6">Regeneris Pitaya x 6</a></p>
                                     
                                 
-                                    <a href="https://www.alpinago.com/producto/alimeto-lacteo-finesse-muslix4?utm_source=mailmarketing&amp;utm_medium=email&amp;utm_campaign=alpinago_2020&amp;utm_content=cpc&amp;utm_term=botonhome" title="Alimento Lácteo Finesse con Musli x 4" class="" target="_blank">
-                                        <img style="    margin-bottom: 0;" alt="" src="https://www.alpinago.com/uploads/productos/HyYtZGgZpG.jpeg" width="263" style="max-width:1000px; padding-bottom: 0;" class="mcnImage">
+                                    <a href="https://www.alpinago.com/producto/regeneris-pitaya-x-6?utm_source=mailmarketing&amp;utm_medium=email&amp;utm_campaign=alpinago_2020&amp;utm_content=cpc&amp;utm_term=botonhome" title="Regeneris Pitaya x 6" class="" target="_blank">
+                                        <img style="    margin-bottom: 0;" alt="" src="https://www.alpinago.com/uploads/productos/oOfVIQGBbT.jpeg" width="263" style="max-width:1000px; padding-bottom: 0;" class="mcnImage">
                                     </a>
 
-                                   <a style="text-decoration: none;" href="https://www.alpinago.com/producto/alimeto-lacteo-finesse-muslix4">
-                                        <p style="     font-size: 14px;    margin-top: -7px;    text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >$10.800</p>
+                                   <a style="text-decoration: none;" href="https://www.alpinago.com/producto/regeneris-pitaya-x-6">
+                                        <p style="     font-size: 14px;    margin-top: -7px;    text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >$10.932</p>
                                     </a>
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/alimeto-lacteo-finesse-muslix4">
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/regeneris-pitaya-x-6">
                                         <p style="   font-size: 30px;    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >$9.999</p>
                                     </a>
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/alimeto-lacteo-finesse-muslix4"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >Mililitro a $15,88 pesos</p></a>
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/regeneris-pitaya-x-6"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >Mililitro a $12,15 pesos</p></a>
                                 
                                 </td>
                             </tr>
@@ -637,32 +637,32 @@
         
         
         
-        <table id="tb_3" border="0" cellpadding="0" cellspacing="0" width="600px" align="center" class="mcnImageGroupBlock">
+        <table id="tb_5" border="0" cellpadding="0" cellspacing="0" width="600px" align="center" class="mcnImageGroupBlock">
             <tbody class="mcnImageGroupBlockOuter">
         
             <tr>
                 <td valign="top" style="padding:9px" class="mcnImageGroupBlockInner">
                     
-                    <table id="tb2_3" align="left" width="272.9999694824219" border="0" cellpadding="0" cellspacing="0" class="mcnImageGroupContentContainer">
+                    <table id="tb2_5" align="left" width="272.9999694824219" border="0" cellpadding="0" cellspacing="0" class="mcnImageGroupContentContainer">
                             <tbody><tr>
                                 <td class="mcnImageGroupContent" valign="top" style="padding-left: 9px; padding-top: 0; padding-bottom: 0;">
                                     
                                      
 
-                                    <p style=" text-align: center;  color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/regeneris-pitaya-x-6">Regeneris Pitaya x 6</a></p>
+                                    <p style=" text-align: center;  color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/queso-holandes-alpina">Queso Holandés Alpina</a></p>
                                     
                                 
-                                    <a href="https://www.alpinago.com/producto/regeneris-pitaya-x-6?utm_source=mailmarketing&amp;utm_medium=email&amp;utm_campaign=alpinago_2020&amp;utm_content=cpc&amp;utm_term=botonhome" title="Regeneris Pitaya x 6" class="" target="_blank">
-                                        <img style="    margin-bottom: 0;" alt="" src="https://www.alpinago.com/uploads/productos/oOfVIQGBbT.jpeg" width="263" style="max-width:1000px; padding-bottom: 0;" class="mcnImage">
+                                    <a href="https://www.alpinago.com/producto/queso-holandes-alpina?utm_source=mailmarketing&amp;utm_medium=email&amp;utm_campaign=alpinago_2020&amp;utm_content=cpc&amp;utm_term=botonhome" title="Queso Holandés Alpina" class="" target="_blank">
+                                        <img style="    margin-bottom: 0;" alt="" src="https://www.alpinago.com/uploads/productos/byi3UF3pd0.jpeg" width="263" style="max-width:1000px; padding-bottom: 0;" class="mcnImage">
                                     </a>
 
-                                   <a style="text-decoration: none;" href="https://www.alpinago.com/producto/regeneris-pitaya-x-6">
-                                        <p style="     font-size: 14px;    margin-top: -7px;    text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >$10.932</p>
+                                   <a style="text-decoration: none;" href="https://www.alpinago.com/producto/queso-holandes-alpina">
+                                        <p style="     font-size: 14px;    margin-top: -7px;    text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >$15.680</p>
                                     </a>
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/regeneris-pitaya-x-6">
-                                        <p style="   font-size: 30px;    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >$9.999</p>
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/queso-holandes-alpina">
+                                        <p style="   font-size: 30px;    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >$12.880</p>
                                     </a>
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/regeneris-pitaya-x-6"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >Mililitro a $12,15 pesos</p></a>
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/queso-holandes-alpina"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >Gramo a $62,72 pesos</p></a>
                                 
                                 </td>
                             </tr>
@@ -682,24 +682,24 @@
         
         
 
-     <table id="tb3_4" align="right" width="272.9999694824219" border="0" cellpadding="0" cellspacing="0" class="mcnImageGroupContentContainer">
+     <table id="tb3_47" align="right" width="272.9999694824219" border="0" cellpadding="0" cellspacing="0" class="mcnImageGroupContentContainer">
                             <tbody><tr>
                                 <td class="mcnImageGroupContent" valign="top" style="padding-right: 9px; padding-top: 0; padding-bottom: 0;">
 
-                                    <p style=" text-align: center;  color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/pudin-alpina-arequipe-x-2">Pudín Alpina Arequipe x 2</a></p>
+                                    <p style=" text-align: center;  color: #193366;    text-decoration: none;    font-family: verdana;    font-weight: 800;    font-size: 14px;" href="https://www.alpinago.com/producto/queso-mozarella-alpina-25-tajadas-400g">Queso Mozarella Alpina 25 Tajadas</a></p>
                                     
                                 
-                                    <a href="https://www.alpinago.com/producto/pudin-alpina-arequipe-x-2?utm_source=mailmarketing&amp;utm_medium=email&amp;utm_campaign=alpinago_2020&amp;utm_content=cpc&amp;utm_term=botonhome" title="Pudín Alpina Arequipe x 2" class="" target="_blank">
-                                        <img style="    margin-bottom: 0;" alt="" src="https://www.alpinago.com/uploads/productos/yPi2268gJI.jpeg" width="263" style="max-width:1000px; padding-bottom: 0;" class="mcnImage">
+                                    <a href="https://www.alpinago.com/producto/queso-mozarella-alpina-25-tajadas-400g?utm_source=mailmarketing&amp;utm_medium=email&amp;utm_campaign=alpinago_2020&amp;utm_content=cpc&amp;utm_term=botonhome" title="Queso Mozarella Alpina 25 Tajadas" class="" target="_blank">
+                                        <img style="    margin-bottom: 0;" alt="" src="https://www.alpinago.com/uploads/productos/F9pmXqQNc2.jpeg" width="263" style="max-width:1000px; padding-bottom: 0;" class="mcnImage">
                                     </a>
 
-                                   <a style="text-decoration: none;" href="https://www.alpinago.com/producto/pudin-alpina-arequipe-x-2">
-                                        <p style="     font-size: 14px;    margin-top: -7px;    text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >$3.685</p>
+                                   <a style="text-decoration: none;" href="https://www.alpinago.com/producto/queso-mozarella-alpina-25-tajadas-400g">
+                                        <p style="     font-size: 14px;    margin-top: -7px;    text-align: center;    background: #fff;    margin: 0px;    color: #364d7a;    text-decoration: line-through;"  >$12.904</p>
                                     </a>
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/pudin-alpina-arequipe-x-2">
-                                        <p style="   font-size: 30px;    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >$9.999</p>
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/queso-mozarella-alpina-25-tajadas-400g">
+                                        <p style="   font-size: 30px;    color: #be1469;    text-align: center;    background: #fff;    margin: 0px;    font-weight: 800;" >$11.261</p>
                                     </a>
-                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/pudin-alpina-arequipe-x-2"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >Gramo a $18,43 pesos</p></a>
+                                    <a style="text-decoration: none;" href="https://www.alpinago.com/producto/queso-mozarella-alpina-25-tajadas-400g"><p style="font-size: 10px;    color: #afafaf;    padding-bottom: 1em;    text-align: center;    background: #fff;    margin: 0px;" >Gramo a $32,26 pesos</p></a>
                                 
                                 </td>
                             </tr>

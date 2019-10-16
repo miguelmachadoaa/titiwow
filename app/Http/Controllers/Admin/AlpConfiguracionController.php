@@ -47,9 +47,6 @@ class AlpConfiguracionController extends JoshController
         }
 
 
-
-      
-
         $configuracion = AlpConfiguracion::where('id', '1')->first();
 
         $ciudades=AlpDespachoCiudad::select('alp_despacho_ciudad.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name')
@@ -111,6 +108,7 @@ class AlpConfiguracionController extends JoshController
             'retencion_iva_mp' => $request->retencion_iva_mp, 
             'retencion_ica_mp' => $request->retencion_ica_mp, 
             'mercadopago_sand' => $request->mercadopago_sand, 
+            'explicacion_precios' => $request->explicacion_precios, 
             'registro_publico' => $request->registro_publico, 
             'user_activacion' => $request->user_activacion, 
             'editar_direccion' => $request->editar_direccion, 

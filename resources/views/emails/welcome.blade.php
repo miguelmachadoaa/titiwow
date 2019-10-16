@@ -11,11 +11,20 @@
 
     @if($role->role_id!='9')
 
-        <div  style="padding:0; margin:0;">
-            
-            <img src="{{secure_url('uploads/files/banner-300x100.jpg')}}" alt="banner">
+	    @if ($configuracion->explicacion_precios=='1')
+	
 
-        </div>
+			<div  style="padding:0; margin:0;">
+            
+            	<img src="{{secure_url('uploads/files/banner-300x100.jpg')}}" alt="banner">
+
+        	</div>
+
+
+	    @endif
+
+
+        
 
     @endif
 
