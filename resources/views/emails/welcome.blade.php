@@ -16,8 +16,8 @@
 
 			<div  style="padding:0; margin:0;">
             
-            	<img src="{{secure_url('uploads/files/banner-300x100.jpg')}}" alt="banner">
-
+            	<a target="_blank" href="#"><img src="{{secure_url('uploads/files/banner-300x100.jpg')}}" alt="banner">
+</a>
         	</div>
 
 
