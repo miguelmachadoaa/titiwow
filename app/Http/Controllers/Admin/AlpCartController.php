@@ -137,11 +137,7 @@ class AlpCartController extends JoshController
 
         }
 
-
-
         }
-
-        
 
      $productos = DB::table('alp_productos')->select('alp_productos.*')->where('sugerencia','=', 1)->where('alp_productos.estado_registro','=',1)->orderBy('order', 'asc')->inRandomOrder()
      ->take(6)->get();
@@ -745,6 +741,14 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
       //  Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
 
       //  Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
+
+           if ($compra->id_forma_envio!=1) {
+
+              $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
+
+              Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega, 1));
+                
+            }
           
           $estatus_aviso='warning';
 
@@ -861,6 +865,18 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
                          'id_user' => 1
                       );
 
+
+                       $data_pago = array(
+                        'id_orden' => $orden->id, 
+                        'id_forma_pago' => $orden->id_forma_pago, 
+                        'id_estatus_pago' => '2', 
+                        'monto_pago' => $orden->monto_total, 
+                        'json' => json_encode($pse), 
+                        'id_user' => '1'
+                      );
+
+                     AlpPagos::create($data_pago);
+
                       $history=AlpOrdenesHistory::create($data_history);
 
             $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
@@ -877,11 +893,11 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
           if ($compra->id_forma_envio!=1) {
 
-                    $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
+              $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
 
-                    Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega,1));
-                      
-                  }
+              Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega,1));
+                
+            }
 
 
               Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $envio->fecha_envio));
@@ -1682,6 +1698,17 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
             $user_cliente=User::where('id', $user_id)->first();
 
             $texto='Se ha creado la siguiente orden '.$compra->id.' y esta a espera de aprobacion  ';
+
+
+            if ($compra->id_forma_envio!=1) {
+
+              $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
+
+              Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega, 1));
+                
+            }
+
+            
 
             //Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionOrden($compra->id, $texto));
 

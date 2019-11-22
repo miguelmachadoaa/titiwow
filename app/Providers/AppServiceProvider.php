@@ -32,7 +32,6 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('marcas', AlpMenuDetalle::menus(3));
             });
 
-
             view()->composer('*', function($view) {
                 $config = AlpConfiguracion::where('alp_configuracion_general.id', '1')->first();
                 $view->with('configuracion',$config);

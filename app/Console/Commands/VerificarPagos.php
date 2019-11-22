@@ -177,7 +177,7 @@ class VerificarPagos extends Command
                      $data_history = array(
                           'id_orden' => $ord->id, 
                          'id_status' => '1', 
-                          'notas' => 'Notificacion Mercadopago', 
+                          'notas' => 'Notificacion Mercadopago Cron', 
                          'id_user' => 1
                       );
 
@@ -190,6 +190,22 @@ class VerificarPagos extends Command
                        );
 
                      $orden->update($data_update);
+
+                     /*Se agrega un registro de pago */
+
+                      $data_pago = array(
+                        'id_orden' => $ord->id, 
+                        'id_forma_pago' => $ord->id_forma_pago, 
+                        'id_estatus_pago' => '2', 
+                        'monto_pago' => $ord->monto_total, 
+                        'json' => json_encode($r), 
+                        'id_user' => '1'
+                      );
+
+                     AlpPagos::create($data_pago);
+
+
+
 
                $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
                 ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
@@ -229,7 +245,7 @@ class VerificarPagos extends Command
                       $data_history = array(
                           'id_orden' => $orden->id, 
                          'id_status' => '4', 
-                          'notas' => 'Notificacion Mercadopago', 
+                          'notas' => 'Notificacion Mercadopago Cron', 
                          'id_user' => 1
                       );
 
