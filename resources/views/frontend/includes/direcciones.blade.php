@@ -11,20 +11,13 @@
 
         </div>
 
-
-
-    
-
     @include('frontend.includes.addaddress')
-
-
 
  <div class="row direcciones" style="text-align: left;">
 
                 <div class="col-sm-12">
 
                     @if(count($direcciones)>0)
-
 
                         <div class="list-group">
                             

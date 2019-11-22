@@ -43,14 +43,21 @@ Route::get('reportes/cronexportcuponesusados', 'Admin\AlpReportesController@cron
 Route::post('admin/clientes/updaterol', 'Admin\AlpClientesController@updaterol')->name('clientes.updaterol');
 
 Route::get('admin/clientes/data', 'Admin\AlpClientesController@data')->name('clientes.data');
+
 Route::get('admin/clientes/dataempresas', 'Admin\AlpClientesController@dataempresas')->name('clientes.dataempresas');
+
 Route::get('admin/clientes/datainactivos', 'Admin\AlpClientesController@datainactivos')->name('clientes.datainactivos');
+
 Route::get('admin/clientes/datarechazados', 'Admin\AlpClientesController@datarechazados')->name('clientes.datarechazados');
 
 Route::get('admin/ordenes/data', 'Admin\AlpOrdenesController@data')->name('ordenes.data');
+
 Route::get('admin/ordenes/dataespera', 'Admin\AlpOrdenesController@dataespera')->name('ordenes.dataespera');
+
 Route::get('admin/ordenes/datarecibidos', 'Admin\AlpOrdenesController@datarecibidos')->name('ordenes.datarecibidos');
+
 Route::get('admin/ordenes/dataaprobados', 'Admin\AlpOrdenesController@dataaprobados')->name('ordenes.dataaprobados');
+
 Route::get('admin/ordenes/datafacturados', 'Admin\AlpOrdenesController@datafacturados')->name('ordenes.datafacturados');
 Route::get('admin/ordenes/dataenviados', 'Admin\AlpOrdenesController@dataenviados')->name('ordenes.dataenviados');
 Route::get('admin/ordenes/dataempresas', 'Admin\AlpOrdenesController@dataempresas')->name('ordenes.dataempresas');
@@ -103,6 +110,8 @@ Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.')
     Route::post('groups/{role}/save', ['uses' => 'Admin\GroupsController@save', 'as' => 'groups.save']);
 
     Route::post('groups/{role}/guardar', ['uses' => 'Admin\GroupsController@guardar', 'as' => 'groups.guardar']);
+
+    Route::post('groups/store', ['uses' => 'Admin\GroupsController@store', 'as' => 'groups.store']);
 
 
 
@@ -336,6 +345,18 @@ Route::post('productos/postgrid/', ['as'=> 'productos.postgrid', 'uses' => 'Admi
         Route::get('{id}/restore', 'Admin\AlpClientesController@getRestore')->name('clientes.restore');
 
         Route::get('{id}/direcciones', 'Admin\AlpClientesController@direcciones')->name('clientes.direcciones');
+
+        Route::get('adddir/{id}', 'Admin\AlpClientesController@adddir')->name('clientes.adddir');
+
+        Route::post('storedir', 'Admin\AlpClientesController@storedir')->name('clientes.storedir');
+
+        Route::get('editdir/{id}', 'Admin\AlpClientesController@editdir')->name('clientes.editdir');
+       
+
+        Route::post('upddir', 'Admin\AlpClientesController@upddir')->name('clientes.upddir');
+
+         Route::get('setdir/{id}', 'Admin\AlpClientesController@setdir')->name('clientes.setdir');
+
 
 
 

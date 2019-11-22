@@ -115,9 +115,6 @@ Todas las Ordenes
                                     </div>
                                 </div>
 
-
-                               
-
                                 <div class="form-group clearfix">
                                     <label class="col-md-3 control-label" for="nombre_producto">Notas</label>
 
@@ -282,6 +279,7 @@ $(document).ready(function() {
         
     var table =$('#tbOrdenes').DataTable({
         "processing": true,
+        "order": [[ 0, "desc" ]],
         "ajax": {
             "url": base+'/admin/ordenes/data'
         }

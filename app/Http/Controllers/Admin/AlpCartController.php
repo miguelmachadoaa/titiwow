@@ -1284,6 +1284,8 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
         $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
 
+
+
        $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
           ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
@@ -1493,7 +1495,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
       $express=0;
 
 
-      $ciudad_forma=AlpFormaCiudad::where('id_forma', '2')->where('id_ciudad', '62')->first();
+      $ciudad_forma=AlpFormaCiudad::where('id_rol', $role->role_id)->where('id_forma', '2')->where('id_ciudad', '62')->first();
 
 
         $date = Carbon::now();

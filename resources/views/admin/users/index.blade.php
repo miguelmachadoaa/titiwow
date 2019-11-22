@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-Users List
+Lista de usuarios
 @parent
 @stop
 
@@ -16,7 +16,7 @@ Users List
 {{-- Page content --}}
 @section('content')
 <section class="content-header">
-    <h1>Users</h1>
+    <h1>Usuarios</h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ secure_url('admin.dashboard') }}">
@@ -24,8 +24,8 @@ Users List
                 Dashboard
             </a>
         </li>
-        <li><a href="#"> Users</a></li>
-        <li class="active">Users List</li>
+        <li><a href="#"> Usuarios</a></li>
+        <li class="active">Lista de usuarios</li>
     </ol>
 </section>
 
@@ -45,12 +45,12 @@ Users List
                     <thead>
                         <tr class="filters">
                             <th>ID</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>User E-mail</th>
-                            <th>Status</th>
-                            <th>Created At</th>
-                            <th>Actions</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>E-mail</th>
+                            <th>Estado</th>
+                            <th>Fecha de creación</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>

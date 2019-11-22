@@ -22,6 +22,7 @@ class AlpConfiguracion extends Model
         'nombre_tienda',
         'base_url',
         'limite_amigos',
+        'explicacion_precios',
         'id_mercadopago',
         'key_mercadopago',
         'public_key_mercadopago',
