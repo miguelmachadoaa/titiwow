@@ -134,6 +134,25 @@
 
                 <hr>
 
+                @if($total>100000)
+
+                            <div class="col-sm-12">
+                                
+                                <h4 style="color: #d5006e;">Por comprar mas de $100.000, recibiras un bono regalo sorpresa </h4>
+
+                            </div>
+
+                            @else
+
+                                 <div class="col-sm-12">
+                                
+                                <h4 style="color: #d5006e;">Recuerda, por compras superiores a $100.000 recibirás un bono regalo sorpresa </h4>
+
+                            </div>
+                            @endif
+
+                <hr>
+
                 <div class="col-xs-4 col-sm-4">
                     <h3>Total</h3>
                 </div>
