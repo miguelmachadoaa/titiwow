@@ -160,7 +160,7 @@ class AlpReportesController extends Controller
            activity($user->full_name)
                         ->performedOn($user)
                         ->causedBy($user)
-                        ->log('AlpReportesController/productostotales ');
+                        ->log('AlpReportesController/productostotales');
 
         }else{
 
