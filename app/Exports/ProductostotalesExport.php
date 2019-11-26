@@ -41,8 +41,8 @@ class ProductostotalesExport implements FromView
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
           ->join('alp_marcas', 'alp_productos.id_marca', '=', 'alp_marcas.id')
          // ->groupBy('alp_ordenes_detalle.id_producto')
-          ->whereDate('alp_ordenes_detalle.created_at', '>=', $this->desde)
-          ->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta)
+          //->whereDate('alp_ordenes_detalle.created_at', '>=', $this->desde)
+          //->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta)
           ->get();
 
 

@@ -499,9 +499,9 @@ Route::post('productos/postgrid/', ['as'=> 'productos.postgrid', 'uses' => 'Admi
 Route::post('reportes/exportcuponesdescuento', 'Admin\AlpReportesController@exportcuponesdescuento')->name('reportes.exportcuponesdescuento');
 
 
-   Route::get('reportes/productostotales', 'Admin\AlpReportesController@productostotales')->name('reportes.productostotales');
+   Route::get('reportes/    ', 'Admin\AlpReportesController@productostotales')->name('reportes.productostotales');
    //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
-   Route::post('reportes/exportproductostotales', 'Admin\AlpReportesController@exportproductostotales')->name('reportes.exportproductostotales');
+   Route::get('reportes/exportproductostotales', 'Admin\AlpReportesController@exportproductostotales')->name('reportes.exportproductostotales');
 
 //Fin Reportes generales
 
