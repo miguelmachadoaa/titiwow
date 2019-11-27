@@ -177,6 +177,9 @@ class AlpOrdenesController extends JoshController
 
           foreach($ordenes as $row){
 
+
+            $envio=AlpEnvios::where('id_orden', $row->id)->first();
+
             $pago="<div style='display: inline-block;' class='pago_".$row->id."'>  
             <button data-id='".$row->id."' class='btn btn-xs btn-success pago' > ".$row->estatus_pago_nombre." </button></div>";
 
@@ -207,6 +210,12 @@ class AlpOrdenesController extends JoshController
 
                   $cancelado = " ";
 
+              }
+
+              if (isset($envio->id)) {
+                # code...
+
+                $row->monto_total=$row->monto_total+$envio->costo;
               }
 
 
@@ -317,7 +326,12 @@ class AlpOrdenesController extends JoshController
                                            ";
 
 
-                                          
+              $envio=AlpEnvios::where('id_orden', $row->id)->first();
+              if (isset($envio->id)) {
+                # code...
+
+                $row->monto_total=$row->monto_total+$envio->costo;
+              }                             
 
 
                $data[]= array(
@@ -480,6 +494,13 @@ class AlpOrdenesController extends JoshController
                                             
                 ";
 
+                 $envio=AlpEnvios::where('id_orden', $row->id)->first();
+              if (isset($envio->id)) {
+                # code...
+
+                $row->monto_total=$row->monto_total+$envio->costo;
+              } 
+
 
                $data[]= array(
                  $row->id, 
@@ -604,6 +625,16 @@ class AlpOrdenesController extends JoshController
                                               $actions=$actions."<div style='display: inline-block;' class='facturar_".$row->id."'>
                                             <button data-id='".$row->id."'  data-codigo='".$row->ordencompra."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-success facturar' > Facturado </button></div>";
                                             }
+
+
+                                             $envio=AlpEnvios::where('id_orden', $row->id)->first();
+              if (isset($envio->id)) {
+                # code...
+
+                $row->monto_total=$row->monto_total+$envio->costo;
+              } 
+
+
 
 
                $data[]= array(
@@ -739,6 +770,16 @@ class AlpOrdenesController extends JoshController
                                             }
 
 
+                                             $envio=AlpEnvios::where('id_orden', $row->id)->first();
+              if (isset($envio->id)) {
+                # code...
+
+                $row->monto_total=$row->monto_total+$envio->costo;
+              } 
+
+
+
+
                $data[]= array(
                  $row->id, 
                  $row->referencia, 
@@ -864,6 +905,15 @@ class AlpOrdenesController extends JoshController
                                             <button data-id='".$row->id."'  data-codigo='".$row->tracking."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-success tracking' > Enviado </button></div>";
                                             }
 
+                                             $envio=AlpEnvios::where('id_orden', $row->id)->first();
+              if (isset($envio->id)) {
+                # code...
+
+                $row->monto_total=$row->monto_total+$envio->costo;
+              } 
+
+
+
 
                $data[]= array(
                  $row->id, 
@@ -973,6 +1023,16 @@ class AlpOrdenesController extends JoshController
                   <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'>
                                                 ver detalles
                                             </a> ";
+
+
+                                             $envio=AlpEnvios::where('id_orden', $row->id)->first();
+              if (isset($envio->id)) {
+                # code...
+
+                $row->monto_total=$row->monto_total+$envio->costo;
+              } 
+
+              
 
 
                                           
@@ -1131,7 +1191,12 @@ class AlpOrdenesController extends JoshController
                                             <button data-id='".$row->id."'  data-codigo='".$row->cod_oracle_pedido."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-info confirmar' > ".$row->estatus_nombre." </button></div>";
 
 
-                                          
+                               $envio=AlpEnvios::where('id_orden', $row->id)->first();
+              if (isset($envio->id)) {
+                # code...
+
+                $row->monto_total=$row->monto_total+$envio->costo;
+              }             
 
 
                $data[]= array(
