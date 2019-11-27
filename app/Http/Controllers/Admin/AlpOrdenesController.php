@@ -1370,7 +1370,7 @@ class AlpOrdenesController extends JoshController
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
           ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
           ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-          ->where('alp_direcciones.id', $orden->id_address)->first();
+          ->where('alp_direcciones.id', $orden->id_address)->withTrashed()->first();
 
 
           $cupones=AlpOrdenesDescuento::where('id_orden', $orden->id)->get();
