@@ -136,7 +136,7 @@
 
                     <div class="col-sm-12">
                         
-                        <h4 style="color: #d5006e;">Recuerda, por compras superiores a $100.000 recibirás un bono regalo sorpresa </h4>
+                        <h4 style="color: #d5006e;">Recuerda, solo por estos días, por compras iguales o superiores a $60.000 recibirás un bono de regalo para escuchar música o comprar un libro de $40.000. Compra ya! </h4>
 
                     </div>
 
