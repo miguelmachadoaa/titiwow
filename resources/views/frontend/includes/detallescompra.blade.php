@@ -113,7 +113,7 @@
 
                             <div class="col-sm-12">
                                 
-                                <h4 style="color: #d5006e;">Recuerda, solo por estos días, por compras iguales o superiores a $60.000 recibirás un bono de regalo para escuchar música o comprar un libro de $40.000. Compra ya! </h4>
+                                <h4 style="color: #d5006e;">Alpina Go te desea una FELIZ NAVIDAD, recuerda que por cualquier compra llevas una caja navideña gratis </h4>
 
                             </div>
                             
