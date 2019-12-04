@@ -1767,9 +1767,10 @@ class AlpOrdenesController extends JoshController
 
           ///dd($orden);
 
-        $detalles =  DB::table('alp_ordenes_detalle')->select(
+        /*$detalles =  DB::table('alp_ordenes_detalle')->select(
           'alp_ordenes_detalle.*',
           'alp_productos.referencia_producto as referencia_producto',
+          'alp_productos.presentacion_producto as presentacion_producto',
           'alp_productos.nombre_producto as nombre_producto',
           'alp_productos.referencia_producto_sap as referencia_producto_sap' ,
           'alp_productos.imagen_producto as imagen_producto' ,
@@ -1778,7 +1779,7 @@ class AlpOrdenesController extends JoshController
           ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
           ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
 
-        $envio=AlpEnvios::where('id_orden', $orden->id)->first();
+        $envio=AlpEnvios::where('id_orden', $orden->id)->first();*/
 
 
 
@@ -1895,6 +1896,7 @@ class AlpOrdenesController extends JoshController
 
         $detalles =  DB::table('alp_ordenes_detalle')->select(
           'alp_ordenes_detalle.*',
+          'alp_productos.presentacion_producto as presentacion_producto',
           'alp_productos.referencia_producto as referencia_producto',
           'alp_productos.nombre_producto as nombre_producto',
           'alp_productos.referencia_producto_sap as referencia_producto_sap' ,
@@ -1966,7 +1968,7 @@ class AlpOrdenesController extends JoshController
          // Mail::to($orden->email)->send(new \App\Mail\CompraAprobada($orden, $detalles, $fecha_entrega));
 
 
-          if ($compra->id_forma_envio!=1) {
+          if ($orden->id_forma_envio!=1) {
 
               $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
 

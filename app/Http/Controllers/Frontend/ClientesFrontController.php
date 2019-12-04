@@ -1284,7 +1284,6 @@ class ClientesFrontController extends Controller
 
         $user_id = Sentinel::getUser()->id;
 
-
          $input = $request->all();
 
         //var_dump($input);
@@ -1293,10 +1292,6 @@ class ClientesFrontController extends Controller
         $input['id_client']=$user_id;
         $input['default_address']=1;
 
-
-
-               
-         
         $direccion=AlpDirecciones::where('id', $input['address_id'])->first();
 
         $direccion->update($input);

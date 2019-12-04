@@ -647,16 +647,6 @@ $("#editDireccionForm").bootstrapValidator({
             required: true,
             minlength: 3
         },
-         edit_detalle_address: {
-            validators: {
-                notEmpty: {
-                    message: 'Detalle de la dirección  es Requerido'
-                    
-                }
-            },
-            required: true,
-            minlength: 3
-        },
 
         edit_barrio_address: {
             validators: {
@@ -731,13 +721,7 @@ $("#addAddr222essForm").bootstrapValidator({
             },
             required: true,
         },
-        detalle_address: {
-            validators: {
-                notEmpty: {
-                    message: 'El Detalle de la dirección no puede estar vacio'
-                }
-            }
-        },
+        
         barrio_address: {
             validators: {
                 notEmpty: {
