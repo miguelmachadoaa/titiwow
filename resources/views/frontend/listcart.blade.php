@@ -134,13 +134,20 @@
 
                 <hr>
 
-                    <div class="col-sm-12">
-                        
-                        <h4 style="color: #d5006e;">Alpina Go te desea una FELIZ NAVIDAD, recuerda que por cualquier compra llevas una caja navideña gratis </h4>
 
-                    </div>
+                        @if($configuracion->mensaje_promocion!=null && $configuracion->mensaje_promocion!='')
 
-                <hr>
+                            <div class="col-sm-12">
+
+                                <h4 style="color: #d5006e;">{{$configuracion->mensaje_promocion}} </h4>
+
+                            </div>
+
+                            <hr>
+
+                        @endif
+
+
 
                 <div class="col-xs-4 col-sm-4">
                     <h3>Total</h3>

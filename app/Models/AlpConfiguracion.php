@@ -35,6 +35,7 @@ class AlpConfiguracion extends Model
         'retencion_iva_mp',
         'retencion_ica_mp',
         'mensaje_bienvenida',
+        'mensaje_promocion',
         'registro_publico',
         'user_activacion',
         'editar_direccion',

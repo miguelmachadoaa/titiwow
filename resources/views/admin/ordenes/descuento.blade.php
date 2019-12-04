@@ -52,7 +52,7 @@ Ordenes con Descuento
                                     <th>Forma de Pago</th>
                                     <th>Total</th>
                                     <th>Total Sin Descuento</th>
-                                    <th>Cupon</th>
+                                    <th>Cupón</th>
                                     <th>Accion</th>
                                 </tr>
                             </thead>

@@ -4573,13 +4573,19 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                 }
 
-                $valor=intval($valor);
+                $valor_int=intval($valor);
+
+                if ($valor>$valor_int) {
+
+                  $valor_int=$valor_int+1;
+                  
+                }
 
 
                 $data_pago = array(
                   'id_orden' => $carrito, 
                   'codigo_cupon' => $codigo, 
-                  'monto_descuento' => $valor, 
+                  'monto_descuento' => $valor_int, 
                   'json' => json_encode($cupon), 
                   'id_user' => $user_id 
                 );

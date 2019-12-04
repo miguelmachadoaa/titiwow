@@ -435,6 +435,22 @@ Editar Configuracion General
                                 <legend>Correos para notificacion</legend>
 
 
+
+                                <div class="form-group {{ $errors->first('mensaje_promocion', 'has-error') }}">
+                                    <label for="mensaje_promocion" class="col-sm-2 control-label">
+                                        Mensaje de promociones
+                                    </label>
+                                    <div class="col-sm-5">
+                                        
+                                        <textarea id="mensaje_promocion" name="mensaje_promocion" cols="30" rows="10" class="form-control" placeholder="Mensaje de Promociones">{!! old('mensaje_promocion', $configuracion->mensaje_promocion) !!}</textarea>
+                                       
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('mensaje_promocion', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+
                                   <div class="form-group {{ $errors->first('mensaje_bienvenida', 'has-error') }}">
                                     <label for="mensaje_bienvenida" class="col-sm-2 control-label">
                                         Mensaje de Bienvenida Nuevos Usuarios

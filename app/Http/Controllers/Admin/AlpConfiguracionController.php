@@ -115,6 +115,7 @@ class AlpConfiguracionController extends JoshController
             'minimo_compra' => $request->minimo_compra, 
             'maximo_productos' => $request->maximo_productos, 
             'mensaje_bienvenida' => $request->mensaje_bienvenida, 
+            'mensaje_promocion' => $request->mensaje_promocion, 
             'correo_admin' => $request->correo_admin, 
             'correo_shopmanager' => $request->correo_shopmanager, 
             'correo_shopmanagercorp' => $request->correo_shopmanagercorp, 
