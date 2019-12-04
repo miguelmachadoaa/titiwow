@@ -4573,6 +4573,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                 }
 
+                $valor=intval($valor);
+
 
                 $data_pago = array(
                   'id_orden' => $carrito, 

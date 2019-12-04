@@ -201,7 +201,7 @@ class AlpReportesController extends Controller
 
        // dd($request->all());
 
-        return Excel::download(new ProductostotalesExport('desde', 'hasta'), 'productos_con_impuesto.xlsx');
+        return Excel::download(new ProductostotalesExport($request->desde, $request->hasta), 'productos_con_impuesto.xlsx');
     }
 
     public function carrito() 

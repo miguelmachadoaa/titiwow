@@ -218,6 +218,19 @@ class AlpOrdenesController extends JoshController
                 $row->monto_total=$row->monto_total+$envio->costo;
               }
 
+              $descuento=AlpOrdenesDescuento::where('id_orden', $row->id)->first();
+
+              if (isset($descuento->id)) {
+
+                $cupon=$descuento->codigo_cupon;
+                # code...
+              }else{
+
+                $cupon='N/A';
+
+              }
+
+
 
                $data[]= array(
                  $row->id, 
@@ -227,6 +240,7 @@ class AlpOrdenesController extends JoshController
                  $row->nombre_forma_pago, 
                  number_format($row->monto_total,2), 
                  $row->ordencompra, 
+                 $cupon, 
                  $row->factura, 
                  $row->tracking, 
                  $row->created_at->diffForHumans(), 
@@ -331,7 +345,24 @@ class AlpOrdenesController extends JoshController
                 # code...
 
                 $row->monto_total=$row->monto_total+$envio->costo;
-              }                             
+              }    
+
+
+
+              $descuento=AlpOrdenesDescuento::where('id_orden', $row->id)->first();
+
+              if (isset($descuento->id)) {
+
+                $cupon=$descuento->codigo_cupon;
+                # code...
+              }else{
+
+                $cupon='N/A';
+
+              }
+
+
+
 
 
                $data[]= array(
@@ -342,6 +373,7 @@ class AlpOrdenesController extends JoshController
                  $row->nombre_forma_pago, 
                  number_format($row->monto_total,2), 
                  number_format($row->monto_total_base,2), 
+                 $cupon,
                  $actions
               );
 
@@ -501,6 +533,20 @@ class AlpOrdenesController extends JoshController
                 $row->monto_total=$row->monto_total+$envio->costo;
               } 
 
+              $descuento=AlpOrdenesDescuento::where('id_orden', $row->id)->first();
+
+              if (isset($descuento->id)) {
+
+                $cupon=$descuento->codigo_cupon;
+                # code...
+              }else{
+
+                $cupon='N/A';
+
+              }
+
+
+
 
                $data[]= array(
                  $row->id, 
@@ -510,6 +556,7 @@ class AlpOrdenesController extends JoshController
                  $row->nombre_forma_pago, 
                  number_format($row->monto_total,2), 
                  $row->ordencompra, 
+                 $cupon, 
                  $row->factura, 
                  $row->tracking, 
                  $row->created_at->diffForHumans(), 
@@ -635,6 +682,21 @@ class AlpOrdenesController extends JoshController
               } 
 
 
+              $descuento=AlpOrdenesDescuento::where('id_orden', $row->id)->first();
+
+              if (isset($descuento->id)) {
+
+                $cupon=$descuento->codigo_cupon;
+                # code...
+              }else{
+
+                $cupon='N/A';
+
+              }
+
+
+
+
 
 
                $data[]= array(
@@ -645,6 +707,7 @@ class AlpOrdenesController extends JoshController
                  $row->nombre_forma_pago, 
                  number_format($row->monto_total,2), 
                  $row->ordencompra, 
+                 $cupon, 
                  $row->factura, 
                  $row->tracking, 
                  $row->created_at->diffForHumans(), 
@@ -778,6 +841,22 @@ class AlpOrdenesController extends JoshController
               } 
 
 
+               $descuento=AlpOrdenesDescuento::where('id_orden', $row->id)->first();
+
+              if (isset($descuento->id)) {
+
+                $cupon=$descuento->codigo_cupon;
+                # code...
+              }else{
+
+                $cupon='N/A';
+
+              }
+
+
+
+
+
 
 
                $data[]= array(
@@ -788,6 +867,7 @@ class AlpOrdenesController extends JoshController
                  $row->nombre_forma_pago, 
                  number_format($row->monto_total,2), 
                  $row->ordencompra, 
+                 $cupon, 
                  $row->factura, 
                  $row->tracking, 
                  $row->created_at->diffForHumans(), 
@@ -915,6 +995,24 @@ class AlpOrdenesController extends JoshController
 
 
 
+               $descuento=AlpOrdenesDescuento::where('id_orden', $row->id)->first();
+
+              if (isset($descuento->id)) {
+
+                $cupon=$descuento->codigo_cupon;
+                # code...
+              }else{
+
+                $cupon='N/A';
+
+              }
+
+
+
+
+
+
+
                $data[]= array(
                  $row->id, 
                  $row->referencia, 
@@ -923,6 +1021,7 @@ class AlpOrdenesController extends JoshController
                  $row->nombre_forma_pago, 
                  number_format($row->monto_total,2), 
                  $row->ordencompra, 
+                 $cupon, 
                  $row->factura, 
                  $row->tracking, 
                  $row->created_at->diffForHumans(), 
@@ -1033,7 +1132,17 @@ class AlpOrdenesController extends JoshController
               } 
 
               
+               $descuento=AlpOrdenesDescuento::where('id_orden', $row->id)->first();
 
+              if (isset($descuento->id)) {
+
+                $cupon=$descuento->codigo_cupon;
+                # code...
+              }else{
+
+                $cupon='N/A';
+
+              }
 
                                           
 
@@ -1046,6 +1155,7 @@ class AlpOrdenesController extends JoshController
                  $row->nombre_forma_pago, 
                  number_format($row->monto_total,2), 
                  $row->ordencompra, 
+                 $cupon, 
                  $row->factura, 
                  $row->tracking, 
                  $row->created_at->diffForHumans(), 
@@ -1196,7 +1306,23 @@ class AlpOrdenesController extends JoshController
                 # code...
 
                 $row->monto_total=$row->monto_total+$envio->costo;
-              }             
+              }          
+
+              $descuento=AlpOrdenesDescuento::where('id_orden', $row->id)->first();
+
+              if (isset($descuento->id)) {
+
+                $cupon=$descuento->codigo_cupon;
+                # code...
+              }else{
+
+                $cupon='N/A';
+
+              }
+
+
+
+   
 
 
                $data[]= array(
@@ -1207,6 +1333,7 @@ class AlpOrdenesController extends JoshController
                  $row->nombre_forma_pago, 
                  number_format($row->monto_total,2), 
                  $row->ordencompra, 
+                 $cupon, 
                  $row->factura, 
                  $row->tracking, 
                  $row->created_at->diffForHumans(), 

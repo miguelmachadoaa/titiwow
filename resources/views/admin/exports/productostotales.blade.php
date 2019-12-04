@@ -6,6 +6,7 @@
             <th ><b>id_producto</b></th>
             <th ><b>Categoria</b></th>
             <th ><b>Marca</b></th>
+            <th><b>SKU</b></th>
             <th><b>Producto</b></th>
             <th><b>Presentación</b></th>
             <th><b>Cantidad de unidades</b></th>
@@ -25,6 +26,7 @@
             <td>{!! $row->id_producto!!}</td>
             <td>{!! $row->nombre_categoria!!}</td>
             <td>{!! $row->nombre_marca!!}</td>
+            <td>{!! $row->referencia_producto !!}</td>
             <td>{!! $row->nombre_producto !!}</td>
             <td>{!! $row->presentacion_producto !!}</td>
             <td>{!! $row->cantidad !!}</td>

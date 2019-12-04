@@ -55,6 +55,7 @@ Ordenes Recibidas
                                     <th>Forma de Pago</th>
                                     <th>Total</th>
                                     <th>Codigo Oracle</th>
+                                    <th>Cupón</th>
                                     <th>Factura</th>
                                     <th>Tracking</th>
                                     <th>Creado</th>

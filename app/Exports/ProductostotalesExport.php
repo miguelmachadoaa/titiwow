@@ -27,6 +27,8 @@ class ProductostotalesExport implements FromView
 
     public function view(): View
     {
+
+     // dd($this->desde.'-'.$this->hasta);
          $productos= AlpDetalles::select(
           'alp_ordenes_detalle.*', 
            DB::raw('DATE_FORMAT(alp_ordenes_detalle.created_at, "%d/%m/%Y")  as fecha'),
@@ -37,12 +39,14 @@ class ProductostotalesExport implements FromView
           'alp_categorias.nombre_categoria as nombre_categoria',
           'alp_marcas.nombre_marca as nombre_marca'
           )
+          ->join('alp_ordenes', 'alp_ordenes_detalle.id_orden', '=', 'alp_ordenes.id')
           ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
           ->join('alp_marcas', 'alp_productos.id_marca', '=', 'alp_marcas.id')
          // ->groupBy('alp_ordenes_detalle.id_producto')
-          //->whereDate('alp_ordenes_detalle.created_at', '>=', $this->desde)
-          //->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta)
+          ->whereDate('alp_ordenes_detalle.created_at', '>=', $this->desde)
+          ->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta)
+          ->whereIn('alp_ordenes.estatus', [1,2,3,5,6,7])
           ->get();
 
 
