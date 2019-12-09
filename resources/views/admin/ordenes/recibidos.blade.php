@@ -51,6 +51,7 @@ Ordenes Recibidas
                                     <th>Id</th>
                                     <th>Referencia</th>
                                     <th>Cliente</th>
+                                    <th>Teléfono</th>
                                     <th>Forma de Envio</th>
                                     <th>Forma de Pago</th>
                                     <th>Total</th>
