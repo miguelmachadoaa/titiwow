@@ -98,13 +98,13 @@
                                 Mi Perfil
                             </a>
                         </li>
-                        <li role="presentation"></li>
+                        <!--li role="presentation"></li>
                         <li>
                             <a href="{{ route('admin.users.edit', Sentinel::getUser()->id) }}">
                                 <i class="livicon" data-name="gears" data-s="18"></i>
                                 Ajustes
                             </a>
-                        </li>
+                        </li-->
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
