@@ -1018,6 +1018,7 @@ class AlpProductosController extends JoshController
         }else{
 
                   $data = array(
+                    'tipo_producto' => $request->tipo_producto, 
                 'nombre_producto' => $request->nombre_producto, 
                 'presentacion_producto' => $request->presentacion_producto,
                 'referencia_producto' => $request->referencia_producto, 

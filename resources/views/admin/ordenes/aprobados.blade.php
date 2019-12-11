@@ -135,8 +135,6 @@ Ordenes Aprobadas
 
 
 
-
-
 @stop
 
 {{-- Body Bottom confirm modal --}}
