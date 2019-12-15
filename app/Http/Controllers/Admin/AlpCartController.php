@@ -4086,7 +4086,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                       $data_detalle_l = array(
                         'id_orden' => $orden->id, 
                         'id_producto' => $l->id_producto, 
-                        'cantidad' =>$l->cantidad, 
+                        'cantidad' =>$l->cantidad*$detalle->cantidad, 
                         'precio_unitario' =>0, 
                         'precio_base' =>0, 
                         'precio_total' =>0,
@@ -4099,7 +4099,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                       $data_inventario_l = array(
                         'id_producto' => $l->id_producto, 
-                        'cantidad' =>$l->cantidad, 
+                        'cantidad' =>$l->cantidad*$detalle->cantidad, 
                         'operacion' =>'2', 
                         'id_user' =>$user_id 
                       );
