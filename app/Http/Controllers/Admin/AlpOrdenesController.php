@@ -715,10 +715,10 @@ class AlpOrdenesController extends JoshController
                  $row->nombre_forma_envios, 
                  $row->nombre_forma_pago, 
                  number_format($row->monto_total,2), 
-                 $row->ordencompra, 
+                 //$row->ordencompra, 
                  $cupon, 
                  $row->factura, 
-                 $row->tracking, 
+                 //$row->tracking, 
                  $row->created_at->diffForHumans(), 
                  $actions
               );
@@ -877,10 +877,10 @@ class AlpOrdenesController extends JoshController
                  $row->nombre_forma_envios, 
                  $row->nombre_forma_pago, 
                  number_format($row->monto_total,2), 
-                 $row->ordencompra, 
+                 //$row->ordencompra, 
                  $cupon, 
                  $row->factura, 
-                 $row->tracking, 
+                 //$row->tracking, 
                  $row->created_at->diffForHumans(), 
                  $actions
               );
