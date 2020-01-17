@@ -50,10 +50,10 @@ Ordenes Aprobadas
                                     <th>Forma de Envio</th>
                                     <th>Forma de Pago</th>
                                     <th>Total</th>
-                                    <th>Codigo Oracle</th>
+                                    <!--th>Codigo Oracle</th-->
                                     <th>Cupón</th>
                                     <th>Factura</th>
-                                    <th>Tracking</th>
+                                    <!--th>Tracking</th-->
                                     <th>Creado</th>
                                     <th>Accion</th>
                                 </tr>
