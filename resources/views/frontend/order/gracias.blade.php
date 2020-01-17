@@ -113,9 +113,12 @@ Carrito de Compras
                      @foreach($detalles as $row)
                         <tr>
                             <td><a target="_blank"  href="{{ secure_url('producto', [$row->slug]) }}" ><img height="60px" src="{{secure_url('/uploads/productos/'.$row->imagen_producto)}}"></a></td>
+
                             <td><a target="_blank"  href="{{ secure_url('producto', [$row->slug]) }}" >{{$row->nombre_producto}}</a></td>
+
                             <td>{{number_format($row->precio_unitario,0,",",".")}}</td>
                             <td> {{ $row->cantidad }} </td>
+
                             <td>{{ number_format($row->precio_total, 0,",",".") }}</td>
                         </tr>
                      @endforeach
@@ -124,7 +127,7 @@ Carrito de Compras
                          <td colspan="4" style="text-align: right;">
                              <b>Total: </b>
                          </td>
-                         <td>
+                         <td id="totalpagar">
                              {{number_format($compra->monto_total+$envio->costo, 0,",",".")}}
                          </td>
                      </tr>
@@ -179,6 +182,8 @@ Carrito de Compras
                  </tbody>
              </table>
 
+             
+
              <hr>
 
          </div>
@@ -198,9 +203,32 @@ Carrito de Compras
 
 
          </div>
+
+
+
      </div>
 
+<table style="opacity: 0;">
+                 <tr>
+                     <td id="idpedido">{{$compra->id}}</td>
+                 </tr>
+                 <tr>
+                     <td id="status">
 
+                        @if($compra->estatus==1) {{'Recibido'}} @endif
+                        @if($compra->estatus==2) {{'Confirmado'}} @endif
+                        @if($compra->estatus==3) {{'Entregado'}} @endif
+                        @if($compra->estatus==4) {{'Cancelado'}} @endif
+                        @if($compra->estatus==5) {{'Aprobado'}} @endif
+                        @if($compra->estatus==6) {{'Enviado'}} @endif
+                        @if($compra->estatus==7) {{'Facturado'}} @endif
+                        @if($compra->estatus==8) {{'En Espera'}} @endif
+
+
+
+                    </td>
+                 </tr>
+             </table>
 
         </div>
        
