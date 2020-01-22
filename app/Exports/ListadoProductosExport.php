@@ -11,31 +11,33 @@ use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromView;
 use Illuminate\Contracts\View\View;
-
 use \DB;
-
 
 class ListadoProductosExport implements FromView
 {
     
-    public function __construct()
+    public function __construct(string $estado)
     {
-       
+
+       $this->estado=$estado;
+
     }
-
-
 
     public function view(): View
     {
-         $productos=AlpProductos::get();
-                   //dd($ordenes);
+
+        if ($this->estado=='0') {
+         
+            $productos=AlpProductos::get();
+        
+        }else{
+
+            $productos=AlpProductos::where('estado_registro', $this->estado)->get();
+
+        }
 
         return view('admin.exports.listadoproductos', [
             'productos' => $productos
         ]);
     }
 }
-
-
-
-

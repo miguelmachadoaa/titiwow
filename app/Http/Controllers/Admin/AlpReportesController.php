@@ -680,15 +680,11 @@ class AlpReportesController extends Controller
           activity()
           ->log('AlpReportesController/ventastotales');
 
-
         }
-
-
 
         return view('admin.reportes.ventastotales');
 
     }
-
 
     public function exportventastotales(Request $request) 
     {
@@ -707,13 +703,10 @@ class AlpReportesController extends Controller
           activity()
           ->withProperties($request->all())->log('AlpReportesController/exportventastotales');
 
-
         }
-
 
         return Excel::download(new VentastotalesExport($request->desde, $request->hasta), 'ventastotales_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
     }
-
 
      public function cuponesdescuento() 
     {
@@ -732,15 +725,11 @@ class AlpReportesController extends Controller
           activity()
           ->log('AlpReportesController/cuponesdescuento');
 
-
         }
-
-
 
         return view('admin.reportes.cuponesdescuento');
 
     }
-
 
     public function exportcuponesdescuento(Request $request) 
     {
@@ -759,9 +748,7 @@ class AlpReportesController extends Controller
           activity()
           ->withProperties($request->all())->log('AlpReportesController/exportcuponesdescuento');
 
-
         }
-
 
         return Excel::download(new CuponesDescuentoExport(), 'cuponesdescuento.xlsx');
     }
@@ -783,15 +770,11 @@ class AlpReportesController extends Controller
           activity()
           ->log('AlpReportesController/ventasdescuento');
 
-
         }
-
-
 
         return view('admin.reportes.ventasdescuento');
 
     }
-
 
     public function exportventasdescuento(Request $request) 
     {
@@ -810,16 +793,10 @@ class AlpReportesController extends Controller
           activity()
           ->withProperties($request->all())->log('AlpReportesController/exportventasdescuento');
 
-
         }
-
-
 
         return Excel::download(new DescuentoVentasExport($request->desde, $request->hasta), 'ventasdescuento_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
     }
-
-
-
 
     /*********************funciones para descarga de reporte************************/
 
@@ -840,19 +817,15 @@ class AlpReportesController extends Controller
           activity()
           ->withProperties($request->all())->log('AlpReportesController/exportcronlogisticaexport');
 
-
         }
 
+      $date = Carbon::now();
 
+      $hoy=$date->format('Y-m-d');
 
-        $date = Carbon::now();
+      $archivo='logistica_'.$hoy.'.xlsx';
 
-        $hoy=$date->format('Y-m-d');
-
-        $archivo='logistica_'.$hoy.'.xlsx';
-
-
-       return Excel::download(new CronLogisticaExport(), $archivo);
+      return Excel::download(new CronLogisticaExport(), $archivo);
 
     }
 
@@ -873,9 +846,7 @@ class AlpReportesController extends Controller
           activity()
           ->withProperties($request->all())->log('AlpReportesController/cronnuevosusuariosexport');
 
-
         }
-
 
         $date = Carbon::now();
 
@@ -883,12 +854,9 @@ class AlpReportesController extends Controller
 
         $archivo='nuevos_usuarios_'.$hoy.'.xlsx';
 
-
        return Excel::download(new UsersActivarExport(), $archivo);
 
     }
-
-
 
      public function productosb() 
     {
@@ -907,9 +875,7 @@ class AlpReportesController extends Controller
           activity()
           ->log('AlpReportesController/productosb');
 
-
         }
-
 
         $productos=AlpProductos::all();
 
@@ -934,11 +900,7 @@ class AlpReportesController extends Controller
           activity()
           ->withProperties($request->all())->log('AlpReportesController/exportproductosb');
 
-
         }
-
-
-       // dd($request->all());
 
         $date = Carbon::now();
 
@@ -967,13 +929,11 @@ class AlpReportesController extends Controller
 
         }
 
-
         $productos=AlpProductos::all();
 
         return view('admin.reportes.productosc', compact('productos'));
 
     }
-
 
      public function exportproductosc(Request $request) 
     {
@@ -995,17 +955,12 @@ class AlpReportesController extends Controller
 
         }
 
-
-
-       // dd($request->all());
-
         $date = Carbon::now();
 
         $hoy=$date->format('Y-m-d');
 
         return Excel::download(new ProductosExportC($hoy, $hoy), 'ventas_desde_'.$hoy.'_hasta_'.$hoy.'_producto.xlsx');
     }
-
 
     public function cronexportproductosb(Request $request) 
     {
@@ -1024,9 +979,7 @@ class AlpReportesController extends Controller
           activity()
           ->withProperties($request->all())->log('AlpReportesController/cronexportproductosb');
 
-
         }
-
 
         $date = Carbon::now();
 
@@ -1035,12 +988,8 @@ class AlpReportesController extends Controller
         $archivo='ventas_productos'.$hoy.'.xlsx';
 
          return Excel::download(new ProductosExportB($hoy, $hoy), $archivo);
-         //$archivo= Excel::store(new ProductosExportB($hoy, $hoy), $archivo, 'excel');
-
-        // dd($archivo);
 
     }
-
 
     public function cronexportproductosbc(Request $request) 
     {
@@ -1059,9 +1008,7 @@ class AlpReportesController extends Controller
           activity()
           ->withProperties($request->all())->log('AlpReportesController/cronexportproductosb');
 
-
         }
-
 
         $date = Carbon::now();
 
@@ -1075,12 +1022,6 @@ class AlpReportesController extends Controller
         // dd($archivo);
 
     }
-
-
-
-
-
-
 
       public function cronexportproductosc(Request $request) 
     {
@@ -1127,9 +1068,7 @@ class AlpReportesController extends Controller
           activity()
           ->withProperties($request->all())->log('AlpReportesController/cronexporttomapedidos');
 
-
         }
-
 
         $date = Carbon::now();
 
@@ -1140,7 +1079,6 @@ class AlpReportesController extends Controller
          return Excel::download(new TomaPedidosExport(), $archivo);
 
     }
-
 
     public function cronexportcuponesdescuento(Request $request) 
     {
@@ -1158,7 +1096,6 @@ class AlpReportesController extends Controller
 
           activity()
           ->withProperties($request->all())->log('AlpReportesController/cronexportcuponesdescuento');
-
 
         }
 
@@ -1201,8 +1138,6 @@ class AlpReportesController extends Controller
 
     }
 
-
-
     public function exportinventario(Request $request) 
     {
 
@@ -1232,7 +1167,6 @@ class AlpReportesController extends Controller
 
     }
 
-
      public function listadoproductos() 
     {
 
@@ -1250,10 +1184,7 @@ class AlpReportesController extends Controller
           activity()
           ->log('AlpReportesController/listadoproductos');
 
-
         }
-
-
 
         return view('admin.reportes.listadoproductos');
 
@@ -1277,13 +1208,9 @@ class AlpReportesController extends Controller
           activity()
           ->withProperties($request->all())->log('AlpReportesController/exportlistadoproductos');
 
-
         }
 
-        return Excel::download(new ListadoProductosExport(), 'Listado_de_productos.xlsx');
+        return Excel::download(new ListadoProductosExport($request->estado), 'Listado_de_productos.xlsx');
     }
-
-
-
 
 }

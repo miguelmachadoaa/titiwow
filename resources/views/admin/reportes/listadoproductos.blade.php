@@ -56,6 +56,23 @@ Listado de productos
                         {{ csrf_field() }}
 
                 <div class="row">   
+
+
+                    <div class="form-group col-sm-12 ">
+                        <label for="select21" class="col-md-2 control-label text-right">
+                        Estado del Producto                                               
+                        </label>
+                        <div class="col-md-10">   
+                            <select id="estado" name="estado" class="form-control select2">
+                                <option value="0">Todos</option>
+                                <option value="1">Activos</option>
+                                <option value="2">Inactivos</option>
+                                
+                            </select>
+                        </div>           
+                    </div>
+
+
                     
 
                     <div class="form-group">
