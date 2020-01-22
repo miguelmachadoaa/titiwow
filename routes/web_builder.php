@@ -503,6 +503,15 @@ Route::post('reportes/exportcuponesdescuento', 'Admin\AlpReportesController@expo
    //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
    Route::post('reportes/exportproductostotales', 'Admin\AlpReportesController@exportproductostotales')->name('reportes.exportproductostotales');
 
+
+
+   Route::get('reportes/listadoproductos', 'Admin\AlpReportesController@listadoproductos')->name('reportes.listadoproductos');
+
+ Route::post('reportes/exportlistadoproductos', 'Admin\AlpReportesController@exportlistadoproductos')->name('reportes.exportlistadoproductos');
+
+
+
+
 //Fin Reportes generales
 
 

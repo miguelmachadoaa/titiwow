@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\ListadoProductosExport;
 use App\Exports\UsersActivarExport;
 use App\Exports\ConsolidadoExport;
 use App\Exports\LogisticaExport;
@@ -1230,6 +1231,58 @@ class AlpReportesController extends Controller
          return Excel::download(new InventarioExport(), $archivo);
 
     }
+
+
+     public function listadoproductos() 
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/listadoproductos ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/listadoproductos');
+
+
+        }
+
+
+
+        return view('admin.reportes.listadoproductos');
+
+    }
+
+
+     public function exportlistadoproductos(Request $request) 
+    {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exportlistadoproductos ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exportlistadoproductos');
+
+
+        }
+
+        return Excel::download(new ListadoProductosExport(), 'Listado_de_productos.xlsx');
+    }
+
 
 
 

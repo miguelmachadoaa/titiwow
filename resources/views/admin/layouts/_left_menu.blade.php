@@ -737,6 +737,16 @@
         </a>
         <ul class="sub-menu">
 
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.listadoproductos']))
+
+                 <li {!! (Request::is('admin/reportes/listadoproductos') ? 'class="active" id="active"' : '') !!}>
+                    <a href="{{ URL::to('admin/reportes/listadoproductos') }}">
+                        <i class="fa fa-angle-double-right"></i>
+                        Listado de Productos
+                    </a>
+                </li>
+            @endif
+
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.masterfile']))
 
