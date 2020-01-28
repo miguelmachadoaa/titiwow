@@ -8,9 +8,11 @@ use App\Models\AlpDirecciones;
 use App\Models\AlpFeriados;
 use App\Models\AlpFormaCiudad;
 use App\Models\AlpFormasenvio;
+use App\Models\AlpImpuestos;
 
 use App\Models\AlpPagos;
 use App\Models\AlpEnvios;
+use App\Models\AlpEnviosHistory;
 use App\Models\AlpOrdenes;
 use App\Models\AlpOrdenesHistory;
 use App\Exports\CronNuevosUsuarios;
@@ -163,8 +165,54 @@ class VerificarPagos extends Command
 
                 $fecha_entrega=$date->addDays($ciudad_forma->dias)->format('d-m-Y');
 
+                $envio=$ciudad_forma->costo;
 
-                $data_envio = array(
+                 $valor_impuesto=AlpImpuestos::where('id', '1')->first();
+
+                  if ($envio>0) {
+                   
+                     $envio_base=$envio/(1+$valor_impuesto->valor_impuesto);
+
+                  $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
+
+
+                  }else{
+
+                    $envio_base=0;
+
+                    $envio_impuesto=0;
+
+                  }
+
+
+
+
+
+                    $data_envio = array(
+                      'id_orden' => $orden->id, 
+                      'fecha_envio' => $fecha_entrega,
+                      'costo' => $envio, 
+                      'costo_base' => $envio_base, 
+                      'costo_impuesto' => $envio_impuesto, 
+                      'estatus' => 1, 
+                      'id_user' =>1                   
+
+                    );
+
+                    $envio=AlpEnvios::create($data_envio);
+
+                    $data_envio_history = array(
+                      'id_envio' => $envio->id, 
+                      'estatus_envio' => 1, 
+                      'nota' => 'Envio Generado por Verificar Pagos', 
+                      'id_user' =>1                 
+
+                    );
+
+                    AlpEnviosHistory::create($data_envio_history);
+
+
+               /* $data_envio = array(
                   'id_orden' => $ord->id, 
                   'fecha_envio' => $date->addDays($ciudad_forma->dias)->format('Y-m-d'),
                   'estatus' => 1, 
@@ -181,7 +229,7 @@ class VerificarPagos extends Command
                          'id_user' => 1
                       );
 
-                      $history=AlpOrdenesHistory::create($data_history);
+                      $history=AlpOrdenesHistory::create($data_history);*/
 
 
                       $data_update = array(
@@ -214,7 +262,10 @@ class VerificarPagos extends Command
                ->join('alp_formas_pagos','alp_ordenes.id_forma_pago' , '=', 'alp_formas_pagos.id')
                ->where('alp_ordenes.id', $orden->id)->first();
 
-                $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug')
+                $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*',
+                  'alp_productos.presentacion_producto as presentacion_producto',
+                  'alp_productos.nombre_producto as nombre_producto',
+                  'alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug')
                   ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
                   ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
 

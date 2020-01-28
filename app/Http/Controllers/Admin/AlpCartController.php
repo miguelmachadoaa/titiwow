@@ -1478,8 +1478,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
        
          $envio_base=$costo_envio/(1+$valor_impuesto->valor_impuesto);
 
-      $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
-
+        $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
 
       }else{
 
@@ -1902,7 +1901,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         $data_envio_history = array(
           'id_envio' => $envio->id, 
           'estatus_envio' => 1, 
-          'nota' => 'Envio recibido', 
+          'nota' => 'Envio Generar Pedido', 
           'id_user' =>$user_id                   
 
         );
@@ -4562,7 +4561,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                   $valor=($cupon->valor_cupon/100)*$base_descuento;
                 }
 
-
                 $cupones=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
 
                 foreach ($cupones as $cupon) {
@@ -4624,11 +4622,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         'clase' => $clase
       );
 
-
-
     }
-
-
 
 public function addcupon(Request $request)
     {
@@ -4728,8 +4722,6 @@ public function addcupon(Request $request)
       }
 
     }
-
-
 
     public function addcuponform(Request $request)
     {
