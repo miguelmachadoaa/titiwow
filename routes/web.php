@@ -235,6 +235,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 });
 
 #FrontEndController
+
+Route::get('xml', 'FrontEndController@getXml')->name('xml');
+
+
+
 Route::get('login', 'FrontEndController@getLogin')->name('login');
 Route::get('desactivado', 'FrontEndController@desactivado')->name('desactivado');
 Route::post('login', 'FrontEndController@postLogin')->name('login');

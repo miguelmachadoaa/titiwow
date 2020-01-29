@@ -48,6 +48,22 @@ use DB;
 class FrontEndController extends JoshController
 {
 
+
+  public function getXml()
+    {
+
+      $productos=AlpProductos::select('alp_productos.*', 'alp_marcas.nombre_marca as nombre_marca')
+      ->join('alp_marcas', 'alp_productos.id_marca', '=','alp_marcas.id')
+      ->where('alp_productos.estado_registro','=',1)
+      ->get();
+
+      $inventario=$this->inventario();
+        // Is the user logged in?
+      return view('frontend.xml', compact('productos', 'inventario'));
+
+    }
+
+
     public function getContacto()
     {
         // Is the user logged in?
@@ -1252,5 +1268,5 @@ class FrontEndController extends JoshController
 
 
 
-
 }
+    
