@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use App\User;
 use App\Models\AlpOrdenes;
+use App\Models\AlpOrdenesDescuento;
+use App\Models\AlpDetalles;
 use App\Models\AlpInventario;
 use App\Models\AlpConfiguracion;
 use Maatwebsite\Excel\Facades\Excel;
@@ -77,7 +79,7 @@ class CancelarOrdenes extends Command
 
             $ord=AlpOrdenes::where('id', $orden->id)->first();
 
-            $arrayName = array('estatus' => 4 );
+            $arrayName = array('estatus' => 4, 'estatus_pago'=>3 );
 
             $ord->update($arrayName);
 
