@@ -3,7 +3,7 @@
 Se ha registrado un pedido por el usuario {{ $compra->first_name.' '.$compra->last_name }}
 
 
-<b>Datos Del Clliente</b>
+<b>Datos Del Cliente</b>
 
 
 <b>Nombre: </b> {{ $compra->first_name.' '.$compra->last_name }}<br>
