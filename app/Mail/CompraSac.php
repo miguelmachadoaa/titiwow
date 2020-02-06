@@ -41,10 +41,33 @@ class CompraSac extends Mailable
         $this->envio=AlpEnvios::where('id_orden', $compra->id)->first();
 
         if ($asunto==0) {
+
             $asunto= 'Nuevo Pedido Nro.: '.$this->compra->id.' | SAC';
+
         }else{
 
-            $asunto= ' ENVIO EXPRESS | Nuevo Pedido Nro.: '.$this->compra->id.'';
+          if($this->compra->estatus_pago==1){
+
+            $asunto= ' ENVIO EXPRESS | Nuevo Pedido Nro.: '.$this->compra->id.' | En Espera de Pago ';
+
+          }elseif($this->compra->estatus_pago==2){
+
+            $asunto= ' ENVIO EXPRESS | Nuevo Pedido Nro.: '.$this->compra->id.' | Pago recibido ';
+
+          }elseif($this->compra->estatus_pago==3){
+
+            $asunto= ' ENVIO EXPRESS | Nuevo Pedido Nro.: '.$this->compra->id.' | Pago cancelado ';
+
+          }elseif($this->compra->estatus_pago==4){
+
+            $asunto= ' ENVIO EXPRESS | Nuevo Pedido Nro.: '.$this->compra->id.' | En Espera de Pago ';
+
+          }
+
+         
+
+
+            
         }
 
         $this->asunto=$asunto;

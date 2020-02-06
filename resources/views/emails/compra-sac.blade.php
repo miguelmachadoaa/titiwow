@@ -7,7 +7,9 @@ Se ha registrado un pedido por el usuario {{ $compra->first_name.' '.$compra->la
 
 
 <b>Nombre: </b> {{ $compra->first_name.' '.$compra->last_name }}<br>
+
 <b>Documento: </b> {{ $cliente->doc_cliente }}<br>
+
 <b>Teléfono</b> {{$cliente->telefono_cliente}}<br>
 
 <b>Direccion de Envio</b>
@@ -23,6 +25,26 @@ Se ha registrado un pedido por el usuario {{ $compra->first_name.' '.$compra->la
 <b>Detalles del Pedido </b>
 
 <b>Forma de Envio: </b> {{$formaenvio->nombre_forma_envios}}
+
+@if($compra->estatus_pago==1)
+
+<h3>Este pedido aùn no ha sido pagado, debes esperar la confirmación</h3>
+
+
+@elseif($compra->estatus_pago==2)
+
+<h3>Este pedido ya ha sido pagado.</h3>
+
+@elseif($compra->estatus_pago==3)
+
+<h3>El pago del pedido ha sido cancelado, Esperar un nuevo pago </h3>
+
+@elseif($compra->estatus_pago==4)
+
+<h3>Este pedido aùn no ha sido pagado, debes esperar la confirmación</h3>
+
+@endif
+
 
 
 @if($envio->costo>0)
