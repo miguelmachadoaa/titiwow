@@ -28,7 +28,7 @@ Se ha registrado un pedido por el usuario {{ $compra->first_name.' '.$compra->la
 
 @if($compra->estatus_pago==1)
 
-<h3>Este pedido aùn no ha sido pagado, debes esperar la confirmación</h3>
+<h3>Este pedido aún no ha sido pagado, debes esperar la confirmación</h3>
 
 
 @elseif($compra->estatus_pago==2)
@@ -41,7 +41,7 @@ Se ha registrado un pedido por el usuario {{ $compra->first_name.' '.$compra->la
 
 @elseif($compra->estatus_pago==4)
 
-<h3>Este pedido aùn no ha sido pagado, debes esperar la confirmación</h3>
+<h3>Este pedido aún no ha sido pagado, debes esperar la confirmación</h3>
 
 @endif
 
