@@ -164,7 +164,7 @@ Actualizar Precios
                         <div class="form-group {{ $errors->
                             first('file', 'has-error') }}">
                             <div class="row" style="margin-top: 1em;">
-                                <label class="col-md-3 col-lg-3 col-12 control-label" for="upload">Archivo CSV (Referencia_producto, Precio, Producto Padres)</label>
+                                <label class="col-md-3 col-lg-3 col-12 control-label" for="upload">Archivo CSV (Referencia, Precio, PUM)</label>
 
 
                                 <div class="col-md-9 col-12 col-lg-9">
