@@ -400,7 +400,7 @@ class AlpProductosController extends JoshController
 
     /**
      * Store a newly created resource in storage.
-     *
+     *upda
      * @return Response
      */
     public function store(ProductosRequest $request)
@@ -445,8 +445,7 @@ class AlpProductosController extends JoshController
             Image::make($file)->resize(600, 600)->save($destinationPath);            
             $imagen = $picture;
 
-        }
-               
+        }     
 
         $data = array(
             'tipo_producto' => $request->tipo_producto, 
@@ -979,7 +978,7 @@ class AlpProductosController extends JoshController
 
         $input = $request->all();
 
-
+        //dd($input);
 
         $imagen='0';
 

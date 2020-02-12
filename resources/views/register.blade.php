@@ -179,13 +179,13 @@
                 <hr />
 
 
-                <div class="form-group {{ $errors->first('convenio', 'has-error') }}">
+                <!--div class="form-group {{ $errors->first('convenio', 'has-error') }}">
                     <label for="">¿Tienes un número de convenio?  <small>(Opcional)</small></label>
                     <input type="text" class="form-control" value="{!! old('convenio') !!}" id="convenio" name="convenio" placeholder="Código de Convenio"
                            value="{!! old('convenio') !!}" >
                     <div class="res_convenio"></div>
                     {!! $errors->first('convenio', '<span class="help-block">:message</span>') !!}
-                </div>
+                </div-->
                 <div class="clearfix"></div>
                 <hr />
                 <div class="form-group checkbox">

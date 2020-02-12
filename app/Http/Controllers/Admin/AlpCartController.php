@@ -511,11 +511,6 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
       }
       
-     
-
-     
-
-
       $user = Sentinel::getUser();
 
        activity($user->full_name)
@@ -634,19 +629,19 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
           if (isset($pse['response']['id'])) {
 
              $data_pago = array(
-          'id_orden' => $orden->id, 
-          'id_forma_pago' => $orden->id_forma_pago, 
-          'id_estatus_pago' => '4', 
-          'monto_pago' => '0', 
-          'json' => json_encode($pse), 
-          'id_user' => $user_id
-        );
+              'id_orden' => $orden->id, 
+              'id_forma_pago' => $orden->id_forma_pago, 
+              'id_estatus_pago' => '4', 
+              'monto_pago' => '0', 
+              'json' => json_encode($pse), 
+              'id_user' => $user_id
+            );
 
 
-         AlpPagos::create($data_pago);
+            AlpPagos::create($data_pago);
 
 
-      \Session::put('pse', $pse['response']['id']);
+            \Session::put('pse', $pse['response']['id']);
 
             return $pse['response']['transaction_details']['external_resource_url'];
 
@@ -848,63 +843,59 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
               if ( $pse['response']['status']=='approved' ) 
               {
 
-                  $envio=AlpEnvios::where('id_orden', $pago->id_orden)->first();
+                    $envio=AlpEnvios::where('id_orden', $pago->id_orden)->first();
+
+                      $data_update = array(
+                        'estatus' =>1, 
+                        'estatus_pago' =>2,
+                         );
+
+                       $orden->update($data_update);
+
+                       $data_history = array(
+                            'id_orden' => $orden->id, 
+                           'id_status' => '1', 
+                            'notas' => 'Notificacion Mercadopago', 
+                           'id_user' => 1
+                        );
 
 
-                    $data_update = array(
-                      'estatus' =>1, 
-                      'estatus_pago' =>2,
-                       );
-
-                     $orden->update($data_update);
-
-                     $data_history = array(
+                         $data_pago = array(
                           'id_orden' => $orden->id, 
-                         'id_status' => '1', 
-                          'notas' => 'Notificacion Mercadopago', 
-                         'id_user' => 1
-                      );
+                          'id_forma_pago' => $orden->id_forma_pago, 
+                          'id_estatus_pago' => '2', 
+                          'monto_pago' => $orden->monto_total, 
+                          'json' => json_encode($pse), 
+                          'id_user' => '1'
+                        );
 
+                       AlpPagos::create($data_pago);
 
-                       $data_pago = array(
-                        'id_orden' => $orden->id, 
-                        'id_forma_pago' => $orden->id_forma_pago, 
-                        'id_estatus_pago' => '2', 
-                        'monto_pago' => $orden->monto_total, 
-                        'json' => json_encode($pse), 
-                        'id_user' => '1'
-                      );
+                        $history=AlpOrdenesHistory::create($data_history);
 
-                     AlpPagos::create($data_pago);
+                $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
+                ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
+                ->join('alp_clientes','alp_ordenes.id_cliente' , '=', 'alp_clientes.id_user_client')
+                ->join('alp_formas_envios','alp_ordenes.id_forma_envio' , '=', 'alp_formas_envios.id')
+                ->join('alp_formas_pagos','alp_ordenes.id_forma_pago' , '=', 'alp_formas_pagos.id')
+                ->where('alp_ordenes.id', $orden->id)->first();
 
-                      $history=AlpOrdenesHistory::create($data_history);
+              $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
+                ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
+                ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
 
-            $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
-            ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
-            ->join('alp_clientes','alp_ordenes.id_cliente' , '=', 'alp_clientes.id_user_client')
-            ->join('alp_formas_envios','alp_ordenes.id_forma_envio' , '=', 'alp_formas_envios.id')
-            ->join('alp_formas_pagos','alp_ordenes.id_forma_pago' , '=', 'alp_formas_pagos.id')
-            ->where('alp_ordenes.id', $orden->id)->first();
+              if ($compra->id_forma_envio!=1) {
 
-        $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
-          ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
-          ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
+                  $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
 
+                  Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega,1));
+                }
 
-          if ($compra->id_forma_envio!=1) {
+                Mail::to($compra->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $envio->fecha_envio));
 
-              $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
-
-              Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega,1));
-                
-            }
-
-
-              Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $envio->fecha_envio));
-
-              Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $envio->fecha_envio));
-               
-              }
+                Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $envio->fecha_envio));
+             
+          }
 
               if ( $pse['response']['status']=='in_process' || $pse['response']['status']=='pending' ) 
               {

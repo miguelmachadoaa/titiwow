@@ -63,7 +63,6 @@ class VerificarPagos extends Command
 
         $ordenes=AlpOrdenes::where('estatus_pago', '4')->get();
       
-      ///dd($ordenes);
 
       $configuracion = AlpConfiguracion::where('id', '1')->first();
 
@@ -83,11 +82,18 @@ class VerificarPagos extends Command
 
         foreach ($ordenes as $ord) {
 
+
+
           $orden=AlpOrdenes::where('id', $ord->id)->first();
+
 
           $user_cliente=User::where('id', $ord->id_user)->first();
 
+                        \Log::debug('1.1' . $user_cliente);
+
+
           $preference = MP::get("/v1/payments/search?external_reference=".$ord->referencia);
+
 
           if (isset($preference['response']['results'][0])) {
 
@@ -98,11 +104,11 @@ class VerificarPagos extends Command
             $pending=0;
 
             foreach ($preference['response']['results'] as $r) {
+
                     
                   if ($r['status']=='rejected' || $r['status']=='cancelled' || $r['status']=='refunded') {
                     $cancel=1;
                  
-
                   }
 
                   if ($r['status']=='approved') {
@@ -114,18 +120,19 @@ class VerificarPagos extends Command
                     $pending=1;
                   }
 
-                  //echo $r['status'].'<br>';
-
             }
 
             if ( $aproved ) 
               {
 
-                  $direccion=AlpDirecciones::where('id', $ord->id_address)->first();
+
+                $direccion=AlpDirecciones::where('id', $ord->id_address)->first();
+
 
                 $feriados=AlpFeriados::feriados();
 
                 $ciudad_forma=AlpFormaCiudad::where('id_forma', $ord->id_forma_envio)->where('id_ciudad', $direccion->city_id)->first();
+
 
 
                 $date = Carbon::now();
@@ -146,7 +153,7 @@ class VerificarPagos extends Command
 
                   $date2->addDays($i);
 
-                  if ($date2->isWeekend()) {
+                  if ($date2->isSunday()) {
 
                     $ciudad_forma->dias=$ciudad_forma->dias+1;
                   
@@ -165,39 +172,40 @@ class VerificarPagos extends Command
 
                 $fecha_entrega=$date->addDays($ciudad_forma->dias)->format('d-m-Y');
 
+
+
                 $envio=$ciudad_forma->costo;
 
-                 $valor_impuesto=AlpImpuestos::where('id', '1')->first();
+                $valor_impuesto=AlpImpuestos::where('id', '1')->first();
+
+
 
                   if ($envio>0) {
                    
                      $envio_base=$envio/(1+$valor_impuesto->valor_impuesto);
 
-                  $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
+                      $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
 
 
                   }else{
 
-                    $envio_base=0;
+                      $envio_base=0;
 
-                    $envio_impuesto=0;
+                      $envio_impuesto=0;
 
                   }
 
-
-
-
-
                     $data_envio = array(
-                      'id_orden' => $orden->id, 
+                      'id_orden' => $ord->id, 
                       'fecha_envio' => $fecha_entrega,
                       'costo' => $envio, 
                       'costo_base' => $envio_base, 
                       'costo_impuesto' => $envio_impuesto, 
                       'estatus' => 1, 
                       'id_user' =>1                   
-
                     );
+
+
 
                     $envio=AlpEnvios::create($data_envio);
 
@@ -209,27 +217,10 @@ class VerificarPagos extends Command
 
                     );
 
+
+
+
                     AlpEnviosHistory::create($data_envio_history);
-
-
-               /* $data_envio = array(
-                  'id_orden' => $ord->id, 
-                  'fecha_envio' => $date->addDays($ciudad_forma->dias)->format('Y-m-d'),
-                  'estatus' => 1, 
-                  'id_user' =>1                   
-
-                );
-
-                $envio=AlpEnvios::create($data_envio);
-
-                     $data_history = array(
-                          'id_orden' => $ord->id, 
-                         'id_status' => '1', 
-                          'notas' => 'Notificacion Mercadopago Cron', 
-                         'id_user' => 1
-                      );
-
-                      $history=AlpOrdenesHistory::create($data_history);*/
 
 
                       $data_update = array(
@@ -237,9 +228,9 @@ class VerificarPagos extends Command
                       'estatus_pago' =>2,
                        );
 
+
                      $orden->update($data_update);
 
-                     /*Se agrega un registro de pago */
 
                       $data_pago = array(
                         'id_orden' => $ord->id, 
@@ -250,10 +241,8 @@ class VerificarPagos extends Command
                         'id_user' => '1'
                       );
 
+
                      AlpPagos::create($data_pago);
-
-
-
 
                $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
                 ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
@@ -262,12 +251,15 @@ class VerificarPagos extends Command
                ->join('alp_formas_pagos','alp_ordenes.id_forma_pago' , '=', 'alp_formas_pagos.id')
                ->where('alp_ordenes.id', $orden->id)->first();
 
+
                 $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*',
                   'alp_productos.presentacion_producto as presentacion_producto',
                   'alp_productos.nombre_producto as nombre_producto',
                   'alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug')
                   ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
                   ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
+
+
 
                   if ($compra->id_forma_envio!=1) {
 
@@ -283,27 +275,25 @@ class VerificarPagos extends Command
                
             }elseif($pending){
 
-
             }elseif($cancel){
 
                 $data_update = array(
-                      'estatus' =>4, 
-                      'estatus_pago' =>3,
-                       );
+                  'estatus' =>4, 
+                  'estatus_pago' =>3,
+                   );
 
-                     $orden->update($data_update);
+                 $orden->update($data_update);
 
-                      $data_history = array(
-                          'id_orden' => $orden->id, 
-                         'id_status' => '4', 
-                          'notas' => 'Notificacion Mercadopago Cron', 
-                         'id_user' => 1
-                      );
+                  $data_history = array(
+                      'id_orden' => $orden->id, 
+                     'id_status' => '4', 
+                      'notas' => 'Notificacion Mercadopago Cron', 
+                     'id_user' => 1
+                  );
 
-                        $history=AlpOrdenesHistory::create($data_history);
+                  $history=AlpOrdenesHistory::create($data_history);
 
             }
-
 
           } //si hay resultados 
 
@@ -314,7 +304,6 @@ class VerificarPagos extends Command
               {
 
               }else{
-
 
                   $data_pago = array(
                 'id_orden' => $ord->id, 
@@ -330,10 +319,7 @@ class VerificarPagos extends Command
 
           }
 
-
         }//endforeach ordenes
-
-
 
     }//endhadle
 

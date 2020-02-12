@@ -12,10 +12,8 @@ class AlpConfiguracion extends Model
     use SoftDeletes;
 
     public $table = 'alp_configuracion_general';
-    
 
     protected $dates = ['deleted_at'];
-
 
     public $fillable = [
         'id',
