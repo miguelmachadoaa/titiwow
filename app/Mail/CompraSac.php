@@ -79,7 +79,7 @@ class CompraSac extends Mailable
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
           ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
           ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-          ->where('alp_direcciones.id', '=', $compra->id_address)
+          ->where('alp_direcciones.id', '=', $compra->id_address)->withTrashed()
           ->first();
 
         $this->cliente=AlpClientes::where('id_user_client', $compra->id_cliente)->first();

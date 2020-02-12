@@ -61,7 +61,16 @@ class VerificarPagos extends Command
     public function handle()
     {
 
-        $ordenes=AlpOrdenes::where('estatus_pago', '4')->get();
+
+      $date = Carbon::now();
+      $d=$date->subDay(3)->format('Y-m-d');
+      
+
+        $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
+
+         \Log::debug('1 listado' . $ordenes);
+
+        // die;
       
 
       $configuracion = AlpConfiguracion::where('id', '1')->first();
@@ -82,15 +91,14 @@ class VerificarPagos extends Command
 
         foreach ($ordenes as $ord) {
 
-
-
           $orden=AlpOrdenes::where('id', $ord->id)->first();
 
 
+           //\Log::debug('1.1 detalle orden ' . $orden);
+
           $user_cliente=User::where('id', $ord->id_user)->first();
 
-                        \Log::debug('1.1' . $user_cliente);
-
+            // \Log::debug('1.2 detalle cliente ' . $user_cliente);
 
           $preference = MP::get("/v1/payments/search?external_reference=".$ord->referencia);
 
@@ -126,14 +134,16 @@ class VerificarPagos extends Command
               {
 
 
-                $direccion=AlpDirecciones::where('id', $ord->id_address)->first();
+                $direccion=AlpDirecciones::where('id', $ord->id_address)->withTrashed()->first();
+
+                 \Log::debug('1.3 direccion detalle direccion ' . $direccion);
+
+                 \Log::debug('1.4 orden  aprobada ' . $ord->id);
 
 
                 $feriados=AlpFeriados::feriados();
 
                 $ciudad_forma=AlpFormaCiudad::where('id_forma', $ord->id_forma_envio)->where('id_ciudad', $direccion->city_id)->first();
-
-
 
                 $date = Carbon::now();
 
@@ -177,8 +187,6 @@ class VerificarPagos extends Command
                 $envio=$ciudad_forma->costo;
 
                 $valor_impuesto=AlpImpuestos::where('id', '1')->first();
-
-
 
                   if ($envio>0) {
                    
