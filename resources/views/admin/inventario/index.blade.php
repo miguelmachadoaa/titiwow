@@ -58,6 +58,7 @@ Inventario
                                     <th>Presentacion </th>
                                     <th>EAN</th>
                                     <th>Referencia</th>
+                                    <th>Estado de Producto</th>
                                     <th>Inventario Disponible</th>
                                     <th>Creado</th>
                                     <th>Accion</th>
@@ -139,6 +140,17 @@ Inventario
                         $(this).updateLivicon();
                     });
                 } );
+
+
+            $('#tbInventario').on('click', '.desactivar', function(){
+                var id=$(this).data('id');
+                var desactivar=$(this).data('desactivar');
+                var url=$(this).data('url');
+                $.post(url, {id, desactivar}, function(data) {
+                        table.ajax.reload();
+                });
+
+            });
 
 
         } );
