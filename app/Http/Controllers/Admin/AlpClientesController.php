@@ -835,15 +835,15 @@ class AlpClientesController extends JoshController
 
           $user = Sentinel::getUser();
 
-           activity($user->full_name)
+          activity($user->full_name)
                         ->performedOn($user)
                         ->causedBy($user)
-                        ->withProperties(['id'=>$id, 'request'=>$request->all()])
+                        ->withProperties(['id'=>$user_id, 'request'=>$request->all()])
                         ->log('clientes/update ');
 
         }else{
 
-          activity()->withProperties(['id'=>$id, 'request'=>$request->all()])->log('clientes/update');
+          activity()->withProperties(['id'=>$user_id, 'request'=>$request->all()])->log('clientes/update');
 
 
         }
