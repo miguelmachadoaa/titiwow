@@ -103,7 +103,7 @@ class AlpCuponesController extends JoshController
                  $row->valor_cupon, 
                  $row->tipo_reduccion, 
                  $row->limite_uso, 
-                 $row->created_at->diffForHumans(),
+                 date("d/m/Y H:i:s", strtotime($row->created_at)),
                  $actions
               );
 

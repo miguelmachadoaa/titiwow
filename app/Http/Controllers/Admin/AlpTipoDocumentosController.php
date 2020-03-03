@@ -37,11 +37,7 @@ class AlpTipoDocumentosController extends JoshController
 
 
         }
-
-
-      
-
-        $documentos = AlpTDocumento::all();
+          $documentos = AlpTDocumento::all();
        
 
 
@@ -76,7 +72,7 @@ class AlpTipoDocumentosController extends JoshController
                  $row->id, 
                  $row->nombre_tipo_documento, 
                  $row->abrev_tipo_documento, 
-                 $row->created_at->diffForHumans(),
+                 date("d/m/Y H:i:s", strtotime($row->created_at))
                  $actions
               );
 

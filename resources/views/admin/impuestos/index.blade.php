@@ -64,7 +64,7 @@ Impuestos
                                     <td>{!! $row->id !!}</td>
                                     <td>{!! $row->nombre_impuesto!!}</td>
                                     <td>{!! $row->valor_impuesto !!}</td>
-                                    <td>{!! $row->created_at->diffForHumans() !!}</td>
+                                    <td>{!! date("d/m/Y H:i:s", strtotime($row->created_at)) !!}</td>
                                     <td>
                                             
                                             

@@ -185,7 +185,7 @@ class AlpClientesController extends JoshController
                  $cliente->name_role, 
                  $masterfile, 
                  $estado, 
-                 $cliente->created_at->diffForHumans(),
+                 date("d/m/Y H:i:s", strtotime($cliente->created_at)),
                  $actions
               );
 
@@ -320,7 +320,7 @@ class AlpClientesController extends JoshController
                  $cliente->name_role, 
                  $masterfile, 
                  $estado, 
-                  $cliente->created_at->diffForHumans(),
+                  date("d/m/Y H:i:s", strtotime($cliente->created_at)),
                  $actions
               );
 

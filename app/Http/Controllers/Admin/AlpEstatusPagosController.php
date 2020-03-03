@@ -78,7 +78,7 @@ class AlpEstatusPagosController extends JoshController
                  $row->id, 
                  $row->estatus_pago_nombre, 
                  $row->estatus_pago_descripcion, 
-                 $row->created_at->diffForHumans(),
+                 date("d/m/Y H:i:s", strtotime($row->created_at)),
                  $actions
               );
 

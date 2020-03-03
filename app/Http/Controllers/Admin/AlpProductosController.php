@@ -104,9 +104,9 @@ class AlpProductosController extends JoshController
 
                  $actions = " 
                   
-                  <a href='".secure_url('admin/productos/'.collect($alpProductos)->first().'/show' )."'>
+                  <!--a href='".secure_url('admin/productos/'.collect($alpProductos)->first().'/show' )."'>
                      <i class='livicon' data-name='info' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='view alpProductos'></i>
-                 </a>
+                 </a-->
                  <a href='".secure_url('admin/productos/'.collect($alpProductos)->first().'/edit')."'>
                      <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='edit alpProductos'></i>
                  </a>";

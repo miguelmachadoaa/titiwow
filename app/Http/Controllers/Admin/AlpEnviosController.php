@@ -108,7 +108,7 @@ class AlpEnviosController extends JoshController
                  $row->state_name.' '.$row->city_name, 
                  $row->fecha_envio, 
                  $row->nombre_forma_envios, 
-                 $row->created_at->diffForHumans(),
+                 date("d/m/Y H:i:s", strtotime($row->created_at)),
                  $actions
               );
 

@@ -115,7 +115,7 @@ class AlpCategoriasController extends JoshController
                  $row->descripcion_categoria, 
                  $row->css_categoria, 
                  $row->order, 
-                 $row->created_at->diffForHumans(),
+                 date("d/m/Y H:i:s", strtotime($row->created_at)),
                  $actions.$destacado
               );
 

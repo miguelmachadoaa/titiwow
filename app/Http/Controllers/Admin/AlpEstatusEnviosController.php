@@ -72,7 +72,7 @@ class AlpEstatusEnviosController extends JoshController
                  $row->id, 
                  $row->estatus_envio_nombre, 
                  $row->estatus_envio_descripcion, 
-                 $row->created_at->diffForHumans(),
+                 date("d/m/Y H:i:s", strtotime($row->created_at)),
                  $actions
               );
 

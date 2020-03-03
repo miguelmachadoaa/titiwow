@@ -79,7 +79,7 @@ class AlpEstatusOrdenesController extends JoshController
                  $row->id, 
                  $row->estatus_nombre, 
                  $row->descripcion_estatus, 
-                 $row->created_at->diffForHumans(),
+                 date("d/m/Y H:i:s", strtotime($row->created_at)),
                  $actions
               );
 

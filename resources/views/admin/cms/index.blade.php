@@ -61,20 +61,11 @@
                                 <td>{{ $cms->id }}</td>
                                 <td>{{ $cms->titulo_pagina }}</td>
                                 <td>{{ $cms->estado_registro }}</td>
-                                <td>{{ $cms->created_at->diffForHumans() }}</td>
+                                <td>{{  date("d/m/Y H:i:s", strtotime($cms->created_at)) }}</td>
                                 <td>
-                                    <a href="{{ secure_url('admin/cms/' . $cms->id . '/edit' ) }}"><i class="livicon"
-                                                                                                     data-name="edit"
-                                                                                                     data-size="18"
-                                                                                                     data-loop="true"
-                                                                                                     data-c="#428BCA"
-                                                                                                     data-hc="#428BCA"
-                                                                                                     title="@lang('cms/table.update-blog')"></i></a>
+                                    <a href="{{ secure_url('admin/cms/' . $cms->id . '/edit' ) }}"><i class="livicon" data-name="edit" data-size="18"  data-loop="true"  data-c="#428BCA"   data-hc="#428BCA"  title="@lang('cms/table.update-blog')"></i></a>
                                     <a href="{{ secure_url('admin/cms/'.$cms->id.'/confirm-delete') }}" data-toggle="modal"
-                                       data-target="#delete_confirm"><i class="livicon" data-name="remove-alt"
-                                                                        data-size="18" data-loop="true" data-c="#f56954"
-                                                                        data-hc="#f56954"
-                                                                        title="@lang('cms/table.delete-blog')"></i></a>
+                                       data-target="#delete_confirm"><i class="livicon" data-name="remove-alt"  data-size="18" data-loop="true" data-c="#f56954"  data-hc="#f56954"  title="@lang('cms/table.delete-blog')"></i></a>
                                 </td>
                             </tr>
                         @endforeach

@@ -249,7 +249,7 @@ Orden {{$orden->id}}
 
                       <tr>
                          <td>Fecha de Creación de la Orden </td>
-                         <td>{{ date("d/m/Y", strtotime($orden->created_at)) }}</td>
+                         <td>{{ date("d/m/Y H:i:s", strtotime($orden->created_at)) }}</td>
                      </tr>
 
                      @if($orden->estatus!=4 && $orden->estatus!=8)
@@ -258,7 +258,7 @@ Orden {{$orden->id}}
 
                              <tr>
                                  <td>Fecha de pago Aprobado </td>
-                                 <td>{{ date("d/m/Y", strtotime($pago_aprobado->created_at)) }}</td>
+                                 <td>{{ date("d/m/Y H:i:s", strtotime($pago_aprobado->created_at)) }}</td>
                              </tr>
 
                          @else
@@ -468,7 +468,8 @@ Orden {{$orden->id}}
       <div class="panel-heading" role="tab" id="heading{{ $loop->iteration }}">
         <h4 class="panel-title">
           <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $loop->iteration }}" aria-expanded="true" aria-controls="collapse{{ $loop->iteration }}">
-            Pago {{ $pago->created_at->diffForHumans()}}
+            Pago {{ date("d/m/Y H:i:s", strtotime($pago->created_at))}}
+            
           </a>
         </h4>
       </div>
@@ -758,7 +759,7 @@ Orden {{$orden->id}}
                                                     <p>
                                                         <small class="text-muted">
                                                             <i class="livicon" data-name="bell" data-c="#F89A14" data-hc="#F89A14" data-size="18" data-loop="true"></i>
-                                                            {!! $row->created_at->diffForHumans().' por  '.$row->first_name.' '.$row->last_name !!}
+                                                            {!! date("d/m/Y H:i:s", strtotime($row->created_at)).' por  '.$row->first_name.' '.$row->last_name !!}
                                                         </small>
                                                     </p>
                                                 </div>
@@ -782,7 +783,7 @@ Orden {{$orden->id}}
                                                     <p>
                                                         <small class="text-muted">
                                                             <i class="livicon" data-name="bell" data-c="#F89A14" data-hc="#F89A14" data-size="18" data-loop="true"></i>
-                                                            {!! $row->created_at->diffForHumans().' por  '.$row->first_name.' '.$row->last_name !!}
+                                                            {!! date("d/m/Y H:i:s", strtotime($row->created_at)).' por  '.$row->first_name.' '.$row->last_name !!}
                                                         </small>
                                                     </p>
                                                 </div>

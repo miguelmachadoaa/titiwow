@@ -74,16 +74,13 @@ class AlpFormasenvioController extends JoshController
          </a>
 ";
 
-                
-
-
                $data[]= array(
                  $row->id, 
                  $row->sku, 
                  $row->email, 
                  $row->nombre_forma_envios, 
                  $row->descripcion_forma_envios, 
-                 $row->created_at->diffForHumans(), 
+                 date("d/m/Y H:i:s", strtotime($row->created_at)),
                  $actions
               );
 

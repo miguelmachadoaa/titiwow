@@ -243,7 +243,7 @@ class AlpOrdenesController extends JoshController
                  $cupon, 
                  $row->factura, 
                  $row->tracking, 
-                 $row->created_at->diffForHumans(), 
+                 date("d/m/Y H:i:s", strtotime($row->created_at)),
                  $pago, 
                  $estatus, 
                  $actions.$cancelado
@@ -527,7 +527,7 @@ class AlpOrdenesController extends JoshController
                  $cupon, 
                  $row->factura, 
                  $row->tracking, 
-                 $row->created_at->diffForHumans(), 
+                 date("d/m/Y H:i:s", strtotime($row->created_at)), 
                  $pago, 
                  $estatus, 
                  $actions
@@ -681,7 +681,7 @@ class AlpOrdenesController extends JoshController
                  $cupon, 
                  $row->factura, 
                  //$row->tracking, 
-                 $row->created_at->diffForHumans(), 
+                 date("d/m/Y H:i:s", strtotime($row->created_at)), 
                  $actions
               );
 
@@ -843,7 +843,7 @@ class AlpOrdenesController extends JoshController
                  $cupon, 
                  $row->factura, 
                  //$row->tracking, 
-                 $row->created_at->diffForHumans(), 
+                 date("d/m/Y H:i:s", strtotime($row->created_at)), 
                  $actions
               );
 
@@ -999,7 +999,7 @@ class AlpOrdenesController extends JoshController
                  $cupon, 
                  $row->factura, 
                  $row->tracking, 
-                 $row->created_at->diffForHumans(), 
+                 date("d/m/Y H:i:s", strtotime($row->created_at)), 
                  $actions
               );
 
@@ -1135,7 +1135,7 @@ class AlpOrdenesController extends JoshController
                  $cupon, 
                  $row->factura, 
                  $row->tracking, 
-                 $row->created_at->diffForHumans(), 
+                 date("d/m/Y H:i:s", strtotime($row->created_at)), 
                  $actions
               );
 
@@ -1313,7 +1313,7 @@ class AlpOrdenesController extends JoshController
                  $cupon, 
                  $row->factura, 
                  $row->tracking, 
-                 $row->created_at->diffForHumans(), 
+                 date("d/m/Y H:i:s", strtotime($row->created_at)), 
                  $actions
               );
 

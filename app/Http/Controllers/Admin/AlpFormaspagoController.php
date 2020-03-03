@@ -82,7 +82,7 @@ class AlpFormaspagoController extends JoshController
                  $row->id, 
                  $row->nombre_forma_pago, 
                  $row->descripcion_forma_pago, 
-                 $row->created_at->diffForHumans(), 
+                 date("d/m/Y H:i:s", strtotime($row->created_at)),
                  $actions
               );
 

@@ -80,7 +80,7 @@ class AlpFeriadosController extends JoshController
                $data[]= array(
                  $row->id, 
                  $row->feriado, 
-                 $row->created_at->diffForHumans(), 
+                 date("d/m/Y H:i:s", strtotime($row->created_at)), 
                  $actions
               );
 

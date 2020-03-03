@@ -87,7 +87,7 @@ class UsersController extends JoshController
 
         return DataTables::of($users)
             ->editColumn('created_at',function(User $user) {
-                return $user->created_at->diffForHumans();
+                return date("d/m/Y H:i:s", strtotime($user->created_at));
             })
             ->addColumn('status',function($user){
 
