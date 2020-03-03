@@ -1036,10 +1036,8 @@ class AlpProductosController extends JoshController
                 );
 
         }
-       
          
         $producto->update($data);
-
 
         $cats=explode(',', $request->categorias_prod);
 
@@ -1058,7 +1056,6 @@ class AlpProductosController extends JoshController
 
         }
 
-
         $ids = array();
 
         $eliminar=AlpPrecioGrupo::where('id_producto', $id)->get();
@@ -1067,13 +1064,12 @@ class AlpProductosController extends JoshController
           
           $ids[]=$eli->id;
 
-
         }
 
         AlpPrecioGrupo::destroy($ids);
 
-        
         $select = array();
+        
         $pum = array();
 
         foreach ($input as $key => $value) {
@@ -1104,19 +1100,11 @@ class AlpProductosController extends JoshController
 
        # print_r($select).'<br><br><br>';
 
-      
-
         foreach ($input as $key => $value) {
-
-         # echo substr($key, 0, 9).'<br>';
-
 
           if (substr($key, 0, 9)=='rolprecio') {
 
-           # echo $key.':'.$value.'<br>';
-
             if ($value>0) {
-              # code...
 
             $par=explode('_', $key);
 
