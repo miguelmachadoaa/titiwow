@@ -742,6 +742,8 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
               $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
 
               Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega, 1));
+
+              Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega, 1));
                 
             }
           
@@ -889,12 +891,20 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
                   $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
 
                   Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega,1));
+
+                  Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega,1));
+
+
                 }
 
                 Mail::to($compra->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $envio->fecha_envio));
 
                 Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $envio->fecha_envio));
-             
+
+
+             Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraRealizada($compra, $detalles, $envio->fecha_envio));
+
+                Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $envio->fecha_envio));
           }
 
               if ( $pse['response']['status']=='in_process' || $pse['response']['status']=='pending' ) 
@@ -1188,13 +1198,18 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
               $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
 
               Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega, 1));
-                
+
+              
+              Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega, 1));
             }
 
             Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
 
            Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
 
+            Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
+
+           Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
            $idc=$compra->id*1024;
 
 
@@ -1697,19 +1712,11 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
               $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
 
               Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega, 1));
-                
+
+                 Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega, 1));
             }
 
-            
-
-            //Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionOrden($compra->id, $texto));
-
-           // Mail::to($configuracion->correo_cedi)->send(new \App\Mail\NotificacionOrden($compra->id, $texto));
-
-
-        //  Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
-
-        //  Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
+           
 
             $estatus_aviso='success';
 
@@ -2245,6 +2252,10 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
           Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
 
+
+          Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
+
+          Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
 
           //Mail::to($configuracion->correo_cedi)->send(new \App\Mail\NotificacionOrden($compra->id, $texto));
 

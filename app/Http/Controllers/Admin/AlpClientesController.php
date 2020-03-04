@@ -1212,6 +1212,7 @@ class AlpClientesController extends JoshController
 
             Mail::to($configuracion->correo_admin)->send(new \App\Mail\UserRechazado($user->first_name, $user->last_name));
 
+            Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\UserRechazado($user->first_name, $user->last_name));
             //$user->delete();
 
             return 'true';
@@ -1497,6 +1498,8 @@ class AlpClientesController extends JoshController
 
 
         Mail::to($user->email)->send(new \App\Mail\UserAprobado($user->first_name, $user->last_name));
+
+        Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\UserAprobado($user->first_name, $user->last_name));
 
         $view= View::make('admin.clientes.trcliente', compact('clientes'));
 

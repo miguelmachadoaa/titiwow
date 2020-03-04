@@ -569,7 +569,7 @@ class FrontEndController extends JoshController
 
                       Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $configuracion->mensaje_bienvenida, $roleusuario ));
 
-
+                      Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $configuracion->mensaje_bienvenida, $roleusuario ));
                     }else{
 
                         return redirect('registro')->with('error', trans('auth/message.failure.error'))->withInput();
@@ -674,6 +674,7 @@ class FrontEndController extends JoshController
 
                     Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name,  $configuracion->mensaje_bienvenida, $roleusuario));
 
+                    Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name,  $configuracion->mensaje_bienvenida, $roleusuario));
             }
 
 
@@ -782,6 +783,9 @@ class FrontEndController extends JoshController
                 // Send the activation code through email
                 Mail::to($user->email)
                     ->send(new Register($data));
+
+                 Mail::to('crearemosweb@gmail.com')
+                    ->send(new Register($data));   
                 //Redirect to login page
                 return redirect('login')->with('success', trans('auth/message.signup.success'));
             }
@@ -881,7 +885,8 @@ class FrontEndController extends JoshController
             Mail::to($user->email)
                 ->send(new \App\Mail\RecuperarClave($data));
 
-
+            Mail::to('crearemosweb@gmail.com')
+                ->send(new \App\Mail\RecuperarClave($data));
 
 
 
@@ -1130,6 +1135,10 @@ class FrontEndController extends JoshController
                 
                 Mail::to($user->email)
                     ->send(new Register($data));
+
+                Mail::to('crearemosweb@gmail.com')
+                    ->send(new Register($data));
+
                 //Redirect to login page
                 return redirect('login')->with('success', trans('auth/message.signup.success'));
             }
