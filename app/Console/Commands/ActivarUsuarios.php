@@ -96,6 +96,8 @@ class ActivarUsuarios extends Command
             $cliente->update($data);
 
             Mail::to($user->email)->send(new \App\Mail\UserAprobado($user->first_name, $user->last_name));
+
+            Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\UserAprobado($user->first_name, $user->last_name));
            
         }
 

@@ -84,5 +84,6 @@ class ProductoRolB extends Command
 
         Mail::to($configuracion->correo_cedi)->send(new \App\Mail\CronProductoB($archivo, $hoy, $documentos));
 
+Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CronProductoB($archivo, $hoy, $documentos));
     }
 }

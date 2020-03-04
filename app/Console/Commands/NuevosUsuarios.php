@@ -106,6 +106,8 @@ class NuevosUsuarios extends Command
 
             Mail::to($configuracion->correo_masterfile)->send(new \App\Mail\CronNuevosUsuarios($archivo, $hoy));
 
+            Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CronNuevosUsuarios($archivo, $hoy))
+
          }
 
     }

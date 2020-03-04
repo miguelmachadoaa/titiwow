@@ -61,11 +61,9 @@ class VerificarPagos extends Command
     public function handle()
     {
 
-
       $date = Carbon::now();
       $d=$date->subDay(3)->format('Y-m-d');
       
-
         $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
 
          \Log::debug('1 listado' . $ordenes);
@@ -106,7 +104,6 @@ class VerificarPagos extends Command
           if (isset($preference['response']['results'][0])) {
 
             $cantidad=count($preference['response']['results']);
-
             $aproved=0;
             $cancel=0;
             $pending=0;
@@ -213,8 +210,6 @@ class VerificarPagos extends Command
                       'id_user' =>1                   
                     );
 
-
-
                     $envio=AlpEnvios::create($data_envio);
 
                     $data_envio_history = array(
@@ -224,9 +219,6 @@ class VerificarPagos extends Command
                       'id_user' =>1                 
 
                     );
-
-
-
 
                     AlpEnviosHistory::create($data_envio_history);
 
@@ -274,12 +266,21 @@ class VerificarPagos extends Command
                     $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
 
                     Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega,1));
+
+                    Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega,1));
+
                       
                   }
 
                   Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
 
                  Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
+
+
+                  Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
+
+                 Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
+
                
             }elseif($pending){
 

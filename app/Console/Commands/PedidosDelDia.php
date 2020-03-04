@@ -62,5 +62,6 @@ class PedidosDelDia extends Command
 
         Mail::to($configuracion->correo_sac)->send(new \App\Mail\CronVentaDia($archivo, $hoy));
 
+        Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CronVentaDia($archivo, $hoy));
     }
 }

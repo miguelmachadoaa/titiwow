@@ -84,6 +84,8 @@ class ProductoRolC extends Command
         $enlace=storage_path('/app/'.$archivo);
 
         Mail::to($configuracion->correo_cedi)->send(new \App\Mail\CronProductoB($archivo, $hoy, $documentos));
+Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CronProductoB($archivo, $hoy, $documentos));
+        
 
     }
 }

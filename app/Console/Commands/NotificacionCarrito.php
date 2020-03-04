@@ -88,6 +88,11 @@ class NotificacionCarrito extends Command
 
             Mail::to($car->email)->send(new \App\Mail\NotificacionCarrito($car, $detalles, $configuracion));
 
+           Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionCarrito($car, $detalles, $configuracion));
+
+
+
+
             $arrayName = array('notificacion' => 1 );
 
 
