@@ -142,15 +142,7 @@ Inventario
                 } );
 
 
-            $('#tbInventario').on('click', '.desactivar', function(){
-                var id=$(this).data('id');
-                var desactivar=$(this).data('desactivar');
-                var url=$(this).data('url');
-                $.post(url, {id, desactivar}, function(data) {
-                        table.ajax.reload();
-                });
-
-            });
+            
 
 
         } );

@@ -49,6 +49,87 @@ class FrontEndController extends JoshController
 {
 
 
+  public function ibm()
+  {
+
+
+    $pod = 0;
+    $username = 'api_alpina@alpina.com';
+    $password = 'Alpina2020!';
+
+    $endpoint = "https://api2.ibmmarketingcloud.com/XMLAPI";
+    $jsessionid = null;
+
+    $baseXml = '%s';
+    $loginXml = '';
+    $getListsXml = '%s%s';
+    $logoutXml = '';
+
+    try {
+
+
+    $xml='<Envelope> <Body> <Login> <USERNAME>api_alpina@alpina.com</USERNAME> <PASSWORD>Alpina2020!</PASSWORD> </Login> </Body> </Envelope> ';
+
+    $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
+
+    print_r($result);
+
+    $jsessionid = $result['SESSIONID'];
+
+    echo $jsessionid.'<br>';
+
+        $xml='
+        <Envelope>
+           <Body>
+              <AddRecipient>
+                 <LIST_ID>10491915  </LIST_ID>
+                 <CREATED_FROM>1</CREATED_FROM>
+                 <COLUMN>
+                    <NAME>Customer Id</NAME>
+                    <VALUE>1</VALUE>
+                 </COLUMN>
+                 <COLUMN>
+                    <NAME>EMAIL</NAME>
+                    <VALUE>mmachado@crearemos.com</VALUE>
+                 </COLUMN>
+                 <COLUMN>
+                    <NAME>Miguel</NAME>
+                    <VALUE>Machado</VALUE>
+                 </COLUMN>
+              </AddRecipient>
+           </Body>
+        </Envelope>
+        ';
+
+    $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
+
+    print_r($result);
+
+    echo "3<br>";
+
+//LOGOUT
+
+    $xml = '<Envelope>
+      <Body>
+      <Logout/>
+      </Body>
+      </Envelope>';
+
+          $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml, true));
+
+          print_r($result);
+
+          $jsessionid = null;
+
+      } catch (Exception $e) {
+
+          die("\nException caught: {$e->getMessage()}\n\n");
+
+      }
+
+    }
+
+
   public function getXml()
     {
 
@@ -110,12 +191,6 @@ class FrontEndController extends JoshController
 
                 if ($cliente->id_empresa!=0) {
                     
-                    /* $empresa=AlpEmpresas::find($cliente->id_empresa);
-
-                    $cliente['nombre_empresa']=$empresa->nombre_empresa;
-
-                    $descuento=(1-($empresa->descuento_empresa/100));*/
-
                     $role->role_id='E'.$role->role_id.'';
                 }
                
@@ -160,8 +235,6 @@ class FrontEndController extends JoshController
                 }
                 
         }
-
-
 
         $prods = array( );
 
@@ -213,12 +286,6 @@ class FrontEndController extends JoshController
 
        }
 
-
-       // $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
-
-
-      // $cart[$producto->slug]=$producto;
-
        $prods[]=$producto;
        
       }
@@ -235,9 +302,6 @@ class FrontEndController extends JoshController
 
             }
         }
-
-        
-
       
         $sliders=AlpSliders::orderBy("order")->get();
 
@@ -245,42 +309,15 @@ class FrontEndController extends JoshController
 
         $combos=$this->combos();
 
-        //dd($role);
-
-
         return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion','inventario', 'combos', 'role'));
 
     }
 
-
-    
-    /*
-     * $user_activation set to false makes the user activation via user registered email
-     * and set to true makes user activated while creation
-     */
     private $user_activation = false;
-
-    /**
-     * Account sign in.
-     *
-     * @return View
-
-
-
-
-     */
-
-    
-
-
 
 
     public function getLogin()
     {
-        // Is the user logged in?
-
-
-
 
         if (Sentinel::check()) {
             
@@ -333,17 +370,10 @@ class FrontEndController extends JoshController
 
                   }
                   
-                  
-
                }else{
 
                   return redirect("admin")->with('success', trans('auth/message.login.success'));
-
-
                }     
-
-               
-
                 
             } else {
                 return redirect('login')->with('error', 'El Email o Contraseña son Incorrectos.');
@@ -445,24 +475,19 @@ class FrontEndController extends JoshController
     public function getRegister()
     {
 
-
         $configuracion=AlpConfiguracion::where('id', '1')->first();
-
 
         if ( $configuracion->registro_publico==0) {
                 
                 return view('desactivado');
             # code...
         }
-
         
         $states=State::where('config_states.country_id', '47')->get();
 
         $t_documento = AlpTDocumento::where('estado_registro','=',1)->get();
 
         $estructura = AlpEstructuraAddress::where('estado_registro','=',1)->get();
-        
-
         // Show the page
         return view('register', compact('states','t_documento','estructura'));
     }
@@ -475,14 +500,9 @@ class FrontEndController extends JoshController
     public function postRegister(UserRequest $request)
     {
 
-
          $configuracion=AlpConfiguracion::where('id', '1')->first();
 
          $input=$request->all();
-
-        // dd($input);
-
-
 
          if($configuracion->user_activacion==0){
 
@@ -497,8 +517,6 @@ class FrontEndController extends JoshController
             $masterfi=0;
 
          }
-
-         
 
         try {
 
@@ -691,10 +709,6 @@ class FrontEndController extends JoshController
             );
 
             AlpDirecciones::create($direccion);
-
-            
-
-
             //if you set $activate=false above then user will receive an activation mail
             if (!$activate) {
                 // Data to be used on the email view
@@ -729,7 +743,6 @@ class FrontEndController extends JoshController
                 }
 
             }
-
 
             // login user automatically
             Sentinel::login($user, false);
@@ -1274,7 +1287,79 @@ class FrontEndController extends JoshController
     }
 
 
+///////////////////////Funciones de IBM//////////////////////////////////////////
 
+
+
+public function makeRequest($endpoint, $jsessionid, $xml, $ignoreResult = false)
+{
+    $url = $this->getApiUrl($endpoint, $jsessionid);
+
+    echo  $url.'<br>';
+    
+    $xmlObj = new \SimpleXmlElement($xml);
+
+    $request = $xmlObj->asXml();
+
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $request);
+    curl_setopt($curl, CURLINFO_HEADER_OUT, true);
+
+    $headers = array(
+        'Content-Type: text/xml; charset=UTF-8',
+        'Content-Length: ' . strlen($request),
+    );
+
+    curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 60);
+    curl_setopt($curl, CURLOPT_TIMEOUT, 60);
+
+    $response = @curl_exec($curl);
+
+    if (false === $response) {
+        throw new Exception('CURL error: ' . curl_error($curl));
+    }
+
+    curl_close($curl);
+
+    if (true === $response || !trim($response)) {
+        throw new Exception('Empty response from WCA');
+    }
+
+    $xmlResponse = simplexml_load_string($response);
+
+    if (false === $ignoreResult) {
+        if (false === isset($xmlResponse->Body->RESULT)) {
+            var_dump($xmlResponse);
+            throw new Exception('Unexpected response from WCA');
+        }
+
+        return $xmlResponse->Body->RESULT;
+    }
+
+    return $xmlResponse->Body;
+}
+
+public function getApiUrl($endpoint, $jsessionid)
+{
+    return $endpoint . ((null === $jsessionid)
+        ? ''
+        : ';jsessionid=' . urlencode($jsessionid));
+}
+
+ public function xmlToJson($xml)
+{
+    return json_encode($xml);
+}
+
+public function xmlToArray($xml)
+{
+    $json = $this->xmlToJson($xml);
+    return json_decode($json, true);
+}
 
 
 }
