@@ -7,9 +7,6 @@ use Illuminate\Support\Facades\Mail;
 
 
 
- Route::get('epayco/repuesta/{id?}',array('as'=>'epayco.respuesta','uses'=>'YlClientesFrontController@epaycorespuesta'));
-
-
 
 
 //inicio direcciones productos 
@@ -91,6 +88,8 @@ Route::get('admin/estatuspagos/data', 'Admin\AlpEstatusPagosController@data')->n
 Route::get('admin/estatusenvios/data', 'Admin\AlpEstatusEnviosController@data')->name('estatusenvios.data');
 
 Route::get('admin/empresas/data', 'Admin\AlpEmpresasController@data')->name('empresas.data');
+
+Route::get('admin/almacenes/data', 'Admin\AlpAlmacenesController@data')->name('almacenes.data');
 
 Route::get('admin/feriados/data', 'Admin\AlpFeriadosController@data')->name('feriados.data');
 
@@ -628,6 +627,28 @@ Route::resource('facturasmasivas', 'Admin\AlpFacturasController');
     Route::post('transportistas/create', 'Admin\AlpTransportistasController@store');
 
     Route::resource('transportistas', 'Admin\AlpTransportistasController');
+
+
+
+
+     Route::group(['prefix' => 'almacenes'], function () {
+
+        Route::get('{id}/delete', 'Admin\AlpAlmacenesController@destroy')->name('almacenes.delete');
+
+        Route::get('{id}/confirm-delete', 'Admin\AlpAlmacenesController@getModalDelete')->name('almacenes.confirm-delete');
+
+        Route::get('{id}/restore', 'Admin\AlpAlmacenesController@getRestore')->name('almacenes.restore');
+
+        });
+
+    Route::post('almacenes/create', 'Admin\AlpAlmacenesController@store');
+
+    Route::resource('almacenes', 'Admin\AlpAlmacenesController');
+
+
+
+
+
 
 
 
