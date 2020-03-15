@@ -53,7 +53,6 @@ Almacen
                             <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Imagen</th>
                                     <th>Nombre</th>
                                     <th>Descripcion</th>
                                     <th>Estatus</th>

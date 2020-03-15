@@ -57,37 +57,37 @@
                             </ul>
                         </div>
                     @endif
-                    <form enctype="multipart/form-data" class="form-horizontal" role="form" method="post" action="{{ secure_url('admin/empresas/create') }}">
+                    <form enctype="multipart/form-data" class="form-horizontal" role="form" method="POST" action="{{ secure_url('admin/almacenes/create') }}">
                         <!-- CSRF Token -->
 
                         {{ csrf_field() }}
 
                         <div class="form-group {{ $errors->
-                            first('nombre_empresa', 'has-error') }}">
+                            first('nombre_almacen', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
                                 Nombre  Almacen
                             </label>
                             <div class="col-sm-5">
-                                <input type="text" id="nombre_empresa" name="nombre_empresa" class="form-control" placeholder="Nombre de Almacen"
-                                       value="{!! old('nombre_empresa') !!}">
+                                <input type="text" id="nombre_almacen" name="nombre_almacen" class="form-control" placeholder="Nombre de Almacen"
+                                       value="{!! old('nombre_almacen') !!}">
                             </div>
                             <div class="col-sm-4">
-                                {!! $errors->first('nombre_empresa', '<span class="help-block">:message</span> ') !!}
+                                {!! $errors->first('nombre_almacen', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
 
                         <div class="form-group {{ $errors->
-                            first('descripcion_empresa', 'has-error') }}">
+                            first('descripcion_almacen', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
                                 Descripción Almacen
                             </label>
                             <div class="col-sm-5">
                                 
 
-                                <textarea class="form-control resize_vertical" id="descripcion_empresa" name="descripcion_empresa" placeholder="Descripción Almacen" rows="5">{!! old('descripcion_empresa') !!}</textarea>
+                                <textarea class="form-control resize_vertical" id="descripcion_almacen" name="descripcion_almacen" placeholder="Descripción Almacen" rows="5">{!! old('descripcion_almacen') !!}</textarea>
                             </div>
                             <div class="col-sm-4">
-                                {!! $errors->first('descripcion_empresa', '<span class="help-block">:message</span> ') !!}
+                                {!! $errors->first('descripcion_almacen', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
 

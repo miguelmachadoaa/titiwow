@@ -14,7 +14,7 @@ use App\State;
 use App\City;
 
 use App\Models\AlpAlmacenesUser;
-use App\Http\Requests\EmpresaRequest;
+use App\Http\Requests\AlmacenesRequest;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
@@ -78,14 +78,14 @@ class AlpAlmacenesController extends JoshController
            if ($row->estado_registro=='1') {
 
              $estatus=" <div class='estatus_".$row->id."'>
- <button data-url='".secure_url('admin/almacenes/estatus')."' type='buttton' data-id='".$row->id."' data-estatus='0' class='btn btn-xs btn-danger estatus'>Desactivar</button>
-</div>";
+             <button data-url='".secure_url('admin/almacenes/estatus')."' type='buttton' data-id='".$row->id."' data-estatus='0' class='btn btn-xs btn-danger estatus'>Desactivar</button>
+            </div>";
 
-           }else{
+                       }else{
 
-            $estatus="<div class='estatus_".$row->id."'>
-<button data-url='".secure_url('admin/almacenes/estatus')."' type='buttton' data-id='".$row->id."' data-estatus='1' class='btn btn-xs btn-success estatus'>Activar</button>
- </div>";
+                        $estatus="<div class='estatus_".$row->id."'>
+            <button data-url='".secure_url('admin/almacenes/estatus')."' type='buttton' data-id='".$row->id."' data-estatus='1' class='btn btn-xs btn-success estatus'>Activar</button>
+             </div>";
 
            }
 
@@ -103,9 +103,7 @@ class AlpAlmacenesController extends JoshController
                $data[]= array(
                  $row->id, 
                  $row->nombre_almacen, 
-                 $row->descripcion_almacen, 
-                 $row->convenio, 
-                 $row->descuento_empresa, 
+                 $row->descripcion_almacen,
                  $estatus, 
                  $actions
               );
@@ -160,50 +158,44 @@ class AlpAlmacenesController extends JoshController
      *
      * @return Redirect
      */
-    public function store(EmpresaRequest $request)
+    public function store(AlmacenesRequest $request)
     {
 
-         if (Sentinel::check()) {
+        if (Sentinel::check()) {
 
           $user = Sentinel::getUser();
 
-           activity($user->full_name)
-                        ->performedOn($user)
-                        ->causedBy($user)
-                        ->withProperties($request->all())->log('empresas/store ');
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->all())->log('almacenes/store ');
 
         }else{
 
           activity()
-          ->withProperties($request->all())->log('empresas/store');
-
+          ->withProperties($request->all())->log('almacenes/store');
 
         }
         
-         $user_id = Sentinel::getUser()->id;
-
-
+        $user_id = Sentinel::getUser()->id;
 
         $data = array(
-            'nombre_empresa' => $request->nombre_empresa, 
-            'descripcion_empresa' => $request->descripcion_empresa, 
-            'descuento_empresa' => $request->descuento_empresa, 
-            'dominio' => $request->dominio, 
-            'convenio' => $request->convenio, 
+            'nombre_almacen' => $request->nombre_almacen, 
+            'descripcion_almacen' => $request->descripcion_almacen, 
+            'defecto' => $request->defecto, 
+            'id_city' => $request->city_id, 
             'id_user' =>$user_id
         );
          
-        $empresas=AlpAlmacenes::create($data);
-
-
+        $almacen=AlpAlmacenes::create($data);
       
 
-        if ($empresas->id) {
+        if ($almacen->id) {
 
-            return redirect('admin/empresas')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
+            return redirect('admin/almacenes')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
 
         } else {
-            return Redirect::route('admin/empresas')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+            return Redirect::route('admin/almacenes')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
         }  
 
     }
@@ -224,19 +216,29 @@ class AlpAlmacenesController extends JoshController
            activity($user->full_name)
                         ->performedOn($user)
                         ->causedBy($user)
-                        ->withProperties(['id'=>$id])->log('empresas/edit ');
+                        ->withProperties(['id'=>$id])->log('almacen/edit ');
 
         }else{
 
           activity()
-          ->withProperties(['id'=>$id])->log('empresas/edit');
+          ->withProperties(['id'=>$id])->log('almacen/edit');
 
 
         }
        
-       $empresas = AlpAlmacenes::find($id);
+       $almacen = AlpAlmacenes::where('id', $id)->first();
 
-        return view('admin.almacenes.edit', compact('empresas'));
+       $states=State::where('config_states.country_id', '47')->get();
+
+       $city=City::where('id', $almacen->id_city)->first();
+
+      $cities=City::where('state_id', $city->state_id)->get();
+
+
+
+
+
+        return view('admin.almacenes.edit', compact('almacen', 'cities', 'states', 'city'));
     }
 
     /**
@@ -245,7 +247,7 @@ class AlpAlmacenesController extends JoshController
      * @param  int $id
      * @return Redirect
      */
-    public function update(EmpresaRequest $request, $id)
+    public function update(AlmacenesRequest $request, $id)
     {
 
           if (Sentinel::check()) {
@@ -255,62 +257,34 @@ class AlpAlmacenesController extends JoshController
            activity($user->full_name)
                         ->performedOn($user)
                         ->causedBy($user)
-                        ->withProperties($request->all())->log('empresas/update ');
+                        ->withProperties($request->all())->log('almacenes/update ');
 
         }else{
 
           activity()
-          ->withProperties($request->all())->log('empresas/update');
+          ->withProperties($request->all())->log('almacenes/update');
 
 
         }
-
-
-
-
-        if ($request->hasFile('image')) {
-            
-            $file = $request->file('image');
-            $extension = $file->extension()?: 'png';
-            $picture = str_random(10) . '.' . $extension;
-            $destinationPath = public_path('uploads/empresas/' . $picture);    
-            Image::make($file)->resize(400, 400)->save($destinationPath);            
-            $imagen = $picture;
-
-             $data = array(
-            'nombre_empresa' => $request->nombre_empresa, 
-            'descripcion_empresa' => $request->descripcion_empresa,
-            'descuento_empresa' => $request->descuento_empresa,
-            'dominio' => $request->dominio, 
-            'convenio' => $request->convenio, 
-            'imagen' => $imagen
-        );
-
-
-
-        }else{
 
                 $data = array(
-            'nombre_empresa' => $request->nombre_empresa, 
-            'descripcion_empresa' => $request->descripcion_empresa,
-            'dominio' => $request->dominio, 
-            'convenio' => $request->convenio, 
-            'descuento_empresa' => $request->descuento_empresa
+                'nombre_alamcen' => $request->nombre_alamcen, 
+                'descripcion_alamcen' => $request->descripcion_alamcen,
+                'defecto' => $request->defecto, 
+                'id_city' => $request->city_id
                 );
 
-        }
 
-         
-       $empresas = AlpAlmacenes::find($id);
+       $almacen = AlpAlmacenes::find($id);
     
-        $empresas->update($data);
+        $almacen->update($data);
 
-        if ($empresas->id) {
+        if ($almacen->id) {
 
-            return redirect('admin/empresas')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
+            return redirect('admin/almacenes')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
 
         } else {
-            return Redirect::route('admin/empresas')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+            return Redirect::route('admin/almacenes')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
         }  
 
     }

@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Editar Empresa
+Editar Almacen
 @parent
 @stop
 
@@ -21,7 +21,7 @@ Editar Empresa
 @section('content')
 <section class="content-header">
     <h1>
-        Editar Empresa
+        Editar Almacen
     </h1>
     <ol class="breadcrumb">
         <li>
@@ -30,7 +30,7 @@ Editar Empresa
                 Inicio
             </a>
         </li>
-        <li>Empresas</li>
+        <li>Almacens</li>
         <li class="active">Editar</li>
     </ol>
 </section>
@@ -42,153 +42,125 @@ Editar Empresa
             <div class="panel panel-primary ">
                 <div class="panel-heading">
                     <h4 class="panel-title"> <i class="livicon" data-name="wrench" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Editar Empresa
+                       Editar Almacen
                     </h4>
                 </div>
                 <div class="panel-body">
                     
-                        {!! Form::model($empresas, ['url' => secure_url('admin/empresas/'. $empresas->id), 'method' => 'put', 'class' => 'form-horizontal', 'files'=> true]) !!}
+                        {!! Form::model($almacen, ['url' => secure_url('admin/almacenes/'. $almacen->id), 'method' => 'PUT', 'class' => 'form-horizontal', 'files'=> true]) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
 
-                            <input type="hidden" name="id_empresa" id="id_empresa" value="{{$empresas->id}}">
+                            <input type="hidden" name="id_almacen" id="id_almacen" value="{{$almacen->id}}">
                           
+                       
                         <div class="form-group {{ $errors->
-                            first('nombre_empresa', 'has-error') }}">
+                            first('nombre_almacen', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Nombre Empresa
+                                Nombre  Almacen
                             </label>
                             <div class="col-sm-5">
-                                <input type="text" id="nombre_empresa" name="nombre_empresa" class="form-control" placeholder="Nombre de Empresa"
-                                       value="{!! old('nombre_empresa', $empresas->nombre_empresa) !!}">
+                                <input type="text" id="nombre_almacen" name="nombre_almacen" class="form-control" placeholder="Nombre de Almacen"
+                                       value="{!! old('nombre_almacen', $almacen->nombre_almacen) !!}">
                             </div>
                             <div class="col-sm-4">
-                                {!! $errors->first('nombre_empresa', '<span class="help-block">:message</span> ') !!}
+                                {!! $errors->first('nombre_almacen', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
 
                         <div class="form-group {{ $errors->
-                            first('descripcion_empresa', 'has-error') }}">
+                            first('descripcion_almacen', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Descripción Empresa
+                                Descripción Almacen
                             </label>
                             <div class="col-sm-5">
                                 
 
-                                <textarea class="form-control resize_vertical" id="descripcion_empresa" name="descripcion_empresa" placeholder="Descripcion Empresa" rows="5">{!! old('descripcion_empresa', $empresas->descripcion_empresa) !!}</textarea>
+                                <textarea class="form-control resize_vertical" id="descripcion_almacen" name="descripcion_almacen" placeholder="Descripción Almacen" rows="5">{!! old('descripcion_almacen', $almacen->descripcion_almacen) !!}</textarea>
                             </div>
                             <div class="col-sm-4">
-                                {!! $errors->first('descripcion_empresa', '<span class="help-block">:message</span> ') !!}
+                                {!! $errors->first('descripcion_almacen', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
 
-                        <div class="form-group {{ $errors->
-                            first('descuento_empresa', 'has-error') }}">
+
+                         <div class="form-group {{ $errors->
+                            first('state_id', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Descuento Empresa
+                                Departamento
                             </label>
                             <div class="col-sm-5">
-                                <input type="number" min="0" step="0.01" max="100" id="descuento_empresa" name="descuento_empresa" class="form-control" placeholder="Nombre de Empresa"
-                                       value="{!! old('descuento_empresa', $empresas->descuento_empresa) !!}">
+                                
+                                 <select id="state_id" name="state_id" class="form-control select2">
+
+                                    <option value="">Seleccione</option>
+                                    
+                                    @foreach($states as $state)
+
+                                    <option @if($city->state_id==$state->id) {{'Selected'}} @endif  value="{{ $state->id }}">
+
+                                            {{ $state->state_name}}</option>
+
+                                    @endforeach
+                                                        
+                                                      
+                                                    </select>
                             </div>
                             <div class="col-sm-4">
-                                {!! $errors->first('descuento_empresa', '<span class="help-block">:message</span> ') !!}
-                            </div>
-                        </div>
-
-
-                        <div class="form-group col-sm-12  clearfix">
-
-                            <label for="title" class="col-sm-3 col-xs-12 control-label">Imagen </label>
-
-                            <div class="col-sm-9 col-xs-12">
-
-                            <div class="fileinput fileinput-new" data-provides="fileinput">
-
-                                <div class="fileinput-new thumbnail" style="max-width: 200px; max-height: 200px;">
-
-                                    @if($empresas->imagen!='')
-
-                                        <img src="{{URL::to('uploads/sliders/'.$empresas->imagen)}}" class="img-responsive" alt="Image">
-
-                                    @else
-                                        
-                                        <img src="{{ secure_asset('assets/images/authors/no_avatar.jpg') }}" alt="..."
-                                             class="img-responsive"/>
-
-                                    @endif
-
-                                </div>
-
-                                <div class="fileinput-preview fileinput-exists thumbnail"
-                                     style="max-width: 200px; max-height: 150px;">
-                                         
-                                </div>
-
-                                <div>
-                                    <span class="btn btn-primary btn-file">
-
-                                        <span class="fileinput-new">Seleccione Imagen </span>
-
-                                        <span class="fileinput-exists">Cambiar</span>
-
-                                        <input type="file" name="image" id="pic" accept="image/*"/>
-
-                                    </span>
-                                   
-                                    <span class="btn btn-primary fileinput-exists"
-                                          data-dismiss="fileinput">Eliminar</span>
-
-                                </div>
-
-                            </div>
-                            </div>
-
-                        </div>
-
-                        <div class="form-group {{ $errors->
-                            first('dominio', 'has-error') }}">
-                            <label for="title" class="col-sm-2 control-label">
-                                Dominio Empresa
-                            </label>
-                            <div class="col-sm-5">
-                                <input type="text" id="dominio" name="dominio" class="form-control" placeholder="Dominio de Empresa"
-                                       value="{!! old('dominio', $empresas->dominio) !!}">
-                            </div>
-                            <div class="col-sm-4">
-                                {!! $errors->first('dominio', '<span class="help-block">:message</span> ') !!}
+                                {!! $errors->first('state_id', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
 
 
                         <div class="form-group {{ $errors->
-                            first('convenio', 'has-error') }}">
+                            first('city_id', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Convenio
+                                Ciudad
                             </label>
                             <div class="col-sm-5">
-                                <input type="text" id="convenio" name="convenio" class="form-control" placeholder="convenio de Empresa"
-                                       value="{!! old('convenio', $empresas->convenio) !!}">
+                                
+                                 <select  id="city_id" name="city_id" class="form-control select2">
+                                    
+                                    <option value="">Seleccione</option>
+
+
+                                    @foreach($cities as $c)
+
+                                        <option @if($almacen->id_city==$c->id) {{'Selected'}} @endif  value="{{ $c->id }}"> {{ $c->city_name}}</option>
+
+                                    @endforeach
+                                  
+                                </select>
                             </div>
                             <div class="col-sm-4">
-                                {!! $errors->first('convenio', '<span class="help-block">:message</span> ') !!}
+                                {!! $errors->first('city_id', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
 
 
-
-
-
-
-
-
-
+                         <div class="form-group {{ $errors->
+                            first('defecto', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Almacen por Defecto 
+                            </label>
+                            <div class="col-sm-5">
+                                
+                                <select id="defecto" name="defecto" class="form-control select2">
+                                    <option @if($almacen->defecto=='1') {{'Selected'}} @endif value="1">Si</option>
+                                    <option @if($almacen->defecto=='0') {{'Selected'}} @endif value="0">No</option>
+                                                      
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('defecto', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
 
 
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                 
-                                <a class="btn btn-danger" href="{{ route('admin.empresas.index') }}">
+                                <a class="btn btn-danger" href="{{ route('admin.almacenes.index') }}">
                                     Cancelar
                                 </a>
 
@@ -203,6 +175,11 @@ Editar Empresa
             </div>
         </div>
     </div>
+
+    <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+
+
+
     <!-- row-->
 </section>
 
@@ -213,5 +190,40 @@ Editar Empresa
 <script src="{{ secure_asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
 
 <script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
+
+
+
+
+<script>
+    
+
+      $('select[name="state_id"]').on('change', function() {
+                    var stateID = $(this).val();
+                var base = $('#base').val();
+
+                    if(stateID) {
+                        $.ajax({
+                            url: base+'/configuracion/cities/'+stateID,
+                            type: "GET",
+                            dataType: "json",
+                            success:function(data) {
+
+                                
+                                $('select[name="city_id"]').empty();
+                                $.each(data, function(key, value) {
+                                    $('select[name="city_id"]').append('<option value="'+ key+'_'+value +'">'+ value +'</option>');
+                                });
+
+                            }
+                        });
+                    }else{
+                        $('select[name="city_id"]').empty();
+                    }
+                });
+
+
+
+</script>
+
 
 @stop
