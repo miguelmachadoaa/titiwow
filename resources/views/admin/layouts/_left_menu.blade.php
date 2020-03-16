@@ -215,6 +215,20 @@
         @endif
 
 
+         @if (Sentinel::getUser()->hasAnyAccess(['almacenes.*']))
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/almacenes*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.almacenes.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Almcenes
+                </a>
+            </li> 
+        </ul>
+    @endif
+
+
+
+
         
     </ul>
 </li>
@@ -247,7 +261,23 @@
 
     @endif
 
-    @if (Sentinel::getUser()->hasAnyAccess(['formaspago.*']) || Sentinel::getUser()->hasAnyAccess(['configuracion.*']) || Sentinel::getUser()->hasAnyAccess(['estatus.*']) || Sentinel::getUser()->hasAnyAccess(['formasenvio.*']) || Sentinel::getUser()->hasAnyAccess(['rolenvios.*']) || Sentinel::getUser()->hasAnyAccess(['rolpagos.*']) || Sentinel::getUser()->hasAnyAccess(['impuestos.*']) || Sentinel::getUser()->hasAnyAccess(['marcas.*']) || Sentinel::getUser()->hasAnyAccess(['menus.*']) || Sentinel::getUser()->hasAnyAccess(['transportistas.*']) || Sentinel::getUser()->hasAnyAccess(['sedes.*']) || Sentinel::getUser()->hasAnyAccess(['empresas.*']) || Sentinel::getUser()->hasAnyAccess(['cupones.*'])|| Sentinel::getUser()->hasAnyAccess(['documentos.*'])|| Sentinel::getUser()->hasAnyAccess(['sliders.*'])  )
+    @if (
+        Sentinel::getUser()->hasAnyAccess(['formaspago.*']) || 
+        Sentinel::getUser()->hasAnyAccess(['configuracion.*']) || 
+        Sentinel::getUser()->hasAnyAccess(['estatus.*']) || 
+        Sentinel::getUser()->hasAnyAccess(['formasenvio.*']) || 
+        Sentinel::getUser()->hasAnyAccess(['rolenvios.*']) || 
+        Sentinel::getUser()->hasAnyAccess(['rolpagos.*']) || 
+        Sentinel::getUser()->hasAnyAccess(['impuestos.*']) || 
+        Sentinel::getUser()->hasAnyAccess(['marcas.*']) || 
+        Sentinel::getUser()->hasAnyAccess(['menus.*']) || 
+        Sentinel::getUser()->hasAnyAccess(['transportistas.*']) || 
+        Sentinel::getUser()->hasAnyAccess(['sedes.*']) || 
+        Sentinel::getUser()->hasAnyAccess(['empresas.*']) || 
+        Sentinel::getUser()->hasAnyAccess(['cupones.*'])|| 
+        Sentinel::getUser()->hasAnyAccess(['documentos.*'])||
+        Sentinel::getUser()->hasAnyAccess(['sliders.*'])  
+        )
 
 
 
@@ -269,6 +299,10 @@
             </li> 
         </ul>
     @endif
+
+   
+
+
 
     @if (Sentinel::getUser()->hasAnyAccess(['sliders.*']))
         <ul class="sub-menu">

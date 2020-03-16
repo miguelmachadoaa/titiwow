@@ -6,6 +6,8 @@ use App\Http\Controllers\JoshController;
 use App\Models\AlpTDocumento;
 use App\Models\AlpEstructuraAddress;
 use App\Models\AlpAlmacenes;
+use App\Models\AlpAlmacenProducto;
+use App\Models\AlpProductos;
 use App\Models\AlpClientes;
 use App\Models\AlpAmigos;
 use App\Models\AlpPrecioGrupo;
@@ -89,15 +91,18 @@ class AlpAlmacenesController extends JoshController
 
            }
 
-        $actions = "    <a href='".secure_url('admin/almacenes/'.$row->id.'/edit')."'>
-                                                <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Editar Empresa'></i>
-                                            </a>  <a href='".secure_url('admin/almacenes/'.$row->id.'/confirm-delete')."' data-toggle='modal' data-target='#delete_confirm'>
-                                            <i class='livicon' data-name='remove-alt' data-size='18'
-                                                data-loop='true' data-c='#f56954' data-hc='#f56954'
-                                                title='Eliminar'></i>
-                                             </a>";
+        $actions = " 
+              <a href='".secure_url('admin/almacenes/'.$row->id.'/gestionar')."'>
+                              <i class='livicon' data-name='gears' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Editar Empresa'></i>
+                      </a>
 
-                
+              <a href='".secure_url('admin/almacenes/'.$row->id.'/edit')."'>
+                              <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Editar Empresa'></i>
+                      </a>  
+                      <a href='".secure_url('admin/almacenes/'.$row->id.'/confirm-delete')."' data-toggle='modal' data-target='#delete_confirm'> <i class='livicon' data-name='remove-alt' data-size='18'
+                        data-loop='true' data-c='#f56954' data-hc='#f56954' title='Eliminar'></i>
+
+                      </a>";
 
 
                $data[]= array(
@@ -113,15 +118,7 @@ class AlpAlmacenesController extends JoshController
           return json_encode( array('data' => $data ));
           
       }
-
-
-  
-
-    /**
-     * Group create.
-     *
-     * @return View
-     */
+ 
     public function create()
     {
 
@@ -233,9 +230,6 @@ class AlpAlmacenesController extends JoshController
        $city=City::where('id', $almacen->id_city)->first();
 
       $cities=City::where('state_id', $city->state_id)->get();
-
-
-
 
 
         return view('admin.almacenes.edit', compact('almacen', 'cities', 'states', 'city'));
@@ -354,6 +348,96 @@ class AlpAlmacenesController extends JoshController
             // Redirect to the group management page
             return Redirect::route('admin.almacenes.index')->with('error', trans('Error al eliminar el registro'));
         }
+    }
+
+
+
+     public function gestionar($id)
+    {
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('almacen/edit ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('almacen/edit');
+
+        }
+
+       
+       $productos = AlpProductos::get();
+
+       $almacen = AlpAlmacenes::where('id', $id)->first();
+
+       $cs=AlpAlmacenProducto::where('id_almacen', $id)->get();
+
+       $check = array();
+
+
+       foreach ($cs as $c) {
+
+        $check[$c->id_producto]=1;
+         # code...
+       }
+
+
+
+        return view('admin.almacenes.gestionar', compact('almacen', 'productos', 'check'));
+    }
+
+
+     public function postgestionar(Request $request, $id)
+    {
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+              ->performedOn($user)
+              ->causedBy($user)
+              ->withProperties(['id'=>$id])->log('almacen/postgestionar ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('almacen/postgestionar');
+
+        }
+
+        $input=$request->all();
+
+        //dd($input);
+
+        AlpAlmacenProducto::where('id_almacen', '=', $id)->delete();
+
+        foreach ($input as $key => $value) {
+          
+
+          if (substr($key, 0, 2)=='p_') {
+
+            #echo $key.':'.$value.'<br>';
+
+            $par=explode('p_', $key);
+
+            $data = array(
+              'id_producto' => $par[1], 
+              'id_almacen' => $id, 
+              'id_user' => $user->id, 
+            );
+
+            AlpAlmacenProducto::create($data);
+            
+          }
+
+        }
+       
+        return Redirect::route('admin.almacenes.index')->with('success', trans('Se ha creado satisfactoriamente'));
     }
 
  
