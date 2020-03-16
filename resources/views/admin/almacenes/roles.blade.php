@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Editar Almacen
+Gestionar Roles Almacen
 @parent
 @stop
 
@@ -21,7 +21,7 @@ Editar Almacen
 @section('content')
 <section class="content-header">
     <h1>
-        Gestionar Almacen
+        Gestionar Roles Almacen
     </h1>
     <ol class="breadcrumb">
         <li>
@@ -31,7 +31,7 @@ Editar Almacen
             </a>
         </li>
         <li>Almacens</li>
-        <li class="active">Gestionar</li>
+        <li class="active">Gestionar Roles</li>
     </ol>
 </section>
 
@@ -42,12 +42,12 @@ Editar Almacen
             <div class="panel panel-primary ">
                 <div class="panel-heading">
                     <h4 class="panel-title"> <i class="livicon" data-name="wrench" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Gestionar Almacen
+                       Gestionar Roles del Almacen
                     </h4>
                 </div>
                 <div class="panel-body">
                     
-                        {!! Form::model($almacen, ['url' => secure_url('admin/almacenes/'. $almacen->id.'/postgestionar'), 'method' => 'POST', 'class' => 'form-horizontal', 'files'=> true]) !!}
+                        {!! Form::model($almacen, ['url' => secure_url('admin/almacenes/'. $almacen->id.'/postroles'), 'method' => 'POST', 'class' => 'form-horizontal', 'files'=> true]) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
 
@@ -58,7 +58,7 @@ Editar Almacen
                                 </div>
                             </div>
 
-                        @foreach($productos as $p)
+                        @foreach($roles as $p)
 
                         <div class="row">
                             <div class="col-sm-12">
@@ -71,7 +71,7 @@ Editar Almacen
                                       @if(isset($check[$p->id]))
                                             {{'checked'}}
                                       @endif
-                                      type="checkbox" > {{$p->nombre_producto.' REF.:'.$p->referencia_producto}}
+                                      type="checkbox" > {{$p->name}}
                                     </label>
                                   </div>
                                 
@@ -81,7 +81,7 @@ Editar Almacen
                         @endforeach
 
                        <div class="form-group">
-                            <div class="col-sm-4" style="margin-top: 2em;">
+                            <div class=" col-sm-6" style="margin-top: 2em;">
                                 
                                 <a class="btn btn-danger" href="{{ route('admin.almacenes.index') }}">
                                     Cancelar

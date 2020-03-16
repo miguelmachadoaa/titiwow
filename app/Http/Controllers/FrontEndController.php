@@ -26,6 +26,9 @@ use App\Models\AlpInventario;
 use App\Models\AlpOrdenesDescuento;
 use App\Models\AlpCombosProductos;
 use App\Models\AlpClientesHistory;
+use App\Models\AlpAlmacenes;
+use App\Models\AlpAlmacenRol;
+use App\Models\AlpAlmacenProducto;
 use App\User;
 use App\State;
 use App\RoleUser;
@@ -155,6 +158,33 @@ class FrontEndController extends JoshController
     
     public function home()
     {
+
+      if(Sentinel::guest()){
+
+        $almacen=AlpAlmacenes::where('defecto', '1')->first();
+
+      }else{
+
+        $user=Sentinel::getUser();
+
+        $role=RoleUser::where('user_id', $user_id)->first();
+
+        $almacen=AlpAlmacenes::where('id_rol', $role->role_id)->first();
+
+        if (isset($almacen->id)) {
+          # code...
+        }else{
+
+           $almacen=AlpAlmacenes::where('defecto', '1')->first();
+
+        }
+
+      }
+
+
+
+
+
         $descuento='1'; 
 
         $clientIP = \Request::getClientIp(true);
@@ -168,7 +198,7 @@ class FrontEndController extends JoshController
         $productos = DB::table('alp_productos')->select('alp_productos.*')->where('destacado','=', 1)->where('alp_productos.estado_registro','=',1)
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
-        ->where('alp_almacenes.defecto', '=', 1)
+        ->where('alp_almacenes.id', '=', $almacen->id)
         ->orderBy('order', 'asc')
         
         ->orderBy('updated_at', 'desc')
@@ -1450,16 +1480,16 @@ public function getApiUrl($endpoint, $jsessionid)
         : ';jsessionid=' . urlencode($jsessionid));
 }
 
- public function xmlToJson($xml)
-{
-    return json_encode($xml);
-}
+   public function xmlToJson($xml)
+  {
+      return json_encode($xml);
+  }
 
-public function xmlToArray($xml)
-{
-    $json = $this->xmlToJson($xml);
-    return json_decode($json, true);
-}
+  public function xmlToArray($xml)
+  {
+      $json = $this->xmlToJson($xml);
+      return json_decode($json, true);
+  }
 
 
 }

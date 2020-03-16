@@ -7,6 +7,7 @@ use App\Models\AlpTDocumento;
 use App\Models\AlpEstructuraAddress;
 use App\Models\AlpAlmacenes;
 use App\Models\AlpAlmacenProducto;
+use App\Models\AlpAlmacenRol;
 use App\Models\AlpProductos;
 use App\Models\AlpClientes;
 use App\Models\AlpAmigos;
@@ -95,6 +96,15 @@ class AlpAlmacenesController extends JoshController
               <a href='".secure_url('admin/almacenes/'.$row->id.'/gestionar')."'>
                               <i class='livicon' data-name='gears' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Editar Empresa'></i>
                       </a>
+
+
+                      <a href='".secure_url('admin/almacenes/'.$row->id.'/roles')."'>
+                              <i class='livicon' data-name='users' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Editar Empresa'></i>
+                      </a>
+
+
+
+                      
 
               <a href='".secure_url('admin/almacenes/'.$row->id.'/edit')."'>
                               <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Editar Empresa'></i>
@@ -287,7 +297,7 @@ class AlpAlmacenesController extends JoshController
           
         }
 
-        
+
 
                 $data = array(
                 'nombre_alamcen' => $request->nombre_alamcen, 
@@ -468,7 +478,97 @@ class AlpAlmacenesController extends JoshController
         return Redirect::route('admin.almacenes.index')->with('success', trans('Se ha creado satisfactoriamente'));
     }
 
- 
+
+
+
+     public function roles($id)
+    {
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('almacen/roles ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('almacen/roles');
+
+        }
+
+
+        $roles = Sentinel::getRoleRepository()->all();
+
+
+       
+
+       $almacen = AlpAlmacenes::where('id', $id)->first();
+
+       $cs=AlpAlmacenRol::where('id_almacen', $id)->get();
+
+       $check = array();
+
+
+       foreach ($cs as $c) {
+
+        $check[$c->id_rol]=1;
+         # code...
+       }
+
+        return view('admin.almacenes.roles', compact('almacen', 'roles', 'check'));
+    }
+
+
+     public function postroles(Request $request, $id)
+    {
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+              ->performedOn($user)
+              ->causedBy($user)
+              ->withProperties(['id'=>$id])->log('almacen/postroles ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('almacen/postroles');
+
+        }
+
+        $input=$request->all();
+
+
+        AlpAlmacenRol::where('id_almacen', '=', $id)->delete();
+
+        foreach ($input as $key => $value) {
+          
+
+          if (substr($key, 0, 2)=='p_') {
+
+            #echo $key.':'.$value.'<br>';
+
+            $par=explode('p_', $key);
+
+            $data = array(
+              'id_rol' => $par[1], 
+              'id_almacen' => $id, 
+              'id_user' => $user->id, 
+            );
+
+            AlpAlmacenRol::create($data);
+            
+          }
+
+        }
+       
+        return Redirect::route('admin.almacenes.index')->with('success', trans('Se ha creado satisfactoriamente'));
+    }
+
 
 
 }

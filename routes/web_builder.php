@@ -647,6 +647,10 @@ Route::resource('facturasmasivas', 'Admin\AlpFacturasController');
 
     Route::post('almacenes/{id}/postgestionar', 'Admin\AlpAlmacenesController@postgestionar');
 
+    Route::get('almacenes/{id}/roles', 'Admin\AlpAlmacenesController@roles');
+
+    Route::post('almacenes/{id}/postroles', 'Admin\AlpAlmacenesController@postroles');
+
     Route::resource('almacenes', 'Admin\AlpAlmacenesController');
 
 
