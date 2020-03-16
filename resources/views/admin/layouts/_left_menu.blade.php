@@ -8,6 +8,15 @@
         </a>
     </li>
 
+
+    <li {!! (Request::is('admin/almacenes') ? 'class="active"' : '') !!}>
+        <a href="{{  URL::to('admin/almacenes') }}">
+            <i class="livicon" data-name="dashboard" data-size="18" data-c="#EF6F6C" data-hc="#EF6F6C"
+               data-loop="true"></i>
+            Almacenes
+        </a>
+    </li>
+
     @if (Sentinel::getUser()->hasAnyAccess(['ordenes.*']))
 
      <li class="{{ Request::is('admin/ordenes*') ? 'active' : '' }}">
@@ -220,7 +229,7 @@
             <li {!! (Request::is('admin/almacenes*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.almacenes.index') !!}">
                     <i class="fa fa-angle-double-right"></i>
-                    Almcenes
+                    Almacenes
                 </a>
             </li> 
         </ul>

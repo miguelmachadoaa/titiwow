@@ -176,6 +176,19 @@ class AlpAlmacenesController extends JoshController
         
         $user_id = Sentinel::getUser()->id;
 
+        if ($request->defecto=='1') {
+
+          $as=AlpAlmacenes::get();
+
+          foreach ($as as $a) {
+
+            $a->update(['defecto'=>'0']);
+            # code...
+          }
+
+          
+        }
+
         $data = array(
             'nombre_almacen' => $request->nombre_almacen, 
             'descripcion_almacen' => $request->descripcion_almacen, 
@@ -260,6 +273,21 @@ class AlpAlmacenesController extends JoshController
 
 
         }
+
+         if ($request->defecto=='1') {
+
+          $as=AlpAlmacenes::get();
+
+          foreach ($as as $a) {
+
+            $a->update(['defecto'=>'0']);
+            # code...
+          }
+
+          
+        }
+
+        
 
                 $data = array(
                 'nombre_alamcen' => $request->nombre_alamcen, 
