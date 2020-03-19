@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\AlpSaldo;
+use App\Models\AlpClientes;
 use App\Models\User;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
@@ -18,33 +19,42 @@ class SaldoImport implements ToCollection
 
         $fecha_vencimiento= \Session::get('fecha_vencimiento');
 
+        $i=0;
+
         foreach ($rows as $row) 
         {
 
-            dd($row);
+            if ($i==0) {
+                # code...
+            }else{
 
-            $datos[]=$row;
+                //dd($row);
 
-            if ($row[0]!=NULL) {
+                $c=AlpClientes::where('doc_cliente', '=', $row[1])->first();
 
-                if ($row[1]!=0) {
-                   
-                        $data = array(
-                            '' => , 
-                        );
+                if (isset($c->id)) {
+
+                    $data = array(
+
+                        'id_cliente' => $c->id_user_client, 
+                        'saldo' => $row[10], 
+                        'operacion' => '1', 
+                        'fecha_vencimiento' => $fecha_vencimiento, 
+                        'id_user' => $user_id
+                    );
+
+                    AlpSaldo::create($data);
+
+                    # code...
                 }
 
-            }//if row->0 != NULL
+                
 
+            }
+
+            
+            $i++;
         }//endforeach
-
-        $data_carga = array(
-            'data_subida' => json_encode($datos), 
-            'data_respaldo' => json_encode($productos), 
-            'id_user' => $user_id, 
-        );
-
-        AlpCarga::create($data_carga);
 
     }
   

@@ -78,7 +78,6 @@ class BucaramangaImport implements ToCollection
 
                 AlpDirecciones::create($direccion);
 
-
            }
 
             
