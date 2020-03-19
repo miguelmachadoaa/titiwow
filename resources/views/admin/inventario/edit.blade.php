@@ -187,6 +187,7 @@ Agregar Inventario
                                     <th>SKU</th>
                                     <th>Operacion</th>
                                     <th>Cantidad</th>
+                                    <th>Almacen</th>
                                     <th>Usuario</th>
                                     <th>Orden</th>
                                     <th>Creado</th>
@@ -214,6 +215,7 @@ Agregar Inventario
 
                                     </td>
                                     <td>{{$movimiento->cantidad}}</td>
+                                    <td>{{$movimiento->nombre_almacen}}</td>
                                     <td>{{$movimiento->first_name.' '.$movimiento->last_name}}</td>
 
                                     @if(isset($movimiento->orden))
