@@ -244,6 +244,14 @@
 
 @endif
 
+ <li {!! (Request::is('admin/almacenes') ? 'class="active"' : '') !!}>
+        <a href="{{  URL::to('admin/almacenes') }}">
+            <i class="livicon" data-name="dashboard" data-size="18" data-c="#EF6F6C" data-hc="#EF6F6C"
+               data-loop="true"></i>
+            Almacenes
+        </a>
+    </li>
+
 
     @if (Sentinel::getUser()->hasAnyAccess(['envios.*']))
 
