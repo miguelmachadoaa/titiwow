@@ -71,11 +71,11 @@ class AlpInventarioController extends JoshController
                 $actions = "  <a class='btn btn-xs btn-info' href='".secure_url('admin/inventario/'.$row->id.'/edit')."'> Gestionar  </a>";
 
                 if ($row->estado_registro == 1) {
-              $estado="<span  class='alert-alert-primary' style='font-size: 12px !important;' >Activo</span>";
+              $estado="<span  class='btn btn-xs btn-primary' style='font-size: 12px !important;' >Activo</span>";
             }
 
             if ($row->estado_registro == 2) {
-              $estado="<span   class='alert alert-danger' style='font-size: 12px !important;'>Inactivo</span>";
+              $estado="<span   class='btn btn-xs btn-danger' style='font-size: 12px !important;'>Inactivo</span>";
             }
 
             if (isset($inventario[$row->id][$row->id_almacen])) {

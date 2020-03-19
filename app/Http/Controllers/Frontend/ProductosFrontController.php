@@ -1309,13 +1309,15 @@ class ProductosFrontController extends Controller
     /*Fin CMS */
 
 
-     private function inventario()
+    private function inventario()
     {
        
+       $id_almacen=$this->getAlmacen();
 
       $entradas = AlpInventario::groupBy('id_producto')
               ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
               ->where('alp_inventarios.operacion', '1')
+              ->where('alp_inventarios.id_almacen', '=', $id_almacen)
               ->get();
 
               $inv = array();
@@ -1330,6 +1332,7 @@ class ProductosFrontController extends Controller
             $salidas = AlpInventario::select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
               ->groupBy('id_producto')
               ->where('operacion', '2')
+              ->where('alp_inventarios.id_almacen', '=', $id_almacen)
               ->get();
 
               foreach ($salidas as $row) {

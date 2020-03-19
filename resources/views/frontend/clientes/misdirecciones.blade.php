@@ -434,7 +434,7 @@
                                         @endforeach
                                     </select>
 
-                                    {!! $errors->first('state_id', '<span class="help-block">:message</span>') !!}
+                                    {!! $errors->first('edit_state_id', '<span class="help-block">:message</span>') !!}
                                 </div>
 
                                 <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('city_id', 'has-error') }}">
@@ -451,7 +451,7 @@
 
                                     </select>
 
-                                    {!! $errors->first('city_id', '<span class="help-block">:message</span>') !!}
+                                    {!! $errors->first('edit_city_id', '<span class="help-block">:message</span>') !!}
 
                                 </div>
 
@@ -929,6 +929,33 @@ $('.delDireccion').click(function () {
                         $('select[name="city_id"]').empty();
                     }
                 });
+
+
+            $('select[name="edit_state_id"]').on('change', function() {
+                    var stateID = $(this).val();
+                var base = $('#base').val();
+
+                    if(stateID) {
+                        $.ajax({
+                            url: base+'/configuracion/cities/'+stateID,
+                            type: "GET",
+                            dataType: "json",
+                            success:function(data) {
+
+                                
+                                $('select[name="edit_city_id"]').empty();
+                                $.each(data, function(key, value) {
+                                    $('select[name="edit_city_id"]').append('<option value="'+ key +'">'+ value +'</option>');
+                                });
+
+                            }
+                        });
+                    }else{
+                        $('select[name="edit_city_id"]').empty();
+                    }
+                });
+
+
             //fin select ciudad
         });
     </script>
