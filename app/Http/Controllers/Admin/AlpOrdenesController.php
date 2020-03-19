@@ -769,6 +769,7 @@ class AlpOrdenesController extends JoshController
           ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
           ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
           ->where('alp_ordenes.estatus', '1')
+          ->where('alp_ordenes.id_forma_pago', '<>', '3')
           ->groupBy('alp_ordenes.id')
           ->get();
 
