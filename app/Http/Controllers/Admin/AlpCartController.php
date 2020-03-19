@@ -3359,9 +3359,11 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
      $id_almacen=$this->getAlmacen();
 
 
+
+
       $total=0;
 
-      $cambio=0;
+      $cambio=1;
 
       $descuento='1'; 
 
@@ -3471,6 +3473,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
 
         $almp=AlpAlmacenProducto::where('id_almacen', $id_almacen)->where('id_producto', $producto->id)->first();
+
+        //dd($almp);
 
         if (isset($almp->id)) {
 
