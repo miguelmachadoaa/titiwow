@@ -51,19 +51,15 @@ class ClientesFrontController extends Controller
 
             $role=RoleUser::where('user_id', $user_id)->first();
 
-            //dd($role);
 
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
 
-           // dd($cliente);
 
                 if (!is_null($cliente)) {
 
                     if ($cliente->id_empresa!=0) {
                         
                         $empresa=AlpEmpresas::find($cliente->id_empresa);
-
-                       // dd($empresa);
 
                         $cliente['nombre_empresa']=$empresa->nombre_empresa;
                         $cliente['imagen_empresa']=$empresa->imagen;
@@ -115,8 +111,6 @@ class ClientesFrontController extends Controller
             ->groupBy('alp_puntos.id_cliente')
             ->first();
 
-
-
                 if (isset($puntos_cliente->id)) {
 
 
@@ -153,7 +147,14 @@ class ClientesFrontController extends Controller
 
             $rol=Roles::where('id', $role->role_id)->first();
 
-            return \View::make('frontend.clientes.index', compact( 'cliente', 'user', 'states', 'cart', 'puntos', 'role', 'rol'));
+            $direccion = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+          ->where('alp_direcciones.id_client', $user_id)->first();
+
+            return \View::make('frontend.clientes.index', compact( 'cliente', 'user', 'states', 'cart', 'puntos', 'role', 'rol', 'direccion'));
     
             }else{
 
@@ -291,39 +292,53 @@ class ClientesFrontController extends Controller
         $editar=1;
 
         
+        if (isset($direccion->id)) {
+            # code...
+            if ($direccion->editar_direccion==1) {
+                
 
-        if ($direccion->editar_direccion==1) {
-            
+                if (isset($direccion->updated_at)) {
 
-            if (isset($direccion->updated_at)) {
-
-                    $editar=0;
-
-
-                 $dt = new Carbon($direccion->updated_at);
-
-                if ($dt->diffInHours()>24) {
-
-                } else{
-
-                    $editar=0;
+                        $editar=0;
 
 
+                     $dt = new Carbon($direccion->updated_at);
 
+                    if ($dt->diffInHours()>24) {
+
+                    } else{
+
+                        $editar=0;
+
+
+
+                    }
+                    # code...
+                }else{
+
+                    $editar=1;
                 }
-                # code...
-            }else{
 
-                $editar=1;
             }
 
         }
 
 
 
+
             $states=State::where('config_states.country_id', '47')->get();
 
+        if (isset($direccion->id)) {
+
             $cities=City::where('state_id', $direccion->state_id)->get();
+
+        }else{
+
+            $cities=City::get();
+        }
+
+
+            
 
             $t_documento = AlpTDocumento::where('estado_registro','=',1)->get();
 

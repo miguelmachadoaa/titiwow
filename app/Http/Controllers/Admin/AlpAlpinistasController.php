@@ -164,10 +164,13 @@ class AlpAlpinistasController extends Controller
 
     public function import(Request $request) 
     {
+
         $archivo = $request->file('file_alpinistas');
+
         Excel::import(new AlpinistasImport, $archivo);
         
         return redirect('admin/alpinistas')->with('success', 'Alpinistas Cargados Exitosamente');
+        
     }
 
     public function retiro(Request $request) 

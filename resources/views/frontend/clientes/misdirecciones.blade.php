@@ -88,10 +88,31 @@
     <hr>
 
     <div class="row">
+
+
     
         <br>
 
         <div class="col-sm-12" style="text-align: right;">
+
+        @if(isset($direccion->id))
+
+        @else
+
+         <div class="row">
+            <div class="col-sm-12">
+                
+                <div class="alert alert-danger">
+                    Antes de Continuar con el proceso de compra, por favor crea una nueva dirección de envio</a>.
+                </div>  
+
+            </div>
+        </div>
+
+
+        @endif
+
+
 
             <button type="button" class="btn btn-raised btn-primary md-trigger showAddAddress" data-toggle="modal" data-target="#modal-21">Agregar Nueva Dirección </button>
 
@@ -274,7 +295,7 @@
 
                 @else
 
-                    <div class="alert alert-danger">Debe Esperar 24 horas para editar la dirección</div>
+                    <!--div class="alert alert-danger">Debe Esperar 24 horas para editar la dirección</div-->
 
                 @endif
 

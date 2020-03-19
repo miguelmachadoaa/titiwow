@@ -623,6 +623,7 @@ class FrontEndController extends JoshController
                       Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $configuracion->mensaje_bienvenida, $roleusuario ));
 
                       Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $configuracion->mensaje_bienvenida, $roleusuario ));
+
                     }else{
 
                         return redirect('registro')->with('error', trans('auth/message.failure.error'))->withInput();
@@ -1507,7 +1508,7 @@ public function getApiUrl($endpoint, $jsessionid)
  private function getAlmacen(){
 
 
-        if (isset(Sentinel::getUser()->id)) {
+      if (isset(Sentinel::getUser()->id)) {
         # code...
 
 
@@ -1528,6 +1529,8 @@ public function getApiUrl($endpoint, $jsessionid)
           ->where('alp_direcciones.id_client', $user_id)
           ->where('alp_direcciones.default_address', '=', '1')
           ->first();
+
+          //dd($d);
 
 
           if (isset($d->id)) {
@@ -1574,6 +1577,11 @@ public function getApiUrl($endpoint, $jsessionid)
               }
 
 
+            }else{
+
+              $almacen=AlpAlmacenes::where('defecto', '1')->first();
+
+              $id_almacen=$almacen->id;
             }
         }
 
@@ -1582,7 +1590,7 @@ public function getApiUrl($endpoint, $jsessionid)
 
           $almacen=AlpAlmacenes::where('defecto', '1')->first();
 
-                $id_almacen=$almacen->id;
+          $id_almacen=$almacen->id;
         
       }
 

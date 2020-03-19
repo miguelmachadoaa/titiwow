@@ -616,6 +616,21 @@
                 </li>
 
 
+                <li {!! (Request::is('admin/users/cargar') ? 'class="active" id="active"' : '') !!}>
+                    <a href="{{ URL::to('admin/users/cargar') }}">
+                        <i class="fa fa-angle-double-right"></i>
+                        Cargar usuarios
+                    </a>
+                </li>
+
+
+                <li {!! (Request::is('admin/users/cargarsaldo') ? 'class="active" id="active"' : '') !!}>
+                    <a href="{{ URL::to('admin/users/cargarsaldo') }}">
+                        <i class="fa fa-angle-double-right"></i>
+                        Cargar Saldo Usuarios
+                    </a>
+                </li>
+
             </ul>
         </li>
 

@@ -19,6 +19,10 @@ use DB;
 use Validator;
 use View;
 use Yajra\DataTables\DataTables;
+use App\Imports\BucaramangaImport;
+use Maatwebsite\Excel\Facades\Excel;
+
+
 
 
 class UsersController extends JoshController
@@ -506,4 +510,80 @@ class UsersController extends JoshController
             return 'error';
         }
     }
+
+
+
+
+     public function cargar()
+    {
+        // Get all the available groups
+        $groups = Sentinel::getRoleRepository()->all();
+
+        $groups = DB::table('roles')->whereIn('roles.id', [1,2,3,4,5,6,7,8,13])->get();
+
+        $countries = $this->countries;
+        // Show the page
+        return view('admin.users.cargar', compact('groups', 'countries'));
+    }
+
+    /**
+     * User create form processing.
+     *
+     * @return Redirect
+     */
+    public function import(Request $request)
+    {
+
+        $input=$request->all();
+
+        //dd($input);
+
+         $archivo = $request->file('file_alpinistas');
+
+        Excel::import(new BucaramangaImport, $archivo);
+        
+        return redirect('admin/users')->with('success', 'Clientes Cargados Exitosamente');
+
+    }
+
+
+    public function cargarsaldo()
+    {
+        // Get all the available groups
+        $groups = Sentinel::getRoleRepository()->all();
+
+        $groups = DB::table('roles')->whereIn('roles.id', [1,2,3,4,5,6,7,8,13])->get();
+
+        $countries = $this->countries;
+        // Show the page
+        return view('admin.users.cargarsaldo', compact('groups', 'countries'));
+    }
+
+    /**
+     * User create form processing.
+     *
+     * @return Redirect
+     */
+    public function importsaldo(Request $request)
+    {
+
+        $input=$request->all();
+
+        \Session::put('fecha_vencimiento', $request->fecha_vencimiento);
+
+        dd($input);
+
+         $archivo = $request->file('file_alpinistas');
+
+        Excel::import(new SaldoImport, $archivo);
+        
+        return redirect('admin/users')->with('success', 'Clientes Cargados Exitosamente');
+
+    }
+
+
+
+
+
+
 }

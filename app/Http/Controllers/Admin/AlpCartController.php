@@ -107,7 +107,6 @@ class AlpCartController extends JoshController
     public function show()
     {
 
-
       $states=State::where('config_states.country_id', '47')->get();
 
       $cart=$this->reloadCart();
@@ -267,6 +266,12 @@ class AlpCartController extends JoshController
       }
 
       $inventario=$this->inventario();
+
+
+
+
+
+
 
 
       return view('frontend.cart', compact('cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario'));
@@ -1332,6 +1337,11 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
               if (isset($d->id)) {
             
                   \Session::put('direccion', $d->id);
+
+              }else{
+
+                return redirect('misdirecciones')->withInput()->with('error', trans('Debes crear una dirección para continuar con el proceso.'));
+
 
               }
 
@@ -3298,89 +3308,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       $s_user= \Session::get('user');
 
-      if (isset(Sentinel::getUser()->id)) {
-        # code...
-
-
-      $user_id = Sentinel::getUser()->id;
-
-      $usuario=User::where('id', $user_id)->first();
-
-      $user_cliente=User::where('id', $user_id)->first();
-
-      $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
-
-
-      $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-          ->where('alp_direcciones.id_client', $user_id)
-          ->where('alp_direcciones.default_address', '=', '1')
-          ->first();
-
-
-          if (isset($d->id)) {
-              
-              $almacen=AlpAlmacenes::where('id_city', $d->city_id)->first();
-
-              if (isset($almacen->id)) {
-                
-                $id_almacen=$almacen->id;
-
-              }else{
-
-                $almacen=AlpAlmacenes::where('defecto', '1')->first();
-
-                $id_almacen=$almacen->id;
-
-              }
-
-          }else{
-
-              $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-            ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-            ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-            ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-            ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-            ->where('alp_direcciones.id_client', $user_id)
-            ->first();
-
-
-            if (isset($d->id)) {
-                        
-                $almacen=AlpAlmacenes::where('id_city', $d->city_id)->first();
-
-              if (isset($almacen->id)) {
-                
-                $id_almacen=$almacen->id;
-
-              }else{
-
-                $almacen=AlpAlmacenes::where('defecto', '1')->first();
-
-                $id_almacen=$almacen->id;
-
-              }
-
-
-            }
-        }
-
-
-        }else{
-
-          $almacen=AlpAlmacenes::where('defecto', '1')->first();
-
-          $id_almacen=$almacen->id;
-        
-      }
-
-
-
-
-
+     $id_almacen=$this->getAlmacen();
 
 
       $total=0;
@@ -5103,10 +5031,10 @@ public function addcupon(Request $request)
     }
 
 
-     private function getAlmacen(){
+   private function getAlmacen(){
 
 
-        if (isset(Sentinel::getUser()->id)) {
+      if (isset(Sentinel::getUser()->id)) {
         # code...
 
 
@@ -5127,6 +5055,8 @@ public function addcupon(Request $request)
           ->where('alp_direcciones.id_client', $user_id)
           ->where('alp_direcciones.default_address', '=', '1')
           ->first();
+
+          //dd($d);
 
 
           if (isset($d->id)) {
@@ -5173,6 +5103,11 @@ public function addcupon(Request $request)
               }
 
 
+            }else{
+
+              $almacen=AlpAlmacenes::where('defecto', '1')->first();
+
+              $id_almacen=$almacen->id;
             }
         }
 
@@ -5181,7 +5116,7 @@ public function addcupon(Request $request)
 
           $almacen=AlpAlmacenes::where('defecto', '1')->first();
 
-                $id_almacen=$almacen->id;
+          $id_almacen=$almacen->id;
         
       }
 

@@ -108,12 +108,12 @@ Area clientes
 
             @endif
 
-            @if($role->role_id==10)
+            @if($role->role_id==10 || $role->role_id==14)
 
-            <h4>Bienvenido a AlpinaGo, ya eres un Embajador Alpina. Invita a tus Amigos y familiares para empezar a disfrutar de nuestro producto.</h4>
+                <h4>Bienvenido a AlpinaGo, ya eres un Embajador Alpina. Invita a tus Amigos y familiares para empezar a disfrutar de nuestro producto.</h4>
 
-            <h4>   <span><{{$user->first_name.' '.$user->last_name}}/span> </h4>
-        <h4> Perteneces al rol:  <span>{{$rol->name}}</span> </h4>
+                <h4>   <span><{{$user->first_name.' '.$user->last_name}}/span> </h4>
+            <h4> Perteneces al rol:  <span>{{$rol->name}}</span> </h4>
 
              
 
@@ -134,19 +134,27 @@ Area clientes
 
         @endif
 
+
         </div>
-        <!--@if(isset($puntos['nivel']))
 
-            <div class="alert alert-default">
+         @if(isset($direccion->id))
+
+        @else
+
+         <div class="row">
+            <div class="col-sm-12">
                 
-                <h4>Usted acumula compras este mes por  {{ $puntos['puntos'] }} COP</h4>
+                <div class="alert alert-danger">
+                    Antes de Continuar con el proceso de compra, por favor has <a href="{{secure_url('my-account')}}">click aqui</a> para actualizar tus datos y crea una dirección de envio <a href="{{secure_url('misdirecciones')}}"> Aqui</a>.
+                </div>  
 
-                <h4>Lo que lo ubica en el nivel {{ $puntos['nivel'] }} con una comision de {{ $puntos['porcentaje']*100 }}%</h4>
-
-                <h4>Usted acumula una comision ganada de  {{ $puntos['puntos']*$puntos['porcentaje'] }} COP</h4>
             </div>
+        </div>
 
-        @endif-->
+
+        @endif
+
+        
 
         
         <div class="col-sm-12 " style="margin-top: 1em;">
@@ -238,6 +246,12 @@ Area clientes
                 
             </div>
         </div>
+
+
+       
+
+
+       
     </div>
 </div>
 

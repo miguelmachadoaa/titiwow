@@ -17,10 +17,12 @@ use App\Models\AlpCombosProductos;
 use App\Models\AlpAlmacenes;
 use App\Models\AlpAlmacenRol;
 use App\Models\AlpAlmacenProducto;
+use App\Models\AlpDirecciones;
 
 
 use App\RoleUser;
 use App\State;
+use App\User;
 use DB;
 use Sentinel;
 
@@ -1401,7 +1403,7 @@ class ProductosFrontController extends Controller
     private function getAlmacen(){
 
 
-        if (isset(Sentinel::getUser()->id)) {
+      if (isset(Sentinel::getUser()->id)) {
         # code...
 
 
@@ -1422,6 +1424,8 @@ class ProductosFrontController extends Controller
           ->where('alp_direcciones.id_client', $user_id)
           ->where('alp_direcciones.default_address', '=', '1')
           ->first();
+
+          //dd($d);
 
 
           if (isset($d->id)) {
@@ -1468,6 +1472,11 @@ class ProductosFrontController extends Controller
               }
 
 
+            }else{
+
+              $almacen=AlpAlmacenes::where('defecto', '1')->first();
+
+              $id_almacen=$almacen->id;
             }
         }
 
@@ -1476,7 +1485,7 @@ class ProductosFrontController extends Controller
 
           $almacen=AlpAlmacenes::where('defecto', '1')->first();
 
-                $id_almacen=$almacen->id;
+          $id_almacen=$almacen->id;
         
       }
 

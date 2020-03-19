@@ -132,6 +132,16 @@ Route::group(['prefix' => 'admin','namespace'=>'Admin', 'middleware' => 'admin',
 
     });
     Route::post('users/create', 'UsersController@store');
+
+    Route::get('users/cargar', 'UsersController@cargar');
+    Route::post('users/import', 'UsersController@import');
+
+
+    Route::get('users/cargarsaldo', 'UsersController@cargarsaldo');
+    Route::post('users/importsaldo', 'UsersController@importsaldo');
+
+
+
     Route::resource('users', 'UsersController');
 
     Route::get('deleted_users',['before' => 'Sentinel', 'uses' => 'UsersController@getDeletedUsers'])->name('deleted_users');
