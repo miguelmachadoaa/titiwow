@@ -174,13 +174,54 @@
 
                                        <p class=" col-sm-6 col-xs-12">
                                         {{ $fp->nombre_forma_pago }}
+
+                                        @if($fp->id==3)
+
+                                        <br>
+
+                                       <b>Disponible:</b>  {{$saldo[$user->id]}}
+
+                                        @endif
+
                                         </p> 
 
-                                     <div data-type='formaspago'  data-id="{{ $fp->id }}" class=" col-sm-6 col-xs-12 procesar" style="padding:8px;background-color:#3c763d;color:#ffffff; cursor: pointer;">
+                                       @if($fp->id==3)
+
+                                          @if($saldo[$user->id]>($total-$total_pagos+$costo_envio))
+
+                                         <div data-type='formaspago'  data-id="{{ $fp->id }}" class=" col-sm-6 col-xs-12 procesar" style="padding:8px;background-color:#3c763d;color:#ffffff; cursor: pointer;">
+
+                                          <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
+
+                                        </div>
+
+                                        @else
+
+
+                                          <div data-type='formaspago'  data-id="{{ $fp->id }}" class=" col-sm-6 col-xs-12 " style="padding:8px;background-color:#3c763d;color:#ffffff; cursor: pointer;">
+
+                                            <h5 class="text-center">Saldo Insuficiente <i class="fa  fa-chevron-right"></i></h5>
+
+                                          </div>
+
+
+
+                                        @endif
+
+
+
+                                       @else
+
+                                       <div data-type='formaspago'  data-id="{{ $fp->id }}" class=" col-sm-6 col-xs-12 procesar" style="padding:8px;background-color:#3c763d;color:#ffffff; cursor: pointer;">
 
                                         <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
 
                                     </div>
+
+
+                                       @endif
+
+                                     
 
                                   </div>
                                 </div>

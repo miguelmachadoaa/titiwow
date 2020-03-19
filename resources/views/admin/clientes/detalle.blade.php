@@ -167,8 +167,6 @@ Cliente
                             </div>
                             <div class="panel-body">
 
-                                
-
                                     <table class="table table-responsive" id="tbAmigos">
                         <thead>
                             <tr>
@@ -206,14 +204,12 @@ Cliente
                                     <td>
                                         {{ $s->created_at }}
                                     </td>
-
                                     
                                 </tr>
                             
                         @endforeach
                         </tbody>
                     </table>
-
                                
                             </div>
                         </div>
@@ -223,9 +219,6 @@ Cliente
               
 @endif
     
-
-
-
 
 @if($usuario->role_id==10)
 

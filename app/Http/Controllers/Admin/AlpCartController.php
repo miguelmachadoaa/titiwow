@@ -34,6 +34,7 @@ use App\Models\AlpFeriados;
 use App\Models\AlpImpuestos;
 use App\Models\AlpAlmacenes;
 use App\Models\AlpAlmacenProducto;
+use App\Models\AlpSaldo;
 use App\Http\Requests\AddressRequest;
 
 use App\Country;
@@ -312,7 +313,16 @@ class AlpCartController extends JoshController
 
           // dd($pago);
 
+          if ($compra->id_forma_pago=='3') {
+
+            $payment=null;
+            # code...
+          }else{
+
             $payment=json_decode($pago->json);
+
+          }
+
 
 
           $envio=AlpEnvios::where('id_orden', $id)->first();
@@ -346,11 +356,20 @@ class AlpCartController extends JoshController
          // $aviso_pago='';
 
 
-          
-
-
  
           $estatus_aviso='success';
+
+          if ($compra->id_forma_pago=='3') {
+
+            $estatus_aviso='pending';
+
+            $aviso_pago="Hemos recibido su orden y estaremos revisando su pago, apenas sea aprobado Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!";
+
+            $metodo='Descuento Nomina';
+            
+          }else{
+
+
 
           if (isset($payment->response->payment_method_id)) {
 
@@ -394,6 +413,9 @@ class AlpCartController extends JoshController
             //$metodo=$payment->response->payment_method_id;
 
           }
+
+        }
+
           
         return view('frontend.order.gracias', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago', 'payment', 'estatus_aviso', 'metodo', 'envio', 'envio_base', 'envio_impuesto'));
 
@@ -1298,10 +1320,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
         $user_cliente=User::where('id', $user_id)->first();
 
-
         $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
-
-
 
        $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
           ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
@@ -1563,7 +1582,10 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
           }
 
-          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos', 'total_descuentos', 'costo_envio', 'id_forma_envio', 'envio_base', 'envio_impuesto', 'express'));
+
+          $saldo=$this->getSaldo();
+
+          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos', 'total_descuentos', 'costo_envio', 'id_forma_envio', 'envio_base', 'envio_impuesto', 'express', 'saldo', 'user'));
 
          }
 
@@ -2104,7 +2126,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       $orden=AlpOrdenes::where('id', $id_orden)->first();
 
 
-
       $aviso_pago='0';
 
       $configuracion = AlpConfiguracion::where('id','1')->first();
@@ -2122,8 +2143,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         $feriados=AlpFeriados::feriados();
 
-
-
         $date = Carbon::now();
 
         $hora=$date->format('Hi');
@@ -2131,7 +2150,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         $hora_base=str_replace(':', '', $ciudad_forma->hora);
 
         if (intval($hora)>intval($hora_base)) {
+
           $ciudad_forma->dias=$ciudad_forma->dias+1;
+
         }
 
         for ($i=1; $i <=$ciudad_forma->dias ; $i++) { 
@@ -2231,17 +2252,45 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
            
             $carro->delete();
 
-         $detalles_carrito=AlpCarritoDetalle::where('id_carrito', $carrito)->get();
+           $detalles_carrito=AlpCarritoDetalle::where('id_carrito', $carrito)->get();
 
-         $ids = array();
+           $ids = array();
 
-         foreach ($detalles_carrito as $dc) {
-           
-          $ids[]=$dc->id;
+           foreach ($detalles_carrito as $dc) {
+             
+            $ids[]=$dc->id;
+
+           }
+
+           AlpCarritoDetalle::destroy($ids);
+
 
          }
 
-         AlpCarritoDetalle::destroy($ids);
+         if ($orden->id_forma_pago=='3') {
+
+          $saldo_c=AlpSaldo::where('id_cliente', $user_id)->first();
+
+          if (isset($saldo_c->id)) {
+            
+             $data_saldo = array(
+              'id_cliente' => $user_id, 
+              'saldo' => $orden->monto_total, 
+              'operacion' => '2', 
+              'fecha_vencimiento' => $saldo_c->fecha_vencimiento, 
+              'id_user' => $user_id
+            );
+
+             AlpSaldo::create($data_saldo);
+
+
+          }
+           
+
+           
+
+
+
 
 
          }
@@ -2251,7 +2300,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         $carrito= \Session::forget('cr');
 
         \Session::forget('orden');
-
 
         $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
             ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
@@ -5123,6 +5171,42 @@ public function addcupon(Request $request)
       return $id_almacen;
 
     }
+
+
+
+    private function getSaldo()
+    {
+       
+      $entradas = AlpSaldo::groupBy('id_cliente')
+              ->select("alp_saldo.*", DB::raw(  "SUM(alp_saldo.saldo) as cantidad_total"))
+              ->where('alp_saldo.operacion', '1')
+              ->get();
+
+              $inv = array();
+
+              foreach ($entradas as $row) {
+                
+                $inv[$row->id_cliente]=$row->cantidad_total;
+
+              }
+
+
+            $salidas = AlpSaldo::groupBy('id_cliente')
+              ->select("alp_saldo.*", DB::raw(  "SUM(alp_saldo.saldo) as cantidad_total"))
+              ->where('alp_saldo.operacion', '2')
+              ->get();
+
+              foreach ($salidas as $row) {
+                
+                $inv[$row->id_cliente]= $inv[$row->id_cliente]-$row->cantidad_total;
+
+            }
+
+            return $inv;
+      
+    }
+
+
 
 
 

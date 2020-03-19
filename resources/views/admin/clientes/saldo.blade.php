@@ -107,8 +107,6 @@ Saldo de @lang('clientes/title.clientes')
   <div class="modal-dialog">
     <div class="modal-content">
 
-
-
         
 <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -124,12 +122,6 @@ Saldo de @lang('clientes/title.clientes')
         <a id="enlace_eliminar" href="#" type="button" class="btn btn-danger">Confirmar</a>
       
     </div>
-
-
-
-
-
-
 
         
     </div>
@@ -172,8 +164,6 @@ Saldo de @lang('clientes/title.clientes')
         var group_name = $(this).data('name');
         $(".modal-header h4").text( group_name+" Group" );
     });</script>
-
-
 
    
 
