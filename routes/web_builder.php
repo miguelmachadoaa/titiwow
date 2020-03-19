@@ -45,6 +45,11 @@ Route::get('reportes/cronexportcuponesusados', 'Admin\AlpReportesController@cron
 
 Route::post('admin/clientes/updaterol', 'Admin\AlpClientesController@updaterol')->name('clientes.updaterol');
 
+Route::get('admin/clientes/saldo', 'Admin\AlpClientesController@saldo')->name('clientes.saldo');
+
+Route::get('admin/clientes/datasaldo', 'Admin\AlpClientesController@datasaldo')->name('clientes.datasaldo');
+
+
 Route::get('admin/clientes/data', 'Admin\AlpClientesController@data')->name('clientes.data');
 
 Route::get('admin/clientes/dataempresas', 'Admin\AlpClientesController@dataempresas')->name('clientes.dataempresas');

@@ -44,6 +44,8 @@ Cliente
 <section class="content">
 
 
+
+
      <div class="row">
                     <div class="col-md-12">
                         <div class="panel panel-primary">
@@ -145,6 +147,84 @@ Cliente
                         </div>
                     </div>
                 </div>
+
+
+
+
+
+
+@if(count($saldo))
+
+    <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <i class="livicon" data-name="share" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                                    Movimientos del Saldo
+                                </h3>
+                                
+                            </div>
+                            <div class="panel-body">
+
+                                
+
+                                    <table class="table table-responsive" id="tbAmigos">
+                        <thead>
+                            <tr>
+                                <th>Saldo</th>
+                                <th>Operación</th>
+                                <th>Fecha de vencimiento</th>
+                                <th>Creado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        @foreach($saldo as $s)
+
+                                <tr>
+                                    <td>
+                                        {{ $s->saldo }}
+                                    </td>
+                                    <td>
+                                        @if($s->operacion='1')
+
+                                        {{ 'Ingreso' }}
+
+                                        @else
+
+                                        {{ 'Compra' }}
+
+                                        @endif
+                                        
+                                    </td>
+
+                                    <td>
+                                        {{ $s->fecha_vencimiento }}
+                                    </td>
+                                    
+                                    <td>
+                                        {{ $s->created_at }}
+                                    </td>
+
+                                    
+                                </tr>
+                            
+                        @endforeach
+                        </tbody>
+                    </table>
+
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+              
+@endif
+    
+
+
 
 
 @if($usuario->role_id==10)

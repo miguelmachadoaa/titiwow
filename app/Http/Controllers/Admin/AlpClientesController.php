@@ -16,6 +16,7 @@ use App\Models\AlpDirecciones;
 use App\Models\AlpTDocumento;
 use App\Models\AlpEmpresas;
 use App\Models\AlpConfiguracion;
+use App\Models\AlpSaldo;
 use App\User;
 use App\Roles;
 use App\RoleUser;
@@ -610,6 +611,8 @@ class AlpClientesController extends JoshController
 
         $user_id = Sentinel::getUser()->id;
 
+         $saldo=AlpSaldo::where('id_cliente', $id)->get();
+
         $cliente=AlpClientes::select('alp_clientes.*', 'alp_tipo_documento.nombre_tipo_documento as nombre_tipo_documento')
         ->join('alp_tipo_documento', 'alp_clientes.id_type_doc', '=', 'alp_tipo_documento.id')
         ->where('id_user_client', $id)->first();
@@ -643,7 +646,7 @@ class AlpClientesController extends JoshController
 
       
         // Show the page
-        return view('admin.clientes.detalle', compact('history', 'cliente', 'usuario', 'roles', 'referidos'));
+        return view('admin.clientes.detalle', compact('history','saldo', 'cliente', 'usuario', 'roles', 'referidos'));
     }
 
 
@@ -1018,7 +1021,7 @@ class AlpClientesController extends JoshController
 
         }
 
-
+        $saldo=AlpSaldo::where('id_cliente', $id)->get();
 
         try {
             // Get the user information
@@ -1034,7 +1037,7 @@ class AlpClientesController extends JoshController
             return Redirect::route('admin.clientes.index')->with('error', $error);
         }
         // Show the page
-        return view('admin.clientes.show', compact('user'));
+        return view('admin.clientes.show', compact('user', 'saldo'));
 
     }
 
@@ -1694,6 +1697,205 @@ class AlpClientesController extends JoshController
 
         }
 
+    }
+
+
+
+
+     public function saldo()
+    {
+        // Grab all the groups
+
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        
+                        ->log('clientes/index ');
+
+        }else{
+
+          activity()->log('clientes/index');
+
+
+        }
+      
+        $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista')
+        ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+        ->join('alp_saldo', 'users.id', '=', 'alp_saldo.id_cliente')
+        ->join('role_users', 'users.id', '=', 'role_users.user_id')
+        ->join('roles', 'role_users.role_id', '=', 'roles.id')
+        ->where('role_users.role_id', '<>', 1)->get();
+
+      //  dd($clientes);
+
+
+        // Show the page
+        return view('admin.clientes.saldo', compact('clientes'));
+    }    
+
+
+
+     public function datasaldo()
+    {
+        //$users = User::get(['id', 'first_name', 'last_name', 'email','created_at']);
+
+         if (Sentinel::check()) {
+
+            $user_id = Sentinel::getUser()->id;
+
+            $role=RoleUser::where('user_id', $user_id)->first();
+
+            $id_rol=$role->role_id;
+        }
+      
+        $saldo=$this->getSaldo();
+
+        $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista')
+        ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+        ->join('alp_saldo', 'users.id', '=', 'alp_saldo.id_cliente')
+        ->join('role_users', 'users.id', '=', 'role_users.user_id')
+        ->join('roles', 'role_users.role_id', '=', 'roles.id')
+        ->where('role_users.role_id', '<>', 1)->get();
+
+            $data = array();
+
+
+          foreach($clientes as $cliente){
+
+             if($cliente->estado_registro == 1){
+
+                $estado= "<span class='label label-sm label-success'>Activo</span>";
+
+              }else{
+
+                $estado= "<span class='label label-sm label-warning'>Inactivo</span>";
+
+              }
+
+
+              if($cliente->estado_masterfile == 1){
+
+                $masterfile= "<span class='label label-sm label-success'>Activo</span>";
+
+              }else{
+
+                $masterfile= "<span class='label label-sm label-warning'>Inactivo</span>";
+
+              }
+
+              if ($id_rol=='13') {
+
+                 $actions = " 
+
+                 <a href='".secure_url("admin/clientes/".$cliente->id."/detalle" )."'>
+                    <i class='fa fa-eye' title='Detalles ' alt='Detalles' ></i>
+
+                 </a>
+
+                 <a href='".secure_url("admin/clientes/".$cliente->id."/direcciones" )."'>
+
+                     <i class='livicon' data-name='location' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='view alpProductos'></i>
+                 </a> ";
+
+
+                # code...
+              }else{
+
+
+                 $actions = " 
+
+                 <a href='".secure_url("admin/clientes/".$cliente->id."/detalle" )."'>
+                    <i class='fa fa-eye' title='Detalles ' alt='Detalles' ></i>
+
+                 </a>
+
+                 <a href='".secure_url("admin/clientes/".$cliente->id."/direcciones" )."'>
+
+                     <i class='livicon' data-name='location' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='view alpProductos'></i>
+                 </a>
+
+
+                  <a href='".secure_url("admin/clientes/".$cliente->id."/edit")."'>
+
+                     <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='edit alpProductos'></i>
+                 </a>
+
+
+                 <button class='btn btn-link deleteCliente' data-id='".$cliente->id."' data-url='".secure_url("admin/clientes/".$cliente->id."/delete")."'> <i class='livicon' data-name='remove-alt' data-size='18' data-loop='true' data-c='#f56954' data-hc='#f56954'  title='Eliminar'></i> </button>";
+
+              }
+
+              if (isset($saldo[$cliente->id])) {
+
+                $disponible=$saldo[$cliente->id];
+
+              }else{
+
+                $disponbie=0;
+
+
+              }
+
+
+               $data[]= array(
+                 $cliente->id, 
+                 $cliente->cod_oracle_cliente, 
+                 $cliente->first_name.' '.$cliente->last_name, 
+                 $cliente->email, 
+                 $cliente->telefono_cliente, 
+                 $cliente->name_role, 
+                 $disponible, 
+                 $estado, 
+                 date("d/m/Y H:i:s", strtotime($cliente->created_at)),
+                 $actions
+              );
+
+
+
+          }
+
+
+          return json_encode( array('data' => $data ));
+
+    }
+
+
+
+private function getSaldo()
+    {
+       
+      $entradas = AlpSaldo::groupBy('id_cliente')
+              ->select("alp_saldo.*", DB::raw(  "SUM(alp_saldo.saldo) as cantidad_total"))
+              ->where('alp_saldo.operacion', '1')
+              ->get();
+
+              $inv = array();
+
+              foreach ($entradas as $row) {
+                
+                $inv[$row->id_cliente]=$row->cantidad_total;
+
+              }
+
+
+            $salidas = AlpSaldo::groupBy('id_cliente')
+              ->select("alp_saldo.*", DB::raw(  "SUM(alp_saldo.saldo) as cantidad_total"))
+              ->where('alp_saldo.operacion', '2')
+              ->get();
+
+              foreach ($salidas as $row) {
+                
+                $inv[$row->id_cliente]= $inv[$row->id_cliente]-$row->cantidad_total;
+
+            }
+
+            return $inv;
+      
     }
 
 
