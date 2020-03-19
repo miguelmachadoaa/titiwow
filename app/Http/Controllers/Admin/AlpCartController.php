@@ -1558,12 +1558,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
       }else{
 
 
-
-
       }
-
-
-       
 
         $feriados=AlpFeriados::feriados();
 
@@ -1581,7 +1576,6 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
             }
 
           }
-
 
           $saldo=$this->getSaldo();
 

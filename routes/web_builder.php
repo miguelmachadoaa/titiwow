@@ -47,6 +47,17 @@ Route::post('admin/clientes/updaterol', 'Admin\AlpClientesController@updaterol')
 
 Route::get('admin/clientes/saldo', 'Admin\AlpClientesController@saldo')->name('clientes.saldo');
 
+
+ Route::get('admin/clientes/cargar', 'Admin\AlpClientesController@cargar');
+    Route::post('admin/clientes/import', 'Admin\AlpClientesController@import');
+
+
+    Route::get('admin/clientes/cargarsaldo', 'Admin\AlpClientesController@cargarsaldo');
+    Route::post('admin/clientes/importsaldo', 'Admin\AlpClientesController@importsaldo');
+
+
+    
+
 Route::get('admin/clientes/datasaldo', 'Admin\AlpClientesController@datasaldo')->name('clientes.datasaldo');
 
 

@@ -5,7 +5,7 @@ namespace App\Imports;
 use App\Models\AlpAlpinistas;
 use App\Models\AlpClientes;
 use App\Models\AlpDirecciones   ;
-use App\Models\Users;
+use App\User;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Sentinel;
@@ -25,6 +25,14 @@ class BucaramangaImport implements ToCollection
 
                # code...
            }else{
+
+            $u=User::where('email', $row[1].'@gmail.com')->first();
+
+            if (isset($u->id)) {
+                # code...
+            }else{
+
+
 
             $data = array(
                 'first_name' => $row[2], 
@@ -78,7 +86,10 @@ class BucaramangaImport implements ToCollection
 
                 AlpDirecciones::create($direccion);
 
-           }
+            }//Existe el registro
+
+
+           }//$i==0
 
             
         $i++;

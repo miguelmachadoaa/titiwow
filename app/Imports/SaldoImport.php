@@ -4,7 +4,7 @@ namespace App\Imports;
 
 use App\Models\AlpSaldo;
 use App\Models\AlpClientes;
-use App\Models\User;
+use App\User;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Sentinel;

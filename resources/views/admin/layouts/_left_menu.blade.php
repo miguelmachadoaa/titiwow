@@ -616,20 +616,7 @@
                 </li>
 
 
-                <li {!! (Request::is('admin/users/cargar') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ URL::to('admin/users/cargar') }}">
-                        <i class="fa fa-angle-double-right"></i>
-                        Cargar usuarios
-                    </a>
-                </li>
-
-
-                <li {!! (Request::is('admin/users/cargarsaldo') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ URL::to('admin/users/cargarsaldo') }}">
-                        <i class="fa fa-angle-double-right"></i>
-                        Cargar Saldo Usuarios
-                    </a>
-                </li>
+               
 
             </ul>
         </li>
@@ -696,6 +683,32 @@
                 </a>
             </li>
             @endif 
+
+             <li {!! (Request::is('admin/clientes/saldo') ? 'class="active" id="active"' : '') !!}>
+                    <a href="{{ URL::to('admin/clientes/saldo') }}">
+                        <i class="fa fa-angle-double-right"></i>
+                        Clientes Saldo
+                    </a>
+                </li>
+
+
+
+             <li {!! (Request::is('admin/clientes/cargar') ? 'class="active" id="active"' : '') !!}>
+                    <a href="{{ URL::to('admin/clientes/cargar') }}">
+                        <i class="fa fa-angle-double-right"></i>
+                        Cargar Clientes
+                    </a>
+                </li>
+
+
+                <li {!! (Request::is('admin/clientes/cargarsaldo') ? 'class="active" id="active"' : '') !!}>
+                    <a href="{{ URL::to('admin/clientes/cargarsaldo') }}">
+                        <i class="fa fa-angle-double-right"></i>
+                        Cargar Saldo Clientes
+                    </a>
+                </li>
+
+
         </ul>
     </li>
 

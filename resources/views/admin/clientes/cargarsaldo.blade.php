@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Cargar Clientes
+Cargar Saldo Clientes
 @parent
 @stop
 
@@ -56,7 +56,7 @@ Cargar Clientes
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1>Cargar Clientes</h1>
+    <h1>Cargar Saldo Clientes</h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ secure_url('admin') }}">
@@ -64,8 +64,8 @@ Cargar Clientes
                Inicio
             </a>
         </li>
-        <li><a href="#"> Clientes </a></li>
-        <li class="active">Cargar Clientes</li>
+        <li><a href="#"> Saldo Clientes </a></li>
+        <li class="active">Cargar Saldo Clientes</li>
     </ol>
 </section>
 
@@ -76,15 +76,27 @@ Cargar Clientes
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Cargar Nuevos Clientes
+                       Cargar  Saldo Clientes
                     </h4>
                 </div>
                 <br />
                 <div class="panel-body">
-                <form class="form-horizontal" enctype="multipart/form-data" role="form" method="post" action="{{ secure_url('admin/users/import') }}">
+                <form class="form-horizontal" enctype="multipart/form-data" role="form" method="post" action="{{ secure_url('admin/clientes/importsaldo') }}">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <div class="form-group">
-                            <div class="row">
+
+
+                             <div class="row form-group">
+                                <label class="col-md-3 col-lg-3 col-12 control-label" for="upload">Fecha de vencimiento</label>
+                                <div class="col-md-9 col-12 col-lg-9">
+                                    <input class="form-control" type="date"  name="fecha_vencimiento" id="fecha_vencimiento"> <!-- rename it -->
+                                </div>
+                            </div>
+
+                            <br>
+
+
+                            <div class="row form-group">
                                 <label class="col-md-3 col-lg-3 col-12 control-label" for="upload">Archivo XLSX (Suministrado)</label>
                                 <div class="col-md-9 col-12 col-lg-9">
                                     <input type="file" accept=".xlsx" name="file_alpinistas" name="file_alpinistas" id="clientes"> <!-- rename it -->
@@ -95,12 +107,12 @@ Cargar Clientes
                         <div class="form-group">
                                 <div class="col-sm-offset-4 col-sm-8">
                                     
-                                    <a class="btn btn-md btn-danger" href="{{ secure_url('admin/users') }}">
+                                    <a class="btn btn-md btn-danger" href="{{ secure_url('admin/clientes') }}">
                                         Cancelar
                                     </a>
 
                                     <button type="submit" class="btn btn-success">
-                                        Cargar Clientes
+                                        Cargar Saldo Clientes
                                     </button>
                                 
                                 </div>

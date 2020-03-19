@@ -45,6 +45,12 @@ use URL;
 use Validator;
 use Yajra\DataTables\DataTables;
 
+use App\Imports\BucaramangaImport;
+use App\Imports\SaldoImport;
+use Maatwebsite\Excel\Facades\Excel;
+
+
+
 class AlpClientesController extends JoshController
 {
     /**
@@ -1760,7 +1766,10 @@ class AlpClientesController extends JoshController
         ->join('alp_saldo', 'users.id', '=', 'alp_saldo.id_cliente')
         ->join('role_users', 'users.id', '=', 'role_users.user_id')
         ->join('roles', 'role_users.role_id', '=', 'roles.id')
-        ->where('role_users.role_id', '<>', 1)->get();
+
+        ->where('role_users.role_id', '<>', 1)
+        ->groupBy('users.id')
+        ->get();
 
             $data = array();
 
@@ -1897,6 +1906,81 @@ private function getSaldo()
             return $inv;
       
     }
+
+
+
+
+
+     public function cargar()
+    {
+        // Get all the available groups
+        $groups = Sentinel::getRoleRepository()->all();
+
+        $groups = DB::table('roles')->whereIn('roles.id', [1,2,3,4,5,6,7,8,13])->get();
+
+        $countries = $this->countries;
+        // Show the page
+        return view('admin.clientes.cargar', compact('groups', 'countries'));
+    }
+
+    /**
+     * User create form processing.
+     *
+     * @return Redirect
+     */
+    public function import(Request $request)
+    {
+
+        $input=$request->all();
+
+        //dd($input);
+
+         $archivo = $request->file('file_alpinistas');
+
+        Excel::import(new BucaramangaImport, $archivo);
+        
+        return redirect('admin/clientes')->with('success', 'Clientes Cargados Exitosamente');
+
+    }
+
+
+    public function cargarsaldo()
+    {
+        // Get all the available groups
+        $groups = Sentinel::getRoleRepository()->all();
+
+        $groups = DB::table('roles')->whereIn('roles.id', [1,2,3,4,5,6,7,8,13])->get();
+
+        $countries = $this->countries;
+        // Show the page
+        return view('admin.clientes.cargarsaldo', compact('groups', 'countries'));
+    }
+
+    /**
+     * User create form processing.
+     *
+     * @return Redirect
+     */
+    public function importsaldo(Request $request)
+    {
+
+        $input=$request->all();
+
+        \Session::put('fecha_vencimiento', $request->fecha_vencimiento);
+
+       // dd($input);
+
+         $archivo = $request->file('file_alpinistas');
+
+        Excel::import(new SaldoImport, $archivo);
+        
+        return redirect('admin/clientes/saldo')->with('success', 'Clientes Cargados Exitosamente');
+
+    }
+
+
+
+
 
 
 }

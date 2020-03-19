@@ -133,12 +133,7 @@ Route::group(['prefix' => 'admin','namespace'=>'Admin', 'middleware' => 'admin',
     });
     Route::post('users/create', 'UsersController@store');
 
-    Route::get('users/cargar', 'UsersController@cargar');
-    Route::post('users/import', 'UsersController@import');
-
-
-    Route::get('users/cargarsaldo', 'UsersController@cargarsaldo');
-    Route::post('users/importsaldo', 'UsersController@importsaldo');
+   
 
 
 
