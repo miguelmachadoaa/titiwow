@@ -146,8 +146,9 @@ Editar Almacen
                             <div class="col-sm-5">
                                 
                                 <select id="defecto" name="defecto" class="form-control select2">
-                                    <option @if($almacen->defecto=='1') {{'Selected'}} @endif value="1">Si</option>
                                     <option @if($almacen->defecto=='0') {{'Selected'}} @endif value="0">No</option>
+                                    <option @if($almacen->defecto=='1') {{'Selected'}} @endif value="1">Si</option>
+                                    
                                                       
                                 </select>
                             </div>

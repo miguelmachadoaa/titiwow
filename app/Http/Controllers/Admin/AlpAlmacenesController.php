@@ -94,13 +94,13 @@ class AlpAlmacenesController extends JoshController
 
         $actions = " 
               <a href='".secure_url('admin/almacenes/'.$row->id.'/gestionar')."'>
-                              <i class='livicon' data-name='gears' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Editar Empresa'></i>
+                              <i class='livicon' data-name='gears' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Agregar Productos'></i>
                       </a>
 
 
-                      <a href='".secure_url('admin/almacenes/'.$row->id.'/roles')."'>
+                      <!--a href='".secure_url('admin/almacenes/'.$row->id.'/roles')."'>
                               <i class='livicon' data-name='users' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Editar Empresa'></i>
-                      </a>
+                      </a-->
 
 
 
