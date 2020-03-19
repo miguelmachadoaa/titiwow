@@ -609,7 +609,7 @@ class ProductosFrontController extends Controller
             ->where('alp_productos.estado_registro','=',1)
             ->where('alp_productos.id_categoria_default','=', $producto->id_categoria_default)
             ->where('alp_productos.id','!=', $producto->id)
-            
+            ->groupBy('alp_productos.id')
         ->orderBy('alp_productos.updated_at', 'desc')
            // ->inRandomOrder()
           ->take(4)->get();
@@ -1206,6 +1206,7 @@ class ProductosFrontController extends Controller
 
 
         ->where('alp_productos.estado_registro','=', 1)
+        ->groupBy('alp_productos.id')
         ->orderBy('alp_marcas.order', 'asc')
         ->orderBy('alp_productos.updated_at', 'desc')
         ->paginate(36); 	

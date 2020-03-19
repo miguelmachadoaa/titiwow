@@ -159,37 +159,8 @@ class FrontEndController extends JoshController
     public function home()
     {
 
-      if(Sentinel::guest()){
+      $id_almacen=$this->getAlmacen();
 
-            $almacen=AlpAlmacenes::where('defecto', '1')->first();
-
-            $id_almacen=$almacen->id;
-
-        }else{
-
-            $user=Sentinel::getUser();
-
-            $role=RoleUser::where('user_id', $user->id)->first();
-
-            $almacenRol=AlpAlmacenRol::where('id_rol', $role->role_id)->first();
-
-            //dd($almacen);
-
-            if (isset($almacenRol->id)) {
-
-                $id_almacen=$almacenRol->id_almacen;
-
-
-              # code...
-            }else{
-
-               $almacen=AlpAlmacenes::where('defecto', '1')->first();
-
-               $id_almacen=$almacen->id;
-
-            }
-
-        }
 
         $descuento='1'; 
 
@@ -205,6 +176,7 @@ class FrontEndController extends JoshController
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
         ->where('alp_almacenes.id', '=', $id_almacen)
+        ->groupBy('alp_productos.id')
         ->orderBy('order', 'asc')
         
         ->orderBy('updated_at', 'desc')
