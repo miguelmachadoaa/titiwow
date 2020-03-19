@@ -1821,21 +1821,7 @@ class AlpClientesController extends JoshController
                  <a href='".secure_url("admin/clientes/".$cliente->id."/detalle" )."'>
                     <i class='fa fa-eye' title='Detalles ' alt='Detalles' ></i>
 
-                 </a>
-
-                 <a href='".secure_url("admin/clientes/".$cliente->id."/direcciones" )."'>
-
-                     <i class='livicon' data-name='location' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='view alpProductos'></i>
-                 </a>
-
-
-                  <a href='".secure_url("admin/clientes/".$cliente->id."/edit")."'>
-
-                     <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='edit alpProductos'></i>
-                 </a>
-
-
-                 <button class='btn btn-link deleteCliente' data-id='".$cliente->id."' data-url='".secure_url("admin/clientes/".$cliente->id."/delete")."'> <i class='livicon' data-name='remove-alt' data-size='18' data-loop='true' data-c='#f56954' data-hc='#f56954'  title='Eliminar'></i> </button>";
+                 </a>";
 
               }
 

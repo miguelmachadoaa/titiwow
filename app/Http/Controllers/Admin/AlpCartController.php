@@ -1787,6 +1787,8 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
             return secure_url('cart/'.$idc.'/gracias?pago=pendiente');
 
 
+
+
             //return redirect('cart/'.$idc.'/gracias?pago=pendiente');
 
             //return view('frontend.order.procesarticket', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago', 'payment', 'estatus_aviso', 'metodo'));
@@ -2345,7 +2347,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
            $idc=$orden->id*1024;
 
-          return redirect('cart/'.$idc.'/gracias?pago=pendiente');
+          return secure_url('cart/'.$idc.'/gracias?pago=pendiente');
 
           #return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
 
