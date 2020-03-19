@@ -72,7 +72,7 @@ class AlpTipoDocumentosController extends JoshController
                  $row->id, 
                  $row->nombre_tipo_documento, 
                  $row->abrev_tipo_documento, 
-                 date("d/m/Y H:i:s", strtotime($row->created_at))
+                 date("d/m/Y H:i:s", strtotime($row->created_at)),
                  $actions
               );
 

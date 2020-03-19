@@ -38,11 +38,7 @@ Carrito de Compras
 
     <div class="row" id="table_detalle">
 
-         
-
         @include('frontend.listcart')
-
-        
 
     </div>
 
@@ -303,6 +299,27 @@ Carrito de Compras
             });
 
         });
+
+
+         setInterval(function(){
+
+            if ( $(".nodisponible").length ) {
+
+                console.log('hay');
+              
+                $('.sendDetail').attr('disabled','')
+
+            }else{
+
+                $('.sendDetail').removeAttr('disabled')
+
+            }
+
+         }, 1000);
+
+
+
+        
 
     </script>
 @stop

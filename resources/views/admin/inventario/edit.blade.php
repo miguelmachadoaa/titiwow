@@ -49,18 +49,28 @@ Agregar Inventario
                                  <p><b>EAN:</b> {{ $producto->referencia_producto }}</p>
                                  <p><b>SKU:</b> {{ $producto->referencia_producto_sap }}</p>
 
-                                 <p><b> {{ 'Disponible: '.$inventario[$producto->id] }}</b></p>
+                                 @foreach($almacenes as  $a)
+
+                                    @if(isset($inventario[$producto->id][$a->id_almacen]))
+
+                                        <p><b> {{ 'Disponible '.$a->nombre_almacen.': '.$inventario[$producto->id][$a->id_almacen] }}</b></p>
+
+                                    @else
+
+                                        <p><b> {{ 'Disponible '.$a->nombre_almacen.': 0'}}</b></p>
+
+                                    @endif
+
+
+
+                                 @endforeach
+
 
 
                                 </div>
                                
                                
                             </div>
-
-
-
-                           
-
 
 
                             <div class="form-group required">
@@ -71,27 +81,51 @@ Agregar Inventario
                                         <option value="1">Agregar</option>
                                         <option value="2">Descontar</option>
                                     </select>
-                                    {!! $errors->first('operacion', '<span class="help-block">:message</span>') !!}
+                                    
                                 </div>
                                 <div class="col-sm-5">
                                     
                                 </div>
                                 <span class="help-block">{{ $errors->first('operacion', ':message') }}</span>
                             </div>
+
+
+                            <div class="form-group required">
+                                <label for="id_almacen" class="col-sm-2 control-label">Almacen</label>
+                                <div class="col-sm-5">
+                                    <select class="form-control required" title="Selecciona Almacen" name="id_almacen" id="id_almacen">
+                                        <option value="">Seleccionar</option>
+
+                                        @foreach($almacenes as $a)
+
+                                            <option value="{{$a->id_almacen}}">{{$a->nombre_almacen}}</option>
+
+                                        @endforeach
+
+                                    </select>
+                                    
+                                </div>
+                                <div class="col-sm-5">
+                                    
+                                </div>
+                                <span class="help-block">{{ $errors->first('id_almacen', ':message') }}</span>
+                            </div>
+
+
                           
-                             <div class="form-group {{ $errors->
+                            <div class="form-group {{ $errors->
                             first('cantidad', 'has-error') }}">
-                            <label for="title" class="col-sm-2 control-label">
-                                Cantidad
-                            </label>
-                            <div class="col-sm-5">
-                                <input required="true" type="number" step="1" min="0" id="cantidad" name="cantidad" class="form-control" placeholder="Cantidad"
-                                       value="{!! old('cantidad') !!}">
+                                <label for="title" class="col-sm-2 control-label">
+                                    Cantidad
+                                </label>
+                                <div class="col-sm-5">
+                                    <input required="true" type="number" step="1" min="0" id="cantidad" name="cantidad" class="form-control" placeholder="Cantidad"
+                                           value="{!! old('cantidad') !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('cantidad', '<span class="help-block">:message</span> ') !!}
+                                </div>
                             </div>
-                            <div class="col-sm-4">
-                                {!! $errors->first('cantidad', '<span class="help-block">:message</span> ') !!}
-                            </div>
-                        </div>
 
 
                         <div class="form-group {{ $errors->

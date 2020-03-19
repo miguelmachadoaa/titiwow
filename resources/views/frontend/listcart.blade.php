@@ -11,14 +11,14 @@
                     @endif
 
      @if(isset($error))
-                        @if($error!='0')
+        @if($error!='0')
 
-                        <div class="alert alert-danger">
-                            {{ $error }}
-                        </div>
+        <div class="alert alert-danger">
+            {{ $error }}
+        </div>
 
-                        @endif
-                    @endif
+        @endif
+    @endif
 
         <h2>Carrito de Compras</h2>
 
@@ -32,7 +32,7 @@
 
                 @foreach($cart as $row)
                     <hr>
-                    <div class="row" style="text-align: left;">
+                    <div class="row @if($row->disponible==0) {{'nodisponible'}} @endif " style="text-align: left;">
                         
                         <div class="col-sm-2 col-xs-4">
                             <a target="_blank"  href="{{ route('producto', [$row->slug]) }}" ><img style="padding: 5px 0px; height: 8em;"  src="../uploads/productos/{{$row->imagen_producto}}"></a>
@@ -43,6 +43,12 @@
                             <div class="col-xs-12" style="margin-bottom:5px;">
 
                                 <h4><a target="_blank"  href="{{ route('producto', [$row->slug]) }}" >{{$row->nombre_producto}}</a></h4>
+
+                                @if($row->disponible==0) 
+
+                                <h4><a style="color: #f70072;" target="_blank"  href="{{ route('producto', [$row->slug]) }}" >Este producto no esta disponible para su dirección de envio</a></h4>
+
+                                @endif
 
                             </div>    
 

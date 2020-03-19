@@ -101,27 +101,7 @@ class ProductosFrontController extends Controller
     public function index()
     {
 
-        if(Sentinel::guest()){
-
-            $almacen=AlpAlmacenes::where('defecto', '1')->first();
-
-        }else{
-
-            $user=Sentinel::getUser();
-
-            $role=RoleUser::where('user_id', $user_id)->first();
-
-            $almacen=AlpAlmacenes::where('id_rol', $role->role_id)->first();
-
-            if (isset($almacen->id)) {
-              # code...
-            }else{
-
-               $almacen=AlpAlmacenes::where('defecto', '1')->first();
-
-            }
-
-        }
+       $id_almacen=$this->getAlmacen();
 
 
         $descuento='1'; 
@@ -133,7 +113,7 @@ class ProductosFrontController extends Controller
 
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
-        ->where('alp_almacenes.id', '=', $almacen->id)
+        ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
 
         ->whereNull('alp_productos_category.deleted_at')
         ->where('alp_productos_category.id_categoria','=', 1)
@@ -148,7 +128,7 @@ class ProductosFrontController extends Controller
 
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
-       ->where('alp_almacenes.id', '=', $almacen->id)
+       ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
 
         ->whereNull('alp_productos_category.deleted_at')
         ->where('alp_productos_category.id_categoria','=', 2)
@@ -163,7 +143,7 @@ class ProductosFrontController extends Controller
 
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
-       ->where('alp_almacenes.id', '=', $almacen->id)
+       ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
 
         ->whereNull('alp_productos_category.deleted_at')
         ->where('alp_productos_category.id_categoria','=', 3)
@@ -178,7 +158,7 @@ class ProductosFrontController extends Controller
 
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
-       ->where('alp_almacenes.id', '=', $almacen->id)
+       ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
 
         ->whereNull('alp_productos_category.deleted_at')
         ->where('alp_productos_category.id_categoria','=', 4)
@@ -193,7 +173,7 @@ class ProductosFrontController extends Controller
 
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
-       ->where('alp_almacenes.id', '=', $almacen->id)
+       ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
 
         ->whereNull('alp_productos_category.deleted_at')
         ->where('alp_productos_category.id_categoria','=', 5)
@@ -208,7 +188,7 @@ class ProductosFrontController extends Controller
 
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
-       ->where('alp_almacenes.id', '=', $almacen->id)
+       ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
 
         ->whereNull('alp_productos_category.deleted_at')
         ->where('alp_productos_category.id_categoria','=', 6)
@@ -223,7 +203,7 @@ class ProductosFrontController extends Controller
 
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
-       ->where('alp_almacenes.id', '=', $almacen->id)
+       ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
 
         ->whereNull('alp_productos_category.deleted_at')
         ->where('alp_productos_category.id_categoria','=', 7)
@@ -238,7 +218,7 @@ class ProductosFrontController extends Controller
 
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
-       ->where('alp_almacenes.id', '=', $almacen->id)
+       ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
 
         ->whereNull('alp_productos_category.deleted_at')
         ->where('alp_productos_category.id_categoria','=', 8)
@@ -253,7 +233,7 @@ class ProductosFrontController extends Controller
 
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
-       ->where('alp_almacenes.id', '=', $almacen->id)
+       ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
 
 
         ->whereNull('alp_productos_category.deleted_at')
@@ -593,27 +573,7 @@ class ProductosFrontController extends Controller
     public function show($slug)
     {
 
-        if(Sentinel::guest()){
-
-            $almacen=AlpAlmacenes::where('defecto', '1')->first();
-
-        }else{
-
-            $user=Sentinel::getUser();
-
-            $role=RoleUser::where('user_id', $user_id)->first();
-
-            $almacen=AlpAlmacenes::where('id_rol', $role->role_id)->first();
-
-            if (isset($almacen->id)) {
-              # code...
-            }else{
-
-               $almacen=AlpAlmacenes::where('defecto', '1')->first();
-
-            }
-
-        }
+         $id_almacen=$this->getAlmacen();
 
 
 
@@ -626,7 +586,7 @@ class ProductosFrontController extends Controller
 
             ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
-       ->where('alp_almacenes.id', '=', $almacen->id)
+       ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
 
             ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
             ->where('alp_productos.estado_registro','=',1)
@@ -640,7 +600,7 @@ class ProductosFrontController extends Controller
 
             ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
-       ->where('alp_almacenes.id', '=', $almacen->id)
+       ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
 
 
             ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
@@ -851,27 +811,7 @@ class ProductosFrontController extends Controller
     public function categorias($slug)
     {
 
-        if(Sentinel::guest()){
-
-            $almacen=AlpAlmacenes::where('defecto', '1')->first();
-
-        }else{
-
-            $user=Sentinel::getUser();
-
-            $role=RoleUser::where('user_id', $user_id)->first();
-
-            $almacen=AlpAlmacenes::where('id_rol', $role->role_id)->first();
-
-            if (isset($almacen->id)) {
-              # code...
-            }else{
-
-               $almacen=AlpAlmacenes::where('defecto', '1')->first();
-
-            }
-
-        }
+        $id_almacen=$this->getAlmacen();
 
 
 
@@ -890,7 +830,7 @@ class ProductosFrontController extends Controller
 
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
-       ->where('alp_almacenes.id', '=', $almacen->id)
+       ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
 
 
         ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
@@ -999,27 +939,7 @@ class ProductosFrontController extends Controller
     {
 
 
-        if(Sentinel::guest()){
-
-            $almacen=AlpAlmacenes::where('defecto', '1')->first();
-
-        }else{
-
-            $user=Sentinel::getUser();
-
-            $role=RoleUser::where('user_id', $user_id)->first();
-
-            $almacen=AlpAlmacenes::where('id_rol', $role->role_id)->first();
-
-            if (isset($almacen->id)) {
-              # code...
-            }else{
-
-               $almacen=AlpAlmacenes::where('defecto', '1')->first();
-
-            }
-
-        }
+         $id_almacen=$this->getAlmacen();
 
 
 
@@ -1038,7 +958,7 @@ class ProductosFrontController extends Controller
 
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
-       ->where('alp_almacenes.id', '=', $almacen->id)
+       ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
 
 
         ->where('alp_productos.id_marca','=', $marca->id)
@@ -1141,29 +1061,9 @@ class ProductosFrontController extends Controller
     public function all()
     {
 
-        if(Sentinel::guest()){
+         $id_almacen=$this->getAlmacen();
 
-            $almacen=AlpAlmacenes::where('defecto', '1')->first();
-
-        }else{
-
-            $user=Sentinel::getUser();
-
-            $role=RoleUser::where('user_id', $user_id)->first();
-
-            $almacen=AlpAlmacenes::where('id_rol', $role->role_id)->first();
-
-            if (isset($almacen->id)) {
-              # code...
-            }else{
-
-               $almacen=AlpAlmacenes::where('defecto', '1')->first();
-
-            }
-
-        }
-
-
+        //dd($almacenRol);
 
 
         $descuento='1'; 
@@ -1171,13 +1071,13 @@ class ProductosFrontController extends Controller
         $precio = array();
 
 
-        $productos =  DB::table('alp_productos')->select('alp_productos.*', 'alp_marcas.order as order')
+        $productos =  DB::table('alp_productos')->select('alp_productos.*', 'alp_marcas.order as order', 'alp_almacenes.id as id_almacen')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
         ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
 
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
-       ->where('alp_almacenes.id', '=', $almacen->id)
+       ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
 
 
         ->whereNull('alp_productos_category.deleted_at')
@@ -1186,6 +1086,7 @@ class ProductosFrontController extends Controller
         ->orderBy('alp_marcas.order', 'asc')
         ->orderBy('alp_productos.updated_at', 'desc') 
         ->paginate(36); 
+
 
          if (Sentinel::check()) {
 
@@ -1282,27 +1183,7 @@ class ProductosFrontController extends Controller
     {
 
 
-        if(Sentinel::guest()){
-
-            $almacen=AlpAlmacenes::where('defecto', '1')->first();
-
-        }else{
-
-            $user=Sentinel::getUser();
-
-            $role=RoleUser::where('user_id', $user_id)->first();
-
-            $almacen=AlpAlmacenes::where('id_rol', $role->role_id)->first();
-
-            if (isset($almacen->id)) {
-              # code...
-            }else{
-
-               $almacen=AlpAlmacenes::where('defecto', '1')->first();
-
-            }
-
-        }
+       $id_almacen=$this->getAlmacen();
 
         
  
@@ -1318,7 +1199,7 @@ class ProductosFrontController extends Controller
 
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
-       ->where('alp_almacenes.id', '=', $almacen->id)
+       ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
 
 
 
@@ -1508,6 +1389,96 @@ class ProductosFrontController extends Controller
       }
 
       return $combos;
+    }
+
+
+
+
+
+    private function getAlmacen(){
+
+
+        if (isset(Sentinel::getUser()->id)) {
+        # code...
+
+
+      $user_id = Sentinel::getUser()->id;
+
+      $usuario=User::where('id', $user_id)->first();
+
+      $user_cliente=User::where('id', $user_id)->first();
+
+      $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
+
+
+      $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+          ->where('alp_direcciones.id_client', $user_id)
+          ->where('alp_direcciones.default_address', '=', '1')
+          ->first();
+
+
+          if (isset($d->id)) {
+              
+              $almacen=AlpAlmacenes::where('id_city', $d->city_id)->first();
+
+              if (isset($almacen->id)) {
+                
+                $id_almacen=$almacen->id;
+
+              }else{
+
+                $almacen=AlpAlmacenes::where('defecto', '1')->first();
+
+                $id_almacen=$almacen->id;
+
+              }
+
+          }else{
+
+              $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+            ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+            ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+            ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+            ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+            ->where('alp_direcciones.id_client', $user_id)
+            ->first();
+
+
+            if (isset($d->id)) {
+                        
+                $almacen=AlpAlmacenes::where('id_city', $d->city_id)->first();
+
+              if (isset($almacen->id)) {
+                
+                $id_almacen=$almacen->id;
+
+              }else{
+
+                $almacen=AlpAlmacenes::where('defecto', '1')->first();
+
+                $id_almacen=$almacen->id;
+
+              }
+
+
+            }
+        }
+
+
+        }else{
+
+          $almacen=AlpAlmacenes::where('defecto', '1')->first();
+
+                $id_almacen=$almacen->id;
+        
+      }
+
+      return $id_almacen;
+
     }
 
 

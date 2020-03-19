@@ -32,6 +32,8 @@ use App\Models\AlpOrdenesHistory;
 use App\Models\AlpEstructuraAddress;
 use App\Models\AlpFeriados;
 use App\Models\AlpImpuestos;
+use App\Models\AlpAlmacenes;
+use App\Models\AlpAlmacenProducto;
 use App\Http\Requests\AddressRequest;
 
 use App\Country;
@@ -116,11 +118,11 @@ class AlpCartController extends JoshController
 
       $total=$this->total();
 
-     $inv=$this->inventario();
+      $inv=$this->inventario();
 
-        $descuento='1'; 
+      $descuento='1'; 
 
-        $precio = array();
+      $precio = array();
 
 
          if (\Session::has('cr')) {
@@ -129,17 +131,21 @@ class AlpCartController extends JoshController
 
           $cupones=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
 
-        foreach ($cupones as $cupon) {
-          
-          $c=AlpOrdenesDescuento::where('id', $cupon->id)->first();
+            foreach ($cupones as $cupon) {
+              
+              $c=AlpOrdenesDescuento::where('id', $cupon->id)->first();
 
-          $c->delete();
+              $c->delete();
+
+            }
 
         }
 
-        }
-
-     $productos = DB::table('alp_productos')->select('alp_productos.*')->where('sugerencia','=', 1)->where('alp_productos.estado_registro','=',1)->orderBy('order', 'asc')->inRandomOrder()
+     $productos = DB::table('alp_productos')->select('alp_productos.*')
+     ->where('sugerencia','=', 1)
+     ->where('alp_productos.estado_registro','=',1)
+     ->orderBy('order', 'asc')
+     ->inRandomOrder()
      ->take(6)->get();
 
 
@@ -1502,18 +1508,33 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
       $ciudad_forma=AlpFormaCiudad::where('id_rol', $role->role_id)->where('id_forma', '2')->where('id_ciudad', '62')->first();
 
+      $date = Carbon::now();
 
-        $date = Carbon::now();
+      if (isset($ciudad_forma->id)) {
 
-        $hora=$date->format('Hi');
+          $date = Carbon::now();
 
-        $hora_base=str_replace(':', '', $ciudad_forma->hora);
+          $hora=$date->format('Hi');
 
-        if (intval($hora)>intval($hora_base)) {
+          $hora_base=str_replace(':', '', $ciudad_forma->hora);
 
-          $express=1;
+          if (intval($hora)>intval($hora_base)) {
 
-        }
+            $express=1;
+
+          }
+
+
+        # code...
+      }else{
+
+
+
+
+      }
+
+
+       
 
         $feriados=AlpFeriados::feriados();
 
@@ -1531,9 +1552,6 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
             }
 
           }
-
-
-
 
           return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos', 'total_descuentos', 'costo_envio', 'id_forma_envio', 'envio_base', 'envio_impuesto', 'express'));
 
@@ -2526,6 +2544,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       $producto->precio_oferta=$request->price;
 
       $producto->cantidad=1;
+
       $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
 
       if($inv[$producto->id]>=$producto->cantidad){
@@ -3274,10 +3293,95 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
     private function reloadCart()
     {
-       $cart= \Session::get('cart');
+       
+      $cart= \Session::get('cart');
+
+      $s_user= \Session::get('user');
+
+      if (isset(Sentinel::getUser()->id)) {
+        # code...
 
 
-       $s_user= \Session::get('user');
+      $user_id = Sentinel::getUser()->id;
+
+      $usuario=User::where('id', $user_id)->first();
+
+      $user_cliente=User::where('id', $user_id)->first();
+
+      $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
+
+
+      $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+          ->where('alp_direcciones.id_client', $user_id)
+          ->where('alp_direcciones.default_address', '=', '1')
+          ->first();
+
+
+          if (isset($d->id)) {
+              
+              $almacen=AlpAlmacenes::where('id_city', $d->city_id)->first();
+
+              if (isset($almacen->id)) {
+                
+                $id_almacen=$almacen->id;
+
+              }else{
+
+                $almacen=AlpAlmacenes::where('defecto', '1')->first();
+
+                $id_almacen=$almacen->id;
+
+              }
+
+          }else{
+
+              $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+            ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+            ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+            ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+            ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+            ->where('alp_direcciones.id_client', $user_id)
+            ->first();
+
+
+            if (isset($d->id)) {
+                        
+                $almacen=AlpAlmacenes::where('id_city', $d->city_id)->first();
+
+              if (isset($almacen->id)) {
+                
+                $id_almacen=$almacen->id;
+
+              }else{
+
+                $almacen=AlpAlmacenes::where('defecto', '1')->first();
+
+                $id_almacen=$almacen->id;
+
+              }
+
+
+            }
+        }
+
+
+        }else{
+
+          $almacen=AlpAlmacenes::where('defecto', '1')->first();
+
+                $id_almacen=$almacen->id;
+        
+      }
+
+
+
+
+
+
 
       $total=0;
 
@@ -3390,25 +3494,28 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
 
+        $almp=AlpAlmacenProducto::where('id_almacen', $id_almacen)->where('id_producto', $producto->id)->first();
+
+        if (isset($almp->id)) {
+          $producto->disponible=1;
+        }else{
+          $producto->disponible=0;
+        }
+
 
        $cart[$producto->slug]=$producto;
        
       }
 
-
+     // dd($cart);
 
        return $cart;
 
-
-
       }else{
-
 
         return $cart;
 
-
       }
-
       
     }
 

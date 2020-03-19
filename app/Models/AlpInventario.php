@@ -20,6 +20,7 @@ class AlpInventario extends Model
     public $fillable = [
         'id',
         'id_producto',
+        'id_almacen',
         'cantidad',
         'operacion',
         'notas',

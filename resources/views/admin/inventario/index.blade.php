@@ -59,6 +59,7 @@ Inventario
                                     <th>EAN</th>
                                     <th>Referencia</th>
                                     <th>Estado de Producto</th>
+                                    <th>Almacen</th>
                                     <th>Inventario Disponible</th>
                                     <th>Creado</th>
                                     <th>Accion</th>

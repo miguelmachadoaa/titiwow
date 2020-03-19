@@ -91,7 +91,7 @@ class AlpMenuController extends JoshController
                $data[]= array(
                  $row->id, 
                  $row->nombre_menu, 
-                 date("d/m/Y H:i:s", strtotime($row->created_at))
+                 date("d/m/Y H:i:s", strtotime($row->created_at)),
                  $actions
               );
 

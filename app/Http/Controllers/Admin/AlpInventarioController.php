@@ -1,9 +1,11 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\JoshController;
-use App\Http\Requests\FormapagoRequest;
+use App\Http\Requests\InventarioRequest;
 use App\Models\AlpProductos;
 use App\Models\AlpInventario;
+use App\Models\AlpAlmacenes;
+use App\Models\AlpAlmacenProducto;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Redirect;
@@ -44,8 +46,6 @@ class AlpInventarioController extends JoshController
         $productos = AlpProductos::all();
 
         $inventario=$this->inventario();
-       
-
 
         // Show the page
         return view('admin.inventario.index', compact('productos', 'inventario'));
@@ -55,7 +55,12 @@ class AlpInventarioController extends JoshController
      public function data()
     {
        
-        $productos = AlpProductos::all();
+        $productos = AlpProductos::select('alp_productos.*', 'alp_almacenes.nombre_almacen as nombre_almacen', 'alp_almacenes.id as id_almacen')
+        ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
+        ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
+        ->groupBy('alp_almacen_producto.id_producto')
+        ->groupBy('alp_almacen_producto.id_almacen')
+        ->get();
 
         $inventario=$this->inventario();
 
@@ -73,6 +78,15 @@ class AlpInventarioController extends JoshController
               $estado="<span   class='alert alert-danger' style='font-size: 12px !important;'>Inactivo</span>";
             }
 
+            if (isset($inventario[$row->id][$row->id_almacen])) {
+
+             // dd($row->id.'/'.$row->id_almacen);
+
+              $dis=$inventario[$row->id][$row->id_almacen];
+            }else{
+              $dis=0;
+            }
+
                $data[]= array(
                  $row->id, 
                  $row->nombre_producto, 
@@ -80,7 +94,8 @@ class AlpInventarioController extends JoshController
                  $row->referencia_producto, 
                  $row->referencia_producto_sap, 
                  $estado,
-                 $inventario[$row->id], 
+                 $row->nombre_almacen,  
+                 $dis, 
                  date("d/m/Y H:i:s", strtotime($row->created_at)),
                  $actions
               );
@@ -150,10 +165,6 @@ class AlpInventarioController extends JoshController
         
          $user_id = Sentinel::getUser()->id;
 
-        //$input = $request->all();
-
-        //var_dump($input);
-
         $data = array(
             'nombre_forma_pago' => $request->nombre_forma_pago, 
             'descripcion_forma_pago' => $request->descripcion_forma_pago, 
@@ -203,6 +214,11 @@ class AlpInventarioController extends JoshController
 
        $producto = AlpProductos::find($id);
 
+       $almacenes=AlpAlmacenProducto::select('alp_almacen_producto.*', 'alp_almacenes.nombre_almacen as nombre_almacen')
+       ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
+       ->where('alp_almacen_producto.id_producto', '=', $id)
+       ->get();
+
         $inventario=$this->inventario();
 
         $movimientos=AlpInventario::select('alp_inventarios.*', 'alp_productos.nombre_producto as nombre_producto', 'alp_productos.referencia_producto as referencia_producto', 'alp_productos.referencia_producto_sap as referencia_producto_sap', 'users.first_name as first_name', 'users.last_name as last_name')
@@ -213,6 +229,7 @@ class AlpInventarioController extends JoshController
         ->get();
 
         $m = array();
+
         foreach ($movimientos as $movimiento) {
 
 
@@ -234,7 +251,7 @@ class AlpInventarioController extends JoshController
 
         }
 
-        return view('admin.inventario.edit', compact('producto', 'inventario', 'm'));
+        return view('admin.inventario.edit', compact('producto', 'inventario', 'm', 'almacenes'));
     }
 
     /**
@@ -243,7 +260,7 @@ class AlpInventarioController extends JoshController
      * @param  int $id
      * @return Redirect
      */
-    public function update(Request $request, $id)
+    public function update(InventarioRequest $request, $id)
     {
 
 
@@ -270,6 +287,7 @@ class AlpInventarioController extends JoshController
 
        $data = array(
             'id_producto' => $id, 
+            'id_almacen' => $request->id_almacen, 
             'cantidad' => $request->cantidad, 
             'operacion' => $request->operacion, 
             'notas' => $request->notas, 
@@ -367,46 +385,56 @@ class AlpInventarioController extends JoshController
           $user = Sentinel::getUser();
 
            activity($user->full_name)
-                        ->performedOn($user)
-                        ->causedBy($user)
-                        ->log('AlpInventarioController/inventario ');
+              ->performedOn($user)
+              ->causedBy($user)
+              ->log('AlpInventarioController/inventario ');
 
         }else{
 
           activity()
           ->log('AlpInventarioController/inventario');
 
-
         }
 
-        
 
-      $entradas = AlpInventario::groupBy('id_producto')
+      $entradas = AlpInventario::groupBy('id_producto')->groupBy('id_almacen')
               ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
               ->where('alp_inventarios.operacion', '1')
               ->get();
 
               $inv = array();
+              $inv2 = array();
 
-              foreach ($entradas as $row) {
+             foreach ($entradas as $row) {
                 
                 $inv[$row->id_producto]=$row->cantidad_total;
+
+                $inv2[$row->id_producto][$row->id_almacen]=$row->cantidad_total;
 
               }
 
 
+
+
             $salidas = AlpInventario::select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
               ->groupBy('id_producto')
+              ->groupBy('id_almacen')
               ->where('operacion', '2')
               ->get();
 
               foreach ($salidas as $row) {
                 
-                $inv[$row->id_producto]= $inv[$row->id_producto]-$row->cantidad_total;
+                //$inv[$row->id_producto]= $inv[$row->id_producto]-$row->cantidad_total;
+
+
+              $inv2[$row->id_producto][$row->id_almacen]= $inv2[$row->id_producto][$row->id_almacen]-$row->cantidad_total;
+                //$inv2[$row->id_producto][$row->id_almacen]= $row->cantidad_total;
 
             }
 
-            return $inv;
+           // dd($inv2);
+
+            return $inv2;
       
     }
 

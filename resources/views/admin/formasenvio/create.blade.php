@@ -88,19 +88,13 @@
                                 Nombre  Forma de envio
                             </label>
                             <div class="col-sm-5">
-                                <input type="text" id="sku" name="sku" class="form-control" placeholder="Nombre de Forma de Envio"
+                                <input type="text" id="nombre_forma_envios" name="nombre_forma_envios" class="form-control" placeholder="Nombre de Forma de Envio"
                                        value="{!! old('sku') !!}">
                             </div>
                             <div class="col-sm-4">
                                 {!! $errors->first('sku', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
-
-
-
-
-                         
-
 
 
                         <div class="form-group {{ $errors->
@@ -117,9 +111,6 @@
                                 {!! $errors->first('descripcion_forma_envios', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
-
-
-
 
 
                         <div class="form-group">
