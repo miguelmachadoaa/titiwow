@@ -75,6 +75,8 @@ Route::get('admin/ordenes/dataespera', 'Admin\AlpOrdenesController@dataespera')-
 
 Route::get('admin/ordenes/datarecibidos', 'Admin\AlpOrdenesController@datarecibidos')->name('ordenes.datarecibidos');
 
+Route::get('admin/ordenes/datanomina', 'Admin\AlpOrdenesController@datanomina')->name('ordenes.datanomina');
+
 Route::get('admin/ordenes/dataaprobados', 'Admin\AlpOrdenesController@dataaprobados')->name('ordenes.dataaprobados');
 
 Route::get('admin/ordenes/datafacturados', 'Admin\AlpOrdenesController@datafacturados')->name('ordenes.datafacturados');
@@ -785,6 +787,8 @@ Route::resource('facturasmasivas', 'Admin\AlpFacturasController');
         Route::get('/espera/list', 'Admin\AlpOrdenesController@espera')->name('ordenes.espera');
 
         Route::get('/recibidos/list', 'Admin\AlpOrdenesController@recibidos')->name('ordenes.recibidos');
+
+        Route::get('/nomina/list', 'Admin\AlpOrdenesController@nomina')->name('ordenes.nomina');
 
         Route::get('/facturados/list', 'Admin\AlpOrdenesController@facturados')->name('ordenes.facturados');
 

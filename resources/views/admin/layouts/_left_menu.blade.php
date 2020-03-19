@@ -9,14 +9,6 @@
     </li>
 
 
-    <li {!! (Request::is('admin/almacenes') ? 'class="active"' : '') !!}>
-        <a href="{{  URL::to('admin/almacenes') }}">
-            <i class="livicon" data-name="dashboard" data-size="18" data-c="#EF6F6C" data-hc="#EF6F6C"
-               data-loop="true"></i>
-            Almacenes
-        </a>
-    </li>
-
     @if (Sentinel::getUser()->hasAnyAccess(['ordenes.*']))
 
      <li class="{{ Request::is('admin/ordenes*') ? 'active' : '' }}">
@@ -115,6 +107,16 @@
                 <a href="{!! route('admin.ordenes.descuento') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Ordenes con Descuentos
+                </a>
+            </li>
+            @endif
+
+
+             @if (Sentinel::getUser()->hasAnyAccess(['ordenes.nomina']))
+                <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.ordenes.nomina') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Ordenes Recibidas Nomina
                 </a>
             </li>
             @endif

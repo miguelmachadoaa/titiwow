@@ -617,7 +617,10 @@ class AlpClientesController extends JoshController
 
         $user_id = Sentinel::getUser()->id;
 
-         $saldo=AlpSaldo::where('id_cliente', $id)->get();
+        $saldo=AlpSaldo::where('id_cliente', $id)->get();
+
+        $disponible=$this->getSaldo();
+        
 
         $cliente=AlpClientes::select('alp_clientes.*', 'alp_tipo_documento.nombre_tipo_documento as nombre_tipo_documento')
         ->join('alp_tipo_documento', 'alp_clientes.id_type_doc', '=', 'alp_tipo_documento.id')
