@@ -682,7 +682,7 @@ $('.sendCupon').click(function () {
                                             $(location).attr("href", datos.responseText);
 
 
-                                            $('.contain_body').html(datos.responseText);
+                                            //$('.contain_body').html(datos.responseText);
 
                                             $('.overlay').fadeOut();
                                         
@@ -728,7 +728,7 @@ $('.sendCupon').click(function () {
 
                                          $(location).attr("href", datos.responseText);
 
-                                        $('.contain_body').html(datos.responseText);
+                                        //$('.contain_body').html(datos.responseText);
 
                                         $('.overlay').fadeOut();
                                 
@@ -845,11 +845,6 @@ $('.sendCupon').click(function () {
 
                             $('button.mercadopago-button').trigger('click');
 
-                          //  $('button.mercadopago-button').hide();
-
-                          // $('.form_creditcard').submit();
-
-                            //window.location.href = url;
 
                        }else{
 

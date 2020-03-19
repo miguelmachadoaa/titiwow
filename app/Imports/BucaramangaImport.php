@@ -26,7 +26,7 @@ class BucaramangaImport implements ToCollection
                # code...
            }else{
 
-            $u=User::where('email', $row[1].'@gmail.com')->first();
+            $u=User::where('email', $row[1].'@alpinago.com')->first();
 
             if (isset($u->id)) {
                 # code...
@@ -37,7 +37,7 @@ class BucaramangaImport implements ToCollection
             $data = array(
                 'first_name' => $row[2], 
                 'last_name' => ' ', 
-                'email' => $row[1].'@gmail.com', 
+                'email' => $row[1].'@alpinago.com', 
                 'password' => $row[1], 
             );
 

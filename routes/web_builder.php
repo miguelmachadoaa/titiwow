@@ -534,6 +534,14 @@ Route::post('reportes/exportcuponesdescuento', 'Admin\AlpReportesController@expo
 
 
 
+    Route::get('reportes/nomina', 'Admin\AlpReportesController@nomina')->name('reportes.nomina');
+
+ Route::post('reportes/exportnomina', 'Admin\AlpReportesController@exportnomina')->name('reportes.exportnomina');
+
+
+
+
+
 
 //Fin Reportes generales
 

@@ -1524,6 +1524,34 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
         $id_forma_envio= \Session::get('envio');
 
 
+        $fev = AlpFormasenvio::select('alp_formas_envios.*')
+          ->join('alp_rol_envio', 'alp_formas_envios.id', '=', 'alp_rol_envio.id_forma_envio')
+          ->where('alp_rol_envio.id_rol', $role->role_id)
+          ->where('alp_rol_envio.id_forma_envio', $id_forma_envio)
+          ->first();
+
+          if (isset($fev->id)) {
+            # code...
+          }else{
+
+            $fev = AlpFormasenvio::select('alp_formas_envios.*')
+          ->join('alp_rol_envio', 'alp_formas_envios.id', '=', 'alp_rol_envio.id_forma_envio')
+          ->where('alp_rol_envio.id_rol', $role->role_id)
+          ->first();
+
+            if (isset($fev->id)) {
+
+              $id_forma_envio=$fev->id_forma_envio;
+              # code...
+            }else{
+
+              $id_forma_envio=0;
+            }
+
+
+          }
+
+        //dd($id_forma_envio);
 
 
         $valor_impuesto=AlpImpuestos::where('id', '1')->first();

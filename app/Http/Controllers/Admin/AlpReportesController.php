@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\NominaExport;
 use App\Exports\ListadoProductosExport;
 use App\Exports\UsersActivarExport;
 use App\Exports\ConsolidadoExport;
@@ -1211,6 +1212,55 @@ class AlpReportesController extends Controller
         }
 
         return Excel::download(new ListadoProductosExport($request->estado), 'Listado_de_productos.xlsx');
+    }
+
+
+
+
+     public function nomina() 
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/nomina ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/nomina');
+
+        }
+
+        return view('admin.reportes.nomina');
+
+    }
+
+
+     public function exportnomina(Request $request) 
+    {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exportnomina ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exportnomina');
+
+        }
+
+        return Excel::download(new NominaExport($request->estado), 'Listado_de_descuento_nomina.xlsx');
     }
 
 }

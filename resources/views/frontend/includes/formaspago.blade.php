@@ -198,7 +198,7 @@
                                         @else
 
 
-                                          <div data-type='formaspago'  data-id="{{ $fp->id }}" class=" col-sm-6 col-xs-12 " style="padding:8px;background-color:#3c763d;color:#ffffff; cursor: pointer;">
+                                          <div data-type='formaspago'  data-id="{{ $fp->id }}" class=" col-sm-6 col-xs-12 " style="padding:8px;background-color:#f3f3f3;color:#ffffff; cursor: pointer;">
 
                                             <h5 class="text-center">Saldo Insuficiente <i class="fa  fa-chevron-right"></i></h5>
 

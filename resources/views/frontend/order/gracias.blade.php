@@ -315,7 +315,6 @@ Carrito de Compras
 
                 $('#table_detalle').html(data);
 
-
                        if (single==1) {
 
                             $('.vermas').remove();
