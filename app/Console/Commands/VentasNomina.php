@@ -61,7 +61,7 @@ class VentasNomina extends Command
 
        Excel::store(new NominaExport(), $archivo_clientes, 'excel');
             
-        $documentos[]='/var/www/pruebas/public/html/pruebas/uploads/excel/'.$archivo_clientes;
+        $documentos[]='/var/www/alpinago/storage/app/public/'.$archivo_clientes;
      
 
         $enlace=storage_path('/app/'.$archivo);
