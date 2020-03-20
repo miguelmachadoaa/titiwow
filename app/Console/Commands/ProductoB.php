@@ -60,14 +60,14 @@ class ProductoB extends Command
 
        Excel::store(new ProductosRolExportB($hoy, $hoy, '9'), $archivo_clientes, 'excel');
             
-        $documentos[]='/var/www/pruebas/public/html/pruebas/uploads/excel/'.$archivo_clientes;
+        $documentos[]='/var/www/alpinago/storage/app/public/'.$archivo_clientes;
      
 
         $archivo_embajador='ventas_productos_embajador'.$hoy.'.xlsx';
 
         Excel::store(new ProductosRolExportB($hoy, $hoy, '10'), $archivo_embajador, 'excel');
             
-        $documentos[]='/var/www/pruebas/public/html/pruebas/uploads/excel/'.$archivo_embajador;
+        $documentos[]='/var/www/alpinago/storage/app/public/'.$archivo_embajador;
       
 
 
@@ -75,16 +75,28 @@ class ProductoB extends Command
 
          Excel::store(new ProductosRolExportB($hoy, $hoy, '11'), $archivo_amigoalpina, 'excel');
 
-        $documentos[]='/var/www/pruebas/public/html/pruebas/uploads/excel/'.$archivo_amigoalpina;
+        $documentos[]='/var/www/alpinago/storage/app/public/'.$archivo_amigoalpina;
 
 
         $enlace=storage_path('/app/'.$archivo);
 
         Mail::to($configuracion->correo_cedi)->send(new \App\Mail\CronProductoB($archivo, $hoy, $documentos));
 
-        Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CronProductoB($archivo, $hoy, $documentos));
-
         
+        #$vacio = array();
+
+       # $date = Carbon::now();
+
+        #$hoy=$date->format('Y-m-d');
+
+        #$archivo=$configuracion->base_url.'reportes/cronexportproductosb';
+
+
+       // Excel::store(new CronLogisticaExport(), $archivo);
+
+        #$enlace=storage_path('/app/'.$archivo);
+#
+        #Mail::to($configuracion->correo_cedi)->send(new \App\Mail\CronProductoB($archivo, $hoy, $vacio));
 
 
 
