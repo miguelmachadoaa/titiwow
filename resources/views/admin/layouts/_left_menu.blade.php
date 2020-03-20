@@ -989,6 +989,18 @@
             </li>
             @endif
 
+
+             @if (Sentinel::getUser()->hasAnyAccess(['reportes.nomina']))
+
+                <li {!! (Request::is('admin/reportes/nomina') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ URL::to('admin/reportes/nomina') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Reporte ventas descuento nomina
+                </a>
+            </li>
+            @endif
+
+
             
             
 

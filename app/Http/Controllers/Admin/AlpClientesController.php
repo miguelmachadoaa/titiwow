@@ -619,6 +619,8 @@ class AlpClientesController extends JoshController
 
         $saldo=AlpSaldo::where('id_cliente', $id)->get();
 
+        $un_saldo=AlpSaldo::where('id_cliente', $id)->first();
+
         $disponible=$this->getSaldo();
         
 
@@ -655,7 +657,7 @@ class AlpClientesController extends JoshController
 
       
         // Show the page
-        return view('admin.clientes.detalle', compact('history','saldo', 'cliente', 'usuario', 'roles', 'referidos'));
+        return view('admin.clientes.detalle', compact('history','saldo', 'cliente', 'usuario', 'roles', 'referidos', 'un_saldo', 'disponible'));
     }
 
 

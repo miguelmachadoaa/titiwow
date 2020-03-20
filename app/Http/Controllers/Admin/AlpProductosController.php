@@ -1900,7 +1900,7 @@ class AlpProductosController extends JoshController
 
 
 
-      $ids = array(9,10,11,12);
+      $ids = array(9,10,11,12, 14);
 
       $roles = Sentinel::getRoleRepository()->all();
       //$roles=Roles::select('roles.id as id,roles.name as name, ')->whereIn('id', $ids)->get();

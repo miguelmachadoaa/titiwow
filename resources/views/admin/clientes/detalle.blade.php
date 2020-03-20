@@ -121,6 +121,24 @@ Cliente
                                                             </td>
                                                         </tr>
 
+                                                        @endif
+
+                                                        @if(isset($un_saldo->id))
+
+                                                             <tr>
+                                                                <td><b> Saldo Disponible</b></td>
+                                                                <td>
+                                                                    {{ $disponible[$cliente->id] }}
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td><b> Fecha de Vencimiento</b></td>
+                                                                <td>
+                                                                    {{ $un_saldo->fecha_vencimiento }}
+                                                                </td>
+                                                            </tr>
+
 
                                                         @endif
 
@@ -185,13 +203,13 @@ Cliente
                                         {{ $s->saldo }}
                                     </td>
                                     <td>
-                                        @if($s->operacion='1')
+                                        @if($s->operacion=='1')
 
-                                        {{ 'Ingreso' }}
+                                            {{ 'Ingreso' }}
 
                                         @else
 
-                                        {{ 'Compra' }}
+                                            {{ 'Compra' }}
 
                                         @endif
                                         
