@@ -40,7 +40,7 @@ class NominaExport implements FromView
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
           ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
           ->where('alp_ordenes.id_forma_pago', '=', '3')
-          ->groupBy('alp_ordenes.id')
+          //->groupBy('alp_ordenes.id')
           ->get();
 
 
