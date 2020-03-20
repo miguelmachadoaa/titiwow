@@ -84,6 +84,7 @@ class ProductosRolExportB implements FromView
           ->whereIn('alp_ordenes.estatus', [1])
           ->where('alp_ordenes.estatus_pago','=', '2')
           ->where('role_users.role_id','=', $this->rol)
+          ->where('alp_ordenes.id_forma_pago', '<>', '3')
           //->whereDate('alp_ordenes_detalle.created_at', '>=', $this->desde)
           //->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta)
           ->get();

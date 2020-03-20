@@ -63,6 +63,7 @@ class TomaPedidosExport implements FromView
           ->whereNull('alp_ordenes.factura')
           ->whereIn('alp_ordenes.estatus', [1])
           ->where('alp_ordenes.estatus_pago','=', '2')
+          ->where('alp_ordenes.id_forma_pago', '<>', '3')
           //->whereDate('alp_ordenes_detalle.created_at', '>=', $this->desde)
           //->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta)
           ->get();

@@ -57,6 +57,8 @@ class VentasExport implements FromView
           ->groupBy('alp_ordenes.id')
           ->whereDate('alp_ordenes.created_at', '>=', $this->desde)
           ->whereDate('alp_ordenes.created_at', '<=', $this->hasta)
+          ->where('alp_ordenes.id_forma_pago', '<>', '3')
+          
           ->where('alp_ordenes.id_cliente','=', $this->user)->get();
 
           //dd($ordenes);

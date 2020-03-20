@@ -47,6 +47,7 @@ class ProductostotalesExport implements FromView
           ->whereDate('alp_ordenes_detalle.created_at', '>=', $this->desde)
           ->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta)
           ->whereIn('alp_ordenes.estatus', [1,2,3,5,6,7])
+          ->where('alp_ordenes.id_forma_pago', '<>', '3')
           ->get();
 
 
