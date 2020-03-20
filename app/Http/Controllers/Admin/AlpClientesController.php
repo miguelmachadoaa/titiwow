@@ -619,14 +619,20 @@ class AlpClientesController extends JoshController
 
         $saldo=AlpSaldo::where('id_cliente', $id)->get();
 
+        //dd($saldo);
+
         $un_saldo=AlpSaldo::where('id_cliente', $id)->first();
 
         $disponible=$this->getSaldo();
-        
+
+
 
         $cliente=AlpClientes::select('alp_clientes.*', 'alp_tipo_documento.nombre_tipo_documento as nombre_tipo_documento')
         ->join('alp_tipo_documento', 'alp_clientes.id_type_doc', '=', 'alp_tipo_documento.id')
         ->where('id_user_client', $id)->first();
+
+        //dd($un_saldo);
+
 
         if ($cliente->id_embajador!=0) {
                 

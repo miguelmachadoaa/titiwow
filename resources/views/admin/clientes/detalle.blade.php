@@ -125,12 +125,12 @@ Cliente
 
                                                         @if(isset($un_saldo->id))
 
-                                                            @if(isset($disponible[$cliente->id]))
+                                                            @if(isset($disponible[$cliente->id_user_client]))
 
                                                                  <tr>
                                                                     <td><b> Saldo Disponible</b></td>
                                                                     <td>
-                                                                        {{ $disponible[$cliente->id] }}
+                                                                        {{ $disponible[$cliente->id_user_client] }}
                                                                     </td>
                                                                 </tr>
 
