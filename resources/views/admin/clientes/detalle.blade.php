@@ -125,12 +125,25 @@ Cliente
 
                                                         @if(isset($un_saldo->id))
 
-                                                             <tr>
-                                                                <td><b> Saldo Disponible</b></td>
-                                                                <td>
-                                                                    {{ $disponible[$cliente->id] }}
-                                                                </td>
-                                                            </tr>
+                                                            @if(isset($disponible[$cliente->id]))
+
+                                                                 <tr>
+                                                                    <td><b> Saldo Disponible</b></td>
+                                                                    <td>
+                                                                        {{ $disponible[$cliente->id] }}
+                                                                    </td>
+                                                                </tr>
+
+                                                            @else
+
+                                                                <tr>
+                                                                    <td><b> Saldo Disponible</b></td>
+                                                                    <td>
+                                                                        {{ '0' }}
+                                                                    </td>
+                                                                </tr>
+
+                                                            @endif
 
                                                             <tr>
                                                                 <td><b> Fecha de Vencimiento</b></td>
