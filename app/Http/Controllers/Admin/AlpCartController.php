@@ -1290,19 +1290,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
         $cart=$this->reloadCart();
 
-
-        $bloquear_disponible=1;
-
-        foreach ($cart as $disp_cart) {
-          
-          if ($disp_cart==0) {
-            
-            $bloquear_disponible=0;
-
-          }
-
-        }
-
+        
 
       $configuracion=AlpConfiguracion::where('id', '1')->first();
 

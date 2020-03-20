@@ -172,10 +172,12 @@ class FrontEndController extends JoshController
 
         $categorias = DB::table('alp_categorias')->select('alp_categorias.*')->where('destacado','=', 1)->where('alp_categorias.estado_registro','=',1)->orderBy('order', 'asc')->limit(9)->get();
 
-        $productos = DB::table('alp_productos')->select('alp_productos.*')->where('destacado','=', 1)->where('alp_productos.estado_registro','=',1)
+        $productos = DB::table('alp_productos')->select('alp_productos.*')->where('destacado','=', 1)
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
         ->where('alp_almacenes.id', '=', $id_almacen)
+        ->whereNull('alp_almacen_producto.deleted_at')
+        ->where('alp_productos.estado_registro','=',1)
         ->groupBy('alp_productos.id')
         ->orderBy('order', 'asc')
         

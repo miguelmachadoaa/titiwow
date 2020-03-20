@@ -116,6 +116,7 @@ class ProductosFrontController extends Controller
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
         ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
+        ->whereNull('alp_almacen_producto.deleted_at')
 
         ->whereNull('alp_productos_category.deleted_at')
         ->where('alp_productos_category.id_categoria','=', 1)
@@ -131,6 +132,7 @@ class ProductosFrontController extends Controller
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
        ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
+       ->whereNull('alp_almacen_producto.deleted_at')
 
         ->whereNull('alp_productos_category.deleted_at')
         ->where('alp_productos_category.id_categoria','=', 2)
@@ -146,6 +148,7 @@ class ProductosFrontController extends Controller
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
        ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
+       ->whereNull('alp_almacen_producto.deleted_at')
 
         ->whereNull('alp_productos_category.deleted_at')
         ->where('alp_productos_category.id_categoria','=', 3)
@@ -161,6 +164,7 @@ class ProductosFrontController extends Controller
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
        ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
+       ->whereNull('alp_almacen_producto.deleted_at')
 
         ->whereNull('alp_productos_category.deleted_at')
         ->where('alp_productos_category.id_categoria','=', 4)
@@ -176,6 +180,7 @@ class ProductosFrontController extends Controller
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
        ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
+       ->whereNull('alp_almacen_producto.deleted_at')
 
         ->whereNull('alp_productos_category.deleted_at')
         ->where('alp_productos_category.id_categoria','=', 5)
@@ -191,6 +196,7 @@ class ProductosFrontController extends Controller
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
        ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
+       ->whereNull('alp_almacen_producto.deleted_at')
 
         ->whereNull('alp_productos_category.deleted_at')
         ->where('alp_productos_category.id_categoria','=', 6)
@@ -206,6 +212,7 @@ class ProductosFrontController extends Controller
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
        ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
+       ->whereNull('alp_almacen_producto.deleted_at')
 
         ->whereNull('alp_productos_category.deleted_at')
         ->where('alp_productos_category.id_categoria','=', 7)
@@ -221,6 +228,8 @@ class ProductosFrontController extends Controller
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
        ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
+       ->whereNull('alp_almacen_producto.deleted_at')
+
 
         ->whereNull('alp_productos_category.deleted_at')
         ->where('alp_productos_category.id_categoria','=', 8)
@@ -236,6 +245,7 @@ class ProductosFrontController extends Controller
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
        ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
+       ->whereNull('alp_almacen_producto.deleted_at')
 
 
         ->whereNull('alp_productos_category.deleted_at')
@@ -589,6 +599,7 @@ class ProductosFrontController extends Controller
             ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
        ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
+       ->whereNull('alp_almacen_producto.deleted_at')
 
             ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
             ->where('alp_productos.estado_registro','=',1)
@@ -603,6 +614,7 @@ class ProductosFrontController extends Controller
             ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
        ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
+       ->whereNull('alp_almacen_producto.deleted_at')
 
 
             ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
@@ -833,6 +845,7 @@ class ProductosFrontController extends Controller
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
        ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
+       ->whereNull('alp_almacen_producto.deleted_at')
 
 
         ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
@@ -961,6 +974,7 @@ class ProductosFrontController extends Controller
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
        ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
+       ->whereNull('alp_almacen_producto.deleted_at')
 
 
         ->where('alp_productos.id_marca','=', $marca->id)
@@ -1081,13 +1095,16 @@ class ProductosFrontController extends Controller
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
        ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
 
-
         ->whereNull('alp_productos_category.deleted_at')
+        ->whereNull('alp_almacen_producto.deleted_at')
         ->where('alp_productos.estado_registro','=',1)
         ->groupBy('alp_productos.id')
         ->orderBy('alp_marcas.order', 'asc')
         ->orderBy('alp_productos.updated_at', 'desc') 
         ->paginate(36); 
+
+
+       // dd($productos);
 
 
          if (Sentinel::check()) {
@@ -1202,6 +1219,7 @@ class ProductosFrontController extends Controller
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
        ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
+       ->whereNull('alp_almacen_producto.deleted_at')
 
 
 

@@ -102,6 +102,11 @@ class AlpProductosController extends JoshController
               $estado=" <div id='td_destacado_".$alpProductos->id."'><button type='button' data-url='".secure_url('productos/desactivar')."' data-desactivar='1' data-id='".$alpProductos->id ."' class='btn btn-responsive button-alignment btn-danger btn_sizes desactivar' style='font-size: 12px !important;'>Inactivo</button></div>";
             }
 
+
+            if ($alpProductos->estado_registro == 0) {
+              $estado=" <div id='td_destacado_".$alpProductos->id."'><button type='button' data-url='".secure_url('productos/desactivar')."' data-desactivar='1' data-id='".$alpProductos->id ."' class='btn btn-responsive button-alignment btn-danger btn_sizes desactivar' style='font-size: 12px !important;'>Inactivo</button></div>";
+            }
+
                  $actions = " 
                   
                   <!--a href='".secure_url('admin/productos/'.collect($alpProductos)->first().'/show' )."'>
