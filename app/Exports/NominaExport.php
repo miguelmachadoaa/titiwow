@@ -34,8 +34,7 @@ class NominaExport implements FromView
                 'alp_productos.nombre_producto as nombre_producto',
                 'alp_productos.referencia_producto as referencia_producto',
                 'users.first_name as first_name', 
-                'users.last_name as last_name', 
-            )
+                'users.last_name as last_name' )
           ->join('alp_ordenes_detalle', 'alp_ordenes.id', '=', 'alp_ordenes_detalle.id_orden')
           ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')

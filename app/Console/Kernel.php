@@ -22,7 +22,7 @@ class Kernel extends ConsoleKernel
         Commands\ProductoC::class,
         Commands\TomaPedidos::class,
         Commands\NotificacionCarrito::class,
-        Commands\VentaNomina::class,
+        Commands\VentasNomina::class,
         Commands\CancelarOrdenes::class,
 
 
