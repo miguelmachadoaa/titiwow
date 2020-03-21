@@ -45,6 +45,8 @@ class VentasNomina extends Command
      */
     public function handle()
     {
+
+
         //
         $configuracion=AlpConfiguracion::where('id', '1')->first();
 
@@ -59,7 +61,7 @@ class VentasNomina extends Command
 
         $archivo_clientes='listado_ventas_descuento_nomina_'.$hoy.'.xlsx';
 
-       Excel::store(new NominaExport(), $archivo_clientes, 'excel');
+       Excel::store(new NominaExport($hoy), $archivo_clientes, 'excel');
             
         $documentos[]='/var/www/alpinago/storage/app/public/'.$archivo_clientes;
      

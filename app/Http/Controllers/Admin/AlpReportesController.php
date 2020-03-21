@@ -661,6 +661,11 @@ class AlpReportesController extends Controller
         }
 
 
+         $date = Carbon::now();
+
+        $hoy=$date->format('Y-m-d');
+
+
         return Excel::download(new ConsolidadoExport($request->desde), 'consolidado_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
     }
 
@@ -1260,7 +1265,11 @@ class AlpReportesController extends Controller
 
         }
 
-        return Excel::download(new NominaExport($request->estado), 'Listado_de_descuento_nomina.xlsx');
+         $date = Carbon::now();
+
+        $hoy=$date->format('Y-m-d');
+
+        return Excel::download(new NominaExport($hoy), 'Listado_de_descuento_nomina.xlsx');
     }
 
 }

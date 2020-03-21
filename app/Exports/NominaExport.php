@@ -16,9 +16,9 @@ use \DB;
 class NominaExport implements FromView
 {
     
-    public function __construct()
+    public function __construct(string $desde)
     {
-
+        $this->desde = $desde;
     }
 
     public function view(): View
@@ -40,6 +40,8 @@ class NominaExport implements FromView
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
           ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
           ->where('alp_ordenes.id_forma_pago', '=', '3')
+          ->whereDate('alp_ordenes.created_at', '>=', $this->desde)
+          ->whereDate('alp_ordenes.created_at', '<=', $this->desde)
           //->groupBy('alp_ordenes.id')
           ->get();
 

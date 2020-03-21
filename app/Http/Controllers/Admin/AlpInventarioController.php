@@ -78,6 +78,10 @@ class AlpInventarioController extends JoshController
               $estado="<span   class='btn btn-xs btn-danger' style='font-size: 12px !important;'>Inactivo</span>";
             }
 
+            if ($row->estado_registro == 0) {
+              $estado="<span   class='btn btn-xs btn-danger' style='font-size: 12px !important;'>Inactivo</span>";
+            }
+
             if (isset($inventario[$row->id][$row->id_almacen])) {
 
              // dd($row->id.'/'.$row->id_almacen);
