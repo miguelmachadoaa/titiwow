@@ -1001,6 +1001,17 @@
             @endif
 
 
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.detalleventa']))
+
+                <li {!! (Request::is('admin/reportes/detalleventa') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ URL::to('admin/reportes/detalleventa') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Reporte  detalles ventas
+                </a>
+            </li>
+            @endif
+
+
             
             
 
