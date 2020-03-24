@@ -1528,9 +1528,13 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
           ->where('alp_rol_envio.id_rol', $role->role_id)
           ->first();
 
+          //dd($fev);
+
             if (isset($fev->id)) {
 
-              $id_forma_envio=$fev->id_forma_envio;
+              \Session::put('envio', $fev->id);
+
+              $id_forma_envio=$fev->id;
               # code...
             }else{
 
