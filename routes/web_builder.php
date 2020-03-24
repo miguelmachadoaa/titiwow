@@ -35,6 +35,7 @@ Route::get('reportes/cronexportproductosc', 'Admin\AlpReportesController@cronexp
 Route::get('reportes/cronexporttomapedidos', 'Admin\AlpReportesController@cronexporttomapedidos')->name('reportes.cronexporttomapedidos');
 
 Route::get('reportes/cronexportcuponesdescuento', 'Admin\AlpReportesController@cronexportcuponesdescuento')->name('reportes.cronexportcuponesdescuento');
+
 Route::get('reportes/cronexportcuponesusados', 'Admin\AlpReportesController@cronexportcuponesusados')->name('reportes.cronexportcuponesusados');
 
 
@@ -445,6 +446,14 @@ Route::post('productos/postgrid/', ['as'=> 'productos.postgrid', 'uses' => 'Admi
    Route::get('reportes/registrados', 'Admin\AlpReportesController@indexreg')->name('reportes.registrados');
    
    Route::post('reportes/registrados/export', 'Admin\AlpReportesController@export')->name('reportes.export');
+
+
+   Route::get('reportes/detalleventa', 'Admin\AlpReportesController@detalleventa')->name('reportes.detalleventa');
+   
+   Route::post('reportes/exportdetalleventa', 'Admin\AlpReportesController@exportdetalleventa')->name('reportes.exportdetalleventa');
+
+
+
 
    Route::get('reportes/ventastotales', 'Admin\AlpReportesController@ventastotales')->name('reportes.ventastotales');
    

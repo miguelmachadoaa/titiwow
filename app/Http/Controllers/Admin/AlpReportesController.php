@@ -15,6 +15,7 @@ use App\Exports\FinancieroExport;
 use App\Exports\UsersExport;
 use App\Exports\VentasExport;
 use App\Exports\VentastotalesExport;
+use App\Exports\DetalleVentaExport;
 use App\Exports\ProductosExport;
 use App\Exports\ProductosExportB;
 use App\Exports\ProductosExportC;
@@ -1271,5 +1272,69 @@ class AlpReportesController extends Controller
 
         return Excel::download(new NominaExport($hoy), 'Listado_de_descuento_nomina.xlsx');
     }
+
+
+
+
+
+
+
+
+     public function detalleventa() 
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/ventastotales ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/ventastotales');
+
+        }
+
+        return view('admin.reportes.detalleventa');
+
+    }
+
+    public function exportdetalleventa(Request $request) 
+    {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exportventastotales ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exportventastotales');
+
+        }
+
+        $input=$request->all();
+
+       // dd($input);
+
+        return Excel::download(new DetalleVentaExport($request->desde, $request->hasta), 'detalleventa_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+    }
+
+
+
+
+
+
+
+
 
 }
