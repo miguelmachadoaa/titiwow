@@ -18,6 +18,7 @@ use App\Models\AlpFeriados;
 use App\Models\AlpFormaCiudad;
 use App\Models\AlpFormasenvio;
 use App\Models\AlpInventario;
+use App\Models\AlpSaldo;
 
 use App\User;
 use App\RoleUser;
@@ -1578,6 +1579,8 @@ class AlpOrdenesController extends JoshController
 
         $input = $request->all();
 
+        $orden=AlpOrdenes::where('id', $input['confirm_id'])->first();
+
 
         //var_dump($input);
 
@@ -1628,6 +1631,24 @@ class AlpOrdenesController extends JoshController
             $d=AlpOrdenesDescuento::where('id', $desc->id)->first();
 
             $d->delete();
+
+          }
+
+
+
+          if ($orden->id_forma_pago=='3') {
+
+              $ss=AlpSaldo::where('id_cliente', $orden->id_cliente)->first();
+              
+              $data_saldo = array(
+                'id_cliente' => $orden->id_cliente, 
+                'saldo' => $orden->monto_total, 
+                'operacion' => '1', 
+                'fecha_vencimiento' => $ss->fecha_vencimiento, 
+                'id_user' => $orden->id_cliente
+              );
+
+              AlpSaldo::create($data_saldo);
 
           }
 
