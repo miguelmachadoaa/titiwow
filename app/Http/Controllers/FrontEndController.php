@@ -29,6 +29,7 @@ use App\Models\AlpClientesHistory;
 use App\Models\AlpAlmacenes;
 use App\Models\AlpAlmacenRol;
 use App\Models\AlpAlmacenProducto;
+use App\Models\AlpRolenvio;
 use App\User;
 use App\State;
 use App\RoleUser;
