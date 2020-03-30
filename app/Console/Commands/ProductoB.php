@@ -70,7 +70,6 @@ class ProductoB extends Command
         $documentos[]='/var/www/alpinago/storage/app/public/'.$archivo_embajador;
       
 
-
         $archivo_amigoalpina='ventas_productos_amigoalpina'.$hoy.'.xlsx';
 
          Excel::store(new ProductosRolExportB($hoy, $hoy, '11'), $archivo_amigoalpina, 'excel');
@@ -81,25 +80,6 @@ class ProductoB extends Command
         $enlace=storage_path('/app/'.$archivo);
 
         Mail::to($configuracion->correo_cedi)->send(new \App\Mail\CronProductoB($archivo, $hoy, $documentos));
-
-        
-        #$vacio = array();
-
-       # $date = Carbon::now();
-
-        #$hoy=$date->format('Y-m-d');
-
-        #$archivo=$configuracion->base_url.'reportes/cronexportproductosb';
-
-
-       // Excel::store(new CronLogisticaExport(), $archivo);
-
-        #$enlace=storage_path('/app/'.$archivo);
-#
-        #Mail::to($configuracion->correo_cedi)->send(new \App\Mail\CronProductoB($archivo, $hoy, $vacio));
-
-
-
 
     }
 }

@@ -203,7 +203,9 @@ Cliente
                             <tr>
                                 <th>Saldo</th>
                                 <th>Operación</th>
+                                
                                 <th>Fecha de vencimiento</th>
+                                <th>Nota</th>
                                 <th>Creado</th>
                             </tr>
                         </thead>
@@ -230,6 +232,10 @@ Cliente
 
                                     <td>
                                         {{ $s->fecha_vencimiento }}
+                                    </td>
+
+                                    <td>
+                                        {{ $s->nota }}
                                     </td>
                                     
                                     <td>

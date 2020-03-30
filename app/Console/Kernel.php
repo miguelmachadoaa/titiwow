@@ -23,6 +23,7 @@ class Kernel extends ConsoleKernel
         Commands\TomaPedidos::class,
         Commands\NotificacionCarrito::class,
         Commands\VentasNomina::class,
+        Commands\VerificarSaldo::class,
         Commands\CancelarOrdenes::class,
 
 
@@ -73,6 +74,9 @@ class Kernel extends ConsoleKernel
 
 
         $schedule->command('nomina:venta')->dailyAt('16:00');
+
+        $schedule->command('verificar:saldo')->dailyAt('1:00');
+        
         $schedule->command('cancelar:ordenes')->dailyAt('07:00');
          $schedule->command('generate:sitemap')->weekly();
         //$schedule->command('usuarios:new')->dailyAt('08:00');

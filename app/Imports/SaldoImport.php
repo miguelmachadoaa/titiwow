@@ -40,6 +40,7 @@ class SaldoImport implements ToCollection
                         'saldo' => $row[10], 
                         'operacion' => '1', 
                         'fecha_vencimiento' => $fecha_vencimiento, 
+                        'nota' => 'Carga de saldo', 
                         'id_user' => $user_id
                     );
 

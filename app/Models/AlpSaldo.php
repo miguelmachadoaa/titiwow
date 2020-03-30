@@ -22,6 +22,8 @@ class AlpSaldo extends Model
         'id_cliente',
         'saldo',
         'operacion',
+        'nota',
+        'estado_registro',
         'fecha_vencimiento',
         'id_user'
     ];
