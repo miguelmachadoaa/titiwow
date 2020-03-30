@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Actualizar Precios
+Actualizar Almacen
 @parent
 @stop
 
@@ -68,7 +68,7 @@ Actualizar Precios
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1>Actualizar Precios</h1>
+    <h1>Actualizar Almacen</h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ secure_url('admin') }}">
@@ -77,7 +77,7 @@ Actualizar Precios
             </a>
         </li>
         <li><a href="#"> Productos </a></li>
-        <li class="active">Actualizar Precios</li>
+        <li class="active">Actualizar almacen</li>
     </ol>
 </section>
 
@@ -88,86 +88,30 @@ Actualizar Precios
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Actualizar Precios de Productos
+                       Actualizar almacen {{$almacen->nombre_almacen}}
                     </h4>
                 </div>
                 <br />
                 <div class="panel-body">
-                <form class="" enctype="multipart/form-data" role="form" method="post" action="{{ secure_url('admin/productos/importupdate') }}">
+                <form class="" enctype="multipart/form-data" role="form" method="post" action="{{ secure_url('admin/almacenes/'.$almacen->id.'/postupload') }}">
+
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
                     <div class="row">
                         
-                         <div class="form-group {{ $errors->
-                            first('rol', 'has-error') }} col-sm-3" style="margin: :1em;">
-                                <label class="control-label" for="upload">Rol</label>
-                                    <select  id="rol" name="rol[]" multiple="multiple" class="form-control select2">
+                        
 
-                                        <option value="">Seleccione</option>
-                                        
-
-                                        @foreach($roles as $rol)
-
-
-                                            @if(in_array($rol->id, $ids))
-
-                                                <option value="{{$rol->id}}">{{$rol->name}}</option>
-
-                                            @endif
-
-                                        @endforeach
-                                        
-                                    </select><!-- rename it -->
-
-                                    {!! $errors->first('rol', '<span class="help-block">:message</span> ') !!}
-                        </div>
-
-
-                         <div class="form-group {{ $errors->
-                            first('state', 'has-error') }} col-sm-3" style="margin: :1em;">
-                                <label for="exampleInputEmail2">Departamento</label>
-                              <select class="form-control select2" name="state" id="state">
-                                    
-                                    @foreach($states as $state)
-
-                                    <option value="{{$state->id}}">{{$state->state_name}}</option>
-
-                                    @endforeach
-                                </select>
-
-                                {!! $errors->first('state', '<span class="help-block">:message</span> ') !!}
-                              </div>
-
-
-                              <div class="form-group col-sm-3 {{ $errors->
-                            first('cities', 'has-error') }}" style="margin: :1em;">
-
-                                <label for="exampleInputEmail2">Ciudad</label>
-
-                              <select class="form-control select2"  id="cities"  name="cities[]" multiple="multiple">
-
-                                </select>
-
-                                {!! $errors->first('cities', '<span class="help-block">:message</span> ') !!}
-
-                              </div>
-
-                    </div>
-                       
-                  <div class="clearfix"></div>
+                        <div class="clearfix"></div>
 
                         <div class="form-group {{ $errors->
                             first('file', 'has-error') }}">
                             <div class="row" style="margin-top: 1em;">
-                                <label class="col-md-3 col-lg-3 col-12 control-label" for="upload">Archivo CSV (Referencia, Precio, PUM)</label>
-
+                                <label class="col-md-3 col-lg-3 col-12 control-label" for="upload">Archivo CSV (Referencia)</label>
 
                                 <div class="col-md-9 col-12 col-lg-9">
                                     <input type="file" accept=".xlsx" name="file_update"  id="file_update"> <!-- rename it -->
 
-
                                     {!! $errors->first('file', '<span class="help-block">:message</span> ') !!}
-
 
                                 </div>
 
@@ -177,10 +121,14 @@ Actualizar Precios
                             </div>
                         </div>
 
+                    </div>
+                       
+                  <div class="clearfix"></div>
+
                         <div class="form-group">
                                 <div class="col-sm-offset-4 col-sm-8">
                                     
-                                    <a class="btn btn-md btn-danger" href="{{ secure_url('admin/productos/cargarupdate') }}">
+                                    <a class="btn btn-md btn-danger" href="{{ secure_url('admin/almacenes/') }}">
                                         Cancelar
                                     </a>
 

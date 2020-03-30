@@ -12,24 +12,28 @@ use App\Models\AlpProductos;
 use App\Models\AlpClientes;
 use App\Models\AlpAmigos;
 use App\Models\AlpPrecioGrupo;
+use App\Models\AlpInventario;
 use App\User;
 use App\State;
 use App\City;
 
 use App\Models\AlpAlmacenesUser;
 use App\Http\Requests\AlmacenesRequest;
+use App\Http\Requests\UploadRequest;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 
 use App\Imports\InvitacionesImport;
+use App\Imports\AlmacenImport;
 use Maatwebsite\Excel\Facades\Excel;
 
 use Activation;
 use Redirect;
 use Sentinel;
 use View;
+use DB;
 
 
 class AlpAlmacenesController extends JoshController
@@ -78,13 +82,13 @@ class AlpAlmacenesController extends JoshController
 
         foreach($almacenes as $row){
 
-           if ($row->estado_registro=='1') {
+          if ($row->estado_registro=='1') {
 
              $estatus=" <div class='estatus_".$row->id."'>
              <button data-url='".secure_url('admin/almacenes/estatus')."' type='buttton' data-id='".$row->id."' data-estatus='0' class='btn btn-xs btn-danger estatus'>Desactivar</button>
             </div>";
 
-                       }else{
+          }else{
 
                         $estatus="<div class='estatus_".$row->id."'>
             <button data-url='".secure_url('admin/almacenes/estatus')."' type='buttton' data-id='".$row->id."' data-estatus='1' class='btn btn-xs btn-success estatus'>Activar</button>
@@ -98,12 +102,14 @@ class AlpAlmacenesController extends JoshController
                       </a>
 
 
+                      <a href='".secure_url('admin/almacenes/'.$row->id.'/upload')."'>
+                              <i class='livicon' data-name='arrow-circle-up' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Agregar Productos'></i>
+                      </a>
+
+
                       <!--a href='".secure_url('admin/almacenes/'.$row->id.'/roles')."'>
                               <i class='livicon' data-name='users' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Editar Empresa'></i>
                       </a-->
-
-
-
                       
 
               <a href='".secure_url('admin/almacenes/'.$row->id.'/edit')."'>
@@ -415,8 +421,11 @@ class AlpAlmacenesController extends JoshController
 
        $cs=AlpAlmacenProducto::where('id_almacen', $id)->get();
 
-       $check = array();
+       $inventario=$this->inventario();
 
+       //dd($inventario);
+
+       $check = array();
 
        foreach ($cs as $c) {
 
@@ -426,7 +435,7 @@ class AlpAlmacenesController extends JoshController
 
 
 
-        return view('admin.almacenes.gestionar', compact('almacen', 'productos', 'check'));
+        return view('admin.almacenes.gestionar', compact('almacen', 'productos', 'check', 'inventario'));
     }
 
 
@@ -568,6 +577,156 @@ class AlpAlmacenesController extends JoshController
        
         return Redirect::route('admin.almacenes.index')->with('success', trans('Se ha creado satisfactoriamente'));
     }
+
+
+
+    private function inventario()
+    {
+       
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+              ->performedOn($user)
+              ->causedBy($user)
+              ->log('AlpInventarioController/inventario ');
+
+        }else{
+
+          activity()
+          ->log('AlpInventarioController/inventario');
+
+        }
+
+
+      $entradas = AlpInventario::groupBy('id_producto')->groupBy('id_almacen')
+              ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
+              ->where('alp_inventarios.operacion', '1')
+              ->get();
+
+              $inv = array();
+              $inv2 = array();
+
+             foreach ($entradas as $row) {
+                
+                $inv[$row->id_producto]=$row->cantidad_total;
+
+                $inv2[$row->id_producto][$row->id_almacen]=$row->cantidad_total;
+
+              }
+
+
+
+
+            $salidas = AlpInventario::select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
+              ->groupBy('id_producto')
+              ->groupBy('id_almacen')
+              ->where('operacion', '2')
+              ->get();
+
+              foreach ($salidas as $row) {
+                
+                //$inv[$row->id_producto]= $inv[$row->id_producto]-$row->cantidad_total;
+
+
+              $inv2[$row->id_producto][$row->id_almacen]= $inv2[$row->id_producto][$row->id_almacen]-$row->cantidad_total;
+                //$inv2[$row->id_producto][$row->id_almacen]= $row->cantidad_total;
+
+            }
+
+           // dd($inv2);
+
+            return $inv2;
+      
+    }
+
+
+
+
+
+
+
+
+
+
+
+     public function upload($id)
+    {
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('almacen/edit ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('almacen/edit');
+
+        }
+       
+
+       $almacen = AlpAlmacenes::where('id', $id)->first();
+
+       $almacenes = AlpAlmacenes::get();
+
+
+        return view('admin.almacenes.upload', compact('almacen', 'almacenes'));
+    }
+
+
+     public function postupload(Request $request, $id)
+    {
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+              ->performedOn($user)
+              ->causedBy($user)
+              ->withProperties(['id'=>$id])->log('almacen/postgestionar ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('almacen/postgestionar');
+
+        }
+
+        $input=$request->all();
+
+        //dd($id);
+
+        //dd($input);
+
+         $archivo = $request->file('file_update');
+
+        //$porciones = explode("_", $request->cities);
+
+        \Session::put('almacen', $id);
+
+        \Session::put('cities', $request->cities);
+
+        Excel::import(new AlmacenImport, $archivo);
+        
+
+       
+       
+        return Redirect::route('admin.almacenes.index')->with('success', trans('Se ha creado satisfactoriamente'));
+    }
+
+
+
+
+
+
+
+
 
 
 

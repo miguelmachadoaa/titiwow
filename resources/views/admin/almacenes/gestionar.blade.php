@@ -58,9 +58,81 @@ Editar Almacen
                                 </div>
                             </div>
 
+                            <table class="table table-striped" id="tableAlmacen">
+                                
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Seleccionar
+                                        </th>
+                                        <th>
+                                            Imagen
+                                        </th>
+                                        <th>
+                                            Nombre
+                                        </th>
+                                        <th>Referencia</th>
+                                        <th>
+                                            Referencia Sap
+                                        </th>
+
+                                        <th>
+                                            Inventario
+                                        </th>
+                                    </tr>
+                                </thead>
+                            
+
+                        <tbody>
+
                         @foreach($productos as $p)
 
-                        <div class="row">
+                        <tr>
+                            <td>
+                                <div class="checkbox">
+                                    <label>
+                                      <input 
+                                      class="cb " 
+                                      id="p_{{$p->id}}" 
+                                      name="p_{{$p->id}}" 
+                                      @if(isset($check[$p->id]))
+                                            {{'checked'}}
+                                      @endif
+                                      type="checkbox" > 
+                                    </label>
+                                  </div>
+                            </td>
+
+                            <td>
+                                <img style="width: 60px;" src="{{secure_url('uploads/productos/'.$p->imagen_producto)}}" alt="img">
+                            </td>
+
+                            <td>
+                                {{$p->nombre_producto}}
+                            </td>
+                            <td>
+                                {{$p->referencia_producto}}
+                            </td>
+
+                            <td>
+                                {{$p->referencia_producto_sap}}
+                            </td>
+                            <td>
+                                @if(isset($inventario[$p->id][$almacen->id]))
+
+                                    {{$inventario[$p->id][$almacen->id]}}
+
+                                @else
+
+                                    {{'0'}}
+
+                                @endif
+                            </td>
+                        </tr>
+
+
+
+                        <!--div class="row">
                             <div class="col-sm-12">
                                  <div class="checkbox">
                                     <label>
@@ -76,9 +148,13 @@ Editar Almacen
                                   </div>
                                 
                             </div>
-                        </div>
+                        </div-->
     
                         @endforeach
+
+                        </tbody>
+    
+                        </table>
 
                        <div class="form-group">
                             <div class="col-sm-4" style="margin-top: 2em;">
@@ -107,12 +183,20 @@ Editar Almacen
 @stop
 @section('footer_scripts')
 
+<link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}"/>
+ <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/buttons.bootstrap.css') }}">
+<script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}" ></script>
+ <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}" ></script>
+
 
 <script src="{{ secure_asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
 
 <script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
 
 <script>
+
+
+    $('#tableAlmacen').DataTable();
 
     $('.marcar').click(function(){
 
