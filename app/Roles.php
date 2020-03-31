@@ -19,6 +19,8 @@ class Roles extends Model
         'id',
         'slug',
         'name',
+        'tipo',
+        'monto_minimo',
         'permission'
     ];
 

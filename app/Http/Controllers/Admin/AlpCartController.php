@@ -1284,32 +1284,13 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
       $impuesto=$this->impuesto();
 
 
-      if ($total<$configuracion->minimo_compra) {
-
-        $aviso='El monto mínimo de compra es de $'.number_format($configuracion->minimo_compra,0,",",".");
-
-
-        $cart=$this->reloadCart();
-
-        
-
-      $configuracion=AlpConfiguracion::where('id', '1')->first();
-
-      $total=$this->total();
-
-     $inv=$this->inventario();
-
-      return view('frontend.cart', compact('cart', 'total', 'configuracion', 'inv', 'aviso'));
-
-        return redirect('cart/show');
-
-      }
+      
 
       if (Sentinel::check()) {
 
         $user = Sentinel::getUser();
 
-       activity($user->full_name)
+        activity($user->full_name)
                     ->performedOn($user)
                     ->causedBy($user)
                     ->withProperties($cart)
@@ -1324,7 +1305,38 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
         $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
 
-       $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+
+        $r=Roles::where('id', $role->role_id)->first();
+
+       // dd($r);
+
+
+          if ($total<$r->monto_minimo){
+
+            $aviso='El monto mínimo de compra es de $'.number_format($r->monto_minimo,0,",",".");
+
+            $cart=$this->reloadCart();
+
+            $configuracion=AlpConfiguracion::where('id', '1')->first();
+
+            $total=$this->total();
+
+            $inv=$this->inventario();
+
+            return view('frontend.cart', compact('cart', 'total', 'configuracion', 'inv', 'aviso'));
+
+            return redirect('cart/show');
+
+          }
+
+
+
+
+
+
+
+
+        $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
           ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
           ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
@@ -1549,50 +1561,50 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
         $valor_impuesto=AlpImpuestos::where('id', '1')->first();
 
-      if ($costo_envio>0) {
-       
-         $envio_base=$costo_envio/(1+$valor_impuesto->valor_impuesto);
+        if ($costo_envio>0) {
+         
+           $envio_base=$costo_envio/(1+$valor_impuesto->valor_impuesto);
 
-        $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
+          $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
 
-      }else{
+        }else{
 
-        $envio_base=0;
+         $envio_base=0;
 
-        $envio_impuesto=0;
+          $envio_impuesto=0;
 
-      }
-
-
-      /*limitar forma de envio segun la hora o dias feriados */
-
-      $express=0;
+        }
 
 
-      $ciudad_forma=AlpFormaCiudad::where('id_rol', $role->role_id)->where('id_forma', '2')->where('id_ciudad', '62')->first();
+        /*limitar forma de envio segun la hora o dias feriados */
 
-      $date = Carbon::now();
+        $express=0;
 
-      if (isset($ciudad_forma->id)) {
 
-          $date = Carbon::now();
+        $ciudad_forma=AlpFormaCiudad::where('id_rol', $role->role_id)->where('id_forma', '2')->where('id_ciudad', '62')->first();
 
-          $hora=$date->format('Hi');
+        $date = Carbon::now();
 
-          $hora_base=str_replace(':', '', $ciudad_forma->hora);
+        if (isset($ciudad_forma->id)) {
 
-          if (intval($hora)>intval($hora_base)) {
+            $date = Carbon::now();
 
-            $express=1;
+            $hora=$date->format('Hi');
 
-          }
+            $hora_base=str_replace(':', '', $ciudad_forma->hora);
+
+            if (intval($hora)>intval($hora_base)) {
+
+              $express=1;
+
+            }
 
 
         # code...
-      }else{
+          }else{
 
 
-      }
+          }
 
         $feriados=AlpFeriados::feriados();
 

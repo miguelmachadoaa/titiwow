@@ -8,6 +8,7 @@ use App\Models\AlpDespachoCiudad;
 use App\Country;
 use App\State;
 use App\City;
+use App\Roles;
 use App\Http\Requests;
 use App\Http\Requests\ProductosRequest;
 use Illuminate\Http\Request;
@@ -46,8 +47,11 @@ class AlpConfiguracionController extends JoshController
 
         }
 
-
         $configuracion = AlpConfiguracion::where('id', '1')->first();
+
+        $roles=Roles::where('tipo', '2')->get();
+
+        //dd($roles);
 
         $ciudades=AlpDespachoCiudad::select('alp_despacho_ciudad.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name')
         ->join('config_cities','alp_despacho_ciudad.id_ciudad' , '=', 'config_cities.id')
@@ -62,7 +66,7 @@ class AlpConfiguracionController extends JoshController
           ->get();
        
         // Show the page
-        return view('admin.configuracion.edit', compact('configuracion', 'ciudades', 'states', 'cities'));
+        return view('admin.configuracion.edit', compact('configuracion', 'ciudades', 'states', 'cities', 'roles'));
         
     }
 
@@ -94,6 +98,8 @@ class AlpConfiguracionController extends JoshController
 
         }
 
+        $input=$request->all();
+
 
        $data = array(
             'nombre_tienda' => $request->nombre_tienda,
@@ -112,7 +118,7 @@ class AlpConfiguracionController extends JoshController
             'registro_publico' => $request->registro_publico, 
             'user_activacion' => $request->user_activacion, 
             'editar_direccion' => $request->editar_direccion, 
-            'minimo_compra' => $request->minimo_compra, 
+            //'minimo_compra' => $request->minimo_compra, 
             'maximo_productos' => $request->maximo_productos, 
             'mensaje_bienvenida' => $request->mensaje_bienvenida, 
             'mensaje_promocion' => $request->mensaje_promocion, 
@@ -137,6 +143,25 @@ class AlpConfiguracionController extends JoshController
        $configuracion = AlpConfiguracion::find($id);
     
         $configuracion->update($data);
+
+
+         foreach ($input as $key => $value) {
+
+          if (substr($key, 0, 3)=='mc_') {
+
+            $par=explode('_', $key);
+
+            $rol=Roles::where('id', $par[1])->first();
+
+            $data_rol = array(
+              'monto_minimo' => $value
+            );
+
+            $rol->update($data_rol);
+
+          }
+
+        }
 
         if ($configuracion->id) {
 
