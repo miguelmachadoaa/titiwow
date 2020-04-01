@@ -46,7 +46,7 @@ class GenerateSitemap extends Command
         $sitemap = \App::make("sitemap");
 
         //config
-        $siteUrl = 'http://alpinav2.local';
+        $siteUrl = 'https://alpinago.com';
         $maxCount = 1000;
 
 
@@ -71,7 +71,7 @@ class GenerateSitemap extends Command
         foreach ($products as $product) {
             if ($counter == $maxCount) {
                 // generate new sitemap file
-                $sitemap->store('xml', 'sitemap-product-' . $sitemapCounter, 'public/sitemap-sn');
+                $sitemap->store('xml', 'sitemap-product-' . $sitemapCounter, '/var/www/html/sitemap-sn');
                 // add the file to the sitemaps array
                 $sitemap->addSitemap($siteUrl . '/sitemap-sn/' . 'sitemap-product-' . $sitemapCounter . '.xml', date('Y-m-d H:i:s'));
                 // reset items array (clear memory)
@@ -93,7 +93,7 @@ class GenerateSitemap extends Command
         foreach ($categorias as $category) {
             if ($counter == $maxCount) {
                 // generate new sitemap file
-                $sitemap->store('xml', 'sitemap-category-' . $sitemapCounter, 'public/sitemap-sn');
+                $sitemap->store('xml', 'sitemap-category-' . $sitemapCounter, '/var/www/html/sitemap-sn');
                 // add the file to the sitemaps array
                 $sitemap->addSitemap($siteUrl . '/sitemap-sn/' . 'sitemap-category-' . $sitemapCounter . '.xml', date('Y-m-d H:i:s'));
                 // reset items array (clear memory)
@@ -115,7 +115,7 @@ class GenerateSitemap extends Command
         foreach ($marcas as $marca) {
             if ($counter == $maxCount) {
                 // generate new sitemap file
-                $sitemap->store('xml', 'sitemap-marcas-' . $sitemapCounter, 'public/sitemap-sn');
+                $sitemap->store('xml', 'sitemap-marcas-' . $sitemapCounter, '/var/www/html/sitemap-sn');
                 // add the file to the sitemaps array
                 $sitemap->addSitemap($siteUrl . '/sitemap-sn/' . 'sitemap-marcas-' . $sitemapCounter . '.xml', date('Y-m-d H:i:s'));
                 // reset items array (clear memory)
@@ -137,7 +137,7 @@ class GenerateSitemap extends Command
         foreach ($cmss as $cms) {
             if ($counter == $maxCount) {
                 // generate new sitemap file
-                $sitemap->store('xml', 'sitemap-paginas-' . $sitemapCounter, 'public/sitemap-sn');
+                $sitemap->store('xml', 'sitemap-paginas-' . $sitemapCounter, '/var/www/html/sitemap-sn');
                 // add the file to the sitemaps array
                 $sitemap->addSitemap($siteUrl . '/sitemap-sn/' . 'sitemap-paginas-' . $sitemapCounter . '.xml', date('Y-m-d H:i:s'));
                 // reset items array (clear memory)
@@ -159,7 +159,7 @@ class GenerateSitemap extends Command
         // you need to check for unused items
         if (!empty($sitemap->model->getItems())) {
             // generate sitemap with last items
-            $sitemap->store('xml', 'sitemap-' . $sitemapCounter, 'public/sitemap-sn');
+            $sitemap->store('xml', 'sitemap-' . $sitemapCounter, '/var/www/html/sitemap-sn');
             // add sitemap to sitemaps array
             $sitemap->addSitemap($siteUrl . '/sitemap-sn/' . 'sitemap-product-' . $sitemapCounter . '.xml', date('Y-m-d H:i:s'));
             // reset items array
