@@ -104,13 +104,39 @@
                             </label>
                             <div class="col-sm-5">
                                 
-
                                 <textarea class="form-control resize_vertical" id="descripcion_forma_envios" name="descripcion_forma_envios" placeholder="Descripcion Forma de Envio" rows="5">{!! old('descripcion_forma_envios') !!}</textarea>
                             </div>
                             <div class="col-sm-4">
                                 {!! $errors->first('descripcion_forma_envios', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
+
+
+                        <div class="form-group  {{ $errors->first('tipo', 'has-error') }}">
+                                <label for="select21" class="col-sm-2 control-label">
+                                    Tipo de envio
+                                </label>
+                                <div class="col-sm-5">   
+                                 <select id="tipo" name="tipo" class="form-control ">
+                                    <option value="">Seleccione</option>
+                                        
+                                       
+                                        <option value="{{ 1 }}"
+                                                >Fecha Variable</option>
+
+                                        <option value="{{ 0}}"
+                                                 >Fecha Fija</option>
+                                       
+                                </select>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('tipo', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                                  
+                                </div>
+                               
+                            </div>
+
+
 
 
                         <div class="form-group">

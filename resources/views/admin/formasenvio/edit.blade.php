@@ -99,6 +99,33 @@ Editar Forma de Envio
                                 {!! $errors->first('descripcion_forma_envios', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
+
+                         <div class="form-group  {{ $errors->first('tipo', 'has-error') }}">
+                                <label for="select21" class="col-sm-2 control-label">
+                                    Tipo de envio
+                                </label>
+                                <div class="col-sm-5">   
+                                 <select id="tipo" name="tipo" class="form-control ">
+                                    <option value="">Seleccione</option>
+                                        
+                                       
+                                        <option value="{{ 1 }}"
+                                               @if($forma->tipo==1) {{'Selected'}} @endif >Fecha Variable</option>
+
+                                        <option value="{{ 0}}"  @if($forma->tipo==0) {{'Selected'}} @endif
+                                                 >Fecha Fija</option>
+                                       
+                                </select>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('tipo', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                                  
+                                </div>
+                               
+                            </div>
+
+
+
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                 <a class="btn btn-danger" href="{{ route('admin.formasenvio.index') }}">

@@ -109,6 +109,8 @@ class AlpCartController extends JoshController
     public function show()
     {
 
+      //$fecha=$this->getFechaEntrega('2', '62');
+
       $states=State::where('config_states.country_id', '47')->get();
 
       $cart=$this->reloadCart();
@@ -469,14 +471,8 @@ class AlpCartController extends JoshController
           }
 
       }
-     
-
 
     }
-
-
-
-  
 
     public function detalle2()
     {
@@ -500,16 +496,15 @@ class AlpCartController extends JoshController
             ->join('alp_formas_envios','alp_ordenes.id_forma_envio' , '=', 'alp_formas_envios.id')
             ->join('alp_formas_pagos','alp_ordenes.id_forma_pago' , '=', 'alp_formas_pagos.id')
             ->where('alp_ordenes.id', 85)->first();
- $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto','alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto' ,'alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
-          ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
-          ->where('alp_ordenes_detalle.id_orden', 85)->get();
+     $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto','alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto' ,'alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
+              ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
+              ->where('alp_ordenes_detalle.id_orden', 85)->get();
 
- $states=State::where('config_states.country_id', '47')->get();
+     $states=State::where('config_states.country_id', '47')->get();
 
- $aviso_pago='esto es una prueba para el diseño de procesar';
+     $aviso_pago='esto es una prueba para el diseño de procesar';
 
-
-return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
+    return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
 
 
     }
@@ -713,15 +708,15 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
             if ($configuracion->mercadopago_sand=='1') {
           
-          $mp::sandbox_mode(TRUE);
+              $mp::sandbox_mode(TRUE);
 
-        }
+            }
 
-        if ($configuracion->mercadopago_sand=='2') {
-          
-          $mp::sandbox_mode(FALSE);
+            if ($configuracion->mercadopago_sand=='2') {
+              
+              $mp::sandbox_mode(FALSE);
 
-        }
+            }
 
             MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
@@ -733,13 +728,11 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
       if (Sentinel::check()) {
 
-
         $user_id = Sentinel::getUser()->id;
 
         // 1.- eststus orden, 2.- estatus pago, 3 json pedido 
 
         $data=$this->generarPedido('8', '4', $input, 'mercadopago');
-
 
        // $data=$this->generarPedido('8', '4', $input, 'credit_card');
 
@@ -1051,51 +1044,48 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
           $envio=$this->envio();
 
 
-      $valor_impuesto=AlpImpuestos::where('id', '1')->first();
+            $valor_impuesto=AlpImpuestos::where('id', '1')->first();
 
-      if ($envio>0) {
-       
-         $envio_base=$envio/(1+$valor_impuesto->valor_impuesto);
+            if ($envio>0) {
+             
+               $envio_base=$envio/(1+$valor_impuesto->valor_impuesto);
 
-      $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
-
-
-      }else{
-
-        $envio_base=0;
-
-        $envio_impuesto=0;
-
-      }
+            $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
 
 
+            }else{
+
+              $envio_base=0;
+
+              $envio_impuesto=0;
+
+            }
 
 
+            $total=$orden->monto_total+$envio;
 
-        $total=$orden->monto_total+$envio;
+            $impuesto=$orden->monto_impuesto+$envio_impuesto;
+            
+            $net_amount=$total-$impuesto;
 
-        $impuesto=$orden->monto_impuesto+$envio_impuesto;
-        
-        $net_amount=$total-$impuesto;
+            $det_array = array();
 
-        $det_array = array();
+            foreach ($detalles as $d ) {
 
-        foreach ($detalles as $d ) {
+              $det_array[]= array(
 
-          $det_array[]= array(
+                    "id"          => $d->id_producto,
+                    "title"       => $d->nombre_producto,
+                    "description" => $d->descripcion_corta,
+                    "quantity"    => (int)number_format($d->cantidad, 0, '.', ''),
+                    "unit_price"  => intval($d->precio_unitario),
+                    );
+            }
 
-                "id"          => $d->id_producto,
-                "title"       => $d->nombre_producto,
-                "description" => $d->descripcion_corta,
-                "quantity"    => (int)number_format($d->cantidad, 0, '.', ''),
-                "unit_price"  => intval($d->precio_unitario),
-                );
-        }
-
-        $phone= array(
-          'area_code' =>'+57' , 
-          'number' => $datos_cliente->telefono_cliente, 
-        );
+            $phone= array(
+              'area_code' =>'+57' , 
+              'number' => $datos_cliente->telefono_cliente, 
+            );
 
 
         $direccion = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
@@ -1328,11 +1318,6 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
             return redirect('cart/show');
 
           }
-
-
-
-
-
 
 
 
@@ -1599,8 +1584,6 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
             }
 
-
-        # code...
           }else{
 
 
@@ -1671,7 +1654,7 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
        
          $envio_base=$envio/(1+$valor_impuesto->valor_impuesto);
 
-      $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
+        $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
 
 
       }else{
@@ -1681,8 +1664,6 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
         $envio_impuesto=0;
 
       }
-
-
 
       $orden=AlpOrdenes::where('id', $id_orden)->first();
 
@@ -1722,115 +1703,104 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
 
             }
 
-      $det_array = array();
+            $det_array = array();
 
 
-      foreach ($detalles as $d ) {
+            foreach ($detalles as $d ) {
 
 
-        $det_array[]= array(
+              $det_array[]= array(
+                        "id"          => $d->id_producto,
+                        "title"       => $d->nombre_producto,
+                        "description" => $d->descripcion_corta,
+                        "quantity"    => (int)number_format($d->cantidad, 0, '.', ''),
+                        "unit_price"  => intval($d->precio_unitario),
+                        );
+              }
 
-                "id"          => $d->id_producto,
-                "title"       => $d->nombre_producto,
-                "description" => $d->descripcion_corta,
-                "quantity"    => (int)number_format($d->cantidad, 0, '.', ''),
-                "unit_price"  => intval($d->precio_unitario),
-                );
-
-       
-      }
-
-           $preference_data = [
-            "transaction_amount" => doubleval($orden->monto_total+$envio),
-            "external_reference" =>"ALP".$orden->id."",
-            "description" => 'Pago de orden: '.$orden->id,
-            "payment_method_id" => $request->idpago,
-              "additional_info"=> [
-                "items" => $det_array ],
-            "payer" => [
-              "email"=>$user_cliente->email],
-              "additional_info"=> [
-                "items" => $det_array ],
-            "net_amount"=>(float)number_format($net_amount, 2, '.', ''),
-            "taxes"=>[[
-              "value"=>(float)number_format($impuesto, 2, '.', ''),
-              "type"=>"IVA"]]
-          ];
+               $preference_data = [
+                "transaction_amount" => doubleval($orden->monto_total+$envio),
+                "external_reference" =>"ALP".$orden->id."",
+                "description" => 'Pago de orden: '.$orden->id,
+                "payment_method_id" => $request->idpago,
+                  "additional_info"=> [
+                    "items" => $det_array ],
+                "payer" => [
+                  "email"=>$user_cliente->email],
+                  "additional_info"=> [
+                    "items" => $det_array ],
+                "net_amount"=>(float)number_format($net_amount, 2, '.', ''),
+                "taxes"=>[[
+                  "value"=>(float)number_format($impuesto, 2, '.', ''),
+                  "type"=>"IVA"]]
+              ];
 
           //dd($preference_data);
 
 
-          $payment = MP::post("/v1/payments",$preference_data);
+            $payment = MP::post("/v1/payments",$preference_data);
 
 
-          if (isset($payment['response']['id'])) {
+            if (isset($payment['response']['id'])) {
            
           
-          // 1.- eststus orden, 2.- estatus pago, 3 json pedido 
-          $data=$this->generarPedido('8', '4', $payment, 'mercadopago');
+              // 1.- eststus orden, 2.- estatus pago, 3 json pedido 
+              $data=$this->generarPedido('8', '4', $payment, 'mercadopago');
 
-          $id_orden=$data['id_orden'];
+              $id_orden=$data['id_orden'];
 
-          $fecha_entrega=$data['fecha_entrega'];
-
-
-         //  $datalles=AlpDetalles::where('id_orden', $orden->id)->get();
-
-          $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
-              ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
-              ->join('alp_clientes','alp_ordenes.id_cliente' , '=', 'alp_clientes.id_user_client')
-              ->join('alp_formas_envios','alp_ordenes.id_forma_envio' , '=', 'alp_formas_envios.id')
-              ->join('alp_formas_pagos','alp_ordenes.id_forma_pago' , '=', 'alp_formas_pagos.id')
-              ->where('alp_ordenes.id', $id_orden)->first();
+              $fecha_entrega=$data['fecha_entrega'];
 
 
-          $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
-            ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
-            ->where('alp_ordenes_detalle.id_orden', $id_orden)->get();
+              //  $datalles=AlpDetalles::where('id_orden', $orden->id)->get();
 
-           $states=State::where('config_states.country_id', '47')->get();
-
-           $configuracion = AlpConfiguracion::where('id','1')->first();
-
-            $user_cliente=User::where('id', $user_id)->first();
-
-            $texto='Se ha creado la siguiente orden '.$compra->id.' y esta a espera de aprobacion  ';
+              $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
+                  ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
+                  ->join('alp_clientes','alp_ordenes.id_cliente' , '=', 'alp_clientes.id_user_client')
+                  ->join('alp_formas_envios','alp_ordenes.id_forma_envio' , '=', 'alp_formas_envios.id')
+                  ->join('alp_formas_pagos','alp_ordenes.id_forma_pago' , '=', 'alp_formas_pagos.id')
+                  ->where('alp_ordenes.id', $id_orden)->first();
 
 
-            if ($compra->id_forma_envio!=1) {
+              $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
+                ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
+                ->where('alp_ordenes_detalle.id_orden', $id_orden)->get();
 
-              $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
+               $states=State::where('config_states.country_id', '47')->get();
 
-              Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega, 1));
+               $configuracion = AlpConfiguracion::where('id','1')->first();
 
-                 Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega, 1));
-            }
+                $user_cliente=User::where('id', $user_id)->first();
+
+                $texto='Se ha creado la siguiente orden '.$compra->id.' y esta a espera de aprobacion  ';
+
+
+                if ($compra->id_forma_envio!=1) {
+
+                  $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
+
+                  Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega, 1));
+
+                     Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega, 1));
+                }
 
            
 
-            $estatus_aviso='success';
+                $estatus_aviso='success';
 
-            $aviso_pago="Hemos procesado su orden satisfactoriamente, Su id para realizar el deposito en efectivo es <h4>".$payment['response']['id']."</h4>. Las indicaciones para finalizar su pago puede seguirlas en este enlace <a target='_blank' href='".$payment['response']['transaction_details']['external_resource_url']."' >Ticket</a>. Tiene 72 Horas para realizar el pago, o su orden sera cancelada. ¡Muchas gracias por su Compra!";
+                $aviso_pago="Hemos procesado su orden satisfactoriamente, Su id para realizar el deposito en efectivo es <h4>".$payment['response']['id']."</h4>. Las indicaciones para finalizar su pago puede seguirlas en este enlace <a target='_blank' href='".$payment['response']['transaction_details']['external_resource_url']."' >Ticket</a>. Tiene 72 Horas para realizar el pago, o su orden sera cancelada. ¡Muchas gracias por su Compra!";
 
-            $metodo=$payment['response']['payment_method_id'];
+                $metodo=$payment['response']['payment_method_id'];
 
-            $idc=$compra->id*1024;
-
-
-            return secure_url('cart/'.$idc.'/gracias?pago=pendiente');
+                $idc=$compra->id*1024;
 
 
+                return secure_url('cart/'.$idc.'/gracias?pago=pendiente');
 
-
-            //return redirect('cart/'.$idc.'/gracias?pago=pendiente');
-
-            //return view('frontend.order.procesarticket', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago', 'payment', 'estatus_aviso', 'metodo'));
 
         }else{
 
-
           return redirect('order/detail');
-
 
         }
         
@@ -1840,13 +1810,127 @@ return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entr
           return redirect('login');
       }
 
-    /*}else{
-
-          return redirect('orden/failure');
-
-    }*/
 
 }
+
+
+  public function getFechaEntrega($id_forma_envio, $id_city){
+
+
+      $ciudad_forma=AlpFormaCiudad::where('id_forma', $id_forma_envio)->where('id_ciudad', $id_city)->first();
+
+      $forma_envio=AlpFormasenvio::where('id', $id_forma_envio)->first();
+
+      $feriados=AlpFeriados::feriados();
+
+      if ($forma_envio->tipo=='0') {
+
+        $date = Carbon::now();
+
+        $dia=$date->format('d');
+
+        //dd($dia);
+
+        $ciudades_formas=AlpFormaCiudad::where('id_forma', $id_forma_envio)->where('id_ciudad', $id_city)->get();
+
+        //dd($ciudades_formas);
+          
+          foreach ($ciudades_formas as $cf){
+            
+            if ($cf->desde<= $dia && $cf->hasta>=$dia) {
+              
+              for ($i=0; $i < 31; $i++) { 
+
+                $ds = Carbon::now();
+
+                $ds->addDays($i);
+
+                $d=$ds->format('d');
+
+                //dd(($cf->dias));
+                //dd(($d));
+
+                if ($d==$cf->dias) {
+                  
+                  //dd($i);
+
+                  $ds = Carbon::now();
+
+                  $ds->addDays($i);
+
+                  $d=$ds->format('Y-m-d');
+
+                  $dias=$i;
+
+                }
+
+                
+
+              }
+
+            }
+
+
+          }
+
+
+
+      }else{
+
+
+       $date = Carbon::now();
+
+       $hora=$date->format('Hi');
+
+        $hora_base=str_replace(':', '', $ciudad_forma->hora);
+
+        if (intval($hora)>intval($hora_base)) {
+
+          $ciudad_forma->dias=$ciudad_forma->dias+1;
+
+        }
+
+        for ($i=0; $i <=$ciudad_forma->dias ; $i++) { 
+
+            $date2 = Carbon::now();
+
+            $date2->addDays($i);
+
+            if ($date2->isSunday()) {
+
+              $ciudad_forma->dias=$ciudad_forma->dias+1;
+            
+            }else{
+
+              if (isset($feriados[$date2->format('Y-m-d')])) {
+
+                  $ciudad_forma->dias=$ciudad_forma->dias+1;
+               
+              }
+
+            }
+
+            
+          }
+
+
+          $dias=$ciudad_forma->dias;
+
+
+
+
+      }
+
+
+       
+
+        $fecha_entrega=$date->addDays($dias)->format('d-m-Y');
+
+        //dd($fecha_entrega);
+
+        return $dias;
+
+  }
 
 
 
@@ -1886,47 +1970,17 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         $direccion=AlpDirecciones::where('id', $orden->id_address)->first();
 
-        $feriados=AlpFeriados::feriados();
+        $date = Carbon::now();
 
-        $ciudad_forma=AlpFormaCiudad::where('id_forma', $orden->id_forma_envio)->where('id_ciudad', $direccion->city_id)->first();
+        $dias=$this->getFechaEntrega($orden->id_forma_envio, $direccion->city_id );
+        
 
+        $fecha_entrega=$date->addDays($dias)->format('d-m-Y');
 
         $date = Carbon::now();
 
-        $hora=$date->format('Hi');
+        $fecha_envio=$date->addDays($dias)->format('Y-m-d');
 
-        $hora_base=str_replace(':', '', $ciudad_forma->hora);
-
-        if (intval($hora)>intval($hora_base)) {
-
-          $ciudad_forma->dias=$ciudad_forma->dias+1;
-
-        }
-
-        for ($i=0; $i <=$ciudad_forma->dias ; $i++) { 
-
-          $date2 = Carbon::now();
-
-          $date2->addDays($i);
-
-          if ($date2->isSunday()) {
-
-            $ciudad_forma->dias=$ciudad_forma->dias+1;
-          
-          }else{
-
-            if (isset($feriados[$date2->format('Y-m-d')])) {
-
-                $ciudad_forma->dias=$ciudad_forma->dias+1;
-             
-            }
-
-          }
-
-          
-        }
-
-        $fecha_entrega=$date->addDays($ciudad_forma->dias)->format('d-m-Y');
 
         $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
 
@@ -1958,9 +2012,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       if ($envio>0) {
        
-         $envio_base=$envio/(1+$valor_impuesto->valor_impuesto);
+        $envio_base=$envio/(1+$valor_impuesto->valor_impuesto);
 
-      $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
+        $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
 
 
       }else{
@@ -1971,13 +2025,10 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       }
 
-
-
-
-
         $data_envio = array(
           'id_orden' => $orden->id, 
-          'fecha_envio' => $date->addDays($ciudad_forma->dias)->format('Y-m-d'),
+         // 'fecha_envio' => $date->addDays($ciudad_forma->dias)->format('Y-m-d'),
+          'fecha_envio' => $fecha_envio,
           'costo' => $envio, 
           'costo_base' => $envio_base, 
           'costo_impuesto' => $envio_impuesto, 
@@ -2111,13 +2162,11 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
             'id_user' =>$user_id
           );
 
-      $orden=AlpPreOrdenes::create($data_orden);
+        $orden=AlpPreOrdenes::create($data_orden);
 
+        $monto_total_base=0;
 
-       $monto_total_base=0;
-
-
-         foreach ($cart as $detalle) {
+        foreach ($cart as $detalle) {
 
           //dd($detalle);
 
@@ -2138,7 +2187,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
          }
 
-
          $data_update = array(
           'referencia' => 'PRE'.$orden->id,
           'monto_total_base' => $monto_total_base,
@@ -2146,18 +2194,13 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
          $orden->update($data_update);
 
-
-
     }
-
-
 
     public function orderProcesar(Request $request)
     {
        $cart= \Session::get('cart');
 
        if (count($cart)>0) {
-
 
       $carrito= \Session::get('cr');
 
@@ -2183,52 +2226,18 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         $ciudad_forma=AlpFormaCiudad::where('id_forma', $orden->id_forma_envio)->where('id_ciudad', $direccion->city_id)->first();
 
-        if (isset($ciudad_forma->id)) {
-          # code...
-        }else{
-
-          $ciudad_forma=AlpFormaCiudad::where('id_forma', $orden->id_forma_envio)->first();
-        }
-
-        $feriados=AlpFeriados::feriados();
-
         $date = Carbon::now();
-
-        $hora=$date->format('Hi');
-
-        $hora_base=str_replace(':', '', $ciudad_forma->hora);
-
-        if (intval($hora)>intval($hora_base)) {
-
-          $ciudad_forma->dias=$ciudad_forma->dias+1;
-
-        }
-
-        for ($i=1; $i <=$ciudad_forma->dias ; $i++) { 
-
-          $date2 = Carbon::now();
-
-          $date2->addDays($i);
-
-          if ($date2->isWeekend()) {
-
-            $ciudad_forma->dias=$ciudad_forma->dias+1;
-          
-          }else{
-
-            if (isset($feriados[$date2->format('Y-m-d')])) {
-
-                $ciudad_forma->dias=$ciudad_forma->dias+1;
-             
-            }
-
-          }
-
-          
-        }
+        
 
 
-       $fecha_entrega=$date->addDays($ciudad_forma->dias)->format('d-m-Y');
+      $dias=$this->getFechaEntrega($orden->id_forma_envio, $direccion->city_id );
+
+
+       $fecha_entrega=$date->addDays($dias)->format('d-m-Y');
+
+       $date = Carbon::now();
+
+       $fecha_envio=$date->addDays($ciudad_forma->dias)->format('Y-m-d');
 
         $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
 
@@ -2334,17 +2343,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
           }
-           
-
-           
-
-
-
-
 
          }
 
-        
 
         $carrito= \Session::forget('cr');
 
@@ -2361,11 +2362,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
           ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
 
-
          $cart= \Session::forget('cart');
 
          $states=State::where('config_states.country_id', '47')->get();
-
 
           $configuracion = AlpConfiguracion::where('id','1')->first();
 
@@ -2391,17 +2390,17 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
           #return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
 
+        }else{
+
+            return redirect('login');
+
+        }
+
       }else{
 
-          return redirect('login');
+            return redirect('cart/show');
 
-    }
-
-    }else{
-
-          return redirect('cart/show');
-
-    }
+      }
 
     }
 
@@ -2453,7 +2452,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
      public function addlink( $id_producto, $b=NULL, $c=NULL, $d=NULL, $e=NULL, $f=NULL, $g=NULL, $h=NULL, $i=NULL)
     {
 
-
       $ps = array(
         'a' => $id_producto, 
         'b' => $b, 
@@ -2484,9 +2482,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           activity()->withProperties(['id_producto'=>$id_producto])
                         ->log('Agregar producto desde link ');
 
-
         }
-
 
          if (!\Session::has('cr')) {
 
@@ -2506,7 +2502,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
            
             }
 
-
             $carrito= \Session::get('cr');
 
            $descuento='1'; 
@@ -2520,89 +2515,69 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
             $cart= \Session::get('cart');
 
-
-
-
-
         foreach ($ps as $key => $value) {
 
-        if ($value!=null) {
-          
-            $producto=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
-            ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
-            ->where('alp_productos.id', $value)
-            ->first();
-
-
-
-
-           if ( isset($producto->id)) {
+          if ($value!=null) {
             
-          $producto->precio_oferta=$producto->precio_base;
+              $producto=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
+              ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
+              ->where('alp_productos.id', $value)
+              ->first();
 
-          $producto->cantidad=1;
+             if ( isset($producto->id)) {
+              
+                $producto->precio_oferta=$producto->precio_base;
 
-          $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
+                $producto->cantidad=1;
 
-
-            if($inv[$producto->id]>=$producto->cantidad){
-
-              $cart[$producto->slug]=$producto;
-
-            }else{
-
-              $error="No hay existencia suficiente de este producto";
-
-            }
+                $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
 
 
-           $data_detalle = array(
-            'id_carrito' => $carrito, 
-            'id_producto' => $producto->id, 
-            'cantidad' => $producto->cantidad
-          );
+              if($inv[$producto->id]>=$producto->cantidad){
 
-           AlpCarritoDetalle::create($data_detalle);
+                $cart[$producto->slug]=$producto;
+
+              }else{
+
+                $error="No hay existencia suficiente de este producto";
+
+              }
 
 
+             $data_detalle = array(
+              'id_carrito' => $carrito, 
+              'id_producto' => $producto->id, 
+              'cantidad' => $producto->cantidad
+            );
 
-           if (isset($request->datasingle)) {
+             AlpCarritoDetalle::create($data_detalle);
 
-            $datasingle=$request->datasingle;
-           
-            $view= View::make('frontend.order.botones', compact('producto', 'cart', 'datasingle'));
-            
-           }else{
+             if (isset($request->datasingle)) {
 
-           $view= View::make('frontend.order.botones', compact('producto', 'cart'));
+              $datasingle=$request->datasingle;
+             
+              $view= View::make('frontend.order.botones', compact('producto', 'cart', 'datasingle'));
+              
+             }else{
 
+              $view= View::make('frontend.order.botones', compact('producto', 'cart'));
+
+
+             }
 
            }
 
+
          }
-
-         //dd($cart);
-
-
-       /*Pegaar aqui */
-
-
-       }
      }
-
-     
 
 
      \Session::put('cart', $cart);
 
        $this->reloadCart();
 
-       
-
-
 
       return redirect('cart/show');
-
       
     }
 
@@ -2868,22 +2843,20 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        $inv=$this->inventario();
 
+        $producto->precio_oferta=$request->price;
 
-      $producto->precio_oferta=$request->price;
+        $producto->cantidad=1;
+        $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
 
-      $producto->cantidad=1;
-      $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
+        if($inv[$producto->id]>=$producto->cantidad){
 
-      if($inv[$producto->id]>=$producto->cantidad){
+          $cart[$producto->slug]=$producto;
 
-        $cart[$producto->slug]=$producto;
+        }else{
 
-      }else{
+          $error="No hay existencia suficiente de este producto";
 
-        $error="No hay existencia suficiente de este producto";
-
-      }
-
+        }
 
        \Session::put('cart', $cart);
 
@@ -2894,39 +2867,35 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       );
 
 
+       if (Sentinel::check()) {
 
-         if (Sentinel::check()) {
+        $user = Sentinel::getUser();
 
-          $user = Sentinel::getUser();
+         activity($user->full_name)
+                      ->performedOn($user)
+                      ->causedBy($user)
+                      ->withProperties($cart)
+                      ->log('addtocartsingle ');
 
-           activity($user->full_name)
-                        ->performedOn($user)
-                        ->causedBy($user)
-                        ->withProperties($cart)
-                        ->log('addtocartsingle ');
+      }else{
 
-        }else{
-
-          activity()->withProperties($cart)
-                        ->log('addtocartsingle');
-
-
-        }
+        activity()->withProperties($cart)
+                      ->log('addtocartsingle');
 
 
+      }
 
-       AlpCarritoDetalle::create($data_detalle);
+     AlpCarritoDetalle::create($data_detalle);
 
-       $single=1;
+     $single=1;
 
-       $view= View::make('frontend.order.botones', compact('producto', 'cart', 'single'));
+     $view= View::make('frontend.order.botones', compact('producto', 'cart', 'single'));
 
-          $data=$view->render();
+      $data=$view->render();
 
-          $res = array('data' => $data);
+      $res = array('data' => $data);
 
-          return $data;
-       // return json_encode($cart);
+      return $data;
       
     }
 
@@ -3086,14 +3055,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         }
 
 
- 
-
       unset( $cart[$request->slug]);
 
        \Session::put('cart', $cart);
-
-
-
 
 
        $view= View::make('frontend.order.botones', compact('producto', 'cart'));
@@ -3129,9 +3093,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
         }
-
-
-
 
        $carrito= \Session::get('cr');
 
@@ -3177,8 +3138,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
     public function vaciar( )
     {
 
-
-
        if (Sentinel::check()) {
 
           $user = Sentinel::getUser();
@@ -3194,9 +3153,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
         }
-
-
-
 
        $carrito= \Session::get('cr');
 
@@ -3218,8 +3174,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        }
 
-
-
        $cart= \Session::forget('cart');
 
        $carrito= \Session::forget('cr');
@@ -3238,9 +3192,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
       $total_descuentos=0;
-
-
-            
 
       foreach($cart as $row) {
 
@@ -3287,14 +3238,13 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       $total_descuentos=0;
 
 
-            $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
+        $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
 
-            foreach ($descuentos as $pago) {
+        foreach ($descuentos as $pago) {
 
-              $total_descuentos=$total_descuentos+$pago->monto_descuento;
+          $total_descuentos=$total_descuentos+$pago->monto_descuento;
 
-            }
-
+        }
 
           foreach($cart as $row) {
 
@@ -3396,8 +3346,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       return $combos;
     }
 
-
-
     private function reloadCart()
     {
        
@@ -3406,9 +3354,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       $s_user= \Session::get('user');
 
      $id_almacen=$this->getAlmacen();
-
-
-
 
       $total=0;
 

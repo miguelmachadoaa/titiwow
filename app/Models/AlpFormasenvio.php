@@ -23,6 +23,7 @@ class AlpFormasenvio extends Model
         'email',
         'nombre_forma_envios',
         'descripcion_forma_envios',
+        'tipo',
         'estado_registro',
         'id_user'
     ];

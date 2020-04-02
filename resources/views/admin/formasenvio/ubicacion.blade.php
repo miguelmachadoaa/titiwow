@@ -58,7 +58,18 @@ Ciudades de envio
                                     <th>Id</th>
                                     <th>Rol</th>
                                     <th>Ciudad</th>
-                                    <th>Dias para entrega</th>
+                                    
+                                    @if($formas->tipo==0)
+
+                                        <th>Compras Desde</th>
+                                        <th>Compras Hasta</th>
+                                        <th> Se entrega el Dia</th>
+
+                                    @else
+
+                                         <th>Dias para entrega</th>
+
+                                    @endif
                                     <th>Hora limite recepción</th>
                                     <th>Costo</th>
                                     <th>Accion</th>
@@ -71,7 +82,17 @@ Ciudades de envio
                                     <td>{!! $row->id !!}</td>
                                     <td>{!! $row->name !!}</td>
                                     <td>{!! $row->state_name.' - '.$row->city_name!!}</td>
+                                     @if($formas->tipo==0)
+
+                                    <td>{!! $row->desde !!}</td>
+                                    <td>{!! $row->hasta !!}</td>
                                     <td>{!! $row->dias !!}</td>
+
+                                    @else
+
+                                     <td>{!! $row->dias !!}</td>
+
+                                    @endif
                                     <td>{!! $row->hora !!}</td>
                                     <td>{!! number_format($row->costo, 2)  !!}</td>
                                     <td>
@@ -187,15 +208,52 @@ Ciudades de envio
                                     </div>
                                 </div>
 
+                                @if($formas->tipo=='0')
+
+                                    <div class="form-group col-sm-12 clearfix">
+                                        <label class="col-md-3 control-label" for="nombre_producto">Compras Desde <small>(Dia)</small> </label>
+
+                                        <div class="col-sm-8">
+                                            <input  style="margin: 4px 0;" id="desde" name="desde" type="number" step="1" min="0"  value="0" placeholder="Compras desde" class="form-control">
+                                        </div>
+                                    </div>
+
+                                     <div class="form-group col-sm-12 clearfix">
+                                        <label class="col-md-3 control-label" for="nombre_producto">Compras hasta <small>(Dia)</small></label>
+
+                                        <div class="col-sm-8">
+                                            <input  style="margin: 4px 0;" id="hasta" name="hasta" type="number" step="1" min="1"  value="0"  placeholder="Compras hasta" class="form-control">
+                                        </div>
+                                    </div>
 
 
-                                <div class="form-group clearfix">
-                                    <label class="col-md-3 control-label" for="nombre_producto">Dias para la entrega </label>
+                                    <div class="form-group clearfix">
+                                    <label class="col-md-3 control-label" for="nombre_producto">Se entrega el dia </label>
 
                                     <div class="col-sm-8">
                                         <input  style="margin: 4px 0;" id="dias" name="dias" type="number" step="1" min="1"  placeholder="Dias para la entrega" class="form-control">
                                     </div>
                                 </div>
+
+
+                                @else
+
+                                    <div class="form-group clearfix">
+                                        <label class="col-md-3 control-label" for="nombre_producto">Dias para la entrega </label>
+
+                                        <div class="col-sm-8">
+                                            <input  style="margin: 4px 0;" id="dias" name="dias" type="number" step="1" min="1"  placeholder="Dias para la entrega" class="form-control">
+                                        </div>
+                                    </div>
+
+
+                                @endif
+
+
+                                <input  style="margin: 4px 0;" id="desde" name="desde" type="hidden" step="1" min="0"  value="0" placeholder="Compras desde" class="form-control">
+                                
+                                <input  style="margin: 4px 0;" id="hasta" name="hasta" type="hidden" step="1" min="1"  value="0"  placeholder="Compras hasta" class="form-control">
+                                
                                 
 
                                 <div class="form-group clearfix">
@@ -307,7 +365,7 @@ $('.delCiudad').click(function () {
         });
 
 
-    $("#addCiuadadForm").bootstrapValidator({
+    $("#addCiuadadForm22222").bootstrapValidator({
     fields: {
         
         dias: {
@@ -357,13 +415,15 @@ $('.delCiudad').click(function () {
 
     $('.sendCiudad').click(function () {
     
-    var $validator = $('#addCiuadadForm').data('bootstrapValidator').validate();
+   // var $validator = $('#addCiuadadForm').data('bootstrapValidator').validate();
 
-    if ($validator.isValid()) {
+   // if ($validator.isValid()) {
 
         id_forma=$("#id_forma").val();
         id_rol=$("#id_rol").val();
         city_id=$("#city_id").val();
+        desde=$("#desde").val();
+        hasta=$("#hasta").val();
         dias=$("#dias").val();
         hora=$("#hora").val();
         costo=$("#costo").val();
@@ -372,7 +432,7 @@ $('.delCiudad').click(function () {
 
         $.ajax({
             type: "POST",
-            data:{ city_id,id_rol, dias, hora, id_forma, costo},
+            data:{ city_id,id_rol, dias,desde,hasta, hora, id_forma, costo},
             url: base+"/admin/formasenvio/storecity",
                 
             complete: function(datos){     
@@ -390,7 +450,7 @@ $('.delCiudad').click(function () {
             }
         });
 
-    }
+  //  }
 
 });
 

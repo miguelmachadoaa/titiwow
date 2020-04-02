@@ -73,6 +73,17 @@ class AlpFormasenvioController extends JoshController
             title='Eliminar'></i>
          </a>
 ";
+$tipo='';
+
+
+if ($row->tipo=='1') {
+    # code...
+
+    $tipo='Fecha variable';
+}else{
+$tipo='Fecha fija';
+
+}
 
                $data[]= array(
                  $row->id, 
@@ -80,6 +91,7 @@ class AlpFormasenvioController extends JoshController
                  $row->email, 
                  $row->nombre_forma_envios, 
                  $row->descripcion_forma_envios, 
+                 $tipo, 
                  date("d/m/Y H:i:s", strtotime($row->created_at)),
                  $actions
               );
@@ -163,6 +175,7 @@ class AlpFormasenvioController extends JoshController
             'email' => $request->email, 
             'nombre_forma_envios' => $request->nombre_forma_envios, 
             'descripcion_forma_envios' => $request->descripcion_forma_envios, 
+            'tipo' => $request->tipo, 
             'id_user' =>$user_id
         );
          
@@ -242,6 +255,7 @@ class AlpFormasenvioController extends JoshController
             'sku' => $request->sku, 
             'email' => $request->email, 
             'nombre_forma_envios' => $request->nombre_forma_envios, 
+            'tipo' => $request->tipo, 
             'descripcion_forma_envios' => $request->descripcion_forma_envios
         );
          
@@ -352,6 +366,8 @@ class AlpFormasenvioController extends JoshController
 
         $formas = AlpFormasenvio::where('id', $id)->first();
 
+       // dd($formas);
+
         
          $ciudades=AlpFormaCiudad::select('alp_forma_ciudad.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name', 'roles.name as name')
         ->join('roles','alp_forma_ciudad.id_rol' , '=', 'roles.id')
@@ -395,17 +411,31 @@ class AlpFormasenvioController extends JoshController
 
         }
 
+        $input=$request->all();
+
         $data = array(
             'id_forma' => $request->id_forma, 
             'id_rol' => $request->id_rol, 
             'id_ciudad' => $request->city_id, 
+            'desde' => $request->desde, 
+            'hasta' => $request->hasta, 
             'dias' => $request->dias, 
             'hora' => $request->hora, 
             'costo' => $request->costo, 
             'id_user' =>$user_id
         );
+
+        try {
+
+            $formas=AlpFormaCiudad::create($data);
+
+            
+        } catch (Exception $e) {
+            
+        }
+
+        $formas=AlpFormasenvio::where('id', $request->id_forma)->first();
          
-        $formas=AlpFormaCiudad::create($data);
 
          $ciudades=AlpFormaCiudad::select('alp_forma_ciudad.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name', 'roles.name as name')
         ->join('roles','alp_forma_ciudad.id_rol' , '=', 'roles.id')

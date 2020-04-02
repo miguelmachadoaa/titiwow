@@ -56,6 +56,7 @@ Formas de Envio
                                     <th>Email</th>
                                     <th>Nombre</th>
                                     <th>Descripcion</th>
+                                    <th>Tipo</th>
                                     <th>Creado</th>
                                     <th>Accion</th>
                                 </tr>

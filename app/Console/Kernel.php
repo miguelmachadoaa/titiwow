@@ -86,6 +86,9 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('activitylog:clean')->daily();
 
+        $schedule->command('activitylog:clean')->dailyAt('00:26');
+
+
 
     }
 
