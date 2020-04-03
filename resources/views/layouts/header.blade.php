@@ -67,6 +67,17 @@
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','GTM-PG9RTMH');</script>
             <!-- End Google Tag Manager -->
+
+            <!-- Watson Campaign Automation Web Tracking Code -->
+
+            <!-- Please insert the following code between your HTML document head tags to maintain a common reference to a unique visitor across one or more external web tracked sites. -->
+            <meta name="com.silverpop.brandeddomains" content="www.pages02.net,www.alpina.com,www.alpinago.com" />
+
+            <!-- Optionally uncomment the following code between your HTML document head tags if you use Watson Campaign Automation Conversion Tracking (COT). -->
+            <meta name="com.silverpop.cothost" content="pod2.ibmmarketingcloud.com" />
+
+            <script src="https://www.sc.pages02.net/lp/static/js/iMAWebCookie.js?792cb3c0-164f112d980-df4cba773885eb54dfcebd294a039c37&h=www.pages02.net" type="text/javascript"></script>
+
         @endif
 </head>
 
