@@ -709,6 +709,8 @@ class AlpAlmacenesController extends JoshController
         //$porciones = explode("_", $request->cities);
 
         \Session::put('almacen', $id);
+        
+        \Session::put('inventario', $this->inventario());
 
         \Session::put('cities', $request->cities);
 

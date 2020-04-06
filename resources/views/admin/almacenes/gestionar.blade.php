@@ -79,6 +79,10 @@ Editar Almacen
                                         <th>
                                             Inventario
                                         </th>
+
+                                        <th>
+                                            Estado del producto
+                                        </th>
                                     </tr>
                                 </thead>
                             
@@ -125,6 +129,18 @@ Editar Almacen
                                 @else
 
                                     {{'0'}}
+
+                                @endif
+                            </td>
+
+                            <td>
+                                @if($p->estado_registro==1)
+
+                                    <a href="#" class="label label-success">Activo</a>
+
+                                @else
+
+                                    <a href="#" class="label label-danger">Inactivo</a>
 
                                 @endif
                             </td>
