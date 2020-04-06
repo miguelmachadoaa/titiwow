@@ -116,7 +116,7 @@ Actualizar Almacen
                                 </div>
 
                                 <div class="col-sm-12">
-                                    <a class="btn btn-link" target="_blank" href="{{secure_url('uploads/files/libro_productos_import.xlsx')}}">Descargar Archivo de Muestra</a>
+                                    <a class="btn btn-link" target="_blank" href="{{secure_url('uploads/files/almacen_productos_alpina.xlsx')}}">Descargar Archivo de Muestra</a>
                                 </div>
                             </div>
                         </div>
