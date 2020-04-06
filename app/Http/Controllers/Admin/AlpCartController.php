@@ -1823,6 +1823,8 @@ class AlpCartController extends JoshController
 
       $feriados=AlpFeriados::feriados();
 
+      $dias=0;
+
       if ($forma_envio->tipo=='0') {
 
         $date = Carbon::now();
@@ -1874,7 +1876,6 @@ class AlpCartController extends JoshController
           }
 
 
-
       }else{
 
 
@@ -1924,7 +1925,7 @@ class AlpCartController extends JoshController
 
        
 
-        $fecha_entrega=$date->addDays($dias)->format('d-m-Y');
+        //$fecha_entrega=$date->addDays($dias)->format('d-m-Y');
 
         //dd($fecha_entrega);
 

@@ -84,9 +84,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('verificar:pagos')->everyFifteenMinutes();
         $schedule->command('notificacion:carrito')->hourly();
 
-        $schedule->command('activitylog:clean')->daily();
+       // $schedule->command('activitylog:clean')->daily();
 
-        $schedule->command('activitylog:clean')->dailyAt('00:26');
+        $schedule->command('activitylog:clean')->dailyAt('00:05');
 
 
 
