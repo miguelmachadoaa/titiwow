@@ -134,7 +134,7 @@ Editar Almacen
                             </td>
 
                             <td>
-                                @if($p->estado_registro==1)
+                                @if(isset($check[$p->id]))
 
                                     <a href="#" class="label label-success">Activo</a>
 
