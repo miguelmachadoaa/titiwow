@@ -94,6 +94,8 @@ Alpinistas
 
 
                 base=$('#base').val();
+
+                //alert(base);
                 
             var table =$('#table').DataTable( {
                 "processing": true,

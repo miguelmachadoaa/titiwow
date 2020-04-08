@@ -13,6 +13,10 @@ class AlpinistasImport implements ToCollection
     {
         foreach ($rows as $row) 
         {
+
+           // dd($row);
+
+
             $elalpin = AlpAlpinistas::where('codigo_alpi',$row[1])->get();
 
             if($elalpin->isEmpty()){

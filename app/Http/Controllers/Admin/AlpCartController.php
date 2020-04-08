@@ -4073,10 +4073,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
 
-
-
-
-
       $validado=0;
 
       $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
