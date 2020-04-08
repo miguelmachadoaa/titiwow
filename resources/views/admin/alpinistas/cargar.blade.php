@@ -85,9 +85,9 @@ Cargar Alpinistas
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <div class="form-group">
                             <div class="row">
-                                <label class="col-md-3 col-lg-3 col-12 control-label" for="upload">Archivo CSV (Documento,Código Alpinista)</label>
+                                <label class="col-md-3 col-lg-3 col-12 control-label" for="upload">Archivo XLSX (Documento,Código Alpinista)</label>
                                 <div class="col-md-9 col-12 col-lg-9">
-                                    <input type="file" accept=".csv" name="file_alpinistas" name="alpinista" id="alpinista"> <!-- rename it -->
+                                    <input type="file" accept=".xlsx" name="file_alpinistas" name="alpinista" id="alpinista"> <!-- rename it -->
                                 </div>
                             </div>
                         </div>
