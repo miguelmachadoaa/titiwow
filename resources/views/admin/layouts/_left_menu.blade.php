@@ -1,7 +1,7 @@
 <ul id="menu" class="page-sidebar-menu">
 
     <li {!! (Request::is('admin') ? 'class="active"' : '') !!}>
-        <a href="{{  URL::to('admin') }}">
+        <a href="{{  secure_url('admin') }}">
             <i class="livicon" data-name="dashboard" data-size="18" data-c="#EF6F6C" data-hc="#EF6F6C"
                data-loop="true"></i>
             Escritorio
@@ -247,7 +247,7 @@
 @endif
 
  <li {!! (Request::is('admin/almacenes') ? 'class="active"' : '') !!}>
-        <a href="{{  URL::to('admin/almacenes') }}">
+        <a href="{{  secure_url('admin/almacenes') }}">
             <i class="livicon" data-name="dashboard" data-size="18" data-c="#EF6F6C" data-hc="#EF6F6C"
                data-loop="true"></i>
             Almacenes
@@ -533,7 +533,7 @@
 
             @if (Sentinel::getUser()->hasAnyAccess(['activity_log.*']))
                 <li {!! (Request::is('admin/activity_log') ? 'class="active"' : '') !!}>
-                        <a href="{{  URL::to('admin/activity_log') }}">
+                        <a href="{{  secure_url('admin/activity_log') }}">
                             <i class="livicon" data-name="eye-open" data-size="18" data-c="#F89A14" data-hc="#F89A14"
                                data-loop="true"></i>
                            Log de Actividades
@@ -554,19 +554,19 @@
         </a>
         <ul class="sub-menu">
             <li {!! (Request::is('admin/inbox') ? 'class="active"' : '') !!}>
-                <a href="{{ URL::to('admin/inbox') }}">
+                <a href="{{ secure_url('admin/inbox') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Inbox
                 </a>
             </li>
             <li {!! (Request::is('admin/compose') ? 'class="active"' : '') !!}>
-                <a href="{{ URL::to('admin/compose') }}">
+                <a href="{{ secure_url('admin/compose') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Compose
                 </a>
             </li>
             <li {!! (Request::is('admin/view_mail') ? 'class="active"' : '') !!}>
-                <a href="{{ URL::to('admin/view_mail') }}">
+                <a href="{{ secure_url('admin/view_mail') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Single Mail
                 </a>
@@ -579,7 +579,7 @@
     @if (Sentinel::getUser()->hasAnyAccess(['tasks.*']))
 
         <li {!! (Request::is('admin/tasks') ? 'class="active"' : '') !!}>
-            <a href="{{ URL::to('admin/tasks') }}">
+            <a href="{{ secure_url('admin/tasks') }}">
                 <i class="livicon" data-c="#EF6F6C" data-hc="#EF6F6C" data-name="list-ul" data-size="18"
                    data-loop="true"></i>
                 Tareas
@@ -601,13 +601,13 @@
             </a>
             <ul class="sub-menu">
                 <li {!! (Request::is('admin/users') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ URL::to('admin/users') }}">
+                    <a href="{{ secure_url('admin/users') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Usuarios
                     </a>
                 </li>
                 <li {!! (Request::is('admin/users/create') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ URL::to('admin/users/create') }}">
+                    <a href="{{ secure_url('admin/users/create') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Crear Nuevo Usuario
                     </a>
@@ -619,7 +619,7 @@
                     </a>
                 </li>
                 <li {!! (Request::is('admin/deleted_users') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ URL::to('admin/deleted_users') }}">
+                    <a href="{{ secure_url('admin/deleted_users') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Usuarios Eliminados
                     </a>
@@ -646,7 +646,7 @@
 
             @if (Sentinel::getUser()->hasAnyAccess(['clientes.index']))
                 <li {!! (Request::is('admin/clientes') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/clientes') }}">
+                <a href="{{ secure_url('admin/clientes') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Clientes
                 </a>
@@ -656,7 +656,7 @@
 
             @if (Sentinel::getUser()->hasAnyAccess(['clientes.empresas']))
                 <li {!! (Request::is('admin/clientes/empresas/list') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/clientes/empresas/list') }}">
+                <a href="{{ secure_url('admin/clientes/empresas/list') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Clientes Empresas
                 </a>
@@ -666,7 +666,7 @@
 
             @if (Sentinel::getUser()->hasAnyAccess(['clientes.inactivos']))
                 <li {!! (Request::is('admin/clientes/inactivos') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/clientes/inactivos') }}">
+                <a href="{{ secure_url('admin/clientes/inactivos') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Clientes Inactivo
                 </a>
@@ -676,7 +676,7 @@
 
             @if (Sentinel::getUser()->hasAnyAccess(['clientes.rechazados']))
                 <li {!! (Request::is('admin/clientes/rechazados') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/clientes/rechazados') }}">
+                <a href="{{ secure_url('admin/clientes/rechazados') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Clientes Rechazados
                 </a>
@@ -687,7 +687,7 @@
             @if (Sentinel::getUser()->hasAnyAccess(['clientes.create']))
 
              <li {!! (Request::is('admin/clientes/create') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/clientes/create') }}">
+                <a href="{{ secure_url('admin/clientes/create') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Crear Nuevo Cliente
                 </a>
@@ -695,7 +695,7 @@
             @endif 
 
              <li {!! (Request::is('admin/clientes/saldo') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ URL::to('admin/clientes/saldo') }}">
+                    <a href="{{ secure_url('admin/clientes/saldo') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Clientes Saldo
                     </a>
@@ -704,7 +704,7 @@
 
 
              <li {!! (Request::is('admin/clientes/cargar') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ URL::to('admin/clientes/cargar') }}">
+                    <a href="{{ secure_url('admin/clientes/cargar') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Cargar Clientes
                     </a>
@@ -712,7 +712,7 @@
 
 
                 <li {!! (Request::is('admin/clientes/cargarsaldo') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ URL::to('admin/clientes/cargarsaldo') }}">
+                    <a href="{{ secure_url('admin/clientes/cargarsaldo') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Cargar Saldo Clientes
                     </a>
@@ -735,19 +735,19 @@
         </a>
         <ul class="sub-menu">
             <li {!! (Request::is('admin/alpinistas') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/alpinistas') }}">
+                <a href="{{ secure_url('admin/alpinistas') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Lista de Alpinistas
                 </a>
             </li>
             <li {!! (Request::is('admin/alpinistas/create') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/alpinistas/create') }}">
+                <a href="{{ secure_url('admin/alpinistas/create') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Cargar Alpinistas
                 </a>
             </li>
             <li {!! (Request::is('admin/alpinistas/destroy') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/alpinistas/show') }}">
+                <a href="{{ secure_url('admin/alpinistas/show') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Retirar Alpinistas
                 </a>
@@ -766,13 +766,13 @@
         </a>
         <ul class="sub-menu">
             <li {!! (Request::is('admin/facturasmasivas') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/facturasmasivas') }}">
+                <a href="{{ secure_url('admin/facturasmasivas') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Lista de Facturas Cargadas
                 </a>
             </li>
             <li {!! (Request::is('admin/facturasmasivas/create') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/facturasmasivas/create') }}">
+                <a href="{{ secure_url('admin/facturasmasivas/create') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Cargar Facturas
                 </a>
@@ -792,13 +792,13 @@
         </a>
         <ul class="sub-menu">
             <li {!! (Request::is('admin/groups') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/groups') }}">
+                <a href="{{ secure_url('admin/groups') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Group List
                 </a>
             </li>
             <li {!! (Request::is('admin/groups/create') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/groups/create') }}">
+                <a href="{{ secure_url('admin/groups/create') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Add New Group
                 </a>
@@ -821,7 +821,7 @@
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.listadoproductos']))
 
                  <li {!! (Request::is('admin/reportes/listadoproductos') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ URL::to('admin/reportes/listadoproductos') }}">
+                    <a href="{{ secure_url('admin/reportes/listadoproductos') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Listado de Productos
                     </a>
@@ -832,7 +832,7 @@
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.masterfile']))
 
                  <li {!! (Request::is('admin/reportes/masterfile') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ URL::to('admin/reportes/masterfile') }}">
+                    <a href="{{ secure_url('admin/reportes/masterfile') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Masterfile Clientes
                     </a>
@@ -842,7 +842,7 @@
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.masterfileamigos']))
 
                  <li {!! (Request::is('admin/reportes/masterfileamigos') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ URL::to('admin/reportes/masterfileamigos') }}">
+                    <a href="{{ secure_url('admin/reportes/masterfileamigos') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Masterfile Amigos
                     </a>
@@ -852,7 +852,7 @@
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.masterfileembajadores']))
 
                  <li {!! (Request::is('admin/reportes/masterfileembajadores') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ URL::to('admin/reportes/masterfileembajadores') }}">
+                    <a href="{{ secure_url('admin/reportes/masterfileembajadores') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Masterfile Embajadores
                     </a>
@@ -862,7 +862,7 @@
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.logistica']))
 
                  <li {!! (Request::is('admin/reportes/logistica') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ URL::to('admin/reportes/logistica') }}">
+                    <a href="{{ secure_url('admin/reportes/logistica') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Logistica Ventas Ecommerce
                     </a>
@@ -872,7 +872,7 @@
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.consolidado']))
 
                  <li {!! (Request::is('admin/reportes/consolidado') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ URL::to('admin/reportes/consolidado') }}">
+                    <a href="{{ secure_url('admin/reportes/consolidado') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Consolidado
                     </a>
@@ -882,7 +882,7 @@
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.registrados']))
 
                  <li {!! (Request::is('admin/reportes/registrados') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ URL::to('admin/reportes/registrados') }}">
+                    <a href="{{ secure_url('admin/reportes/registrados') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Lista de Usuarios
                     </a>
@@ -892,7 +892,7 @@
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.ventas']))
 
                 <li {!! (Request::is('admin/reportes/ventas') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/reportes/ventas') }}">
+                <a href="{{ secure_url('admin/reportes/ventas') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Ventas por Usuario
                 </a>
@@ -902,7 +902,7 @@
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.productos']))
 
                 <li {!! (Request::is('admin/reportes/productos') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/reportes/productos') }}">
+                <a href="{{ secure_url('admin/reportes/productos') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Ventas por producto
                 </a>
@@ -912,7 +912,7 @@
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.cuponesdescuento']))
 
                 <li {!! (Request::is('admin/reportes/cuponesdescuento') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/reportes/cuponesdescuento') }}">
+                <a href="{{ secure_url('admin/reportes/cuponesdescuento') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Cupones de Descuento
                 </a>
@@ -921,7 +921,7 @@
 
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.carritos']))
                 <li {!! (Request::is('admin/reportes/carrito') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/reportes/carrito') }}">
+                <a href="{{ secure_url('admin/reportes/carrito') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Carritos Abandonados
                 </a>
@@ -931,7 +931,7 @@
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.financiero']))
 
                 <li {!! (Request::is('admin/reportes/financiero') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/reportes/financiero') }}">
+                <a href="{{ secure_url('admin/reportes/financiero') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Conciliacion Financiera
                 </a>
@@ -941,7 +941,7 @@
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.ventastotales']))
 
                 <li {!! (Request::is('admin/reportes/ventastotales') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/reportes/ventastotales') }}">
+                <a href="{{ secure_url('admin/reportes/ventastotales') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Ventas con Impuesto
                 </a>
@@ -951,7 +951,7 @@
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.ventasdescuento']))
 
                 <li {!! (Request::is('admin/reportes/ventasdescuento') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ URL::to('admin/reportes/ventasdescuento') }}">
+                    <a href="{{ secure_url('admin/reportes/ventasdescuento') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Ventas con Descuento
                     </a>
@@ -961,7 +961,7 @@
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.productostotales']))
 
                 <li {!! (Request::is('admin/reportes/productostotales') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/reportes/productostotales') }}">
+                <a href="{{ secure_url('admin/reportes/productostotales') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Productos con Impuesto
                 </a>
@@ -971,7 +971,7 @@
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.productosb']))
 
                 <li {!! (Request::is('admin/reportes/productosb') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/reportes/productosb') }}">
+                <a href="{{ secure_url('admin/reportes/productosb') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Venta de productos B
                 </a>
@@ -982,7 +982,7 @@
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.productosc']))
 
                 <li {!! (Request::is('admin/reportes/productosc') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/reportes/productosc') }}">
+                <a href="{{ secure_url('admin/reportes/productosc') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Venta de productos C
                 </a>
@@ -993,7 +993,7 @@
              @if (Sentinel::getUser()->hasAnyAccess(['reportes.nomina']))
 
                 <li {!! (Request::is('admin/reportes/nomina') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/reportes/nomina') }}">
+                <a href="{{ secure_url('admin/reportes/nomina') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Reporte ventas descuento nomina
                 </a>
@@ -1004,7 +1004,7 @@
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.detalleventa']))
 
                 <li {!! (Request::is('admin/reportes/detalleventa') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ URL::to('admin/reportes/detalleventa') }}">
+                <a href="{{ secure_url('admin/reportes/detalleventa') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Reporte  detalles ventas
                 </a>
@@ -1035,19 +1035,19 @@
         </a>
         <ul class="sub-menu">
             <li {!! (Request::is('admin/blogcategory') ? 'class="active"' : '') !!}>
-                <a href="{{ URL::to('admin/blogcategory') }}">
+                <a href="{{ secure_url('admin/blogcategory') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Blog Category List
                 </a>
             </li>
             <li {!! (Request::is('admin/blog') ? 'class="active"' : '') !!}>
-                <a href="{{ URL::to('admin/blog') }}">
+                <a href="{{ secure_url('admin/blog') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Blog List
                 </a>
             </li>
             <li {!! (Request::is('admin/blog/create') ? 'class="active"' : '') !!}>
-                <a href="{{ URL::to('admin/blog/create') }}">
+                <a href="{{ secure_url('admin/blog/create') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Add New Blog
                 </a>
@@ -1070,13 +1070,13 @@
         <ul class="sub-menu">
            
             <li {!! (Request::is('admin/cms') ? 'class="active"' : '') !!}>
-                <a href="{{ URL::to('admin/cms') }}">
+                <a href="{{ secure_url('admin/cms') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Lista de Páginas
                 </a>
             </li>
             <li {!! (Request::is('admin/cms/create') ? 'class="active"' : '') !!}>
-                <a href="{{ URL::to('admin/cms/create') }}">
+                <a href="{{ secure_url('admin/cms/create') }}">
                     <i class="fa fa-angle-double-right"></i>
                     Nueva Página
                 </a>

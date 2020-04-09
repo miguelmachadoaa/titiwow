@@ -72,6 +72,7 @@ class VentasNomina extends Command
 
         Mail::to('paula.fonseca@alpina.com')->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
         Mail::to('julian.garzon@alpina.com')->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
+        Mail::to('claudia.archbold@alpina.com')->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
         Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
 
 
