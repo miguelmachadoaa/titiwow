@@ -113,7 +113,13 @@ class AlpCartController extends JoshController
 
       $states=State::where('config_states.country_id', '47')->get();
 
-      $cart=$this->reloadCart();
+      $cart=\Session::get('cart');
+
+     //dd($c);
+
+      //$cart=$this->reloadCart();
+
+     // dd($cart);
 
       $combos=$this->combos();
 
@@ -270,12 +276,6 @@ class AlpCartController extends JoshController
       }
 
       $inventario=$this->inventario();
-
-
-
-
-
-
 
 
       return view('frontend.cart', compact('cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario'));
@@ -2467,6 +2467,10 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
 
+    //  dd($ps);
+
+
+
 
         if (Sentinel::check()) {
 
@@ -2513,6 +2517,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
            $inv=$this->inventario();
 
+           //dd($inv);
+
 
             $cart= \Session::get('cart');
 
@@ -2524,6 +2530,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
               ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
               ->where('alp_productos.id', $value)
               ->first();
+
 
              if ( isset($producto->id)) {
               
@@ -2537,6 +2544,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
               if($inv[$producto->id]>=$producto->cantidad){
 
                 $cart[$producto->slug]=$producto;
+
+                //dd($cart);
 
               }else{
 
@@ -2557,11 +2566,11 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
               $datasingle=$request->datasingle;
              
-              $view= View::make('frontend.order.botones', compact('producto', 'cart', 'datasingle'));
+             // $view= View::make('frontend.order.botones', compact('producto', 'cart', 'datasingle'));
               
              }else{
 
-              $view= View::make('frontend.order.botones', compact('producto', 'cart'));
+             // $view= View::make('frontend.order.botones', compact('producto', 'cart'));
 
 
              }
@@ -2573,9 +2582,19 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
      }
 
 
+
      \Session::put('cart', $cart);
 
-       $this->reloadCart();
+    // $c=\Session::get('cart');
+
+     //dd($cart);
+
+
+      $cart=$this->reloadCart();
+
+
+    // \Session::put('cart', $cart);
+      
 
 
       return redirect('cart/show');
@@ -3295,6 +3314,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
        
        $id_almacen=$this->getAlmacen();
 
+       //dd($id_almacen);
+
       $entradas = AlpInventario::groupBy('id_producto')
         ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
         ->where('alp_inventarios.operacion', '1')
@@ -3352,9 +3373,13 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
        
       $cart= \Session::get('cart');
 
+     // dd($cart);
+
       $s_user= \Session::get('user');
 
      $id_almacen=$this->getAlmacen();
+
+     //dd($id_almacen);
 
       $total=0;
 
@@ -3412,7 +3437,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         } //end sentinel check
 
-
+//dd($precio);
 
     if ($cambio==1) {
 
@@ -3469,7 +3494,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         $almp=AlpAlmacenProducto::where('id_almacen', $id_almacen)->where('id_producto', $producto->id)->first();
 
-        //dd($almp);
+       // dd($almp);
 
         if (isset($almp->id)) {
 
@@ -3486,7 +3511,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
        
       }
 
-     // dd($cart);
+      //dd($cart);
 
        return $cart;
 
