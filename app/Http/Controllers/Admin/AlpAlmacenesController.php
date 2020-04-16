@@ -112,19 +112,28 @@ class AlpAlmacenesController extends JoshController
                       </a-->
                       
 
-              <a href='".secure_url('admin/almacenes/'.$row->id.'/edit')."'>
+                      <a href='".secure_url('admin/almacenes/'.$row->id.'/edit')."'>
                               <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Editar Empresa'></i>
+                      </a>
+
+
+                        <a href='".secure_url('admin/almacenes/'.$row->id.'')."'>
+                              <i class='livicon' data-name='eye-open' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Editar Empresa'></i>
                       </a>  
+
                       <a href='".secure_url('admin/almacenes/'.$row->id.'/confirm-delete')."' data-toggle='modal' data-target='#delete_confirm'> <i class='livicon' data-name='remove-alt' data-size='18'
                         data-loop='true' data-c='#f56954' data-hc='#f56954' title='Eliminar'></i>
 
                       </a>";
+
+                      $ap=AlpAlmacenProducto::where('id_almacen', $row->id)->groupBy('id_producto')->get();
 
 
                $data[]= array(
                  $row->id, 
                  $row->nombre_almacen, 
                  $row->descripcion_almacen,
+                 count($ap),
                  $estatus, 
                  $actions
               );
@@ -393,6 +402,42 @@ class AlpAlmacenesController extends JoshController
             return Redirect::route('admin.almacenes.index')->with('error', trans('Error al eliminar el registro'));
         }
     }
+
+
+     public function show($id)
+    {
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('almacen/edit ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('almacen/edit');
+
+        }
+
+       
+       $productos = AlpProductos::select('alp_productos.*')
+       ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
+       ->whereNull('alp_almacen_producto.deleted_at')
+       ->where('alp_almacen_producto.id_almacen', '=', $id)
+       ->groupBy('alp_productos.id')
+       ->get();
+
+       $almacen = AlpAlmacenes::where('id', $id)->first();
+
+       $inventario=$this->inventario();
+
+        return view('admin.almacenes.show', compact('almacen', 'productos',  'inventario'));
+    }
+
+
 
 
 

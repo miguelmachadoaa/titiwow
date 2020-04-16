@@ -55,6 +55,7 @@ Almacen
                                     <th>Id</th>
                                     <th>Nombre</th>
                                     <th>Descripcion</th>
+                                    <th>Productos Activos</th>
                                     <th>Estatus</th>
                                     <th>Accion</th>
                                 </tr>

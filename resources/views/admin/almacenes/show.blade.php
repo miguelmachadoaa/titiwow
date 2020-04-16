@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Editar Almacen
+Detalle Almacen
 @parent
 @stop
 
@@ -21,7 +21,7 @@ Editar Almacen
 @section('content')
 <section class="content-header">
     <h1>
-        Gestionar Almacen
+        Detalle Almacen
     </h1>
     <ol class="breadcrumb">
         <li>
@@ -42,28 +42,21 @@ Editar Almacen
             <div class="panel panel-primary ">
                 <div class="panel-heading">
                     <h4 class="panel-title"> <i class="livicon" data-name="wrench" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Gestionar Almacen
+                       Detalle  Almacen
                     </h4>
                 </div>
                 <div class="panel-body">
                     
-                        {!! Form::model($almacen, ['url' => secure_url('admin/almacenes/'. $almacen->id.'/postgestionar'), 'method' => 'POST', 'class' => 'form-horizontal', 'files'=> true]) !!}
-                            <!-- CSRF Token -->
-                            {{ csrf_field() }}
-
-                            <div class="row" style="margin-bottom: 2em;">
-                                <div class="col-sm-12">
-                                    <button type="button" class="btn btn-info marcar">Marcar Todos</button>
-                                    <button type="button" class="btn btn-danger desmarcar">Desmascar Todos</button>
-                                </div>
-                            </div>
-
+                        
+                            <h3>Productos Activos en el Almacen</h3>
+                            
                             <table class="table table-striped" id="tableAlmacen">
                                 
                                 <thead>
                                     <tr>
+                                       
                                         <th>
-                                            Seleccionar
+                                            Id
                                         </th>
                                         <th>
                                             Imagen
@@ -80,9 +73,7 @@ Editar Almacen
                                             Inventario
                                         </th>
 
-                                        <th>
-                                            Estado del producto
-                                        </th>
+                                       
                                     </tr>
                                 </thead>
                             
@@ -93,18 +84,7 @@ Editar Almacen
 
                         <tr>
                             <td>
-                                <div class="checkbox">
-                                    <label>
-                                      <input 
-                                      class="cb " 
-                                      id="p_{{$p->id}}" 
-                                      name="p_{{$p->id}}" 
-                                      @if(isset($check[$p->id]))
-                                            {{'checked'}}
-                                      @endif
-                                      type="checkbox" > 
-                                    </label>
-                                  </div>
+                                {{$p->id}}
                             </td>
 
                             <td>
@@ -133,38 +113,12 @@ Editar Almacen
                                 @endif
                             </td>
 
-                            <td>
-                                @if(isset($check[$p->id]))
-
-                                    <a href="#" class="label label-success">Activo</a>
-
-                                @else
-
-                                    <a href="#" class="label label-danger">Inactivo</a>
-
-                                @endif
-                            </td>
+                           
                         </tr>
 
 
 
-                        <!--div class="row">
-                            <div class="col-sm-12">
-                                 <div class="checkbox">
-                                    <label>
-                                      <input 
-                                      class="cb " 
-                                      id="p_{{$p->id}}" 
-                                      name="p_{{$p->id}}" 
-                                      @if(isset($check[$p->id]))
-                                            {{'checked'}}
-                                      @endif
-                                      type="checkbox" > {{$p->nombre_producto.' REF.:'.$p->referencia_producto}}
-                                    </label>
-                                  </div>
-                                
-                            </div>
-                        </div-->
+                       
     
                         @endforeach
 
@@ -172,19 +126,7 @@ Editar Almacen
     
                         </table>
 
-                       <div class="form-group">
-                            <div class="col-sm-4" style="margin-top: 2em;">
-                                
-                                <a class="btn btn-danger" href="{{ route('admin.almacenes.index') }}">
-                                    Cancelar
-                                </a>
-
-                                <button type="submit" class="btn btn-success">
-                                    Actualizar
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                     
                    
                 </div>
             </div>
@@ -212,7 +154,7 @@ Editar Almacen
 <script>
 
 
-    //$('#tableAlmacen').DataTable();
+    $('#tableAlmacen').DataTable();
 
     $('.marcar').click(function(){
 
