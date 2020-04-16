@@ -861,14 +861,6 @@ class FrontEndController extends JoshController
 
 
 
-
-
-
-
-
-
-
-
            // return Redirect::route("clientes")->with('success', trans('auth/message.signup.success'));
             return redirect("/?registro=".time())->with('success', trans('Bienvenido a Alpina GO!. Ya puedes comprar todos nuestro productos y promociones. Alpina Alimenta tu vida. '));
 
@@ -1176,11 +1168,6 @@ class FrontEndController extends JoshController
 
 
 
-        /*$input=$request->all();
-
-        print_r($input);*/
-
-        //$activate = false;//$this->user_activation; //make it false if you don't want to activate user automatically it is declared above as global variable
         try {
             // Register the user
             $user = Sentinel::register($request->only(['first_name', 'last_name', 'email', 'password', 'gender']), $activate);
@@ -1485,11 +1472,6 @@ public function getApiUrl($endpoint, $jsessionid)
 
         if (isset(Sentinel::getUser()->id)) {
 
-
-        if (isset(Sentinel::getUser()->id)) {
-
-        }
-
             # code...
             $user_id = Sentinel::getUser()->id;
 
@@ -1575,29 +1557,7 @@ public function getApiUrl($endpoint, $jsessionid)
         }
 
 
-        if (isset(Sentinel::getUser()->id)) {
-
-            $user_id = Sentinel::getUser()->id;
-
-            $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
-
-            $re=AlpRolenvio::where('id_rol', $role->role_id)->get();
-
-            $re_u=AlpRolenvio::where('id_rol', $role->role_id)->first();
-
-            //dd($re_u);
-
-            if (count($re)==1) {
-                
-                if ($re_u->id_forma_envio=='4') {
-
-                    $id_almacen='2';
-                    
-                }
-
-            }
-
-        }
+        
 
 
       return $id_almacen;

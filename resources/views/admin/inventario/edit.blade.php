@@ -61,17 +61,11 @@ Agregar Inventario
 
                                     @endif
 
-
-
                                  @endforeach
-
-
 
                                 </div>
                                
-                               
                             </div>
-
 
                             <div class="form-group required">
                                 <label for="operacion" class="col-sm-2 control-label">Operacion</label>
