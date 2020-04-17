@@ -1145,7 +1145,7 @@ class AlpCartController extends JoshController
         if (isset($preference['response']['id'])) {
 
 
-          if ($preference['response']['status']=='rejected' || $preference['response']['status']=='cancelled' || $preference['response']['status']=='cancelled/expired' || $preference['response']['status']=='in_process')  {
+          if ($preference['response']['status']=='rejected' || $preference['response']['status']=='cancelled' || $preference['response']['status']=='cancelled/expired' )  {
 
               if (isset($avisos[$preference['response']['status_detail']])) {
 
