@@ -1172,7 +1172,10 @@ class AlpCartController extends JoshController
           }
 
        
-            $data=$this->generarPedido('1', '2', $preference, 'credit_card');
+           /// $data=$this->generarPedido('1', '2', $preference, 'credit_card');
+           $data=$this->generarPedido('8', '4', $preference, 'credit_card');
+
+            
 
             $id_orden=$data['id_orden'];
 
