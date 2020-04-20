@@ -2339,6 +2339,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
               'id_cliente' => $user_id, 
               'saldo' => $orden->monto_total, 
               'operacion' => '2', 
+              'nota' => 'Compra id '.$orden->id.'', 
               'fecha_vencimiento' => $saldo_c->fecha_vencimiento, 
               'id_user' => $user_id
             );

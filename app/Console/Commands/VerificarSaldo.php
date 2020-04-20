@@ -60,7 +60,7 @@ class VerificarSaldo extends Command
 
         \Log::debug('Clientes a verificar saldo' . $clientes);
 
-       // dd($clientes);
+        //dd($clientes);
 
         $inv=$this->getSaldo();
 
@@ -68,7 +68,7 @@ class VerificarSaldo extends Command
             # code...
             if (isset($inv[$c->id_cliente])) {
 
-                $s=AlpSaldo::where('id', $c->id)->first();
+                $s=AlpSaldo::where('id', $c->id)->where('estado_registro', '1')->first();
 
                 $s->update(['estado_registro'=>'0']);
 

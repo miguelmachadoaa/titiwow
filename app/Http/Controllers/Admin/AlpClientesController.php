@@ -178,9 +178,31 @@ class AlpClientesController extends JoshController
                  </a>
 
 
-                 <button class='btn btn-link deleteCliente' data-id='".$cliente->id."' data-url='".secure_url("admin/clientes/".$cliente->id."/delete")."'> <i class='livicon' data-name='remove-alt' data-size='18' data-loop='true' data-c='#f56954' data-hc='#f56954'  title='Eliminar'></i> </button>";
+                 <button class='btn btn-link deleteCliente' data-id='".$cliente->id."' data-url='".secure_url("admin/clientes/".$cliente->id."/delete")."'> <i class='livicon' data-name='remove-alt' data-size='18' data-loop='true' data-c='#f56954' data-hc='#f56954'  title='Eliminar'></i> </button>
+
+
+                 <div id='botones_".$cliente->id."'>
+
+                  <button type='button' data-id='".$cliente->id."' class='btn btn-xs btn-primary activarUsuario' >Activar</button>
+
+                  <button type='button' data-id='".$cliente->id."' class='btn btn-xs btn-danger rechazarUsuario' >Desactivar</button>
+
+                </div>
+
+
+
+                 ";
 
               }
+
+
+
+
+
+
+
+
+               
 
 
                $data[]= array(
@@ -307,16 +329,11 @@ class AlpClientesController extends JoshController
 
                  <div id='botones_".$cliente->id."'>
 
-                                       
+                  <button type='button' data-id='".$cliente->id."' class='btn btn-xs btn-primary activarUsuario' >Activar</button>
 
-                                        <button type='button' data-id='".$cliente->id."' class='btn btn-xs btn-primary activarUsuario' >Activar</button>
-                                        
+                  <button type='button' data-id='".$cliente->id."' class='btn btn-xs btn-danger rechazarUsuario' >Desactivar</button>
 
-                                        <button type='button' data-id='".$cliente->id."' class='btn btn-xs btn-danger rechazarUsuario' >Rechazar</button>
-
-                                     
-
-                                        </div>";
+                </div>";
 
 
                $data[]= array(
@@ -1226,7 +1243,6 @@ class AlpClientesController extends JoshController
             $cliente=AlpClientes::where('id_user_client', $request->cliente_id)->first();
 
             $cliente->update($data);
-
 
             $cliente->delete();
 
