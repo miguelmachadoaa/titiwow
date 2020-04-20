@@ -2331,7 +2331,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
          if ($orden->id_forma_pago=='3') {
 
-          $saldo_c=AlpSaldo::where('id_cliente', $user_id)->first();
+          $saldo_c=AlpSaldo::where('id_cliente', $user_id)->where('estado_registro', '1')->first();
 
           if (isset($saldo_c->id)) {
             

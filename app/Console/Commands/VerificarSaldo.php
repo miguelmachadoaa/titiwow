@@ -71,6 +71,7 @@ class VerificarSaldo extends Command
                 $s=AlpSaldo::where('id', $c->id)->where('estado_registro', '1')->first();
 
                 $s->update(['estado_registro'=>'0']);
+                
 
                 $data = array(
                     'id_cliente' => $c->id_cliente, 

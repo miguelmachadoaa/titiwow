@@ -35,7 +35,6 @@ class SaldoImport implements ToCollection
                 if (isset($c->id)) {
 
                     $data = array(
-
                         'id_cliente' => $c->id_user_client, 
                         'saldo' => $row[10], 
                         'operacion' => '1', 
@@ -45,11 +44,7 @@ class SaldoImport implements ToCollection
                     );
 
                     AlpSaldo::create($data);
-
-                    # code...
                 }
-
-                
 
             }
 
