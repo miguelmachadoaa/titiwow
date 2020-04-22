@@ -47,13 +47,15 @@ class NominaExport implements FromView
                 'alp_productos.referencia_producto as referencia_producto',
                 'users.first_name as first_name', 
                 'users.last_name as last_name' )
+                //)
+             ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
           ->join('alp_ordenes_detalle', 'alp_ordenes.id', '=', 'alp_ordenes_detalle.id_orden')
           ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
-          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
-          ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+          
           ->where('alp_ordenes.id_forma_pago', '=', '3')
-          ->whereDate('alp_ordenes.created_at', '>=', $date_desde)
-          ->whereDate('alp_ordenes.created_at', '<=', $date_hasta)
+          ->where('alp_ordenes.created_at', '>=', $date_desde)
+          ->where('alp_ordenes.created_at', '<=', $date_hasta)
           //->groupBy('alp_ordenes.id')
           ->get();
 
