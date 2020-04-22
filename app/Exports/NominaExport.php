@@ -31,7 +31,7 @@ class NominaExport implements FromView
 
 
 
-      $date_hasta = Carbon::parse($this->desde.' 23:59:59')->subDay()->toDateTimeString(); 
+      $date_hasta = Carbon::parse($this->desde.' 23:59:59')->toDateTimeString(); 
 
       //dd($date_hasta); 
 
@@ -56,6 +56,8 @@ class NominaExport implements FromView
           ->whereDate('alp_ordenes.created_at', '<=', $date_hasta)
           //->groupBy('alp_ordenes.id')
           ->get();
+
+          //dd($ordenes);
 
 
 
