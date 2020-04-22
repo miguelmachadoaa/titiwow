@@ -79,7 +79,7 @@
                                 <form action="../order/creditcard" method="POST" class="form_creditcard">
 
                                   <script
-                                    src="https://www.mercadopago.com.co/integrations/v1/web-tokenize-checkout.js"
+                                   src="{{secure_url('assets/js/web-tokenize-checkout.js')}}"
 
                                     data-public-key="{{ $configuracion->public_key_mercadopago_test }}"
                                     data-button-label="Pagar"
@@ -100,7 +100,8 @@
                                 <form action="../order/creditcard" method="POST" class="form_creditcard">
 
                                   <script
-                                    src="https://www.mercadopago.com.co/integrations/v1/web-tokenize-checkout.js"
+                                    
+                                    src="{{secure_url('assets/js/web-tokenize-checkout.js')}}"
 
                                     data-public-key="{{ $configuracion->public_key_mercadopago }}"
                                     data-button-label="Pagar"
