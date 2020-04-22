@@ -12,6 +12,8 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromView;
 use Illuminate\Contracts\View\View;
 use \DB;
+use Carbon\Carbon;
+
 
 class NominaExport implements FromView
 {
@@ -23,6 +25,16 @@ class NominaExport implements FromView
 
     public function view(): View
     {
+
+
+      $date_desde = Carbon::parse($this->desde.' 16:00:00')->subDay()->toDateTimeString();
+
+
+
+      $date_hasta = Carbon::parse($this->desde.' 23:59:59')->subDay()->toDateTimeString(); 
+
+      //dd($date_hasta); 
+
 
         
              $ordenes = AlpOrdenes::select(
@@ -40,8 +52,8 @@ class NominaExport implements FromView
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
           ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
           ->where('alp_ordenes.id_forma_pago', '=', '3')
-          ->whereDate('alp_ordenes.created_at', '>=', $this->desde)
-          ->whereDate('alp_ordenes.created_at', '<=', $this->desde)
+          ->whereDate('alp_ordenes.created_at', '>=', $date_desde)
+          ->whereDate('alp_ordenes.created_at', '<=', $date_hasta)
           //->groupBy('alp_ordenes.id')
           ->get();
 

@@ -638,7 +638,7 @@ class AlpClientesController extends JoshController
 
         //dd($saldo);
 
-        $un_saldo=AlpSaldo::where('id_cliente', $id)->first();
+        $un_saldo=AlpSaldo::where('id_cliente', $id)->orderBy('id', 'desc')->first();
 
         $disponible=$this->getSaldo();
 

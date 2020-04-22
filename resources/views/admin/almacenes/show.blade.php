@@ -37,12 +37,206 @@ Detalle Almacen
 
 <!-- Main content -->
 <section class="content">
+
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-primary ">
                 <div class="panel-heading">
                     <h4 class="panel-title"> <i class="livicon" data-name="wrench" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Detalle  Almacen
+                       Configurar Despacho, Formas de Pago y Forma de Envio
+                    </h4> 
+                </div>
+                <div class="panel-body">
+
+                    <input type="hidden" name="id_almacen" id="id_almacen" value="{{ $almacen->id }}">
+
+                        
+                    <fieldset>
+                        <legend>Despacho</legend>
+
+                        <div class="row">
+                            
+                             <div class="form-group col-sm-8 {{ $errors->first('id_categoria', 'has-error') }}">
+                                <label for="select21" class="col-sm-4 control-label">
+                                  Zonas de Despacho
+                                </label>
+                                <div class="col-sm-8">   
+                                 <select id="id_categoria" name="id_categoria" class="form-control select2">
+                                    
+                                    <option value="">Seleccione</option>
+                                    @foreach($states as $state)
+
+                                        <option value="{{$state->id}}">{{$state->state_name}}</option>
+
+                                    @endforeach
+
+                                </select>
+
+                                  {!! $errors->first('id_categoria', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                           
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <div class="col-sm-offset-2 col-sm-4">
+                                    
+
+                                    <button type="button" role="button" class="btn btn-success addDespacho" >
+                                        Agregar
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row listdespachos">
+
+                            @include('admin.almacenes.listdespachos')
+                            
+
+
+                        </div>
+                    </fieldset>
+
+                        <hr>
+
+                     <fieldset>
+                        <legend>Formas de Pago </legend>
+
+                        <div class="row">
+                            
+                                
+                             <div class="form-group col-sm-8 {{ $errors->first('id_forma_pago', 'has-error') }}">
+                                <label for="select21" class="col-sm-4 control-label">
+                                  Formas de Pago
+                                </label>
+                                <div class="col-sm-8">   
+                                 <select id="id_forma_pago" name="id_forma_pago" class="form-control select2">
+                                    
+                                    <option value="">Seleccione</option>
+                                    @foreach($formas_pago as $fp)
+
+                                        <option value="{{$fp->id}}">{{$fp->nombre_forma_pago}}</option>
+                                    @endforeach
+
+                                </select>
+
+                                  {!! $errors->first('id_forma_pago', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                           
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <div class="col-sm-offset-2 col-sm-4">
+                                    
+
+                                    <button type="button" role="button" class="btn btn-success addFormapago" >
+                                        Agregar
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row listformapago">
+
+                            @include('admin.almacenes.listformaspago')
+                            
+
+
+                        </div>
+                    </fieldset>
+
+
+                   
+
+                    <hr>
+
+                    <fieldset>
+                        <legend>Formas de Envio </legend>
+
+                        <div class="row">
+                                
+                             <div class="form-group col-sm-8 {{ $errors->first('id_forma_envio', 'has-error') }}">
+                                <label for="select21" class="col-sm-4 control-label">
+                                  Formas de Envio
+                                </label>
+                                <div class="col-sm-8">   
+
+                                 <select id="id_forma_envio" name="id_forma_envio" class="form-control select2">
+                                    
+                                    <option value="">Seleccione</option>
+                                    @foreach($formas_envio as $fe)
+
+                                        <option value="{{$fe->id}}">{{$fe->nombre_forma_envios}}</option>
+                                    @endforeach
+
+                                </select>
+
+                                  {!! $errors->first('id_forma_envio', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                           
+                            </div>
+
+                            <div class="form-group col-sm-4">
+                                <div class="col-sm-offset-2 col-sm-4">
+                                    
+
+                                    <button type="button" class="btn btn-success addFormaenvio" >
+                                        Agregar
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row listformasenvio">
+
+                          @include('admin.almacenes.listformasenvio')
+
+
+                        </div>
+                    </fieldset>
+
+                   
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+        </div>
+    </div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary ">
+                <div class="panel-heading">
+                    <h4 class="panel-title"> <i class="livicon" data-name="wrench" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                       Productos en el Almacen
                     </h4>
                 </div>
                 <div class="panel-body">
@@ -133,7 +327,8 @@ Detalle Almacen
         </div>
     </div>
 
-    <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+   <input type="hidden" value="{{secure_url('/')}}" id="base" name="base">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
     <!-- row-->
 </section>
@@ -172,6 +367,63 @@ Detalle Almacen
             $(this).removeAttr('checked');
         });
     });
+
+
+
+     $('.addFormaenvio').on('click', function(){
+
+        base = $('#base').val();
+
+        id_forma_envio = $('#id_forma_envio').val();
+
+        id_almacen = $('#id_almacen').val();
+
+        _token = $('#_token').val();
+
+
+         $.ajax({
+            type: "POST",
+            data:{ id_forma_envio, id_almacen, _token},
+            url: base+"/admin/almacenes/"+id_almacen+"/addformenvio",
+                
+            complete: function(datos){     
+
+                $(".listformasenvio").html(datos.responseText);
+
+            }
+        });
+
+    });
+
+
+     $(document).on('click','.delalmacenformaenvio',  function(){
+
+        base = $('#base').val();
+
+        id = $(this).data('id');
+
+        id_almacen = $(this).data('id_almacen');
+
+        _token = $('#_token').val();
+
+
+         $.ajax({
+            type: "POST",
+            data:{ id, id_almacen, _token},
+            url: base+"/admin/almacenes/"+id+"/delformaenvio",
+                
+            complete: function(datos){     
+
+                $(".listformasenvio").html(datos.responseText);
+
+            }
+        });
+
+    });
+
+
+
+
     
 
       $('select[name="state_id"]').on('change', function() {

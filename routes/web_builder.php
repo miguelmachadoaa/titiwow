@@ -674,6 +674,24 @@ Route::resource('facturasmasivas', 'Admin\AlpFacturasController');
 
         Route::get('{id}/restore', 'Admin\AlpAlmacenesController@getRestore')->name('almacenes.restore');
 
+
+        Route::post('{id}/adddespacho', 'Admin\AlpAlmacenesController@adddespacho')->name('cupones.adddespacho');
+
+        Route::post('{id}/deldespacho', 'Admin\AlpAlmacenesController@deldespacho')->name('cupones.deldespacho');
+
+
+        Route::post('{id}/addformenvio', 'Admin\AlpAlmacenesController@addformenvio')->name('cupones.addformenvio');
+
+        Route::post('{id}/delformaenvio', 'Admin\AlpAlmacenesController@delformaenvio')->name('cupones.delformaenvio');
+
+
+        Route::post('{id}/addformapago', 'Admin\AlpAlmacenesController@addformapago')->name('cupones.addformapago');
+
+        Route::post('{id}/delformapago', 'Admin\AlpAlmacenesController@delformapago')->name('cupones.delformapago');
+
+
+
+
         });
 
     Route::post('almacenes/create', 'Admin\AlpAlmacenesController@store');
