@@ -29,9 +29,11 @@ use App\Models\AlpClientesHistory;
 use App\Models\AlpAlmacenes;
 use App\Models\AlpAlmacenRol;
 use App\Models\AlpAlmacenProducto;
+use App\Models\AlpAlmacenDespacho;
 use App\Models\AlpRolenvio;
 use App\User;
 use App\State;
+use App\City;
 use App\RoleUser;
 use App\Models\AlpMenuDetalle;
 use Cartalyst\Sentinel\Checkpoints\NotActivatedException;
@@ -161,6 +163,8 @@ class FrontEndController extends JoshController
     {
 
       $id_almacen=$this->getAlmacen();
+
+      dd($id_almacen);
 
 
         $descuento='1'; 
@@ -1492,10 +1496,7 @@ public function getApiUrl($endpoint, $jsessionid)
               ->where('alp_direcciones.default_address', '=', '1')
               ->first();
 
-
-
             if (isset($d->id)) {
-                  
 
             }else{
 
@@ -1506,30 +1507,49 @@ public function getApiUrl($endpoint, $jsessionid)
                 ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
                 ->where('alp_direcciones.id_client', $user_id)
                 ->first();
-
-
-                   
             }
 
-
             if (isset($d->id)) {
-                  
-                  $almacen=AlpAlmacenes::where('id_city', $d->city_id)->first();
 
-                  if (isset($almacen->id)) {
+                $ad=AlpAlmacenDespacho::where('id_city', $d->city_id)->first();
+
+                if (isset($ad->id)) {
+                # code...
+                }else{
+
+                  $c=City::where('id', $d->city_id)->first();
+
+                  $ad=AlpAlmacenDespacho::where('id_city', '0')->where('id_state', $c->state_id)->first();
+
+                  if (isset($ad->id)) {
                     
-                    $id_almacen=$almacen->id;
-
                   }else{
 
-                    $almacen=AlpAlmacenes::where('defecto', '1')->first();
-
-                    $id_almacen=$almacen->id;
+                    $ad=AlpAlmacenDespacho::where('id_city', '0')->where('id_state', '0')->first();
 
                   }
 
-            }else{
+                }
 
+                if (isset($ad->id)) {
+
+                  $almacen=AlpAlmacenes::where('id', $ad->id_almacen)->first();
+
+                  $id_almacen=$almacen->id;
+                  # code...
+                }else{
+
+                   $almacen=AlpAlmacenes::where('defecto', '1')->first();
+
+                    if (isset($almacen->id)) {
+                      $id_almacen=$almacen->id;
+                    }else{
+                      $id_almacen='1';
+                    }
+
+                }
+
+            }else{
 
               $almacen=AlpAlmacenes::where('defecto', '1')->first();
 
@@ -1538,10 +1558,8 @@ public function getApiUrl($endpoint, $jsessionid)
               }else{
                 $id_almacen='1';
               }
-
                  
             }
-
 
         }else{
 
@@ -1558,7 +1576,6 @@ public function getApiUrl($endpoint, $jsessionid)
       return $id_almacen;
 
     }
-
 
 
 
