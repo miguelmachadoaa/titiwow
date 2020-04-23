@@ -8,6 +8,7 @@
             <th ><b>Sku </b></th>
             <th ><b>Producto </b></th>
             <th ><b>Cantidad </b></th>
+            <th ><b>Creado  </b></th>
         </tr>
     </thead>
     <tbody>
@@ -21,6 +22,7 @@
             <td>{!! $row->referencia_producto!!}</td>
             <td>{!! $row->nombre_producto!!}</td>
             <td>{!! $row->cantidad!!}</td>
+            <td>{!! $row->created_at!!}</td>
           
         </tr>
         @endforeach
