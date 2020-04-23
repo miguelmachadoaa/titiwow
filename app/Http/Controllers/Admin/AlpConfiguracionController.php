@@ -185,7 +185,7 @@ class AlpConfiguracionController extends JoshController
         $states = DB::table("config_states")
                     ->where("country_id",$id)
                     ->pluck("state_name","id")->all();
-        $states['0'] = 'Seleccione Departamento';
+        $states['0'] = 'Todos';
         return json_encode($states);
     }
 
@@ -199,7 +199,7 @@ class AlpConfiguracionController extends JoshController
         $cities = DB::table("config_cities")
                     ->where("state_id",$id)
                     ->pluck("city_name","id")->all();
-        $states['0'] = 'Seleccione Ciudad';
+        $cities['0'] = 'Todas';
         return json_encode($cities);
     }
 

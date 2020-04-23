@@ -964,6 +964,110 @@ class AlpAlmacenesController extends JoshController
 
 
 
+      public function adddespacho(Request $request)
+    {
+
+         if (Sentinel::check()) {
+          $user = Sentinel::getUser();
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('almacenes/adddespacho ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('almacenes/adddespacho');
+        }
+
+         $user_id = Sentinel::getUser()->id;
+
+        $data = array(
+            'id_almacen' => $request->id_almacen, 
+            'id_city' => $request->id_city, 
+            'id_state' => $request->id_state, 
+            'user_id' => $request->user_id
+        );
+
+        AlpAlmacenDespacho::create($data);
+
+       $despachos=AlpAlmacenDespacho::where('id_almacen', $request->id_almacen)->get();
+
+        $listaestados=State::pluck('state_name', 'id');
+
+        $listaestados[0]='Todos';
+
+        $listaciudades=City::pluck('city_name', 'id');
+
+        $listaciudades[0]='Todos';
+
+          $view= View::make('admin.almacenes.listdespachos', compact('despachos', 'listaestados', 'listaciudades'));
+
+      $data=$view->render();
+
+      return $data;
+
+
+    }
+
+
+  public function deldespacho(Request $request)
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('almacenes/deldespacho ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('almacenes/deldespacho');
+
+
+        }
+
+         $user_id = Sentinel::getUser()->id;
+       
+
+        $afd=AlpAlmacenDespacho::where('id', $request->id)->first();
+
+        $id_alamcen=$afd->id_almacen;
+
+        $afd->delete();
+
+
+        $despachos=AlpAlmacenDespacho::where('id_almacen', $id_alamcen)->get();
+
+        $listaestados=State::pluck('state_name', 'id');
+
+        $listaestados[0]='Todos';
+
+        $listaciudades=City::pluck('city_name', 'id');
+
+        $listaciudades[0]='Todos';
+
+          $view= View::make('admin.almacenes.listdespachos', compact('despachos', 'listaestados', 'listaciudades'));
+
+      $data=$view->render();
+
+      return $data;
+
+
+    }
+
+
+
+
+
 
 
 
