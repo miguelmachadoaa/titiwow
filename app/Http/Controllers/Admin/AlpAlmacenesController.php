@@ -314,8 +314,6 @@ class AlpAlmacenesController extends JoshController
           
         }
 
-
-
                 $data = array(
                 'nombre_alamcen' => $request->nombre_alamcen, 
                 'descripcion_alamcen' => $request->descripcion_alamcen,
@@ -808,11 +806,7 @@ class AlpAlmacenesController extends JoshController
 
         }
 
-
-
-
          $user_id = Sentinel::getUser()->id;
-
        
         $data = array(
             'id_almacen' => $request->id_almacen, 
@@ -825,9 +819,55 @@ class AlpAlmacenesController extends JoshController
         AlpAlmacenFormaEnvio::create($data);
 
 
-       $almacen_formas_envio=AlpAlmacenFormaEnvio::select('alp_almacen_formas_envio.*', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios')
+        $almacen_formas_envio=AlpAlmacenFormaEnvio::select('alp_almacen_formas_envio.*', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios')
         ->join('alp_formas_envios', 'alp_almacen_formas_envio.id_forma_envio', '=', 'alp_formas_envios.id')
         ->where('alp_almacen_formas_envio.id_almacen', $request->id_almacen)->get();
+
+          $view= View::make('admin.almacenes.listformasenvio', compact('almacen_formas_envio'));
+
+      $data=$view->render();
+
+      return $data;
+
+
+    }
+
+
+  public function delformaenvio(Request $request)
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('almacenes/addformaenvio ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('almacenes/addformaenvio');
+
+
+        }
+
+         $user_id = Sentinel::getUser()->id;
+       
+
+        $afe=AlpAlmacenFormaEnvio::where('id', $request->id)->first();
+
+        $id_alamcen=$afe->id_almacen;
+
+        $afe->delete();
+
+
+        $almacen_formas_envio=AlpAlmacenFormaEnvio::select('alp_almacen_formas_envio.*', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios')
+        ->join('alp_formas_envios', 'alp_almacen_formas_envio.id_forma_envio', '=', 'alp_formas_envios.id')
+        ->where('alp_almacen_formas_envio.id_almacen', $id_alamcen)->get();
 
           $view= View::make('admin.almacenes.listformasenvio', compact('almacen_formas_envio'));
 

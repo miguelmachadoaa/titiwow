@@ -11,7 +11,7 @@
             @foreach($almacen_formas_envio as $fe)
 
             <tr>
-                <td>{{$fe->nombre_forma_envio}}</td>
+                <td>{{$fe->nombre_forma_envios}}</td>
                 <td>
                     <button data-idalmacen="{{ $fe->id_almacen }}" data-id="{{$fe->id}}" class="btn btn-danger delalmacenformaenvio">
                         <i class="fa fa-trash"></i>
