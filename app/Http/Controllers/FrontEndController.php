@@ -164,7 +164,7 @@ class FrontEndController extends JoshController
 
       $id_almacen=$this->getAlmacen();
 
-      dd($id_almacen);
+      //dd($id_almacen);
 
 
         $descuento='1'; 

@@ -180,6 +180,7 @@
 
                                         <br>
 
+
                                        <b>Disponible:</b>  {{$saldo[$user->id]}}
 
                                         @endif
