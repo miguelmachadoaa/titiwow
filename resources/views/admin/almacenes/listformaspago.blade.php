@@ -1,9 +1,9 @@
 @if(count($almacen_formas_pago)>0)
 
-    <table class="table" id="categorias_list">
+    <table class="table" id="pagos_list">
         <thead>
             <tr>
-            <th>Forma Envio</th>
+            <th>Forma de Pago</th>
             <th>Accion</th>
         </tr>
         </thead>
@@ -13,7 +13,7 @@
             <tr>
                 <td>{{$fp->nombre_forma_pago}}</td>
                 <td>
-                    <button data-idcupon="{{ $fp->id_almacen }}" data-id="{{$fp->id}}" class="btn btn-danger delalmacenformapago">
+                    <button data-idalmacen="{{ $fp->id_almacen }}" data-id="{{$fp->id}}" class="btn btn-danger delalmacenformapago">
                         <i class="fa fa-trash"></i>
                     </button>
                 </td>

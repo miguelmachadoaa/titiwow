@@ -424,6 +424,68 @@ Detalle Almacen
 
 
 
+
+
+
+     $('.addFormapago').on('click', function(){
+
+        base = $('#base').val();
+
+        id_forma_pago = $('#id_forma_pago').val();
+
+        id_almacen = $('#id_almacen').val();
+
+        _token = $('#_token').val();
+
+
+         $.ajax({
+            type: "POST",
+            data:{ id_forma_pago, id_almacen, _token},
+            url: base+"/admin/almacenes/"+id_almacen+"/addformapago",
+                
+            complete: function(datos){     
+
+                $(".listformapago").html(datos.responseText);
+
+            }
+        });
+
+    });
+
+
+     $(document).on('click','.delalmacenformapago',  function(){
+
+        base = $('#base').val();
+
+        id = $(this).data('id');
+
+        id_almacen = $(this).data('idalmacen');
+
+        _token = $('#_token').val();
+
+
+         $.ajax({
+            type: "POST",
+            data:{ id, id_almacen, _token},
+            url: base+"/admin/almacenes/"+id+"/delformapago",
+                
+            complete: function(datos){     
+
+                $(".listformapago").html(datos.responseText);
+
+            }
+        });
+
+    });
+
+
+
+
+
+
+
+
+
     
 
       $('select[name="state_id"]').on('change', function() {

@@ -404,67 +404,6 @@ class AlpAlmacenesController extends JoshController
     }
 
 
-     public function show($id)
-    {
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-           activity($user->full_name)
-                        ->performedOn($user)
-                        ->causedBy($user)
-                        ->withProperties(['id'=>$id])->log('almacen/edit ');
-
-        }else{
-
-          activity()
-          ->withProperties(['id'=>$id])->log('almacen/edit');
-
-        }
-
-        $productos = AlpProductos::select('alp_productos.*')
-        ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
-        ->whereNull('alp_almacen_producto.deleted_at')
-        ->where('alp_almacen_producto.id_almacen', '=', $id)
-        ->groupBy('alp_productos.id')
-        ->get();
-
-        $almacen = AlpAlmacenes::where('id', $id)->first();
-
-        $inventario=$this->inventario();
-
-
-        $almacen_formas_pago=AlpAlmacenFormaPago::select('alp_almacen_formas_pago.*','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago')
-        ->join('alp_formas_pagos', 'alp_almacen_formas_pago.id_forma_pago', '=' ,'alp_formas_pagos.id')
-        ->where('alp_almacen_formas_pago.id_almacen', $id)->get();
-
-        $almacen_formas_envio=AlpAlmacenFormaEnvio::select('alp_almacen_formas_envio.*', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios')
-        ->join('alp_formas_envios', 'alp_almacen_formas_envio.id_forma_envio', '=', 'alp_formas_envios.id')
-        ->where('alp_almacen_formas_envio.id_almacen', $id)->get();
-
-        $despachos=AlpAlmacenDespacho::where('id_almacen', $id)->get();
-
-        $listaestados=State::pluck('state_name', 'id');
-
-        $listaestados[0]='Todos';
-
-        $listaciudades=City::pluck('city_name', 'id');
-
-        $listaciudades[0]='Todos';
-
-       $formas_envio=AlpFormasenvio::get();
-
-       $formas_pago=AlpFormaspago::get();
-
-       $states=State::where('config_states.country_id', '47')->get();
-
-
-
-
-
-        return view('admin.almacenes.show', compact('almacen', 'productos',  'inventario', 'formas_pago', 'formas_envio', 'listaestados', 'listaciudades','despachos', 'states', 'almacen_formas_pago', 'almacen_formas_envio'));
-    }
-
      public function gestionar($id)
     {
         if (Sentinel::check()) {
@@ -784,13 +723,72 @@ class AlpAlmacenesController extends JoshController
     }
 
 
+
+     public function show($id)
+    {
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('almacen/edit ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('almacen/edit');
+
+        }
+
+        $productos = AlpProductos::select('alp_productos.*')
+        ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
+        ->whereNull('alp_almacen_producto.deleted_at')
+        ->where('alp_almacen_producto.id_almacen', '=', $id)
+        ->groupBy('alp_productos.id')
+        ->get();
+
+        $almacen = AlpAlmacenes::where('id', $id)->first();
+
+        $inventario=$this->inventario();
+
+        $almacen_formas_pago=AlpAlmacenFormaPago::select('alp_almacen_formas_pago.*','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago')
+        ->join('alp_formas_pagos', 'alp_almacen_formas_pago.id_forma_pago', '=' ,'alp_formas_pagos.id')
+        ->where('alp_almacen_formas_pago.id_almacen', $id)->get();
+
+        $almacen_formas_envio=AlpAlmacenFormaEnvio::select('alp_almacen_formas_envio.*', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios')
+        ->join('alp_formas_envios', 'alp_almacen_formas_envio.id_forma_envio', '=', 'alp_formas_envios.id')
+        ->where('alp_almacen_formas_envio.id_almacen', $id)->get();
+
+        $despachos=AlpAlmacenDespacho::where('id_almacen', $id)->get();
+
+        $listaestados=State::pluck('state_name', 'id');
+
+        $listaestados[0]='Todos';
+
+        $listaciudades=City::pluck('city_name', 'id');
+
+        $listaciudades[0]='Todos';
+
+       $formas_envio=AlpFormasenvio::get();
+
+       $formas_pago=AlpFormaspago::get();
+
+       $states=State::where('config_states.country_id', '47')->get();
+
+        return view('admin.almacenes.show', compact('almacen', 'productos',  'inventario', 'formas_pago', 'formas_envio', 'listaestados', 'listaciudades','despachos', 'states', 'almacen_formas_pago', 'almacen_formas_envio'));
+    }
+
+
+
+
+
       public function addformenvio(Request $request)
     {
 
          if (Sentinel::check()) {
-
           $user = Sentinel::getUser();
-
            activity($user->full_name)
                         ->performedOn($user)
                         ->causedBy($user)
@@ -802,22 +800,16 @@ class AlpAlmacenesController extends JoshController
           activity()
           ->withProperties($request->all())
           ->log('almacenes/addformaenvio');
-
-
         }
 
          $user_id = Sentinel::getUser()->id;
-       
         $data = array(
             'id_almacen' => $request->id_almacen, 
             'id_forma_envio' => $request->id_forma_envio, 
             'user_id' => $request->user_id
         );
 
-
-
         AlpAlmacenFormaEnvio::create($data);
-
 
         $almacen_formas_envio=AlpAlmacenFormaEnvio::select('alp_almacen_formas_envio.*', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios')
         ->join('alp_formas_envios', 'alp_almacen_formas_envio.id_forma_envio', '=', 'alp_formas_envios.id')
@@ -877,6 +869,98 @@ class AlpAlmacenesController extends JoshController
 
 
     }
+
+
+
+      public function addformapago(Request $request)
+    {
+
+         if (Sentinel::check()) {
+          $user = Sentinel::getUser();
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('almacenes/addformapago ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('almacenes/addformapago');
+        }
+
+         $user_id = Sentinel::getUser()->id;
+
+        $data = array(
+            'id_almacen' => $request->id_almacen, 
+            'id_forma_pago' => $request->id_forma_pago, 
+            'user_id' => $request->user_id
+        );
+
+        AlpAlmacenFormaPago::create($data);
+
+       $almacen_formas_pago=AlpAlmacenFormaPago::select('alp_almacen_formas_pago.*','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago')
+        ->join('alp_formas_pagos', 'alp_almacen_formas_pago.id_forma_pago', '=' ,'alp_formas_pagos.id')
+        ->where('alp_almacen_formas_pago.id_almacen', $request->id_almacen)->get();
+
+          $view= View::make('admin.almacenes.listformaspago', compact('almacen_formas_pago'));
+
+      $data=$view->render();
+
+      return $data;
+
+
+    }
+
+
+  public function delformapago(Request $request)
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('almacenes/delformapago ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('almacenes/delformapago');
+
+
+        }
+
+         $user_id = Sentinel::getUser()->id;
+       
+
+        $afp=AlpAlmacenFormaPago::where('id', $request->id)->first();
+
+        $id_alamcen=$afp->id_almacen;
+
+        $afp->delete();
+
+
+        $almacen_formas_pago=AlpAlmacenFormaPago::select('alp_almacen_formas_pago.*','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago')
+        ->join('alp_formas_pagos', 'alp_almacen_formas_pago.id_forma_pago', '=' ,'alp_formas_pagos.id')
+        ->where('alp_almacen_formas_pago.id_almacen', $id_alamcen)->get();
+
+
+          $view= View::make('admin.almacenes.listformaspago', compact('almacen_formas_pago'));
+
+      $data=$view->render();
+
+      return $data;
+
+
+    }
+
+
 
 
 
