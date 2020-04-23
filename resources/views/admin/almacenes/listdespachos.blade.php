@@ -3,7 +3,8 @@
     <table class="table" id="categorias_list">
         <thead>
             <tr>
-            <th>Forma Envio</th>
+            <th>Ciudad</th>
+            <th>Departamento</th>
             <th>Accion</th>
         </tr>
         </thead>
@@ -11,9 +12,10 @@
             @foreach($despachos as $d)
 
             <tr>
-                <td>{{$d->id}}</td>
+                <td>{{$listaciudades[$d->id_city]}}</td>
+                <td>{{$listaestados[$d->id_state]}}</td>
                 <td>
-                    <button data-idcupon="{{ $d->id_almacen }}" data-id="{{$d->id}}" class="btn btn-danger delalmacenformapago">
+                    <button data-idalmacen="{{ $d->id_almacen }}" data-id="{{$d->id}}" class="btn btn-danger delalmacendespacho">
                         <i class="fa fa-trash"></i>
                     </button>
                 </td>

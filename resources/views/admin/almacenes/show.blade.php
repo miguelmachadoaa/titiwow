@@ -56,14 +56,15 @@ Detalle Almacen
 
                         <div class="row">
                             
-                             <div class="form-group col-sm-8 {{ $errors->first('id_categoria', 'has-error') }}">
+                             <div class="form-group col-sm-8 {{ $errors->first('id_state', 'has-error') }}">
                                 <label for="select21" class="col-sm-4 control-label">
                                   Zonas de Despacho
                                 </label>
-                                <div class="col-sm-8">   
-                                 <select id="id_categoria" name="id_categoria" class="form-control select2">
+                                <div class="col-sm-4">   
+                                 <select id="id_state" name="id_state" class="form-control select2">
                                     
                                     <option value="">Seleccione</option>
+                                    <option value="0">Todos</option>
                                     @foreach($states as $state)
 
                                         <option value="{{$state->id}}">{{$state->state_name}}</option>
@@ -72,7 +73,25 @@ Detalle Almacen
 
                                 </select>
 
-                                  {!! $errors->first('id_categoria', '<span class="help-block">:message</span> ') !!}
+                                  {!! $errors->first('id_state', '<span class="help-block">:message</span> ') !!}
+                                </div>
+
+
+
+                                <div class="col-sm-4">   
+                                 <select id="id_city" name="id_city" class="form-control select2">
+                                    
+                                    <option value="">Seleccione</option>
+                                    <option value="0">Todos</option>
+                                    @foreach($states as $state)
+
+                                        <option value="{{$state->id}}">{{$state->state_name}}</option>
+
+                                    @endforeach
+
+                                </select>
+
+                                  {!! $errors->first('id_city', '<span class="help-block">:message</span> ') !!}
                                 </div>
                            
                             </div>
@@ -424,9 +443,125 @@ Detalle Almacen
 
 
 
+
+
+
+     $('.addFormapago').on('click', function(){
+
+        base = $('#base').val();
+
+        id_forma_pago = $('#id_forma_pago').val();
+
+        id_almacen = $('#id_almacen').val();
+
+        _token = $('#_token').val();
+
+
+         $.ajax({
+            type: "POST",
+            data:{ id_forma_pago, id_almacen, _token},
+            url: base+"/admin/almacenes/"+id_almacen+"/addformapago",
+                
+            complete: function(datos){     
+
+                $(".listformapago").html(datos.responseText);
+
+            }
+        });
+
+    });
+
+
+     $(document).on('click','.delalmacenformapago',  function(){
+
+        base = $('#base').val();
+
+        id = $(this).data('id');
+
+        id_almacen = $(this).data('idalmacen');
+
+        _token = $('#_token').val();
+
+
+         $.ajax({
+            type: "POST",
+            data:{ id, id_almacen, _token},
+            url: base+"/admin/almacenes/"+id+"/delformapago",
+                
+            complete: function(datos){     
+
+                $(".listformapago").html(datos.responseText);
+
+            }
+        });
+
+    });
+
+
+
+
+
+     $('.addDespacho').on('click', function(){
+
+        base = $('#base').val();
+
+        id_city = $('#id_city').val();
+        id_state = $('#id_state').val();
+
+
+
+        id_almacen = $('#id_almacen').val();
+
+        _token = $('#_token').val();
+
+
+         $.ajax({
+            type: "POST",
+            data:{ id_city, id_state, id_almacen, _token},
+            url: base+"/admin/almacenes/"+id_almacen+"/adddespacho",
+                
+            complete: function(datos){     
+
+                $(".listdespachos").html(datos.responseText);
+
+            }
+        });
+
+    });
+
+
+     $(document).on('click','.delalmacendespacho',  function(){
+
+        base = $('#base').val();
+
+        id = $(this).data('id');
+
+        id_almacen = $(this).data('idalmacen');
+
+        _token = $('#_token').val();
+
+
+         $.ajax({
+            type: "POST",
+            data:{ id, id_almacen, _token},
+            url: base+"/admin/almacenes/"+id+"/deldespacho",
+                
+            complete: function(datos){     
+
+                $(".listdespachos").html(datos.responseText);
+
+            }
+        });
+
+    });
+
+
+
+
+
     
 
-      $('select[name="state_id"]').on('change', function() {
+      $('select[name="id_state"]').on('change', function() {
                     var stateID = $(this).val();
                 var base = $('#base').val();
 
@@ -438,15 +573,15 @@ Detalle Almacen
                             success:function(data) {
 
                                 
-                                $('select[name="city_id"]').empty();
+                                $('select[name="id_city"]').empty();
                                 $.each(data, function(key, value) {
-                                    $('select[name="city_id"]').append('<option value="'+ key+'_'+value +'">'+ value +'</option>');
+                                    $('select[name="id_city"]').append('<option value="'+ key +'">'+ value +'</option>');
                                 });
 
                             }
                         });
                     }else{
-                        $('select[name="city_id"]').empty();
+                        $('select[name="id_city"]').empty();
                     }
                 });
 
