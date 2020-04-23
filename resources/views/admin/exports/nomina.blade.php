@@ -22,7 +22,7 @@
             <td>{!! $row->referencia_producto!!}</td>
             <td>{!! $row->nombre_producto!!}</td>
             <td>{!! $row->cantidad!!}</td>
-            <td>{!! $row->created_at!!}</td>
+            <td>{!! date("d/m/Y H:i:s", strtotime($row->created_at))!!}</td>
           
         </tr>
         @endforeach
