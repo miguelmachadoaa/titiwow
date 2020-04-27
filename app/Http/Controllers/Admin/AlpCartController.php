@@ -1281,6 +1281,8 @@ class AlpCartController extends JoshController
 
       $impuesto=$this->impuesto();
 
+      $id_almacen=$this->getAlmacen();
+
 
       
 
@@ -1373,13 +1375,51 @@ class AlpCartController extends JoshController
 
           }
 
-           $formasenvio = AlpFormasenvio::select('alp_formas_envios.*')
-          ->join('alp_rol_envio', 'alp_formas_envios.id', '=', 'alp_rol_envio.id_forma_envio')
-          ->where('alp_rol_envio.id_rol', $role->role_id)->get();
 
-          $formaspago = AlpFormaspago::select('alp_formas_pagos.*')
-          ->join('alp_rol_pago', 'alp_formas_pagos.id', '=', 'alp_rol_pago.id_forma_pago')
-          ->where('alp_rol_pago.id_rol', $role->role_id)->get();
+
+         // dd($id_almacen);
+
+
+          $afe=AlpAlmacenFormaEnvio::where('id_almacen', $id_almacen)->first();
+
+          if (isset($afe->id)) {
+
+            $formasenvio = AlpFormasenvio::select('alp_formas_envios.*')
+            ->join('alp_almacen_formas_envio', 'alp_formas_envios.id', '=', 'alp_almacen_formas_envio.id_forma_envio')
+            ->where('alp_almacen_formas_envio.id_almacen', $id_almacen)
+            ->whereNull('alp_almacen_formas_envio.deleted_at')
+            ->groupBy('alp_formas_envios.id')->get();
+            # code...
+          }else{
+
+             $formasenvio = AlpFormasenvio::select('alp_formas_envios.*')
+            ->join('alp_rol_envio', 'alp_formas_envios.id', '=', 'alp_rol_envio.id_forma_envio')
+            ->where('alp_rol_envio.id_rol', $role->role_id)->get();
+
+          }
+
+
+          $afe=AlpAlmacenFormaPago::where('id_almacen', $id_almacen)->first();
+
+
+          if (isset($afe->id)) {
+
+            $formaspago = AlpFormaspago::select('alp_formas_pagos.*')
+              ->join('alp_almacen_formas_pago', 'alp_formas_pagos.id', '=', 'alp_almacen_formas_pago.id_forma_pago')
+              ->where('alp_almacen_formas_pago.id_almacen', $id_almacen)
+              ->whereNull('alp_almacen_formas_pago.deleted_at')
+              ->groupBy('alp_formas_pagos.id')->get();
+            # code...
+          }else{
+
+              $formaspago = AlpFormaspago::select('alp_formas_pagos.*')
+              ->join('alp_rol_pago', 'alp_formas_pagos.id', '=', 'alp_rol_pago.id_forma_pago')
+              ->where('alp_rol_pago.id_rol', $role->role_id)->get();
+
+          }
+
+
+         
 
           $countries = Country::all();
 
@@ -1609,6 +1649,12 @@ class AlpCartController extends JoshController
           }
 
           $saldo=$this->getSaldo();
+
+          if (isset($saldo[$user->id])) {
+            # code...
+          }else{
+            $saldo[$user->id]=0;
+          }
 
           return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos', 'total_descuentos', 'costo_envio', 'id_forma_envio', 'envio_base', 'envio_impuesto', 'express', 'saldo', 'user'));
 
@@ -4073,11 +4119,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       $direccion=AlpDirecciones::where('id', $request->id_direccion)->first();
 
       $ciudad=AlpFormaCiudad::where('id_forma', $request->id_forma_envio)->where('id_ciudad', $direccion->city_id)->first();
-
-
-
-
-
 
 
       $validado=0;
