@@ -221,6 +221,10 @@ class AlpAlmacenesController extends JoshController
             'descripcion_almacen' => $request->descripcion_almacen, 
             'defecto' => $request->defecto, 
             'id_city' => $request->city_id, 
+            'hora' => $request->hora, 
+            'correos' => $request->correos, 
+            'minimo_compra' => $request->minimo_compra, 
+            'tipo_almacen' => $request->tipo_almacen, 
             'id_user' =>$user_id
         );
          
@@ -318,7 +322,11 @@ class AlpAlmacenesController extends JoshController
                 'nombre_alamcen' => $request->nombre_alamcen, 
                 'descripcion_alamcen' => $request->descripcion_alamcen,
                 'defecto' => $request->defecto, 
-                'id_city' => $request->city_id
+                'id_city' => $request->city_id,
+                'hora' => $request->hora, 
+                'correos' => $request->correos, 
+                'minimo_compra' => $request->minimo_compra, 
+                'tipo_almacen' => $request->tipo_almacen
                 );
 
 

@@ -8,7 +8,9 @@
 
 @section('header_styles')
 
-    <link href="{{ secure_asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
+   <link href="{{ secure_asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
+
+    <link href="{{ secure_asset('assets/vendors/datetimepicker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" type="text/css" />
 
     <link href="{{ secure_asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
 
@@ -135,6 +137,80 @@
                             </div>
                         </div>
 
+                         <div class="form-group {{ $errors->
+                            first('minimo_compra', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                               Minimo de Compra para almacen
+                            </label>
+                            <div class="col-sm-5">
+                                
+                               <input type="number" step="0.01" min="0"  id="minimo_compra" name="minimo_compra" class="form-control" placeholder="Minimo Compra"
+                                            value="{!! old('minimo_compra') !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('minimo_compra', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="form-group {{ $errors->
+                            first('correos', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                               Correos de Envio de Reporte <small>Separar con ;</small>
+                            </label>
+                            <div class="col-sm-5">
+                                
+                               <input style="margin: 4px 0;" id="correos" name="correos" type="text" placeholder="Correos de Envio" value="{!! old('correos') !!}" class="form-control">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('correos', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="form-group {{ $errors->
+                            first('hora', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                               Hora para envio de reporte
+                            </label>
+                            <div class="col-sm-5">
+                                
+                               <input style="margin: 4px 0;" id="hora" name="hora" type="text" placeholder="Hora de envio reporte" value="{!! old('hora') !!}" class="form-control">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('hora', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
+
+                         <div class="form-group {{ $errors->
+                            first('defecto', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                               Tipo de Almacen
+                            </label>
+                            <div class="col-sm-5">
+                                
+                                <select id="tipo_almacen" name="tipo_almacen" class="form-control select2">
+                                    <option  value="0">Normal</option>
+                                    <option  value="1">Nomina</option>
+                                    
+                                                      
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('tipo_almacen', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
+
 
                          <div class="form-group {{ $errors->
                             first('defecto', 'has-error') }}">
@@ -188,8 +264,13 @@
 
 
 <script src="{{ secure_asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}" type="text/javascript" ></script>
+ <script src="{{ secure_asset('assets/vendors/moment/js/moment.min.js') }}" type="text/javascript"></script>
+<script src="{{ secure_asset('assets/vendors/daterangepicker/js/daterangepicker.js') }}" type="text/javascript"></script>
+
+<script src="{{ secure_asset('assets/vendors/datetimepicker/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
 
 <script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
+
 
 
 <script>
@@ -218,6 +299,21 @@
                         $('select[name="city_id"]').empty();
                     }
                 });
+
+
+       $("#hora").datetimepicker({
+    format: 'HH:mm'
+}).parent().css("position :relative");
+
+    $('body').on('click', '.delciudad', function(){
+
+            $('#del_id').val($(this).data('id'));
+
+            $("#delCiudadModal").modal('show');
+
+        });
+
+
 
 
 
