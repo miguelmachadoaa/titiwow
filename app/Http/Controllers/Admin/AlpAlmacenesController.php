@@ -133,12 +133,23 @@ class AlpAlmacenesController extends JoshController
 
                       $ap=AlpAlmacenProducto::where('id_almacen', $row->id)->groupBy('id_producto')->get();
 
+                      if ($row->tipo_almacen==0) {
+
+                        $tipo='Normal';
+                        # code...
+                      }else{
+
+                        $tipo='Nomina';
+                      }
 
                $data[]= array(
                  $row->id, 
                  $row->nombre_almacen, 
                  $row->descripcion_almacen,
                  count($ap),
+                 $row->nombre_almacen, 
+                 $tipo ,
+                 $row->minimo_compra, 
                  $estatus, 
                  $actions
               );

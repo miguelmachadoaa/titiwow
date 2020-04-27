@@ -56,6 +56,9 @@ Almacen
                                     <th>Nombre</th>
                                     <th>Descripcion</th>
                                     <th>Productos Activos</th>
+                                    <th>Hora Envio</th>
+                                    <th>Tipo Almacen</th>
+                                    <th>Monto Minimo Compra</th>
                                     <th>Estatus</th>
                                     <th>Accion</th>
                                 </tr>
