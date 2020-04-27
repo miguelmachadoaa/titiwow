@@ -54,8 +54,8 @@ class NominaExport implements FromView
           ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
           
           ->where('alp_ordenes.id_forma_pago', '=', '3')
-          #->where('alp_ordenes.created_at', '>=', $date_desde)
-          #->where('alp_ordenes.created_at', '<=', $date_hasta)
+          ->where('alp_ordenes.created_at', '>=', $date_desde)
+          ->where('alp_ordenes.created_at', '<=', $date_hasta)
           //->groupBy('alp_ordenes.id')
           ->get();
 
