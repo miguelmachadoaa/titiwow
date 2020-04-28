@@ -1283,6 +1283,8 @@ class AlpCartController extends JoshController
 
       $id_almacen=$this->getAlmacen();
 
+      $almacen=AlpAlmacenes::where('id', $id_alamcen)->first();
+
 
       
 
@@ -1311,9 +1313,9 @@ class AlpCartController extends JoshController
        // dd($r);
 
 
-          if ($total<$r->monto_minimo){
+          if ($total<$almacen->minimo_compra ){
 
-            $aviso='El monto mínimo de compra es de $'.number_format($r->monto_minimo,0,",",".");
+            $aviso='El monto mínimo de compra es de $'.number_format($almacen->minimo_compra ,0,",",".");
 
             $cart=$this->reloadCart();
 
@@ -5532,8 +5534,6 @@ private function getAlmacen3(){
               }
         
         }
-
-       // dd($id_almacen);
 
       return $id_almacen;
 
