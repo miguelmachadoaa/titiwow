@@ -1519,7 +1519,24 @@ public function getApiUrl($endpoint, $jsessionid)
 
             if (isset($d->id)) {
 
-                $ad=AlpAlmacenDespacho::where('id_city', $d->city_id)->first();
+
+              $tipo=0;
+
+              if ($role->role_id=='14') {
+                
+                $tipo=1;
+              }
+
+
+
+
+
+
+                $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
+                ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
+                ->where('alp_almacenes.tipo_almacen', '=', $tipo)
+                ->where('alp_almacen_despacho.id_city', $d->city_id)
+                ->first();
 
                 if (isset($ad->id)) {
                 # code...
@@ -1527,13 +1544,22 @@ public function getApiUrl($endpoint, $jsessionid)
 
                   $c=City::where('id', $d->city_id)->first();
 
-                  $ad=AlpAlmacenDespacho::where('id_city', '0')->where('id_state', $c->state_id)->first();
+                  $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
+                ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
+                ->where('alp_almacenes.tipo_almacen', '=', $tipo)
+                ->where('alp_almacen_despacho.id_city', '0')
+                ->where('alp_almacen_despacho.id_state', $c->state_id)
+                ->first();
 
                   if (isset($ad->id)) {
                     
                   }else{
 
-                    $ad=AlpAlmacenDespacho::where('id_city', '0')->where('id_state', '0')->first();
+                    $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
+                  ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
+                  ->where('alp_almacenes.tipo_almacen', '=', $tipo)
+                  ->where('alp_almacen_despacho.id_city', '0')
+                  ->where('alp_almacen_despacho.id_state', '0')->first();
 
                   }
 
@@ -1557,16 +1583,33 @@ public function getApiUrl($endpoint, $jsessionid)
 
                 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             }else{
 
               $almacen=AlpAlmacenes::where('defecto', '1')->first();
 
-              if (isset($almacen->id)) {
-                $id_almacen=$almacen->id;
-              }else{
-                $id_almacen='1';
-              }
-                 
+                if (isset($almacen->id)) {
+                  $id_almacen=$almacen->id;
+                }else{
+                  $id_almacen='1';
+                }
+                   
             }
 
         }else{
@@ -1580,6 +1623,8 @@ public function getApiUrl($endpoint, $jsessionid)
               }
         
         }
+
+       // dd($id_almacen);
 
       return $id_almacen;
 
