@@ -128,6 +128,8 @@ class AlpCartController extends JoshController
 
       $inv=$this->inventario();
 
+      $id_almacen=$this->getAlmacen();
+
       $descuento='1'; 
 
       $precio = array();
@@ -149,13 +151,22 @@ class AlpCartController extends JoshController
 
         }
 
-     $productos = DB::table('alp_productos')->select('alp_productos.*')
-     ->where('sugerencia','=', 1)
-     ->where('alp_productos.estado_registro','=',1)
-     ->whereNull('alp_productos.deleted_at')
-     ->orderBy('order', 'asc')
-     ->inRandomOrder()
-     ->take(6)->get();
+    
+
+
+      $productos = DB::table('alp_productos')->select('alp_productos.*')
+        ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
+        ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
+        ->where('alp_almacenes.id', '=', $id_almacen)
+        ->whereNull('alp_almacen_producto.deleted_at')
+        ->whereNull('alp_productos.deleted_at')
+        ->where('alp_productos.sugerencia','=', 1)
+        ->where('alp_productos.estado_registro','=',1)
+        ->groupBy('alp_productos.id')
+        ->orderBy('order', 'asc')
+        ->inRandomOrder()
+        ->orderBy('updated_at', 'desc')
+        ->limit(6)->get();
 
 
       if (Sentinel::check()) {
