@@ -184,6 +184,7 @@ class FrontEndController extends JoshController
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
         ->where('alp_almacenes.id', '=', $id_almacen)
         ->whereNull('alp_almacen_producto.deleted_at')
+        ->whereNull('alp_productos.deleted_at')
         ->where('alp_productos.estado_registro','=',1)
         ->groupBy('alp_productos.id')
         ->orderBy('order', 'asc')
@@ -191,7 +192,7 @@ class FrontEndController extends JoshController
         ->orderBy('updated_at', 'desc')
         ->limit(12)->get();
 
-        $marcas = DB::table('alp_marcas')->select('alp_marcas.*')->where('destacado','=', 1)->where('alp_marcas.estado_registro','=',1)->orderBy('order', 'asc')->limit(12)->get();
+        $marcas = DB::table('alp_marcas')->select('alp_marcas.*')->where('destacado','=', 1)->where('alp_marcas.estado_registro','=',1)->whereNull('alp_marcas.deleted_at')->orderBy('order', 'asc')->limit(12)->get();
 
         if (Sentinel::check()) {
 

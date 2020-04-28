@@ -152,6 +152,7 @@ class AlpCartController extends JoshController
      $productos = DB::table('alp_productos')->select('alp_productos.*')
      ->where('sugerencia','=', 1)
      ->where('alp_productos.estado_registro','=',1)
+     ->whereNull('alp_productos.deleted_at')
      ->orderBy('order', 'asc')
      ->inRandomOrder()
      ->take(6)->get();
