@@ -22,6 +22,10 @@ class AlpAlmacenes extends Model
         'nombre_almacen',
         'descripcion_almacen',
         'id_city',
+        'hora',
+        'correos',
+        'minimo_compra',
+        'tipo_almacen',
         'defecto',
         'id_user'
     ];

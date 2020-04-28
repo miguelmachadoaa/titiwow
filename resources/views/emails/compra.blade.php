@@ -76,13 +76,18 @@ Datos de la compra
 
 El Costo del envio fue de {{ number_format($envio->costo, 0,",",".") }}
 El total de la compra fue de {{ number_format($compra->monto_total+$envio->costo, 0,",",".") }}
-El Ahorro de su compra fue  {{ number_format($compra->monto_total_base-$compra->monto_total, 0,",",".") }}
 
+	@if($role->oferta==0)
+		El Ahorro de su compra fue  {{ number_format($compra->monto_total_base-$compra->monto_total, 0,",",".") }}
+	@endif
 @else
 
 El Costo del envio fue Gratis
 El total de la compra fue de {{ number_format($compra->monto_total, 0,",",".") }}
-El Ahorro de su compra fue  {{ number_format($compra->monto_total_base-$compra->monto_total, 0,",",".") }}
+
+	@if($role->oferta==0)
+		El Ahorro de su compra fue  {{ number_format($compra->monto_total_base-$compra->monto_total, 0,",",".") }}
+	@endif
 
 @endif
 

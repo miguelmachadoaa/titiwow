@@ -200,12 +200,29 @@ Inicio @parent
 
                                                     @case(2)
 
-                                                        <p id="precio_prod"><del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*(1-($precio[$producto->id]['precio']/100)),0,",",".") }}</span></p>
+                                                        <p id="precio_prod">
+                                                            @if($role->oferta=='0')
+                                                             <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
+
+                                                            @endif
+
+                                                           
+
+                                                            <span class="precio_base">${{ number_format($producto->precio_base*(1-($precio[$producto->id]['precio']/100)),0,",",".") }}</span></p>
                                                         @break
 
                                                     @case(3)
 
-                                                        <p id="precio_prod"><del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;<span class="precio_base">${{ number_format($precio[$producto->id]['precio'],0,",",".") }}</span></p>
+                                                        <p id="precio_prod">
+                                                            @if($role->oferta=='0')
+                                                             <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
+
+                                                            @endif
+
+                            
+                                                            
+
+                                                            <span class="precio_base">${{ number_format($precio[$producto->id]['precio'],0,",",".") }}</span></p>
                                                         @break
 
                                                     
@@ -214,7 +231,7 @@ Inicio @parent
                                                 <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $precio[$producto->id]['pum'] }}</h6></a>
 
                                             @else
-
+            
                                                 <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
 
                                                 <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
@@ -223,7 +240,11 @@ Inicio @parent
 
                                         @else
 
-                                            <p id="precio_prod"><del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base,0,",",".")}}</del>&nbsp;<span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
+                                            <p id="precio_prod">
+                                                @if($role->oferta=='0')
+                                                <del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base,0,",",".")}}</del>&nbsp;
+                                                @endif
+                                                <span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
 
                                             <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
 
