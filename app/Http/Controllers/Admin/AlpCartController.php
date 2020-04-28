@@ -1283,7 +1283,7 @@ class AlpCartController extends JoshController
 
       $id_almacen=$this->getAlmacen();
 
-      $almacen=AlpAlmacenes::where('id', $id_alamcen)->first();
+      $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
 
       
