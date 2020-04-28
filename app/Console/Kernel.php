@@ -95,7 +95,7 @@ class Kernel extends ConsoleKernel
 
         foreach ($almacenes as $alm) {
 
-            $schedule->command('nomina:venta')->dailyAt($alm->hora);
+            $schedule->command('nomina:venta '.$alm->id)->dailyAt($alm->hora);
             
         }
 

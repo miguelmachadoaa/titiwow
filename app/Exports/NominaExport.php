@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\User;
+use App\Models\AlpAlmacenes;
 use App\Models\AlpProductos;
 use App\Models\AlpOrdenes;
 use App\Models\AlpDetalles;
@@ -18,9 +19,10 @@ use Carbon\Carbon;
 class NominaExport implements FromView
 {
     
-    public function __construct(string $desde)
+    public function __construct(string $desde,string $alm)
     {
         $this->desde = $desde;
+        $this->alm = $alm;
     }
 
     public function view(): View
@@ -29,11 +31,10 @@ class NominaExport implements FromView
 
       $date_desde = Carbon::parse($this->desde.' 16:00:00')->subDay()->toDateTimeString();
 
-
-
       $date_hasta = Carbon::parse($this->desde.' 23:59:59')->toDateTimeString(); 
 
       //dd($date_hasta); 
+
 
 
         

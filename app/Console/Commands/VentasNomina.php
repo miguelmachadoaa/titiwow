@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\AlpAlmacenes;
 use App\Models\AlpConfiguracion;
 use App\Exports\ProductosRolExportB;
 use App\Exports\NominaExport;
@@ -19,7 +20,7 @@ class VentasNomina extends Command
      *
      * @var string
      */
-    protected $signature = 'nomina:venta';
+    protected $signature = 'nomina:venta {alm}';
 
     /**
      * The console command description.
@@ -46,6 +47,12 @@ class VentasNomina extends Command
     public function handle()
     {
 
+        $alm = $this->argument('alm');
+
+        $almacen=AlpAlmacenes::where('id', $alm)->first();
+
+
+       // dd($alm);
 
         //
         $configuracion=AlpConfiguracion::where('id', '1')->first();
@@ -61,7 +68,7 @@ class VentasNomina extends Command
 
         $archivo_clientes='listado_ventas_descuento_nomina_'.$hoy.'.xlsx';
 
-       Excel::store(new NominaExport($hoy), $archivo_clientes, 'excel');
+        Excel::store(new NominaExport($hoy, $alm), $archivo_clientes, 'excel');
             
         $documentos[]='/var/www/alpinago/storage/app/public/'.$archivo_clientes;
      
@@ -70,10 +77,21 @@ class VentasNomina extends Command
 
        // Mail::to($configuracion->correo_cedi)->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
 
-        Mail::to('paula.fonseca@alpina.com')->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
-        Mail::to('julian.garzon@alpina.com')->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
-        Mail::to('claudia.archbold@alpina.com')->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
-        Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
+        if (isset($almacen->id)) {
+
+            $correos = explode(";", $almacen->correos);
+
+            foreach ($correos as $key => $value) {
+
+                Mail::to(trim($value))->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
+            }
+
+        }
+
+      #  Mail::to('paula.fonseca@alpina.com')->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
+      #  Mail::to('julian.garzon@alpina.com')->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
+      #  Mail::to('claudia.archbold@alpina.com')->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
+       # Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
 
 
     }
