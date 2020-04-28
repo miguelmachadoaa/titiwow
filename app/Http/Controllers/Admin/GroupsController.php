@@ -51,9 +51,24 @@ class GroupsController extends JoshController
     {
         if ($role = Sentinel::getRoleRepository()->createModel()->create([
             'name' => $request->get('name'),
+            'tipo' => $request->get('tipo'),
+            'oferta' => $request->get('oferta'),
+            'monto_minimo' => $request->get('monto_minimo'),
             'slug' => str_slug($request->get('name'))
         ])
         ) {
+
+
+        $group = Sentinel::findRoleById($role->id);
+
+        // Update the group data
+        $group->name = $request->get('name');
+        $group->tipo = $request->get('tipo');
+        $group->oferta = $request->get('oferta');
+        $group->monto_minimo = $request->get('monto_minimo');
+        $group->save();
+
+
            // dd($request->all());
             if ($request->has('permissions')) {
                 foreach ($request->permissions as $permission_name) {
@@ -89,6 +104,8 @@ class GroupsController extends JoshController
             return Redirect::route('admin.groups')->with('error', trans('groups/message.group_not_found', compact('id')));
         }
 
+        //dd($role);
+
         // Show the page
         return view('admin.groups.edit', compact('role'));
     }
@@ -105,6 +122,9 @@ class GroupsController extends JoshController
 
         // Update the group data
         $group->name = $request->get('name');
+        $group->tipo = $request->get('tipo');
+        $group->oferta = $request->get('oferta');
+        $group->monto_minimo = $request->get('monto_minimo');
 
         // Was the group updated?
         if ($group->save()) {

@@ -148,7 +148,7 @@ class AlpAlmacenesController extends JoshController
                  $row->descripcion_almacen,
                  count($ap),
                  $row->nombre_almacen, 
-                 $tipo ,
+                 $tipo,
                  $row->minimo_compra, 
                  $estatus, 
                  $actions

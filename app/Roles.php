@@ -21,6 +21,7 @@ class Roles extends Model
         'name',
         'tipo',
         'monto_minimo',
+        'oferta',
         'permission'
     ];
 

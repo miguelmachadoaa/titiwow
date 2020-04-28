@@ -26,6 +26,7 @@ use App\RoleUser;
 use App\State;
 use App\City;
 use App\User;
+use App\Roles;
 use DB;
 use Sentinel;
 
@@ -107,6 +108,9 @@ class ProductosFrontController extends Controller
     {
 
        $id_almacen=$this->getAlmacen();
+
+        $rol=9;
+
 
         $descuento='1'; 
 
@@ -264,6 +268,8 @@ class ProductosFrontController extends Controller
             $user_id = Sentinel::getUser()->id;
 
             $role=RoleUser::where('user_id', $user_id)->first();
+
+            $rol=$role->role_id;
 
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
 
@@ -574,16 +580,18 @@ class ProductosFrontController extends Controller
 
         $inventario=$this->inventario();
 
+        $role=Roles::where('id', $rol)->first();
 
-        return \View::make('frontend.list', compact('leche','lacteos','quesos','postres','esparcibles','bebidas','finess','baby','nolacteos','descuento', 'precio', 'states', 'cart', 'total', 'inventario'));
+
+        return \View::make('frontend.list', compact('leche','lacteos','quesos','postres','esparcibles','bebidas','finess','baby','nolacteos','descuento', 'precio', 'states', 'cart', 'total', 'inventario', 'role'));
     }
  
     public function show($slug)
     {
 
-         $id_almacen=$this->getAlmacen();
+        $id_almacen=$this->getAlmacen();
 
-
+        $rol='9';
 
 
       $descuento='1'; 
@@ -645,6 +653,8 @@ class ProductosFrontController extends Controller
             $user_id = Sentinel::getUser()->id;
 
             $role=RoleUser::where('user_id', $user_id)->first();
+
+            $rol=$role->role_id;
 
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
 
@@ -813,8 +823,10 @@ class ProductosFrontController extends Controller
 
       }
 
+      $role=Roles::where('id', $rol)->first();
+
         
-        return \View::make('frontend.producto_single', compact('producto', 'descuento', 'precio','categos', 'states', 'cart', 'total','catprincipal', 'relacionados', 'prods', 'inventario', 'combos'));
+        return \View::make('frontend.producto_single', compact('producto', 'descuento', 'precio','categos', 'states', 'cart', 'total','catprincipal', 'relacionados', 'prods', 'inventario', 'combos', 'role'));
 
     }
 
@@ -824,6 +836,8 @@ class ProductosFrontController extends Controller
         $id_almacen=$this->getAlmacen();
 
         //dd($id_almacen);
+
+        $rol=9;
 
         $descuento='1'; 
 
@@ -861,6 +875,8 @@ class ProductosFrontController extends Controller
             $user_id = Sentinel::getUser()->id;
 
             $role=RoleUser::where('user_id', $user_id)->first();
+
+            $rol=$role->role_id;
 
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
 
@@ -943,7 +959,9 @@ class ProductosFrontController extends Controller
 
         $combos=$this->combos();
 
-        return \View::make('frontend.categorias', compact('productos','cataname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos'));
+        $role=Roles::where('id', $rol)->first();
+
+        return \View::make('frontend.categorias', compact('productos','cataname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos', 'role'));
 
     }
     public function marcas($slug)
@@ -953,7 +971,7 @@ class ProductosFrontController extends Controller
          $id_almacen=$this->getAlmacen();
 
 
-
+         $rol=9;
 
         $descuento='1'; 
 
@@ -986,6 +1004,8 @@ class ProductosFrontController extends Controller
             $user_id = Sentinel::getUser()->id;
 
             $role=RoleUser::where('user_id', $user_id)->first();
+
+            $rol=$role->role_id;
 
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
 
@@ -1065,8 +1085,10 @@ class ProductosFrontController extends Controller
 
           $combos=$this->combos();
 
+          $role=Roles::where('id', $rol)->first();
 
-        return \View::make('frontend.marcas', compact('productos','marcaname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos'));
+
+        return \View::make('frontend.marcas', compact('productos','marcaname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos', 'role'));
 
     }
 
@@ -1076,7 +1098,7 @@ class ProductosFrontController extends Controller
          $id_almacen=$this->getAlmacen();
 
         //dd($almacenRol);
-
+         $rol=9;
 
         $descuento='1'; 
 
@@ -1108,6 +1130,8 @@ class ProductosFrontController extends Controller
             $user_id = Sentinel::getUser()->id;
 
             $role=RoleUser::where('user_id', $user_id)->first();
+
+            $rol=$role->role_id;
 
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
 
@@ -1189,7 +1213,9 @@ class ProductosFrontController extends Controller
 
           $combos=$this->combos();
 
-        return \View::make('frontend.all', compact('productos', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos'));
+          $role=Roles::where('id', $rol)->first();
+
+        return \View::make('frontend.all', compact('productos', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos', 'role'));
 
     }
 
@@ -1201,7 +1227,8 @@ class ProductosFrontController extends Controller
        $id_almacen=$this->getAlmacen();
 
         
- 
+        $rol=9;
+
         $descuento='1'; 
 
         $precio = array();
@@ -1231,6 +1258,8 @@ class ProductosFrontController extends Controller
             $user_id = Sentinel::getUser()->id;
 
             $role=RoleUser::where('user_id', $user_id)->first();
+
+            $rol=$role->role_id;
 
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
 
@@ -1306,11 +1335,13 @@ class ProductosFrontController extends Controller
 
         $combos=$this->combos();
 
+        $role=Roles::where('id', $rol)->first();
+
         //dd($inventario);
 
          $states=State::where('config_states.country_id', '47')->get();
 
-        return \View::make('frontend.buscar', compact('productos', 'descuento', 'precio', 'states','termino', 'cart', 'total', 'prods', 'inventario', 'combos'));
+        return \View::make('frontend.buscar', compact('productos', 'descuento', 'precio', 'states','termino', 'cart', 'total', 'prods', 'inventario', 'combos', 'role'));
 
     }
 

@@ -65,6 +65,61 @@
                                 {!! $errors->first('name', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
+
+
+                        <div class="form-group  {{ $errors->first('tipo', 'has-error') }}">
+                                <label for="select21" class="col-sm-2 control-label">
+                                    Tipo de Rol
+                                </label>
+                                <div class="col-sm-5">   
+                                 <select id="tipo" name="tipo" class="form-control ">
+                                        <option  value="{{ 1 }}"  >Backend</option>
+                                        <option   value="{{ 2}}" >Frontend</option>
+                                       
+                                </select>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('tipo', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                                  
+                                </div>
+                               
+                            </div>
+
+
+                             <div class="form-group {{ $errors->
+                                first('monto_minimo', 'has-error') }}">
+                                <label for="title" class="col-sm-2 control-label">
+                                    Monto Minimo Compra
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="number" min="0" step="1" id="monto_minimo" name="monto_minimo" class="form-control"  placeholder="Monto Minimo Compra" value="{!! old('monto_minimo') !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('monto_minimo', '<span class="help-block">:message</span>') !!}
+                                </div>
+                            </div>
+
+
+                            <div class="form-group  {{ $errors->first('oferta', 'has-error') }}">
+                                <label for="select21" class="col-sm-2 control-label">
+                                    Mostrar Oferta 
+                                </label>
+                                <div class="col-sm-5">   
+                                 <select id="oferta" name="oferta" class="form-control ">
+                                        <option   value="{{ 0 }}"  >Mostrar Ofertas </option>
+                                        <option   value="{{ 1}}" >No Mostrar Ofertas</option>
+                                       
+                                </select>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('oferta', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                                  
+                                </div>
+                               
+                            </div>
+
+
+
                         <div style="overflow-x:auto;">
                             <table class="table table-striped table-responsive">
                                     <tr>

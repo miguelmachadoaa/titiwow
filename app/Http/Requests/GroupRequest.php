@@ -33,13 +33,19 @@ class GroupRequest extends FormRequest
             }
             case 'POST': {
                 return [
-                    'name' => 'required|unique:roles,name'
+                    'name' => 'required|unique:roles,name',
+                    'tipo' => 'required',
+                    'monto_minimo' => 'required',
+                    'oferta' => 'required',
             ];
             }
             case 'PUT':
             case 'PATCH': {
                 return [
-                    'name' => 'required|unique:roles,name,'. $this->group
+                    'name' => 'required|unique:roles,name,'. $this->group,
+                    'tipo' => 'required',
+                    'monto_minimo' => 'required',
+                    'oferta' => 'required',
                 ];
             }
             default:

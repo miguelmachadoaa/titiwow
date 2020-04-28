@@ -2,6 +2,9 @@
 
 namespace App\Console;
 
+use App\Models\AlpAlmacenes;
+
+
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -87,6 +90,14 @@ class Kernel extends ConsoleKernel
        // $schedule->command('activitylog:clean')->daily();
 
         $schedule->command('activitylog:clean')->dailyAt('00:05');
+
+        $almacenes=AlpAlmacenes::get();
+
+        foreach ($almacenes as $alm) {
+
+            $schedule->command('nomina:venta')->dailyAt($alm->hora);
+            
+        }
 
 
 

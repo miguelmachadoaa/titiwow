@@ -47,6 +47,8 @@ Editar Almacen
                        Editar Almacen
                     </h4>
                 </div>
+
+               
                 <div class="panel-body">
                     
                         {!! Form::model($almacen, ['url' => secure_url('admin/almacenes/'. $almacen->id), 'method' => 'PUT', 'class' => 'form-horizontal', 'files'=> true]) !!}
@@ -157,9 +159,6 @@ Editar Almacen
                             </div>
                         </div>
 
-                        
-
-
 
                         <div class="form-group {{ $errors->
                             first('hora', 'has-error') }}">
@@ -168,7 +167,7 @@ Editar Almacen
                             </label>
                             <div class="col-sm-5">
                                 
-                               <input style="margin: 4px 0;" id="hora" name="hora" type="text" placeholder="Hora de envio reporte" value="{!! old('nombre_almacen', $almacen->hora) !!}" class="form-control">
+                               <input style="margin: 4px 0;" id="hora" name="hora" type="text" placeholder="Hora de envio reporte" value="{!! old('hora', $almacen->hora) !!}" class="form-control">
                             </div>
                             <div class="col-sm-4">
                                 {!! $errors->first('hora', '<span class="help-block">:message</span> ') !!}

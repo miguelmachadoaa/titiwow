@@ -35,6 +35,7 @@ use App\User;
 use App\State;
 use App\City;
 use App\RoleUser;
+use App\Roles;
 use App\Models\AlpMenuDetalle;
 use Cartalyst\Sentinel\Checkpoints\NotActivatedException;
 use Cartalyst\Sentinel\Checkpoints\ThrottlingException;
@@ -166,6 +167,7 @@ class FrontEndController extends JoshController
 
       //dd($id_almacen);
 
+        $rol=9;
 
         $descuento='1'; 
 
@@ -198,6 +200,8 @@ class FrontEndController extends JoshController
             $user=Sentinel::getUser();
              
             $role=RoleUser::where('user_id', $user_id)->first();
+
+            $rol=$role->role_id;
 
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
 
@@ -322,6 +326,10 @@ class FrontEndController extends JoshController
         $inventario=$this->inventario();
 
         $combos=$this->combos();
+
+        $role=Roles::where('id', $rol)->first();
+
+        //dd($rol);
 
         return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion','inventario', 'combos', 'role'));
 
