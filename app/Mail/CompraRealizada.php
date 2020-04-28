@@ -19,6 +19,7 @@ class CompraRealizada extends Mailable
     public $detalles;
     public $fecha_entrega;
     public $envio;
+    public $role;
 
     /**
      * Create a new message instance.
@@ -32,6 +33,13 @@ class CompraRealizada extends Mailable
         $this->detalles=$detalles;
         $this->fecha_entrega=$fecha_entrega;
         $this->envio=AlpEnvios::where('id_orden', $compra->id)->first();
+
+        $r=RoleUser::where('user_id', $compra->id_cliente)->first();
+
+        $role=Roles::where('id', $r->role_id)->first();
+
+        $this->role=$role;
+        
 
     }
 
