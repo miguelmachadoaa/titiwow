@@ -1523,7 +1523,7 @@ public function getApiUrl($endpoint, $jsessionid)
 
               $tipo=0;
 
-              if ($role->role_id=='14') {
+              if ($role->role_id=='13') {
                 
                 $tipo=1;
               }
