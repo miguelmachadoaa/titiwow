@@ -1270,6 +1270,8 @@ class AlpReportesController extends Controller
 
         }
 
+       // dd($request->all());
+
          $date = Carbon::now();
 
         $hoy=$date->format('Y-m-d');
