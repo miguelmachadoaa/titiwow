@@ -1282,6 +1282,59 @@ class AlpReportesController extends Controller
 
 
 
+ public function primeracompra() 
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/nomina ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/nomina');
+
+        }
+
+        $almacenes=AlpAlmacenes::get();
+
+        return view('admin.reportes.primeracompra', compact('almacenes'));
+
+    }
+
+
+     public function exportprimeracompra(Request $request) 
+    {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exportnomina ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exportnomina');
+
+        }
+
+       // dd($request->all());
+
+         $date = Carbon::now();
+
+        $hoy=$date->format('Y-m-d');
+
+        return Excel::download(new NominaExportAlmacen($hoy, $request->id_almacen), 'Listado_de_descuento_primeracompra.xlsx');
+    }
 
 
 
