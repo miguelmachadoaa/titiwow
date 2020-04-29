@@ -4143,6 +4143,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       $re_u=AlpRolenvio::where('id_rol', $role->role_id)->first();
 
+      $id_almacen=$this->getAlmacen();
+
       //dd($re_u);
 
       if (count($re)==1) {
@@ -4209,6 +4211,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
               'valor_impuesto' =>'0',
               'monto_impuesto' =>'0',
               'ip' =>$clientIP,
+              'id_almacen' =>$id_almacen,
               'id_user' =>$user_id
           );
 

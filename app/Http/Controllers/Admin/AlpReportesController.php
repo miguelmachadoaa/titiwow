@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Exports\NominaExport;
+use App\Exports\NominaExportAlmacen;
 use App\Exports\ListadoProductosExport;
 use App\Exports\UsersActivarExport;
 use App\Exports\ConsolidadoExport;
@@ -1242,6 +1243,8 @@ class AlpReportesController extends Controller
 
         }
 
+        $almacenes=AlpAlmacenes::get();
+
         return view('admin.reportes.nomina');
 
     }
@@ -1270,7 +1273,7 @@ class AlpReportesController extends Controller
 
         $hoy=$date->format('Y-m-d');
 
-        return Excel::download(new NominaExport($hoy), 'Listado_de_descuento_nomina.xlsx');
+        return Excel::download(new NominaExportAlmacen($hoy, $request->id_almacen), 'Listado_de_descuento_nomina.xlsx');
     }
 
 

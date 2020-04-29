@@ -37,6 +37,7 @@ class AlpOrdenes extends Model
         'retencion_ica_mp',
         'cod_oracle_pedido',
         'ordencompra',
+        'id_almacen',
         'tracking',
         'factura',
         'ip',
