@@ -58,6 +58,27 @@ Listado de Ordenes con Descuento de Nomina
                 <div class="row">   
 
 
+
+
+                    <div class="form-group col-sm-12 ">
+                        <label for="select21" class="col-md-2 control-label text-right">
+                        Almacen                                               
+                        </label>
+                        <div class="col-md-10">   
+                            <select id="id_almacen" name="id_almacen" class="form-control select2">
+                                <option value="">Seleccione</option>
+
+                                 @foreach($almacenes as $alm)
+                                 
+                                    <option  value="{{ $alm->id }}">{{ $alm->nombre_almacen }}</option>
+
+                                 @endforeach
+                                
+                            </select>
+                        </div>           
+                    </div>
+
+
                     <div class="form-group">
                             <div class="col-sm-offset-4 col-sm-8">
                                 <button type="submit" class="btn btn-md btn-primary">  Descargar listado de ordenes  </button>

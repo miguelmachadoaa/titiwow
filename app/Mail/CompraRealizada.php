@@ -6,6 +6,10 @@ use App\Models\AlpEnvios;
 
 
 use Illuminate\Bus\Queueable;
+use App\Roles;
+
+use App\RoleUser;
+
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;

@@ -128,6 +128,8 @@ class AlpCartController extends JoshController
 
       $inv=$this->inventario();
 
+      $id_almacen=$this->getAlmacen();
+
       $descuento='1'; 
 
       $precio = array();
@@ -149,13 +151,22 @@ class AlpCartController extends JoshController
 
         }
 
-     $productos = DB::table('alp_productos')->select('alp_productos.*')
-     ->where('sugerencia','=', 1)
-     ->where('alp_productos.estado_registro','=',1)
-     ->whereNull('alp_productos.deleted_at')
-     ->orderBy('order', 'asc')
-     ->inRandomOrder()
-     ->take(6)->get();
+    
+
+
+      $productos = DB::table('alp_productos')->select('alp_productos.*')
+        ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
+        ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
+        ->where('alp_almacenes.id', '=', $id_almacen)
+        ->whereNull('alp_almacen_producto.deleted_at')
+        ->whereNull('alp_productos.deleted_at')
+        ->where('alp_productos.sugerencia','=', 1)
+        ->where('alp_productos.estado_registro','=',1)
+        ->groupBy('alp_productos.id')
+        ->orderBy('order', 'asc')
+        ->inRandomOrder()
+        ->orderBy('updated_at', 'desc')
+        ->limit(6)->get();
 
 
       if (Sentinel::check()) {
@@ -4132,6 +4143,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       $re_u=AlpRolenvio::where('id_rol', $role->role_id)->first();
 
+      $id_almacen=$this->getAlmacen();
+
       //dd($re_u);
 
       if (count($re)==1) {
@@ -4198,6 +4211,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
               'valor_impuesto' =>'0',
               'monto_impuesto' =>'0',
               'ip' =>$clientIP,
+              'id_almacen' =>$id_almacen,
               'id_user' =>$user_id
           );
 

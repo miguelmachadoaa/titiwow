@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Exports\NominaExport;
+use App\Exports\NominaExportAlmacen;
 use App\Exports\ListadoProductosExport;
 use App\Exports\UsersActivarExport;
 use App\Exports\ConsolidadoExport;
@@ -29,6 +30,7 @@ use App\Exports\InventarioExport;
 use App\User;
 use App\Models\AlpOrdenes;
 use App\Models\AlpProductos;
+use App\Models\AlpAlmacenes;
 use App\Imports\UsersImport;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -1242,7 +1244,9 @@ class AlpReportesController extends Controller
 
         }
 
-        return view('admin.reportes.nomina');
+        $almacenes=AlpAlmacenes::get();
+
+        return view('admin.reportes.nomina', compact('almacenes'));
 
     }
 
@@ -1266,11 +1270,13 @@ class AlpReportesController extends Controller
 
         }
 
+       // dd($request->all());
+
          $date = Carbon::now();
 
         $hoy=$date->format('Y-m-d');
 
-        return Excel::download(new NominaExport($hoy), 'Listado_de_descuento_nomina.xlsx');
+        return Excel::download(new NominaExportAlmacen($hoy, $request->id_almacen), 'Listado_de_descuento_nomina.xlsx');
     }
 
 
