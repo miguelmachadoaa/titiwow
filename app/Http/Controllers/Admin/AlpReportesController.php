@@ -30,6 +30,7 @@ use App\Exports\InventarioExport;
 use App\User;
 use App\Models\AlpOrdenes;
 use App\Models\AlpProductos;
+use App\Models\AlpAlmacenes;
 use App\Imports\UsersImport;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -1245,7 +1246,7 @@ class AlpReportesController extends Controller
 
         $almacenes=AlpAlmacenes::get();
 
-        return view('admin.reportes.nomina');
+        return view('admin.reportes.nomina', compact('almacenes'));
 
     }
 

@@ -71,10 +71,10 @@ class VentasNominaAlmacenes extends Command
 
         Excel::store(new NominaExportAlmacen($hoy, $alm), $archivo_clientes, 'excel');
             
-       //$documentos[]='/var/www/alpinago/storage/app/public/'.$archivo_clientes;
+       $documentos[]='/var/www/alpinago/storage/app/public/'.$archivo_clientes;
      
 
-       // $enlace=storage_path('/app/'.$archivo);
+        $enlace=storage_path('/app/'.$archivo);
 
        // Mail::to($configuracion->correo_cedi)->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
 
