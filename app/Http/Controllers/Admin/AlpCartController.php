@@ -130,6 +130,8 @@ class AlpCartController extends JoshController
 
       $id_almacen=$this->getAlmacen();
 
+      //dd($id_almacen);
+
       $descuento='1'; 
 
       $precio = array();
@@ -1297,8 +1299,21 @@ class AlpCartController extends JoshController
 
       $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
+      if (!isset($almacen->id) ){
 
-      
+        //dd($almacen);
+
+        return redirect('cart/show');
+
+      }
+      foreach ($cart as $vcart) {
+
+        if ($vcart->disponible==0) {
+          return redirect('cart/show');
+        }
+        # code...
+      }
+
 
       if (Sentinel::check()) {
 
@@ -1528,6 +1543,8 @@ class AlpCartController extends JoshController
          $pse = array();
 
           $payment_methods = MP::get("/v1/payment_methods");
+
+          //dd($payment_methods);
 
          // $payment_methods = array('response'=>array());
 
@@ -5504,7 +5521,7 @@ private function getAlmacen3(){
                     if (isset($almacen->id)) {
                       $id_almacen=$almacen->id;
                     }else{
-                      $id_almacen='1';
+                      $id_almacen='0';
                     }
 
                 }
@@ -5533,7 +5550,7 @@ private function getAlmacen3(){
                 if (isset($almacen->id)) {
                   $id_almacen=$almacen->id;
                 }else{
-                  $id_almacen='1';
+                  $id_almacen='0';
                 }
                    
             }
@@ -5545,7 +5562,7 @@ private function getAlmacen3(){
             if (isset($almacen->id)) {
                 $id_almacen=$almacen->id;
               }else{
-                $id_almacen='1';
+                $id_almacen='0';
               }
         
         }
