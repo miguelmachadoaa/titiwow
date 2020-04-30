@@ -17,8 +17,11 @@
         
                         @if($fp->id==2)
 
-                            
-                            <div class="panel panel-default">
+                        @foreach($payment_methods['response'] as $pm)
+
+                            @if($pm['id']=='pse')
+
+                                <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingPSE">
                                   <h4 class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsePSE" aria-expanded="true" aria-controls="collapsePSE">
@@ -42,6 +45,12 @@
                                   </div>
                                 </div>
                             </div>
+
+                            @endif
+
+                        @endforeach
+
+                            
 
                             <br>
 
