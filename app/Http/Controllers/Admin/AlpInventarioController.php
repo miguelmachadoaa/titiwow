@@ -223,6 +223,8 @@ class AlpInventarioController extends JoshController
        ->where('alp_almacen_producto.id_producto', '=', $id)
        ->get();
 
+       $almacenes=AlpAlmacenes::where('estado_registro','=', 1)->get();
+
         $inventario=$this->inventario();
 
         $movimientos=AlpInventario::select('alp_inventarios.*', 'alp_productos.nombre_producto as nombre_producto', 'alp_productos.referencia_producto as referencia_producto', 'alp_productos.referencia_producto_sap as referencia_producto_sap', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_almacenes.nombre_almacen as nombre_almacen')

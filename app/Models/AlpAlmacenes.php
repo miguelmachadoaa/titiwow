@@ -26,6 +26,7 @@ class AlpAlmacenes extends Model
         'correos',
         'minimo_compra',
         'tipo_almacen',
+        'estado_registro',
         'defecto',
         'id_user'
     ];
