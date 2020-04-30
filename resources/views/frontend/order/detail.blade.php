@@ -1182,7 +1182,7 @@ $('#addDireccionForm').keypress(
                         
                     complete: function(datos){     
 
-                      location.reload()    
+                      location.reload();   
 
                      //alert(datos);
 
