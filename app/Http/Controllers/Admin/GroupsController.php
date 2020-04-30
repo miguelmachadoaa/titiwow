@@ -53,7 +53,6 @@ class GroupsController extends JoshController
             'name' => $request->get('name'),
             'tipo' => $request->get('tipo'),
             'oferta' => $request->get('oferta'),
-            'monto_minimo' => $request->get('monto_minimo'),
             'slug' => str_slug($request->get('name'))
         ])
         ) {
@@ -65,7 +64,6 @@ class GroupsController extends JoshController
         $group->name = $request->get('name');
         $group->tipo = $request->get('tipo');
         $group->oferta = $request->get('oferta');
-        $group->monto_minimo = $request->get('monto_minimo');
         $group->save();
 
 
@@ -124,7 +122,6 @@ class GroupsController extends JoshController
         $group->name = $request->get('name');
         $group->tipo = $request->get('tipo');
         $group->oferta = $request->get('oferta');
-        $group->monto_minimo = $request->get('monto_minimo');
 
         // Was the group updated?
         if ($group->save()) {

@@ -35,7 +35,6 @@ class GroupRequest extends FormRequest
                 return [
                     'name' => 'required|unique:roles,name',
                     'tipo' => 'required',
-                    'monto_minimo' => 'required',
                     'oferta' => 'required',
             ];
             }
@@ -44,7 +43,6 @@ class GroupRequest extends FormRequest
                 return [
                     'name' => 'required|unique:roles,name,'. $this->group,
                     'tipo' => 'required',
-                    'monto_minimo' => 'required',
                     'oferta' => 'required',
                 ];
             }

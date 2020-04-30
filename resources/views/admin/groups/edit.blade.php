@@ -75,7 +75,7 @@
                             </div>
 
 
-                             <div class="form-group {{ $errors->
+                             <!--div class="form-group {{ $errors->
                                 first('monto_minimo', 'has-error') }}">
                                 <label for="title" class="col-sm-2 control-label">
                                     Monto Minimo Compra
@@ -86,7 +86,7 @@
                                 <div class="col-sm-4">
                                     {!! $errors->first('monto_minimo', '<span class="help-block">:message</span>') !!}
                                 </div>
-                            </div>
+                            </div-->
 
 
                             <div class="form-group  {{ $errors->first('oferta', 'has-error') }}">

@@ -83,24 +83,7 @@ Editar Configuracion General
                             </div>
 
 
-                            @foreach($roles as $rol)
-
-
-                                <div class="form-group {{ $errors->first('mc_'.$rol->id.'', 'has-error') }}">
-                                    <label for="minimo_compra" class="col-sm-2 control-label">
-                                        Minimo de Compra Rol {{$rol->name}}
-                                    </label>
-                                    <div class="col-sm-5">
-                                        <input type="number" step="0.01" min="0"  id="mc_{{$rol->id}}" name="mc_{{$rol->id}}" class="form-control" placeholder="Minimo Compra"
-                                            value="{!! old('mc_'.$rol->id, $rol->monto_minimoo) !!}">
-                                    </div>
-                                    <div class="col-sm-4">
-                                        {!! $errors->first('mc_'.$rol->id, '<span class="help-block">:message</span> ') !!}
-                                    </div>
-                                </div> 
-
-
-                            @endforeach
+                          
 
                             
 

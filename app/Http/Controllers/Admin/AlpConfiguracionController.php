@@ -145,7 +145,7 @@ class AlpConfiguracionController extends JoshController
         $configuracion->update($data);
 
 
-         foreach ($input as $key => $value) {
+        /* foreach ($input as $key => $value) {
 
           if (substr($key, 0, 3)=='mc_') {
 
@@ -161,7 +161,7 @@ class AlpConfiguracionController extends JoshController
 
           }
 
-        }
+        }*/
 
         if ($configuracion->id) {
 
