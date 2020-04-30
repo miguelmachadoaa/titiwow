@@ -5524,6 +5524,9 @@ private function getAlmacen3(){
                       $id_almacen='0';
                     }
 
+                    $id_almacen='0';
+
+
                 }
 
 
@@ -5552,6 +5555,8 @@ private function getAlmacen3(){
                 }else{
                   $id_almacen='0';
                 }
+
+                $id_almacen='0';
                    
             }
 
@@ -5564,6 +5569,8 @@ private function getAlmacen3(){
               }else{
                 $id_almacen='0';
               }
+
+              $id_almacen='0';
         
         }
 
