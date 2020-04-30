@@ -193,7 +193,7 @@
 
                                          <div data-type='formaspago'  data-id="{{ $fp->id }}" class=" col-sm-6 col-xs-12 procesar" style="padding:8px;background-color:#3c763d;color:#ffffff; cursor: pointer;">
 
-                                          <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
+                                          <h5 class="text-center">Completar Pedido <i class="fa  fa-chevron-right"></i></h5>
 
                                         </div>
 
