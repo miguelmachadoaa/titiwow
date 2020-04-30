@@ -51,9 +51,9 @@ Agregar Inventario
 
                                  @foreach($almacenes as  $a)
 
-                                    @if(isset($inventario[$producto->id][$a->id_almacen]))
+                                    @if(isset($inventario[$producto->id][$a->id]))
 
-                                        <p><b> {{ 'Disponible '.$a->nombre_almacen.': '.$inventario[$producto->id][$a->id_almacen] }}</b></p>
+                                        <p><b> {{ 'Disponible '.$a->nombre_almacen.': '.$inventario[$producto->id][$a->id] }}</b></p>
 
                                     @else
 
@@ -92,7 +92,7 @@ Agregar Inventario
 
                                         @foreach($almacenes as $a)
 
-                                            <option value="{{$a->id_almacen}}">{{$a->nombre_almacen}}</option>
+                                            <option value="{{$a->id}}">{{$a->nombre_almacen}}</option>
 
                                         @endforeach
 
