@@ -335,7 +335,7 @@ class AlpCartController extends JoshController
 
           // dd($pago);
 
-          if ($compra->id_forma_pago=='3') {
+          if ($compra->id_forma_pago=='3' || $compra->id_forma_pago=='1') {
 
             $payment=null;
             # code...
@@ -389,6 +389,14 @@ class AlpCartController extends JoshController
 
             $metodo='Descuento Nomina';
             
+          }elseif($compra->id_forma_pago=='1'){
+
+            $estatus_aviso='pending';
+
+            $aviso_pago="Hemos recibido su orden  apenas sea aprobado Le llegará un email con la descripción de su pedido. ¡Muchas gracias por su Compra!";
+
+            $metodo='Contraentrega';
+
           }else{
 
 
@@ -3426,7 +3434,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       return $combos;
     }
-    
+
 
     private function reloadCart()
     {
