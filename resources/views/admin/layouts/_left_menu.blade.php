@@ -995,7 +995,7 @@
                 <li {!! (Request::is('admin/reportes/nomina') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ secure_url('admin/reportes/nomina') }}">
                     <i class="fa fa-angle-double-right"></i>
-                    Reporte ventas descuento nomina
+                    Reporte ventas por Almacen
                 </a>
             </li>
             @endif

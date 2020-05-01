@@ -77,14 +77,6 @@ class VentasNomina extends Command
 
        // Mail::to($configuracion->correo_cedi)->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
 
-<<<<<<< HEAD
-        Mail::to('aura.pilonieta@alpina.com')->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
-        Mail::to('marco.henao@alpina.com')->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
-        Mail::to('paula.fonseca@alpina.com')->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
-        Mail::to('julian.garzon@alpina.com')->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
-        Mail::to('claudia.archbold@alpina.com')->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
-        Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
-=======
         if (isset($almacen->id)) {
 
             $correos = explode(";", $almacen->correos);
@@ -100,7 +92,6 @@ class VentasNomina extends Command
       #  Mail::to('julian.garzon@alpina.com')->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
       #  Mail::to('claudia.archbold@alpina.com')->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
        # Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
->>>>>>> 8c0d6d0e8d09a180c5eb93e174bfa5a63082212a
 
 
     }
