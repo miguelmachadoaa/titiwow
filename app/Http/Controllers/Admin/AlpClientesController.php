@@ -104,6 +104,9 @@ class AlpClientesController extends JoshController
             $role=RoleUser::where('user_id', $user_id)->first();
 
             $id_rol=$role->role_id;
+        }else{
+
+          $id_rol=9;
         }
       
         

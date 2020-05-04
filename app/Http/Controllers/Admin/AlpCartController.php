@@ -2711,13 +2711,18 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        $inv=$this->inventario();
 
+       if (isset($producto->id)) {
 
-      $producto->precio_oferta=$request->price;
+         $producto->precio_oferta=$request->price;
 
-      $producto->cantidad=1;
+        $producto->cantidad=1;
 
-      $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
+        $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
 
+
+       }
+
+     
       if($inv[$producto->id]>=$producto->cantidad){
 
         $cart[$producto->slug]=$producto;
@@ -2741,13 +2746,13 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        if (isset($request->datasingle)) {
 
-        $datasingle=$request->datasingle;
+          $datasingle=$request->datasingle;
        
-        $view= View::make('frontend.order.botones', compact('producto', 'cart', 'datasingle'));
+          $view= View::make('frontend.order.botones', compact('producto', 'cart', 'datasingle'));
         
-       }else{
+      }else{
 
-       $view= View::make('frontend.order.botones', compact('producto', 'cart'));
+        $view= View::make('frontend.order.botones', compact('producto', 'cart'));
 
 
        }
@@ -4152,7 +4157,19 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       }
 
 
+      if (Sentinel::check()) {
+
       $user_id = Sentinel::getUser()->id;
+
+
+        }else{
+
+          return 'false';
+
+        }
+
+
+
 
       \Session::put('direccion', $request->id_direccion);
 
@@ -4182,10 +4199,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           }
 
       }
-
-
-
-
 
 
       $carrito= \Session::get('cr');
