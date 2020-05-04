@@ -385,7 +385,7 @@ class AlpCartController extends JoshController
 
             $estatus_aviso='pending';
 
-            $aviso_pago="Hemos recibido su orden y estaremos revisando su pago, apenas sea aprobado Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!";
+            $aviso_pago="Hemos recibido su orden y estaremos revisando su pago, en cuanto sea aprobado Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!";
 
             $metodo='Descuento Nomina';
             
@@ -393,7 +393,7 @@ class AlpCartController extends JoshController
 
             $estatus_aviso='pending';
 
-            $aviso_pago="Hemos recibido su orden  apenas sea aprobado Le llegará un email con la descripción de su pedido. ¡Muchas gracias por su Compra!";
+            $aviso_pago="Hemos recibido su orden  en cuanto sea aprobado Le llegará un email con la descripción de su pedido. ¡Muchas gracias por su Compra!";
 
             $metodo='Contraentrega';
 

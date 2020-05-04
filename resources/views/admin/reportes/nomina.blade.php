@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Listado de Ordenes con Descuento de Nomina
+Listado de Ordenes por Almacen
 @parent
 @stop
 
@@ -25,7 +25,7 @@ Listado de Ordenes con Descuento de Nomina
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1>Listado de Productios </h1>
+    <h1>Listado de Ordenes por Almacen </h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}">
@@ -34,7 +34,7 @@ Listado de Ordenes con Descuento de Nomina
             </a>
         </li>
         <li><a href="#"> Reportes </a></li>
-        <li class="active">Listado de Ordenes con Descuento de Nomina</li>
+        <li class="active">Listado de Ordenes por Almacen</li>
     </ol>
 </section>
 
@@ -45,7 +45,7 @@ Listado de Ordenes con Descuento de Nomina
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Listado de Ordenes con Descuento de Nomina
+                    Listado de Ordenes por Almacen
                     </h4>
                 </div>
                 <br />

@@ -25,7 +25,7 @@ Listado de Ordenes con Descuento de Nomina
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1>Listado de Productios </h1>
+    <h1>Listado de Productos </h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}">
