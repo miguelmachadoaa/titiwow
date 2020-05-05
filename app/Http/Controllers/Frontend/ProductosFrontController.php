@@ -1846,10 +1846,7 @@ class ProductosFrontController extends Controller
 
     private function getAlmacen(){
 
-
-
     $tipo=0;
-
 
         if (isset(Sentinel::getUser()->id)) {
 
@@ -1892,10 +1889,6 @@ class ProductosFrontController extends Controller
               
               $tipo=1;
             }
-
-
-
-
 
 
                 $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
@@ -1950,22 +1943,6 @@ class ProductosFrontController extends Controller
                 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             }else{
 
               $almacen=AlpAlmacenes::where('defecto', '1')->first();
@@ -1983,12 +1960,7 @@ class ProductosFrontController extends Controller
 
             $ciudad= \Session::get('ciudad');
 
-
-
             if (isset($ciudad)) {
-
-
-
 
               $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
                 ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
@@ -2045,21 +2017,8 @@ class ProductosFrontController extends Controller
 
                 }
 
-
-
-
-
-
-
-
-
-
-
-
-
               
             }else{
-
 
                $almacen=AlpAlmacenes::where('defecto', '1')->first();
 
@@ -2069,22 +2028,8 @@ class ProductosFrontController extends Controller
                   $id_almacen='1';
                 }
 
-
-
             }
 
-
-
-
-
-
-
-
-
-
-
-
-           
         
         }
 

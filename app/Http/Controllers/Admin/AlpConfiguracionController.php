@@ -346,7 +346,6 @@ class AlpConfiguracionController extends JoshController
         }
 
 
-
           $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
                 ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
                 ->where('alp_almacenes.tipo_almacen', '=', $tipo)
@@ -385,7 +384,7 @@ class AlpConfiguracionController extends JoshController
 
                   $almacen=AlpAlmacenes::where('id', $ad->id_almacen)->first();
 
-                  $id_almacen=$almacen->id;
+                  $id_almacen='true';
                   # code...
                 }else{
 
@@ -393,21 +392,15 @@ class AlpConfiguracionController extends JoshController
 
                     if (isset($almacen->id)) {
 
-                      $id_almacen=$almacen->id;
+                     $id_almacen='false';
 
                     }else{
 
-                      $id_almacen='1';
+                      $id_almacen='false';
 
                     }
 
                 }
-
-
-
-
-
-
 
 
 
@@ -420,7 +413,7 @@ class AlpConfiguracionController extends JoshController
         if (isset($cities->id)) {
 
           $data = array(
-            'status' => 'true', 
+            'status' => $id_almacen, 
             'city_name' => $cities->city_name, 
             'state_name' => $cities->state_name, 
             'id_ciudad' => $cities->id,
@@ -436,7 +429,7 @@ class AlpConfiguracionController extends JoshController
           ->where('config_cities.id',$request->city_id)->first();
 
           $data = array(
-            'status' => 'false', 
+            'status' => $id_almacen, 
             'city_name' =>  $cities->city_name, 
             'state_name' => $cities->state_name,
             'id_ciudad' => $request->city_id,
