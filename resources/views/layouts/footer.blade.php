@@ -189,7 +189,7 @@
 
                  $('.ubicacion_header a').html('BOGOTÁ CUNDINAMARCA');
 
-                //$('#ubicacionModal').modal('show');
+                $('#ubicacionModal').modal('show');
             }
 
         });
@@ -235,6 +235,8 @@
                                 $('.ubicacion_header a').html(ubicacion.city_name+', '+ubicacion.state_name);
 
                                 $('.addtocart').removeClass('hidden');
+
+                                location.reload();
 
 
                             }else{
@@ -298,6 +300,8 @@
          $(document).ready(function(){
 
                  var base = $('#base').val();
+
+                 ubicacion=JSON.parse(localStorage.getItem('ubicacion'));
                    
                 $.ajax({
                     url: base+'/configuracion/states/47',
@@ -307,21 +311,23 @@
 
                        // localStorage.setItem('states', data.responseText());
 
+                       ubicacion=JSON.parse(localStorage.getItem('ubicacion'));
+
                         $('select[name="state_id_ubicacion"]').empty();
 
                         $.each(data, function(key, value) {
 
-                             if (key=='9') {
+                            if (key==ubicacion.id_state) {
 
                                    $('select[name="state_id_ubicacion"]').append('<option selected value="'+ key +'">'+ value +'</option>');
 
 
-                                    }else{
+                            }else{
 
-                                    $('select[name="state_id_ubicacion"]').append('<option value="'+ key +'">'+ value +'</option>');
+                            $('select[name="state_id_ubicacion"]').append('<option value="'+ key +'">'+ value +'</option>');
 
 
-                                    }
+                            }
 
                         });
 
@@ -329,16 +335,16 @@
                 });
 
                         $.ajax({
-                            url: base+'/configuracion/cities/9',
+                            url: base+'/configuracion/cities/'+ubicacion.id_state,
                             type: "GET",
                             dataType: "json",
                             success:function(data) {
 
-                                
+                                ubicacion=JSON.parse(localStorage.getItem('ubicacion'));
                                 $('select[name="city_id_ubicacion"]').empty();
                                 $.each(data, function(key, value) {
 
-                                    if (key=='62') {
+                                    if (key==ubicacion.id_ciudad) {
 
                                     $('select[name="city_id_ubicacion"]').append('<option selected value="'+ key +'">'+ value +'</option>');
 

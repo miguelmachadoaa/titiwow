@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\JoshController;
 use App\Models\AlpConfiguracion;
 use App\Models\AlpDespachoCiudad;
+use App\Models\AlpAlmacenDespacho;
+use App\Models\AlpAlmacenes;
 use App\Country;
 use App\State;
 use App\City;
@@ -325,11 +327,94 @@ class AlpConfiguracionController extends JoshController
         }
         
           \Session::put('ciudad', $request->city_id);
+
+          $tipo=0;
+
+
+        if (isset(Sentinel::getUser()->id)) {
+
+            $user_id = Sentinel::getUser()->id;
+
+            $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
+
+             if ($role->role_id=='14') {
+              
+              $tipo=1;
+
+            }
+
+        }
+
+
+
+          $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
+                ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
+                ->where('alp_almacenes.tipo_almacen', '=', $tipo)
+                ->where('alp_almacen_despacho.id_city', $request->city_id)
+                ->first();
+
+                if (isset($ad->id)) {
+                # code...
+                }else{
+
+                  $c=City::where('id', $request->city_id)->first();
+
+                  $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
+                ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
+                ->where('alp_almacenes.tipo_almacen', '=', $tipo)
+                ->where('alp_almacen_despacho.id_city', '0')
+                ->where('alp_almacen_despacho.id_state', $c->state_id)
+                ->first();
+
+                  if (isset($ad->id)) {
+                    
+                  }else{
+
+                    $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
+                  ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
+                  ->where('alp_almacenes.tipo_almacen', '=', $tipo)
+                  ->where('alp_almacen_despacho.id_city', '0')
+                  ->where('alp_almacen_despacho.id_state', '0')->first();
+
+                  }
+
+                }
+
+
+                 if (isset($ad->id)) {
+
+                  $almacen=AlpAlmacenes::where('id', $ad->id_almacen)->first();
+
+                  $id_almacen=$almacen->id;
+                  # code...
+                }else{
+
+                   $almacen=AlpAlmacenes::where('defecto', '1')->first();
+
+                    if (isset($almacen->id)) {
+
+                      $id_almacen=$almacen->id;
+
+                    }else{
+
+                      $id_almacen='1';
+
+                    }
+
+                }
+
+
+
+
+
+
+
+
+
       
-        $cities = AlpDespachoCiudad::select('alp_despacho_ciudad.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name')
-          ->join('config_cities', 'alp_despacho_ciudad.id_ciudad', '=', 'config_cities.id')
+       $cities = City::select('config_cities.*', 'config_states.state_name as state_name', 'config_states.id as id_state')
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-          ->where('id_ciudad',$request->city_id)->first();
+          ->where('config_cities.id',$request->city_id)->first();
 
 
         if (isset($cities->id)) {
@@ -338,14 +423,15 @@ class AlpConfiguracionController extends JoshController
             'status' => 'true', 
             'city_name' => $cities->city_name, 
             'state_name' => $cities->state_name, 
-            'id_ciudad' => $cities->id_ciudad
+            'id_ciudad' => $cities->id,
+            'id_state' => $cities->id_state,
           );
 
           return json_encode($data);
 
         }else{
 
-          $cities = City::select('config_cities.*', 'config_states.state_name as state_name')
+          $cities = City::select('config_cities.*', 'config_states.state_name as state_name', 'config_states.id as id_state')
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
           ->where('config_cities.id',$request->city_id)->first();
 
@@ -353,7 +439,8 @@ class AlpConfiguracionController extends JoshController
             'status' => 'false', 
             'city_name' =>  $cities->city_name, 
             'state_name' => $cities->state_name,
-            'id_ciudad' => $request->city_id
+            'id_ciudad' => $request->city_id,
+            'id_state' => $cities->id_state
           );
 
           return json_encode($data);
