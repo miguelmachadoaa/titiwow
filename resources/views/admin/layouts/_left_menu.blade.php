@@ -245,7 +245,7 @@
 </li>
 
 @endif
-
+@if (Sentinel::getUser()->hasAnyAccess(['almacenes.*']))
  <li {!! (Request::is('admin/almacenes') ? 'class="active"' : '') !!}>
         <a href="{{  secure_url('admin/almacenes') }}">
             <i class="livicon" data-name="dashboard" data-size="18" data-c="#EF6F6C" data-hc="#EF6F6C"
@@ -253,7 +253,7 @@
             Almacenes
         </a>
     </li>
-
+    @endif
 
     @if (Sentinel::getUser()->hasAnyAccess(['envios.*']))
 
@@ -298,7 +298,7 @@
         Sentinel::getUser()->hasAnyAccess(['sliders.*'])  
         )
 
-
+        @if (Sentinel::getUser()->hasAnyAccess(['configuracion.*']))
 
     <li class="{{ Request::is('admin/formaspago*') ? 'active' : '' }}">
         <a href="#">
@@ -308,7 +308,7 @@
             <span class="fa arrow"></span>
         </a>
         
-    @if (Sentinel::getUser()->hasAnyAccess(['configuracion.*']))
+
         <ul class="sub-menu">
             <li {!! (Request::is('admin/configuracion*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.configuracion.index') !!}">
