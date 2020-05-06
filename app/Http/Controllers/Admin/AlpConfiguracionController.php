@@ -207,8 +207,6 @@ class AlpConfiguracionController extends JoshController
     }
 
 
-
-
      public function selectStateTodos($id)
     {
         $states = DB::table("config_states")
