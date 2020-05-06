@@ -238,7 +238,7 @@ Editar Almacen
 
                     if(stateID) {
                         $.ajax({
-                            url: base+'/configuracion/cities/'+stateID,
+                            url: base+'/configuracion/citiestodos/'+stateID,
                             type: "GET",
                             dataType: "json",
                             success:function(data) {

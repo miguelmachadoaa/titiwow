@@ -1055,6 +1055,14 @@ Route::get('configuracion/states/{id}',array('as'=>'configuracion.states','uses'
        
 Route::get('configuracion/cities/{id}',array('as'=>'configuracion.cities','uses'=>'Admin\AlpConfiguracionController@selectCity'));
 
+
+Route::get('configuracion/statestodos/{id}',array('as'=>'configuracion.statestodos','uses'=>'Admin\AlpConfiguracionController@selectStatetodos'));
+       
+Route::get('configuracion/citiestodos/{id}',array('as'=>'configuracion.citiestodos','uses'=>'Admin\AlpConfiguracionController@selectCitytodos'));
+
+
+
+
 Route::post('configuracion/verificarciudad', 'Admin\AlpConfiguracionController@verificarciudad')->name('configuracion.verificarciudad');
 
 

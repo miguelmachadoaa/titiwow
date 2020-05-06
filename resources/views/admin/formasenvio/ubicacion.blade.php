@@ -183,6 +183,7 @@ Ciudades de envio
                                     <div class="col-md-8" >
                                         <select style="margin: 4px 0;" id="state_id" name="state_id" class="form-control ">
                                             <option value="">Seleccione</option>
+                                            <option value="0">Todos</option>
 
                                                 @foreach($states as $state)
 
@@ -463,7 +464,7 @@ $('.delCiudad').click(function () {
 
                     if(stateID) {
                         $.ajax({
-                            url: base+'/configuracion/cities/'+stateID,
+                            url: base+'/configuracion/citiestodos/'+stateID,
                             type: "GET",
                             dataType: "json",
                             success:function(data) {

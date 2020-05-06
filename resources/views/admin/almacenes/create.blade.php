@@ -104,6 +104,7 @@
                                  <select id="state_id" name="state_id" class="form-control select2">
 
                                                         <option value="">Seleccione</option>
+                                                        <option value="0">Todos</option>
                                                         
                                                         @foreach($states as $state)
 
@@ -282,7 +283,7 @@
 
                     if(stateID) {
                         $.ajax({
-                            url: base+'/configuracion/cities/'+stateID,
+                            url: base+'/configuracion/citiestodos/'+stateID,
                             type: "GET",
                             dataType: "json",
                             success:function(data) {

@@ -11,6 +11,7 @@ use App\Country;
 use App\State;
 use App\City;
 use App\Roles;
+use App\RoleUser;
 use App\Http\Requests;
 use App\Http\Requests\ProductosRequest;
 use Illuminate\Http\Request;
@@ -187,7 +188,7 @@ class AlpConfiguracionController extends JoshController
         $states = DB::table("config_states")
                     ->where("country_id",$id)
                     ->pluck("state_name","id")->all();
-        $states['0'] = 'Todos';
+        $states['0'] = 'Seleccione';
         return json_encode($states);
     }
 
@@ -201,9 +202,37 @@ class AlpConfiguracionController extends JoshController
         $cities = DB::table("config_cities")
                     ->where("state_id",$id)
                     ->pluck("city_name","id")->all();
+        $cities['0'] = 'Seleccione';
+        return json_encode($cities);
+    }
+
+
+
+
+     public function selectStateTodos($id)
+    {
+        $states = DB::table("config_states")
+                    ->where("country_id",$id)
+                    ->pluck("state_name","id")->all();
+        $states['0'] = 'Todos';
+        return json_encode($states);
+    }
+
+    /**
+     * Get Ajax Request and restun Data
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function selectCityTodos($id)
+    {
+        $cities = DB::table("config_cities")
+                    ->where("state_id",$id)
+                    ->pluck("city_name","id")->all();
         $cities['0'] = 'Todas';
         return json_encode($cities);
     }
+
+
 
 
     public function storecity(Request $request)
