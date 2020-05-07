@@ -98,11 +98,11 @@ Editar Almacen
                                  <select id="state_id" name="state_id" class="form-control select2">
 
                                     <option value="">Seleccione</option>
-                                    <option value="0">Todos</option>
+                                    <option value="0" @if($almacen->id_state=='0') {{'Selected'}} @endif >Todos</option>
                                     
                                     @foreach($states as $state)
 
-                                    <option @if($city->state_id==$state->id) {{'Selected'}} @endif  value="{{ $state->id }}">
+                                    <option @if($almacen->id_state==$state->id) {{'Selected'}} @endif  value="{{ $state->id }}">
 
                                             {{ $state->state_name}}</option>
 
@@ -128,7 +128,11 @@ Editar Almacen
                                     
                                     <option value="">Seleccione</option>
 
+                                    <option value="0" @if($almacen->id_city=='0') {{'Selected'}} @endif >Todos</option>
 
+
+
+                    
                                     @foreach($cities as $c)
 
                                         <option @if($almacen->id_city==$c->id) {{'Selected'}} @endif  value="{{ $c->id }}"> {{ $c->city_name}}</option>

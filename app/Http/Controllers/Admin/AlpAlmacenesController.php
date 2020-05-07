@@ -280,14 +280,38 @@ class AlpAlmacenesController extends JoshController
        
        $almacen = AlpAlmacenes::where('id', $id)->first();
 
+      
+
        $states=State::where('config_states.country_id', '47')->get();
 
-       $city=City::where('id', $almacen->id_city)->first();
+       if ($almacen->id_city=='0') {
+         
+          $almacen->id_state=0;
 
-      $cities=City::where('state_id', $city->state_id)->get();
+       }else{
+
+        $city=City::where('id', $almacen->id_city)->first();
+
+         $almacen->id_state=$city->state_id;
+
+       }
+
+        //dd($almacen);
+
+       //
+
+      $cities=City::get();
+
+       //$listaestados=State::pluck('state_name', 'id');
+
+       // $listaestados[0]='Todos';
+
+       // $listaciudades=City::pluck('city_name', 'id');
+
+       // $listaciudades[0]='Todos';
 
 
-        return view('admin.almacenes.edit', compact('almacen', 'cities', 'states', 'city'));
+        return view('admin.almacenes.edit', compact('almacen', 'states', 'cities'));
     }
 
     /**
