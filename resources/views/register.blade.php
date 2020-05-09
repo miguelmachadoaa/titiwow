@@ -212,10 +212,10 @@
                     {!! $errors->first('habeas_cliente', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="clearfix"></div>
-                <div class="form-group">
+                <!--div class="form-group">
                     <div class="g-recaptcha" data-sitekey="{{env('CAPTCHA_KEY')}}" style="padding:10px 30px !important"></div>
                     {!! $errors->first('g-recaptcha-response', '<span class="help-block">:message</span>') !!}
-                </div>
+                </div-->
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-6">
@@ -278,7 +278,7 @@
 
 </div>
 <!--global js starts-->
-<script src='https://www.google.com/recaptcha/api.js'></script>
+<script src='https://www.google.com/recaptcha/api.js?render=explicit'></script>
 <script type="text/javascript" src="{{ secure_asset('assets/js/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ secure_asset('assets/js/bootstrap.min.js') }}"></script>
 <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>

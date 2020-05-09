@@ -194,7 +194,7 @@
 
                  <div class="clearfix"></div>
                  <div class="form-group">
-                    <div class="g-recaptcha" data-sitekey="{{env('CAPTCHA_KEY')}}"  style="padding:10px 30px !important"></div>
+                    <div class="g-" data-sitekey="{{env('CAPTCHA_KEY')}}"  style="padding:10px 30px !important"></div>
                     {!! $errors->first('g-recaptcha-response', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="form-group">

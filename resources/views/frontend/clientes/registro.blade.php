@@ -233,7 +233,7 @@
     <!-- //Content Section End -->
 </div>
 <!--global js starts-->
-<script src='https://www.google.com/recaptcha/api.js'></script>
+<script src='https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit'></script>
 <script type="text/javascript" src="{{ secure_asset('assets/js/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ secure_asset('assets/js/bootstrap.min.js') }}"></script>
 <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>

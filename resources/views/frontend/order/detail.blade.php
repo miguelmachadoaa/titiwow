@@ -599,7 +599,7 @@ $('.sendCupon').click(function () {
 
                 }else{
 
-                    $('.res_direccion').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+                    $('.res_direccion').html('<divhidden class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
 
                      $('#modalPse').modal('hidden');
 
@@ -617,7 +617,7 @@ $('.sendCupon').click(function () {
 
         $('body').on('click', '.procesar', function (){
 
-            $('.overlay').fadeIn();
+            //$('.overlay').fadeIn();
 
 
             id_direccion= $("#id_direccion").val(); 
@@ -636,7 +636,7 @@ $('.sendCupon').click(function () {
 
                 $('.res_direccion').html('<div class="alert alert-danger" role="alert">Todos los campos son obligatorios</div>');
 
-                $('.overlay').fadeOut();
+               // $('.overlay').fadeOut();
 
 
             }else{
@@ -684,7 +684,7 @@ $('.sendCupon').click(function () {
 
                                             //$('.contain_body').html(datos.responseText);
 
-                                            $('.overlay').fadeOut();
+                                            //$('.overlay').fadeOut();
                                         
                                         }
 
@@ -692,7 +692,7 @@ $('.sendCupon').click(function () {
 
                                 }else{
 
-                                    $('.overlay').fadeOut();
+                                   // $('.overlay').hidden();
 
                                     $('.res_direccion').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
 
