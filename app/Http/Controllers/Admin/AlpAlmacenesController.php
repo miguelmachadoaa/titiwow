@@ -1116,4 +1116,52 @@ class AlpAlmacenesController extends JoshController
 
 
 
+
+      public function estatus(Request $request)
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('almacenes/estatus ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('almacenes/estatus');
+
+        }
+
+        $input = $request->all();
+
+        $almacen=AlpAlmacenes::find($request->id);
+
+        $data = array('estado_registro' => $request->estatus );
+
+        $almacen->update($data);
+
+
+        $view= View::make('admin.almacenes.estatus', compact('almacen'));
+
+        $data=$view->render();
+        
+        return $data;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

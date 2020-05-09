@@ -8,7 +8,7 @@
                                     <th>Id</th>
                                     <th>Rol</th>
                                     <th>Ciudad</th>
-
+                                    
                                     @if($formas->tipo==0)
 
                                         <th>Compras Desde</th>
@@ -31,9 +31,8 @@
                                 <tr>
                                     <td>{!! $row->id !!}</td>
                                     <td>{!! $row->name !!}</td>
-                                    <td>{!! $row->state_name.' - '.$row->city_name!!}</td>
-
-                                    @if($formas->tipo==0)
+                                    <td>{!! $listaestados[$row->id_state].' - '.$listaciudades[$row->id_ciudad]!!}</td>
+                                     @if($formas->tipo==0)
 
                                     <td>{!! $row->desde !!}</td>
                                     <td>{!! $row->hasta !!}</td>
@@ -44,18 +43,13 @@
                                      <td>{!! $row->dias !!}</td>
 
                                     @endif
-
-                                    
                                     <td>{!! $row->hora !!}</td>
                                     <td>{!! number_format($row->costo, 2)  !!}</td>
                                     <td>
-                                            
-                                            
 
                                         <button data-id="{{ $row->id }}" type="button" class=" btn btn-danger delciudad"><i class="fa fa-trash"></i></button>
 
                                             <!-- let's not delete 'Admin' group by accident -->
-                                              
 
                                     </td>
                                 </tr>

@@ -113,19 +113,19 @@ Almacen
 
     $('#table').on('click', '.estatus', function(){
 
-            var id=$(this).data('id');
+        var id=$(this).data('id');
 
-            var estatus=$(this).data('estatus');
+        var estatus=$(this).data('estatus');
 
-            var url=$(this).data('url');
+        var url=$(this).data('url');
 
-            $.post(url, {id, estatus}, function(data) {
+        $.post(url, {id, estatus}, function(data) {
 
-                    $('.estatus_'+id).html(data);
+                $('.estatus_'+id).html(data);
 
-                });
-               
             });
+           
+        });
 
 
         $(document).ready(function() {

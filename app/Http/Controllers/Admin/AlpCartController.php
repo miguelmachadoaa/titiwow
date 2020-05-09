@@ -5661,7 +5661,7 @@ private function getAlmacen3(){
                 ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
                 ->where('alp_almacenes.tipo_almacen', '=', $tipo)
                 ->where('alp_almacen_despacho.id_city', $d->city_id)
-                ->first();
+                ->where('alp_almacenes.estado_registro', '=', '1')->first();
 
                 if (isset($ad->id)) {
                 # code...
@@ -5674,7 +5674,7 @@ private function getAlmacen3(){
                 ->where('alp_almacenes.tipo_almacen', '=', $tipo)
                 ->where('alp_almacen_despacho.id_city', '0')
                 ->where('alp_almacen_despacho.id_state', $c->state_id)
-                ->first();
+                ->where('alp_almacenes.estado_registro', '=', '1')->first();
 
                   if (isset($ad->id)) {
                     
@@ -5684,7 +5684,7 @@ private function getAlmacen3(){
                   ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
                   ->where('alp_almacenes.tipo_almacen', '=', $tipo)
                   ->where('alp_almacen_despacho.id_city', '0')
-                  ->where('alp_almacen_despacho.id_state', '0')->first();
+                  ->where('alp_almacenes.estado_registro', '=', '1')->where('alp_almacen_despacho.id_state', '0')->first();
 
                   }
 
@@ -5692,13 +5692,13 @@ private function getAlmacen3(){
 
                 if (isset($ad->id)) {
 
-                  $almacen=AlpAlmacenes::where('id', $ad->id_almacen)->first();
+                  $almacen=AlpAlmacenes::where('id', $ad->id_almacen)->where('alp_almacenes.estado_registro', '=', '1')->first();
 
                   $id_almacen=$almacen->id;
                   # code...
                 }else{
 
-                   $almacen=AlpAlmacenes::where('defecto', '1')->first();
+                   $almacen=AlpAlmacenes::where('defecto', '1')->where('alp_almacenes.estado_registro', '=', '1')->first();
 
                     if (isset($almacen->id)) {
                       $id_almacen=$almacen->id;
@@ -5730,7 +5730,7 @@ private function getAlmacen3(){
 
             }else{
 
-              $almacen=AlpAlmacenes::where('defecto', '1')->first();
+              $almacen=AlpAlmacenes::where('defecto', '1')->where('alp_almacenes.estado_registro', '=', '1')->first();
 
                 if (isset($almacen->id)) {
                   $id_almacen=$almacen->id;
@@ -5766,7 +5766,7 @@ private function getAlmacen3(){
                 ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
                 ->where('alp_almacenes.tipo_almacen', '=', $tipo)
                 ->where('alp_almacen_despacho.id_city', $ciudad)
-                ->first();
+                ->where('alp_almacenes.estado_registro', '=', '1')->first();
 
                 if (isset($ad->id)) {
                 # code...
@@ -5779,7 +5779,7 @@ private function getAlmacen3(){
                 ->where('alp_almacenes.tipo_almacen', '=', $tipo)
                 ->where('alp_almacen_despacho.id_city', '0')
                 ->where('alp_almacen_despacho.id_state', $c->state_id)
-                ->first();
+                ->where('alp_almacenes.estado_registro', '=', '1')->first();
 
                   if (isset($ad->id)) {
                     
@@ -5789,7 +5789,7 @@ private function getAlmacen3(){
                   ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
                   ->where('alp_almacenes.tipo_almacen', '=', $tipo)
                   ->where('alp_almacen_despacho.id_city', '0')
-                  ->where('alp_almacen_despacho.id_state', '0')->first();
+                  ->where('alp_almacenes.estado_registro', '=', '1')->where('alp_almacen_despacho.id_state', '0')->first();
 
                   }
 
@@ -5797,13 +5797,13 @@ private function getAlmacen3(){
 
                 if (isset($ad->id)) {
 
-                  $almacen=AlpAlmacenes::where('id', $ad->id_almacen)->first();
+                  $almacen=AlpAlmacenes::where('id', $ad->id_almacen)->where('alp_almacenes.estado_registro', '=', '1')->first();
 
                   $id_almacen=$almacen->id;
                   # code...
                 }else{
 
-                   $almacen=AlpAlmacenes::where('defecto', '1')->first();
+                   $almacen=AlpAlmacenes::where('defecto', '1')->where('alp_almacenes.estado_registro', '=', '1')->first();
 
                     if (isset($almacen->id)) {
 
@@ -5833,7 +5833,7 @@ private function getAlmacen3(){
             }else{
 
 
-               $almacen=AlpAlmacenes::where('defecto', '1')->first();
+               $almacen=AlpAlmacenes::where('defecto', '1')->where('alp_almacenes.estado_registro', '=', '1')->first();
 
               if (isset($almacen->id)) {
                   $id_almacen=$almacen->id;
@@ -5862,9 +5862,15 @@ private function getAlmacen3(){
 
     }
 
-    private function getAlmacen(){
+ 
+
+
+ private function getAlmacen(){
+
+
 
     $tipo=0;
+
 
         if (isset(Sentinel::getUser()->id)) {
 
@@ -5909,10 +5915,15 @@ private function getAlmacen3(){
             }
 
 
+
+
+
+
                 $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
                 ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
                 ->where('alp_almacenes.tipo_almacen', '=', $tipo)
                 ->where('alp_almacen_despacho.id_city', $d->city_id)
+                ->where('alp_almacenes.estado_registro', '=', '1')
                 ->first();
 
                 if (isset($ad->id)) {
@@ -5926,6 +5937,7 @@ private function getAlmacen3(){
                 ->where('alp_almacenes.tipo_almacen', '=', $tipo)
                 ->where('alp_almacen_despacho.id_city', '0')
                 ->where('alp_almacen_despacho.id_state', $c->state_id)
+                ->where('alp_almacenes.estado_registro', '=', '1')
                 ->first();
 
                   if (isset($ad->id)) {
@@ -5936,7 +5948,7 @@ private function getAlmacen3(){
                   ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
                   ->where('alp_almacenes.tipo_almacen', '=', $tipo)
                   ->where('alp_almacen_despacho.id_city', '0')
-                  ->where('alp_almacen_despacho.id_state', '0')->first();
+                  ->where('alp_almacen_despacho.id_state', '0')->where('alp_almacenes.estado_registro', '=', '1')->first();
 
                   }
 
@@ -5959,6 +5971,22 @@ private function getAlmacen3(){
                     }
 
                 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
             }else{
@@ -5978,12 +6006,18 @@ private function getAlmacen3(){
 
             $ciudad= \Session::get('ciudad');
 
+
+
             if (isset($ciudad)) {
+
+
+
 
               $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
                 ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
                 ->where('alp_almacenes.tipo_almacen', '=', $tipo)
                 ->where('alp_almacen_despacho.id_city', $ciudad)
+                ->where('alp_almacenes.estado_registro', '=', '1')
                 ->first();
 
                 if (isset($ad->id)) {
@@ -5997,6 +6031,7 @@ private function getAlmacen3(){
                 ->where('alp_almacenes.tipo_almacen', '=', $tipo)
                 ->where('alp_almacen_despacho.id_city', '0')
                 ->where('alp_almacen_despacho.id_state', $c->state_id)
+                ->where('alp_almacenes.estado_registro', '=', '1')
                 ->first();
 
                   if (isset($ad->id)) {
@@ -6007,6 +6042,7 @@ private function getAlmacen3(){
                   ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
                   ->where('alp_almacenes.tipo_almacen', '=', $tipo)
                   ->where('alp_almacen_despacho.id_city', '0')
+                  ->where('alp_almacenes.estado_registro', '=', '1')
                   ->where('alp_almacen_despacho.id_state', '0')->first();
 
                   }
@@ -6015,13 +6051,13 @@ private function getAlmacen3(){
 
                 if (isset($ad->id)) {
 
-                  $almacen=AlpAlmacenes::where('id', $ad->id_almacen)->first();
+                  $almacen=AlpAlmacenes::where('id', $ad->id_almacen)->where('alp_almacenes.estado_registro', '=', '1')->first();
 
                   $id_almacen=$almacen->id;
                   # code...
                 }else{
 
-                   $almacen=AlpAlmacenes::where('defecto', '1')->first();
+                   $almacen=AlpAlmacenes::where('defecto', '1')->where('alp_almacenes.estado_registro', '=', '1')->first();
 
                     if (isset($almacen->id)) {
 
@@ -6035,10 +6071,23 @@ private function getAlmacen3(){
 
                 }
 
+
+
+
+
+
+
+
+
+
+
+
+
               
             }else{
 
-               $almacen=AlpAlmacenes::where('defecto', '1')->first();
+
+               $almacen=AlpAlmacenes::where('defecto', '1')->where('alp_almacenes.estado_registro', '=', '1')->first();
 
               if (isset($almacen->id)) {
                   $id_almacen=$almacen->id;
@@ -6046,8 +6095,17 @@ private function getAlmacen3(){
                   $id_almacen='1';
                 }
 
+
+
             }
 
+
+
+
+
+
+
+           
         
         }
 

@@ -4,6 +4,7 @@ use App\Http\Controllers\JoshController;
 use App\Models\AlpFormasenvio;
 use App\Models\AlpFormaCiudad;
 use App\State;
+use App\City;
 use App\Http\Requests\FormaenvioRequest;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -53,7 +54,6 @@ class AlpFormasenvioController extends JoshController
       public function data()
     {
        
-        
       $formas = AlpFormasenvio::all();
          
         $data = array();
@@ -74,7 +74,6 @@ class AlpFormasenvioController extends JoshController
          </a>
 ";
 $tipo='';
-
 
 if ($row->tipo=='1') {
     # code...
@@ -102,10 +101,6 @@ $tipo='Fecha fija';
           
       }
 
-
-    
-
-
     /**
      * Group create.
      *
@@ -131,7 +126,6 @@ $tipo='Fecha fija';
 
         }
       
-
 
         // Show the page
         return view ('admin.formasenvio.create');
@@ -377,12 +371,42 @@ $tipo='Fecha fija';
 
         $roles = DB::table('roles')->whereIn('id', ['9','10', '11', '12'])->select('id', 'name')->get();
 
+        $states=State::where('config_states.country_id', '47')->get();
+
+         $ciudades=AlpFormaCiudad::select('alp_forma_ciudad.*', 'roles.name as name')
+         ->join('roles','alp_forma_ciudad.id_rol' , '=', 'roles.id')
+        ->where('alp_forma_ciudad.id_forma', $id)->get();
+
+       foreach ($ciudades as $c) {
+
+                if ($c->id_ciudad=='0') {
+
+                        $c->id_state='0';
+                    # code...
+                }else{
+
+                    $ci=City::where('id', $c->id)->first();
+
+                    $c->id_state=$ci->state_id;
+                }
+           # code...
+       }
+
 
 
         $states=State::where('config_states.country_id', '47')->get();
 
+        $listaestados=State::where('config_states.country_id', '47')->pluck('state_name', 'id');
+
+        $listaestados[0]='Todos';
+
+        $listaciudades=City::pluck('city_name', 'id');
+
+        $listaciudades[0]='Todos';
+
+
         // Show the page
-        return view('admin.formasenvio.ubicacion', compact('formas', 'ciudades', 'states', 'roles'));
+        return view('admin.formasenvio.ubicacion', compact('formas', 'ciudades', 'states', 'listaciudades', 'listaestados', 'roles'));
 
     }
 
@@ -437,14 +461,39 @@ $tipo='Fecha fija';
         $formas=AlpFormasenvio::where('id', $request->id_forma)->first();
          
 
-         $ciudades=AlpFormaCiudad::select('alp_forma_ciudad.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name', 'roles.name as name')
-        ->join('roles','alp_forma_ciudad.id_rol' , '=', 'roles.id')
-        ->join('config_cities','alp_forma_ciudad.id_ciudad' , '=', 'config_cities.id')
-        ->join('config_states','config_cities.state_id' , '=', 'config_states.id')
+         $ciudades=AlpFormaCiudad::select('alp_forma_ciudad.*', 'roles.name as name')
+         ->join('roles','alp_forma_ciudad.id_rol' , '=', 'roles.id')
         ->where('alp_forma_ciudad.id_forma', $request->id_forma)->get();
 
+       foreach ($ciudades as $c) {
 
-        $view= View::make('admin.formasenvio.ciudades', compact('ciudades', 'formas'));
+                if ($c->id_ciudad=='0') {
+
+                        $c->id_state='0';
+                    # code...
+                }else{
+
+                    $ci=City::where('id', $c->id)->first();
+
+                    $c->id_state=$ci->state_id;
+                }
+           # code...
+       }
+
+
+
+        $states=State::where('config_states.country_id', '47')->get();
+
+        $listaestados=State::where('config_states.country_id', '47')->pluck('state_name', 'id');
+
+        $listaestados[0]='Todos';
+
+        $listaciudades=City::pluck('city_name', 'id');
+
+        $listaciudades[0]='Todos';
+
+
+        $view= View::make('admin.formasenvio.ciudades', compact('ciudades', 'formas', 'states', 'listaciudades', 'listaestados'));
 
           $data=$view->render();
 
@@ -486,13 +535,39 @@ $tipo='Fecha fija';
 
         $formas->delete();
 
-         $ciudades=AlpFormaCiudad::select('alp_forma_ciudad.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name')
-        ->join('config_cities','alp_forma_ciudad.id_ciudad' , '=', 'config_cities.id')
-        ->join('config_states','config_cities.state_id' , '=', 'config_states.id')
+          $ciudades=AlpFormaCiudad::select('alp_forma_ciudad.*', 'roles.name as name')
+         ->join('roles','alp_forma_ciudad.id_rol' , '=', 'roles.id')
         ->where('alp_forma_ciudad.id_forma', $id_forma)->get();
 
+       foreach ($ciudades as $c) {
 
-        $view= View::make('admin.formasenvio.ciudades', compact('ciudades', 'formas'));
+                if ($c->id_ciudad=='0') {
+
+                        $c->id_state='0';
+                    # code...
+                }else{
+
+                    $ci=City::where('id', $c->id)->first();
+
+                    $c->id_state=$ci->state_id;
+                }
+           # code...
+       }
+
+
+
+        $states=State::where('config_states.country_id', '47')->get();
+
+        $listaestados=State::where('config_states.country_id', '47')->pluck('state_name', 'id');
+
+        $listaestados[0]='Todos';
+
+        $listaciudades=City::pluck('city_name', 'id');
+
+        $listaciudades[0]='Todos';
+
+
+        $view= View::make('admin.formasenvio.ciudades', compact('ciudades', 'formas', 'states', 'listaciudades', 'listaestados'));
 
           $data=$view->render();
 

@@ -81,7 +81,7 @@ Ciudades de envio
                                 <tr>
                                     <td>{!! $row->id !!}</td>
                                     <td>{!! $row->name !!}</td>
-                                    <td>{!! $row->state_name.' - '.$row->city_name!!}</td>
+                                    <td>{!! $listaestados[$row->id_state].' - '.$listaciudades[$row->id_ciudad]!!}</td>
                                      @if($formas->tipo==0)
 
                                     <td>{!! $row->desde !!}</td>

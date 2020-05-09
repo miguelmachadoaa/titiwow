@@ -673,6 +673,11 @@ Route::resource('facturasmasivas', 'Admin\AlpFacturasController');
 
      Route::group(['prefix' => 'almacenes'], function () {
 
+
+        Route::post('estatus', ['as'=> 'almacenes.estatus', 'uses' => 'Admin\AlpAlmacenesController@estatus']);
+
+
+
         Route::get('{id}/delete', 'Admin\AlpAlmacenesController@destroy')->name('almacenes.delete');
 
         Route::get('{id}/confirm-delete', 'Admin\AlpAlmacenesController@getModalDelete')->name('almacenes.confirm-delete');
@@ -693,7 +698,6 @@ Route::resource('facturasmasivas', 'Admin\AlpFacturasController');
         Route::post('{id}/addformapago', 'Admin\AlpAlmacenesController@addformapago')->name('cupones.addformapago');
 
         Route::post('{id}/delformapago', 'Admin\AlpAlmacenesController@delformapago')->name('cupones.delformapago');
-
 
 
 
