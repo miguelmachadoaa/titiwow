@@ -1140,6 +1140,55 @@ $('#addDireccionForm').keypress(
                 $('select[name="city_id"]').empty();
             }
         });
+
+
+    $('select[name="city_id"]').on('change', function() {
+                var stateID = $(this).val();
+                var base = $('#base').val();
+
+                    if(stateID) {
+
+                        $.ajax({
+                            url: base+'/configuracion/barrios/'+stateID,
+                            type: "GET",
+                            dataType: "json",
+                            success:function(data) {
+
+                                
+                                $('select[name="id_barrio"]').empty();
+
+                                if (JSON.stringify(data).length>14) {
+
+                                    $('.barrio_address').addClass('hidden');
+                                    $('·barrio_address').val(' ');
+
+                                    $('.id_barrio').removeClass('hidden');
+
+                                }else{
+
+                                    $('.barrio_address').removeClass('hidden');
+
+                                    $('#id_barrio').val(0);
+
+                                    $('.id_barrio').addClass('hidden');
+
+                                }
+
+                                $.each(data, function(key, value) {
+                                    $('select[name="id_barrio"]').append('<option value="'+ key+'">'+ value +'</option>');
+                                });
+
+                            }
+                        });
+                    }else{
+
+                        $('select[name="id_barrio"]').empty();
+
+                    }
+                });
+
+
+    
     //fin select ciudad
 });
 

@@ -115,11 +115,20 @@
                                        value="{!! old('detalle_address') !!}" >
                                 {!! $errors->first('detalle_address', '<span class="help-block">:message</span>') !!}
                             </div>
-                            <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('barrio_address', 'has-error') }}">
+                            <div style="  margin-bottom: 1em;" class="barrio_address col-sm-10 col-sm-offset-1 {{ $errors->first('barrio_address', 'has-error') }}">
                                 <input type="text" class="form-control" id="barrio_address" name="barrio_address" required="true" placeholder="Barrio"
                                        value="{!! old('barrio_address') !!}" >
                                 {!! $errors->first('barrio_address', '<span class="help-block">:message</span>') !!}
                             </div>
+
+                              <div style="margin-left: 8%;" class="form-group col-sm-10 col-sm-offset-1 id_barrio {{ $errors->first('id_barrio', 'has-error') }} hidden">
+                                    <div class="" >
+                                        <select id="id_barrio" name="id_barrio" value="{!! old('id_barrio') !!}" class="form-control">
+                                            <option value="">Seleccione Barrio</option>
+                                        </select>
+                                    </div>
+                                    {!! $errors->first('id_barrio', '<span class="help-block">:message</span>') !!}
+                                </div>
 
                             <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('notas', 'has-error') }}">
                                 <textarea style="margin: 4px 0;" id="notas" name="notas" type="text" placeholder="Notas" class="form-control" ></textarea>

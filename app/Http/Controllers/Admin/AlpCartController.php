@@ -44,6 +44,7 @@ use App\Models\AlpRolenvio;
 use App\Http\Requests\AddressRequest;
 
 use App\Country;
+use App\Barrio;
 use App\State;
 use App\City;
 use App\Roles;
@@ -4010,6 +4011,21 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         $input['id_user']=$user_id;
         $input['id_client']=$user_id;
         $input['default_address']=1;
+
+        if ($input['id_barrio']=='0') {
+              # code...
+        }else{
+
+          $b=Barrio::where('id', $input['id_barrio'])->first();
+
+          if (isset($b->id)) {
+            $input['barrio_address']=$b->barrio_name;
+            
+          }
+        }
+
+
+
                
         $direccion=AlpDirecciones::create($input);
 
