@@ -21,6 +21,7 @@ class AlpFormaCiudad extends Model
         'id',
         'id_forma',       
         'id_ciudad',       
+        'id_barrio',       
         'id_rol',       
         'desde',       
         'hasta',       

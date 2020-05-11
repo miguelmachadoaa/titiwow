@@ -5,6 +5,7 @@ use App\Models\AlpFormasenvio;
 use App\Models\AlpFormaCiudad;
 use App\State;
 use App\City;
+use App\Barrio;
 use App\Http\Requests\FormaenvioRequest;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -363,11 +364,11 @@ $tipo='Fecha fija';
        // dd($formas);
 
         
-         $ciudades=AlpFormaCiudad::select('alp_forma_ciudad.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name', 'roles.name as name')
+        /* $ciudades=AlpFormaCiudad::select('alp_forma_ciudad.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name', 'roles.name as name')
         ->join('roles','alp_forma_ciudad.id_rol' , '=', 'roles.id')
         ->join('config_cities','alp_forma_ciudad.id_ciudad' , '=', 'config_cities.id')
         ->join('config_states','config_cities.state_id' , '=', 'config_states.id')
-        ->where('alp_forma_ciudad.id_forma', $id)->get();
+        ->where('alp_forma_ciudad.id_forma', $id)->get();*/
 
         $roles = DB::table('roles')->whereIn('id', ['9','10', '11', '12'])->select('id', 'name')->get();
 
@@ -376,6 +377,8 @@ $tipo='Fecha fija';
         $ciudades=AlpFormaCiudad::select('alp_forma_ciudad.*', 'roles.name as name')
          ->join('roles','alp_forma_ciudad.id_rol' , '=', 'roles.id')
         ->where('alp_forma_ciudad.id_forma', $id)->get();
+
+        
 
        $barrios=Barrio::where('estado_registro', '1')->get();
 
@@ -388,7 +391,7 @@ $tipo='Fecha fija';
                     # code...
                 }else{
 
-                    $ci=City::where('id', $c->id)->first();
+                    $ci=City::where('id', $c->id_ciudad)->first();
 
                     $c->id_state=$ci->state_id;
                 }
@@ -405,6 +408,8 @@ $tipo='Fecha fija';
         $listaciudades=City::pluck('city_name', 'id');
 
         $listaciudades[0]='Todos';
+
+
 
         $listabarrios=Barrio::pluck('barrio_name', 'id');
 
@@ -447,6 +452,7 @@ $tipo='Fecha fija';
             'id_forma' => $request->id_forma, 
             'id_rol' => $request->id_rol, 
             'id_ciudad' => $request->city_id, 
+            'id_barrio' => $request->barrio_id, 
             'desde' => $request->desde, 
             'hasta' => $request->hasta, 
             'dias' => $request->dias, 
@@ -473,13 +479,13 @@ $tipo='Fecha fija';
 
        foreach ($ciudades as $c) {
 
-                if ($c->id_ciudad=='0') {
+                if ($c->id_barrio=='0') {
 
                         $c->id_state='0';
                     # code...
                 }else{
 
-                    $ci=City::where('id', $c->id)->first();
+                    $ci=City::where('id', $c->id_ciudad)->first();
 
                     $c->id_state=$ci->state_id;
                 }
@@ -498,8 +504,12 @@ $tipo='Fecha fija';
 
         $listaciudades[0]='Todos';
 
+        $listabarrios=Barrio::pluck('barrio_name', 'id');
 
-        $view= View::make('admin.formasenvio.ciudades', compact('ciudades', 'formas', 'states', 'listaciudades', 'listaestados'));
+        $listabarrios[0]='Todos';
+
+
+        $view= View::make('admin.formasenvio.ciudades', compact('ciudades', 'formas', 'states', 'listaciudades', 'listaestados', 'listabarrios'));
 
           $data=$view->render();
 
@@ -553,7 +563,7 @@ $tipo='Fecha fija';
                     # code...
                 }else{
 
-                    $ci=City::where('id', $c->id)->first();
+                    $ci=City::where('id', $c->id_ciudad)->first();
 
                     $c->id_state=$ci->state_id;
                 }
@@ -572,8 +582,12 @@ $tipo='Fecha fija';
 
         $listaciudades[0]='Todos';
 
+        $listabarrios=Barrio::pluck('barrio_name', 'id');
 
-        $view= View::make('admin.formasenvio.ciudades', compact('ciudades', 'formas', 'states', 'listaciudades', 'listaestados'));
+        $listabarrios[0]='Todos';
+
+
+        $view= View::make('admin.formasenvio.ciudades', compact('ciudades', 'formas', 'states', 'listaciudades', 'listaestados', 'listabarrios'));
 
           $data=$view->render();
 

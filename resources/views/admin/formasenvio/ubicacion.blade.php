@@ -58,6 +58,7 @@ Ciudades de envio
                                     <th>Id</th>
                                     <th>Rol</th>
                                     <th>Ciudad</th>
+                                    <th>Barrio</th>
                                     
                                     @if($formas->tipo==0)
 
@@ -82,17 +83,21 @@ Ciudades de envio
                                     <td>{!! $row->id !!}</td>
                                     <td>{!! $row->name !!}</td>
                                     <td>{!! $listaestados[$row->id_state].' - '.$listaciudades[$row->id_ciudad]!!}</td>
+                                    <td>{!! $listabarrios[$row->id_barrio] !!}</td>
+
+                                     
                                      @if($formas->tipo==0)
 
-                                    <td>{!! $row->desde !!}</td>
-                                    <td>{!! $row->hasta !!}</td>
-                                    <td>{!! $row->dias !!}</td>
+                                        <td>{!! $row->desde !!}</td>
+                                        <td>{!! $row->hasta !!}</td>
+                                        <td>{!! $row->dias !!}</td>
 
                                     @else
 
-                                     <td>{!! $row->dias !!}</td>
+                                        <td>{!! $row->dias !!}</td>
 
                                     @endif
+
                                     <td>{!! $row->hora !!}</td>
                                     <td>{!! number_format($row->costo, 2)  !!}</td>
                                     <td>
@@ -208,6 +213,20 @@ Ciudades de envio
                                         </select>
                                     </div>
                                 </div>
+
+                                <div class="form-group col-sm-12">
+                                    <label for="select21" class="col-md-3 control-label">
+                                        Barrio 
+                                    </label>
+                                    <div class="col-md-8" >
+                                        <select style="margin: 4px 0;" id="barrio_id" name="barrio_id" class="form-control ">
+                                            <option value="">Seleccione</option>
+                                          
+                                        </select>
+                                    </div>
+                                </div>
+
+
 
                                 @if($formas->tipo=='0')
 
@@ -423,6 +442,7 @@ $('.delCiudad').click(function () {
         id_forma=$("#id_forma").val();
         id_rol=$("#id_rol").val();
         city_id=$("#city_id").val();
+        barrio_id=$("#barrio_id").val();
         desde=$("#desde").val();
         hasta=$("#hasta").val();
         dias=$("#dias").val();
@@ -433,7 +453,7 @@ $('.delCiudad').click(function () {
 
         $.ajax({
             type: "POST",
-            data:{ city_id,id_rol, dias,desde,hasta, hora, id_forma, costo},
+            data:{ city_id,barrio_id,id_rol, dias,desde,hasta, hora, id_forma, costo},
             url: base+"/admin/formasenvio/storecity",
                 
             complete: function(datos){     
@@ -458,29 +478,57 @@ $('.delCiudad').click(function () {
 
 
  $('select[name="state_id"]').on('change', function() {
-                    var stateID = $(this).val();
-                    
-                    var base = $('#base').val();
+    var stateID = $(this).val();
+    
+    var base = $('#base').val();
 
-                    if(stateID) {
-                        $.ajax({
-                            url: base+'/configuracion/citiestodos/'+stateID,
-                            type: "GET",
-                            dataType: "json",
-                            success:function(data) {
+    if(stateID) {
+        $.ajax({
+            url: base+'/configuracion/citiestodos/'+stateID,
+            type: "GET",
+            dataType: "json",
+            success:function(data) {
 
-                                
-                                $('select[name="city_id"]').empty();
-                                $.each(data, function(key, value) {
-                                    $('select[name="city_id"]').append('<option value="'+ key +'">'+ value +'</option>');
-                                });
-
-                            }
-                        });
-                    }else{
-                        $('select[name="city_id"]').empty();
-                    }
+                
+                $('select[name="city_id"]').empty();
+                $.each(data, function(key, value) {
+                    $('select[name="city_id"]').append('<option value="'+ key +'">'+ value +'</option>');
                 });
+
+            }
+        });
+    }else{
+        $('select[name="city_id"]').empty();
+    }
+});
+
+  $('select[name="city_id"]').on('change', function() {
+    var citiId = $(this).val();
+    
+    var base = $('#base').val();
+
+    if(citiId) {
+        $.ajax({
+            url: base+'/configuracion/barriotodos/'+citiId,
+            type: "GET",
+            dataType: "json",
+            success:function(data) {
+
+                
+                $('select[name="barrio_id"]').empty();
+                $.each(data, function(key, value) {
+                    $('select[name="barrio_id"]').append('<option value="'+ key +'">'+ value +'</option>');
+                });
+
+            }
+        });
+    }else{
+        $('select[name="barrio_id"]').empty();
+    }
+});
+
+
+
 
 
     $(function () {$('body').on('hidden.bs.modal', '.modal', function () {$(this).removeData('bs.modal');});});

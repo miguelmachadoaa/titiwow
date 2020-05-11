@@ -8,6 +8,7 @@
                                     <th>Id</th>
                                     <th>Rol</th>
                                     <th>Ciudad</th>
+                                    <th>Barrio</th>
                                     
                                     @if($formas->tipo==0)
 
@@ -32,6 +33,7 @@
                                     <td>{!! $row->id !!}</td>
                                     <td>{!! $row->name !!}</td>
                                     <td>{!! $listaestados[$row->id_state].' - '.$listaciudades[$row->id_ciudad]!!}</td>
+                                    <td>{!! $listabarrios[$row->id_barrio] !!}</td>
                                      @if($formas->tipo==0)
 
                                     <td>{!! $row->desde !!}</td>
