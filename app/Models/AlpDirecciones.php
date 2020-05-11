@@ -28,6 +28,7 @@ class AlpDirecciones extends Model
         'edificio_address',
         'detalle_address',
         'barrio_address',
+        'id_barrio',
         'notas',
         'default_address',
         'estado_registro',

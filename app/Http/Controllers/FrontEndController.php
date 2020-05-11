@@ -34,6 +34,7 @@ use App\Models\AlpRolenvio;
 use App\User;
 use App\State;
 use App\City;
+use App\Barrio;
 use App\RoleUser;
 use App\Roles;
 use App\Models\AlpMenuDetalle;
@@ -527,6 +528,8 @@ class FrontEndController extends JoshController
 
          $input=$request->all();
 
+         //dd($input);
+
          if($configuracion->user_activacion==0){
 
             $activate=true;
@@ -719,6 +722,17 @@ class FrontEndController extends JoshController
                     Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name,  $configuracion->mensaje_bienvenida, $roleusuario));
             }
 
+            if ($request->id_barrio=='0') {
+              # code...
+            }else{
+
+              $b=Barrio::where('id', $request->id_barrio)->first();
+
+              if (isset($b->id)) {
+                $request->barrio_address=$b->barrio_name;
+              }
+            }
+
 
             $direccion = array(
                 'id_client' => $user->id, 
@@ -729,6 +743,7 @@ class FrontEndController extends JoshController
                 'edificio_address' => $request->edificio_address,
                 'detalle_address' => $request->detalle_address,
                 'barrio_address'=> $request->barrio_address,             
+                'id_barrio'=> $request->id_barrio,             
                 'id_user' => 0,               
             );
 

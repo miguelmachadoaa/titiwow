@@ -138,6 +138,14 @@ $("#reg_form").bootstrapValidator({
             required: true,
             minlength: 3
         },
+        id_barrio: {
+            validators: {
+                notEmpty: {
+                    message: 'Debe Indicar El Barrio'
+                }
+            },
+            required: true
+        },
         barrio_address: {
             validators: {
                 notEmpty: {

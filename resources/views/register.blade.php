@@ -14,6 +14,15 @@
     <link rel="mask-icon" href="{{ secure_asset('assets/img/favicon/safari-pinned-tab.svg')}}" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
+
+    <style>
+        
+        .select2-container {
+    width: 100% !important;
+}
+
+
+    </style>
     <!--end of global css-->
     <!--page level css starts-->
     <!--link type="text/css" rel="stylesheet" href="{{secure_asset('assets/vendors/iCheck/css/all.css')}}" /-->
@@ -169,11 +178,22 @@
                            value="{!! old('detalle_address') !!}" >
                     {!! $errors->first('detalle_address', '<span class="help-block">:message</span>') !!}
                 </div>
-                <div class="form-group {{ $errors->first('barrio_address', 'has-error') }}">
+                <div class="form-group barrio_address {{ $errors->first('barrio_address', 'has-error') }}">
                     <input type="text" class="form-control" value="{!! old('barrio_address') !!}" id="barrio_address" name="barrio_address" placeholder="Barrio"
                            value="{!! old('barrio_address') !!}" >
                     {!! $errors->first('barrio_address', '<span class="help-block">:message</span>') !!}
                 </div>
+
+
+                <div class="form-group col-sm-12 id_barrio {{ $errors->first('id_barrio', 'has-error') }} hidden">
+                    <div class="" >
+                        <select id="id_barrio" name="id_barrio" value="{!! old('id_barrio') !!}" class="form-control">
+                            <option value="">Seleccione Barrio</option>
+                        </select>
+                    </div>
+                    {!! $errors->first('id_barrio', '<span class="help-block">:message</span>') !!}
+                </div>
+
 
                 <div class="clearfix"></div>
                 <hr />
@@ -424,6 +444,7 @@ $(document).ready(function(){
 
         $("#state_id").select2();
         $("#city_id").select2();
+        $("#id_barrio").select2();
         $("#id_type_doc").select2();
         $("#id_estructura_address").select2();
         //Inicio select región
@@ -452,6 +473,57 @@ $(document).ready(function(){
                         $('select[name="city_id"]').empty();
                     }
                 });
+
+
+
+            $('select[name="city_id"]').on('change', function() {
+                var stateID = $(this).val();
+                var base = $('#base').val();
+
+                    if(stateID) {
+
+                        $.ajax({
+                            url: base+'/configuracion/barrios/'+stateID,
+                            type: "GET",
+                            dataType: "json",
+                            success:function(data) {
+
+                                
+                                $('select[name="id_barrio"]').empty();
+
+                                console.log(JSON.stringify(data).length);
+                                console.log(data);
+
+                                if (JSON.stringify(data).length>14) {
+
+                                    $('.barrio_address').addClass('hidden');
+                                    $('·barrio_address').val(' ');
+
+                                    $('.id_barrio').removeClass('hidden');
+
+                                }else{
+
+                                    $('.barrio_address').removeClass('hidden');
+
+                                    $('#id_barrio').val(0);
+
+                                    $('.id_barrio').addClass('hidden');
+
+                                }
+
+                                $.each(data, function(key, value) {
+                                    $('select[name="id_barrio"]').append('<option value="'+ key+'">'+ value +'</option>');
+                                });
+
+                            }
+                        });
+                    }else{
+
+                        $('select[name="id_barrio"]').empty();
+
+                    }
+                });
+
             //fin select ciudad
         });
 

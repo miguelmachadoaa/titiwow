@@ -323,8 +323,6 @@ $tipo='Fecha fija';
             // Get group information
            
             $forma = AlpFormasenvio::find($id);
-
-
             // Delete the group
             $forma->delete();
 
@@ -361,15 +359,6 @@ $tipo='Fecha fija';
 
         $formas = AlpFormasenvio::where('id', $id)->first();
 
-       // dd($formas);
-
-        
-        /* $ciudades=AlpFormaCiudad::select('alp_forma_ciudad.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name', 'roles.name as name')
-        ->join('roles','alp_forma_ciudad.id_rol' , '=', 'roles.id')
-        ->join('config_cities','alp_forma_ciudad.id_ciudad' , '=', 'config_cities.id')
-        ->join('config_states','config_cities.state_id' , '=', 'config_states.id')
-        ->where('alp_forma_ciudad.id_forma', $id)->get();*/
-
         $roles = DB::table('roles')->whereIn('id', ['9','10', '11', '12'])->select('id', 'name')->get();
 
         $states=State::where('config_states.country_id', '47')->get();
@@ -398,7 +387,6 @@ $tipo='Fecha fija';
            # code...
        }
 
-
         $states=State::where('config_states.country_id', '47')->get();
 
         $listaestados=State::where('config_states.country_id', '47')->pluck('state_name', 'id');
@@ -408,8 +396,6 @@ $tipo='Fecha fija';
         $listaciudades=City::pluck('city_name', 'id');
 
         $listaciudades[0]='Todos';
-
-
 
         $listabarrios=Barrio::pluck('barrio_name', 'id');
 
@@ -492,8 +478,6 @@ $tipo='Fecha fija';
            # code...
        }
 
-
-
         $states=State::where('config_states.country_id', '47')->get();
 
         $listaestados=State::where('config_states.country_id', '47')->pluck('state_name', 'id');
@@ -508,11 +492,9 @@ $tipo='Fecha fija';
 
         $listabarrios[0]='Todos';
 
-
         $view= View::make('admin.formasenvio.ciudades', compact('ciudades', 'formas', 'states', 'listaciudades', 'listaestados', 'listabarrios'));
 
           $data=$view->render();
-
 
          return $data;
 
@@ -539,12 +521,8 @@ $tipo='Fecha fija';
 
         }
 
-
-
-        
         $user_id = Sentinel::getUser()->id;
 
-         
         $formas=AlpFormaCiudad::where('id', $request->id)->first();
 
         $id_forma=$formas->id_forma;
@@ -571,7 +549,6 @@ $tipo='Fecha fija';
        }
 
 
-
         $states=State::where('config_states.country_id', '47')->get();
 
         $listaestados=State::where('config_states.country_id', '47')->pluck('state_name', 'id');
@@ -591,11 +568,8 @@ $tipo='Fecha fija';
 
           $data=$view->render();
 
-
          return $data;
 
     }
-
-    
 
 }
