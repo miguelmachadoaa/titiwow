@@ -64,6 +64,8 @@ Route::get('admin/clientes/datasaldo', 'Admin\AlpClientesController@datasaldo')-
 
 Route::get('admin/clientes/data', 'Admin\AlpClientesController@data')->name('clientes.data');
 
+Route::get('admin/barrios/data', 'Admin\AlpBarriosController@data')->name('barrios.data');
+
 Route::get('admin/clientes/dataempresas', 'Admin\AlpClientesController@dataempresas')->name('clientes.dataempresas');
 
 Route::get('admin/clientes/datainactivos', 'Admin\AlpClientesController@datainactivos')->name('clientes.datainactivos');
@@ -613,6 +615,9 @@ Route::resource('facturasmasivas', 'Admin\AlpFacturasController');
     Route::post('empresas/create', 'Admin\AlpEmpresasController@store');
     Route::resource('empresas', 'Admin\AlpEmpresasController');
 
+
+
+
     Route::get('empresas/{id}/invitaciones', 'Admin\AlpEmpresasController@invitaciones')->name('empresas.invitaciones');
 
     Route::post('empresas/storeamigo', 'Admin\AlpEmpresasController@storeamigo')->name('empresas.storeamigo');
@@ -624,9 +629,33 @@ Route::resource('facturasmasivas', 'Admin\AlpFacturasController');
     /*proceso para registro de afiliado a una empresa */
 
     
+Route::group(['prefix' => 'barrios'], function () {
+
+        Route::get('{id}/delete', 'Admin\AlpBarriosController@destroy')->name('barrios.delete');
+
+        Route::get('{id}/confirm-delete', 'Admin\AlpBarriosController@getModalDelete')->name('estatuspagos.confirm-delete');
+
+        Route::get('{id}/restore', 'Admin\AlpBarriosController@getRestore')->name('barrios.restore');
+
+        });
+
+    Route::post('barrios/create', 'Admin\AlpBarriosController@store');
+
+    Route::resource('barrios', 'Admin\AlpBarriosController');
 
 
 
+Route::group(['prefix' => 'estatuspagos'], function () {
+
+        Route::get('{id}/delete', 'Admin\AlpEstatusPagosController@destroy')->name('estatuspagos.delete');
+
+        Route::get('{id}/confirm-delete', 'Admin\AlpEstatusPagosController@getModalDelete')->name('estatuspagos.confirm-delete');
+
+        Route::get('{id}/restore', 'Admin\AlpEstatusPagosController@getRestore')->name('estatuspagos.restore');
+
+        });
+    Route::post('estatuspagos/create', 'Admin\AlpEstatusPagosController@store');
+    Route::resource('estatuspagos', 'Admin\AlpEstatusPagosController');
     Route::group(['prefix' => 'estatuspagos'], function () {
 
         Route::get('{id}/delete', 'Admin\AlpEstatusPagosController@destroy')->name('estatuspagos.delete');
@@ -1060,9 +1089,16 @@ Route::get('configuracion/states/{id}',array('as'=>'configuracion.states','uses'
 Route::get('configuracion/cities/{id}',array('as'=>'configuracion.cities','uses'=>'Admin\AlpConfiguracionController@selectCity'));
 
 
+
+
 Route::get('configuracion/statestodos/{id}',array('as'=>'configuracion.statestodos','uses'=>'Admin\AlpConfiguracionController@selectStateTodos'));
        
 Route::get('configuracion/citiestodos/{id}',array('as'=>'configuracion.citiestodos','uses'=>'Admin\AlpConfiguracionController@selectCityTodos'));
+
+
+Route::get('configuracion/barrios/{id}',array('as'=>'configuracion.barrios','uses'=>'Admin\AlpConfiguracionController@selectBarrio'));
+
+Route::get('configuracion/barriotodos/{id}',array('as'=>'configuracion.barriotodos','uses'=>'Admin\AlpConfiguracionController@selectBarrioTodos'));
 
 
 

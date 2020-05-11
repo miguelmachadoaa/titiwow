@@ -10,6 +10,7 @@ use App\Models\AlpAlmacenes;
 use App\Country;
 use App\State;
 use App\City;
+use App\Barrio;
 use App\Roles;
 use App\RoleUser;
 use App\Http\Requests;
@@ -229,6 +230,29 @@ class AlpConfiguracionController extends JoshController
         $cities['0'] = 'Todas';
         return json_encode($cities);
     }
+
+
+
+    public function selectBarrioTodos($id)
+    {
+        $barrios = DB::table("config_barrios")
+                    ->where("city_id",$id)
+                    ->pluck("barrio_name","id")->all();
+        $barrios['0'] = 'Todas';
+        return json_encode($barrios);
+    }
+
+
+      public function selectBarrio($id)
+    {
+        $barrios = DB::table("config_barrios")
+                    ->where("city_id",$id)
+                    ->pluck("barrio_name","id")->all();
+        $barrios['0'] = 'Seleccione';
+        return json_encode($barrios);
+    }
+
+
 
 
 

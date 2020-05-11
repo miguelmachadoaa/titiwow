@@ -373,9 +373,12 @@ $tipo='Fecha fija';
 
         $states=State::where('config_states.country_id', '47')->get();
 
-         $ciudades=AlpFormaCiudad::select('alp_forma_ciudad.*', 'roles.name as name')
+        $ciudades=AlpFormaCiudad::select('alp_forma_ciudad.*', 'roles.name as name')
          ->join('roles','alp_forma_ciudad.id_rol' , '=', 'roles.id')
         ->where('alp_forma_ciudad.id_forma', $id)->get();
+
+       $barrios=Barrio::where('estado_registro', '1')->get();
+
 
        foreach ($ciudades as $c) {
 
@@ -393,7 +396,6 @@ $tipo='Fecha fija';
        }
 
 
-
         $states=State::where('config_states.country_id', '47')->get();
 
         $listaestados=State::where('config_states.country_id', '47')->pluck('state_name', 'id');
@@ -404,9 +406,13 @@ $tipo='Fecha fija';
 
         $listaciudades[0]='Todos';
 
+        $listabarrios=Barrio::pluck('barrio_name', 'id');
+
+        $listabarrios[0]='Todos';
 
         // Show the page
-        return view('admin.formasenvio.ubicacion', compact('formas', 'ciudades', 'states', 'listaciudades', 'listaestados', 'roles'));
+        return view('admin.formasenvio.ubicacion', compact('formas', 'ciudades', 'states', 'listaciudades', 'listaestados', 'listabarrios', 'roles'));
+
 
     }
 
