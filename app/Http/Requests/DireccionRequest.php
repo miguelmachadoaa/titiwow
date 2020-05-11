@@ -24,7 +24,7 @@ class DireccionRequest extends FormRequest {
                     'principal_address.required' => 'La Principal es requerida',
                     'secundaria_address.required' => 'La Secundaria es requerida',
                     'detalle_address.required' => 'El Detalle es requerido',
-                    'barrio_address.required' => 'El Barrio es requerido',
+                    //'barrio_address.required' => 'El Barrio es requerido',
                     'city_id.required' => 'La Ciudad es requerida',
                     'id_estructura_address.required' => 'El tipo de Estructura es requerido'
                 ];
@@ -44,7 +44,7 @@ class DireccionRequest extends FormRequest {
             'secundaria_address' => 'required',
             'edificio_address' => 'required',
             'detalle_address' => 'required',
-            'barrio_address' => 'required',
+            //'barrio_address' => 'required',
             'city_id' => 'required',
             'id_estructura_address' => 'required'
 		];

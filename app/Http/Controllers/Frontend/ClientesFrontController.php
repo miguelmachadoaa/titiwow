@@ -25,6 +25,7 @@ use App\Roles;
 use App\Country;
 use App\State;
 use App\City;
+use App\Barrio;
 use App\RoleUser;
 use Illuminate\Support\Facades\Mail;
 use App\Models\AlpCategorias;
@@ -354,9 +355,11 @@ class ClientesFrontController extends Controller
 
             $cart= \Session::get('cart');
 
+            $listabarrios=Barrio::get();
 
 
-            return view('frontend.clientes.misdirecciones', compact('direcciones', 'cliente', 'user', 'countries',  'editar', 'states', 't_documento', 'estructura', 'cities', 'cart', 'configuracion', 'direccion'));
+
+            return view('frontend.clientes.misdirecciones', compact('direcciones', 'cliente', 'user', 'countries',  'editar', 'states', 't_documento', 'estructura', 'cities', 'cart', 'configuracion', 'direccion', 'listabarrios'));
     
 
             }else{
@@ -1180,6 +1183,19 @@ class ClientesFrontController extends Controller
         $input['id_user']=$user_id;
         $input['id_client']=$user_id;
         $input['default_address']=1;
+
+
+            if ($input['id_barrio']=='0') {
+              # code...
+            }else{
+
+              $b=Barrio::where('id', $input['id_barrio'])->first();
+
+              if (isset($b->id)) {
+                $input['barrio_address']=$b->barrio_name;
+                
+              }
+            }
                
          
         $direccion=AlpDirecciones::create($input);
@@ -1301,11 +1317,25 @@ class ClientesFrontController extends Controller
 
          $input = $request->all();
 
+
+
         //var_dump($input);
 
         $input['id_user']=$user_id;
         $input['id_client']=$user_id;
         $input['default_address']=1;
+
+        if ($input['id_barrio']=='0') {
+              # code...
+        }else{
+
+          $b=Barrio::where('id', $input['id_barrio'])->first();
+
+          if (isset($b->id)) {
+            $input['barrio_address']=$b->barrio_name;
+            
+          }
+        }
 
         $direccion=AlpDirecciones::where('id', $input['address_id'])->first();
 

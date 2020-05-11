@@ -491,9 +491,6 @@ $(document).ready(function(){
                                 
                                 $('select[name="id_barrio"]').empty();
 
-                                console.log(JSON.stringify(data).length);
-                                console.log(data);
-
                                 if (JSON.stringify(data).length>14) {
 
                                     $('.barrio_address').addClass('hidden');

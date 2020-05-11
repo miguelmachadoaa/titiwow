@@ -242,13 +242,24 @@
 
                     </div>
 
-                    <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('barrio_address', 'has-error') }}">
+                    <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 barrio_address {{ $errors->first('barrio_address', 'has-error') }}">
 
                         <input type="text" class="form-control" id="barrio_address" name="barrio_address" placeholder="Barrio" value="{!! old('barrio_address') !!}" >
 
                         {!! $errors->first('barrio_address', '<span class="help-block">:message</span>') !!}
 
                     </div>
+
+                     <div style="margin-left: 8%;" class="form-group col-sm-10 col-sm-offset-1 id_barrio {{ $errors->first('id_barrio', 'has-error') }} hidden">
+                        <div class="" >
+                            <select id="id_barrio" name="id_barrio" value="{!! old('id_barrio') !!}" class="form-control">
+                                <option value="">Seleccione Barrio</option>
+                            </select>
+                        </div>
+                        {!! $errors->first('id_barrio', '<span class="help-block">:message</span>') !!}
+                    </div>
+
+
 
                     <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('notas', 'has-error') }}">
 
@@ -352,6 +363,7 @@
                                             data-edificio_address="{{ $dir->edificio_address }}"
                                             data-detalle_address="{{ $dir->detalle_address }}"
                                             data-barrio_address="{{ $dir->barrio_address }}"
+                                            data-id_barrio="{{ $dir->id_barrio }}"
                                             data-notas="{{ $dir->notas }}" 
                                                  class="btn btn-primary btn-xs editAddress">Editar</button>
 
@@ -525,12 +537,36 @@
 
                                 </div>
 
-                                <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('barrio_address', 'has-error') }}">
+                                <div style="  margin-bottom: 1em;" class="edit_barrio_address col-sm-10 col-sm-offset-1 {{ $errors->first('barrio_address', 'has-error') }}">
 
                                     <input type="text" class="form-control" id="edit_barrio_address" name="edit_barrio_address" placeholder="Barrio" value="{!! old('barrio_address') !!}" >
 
                                     {!! $errors->first('barrio_address', '<span class="help-block">:message</span>') !!}
                                 </div>
+
+
+                                
+                                <div style="  margin-bottom: 1em;" class="edit_barrio_id col-sm-10 col-sm-offset-1 {{ $errors->first('edit_barrio_id', 'has-error') }}">
+
+                                    <select id="edit_barrio_id" name="edit_barrio_id" class="form-control">
+
+                                        <option value="">Seleccione Ciudad</option>
+
+                                        @foreach($listabarrios as $barrio)
+
+                                            <option value="{{ $barrio->id }}">{{ $barrio->barrio_name}}</option>
+
+                                        @endforeach
+
+                                    </select>
+
+                                    {!! $errors->first('edit_barrio_id', '<span class="help-block">:message</span>') !!}
+
+                                </div>
+
+            
+
+
 
                                 <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('notas', 'has-error') }}">
 
@@ -782,6 +818,19 @@ $('.editAddress').on('click', function(){
 
     $('#edit_city_id').val($(this).data('city_id'));
 
+    $('#edit_barrio_id').val($(this).data('id_barrio'));
+
+    if ($(this).data('id_barrio')==0) {
+       
+
+        $('.edit_barrio_id').addClass('hidden');
+
+    }else{
+        
+        $('.edit_barrio_address').addClass('hidden');
+
+    }
+
     $('#edit_id_estructura_address').val($(this).data('estructura_id'));
 
     $('#edit_principal_address').val($(this).data('principal_address'));
@@ -817,13 +866,14 @@ $('.sendDireccion').click(function () {
         edificio_address=$("#edit_edificio_address").val();
         detalle_address=$("#edit_detalle_address").val();
         barrio_address=$("#edit_barrio_address").val();
+        id_barrio=$("#edit_barrio_id").val();
         notas=$("#edit_notas").val();
 
         var base = $('#base').val();
 
         $.ajax({
             type: "POST",
-            data:{_token, titulo, address_id, city_id, id_estructura_address, principal_address, secundaria_address, edificio_address, detalle_address, barrio_address, notas},
+            data:{_token, titulo, address_id, city_id, id_estructura_address, principal_address, secundaria_address, edificio_address, detalle_address, barrio_address, id_barrio, notas},
 
             url: base+"/clientes/updatedir",
                 
@@ -839,11 +889,11 @@ $('.sendDireccion').click(function () {
                $("#address_id").val('');
                 $("#city_id").val('');
                 $("#estructura_id").val('');
-                $("#principal_address").val('');
-                $("#secundaria_address").val('');
-                $("#edificio_address").val('');
-                $("#detalle_address").val('');
-                $("#barrio_address").val('');
+                $("#edit_principal_address").val('');
+                $("#edit_secundaria_address").val('');
+                $("#edit_edificio_address").val('');
+                $("#edit_detalle_address").val('');
+                $("#edit_barrio_address").val('');
         
                 $("#notas").val('');
         
@@ -950,6 +1000,105 @@ $('.delDireccion').click(function () {
                         $('select[name="city_id"]').empty();
                     }
                 });
+
+
+
+
+             $('select[name="city_id"]').on('change', function() {
+                var stateID = $(this).val();
+                var base = $('#base').val();
+
+                    if(stateID) {
+
+                        $.ajax({
+                            url: base+'/configuracion/barrios/'+stateID,
+                            type: "GET",
+                            dataType: "json",
+                            success:function(data) {
+
+                                
+                                $('select[name="id_barrio"]').empty();
+
+                                if (JSON.stringify(data).length>14) {
+
+                                    $('.barrio_address').addClass('hidden');
+                                    $('·barrio_address').val(' ');
+
+                                    $('.id_barrio').removeClass('hidden');
+
+                                }else{
+
+                                    $('.barrio_address').removeClass('hidden');
+
+                                    $('#id_barrio').val(0);
+
+                                    $('.id_barrio').addClass('hidden');
+
+                                }
+
+                                $.each(data, function(key, value) {
+                                    $('select[name="id_barrio"]').append('<option value="'+ key+'">'+ value +'</option>');
+                                });
+
+                            }
+                        });
+                    }else{
+
+                        $('select[name="id_barrio"]').empty();
+
+                    }
+                });
+
+
+
+             $('select[name="edit_city_id"]').on('change', function() {
+                var stateID = $(this).val();
+                var base = $('#base').val();
+
+                    if(stateID) {
+
+                        $.ajax({
+                            url: base+'/configuracion/barrios/'+stateID,
+                            type: "GET",
+                            dataType: "json",
+                            success:function(data) {
+
+                                
+                                $('select[name="edit_barrio_id"]').empty();
+
+                                if (JSON.stringify(data).length>14) {
+
+                                    $('.edit_barrio_address').addClass('hidden');
+                                    $('#edit_barrio_address').val(' ');
+
+                                    $('.edit_barrio_id').removeClass('hidden');
+
+                                }else{
+
+                                    $('.edit_barrio_address').removeClass('hidden');
+
+                                    $('#edit_barrio_id').val(0);
+
+                                    $('.edit_barrio_id').addClass('hidden');
+
+                                }
+
+                                $.each(data, function(key, value) {
+                                    $('select[name="edit_barrio_id"]').append('<option value="'+ key+'">'+ value +'</option>');
+                                });
+
+                            }
+                        });
+                    }else{
+
+                        $('select[name="edit_barrio_id"]').empty();
+
+                    }
+                });
+
+
+
+
 
 
             $('select[name="edit_state_id"]').on('change', function() {

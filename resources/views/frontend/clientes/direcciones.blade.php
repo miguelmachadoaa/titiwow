@@ -47,6 +47,7 @@
                         data-edificio_address="{{ $direcciones->edificio_address }}"
                         data-detalle_address="{{ $direcciones->detalle_address }}"
                         data-barrio_address="{{ $direcciones->barrio_address }}"
+                        data-id_barrio="{{ $direcciones->id_barrio }}"
                         data-notas="{{ $direcciones->notas }}"
 
                          class="btn btn-primary editAddress ">Editar Dirección</button>
