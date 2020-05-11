@@ -4191,7 +4191,20 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       $direccion=AlpDirecciones::where('id', $request->id_direccion)->first();
 
-      $ciudad=AlpFormaCiudad::where('id_forma', $request->id_forma_envio)->where('id_ciudad', $direccion->city_id)->first();
+
+      if ($direccion->id_barrio!=0) {
+
+          $ciudad=AlpFormaCiudad::where('id_forma', $request->id_forma_envio)->where('id_barrio', $direccion->id_barrio)->first();
+
+        
+      }else{
+
+
+         $ciudad=AlpFormaCiudad::where('id_forma', $request->id_forma_envio)->where('id_ciudad', $direccion->city_id)->first();
+
+
+      }
+
 
 
       $validado=0;
