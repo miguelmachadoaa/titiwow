@@ -319,7 +319,16 @@
         </ul>
     @endif
 
-   
+    @if (Sentinel::getUser()->hasAnyAccess(['barrios.*']))
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/barrios*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.barrios.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Barrios
+                </a>
+            </li> 
+        </ul>
+    @endif
 
 
 
