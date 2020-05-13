@@ -278,7 +278,7 @@
 
                     if(stateID) {
                         $.ajax({
-                            url: base+'/configuracion/cities/'+stateID,
+                            url: base+'/configuracion/citiesModal/'+stateID,
                             type: "GET",
                             dataType: "json",
                             success:function(data) {
@@ -304,7 +304,7 @@
                  ubicacion=JSON.parse(localStorage.getItem('ubicacion'));
                    
                 $.ajax({
-                    url: base+'/configuracion/states/47',
+                    url: base+'/configuracion/statesModal/47',
                     type: "GET",
                     dataType: "json",
                     success:function(data) {

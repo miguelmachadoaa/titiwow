@@ -185,7 +185,7 @@
                 </div>
 
 
-                <div class="form-group col-sm-12 id_barrio {{ $errors->first('id_barrio', 'has-error') }} hidden">
+                <div style="padding: 0;" class="form-group col-sm-12 id_barrio {{ $errors->first('id_barrio', 'has-error') }} hidden">
                     <div class="" >
                         <select id="id_barrio" name="id_barrio" value="{!! old('id_barrio') !!}" class="form-control">
                             <option value="">Seleccione Barrio</option>

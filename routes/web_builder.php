@@ -1095,6 +1095,12 @@ Route::get('configuracion/statestodos/{id}',array('as'=>'configuracion.statestod
        
 Route::get('configuracion/citiestodos/{id}',array('as'=>'configuracion.citiestodos','uses'=>'Admin\AlpConfiguracionController@selectCityTodos'));
 
+Route::get('configuracion/statesModal/{id}',array('as'=>'configuracion.statesModal','uses'=>'Admin\AlpConfiguracionController@selectStateModal'));
+       
+Route::get('configuracion/citiesModal/{id}',array('as'=>'configuracion.citiesModal','uses'=>'Admin\AlpConfiguracionController@selectCityModal'));
+
+
+
 
 Route::get('configuracion/barrios/{id}',array('as'=>'configuracion.barrios','uses'=>'Admin\AlpConfiguracionController@selectBarrio'));
 

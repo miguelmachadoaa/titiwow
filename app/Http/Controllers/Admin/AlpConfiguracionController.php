@@ -193,6 +193,75 @@ class AlpConfiguracionController extends JoshController
         return json_encode($states);
     }
 
+    public function selectStateModal($id)
+    {
+        
+        $ad=AlpAlmacenDespacho::where('id_state', 0)->first();
+
+        if (isset($ad->id)) {
+          
+          $states = DB::table("config_states")
+                    ->where("country_id",$id)
+                    ->pluck("state_name","id")->all();
+
+        }else{
+
+          $states = DB::table("config_states")
+                    ->join('alp_almacen_despacho', 'config_states.id', '=', 'alp_almacen_despacho.id_state')
+                    ->where("config_states.country_id",$id)
+                    ->pluck("config_states.state_name","config_states.id")->all();
+
+        }
+
+        $states['0'] = 'Seleccione';
+
+        return json_encode($states);
+
+    }
+
+     public function selectCityModal($id)
+    {
+
+
+      $ad=AlpAlmacenDespacho::where('id_state', 0)->where('id_city', 0)->first();
+
+
+      if (isset($ad->id)) {
+
+        $cities = DB::table("config_cities")
+                    ->where("state_id",$id)
+                    ->pluck("city_name","id")->all();
+
+        
+      }else{
+
+        $ad=AlpAlmacenDespacho::where('id_state', $id)->where('id_city', 0)->first();
+
+        if (isset($ad->id)) {
+
+          $cities = DB::table("config_cities")
+            ->where("state_id",$id)
+            ->pluck("city_name","id")->all();
+
+        }else{
+
+          $cities = DB::table("config_cities")
+            ->join('alp_almacen_despacho', 'config_cities.id', '=', 'alp_almacen_despacho.id_city')
+            ->where("config_cities.state_id",$id)
+            ->pluck("config_cities.city_name","config_cities.id")->all();
+
+
+        }
+
+
+      }
+
+
+        
+        $cities['0'] = 'Seleccione';
+        return json_encode($cities);
+    }
+
     /**
      * Get Ajax Request and restun Data
      *
@@ -248,18 +317,13 @@ class AlpConfiguracionController extends JoshController
         $barrios = DB::table("config_barrios")
                     ->where("city_id",$id)
                     ->pluck("barrio_name","id")->all();
-        $barrios['0'] = 'Seleccione';
+        $barrios['0'] = 'Seleccione Barrio';
         return json_encode($barrios);
     }
 
 
-
-
-
-
     public function storecity(Request $request)
     {
-
 
       if (Sentinel::check()) {
 
@@ -277,11 +341,8 @@ class AlpConfiguracionController extends JoshController
           ->withProperties($request->all())
           ->log('configuracion/storecity');
 
-
         }
 
-
-        
         $user_id = Sentinel::getUser()->id;
 
         $ciudad=explode('_', $request->city_id);

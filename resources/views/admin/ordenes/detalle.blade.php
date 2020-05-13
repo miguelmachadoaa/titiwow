@@ -243,10 +243,6 @@ Orden {{$orden->id}}
 
                      @endif
 
-
-                     
-
-
                       <tr>
                          <td>Fecha de Creación de la Orden </td>
                          <td>{{ date("d/m/Y H:i:s", strtotime($orden->created_at)) }}</td>
