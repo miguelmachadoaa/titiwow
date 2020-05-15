@@ -379,6 +379,9 @@ class VerificarPagos extends Command
                 $dtt = array('json' => $result );
 
                 $orden->update($dtt);
+
+
+                
                
             }elseif($pending){
 

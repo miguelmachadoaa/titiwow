@@ -341,6 +341,7 @@ class AlpEnviosController extends JoshController
           ->where('alp_envios_history.id_envio', $id)
           ->get();
 
+
           $orden = AlpOrdenes::find($envio->id_orden);
 
 

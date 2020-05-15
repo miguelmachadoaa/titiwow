@@ -22,6 +22,7 @@ class AlpEnviosHistory extends Model
         'id_envio',
         'estatus_envio',        
         'nota',        
+        'json',        
         'estatus',
         'id_user'
     ];

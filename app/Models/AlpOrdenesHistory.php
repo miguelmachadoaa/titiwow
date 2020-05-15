@@ -22,6 +22,7 @@ class AlpOrdenesHistory extends Model
         'id_orden',
         'id_status',
         'notas',
+        'json',
         'id_user'
     ];
 

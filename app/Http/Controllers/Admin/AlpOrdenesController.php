@@ -1652,6 +1652,51 @@ class AlpOrdenesController extends JoshController
 
           }
 
+
+
+          $o = array(
+            'ordenId' => $orden->referencia, 
+            'estado' => 'cancelled', 
+            'messages' => 'Cancelada manualmente ', 
+          );
+
+        //dd($o);
+
+
+           $dataraw=json_encode($o);
+
+          curl_setopt($ch, CURLOPT_URL, 'https://mercaas.com/api/cancelOrder/YK7304PP34');
+          curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+          curl_setopt($ch, CURLOPT_POST, 1);
+          curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
+          curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+          curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+          $headers = array();
+          $headers[] = 'Content-Type: application/json';
+          $headers[] = 'Woobsing-Token: f3f49185-4b8b-4918-b425-e6e3e9985349';
+          curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+         $result = curl_exec($ch);
+          if (curl_errno($ch)) {
+              echo 'Error:' . curl_error($ch);
+          }
+          curl_close($ch);
+
+
+
+           $data_history_json = array(
+                'id_orden' => $input['confirm_id'], 
+                'id_status' => $input['id_status'], 
+                'notas' => $input['notas'], 
+                'json' => $result, 
+                'id_user' => $user_id 
+            );
+
+
+            $history=AlpOrdenesHistory::create($data_history_json);
+
+
         }//endif
 
 
