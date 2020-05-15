@@ -68,6 +68,22 @@ Editar Estatus Envios
                                 {!! $errors->first('estatus_envio_descripcion', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
+
+                         <div class="form-group {{ $errors->
+                            first('codigo', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Nombre Estatus Envios
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="text" id="codigo" name="codigo" class="form-control" placeholder="Nombre de Estatus Envios"
+                                       value="{!! old('codigo', $estatus->codigo) !!}">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('codigo', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                 

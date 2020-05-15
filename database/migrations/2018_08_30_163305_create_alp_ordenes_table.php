@@ -34,6 +34,7 @@ class CreateAlpOrdenesTable extends Migration
             $table->string('factura')->nullable();
             $table->string('tracking')->nullable();
             $table->string('ip')->nullable();
+            $table->string('json')->nullable();
             $table->integer('estatus');
             $table->integer('estatus_pago');
             $table->integer('id_user');
