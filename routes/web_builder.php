@@ -1173,6 +1173,7 @@ Route::post('clientes/deldir/',['as'=>'clientes.deldir', 'uses'=>'Frontend\Clien
 
 
 Route::get('miscompras', 'Frontend\ClientesFrontController@miscompras')->name('frontend.clientes.miscompras');
+Route::get('detallecompra/{id}', 'Frontend\ClientesFrontController@detallecompra')->name('frontend.clientes.detallecompra');
 
 Route::get('misamigos', 'Frontend\ClientesFrontController@misamigos')->name('frontend.clientes.misamigos');
 

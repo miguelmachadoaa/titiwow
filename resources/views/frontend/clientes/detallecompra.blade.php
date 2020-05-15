@@ -3,7 +3,7 @@
 
 {{-- Page title --}}
 @section('title')
-Mis Compras
+Detalle de Compra
 @parent
 @stop
 
@@ -11,6 +11,64 @@ Mis Compras
 @section('header_styles')
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/shopping.css') }}">
     <link href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
+
+
+    <style>
+        
+        .update-nag{
+  display: inline-block;
+  font-size: 14px;
+  text-align: left;
+  background-color: #fff;
+  height: 40px;
+  -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.2);
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+  margin-bottom: 10px;
+}
+
+.update-nag:hover{
+    cursor: pointer;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.4);
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,.3);
+}
+
+.update-nag > .update-split{
+  background: #337ab7;
+  width: 33px;
+  float: left;
+  color: #fff!important;
+  height: 100%;
+  text-align: center;
+}
+
+.update-nag > .update-split > .glyphicon{
+  position:relative;
+  top: calc(50% - 9px)!important; /* 50% - 3/4 of icon height */
+}
+.update-nag > .update-split.update-success{
+  background: #5cb85c!important;
+}
+
+.update-nag > .update-split.update-danger{
+  background: #d9534f!important;
+}
+
+.update-nag > .update-split.update-info{
+  background: #5bc0de!important;
+}
+
+
+
+.update-nag > .update-text{
+  line-height: 19px;
+  padding-top: 11px;
+  padding-left: 45px;
+  padding-right: 20px;
+}
+
+
+
+    </style>
 @stop
 
 {{-- breadcrumb --}}
@@ -44,135 +102,135 @@ Mis Compras
             <h3>Mis Compras</h3>
         </div>
         <hr>
-    <div class="row">
-
-        <div class="col-sm-12">
-        @if(!$compras->isEmpty())
-
-         <div class="table-responsive">
-
-             <table class="table table-responsive width100"  id="table">
-                    <tr>
-                        <th>Id</th>
-                        <th>Nombre Cliente</th>
-                        <th>Forma Envio</th>
-                        <th>Forma de Pago </th>
-                        <th>Monto Total </th>
-                        <th>Creado</th>
-                        <th>Estado de Orden</th>
-                        <th>Acciones</th>
-                    </tr>
 
 
-            @foreach($compras as $row)
+        <h3>Historico de Envio </h3>
 
-                    <tr>
-                        <td>
-                            {{ $row->id }}
-                        </td>
-                        <td>
-                            {{ $row->first_name.' '.$row->last_name }}
-                        </td>
-                        <td>
-                            {{ $row->nombre_forma_envios }}
-                        </td>
-                        <td>
-                             @if($row->json!=null)
+        <div class="row">
 
-                                @if(isset(json_decode($row->json)->response->payment_type_id))
-
-                                    {{ $row->nombre_forma_pago.' '.json_decode($row->json)->response->payment_type_id }}
+            @foreach($history_envio  as  $row)
 
 
-                                @endif 
-
-
-
-                            @else
-
-                                {{ $row->nombre_forma_pago}}
-
-                            @endif 
-                        </td>
-                        <td>
-                            {{ number_format($row->monto_total,0,",",".") }}
-                        </td>
-                        <td>
-                            {{ $row->created_at }}
-                        </td>
-
-                        <td>
-                            {{ $row->estatus_nombre }}
-                        </td>
-
-                        <td>    
-                               
-
-                            @if($row->id_forma_pago=='2')
-
-                                @if(!isset($pagos[$row->id]))
-
-                                    @if($row->json!=null)
-
-                                            @if(isset(json_decode($row->json)->response->status))
-
-                                                @if(json_decode($row->json)->response->status!='pending' && json_decode($row->json)->response->status!='aproved')
-
-                                                    <a  class="btn  btn-xs btn-info" href="{{ secure_url('clientes/pagar/'.$row->id) }}">Pagar Orden</a>
-                                                
-                                                @endif 
-                                            @endif 
-
-
-                                    @endif 
-
-                                @endif 
-                            @endif 
-
-                                  <button class="btn btn-info btn-xs seeDetalle" data-url="{{ secure_url('clientes/'.$row->id.'/detalle') }}" data-id="{{ $row->id }}" href="{{ secure_url('clientes/'.$row->id.'/detalle') }}">
-                                    <i class="livicon "  data-name="eye" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Ver Detalle"></i>
-                                 </button>
-
-
-                                 <a class="btn btn-success btn-xs " data-url="{{ secure_url('detallecompra/'.$row->id) }}" data-id="{{ $row->id }}" href="{{ secure_url('detallecompra/'.$row->id) }}"> Detalle
-                                 </a>
-
-
-                                <!--@if($row->estatus!='4')
-
-                                    @if($row->estatus!='7')
-
-                                
-                                    <div style="display: inline-block;" class="estatus_{{ $row->id }}">
-
-                                    <button data-id="{{ $row->id }}"  data-codigo="{{ $row->ordencompra }}"  data-estatus="{{ $row->estatus }}" class="btn btn-xs btn-danger confirmar" > Cancelar Orden  </button>
-
-                                    </div>
-
-                                    @endif
-
-                                @endif-->
-                                 
-                                 <!-- let's not delete 'Admin' group by accident -->
-                                            
-                                          
-
-                        </td>
-                    </tr>
-                
-            @endforeach
-             </table>
-
-         </div>
-            @else
-            <div class="alert alert-danger">
-                <strong>Lo Sentimos!</strong> No Existen Compras aún.
+             <div class="col-md-12">
+              <div class="update-nag">
+                <div class="update-split"><i class="glyphicon {{ $iconos[$row->estatus_envio]}}"></i></div>
+                <div class="update-text">{{ $row->estatus_envio_nombre }} <a href="#">{!! $row->created_at->diffForHumans().' por  '.$row->first_name.' '.$row->last_name !!}</a> </div>
+              </div>    
             </div>
-        @endif
-        </div>
+
+
+            @endforeach
+        
         
     </div>
 
+
+
+
+
+
+    <div class="row">
+
+        <div class="col-sm-12">
+
+             <h3>Detalle de Compra </h3>
+
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col"> Imagen</th>
+                            <th scope="col">Referencia</th>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Precio Unitario</th>
+                            <th scope="col" class="text-center">Cantidad</th>
+                            <th scope="col" class="text-right">Total </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach( $detalles as $row)
+
+                        <tr>
+                            <td><img height="60px" src="{{ secure_url('/') }}/uploads/productos/{{$row->imagen_producto}}"> </td>
+                             <td>{{$row->referencia_producto}}</td>
+                            <td>{{$row->nombre_producto}}</td>
+                            <td>{{number_format($row->precio_unitario,2)}}</td>
+                            <td> {{ $row->cantidad }} </td>
+                            <td>{{ number_format($row->precio_total, 2) }}</td>
+                            
+                        </tr>
+
+                        @endforeach
+                        
+                       
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Sub-Total</td>
+                            <td class="text-right" >{{ number_format($orden->monto_total_base, 2) }}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Envio</td>
+                            <td class="text-right">
+
+
+                                @if(isset($envio->costo))
+                              @if(intval($envio->costo)==0)
+
+                                {{'Gratis'}}
+
+                              @else
+
+                                {{ number_format($envio->costo, 2) }}
+
+                              @endif
+
+                          @else
+
+                            {{'Gratis'}}
+
+
+                          @endif
+
+
+
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><strong>Total</strong></td>
+                            <td class="text-right"><strong>{{ number_format($envio->costo+$orden->monto_total, 2) }}</strong></td>
+                        </tr>
+
+
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><strong>Descuento</strong></td>
+                            <td class="text-right"><strong>{{ number_format($orden->monto_total_base-$orden->monto_total, 2) }}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+        
+        </div>
+
+</div>
+</div>
 </div>
 <div class="container">
     <div class="form-group">

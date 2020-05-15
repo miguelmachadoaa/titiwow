@@ -5,6 +5,12 @@ namespace App\Http\Controllers\Frontend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\AlpOrdenes;
+use App\Models\AlpOrdenesHistory;
+use App\Models\AlpOrdenesDescuento;
+use App\Models\AlpFormasenvio;
+use App\Models\AlpPagos;
+use App\Models\AlpEnvios;
+use App\Models\AlpEnviosHistory;
 use App\Models\AlpProductos;
 use App\Models\AlpClientes;
 use App\Models\AlpEmpresas;
@@ -841,11 +847,130 @@ class ClientesFrontController extends Controller
     }
 
 
-     public function pagar( $orden)
+    public function detallecompra($id)
     {
 
+        if (Sentinel::check()) {
+
+            $user_id = Sentinel::getUser()->id;
 
 
+
+            $orden = AlpOrdenes::find($id);
+
+              //dd($orden);
+
+            $detalles = AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto','alp_productos.referencia_producto as referencia_producto')
+                  ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
+                  ->where('alp_ordenes_detalle.id_orden', $id)
+                  ->get();
+
+            $pago = AlpPagos::select('alp_ordenes_pagos.*','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago')
+                  ->join('alp_formas_pagos', 'alp_ordenes_pagos.id_forma_pago', '=', 'alp_formas_pagos.id')
+                  ->where('alp_ordenes_pagos.id_orden', $id)
+                  ->first();
+
+
+            $pago_aprobado = AlpPagos::select('alp_ordenes_pagos.*','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago')
+                  ->join('alp_formas_pagos', 'alp_ordenes_pagos.id_forma_pago', '=', 'alp_formas_pagos.id')
+                  ->where('alp_ordenes_pagos.id_orden', $id)
+                  ->orderBy('alp_ordenes_pagos.id', 'desc')
+                  ->first();
+
+                $pagos = AlpPagos::select('alp_ordenes_pagos.*','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago')
+                  ->join('alp_formas_pagos', 'alp_ordenes_pagos.id_forma_pago', '=', 'alp_formas_pagos.id')
+                  ->where('alp_ordenes_pagos.id_orden', $id)
+                  ->get();
+
+                  //dd($pago);
+
+            $history = AlpOrdenesHistory::select('alp_ordenes_history.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre' )
+                  ->join('alp_ordenes_estatus', 'alp_ordenes_history.id_status', '=', 'alp_ordenes_estatus.id')
+                  ->join('users', 'alp_ordenes_history.id_user', '=', 'users.id')
+                  ->where('alp_ordenes_history.id_orden', $id)
+                  ->get();
+
+
+                  $cliente =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista','alp_clientes.doc_cliente as doc_cliente')
+                ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+                ->join('role_users', 'users.id', '=', 'role_users.user_id')
+                ->join('roles', 'role_users.role_id', '=', 'roles.id')
+                ->where('users.id', '=', $orden->id_user)->first();
+
+
+                  $direccion = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+                  ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+                  ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+                  ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+                  ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+                  ->where('alp_direcciones.id', $orden->id_address)->withTrashed()->first();
+
+
+                  $cupones=AlpOrdenesDescuento::where('id_orden', $orden->id)->get();
+
+                  $formaenvio=AlpFormasenvio::where('id', $orden->id_forma_envio)->first();
+
+                  $envio=AlpEnvios::where('id_orden', $orden->id)->first();
+
+
+                   $history_envio = AlpEnviosHistory::select('alp_envios_history.*', 'alp_envios_status.estatus_envio_nombre as estatus_envio_nombre', 'users.first_name as first_name', 'users.last_name as last_name' )
+                  ->join('alp_envios_status', 'alp_envios_history.estatus_envio', '=', 'alp_envios_status.id')
+                  ->join('users', 'alp_envios_history.id_user', '=', 'users.id')
+                  ->where('alp_envios_history.id_envio', $envio->id)
+                  ->orderBy('alp_envios_history.id', 'desc')
+                  ->get();
+
+                  
+
+
+
+                $iconos = array(
+                    1 => 'glyphicon-refresh', 
+                    2 => 'glyphicon-folder-open', 
+                    3 => 'glyphicon-leaf', 
+                    4 => 'glyphicon-warning-sign',
+                     5 => 'glyphicon-refresh', 
+                    6 => 'glyphicon-folder-open', 
+                    7 => 'glyphicon-leaf', 
+                    8 => 'glyphicon-warning-sign', 
+                    9 => 'glyphicon-warning-sign', 
+                );
+
+                
+                
+
+                $color = array(
+                    1 => 'glyphicon-success', 
+                    2 => 'glyphicon-info', 
+                    3 => 'glyphicon-warning', 
+                    4 => 'glyphicon-danger', 
+                    5 => 'glyphicon-success', 
+                    6 => 'glyphicon-info', 
+                    7 => 'glyphicon-warning', 
+                    8 => 'glyphicon-danger', 
+                    9 => 'glyphicon-danger', 
+                );
+
+
+            return \View::make('frontend.clientes.detallecompra', compact('cupones','formaenvio','envio','history_envio','pago_aprobado','pagos','history','cliente','direccion','orden','detalles','pago', 'iconos', 'color'));
+
+            }else{
+
+                $url='clientes';
+
+                  //return redirect('login');
+                return view('frontend.order.login', compact('url'));
+
+        }
+
+       
+    }
+
+
+
+
+     public function pagar( $orden)
+    {
 
         $cart= \Session::forget('cart');
 
