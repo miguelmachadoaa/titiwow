@@ -13,6 +13,7 @@ use App\Models\AlpPagos;
 use App\Models\AlpPuntos;
 use App\Models\AlpConfiguracion;
 use App\Models\AlpEnvios;
+use App\Models\AlpEnviosHistory;
 use App\Models\AlpDirecciones;
 use App\Models\AlpFeriados;
 use App\Models\AlpFormaCiudad;
@@ -1551,7 +1552,17 @@ class AlpOrdenesController extends JoshController
           $envio=AlpEnvios::where('id_orden', $orden->id)->first();
 
 
-        return view('admin.ordenes.detalle', compact('detalles', 'orden', 'history', 'pago', 'pagos', 'cliente', 'direccion', 'cupones', 'formaenvio', 'envio', 'pago_aprobado'));
+           $history_envio = AlpEnviosHistory::select('alp_envios_history.*', 'alp_envios_status.estatus_envio_nombre as estatus_envio_nombre', 'users.first_name as first_name', 'users.last_name as last_name' )
+          ->join('alp_envios_status', 'alp_envios_history.estatus_envio', '=', 'alp_envios_status.id')
+          ->join('users', 'alp_envios_history.id_user', '=', 'users.id')
+          ->where('alp_envios_history.id_envio', $envio->id)
+          ->orderBy('alp_envios_history.id', 'desc')
+          ->get();
+
+         // dd($history_envio);
+
+
+        return view('admin.ordenes.detalle', compact('detalles', 'orden', 'history', 'pago', 'pagos', 'cliente', 'direccion', 'cupones', 'formaenvio', 'envio', 'pago_aprobado', 'history_envio'));
 
     }
 

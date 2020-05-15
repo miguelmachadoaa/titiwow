@@ -725,6 +725,91 @@ Orden {{$orden->id}}
 
 
 
+
+     <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <i class="livicon" data-name="share" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                                    Historia de Cambios del Envio 
+                                </h3>
+                                
+                            </div>
+                            <div class="panel-body">
+                                <!--timeline-->
+                                <div class="row">
+                                    <ul class="timeline">
+
+
+                                         @foreach($history_envio as $indexKey => $row)
+
+                                            @if($indexKey%2==0)
+
+                                            <li>
+                                            <div class="timeline-badge">
+                                                <i class="livicon" data-name="users" data-c="#fff" data-hc="#fff" data-size="18" data-loop="true"></i>
+                                            </div>
+                                            <div class="timeline-panel" style="display:inline-block;">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title">{{ $row->estatus_envio_nombre }}</h4>
+                                                    <p>
+                                                        <small class="text-muted">
+                                                            <i class="livicon" data-name="bell" data-c="#F89A14" data-hc="#F89A14" data-size="18" data-loop="true"></i>
+                                                            {!! $row->created_at->diffForHumans().' por  '.$row->first_name.' '.$row->last_name !!}
+                                                        </small>
+                                                    </p>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>
+                                                        {{ $row->nota }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                            @else
+
+                                             <li class="timeline-inverted">
+                                            <div class="timeline-badge">
+                                                <i class="livicon" data-name="users" data-c="#fff" data-hc="#fff" data-size="18" data-loop="true"></i>
+                                            </div>
+                                            <div class="timeline-panel" style="display:inline-block;">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title">{{ $row->estatus_envio_nombre }}</h4>
+                                                    <p>
+                                                        <small class="text-muted">
+                                                            <i class="livicon" data-name="bell" data-c="#F89A14" data-hc="#F89A14" data-size="18" data-loop="true"></i>
+                                                            {!! $row->created_at->diffForHumans().' por  '.$row->first_name.' '.$row->last_name !!}
+                                                        </small>
+                                                    </p>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>
+                                                        {{ $row->nota }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                            @endif
+                                         
+
+                                         @endforeach
+
+
+                                    </ul>
+                                </div>
+                                <!--timeline ends-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--timeline2-->
+
+
+
+
     <div class="row">
                     <div class="col-md-12">
                         <div class="panel panel-primary">
