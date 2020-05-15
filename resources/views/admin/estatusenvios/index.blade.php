@@ -54,6 +54,7 @@ Estatus Envios
                                     <th>Id</th>
                                     <th>Nombre</th>
                                     <th>Descripcion</th>
+                                    <th>Codigo</th>
                                     <th>Creado</th>
                                     <th>Accion</th>
                                 </tr>

@@ -19,7 +19,7 @@
             <td>{!! $row->doc_cliente!!}</td>
             <td>{!! $row->cod_oracle_cliente!!}</td>
             <td>{!! $row->first_name.' '.$row->last_name!!}</td>
-            <td>{!! $row->referencia_producto!!}</td>
+            <td>{!! $row->referencia_producto_sap!!}</td>
             <td>{!! $row->nombre_producto!!}</td>
             <td>{!! $row->cantidad!!}</td>
             <td>{!! date("d/m/Y H:i:s", strtotime($row->created_at))!!}</td>

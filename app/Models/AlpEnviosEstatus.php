@@ -21,6 +21,7 @@ class AlpEnviosEstatus extends Model
         'id',
         'estatus_envio_nombre',
         'estatus_envio_descripcion',
+        'codigo',
         'estado_registro',
         'id_user'
     ];
