@@ -1764,24 +1764,6 @@ class AlpOrdenesController extends JoshController
           ->where('alp_ordenes.id', $input['id'])
           ->first();
 
-          ///dd($orden);
-
-        /*$detalles =  DB::table('alp_ordenes_detalle')->select(
-          'alp_ordenes_detalle.*',
-          'alp_productos.referencia_producto as referencia_producto',
-          'alp_productos.presentacion_producto as presentacion_producto',
-          'alp_productos.nombre_producto as nombre_producto',
-          'alp_productos.referencia_producto_sap as referencia_producto_sap' ,
-          'alp_productos.imagen_producto as imagen_producto' ,
-          'alp_productos.slug as slug'
-        )
-          ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
-          ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
-
-        $envio=AlpEnvios::where('id_orden', $orden->id)->first();*/
-
-
-
         if ($orden->id) {
 
 
@@ -1976,6 +1958,103 @@ class AlpOrdenesController extends JoshController
             }
 
           Mail::to($configuracion->correo_cedi)->send(new \App\Mail\CompraSac($orden, $detalles, $fecha_entrega));
+
+
+
+          $orden=AlpOrdenes::where('id', $orden->id)->first();
+
+                 $detalles = AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto','alp_productos.referencia_producto as referencia_producto')
+                  ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
+                  ->where('alp_ordenes_detalle.id_orden', $orden->id)
+                  ->get();
+
+                  $productos = array();
+
+                  foreach ($detalles as $d) {
+                    
+                      $dt = array(
+                        'sku' => $d->referencia_producto, 
+                        'name' => $d->nombre_producto, 
+                        'url_img' => $d->imagen_producto, 
+                        'value' => $d->precio_unitario, 
+                        'value_prom' => $d->precio_unitario, 
+                        'quantity' => $d->cantidad
+                      );
+
+                      $productos[]=$dt;
+                  }
+
+              $cliente =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista','alp_clientes.doc_cliente as doc_cliente')
+                ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+                ->join('role_users', 'users.id', '=', 'role_users.user_id')
+                ->join('roles', 'role_users.role_id', '=', 'roles.id')
+                ->where('users.id', '=', $orden->id_user)->first();
+
+
+              $direccion = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+              ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+              ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+              ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+              ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+              ->where('alp_direcciones.id', $orden->id_address)->withTrashed()->first();
+
+
+              $dir = array(
+                'ordenId' => $orden->referencia, 
+                'ciudad' => $direccion->state_name, 
+                'telefonoCliente' => $cliente->telefono_cliente, 
+                'identificacionCliente' => $cliente->doc_cliente, 
+                'nombreCliente' => $cliente->first_name." ".$cliente->last_name, 
+                'direccionCliente' => $direccion->nombre_estructura." ".$direccion->principal_address." - ".$direccion->secundaria_address." ".$direccion->edificio_address." ".$direccion->detalle_address." ".$direccion->barrio_address, 
+                'observacionDomicilio' => "", 
+                'formaPago' => "Efectivo"
+              );
+
+              $o = array(
+                'tipoServicio' => 1, 
+                'retorno' => "false", 
+                'totalFactura' => $orden->monto_total, 
+                'subTotal' => $orden->base_impuesto, 
+                'iva' => $orden->monto_impuesto, 
+                'fechaPedido' => date("Ymd", strtotime($orden->created_at)), 
+                'horaMinPedido' => "00:00", 
+                'horaMaxPedido' => "00:00", 
+                'observaciones' => "", 
+                'paradas' => $dir, 
+                'products' => $productos, 
+              );
+
+
+              $dataraw=json_encode($o);
+
+             //dd($dataraw);
+
+
+                  // Generated by curl-to-PHP: http://incarnate.github.io/curl-to-php/
+                $ch = curl_init();
+
+                curl_setopt($ch, CURLOPT_URL, 'https://mercaas.com/api/registerOrder/YK7304PP34');
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_POST, 1);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
+                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+                $headers = array();
+                $headers[] = 'Content-Type: application/json';
+                $headers[] = 'Woobsing-Token: f3f49185-4b8b-4918-b425-e6e3e9985349';
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+                $result = curl_exec($ch);
+                if (curl_errno($ch)) {
+                    echo 'Error:' . curl_error($ch);
+                }
+                curl_close($ch);
+
+                $dtt = array('json' => $result );
+
+                $orden->update($dtt);
+
 
 
 

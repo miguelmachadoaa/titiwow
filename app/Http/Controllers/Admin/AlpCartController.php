@@ -293,11 +293,6 @@ class AlpCartController extends JoshController
 
 
 
-
-
-
-
-
       return view('frontend.cart', compact('cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario'));
     }
 

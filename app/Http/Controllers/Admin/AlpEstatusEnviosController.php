@@ -72,6 +72,7 @@ class AlpEstatusEnviosController extends JoshController
                  $row->id, 
                  $row->estatus_envio_nombre, 
                  $row->estatus_envio_descripcion, 
+                 $row->codigo, 
                  date("d/m/Y H:i:s", strtotime($row->created_at)),
                  $actions
               );
@@ -146,6 +147,7 @@ class AlpEstatusEnviosController extends JoshController
         $data = array(
             'estatus_envio_nombre' => $request->estatus_envio_nombre, 
             'estatus_envio_descripcion' => $request->estatus_envio_descripcion, 
+            'codigo' => $request->codigo, 
             'id_user' =>$user_id
         );
          
@@ -221,12 +223,11 @@ class AlpEstatusEnviosController extends JoshController
           activity()
           ->withProperties($request->all())->log('estatusenvios/update');
 
-
         }
-
 
        $data = array(
             'estatus_envio_nombre' => $request->estatus_envio_nombre, 
+            'codigo' => $request->codigo, 
             'estatus_envio_descripcion' => $request->estatus_envio_descripcion
         );
          
