@@ -242,6 +242,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 #FrontEndController
 
 Route::get('xml', 'FrontEndController@getXml')->name('xml');
+
+Route::post('compramas', 'FrontEndController@getCompramas')->name('compramas');
+
 Route::get('ibm', 'FrontEndController@ibm')->name('ibm');
 
 
