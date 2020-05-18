@@ -294,7 +294,8 @@ Orden {{$orden->id}}
     <!-- row-->
 
 
-
+<br>
+<br>
 
 
     <div class="row">
@@ -335,10 +336,7 @@ Orden {{$orden->id}}
                             <td>{{$row->referencia_producto}}</td>
                             <td>{{$row->nombre_producto}}</td>
                             <td>{{number_format($row->precio_unitario,2)}}</td>
-                            <td>
-                                {{ $row->cantidad }}
-
-                            </td>
+                            <td> {{ $row->cantidad }} </td>
                             <td>{{ number_format($row->precio_total, 2) }}</td>
                         </tr>
                      @endforeach

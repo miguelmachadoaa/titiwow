@@ -177,7 +177,7 @@ class FrontEndController extends JoshController
 
         $status=AlpEnviosEstatus::where('codigo', $input['estado'])->first();
 
-
+        $user=User::where('id', $orden->id_user)->first();
 
         if (isset($status->id)) {
 
@@ -189,9 +189,7 @@ class FrontEndController extends JoshController
             'json' => json_encode($input) 
           );
 
-
           AlpEnviosHistory::create($data_histroy);
-
 
           $data_envio = array('estatus' => $status->id);
 
@@ -199,11 +197,13 @@ class FrontEndController extends JoshController
 
           $r="true";
 
+           Mail::to($user->email)->send(new \App\Mail\NotificacionEnvio($user, $orden, $envio, $status, $input ));
+
+
         }
 
         # code...
       }
-
      
       # code...
     }

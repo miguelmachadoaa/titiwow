@@ -60,10 +60,10 @@ Detalle de Compra
 
 
 .update-nag > .update-text{
-  line-height: 19px;
-  padding-top: 11px;
+  line-height: 18px;
+  padding-top: 5px;
   padding-left: 45px;
-  padding-right: 20px;
+  padding-right: 5px;
 }
 
 
@@ -254,9 +254,6 @@ Detalle de Compra
                          <div class="" id="tbDetalle"> 
 
                         </div>
-                        
-                        
-
 
                     </div>
                     <div class="modal-footer">
@@ -289,9 +286,6 @@ Detalle de Compra
                                 <div class="col-sm-12">
                                     <h3>¿Estas Seguro que quieres cancelar el pedido?</h3>
                                 </div>
-                                
-                                
-
                             </div>
                         </form>
 
@@ -311,7 +305,6 @@ Detalle de Compra
 <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
 
 
-
 @endsection
 
 {{-- page level scripts --}}
@@ -321,13 +314,10 @@ Detalle de Compra
     <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
 
-
-
     <script>
         jQuery(document).ready(function () {
             new WOW().init();
         });
-
 
 
         $("#confirmarOrdenForm").bootstrapValidator({
@@ -344,8 +334,6 @@ Detalle de Compra
 });
 
 
-
-
         $('body').on('click','.confirmar', function(){
 
         $('#confirm_id').val($(this).data('id'));
@@ -356,7 +344,6 @@ Detalle de Compra
 
             $("#confirmarOrdenModal").modal('show');
         });
-
 
 
 
