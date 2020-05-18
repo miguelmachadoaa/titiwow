@@ -19,6 +19,8 @@ class SaldoImport implements ToCollection
 
         $fecha_vencimiento= \Session::get('fecha_vencimiento');
 
+       // dd($fecha_vencimiento);
+
         $i=0;
 
         foreach ($rows as $row) 

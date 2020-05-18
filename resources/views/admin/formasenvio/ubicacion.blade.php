@@ -83,7 +83,21 @@ Ciudades de envio
                                     <td>{!! $row->id !!}</td>
                                     <td>{!! $row->name !!}</td>
                                     <td>{!! $listaestados[$row->id_state].' - '.$listaciudades[$row->id_ciudad]!!}</td>
-                                    <td>{!! $listabarrios[$row->id_barrio] !!}</td>
+                                    <td>
+
+                                        @if(isset($listabarrios[$row->id_barrio]))
+
+                                        {!! $listabarrios[$row->id_barrio] !!}
+
+                                        @else
+
+                                        todos
+
+                                        @endif
+
+                                        
+
+                                    </td>
 
                                      
                                      @if($formas->tipo==0)

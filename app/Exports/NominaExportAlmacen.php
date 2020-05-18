@@ -31,6 +31,8 @@ class NominaExportAlmacen implements FromView
 
       $almacen=AlpAlmacenes::where('id', $this->alm)->first();
 
+
+
       $date_desde = Carbon::parse($this->desde.' '.$almacen->hora.':00')->subDay()->toDateTimeString();
 
       $date_hasta = Carbon::parse($this->desde.' 23:59:59')->toDateTimeString(); 
@@ -43,14 +45,16 @@ class NominaExportAlmacen implements FromView
                 'alp_clientes.cod_oracle_cliente as cod_oracle_cliente',
                 'alp_productos.nombre_producto as nombre_producto',
                 'alp_productos.referencia_producto as referencia_producto',
+                'config_cities.city_name as city_name', 
                 'users.first_name as first_name', 
                 'users.last_name as last_name' )
                 //)
              ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+             ->join('alp_direcciones', 'alp_ordenes.id_address', '=', 'alp_direcciones.id')
+              ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
           ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
           ->join('alp_ordenes_detalle', 'alp_ordenes.id', '=', 'alp_ordenes_detalle.id_orden')
           ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
-          
           ->where('alp_ordenes.id_almacen', '=', $this->alm)
           ->where('alp_ordenes.created_at', '>=', $date_desde)
           ->where('alp_ordenes.created_at', '<=', $date_hasta)

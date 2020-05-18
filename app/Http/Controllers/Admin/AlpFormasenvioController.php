@@ -367,6 +367,8 @@ $tipo='Fecha fija';
          ->join('roles','alp_forma_ciudad.id_rol' , '=', 'roles.id')
         ->where('alp_forma_ciudad.id_forma', $id)->get();
 
+       // dd($ciudades);
+
         
 
        $barrios=Barrio::where('estado_registro', '1')->get();

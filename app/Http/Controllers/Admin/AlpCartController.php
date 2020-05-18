@@ -1301,6 +1301,8 @@ class AlpCartController extends JoshController
 
       $id_almacen=$this->getAlmacenCart();
 
+
+
       $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
       if (!isset($almacen->id) ){
@@ -1962,7 +1964,7 @@ class AlpCartController extends JoshController
       }else{
 
 
-       $date = Carbon::now();
+           $date = Carbon::now();
 
        $hora=$date->format('Hi');
 
@@ -2000,13 +2002,8 @@ class AlpCartController extends JoshController
 
           $dias=$ciudad_forma->dias;
 
-
-
-
       }
 
-
-       
 
         //$fecha_entrega=$date->addDays($dias)->format('d-m-Y');
 
@@ -2309,6 +2306,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
        // dd($direccion);
 
         $ciudad_forma=AlpFormaCiudad::where('id_forma', $orden->id_forma_envio)->where('id_ciudad', $direccion->city_id)->first();
+
+
 
         $date = Carbon::now();
         
@@ -4202,6 +4201,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
 
+
+
+
       $validado=0;
 
       $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
@@ -4223,6 +4225,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           }
 
       }
+
+     // dd($validado);
 
 
       $carrito= \Session::get('cr');

@@ -10,6 +10,7 @@
             <th ><b>Producto </b></th>
             <th ><b>Cantidad </b></th>
             <th ><b>Creado  </b></th>
+            <th ><b>Ciudad  </b></th>
         </tr>
     </thead>
     <tbody>
@@ -25,6 +26,8 @@
             <td>{!! $row->nombre_producto!!}</td>
             <td>{!! $row->cantidad!!}</td>
             <td>{!! date("d/m/Y H:i:s", strtotime($row->created_at))!!}</td>
+            <td>{!! $row->city_name !!}</td>
+
           
         </tr>
         @endforeach

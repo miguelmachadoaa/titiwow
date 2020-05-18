@@ -14,7 +14,7 @@ use Illuminate\Contracts\View\View;
 use \DB;
 
 
-class ProductosRolExportB implements FromView
+class ProductosEmpresasExportB implements FromView
 {
     
     public function __construct(string $desde, string $hasta, string $rol)
