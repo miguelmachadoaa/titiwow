@@ -1395,6 +1395,7 @@ class FrontEndController extends JoshController
               ->where('alp_inventarios.id_almacen', '=', $id_almacen)
               ->get();
 
+
               $inv = array();
 
               foreach ($entradas as $row) {

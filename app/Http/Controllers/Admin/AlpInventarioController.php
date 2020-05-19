@@ -434,11 +434,65 @@ class AlpInventarioController extends JoshController
 
             }
 
-           // dd($inv2);
+            return $inv2;
+      
+    }
+
+     private function inventario()
+    {
+       
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+              ->performedOn($user)
+              ->causedBy($user)
+              ->log('AlpInventarioController/inventario ');
+
+        }else{
+
+          activity()
+          ->log('AlpInventarioController/inventario');
+
+        }
+
+
+            $entradas = AlpInventario::groupBy('id_producto')->groupBy('id_almacen')
+              ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
+              ->where('alp_inventarios.operacion', '1')
+              ->get();
+
+              $inv = array();
+              $inv2 = array();
+
+             foreach ($entradas as $row) {
+                
+                $inv[$row->id_producto]=$row->cantidad_total;
+
+                $inv2[$row->id_producto][$row->id_almacen]=$row->cantidad_total;
+
+              }
+
+
+            $salidas = AlpInventario::select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
+              ->groupBy('id_producto')
+              ->groupBy('id_almacen')
+              ->where('operacion', '2')
+              ->get();
+
+              foreach ($salidas as $row) {
+                
+              $inv2[$row->id_producto][$row->id_almacen]= $inv2[$row->id_producto][$row->id_almacen]-$row->cantidad_total;
+                //$inv2[$row->id_producto][$row->id_almacen]= $row->cantidad_total;
+
+            }
 
             return $inv2;
       
     }
+
 
     
 
