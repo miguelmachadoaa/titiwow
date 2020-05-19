@@ -39,33 +39,6 @@ class NominaExportAlmacen implements FromView
 
       $date_hasta = Carbon::parse($this->desde.' 23:59:59')->toDateTimeString(); 
 
-            /* $ordenes = AlpOrdenes::select(
-                'alp_ordenes.*', 
-                'alp_ordenes_detalle.cantidad as cantidad',
-                'alp_clientes.telefono_cliente as telefono_cliente',
-                'alp_clientes.doc_cliente as doc_cliente',
-                'alp_clientes.cod_oracle_cliente as cod_oracle_cliente',
-                'alp_productos.nombre_producto as nombre_producto',
-                'alp_productos.referencia_producto as referencia_producto',
-                'config_cities.city_name as city_name', 
-                'users.first_name as first_name', 
-                'users.last_name as last_name' )
-                //)
-             ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
-             ->join('alp_direcciones', 'alp_ordenes.id_address', '=', 'alp_direcciones.id')
-              ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-          ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
-          ->join('alp_ordenes_detalle', 'alp_ordenes.id', '=', 'alp_ordenes_detalle.id_orden')
-          ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
-          ->where('alp_ordenes.id_almacen', '=', $this->alm)
-          ->where('alp_ordenes.created_at', '>=', $date_desde)
-          ->where('alp_ordenes.created_at', '<=', $date_hasta)
-          //->groupBy('alp_ordenes.id')
-          ->get();*/
-
-          //dd($ordenes);
-          //
-          //
           $ordenes=AlpOrdenes::where('alp_ordenes.id_almacen', $this->alm)
           ->where('alp_ordenes.created_at', '>=', $date_desde)
           ->where('alp_ordenes.created_at', '<=', $date_hasta)
@@ -89,26 +62,23 @@ class NominaExportAlmacen implements FromView
           ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
           ->where('alp_direcciones.id', $orden->id_address)->withTrashed()->first();
 
-
-
             $orden->direccion=$direccion;
 
-
             $cliente =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista','alp_clientes.doc_cliente as doc_cliente')
-        ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
-        ->join('role_users', 'users.id', '=', 'role_users.user_id')
-        ->join('roles', 'role_users.role_id', '=', 'roles.id')
-        ->where('users.id', '=', $orden->id_user)->first();
+            ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+            ->join('role_users', 'users.id', '=', 'role_users.user_id')
+            ->join('roles', 'role_users.role_id', '=', 'roles.id')
+            ->where('users.id', '=', $orden->id_user)->first();
 
 
-        $orden->cliente=$cliente;
+            $orden->cliente=$cliente;
 
 
 
             # code...
           }
 
-         // dd($ordenes);
+          //dd(count($ordenes));
 
 
         return view('admin.exports.nomina', [
