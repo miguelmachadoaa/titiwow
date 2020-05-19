@@ -22,6 +22,7 @@ class AlpAlmacenDespacho extends Model
         'id_almacen',
         'id_state',
         'id_city',
+        'id_barrio',
         'id_user'
     ];
 

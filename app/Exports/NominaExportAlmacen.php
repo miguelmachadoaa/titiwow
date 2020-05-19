@@ -33,8 +33,6 @@ class NominaExportAlmacen implements FromView
 
       $almacen=AlpAlmacenes::where('id', $this->alm)->first();
 
-
-
       $date_desde = Carbon::parse($this->desde.' '.$almacen->hora.':00')->subDay()->toDateTimeString();
 
       $date_hasta = Carbon::parse($this->desde.' 23:59:59')->toDateTimeString(); 

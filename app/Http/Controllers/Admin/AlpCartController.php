@@ -131,6 +131,8 @@ class AlpCartController extends JoshController
 
       $id_almacen=$this->getAlmacenCart();
 
+      echo $id_almacen;
+
       //dd($id_almacen);
 
       $descuento='1'; 
@@ -5680,16 +5682,38 @@ private function getAlmacen3(){
                 $tipo=1;
               }
 
+                if ($d->id_barrio==0) {
+                     $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
+                    ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
+                    ->where('alp_almacenes.tipo_almacen', '=', $tipo)
+                    ->where('alp_almacen_despacho.id_city', $d->city_id)
+                    ->where('alp_almacenes.estado_registro', '=', '1')
+                    ->first();
+                    
+                }else{
+
+                     $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
+                    ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
+                    ->where('alp_almacenes.tipo_almacen', '=', $tipo)
+                    ->where('alp_almacen_despacho.id_barrio', $d->id_barrio)
+                    ->where('alp_almacenes.estado_registro', '=', '1')
+                    ->first();
+
+                    if (isset($ad->id)) {
+                        # code...
+                    }else{
 
 
+                        $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
+                        ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
+                        ->where('alp_almacenes.tipo_almacen', '=', $tipo)
+                        ->where('alp_almacen_despacho.id_city', $d->city_id)
+                        ->where('alp_almacenes.estado_registro', '=', '1')
+                        ->first();
+                    }
 
 
-
-                $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
-                ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
-                ->where('alp_almacenes.tipo_almacen', '=', $tipo)
-                ->where('alp_almacen_despacho.id_city', $d->city_id)
-                ->where('alp_almacenes.estado_registro', '=', '1')->first();
+                }
 
                 if (isset($ad->id)) {
                 # code...
@@ -5740,22 +5764,6 @@ private function getAlmacen3(){
                 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             }else{
 
               $almacen=AlpAlmacenes::where('defecto', '1')->where('alp_almacenes.estado_registro', '=', '1')->first();
@@ -5771,14 +5779,6 @@ private function getAlmacen3(){
             }
 
         }else{
-
-
-
-
-
-
-
-
 
 
           $ciudad= \Session::get('ciudad');
@@ -5845,18 +5845,6 @@ private function getAlmacen3(){
 
                 }
 
-
-
-
-
-
-
-
-
-
-
-
-
               
             }else{
 
@@ -5869,20 +5857,7 @@ private function getAlmacen3(){
                   $id_almacen='1';
                 }
 
-
-
             }
-
-
-
-
-
-
-
-
-
-
-            
         
         }
 
@@ -5947,12 +5922,38 @@ private function getAlmacen3(){
 
 
 
-                $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
-                ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
-                ->where('alp_almacenes.tipo_almacen', '=', $tipo)
-                ->where('alp_almacen_despacho.id_city', $d->city_id)
-                ->where('alp_almacenes.estado_registro', '=', '1')
-                ->first();
+                if ($d->id_barrio==0) {
+                     $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
+                    ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
+                    ->where('alp_almacenes.tipo_almacen', '=', $tipo)
+                    ->where('alp_almacen_despacho.id_city', $d->city_id)
+                    ->where('alp_almacenes.estado_registro', '=', '1')
+                    ->first();
+                    
+                }else{
+
+                     $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
+                    ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
+                    ->where('alp_almacenes.tipo_almacen', '=', $tipo)
+                    ->where('alp_almacen_despacho.id_barrio', $d->id_barrio)
+                    ->where('alp_almacenes.estado_registro', '=', '1')
+                    ->first();
+
+                    if (isset($ad->id)) {
+                        # code...
+                    }else{
+
+
+                        $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
+                        ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
+                        ->where('alp_almacenes.tipo_almacen', '=', $tipo)
+                        ->where('alp_almacen_despacho.id_city', $d->city_id)
+                        ->where('alp_almacenes.estado_registro', '=', '1')
+                        ->first();
+                    }
+
+
+                }
 
                 if (isset($ad->id)) {
                 # code...

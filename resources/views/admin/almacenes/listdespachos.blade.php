@@ -5,6 +5,7 @@
             <tr>
             <th>Ciudad</th>
             <th>Departamento</th>
+            <th>Barrio</th>
             <th>Accion</th>
         </tr>
         </thead>
@@ -14,6 +15,7 @@
             <tr>
                 <td>{{$listaciudades[$d->id_city]}}</td>
                 <td>{{$listaestados[$d->id_state]}}</td>
+                <td>{{$listabarrios[$d->id_barrio]}}</td>
                 <td>
                     <button data-idalmacen="{{ $d->id_almacen }}" data-id="{{$d->id}}" class="btn btn-danger delalmacendespacho">
                         <i class="fa fa-trash"></i>

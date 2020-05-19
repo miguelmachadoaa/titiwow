@@ -404,7 +404,7 @@ class AlpInventarioController extends JoshController
         }
 
 
-      $entradas = AlpInventario::groupBy('id_producto')->groupBy('id_almacen')
+            $entradas = AlpInventario::groupBy('id_producto')->groupBy('id_almacen')
               ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
               ->where('alp_inventarios.operacion', '1')
               ->get();
@@ -419,8 +419,6 @@ class AlpInventarioController extends JoshController
                 $inv2[$row->id_producto][$row->id_almacen]=$row->cantidad_total;
 
               }
-
-
 
 
             $salidas = AlpInventario::select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))

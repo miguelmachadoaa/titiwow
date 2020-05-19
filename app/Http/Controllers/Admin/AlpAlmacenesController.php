@@ -21,6 +21,7 @@ use App\Models\AlpInventario;
 use App\User;
 use App\State;
 use App\City;
+use App\Barrio;
 
 use App\Models\AlpAlmacenesUser;
 use App\Http\Requests\AlmacenesRequest;
@@ -103,7 +104,7 @@ class AlpAlmacenesController extends JoshController
 
         $actions = " 
               <a href='".secure_url('admin/almacenes/'.$row->id.'/gestionar')."'>
-                              <i class='livicon' data-name='gears' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Agregar Productos'></i>
+                              <i class='livicon' data-name='gears' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Gestionar Almacen'></i>
                       </a>
 
 
@@ -118,12 +119,12 @@ class AlpAlmacenesController extends JoshController
                       
 
                       <a href='".secure_url('admin/almacenes/'.$row->id.'/edit')."'>
-                              <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Editar Empresa'></i>
+                              <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Editar Almacen'></i>
                       </a>
 
 
                         <a href='".secure_url('admin/almacenes/'.$row->id.'')."'>
-                              <i class='livicon' data-name='eye-open' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Editar Empresa'></i>
+                              <i class='livicon' data-name='eye-open' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Datos del almacen'></i>
                       </a>  
 
                       <a href='".secure_url('admin/almacenes/'.$row->id.'/confirm-delete')."' data-toggle='modal' data-target='#delete_confirm'> <i class='livicon' data-name='remove-alt' data-size='18'
@@ -814,18 +815,22 @@ class AlpAlmacenesController extends JoshController
 
         $listaciudades[0]='Todos';
 
+        $listabarrios=Barrio::pluck('barrio_name', 'id');
+
+         $listabarrios[0]='Todos';
+
+
+
+
+
        $formas_envio=AlpFormasenvio::get();
 
        $formas_pago=AlpFormaspago::get();
 
        $states=State::where('config_states.country_id', '47')->get();
 
-        return view('admin.almacenes.show', compact('almacen', 'productos',  'inventario', 'formas_pago', 'formas_envio', 'listaestados', 'listaciudades','despachos', 'states', 'almacen_formas_pago', 'almacen_formas_envio'));
+        return view('admin.almacenes.show', compact('almacen', 'productos',  'inventario', 'formas_pago', 'formas_envio', 'listaestados', 'listaciudades', 'listabarrios','despachos', 'states', 'almacen_formas_pago', 'almacen_formas_envio'));
     }
-
-
-
-
 
       public function addformenvio(Request $request)
     {
@@ -1031,6 +1036,7 @@ class AlpAlmacenesController extends JoshController
             'id_almacen' => $request->id_almacen, 
             'id_city' => $request->id_city, 
             'id_state' => $request->id_state, 
+            'id_barrio' => $request->id_barrio, 
             'user_id' => $request->user_id
         );
 
@@ -1046,7 +1052,12 @@ class AlpAlmacenesController extends JoshController
 
         $listaciudades[0]='Todos';
 
-          $view= View::make('admin.almacenes.listdespachos', compact('despachos', 'listaestados', 'listaciudades'));
+        $listabarrios=Barrio::pluck('barrio_name', 'id');
+
+         $listabarrios[0]='Todos';
+
+
+          $view= View::make('admin.almacenes.listdespachos', compact('despachos', 'listaestados', 'listaciudades', 'listabarrios'));
 
       $data=$view->render();
 
@@ -1098,7 +1109,11 @@ class AlpAlmacenesController extends JoshController
 
         $listaciudades[0]='Todos';
 
-          $view= View::make('admin.almacenes.listdespachos', compact('despachos', 'listaestados', 'listaciudades'));
+         $listabarrios=Barrio::pluck('barrio_name', 'id');
+
+         $listabarrios[0]='Todos';
+
+          $view= View::make('admin.almacenes.listdespachos', compact('despachos', 'listaestados', 'listaciudades', 'listabarrios'));
 
       $data=$view->render();
 

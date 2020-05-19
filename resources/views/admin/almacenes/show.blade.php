@@ -57,13 +57,13 @@ Detalle Almacen
                         <div class="row">
                             
                              <div class="form-group col-sm-8 {{ $errors->first('id_state', 'has-error') }}">
-                                <label for="select21" class="col-sm-4 control-label">
+                                <label for="select21" class="col-sm-3 control-label">
                                   Zonas de Despacho
                                 </label>
-                                <div class="col-sm-4">   
+                                <div class="col-sm-3">   
                                  <select id="id_state" name="id_state" class="form-control select2">
                                     
-                                    <option value="">Seleccione</option>
+                                    <option value="">Seleccione Departamento</option>
                                     <option value="0">Todos</option>
                                     @foreach($states as $state)
 
@@ -76,12 +76,10 @@ Detalle Almacen
                                   {!! $errors->first('id_state', '<span class="help-block">:message</span> ') !!}
                                 </div>
 
-
-
-                                <div class="col-sm-4">   
+                                <div class="col-sm-3">   
                                  <select id="id_city" name="id_city" class="form-control select2">
                                     
-                                    <option value="">Seleccione</option>
+                                    <option value="">Seleccione Ciudad</option>
                                     <option value="0">Todos</option>
                                     @foreach($states as $state)
 
@@ -92,6 +90,19 @@ Detalle Almacen
                                 </select>
 
                                   {!! $errors->first('id_city', '<span class="help-block">:message</span> ') !!}
+                                </div>
+
+
+                                <div class="col-sm-3">   
+                                 <select id="id_barrio" name="id_barrio" class="form-control select2">
+                                    
+                                    <option value="">Seleccione Barrio</option>
+
+                                    <option value="0">Todos</option>
+                                   
+                                </select>
+
+                                  {!! $errors->first('id_barrio', '<span class="help-block">:message</span> ') !!}
                                 </div>
                            
                             </div>
@@ -507,17 +518,15 @@ Detalle Almacen
 
         id_city = $('#id_city').val();
         id_state = $('#id_state').val();
-
-
+        id_barrio = $('#id_barrio').val();
 
         id_almacen = $('#id_almacen').val();
 
         _token = $('#_token').val();
 
-
          $.ajax({
             type: "POST",
-            data:{ id_city, id_state, id_almacen, _token},
+            data:{ id_city, id_state, id_almacen, id_barrio, _token},
             url: base+"/admin/almacenes/"+id_almacen+"/adddespacho",
                 
             complete: function(datos){     
@@ -587,7 +596,46 @@ Detalle Almacen
 
 
 
+       $('select[name="id_city"]').on('change', function() {
+    var citiId = $(this).val();
+    
+    var base = $('#base').val();
+
+    if(citiId) {
+
+        $.ajax({
+            url: base+'/configuracion/barriotodos/'+citiId,
+            type: "GET",
+            dataType: "json",
+            success:function(data) {
+
+                
+                $('select[name="id_barrio"]').empty();
+
+                $.each(data, function(key, value) {
+
+                    $('select[name="id_barrio"]').append('<option value="'+ key +'">'+ value +'</option>');
+
+                });
+
+            }
+        });
+
+    }else{
+        $('select[name="id_barrio"]').empty();
+    }
+});
+
+
+
+
+
+
 </script>
+
+
+
+
 
 
 @stop
