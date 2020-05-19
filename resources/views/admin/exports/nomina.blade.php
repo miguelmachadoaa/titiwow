@@ -16,20 +16,22 @@
     <tbody>
 
         @foreach ($ordenes as $row)
-        <tr>
-            <td>{!! $row->id !!}</td>
-            <td>{!! $row->doc_cliente!!}</td>
-            <td>{!! $row->cod_oracle_cliente!!}</td>
-            <td>{!! $row->first_name.' '.$row->last_name!!}</td>
-            <td>{!! $row->referencia_producto_sap!!}</td>
-            <td>{!! $row->referencia_producto!!}</td>
-            <td>{!! $row->nombre_producto!!}</td>
-            <td>{!! $row->cantidad!!}</td>
-            <td>{!! date("d/m/Y H:i:s", strtotime($row->created_at))!!}</td>
-            <td>{!! $row->city_name !!}</td>
+            @foreach ($row->detalles as $detalle)
+                <tr>
+                    <td>{!! $row->id !!}</td>
+                    <td>{!! $row->cliente->doc_cliente!!}</td>
+                    <td>{!! $row->cliente->cod_oracle_cliente!!}</td>
+                    <td>{!! $row->cliente->first_name.' '.$row->cliente->last_name!!}</td>
+                    <td>{!! $detalle->referencia_producto_sap!!}</td>
+                    <td>{!! $detalle->referencia_producto!!}</td>
+                    <td>{!! $detalle->nombre_producto!!}</td>
+                    <td>{!! $detalle->cantidad!!}</td>
+                    <td>{!! date("d/m/Y H:i:s", strtotime($row->created_at))!!}</td>
+                    <td>{!! $row->direccion->city_name !!}</td>
 
-          
-        </tr>
+                  
+                </tr>
+            @endforeach
         @endforeach
     </tbody>
 </table>
