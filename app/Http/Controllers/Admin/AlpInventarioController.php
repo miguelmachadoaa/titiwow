@@ -429,9 +429,6 @@ class AlpInventarioController extends JoshController
 
               foreach ($salidas as $row) {
                 
-                //$inv[$row->id_producto]= $inv[$row->id_producto]-$row->cantidad_total;
-
-
               $inv2[$row->id_producto][$row->id_almacen]= $inv2[$row->id_producto][$row->id_almacen]-$row->cantidad_total;
                 //$inv2[$row->id_producto][$row->id_almacen]= $row->cantidad_total;
 
