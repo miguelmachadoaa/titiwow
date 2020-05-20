@@ -297,6 +297,10 @@ Detalle Almacen
                                             Inventario
                                         </th>
 
+                                        <th>
+                                            Gestionar
+                                        </th>
+
                                        
                                     </tr>
                                 </thead>
@@ -335,6 +339,9 @@ Detalle Almacen
                                     {{'0'}}
 
                                 @endif
+                            </td>
+                            <td>
+                                <a target="_blank" class='btn btn-xs btn-info' href='{{secure_url('admin/inventario/'.$p->id.'/edit')}}'> Gestionar  </a>
                             </td>
 
                            

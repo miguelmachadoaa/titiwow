@@ -819,10 +819,6 @@ class AlpAlmacenesController extends JoshController
 
          $listabarrios[0]='Todos';
 
-
-
-
-
        $formas_envio=AlpFormasenvio::get();
 
        $formas_pago=AlpFormaspago::get();

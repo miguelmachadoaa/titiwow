@@ -131,10 +131,6 @@ class AlpCartController extends JoshController
 
       $id_almacen=$this->getAlmacenCart();
 
-      echo $id_almacen;
-
-      //dd($id_almacen);
-
       $descuento='1'; 
 
       $precio = array();
@@ -1414,8 +1410,6 @@ class AlpCartController extends JoshController
 
 
 
-         // dd($id_almacen);
-
 
           $afe=AlpAlmacenFormaEnvio::where('id_almacen', $id_almacen)->first();
 
@@ -1454,8 +1448,6 @@ class AlpCartController extends JoshController
               ->where('alp_rol_pago.id_rol', $role->role_id)->get();
 
           }
-
-
          
 
           $countries = Country::all();
@@ -1590,12 +1582,14 @@ class AlpCartController extends JoshController
 
         $id_forma_envio= \Session::get('envio');
 
-
         $fev = AlpFormasenvio::select('alp_formas_envios.*')
-          ->join('alp_rol_envio', 'alp_formas_envios.id', '=', 'alp_rol_envio.id_forma_envio')
-          ->where('alp_rol_envio.id_rol', $role->role_id)
-          ->where('alp_rol_envio.id_forma_envio', $id_forma_envio)
+          ->join('alp_almacen_formas_envio', 'alp_formas_envios.id', '=', 'alp_almacen_formas_envio.id_forma_envio')
+          //->where('alp_rol_envio.id_rol', $role->role_id)
+          ->where('alp_almacen_formas_envio.id_forma_envio', $id_forma_envio)
           ->first();
+
+       // dd($id_forma_envio);
+
 
           if (isset($fev->id)) {
             # code...
