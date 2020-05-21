@@ -149,6 +149,28 @@ class FrontEndController extends JoshController
 
     $input=$request->all();
 
+
+ if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->all())->log('FrontEndController/getCompramas ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('FrontEndController/getCompramas');
+
+        }
+        
+
+
+
+
+
     $r="false";
 
     $orden=AlpOrdenes::where('referencia', $input['ordenId'])->first();
