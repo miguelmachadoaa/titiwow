@@ -88,7 +88,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('notificacion:carrito')->hourly();
 
        // $schedule->command('activitylog:clean')->daily();
-
+ 
         $schedule->command('activitylog:clean')->dailyAt('00:05');
 
         $almacenes=AlpAlmacenes::get();
