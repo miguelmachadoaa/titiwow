@@ -223,6 +223,8 @@ class FrontEndController extends JoshController
   public function getXml()
     {
 
+    
+
 
       $productos=AlpProductos::select('alp_productos.*', 'alp_marcas.nombre_marca as nombre_marca')
       ->join('alp_marcas', 'alp_productos.id_marca', '=','alp_marcas.id')
