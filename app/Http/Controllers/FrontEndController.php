@@ -147,41 +147,45 @@ class FrontEndController extends JoshController
   public function getCompramas(Request $request)
   {
 
-    $input=$request->all();
 
-
- if (Sentinel::check()) {
+        if (Sentinel::check()) {
 
           $user = Sentinel::getUser();
 
           activity($user->full_name)
             ->performedOn($user)
             ->causedBy($user)
-            ->withProperties($request->all())->log('FrontEndController/getCompramas ');
+            ->withProperties($request->getContent())->log('FrontEndController/getCompramas ');
 
         }else{
 
           activity()
-          ->withProperties($request->all())->log('FrontEndController/getCompramas');
+          ->withProperties($request->getContent())->log('FrontEndController/getCompramas');
 
         }
+
         
+      $content = $request->getContent();
 
-
-
+      $input = json_decode($content, true);
 
 
     $r="false";
 
     $orden=AlpOrdenes::where('referencia', $input['ordenId'])->first();
 
+
+
     if (isset($orden->id)) {
 
       $envio=AlpEnvios::where('id_orden', $orden->id)->first();
 
+
+
       if (isset($envio->id)) {
 
         $status=AlpEnviosEstatus::where('codigo', $input['estado'])->first();
+
 
         $user=User::where('id', $orden->id_user)->first();
 
