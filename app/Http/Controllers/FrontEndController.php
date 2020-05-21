@@ -189,7 +189,7 @@ class FrontEndController extends JoshController
      
     }
 
-    return json_encode($r);
+    return response(json_encode($r), 200) ->header('Content-Type', 'application/json');
    
   }
 
