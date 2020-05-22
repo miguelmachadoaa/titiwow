@@ -3,7 +3,7 @@
 
 Hola {{ $user->first_name.' '.$user->last_name }}
 
-
+<p>
 @switch($status->id)
     @case(1)
 
@@ -54,6 +54,7 @@ Hola {{ $user->first_name.' '.$user->last_name }}
     @default
         
 @endswitch
+</p>
 
 Puedes ver el detalle de tu compra y  Rastrearla en la seccion de mis compras en tu area de cliente.
 
