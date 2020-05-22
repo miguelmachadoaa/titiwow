@@ -223,43 +223,6 @@ class FrontEndController extends JoshController
   public function getXml()
     {
 
-      $dt = array(
-        "ordenId"=> "ALP2503",
-        "estado"=> "in_fulfillment",
-        "mensajero"=> "Miguel Machado",
-        "telefono"=> "11111"
-      );
-
-      $dataraw=json_encode($dt);
-
-       $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL, 'https://crearemosdev.com/pruebas/compramas');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-
-        $headers = array();
-        $headers[] = 'Content-Type: application/json';
-        $headers[] = 'Woobsing-Token: f3f49185-4b8b-4918-b425-e6e3e9985349';
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
-        $result = curl_exec($ch);
-        if (curl_errno($ch)) {
-            echo 'Error:' . curl_error($ch);
-        }
-        curl_close($ch);
-
-        dd($result);
-
-        $dtt = array('json' => $result );
-
-        
-
-
-
       $productos=AlpProductos::select('alp_productos.*', 'alp_marcas.nombre_marca as nombre_marca')
       ->join('alp_marcas', 'alp_productos.id_marca', '=','alp_marcas.id')
       ->where('alp_productos.estado_registro','=',1)

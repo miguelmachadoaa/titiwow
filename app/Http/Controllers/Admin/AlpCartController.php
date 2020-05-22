@@ -1689,7 +1689,7 @@ class AlpCartController extends JoshController
             $saldo[$user->id]=0;
           }
 
-          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos', 'total_descuentos', 'costo_envio', 'id_forma_envio', 'envio_base', 'envio_impuesto', 'express', 'saldo', 'user'));
+          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos', 'total_descuentos', 'costo_envio', 'id_forma_envio', 'envio_base', 'envio_impuesto', 'express', 'saldo', 'user','role'));
 
          }
 
@@ -1959,8 +1959,11 @@ class AlpCartController extends JoshController
 
       }else{
 
+        if (isset($ciudad_forma->hora)) {
+          # code...
 
-           $date = Carbon::now();
+
+        $date = Carbon::now();
 
        $hora=$date->format('Hi');
 
@@ -1997,6 +2000,11 @@ class AlpCartController extends JoshController
 
 
           $dias=$ciudad_forma->dias;
+
+        }else{
+
+          $dias=1;
+        }
 
       }
 
@@ -2303,6 +2311,14 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         $ciudad_forma=AlpFormaCiudad::where('id_forma', $orden->id_forma_envio)->where('id_ciudad', $direccion->city_id)->first();
 
+        if (isset($ciudad_forma->dias)) {
+          $diasd=$ciudad_forma->dias;
+        }else{
+
+          $diasd=5;
+
+        }
+
 
 
         $date = Carbon::now();
@@ -2316,7 +2332,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        $date = Carbon::now();
 
-       $fecha_envio=$date->addDays($ciudad_forma->dias)->format('Y-m-d');
+       $fecha_envio=$date->addDays($diasd)->format('Y-m-d');
 
         $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
 
@@ -2353,7 +2369,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         $data_envio = array(
           'id_orden' => $orden->id, 
-          'fecha_envio' => $date->addDays($ciudad_forma->dias)->format('Y-m-d'),
+          'fecha_envio' => $date->addDays($diasd)->format('Y-m-d'),
           'estatus' => 1, 
           'id_user' =>$user_id                   
 

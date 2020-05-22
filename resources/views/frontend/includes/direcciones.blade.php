@@ -5,7 +5,14 @@
 
             @if($configuracion->editar_direccion=='0')
 
-                <button style="float: right;" class="btn btn-primary showAddAddress">Agregar Dirección</button>
+                @if($role->role_id=!14)
+
+                 <button style="float: right;" class="btn btn-primary showAddAddress">Agregar Dirección</button>
+
+                @endif
+
+
+               
 
             @endif</h3>
 

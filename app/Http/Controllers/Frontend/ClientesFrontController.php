@@ -277,6 +277,8 @@ class ClientesFrontController extends Controller
 
             $user_id = Sentinel::getUser()->id;
 
+            $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
+
              $direccion = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
           ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
@@ -365,7 +367,7 @@ class ClientesFrontController extends Controller
 
 
 
-            return view('frontend.clientes.misdirecciones', compact('direcciones', 'cliente', 'user', 'countries',  'editar', 'states', 't_documento', 'estructura', 'cities', 'cart', 'configuracion', 'direccion', 'listabarrios'));
+            return view('frontend.clientes.misdirecciones', compact('direcciones', 'cliente', 'user', 'countries',  'editar', 'states', 't_documento', 'estructura', 'cities', 'cart', 'configuracion', 'direccion', 'listabarrios', 'role'));
     
 
             }else{
