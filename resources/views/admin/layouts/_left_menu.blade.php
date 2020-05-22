@@ -238,6 +238,19 @@
     @endif
 
 
+    @if (Sentinel::getUser()->hasAnyAccess(['xml.*']))
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/xml*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.xml.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Productos Xml
+                </a>
+            </li> 
+        </ul>
+    @endif
+
+
+
 
 
         

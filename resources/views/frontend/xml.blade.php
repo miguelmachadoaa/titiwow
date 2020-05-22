@@ -5,8 +5,8 @@
         {{'<link>http://www.alpinago.com</link>'}}
         {{'<description>Alpinago Store</description>'}}
         {{'<atom:link href="https://www.alpinago.com/xml" rel="self" type="application/rss+xml"'}} />
-        @if(count($productos))
-            @foreach($productos as $p)
+        @if(count($prods))
+            @foreach($prods as $p)
                 @if(isset($inventario[$p->id]))
                     {{'<item>'}}
                         {{'<g:item_group_id>'.$p->id.'</g:item_group_id>'}}
@@ -21,8 +21,8 @@
                         {{'<g:condition>new</g:condition>'}}
                         {{'<g:availability>in stock</g:availability>'}}
                         {{'<g:price>'.$p->precio_base.' COP</g:price>'}}
-                        {{'<g:sale_price>'.$p->precio_base.' COP</g:sale_price>'}}
-                        {{'<g:offer_price>'.$p->precio_base.' COP</g:offer_price>'}}
+                        {{'<g:sale_price>'.$p->precio_oferta.' COP</g:sale_price>'}}
+                        {{'<g:offer_price>'.$p->precio_oferta.' COP</g:offer_price>'}}
                     {{'</item>'}}
                 @endif
             @endforeach

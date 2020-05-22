@@ -36,6 +36,7 @@ use App\Models\AlpOrdenes;
 use App\Models\AlpEnvios;
 use App\Models\AlpEnviosEstatus;
 use App\Models\AlpEnviosHistory;
+use App\Models\AlpXml;
 use App\User;
 use App\State;
 use App\City;
@@ -220,18 +221,100 @@ class FrontEndController extends JoshController
   }
 
 
-  public function getXml()
+    public function getXml()
     {
 
       $productos=AlpProductos::select('alp_productos.*', 'alp_marcas.nombre_marca as nombre_marca')
       ->join('alp_marcas', 'alp_productos.id_marca', '=','alp_marcas.id')
+      ->join('alp_xml', 'alp_productos.id', '=','alp_xml.id_producto')
       ->where('alp_productos.estado_registro','=',1)
+      ->whereNull('alp_xml.deleted_at')
+      ->whereNull('alp_productos.deleted_at')
       ->get();
+
+      $cs1=AlpXml::first();
+
+
+          $precio = array();
+
+         foreach ($productos as  $row) {
+                    
+            $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $cs1->id_rol)->first();
+
+            if (isset($pregiogrupo->id)) {
+               
+                $precio[$row->id]['precio']=$pregiogrupo->precio;
+                $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                $precio[$row->id]['pum']=$pregiogrupo->pum;
+
+            }
+
+        }
+
+        $descuento=1;
+
+        $prods = array( );
+
+        foreach ($productos as $producto) {
+
+      if ($descuento=='1') {
+
+        if (isset($precio[$producto->id])) {
+          # code...
+         
+          switch ($precio[$producto->id]['operacion']) {
+
+            case 1:
+
+              $producto->precio_oferta=$producto->precio_base*$descuento;
+
+              break;
+
+            case 2:
+
+              $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
+              
+              break;
+
+            case 3:
+
+              $producto->precio_oferta=$precio[$producto->id]['precio'];
+              
+              break;
+            
+            default:
+            
+             $producto->precio_oferta=$producto->precio_base*$descuento;
+              # code...
+              break;
+          }
+
+        }else{
+
+          $producto->precio_oferta=$producto->precio_base*$descuento;
+
+        }
+
+
+       }else{
+
+       $producto->precio_oferta=$producto->precio_base*$descuento;
+
+
+       }
+
+
+       $prods[]=$producto;
+
+
+      }
+
+
 
       $inventario=$this->inventario();
         // Is the user logged in?
-      return view('frontend.xml', compact('productos', 'inventario'));
-
+      return view('frontend.xml', compact('prods', 'inventario'));
+      
     }
 
 

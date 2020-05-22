@@ -122,7 +122,7 @@ Route::get('admin/transportistas/data', 'Admin\AlpTransportistasController@data'
 
 Route::get('admin/alpinistas/data', 'Admin\AlpAlpinistasController@data')->name('alpinistas.data');
 
-
+Route::get('admin/xml/data', 'Admin\AlpXmlController@data')->name('xml.data');
 
 
 Route::group(array('prefix' => 'admin/', 'middleware' => 'admin','as'=>'admin.'), function () {
@@ -748,6 +748,13 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
 
 
+
+
+     Route::resource('xml', 'Admin\AlpXmlController');
+
+    Route::post('xml', 'Admin\AlpXmlController@index');
+    
+    Route::post('xml/store', 'Admin\AlpXmlController@store');
 
 
 
