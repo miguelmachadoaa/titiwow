@@ -39,6 +39,12 @@ class AlmacenesRequest extends FormRequest {
 					'correos' => 'required',
 					'minimo_compra' => 'required',
 					'tipo_almacen' => 'required',
+					'id_estructura_address' => 'required',
+					'principal_address' => 'required',
+					'secundaria_address' => 'required',
+					'edificio_address' => 'required',
+					'detalle_address' => 'required',
+					'barrio_address' => 'required',
 					'city_id' => 'required'               
                 ];
             }
@@ -52,6 +58,12 @@ class AlmacenesRequest extends FormRequest {
 					'correos' => 'required',
 					'minimo_compra' => 'required',
 					'tipo_almacen' => 'required',
+					'id_estructura_address' => 'required',
+					'principal_address' => 'required',
+					'secundaria_address' => 'required',
+					'edificio_address' => 'required',
+					'detalle_address' => 'required',
+					'barrio_address' => 'required',
 					'city_id' => 'required'  
                 ];
             }

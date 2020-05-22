@@ -8,6 +8,7 @@ use App\Models\AlpEstructuraAddress;
 use App\Models\AlpAlmacenes;
 use App\Models\AlpAlmacenProducto;
 use App\Models\AlpAlmacenRol;
+use App\Models\AlpDirecciones;
 use App\Models\AlpAlmacenDespacho;
 use App\Models\AlpAlmacenFormaEnvio;
 use App\Models\AlpAlmacenFormaPago;
@@ -185,8 +186,16 @@ class AlpAlmacenesController extends JoshController
         $states=State::where('config_states.country_id', '47')->get();
 
         $cities=City::get();
+
+
+         $t_documento = AlpTDocumento::where('estado_registro','=',1)->get();
+
+            $estructura = AlpEstructuraAddress::where('estado_registro','=',1)->get();
+
+
+
         // Show the page
-        return view ('admin.almacenes.create', compact('almacen', 'states', 'cities'));
+        return view ('admin.almacenes.create', compact('almacen', 'states', 'cities','t_documento', 'estructura'));
     }
 
     /**
@@ -241,6 +250,24 @@ class AlpAlmacenesController extends JoshController
         );
          
         $almacen=AlpAlmacenes::create($data);
+
+
+
+        $data_direccion = array(
+        'id_client'=>'A'.$almacen->id,
+        'titulo'=>$request->titulo,
+        'city_id'=>$request->city_id,
+        'id_estructura_address'=>$request->id_estructura_address,
+        'principal_address'=>$request->principal_address,
+        'secundaria_address'=>$request->secundaria_address,
+        'edificio_address'=>$request->edificio_address,
+        'detalle_address'=>$request->detalle_address,
+        'barrio_address'=>$request->barrio_address,
+        'id_barrio'=>$request->id_barrio,
+        'notas'=>$request->notas
+        );
+
+        $dir=AlpDirecciones::create($data_direccion);
       
 
         if ($almacen->id) {
@@ -310,9 +337,14 @@ class AlpAlmacenesController extends JoshController
        // $listaciudades=City::pluck('city_name', 'id');
 
        // $listaciudades[0]='Todos';
+       // 
+        $estructura = AlpEstructuraAddress::where('estado_registro','=',1)->get();
+
+        $direccion=AlpDirecciones::where('id_client', 'A'.$almacen->id)->first();
 
 
-        return view('admin.almacenes.edit', compact('almacen', 'states', 'cities'));
+
+        return view('admin.almacenes.edit', compact('almacen', 'states', 'cities', 'estructura', 'direccion'));
     }
 
     /**
@@ -369,6 +401,33 @@ class AlpAlmacenesController extends JoshController
        $almacen = AlpAlmacenes::find($id);
     
         $almacen->update($data);
+
+         $data_direccion = array(
+          'id_client'=>'A'.$almacen->id,
+        'titulo'=>$request->titulo,
+        'city_id'=>$request->city_id,
+        'id_estructura_address'=>$request->id_estructura_address,
+        'principal_address'=>$request->principal_address,
+        'secundaria_address'=>$request->secundaria_address,
+        'edificio_address'=>$request->edificio_address,
+        'detalle_address'=>$request->detalle_address,
+        'barrio_address'=>$request->barrio_address,
+        'id_barrio'=>$request->id_barrio,
+        'notas'=>$request->notas
+        );
+
+        $direccion=AlpDirecciones::where('id_client', 'A'.$almacen->id)->first();
+
+        if (isset($direcion->id)) {
+          # code...
+          $direccion->update($data_direccion);
+        }else{
+
+
+          AlpDirecciones::create($data_direccion);
+        }
+
+        
 
         if ($almacen->id) {
 
