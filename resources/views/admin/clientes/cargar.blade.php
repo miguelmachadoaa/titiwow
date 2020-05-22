@@ -84,7 +84,32 @@ Cargar Clientes
                 <form class="form-horizontal" enctype="multipart/form-data" role="form" method="post" action="{{ secure_url('admin/clientes/import') }}">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <div class="form-group">
+
+                            
+
+
                             <div class="row">
+
+                             <div class="form-group col-sm-12 ">
+                                    <label for="select21" class="col-md-2 control-label text-right">
+                                    Almacen                                               
+                                    </label>
+                                    <div class="col-md-10">   
+                                        <select id="id_almacen" name="id_almacen" class="form-control select2">
+                                            <option value="">Seleccione</option>
+
+                                             @foreach($almacenes as $alm)
+                                             
+                                                <option  value="{{ $alm->id }}">{{ $alm->nombre_almacen }}</option>
+
+                                             @endforeach
+                                            
+                                        </select>
+                                    </div>           
+                                </div>
+
+
+
                                 <label class="col-md-3 col-lg-3 col-12 control-label" for="upload">Archivo XLSX (Suministrado)</label>
                                 <div class="col-md-9 col-12 col-lg-9">
                                     <input type="file" accept=".xlsx" name="file_alpinistas" name="file_alpinistas" id="clientes"> <!-- rename it -->
