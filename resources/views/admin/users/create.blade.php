@@ -258,6 +258,24 @@
                                             </div>
                                             <span class="help-block">{{ $errors->first('group', ':message') }}</span>
                                         </div>
+
+                                        <div class="form-group ">
+                                            <label for="almacen" class="col-sm-2 control-label">Almacen <small>Solo es requerido para el rol almacen.</small></label>
+                                            <div class="col-sm-10">
+                                                <select class="form-control " title="Seleccion Rol.." name="almacen"   id="almacen">
+                                                    <option value="">Seleccione</option>
+                                                    @foreach($almacenes as $almacen)
+                                                        <option value="{{ $almacen->id }}"
+                                                                @if($almacen->id == old('almacen')) selected="selected" @endif >{{ $almacen->nombre_almacen}}</option>
+                                                    @endforeach
+                                                </select>
+                                                {!! $errors->first('group', '<span class="help-block">:message</span>') !!}
+                                            </div>
+                                            <span class="help-block">{{ $errors->first('group', ':message') }}</span>
+                                        </div>
+
+
+
                                         <div class="form-group">
                                             <label for="activate" class="col-sm-2 control-label"> Activar  Usuario *</label>
                                             <div class="col-sm-10">

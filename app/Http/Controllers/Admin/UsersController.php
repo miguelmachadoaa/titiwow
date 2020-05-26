@@ -5,6 +5,7 @@ use App\Http\Controllers\JoshController;
 use App\Http\Requests\UsuarioRequest;
 use App\Mail\Register;
 use App\Mail\Restore;
+use App\Models\AlpAlmacenes;
 use App\User;
 use App\State;
 use Cartalyst\Sentinel\Laravel\Facades\Activation;
@@ -88,7 +89,7 @@ class UsersController extends JoshController
 
         $users =  User::select('users.*')
         ->join('role_users', 'users.id', '=', 'role_users.user_id')
-        ->whereIn('role_users.role_id', [1, 2, 3, 4, 5, 6, 7, 8,13])->get();
+        ->whereIn('role_users.role_id', [1, 2, 3, 4, 5, 6, 7, 8,13, 15])->get();
 
         return DataTables::of($users)
             ->editColumn('created_at',function(User $user) {
@@ -124,12 +125,14 @@ class UsersController extends JoshController
         // Get all the available groups
         $groups = Sentinel::getRoleRepository()->all();
 
-        $groups = DB::table('roles')->whereIn('roles.id', [1,2,3,4,5,6,7,8,13])->get();
+        $groups = DB::table('roles')->whereIn('roles.id', [1,2,3,4,5,6,7,8,13,15])->get();
 
         $countries = $this->countries;
 
         $almacenes=AlpAlmacenes::where('estado_registro', '1')->get();
-        // Show the page
+
+      //  $almacenes[0]='No Aplica';
+
         return view('admin.users.create', compact('groups', 'countries', 'almacenes'));
 
     }
@@ -211,8 +214,10 @@ class UsersController extends JoshController
 
         $countries = $this->countries;
 
+        $almacenes=AlpAlmacenes::where('estado_registro', '1')->get();
+
         // Show the page
-        return view('admin.users.edit', compact('user', 'roles', 'userRoles', 'countries', 'status'));
+        return view('admin.users.edit', compact('user', 'roles', 'userRoles', 'countries', 'status', 'almacenes'));
     }
 
     /**
@@ -312,7 +317,7 @@ class UsersController extends JoshController
                     ->causedBy($user)
                     ->log('User Updated by '.Sentinel::getUser()->full_name);
                 // Redirect to the user page
-                return redirect('admin.users.edit', $user)->with('success', $success);
+                 return redirect('admin/users/' )->with('success', $success);
             }
 
             // Prepare the error message
