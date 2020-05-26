@@ -127,8 +127,11 @@ class UsersController extends JoshController
         $groups = DB::table('roles')->whereIn('roles.id', [1,2,3,4,5,6,7,8,13])->get();
 
         $countries = $this->countries;
+
+        $almacenes=AlpAlmacenes::where('estado_registro', '1')->get();
         // Show the page
-        return view('admin.users.create', compact('groups', 'countries'));
+        return view('admin.users.create', compact('groups', 'countries', 'almacenes'));
+
     }
 
     /**

@@ -74,14 +74,6 @@ Xml Productos
                                 
                             </div> 
 
-
-                        
-
-
-
-
-
-                    
                           
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
@@ -148,7 +140,9 @@ Xml Productos
                             </td>
 
                             <td>
-                                <img style="width: 60px;" src="{{secure_url('uploads/productos/'.$p->imagen_producto)}}" alt="img">
+                                <figure>
+                                    <img style="width: 60px;" src="{{secure_url('uploads/productos/'.$p->imagen_producto)}}" data-src="{{secure_url('uploads/productos/'.$p->imagen_producto)}}" alt="img">
+                                </figure>
                             </td>
 
                             <td>
@@ -255,7 +249,35 @@ Xml Productos
 
 <script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
 
+<script type="text/javascript" src="{{ secure_asset('assets/js/in-view.min.js') }}"></script>
+
 <script>
+
+    inView( 'figure2' ).on( 'enter', function( figure ) {
+ 
+         var img = figure.querySelector( 'img' ); // 1
+     
+         if (  'undefined' !== typeof img.dataset.src ) { // 2
+     
+             //figure.classList.add( 'is-loading' ); // 3
+     
+             // 4
+             newImg = new Image();
+             img.src = img.dataset.src;
+     
+             img.addEventListener( 'load', function() {
+     
+                figure.innerHTML = ''; // 5
+                figure.appendChild( this );
+
+                // 6
+               // setTimeout( function() {
+               //    figure.classList.remove( 'is-loading' );
+                //   figure.classList.add( 'is-loaded' );
+                //}, 300 );
+             } );
+         }
+    } );
 
 
     //$('#tableAlmacen').DataTable();

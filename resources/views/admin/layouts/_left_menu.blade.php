@@ -227,31 +227,28 @@
 
 
          @if (Sentinel::getUser()->hasAnyAccess(['almacenes.*']))
-        <ul class="sub-menu">
             <li {!! (Request::is('admin/almacenes*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.almacenes.index') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Almacenes
                 </a>
             </li> 
-        </ul>
     @endif
 
 
-    @if (Sentinel::getUser()->hasAnyAccess(['xml.*']))
-        <ul class="sub-menu">
-            <li {!! (Request::is('admin/xml*') ? 'class="active"' : '') !!}>
+         @if (Sentinel::getUser()->hasAnyAccess(['xml.*']))
+
+          <li {!! (Request::is('admin/xml*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.xml.index') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Productos Xml
                 </a>
-            </li> 
-        </ul>
+            </li>
+
     @endif
 
 
-
-
+            
 
         
     </ul>
