@@ -62,12 +62,8 @@ class AlpOrdenesController extends JoshController
           activity()
           ->withProperties(['id'=>$id])->log('AlpOrdenesController/sendmail');
 
-
         }
 
-
-
-        
          $configuracion = AlpConfiguracion::where('id', '1')->first();
 
 
@@ -79,8 +75,6 @@ class AlpOrdenesController extends JoshController
         ->join('role_users', 'users.id', '=', 'role_users.user_id')
         ->join('roles', 'role_users.role_id', '=', 'roles.id')
         ->where('users.id', '=', $orden->id_user)->first();
-
-
 
         $data = [
             'cliente' => $cliente,

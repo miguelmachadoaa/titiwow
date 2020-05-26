@@ -452,6 +452,11 @@ Route::post('productos/postgrid/', ['as'=> 'productos.postgrid', 'uses' => 'Admi
    Route::post('reportes/exportdetalleventa', 'Admin\AlpReportesController@exportdetalleventa')->name('reportes.exportdetalleventa');
 
 
+   Route::get('reportes/detalleclientes', 'Admin\AlpReportesController@detalleclientes')->name('reportes.detalleclientes');
+   
+   Route::post('reportes/exportdetalleclientes', 'Admin\AlpReportesController@exportdetalleclientes')->name('reportes.exportdetalleclientes');
+
+
 
 
    Route::get('reportes/ventastotales', 'Admin\AlpReportesController@ventastotales')->name('reportes.ventastotales');

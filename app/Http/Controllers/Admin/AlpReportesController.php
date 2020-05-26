@@ -17,6 +17,7 @@ use App\Exports\UsersExport;
 use App\Exports\VentasExport;
 use App\Exports\VentastotalesExport;
 use App\Exports\DetalleVentaExport;
+use App\Exports\DetalleClientesExport;
 use App\Exports\ProductosExport;
 use App\Exports\ProductosExportB;
 use App\Exports\ProductosExportC;
@@ -1390,7 +1391,54 @@ class AlpReportesController extends Controller
 
 
 
+     public function detalleclientes() 
+    {
 
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/detalleclientes ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/detalleclientes');
+
+        }
+
+        return view('admin.reportes.detalleclientes');
+
+    }
+
+    public function exportdetalleclientes(Request $request) 
+    {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exportdetalleclientes ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exportdetalleclientes');
+
+        }
+
+        $input=$request->all();
+
+       // dd($input);
+
+        return Excel::download(new DetalleClientesExport($request->desde, $request->hasta), 'detalle_clientes_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+    }
 
 
 
