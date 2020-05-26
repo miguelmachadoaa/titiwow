@@ -9,6 +9,7 @@ use App\Models\AlpOrdenesDescuento;
 use App\Models\AlpEstatusOrdenes;
 use App\Models\AlpOrdenesHistory;
 use App\Models\AlpDetalles;
+use App\Models\AlpAlmacenes;
 use App\Models\AlpPagos;
 use App\Models\AlpPuntos;
 use App\Models\AlpConfiguracion;
@@ -2455,6 +2456,225 @@ class AlpOrdenesController extends JoshController
 
     }
 
+
+
+
+  public function almacen()
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpOrdenesController/almacen ');
+
+        }else{
+
+          activity()
+          ->log('AlpOrdenesController/almacen');
+
+        }
+
+        // Grab all the groups
+        // 
+        
+      
+        $ordenes = AlpOrdenes::all();
+
+        $estatus_ordenes = AlpEstatusOrdenes::all();
+
+         $ordenes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
+          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
+          ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
+          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
+          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+           ->groupBy('alp_ordenes.id')
+           ->where('alp_ordenes.id_almacen', $user->almacen)
+          ->get();
+
+          $almacen=AlpAlmacenes::where('id', $user->almacen)->first();
+
+        return view('admin.ordenes.almacen', compact('ordenes', 'estatus_ordenes', 'almacen'));
+
+    }
+
+
+
+
+     public function dataalmacen()
+    {
+
+      $user = Sentinel::getUser();
+    
+          $ordenes = AlpOrdenes::select('alp_ordenes.*', 'alp_clientes.telefono_cliente as telefono_cliente','users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+           ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
+          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
+          ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
+          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
+          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+           ->groupBy('alp_ordenes.id')
+           ->where('alp_ordenes.id_almacen', $user->almacen)
+          ->get();
+
+
+            $data = array();
+
+          foreach($ordenes as $row){
+
+            $pago="<div style='display: inline-block;' class='pago_".$row->id."'>  
+
+                                            <button data-id='".$row->id."' class='btn btn-xs btn-success pago' > ".$row->estatus_pago_nombre." </button></div>";
+
+             $estatus="<span class='badge badge-default' >".$row->estatus_nombre."</span>";
+
+
+
+                 $actions = " 
+                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detallealmacen', $row->id)."'>
+                                                ver detalles
+                                            </a>  <div style='display: inline-block;' class='estatus_".$row->id."'>
+                                           ";
+
+
+              $envio=AlpEnvios::where('id_orden', $row->id)->first();
+              if (isset($envio->id)) {
+                # code...
+
+                $row->monto_total=$row->monto_total+$envio->costo;
+              }    
+
+              $descuento=AlpOrdenesDescuento::where('id_orden', $row->id)->first();
+
+              if (isset($descuento->id)) {
+
+                $cupon=$descuento->codigo_cupon;
+                # code...
+              }else{
+
+                $cupon='N/A';
+
+              }
+
+
+               $data[]= array(
+                 $row->id, 
+                 $row->referencia, 
+                 $row->first_name.' '.$row->last_name, 
+                 $row->telefono_cliente, 
+                 $row->nombre_forma_envios, 
+                 $row->nombre_forma_pago, 
+                 number_format($row->monto_total,2), 
+                 number_format($row->monto_total_base,2), 
+                 $cupon,
+                 $actions
+              );
+
+          }
+
+          return json_encode( array('data' => $data ));
+
+    }
+
+
+public function detallealmacen($id)
+    {
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpOrdenesController/detalle ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpOrdenesController/detalle');
+
+
+        }
+
+
+       
+    $orden = AlpOrdenes::find($id);
+
+      //dd($orden);
+
+    $detalles = AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto','alp_productos.referencia_producto as referencia_producto')
+          ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
+          ->where('alp_ordenes_detalle.id_orden', $id)
+          ->get();
+
+    $pago = AlpPagos::select('alp_ordenes_pagos.*','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago')
+          ->join('alp_formas_pagos', 'alp_ordenes_pagos.id_forma_pago', '=', 'alp_formas_pagos.id')
+          ->where('alp_ordenes_pagos.id_orden', $id)
+          ->first();
+
+
+    $pago_aprobado = AlpPagos::select('alp_ordenes_pagos.*','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago')
+          ->join('alp_formas_pagos', 'alp_ordenes_pagos.id_forma_pago', '=', 'alp_formas_pagos.id')
+          ->where('alp_ordenes_pagos.id_orden', $id)
+          ->orderBy('alp_ordenes_pagos.id', 'desc')
+          ->first();
+
+        $pagos = AlpPagos::select('alp_ordenes_pagos.*','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago')
+          ->join('alp_formas_pagos', 'alp_ordenes_pagos.id_forma_pago', '=', 'alp_formas_pagos.id')
+          ->where('alp_ordenes_pagos.id_orden', $id)
+          ->get();
+
+          //dd($pago);
+
+    $history = AlpOrdenesHistory::select('alp_ordenes_history.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre' )
+          ->join('alp_ordenes_estatus', 'alp_ordenes_history.id_status', '=', 'alp_ordenes_estatus.id')
+          ->join('users', 'alp_ordenes_history.id_user', '=', 'users.id')
+          ->where('alp_ordenes_history.id_orden', $id)
+          ->get();
+
+
+          $cliente =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista','alp_clientes.doc_cliente as doc_cliente')
+        ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+        ->join('role_users', 'users.id', '=', 'role_users.user_id')
+        ->join('roles', 'role_users.role_id', '=', 'roles.id')
+        ->where('users.id', '=', $orden->id_user)->first();
+
+
+          $direccion = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+          ->where('alp_direcciones.id', $orden->id_address)->withTrashed()->first();
+
+
+          $cupones=AlpOrdenesDescuento::where('id_orden', $orden->id)->get();
+
+          $formaenvio=AlpFormasenvio::where('id', $orden->id_forma_envio)->first();
+
+          $envio=AlpEnvios::where('id_orden', $orden->id)->first();
+
+
+           $history_envio = AlpEnviosHistory::select('alp_envios_history.*', 'alp_envios_status.estatus_envio_nombre as estatus_envio_nombre', 'users.first_name as first_name', 'users.last_name as last_name' )
+          ->join('alp_envios_status', 'alp_envios_history.estatus_envio', '=', 'alp_envios_status.id')
+          ->join('users', 'alp_envios_history.id_user', '=', 'users.id')
+          ->where('alp_envios_history.id_envio', $envio->id)
+          ->orderBy('alp_envios_history.id', 'desc')
+          ->get();
+
+         // dd($history_envio);
+
+
+        return view('admin.ordenes.detallealmacen', compact('detalles', 'orden', 'history', 'pago', 'pagos', 'cliente', 'direccion', 'cupones', 'formaenvio', 'envio', 'pago_aprobado', 'history_envio'));
+
+    }
 
 
 

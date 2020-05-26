@@ -120,6 +120,18 @@
                 </a>
             </li>
             @endif
+
+
+             @if (Sentinel::getUser()->hasAnyAccess(['ordenes.almacen']))
+                <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.ordenes.almacen') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Ordenes Recibidas almacen
+                </a>
+            </li>
+            @endif
+
+
             
            
         </ul>

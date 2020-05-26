@@ -19,7 +19,7 @@ class SentinelAdmin
     {
         if(!Sentinel::check()){
             return redirect('admin/signin')->with('info', 'Debes Iniciar Sesión');
-        }elseif(!(Sentinel::inRole('admin') || !(Sentinel::inRole('masterfile')) || !(Sentinel::inRole('shopmanager')) || !(Sentinel::inRole('shopmanagercorp')) || !(Sentinel::inRole('sac')) || !(Sentinel::inRole('rac')) || !(Sentinel::inRole('cedi')) || !(Sentinel::inRole('logistica')) || !(Sentinel::inRole('finanzas')) || !(Sentinel::inRole('rac')) )){
+        }elseif(!(Sentinel::inRole('admin') || !(Sentinel::inRole('masterfile')) || !(Sentinel::inRole('shopmanager')) || !(Sentinel::inRole('shopmanagercorp')) || !(Sentinel::inRole('sac')) || !(Sentinel::inRole('rac')) || !(Sentinel::inRole('cedi')) || !(Sentinel::inRole('logistica')) || !(Sentinel::inRole('finanzas')) || !(Sentinel::inRole('rac')) || !(Sentinel::inRole('almacen')) )){
             return redirect('clientes');
         }elseif((Sentinel::inRole('cliente') || (Sentinel::inRole('embajador')) || (Sentinel::inRole('amigoalpina')) || (Sentinel::inRole('corporativo')) )){
             return redirect('clientes');

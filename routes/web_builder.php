@@ -84,6 +84,9 @@ Route::get('admin/ordenes/dataenviados', 'Admin\AlpOrdenesController@dataenviado
 Route::get('admin/ordenes/dataempresas', 'Admin\AlpOrdenesController@dataempresas')->name('ordenes.dataempresas');
 Route::get('admin/ordenes/datadescuento', 'Admin\AlpOrdenesController@datadescuento')->name('ordenes.datadescuento');
 
+
+Route::get('admin/ordenes/dataalmacen', 'Admin\AlpOrdenesController@dataalmacen')->name('ordenes.dataalmacen');
+
 Route::get('admin/productos/data', 'Admin\AlpProductosController@data')->name('productos.data');
 
 Route::get('admin/categorias/data', 'Admin\AlpCategoriasController@data')->name('categorias.data');
@@ -853,6 +856,8 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
         Route::get('{id}/detalle', 'Admin\AlpOrdenesController@detalle')->name('ordenes.detalle');
 
+        Route::get('{id}/detallealmacen', 'Admin\AlpOrdenesController@detallealmacen')->name('ordenes.detallealmacen');
+
         Route::get('{id}/confirm-delete', 'Admin\AlpOrdenesController@getModalDelete')->name('ordenes.confirm-delete');
 
         Route::get('{id}/restore', 'Admin\AlpOrdenesController@getRestore')->name('ordenes.restore');
@@ -886,6 +891,8 @@ Route::group(['prefix' => 'estatuspagos'], function () {
         Route::get('/consolidado/list', 'Admin\AlpOrdenesController@consolidado')->name('ordenes.consolidado');
 
         Route::get('/descuento/list', 'Admin\AlpOrdenesController@descuento')->name('ordenes.descuento');
+
+        Route::get('/almacen/list', 'Admin\AlpOrdenesController@almacen')->name('ordenes.almacen');
 
         Route::get('/sendmail/{id}', 'Admin\AlpOrdenesController@sendmail')->name('ordenes.sendmail');
 
