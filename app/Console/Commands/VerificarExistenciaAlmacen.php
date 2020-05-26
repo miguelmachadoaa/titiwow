@@ -53,7 +53,7 @@ class VerificarExistenciaAlmacen extends Command
 
          $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, 'https://mercaas.com/api/checkinventory/YK7304PP34');
+        curl_setopt($ch, CURLOPT_URL, 'https://mercaas.com/api/checkinventory/'.$configuracion->compramas_hash);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
@@ -61,7 +61,7 @@ class VerificarExistenciaAlmacen extends Command
 
         $headers = array();
         $headers[] = 'Content-Type: application/json';
-        $headers[] = 'Woobsing-Token: f3f49185-4b8b-4918-b425-e6e3e9985349';
+        $headers[] = 'Woobsing-Token: '.$configuracion->compramas_token;
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
         $result = curl_exec($ch);

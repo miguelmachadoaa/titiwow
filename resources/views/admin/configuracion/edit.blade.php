@@ -339,6 +339,44 @@ Editar Configuracion General
                                
                             </div>
 
+
+                            <fieldset>
+
+
+                                <br />
+                                <h4>Api Compramas</h4>
+                                <hr>
+
+                                <div class="form-group {{ $errors->first('compramas_hash', 'has-error') }}">
+                                    <label for="compramas_hash" class="col-sm-2 control-label">
+                                        Compramas Hash
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="compramas_hash" name="compramas_hash" class="form-control" placeholder="Compramas Hash"
+                                            value="{!! old('compramas_hash', $configuracion->compramas_hash) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('compramas_hash', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group {{ $errors->first('compramas_token', 'has-error') }}">
+                                    <label for="compramas_token" class="col-sm-2 control-label">
+                                        Compramas Token 
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="compramas_token" name="compramas_token" class="form-control" placeholder="Compramas Token "
+                                            value="{!! old('compramas_token', $configuracion->compramas_token) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('compramas_token', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+
+                            </fieldset>
+
                             <br />
                                 <h4>Seo Principal</h4>
                                 <hr>

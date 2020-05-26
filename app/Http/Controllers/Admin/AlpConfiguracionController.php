@@ -123,6 +123,8 @@ class AlpConfiguracionController extends JoshController
             'user_activacion' => $request->user_activacion, 
             'editar_direccion' => $request->editar_direccion, 
             //'minimo_compra' => $request->minimo_compra, 
+            'compramas_hash' => $request->compramas_hash, 
+            'compramas_token' => $request->compramas_token, 
             'maximo_productos' => $request->maximo_productos, 
             'mensaje_bienvenida' => $request->mensaje_bienvenida, 
             'mensaje_promocion' => $request->mensaje_promocion, 

@@ -52,6 +52,8 @@ class AlpConfiguracion extends Model
         'seo_site_name',
         'seo_description',
         'vence_ordenes',
+        'compramas_hash',
+        'compramas_token',
         'estado_registro',
         'id_user'
     ];

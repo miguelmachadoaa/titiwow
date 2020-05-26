@@ -359,7 +359,7 @@ class VerificarPagos extends Command
 
                $ch = curl_init();
 
-                curl_setopt($ch, CURLOPT_URL, 'https://mercaas.com/api/registerOrder/YK7304PP34');
+                curl_setopt($ch, CURLOPT_URL, 'https://mercaas.com/api/registerOrder/'.$configuracion->compramas_hash);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
                 curl_setopt($ch, CURLOPT_POST, 1);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
@@ -368,7 +368,7 @@ class VerificarPagos extends Command
 
                 $headers = array();
                 $headers[] = 'Content-Type: application/json';
-                $headers[] = 'Woobsing-Token: f3f49185-4b8b-4918-b425-e6e3e9985349';
+                $headers[] = 'Woobsing-Token: '.$configuracion->compramas_token;
                 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
                 $result = curl_exec($ch);
