@@ -2389,12 +2389,29 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         AlpEnviosHistory::create($data_envio_history);
 
-         $data_update = array(
+        
+
+         if ($orden->id_forma_pago=='1') {
+
+            $data_update = array(
+              'estatus' =>'5', 
+              'estatus_pago' =>'1', 
+            );
+
+             $orden->update($data_update);
+
+         }else{
+
+             $data_update = array(
           'estatus' =>'1', 
           'estatus_pago' =>'1', 
         );
 
          $orden->update($data_update);
+
+
+         }
+
 
 
          /*eliminamos el carrito*/
