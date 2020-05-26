@@ -174,7 +174,7 @@ Xml Productos
                             </td>
 
                             <td>
-                                @if(isset($check[$p->id]))
+                                @if($p->estado_registro==1)
 
                                     <a href="#" class="label label-success">Activo</a>
 
