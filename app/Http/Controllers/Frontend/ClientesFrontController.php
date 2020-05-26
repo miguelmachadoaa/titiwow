@@ -810,6 +810,7 @@ class ClientesFrontController extends Controller
             ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
             ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
              ->groupBy('alp_ordenes.id')
+             ->orderBy('alp_ordenes.id', 'desc')
             ->where('alp_ordenes.id_cliente', $user_id)->get();
 
             $pagos = array();

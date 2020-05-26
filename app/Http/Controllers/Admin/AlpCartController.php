@@ -4250,11 +4250,18 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
          $ciudad=AlpFormaCiudad::where('id_forma', $request->id_forma_envio)->where('id_ciudad', $direccion->city_id)->first();
 
+           /*if (isset($ciudad->id)) {
+             # code...
+           }else{
+
+              $c=City::where('id', $direccion->city_id)->first();
+
+              $ciudad=AlpFormaCiudad::where('id_forma', $request->id_forma_envio)->where('id_ciudad', '0')->first();
+
+           }*/
+
 
       }
-
-
-
 
 
 
