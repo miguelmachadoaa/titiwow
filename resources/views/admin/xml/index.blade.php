@@ -113,7 +113,11 @@ Xml Productos
                                         </th>
 
                                         <th>
-                                            Estado del producto
+                                            Disponible para la venta
+                                        </th>
+
+                                        <th>
+                                            XML
                                         </th>
                                     </tr>
                                 </thead>
@@ -173,8 +177,23 @@ Xml Productos
                                 @endif
                             </td>
 
-                            <td>
+
+                             <td>
                                 @if($p->estado_registro==1)
+
+                                    <a href="#" class="label label-success">Si</a>
+
+                                @else
+
+                                    <a href="#" class="label label-danger">No</a>
+
+                                @endif
+                            </td>
+
+
+
+                            <td>
+                                @if(isset($check[$p->id]))
 
                                     <a href="#" class="label label-success">Activo</a>
 

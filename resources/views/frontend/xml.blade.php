@@ -10,7 +10,7 @@
                 @if(isset($inventario[$p->id]))
                     {{'<item>'}}
                         {{'<g:item_group_id>'.$p->id.'</g:item_group_id>'}}
-                        {{'<g:gtin>'.$p->id.'</g:gtin>'}}
+                        {{'<g:gtin>'.$p->referencia_producto.'</g:gtin>'}}
                         {{'<g:google_product_category>412</g:google_product_category>'}}
                         {{'<g:id>'.$p->id.'</g:id>'}}
                         {{'<g:title>'.$p->nombre_producto.'</g:title>'}}
