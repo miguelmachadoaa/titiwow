@@ -17,6 +17,7 @@ use App\Models\AlpTDocumento;
 use App\Models\AlpEmpresas;
 use App\Models\AlpConfiguracion;
 use App\Models\AlpSaldo;
+use App\Models\AlpAlmacenes;
 use App\User;
 use App\Roles;
 use App\RoleUser;
@@ -1898,8 +1899,12 @@ private function getSaldo()
         $groups = DB::table('roles')->whereIn('roles.id', [1,2,3,4,5,6,7,8,13])->get();
 
         $countries = $this->countries;
+
+         $almacenes=AlpAlmacenes::where('tipo_almacen', '1')->get();
+
+
         // Show the page
-        return view('admin.clientes.cargar', compact('groups', 'countries'));
+        return view('admin.clientes.cargar', compact('groups', 'countries', 'almacenes'));
     }
 
     /**
@@ -1915,6 +1920,8 @@ private function getSaldo()
         //dd($input);
 
          $archivo = $request->file('file_alpinistas');
+
+         \Session::put('importalmacen', $request->id_almacen);
 
         Excel::import(new BucaramangaImport, $archivo);
         

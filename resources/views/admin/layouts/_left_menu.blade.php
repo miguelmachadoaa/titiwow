@@ -238,6 +238,19 @@
     @endif
 
 
+    @if (Sentinel::getUser()->hasAnyAccess(['xml.*']))
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/xml*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.xml.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Productos Xml
+                </a>
+            </li> 
+        </ul>
+    @endif
+
+
+
 
 
         
@@ -1018,6 +1031,17 @@
                     Reporte  detalles ventas
                 </a>
             </li>
+            @endif
+
+
+               @if (Sentinel::getUser()->hasAnyAccess(['reportes.detalleclientes']))
+
+                <li {!! (Request::is('admin/reportes/detalleclientes') ? 'class="active" id="active"' : '') !!}>
+                    <a href="{{ secure_url('admin/reportes/detalleclientes') }}">
+                        <i class="fa fa-angle-double-right"></i>
+                        Reporte  detalles clientes con compras
+                    </a>
+                </li>
             @endif
 
 

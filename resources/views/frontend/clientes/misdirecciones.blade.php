@@ -112,9 +112,15 @@
 
         @endif
 
+            @if($role->role_id==14)
 
+            @else
 
             <button type="button" class="btn btn-raised btn-primary md-trigger showAddAddress" data-toggle="modal" data-target="#modal-21">Agregar Nueva Dirección </button>
+
+            @endif
+
+            
 
         </div>
 
@@ -350,6 +356,16 @@
 
                                     <div class="col-sm-12">
 
+                                    @if($role->role_id==14)
+
+                                    @else
+
+                                   
+                                    
+
+
+
+
                                         @if($configuracion->edificio_address==0)
 
                                             <button
@@ -379,6 +395,9 @@
                                         @endif
 
                                         <a href="{{ secure_url('/clientes/deldir/'.$dir->id) }}" class="btn btn-xs btn-danger">Eliminar</a>
+
+
+                                         @endif
 
                                     </div>
 

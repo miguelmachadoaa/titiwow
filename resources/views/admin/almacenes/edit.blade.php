@@ -242,6 +242,204 @@ Editar Almacen
                         </div>
 
 
+
+                        <fieldset>
+                            <h3>Direccón del Almacen</h3>
+
+
+                            @if(isset($direccion->id))
+
+                            <input type="hidden" class="form-control" id="titulo" name="titulo" placeholder="Nombre para esta dirección" value="Direccion de Almacen" >
+
+                     
+                        <div style="  margin-bottom: 1em;" class=" col-sm-7  {{ $errors->first('calle_address', 'has-error') }}">
+
+                            <div class="col-sm-6" >
+                                
+                                <select id="id_estructura_address" name="id_estructura_address" class="form-control">
+
+                                    @foreach($estructura as $estru)
+
+                                    <option @if($direccion->id_estructura_address==$estru->id)  {{'Selected'}} @endif value="{{ $estru->id }}">{{ $estru->nombre_estructura}} </option>
+
+                                    @endforeach
+
+                                </select>
+
+                                 {!! $errors->first('id_estructura_address', '<span class="help-block">:message</span>') !!}
+
+                            </div>
+
+                            <div class="col-sm-6">
+                                
+                                <input type="text" id="principal_address" name="principal_address" class="form-control" placeholder="Ejemplo: 44 " value="{!! old('principal_address', $direccion->principal_address) !!}" >
+
+                                {!! $errors->first('principal_address', '<span class="help-block">:message</span>') !!}
+
+                            </div>
+                                        
+                        </div>
+
+
+                        <div style="  margin-bottom: 1em;" class=" col-sm-7  {{ $errors->first('calle_address', 'has-error') }}">
+
+                            <div class="col-sm-6" >
+
+                                <input type="text" id="secundaria_address" name="secundaria_address" placeholder="Ejemplo: #14 " class="form-control" value="{!! old('secundaria_address',  $direccion->secundaria_address) !!}" >
+
+                                {!! $errors->first('secundaria_address', '<span class="help-block">:message</span>') !!}
+
+                            </div>
+
+                            <div class="col-sm-6">
+
+                                <input type="text" id="edificio_address" name="edificio_address" class="form-control" placeholder="Ejemplo: 100 " value="{!! old('edificio_address',  $direccion->edificio_address) !!}" >
+
+                                {!! $errors->first('edificio_address', '<span class="help-block">:message</span>') !!}
+
+                            </div>
+
+                        </div>
+
+                        <div style="  margin-bottom: 1em;" class=" col-sm-7  {{ $errors->first('detalle_address', 'has-error') }}">
+
+                            <input type="text" class="form-control" id="detalle_address" name="detalle_address" placeholder="Apto, Puerta, Interior" value="{!! old('detalle_address',   $direccion->detalle_address) !!}" >
+
+                            {!! $errors->first('detalle_address', '<span class="help-block">:message</span>') !!}
+
+                        </div>
+
+                        <div style="  margin-bottom: 1em;" class=" col-sm-7  barrio_address {{ $errors->first('barrio_address', 'has-error') }}">
+
+                            <input type="text" class="form-control" id="barrio_address" name="barrio_address" placeholder="Barrio" value="{!! old('barrio_address',   $direccion->barrio_address) !!}" >
+
+                            {!! $errors->first('barrio_address', '<span class="help-block">:message</span>') !!}
+
+                        </div>
+
+                         <div style="margin-left: 8%;" class="form-group col-sm-7  id_barrio {{ $errors->first('id_barrio', 'has-error') }} hidden">
+                            <div class="" >
+                                <select id="id_barrio" name="id_barrio" value="{!! old('id_barrio',   $direccion->id_barrio) !!}" class="form-control">
+                                    <option value="">Seleccione Barrio</option>
+                                </select>
+                            </div>
+                            {!! $errors->first('id_barrio', '<span class="help-block">:message</span>') !!}
+                        </div>
+
+
+
+                        <div style="  margin-bottom: 1em;" class=" col-sm-7  {{ $errors->first('notas', 'has-error') }}">
+
+                            <textarea style="margin: 4px 0;" id="notas" name="notas" type="text" placeholder="Notas" class="form-control" >{{$direccion->notas}}</textarea>
+
+                            {!! $errors->first('notas', '<span class="help-block">:message</span>') !!}
+
+                        </div>
+
+
+                        @else
+
+
+                             <input type="hidden" class="form-control" id="titulo" name="titulo" placeholder="Nombre para esta dirección" value="Direccion de Almacen" >
+
+                     
+                        <div style="  margin-bottom: 1em;" class=" col-sm-7  {{ $errors->first('calle_address', 'has-error') }}">
+
+                            <div class="col-sm-6" >
+                                
+                                <select id="id_estructura_address" name="id_estructura_address" class="form-control">
+
+                                    @foreach($estructura as $estru)
+
+                                    <option value="{{ $estru->id }}">{{ $estru->nombre_estructura}} </option>
+
+                                    @endforeach
+
+                                </select>
+
+                                 {!! $errors->first('id_estructura_address', '<span class="help-block">:message</span>') !!}
+
+                            </div>
+
+                            <div class="col-sm-6">
+                                
+                                <input type="text" id="principal_address" name="principal_address" class="form-control" placeholder="Ejemplo: 44 " value="{!! old('principal_address') !!}" >
+
+                                {!! $errors->first('principal_address', '<span class="help-block">:message</span>') !!}
+
+                            </div>
+                                        
+                        </div>
+
+
+                        <div style="  margin-bottom: 1em;" class=" col-sm-7  {{ $errors->first('calle_address', 'has-error') }}">
+
+                            <div class="col-sm-6" >
+
+                                <input type="text" id="secundaria_address" name="secundaria_address" placeholder="Ejemplo: #14 " class="form-control" value="{!! old('secundaria_address') !!}" >
+
+                                {!! $errors->first('secundaria_address', '<span class="help-block">:message</span>') !!}
+
+                            </div>
+
+                            <div class="col-sm-6">
+
+                                <input type="text" id="edificio_address" name="edificio_address" class="form-control" placeholder="Ejemplo: 100 " value="{!! old('edificio_address') !!}" >
+
+                                {!! $errors->first('edificio_address', '<span class="help-block">:message</span>') !!}
+
+                            </div>
+
+                        </div>
+
+                        <div style="  margin-bottom: 1em;" class=" col-sm-7  {{ $errors->first('detalle_address', 'has-error') }}">
+
+                            <input type="text" class="form-control" id="detalle_address" name="detalle_address" placeholder="Apto, Puerta, Interior" value="{!! old('detalle_address') !!}" >
+
+                            {!! $errors->first('detalle_address', '<span class="help-block">:message</span>') !!}
+
+                        </div>
+
+                        <div style="  margin-bottom: 1em;" class=" col-sm-7  barrio_address {{ $errors->first('barrio_address', 'has-error') }}">
+
+                            <input type="text" class="form-control" id="barrio_address" name="barrio_address" placeholder="Barrio" value="{!! old('barrio_address') !!}" >
+
+                            {!! $errors->first('barrio_address', '<span class="help-block">:message</span>') !!}
+
+                        </div>
+
+                         <div style="margin-left: 8%;" class="form-group col-sm-7  id_barrio {{ $errors->first('id_barrio', 'has-error') }} hidden">
+                            <div class="" >
+                                <select id="id_barrio" name="id_barrio" value="{!! old('id_barrio') !!}" class="form-control">
+                                    <option value="">Seleccione Barrio</option>
+                                </select>
+                            </div>
+                            {!! $errors->first('id_barrio', '<span class="help-block">:message</span>') !!}
+                        </div>
+
+
+
+                        <div style="  margin-bottom: 1em;" class=" col-sm-7  {{ $errors->first('notas', 'has-error') }}">
+
+                            <textarea style="margin: 4px 0;" id="notas" name="notas" type="text" placeholder="Notas" class="form-control" ></textarea>
+
+                            {!! $errors->first('notas', '<span class="help-block">:message</span>') !!}
+
+                        </div>
+
+
+
+                        @endif
+
+
+
+                        </fieldset>
+
+
+
+
+
+
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                 

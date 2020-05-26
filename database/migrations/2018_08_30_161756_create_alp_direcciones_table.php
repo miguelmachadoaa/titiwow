@@ -15,7 +15,7 @@ class CreateAlpDireccionesTable extends Migration
     {
         Schema::create('alp_direcciones', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_client');
+            $table->string('id_client');
             $table->integer('city_id');
             //$table->string('nickname_address');
             $table->integer('id_estructura_address');
@@ -24,9 +24,6 @@ class CreateAlpDireccionesTable extends Migration
             $table->string('edificio_address');
             $table->string('detalle_address');
             $table->string('barrio_address')->nullable();
-            //$table->string('calle2_address')->nullable();
-            //$table->string('codigo_postal_address')->nullable();
-            //$table->string('telefono_address');
             $table->text('notas')->nullable();
             $table->integer('default_address')->default(1);
             $table->integer('estado_registro')->default(1);
