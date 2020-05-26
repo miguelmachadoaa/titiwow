@@ -2400,14 +2400,27 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
              $orden->update($data_update);
 
+              $data_history = array(
+                'id_orden' => $orden->id, 
+               'id_status' => '5', 
+                'notas' => 'Orden Aprobada por ser Contraentrega.', 
+               'id_user' => 1
+              );
+
+            $history=AlpOrdenesHistory::create($data_history);
+
+
+
+
+
          }else{
 
              $data_update = array(
-          'estatus' =>'1', 
-          'estatus_pago' =>'1', 
-        );
+                'estatus' =>'1', 
+                'estatus_pago' =>'1', 
+              );
 
-         $orden->update($data_update);
+               $orden->update($data_update);
 
 
          }
@@ -3703,6 +3716,10 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        $error='0';
 
+       if (isset($inv[$request->id])) {
+         # code...
+       
+
        if ($request->cantidad>0) {
          
 
@@ -3732,7 +3749,15 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         unset( $cart[$producto->slug]);
 
 
-       }
+       }//aqui termina 
+
+     }else{
+
+      unset( $cart[$producto->slug]);
+
+
+     }
+
 
        //dd($producto->slug.' - '.$producto->id.' - '.$request->id);
 
@@ -6126,11 +6151,6 @@ private function getAlmacen3(){
                     }
 
                 }
-
-
-
-
-
 
 
 
