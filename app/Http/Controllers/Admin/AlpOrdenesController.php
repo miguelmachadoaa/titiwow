@@ -2074,6 +2074,8 @@ class AlpOrdenesController extends JoshController
 
               $dataraw=json_encode($o);
 
+               $configuracion = AlpConfiguracion::where('id','1')->first();
+
              //dd($dataraw);
              //
              if ($orden->id_almacen==1) {
