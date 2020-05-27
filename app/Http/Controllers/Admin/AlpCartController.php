@@ -131,6 +131,8 @@ class AlpCartController extends JoshController
 
       $id_almacen=$this->getAlmacenCart();
 
+      //echo $id_almacen;
+
       $descuento='1'; 
 
       $precio = array();
@@ -1586,37 +1588,44 @@ class AlpCartController extends JoshController
           ->join('alp_almacen_formas_envio', 'alp_formas_envios.id', '=', 'alp_almacen_formas_envio.id_forma_envio')
           //->where('alp_rol_envio.id_rol', $role->role_id)
           ->where('alp_almacen_formas_envio.id_forma_envio', $id_forma_envio)
+          ->where('alp_almacen_formas_envio.id_almacen', $id_almacen)
+          ->whereNull('alp_almacen_formas_envio.deleted_at')
           ->first();
 
-       // dd($id_forma_envio);
+       // dd($fev);
 
 
           if (isset($fev->id)) {
             # code...
           }else{
 
-            $fev = AlpFormasenvio::select('alp_formas_envios.*')
-          ->join('alp_rol_envio', 'alp_formas_envios.id', '=', 'alp_rol_envio.id_forma_envio')
-          ->where('alp_rol_envio.id_rol', $role->role_id)
-          ->first();
 
-          //dd($fev);
 
-            if (isset($fev->id)) {
+              $fev = AlpFormasenvio::select('alp_formas_envios.*')
+                ->join('alp_almacen_formas_envio', 'alp_formas_envios.id', '=', 'alp_almacen_formas_envio.id_forma_envio')
+                //->where('alp_rol_envio.id_rol', $role->role_id)
+               ->where('alp_almacen_formas_envio.id_almacen', $id_almacen)
+                ->whereNull('alp_almacen_formas_envio.deleted_at')
+                ->first();
 
-              \Session::put('envio', $fev->id);
 
-              $id_forma_envio=$fev->id;
-              # code...
-            }else{
+                //dd($fev);
 
-              $id_forma_envio=0;
-            }
+                  if (isset($fev->id)) {
+
+                    \Session::put('envio', $fev->id);
+
+                    $id_forma_envio=$fev->id;
+                    # code...
+                  }else{
+
+                    $id_forma_envio=0;
+                  }
 
 
           }
 
-        //dd($id_forma_envio);
+    //   echo $id_forma_envio;
 
 
         $valor_impuesto=AlpImpuestos::where('id', '1')->first();
