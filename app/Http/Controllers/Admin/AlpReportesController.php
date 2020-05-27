@@ -1277,7 +1277,7 @@ class AlpReportesController extends Controller
 
         $hoy=$date->format('Y-m-d');
 
-        return Excel::download(new NominaExportAlmacen($hoy, $request->id_almacen), 'Listado_de_descuento_nomina.xlsx');
+        return Excel::download(new NominaExportAlmacen($hoy, $request->id_almacen), 'Listado_de_ventas_almacen.xlsx');
     }
 
 

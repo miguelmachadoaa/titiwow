@@ -67,7 +67,7 @@ class VentasNominaAlmacenes extends Command
 
         $documentos = array();
 
-        $archivo_clientes='listado_ventas_descuento_nomina_'.$hoy.'.xlsx';
+        $archivo_clientes='ventas_almacen_'.$almacen->nombre_almacen.'_'.$hoy.'.xlsx';
 
         Excel::store(new NominaExportAlmacen($hoy, $alm), $archivo_clientes, 'excel');
             
