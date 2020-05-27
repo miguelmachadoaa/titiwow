@@ -1667,6 +1667,8 @@ class AlpOrdenesController extends JoshController
           );
 
         //dd($o);
+        //
+        $configuracion = AlpConfiguracion::where('id','1')->first();
 
 
            $dataraw=json_encode($o);
