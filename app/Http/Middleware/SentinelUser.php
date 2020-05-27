@@ -25,7 +25,7 @@ class SentinelUser
 
                 return Redirect::route('login');
             }
-        }elseif(!(Sentinel::inRole('admin') || (Sentinel::inRole('masterfile')) || (Sentinel::inRole('shopmanager')) || (Sentinel::inRole('shopmanagercorp')) || (Sentinel::inRole('sac')) || (Sentinel::inRole('cedi')) || (Sentinel::inRole('logistica')) || (Sentinel::inRole('finanzas')) )){
+        }elseif(!(Sentinel::inRole('admin') || (Sentinel::inRole('masterfile')) || (Sentinel::inRole('shopmanager')) || (Sentinel::inRole('shopmanagercorp')) || (Sentinel::inRole('sac')) || (Sentinel::inRole('cedi')) || (Sentinel::inRole('logistica')) || (Sentinel::inRole('finanzas')) || (Sentinel::inRole('almacen')) )){
 
             return redirect('/');
 
