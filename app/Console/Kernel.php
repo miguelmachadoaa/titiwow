@@ -28,6 +28,7 @@ class Kernel extends ConsoleKernel
         Commands\VentasNomina::class,
         Commands\VerificarSaldo::class,
         Commands\CancelarOrdenes::class,
+        Commands\VerificarExistenciaAlmacen::class,
 
 
     ];
@@ -81,14 +82,15 @@ class Kernel extends ConsoleKernel
         $schedule->command('verificar:saldo')->dailyAt('1:00');
         
         $schedule->command('cancelar:ordenes')->dailyAt('07:00');
+
          $schedule->command('generate:sitemap')->weekly();
-        //$schedule->command('usuarios:new')->dailyAt('08:00');
-        //$schedule->command('usuarios:new')->dailyAt('15:00');
+         
         $schedule->command('verificar:pagos')->everyFifteenMinutes();
+
         $schedule->command('notificacion:carrito')->hourly();
 
-       // $schedule->command('activitylog:clean')->daily();
- 
+        $schedule->command('verificar:almacen')->hourly();
+
         $schedule->command('activitylog:clean')->dailyAt('00:05');
 
         $almacenes=AlpAlmacenes::get();
