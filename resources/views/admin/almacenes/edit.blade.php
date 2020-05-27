@@ -244,7 +244,7 @@ Editar Almacen
 
 
                         <fieldset>
-                            <h3>Direccón del Almacen</h3>
+                            <h3>Dirección del Almacen</h3>
 
 
                             @if(isset($direccion->id))
