@@ -1670,6 +1670,7 @@ class AlpOrdenesController extends JoshController
 
 
            $dataraw=json_encode($o);
+           $ch = curl_init();
 
           curl_setopt($ch, CURLOPT_URL, 'https://mercaas.com/api/cancelOrder/'.$configuracion->compramas_hash);
           curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
