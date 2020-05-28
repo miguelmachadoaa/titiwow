@@ -23,7 +23,7 @@
     <![endif]-->
     <title>
     	@section('title')
-        | Alpina
+        | Alpina Go!
         @show
     </title>
     @yield('meta_tags')
