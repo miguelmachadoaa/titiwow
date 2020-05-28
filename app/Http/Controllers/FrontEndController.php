@@ -309,9 +309,10 @@ class FrontEndController extends JoshController
 
       }
 
-
-
       $inventario=$this->inventario();
+
+     // return response(json_encode($r), 200) ->header('Content-Type', 'application/json');
+
         // Is the user logged in?
       return view('frontend.xml', compact('prods', 'inventario'));
       
@@ -547,7 +548,7 @@ class FrontEndController extends JoshController
                ->where('user_id','=', $user->id)
                ->first();
 
-               if ( $role->role_id>'8' || $role->role_id=='13') {
+               if ( $role->role_id>'8' || $role->role_id=='13' || $role->role_id=='15') {
 
                   if ($request->back=='0') {
                      
