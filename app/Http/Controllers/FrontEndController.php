@@ -548,7 +548,11 @@ class FrontEndController extends JoshController
                ->where('user_id','=', $user->id)
                ->first();
 
-               if ( $role->role_id>'8' || $role->role_id=='13' || $role->role_id=='15') {
+               if ($role->role_id=='15') {
+                 return redirect("admin")->with('success', trans('auth/message.login.success'));
+               }
+
+               if ( $role->role_id>'8' || $role->role_id=='13'  || $role->role_id!='15') {
 
                   if ($request->back=='0') {
                      
