@@ -1157,7 +1157,7 @@ $('#addDireccionForm').keypress(
                                 
                                 $('select[name="id_barrio"]').empty();
 
-                                if (JSON.stringify(data).length>14) {
+                               if (JSON.stringify(data).length>25) {
 
                                     $('.barrio_address').addClass('hidden');
                                     $('·barrio_address').val(' ');

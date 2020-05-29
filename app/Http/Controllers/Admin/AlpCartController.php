@@ -131,7 +131,7 @@ class AlpCartController extends JoshController
 
       $id_almacen=$this->getAlmacenCart();
 
-      echo $id_almacen;
+     // echo $id_almacen;
 
       $descuento='1'; 
 

@@ -114,7 +114,7 @@ Detalle de Compra
              <div class="col-md-12">
               <div class="update-nag">
                 <div class="update-split"><i class="glyphicon {{ $iconos[$row->estatus_envio]}}"></i></div>
-                <div class="update-text">{{ $row->estatus_envio_nombre }} <a href="#">{!! $row->created_at->diffForHumans().' por  '.$row->first_name.' '.$row->last_name !!}</a> </div>
+                <div class="update-text">{{ $row->estatus_envio_nombre }} <a href="#">{!! $row->created_at->diffForHumans() !!}</a> </div>
               </div>    
             </div>
 

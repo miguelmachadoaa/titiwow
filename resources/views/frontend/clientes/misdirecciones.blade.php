@@ -1038,7 +1038,7 @@ $('.delDireccion').click(function () {
                                 
                                 $('select[name="id_barrio"]').empty();
 
-                                if (JSON.stringify(data).length>14) {
+                                if (JSON.stringify(data).length>25) {
 
                                     $('.barrio_address').addClass('hidden');
                                     $('·barrio_address').val(' ');
@@ -1085,7 +1085,9 @@ $('.delDireccion').click(function () {
                                 
                                 $('select[name="edit_barrio_id"]').empty();
 
-                                if (JSON.stringify(data).length>14) {
+                                console.log(JSON.stringify(data).length);
+
+                               if (JSON.stringify(data).length>25) {
 
                                     $('.edit_barrio_address').addClass('hidden');
                                     $('#edit_barrio_address').val(' ');
