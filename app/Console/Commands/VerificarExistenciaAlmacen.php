@@ -86,10 +86,11 @@ class VerificarExistenciaAlmacen extends Command
 
             foreach ($datos as $dato ) {
 
+              if ($dato->stock>0) {
+
                 $p=AlpProductos::where('referencia_producto', $dato->sku)->first();
 
                 if (isset($p->id)) {
-
 
                     $data = array(
                         'id_almacen' => $almacen, 
@@ -151,6 +152,7 @@ class VerificarExistenciaAlmacen extends Command
                     \Log::debug('Sku no encontrado: ' . json_encode($dato));
 
 
+                } 
                 } 
 
                 
