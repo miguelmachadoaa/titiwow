@@ -1148,6 +1148,7 @@ class AlpCartController extends JoshController
               "value"=>(float)number_format($impuesto, 2, '.', ''),
               "type"=>"IVA"]],
           "token" => $request->token,
+          "binary_mode" => true,
           "description" => 'Pago de orden: '.$orden->id,
           "installments" => intval($request->installments),
           "external_reference"=> "ALP".$orden->id."",
@@ -1194,17 +1195,12 @@ class AlpCartController extends JoshController
 
           }
 
-       
            /// $data=$this->generarPedido('1', '2', $preference, 'credit_card');
            $data=$this->generarPedido('8', '4', $preference, 'credit_card');
-
-            
 
             $id_orden=$data['id_orden'];
 
             $fecha_entrega=$data['fecha_entrega'];
-
-
 
             //  $datalles=AlpDetalles::where('id_orden', $orden->id)->get();
 
@@ -1217,11 +1213,9 @@ class AlpCartController extends JoshController
             ->join('alp_formas_pagos','alp_ordenes.id_forma_pago' , '=', 'alp_formas_pagos.id')
             ->where('alp_ordenes.id', $id_orden)->first();
 
-
            $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
           ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
           ->where('alp_ordenes_detalle.id_orden', $id_orden)->get();
-
 
             $cart= \Session::forget('cart');
 
@@ -1262,9 +1256,7 @@ class AlpCartController extends JoshController
            #Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
            $idc=$compra->id*1024;
 
-
            return redirect('cart/'.$idc.'/gracias?pago=aprobado');
-          
 
          #  return view('frontend.order.procesar_completo', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
         
@@ -1282,7 +1274,6 @@ class AlpCartController extends JoshController
 
     }
 
-   
 
     public function orderDetail()
     {
@@ -1300,8 +1291,6 @@ class AlpCartController extends JoshController
       $impuesto=$this->impuesto();
 
       $id_almacen=$this->getAlmacenCart();
-
-
 
       $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
@@ -3456,6 +3445,14 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         ->get();
 
         foreach ($salidas as $row) {
+
+          if (isset($inv[$row->id_producto])) {
+            # code...
+          }else{
+
+            $inv[$row->id_producto]=0;
+
+          }
           
           $inv[$row->id_producto]= $inv[$row->id_producto]-$row->cantidad_total;
 
@@ -3550,6 +3547,25 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
           }
 
+        }else{
+
+          $role = array( );
+
+            $r='9';
+                foreach ($cart as  $producto) {
+                    
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $r)->first();
+
+                    if (isset($pregiogrupo->id)) {
+                       
+                        $precio[$producto->id]['precio']=$pregiogrupo->precio;
+                        $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$producto->id]['pum']=$pregiogrupo->pum;
+
+                    }
+
+                }
+                
         } //end sentinel check
 
 

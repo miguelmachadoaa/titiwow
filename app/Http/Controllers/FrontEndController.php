@@ -497,7 +497,7 @@ class FrontEndController extends JoshController
 
         $role=Roles::where('id', $rol)->first();
 
-        //dd($rol);
+       // dd($prods);
 
         return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion','inventario', 'combos', 'role'));
 
