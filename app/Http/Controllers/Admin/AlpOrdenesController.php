@@ -20,7 +20,9 @@ use App\Models\AlpEnviosHistory;
 use App\Models\AlpDirecciones;
 use App\Models\AlpFeriados;
 use App\Models\AlpFormaCiudad;
+use App\Models\AlpFormaspago;
 use App\Models\AlpFormasenvio;
+use App\Models\AlpEstatusPagos;
 use App\Models\AlpInventario;
 use App\Models\AlpSaldo;
 
@@ -98,9 +100,6 @@ class AlpOrdenesController extends JoshController
     }
 
 
-
-
-
     public function index()
     {
         // Grab all the groups
@@ -121,30 +120,20 @@ class AlpOrdenesController extends JoshController
 
         }
       
-        $ordenes = AlpOrdenes::all();
 
         $estatus_ordenes = AlpEstatusOrdenes::all();
 
-         $ordenes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
-          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
-          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
-          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
-          ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
-          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
-          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
-          ->groupBy('alp_ordenes.id')
-          ->get();
+          $ordenes = AlpOrdenes::where('id', '1')->get();
 
-        //  dd($ordenes);
-       
         // Show the page
         return view('admin.ordenes.index', compact('ordenes', 'estatus_ordenes'));
 
     }
 
-
       public function data()
     {
+
+     // dd('i');
 
       $permiso_cancelar = array('1','2','3' );
        
@@ -161,30 +150,47 @@ class AlpOrdenesController extends JoshController
         }
       
 
-       $ordenes = AlpOrdenes::select('alp_ordenes.*', 'alp_clientes.telefono_cliente as telefono_cliente','users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
+        $ordenes = AlpOrdenes::select(
+          'alp_ordenes.id as id',
+          'alp_ordenes.estatus as estatus', 
+          'alp_ordenes.estatus_pago as estatus_pago', 
+          'alp_ordenes.ordencompra as ordencompra', 
+          'alp_ordenes.monto_total as monto_total', 
+          'alp_ordenes.factura as factura', 
+          'alp_ordenes.referencia as referencia', 
+          'alp_ordenes.tracking as tracking', 
+          'alp_ordenes.id_forma_envio as id_forma_envio', 
+          'alp_ordenes.id_forma_pago as id_forma_pago', 
+          'alp_ordenes.created_at as created_at', 
+          'alp_clientes.telefono_cliente as telefono_cliente',
+          'users.first_name as first_name', 
+          'users.last_name as last_name')
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
           ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
-          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
-          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
-          ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
-          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
-          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
           ->groupBy('alp_ordenes.id')
+         // ->limit('20')
           ->get();
+
+         // dd($ordenes);
+
+          $formaspago=AlpFormaspago::pluck('nombre_forma_pago', 'id');
+          $formasenvio=AlpFormasenvio::pluck('nombre_forma_envios', 'id');
+          $estatus_pago=AlpEstatusPagos::pluck('estatus_pago_nombre', 'id');
+          $estatus_ordenes=AlpEstatusOrdenes::pluck('estatus_nombre', 'id');
+
+          //dd($formasenvio);
         
 
             $data = array();
 
           foreach($ordenes as $row){
 
-
             $envio=AlpEnvios::where('id_orden', $row->id)->first();
 
             $pago="<div style='display: inline-block;' class='pago_".$row->id."'>  
-            <button data-id='".$row->id."' class='btn btn-xs btn-success pago' > ".$row->estatus_pago_nombre." </button></div>";
+            <button data-id='".$row->id."' class='btn btn-xs btn-success pago' > ".$estatus_pago[$row->estatus_pago]." </button></div>";
 
-             $estatus="<span class='badge badge-default' >".$row->estatus_nombre."</span>";
-
+             $estatus="<span class='badge badge-default' >".$estatus_ordenes[$row->estatus]."</span>";
 
 
                  $actions = " 
@@ -198,7 +204,7 @@ class AlpOrdenesController extends JoshController
                   
                   if ($row->estatus!=4) {
                   	
-                  	$cancelado = " <button data-id='".$row->id."'  data-codigo='".$row->ordencompra."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-danger confirmar' > Cancelar </button></div>";
+                  	$cancelado = " <button data-id='".$row->id."'  data-codigo='".$row->ordencompra."'  data-estatus='".$estatus_ordenes[$row->estatus]."' class='btn btn-xs btn-danger confirmar' > Cancelar </button></div>";
 
                   }else{
 
@@ -213,9 +219,9 @@ class AlpOrdenesController extends JoshController
               }
 
               if (isset($envio->id)) {
-                # code...
 
                 $row->monto_total=$row->monto_total+$envio->costo;
+
               }
 
               $descuento=AlpOrdenesDescuento::where('id_orden', $row->id)->first();
@@ -230,13 +236,26 @@ class AlpOrdenesController extends JoshController
 
               }
 
+              if (isset($formasenvio[$row->id_forma_envio])) {
+               $fe=$formasenvio[$row->id_forma_envio];
+              }else{
+
+                $fe='No se reconoce';
+              }
+
+              if (isset($formaspago[$row->id_forma_pago])) {
+                $fp=$formaspago[$row->id_forma_pago];
+              }else{
+                $fp='No se reconoce';
+              }
+
                $data[]= array(
                  $row->id, 
                  $row->referencia, 
                  $row->first_name.' '.$row->last_name, 
                  $row->telefono_cliente, 
-                 $row->nombre_forma_envios, 
-                 $row->nombre_forma_pago, 
+                 $fe, 
+                 $fp,
                  number_format($row->monto_total,2), 
                  $row->ordencompra, 
                  $cupon, 
@@ -276,19 +295,11 @@ class AlpOrdenesController extends JoshController
 
         // Grab all the groups
       
-        $ordenes = AlpOrdenes::all();
+       
 
         $estatus_ordenes = AlpEstatusOrdenes::all();
 
-         $ordenes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
-          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
-          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
-          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
-          ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
-          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
-          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
-           ->groupBy('alp_ordenes.id')
-          ->get();
+         $ordenes = AlpOrdenes::where('id', '1')->get();
 
         //  dd($ordenes);
        
@@ -314,6 +325,8 @@ class AlpOrdenesController extends JoshController
            ->groupBy('alp_ordenes.id')
           ->get();
 
+          
+
             $data = array();
 
           foreach($ordenes as $row){
@@ -334,6 +347,7 @@ class AlpOrdenesController extends JoshController
 
 
               $envio=AlpEnvios::where('id_orden', $row->id)->first();
+
               if (isset($envio->id)) {
                 # code...
 
@@ -400,21 +414,11 @@ class AlpOrdenesController extends JoshController
 
         $date_fin = Carbon::create($dt->year, $dt->month, $dt->day, 6, 0, 0); 
               
-        $ordenes = AlpOrdenes::all();
+       
 
         $estatus_ordenes = AlpEstatusOrdenes::all();
 
-         $ordenes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
-          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
-          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
-          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
-           ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
-          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
-          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
-          ->where('alp_ordenes.created_at', '>=', $date_inicio)
-          ->where('alp_ordenes.created_at', '<=', $date_fin)
-
-          ->get();
+          $ordenes = AlpOrdenes::where('id', '1')->get();
        
         // Show the page
         return view('admin.ordenes.consolidado', compact('ordenes', 'estatus_ordenes'));
@@ -441,21 +445,10 @@ class AlpOrdenesController extends JoshController
 
         }
 
-        $ordenes = AlpOrdenes::all();
-
+    
         $estatus_ordenes = AlpEstatusOrdenes::all();
 
-         $ordenes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
-          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
-          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
-          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
-           ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
-          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
-          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
-          ->where('alp_ordenes.estatus', '8')
-          ->groupBy('alp_ordenes.id')
-          ->get();
-       
+         $ordenes = AlpOrdenes::where('id', '1')->get();
         // Show the page
         return view('admin.ordenes.espera', compact('ordenes', 'estatus_ordenes'));
 
@@ -477,6 +470,8 @@ class AlpOrdenesController extends JoshController
           ->where('alp_ordenes.estatus', '8')
           ->groupBy('alp_ordenes.id')
           ->get();
+
+          dd($ordenes);
 
             $data = array();
 
@@ -565,22 +560,11 @@ class AlpOrdenesController extends JoshController
 
 
 
-        $ordenes = AlpOrdenes::all();
+       
 
         $estatus_ordenes = AlpEstatusOrdenes::all();
 
-         $ordenes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
-          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
-          ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
-          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
-          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
-           ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
-          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
-          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
-          ->where('alp_ordenes.estatus', '5')
-          ->groupBy('alp_ordenes.id')
-          ->get();
-       
+         $ordenes = AlpOrdenes::where('id', '1')->get();
         // Show the page
         return view('admin.ordenes.aprobados', compact('ordenes', 'estatus_ordenes'));
 
@@ -731,20 +715,11 @@ class AlpOrdenesController extends JoshController
 
 
       
-        $ordenes = AlpOrdenes::all();
+       
 
         $estatus_ordenes = AlpEstatusOrdenes::all();
 
-         $ordenes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
-          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
-          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
-          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
-          ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
-          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
-          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
-          ->where('alp_ordenes.estatus', '1')
-          ->groupBy('alp_ordenes.id')
-          ->get();
+          $ordenes = AlpOrdenes::where('id', '1')->get();
        
         // Show the page
         return view('admin.ordenes.recibidos', compact('ordenes', 'estatus_ordenes'));
@@ -888,20 +863,11 @@ class AlpOrdenesController extends JoshController
 
 
       
-        $ordenes = AlpOrdenes::all();
+        
 
         $estatus_ordenes = AlpEstatusOrdenes::all();
 
-         $ordenes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
-          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
-          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
-          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
-          ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
-          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
-          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
-          ->where('alp_ordenes.estatus', '6')
-          ->groupBy('alp_ordenes.id')
-          ->get();
+         $ordenes = AlpOrdenes::where('id', '1')->get();
        
         // Show the page
         return view('admin.ordenes.facturados', compact('ordenes', 'estatus_ordenes'));
@@ -1042,20 +1008,11 @@ class AlpOrdenesController extends JoshController
 
 
       
-        $ordenes = AlpOrdenes::all();
+        
 
         $estatus_ordenes = AlpEstatusOrdenes::all();
 
-        $ordenes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
-          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
-          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
-          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
-           ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
-          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
-          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
-          ->where('alp_ordenes.estatus', '7')
-          ->groupBy('alp_ordenes.id')
-          ->get();
+        $ordenes = AlpOrdenes::where('id', '1')->get();
        
         // Show the page
         return view('admin.ordenes.enviados', compact('ordenes', 'estatus_ordenes'));
@@ -1171,20 +1128,11 @@ class AlpOrdenesController extends JoshController
 
 
       
-        $ordenes = AlpOrdenes::all();
+       
 
         $estatus_ordenes = AlpEstatusOrdenes::all();
 
-        $ordenes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
-          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
-          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
-          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
-           ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
-          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
-          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
-          ->where('alp_ordenes.estatus', '4')
-          ->groupBy('alp_ordenes.id')
-          ->get();
+       $ordenes = AlpOrdenes::where('id', '1')->get();
        
         // Show the page
         return view('admin.ordenes.cancelados', compact('ordenes', 'estatus_ordenes'));
@@ -1215,22 +1163,11 @@ class AlpOrdenesController extends JoshController
 
 
       
-        $ordenes = AlpOrdenes::all();
+        $ordenes = AlpOrdenes::where('id', '1')->get();
 
         $estatus_ordenes = AlpEstatusOrdenes::all();
 
-         $ordenes = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_empresas.nombre_empresa as nombre_empresa', 'alp_ordenes_pagos.json as json')
-          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
-          ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
-          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
-          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
-          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
-          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
-           ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
-          
-          ->Join('alp_empresas', 'alp_clientes.id_empresa', '=', 'alp_empresas.id')
-          ->groupBy('alp_ordenes.id')
-          ->get();
+        
        
         // Show the page
         return view('admin.ordenes.empresas', compact('ordenes', 'estatus_ordenes'));
