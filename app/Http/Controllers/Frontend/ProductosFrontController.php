@@ -109,6 +109,8 @@ class ProductosFrontController extends Controller
 
        $id_almacen=$this->getAlmacen();
 
+      
+
         $rol=9;
 
 
@@ -583,8 +585,16 @@ class ProductosFrontController extends Controller
 
         $role=Roles::where('id', $rol)->first();
 
+        
 
-        return \View::make('frontend.list', compact('leche','lacteos','quesos','postres','esparcibles','bebidas','finess','baby','nolacteos','descuento', 'precio', 'states', 'cart', 'total', 'inventario', 'role'));
+
+        $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
+
+
+      
+
+
+        return \View::make('frontend.list', compact('leche','lacteos','quesos','postres','esparcibles','bebidas','finess','baby','nolacteos','descuento', 'precio', 'states', 'cart', 'total', 'inventario', 'role', 'almacen'));
     }
  
     public function show($slug)
@@ -827,8 +837,13 @@ class ProductosFrontController extends Controller
 
       $role=Roles::where('id', $rol)->first();
 
+     
+
+
+      $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
+
         
-        return \View::make('frontend.producto_single', compact('producto', 'descuento', 'precio','categos', 'states', 'cart', 'total','catprincipal', 'relacionados', 'prods', 'inventario', 'combos', 'role'));
+        return \View::make('frontend.producto_single', compact('producto', 'descuento', 'precio','categos', 'states', 'cart', 'total','catprincipal', 'relacionados', 'prods', 'inventario', 'combos', 'role', 'almacen'));
 
     }
 
@@ -1089,8 +1104,12 @@ class ProductosFrontController extends Controller
 
           $role=Roles::where('id', $rol)->first();
 
+         
 
-        return \View::make('frontend.marcas', compact('productos','marcaname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos', 'role'));
+           $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
+
+
+        return \View::make('frontend.marcas', compact('productos','marcaname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos', 'role', 'almacen'));
 
     }
 
@@ -1217,7 +1236,14 @@ class ProductosFrontController extends Controller
 
           $role=Roles::where('id', $rol)->first();
 
-        return \View::make('frontend.all', compact('productos', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos', 'role'));
+
+           $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
+
+
+
+
+
+        return \View::make('frontend.all', compact('productos', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos', 'role', 'almacen'));
 
     }
 
@@ -1343,7 +1369,11 @@ class ProductosFrontController extends Controller
 
          $states=State::where('config_states.country_id', '47')->get();
 
-        return \View::make('frontend.buscar', compact('productos', 'descuento', 'precio', 'states','termino', 'cart', 'total', 'prods', 'inventario', 'combos', 'role'));
+        
+
+          $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
+
+        return \View::make('frontend.buscar', compact('productos', 'descuento', 'precio', 'states','termino', 'cart', 'total', 'prods', 'inventario', 'combos', 'role', 'almacen'));
 
     }
 
@@ -1386,8 +1416,15 @@ class ProductosFrontController extends Controller
               ->get();
 
               foreach ($salidas as $row) {
+
+                if (isset($inv[$row->id_producto])) {
+                    $inv[$row->id_producto]= $inv[$row->id_producto]-$row->cantidad_total;
+                }else{
+
+                    $inv[$row->id_producto]=0;
+                }
                 
-                $inv[$row->id_producto]= $inv[$row->id_producto]-$row->cantidad_total;
+                
 
             }
 

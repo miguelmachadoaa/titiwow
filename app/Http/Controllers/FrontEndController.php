@@ -498,8 +498,10 @@ class FrontEndController extends JoshController
         $role=Roles::where('id', $rol)->first();
 
        // dd($prods);
+       // 
+       $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
-        return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion','inventario', 'combos', 'role'));
+        return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion','inventario', 'combos', 'role', 'almacen'));
 
     }
 

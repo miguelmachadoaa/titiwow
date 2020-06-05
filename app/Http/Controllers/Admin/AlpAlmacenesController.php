@@ -264,6 +264,7 @@ class AlpAlmacenesController extends JoshController
             'correos' => $request->correos, 
             'minimo_compra' => $request->minimo_compra, 
             'tipo_almacen' => $request->tipo_almacen, 
+            'descuento_productos' => $request->descuento_productos, 
             'id_user' =>$user_id
         );
          
@@ -419,6 +420,7 @@ class AlpAlmacenesController extends JoshController
                 'hora' => $request->hora, 
                 'correos' => $request->correos, 
                 'minimo_compra' => $request->minimo_compra, 
+                'descuento_productos' => $request->descuento_productos, 
                 'tipo_almacen' => $request->tipo_almacen
                 );
 
@@ -451,8 +453,6 @@ class AlpAlmacenesController extends JoshController
 
           AlpDirecciones::create($data_direccion);
         }
-
-        
 
         if ($almacen->id) {
 

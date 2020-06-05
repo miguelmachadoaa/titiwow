@@ -93,7 +93,6 @@
                             </div>
                         </div>
 
-
                          <div class="form-group {{ $errors->
                             first('state_id', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
@@ -188,6 +187,25 @@
                                 {!! $errors->first('hora', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
+
+                        <div class="form-group {{ $errors->
+                            first('descuento_productos', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                               Mostrar descuento en productos
+                            </label>
+                            <div class="col-sm-5">
+                                
+                                <select id="descuento_productos" name="descuento_productos" class="form-control select2">
+                                    <option  value="0">No Mostrar</option>
+                                    <option  value="1">Mostrar</option>
+                                                      
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('descuento_productos', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
 
 
 

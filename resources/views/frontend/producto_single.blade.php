@@ -182,7 +182,7 @@
                                         @case(2)
 
                                             <p id="precio_prod">
-                                                @if($role->oferta=='0')
+                                                @if($almacen->descuento_productos)
                                                     <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
 
                                                 @endif
@@ -196,7 +196,7 @@
                                         @case(3)
 
                                             <p id="precio_prod">
-                                                @if($role->oferta=='0')
+                                                @if($almacen->descuento_productos)
 
                                                     <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
 
@@ -223,7 +223,7 @@
                             @else
 
                                 <p id="precio_prod">
-                                    @if($role->oferta=='0')
+                                    @if($almacen->descuento_productos)
                                         <del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base,0,",",".").' -'.$producto->operacion }}</del>&nbsp;
                                     @endif
 

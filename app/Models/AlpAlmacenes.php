@@ -28,6 +28,7 @@ class AlpAlmacenes extends Model
         'tipo_almacen',
         'estado_registro',
         'defecto',
+        'descuento_productos',
         'id_user'
     ];
 
