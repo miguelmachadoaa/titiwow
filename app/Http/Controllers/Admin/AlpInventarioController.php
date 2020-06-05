@@ -41,6 +41,11 @@ class AlpInventarioController extends JoshController
 
 
         }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['inventario.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
       
 
         $productos = AlpProductos::all();
@@ -139,6 +144,11 @@ class AlpInventarioController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['inventario.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         return view ('admin.inventario.create');
     }
 
@@ -165,6 +175,11 @@ class AlpInventarioController extends JoshController
           ->withProperties($request->all())->log('AlpInventarioController/store');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['inventario.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
         
          $user_id = Sentinel::getUser()->id;
@@ -213,6 +228,11 @@ class AlpInventarioController extends JoshController
           ->withProperties(['id'=>$id])->log('AlpInventarioController/edit');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['inventario.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -286,6 +306,11 @@ class AlpInventarioController extends JoshController
           ->withProperties($request->all())->log('AlpInventarioController/update');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['inventario.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -365,6 +390,11 @@ class AlpInventarioController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['inventario.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
         try {
             // Get group information
@@ -401,6 +431,11 @@ class AlpInventarioController extends JoshController
           activity()
           ->log('AlpInventarioController/inventario');
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['inventario.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 

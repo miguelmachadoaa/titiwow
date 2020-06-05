@@ -74,6 +74,11 @@ class AlpProductosController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         $productos = AlpProductos::select('alp_productos.*', 'alp_categorias.nombre_categoria as nombre_categoria')
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
           ->get();
@@ -227,6 +232,11 @@ class AlpProductosController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         $inventario=$this->inventario();
 
         $productos=AlpProductos::where('estado_registro', '1')->get();
@@ -362,6 +372,11 @@ class AlpProductosController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
         $categorias = AlpCategorias::where('id_categoria_parent','0')->get();
 
@@ -438,6 +453,11 @@ class AlpProductosController extends JoshController
           ->withProperties($request->all())->log('AlpProductosController/store');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -633,6 +653,11 @@ class AlpProductosController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
          $categorias = AlpCategoriasProductos::select('alp_productos_category.*', 'alp_categorias.nombre_categoria as nombre_categoria')
           ->join('alp_categorias', 'alp_productos_category.id_categoria', '=', 'alp_categorias.id')
@@ -750,6 +775,11 @@ class AlpProductosController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
 
 
@@ -789,6 +819,11 @@ class AlpProductosController extends JoshController
           ->withProperties(['id'=>$id])->log('AlpProductosController/edit');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -983,6 +1018,11 @@ class AlpProductosController extends JoshController
           ->withProperties($request->all())->log('AlpProductosController/update');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -1247,6 +1287,11 @@ class AlpProductosController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
 
       $id_producto=$producto;
@@ -1335,6 +1380,11 @@ class AlpProductosController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
         $input = $request->all();
 
@@ -1372,6 +1422,11 @@ class AlpProductosController extends JoshController
           ->withProperties($request->all())->log('AlpProductosController/sugerencia');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -1414,6 +1469,11 @@ class AlpProductosController extends JoshController
           ->withProperties($request->all())->log('AlpProductosController/desactivar');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
         $input = $request->all();
@@ -1490,6 +1550,11 @@ class AlpProductosController extends JoshController
           ->withProperties($request->all())->log('AlpProductosController/referencia');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -1650,6 +1715,11 @@ class AlpProductosController extends JoshController
         // Grab all the blogs
 
 
+
+        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
       $productos_list=AlpProductos::all();
         
 
@@ -1913,6 +1983,11 @@ class AlpProductosController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
 
 
@@ -1958,6 +2033,11 @@ class AlpProductosController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         $archivo = $request->file('file_update');
 
         //$porciones = explode("_", $request->cities);
@@ -1991,6 +2071,11 @@ class AlpProductosController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         return view('admin.productos.cargarpreciobase');
     }
 
@@ -2014,6 +2099,11 @@ class AlpProductosController extends JoshController
           activity()
           ->withProperties($request->all())->log('AlpProductosController/importupdate ');
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
         $archivo = $request->file('file_update');

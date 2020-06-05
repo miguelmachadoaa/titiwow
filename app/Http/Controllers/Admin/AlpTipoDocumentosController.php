@@ -37,6 +37,11 @@ class AlpTipoDocumentosController extends JoshController
 
 
         }
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['documentos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
           $documentos = AlpTDocumento::all();
        
 
@@ -108,6 +113,11 @@ class AlpTipoDocumentosController extends JoshController
 
 
         }
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['documentos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
 
 
 
@@ -137,6 +147,11 @@ class AlpTipoDocumentosController extends JoshController
           ->withProperties($request->all())->log('AlpTipoDocumentosController/store');
 
 
+        }
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['documentos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -191,6 +206,11 @@ class AlpTipoDocumentosController extends JoshController
 
 
         }
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['documentos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
 
 
        
@@ -223,6 +243,11 @@ class AlpTipoDocumentosController extends JoshController
           ->withProperties($request->all())->log('AlpTipoDocumentosController/update');
 
 
+        }
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['documentos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -293,6 +318,11 @@ class AlpTipoDocumentosController extends JoshController
           ->withProperties(['id'=>$id])->log('AlpTipoDocumentosController/edit');
 
 
+        }
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['documentos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
         

@@ -23,6 +23,13 @@ class AlpCategoriasController extends JoshController
      */
     public function index()
     {
+
+         if (!Sentinel::getUser()->hasAnyAccess(['categorias.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+
         // Grab all the groups
 
          if (Sentinel::check()) {
@@ -157,6 +164,14 @@ class AlpCategoriasController extends JoshController
 
         }
 
+         if (!Sentinel::getUser()->hasAnyAccess(['categorias.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+
+
+
 
         // Show the page
         return view ('admin.categorias.create');
@@ -263,6 +278,14 @@ class AlpCategoriasController extends JoshController
 
 
         }
+
+         if (!Sentinel::getUser()->hasAnyAccess(['categorias.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+
+
 
 
        
@@ -464,6 +487,13 @@ class AlpCategoriasController extends JoshController
         }
 
 
+ if (!Sentinel::getUser()->hasAnyAccess(['categorias.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+
+
 
        
        $categoria = AlpCategorias::find($id);
@@ -573,6 +603,14 @@ class AlpCategoriasController extends JoshController
 
 
         }
+
+         if (!Sentinel::getUser()->hasAnyAccess(['categorias.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+
+
        
        $categoria = AlpCategorias::find($id);
 

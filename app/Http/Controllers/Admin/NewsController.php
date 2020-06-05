@@ -15,6 +15,11 @@ class NewsController extends Controller
 {
     public function index()
     {
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['news.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
 
         $news = News::all();
         // Show the page
@@ -23,11 +28,21 @@ class NewsController extends Controller
 
     public function create()
     {
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['news.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
         return view('admin.news.create');
     }
 
     public function store(NewsRequest $request)
     {
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['news.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
 
         $news = new News($request->except('files', 'image'));
         $message = $request->get('content');
@@ -86,18 +101,33 @@ class NewsController extends Controller
     //Show
     public function show(News $news)
     {
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['news.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
         return view('admin.news.show', compact('news'));
     }
 
     //Edit
     public function edit(News $news)
     {
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['news.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
         return view('admin.news.edit', compact('news'));
     }
 
     //Update
     public function update(NewsRequest $request, News $news)
     {
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['news.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
         $message = $request->get('content');
         libxml_use_internal_errors(true);
         $dom = new DomDocument();

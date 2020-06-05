@@ -24,6 +24,13 @@ class AlpAlpinistasController extends Controller
      */
     public function index()
     {
+
+         if (!Sentinel::getUser()->hasAnyAccess(['alpinistas.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+
         $alpinistas =  AlpAlpinistas::select('alp_cod_alpinistas.*',DB::raw('CONCAT(users.first_name, " ", users.last_name) AS nombre_alpinista'),'users.email as email','roles.name as name_role')
         ->leftJoin('users', 'alp_cod_alpinistas.id_usuario_creado', '=', 'users.id')
         ->leftJoin('role_users', 'alp_cod_alpinistas.id_usuario_creado', '=', 'role_users.user_id')
@@ -103,6 +110,13 @@ class AlpAlpinistasController extends Controller
      */
     public function create()
     {
+
+         if (!Sentinel::getUser()->hasAnyAccess(['alpinistas.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+
         return view('admin.alpinistas.cargar');
     }
 
@@ -125,6 +139,14 @@ class AlpAlpinistasController extends Controller
      */
     public function show()
     {
+
+
+         if (!Sentinel::getUser()->hasAnyAccess(['alpinistas.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+
         return view('admin.alpinistas.retirar');
     }
 
@@ -136,6 +158,14 @@ class AlpAlpinistasController extends Controller
      */
     public function edit($id)
     {
+
+         if (!Sentinel::getUser()->hasAnyAccess(['alpinistas.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+
+        
         //
     }
 

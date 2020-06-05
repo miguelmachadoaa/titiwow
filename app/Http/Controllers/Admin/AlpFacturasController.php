@@ -22,6 +22,11 @@ class AlpFacturasController extends Controller
      */
     public function index()
     {
+
+        if (!Sentinel::getUser()->hasAnyAccess(['facturasmasivas.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
         $facturas =  AlpFacturas::select('alp_cod_facturas.*')
         ->get();
 
@@ -35,6 +40,11 @@ class AlpFacturasController extends Controller
      */
     public function create()
     {
+
+        if (!Sentinel::getUser()->hasAnyAccess(['facturasmasivas.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
         return view('admin.facturas.cargar');
     }
 
@@ -46,6 +56,11 @@ class AlpFacturasController extends Controller
      */
     public function store(Request $request)
     {
+
+        if (!Sentinel::getUser()->hasAnyAccess(['facturasmasivas.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
         //
     }
 
@@ -57,6 +72,11 @@ class AlpFacturasController extends Controller
      */
     public function show()
     {
+
+        if (!Sentinel::getUser()->hasAnyAccess(['facturasmasivas.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
    
     }
 
@@ -68,6 +88,11 @@ class AlpFacturasController extends Controller
      */
     public function edit($id)
     {
+
+        if (!Sentinel::getUser()->hasAnyAccess(['facturasmasivas.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
         //
     }
 
@@ -80,6 +105,11 @@ class AlpFacturasController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        if (!Sentinel::getUser()->hasAnyAccess(['facturasmasivas.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
         //
     }
 
@@ -96,6 +126,11 @@ class AlpFacturasController extends Controller
 
     public function import(Request $request) 
     {
+
+        if (!Sentinel::getUser()->hasAnyAccess(['facturasmasivas.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
         $archivo = $request->file('file_facturas');
         Excel::import(new FacturasImport, $archivo);
         

@@ -40,6 +40,12 @@ class AlpSedesController extends JoshController
         }
 
 
+        if (!Sentinel::getUser()->hasAnyAccess(['sedes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
 
       
 
@@ -79,6 +85,12 @@ class AlpSedesController extends JoshController
         }
 
 
+        if (!Sentinel::getUser()->hasAnyAccess(['sedes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
 
         return view ('admin.sedes.create');
     }
@@ -107,6 +119,12 @@ class AlpSedesController extends JoshController
           ->withProperties($request->all())->log('AlpSedesController/store');
 
 
+        }
+
+
+        if (!Sentinel::getUser()->hasAnyAccess(['sedes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -171,6 +189,12 @@ class AlpSedesController extends JoshController
         }
 
 
+        if (!Sentinel::getUser()->hasAnyAccess(['sedes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
 
         return view('admin.sedes.edit', compact('sedes'));
     }
@@ -200,6 +224,12 @@ class AlpSedesController extends JoshController
           ->withProperties($request->all())->log('AlpSedesController/update');
 
 
+        }
+
+
+        if (!Sentinel::getUser()->hasAnyAccess(['sedes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -280,6 +310,12 @@ class AlpSedesController extends JoshController
           ->withProperties(['id'=>$id])->log('AlpSedesController/destroy');
 
 
+        }
+
+
+        if (!Sentinel::getUser()->hasAnyAccess(['sedes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 

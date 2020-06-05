@@ -41,6 +41,11 @@ class AlpRolConfiguracionController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['rolconfiguracion.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
         $roles = DB::table('roles')->select('id', 'name')->get();
 
@@ -86,6 +91,11 @@ class AlpRolConfiguracionController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['rolconfiguracion.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         // Show the page
         return view ('admin.rolpagos.create');
     }
@@ -113,6 +123,11 @@ class AlpRolConfiguracionController extends JoshController
           ->withProperties($request->all())->log('AlpRolConfiguracionController/store');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['rolconfiguracion.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
         

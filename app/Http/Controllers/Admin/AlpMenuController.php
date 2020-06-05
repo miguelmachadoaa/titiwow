@@ -42,6 +42,11 @@ class AlpMenuController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['menus.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
       
 
         $menus = AlpMenu::all();
@@ -128,6 +133,11 @@ class AlpMenuController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['menus.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
         // Show the page
         return view ('admin.menus.create');
@@ -156,6 +166,11 @@ class AlpMenuController extends JoshController
           ->withProperties($request->all())->log('AlpMenuController/store');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['menus.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -213,6 +228,11 @@ class AlpMenuController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['menus.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
 
        
@@ -246,6 +266,11 @@ class AlpMenuController extends JoshController
           ->withProperties($request->all())->log('AlpMenuController/store');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['menus.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
             $data = array(
@@ -318,6 +343,11 @@ class AlpMenuController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['menus.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
 
         try {
@@ -363,6 +393,11 @@ class AlpMenuController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['menus.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
 
        
@@ -395,6 +430,11 @@ class AlpMenuController extends JoshController
           ->withProperties($request->all())->log('AlpMenuController/storeson');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['menus.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
         
          $user_id = Sentinel::getUser()->id;
@@ -452,6 +492,11 @@ class AlpMenuController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['menus.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
 
        
@@ -483,6 +528,11 @@ class AlpMenuController extends JoshController
           ->withProperties($request->all())->log('AlpMenuController/updson');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['menus.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
        
 
@@ -532,6 +582,11 @@ class AlpMenuController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['menus.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
        
         $detalle = AlpDetalleSubmenu::find($id);
 
@@ -562,6 +617,11 @@ class AlpMenuController extends JoshController
           ->withProperties($request->all())->log('AlpMenuController/storesub');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['menus.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
         

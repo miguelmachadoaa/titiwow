@@ -55,6 +55,13 @@ class AlpEmpresasController extends JoshController
 
 
         }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['empresas.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+      
+
       
 
         $empresas = AlpEmpresas::all();
@@ -153,6 +160,13 @@ class AlpEmpresasController extends JoshController
 
 
         }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['empresas.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
 
         $empresas=AlpEmpresas::get();
       
@@ -281,6 +295,14 @@ class AlpEmpresasController extends JoshController
 
 
         }
+
+
+        if (!Sentinel::getUser()->hasAnyAccess(['empresas.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
        
        $empresas = AlpEmpresas::find($id);
 
@@ -449,6 +471,13 @@ class AlpEmpresasController extends JoshController
 
 
         }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['empresas.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
 
 
         $empresa = AlpEmpresas::find($id);
@@ -621,6 +650,11 @@ class AlpEmpresasController extends JoshController
           ->log('empresas/invitacionesmasiv');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['empresas.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
         $empresa = AlpEmpresas::all();

@@ -38,6 +38,11 @@ class AlpImpuestosController extends JoshController
 
 
         }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['impuestos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
       
 
         $impuestos = AlpImpuestos::all();
@@ -72,6 +77,11 @@ class AlpImpuestosController extends JoshController
 
 
         }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['impuestos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
       
 
 
@@ -102,6 +112,11 @@ class AlpImpuestosController extends JoshController
           ->withProperties($request->all())->log('AlpImpuestosController/store');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['impuestos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -158,6 +173,11 @@ class AlpImpuestosController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['impuestos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
        
        $impuestos = AlpImpuestos::find($id);
 
@@ -188,6 +208,11 @@ class AlpImpuestosController extends JoshController
           ->withProperties($request->all())->log('AlpImpuestosController/update');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['impuestos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -259,6 +284,11 @@ class AlpImpuestosController extends JoshController
           ->withProperties(['id'=>$id])->log('AlpImpuestosController/destroy');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['impuestos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
         

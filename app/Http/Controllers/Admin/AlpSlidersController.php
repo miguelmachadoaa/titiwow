@@ -33,6 +33,12 @@ class AlpSlidersController extends JoshController
      */
     public function index()
     {
+
+
+        if (!Sentinel::getUser()->hasAnyAccess(['sliders.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
         // Grab all the blogs
 
         $sliders = AlpSliders::get();
@@ -100,7 +106,10 @@ class AlpSlidersController extends JoshController
     public function create()
     {
         
+if (!Sentinel::getUser()->hasAnyAccess(['sliders.*'])) {
 
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
         return view('admin.sliders.create');
     }
 
@@ -111,6 +120,11 @@ class AlpSlidersController extends JoshController
      */
     public function store(SlidersRequest $request)
     {
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['sliders.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
 
         $user_id = Sentinel::getUser()->id;
 
@@ -180,6 +194,11 @@ class AlpSlidersController extends JoshController
      */
     public function show($id)
     {
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['sliders.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
 
           $slider = AlpSliders::where('id', $id)->first();
 
@@ -194,6 +213,11 @@ class AlpSlidersController extends JoshController
      */
     public function edit($id)
     {
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['sliders.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
 
       $slider=AlpSliders::where('id', $id)->first();
         
@@ -210,6 +234,11 @@ class AlpSlidersController extends JoshController
      */
     public function update(SlidersRequest $request, $id)
     {
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['sliders.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
 
         $slider = AlpSliders::find($id);
 
@@ -316,6 +345,11 @@ class AlpSlidersController extends JoshController
      */
     public function destroy( $slider)
     {
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['sliders.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
 
 
       $id_slider=$slider;

@@ -64,6 +64,12 @@ class AlpXmlController extends JoshController
 
 
         }
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['xml.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
         $input=$request->all();
         
@@ -293,6 +299,11 @@ class AlpXmlController extends JoshController
 
         }
 
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['xml.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
         $almacen=AlpAlmacenes::get();
 
         $states=State::where('config_states.country_id', '47')->get();
@@ -326,6 +337,11 @@ class AlpXmlController extends JoshController
           activity()
           ->withProperties($request->all())->log('almacenes/store');
 
+        }
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['xml.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
         $input=$request->all();
@@ -394,6 +410,11 @@ class AlpXmlController extends JoshController
 
 
         }
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['xml.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
        
        $almacen = AlpAlmacenes::where('id', $id)->first();
 
@@ -431,6 +452,11 @@ class AlpXmlController extends JoshController
           ->withProperties($request->all())->log('almacenes/update');
 
 
+        }
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['xml.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
          if ($request->defecto=='1') {
@@ -519,6 +545,11 @@ class AlpXmlController extends JoshController
 
 
         }
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['xml.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
 
 
         try {
@@ -555,6 +586,11 @@ class AlpXmlController extends JoshController
           activity()
           ->withProperties(['id'=>$id])->log('almacen/edit');
 
+        }
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['xml.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
        
@@ -598,6 +634,11 @@ class AlpXmlController extends JoshController
           activity()
           ->withProperties(['id'=>$id])->log('almacen/postgestionar');
 
+        }
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['xml.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
         $input=$request->all();
@@ -650,6 +691,11 @@ class AlpXmlController extends JoshController
           ->withProperties(['id'=>$id])->log('almacen/roles');
 
         }
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['xml.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
 
 
         $roles = Sentinel::getRoleRepository()->all();
@@ -690,6 +736,11 @@ class AlpXmlController extends JoshController
           activity()
           ->withProperties(['id'=>$id])->log('almacen/postroles');
 
+        }
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['xml.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
         $input=$request->all();
@@ -820,6 +871,11 @@ class AlpXmlController extends JoshController
           activity()
           ->withProperties(['id'=>$id])->log('almacen/edit');
 
+        }
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['xml.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
        
 

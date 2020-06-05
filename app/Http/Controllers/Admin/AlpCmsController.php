@@ -48,6 +48,12 @@ class AlpCmsController extends JoshController
 
         }
 
+         if (!Sentinel::getUser()->hasAnyAccess(['cms.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
 
 
         // Grab all the blogs
@@ -80,6 +86,12 @@ class AlpCmsController extends JoshController
 
 
         }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['cms.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
 
         return view('admin.cms.create');
@@ -159,6 +171,14 @@ class AlpCmsController extends JoshController
         }
 
 
+if (!Sentinel::getUser()->hasAnyAccess(['cms.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+
+
         /*$comments = Blog::find($blog->id)->comments;
 
         return view('admin.blog.show', compact('blog', 'comments', 'tags'));*/
@@ -189,6 +209,14 @@ class AlpCmsController extends JoshController
 
 
         }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['cms.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+
 
         $cms = AlpCms::find($id);
         return view('admin.cms.edit', compact('cms'));

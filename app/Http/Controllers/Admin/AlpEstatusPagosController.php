@@ -40,6 +40,11 @@ class AlpEstatusPagosController extends JoshController
 
         }
 
+         if (!Sentinel::getUser()->hasAnyAccess(['estatuspagos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
       
 
         $estatus = AlpEstatusPagos::all();
@@ -116,6 +121,10 @@ class AlpEstatusPagosController extends JoshController
 
 
         }
+if (!Sentinel::getUser()->hasAnyAccess(['estatuspagos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
 
 
         // Show the page
@@ -145,6 +154,12 @@ class AlpEstatusPagosController extends JoshController
 
 
         }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['estatuspagos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         
          $user_id = Sentinel::getUser()->id;
 
@@ -196,6 +211,11 @@ class AlpEstatusPagosController extends JoshController
 
 
         }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['estatuspagos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
        
        $estatus = AlpEstatusPagos::find($id);
 
@@ -226,6 +246,11 @@ class AlpEstatusPagosController extends JoshController
           ->withProperties($request->all())->log('AlpEstatusPagosController/update');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['estatuspagos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -296,6 +321,11 @@ class AlpEstatusPagosController extends JoshController
           ->withProperties(['id'=>$id])->log('AlpEstatusPagosController/destroy');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['estatuspagos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
         

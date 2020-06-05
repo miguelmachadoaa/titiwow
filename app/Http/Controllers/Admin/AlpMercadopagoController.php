@@ -35,6 +35,11 @@ class AlpMercadopagoController extends JoshController
     public function mercadopago()
     {
 
+
+
+       
+        
+
      $configuracion = AlpConfiguracion::where('id', '1')->first();
 
       //echo $configuracion->id_mercadopago;

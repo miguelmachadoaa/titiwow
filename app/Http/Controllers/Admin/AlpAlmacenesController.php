@@ -45,6 +45,8 @@ use DB;
 
 class AlpAlmacenesController extends JoshController
 {
+
+   
     /**
      * Show a list of all the groups.
      *
@@ -70,6 +72,15 @@ class AlpAlmacenesController extends JoshController
 
 
         }
+
+
+        if (!Sentinel::getUser()->hasAnyAccess(['almacenes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+        
+
       
 
         $almacenes = AlpAlmacenes::all();
@@ -164,6 +175,13 @@ class AlpAlmacenesController extends JoshController
  
     public function create()
     {
+
+      if (!Sentinel::getUser()->hasAnyAccess(['almacenes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+
 
         if (Sentinel::check()) {
 
@@ -289,6 +307,13 @@ class AlpAlmacenesController extends JoshController
      */
     public function edit($id)
     {
+
+      if (!Sentinel::getUser()->hasAnyAccess(['almacenes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+
         if (Sentinel::check()) {
 
           $user = Sentinel::getUser();
@@ -509,6 +534,13 @@ class AlpAlmacenesController extends JoshController
 
      public function gestionar($id)
     {
+
+      if (!Sentinel::getUser()->hasAnyAccess(['almacenes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+
         if (Sentinel::check()) {
 
           $user = Sentinel::getUser();
@@ -603,6 +635,13 @@ class AlpAlmacenesController extends JoshController
 
      public function roles($id)
     {
+
+      if (!Sentinel::getUser()->hasAnyAccess(['almacenes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+
         if (Sentinel::check()) {
 
           $user = Sentinel::getUser();
@@ -693,6 +732,10 @@ class AlpAlmacenesController extends JoshController
 
     private function inventario()
     {
+
+     
+
+
        
 
         if (Sentinel::check()) {
@@ -757,6 +800,13 @@ class AlpAlmacenesController extends JoshController
 
      public function upload($id)
     {
+
+       if (!Sentinel::getUser()->hasAnyAccess(['almacenes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+
         if (Sentinel::check()) {
 
           $user = Sentinel::getUser();
@@ -844,6 +894,14 @@ class AlpAlmacenesController extends JoshController
           ->withProperties(['id'=>$id])->log('almacen/edit');
 
         }
+
+
+         if (!Sentinel::getUser()->hasAnyAccess(['almacenes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+
 
         $productos = AlpProductos::select('alp_productos.*')
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
@@ -1189,6 +1247,13 @@ class AlpAlmacenesController extends JoshController
 
       public function estatus(Request $request)
     {
+
+       if (!Sentinel::getUser()->hasAnyAccess(['almacenes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+        
 
          if (Sentinel::check()) {
 

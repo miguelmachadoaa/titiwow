@@ -69,6 +69,11 @@ class AlpOrdenesController extends JoshController
 
         }
 
+         if (!Sentinel::getUser()->hasAnyAccess(['ordenes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
          $configuracion = AlpConfiguracion::where('id', '1')->first();
 
 
@@ -118,6 +123,11 @@ class AlpOrdenesController extends JoshController
           activity()
           ->log('AlpOrdenesController/index');
 
+        }
+
+         if (!Sentinel::getUser()->hasAnyAccess(['ordenes.index'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
       
 
@@ -293,6 +303,11 @@ class AlpOrdenesController extends JoshController
 
         }
 
+         if (!Sentinel::getUser()->hasAnyAccess(['ordenes.descuento'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         // Grab all the groups
       
        
@@ -406,6 +421,11 @@ class AlpOrdenesController extends JoshController
 
         }
 
+         if (!Sentinel::getUser()->hasAnyAccess(['ordenes.consolidado'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         $dt = Carbon::now();
 
         $date_inicio = Carbon::create($dt->year, $dt->month, $dt->day, 5, 59, 0); 
@@ -445,6 +465,11 @@ class AlpOrdenesController extends JoshController
 
         }
 
+         if (!Sentinel::getUser()->hasAnyAccess(['ordenes.espera'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
     
         $estatus_ordenes = AlpEstatusOrdenes::all();
 
@@ -471,7 +496,7 @@ class AlpOrdenesController extends JoshController
           ->groupBy('alp_ordenes.id')
           ->get();
 
-          dd($ordenes);
+          //dd($ordenes);
 
             $data = array();
 
@@ -555,6 +580,11 @@ class AlpOrdenesController extends JoshController
           activity()
           ->log('AlpOrdenesController/aprobados');
 
+        }
+
+         if (!Sentinel::getUser()->hasAnyAccess(['ordenes.aprobados'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -713,6 +743,11 @@ class AlpOrdenesController extends JoshController
 
         }
 
+         if (!Sentinel::getUser()->hasAnyAccess(['ordenes.recibidos'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
       
        
@@ -861,6 +896,11 @@ class AlpOrdenesController extends JoshController
 
         }
 
+         if (!Sentinel::getUser()->hasAnyAccess(['ordenes.facturados'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
       
         
@@ -1003,6 +1043,11 @@ class AlpOrdenesController extends JoshController
           activity()
           ->log('AlpOrdenesController/enviados');
 
+        } 
+
+        if (!Sentinel::getUser()->hasAnyAccess(['ordenes.enviados'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -1124,6 +1169,11 @@ class AlpOrdenesController extends JoshController
           activity()
           ->log('AlpOrdenesController/cancelados');
 
+        } 
+
+        if (!Sentinel::getUser()->hasAnyAccess(['ordenes.cancelados'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -1159,6 +1209,11 @@ class AlpOrdenesController extends JoshController
           activity()
           ->log('AlpOrdenesController/empresas');
 
+        } 
+
+        if (!Sentinel::getUser()->hasAnyAccess(['ordenes.empresas'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -1290,6 +1345,11 @@ class AlpOrdenesController extends JoshController
           activity()
           ->log('AlpOrdenesController/create');
 
+        } 
+
+        if (!Sentinel::getUser()->hasAnyAccess(['ordenes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -1425,6 +1485,11 @@ class AlpOrdenesController extends JoshController
           ->withProperties(['id'=>$id])->log('AlpOrdenesController/detalle');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['ordenes.detalle'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -2407,6 +2472,11 @@ class AlpOrdenesController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['ordenes.nomina'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
       
         $ordenes = AlpOrdenes::all();
@@ -2556,6 +2626,11 @@ class AlpOrdenesController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['ordenes.almacen'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         // Grab all the groups
         // 
         
@@ -2679,6 +2754,11 @@ public function detallealmacen($id)
           ->withProperties(['id'=>$id])->log('AlpOrdenesController/detalle');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['ordenes.detallealmacen'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 

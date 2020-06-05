@@ -38,6 +38,11 @@ class AlpFormaspagoController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['formaspago.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
       
 
@@ -117,6 +122,11 @@ class AlpFormaspagoController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['formaspago.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         // Show the page
         return view ('admin.formaspago.create');
     }
@@ -144,6 +154,11 @@ class AlpFormaspagoController extends JoshController
           ->withProperties($request->all())->log('AlpFormaspagoController/store');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['formaspago.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
         
          $user_id = Sentinel::getUser()->id;
@@ -198,6 +213,11 @@ class AlpFormaspagoController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['formaspago.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
        
        $forma = AlpFormaspago::find($id);
 
@@ -229,6 +249,11 @@ class AlpFormaspagoController extends JoshController
           ->withProperties($request->all())->log('AlpFormaspagoController/update');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['formaspago.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
         
 
@@ -300,6 +325,11 @@ class AlpFormaspagoController extends JoshController
           ->withProperties(['id'=>$id])->log('AlpFormaspagoController/destroy');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['formaspago.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
         

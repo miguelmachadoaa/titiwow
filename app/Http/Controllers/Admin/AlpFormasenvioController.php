@@ -43,6 +43,11 @@ class AlpFormasenvioController extends JoshController
 
 
         }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['formasenvio.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
       
 
         $formas = AlpFormasenvio::all();
@@ -126,6 +131,11 @@ $tipo='Fecha fija';
 
 
         }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['formasenvio.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
       
 
         // Show the page
@@ -156,6 +166,11 @@ $tipo='Fecha fija';
           ->withProperties($request->all())->log('AlpFormasenvioController/store');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['formasenvio.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -212,6 +227,11 @@ $tipo='Fecha fija';
 
 
         }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['formasenvio.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
        
        $forma = AlpFormasenvio::find($id);
 
@@ -243,6 +263,11 @@ $tipo='Fecha fija';
           ->withProperties($request->all())->log('AlpFormasenvioController/update');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['formasenvio.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -318,6 +343,11 @@ $tipo='Fecha fija';
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['formasenvio.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
         try {
             // Get group information
@@ -352,6 +382,11 @@ $tipo='Fecha fija';
           ->withProperties(['id'=>$id])->log('AlpFormasenvioController/ubicacion');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['formasenvio.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -432,6 +467,11 @@ $tipo='Fecha fija';
           ->withProperties($request->all())->log('AlpFormasenvioController/storecity');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['formasenvio.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
         $input=$request->all();
@@ -521,6 +561,11 @@ $tipo='Fecha fija';
           ->withProperties($request->all())->log('AlpFormasenvioController/delcity');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['formasenvio.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
         $user_id = Sentinel::getUser()->id;

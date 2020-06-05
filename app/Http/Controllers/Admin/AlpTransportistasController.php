@@ -38,7 +38,11 @@ class AlpTransportistasController extends JoshController
 
 
         }
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['transportistas.*'])) {
 
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
 
       
 
@@ -114,6 +118,12 @@ class AlpTransportistasController extends JoshController
 
 
         }
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['transportistas.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
 
         return view ('admin.transportistas.create');
@@ -143,6 +153,12 @@ class AlpTransportistasController extends JoshController
 
 
         }
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['transportistas.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
 
         
@@ -197,6 +213,12 @@ class AlpTransportistasController extends JoshController
 
 
         }
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['transportistas.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
 
        
@@ -230,6 +252,12 @@ class AlpTransportistasController extends JoshController
 
 
         }
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['transportistas.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
 
        $data = array(
@@ -301,6 +329,12 @@ class AlpTransportistasController extends JoshController
 
 
         }
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['transportistas.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
         
         try {

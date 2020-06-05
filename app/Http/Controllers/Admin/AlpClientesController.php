@@ -80,6 +80,14 @@ class AlpClientesController extends JoshController
 
 
         }
+
+         if (!Sentinel::getUser()->hasAnyAccess(['clientes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+
       
         $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista')
         ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
@@ -253,6 +261,13 @@ class AlpClientesController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['clientes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+
 
       
         $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente')
@@ -385,6 +400,13 @@ class AlpClientesController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['clientes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+
 
       
         $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente')
@@ -514,6 +536,13 @@ class AlpClientesController extends JoshController
 
 
         }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['clientes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
       
         $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_empresas.nombre_empresa as nombre_empresa')
         ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
@@ -636,6 +665,13 @@ class AlpClientesController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['clientes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+
         $user_id = Sentinel::getUser()->id;
 
         $saldo=AlpSaldo::where('id_cliente', $id)->get();
@@ -711,6 +747,13 @@ class AlpClientesController extends JoshController
           activity()->log('clientes/create');
 
         }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['clientes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
 
         // Get all the available groups
         $groups = DB::table('roles')->whereIn('roles.id', [9, 10, 11])->get();
@@ -839,6 +882,21 @@ class AlpClientesController extends JoshController
           activity()->withProperties(['id'=>$id])->log('clientes/edit');
 
         }
+
+         if (!Sentinel::getUser()->hasAnyAccess(['clientes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+
+
+        if (!Sentinel::getUser()->hasAnyAccess(['clientes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
 
         $cliente = DB::table('alp_clientes')
         //->leftJoin('users', 'alp_clientes.id_embajador', '=', 'users.id')
@@ -1059,6 +1117,14 @@ class AlpClientesController extends JoshController
 
         }
 
+         if (!Sentinel::getUser()->hasAnyAccess(['clientes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+
+
         $saldo=AlpSaldo::where('id_cliente', $id)->get();
 
         try {
@@ -1177,6 +1243,15 @@ class AlpClientesController extends JoshController
 
 
         }
+
+
+         if (!Sentinel::getUser()->hasAnyAccess(['clientes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+
         $user = User::findOrFail($id);
 
         $cliente = DB::table('alp_clientes')->where('alp_clientes.id_user_client', '=', $id)->get();
@@ -1289,6 +1364,13 @@ class AlpClientesController extends JoshController
 
 
         }
+
+         if (!Sentinel::getUser()->hasAnyAccess(['clientes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
 
 
         $user_id = Sentinel::getUser()->id;
@@ -1441,6 +1523,14 @@ class AlpClientesController extends JoshController
 
 
         }
+
+         if (!Sentinel::getUser()->hasAnyAccess(['clientes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+
 
 
         
@@ -1723,6 +1813,15 @@ class AlpClientesController extends JoshController
 
 
         }
+
+
+         if (!Sentinel::getUser()->hasAnyAccess(['clientes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+
       
         $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista')
         ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
@@ -1893,6 +1992,14 @@ private function getSaldo()
 
      public function cargar()
     {
+
+       if (!Sentinel::getUser()->hasAnyAccess(['clientes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+
         // Get all the available groups
         $groups = Sentinel::getRoleRepository()->all();
 
@@ -1932,6 +2039,14 @@ private function getSaldo()
 
     public function cargarsaldo()
     {
+
+       if (!Sentinel::getUser()->hasAnyAccess(['clientes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+
         // Get all the available groups
         $groups = Sentinel::getRoleRepository()->all();
 

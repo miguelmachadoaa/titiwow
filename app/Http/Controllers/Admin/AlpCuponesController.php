@@ -57,6 +57,11 @@ class AlpCuponesController extends JoshController
 
 
         }
+
+         if (!Sentinel::getUser()->hasAnyAccess(['cupones.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
       
 
         $cupones = AlpCupones::all();
@@ -142,6 +147,12 @@ class AlpCuponesController extends JoshController
 
 
         }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['cupones.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+      
 
 
         // Show the page
@@ -243,6 +254,13 @@ class AlpCuponesController extends JoshController
 
 
         }
+
+
+        if (!Sentinel::getUser()->hasAnyAccess(['cupones.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+      
        
        $cupon = AlpCupones::find($id);
 
@@ -881,6 +899,13 @@ class AlpCuponesController extends JoshController
         }
 
 
+        if (!Sentinel::getUser()->hasAnyAccess(['cupones.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+      
+
+
        
        $cupon = AlpCupones::find($id);
 
@@ -1099,6 +1124,15 @@ class AlpCuponesController extends JoshController
 
 
         }
+
+
+        if (!Sentinel::getUser()->hasAnyAccess(['cupones.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+      
+
+      
 
         return view('admin.cupones.cargar');
     }

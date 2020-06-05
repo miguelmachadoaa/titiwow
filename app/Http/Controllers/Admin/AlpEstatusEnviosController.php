@@ -40,6 +40,13 @@ class AlpEstatusEnviosController extends JoshController
 
 
         }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['estatusenvios.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
       
 
         $estatus = AlpEnviosEstatus::all();
@@ -107,6 +114,13 @@ class AlpEstatusEnviosController extends JoshController
 
 
         }
+
+         if (!Sentinel::getUser()->hasAnyAccess(['estatusenvios.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
 
 
         // Show the page
@@ -190,6 +204,12 @@ class AlpEstatusEnviosController extends JoshController
 
 
         }
+
+         if (!Sentinel::getUser()->hasAnyAccess(['estatusenvios.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+        
 
        
        $estatus = AlpEnviosEstatus::find($id);

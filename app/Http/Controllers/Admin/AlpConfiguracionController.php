@@ -51,6 +51,13 @@ class AlpConfiguracionController extends JoshController
 
         }
 
+
+        if (!Sentinel::getUser()->hasAnyAccess(['configuracion.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
         $configuracion = AlpConfiguracion::where('id', '1')->first();
 
         $roles=Roles::where('tipo', '2')->get();

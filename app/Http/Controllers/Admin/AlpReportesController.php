@@ -64,6 +64,11 @@ class AlpReportesController extends Controller
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
         return view('admin.reportes.registrados');
     }
@@ -86,6 +91,11 @@ class AlpReportesController extends Controller
           ->log('AlpReportesController/ventas');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
        // $clientes=User::all();
@@ -120,6 +130,11 @@ class AlpReportesController extends Controller
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
         $productos=AlpProductos::all();
 
@@ -145,6 +160,11 @@ class AlpReportesController extends Controller
           ->withProperties($request->all())->log('AlpReportesController/exportproductos');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
         
 
@@ -176,6 +196,11 @@ class AlpReportesController extends Controller
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
         $productos=AlpProductos::all();
 
@@ -202,6 +227,11 @@ class AlpReportesController extends Controller
           ->withProperties($request->all())->log('AlpReportesController/exportproductostotales');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -231,6 +261,11 @@ class AlpReportesController extends Controller
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         return view('admin.reportes.carrito');
 
     }
@@ -253,6 +288,11 @@ class AlpReportesController extends Controller
           ->withProperties($request->all())->log('AlpReportesController/exportcarrito');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
         
 
@@ -285,6 +325,11 @@ class AlpReportesController extends Controller
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
        // dd($request->all());
 
@@ -309,6 +354,11 @@ class AlpReportesController extends Controller
           ->withProperties($request->all())->log('AlpReportesController/export');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -345,6 +395,11 @@ class AlpReportesController extends Controller
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         
 
         return view('admin.reportes.financiero');
@@ -370,6 +425,11 @@ class AlpReportesController extends Controller
           ->withProperties($request->all())->log('AlpReportesController/exportfinanciero');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -401,6 +461,11 @@ class AlpReportesController extends Controller
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
 
         return view('admin.reportes.masterfile');
@@ -428,6 +493,11 @@ class AlpReportesController extends Controller
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
 
         return Excel::download(new MasterfileExport($request->desde, $request->hasta), 'masterfile_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
@@ -451,6 +521,11 @@ class AlpReportesController extends Controller
           ->log('AlpReportesController/masterfileamigos');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -480,6 +555,11 @@ class AlpReportesController extends Controller
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
 
         return Excel::download(new MasterfileAmigosExport($request->desde, $request->hasta), 'masterfile_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
@@ -503,6 +583,11 @@ class AlpReportesController extends Controller
           ->log('AlpReportesController/masterfileembajadores');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -531,6 +616,11 @@ class AlpReportesController extends Controller
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
         return Excel::download(new MasterfileEmbajadoresExport($request->desde, $request->hasta), 'masterfile_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
     }
@@ -554,6 +644,11 @@ class AlpReportesController extends Controller
           ->log('AlpReportesController/logistica');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -580,6 +675,11 @@ class AlpReportesController extends Controller
           ->withProperties($request->all())->log('AlpReportesController/exportlogistica');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -610,6 +710,11 @@ class AlpReportesController extends Controller
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
          Excel::store(new LogisticaExport($request->desde, $request->hasta), 'logistica_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
 
@@ -637,6 +742,11 @@ class AlpReportesController extends Controller
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
 
         return view('admin.reportes.consolidado');
@@ -662,6 +772,11 @@ class AlpReportesController extends Controller
           ->withProperties($request->all())->log('AlpReportesController/exportconsolidado');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -692,6 +807,11 @@ class AlpReportesController extends Controller
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         return view('admin.reportes.ventastotales');
 
     }
@@ -715,6 +835,11 @@ class AlpReportesController extends Controller
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         return Excel::download(new VentastotalesExport($request->desde, $request->hasta), 'ventastotales_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
     }
 
@@ -735,6 +860,11 @@ class AlpReportesController extends Controller
           activity()
           ->log('AlpReportesController/cuponesdescuento');
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
         return view('admin.reportes.cuponesdescuento');
@@ -760,6 +890,11 @@ class AlpReportesController extends Controller
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         return Excel::download(new CuponesDescuentoExport(), 'cuponesdescuento.xlsx');
     }
 
@@ -780,6 +915,11 @@ class AlpReportesController extends Controller
           activity()
           ->log('AlpReportesController/ventasdescuento');
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
         return view('admin.reportes.ventasdescuento');
@@ -805,6 +945,11 @@ class AlpReportesController extends Controller
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         return Excel::download(new DescuentoVentasExport($request->desde, $request->hasta), 'ventasdescuento_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
     }
 
@@ -827,6 +972,11 @@ class AlpReportesController extends Controller
           activity()
           ->withProperties($request->all())->log('AlpReportesController/exportcronlogisticaexport');
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
       $date = Carbon::now();
@@ -858,6 +1008,11 @@ class AlpReportesController extends Controller
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         $date = Carbon::now();
 
         $hoy=$date->format('Y-m-d');
@@ -887,6 +1042,11 @@ class AlpReportesController extends Controller
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         $productos=AlpProductos::all();
 
         return view('admin.reportes.productosb', compact('productos'));
@@ -910,6 +1070,11 @@ class AlpReportesController extends Controller
           activity()
           ->withProperties($request->all())->log('AlpReportesController/exportproductosb');
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
         $date = Carbon::now();
@@ -939,6 +1104,11 @@ class AlpReportesController extends Controller
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         $productos=AlpProductos::all();
 
         return view('admin.reportes.productosc', compact('productos'));
@@ -965,6 +1135,11 @@ class AlpReportesController extends Controller
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         $date = Carbon::now();
 
         $hoy=$date->format('Y-m-d');
@@ -989,6 +1164,11 @@ class AlpReportesController extends Controller
           activity()
           ->withProperties($request->all())->log('AlpReportesController/cronexportproductosb');
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
         $date = Carbon::now();
@@ -1018,6 +1198,11 @@ class AlpReportesController extends Controller
           activity()
           ->withProperties($request->all())->log('AlpReportesController/cronexportproductosb');
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
         $date = Carbon::now();
@@ -1052,6 +1237,11 @@ class AlpReportesController extends Controller
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         $date = Carbon::now();
 
         $hoy=$date->format('Y-m-d');
@@ -1078,6 +1268,11 @@ class AlpReportesController extends Controller
           activity()
           ->withProperties($request->all())->log('AlpReportesController/cronexporttomapedidos');
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
         $date = Carbon::now();
@@ -1109,6 +1304,11 @@ class AlpReportesController extends Controller
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         $date = Carbon::now();
 
         $hoy=$date->format('Y-m-d');
@@ -1136,6 +1336,11 @@ class AlpReportesController extends Controller
           activity()
           ->withProperties($request->all())->log('AlpReportesController/cronexportcuponesusados');
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
         $date = Carbon::now();
@@ -1167,6 +1372,11 @@ class AlpReportesController extends Controller
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         $date = Carbon::now();
 
         $hoy=$date->format('Y-m-d');
@@ -1196,6 +1406,11 @@ class AlpReportesController extends Controller
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         return view('admin.reportes.listadoproductos');
 
     }
@@ -1218,6 +1433,11 @@ class AlpReportesController extends Controller
           activity()
           ->withProperties($request->all())->log('AlpReportesController/exportlistadoproductos');
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
         return Excel::download(new ListadoProductosExport($request->estado), 'Listado_de_productos.xlsx');
@@ -1245,6 +1465,11 @@ class AlpReportesController extends Controller
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         $almacenes=AlpAlmacenes::get();
 
         return view('admin.reportes.nomina', compact('almacenes'));
@@ -1269,6 +1494,11 @@ class AlpReportesController extends Controller
           activity()
           ->withProperties($request->all())->log('AlpReportesController/exportnomina');
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
        // dd($request->all());
@@ -1302,6 +1532,11 @@ class AlpReportesController extends Controller
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         $almacenes=AlpAlmacenes::get();
 
         return view('admin.reportes.primeracompra', compact('almacenes'));
@@ -1326,6 +1561,11 @@ class AlpReportesController extends Controller
           activity()
           ->withProperties($request->all())->log('AlpReportesController/exportnomina');
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
        // dd($request->all());
@@ -1359,6 +1599,11 @@ class AlpReportesController extends Controller
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         return view('admin.reportes.detalleventa');
 
     }
@@ -1380,6 +1625,11 @@ class AlpReportesController extends Controller
           activity()
           ->withProperties($request->all())->log('AlpReportesController/exportventastotales');
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
         $input=$request->all();
@@ -1410,6 +1660,11 @@ class AlpReportesController extends Controller
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         return view('admin.reportes.detalleclientes');
 
     }
@@ -1431,6 +1686,11 @@ class AlpReportesController extends Controller
           activity()
           ->withProperties($request->all())->log('AlpReportesController/exportdetalleclientes');
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
         $input=$request->all();

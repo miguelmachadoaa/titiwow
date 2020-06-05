@@ -29,6 +29,11 @@ class GroupsController extends JoshController
         // Show the page
         return view('admin.groups.index', compact('roles'));
     }
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['groups.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
 
     /**
      * Group create.
@@ -37,6 +42,11 @@ class GroupsController extends JoshController
      */
     public function create()
     {
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['groups.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
         $modulos = AlpModulos::all();
         // Show the page
         return view ('admin.groups.create', compact('modulos'));
@@ -93,6 +103,11 @@ class GroupsController extends JoshController
      */
     public function edit($group)
     {
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['groups.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
         try {
             // Get the group information
             $role = Sentinel::findRoleById($group);
@@ -187,6 +202,16 @@ class GroupsController extends JoshController
 
 
      public function permissions($id){
+
+
+
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['groups.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
         
         $role = Sentinel::findRoleById($id);
 
@@ -238,6 +263,15 @@ class GroupsController extends JoshController
     }
 
     public function save($id, Request $request){
+
+
+        
+        if (!Sentinel::getUser()->hasAnyAccess(['groups.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
         $role = Sentinel::findRoleById($id);
         
 
@@ -261,8 +295,6 @@ class GroupsController extends JoshController
                }
 
             }
-
-
 
 
         }
@@ -279,15 +311,17 @@ class GroupsController extends JoshController
 
 
  public function guardar($id, Request $request){
-        $role = Sentinel::findRoleById($id);
+
         
+        if (!Sentinel::getUser()->hasAnyAccess(['groups.*'])) {
 
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
 
+        
+        $role = Sentinel::findRoleById($id);
 
         $input=$request->all();
-
-       // dd($input);
-
 
         $per = array( );
 
@@ -303,13 +337,9 @@ class GroupsController extends JoshController
 
             }
 
-
-
-
         }
 
         $role->permissions = $per;
-        
         
         $role->save();
         

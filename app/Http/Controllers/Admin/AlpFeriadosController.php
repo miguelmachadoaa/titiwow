@@ -38,6 +38,11 @@ class AlpFeriadosController extends JoshController
 
 
         }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['feriados.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
       
 
         $feriados = AlpFeriados::all();
@@ -116,6 +121,11 @@ class AlpFeriadosController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['feriados.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
         // Show the page
         return view ('admin.feriados.create');
@@ -145,6 +155,11 @@ class AlpFeriadosController extends JoshController
           ->withProperties($request->all())->log('AlpFeriadosController/store');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['feriados.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
         
@@ -197,6 +212,11 @@ class AlpFeriadosController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['feriados.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
        $feriados = AlpFeriados::find($id);
 
@@ -227,6 +247,11 @@ class AlpFeriadosController extends JoshController
           ->withProperties($request->all())->log('AlpFeriadosController/update');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['feriados.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -297,6 +322,11 @@ class AlpFeriadosController extends JoshController
           ->withProperties(['id'=>$id])->log('AlpFeriadosController/destroy');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['feriados.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
         

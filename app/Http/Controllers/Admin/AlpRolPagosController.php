@@ -41,6 +41,13 @@ class AlpRolPagosController extends JoshController
         }
 
 
+        if (!Sentinel::getUser()->hasAnyAccess(['rolpagos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+
       
 
         $formas = AlpFormaspago::all();
@@ -88,6 +95,12 @@ class AlpRolPagosController extends JoshController
         }
 
 
+        if (!Sentinel::getUser()->hasAnyAccess(['rolpagos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
         return view ('admin.rolpagos.create');
     }
 
@@ -114,6 +127,12 @@ class AlpRolPagosController extends JoshController
           ->withProperties($request->all())->log('AlpRolPagosController/store');
 
 
+        }
+
+
+        if (!Sentinel::getUser()->hasAnyAccess(['rolpagos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
         

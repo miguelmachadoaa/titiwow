@@ -39,6 +39,11 @@ class AlpEstatusOrdenesController extends JoshController
 
         }
 
+         if (!Sentinel::getUser()->hasAnyAccess(['estatusenvios.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
         $estatus = AlpEstatusOrdenes::all();
        
 
@@ -118,6 +123,14 @@ class AlpEstatusOrdenesController extends JoshController
         }
 
 
+         if (!Sentinel::getUser()->hasAnyAccess(['estatusenvios.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+
+
         // Show the page
         return view ('admin.estatus.create');
     }
@@ -146,6 +159,13 @@ class AlpEstatusOrdenesController extends JoshController
 
 
         }
+
+         if (!Sentinel::getUser()->hasAnyAccess(['estatusenvios.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
 
 
         
@@ -200,6 +220,13 @@ class AlpEstatusOrdenesController extends JoshController
 
         }
 
+         if (!Sentinel::getUser()->hasAnyAccess(['estatusenvios.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+
 
            if (Sentinel::check()) {
 
@@ -248,6 +275,13 @@ class AlpEstatusOrdenesController extends JoshController
 
 
         }
+
+         if (!Sentinel::getUser()->hasAnyAccess(['estatusenvios.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
 
         
        $data = array(
@@ -319,6 +353,14 @@ class AlpEstatusOrdenesController extends JoshController
 
 
         }
+
+
+         if (!Sentinel::getUser()->hasAnyAccess(['estatusenvios.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+        
 
 
         try {

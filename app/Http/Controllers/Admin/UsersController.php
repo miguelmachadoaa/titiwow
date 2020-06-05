@@ -38,6 +38,13 @@ class UsersController extends JoshController
 
     public function index()
     {
+
+        if (!Sentinel::getUser()->hasAnyAccess(['users.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+       
+
 //        $user = Sentinel::findUserById(2);
 //        $activation = Activation::completed($user);
 //        return dd($activation);
@@ -122,6 +129,13 @@ class UsersController extends JoshController
      */
     public function create()
     {
+
+        if (!Sentinel::getUser()->hasAnyAccess(['users.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+
         // Get all the available groups
         $groups = Sentinel::getRoleRepository()->all();
 
@@ -204,6 +218,13 @@ class UsersController extends JoshController
      */
     public function edit(User $user)
     {
+
+        if (!Sentinel::getUser()->hasAnyAccess(['users.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+
 
         // Get this user groups
         $userRoles = $user->getRoles()->pluck('name', 'id')->all();
@@ -475,6 +496,13 @@ class UsersController extends JoshController
      */
     public function show($id)
     {
+
+        if (!Sentinel::getUser()->hasAnyAccess(['users.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+        
         try {
             // Get the user information
             $user = Sentinel::findUserById($id);

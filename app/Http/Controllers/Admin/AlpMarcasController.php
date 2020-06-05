@@ -39,6 +39,11 @@ class AlpMarcasController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['marcas.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
       
 
@@ -128,6 +133,11 @@ class AlpMarcasController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['marcas.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
         return view ('admin.marcas.create');
     }
@@ -155,6 +165,11 @@ class AlpMarcasController extends JoshController
           ->withProperties($request->all())->log('AlpMarcasController/store');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['marcas.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -234,6 +249,11 @@ class AlpMarcasController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['marcas.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
        
        $marca = AlpMarcas::find($id);
@@ -265,6 +285,11 @@ class AlpMarcasController extends JoshController
           ->withProperties($request->all())->log('AlpMarcasController/store');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['marcas.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
 
@@ -373,6 +398,11 @@ class AlpMarcasController extends JoshController
           ->withProperties(['id'=>$id])->log('AlpMarcasController/edit');
 
 
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['marcas.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
         

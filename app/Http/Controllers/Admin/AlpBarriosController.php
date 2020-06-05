@@ -39,6 +39,13 @@ class AlpBarriosController extends JoshController
      */
     public function index()
     {
+
+       if (!Sentinel::getUser()->hasAnyAccess(['barrios.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+
         // Grab all the groups
 
         if (Sentinel::check()) {
@@ -115,6 +122,13 @@ class AlpBarriosController extends JoshController
      */
     public function create()
     {
+
+       if (!Sentinel::getUser()->hasAnyAccess(['barrios.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+
 
         if (Sentinel::check()) {
 
@@ -199,6 +213,13 @@ class AlpBarriosController extends JoshController
      */
     public function edit($id)
     {
+
+       if (!Sentinel::getUser()->hasAnyAccess(['barrios.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+        
         if (Sentinel::check()) {
 
           $user = Sentinel::getUser();

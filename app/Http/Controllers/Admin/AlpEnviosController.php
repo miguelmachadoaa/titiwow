@@ -45,6 +45,11 @@ class AlpEnviosController extends JoshController
 
 
         }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['envios.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
       
       
 
@@ -138,6 +143,14 @@ class AlpEnviosController extends JoshController
 
 
         }
+
+
+        if (!Sentinel::getUser()->hasAnyAccess(['envios.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
       
         $ordenes = AlpOrdenes::all();
 
@@ -184,6 +197,13 @@ class AlpEnviosController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['envios.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+
 
         // Show the page
         return view ('admin.envios.create');
@@ -209,7 +229,10 @@ class AlpEnviosController extends JoshController
      */
     public function edit($id)
     {
-     
+     if (!Sentinel::getUser()->hasAnyAccess(['envios.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
     }
 
     /**
@@ -320,6 +343,14 @@ class AlpEnviosController extends JoshController
 
 
         }
+
+
+        if (!Sentinel::getUser()->hasAnyAccess(['envios.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+        
        
        $orden = AlpOrdenes::find($id);
 

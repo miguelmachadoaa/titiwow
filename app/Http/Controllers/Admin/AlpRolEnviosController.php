@@ -41,6 +41,13 @@ class AlpRolEnviosController extends JoshController
         }
 
 
+
+        if (!Sentinel::getUser()->hasAnyAccess(['rolenvios.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
       
 
         $formas = AlpFormasenvio::all();
@@ -91,6 +98,13 @@ class AlpRolEnviosController extends JoshController
         }
 
 
+        if (!Sentinel::getUser()->hasAnyAccess(['rolenvios.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+
         return view ('admin.rolenvios.create');
     }
 
@@ -118,6 +132,13 @@ class AlpRolEnviosController extends JoshController
 
 
         }
+
+
+        if (!Sentinel::getUser()->hasAnyAccess(['rolenvios.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
 
         
         
