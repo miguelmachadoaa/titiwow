@@ -849,6 +849,18 @@
         </a>
         <ul class="sub-menu">
 
+             @if (Sentinel::getUser()->hasAnyAccess(['reportes.clientes']))
+
+                 <li {!! (Request::is('admin/reportes/clientes') ? 'class="active" id="active"' : '') !!}>
+                    <a href="{{ secure_url('admin/reportes/clientes') }}">
+                        <i class="fa fa-angle-double-right"></i>
+                        Clientes por Ciudad
+                    </a>
+                </li>
+            @endif
+
+
+
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.listadoproductos']))
 
                  <li {!! (Request::is('admin/reportes/listadoproductos') ? 'class="active" id="active"' : '') !!}>

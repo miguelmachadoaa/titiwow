@@ -506,6 +506,13 @@ Route::post('productos/postgrid/', ['as'=> 'productos.postgrid', 'uses' => 'Admi
    //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
    Route::post('reportes/exportfinanciero', 'Admin\AlpReportesController@exportfinanciero')->name('reportes.exportfinanciero');
 
+
+    Route::get('reportes/clientes', 'Admin\AlpReportesController@clientes')->name('reportes.clientes');
+  
+   Route::post('reportes/exportclientes', 'Admin\AlpReportesController@exportclientes')->name('reportes.exportclientes');
+
+
+
     
 
     Route::get('reportes/masterfile', 'Admin\AlpReportesController@masterfile')->name('reportes.masterfile');

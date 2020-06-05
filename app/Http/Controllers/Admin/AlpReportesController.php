@@ -28,7 +28,9 @@ use App\Exports\TomaPedidosExport;
 use App\Exports\CuponesDescuentoExport;
 use App\Exports\CuponesUsadosExport;
 use App\Exports\InventarioExport;
+use App\Exports\ClientesExport;
 use App\User;
+use App\State;
 use App\Models\AlpOrdenes;
 use App\Models\AlpProductos;
 use App\Models\AlpAlmacenes;
@@ -438,6 +440,8 @@ class AlpReportesController extends Controller
 
         return Excel::download(new FinancieroExport($request->desde, $request->hasta), 'financiero_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
     }
+
+
 
 
      public function masterfile() 
@@ -1700,6 +1704,68 @@ class AlpReportesController extends Controller
         return Excel::download(new DetalleClientesExport($request->desde, $request->hasta), 'detalle_clientes_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
     }
 
+
+
+      public function clientes() 
+    {
+
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/masterfile ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/masterfile');
+
+
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+        $states=State::where('config_states.country_id', '47')->get();
+
+
+        return view('admin.reportes.clientes', compact( 'states'));
+
+    }
+
+
+    public function exportclientes(Request $request) 
+    {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exportmasterfile ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exportmasterfile');
+
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+        return Excel::download(new ClientesExport($request->city_id), 'clientes_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+    }
 
 
 
