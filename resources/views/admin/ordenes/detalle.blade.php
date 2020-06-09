@@ -343,10 +343,17 @@ Orden {{$orden->id}}
 
                      <tr>
                          <td style="text-align: right;" colspan="5"><b> Subtotal: </b></td>
-                         <td >{{ number_format($orden->monto_total_base, 2) }}</td>
+                         <td >{{ number_format($orden->monto_total+$orden->monto_descuento-$orden->monto_impuesto, 0) }}</td>
                      </tr>
 
-                      <tr>
+
+                     <tr>
+                         <td style="text-align: right;" colspan="5"><b> Impuesto: </b></td>
+                         <td >{{ number_format($orden->monto_impuesto, 0) }}</td>
+                     </tr>
+
+
+                     <tr>
                          <td style="text-align: right;" colspan="5"><b> Envio: </b></td>
                          <td >
 
@@ -370,6 +377,23 @@ Orden {{$orden->id}}
                         </td>
                      </tr>
 
+                     @if(count($cupones)>0)
+
+                       @foreach($cupones as $cupon)
+
+                       <tr>
+                         <td style="text-align: right;" colspan="5"><b> Cupón {{ $cupon->codigo_cupon}}: </b></td>
+                         <td >{{ number_format($cupon->monto_descuento, 2) }}</td>
+                     </tr>
+
+                       @endforeach
+
+                     @endif
+
+                    
+
+                      
+
                      <tr>
                          <td style="text-align: right;" colspan="5"><b> Total: </b></td>
 
@@ -388,24 +412,23 @@ Orden {{$orden->id}}
 
                      </tr>
 
-                     <tr>
+                     <!--tr>
                          <td style="text-align: right;" colspan="5"><b> Descuento: </b></td>
+                         <td >{{ number_format($orden->monto_total_base-$orden->monto_total, 2) }}</td>
+                     </tr-->
+
+
+                      
+
+
+                     @if(($orden->monto_total_base-$orden->monto_total)>0)
+
+                      <tr>
+                         <td style="text-align: right;" colspan="5"><b> Ahorro en esta compra: </b></td>
                          <td >{{ number_format($orden->monto_total_base-$orden->monto_total, 2) }}</td>
                      </tr>
 
-
-                     @if(count($cupones)>0)
-
-                       @foreach($cupones as $cupon)
-
-                       <tr>
-                         <td style="text-align: right;" colspan="5"><b> Cupon {{ $cupon->codigo_cupon}}: </b></td>
-                         <td >{{ number_format($cupon->monto_descuento, 2) }}</td>
-                     </tr>
-
-                       @endforeach
-
-                     @endif 
+                     @endif
 
 
                  </tbody>

@@ -453,6 +453,7 @@ class AlpConfiguracionController extends JoshController
           $tipo=0;
 
 
+
         if (isset(Sentinel::getUser()->id)) {
 
             $user_id = Sentinel::getUser()->id;
@@ -466,6 +467,7 @@ class AlpConfiguracionController extends JoshController
             }
 
         }
+
 
 
           $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
@@ -525,6 +527,7 @@ class AlpConfiguracionController extends JoshController
                     }
 
                 }
+
 
 
 

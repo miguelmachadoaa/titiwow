@@ -562,6 +562,14 @@ Route::post('reportes/exportcuponesdescuento', 'Admin\AlpReportesController@expo
  Route::post('reportes/exportnomina', 'Admin\AlpReportesController@exportnomina')->name('reportes.exportnomina');
 
 
+   Route::get('reportes/formato', 'Admin\AlpReportesController@formato')->name('reportes.formato');
+
+ Route::post('reportes/exportformato', 'Admin\AlpReportesController@exportformato')->name('reportes.exportformato');
+
+
+
+
+
  Route::get('reportes/primeracompra', 'Admin\AlpReportesController@primeracompra')->name('reportes.primeracompra');
 
  Route::post('reportes/exportprimeracompra', 'Admin\AlpReportesController@exportprimeracompra')->name('reportes.exportprimeracompra');

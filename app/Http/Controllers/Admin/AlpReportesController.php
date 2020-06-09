@@ -29,6 +29,8 @@ use App\Exports\CuponesDescuentoExport;
 use App\Exports\CuponesUsadosExport;
 use App\Exports\InventarioExport;
 use App\Exports\ClientesExport;
+use App\Exports\FormatoSolicitudPedidoAlpinista;
+
 use App\User;
 use App\State;
 use App\Models\AlpOrdenes;
@@ -1765,6 +1767,66 @@ class AlpReportesController extends Controller
         }
 
         return Excel::download(new ClientesExport($request->city_id), 'clientes_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+    }
+
+
+public function formato() 
+    {
+
+         if (Sentinel::check()) {
+          $user = Sentinel::getUser();
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/formato ');
+
+        }else{
+          activity()
+          ->log('AlpReportesController/formato');
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+        return view('admin.reportes.formato');
+
+    }
+
+
+
+
+         public function exportformato(Request $request) 
+    {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exportnomina ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exportnomina');
+
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+       // dd($request->all());
+
+         $date = Carbon::now();
+
+        $hoy=$date->format('Y-m-d');
+
+        return Excel::download(new FormatoSolicitudPedidoAlpinista($hoy, 1), 'Listado_de_ventas_almacen.xlsx');
     }
 
 
