@@ -28,6 +28,7 @@ class AlpClientes extends Model
         'habeas_cliente',
         'cod_oracle_cliente',
         'cod_alpinista',
+        'codigo_cliente',
         'estado_masterfile',
         'estado_registro',
         'id_empresa',

@@ -812,6 +812,7 @@ class AlpClientesController extends JoshController
                 'telefono_cliente' =>$request->telefono_cliente, 
                 'marketing_cliente' =>$request->marketing_cliente,
                 'cod_alpinista'  =>$request->cod_alpinista,
+                'codigo_cliente'  =>$request->codigo_cliente,
                 'habeas_cliente' => 1,
                 'estado_masterfile' =>0,
                 'id_user' =>$user_id,               
@@ -900,9 +901,11 @@ class AlpClientesController extends JoshController
 
         $cliente = DB::table('alp_clientes')
         //->leftJoin('users', 'alp_clientes.id_embajador', '=', 'users.id')
-        ->where('alp_clientes.id', '=', $id)->first();
+        ->where('alp_clientes.id_user_client', '=', $id)->first();
 
-        $user = User::findOrFail($cliente->id);
+        //dd($cliente);
+
+        $user = User::findOrFail($id);
         
         // Get this user groups
         $userRoles = $user->getRoles()->pluck('name', 'id')->all();
@@ -1007,6 +1010,7 @@ class AlpClientesController extends JoshController
                 'doc_cliente' => $request->doc_cliente, 
                 'telefono_cliente' => $request->telefono_cliente,
                 'marketing_cliente' =>$request->marketing_cliente,
+                'codigo_cliente' =>$request->codigo_cliente,
                 'estado_masterfile' =>$request->activate,
                 'id_user' =>$user_id, 
             );
@@ -2068,8 +2072,6 @@ private function getSaldo()
         $input=$request->all();
 
         \Session::put('fecha_vencimiento', $request->fecha_vencimiento);
-
-        //dd($input);
 
          $archivo = $request->file('file_alpinistas');
 

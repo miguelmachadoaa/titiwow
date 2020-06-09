@@ -84,6 +84,26 @@
                                             </div>
                                         </div>
 
+                                         <div class="form-group {{ $errors->first('telefono_cliente', 'has-error') }}">
+                                            <label for="telefono_cliente" class="col-sm-2 control-label">Télefono *</label>
+                                            <div class="col-sm-10">
+                                                <input id="telefono_cliente" name="telefono_cliente" type="text" placeholder="Télefono Cliente"
+                                                       class="form-control required" value="{!! old('telefono_cliente', $cliente->telefono_cliente) !!}"/>
+
+                                                {!! $errors->first('telefono_cliente', '<span class="help-block">:message</span>') !!}
+                                            </div>
+                                        </div>
+
+                                         <div class="form-group {{ $errors->first('codigo_cliente', 'has-error') }}">
+                                            <label for="codigo_cliente" class="col-sm-2 control-label">Código Cliente </label>
+                                            <div class="col-sm-10">
+                                                <input id="codigo_cliente" name="codigo_cliente" type="text" placeholder="Código Cliente "
+                                                       class="form-control required" value="{!! old('codigo_cliente', $cliente->codigo_cliente) !!}"/>
+
+                                                {!! $errors->first('codigo_cliente', '<span class="help-block">:message</span>') !!}
+                                            </div>
+                                        </div>
+
                                         <div class="form-group {{ $errors->first('email', 'has-error') }}">
                                             <label for="email" class="col-sm-2 control-label">Email *</label>
                                             <div class="col-sm-10">
@@ -141,7 +161,6 @@
                                             <label for="id_type_doc" class="col-sm-2 control-label">Tipo de Documento *</label>
                                             <div class="col-sm-10">
                                             {!! Form::select('id_type_doc', $tdocumento,$cliente->id_type_doc,array('class'=>'form-control required'));!!}
-
                                                 
                                                 {!! $errors->first('id_type_doc', '<span class="help-block">:message</span>') !!}
                                             </div>
@@ -159,7 +178,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group {{ $errors->first('telefono_cliente', 'has-error') }}">
+                                        <!--div class="form-group {{ $errors->first('telefono_cliente', 'has-error') }}">
                                             <label for="telefono_cliente" class="col-sm-2 control-label">Número Telefónico *</label>
                                             <div class="col-sm-10">
                                                 <input id="telefono_cliente" name="telefono_cliente" type="number"
@@ -168,7 +187,7 @@
 
                                                 {!! $errors->first('telefono_cliente', '<span class="help-block">:message</span>') !!}
                                             </div>
-                                        </div>
+                                        </div-->
 
                                         <div class="form-group {{ $errors->first('pic_file', 'has-error') }}">
                                             <label for="pic" class="col-sm-2 control-label">Profile picture</label>

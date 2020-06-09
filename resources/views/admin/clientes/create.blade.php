@@ -48,6 +48,9 @@
                         </span>
                     </div>
                     <div class="panel-body">
+
+
+                        {{$errors}}
                         <!--main content-->
                         <form id="commentForm" action="{{ secure_url('admin/clientes/store') }}"
                               method="POST" enctype="multipart/form-data" class="form-horizontal">
@@ -84,6 +87,26 @@
                                             </div>
                                         </div>
 
+
+                                        <div class="form-group {{ $errors->first('telefono_cliente', 'has-error') }}">
+                                            <label for="telefono_cliente" class="col-sm-2 control-label">Télefono *</label>
+                                            <div class="col-sm-10">
+                                                <input id="telefono_cliente" name="telefono_cliente" type="text" placeholder="Télefono"
+                                                       class="form-control required" value="{!! old('telefono_cliente') !!}"/>
+
+                                                {!! $errors->first('telefono_cliente', '<span class="help-block">:message</span>') !!}
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group {{ $errors->first('codigo_cliente', 'has-error') }}">
+                                            <label for="codigo_cliente" class="col-sm-2 control-label">Codigo Cliente *</label>
+                                            <div class="col-sm-10">
+                                                <input id="codigo_cliente" name="codigo_cliente" placeholder="Codigo Cliente" type="text"
+                                                       class="form-control  codigo_cliente" value="{!! old('codigo_cliente') !!}"/>
+                                                {!! $errors->first('codigo_cliente', '<span class="help-block">:message</span>') !!}
+                                            </div>
+                                        </div>
+
                                         <div class="form-group {{ $errors->first('email', 'has-error') }}">
                                             <label for="email" class="col-sm-2 control-label">Email *</label>
                                             <div class="col-sm-10">
@@ -92,6 +115,8 @@
                                                 {!! $errors->first('email', '<span class="help-block">:message</span>') !!}
                                             </div>
                                         </div>
+
+                                        
 
                                         <div class="form-group {{ $errors->first('password', 'has-error') }}">
                                             <label for="password" class="col-sm-2 control-label">Contraseña *</label>
