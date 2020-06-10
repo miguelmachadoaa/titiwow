@@ -67,7 +67,8 @@ class VerificarPagos extends Command
 
       $d=$date->subDay(3)->format('Y-m-d');
       
-        $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
+       // $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
+        $ordenes=AlpOrdenes::where('id','=', 5125)->get();
 
          \Log::debug('1 listado' . $ordenes);
 
@@ -103,15 +104,18 @@ class VerificarPagos extends Command
 
           $preference = MP::get("/v1/payments/search?external_reference=".$ord->referencia);
 
+\Log::debug('preference ' . json_encode($preference));
 
-          if (isset($preference['response']['results'][0])) {
+
+          //if (isset($preference['response']['results'][0])) {
+          if (isset($preference)) {
 
             $cantidad=count($preference['response']['results']);
-            $aproved=0;
+            $aproved=1;
             $cancel=0;
             $pending=0;
 
-            foreach ($preference['response']['results'] as $r) {
+          /*  foreach ($preference['response']['results'] as $r) {
 
                     
                   if ($r['status']=='rejected' || $r['status']=='cancelled' || $r['status']=='refunded') {
@@ -128,7 +132,7 @@ class VerificarPagos extends Command
                     $pending=1;
                   }
 
-            }
+            }*/
 
             if ( $aproved ) 
               {
@@ -240,7 +244,7 @@ class VerificarPagos extends Command
                         'id_forma_pago' => $ord->id_forma_pago, 
                         'id_estatus_pago' => '2', 
                         'monto_pago' => $ord->monto_total, 
-                        'json' => json_encode($r), 
+                        'json' => json_encode([]), 
                         'id_user' => '1'
                       );
 

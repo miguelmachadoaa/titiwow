@@ -19,22 +19,22 @@ Datos de la compra
 @if($envio->costo>0)
 
 
-<p><b>IdPedido: </b>{{ $compra->id }}</p>
-<p><b>Documento: </b>{{ $compra->doc_cliente }}</p>
-<p><b>Valor Pagado: </b>{{ $compra->monto_total+$envio->costo }}</p>
-<p><b>Base Impuesto: </b>{{ number_format(($compra->base_impuesto/(1+$compra->valor_impuesto)+$envio->costo_base),0,",",".")}}</p>
-<p><b>Valor Iva: </b>{{ number_format($compra->monto_impuesto+$envio->costo_impuesto,0,",",".")}}</p>
-<p><b>Fecha de Entrega: </b>{{ $fecha_entrega }}</p>
+	IdPedido: {{ $compra->id }}
+	Documento: {{ $compra->doc_cliente }}
+	Valor Pagado: {{ number_format($compra->monto_total+$envio->costo,0,",",".") }}
+	Base Impuesto: {{ number_format($compra->base_impuesto+$envio->costo_base,0,",",".")}}
+	Valor Iva: {{ number_format($compra->monto_impuesto+$envio->costo_impuesto,0,",",".")}}
+	Fecha de Entrega: {{ $fecha_entrega }}
 
 @else
 
 
-<p><b>IdPedido: </b>{{ $compra->id }}</p>
-<p><b>Documento: </b>{{ $compra->doc_cliente }}</p>
-<p><b>Valor Pagado: </b>{{ $compra->monto_total }}</p>
-<p><b>Base Impuesto: </b>{{ number_format($compra->base_impuesto/(1+$compra->valor_impuesto),0,",",".")}}</p>
-<p><b>Valor Iva: </b>{{ number_format($compra->monto_impuesto,0,",",".")}}</p>
-<p><b>Fecha de Entrega: </b>{{ $fecha_entrega }}</p>
+	IdPedido: {{ $compra->id }}
+	Documento: {{ $compra->doc_cliente }}
+	Valor Pagado: {{ number_format($compra->monto_total,0,",",".") }}
+	Base Impuesto: {{ number_format($compra->base_impuesto,0,",",".")}}
+	Valor Iva: {{ number_format($compra->monto_impuesto,0,",",".")}}
+	Fecha de Entrega: {{ $fecha_entrega }}
 
 @endif
 

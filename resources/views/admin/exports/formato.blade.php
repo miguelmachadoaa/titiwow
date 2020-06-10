@@ -7,7 +7,7 @@
 
                     <tr>
                         <td colspan="5" style="font-size: 14px; text-align: center;">Vicepresidencia comercial</td>
-                        <td rowspan="2" >logo</td>
+                        <td rowspan="2" ><!--img src="../assets/img/login.png" alt=""--></td>
                     </tr>
                     <tr>
                         <td colspan="5" style="font-size: 14px; text-align: center;">Formato de Solicitud de Pedido</td>
@@ -61,7 +61,7 @@
                         <td style="background: #203764;color:#ffffff; height: 50px;" >Descripción SKU (*)</td>
                         <td style="background: #203764;color:#ffffff; height: 50px;" >Cantidad (*)</td>
                         <td style="background: #203764;color:#ffffff; height: 50px;" >Tipo Producto (*)</td>
-                        <td style="background: #203764;color:#ffffff; height: 50px;" >Resultado (uso exclusivo Pedidos Alpina)</td>
+                        <td style="background: #5B9BD5;color:#ffffff; height: 50px;" >Resultado (uso exclusivo Pedidos Alpina)</td>
                     </tr>
 
 
@@ -79,6 +79,38 @@
 
 
                     @endforeach
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="background: #5B9BD5;color:#ffffff;"  >ID pedido SAP (uso exclusivo Pedidos Alpina)</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td  style="background: #5B9BD5;color:#ffffff;" >Valor pedido  (uso exclusivo Pedidos Alpina)</td>
+                        <td></td>
+                    </tr>
                         
                         
                 </table>
