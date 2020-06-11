@@ -1110,6 +1110,13 @@ footer a:hover, footer a:active{
     text-align: center;
     margin: 20px 0px 15px 0px;
 }
+
+.products .pum {
+    font-size: 5px;
+    color:#199ad9;
+    text-align: center;
+    margin: 20px 0px 15px 0px;
+}
 .pum {
     color:#bdb9b9 !important;
     margin: 5px 0px 5px 0px !important;
