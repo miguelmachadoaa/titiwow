@@ -29,6 +29,7 @@ class AlpAlmacenes extends Model
         'estado_registro',
         'defecto',
         'descuento_productos',
+        'formato',
         'id_user'
     ];
 

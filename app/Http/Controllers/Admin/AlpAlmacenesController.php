@@ -264,6 +264,7 @@ class AlpAlmacenesController extends JoshController
             'correos' => $request->correos, 
             'minimo_compra' => $request->minimo_compra, 
             'tipo_almacen' => $request->tipo_almacen, 
+            'formato' => $request->formato, 
             'descuento_productos' => $request->descuento_productos, 
             'id_user' =>$user_id
         );
@@ -399,6 +400,8 @@ class AlpAlmacenesController extends JoshController
 
         }
 
+        //dd($request->all());
+
          if ($request->defecto=='1') {
 
           $as=AlpAlmacenes::get();
@@ -421,8 +424,11 @@ class AlpAlmacenesController extends JoshController
                 'correos' => $request->correos, 
                 'minimo_compra' => $request->minimo_compra, 
                 'descuento_productos' => $request->descuento_productos, 
+                'formato' => $request->formato, 
                 'tipo_almacen' => $request->tipo_almacen
                 );
+
+               // dd($data);
 
 
        $almacen = AlpAlmacenes::find($id);

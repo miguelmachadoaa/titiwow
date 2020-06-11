@@ -207,6 +207,26 @@
                         </div>
 
 
+                         <div class="form-group {{ $errors->
+                            first('formato', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                               Envio Formato de Solicitud
+                            </label>
+                            <div class="col-sm-5">
+                                
+                                <select id="formato" name="formato" class="form-control select2">
+                                    <option  value="0">No Enviar</option>
+                                    <option  value="1">Mostrar</option>
+                                                      
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('formato', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
+
 
 
                          <div class="form-group {{ $errors->

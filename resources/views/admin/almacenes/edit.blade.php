@@ -215,6 +215,25 @@ Editar Almacen
                             </div>
                         </div>
 
+                        <div class="form-group {{ $errors->
+                            first('formato', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                               Envio de Formato de Solicitud
+                            </label>
+                            <div class="col-sm-5">
+                                
+                                <select id="formato" name="formato" class="form-control select2">
+                                    <option @if($almacen->formato=='0') {{'Selected'}} @endif value="0">No Enviar  </option>
+                                    <option @if($almacen->formato=='1') {{'Selected'}} @endif value="1">Enviar</option>
+                                    
+                                                      
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('formato', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
 
 
                         <div class="form-group {{ $errors->

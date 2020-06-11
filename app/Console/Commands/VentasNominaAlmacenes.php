@@ -93,10 +93,11 @@ class VentasNominaAlmacenes extends Command
 
 
 
-
         /*********Envio de formato*************/
 
         $almacen=AlpAlmacenes::where('id', $this->alm)->first();
+
+        if ($almacen->formato=='1') {
 
         $date_desde = Carbon::parse($this->desde.' '.$almacen->hora.':00')->subDay()->toDateTimeString();
 
@@ -116,7 +117,7 @@ class VentasNominaAlmacenes extends Command
 
                 $archivo_clientes='formato_solicitud_'.$orden->referencia.'_'.$almacen->nombre_almacen.'_'.$hoy.'.xlsx';
 
-                Excel::store(new FormatoSolicitudPedidoAlpinista($orden->id, $archivo_clientes, 'excel');
+                Excel::store(new FormatoSolicitudPedidoAlpinista($orden->id, $archivo_clientes, 'excel'));
                     
                $documentos[]='/var/www/alpinago/storage/app/public/'.$archivo_clientes;
              
@@ -136,6 +137,8 @@ class VentasNominaAlmacenes extends Command
 
 
           }
+
+      }
 
 
     }
