@@ -42,7 +42,7 @@ class NotificacionEnvio extends Mailable
     {
 
         return $this->from('noresponder@alpinago.com')
-        ->subject('Bienvenido a Alpina Go! | Alpina Alimenta tu vida')
+        ->subject('El envio de su orden '.$this->orden->id.' ha sido '.$this->status->estatus_envio_nombre.' | Alpina Alimenta tu vida')
         ->markdown('emails.envio');
 
     }

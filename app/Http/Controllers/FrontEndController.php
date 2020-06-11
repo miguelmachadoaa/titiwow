@@ -187,7 +187,6 @@ class FrontEndController extends JoshController
 
         $status=AlpEnviosEstatus::where('codigo', $input['estado'])->first();
 
-
         $user=User::where('id', $orden->id_user)->first();
 
         if (isset($status->id)) {
