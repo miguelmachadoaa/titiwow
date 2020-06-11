@@ -21,26 +21,18 @@ use Carbon\Carbon;
 class FormatoSolicitudPedidoAlpinista implements FromView
 {
     
-    public function __construct(string $desde,string $alm)
+    public function __construct(string $id_orden)
     {
-        $this->desde = $desde;
-        $this->alm = $alm;
+        $this->id_orden = $id_orden;
     }
 
     public function view(): View
     {
 
 
-      $almacen=AlpAlmacenes::where('id', $this->alm)->first();
 
-          $ordenes=AlpOrdenes::where('alp_ordenes.id_almacen','<>',1)
-         // ->where('alp_ordenes.created_at', '>=', $date_desde)
-         // ->where('alp_ordenes.created_at', '<=', $date_hasta)
-          ->whereIn('alp_ordenes.estatus', ['1','2','3','5','6','7','8'])
-          ->limit('1')
-          ->get();
+          $orden=AlpOrdenes::where('id',$this->id_orden)->first();
 
-          foreach ($ordenes as $orden) {
 
              $detalles = AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto','alp_productos.referencia_producto as referencia_producto','alp_productos.referencia_producto_sap as referencia_producto_sap')
               ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
@@ -68,13 +60,10 @@ class FormatoSolicitudPedidoAlpinista implements FromView
 
             $orden->cliente=$cliente;
             # code...
-          }
-
-         // dd(count($ordenes));
 
 
         return view('admin.exports.formato', [
-            'ordenes' => $ordenes
+            'orden' => $orden
         ]);
     }
 }

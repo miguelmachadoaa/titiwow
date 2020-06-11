@@ -1826,7 +1826,7 @@ public function formato()
 
         $hoy=$date->format('Y-m-d');
 
-        return Excel::download(new FormatoSolicitudPedidoAlpinista($hoy, 1), 'Listado_de_ventas_almacen.xlsx');
+        return Excel::download(new FormatoSolicitudPedidoAlpinista(5168), 'Listado_de_ventas_almacen.xlsx');
     }
 
 

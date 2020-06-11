@@ -1,6 +1,6 @@
 
 
-        @foreach ($ordenes as $row)
+        
            
 
                 <table class="" id="categoriastable">
@@ -23,7 +23,7 @@
                         <td style="background: #203764;color:#ffffff; height: 50px;">Tipo de Solicitud (*)</td>
                         <td>Creación Pedido</td>
                         <td style="background: #203764;color:#ffffff; height: 50px;">No.pedido SAP (aplica para modificación/ eliminación de pedido)</td>
-                        <td>{!! $row->referencia!!}</td>
+                        <td>{!! $orden->referencia !!}</td>
                         <td style="background: #203764;color:#ffffff; height: 50px;">Fecha de entrega (*)</td>
                         <td></td>
                     </tr>
@@ -32,7 +32,7 @@
                         <td style="background: #203764;color:#ffffff; height: 50px;">Canal (*)</td>
                         <td>ALTERNATIVOS</td>
                         <td style="background: #203764;color:#ffffff; height: 50px;">Código Cliente (*)</td>
-                        <td>{!! $row->cliente->cod_oracle_cliente!!}</td>
+                        <td>{!! $orden->cliente->cod_oracle_cliente !!}</td>
                         <td style="background: #203764;color:#ffffff; height: 50px;">Código CEDI</td>
                         <td></td>
                     </tr>
@@ -40,7 +40,7 @@
 
                      <tr>
                         <td>Nombre de Cliente (*)</td>
-                        <td colspan="3">{!! $row->cliente->first_name.' '.$row->cliente->last_name!!}</td>
+                        <td colspan="3">{!! $orden->cliente->first_name.' '.$orden->cliente->last_name!!}</td>
                         <td>Referencia Cliente</td>
                         <td></td>
                     </tr>
@@ -65,7 +65,7 @@
                     </tr>
 
 
-                    @foreach($row->detalles as $detalle)
+                    @foreach($orden->detalles as $detalle)
 
                         
                         <tr>
@@ -115,6 +115,3 @@
                         
                 </table>
            
-                @endforeach
-       
-              
