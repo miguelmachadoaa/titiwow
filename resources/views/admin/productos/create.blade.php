@@ -457,6 +457,90 @@
 
                                                     
                                             </div>
+
+                                            <div class="col-sm-12">
+
+                                            <fieldset>
+                            
+                                                <h3>Opciones robots.</h3>
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_all" name="robots_all" value="all" checked>
+                                                   All
+                                                  </label>
+                                                </div>
+
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_noindex" name="robots_noindex" value="noindex">
+                                                   noindex
+                                                  </label>
+                                                </div>
+
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_nofollow" name="robots_nofollow" value="nofollow">
+                                                   nofollow
+                                                  </label>
+                                                </div>
+
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_none" name="robots_none" value="none">
+                                                   none
+                                                  </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_noarchive" name="robots_noarchive" value="noarchive">
+                                                   noarchive
+                                                  </label>
+                                                </div>
+
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_nosnippet" name="robots_nosnippet" value="nosnippet">
+                                                   nosnippet
+                                                  </label>
+                                                </div>
+
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_notranslate" name="robots_notranslate" value="notranslate">
+                                                   notranslate
+                                                  </label>
+                                                </div>
+
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_noimageindex" name="robots_noimageindex" value="noimageindex">
+                                                   noimageindex
+                                                  </label>
+                                                </div>
+
+
+
+                                                </fieldset>
+
+
+                                            </div>
+
+
+
+
+
+
+
+
+
                                             <div class="acc-wizard-step"></div>
 
                                             <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.previous')</a>

@@ -8,6 +8,18 @@ Resultado de la Búsqueda @parent
 
 {{-- page level styles --}}
 @section('header_styles')
+
+
+@if($configuracion->robots==null)
+
+@else
+
+<meta name="robots" content="{{$configuracion->robots}}">
+
+@endif
+
+
+
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/cart.css') }}">
 
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/shopping.css') }}">

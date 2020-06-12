@@ -17,6 +17,19 @@
 <meta property="og:description" content="{{$marcades}}">
 <meta property="og:robots" content="index, follow">
 <meta property="og:revisit-after" content="3 days">
+
+
+
+@if($configuracion->robots==null)
+
+@else
+
+<meta name="robots" content="{{$configuracion->robots}}">
+
+@endif
+
+
+
 @endsection
 
 {{-- page level styles --}}

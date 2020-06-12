@@ -10,6 +10,18 @@
 <meta property="og:description" content="{{$cms->seo_descripcion}}">
 <meta property="og:robots" content="index, follow">
 <meta property="og:revisit-after" content="3 days">
+
+
+@if($cms->robots==null)
+
+@else
+
+<meta name="robots" content="{{$cms->robots}}">
+
+@endif
+
+
+
 @endsection
 
 {{-- page level styles --}}

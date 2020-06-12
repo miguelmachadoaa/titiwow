@@ -22,6 +22,7 @@ class AlpCms extends Model
         'seo_titulo',
         'seo_descripcion',
         'slug',
+        'robots',
         'estado_registro',
         'id_user'
     ];

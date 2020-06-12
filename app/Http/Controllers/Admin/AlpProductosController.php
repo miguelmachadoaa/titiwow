@@ -617,6 +617,35 @@ class AlpProductosController extends JoshController
         }
 
 
+        $i=1;
+
+        foreach ($input as $key => $value) {
+
+            if (substr($key,0,6)=='robots') {
+
+                if ($i==1) {
+
+                   $robots=$value;
+
+                   $i=0;
+
+                }else{
+
+                    $robots=$robots.' ,'.$value;
+                }
+
+            }
+            # code...
+        }
+
+        $data = array('robots' => $robots);
+
+        $producto->update($data);
+
+
+
+
+
         if ($producto->id) {
 
             return redirect('admin/productos');
@@ -990,7 +1019,11 @@ class AlpProductosController extends JoshController
 
         $roles = DB::table('roles')->select('id', 'name')->where('roles.tipo', 2)->get();
 
-        return view('admin.productos.edit', compact('producto', 'categorias', 'marcas', 'check', 'tree', 'roles',  'precio_grupo',  'precio_grupo_corporativo', 'states', 'impuestos', 'empresas', 'productos', 'productos_list'));
+
+        $robots=explode(' ,', $producto->robots);
+
+
+        return view('admin.productos.edit', compact('producto', 'categorias', 'marcas', 'check', 'tree', 'roles',  'precio_grupo',  'precio_grupo_corporativo', 'states', 'impuestos', 'empresas', 'productos', 'productos_list', 'robots'));
 
     }
 
@@ -1220,6 +1253,36 @@ class AlpProductosController extends JoshController
           }
 
         }
+
+
+
+         $i=1;
+
+        foreach ($input as $key => $value) {
+
+            if (substr($key,0,6)=='robots') {
+
+                if ($i==1) {
+
+                   $robots=$value;
+
+                   $i=0;
+
+                }else{
+
+                    $robots=$robots.' ,'.$value;
+                }
+
+            }
+            # code...
+        }
+
+        $data = array('robots' => $robots);
+
+        $producto->update($data);
+
+
+        
 
         if ($producto->id) {
 

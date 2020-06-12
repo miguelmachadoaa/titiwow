@@ -54,6 +54,7 @@ class AlpConfiguracion extends Model
         'vence_ordenes',
         'compramas_hash',
         'compramas_token',
+        'robots',
         'estado_registro',
         'id_user'
     ];

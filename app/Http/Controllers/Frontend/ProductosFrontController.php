@@ -36,14 +36,11 @@ class ProductosFrontController extends Controller
     private function addOferta($productos){
 
 
-    $descuento='1'; 
+        $descuento='1'; 
 
-    $precio = array();
+        $precio = array();
 
-
-     $ciudad= \Session::get('ciudad');
-
-       // dd($ciudad);
+        $ciudad= \Session::get('ciudad');
 
         if (Sentinel::check()) {
 
@@ -166,62 +163,62 @@ class ProductosFrontController extends Controller
                 
         }
 
-    $prods = array( );
+        $prods = array( );
 
-    foreach ($productos as $producto) {
+        foreach ($productos as $producto) {
 
-      if ($descuento=='1') {
+          if ($descuento=='1') {
 
-        if (isset($precio[$producto->id])) {
-          # code...
-         
-          switch ($precio[$producto->id]['operacion']) {
+            if (isset($precio[$producto->id])) {
+              # code...
+             
+              switch ($precio[$producto->id]['operacion']) {
 
-            case 1:
+                case 1:
+
+                  $producto->precio_oferta=$producto->precio_base*$descuento;
+
+                  break;
+
+                case 2:
+
+                  $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
+                  
+                  break;
+
+                case 3:
+
+                  $producto->precio_oferta=$precio[$producto->id]['precio'];
+                  
+                  break;
+                
+                default:
+                
+                 $producto->precio_oferta=$producto->precio_base*$descuento;
+                  # code...
+                  break;
+              }
+
+            }else{
 
               $producto->precio_oferta=$producto->precio_base*$descuento;
 
-              break;
+            }
 
-            case 2:
 
-              $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
-              
-              break;
+           }else{
 
-            case 3:
+           $producto->precio_oferta=$producto->precio_base*$descuento;
 
-              $producto->precio_oferta=$precio[$producto->id]['precio'];
-              
-              break;
-            
-            default:
-            
-             $producto->precio_oferta=$producto->precio_base*$descuento;
-              # code...
-              break;
+
+           }
+
+
+           $prods[]=$producto;
+           
           }
 
-        }else{
-
-          $producto->precio_oferta=$producto->precio_base*$descuento;
-
-        }
-
-
-       }else{
-
-       $producto->precio_oferta=$producto->precio_base*$descuento;
-
-
-       }
-
-
-       $prods[]=$producto;
-       
-      }
-
-      return $prods;
+        return $prods;
 
 
     }
@@ -926,7 +923,9 @@ class ProductosFrontController extends Controller
     {
 
         $cms = AlpCms::where('slug','=', $slug)->firstOrFail();
+
         return \View::make('frontend.pagina_single', compact('cms'));
+        
 
     }
 

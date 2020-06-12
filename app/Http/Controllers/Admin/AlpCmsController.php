@@ -122,9 +122,38 @@ class AlpCmsController extends JoshController
 
         }
 
+        $robots='';
+
+        $input=$request->all();
+
+        //dd($input);
+        //
+        $i=1;
+
+        foreach ($input as $key => $value) {
+
+            if (substr($key,0,6)=='robots') {
+
+                if ($i==1) {
+
+                   $robots=$value;
+
+                   $i=0;
+
+                }else{
+
+                    $robots=$robots.' ,'.$value;
+                }
+
+            }
+            # code...
+        }
 
 
         $cms = new AlpCms($request->all());
+
+
+
         $message=$request->get('texto_pagina');
         libxml_use_internal_errors(true);
         $dom = new DomDocument();
@@ -134,6 +163,13 @@ class AlpCmsController extends JoshController
 
         $cms->id_user = Sentinel::getUser()->id;
         $cms->save();
+
+
+         //  dd($cms);
+
+        $data = array('robots' => $robots);
+
+        $cms->update($data);    
 
         if ($cms->id) {
             return redirect('admin/cms')->with('exito', 'Página Guardada Exitosamente');
@@ -215,11 +251,11 @@ if (!Sentinel::getUser()->hasAnyAccess(['cms.*'])) {
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
-
-
-
         $cms = AlpCms::find($id);
-        return view('admin.cms.edit', compact('cms'));
+
+        $robots=explode(' ,', $cms->robots);
+
+        return view('admin.cms.edit', compact('cms', 'robots'));
     }
 
     /**
@@ -246,7 +282,10 @@ if (!Sentinel::getUser()->hasAnyAccess(['cms.*'])) {
 
 
         }
-        
+
+
+        $input=$request->all();
+
         $message=$request->get('texto_pagina');
         libxml_use_internal_errors(true);
         $dom = new DomDocument();
@@ -262,6 +301,33 @@ if (!Sentinel::getUser()->hasAnyAccess(['cms.*'])) {
 
         $cms = AlpCms::find($id);
     
+        $cms->update($data);
+
+        $i=1;
+
+
+         foreach ($input as $key => $value) {
+
+            if (substr($key,0,6)=='robots') {
+
+                if ($i==1) {
+
+                   $robots=$value;
+
+                   $i=0;
+
+                }else{
+
+                    $robots=$robots.' ,'.$value;
+                }
+
+            }
+            # code...
+        }
+
+
+        $data = array('robots' => $robots );
+
         $cms->update($data);
 
         if ($cms->id) {

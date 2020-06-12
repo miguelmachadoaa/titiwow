@@ -460,6 +460,80 @@ Editar Configuracion General
                                     </div>
                                 </div>
 
+                                
+
+
+                                 <fieldset >
+
+                                     <div class="col-sm-10 col-sm-offset-2">
+                            
+                                                <h3>Opciones robots.</h3>
+
+                                                    <div class="checkbox">
+                                                      <label>
+                                                        <input type="checkbox" id="robots_all" name="robots_all" value="all"    @if(in_array('all', $robots)) {{'checked'}} @endif >
+                                                       All
+                                                      </label>
+                                                    </div>
+
+                                                    <div class="checkbox">
+                                                      <label>
+                                                        <input type="checkbox" id="robots_noindex" name="robots_noindex" value="noindex"  @if(in_array('noindex', $robots)) {{'checked'}} @endif >
+                                                       noindex
+                                                      </label>
+                                                    </div>
+
+                                                    <div class="checkbox">
+                                                      <label>
+                                                        <input type="checkbox" id="robots_nofollow" name="robots_nofollow" value="nofollow" @if(in_array('nofollow', $robots)) {{'checked'}} @endif >
+                                                       nofollow
+                                                      </label>
+                                                    </div>
+
+                                                    <div class="checkbox">
+                                                      <label>
+                                                        <input type="checkbox" id="robots_none" name="robots_none" value="none" @if(in_array('none', $robots)) {{'checked'}} @endif >
+                                                       none
+                                                      </label>
+                                                    </div>
+
+                                                    <div class="checkbox">
+                                                      <label>
+                                                        <input type="checkbox" id="robots_noarchive" name="robots_noarchive" value="noarchive" @if(in_array('noarchive', $robots)) {{'checked'}} @endif >
+                                                       noarchive
+                                                      </label>
+                                                    </div>
+
+                                                    <div class="checkbox">
+                                                      <label>
+                                                        <input type="checkbox" id="robots_nosnippet" name="robots_nosnippet" value="nosnippet" @if(in_array('nosnippet', $robots)) {{'checked'}} @endif >
+                                                       nosnippet
+                                                      </label>
+                                                    </div>
+
+                                                    <div class="checkbox">
+                                                      <label>
+                                                        <input type="checkbox" id="robots_notranslate" name="robots_notranslate" value="notranslate" @if(in_array('notranslate', $robots)) {{'checked'}} @endif >
+                                                       notranslate
+                                                      </label>
+                                                    </div>
+
+                                                    <div class="checkbox">
+                                                      <label>
+                                                        <input type="checkbox" id="robots_noimageindex" name="robots_noimageindex" value="noimageindex" @if(in_array('noimageindex', $robots)) {{'checked'}} @endif >
+                                                       noimageindex
+                                                      </label>
+                                                    </div>
+                                                    </div>
+
+                                                </fieldset>
+
+                                          
+
+                            <br>
+                            <br>
+
+
                             <fieldset>
                                 
                                 <legend>Correos para notificacion</legend>

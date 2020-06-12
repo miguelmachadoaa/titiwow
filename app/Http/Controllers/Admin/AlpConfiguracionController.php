@@ -75,9 +75,13 @@ class AlpConfiguracionController extends JoshController
           ->join('config_cities', 'alp_despacho_ciudad.id_ciudad', '=', 'config_cities.id')
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
           ->get();
+
+
+          $robots=explode(' ,', $configuracion->robots);
+
        
         // Show the page
-        return view('admin.configuracion.edit', compact('configuracion', 'ciudades', 'states', 'cities', 'roles'));
+        return view('admin.configuracion.edit', compact('configuracion', 'ciudades', 'states', 'cities', 'roles','robots'));
         
     }
 
@@ -156,6 +160,34 @@ class AlpConfiguracionController extends JoshController
        $configuracion = AlpConfiguracion::find($id);
     
         $configuracion->update($data);
+
+
+        $i=1;
+
+        foreach ($input as $key => $value) {
+
+            if (substr($key,0,6)=='robots') {
+
+                if ($i==1) {
+
+                   $robots=$value;
+
+                   $i=0;
+
+                }else{
+
+                    $robots=$robots.' ,'.$value;
+                }
+
+            }
+            # code...
+        }
+
+        $datar = array('robots' => $robots);
+
+        $configuracion->update($datar);
+
+
 
 
         /* foreach ($input as $key => $value) {

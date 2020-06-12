@@ -9,6 +9,19 @@
 <meta property="og:description" content="{{ $producto->seo_descripcion }}">
 <meta property="og:robots" content="index, follow">
 <meta property="og:revisit-after" content="3 days">
+
+
+
+@if($producto->robots==null)
+
+@else
+
+<meta name="robots" content="{{$producto->robots}}">
+
+@endif
+
+
+
 @endsection
 
 {{-- page level styles --}}
