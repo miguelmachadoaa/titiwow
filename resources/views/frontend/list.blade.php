@@ -12,20 +12,13 @@ Productos @parent
 
 <meta property="og:title" content="Productos | Alpina Go!">
 <meta property="og:description" content="Productos de Alpina Go!">
-
-
-  <meta property="og:image" content="{{ $configuracion->seo_image }}" />
-
-    <meta property="og:url" content="{{$url}}" />
-
-    <meta name="description" content="{{$configuracion->seo_description}}"/>
+<meta property="og:image" content="{{ $configuracion->seo_image }}" />
+<meta property="og:url" content="{{$url}}" />
+<meta name="description" content="{{$configuracion->seo_description}}"/>
 
 @if($configuracion->robots==null)
-
 @else
-
 <meta name="robots" content="{{$configuracion->robots}}">
-
 @endif
 
 

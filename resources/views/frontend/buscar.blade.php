@@ -16,18 +16,13 @@ Resultado de la Búsqueda @parent
 <link rel="canonical" href="{{$url}}" />
 <meta name="robots" content="{{$configuracion->robots}}">
 
- <meta property="og:title" content="{{ $configuracion->seo_titulo }} | Alpina GO!">
-
-    <meta property="og:description" content="{{ $configuracion->seo_descripcion }}">
-
-    <meta property="og:image" content="{{ $configuracion->seo_image }}" />
-
-    <meta property="og:url" content="{{$url}}" />
-
-    <meta name="description" content="{{$configuracion->seo_description}}"/>
 
 @endif
-
+<meta property="og:title" content="{{ $configuracion->seo_titulo }} | Alpina GO!">
+<meta property="og:description" content="{{ $configuracion->seo_descripcion }}">
+<meta property="og:image" content="{{ $configuracion->seo_image }}" />
+<meta property="og:url" content="{{$url}}" />
+<meta name="description" content="{{$configuracion->seo_description}}"/>
 
 
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/cart.css') }}">

@@ -12,7 +12,6 @@ Inicio @parent
 <meta property="og:site_name" content="{{$configuracion->seo_site_name}}" />
 <meta property="og:url" content="{{$configuracion->seo_url}}" />
 <meta property="og:description" content="{{$configuracion->seo_description}}">
-
 <meta name="description" content="{{$configuracion->seo_description}}"/>
 @endsection
 

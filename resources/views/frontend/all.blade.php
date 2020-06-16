@@ -10,26 +10,16 @@ Todos los productos
 
 
     <link rel="canonical" href="{{$url}}" />
-
     <meta property="og:title" content="{{ $configuracion->seo_titulo }} | Alpina GO!">
-
-    <meta property="og:description" content="{{ $configuracion->seo_descripcion }}">
-
+    <meta property="og:description" content="{{ $configuracion->seo_description }}">
     <meta property="og:image" content="{{ $configuracion->seo_image }}" />
-
     <meta property="og:url" content="{{$url}}" />
-
     <meta name="description" content="{{$configuracion->seo_description}}"/>
 
     @if($configuracion->robots==null)
-
     @else
-
     <meta name="robots" content="{{$configuracion->robots}}">
-
     @endif
-
-
 
 @endsection
 

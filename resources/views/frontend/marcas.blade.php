@@ -15,24 +15,16 @@
 @endphp
 
 <link rel="canonical" href="{{$url}}" />
-
-
 <meta property="og:title" content="{{$marcago}} | Alpina GO!">
 <meta property="og:description" content="{{$marcades}}">
-<meta property="og:robots" content="index, follow">
-<meta property="og:revisit-after" content="3 days">
-
-
+<meta property="og:image" content="{{ $configuracion->seo_image }}" />
+<meta property="og:url" content="{{$url}}" />
+<meta name="description" content="{{$configuracion->seo_description}}"/>
 
 @if($configuracion->robots==null)
-
 @else
-
 <meta name="robots" content="{{$configuracion->robots}}">
-
 @endif
-
-
 
 @endsection
 

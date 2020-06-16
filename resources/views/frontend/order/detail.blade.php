@@ -8,21 +8,12 @@ Carrito de Compras
 
 
 @section('meta_tags')
-
 <meta property="og:title" content="Carrito de Compras | Alpina GO!">
-
 <meta property="og:image" content="{{$configuracion->seo_image}}" />
-
 <meta property="og:url" content="{{$url}}" />
-
 <meta property="og:description" content="Carrito de Compras">
-
 <link rel="canonical" href="{{$url}}" />
-
 @endsection
-
-
-
 
 {{-- page level styles --}}
 @section('header_styles')

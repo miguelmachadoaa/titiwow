@@ -7,27 +7,16 @@
 @section('meta_tags')
 
 <link rel="canonical" href="{{$url}}" />
-
 <meta property="og:title" content="{{ $producto->seo_titulo }} | Alpina GO!">
-
 <meta property="og:description" content="{{ $producto->seo_descripcion }}">
-
 <meta property="og:image" content="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" />
-
 <meta property="og:url" content="{{$url}}" />
-
-
 <meta name="description" content="{{$producto->seo_description}}"/>
 
-
 @if($producto->robots==null)
-
 @else
-
 <meta name="robots" content="{{$producto->robots}}">
-
 @endif
-
 
 
 @endsection

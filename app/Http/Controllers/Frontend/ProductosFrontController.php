@@ -418,6 +418,8 @@ class ProductosFrontController extends Controller
 
         $url=secure_url('/categorias');
 
+
+
         return \View::make('frontend.list', compact('leche','lacteos','quesos','postres','esparcibles','bebidas','finess','baby','nolacteos','descuento', 'precio', 'states', 'cart', 'total', 'inventario', 'almacen', 'url'));
     }
  
@@ -852,7 +854,7 @@ class ProductosFrontController extends Controller
            $url=secure_url('/productos');
 
 
-        return \View::make('frontend.all', compact('productos', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos', 'role', 'almacen'));
+        return \View::make('frontend.all', compact('productos', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos', 'role', 'almacen', 'url'));
 
     }
 
