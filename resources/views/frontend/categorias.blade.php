@@ -20,8 +20,7 @@
 
 <meta property="og:title" content="{{$catego}} | Alpina GO!">
 <meta property="og:description" content="{{$categodes}}">
-<meta property="og:robots" content="index, follow">
-<meta property="og:revisit-after" content="3 days">
+
 
 
 @if($configuracion->robots==null)

@@ -20,7 +20,7 @@
         @endif
     @endif
 
-        <h2>Carrito de Compras</h2>
+        <h1>Carrito de Compras</h1>
 
         <a style="color: #d5006e !important; " class="btn  btn-link" href="{{secure_url('cart/vaciar')}}">Vaciar</a>
 

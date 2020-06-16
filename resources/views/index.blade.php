@@ -12,8 +12,6 @@ Inicio @parent
 <meta property="og:site_name" content="{{$configuracion->seo_site_name}}" />
 <meta property="og:url" content="{{$configuracion->seo_url}}" />
 <meta property="og:description" content="{{$configuracion->seo_description}}">
-<meta property="og:robots" content="index, follow">
-<meta property="og:revisit-after" content="3 days">
 @endsection
 
 {{-- page level styles --}}

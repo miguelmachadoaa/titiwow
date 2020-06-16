@@ -12,8 +12,7 @@ Productos @parent
 
 <meta property="og:title" content="Productos | Alpina Go!">
 <meta property="og:description" content="Productos de Alpina Go!">
-<meta property="og:robots" content="index, follow">
-<meta property="og:revisit-after" content="3 days">
+
 
 @if($configuracion->robots==null)
 

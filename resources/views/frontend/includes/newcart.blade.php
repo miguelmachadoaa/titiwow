@@ -12,7 +12,7 @@
     <div class="cd-cart">
         <div class="wrapper">
             <header>
-                <h2>Carrito</h2>
+                <h3>Carrito</h3>
                 <span class="undo">Item removed. <a href="#0">Undo</a></span>
             </header>
             

@@ -8,8 +8,6 @@
 <link rel="canonical" href="{{$url}}" />
 <meta property="og:title" content="{{ $producto->seo_titulo }} | Alpina GO!">
 <meta property="og:description" content="{{ $producto->seo_descripcion }}">
-<meta property="og:robots" content="index, follow">
-<meta property="og:revisit-after" content="3 days">
 
 
 
@@ -110,7 +108,7 @@
                 </div>
                 <!--individual product description-->
                 <div class="col-sm-8 col-md-8">
-                    <h2 class="text-primary" id="titulo_single">{{ $producto->nombre_producto}} </h2>
+                    <h1 class="text-primary" id="titulo_single">{{ $producto->nombre_producto}} </h1>
                     <p class="descripcion">{{ $producto->descripcion_corta}}</p>
                     
                     <p class="">
