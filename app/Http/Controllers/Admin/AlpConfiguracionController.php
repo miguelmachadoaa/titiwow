@@ -235,48 +235,43 @@ class AlpConfiguracionController extends JoshController
                         ->performedOn($user)
                         ->causedBy($user)
                         #->withProperties($request->all())
-                        ->log('configuracion/index ');
+                        ->log('configuracion/robost ');
 
         }else{
 
           activity()
           #->withProperties($request->all())
-          ->log('configuracion/index');
+          ->log('configuracion/robost');
 
 
         }
 
+        $contenido='';
 
-        if (!Sentinel::getUser()->hasAnyAccess(['configuracion.*'])) {
 
-           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+       try
+        {
+             $file = fopen("robots.txt", "r");
+
+                while(!feof($file)) {
+
+                $contenido=$contenido.fgets($file). "";
+
+                }
+
+                fclose($file);
+        }
+        catch (Illuminate\Filesystem\FileNotFoundException $exception)
+        {
+            die("No existe el archivo");
         }
 
 
-        $configuracion = AlpConfiguracion::where('id', '1')->first();
-
-        $roles=Roles::where('tipo', '2')->get();
-
-        //dd($roles);
-
-        $ciudades=AlpDespachoCiudad::select('alp_despacho_ciudad.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name')
-        ->join('config_cities','alp_despacho_ciudad.id_ciudad' , '=', 'config_cities.id')
-        ->join('config_states','config_cities.state_id' , '=', 'config_states.id')
-        ->where('config_states.country_id', '47')->get();
-
-        $states=State::where('config_states.country_id', '47')->get();
-
-         $cities = AlpDespachoCiudad::select('alp_despacho_ciudad.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name')
-          ->join('config_cities', 'alp_despacho_ciudad.id_ciudad', '=', 'config_cities.id')
-          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-          ->get();
-
-
-          $robots=explode(' ,', $configuracion->robots);
+        //dd($contenido);
 
        
         // Show the page
-        return view('admin.configuracion.edit', compact('configuracion', 'ciudades', 'states', 'cities', 'roles','robots'));
+        return view('admin.configuracion.robots', compact('contenido'));
         
     }
 
@@ -286,7 +281,7 @@ class AlpConfiguracionController extends JoshController
      * @param  int $id
      * @return Redirect
      */
-    public function postrobots(Request $request, $id)
+    public function postrobots(Request $request)
     {
 
       if (Sentinel::check()) {
@@ -297,119 +292,33 @@ class AlpConfiguracionController extends JoshController
                         ->performedOn($user)
                         ->causedBy($user)
                         ->withProperties($request->all())
-                        ->log('configuracion/update ');
+                        ->log('configuracion/postrobots ');
 
         }else{
 
           activity()
           ->withProperties($request->all())
-          ->log('configuracion/update');
+          ->log('configuracion/postrobots');
 
 
         }
 
         $input=$request->all();
 
-
-       $data = array(
-            'nombre_tienda' => $request->nombre_tienda,
-            'base_url' => $request->base_url,
-            'limite_amigos' => $request->limite_amigos,
-            'id_mercadopago' => $request->id_mercadopago,
-            'key_mercadopago' => $request->key_mercadopago, 
-            'public_key_mercadopago' => $request->public_key_mercadopago, 
-            'public_key_mercadopago_test' => $request->public_key_mercadopago_test, 
-            'comision_mp' => $request->comision_mp, 
-            'retencion_fuente_mp' => $request->retencion_fuente_mp, 
-            'retencion_iva_mp' => $request->retencion_iva_mp, 
-            'retencion_ica_mp' => $request->retencion_ica_mp, 
-            'mercadopago_sand' => $request->mercadopago_sand, 
-            'explicacion_precios' => $request->explicacion_precios, 
-            'registro_publico' => $request->registro_publico, 
-            'user_activacion' => $request->user_activacion, 
-            'editar_direccion' => $request->editar_direccion, 
-            //'minimo_compra' => $request->minimo_compra, 
-            'compramas_hash' => $request->compramas_hash, 
-            'compramas_token' => $request->compramas_token, 
-            'maximo_productos' => $request->maximo_productos, 
-            'mensaje_bienvenida' => $request->mensaje_bienvenida, 
-            'mensaje_promocion' => $request->mensaje_promocion, 
-            'correo_admin' => $request->correo_admin, 
-            'correo_shopmanager' => $request->correo_shopmanager, 
-            'correo_shopmanagercorp' => $request->correo_shopmanagercorp, 
-            'correo_masterfile' => $request->correo_masterfile, 
-            'correo_sac' => $request->correo_sac, 
-            'correo_cedi' => $request->correo_cedi, 
-            'correo_logistica' => $request->correo_logistica, 
-            'correo_finanzas' => $request->correo_finanzas,
-            'seo_title' => $request->seo_title,
-            'seo_type' => $request->seo_type,
-            'seo_url' => $request->seo_url,
-            'seo_image' => $request->seo_image,
-            'seo_site_name' => $request->seo_site_name,
-            'seo_description' => $request->seo_description,
-        );
+       // dd($input);
 
 
-         
-       $configuracion = AlpConfiguracion::find($id);
-    
-        $configuracion->update($data);
+         $file = fopen("robots.txt", "w");
+
+          fwrite($file, $input['robots'] . PHP_EOL);
+
+          //fwrite($file, "Otra más" . PHP_EOL);
+
+          fclose($file);
 
 
-        $i=1;
+            return redirect('admin/configuracion/robots')->withInput()->with('success', trans('Se ha creado actualizado el Registro'));
 
-        foreach ($input as $key => $value) {
-
-            if (substr($key,0,6)=='robots') {
-
-                if ($i==1) {
-
-                   $robots=$value;
-
-                   $i=0;
-
-                }else{
-
-                    $robots=$robots.' ,'.$value;
-                }
-
-            }
-            # code...
-        }
-
-        $datar = array('robots' => $robots);
-
-        $configuracion->update($datar);
-
-
-
-
-        /* foreach ($input as $key => $value) {
-
-          if (substr($key, 0, 3)=='mc_') {
-
-            $par=explode('_', $key);
-
-            $rol=Roles::where('id', $par[1])->first();
-
-            $data_rol = array(
-              'monto_minimo' => $value
-            );
-
-            $rol->update($data_rol);
-
-          }
-
-        }*/
-
-        if ($configuracion->id) {
-
-            return redirect('admin/configuracion')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
-
-        } else {
-            return Redirect::route('admin/configuracion')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
-        }  
 
     }
 

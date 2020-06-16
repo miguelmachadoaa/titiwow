@@ -341,6 +341,19 @@
         </ul>
     @endif
 
+    @if (Sentinel::getUser()->hasAnyAccess(['robots.*']))
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/robots*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.robots.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Editor de Robots
+                </a>
+            </li> 
+        </ul>
+    @endif
+
+
+
     @if (Sentinel::getUser()->hasAnyAccess(['barrios.*']))
         <ul class="sub-menu">
             <li {!! (Request::is('admin/barrios*') ? 'class="active"' : '') !!}>
