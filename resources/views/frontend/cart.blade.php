@@ -11,6 +11,16 @@ Carrito de Compras
 @section('header_styles')
 <link rel="canonical" href="{{$url}}" />
 
+ <meta property="og:title" content="{{ $configuracion->seo_titulo }} | Alpina GO!">
+
+    <meta property="og:description" content="{{ $configuracion->seo_descripcion }}">
+
+    <meta property="og:image" content="{{ $configuracion->seo_image }}" />
+
+    <meta property="og:url" content="{{$url}}" />
+
+    
+
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/shopping.css') }}">
     <link href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
 @stop
