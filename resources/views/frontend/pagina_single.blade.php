@@ -19,6 +19,8 @@
 
 <link rel="canonical" href="{{$url}}" />
 
+<meta name="description" content="{{$cms->seo_description}}"/>
+
 
 @if($cms->robots==null)
 

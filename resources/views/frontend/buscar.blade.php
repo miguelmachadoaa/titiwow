@@ -24,6 +24,8 @@ Resultado de la Búsqueda @parent
 
     <meta property="og:url" content="{{$url}}" />
 
+    <meta name="description" content="{{$configuracion->seo_description}}"/>
+
 @endif
 
 

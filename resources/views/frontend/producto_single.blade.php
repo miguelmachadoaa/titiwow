@@ -17,7 +17,7 @@
 <meta property="og:url" content="{{$url}}" />
 
 
-
+<meta name="description" content="{{$producto->seo_description}}"/>
 
 
 @if($producto->robots==null)

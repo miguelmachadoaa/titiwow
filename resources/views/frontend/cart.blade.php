@@ -19,7 +19,10 @@ Carrito de Compras
 
     <meta property="og:url" content="{{$url}}" />
 
-    
+
+    <meta name="description" content="{{$configuracion->seo_description}}"/>
+
+
 
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/shopping.css') }}">
     <link href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>

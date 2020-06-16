@@ -13,7 +13,7 @@ Inicio @parent
 <meta property="og:url" content="{{$configuracion->seo_url}}" />
 <meta property="og:description" content="{{$configuracion->seo_description}}">
 
-
+<meta name="description" content="{{$configuracion->seo_description}}"/>
 @endsection
 
 {{-- page level styles --}}
