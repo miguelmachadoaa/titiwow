@@ -9,6 +9,8 @@ Carrito de Compras
 
 {{-- page level styles --}}
 @section('header_styles')
+<link rel="canonical" href="{{$url}}" />
+
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/shopping.css') }}">
     <link href="{{ secure_asset('assets/vendors/animate/animate.min.css') }}" rel="stylesheet" type="text/css"/>
 @stop

@@ -4,6 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+     <link rel="canonical" href="{{secure_url('login')}}" />
+
+
     <title>Login | Alpina Go!</title>
     <!--global css starts-->
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/bootstrap.min.css') }}">

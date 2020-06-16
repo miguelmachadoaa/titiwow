@@ -22,21 +22,7 @@
                 <!-- //Categorias Section End -->
                  <!-- Marcas Section Start -->
                  <div class="col-sm-3 clearfix">
-                    <h4>Marcas Principales</h4>
-                    <p>
-                        <ul id="menu-marcas" class="menu_footer">
-                        <li class="menu-item"><a href="{{ secure_url('marcas/bon-yurt') }}">Bon Yurt</a></li>
-                        <li class="menu-item"><a href="{{ secure_url('marcas/alpin') }}">Alpín</a></li>
-                        <li class="menu-item"><a href="{{ secure_url('marcas/yogo-yogo') }}">Yogo Yogo</a></li>
-                        <li class="menu-item"><a href="{{ secure_url('marcas/avena-alpina') }}">Avena</a></li>
-                        <li class="menu-item"><a href="{{ secure_url('marcas/frutto') }}">Frutto</a></li>
-                        <li class="menu-item"><a href="{{ secure_url('marcas/alpinito') }}">Alpinito</a></li>
-                        </ul>
-                    </p>
-                </div>
-                <!-- Contacto Section Start -->
-                <div class="col-sm-3 clearfix">
-                    <h4>Contáctenos</h4>
+                   <h4>Contáctenos</h4>
                         <p>Cualquier inconveniente o duda, comunícate con nuestra línea de atención Alpina en Bogotá
                         
                         </p>
@@ -48,10 +34,15 @@
                             <li class="menu-item">contaccenter@alpina.com</li>
                             <!--li class="menu-item">Formulario de <a href="#">Contacto</a></li-->
                         </ul>
-                    </div>
-                <!-- Pare y Compare Section Start -->
+                    
+                </div>
+                <!-- Contacto Section Start -->
                 <div class="col-sm-3 clearfix">
                     <img src="{{ secure_asset('uploads/files/pareycompare.png') }}" alt="Pare y Compare" title="Pare y Compare" class="img-responsive" style="margin:10px auto;width:160px;">
+                 </div>   
+                <!-- Pare y Compare Section Start -->
+                <div class="col-sm-3 clearfix">
+                    
                     <a href="http://www.sic.gov.co" target="_blank"><img src="{{ secure_asset('uploads/files/logosic.png') }}" alt="Camara de Comercio Colombiana" title="Pare y Compare" class="img-responsive" style="margin:10px auto;width:160px;"></a>
                     <a href="https://www.ccce.org.co" target="_blank"><img src="{{ secure_asset('uploads/files/ccce.png') }}" alt="Secretaria de Industria y Comercio" title="Pare y Compare" class="img-responsive" style="margin:10px auto;width:160px;"></a>
                 </div>

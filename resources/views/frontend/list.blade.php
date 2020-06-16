@@ -6,6 +6,10 @@
 Productos @parent
 @stop
 @section('meta_tags')
+
+<link rel="canonical" href="{{$url}}" />
+
+
 <meta property="og:title" content="Productos | Alpina Go!">
 <meta property="og:description" content="Productos de Alpina Go!">
 <meta property="og:robots" content="index, follow">

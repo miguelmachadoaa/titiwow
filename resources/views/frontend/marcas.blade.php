@@ -13,6 +13,10 @@
         $marcago = $marca->seo_titulo;
         $marcades = $marca->seo_descripcion
 @endphp
+
+<link rel="canonical" href="{{$url}}" />
+
+
 <meta property="og:title" content="{{$marcago}} | Alpina GO!">
 <meta property="og:description" content="{{$marcades}}">
 <meta property="og:robots" content="index, follow">

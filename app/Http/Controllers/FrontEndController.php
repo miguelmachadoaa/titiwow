@@ -321,7 +321,10 @@ class FrontEndController extends JoshController
     public function getContacto()
     {
         // Is the user logged in?
-        return view('frontend.contacto');
+        
+        $url=secure_url('/contacto');
+
+        return view('frontend.contacto', compact('url'));
 
     }
 
@@ -566,7 +569,9 @@ class FrontEndController extends JoshController
        // 
        $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
-        return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion','inventario', 'combos', 'role', 'almacen'));
+       $url=secure_url('/');
+
+        return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion','inventario', 'combos', 'role', 'almacen','url'));
 
     }
 

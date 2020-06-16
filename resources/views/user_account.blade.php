@@ -9,6 +9,8 @@
 {{-- page level styles --}}
 @section('header_styles')
 
+ <link rel="canonical" href="{{secure_url('my-account')}}" />
+
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/iCheck/css/minimal/blue.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}">

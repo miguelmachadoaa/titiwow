@@ -5,7 +5,7 @@
 Inicio @parent
 @stop
 @section('meta_tags')
-<link rel="canonical" href="{{$configuracion->seo_url}}" />
+<link rel="canonical" href="{{$url}}" />
 <meta property="og:title" content="{{ $configuracion->seo_title}} | Alpina GO!">
 <meta property="og:type" content="{{$configuracion->seo_type}}" />
 <meta property="og:image" content="{{$configuracion->seo_image}}" />

@@ -9,6 +9,9 @@ Carrito de Compras
 {{-- page level styles --}}
 @section('header_styles')
 
+ <link rel="canonical" href="{{secure_url('order/detail')}}" />
+
+
 <!-- modal css -->
 
     <link href="{{ secure_asset('assets/css/pages/advmodals.css') }}" rel="stylesheet"/>

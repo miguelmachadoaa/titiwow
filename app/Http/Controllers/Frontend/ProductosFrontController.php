@@ -230,9 +230,6 @@ class ProductosFrontController extends Controller
 
        $id_almacen=$this->getAlmacen();
 
-      
-
-        $rol=9;
 
 
         $descuento='1'; 
@@ -415,11 +412,13 @@ class ProductosFrontController extends Controller
 
         $inventario=$this->inventario();
 
-        $role=Roles::where('id', $rol)->first();
+       //$role=Roles::where('id', $rol)->first();
 
         $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
-        return \View::make('frontend.list', compact('leche','lacteos','quesos','postres','esparcibles','bebidas','finess','baby','nolacteos','descuento', 'precio', 'states', 'cart', 'total', 'inventario', 'role', 'almacen'));
+        $url=secure_url('/categorias');
+
+        return \View::make('frontend.list', compact('leche','lacteos','quesos','postres','esparcibles','bebidas','finess','baby','nolacteos','descuento', 'precio', 'states', 'cart', 'total', 'inventario', 'almacen', 'url'));
     }
  
     public function show($slug)
@@ -634,12 +633,12 @@ class ProductosFrontController extends Controller
       $role=Roles::where('id', $rol)->first();
 
      
-
+      $url=secure_url('producto/'.$slug);
 
       $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
         
-        return \View::make('frontend.producto_single', compact('producto', 'descuento', 'precio','categos', 'states', 'cart', 'total','catprincipal', 'relacionados', 'prods', 'inventario', 'combos', 'role', 'almacen'));
+        return \View::make('frontend.producto_single', compact('producto', 'descuento', 'precio','categos', 'states', 'cart', 'total','catprincipal', 'relacionados', 'prods', 'inventario', 'combos', 'role', 'almacen', 'url'));
 
     }
 
@@ -707,9 +706,14 @@ class ProductosFrontController extends Controller
 
         $combos=$this->combos();
 
-        $role=Roles::where('id', $rol)->first();
+        //$role=Roles::where('id', $rol)->first();
+        //
+        
+        $url=secure_url('categoria/'.$slug);
 
-        return \View::make('frontend.categorias', compact('productos','cataname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos', 'role'));
+
+
+        return \View::make('frontend.categorias', compact('productos','cataname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos','url'));
 
     }
     public function marcas($slug)
@@ -777,8 +781,11 @@ class ProductosFrontController extends Controller
 
            $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
+           $url=secure_url('marcas/'.$slug);
 
-        return \View::make('frontend.marcas', compact('productos','marcaname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos', 'role', 'almacen'));
+
+
+        return \View::make('frontend.marcas', compact('productos','marcaname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos', 'role', 'almacen', 'url'));
 
     }
 
@@ -842,7 +849,7 @@ class ProductosFrontController extends Controller
            $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
 
-
+           $url=secure_url('/productos');
 
 
         return \View::make('frontend.all', compact('productos', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos', 'role', 'almacen'));
@@ -914,7 +921,9 @@ class ProductosFrontController extends Controller
 
           $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
-        return \View::make('frontend.buscar', compact('productos', 'descuento', 'precio', 'states','termino', 'cart', 'total', 'prods', 'inventario', 'combos', 'role', 'almacen'));
+          $url=secure_url('buscar?buscar='.$termino);
+
+        return \View::make('frontend.buscar', compact('productos', 'descuento', 'precio', 'states','termino', 'cart', 'total', 'prods', 'inventario', 'combos', 'role', 'almacen', 'url'));
 
     }
 
@@ -924,7 +933,10 @@ class ProductosFrontController extends Controller
 
         $cms = AlpCms::where('slug','=', $slug)->firstOrFail();
 
-        return \View::make('frontend.pagina_single', compact('cms'));
+
+        $url=secure_url('paginas/'.$slug);
+
+        return \View::make('frontend.pagina_single', compact('cms', 'url'));
         
 
     }

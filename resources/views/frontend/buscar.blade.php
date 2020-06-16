@@ -13,7 +13,7 @@ Resultado de la Búsqueda @parent
 @if($configuracion->robots==null)
 
 @else
-
+<link rel="canonical" href="{{$url}}" />
 <meta name="robots" content="{{$configuracion->robots}}">
 
 @endif

@@ -13,6 +13,11 @@
         $catego = $catana->seo_titulo;
         $categodes = $catana->seo_descripcion
 @endphp
+
+<link rel="canonical" href="{{$url}}" />
+
+
+
 <meta property="og:title" content="{{$catego}} | Alpina GO!">
 <meta property="og:description" content="{{$categodes}}">
 <meta property="og:robots" content="index, follow">

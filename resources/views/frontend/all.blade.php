@@ -10,7 +10,7 @@ Todos los productos
 
 <meta property="og:robots" content="index, follow">
 <meta property="og:revisit-after" content="3 days">
-
+<link rel="canonical" href="{{$url}}" />
 
 @if($configuracion->robots==null)
 
