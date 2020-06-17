@@ -148,20 +148,6 @@
                         @endforeach
                        <br />
                         <b>Presentación del Producto:</b> {{ $producto->presentacion_producto}}<br />
-                        <b>PUM:</b> 
-                            @if(isset($precio[$producto->id]))
-
-                               {{ $precio[$producto->id]['pum'] }}
-
-                            @else
-
-                             {{ $producto->pum}}
-
-
-                            @endif
-
-
-                        <br />
                         <b>Medida:</b> {{ $producto->medida}}<br />
                         <b>SKU:</b> {{ $producto->referencia_producto_sap}}<br />
                         <b>Referencia:</b> {{ $producto->referencia_producto}}<br />
@@ -173,7 +159,7 @@
 
                     <div class="box-info-product"> 
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
 
                             <div class="text-big3">
                                
@@ -186,6 +172,14 @@
                                         @case(1)
 
                                             <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
+
+
+                                                @if(isset($precio[$producto->id]))
+                                                  <small style="font-size: 12px">{{ $precio[$producto->id]['pum'] }}</small> 
+                                                @else
+                                                 <small style="font-size: 12px">{{ $producto->pum}}</small>
+                                                @endif
+
                                             
                                             @break
 
@@ -195,12 +189,22 @@
                                                 @if($almacen->descuento_productos)
                                                     <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
 
+
                                                 @endif
 
 
                                                 
 
                                                 <span class="precio_base">${{ number_format($producto->precio_base*(1-($precio[$producto->id]['precio']/100)),0,",",".") }}</span></p>
+
+
+                                                 @if(isset($precio[$producto->id]))
+                                                  <small style="font-size: 12px">{{ $precio[$producto->id]['pum'] }}</small> 
+                                                @else
+                                                 <small style="font-size: 12px">{{ $producto->pum}}</small>
+                                                @endif
+
+
                                             @break
 
                                         @case(3)
@@ -216,6 +220,14 @@
                                                 
 
                                                 <span class="precio_base">${{ number_format($precio[$producto->id]['precio'],0,",",".") }}</span></p>
+
+
+                                                 @if(isset($precio[$producto->id]))
+                                                  <small style="font-size: 12px">{{ $precio[$producto->id]['pum'] }}</small> 
+                                                @else
+                                                 <small style="font-size: 12px">{{ $producto->pum}}</small>
+                                                @endif
+
                                             @break
 
                                         
@@ -224,6 +236,13 @@
                                 @else
 
                                     <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
+
+                                    @if(isset($precio[$producto->id]))
+                                                  <small style="font-size: 12px">{{ $precio[$producto->id]['pum'] }}</small> 
+                                                @else
+                                                 <small style="font-size: 12px">{{ $producto->pum}}</small>
+                                                @endif
+
 
                                 @endif
 
@@ -243,6 +262,12 @@
 
                                     <span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".").' -'.$producto->operacion }}</span></p>
 
+                                                @if(isset($precio[$producto->id]))
+                                                  <small style="font-size: 12px">{{ $precio[$producto->id]['pum'] }}</small> 
+                                                @else
+                                                 <small style="font-size: 12px">{{ $producto->pum}}</small>
+                                                @endif
+
                             @endif
 
                                </div>
@@ -255,7 +280,7 @@
                             </span>
                             </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="product_botones boton_{{ $producto->id }}" id="boton_single">
 
                                             @if(isset($inventario[$producto->id]))

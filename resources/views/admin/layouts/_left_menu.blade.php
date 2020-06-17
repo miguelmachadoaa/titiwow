@@ -341,10 +341,10 @@
         </ul>
     @endif
 
-    @if (Sentinel::getUser()->hasAnyAccess(['robots.*']))
+    @if (Sentinel::getUser()->hasAnyAccess(['configuracion.robots']))
         <ul class="sub-menu">
-            <li {!! (Request::is('admin/robots*') ? 'class="active"' : '') !!}>
-                <a href="{!! route('admin.robots.index') !!}">
+            <li {!! (Request::is('admin/configuracion/htaccess') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.configuracion.robots') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Editor de Robots
                 </a>
@@ -354,10 +354,10 @@
 
 
 
- @if (Sentinel::getUser()->hasAnyAccess(['htaccess.*']))
+ @if (Sentinel::getUser()->hasAnyAccess(['configuracion.htaccess']))
         <ul class="sub-menu">
-            <li {!! (Request::is('admin/htaccess*') ? 'class="active"' : '') !!}>
-                <a href="{!! route('admin.htaccess.index') !!}">
+            <li {!! (Request::is('admin/configuracion/htaccess') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.configuracion.htaccess') !!}">
                     <i class="fa fa-angle-double-right"></i>
                     Editor de Htaccess
                 </a>
