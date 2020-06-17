@@ -715,7 +715,7 @@ class ProductosFrontController extends Controller
 
 
 
-        return \View::make('frontend.categorias', compact('productos','cataname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos','url'));
+        return \View::make('frontend.categorias', compact('productos','cataname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos','url', 'categoria'));
 
     }
     public function marcas($slug)
