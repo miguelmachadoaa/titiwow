@@ -785,9 +785,11 @@ class ProductosFrontController extends Controller
 
            $url=secure_url('marcas/'.$slug);
 
+           $marcaun = AlpMarcas::where('slug','=', $slug)->firstOrFail();
 
 
-        return \View::make('frontend.marcas', compact('productos','marcaname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos', 'role', 'almacen', 'url'));
+
+        return \View::make('frontend.marcas', compact('productos','marcaname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos', 'role', 'almacen', 'url', 'marcaun'));
 
     }
 

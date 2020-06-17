@@ -17,7 +17,12 @@
 <link rel="canonical" href="{{$url}}" />
 <meta property="og:title" content="{{$catego}} | Alpina GO!">
 <meta property="og:description" content="{{$categodes}}">
-<meta property="og:image" content="{{ $configuracion->seo_image }}" />
+
+@if($categoria->imagen_categoria==0)
+    <meta property="og:image" content="{{ $configuracion->seo_image }}" />
+@else
+    <meta property="og:image" content="{{ secure_url('uploads/categorias/'.$categoria->imagen_categoria )}}" />
+@endif
 <meta property="og:url" content="{{$url}}" />
 <meta name="description" content="{{$configuracion->seo_description}}"/>
 @if($configuracion->robots==null)

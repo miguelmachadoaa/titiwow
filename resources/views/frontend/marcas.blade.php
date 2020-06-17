@@ -17,7 +17,7 @@
 <link rel="canonical" href="{{$url}}" />
 <meta property="og:title" content="{{$marcago}} | Alpina GO!">
 <meta property="og:description" content="{{$marcades}}">
-<meta property="og:image" content="{{ $configuracion->seo_image }}" />
+<meta property="og:image" content="{{ secure_url('uploads/marcas/'.$marcaun->imagen_marca) }}" />
 <meta property="og:url" content="{{$url}}" />
 <meta name="description" content="{{$configuracion->seo_description}}"/>
 
