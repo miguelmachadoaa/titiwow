@@ -305,6 +305,8 @@ if (!Sentinel::getUser()->hasAnyAccess(['cms.*'])) {
 
         $i=1;
 
+        $robots='';
+
 
          foreach ($input as $key => $value) {
 

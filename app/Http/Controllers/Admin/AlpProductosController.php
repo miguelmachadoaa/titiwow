@@ -619,6 +619,8 @@ class AlpProductosController extends JoshController
 
         $i=1;
 
+        $robots='';
+
         foreach ($input as $key => $value) {
 
             if (substr($key,0,6)=='robots') {
@@ -1257,6 +1259,8 @@ class AlpProductosController extends JoshController
 
 
          $i=1;
+
+         $robots='';
 
         foreach ($input as $key => $value) {
 
