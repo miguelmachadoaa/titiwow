@@ -853,7 +853,7 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
     /*CMS Fin*/
 
-     Route::post('configuracion', 'Admin\AlpConfiguracionController@index')->name('configuracion.index');
+     Route::get('configuracion', 'Admin\AlpConfiguracionController@index')->name('configuracion.index');
 
      Route::put('configuracion/{id}', 'Admin\AlpConfiguracionController@update')->name('configuracion.update');
 

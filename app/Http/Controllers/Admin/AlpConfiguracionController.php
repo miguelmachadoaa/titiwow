@@ -417,7 +417,7 @@ class AlpConfiguracionController extends JoshController
           fclose($file);
 
 
-            return redirect('admin/configuracion/robots')->withInput()->with('success', trans('Se ha creado actualizado el Registro'));
+            return redirect('admin/configuracion/htaccess')->withInput()->with('success', trans('Se ha creado actualizado el Registro'));
 
 
     }
