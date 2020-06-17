@@ -642,34 +642,30 @@ class AlpOrdenesController extends JoshController
 
              $estatus="<span class='badge badge-default' >".$row->estatus_nombre."</span>";
 
-
-
                  $actions = " 
                   <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'>
                                                 ver detalles
                                             </a> ";
 
+                  if ($row->factura=='') {
 
-                                            if ($row->factura=='') {
+                    $actions=$actions."<div style='display: inline-block;' class='facturar_".$row->id."'>
+                  <button data-id='".$row->id."'  data-codigo='".$row->factura."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-info facturar' > Facturar </button></div>";
 
-                                              $actions=$actions."<div style='display: inline-block;' class='facturar_".$row->id."'>
-                                            <button data-id='".$row->id."'  data-codigo='".$row->factura."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-info facturar' > Facturar </button></div>";
- 
-                                              
+                    
 
-                                            }else{
-                                              $actions=$actions."<div style='display: inline-block;' class='facturar_".$row->id."'>
-                                            <button data-id='".$row->id."'  data-codigo='".$row->ordencompra."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-success facturar' > Facturado </button></div>";
-                                            }
+                  }else{
+                    $actions=$actions."<div style='display: inline-block;' class='facturar_".$row->id."'>
+                  <button data-id='".$row->id."'  data-codigo='".$row->ordencompra."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-success facturar' > Facturado </button></div>";
+                  }
 
 
-                                             $envio=AlpEnvios::where('id_orden', $row->id)->first();
+                   $envio=AlpEnvios::where('id_orden', $row->id)->first();
               if (isset($envio->id)) {
                 # code...
 
                 $row->monto_total=$row->monto_total+$envio->costo;
               } 
-
 
               $descuento=AlpOrdenesDescuento::where('id_orden', $row->id)->first();
 
@@ -683,32 +679,30 @@ class AlpOrdenesController extends JoshController
 
               }
 
-
               $almacen=AlpAlmacenes::where('id', $row->id_almacen)->first();
 
               $nommbre_almacen='';
               $nombre_ciudad='';
 
               if (isset($almacen->id)) {
-                
 
                   $nombre_almacen=$almacen->nombre_almacen;
 
-                  $ciudad=City::where('id', $almacen->id_city)->first();
+              }
+
+              $direccion=AlpDirecciones::where('id', $row->id_address)->first();
+
+              if (isset($direccion->id)) {
+
+                 $ciudad=City::where('id', $direccion->city_id)->first();
 
                   if (isset($ciudad->id)) {
 
-                  $nombre_ciudad=$ciudad->city_name;
+                      $nombre_ciudad=$ciudad->city_name;
 
-
-
-                    # code...
                   }
-
-
+                # code...
               }
-
-
 
                $data[]= array(
                  $row->id, 
