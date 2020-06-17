@@ -59,6 +59,7 @@ Saldo de @lang('clientes/title.clientes')
                                     <th>Teléfono</th>
                                     <th>Grupo Cliente</th>
                                     <th>Saldo </th>
+                                    <th>Codigo Cliente </th>
                                     <th>Estado Registro</th>
                                     <th>Creado</th>
                                     <th>Accion</th>

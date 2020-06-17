@@ -57,6 +57,7 @@ Todos los @lang('clientes/title.clientes')
                                     <th>Nombre</th>
                                     <th>Email</th>
                                     <th>Teléfono</th>
+                                    <th>Código Cliente</th>
                                     <th>Grupo Cliente</th>
                                     <th>Estado Masterfile</th>
                                     <th>Estado Registro</th>

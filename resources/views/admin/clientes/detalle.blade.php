@@ -105,6 +105,14 @@ Cliente
                                                             </td>
                                                         </tr>
 
+
+                                                        <tr>
+                                                            <td><b> Código Cliente</b></td>
+                                                            <td>
+                                                                {{ $cliente->codigo_cliente }}
+                                                            </td>
+                                                        </tr>
+
                                                         @if( isset($cliente->embajador) )
 
                                                         <tr>
