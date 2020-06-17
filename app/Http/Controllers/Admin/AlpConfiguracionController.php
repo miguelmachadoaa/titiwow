@@ -115,7 +115,6 @@ class AlpConfiguracionController extends JoshController
 
         $input=$request->all();
 
-
        $data = array(
             'nombre_tienda' => $request->nombre_tienda,
             'base_url' => $request->base_url,
@@ -165,8 +164,9 @@ class AlpConfiguracionController extends JoshController
     
         $configuracion->update($data);
 
-
         $i=1;
+
+        $robots='';
 
         foreach ($input as $key => $value) {
 
@@ -193,30 +193,12 @@ class AlpConfiguracionController extends JoshController
 
 
 
-
-        /* foreach ($input as $key => $value) {
-
-          if (substr($key, 0, 3)=='mc_') {
-
-            $par=explode('_', $key);
-
-            $rol=Roles::where('id', $par[1])->first();
-
-            $data_rol = array(
-              'monto_minimo' => $value
-            );
-
-            $rol->update($data_rol);
-
-          }
-
-        }*/
-
         if ($configuracion->id) {
 
             return redirect('admin/configuracion')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
 
         } else {
+
             return Redirect::route('admin/configuracion')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
         }  
 
