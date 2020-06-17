@@ -139,7 +139,7 @@
 
     @endif
 
-    @if (Sentinel::getUser()->hasAnyAccess(['productos.*']) || Sentinel::getUser()->hasAnyAccess(['categorias.*']) ||Sentinel::getUser()->hasAnyAccess(['marcas.*']))
+    @if (Sentinel::getUser()->hasAnyAccess(['productos.*']) || Sentinel::getUser()->hasAnyAccess(['categorias.*']) ||Sentinel::getUser()->hasAnyAccess(['marcas.*']) ||Sentinel::getUser()->hasAnyAccess(['xml.*']) ||Sentinel::getUser()->hasAnyAccess(['inventario.*']) ||Sentinel::getUser()->hasAnyAccess(['almacenes.*']))
 
 <li class="{{ Request::is('admin/productos*') ? 'active' : '' }}">
     <a href="#">
