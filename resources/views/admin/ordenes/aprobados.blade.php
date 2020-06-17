@@ -53,6 +53,8 @@ Ordenes Aprobadas
                                     <!--th>Codigo Oracle</th-->
                                     <th>Cupón</th>
                                     <th>Factura</th>
+                                    <th>Almacen</th>
+                                    <th>Ciudad</th>
                                     <!--th>Tracking</th-->
                                     <th>Creado</th>
                                     <th>Accion</th>

@@ -27,6 +27,7 @@ use App\Models\AlpInventario;
 use App\Models\AlpSaldo;
 
 use App\User;
+use App\City;
 use App\RoleUser;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -626,6 +627,11 @@ class AlpOrdenesController extends JoshController
 
             $data = array();
 
+            $almacenes_list=AlpAlmacenes::pluck('nombre_almacen', 'id');
+          $city_list=City::pluck('city_name', 'id');
+
+
+
 
           foreach($ordenes as $row){
 
@@ -678,7 +684,29 @@ class AlpOrdenesController extends JoshController
               }
 
 
+              $almacen=AlpAlmacenes::where('id', $row->id_almacen)->first();
 
+              $nommbre_almacen='';
+              $nombre_ciudad='';
+
+              if (isset($almacen->id)) {
+                
+
+                  $nombre_almacen=$almacen->nombre_almacen;
+
+                  $ciudad=City::where('id', $almacen->id_city)->first();
+
+                  if (isset($ciudad->id)) {
+
+                  $nombre_ciudad=$ciudad->city_name;
+
+
+
+                    # code...
+                  }
+
+
+              }
 
 
 
@@ -693,6 +721,8 @@ class AlpOrdenesController extends JoshController
                  //$row->ordencompra, 
                  $cupon, 
                  $row->factura, 
+                 $nombre_almacen, 
+                 $nombre_ciudad, 
                  //$row->tracking, 
                  date("d/m/Y H:i:s", strtotime($row->created_at)), 
                  $actions
