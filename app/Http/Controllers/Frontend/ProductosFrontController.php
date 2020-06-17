@@ -796,7 +796,7 @@ class ProductosFrontController extends Controller
 
          $id_almacen=$this->getAlmacen();
 
-        //dd($almacenRol);
+       // dd($id_almacen  );
          $rol=9;
 
         $descuento='1'; 

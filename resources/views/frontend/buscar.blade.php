@@ -71,12 +71,28 @@ Resultado de la Búsqueda @parent
     <div class="products">
         <div class="row">
         @if(count($productos)>0)
+
+        @php $i=0; @endphp
             @foreach($prods as $producto)
-                @include('frontend.producto')
-                @if ($loop->iteration % 4 == 0)
-                    </div>
-                    <div class="row">
+            @if(isset($inventario[$producto->id]))
+
+                @if($inventario[$producto->id]>0)
+
+                    @php $i++; @endphp
+
+                    @include('frontend.producto')
+
+
+                        @if ($i % 4 == 0)
+                            </div>
+                            <div class="row">
+                        @endif
+
                 @endif
+
+            @endif
+
+               
             @endforeach
             @else
             <div class="alert alert-danger">

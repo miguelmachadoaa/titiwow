@@ -11,7 +11,7 @@
 <meta property="og:description" content="{{ $producto->seo_descripcion }}">
 <meta property="og:image" content="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" />
 <meta property="og:url" content="{{$url}}" />
-<meta name="description" content="{{$producto->seo_description}}"/>
+<meta name="description" content="{{$producto->seo_descripcion}}"/>
 
 @if($producto->robots==null)
 @else

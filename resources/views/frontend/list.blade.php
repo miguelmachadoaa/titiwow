@@ -72,13 +72,28 @@ Productos @parent
             </div>
             <div class="col-md-9">
                 @if(count($leche)>0)
+                    
+                    @php $i=0; @endphp
+
                     @foreach($leche as $producto)
 
 
-                        @include('frontend.producto')
-                        @if ($loop->iteration % 4 == 0)
+                        @if(isset($inventario[$producto->id]))
+
+                            @if($inventario[$producto->id]>0)
+
+                                 @php $i++; @endphp
+
+                    @include('frontend.producto')
+
+
+                        @if ($i % 4 == 0)
                             </div>
                             <div class="row">
+                        @endif
+
+                            @endif
+
                         @endif
                        
                     @endforeach
@@ -105,12 +120,27 @@ Productos @parent
             </div>
             <div class="col-md-9">
                 @if(count($lacteos)>0)
+                    
+                    @php $i=0; @endphp
+
                     @foreach($lacteos as $producto)
                          
-                        @include('frontend.producto')
-                        @if ($loop->iteration % 4 == 0)
+                        @if(isset($inventario[$producto->id]))
+
+                            @if($inventario[$producto->id]>0)
+
+                                 @php $i++; @endphp
+
+                    @include('frontend.producto')
+
+
+                        @if ($i % 4 == 0)
                             </div>
                             <div class="row">
+                        @endif
+
+                            @endif
+
                         @endif
                     @endforeach
                         
@@ -136,14 +166,28 @@ Productos @parent
             </div>
             <div class="col-md-9">
                 @if(count($quesos)>0)
+                    
+                    @php $i=0; @endphp
+
                     @foreach($quesos as $producto)
                        
 
-                @include('frontend.producto')
-                @if ($loop->iteration % 4 == 0)
-                    </div>
-                    <div class="row">
-                @endif
+                        @if(isset($inventario[$producto->id]))
+
+                        @if($inventario[$producto->id]>0)
+
+                             @php $i++; @endphp
+
+                                @include('frontend.producto')
+
+                                @if ($i % 4 == 0)
+                                    </div>
+                                    <div class="row">
+                                @endif
+
+                        @endif
+
+                    @endif
 
                     @endforeach
                         
@@ -169,15 +213,29 @@ Productos @parent
             </div>
             <div class="col-md-9">
                 @if(count($postres)>0)
+                    
+                    @php $i=0; @endphp
+
                     @foreach($postres as $producto)
                       
 
 
-                @include('frontend.producto')
-                @if ($loop->iteration % 4 == 0)
-                    </div>
-                    <div class="row">
-                @endif
+                            @if(isset($inventario[$producto->id]))
+
+                                @if($inventario[$producto->id]>0)
+
+                                     @php $i++; @endphp
+
+                                @include('frontend.producto')
+
+                                @if ($i % 4 == 0)
+                                    </div>
+                                    <div class="row">
+                                @endif
+
+                                @endif
+
+                            @endif
 
 
                     @endforeach
@@ -204,15 +262,30 @@ Productos @parent
             </div>
             <div class="col-md-9">
                 @if(count($esparcibles)>0)
+                    
+                    @php $i=0; @endphp
+
                     @foreach($esparcibles as $producto)
                        
 
 
-                @include('frontend.producto')
-                @if ($loop->iteration % 4 == 0)
-                    </div>
-                    <div class="row">
-                @endif
+                        @if(isset($inventario[$producto->id]))
+
+                            @if($inventario[$producto->id]>0)
+
+                                @php $i++; @endphp
+
+                                @include('frontend.producto')
+
+
+                                @if ($i % 4 == 0)
+                                    </div>
+                                    <div class="row">
+                                @endif
+
+                            @endif
+
+                        @endif
 
 
                     @endforeach
@@ -239,15 +312,30 @@ Productos @parent
             </div>
             <div class="col-md-9">
                 @if(count($bebidas)>0)
+                    
+                    @php $i=0; @endphp
+
                     @foreach($bebidas as $producto)
                      
 
 
-                @include('frontend.producto')
-                @if ($loop->iteration % 4 == 0)
-                    </div>
-                    <div class="row">
-                @endif
+                           @if(isset($inventario[$producto->id]))
+
+                                @if($inventario[$producto->id]>0)
+
+                                    @php $i++; @endphp
+
+                                    @include('frontend.producto')
+
+
+                                    @if ($i % 4 == 0)
+                                        </div>
+                                        <div class="row">
+                                    @endif
+
+                                @endif
+
+                            @endif
 
 
                     @endforeach
@@ -274,15 +362,29 @@ Productos @parent
             </div>
             <div class="col-md-9">
                 @if(count($finess)>0)
+                    
+                    @php $i=0; @endphp
+
                     @foreach($finess as $producto)
                        
 
 
-                @include('frontend.producto')
-                @if ($loop->iteration % 4 == 0)
-                    </div>
-                    <div class="row">
-                @endif
+                        @if(isset($inventario[$producto->id]))
+
+                            @if($inventario[$producto->id]>0)
+
+                                @php $i++; @endphp
+
+                                @include('frontend.producto')
+
+                                @if ($i % 4 == 0)
+                                    </div>
+                                    <div class="row">
+                                @endif
+
+                            @endif
+
+                        @endif
 
 
                     @endforeach
@@ -309,15 +411,30 @@ Productos @parent
             </div>
             <div class="col-md-9">
                 @if(count($baby)>0)
+                    
+                    @php $i=0; @endphp
+
                     @foreach($baby as $producto)
                         
 
 
-                @include('frontend.producto')
-                @if ($loop->iteration % 4 == 0)
-                    </div>
-                    <div class="row">
-                @endif
+                        @if(isset($inventario[$producto->id]))
+
+                            @if($inventario[$producto->id]>0)
+
+                                 @php $i++; @endphp
+
+                                @include('frontend.producto')
+
+
+                                    @if ($i % 4 == 0)
+                                        </div>
+                                        <div class="row">
+                                    @endif
+
+                            @endif
+
+                        @endif
 
 
                     @endforeach
@@ -344,14 +461,29 @@ Productos @parent
             </div>
             <div class="col-md-9">
                 @if(count($nolacteos)>0)
+                    
+                    @php $i=0; @endphp
+
                     @foreach($nolacteos as $producto)
                         
                          
-                @include('frontend.producto')
-                @if ($loop->iteration % 4 == 0)
-                    </div>
-                    <div class="row">
-                @endif
+                        @if(isset($inventario[$producto->id]))
+
+                            @if($inventario[$producto->id]>0)
+
+                                 @php $i++; @endphp
+
+                    @include('frontend.producto')
+
+
+                        @if ($i % 4 == 0)
+                            </div>
+                            <div class="row">
+                        @endif
+
+                            @endif
+
+                        @endif
 
                     @endforeach
                         
@@ -404,9 +536,6 @@ Productos @parent
         jQuery(document).ready(function () {
             new WOW().init();
         });
-
-
-
 
     </script>
 @stop
