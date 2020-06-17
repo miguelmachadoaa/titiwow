@@ -28,12 +28,14 @@ class GroupsController extends JoshController
 
         // Show the page
         return view('admin.groups.index', compact('roles'));
-    }
+  
         
         if (!Sentinel::getUser()->hasAnyAccess(['groups.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
+
+      }
 
     /**
      * Group create.

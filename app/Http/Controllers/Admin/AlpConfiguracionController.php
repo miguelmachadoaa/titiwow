@@ -322,6 +322,106 @@ class AlpConfiguracionController extends JoshController
 
     }
 
+  public function htaccess()
+    {
+        // Grab all the groups
+
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        #->withProperties($request->all())
+                        ->log('configuracion/htaccess ');
+
+        }else{
+
+          activity()
+          #->withProperties($request->all())
+          ->log('configuracion/htaccess');
+
+
+        }
+
+        $contenido='';
+
+
+       try
+        {
+             $file = fopen(".htaccess", "r");
+
+                while(!feof($file)) {
+
+                $contenido=$contenido.fgets($file). "";
+
+                }
+
+                fclose($file);
+        }
+        catch (Illuminate\Filesystem\FileNotFoundException $exception)
+        {
+            die("No existe el archivo");
+        }
+
+
+        //dd($contenido);
+
+       
+        // Show the page
+        return view('admin.configuracion.htaccess', compact('contenido'));
+        
+    }
+
+    /**
+     * Group update form processing page.
+     *
+     * @param  int $id
+     * @return Redirect
+     */
+    public function posthtaccess(Request $request)
+    {
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('configuracion/posthtaccess ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('configuracion/posthtaccess');
+
+
+        }
+
+        $input=$request->all();
+
+       // dd($input);
+
+
+         $file = fopen(".htaccess", "w");
+
+          fwrite($file, $input['robots'] . PHP_EOL);
+
+          //fwrite($file, "Otra más" . PHP_EOL);
+
+          fclose($file);
+
+
+            return redirect('admin/configuracion/robots')->withInput()->with('success', trans('Se ha creado actualizado el Registro'));
+
+
+    }
+
 
 
 

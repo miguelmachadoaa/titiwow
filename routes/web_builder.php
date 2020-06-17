@@ -862,6 +862,12 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
     Route::post('configuracion/postrobots', 'Admin\AlpConfiguracionController@postrobots')->name('configuracion.postrobots');
 
+    Route::get('configuracion/htaccess', 'Admin\AlpConfiguracionController@htaccess')->name('configuracion.htaccess');
+
+    Route::post('configuracion/posthtaccess', 'Admin\AlpConfiguracionController@posthtaccess')->name('configuracion.posthtaccess');
+
+
+
 
 
     Route::post('configuracion/storecity', 'Admin\AlpConfiguracionController@storecity')->name('configuracion.storecity');

@@ -354,6 +354,18 @@
 
 
 
+ @if (Sentinel::getUser()->hasAnyAccess(['htaccess.*']))
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/htaccess*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.htaccess.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Editor de Htaccess
+                </a>
+            </li> 
+        </ul>
+    @endif
+
+
     @if (Sentinel::getUser()->hasAnyAccess(['barrios.*']))
         <ul class="sub-menu">
             <li {!! (Request::is('admin/barrios*') ? 'class="active"' : '') !!}>
