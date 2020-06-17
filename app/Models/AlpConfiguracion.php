@@ -55,6 +55,10 @@ class AlpConfiguracion extends Model
         'compramas_hash',
         'compramas_token',
         'robots',
+        'h1_home',
+        'h1_marcas',
+        'h1_categorias',
+        'h1_terminos',
         'estado_registro',
         'id_user'
     ];

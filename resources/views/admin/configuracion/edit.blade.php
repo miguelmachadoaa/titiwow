@@ -460,7 +460,58 @@ Editar Configuracion General
                                     </div>
                                 </div>
 
-                                
+
+                                <div class="form-group {{ $errors->first('h1_home', 'has-error') }}">
+                                    <label for="h1_home" class="col-sm-2 control-label">
+                                        H1 Home
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="h1_home" name="h1_home" class="form-control" placeholder="H1 Home"
+                                            value="{!! old('h1_home', $configuracion->h1_home) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('h1_home', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+                                <div class="form-group {{ $errors->first('h1_marcas', 'has-error') }}">
+                                    <label for="h1_marcas" class="col-sm-2 control-label">
+                                        H1 Marcas
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="h1_marcas" name="h1_marcas" class="form-control" placeholder="H1 Marcas"
+                                            value="{!! old('h1_marcas', $configuracion->h1_marcas) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('h1_marcas', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+                                <div class="form-group {{ $errors->first('h1_categorias', 'has-error') }}">
+                                    <label for="h1_categorias" class="col-sm-2 control-label">
+                                        H1 Categorias
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="h1_categorias" name="h1_categorias" class="form-control" placeholder="H1 Categorias"
+                                            value="{!! old('h1_categorias', $configuracion->h1_categorias) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('h1_categorias', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+                                <div class="form-group {{ $errors->first('h1_terminos', 'has-error') }}">
+                                    <label for="h1_terminos" class="col-sm-2 control-label">
+                                        H1 Terminos
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="h1_terminos" name="h1_terminos" class="form-control" placeholder="H1 Terminos"
+                                            value="{!! old('h1_terminos', $configuracion->h1_terminos) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('h1_terminos', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
 
 
                                  <fieldset >

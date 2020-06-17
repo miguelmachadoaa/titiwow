@@ -74,11 +74,15 @@
 <div class="col-md-9">
     <div class="products">
         <div class="row">
+
+             <h1 style="font-size: 24px; color: #143473; margin-bottom: 15px;" class="subtitulo">{{$configuracion->h1_categorias}}</h1>
+
+
         @if(!$productos->isEmpty())
 
         @php $i=0; @endphp
 
-        
+
             @foreach($prods as $producto)
                
                 @if(isset($inventario[$producto->id]))

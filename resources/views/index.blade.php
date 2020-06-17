@@ -161,8 +161,11 @@ Inicio @parent
                         @if(!$productos->isEmpty())
 
                        
-
+                            @php $i=0; @endphp
                             @foreach($prods as $producto)
+                            @if(isset($inventario[$producto->id]))
+                            @if($inventario[$producto->id]>0)
+                            @php $i++; @endphp
 
 
                                 <div class="col-md-2 col-sm-6 col-xs-6 ">
@@ -324,10 +327,13 @@ Inicio @parent
                                         </div>
                                     </div>
                                 </div>
-                                @if ($loop->iteration % 6 == 0)
+                                @if ($i % 6 == 0)
                                     </div>
                                     <div class="row">
                                 @endif
+
+                            @endif
+                            @endif
                             @endforeach
                             @else
                             <div class="alert alert-danger">

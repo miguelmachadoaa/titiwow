@@ -153,6 +153,10 @@ class AlpConfiguracionController extends JoshController
             'seo_image' => $request->seo_image,
             'seo_site_name' => $request->seo_site_name,
             'seo_description' => $request->seo_description,
+            'h1_home' => $request->h1_home,
+            'h1_categorias' => $request->h1_categorias,
+            'h1_marcas' => $request->h1_marcas,
+            'h1_terminos' => $request->h1_terminos
         );
 
 
