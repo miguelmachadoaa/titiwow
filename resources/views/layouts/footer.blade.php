@@ -38,7 +38,7 @@
                 </div>
                 <!-- Contacto Section Start -->
                 <div class="col-sm-3 clearfix">
-                    <img src="{{ secure_asset('uploads/files/pareycompare.png') }}" alt="Pare y Compare" title="Pare y Compare" class="img-responsive" style="margin:10px auto;width:160px;">
+                    <img src="{{ secure_asset('uploads/files/pareycompare.png') }}" alt="Pare y Compare" title="Pare y Compare" class="img-responsive" style=" margin:10px auto;width:220px;">
                  </div>   
                 <!-- Pare y Compare Section Start -->
                 <div class="col-sm-3 clearfix">
