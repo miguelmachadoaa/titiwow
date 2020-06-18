@@ -26,6 +26,11 @@ class AppServiceProvider extends ServiceProvider
 
             view()->composer('layouts.sidebar', function($view) {
                 $view->with('categorias', AlpMenuDetalle::menus(2));
+
+                $categ=AlpMenuDetalle::menus(2);
+
+                //dd($categ);
+
             });
 
             view()->composer('layouts.sidebar', function($view) {
