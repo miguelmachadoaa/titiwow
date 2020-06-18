@@ -174,11 +174,7 @@
                                             <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
 
 
-                                                @if(isset($precio[$producto->id]))
-                                                  <small style="font-size: 12px">{{ $precio[$producto->id]['pum'] }}</small> 
-                                                @else
-                                                 <small style="font-size: 12px">{{ $producto->pum}}</small>
-                                                @endif
+                                                
 
                                             
                                             @break
@@ -198,11 +194,7 @@
                                                 <span class="precio_base">${{ number_format($producto->precio_base*(1-($precio[$producto->id]['precio']/100)),0,",",".") }}</span></p>
 
 
-                                                 @if(isset($precio[$producto->id]))
-                                                  <small style="font-size: 12px">{{ $precio[$producto->id]['pum'] }}</small> 
-                                                @else
-                                                 <small style="font-size: 12px">{{ $producto->pum}}</small>
-                                                @endif
+                                                 
 
 
                                             @break
@@ -222,11 +214,7 @@
                                                 <span class="precio_base">${{ number_format($precio[$producto->id]['precio'],0,",",".") }}</span></p>
 
 
-                                                 @if(isset($precio[$producto->id]))
-                                                  <small style="font-size: 12px">{{ $precio[$producto->id]['pum'] }}</small> 
-                                                @else
-                                                 <small style="font-size: 12px">{{ $producto->pum}}</small>
-                                                @endif
+                                                 
 
                                             @break
 
@@ -237,11 +225,7 @@
 
                                     <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
 
-                                    @if(isset($precio[$producto->id]))
-                                                  <small style="font-size: 12px">{{ $precio[$producto->id]['pum'] }}</small> 
-                                                @else
-                                                 <small style="font-size: 12px">{{ $producto->pum}}</small>
-                                                @endif
+                                  
 
 
                                 @endif
@@ -262,22 +246,28 @@
 
                                     <span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".").' -'.$producto->operacion }}</span></p>
 
-                                                @if(isset($precio[$producto->id]))
-                                                  <small style="font-size: 12px">{{ $precio[$producto->id]['pum'] }}</small> 
-                                                @else
-                                                 <small style="font-size: 12px">{{ $producto->pum}}</small>
-                                                @endif
+                                                
 
                             @endif
 
-                               </div>
-                            <span class="span_impuesto">
+                            @if(isset($precio[$producto->id]))
+                                                  <p style="font-size: 12px; margin: 0px;">{{ $precio[$producto->id]['pum'] }}</p> 
+                                                @else
+                                                 <p style="font-size: 12px; margin: 0px;">{{ $producto->pum}}</p>
+                                                @endif
+
+                            <p style="font-size: 12px; margin: 0px;" class="span_impuesto">
                                 @if($producto->id_impuesto == 1)
                                     IVA incluido
                                 @elseif($producto->id_impuesto == 2)
                                     Exento de IVA
                                 @endif
-                            </span>
+                            </p>
+
+
+
+                               </div>
+                            
                             </div>
 
                                 <div class="col-md-6">
