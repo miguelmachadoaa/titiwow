@@ -251,12 +251,12 @@
                             @endif
 
                             @if(isset($precio[$producto->id]))
-                                                  <p style="font-size: 12px; margin: 0px;">{{ $precio[$producto->id]['pum'] }}</p> 
+                                                  <p style="font-size: 0.8em; margin: 0px;">{{ $precio[$producto->id]['pum'] }}</p> 
                                                 @else
                                                  <p style="font-size: 12px; margin: 0px;">{{ $producto->pum}}</p>
                                                 @endif
 
-                            <p style="font-size: 12px; margin: 0px;" class="span_impuesto">
+                            <p style="font-size: 0.8em; margin: 0px;" class="span_impuesto">
                                 @if($producto->id_impuesto == 1)
                                     IVA incluido
                                 @elseif($producto->id_impuesto == 2)

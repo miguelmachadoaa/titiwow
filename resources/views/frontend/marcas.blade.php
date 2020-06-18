@@ -19,7 +19,7 @@
 <meta property="og:description" content="{{$marcades}}">
 <meta property="og:image" content="{{ secure_url('uploads/marcas/'.$marcaun->imagen_marca) }}" />
 <meta property="og:url" content="{{$url}}" />
-<meta name="description" content="{{$configuracion->seo_description}}"/>
+<meta name="description" content="{{$marcades}}"/>
 
 @if($configuracion->robots==null)
 @else

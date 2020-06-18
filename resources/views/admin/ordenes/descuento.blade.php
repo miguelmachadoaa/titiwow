@@ -52,6 +52,8 @@ Ordenes con Descuento
                                     
                                     <th>Forma de Envio</th>
                                     <th>Forma de Pago</th>
+                                    <th>Almacen</th>
+                                    <th>Ciudad</th>
                                     <th>Total</th>
                                     <th>Total Sin Descuento</th>
                                     <th>Cupón</th>

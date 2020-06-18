@@ -54,6 +54,8 @@ Ordenes Recibidas
                                     <th>Teléfono</th>
                                     <th>Forma de Envio</th>
                                     <th>Forma de Pago</th>
+                                    <th>Almacen</th>
+                                    <th>Ciudad</th>
                                     <th>Total</th>
                                     <!--th>Codigo Oracle</th-->
                                     <th>Cupón</th>

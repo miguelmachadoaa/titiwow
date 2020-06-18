@@ -56,6 +56,8 @@ Todas las Ordenes
                                     <th>Cupón</th>
                                     <th>Factura</th>
                                     <th>Tracking</th>
+                                    <th>Almacen</th>
+                                    <th>Ciudad</th>
                                     <th>Creado</th>
                                     <th>Estado Pago</th>
                                     <th>Estado</th>

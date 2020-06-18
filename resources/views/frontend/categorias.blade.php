@@ -24,7 +24,7 @@
     <meta property="og:image" content="{{ secure_url('uploads/categorias/'.$categoria->imagen_categoria )}}" />
 @endif
 <meta property="og:url" content="{{$url}}" />
-<meta name="description" content="{{$configuracion->seo_description}}"/>
+<meta name="description" content="{{$categodes}}"/>
 @if($configuracion->robots==null)
 @else
 <meta name="robots" content="{{$configuracion->robots}}">

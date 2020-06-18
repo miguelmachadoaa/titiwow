@@ -172,6 +172,8 @@ class AlpOrdenesController extends JoshController
           'alp_ordenes.tracking as tracking', 
           'alp_ordenes.id_forma_envio as id_forma_envio', 
           'alp_ordenes.id_forma_pago as id_forma_pago', 
+          'alp_ordenes.id_almacen as id_almacen', 
+          'alp_ordenes.id_address as id_address', 
           'alp_ordenes.created_at as created_at', 
           'alp_clientes.telefono_cliente as telefono_cliente',
           'users.first_name as first_name', 
@@ -188,9 +190,11 @@ class AlpOrdenesController extends JoshController
           $formasenvio=AlpFormasenvio::pluck('nombre_forma_envios', 'id');
           $estatus_pago=AlpEstatusPagos::pluck('estatus_pago_nombre', 'id');
           $estatus_ordenes=AlpEstatusOrdenes::pluck('estatus_nombre', 'id');
+          $almacenes=AlpAlmacenes::pluck('nombre_almacen', 'id');
+          $direcciones=AlpDirecciones::pluck('city_id', 'id');
+          $ciudades=City::pluck('city_name', 'id');
 
           //dd($formasenvio);
-        
 
             $data = array();
 
@@ -260,6 +264,31 @@ class AlpOrdenesController extends JoshController
                 $fp='No se reconoce';
               }
 
+              $nombre_almacen='';
+
+              $nombre_ciudad='';
+
+             // dd($cities); 
+
+              if (isset($almacenes[$row->id_almacen])) {
+                
+                $nombre_almacen=$almacenes[$row->id_almacen];
+              }
+
+              if (isset($direcciones[$row->id_address])) {
+
+                if (isset($ciudades[$direcciones[$row->id_address]])) {
+
+                  //dd($ciudades[$direcciones[$row->id_address]]);
+                  
+                  $nombre_ciudad=$ciudades[$direcciones[$row->id_address]];
+
+                }
+               
+              }
+
+              //dd($nombre_almacen);
+
                $data[]= array(
                  $row->id, 
                  $row->referencia, 
@@ -272,6 +301,8 @@ class AlpOrdenesController extends JoshController
                  $cupon, 
                  $row->factura, 
                  $row->tracking, 
+                 $nombre_almacen, 
+                 $nombre_ciudad, 
                  date("d/m/Y H:i:s", strtotime($row->created_at)),
                  $pago, 
                  $estatus, 
@@ -341,6 +372,10 @@ class AlpOrdenesController extends JoshController
            ->groupBy('alp_ordenes.id')
           ->get();
 
+          $almacenes=AlpAlmacenes::pluck('nombre_almacen', 'id');
+          $direcciones=AlpDirecciones::pluck('city_id', 'id');
+          $ciudades=City::pluck('city_name', 'id');
+
           
 
             $data = array();
@@ -383,6 +418,32 @@ class AlpOrdenesController extends JoshController
               }
 
 
+              $nombre_almacen='';
+
+              $nombre_ciudad='';
+
+             // dd($cities); 
+
+              if (isset($almacenes[$row->id_almacen])) {
+                
+                $nombre_almacen=$almacenes[$row->id_almacen];
+              }
+
+              if (isset($direcciones[$row->id_address])) {
+
+                if (isset($ciudades[$direcciones[$row->id_address]])) {
+
+                  //dd($ciudades[$direcciones[$row->id_address]]);
+                  
+                  $nombre_ciudad=$ciudades[$direcciones[$row->id_address]];
+
+                }
+               
+              }
+
+
+
+
                $data[]= array(
                  $row->id, 
                  $row->referencia, 
@@ -390,6 +451,8 @@ class AlpOrdenesController extends JoshController
                  $row->telefono_cliente, 
                  $row->nombre_forma_envios, 
                  $row->nombre_forma_pago, 
+                 $nombre_almacen, 
+                 $nombre_ciudad, 
                  number_format($row->monto_total,2), 
                  number_format($row->monto_total_base,2), 
                  $cupon,
@@ -497,6 +560,12 @@ class AlpOrdenesController extends JoshController
           ->groupBy('alp_ordenes.id')
           ->get();
 
+          $almacenes=AlpAlmacenes::pluck('nombre_almacen', 'id');
+          $direcciones=AlpDirecciones::pluck('city_id', 'id');
+          $ciudades=City::pluck('city_name', 'id');
+
+
+
           //dd($ordenes);
 
             $data = array();
@@ -534,6 +603,31 @@ class AlpOrdenesController extends JoshController
 
               }
 
+              $nombre_almacen='';
+
+              $nombre_ciudad='';
+
+             // dd($cities); 
+
+              if (isset($almacenes[$row->id_almacen])) {
+                
+                $nombre_almacen=$almacenes[$row->id_almacen];
+              }
+
+              if (isset($direcciones[$row->id_address])) {
+
+                if (isset($ciudades[$direcciones[$row->id_address]])) {
+
+                  //dd($ciudades[$direcciones[$row->id_address]]);
+                  
+                  $nombre_ciudad=$ciudades[$direcciones[$row->id_address]];
+
+                }
+               
+              }
+
+
+
 
                $data[]= array(
                  $row->id, 
@@ -542,6 +636,8 @@ class AlpOrdenesController extends JoshController
                  $row->telefono_cliente, 
                  $row->nombre_forma_envios, 
                  $row->nombre_forma_pago, 
+                 $nombre_almacen, 
+                 $nombre_ciudad, 
                  number_format($row->monto_total,2), 
                  $row->ordencompra, 
                  $cupon, 
@@ -627,8 +723,9 @@ class AlpOrdenesController extends JoshController
 
             $data = array();
 
-            $almacenes_list=AlpAlmacenes::pluck('nombre_almacen', 'id');
-          $city_list=City::pluck('city_name', 'id');
+            $almacenes=AlpAlmacenes::pluck('nombre_almacen', 'id');
+          $direcciones=AlpDirecciones::pluck('city_id', 'id');
+          $ciudades=City::pluck('city_name', 'id');
 
 
 
@@ -679,30 +776,30 @@ class AlpOrdenesController extends JoshController
 
               }
 
-              $almacen=AlpAlmacenes::where('id', $row->id_almacen)->first();
+             $nombre_almacen='';
 
-              $nommbre_almacen='';
               $nombre_ciudad='';
 
-              if (isset($almacen->id)) {
+             // dd($cities); 
 
-                  $nombre_almacen=$almacen->nombre_almacen;
-
+              if (isset($almacenes[$row->id_almacen])) {
+                
+                $nombre_almacen=$almacenes[$row->id_almacen];
               }
 
-              $direccion=AlpDirecciones::where('id', $row->id_address)->first();
+              if (isset($direcciones[$row->id_address])) {
 
-              if (isset($direccion->id)) {
+                if (isset($ciudades[$direcciones[$row->id_address]])) {
 
-                 $ciudad=City::where('id', $direccion->city_id)->first();
+                  //dd($ciudades[$direcciones[$row->id_address]]);
+                  
+                  $nombre_ciudad=$ciudades[$direcciones[$row->id_address]];
 
-                  if (isset($ciudad->id)) {
-
-                      $nombre_ciudad=$ciudad->city_name;
-
-                  }
-                # code...
+                }
+               
               }
+
+
 
                $data[]= array(
                  $row->id, 
@@ -711,6 +808,8 @@ class AlpOrdenesController extends JoshController
                  $row->telefono_cliente, 
                  $row->nombre_forma_envios, 
                  $row->nombre_forma_pago, 
+                 $nombre_almacen, 
+                 $nombre_ciudad, 
                  number_format($row->monto_total,2), 
                  //$row->ordencompra, 
                  $cupon, 
@@ -806,6 +905,12 @@ class AlpOrdenesController extends JoshController
           ->groupBy('alp_ordenes.id')
           ->get();
 
+          $almacenes=AlpAlmacenes::pluck('nombre_almacen', 'id');
+          $direcciones=AlpDirecciones::pluck('city_id', 'id');
+          $ciudades=City::pluck('city_name', 'id');
+
+
+
             $data = array();
 
 
@@ -861,7 +966,28 @@ class AlpOrdenesController extends JoshController
 
 
 
+                $nombre_almacen='';
 
+              $nombre_ciudad='';
+
+             // dd($cities); 
+
+              if (isset($almacenes[$row->id_almacen])) {
+                
+                $nombre_almacen=$almacenes[$row->id_almacen];
+              }
+
+              if (isset($direcciones[$row->id_address])) {
+
+                if (isset($ciudades[$direcciones[$row->id_address]])) {
+
+                  //dd($ciudades[$direcciones[$row->id_address]]);
+                  
+                  $nombre_ciudad=$ciudades[$direcciones[$row->id_address]];
+
+                }
+               
+              }
 
 
 
@@ -872,6 +998,8 @@ class AlpOrdenesController extends JoshController
                  $row->telefono_cliente, 
                  $row->nombre_forma_envios, 
                  $row->nombre_forma_pago, 
+                 $nombre_almacen, 
+                 $nombre_ciudad, 
                  number_format($row->monto_total,2), 
                  //$row->ordencompra, 
                  $cupon, 
@@ -957,6 +1085,12 @@ class AlpOrdenesController extends JoshController
           ->groupBy('alp_ordenes.id')
           ->get();
 
+          $almacenes=AlpAlmacenes::pluck('nombre_almacen', 'id');
+          $direcciones=AlpDirecciones::pluck('city_id', 'id');
+          $ciudades=City::pluck('city_name', 'id');
+
+
+
             $data = array();
 
 
@@ -1014,7 +1148,28 @@ class AlpOrdenesController extends JoshController
 
 
 
+              $nombre_almacen='';
 
+              $nombre_ciudad='';
+
+             // dd($cities); 
+
+              if (isset($almacenes[$row->id_almacen])) {
+                
+                $nombre_almacen=$almacenes[$row->id_almacen];
+              }
+
+              if (isset($direcciones[$row->id_address])) {
+
+                if (isset($ciudades[$direcciones[$row->id_address]])) {
+
+                  //dd($ciudades[$direcciones[$row->id_address]]);
+                  
+                  $nombre_ciudad=$ciudades[$direcciones[$row->id_address]];
+
+                }
+               
+              }
 
 
                $data[]= array(
@@ -1024,6 +1179,8 @@ class AlpOrdenesController extends JoshController
                  $row->telefono_cliente, 
                  $row->nombre_forma_envios, 
                  $row->nombre_forma_pago, 
+                 $nombre_almacen, 
+                 $nombre_ciudad, 
                  number_format($row->monto_total,2), 
                  $row->ordencompra, 
                  $cupon, 
@@ -1104,6 +1261,12 @@ class AlpOrdenesController extends JoshController
           ->where('alp_ordenes.estatus', '7')
           ->groupBy('alp_ordenes.id')
           ->get();
+
+          $almacenes=AlpAlmacenes::pluck('nombre_almacen', 'id');
+          $direcciones=AlpDirecciones::pluck('city_id', 'id');
+          $ciudades=City::pluck('city_name', 'id');
+
+
        
 
             $data = array();
@@ -1147,7 +1310,28 @@ class AlpOrdenesController extends JoshController
               }
 
                                           
+              $nombre_almacen='';
 
+              $nombre_ciudad='';
+
+             // dd($cities); 
+
+              if (isset($almacenes[$row->id_almacen])) {
+                
+                $nombre_almacen=$almacenes[$row->id_almacen];
+              }
+
+              if (isset($direcciones[$row->id_address])) {
+
+                if (isset($ciudades[$direcciones[$row->id_address]])) {
+
+                  //dd($ciudades[$direcciones[$row->id_address]]);
+                  
+                  $nombre_ciudad=$ciudades[$direcciones[$row->id_address]];
+
+                }
+               
+              }
 
                $data[]= array(
                  $row->id, 
@@ -1156,6 +1340,8 @@ class AlpOrdenesController extends JoshController
                  $row->telefono_cliente, 
                  $row->nombre_forma_envios, 
                  $row->nombre_forma_pago, 
+                 $nombre_almacen, 
+                 $nombre_ciudad, 
                  number_format($row->monto_total,2), 
                  $row->ordencompra, 
                  $cupon, 
@@ -1271,6 +1457,12 @@ class AlpOrdenesController extends JoshController
           ->Join('alp_empresas', 'alp_clientes.id_empresa', '=', 'alp_empresas.id')
           ->groupBy('alp_ordenes.id')
           ->get();
+
+          $almacenes=AlpAlmacenes::pluck('nombre_almacen', 'id');
+          $direcciones=AlpDirecciones::pluck('city_id', 'id');
+          $ciudades=City::pluck('city_name', 'id');
+
+
        
 
             $data = array();
@@ -1316,7 +1508,28 @@ class AlpOrdenesController extends JoshController
 
 
    
+              $nombre_almacen='';
 
+              $nombre_ciudad='';
+
+             // dd($cities); 
+
+              if (isset($almacenes[$row->id_almacen])) {
+                
+                $nombre_almacen=$almacenes[$row->id_almacen];
+              }
+
+              if (isset($direcciones[$row->id_address])) {
+
+                if (isset($ciudades[$direcciones[$row->id_address]])) {
+
+                  //dd($ciudades[$direcciones[$row->id_address]]);
+                  
+                  $nombre_ciudad=$ciudades[$direcciones[$row->id_address]];
+
+                }
+               
+              }
 
                $data[]= array(
                  $row->id, 
@@ -1324,6 +1537,8 @@ class AlpOrdenesController extends JoshController
                  $row->first_name.' '.$row->last_name, 
                  $row->nombre_forma_envios, 
                  $row->nombre_forma_pago, 
+                 $nombre_almacen, 
+                 $nombre_ciudad, 
                  number_format($row->monto_total,2), 
                  $row->ordencompra, 
                  $cupon, 
@@ -2560,6 +2775,12 @@ class AlpOrdenesController extends JoshController
           ->groupBy('alp_ordenes.id')
           ->get();
 
+          $almacenes=AlpAlmacenes::pluck('nombre_almacen', 'id');
+          $direcciones=AlpDirecciones::pluck('city_id', 'id');
+          $ciudades=City::pluck('city_name', 'id');
+
+
+
             $data = array();
 
 
@@ -2616,7 +2837,28 @@ class AlpOrdenesController extends JoshController
 
 
 
+              $nombre_almacen='';
 
+              $nombre_ciudad='';
+
+             // dd($cities); 
+
+              if (isset($almacenes[$row->id_almacen])) {
+                
+                $nombre_almacen=$almacenes[$row->id_almacen];
+              }
+
+              if (isset($direcciones[$row->id_address])) {
+
+                if (isset($ciudades[$direcciones[$row->id_address]])) {
+
+                  //dd($ciudades[$direcciones[$row->id_address]]);
+                  
+                  $nombre_ciudad=$ciudades[$direcciones[$row->id_address]];
+
+                }
+               
+              }
 
 
                $data[]= array(
@@ -2626,6 +2868,8 @@ class AlpOrdenesController extends JoshController
                  $row->telefono_cliente, 
                  $row->nombre_forma_envios, 
                  $row->nombre_forma_pago, 
+                 $nombre_almacen, 
+                 $nombre_ciudad, 
                  number_format($row->monto_total,2), 
                  //$row->ordencompra, 
                  $cupon, 
@@ -2716,6 +2960,11 @@ class AlpOrdenesController extends JoshController
            ->where('alp_ordenes.id_almacen', $user->almacen)
           ->get();
 
+          $almacenes=AlpAlmacenes::pluck('nombre_almacen', 'id');
+          $direcciones=AlpDirecciones::pluck('city_id', 'id');
+          $ciudades=City::pluck('city_name', 'id');
+
+
 
             $data = array();
 
@@ -2755,6 +3004,31 @@ class AlpOrdenesController extends JoshController
 
               }
 
+              $nombre_almacen='';
+
+              $nombre_ciudad='';
+
+             // dd($cities); 
+
+              if (isset($almacenes[$row->id_almacen])) {
+                
+                $nombre_almacen=$almacenes[$row->id_almacen];
+              }
+
+              if (isset($direcciones[$row->id_address])) {
+
+                if (isset($ciudades[$direcciones[$row->id_address]])) {
+
+                  //dd($ciudades[$direcciones[$row->id_address]]);
+                  
+                  $nombre_ciudad=$ciudades[$direcciones[$row->id_address]];
+
+                }
+               
+              }
+
+
+
 
                $data[]= array(
                  $row->id, 
@@ -2763,6 +3037,8 @@ class AlpOrdenesController extends JoshController
                  $row->telefono_cliente, 
                  $row->nombre_forma_envios, 
                  $row->nombre_forma_pago, 
+                 $nombre_almacen, 
+                 $nombre_ciudad, 
                  number_format($row->monto_total,2), 
                  number_format($row->monto_total_base,2), 
                  $cupon,
