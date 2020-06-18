@@ -41,22 +41,28 @@
         $precioNormalizado = floatval(sprintf($precioIva));
 
 
-
         @endphp
         <tr>
-            <td>{!! $row->fecha !!}</td>
+            <td>{!! date("d/m/Y", strtotime($row->created_at)) !!}</td>
             <td>{!! $row->id!!}</td>
             <td>{!! $row->factura!!}</td>
             <td>{!! $row->cod_oracle_cliente!!}</td>
             <td>{!! $row->doc_cliente !!}</td>
             <td>{!! $row->first_name.' '.$row->last_name !!}</td>
             <td> 
-                @if($row->json!=null) 
-                    @if(isset(json_decode($row->json)->merchant_order_id ))
-                        {!! json_decode($row->json)->merchant_order_id !!} 
-                    @else 
-                        {!! json_decode($row->json)->response->id !!} 
 
+                @if(isset($row->json))
+                    @if($row->json!=null) 
+                        @if(isset(json_decode($row->json)->merchant_order_id ))
+                            {!! json_decode($row->json)->merchant_order_id !!} 
+                        @else 
+
+                            @if(isset(json_decode($row->json)->response->id ))
+
+                             {!! json_decode($row->json)->response->id !!} 
+
+                            @endif 
+                        @endif 
                     @endif 
                 @endif 
             </td>
@@ -64,13 +70,19 @@
             <td>{!! $row->nombre_forma_pago  !!}</td>
             <td>
 
-                @if($row->json)
+                @if(isset($row->json))
 
 
                     @if(isset(json_decode($row->json)->payment_type ))
                         {!! json_decode($row->json)->payment_type !!} 
                     @else 
-                        {!! json_decode($row->json)->response->payment_type_id   !!} 
+                        
+
+                            @if(isset(json_decode($row->json)->response->payment_type_id ))
+
+                                 {!! json_decode($row->json)->response->payment_type_id   !!}  
+
+                            @endif
 
                     @endif
 

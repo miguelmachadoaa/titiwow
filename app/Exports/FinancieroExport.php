@@ -5,6 +5,10 @@ namespace App\Exports;
 use App\User;
 use App\Models\AlpOrdenes;
 use App\Models\AlpEmpresas;
+use App\Models\AlpFormaspago;
+use App\Models\AlpClientes;
+use App\Models\AlpPagos;
+
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -23,17 +27,13 @@ class FinancieroExport implements FromView
         $this->hasta = $hasta;
     }
 
-
-
     public function view(): View
     {
-
 
         $ordenes=AlpOrdenes::query()->select(
            DB::raw('DATE_FORMAT(alp_ordenes.created_at, "%d/%m/%Y")  as fecha'),
           'alp_ordenes.id as id',
           'alp_ordenes.ip as ip',
-          
           'alp_ordenes.base_impuesto as base_impuesto',
           'alp_ordenes.valor_impuesto as valor_impuesto',
           'alp_ordenes.monto_impuesto as monto_impuesto',
@@ -56,11 +56,7 @@ class FinancieroExport implements FromView
           'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago'
           )
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
-          ->join('role_users', 'alp_ordenes.id_cliente', '=', 'role_users.user_id')
-          ->join('roles', 'role_users.role_id', '=', 'roles.id')
           ->join('alp_clientes', 'alp_ordenes.id_cliente', '=', 'alp_clientes.id_user_client')
-         // ->join('users as emabaj', 'alp_clientes.id_embajador', '=', 'emabaj.id')
-          ->join('alp_ordenes_detalle', 'alp_ordenes.id', '=', 'alp_ordenes_detalle.id_orden')
           ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
           ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
           ->groupBy('alp_ordenes.id')
@@ -69,20 +65,22 @@ class FinancieroExport implements FromView
           ->whereDate('alp_ordenes.created_at', '>=', $this->desde)
           ->whereDate('alp_ordenes.created_at', '<=', $this->hasta)->get();
 
-          //dd($ordenes);
 
           $d = array();
 
+          $formaspago=AlpFormaspago::pluck('nombre_forma_pago', 'id');
+
           foreach ($ordenes as $ord) {
-            
-            if ($ord->id_embajador!=0) {
-             
-              $e=User::where('id', $ord->id_embajador)->first();
 
-              $d[$ord->id_embajador]=$e;
+         
 
-            }
+              if ($ord->id_embajador!=0) {
+               
+                $e=User::where('id', $ord->id_embajador)->first();
 
+                $d[$ord->id_embajador]=$e;
+
+              }
 
           }
 
@@ -91,8 +89,12 @@ class FinancieroExport implements FromView
           $empresas = array();
 
           foreach ($e as $em ) {
+
             $empresas[$em->id]=$em;
+
           }
+
+          //dd($ordenes);
 
         return view('admin.exports.financiero', [
             'ventas' => $ordenes, 'embajadores'=>$d, 'empresas'=>$empresas
