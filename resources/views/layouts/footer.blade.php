@@ -28,8 +28,8 @@
                         </p>
                         <p style="text-align:left !important;">Km 3, vía Briceño Sopó, Edificio Administrativo Alpina Cundinamarca, Colombia</p>
                         <ul id="menu-contacto" class="menu_footer">
-                            <li class="menu-item">(+57) 4238600</li>
-                            <li class="menu-item">(+57) 5718600</li>
+                            <li class="menu-item">(+571) 4238600</li>
+                            <li class="menu-item">(+571) 5718600</li>
                             <li class="menu-item">(01) 8000529999</li>
                             <li class="menu-item">contaccenter@alpina.com</li>
                             <!--li class="menu-item">Formulario de <a href="#">Contacto</a></li-->
