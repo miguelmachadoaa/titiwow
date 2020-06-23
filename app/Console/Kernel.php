@@ -93,7 +93,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('activitylog:clean')->dailyAt('00:05');
 
-        $almacenes=AlpAlmacenes::get();
+        $almacenes=AlpAlmacenes::where('estado_registro', '1')->get();
 
         foreach ($almacenes as $alm) {
 
