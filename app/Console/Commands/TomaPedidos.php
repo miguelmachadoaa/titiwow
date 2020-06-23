@@ -63,14 +63,14 @@ class TomaPedidos extends Command
 
        Excel::store(new TomaPedidosRolExport('9'), $archivo_clientes, 'excel');
             
-        $documentos[]='/var/www/alpinago/storage/app/public/'.$archivo_clientes;
+        $documentos[]='/home2/alpago/alpinago/storage/app/public/'.$archivo_clientes;
      
 
         $archivo_embajador='toma_pedidos_embajador'.$hoy.'.xlsx';
 
         Excel::store(new TomaPedidosRolExport('10'), $archivo_embajador, 'excel');
             
-        $documentos[]='/var/www/alpinago/storage/app/public/'.$archivo_embajador;
+        $documentos[]='/home2/alpago/alpinago/storage/app/public/'.$archivo_embajador;
       
 
 
@@ -78,7 +78,7 @@ class TomaPedidos extends Command
 
          Excel::store(new TomaPedidosRolExport('11'), $archivo_amigoalpina, 'excel');
 
-        $documentos[]='/var/www/alpinago/storage/app/public/'.$archivo_amigoalpina;
+        $documentos[]='/home2/alpago/alpinago/storage/app/public/'.$archivo_amigoalpina;
 
 
         //dd($documentos);

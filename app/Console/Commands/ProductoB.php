@@ -60,21 +60,21 @@ class ProductoB extends Command
 
        Excel::store(new ProductosRolExportB($hoy, $hoy, '9'), $archivo_clientes, 'excel');
             
-        $documentos[]='/var/www/alpinago/storage/app/public/'.$archivo_clientes;
+        $documentos[]='/home2/alpago/alpinago/storage/app/public/'.$archivo_clientes;
      
 
         $archivo_embajador='ventas_productos_embajador'.$hoy.'.xlsx';
 
         Excel::store(new ProductosRolExportB($hoy, $hoy, '10'), $archivo_embajador, 'excel');
             
-        $documentos[]='/var/www/alpinago/storage/app/public/'.$archivo_embajador;
+        $documentos[]='/home2/alpago/alpinago/storage/app/public/'.$archivo_embajador;
       
 
         $archivo_amigoalpina='ventas_productos_amigoalpina'.$hoy.'.xlsx';
 
          Excel::store(new ProductosRolExportB($hoy, $hoy, '11'), $archivo_amigoalpina, 'excel');
 
-        $documentos[]='/var/www/alpinago/storage/app/public/'.$archivo_amigoalpina;
+        $documentos[]='/home2/alpago/alpinago/storage/app/public/'.$archivo_amigoalpina;
 
 
         $enlace=storage_path('/app/'.$archivo);

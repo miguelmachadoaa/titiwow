@@ -62,21 +62,21 @@ class ProductoC extends Command
         $archivo_clientes='ventas_productosc_clientes_'.$hoy.'.xlsx';
 
         if (Excel::store(new ProductosRolExportC($hoy, $hoy, '9'), $archivo_clientes, 'excel')) {
-            $documentos[]='/var/www/alpinago/storage/app/public/'.$archivo_clientes;
+            $documentos[]='/home2/alpago/alpinago/storage/app/public/'.$archivo_clientes;
         }
 
 
         $archivo_embajador='ventas_productosc_embajado_r'.$hoy.'.xlsx';
 
         if ( Excel::store(new ProductosRolExportC($hoy, $hoy, '10'), $archivo_embajador, 'excel')) {
-            $documentos[]='/var/www/alpinago/storage/app/public/'.$archivo_embajador;
+            $documentos[]='/home2/alpago/alpinago/storage/app/public/'.$archivo_embajador;
         }
 
 
         $archivo_amigoalpina='ventas_productosc_amigoalpina_'.$hoy.'.xlsx';
 
            if ( Excel::store(new ProductosRolExportC($hoy, $hoy, '11'), $archivo_amigoalpina, 'excel')) {
-            $documentos[]='/var/www/alpinago/storage/app/public/'.$archivo_amigoalpina;
+            $documentos[]='/home2/alpago/alpinago/storage/app/public/'.$archivo_amigoalpina;
         }
 
        // Excel::store(new CronLogisticaExport(), $archivo);

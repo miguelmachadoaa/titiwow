@@ -73,7 +73,7 @@ class VentasNominaAlmacenes extends Command
 
         Excel::store(new NominaExportAlmacen($hoy, $alm), $archivo_clientes, 'excel');
             
-       $documentos[]='/var/www/alpinago/storage/app/public/'.$archivo_clientes;
+       $documentos[]='/home2/alpago/alpinago/storage/app/public/'.$archivo_clientes;
      
 
         $enlace=storage_path('/app/'.$archivo);
@@ -119,7 +119,7 @@ class VentasNominaAlmacenes extends Command
 
                 Excel::store(new FormatoSolicitudPedidoAlpinista($orden->id, $archivo_clientes, 'excel'));
                     
-               $documentos[]='/var/www/alpinago/storage/app/public/'.$archivo_clientes;
+               $documentos[]='/home2/alpago/alpinago/storage/app/public/'.$archivo_clientes;
              
                 $enlace=storage_path('/app/'.$archivo);
 
