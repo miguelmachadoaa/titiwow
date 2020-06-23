@@ -1597,8 +1597,18 @@ class FrontEndController extends JoshController
               ->get();
 
               foreach ($salidas as $row) {
+
+                if (isset($inv[$row->id_producto])) {
+
+                  $inv[$row->id_producto]=$inv[$row->id_producto]-$row->cantidad_total;
+                  
+                }else{
+
+                  $inv[$row->id_producto]=0;
+                  
+                }
                 
-                $inv[$row->id_producto]= $inv[$row->id_producto]-$row->cantidad_total;
+                $inv[$row->id_producto]=$inv[$row->id_producto]-$row->cantidad_total;
 
             }
 
@@ -1831,13 +1841,19 @@ public function getApiUrl($endpoint, $jsessionid)
 
                   $c=City::where('id', $d->city_id)->first();
 
-                  $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
+                  if (isset($c->id)) {
+
+                    $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
                 ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
                 ->where('alp_almacenes.tipo_almacen', '=', $tipo)
                 ->where('alp_almacen_despacho.id_city', '0')
                 ->where('alp_almacen_despacho.id_state', $c->state_id)
                 ->where('alp_almacenes.estado_registro', '=', '1')
                 ->first();
+                    # code...
+                  }
+
+                  
 
                   if (isset($ad->id)) {
                     
@@ -1925,13 +1941,21 @@ public function getApiUrl($endpoint, $jsessionid)
 
                   $c=City::where('id', $ciudad)->first();
 
-                  $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
+                  if (isset($c->id)) {
+
+
+                     $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
                 ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
                 ->where('alp_almacenes.tipo_almacen', '=', $tipo)
                 ->where('alp_almacen_despacho.id_city', '0')
                 ->where('alp_almacen_despacho.id_state', $c->state_id)
                 ->where('alp_almacenes.estado_registro', '=', '1')
                 ->first();
+
+                    # code...
+                  }
+
+                 
 
                   if (isset($ad->id)) {
                     

@@ -1008,12 +1008,24 @@ class AlpCartController extends JoshController
           ->where('alp_direcciones.id', $orden->id)->first();
 
 
-        $address = array(
-          //'state_name' => $direccion->state_name, 
-         //'city_name' => $direccion->city_name, 
-          'street_name' => $direccion->nombre_estructura.' '.$direccion->principal_address.' - '.$direccion->secundaria_address.' '.$direccion->edificio_address.' '.$direccion->detalle_address.' '.$direccion->barrio_address, 
-          'street_number' => $direccion->principal_address
-        );
+      
+
+
+          if (isset($direccion->id)) {
+           
+           $address = array( 
+              'street_name' => $direccion->nombre_estructura.' '.$direccion->principal_address.' - '.$direccion->secundaria_address.' '.$direccion->edificio_address.' '.$direccion->detalle_address.' '.$direccion->barrio_address, 
+              'street_number' => $direccion->principal_address
+            );
+
+          }else{
+
+            $address = array( 
+              'street_name' => '', 
+              'street_number' => ''
+            );
+
+          }
 
         $fecha = Carbon::now()->format('c');
 
@@ -2643,30 +2655,51 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
 
+        if (isset($inv[$producto->id])) {
+
+          if($inv[$producto->id]>=$producto->cantidad){
+
+          $cart[$producto->slug]=$producto;
+
+
+           $data_detalle = array(
+              'id_carrito' => $carrito, 
+              'id_producto' => $producto->id, 
+              'cantidad' => $producto->cantidad
+            );
+
+             AlpCarritoDetalle::create($data_detalle);
+
+
+
+
+          }else{
+
+            $error="No hay existencia suficiente de este producto";
+
+          }
+
+
+          # code...
+        }else{
+
+            $error="No hay existencia suficiente de este producto";
+
+          }
+
+
+        
+
 
        }
 
      
-      if($inv[$producto->id]>=$producto->cantidad){
-
-        $cart[$producto->slug]=$producto;
-
-      }else{
-
-        $error="No hay existencia suficiente de este producto";
-
-      }
+      
 
 
        \Session::put('cart', $cart);
 
-       $data_detalle = array(
-        'id_carrito' => $carrito, 
-        'id_producto' => $producto->id, 
-        'cantidad' => $producto->cantidad
-      );
-
-       AlpCarritoDetalle::create($data_detalle);
+      
 
        if (isset($request->datasingle)) {
 
@@ -2751,71 +2784,99 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        $inv=$this->inventario();
 
+       if (isset($p->id)) {
+         
 
-      $producto->precio_oferta=$request->price;
+         $producto->precio_oferta=$request->price;
 
-      $producto->cantidad=1;
-      $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
-
-      if($inv[$producto->id]>=$producto->cantidad){
-
-        $cart[$producto->slug]=$producto;
-
-      }else{
-
-        $error="No hay existencia suficiente de este producto";
-
-      }
-
-
-       \Session::put('cart', $cart);
-
-       $data_detalle = array(
-        'id_carrito' => $carrito, 
-        'id_producto' => $producto->id, 
-        'cantidad' => $producto->cantidad
-      );
-
-       AlpCarritoDetalle::create($data_detalle);
-
-
-      $impuesto=$this->impuesto();
-
-       $total=$this->total();
-
-
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-           activity($user->full_name)
-                        ->performedOn($user)
-                        ->causedBy($user)
-                        ->withProperties($cart)
-                        ->log('addtocartdetail ');
-
-        }else{
-
-          activity()->withProperties($cart)
-                        ->log('addtocartdetail');
-
-
-        }
+          $producto->cantidad=1;
+          $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
 
 
 
-     $configuracion=AlpConfiguracion::where('id', '1')->first();
-       
+          if (isset($inv[$producto->id])) {
 
-        $view= View::make('frontend.listcart', compact('producto', 'cart', 'total', 'impuesto', 'configuracion'));
+             if($inv[$producto->id]>=$producto->cantidad){
 
-        
+                $cart[$producto->slug]=$producto;
 
-          $data=$view->render();
+                 \Session::put('cart', $cart);
 
-          $res = array('data' => $data);
+                 $data_detalle = array(
+                  'id_carrito' => $carrito, 
+                  'id_producto' => $producto->id, 
+                  'cantidad' => $producto->cantidad
+                );
 
-          return $data;
+                 AlpCarritoDetalle::create($data_detalle);
+
+
+
+
+              }else{
+
+                $error="No hay existencia suficiente de este producto";
+
+              }
+
+
+            # code...
+          }else{
+
+                $error="No hay existencia suficiente de este producto";
+
+              }
+
+         
+
+
+          
+
+
+          $impuesto=$this->impuesto();
+
+           $total=$this->total();
+
+
+            if (Sentinel::check()) {
+
+              $user = Sentinel::getUser();
+
+               activity($user->full_name)
+                            ->performedOn($user)
+                            ->causedBy($user)
+                            ->withProperties($cart)
+                            ->log('addtocartdetail ');
+
+            }else{
+
+              activity()->withProperties($cart)
+                            ->log('addtocartdetail');
+
+
+            }
+
+
+
+              $configuracion=AlpConfiguracion::where('id', '1')->first();
+           
+
+              $view= View::make('frontend.listcart', compact('producto', 'cart', 'total', 'impuesto', 'configuracion'));
+
+            
+
+              $data=$view->render();
+
+              $res = array('data' => $data);
+
+              return $data;
+
+
+
+       }
+
+
+      
        // return json_encode($cart);
       
     }
@@ -2861,22 +2922,22 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        $inv=$this->inventario();
 
-        $producto->precio_oferta=$request->price;
+
+       if (isset($producto->id)) {
+         
+
+         $producto->precio_oferta=$request->price;
 
         $producto->cantidad=1;
         $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
 
-        if($inv[$producto->id]>=$producto->cantidad){
+        if (isset($inv[$producto->id])) {
+
+          if($inv[$producto->id]>=$producto->cantidad){
 
           $cart[$producto->slug]=$producto;
 
-        }else{
-
-          $error="No hay existencia suficiente de este producto";
-
-        }
-
-       \Session::put('cart', $cart);
+          \Session::put('cart', $cart);
 
        $data_detalle = array(
         'id_carrito' => $carrito, 
@@ -2885,7 +2946,38 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       );
 
 
-       if (Sentinel::check()) {
+      
+
+      AlpCarritoDetalle::create($data_detalle);
+
+      
+
+        }else{
+
+          $error="No hay existencia suficiente de este producto";
+
+        }
+
+
+          # code...
+        }else{
+
+          $error="No hay existencia suficiente de este producto";
+
+        }
+
+        
+
+       
+
+
+
+
+       }
+
+
+
+        if (Sentinel::check()) {
 
         $user = Sentinel::getUser();
 
@@ -2903,7 +2995,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       }
 
-     AlpCarritoDetalle::create($data_detalle);
+       
+     
 
      $single=1;
 
@@ -3118,8 +3211,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        $error='0';
 
+       if (isset($inv[$request->id])) {
 
-       if($inv[$request->id]>=$request->cantidad){
+         if($inv[$request->id]>=$request->cantidad){
 
         $cart[$request->slug]->cantidad=$request->cantidad;
 
@@ -3127,6 +3221,16 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         $error="No hay existencia suficiente de este producto";
       }
+
+
+         # code...
+       }else{
+
+        $error="No hay existencia suficiente de este producto";
+      }
+
+
+      
 
        $detalle=AlpCarritoDetalle::where('id_carrito', $carrito)->where('id_producto', $request->id)->first();
 
@@ -5387,15 +5491,22 @@ private function getAlmacen3(){
 
                   $c=City::where('id', $d->city_id)->first();
 
-                  $ad=AlpAlmacenDespacho::where('id_city', '0')->where('id_state', $c->state_id)->first();
+                  if (  isset($c->id)) {
 
-                  if (isset($ad->id)) {
+                      $ad=AlpAlmacenDespacho::where('id_city', '0')->where('id_state', $c->state_id)->first();
+
+                      if (isset($ad->id)) {
                     
-                  }else{
+                      }else{
 
-                    $ad=AlpAlmacenDespacho::where('id_city', '0')->where('id_state', '0')->first();
+                        $ad=AlpAlmacenDespacho::where('id_city', '0')->where('id_state', '0')->first();
+
+                      }
 
                   }
+                
+
+                  
 
                 }
 

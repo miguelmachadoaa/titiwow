@@ -915,13 +915,27 @@ class ClientesFrontController extends Controller
 
                   $envio=AlpEnvios::where('id_orden', $orden->id)->first();
 
+                  if (isset($envio->id)) {
 
-                   $history_envio = AlpEnviosHistory::select('alp_envios_history.*', 'alp_envios_status.estatus_envio_nombre as estatus_envio_nombre', 'users.first_name as first_name', 'users.last_name as last_name' )
+                    $history_envio = AlpEnviosHistory::select('alp_envios_history.*', 'alp_envios_status.estatus_envio_nombre as estatus_envio_nombre', 'users.first_name as first_name', 'users.last_name as last_name' )
                   ->join('alp_envios_status', 'alp_envios_history.estatus_envio', '=', 'alp_envios_status.id')
                   ->join('users', 'alp_envios_history.id_user', '=', 'users.id')
                   ->where('alp_envios_history.id_envio', $envio->id)
                   ->orderBy('alp_envios_history.id', 'desc')
                   ->get();
+                      
+                  }else{
+
+                    $history_envio = AlpEnviosHistory::select('alp_envios_history.*', 'alp_envios_status.estatus_envio_nombre as estatus_envio_nombre', 'users.first_name as first_name', 'users.last_name as last_name' )
+                  ->join('alp_envios_status', 'alp_envios_history.estatus_envio', '=', 'alp_envios_status.id')
+                  ->join('users', 'alp_envios_history.id_user', '=', 'users.id')
+                  ->where('alp_envios_history.id_envio', 999999)
+                  ->orderBy('alp_envios_history.id', 'desc')
+                  ->get();
+                  }
+
+
+                   
 
                   
 
