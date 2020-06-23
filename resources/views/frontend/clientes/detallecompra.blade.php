@@ -211,7 +211,14 @@ Detalle de Compra
                             <td></td>
                             <td></td>
                             <td><strong>Total</strong></td>
+
+                            @if(isset($envio->costo))
                             <td class="text-right"><strong>{{ number_format($envio->costo+$orden->monto_total, 2) }}</strong></td>
+
+                            @else
+                             <td class="text-right"><strong>{{ number_format($orden->monto_total, 2) }}</strong></td>
+
+                            @endif
                         </tr>
 
 
