@@ -1507,13 +1507,13 @@ class AlpReportesController extends Controller
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
-       // dd($request->all());
+       //dd($request->all());
 
          $date = Carbon::now();
 
         $hoy=$date->format('Y-m-d');
 
-        return Excel::download(new NominaExportAlmacen($hoy, $request->id_almacen), 'Listado_de_ventas_almacen.xlsx');
+        return Excel::download(new NominaExport($request->desde, $request->hasta, $request->id_almacen), 'Listado_de_ventas_almacen.xlsx');
     }
 
 
@@ -1826,7 +1826,7 @@ public function formato()
 
         $hoy=$date->format('Y-m-d');
 
-        return Excel::download(new FormatoSolicitudPedidoAlpinista(5168), 'Listado_de_ventas_almacen.xlsx');
+        return Excel::download(new FormatoSolicitudPedidoAlpinista(3210), 'Listado_de_ventas_almacen.xlsx');
     }
 
 

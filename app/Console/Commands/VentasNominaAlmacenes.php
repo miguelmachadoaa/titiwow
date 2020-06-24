@@ -96,19 +96,19 @@ class VentasNominaAlmacenes extends Command
 
         $almacen=AlpAlmacenes::where('id', $this->alm)->first();
 
-        if ($almacen->formato=='1') {
+            if ($almacen->formato=='1') {
 
-        $date_desde = Carbon::parse($this->desde.' '.$almacen->hora.':00')->subDay()->toDateTimeString();
+            $date_desde = Carbon::parse($this->desde.' '.$almacen->hora.':00')->subDay()->toDateTimeString();
 
-        $date_hasta = Carbon::parse($this->desde.' 23:59:59')->toDateTimeString(); 
+            $date_hasta = Carbon::parse($this->desde.' 23:59:59')->toDateTimeString(); 
 
-          $ordenes=AlpOrdenes::where('alp_ordenes.id_almacen', $this->alm)
-          ->where('alp_ordenes.created_at', '>=', $date_desde)
-          ->where('alp_ordenes.created_at', '<=', $date_hasta)
-          ->whereIn('alp_ordenes.estatus', ['1','2','3','5','6','7','8'])
-          ->get();
+              $ordenes=AlpOrdenes::where('alp_ordenes.id_almacen', $this->alm)
+              ->where('alp_ordenes.created_at', '>=', $date_desde)
+              ->where('alp_ordenes.created_at', '<=', $date_hasta)
+              ->whereIn('alp_ordenes.estatus', ['1','2','3','5','6','7','8'])
+              ->get();
 
-          foreach ($ordenes as $orden) {
+              foreach ($ordenes as $orden) {
 
                 $archivo=$configuracion->base_url;
 

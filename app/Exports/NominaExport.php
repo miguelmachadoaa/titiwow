@@ -21,9 +21,10 @@ use Carbon\Carbon;
 class NominaExport implements FromView
 {
     
-    public function __construct(string $desde,string $alm)
+    public function __construct(string $desde,string $hasta,string $alm)
     {
         $this->desde = $desde;
+        $this->hasta = $hasta;
         $this->alm = $alm;
     }
 
@@ -33,15 +34,35 @@ class NominaExport implements FromView
 
       $almacen=AlpAlmacenes::where('id', $this->alm)->first();
 
-      $date_desde = Carbon::parse($this->desde.' '.$almacen->hora.':00')->subDay()->toDateTimeString();
+    
 
-      $date_hasta = Carbon::parse($this->desde.' 23:59:59')->toDateTimeString(); 
+      if ($this->alm==0) {
 
-          $ordenes=AlpOrdenes::where('alp_ordenes.id_almacen', $this->alm)
+        $date_desde = Carbon::parse($this->desde.'00:00:00')->subDay()->toDateTimeString();
+
+      $date_hasta = Carbon::parse($this->hasta.' 23:59:59')->toDateTimeString(); 
+
+
+        $ordenes=AlpOrdenes::where('alp_ordenes.created_at', '>=', $date_desde)
+          ->where('alp_ordenes.created_at', '<=', $date_hasta)
+          ->whereIn('alp_ordenes.estatus', ['1','2','3','5','6','7','8'])
+          ->get();
+        
+      }else{
+
+
+        $date_desde = Carbon::parse($this->desde.' '.$almacen->hora.':00')->subDay()->toDateTimeString();
+
+      $date_hasta = Carbon::parse($this->hasta.' 23:59:59')->toDateTimeString(); 
+
+        $ordenes=AlpOrdenes::where('alp_ordenes.id_almacen', $this->alm)
           ->where('alp_ordenes.created_at', '>=', $date_desde)
           ->where('alp_ordenes.created_at', '<=', $date_hasta)
           ->whereIn('alp_ordenes.estatus', ['1','2','3','5','6','7','8'])
           ->get();
+      }
+
+          
 
           foreach ($ordenes as $orden) {
 
