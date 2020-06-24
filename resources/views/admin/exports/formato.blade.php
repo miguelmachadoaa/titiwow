@@ -1,4 +1,4 @@
-
+@if(isset($orden->id))
 
         
            
@@ -115,3 +115,4 @@
                         
                 </table>
            
+@endif

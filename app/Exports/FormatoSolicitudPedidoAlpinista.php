@@ -33,14 +33,14 @@ class FormatoSolicitudPedidoAlpinista implements FromView
 
           $orden=AlpOrdenes::where('id',$this->id_orden)->first();
 
-
+          if (isset($orden->id)) {
+            
              $detalles = AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto','alp_productos.referencia_producto as referencia_producto','alp_productos.referencia_producto_sap as referencia_producto_sap')
               ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
               ->where('alp_ordenes_detalle.id_orden', $orden->id)
               ->get();
 
               $orden->detalles=$detalles;
-
 
               $direccion = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
           ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
@@ -59,7 +59,11 @@ class FormatoSolicitudPedidoAlpinista implements FromView
 
 
             $orden->cliente=$cliente;
-            # code...
+           
+          }
+
+
+            
 
 
         return view('admin.exports.formato', [
