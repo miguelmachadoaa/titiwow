@@ -148,7 +148,11 @@ class AlpCartController extends JoshController
               
               $c=AlpOrdenesDescuento::where('id', $cupon->id)->first();
 
+              if (isset($c->id)) {
+
               $c->delete();
+                # code...
+              }
 
             }
 
@@ -3020,7 +3024,13 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       $detalle=AlpCarritoDetalle::where('id_carrito', $carrito)->where('id_producto', $producto->id)->first();
 
-      $detalle->delete();
+      if (isset($detalle->id)) { 
+
+        $detalle->delete();
+        # code...
+      }
+
+     
 
 
        if (Sentinel::check()) {
@@ -3118,9 +3128,10 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         }
 
 
+        if (isset($inv[$request->id])) {
+          
 
-
-       if($inv[$request->id]>=$request->cantidad){
+           if($inv[$request->id]>=$request->cantidad){
 
         $cart[$request->slug]->cantidad=$request->cantidad;
 
@@ -3128,14 +3139,22 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         return 'true';
 
-
-
       }else{
 
         return 'false';
 
         
       }
+
+      
+        }else{
+
+        return 'false';
+
+        
+      }
+
+      
 
       
     }
@@ -3289,7 +3308,11 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
             
             $o=AlpOrdenesDescuento::where('id', $uo->id)->first();
 
+            if (isset($o->id)) {
             $o->delete();
+              # code...
+            }
+
 
           }
 
@@ -4211,8 +4234,15 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       $direccion= AlpDirecciones::find($id);
 
-      $direccion->delete();
+      if (isset($direccion->id)) {
 
+
+
+      $direccion->delete();
+        # code...
+      }
+
+     
       return redirect('order/detail');
 
 
@@ -4915,7 +4945,13 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                   
                   $c=AlpOrdenesDescuento::where('id', $cupon->id)->first();
 
+                  if (isset($c->id)) {
+
                   $c->delete();
+                    # code...
+                  }
+
+                  
 
                 }
 
@@ -5208,7 +5244,12 @@ public function addcupon(Request $request)
 
       $o=AlpOrdenesDescuento::where('id', $request->id)->first();
 
+      if (isset($o->id)) {
+
       $o->delete();
+        # code...
+      }
+
 
       return $texto;
 
@@ -5886,13 +5927,20 @@ private function getAlmacen3(){
 
                   $c=City::where('id', $ciudad)->first();
 
-                  $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
+                  if (isset($c->id)) {
+
+                      $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
                 ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
                 ->where('alp_almacenes.tipo_almacen', '=', $tipo)
                 ->where('alp_almacen_despacho.id_city', '0')
                 ->where('alp_almacen_despacho.id_state', $c->state_id)
                 ->where('alp_almacenes.estado_registro', '=', '1')->first();
 
+
+                    # code...
+                  }
+
+                
                   if (isset($ad->id)) {
                     
                   }else{

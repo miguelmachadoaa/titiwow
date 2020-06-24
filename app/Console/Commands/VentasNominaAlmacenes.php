@@ -75,7 +75,6 @@ class VentasNominaAlmacenes extends Command
             
        $documentos[]='/home2/alpago/alpinago/storage/app/public/'.$archivo_clientes;
      
-
         $enlace=storage_path('/app/'.$archivo);
 
        // Mail::to($configuracion->correo_cedi)->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
