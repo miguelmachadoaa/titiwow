@@ -115,12 +115,11 @@ class VerificarPagos extends Command
             $cancel=0;
             $pending=0;
 
-          /*  foreach ($preference['response']['results'] as $r) {
+            /*foreach ($preference['response']['results'] as $r) {
 
                     
                   if ($r['status']=='rejected' || $r['status']=='cancelled' || $r['status']=='refunded') {
                     $cancel=1;
-                 
                   }
 
                   if ($r['status']=='approved') {
@@ -128,7 +127,6 @@ class VerificarPagos extends Command
                   }
 
                   if ($r['status']=='in_process' || $r['status']=='pending') {
-
                     $pending=1;
                   }
 
@@ -136,7 +134,6 @@ class VerificarPagos extends Command
 
             if ( $aproved ) 
               {
-
 
                 $direccion=AlpDirecciones::where('id', $ord->id_address)->withTrashed()->first();
 
@@ -381,9 +378,41 @@ class VerificarPagos extends Command
                 }
                 curl_close($ch);
 
-                $dtt = array('json' => $result );
+                $res=json_decode($result);
 
-                $orden->update($dtt);
+                //dd($res->codigo);
+                //dd($res['codigo']);
+                //
+                //
+                if (isset($res->codigo)) {
+                  
+                  if ($res->codigo=='200') {
+
+                      $dtt = array('json' => $result );
+
+                      $orden->update($dtt);
+
+                      $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
+
+                    Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+
+                     Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+                   
+                  }else{
+
+                    $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
+
+                    Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+
+                     Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+
+
+                  }
+
+
+                }
+
+               
 
 
                 
