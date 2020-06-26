@@ -59,9 +59,6 @@
 
                                                 @endif
 
-
-                                                
-
                                                 <span class="precio_base">${{ number_format($producto->precio_base*(1-($precio[$producto->id]['precio']/100)),0,",",".") }}</span></p>
                                             @break
 
@@ -69,12 +66,10 @@
 
                                             <p id="precio_prod">
                                                 @if($almacen->descuento_productos=='1')
+
                                                     <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
 
                                                 @endif
-
-        
-                                                
 
                                                 <span class="precio_base">${{ number_format($precio[$producto->id]['precio'],0,",",".") }}</span></p>
                                             @break
@@ -86,7 +81,7 @@
 
                                 @else
 
-                                    <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
+                                    <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_oferta*$descuento,0,",",".") }}</span></p>
 
                                     <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
 
@@ -105,7 +100,7 @@
 
                                     
 
-                                    <span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".").' -'.$producto->operacion }}</span></p>
+                                    <span class="precio_base">8${{ number_format($producto->precio_base*$descuento,0,",",".").' -'.$producto->operacion }}</span></p>
 
                                 <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
 

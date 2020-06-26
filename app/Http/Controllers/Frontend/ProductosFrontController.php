@@ -163,6 +163,8 @@ class ProductosFrontController extends Controller
                 
         }
 
+       // dd($precio);
+
         $prods = array( );
 
         foreach ($productos as $producto) {
@@ -217,6 +219,8 @@ class ProductosFrontController extends Controller
            $prods[]=$producto;
            
           }
+
+         // dd($prods);
 
         return $prods;
 
@@ -486,6 +490,11 @@ class ProductosFrontController extends Controller
 
            }
 
+
+           $ciudad= \Session::get('ciudad');
+
+
+
         if (Sentinel::check()) {
 
             $user_id = Sentinel::getUser()->id;
@@ -496,15 +505,39 @@ class ProductosFrontController extends Controller
 
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
 
+
+            $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+              ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+              ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+              ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+              ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+              ->where('alp_direcciones.id_client', $user_id)
+              ->where('alp_direcciones.default_address', '=', '1')
+              ->first();
+
+            if (isset($d->id)) {
+
+            }else{
+
+                  $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+                ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+                ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+                ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+                ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+                ->where('alp_direcciones.id_client', $user_id)
+                ->first();
+            }
+
+            if (isset($d->id)) {
+              $ciudad=$d->city_id;
+            }
+
+
+
             if (isset($cliente) ) {
 
                 if ($cliente->id_empresa!=0) {
                     
-                     /*$empresa=AlpEmpresas::find($cliente->id_empresa);
-
-                    $cliente['nombre_empresa']=$empresa->nombre_empresa;
-
-                    $descuento=(1-($empresa->descuento_empresa/100));*/
 
                     $role->role_id='E'.$cliente->id_empresa.'';
                 }
@@ -513,7 +546,7 @@ class ProductosFrontController extends Controller
 
             if ($role->role_id) {
                     
-                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $role->role_id)->first();
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $role->role_id)->where('city_id', $ciudad)->first();
 
                     if (isset($pregiogrupo->id)) {
                        
@@ -529,9 +562,11 @@ class ProductosFrontController extends Controller
 
         }else{
 
+          
+
             $r='9';
                     
-                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $r)->first();
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $r)->where('city_id', $ciudad)->first();
 
                     if (isset($pregiogrupo->id)) {
                        

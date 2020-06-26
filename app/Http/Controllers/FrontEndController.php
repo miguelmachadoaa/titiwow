@@ -569,6 +569,8 @@ class FrontEndController extends JoshController
        // 
        $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
+       //dd($inventario);
+
        $url=secure_url('/');
 
         return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion','inventario', 'combos', 'role', 'almacen','url'));
