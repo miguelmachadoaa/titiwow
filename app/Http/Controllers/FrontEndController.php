@@ -220,6 +220,112 @@ class FrontEndController extends JoshController
   }
 
 
+
+
+  public function getCompramasInventario(Request $request)
+  {
+
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('FrontEndController/getCompramas ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('FrontEndController/getCompramas');
+
+        }
+
+        
+      $content = $request->getContent();
+
+      $input = json_decode($content, true);
+
+
+    $r="false";
+
+    //$orden=AlpOrdenes::where('referencia', $input['ordenId'])->first();
+
+       $datos = json_decode($result);
+
+       $inventario=$this->inventario();
+
+       $almacen=1;
+
+       if (count($datos)) {
+
+            foreach ($input as $dato ) {
+
+              if ($dato->stock>0) {
+
+                $p=AlpProductos::where('referencia_producto', $dato['sku'])->first();
+
+                if (isset($p->id)) {
+
+                    $data = array(
+                        'id_almacen' => $almacen, 
+                        'id_producto' => $p->id, 
+                        'id_user' => 1 
+                    );
+
+                    AlpAlmacenProducto::create($data);
+
+                    if (isset($inventario[$p->id])) {
+
+                      AlpInventario::where('id_producto', $p->id)->where('id_almacen', $almacen)->delete();
+                      
+                    
+
+                        $data_inventario_nuevo = array(
+                            'id_almacen' => $almacen, 
+                            'id_producto' => $p->id, 
+                            'cantidad' => $dato['stock'], 
+                            'operacion' => 1, 
+                            'notas' => 'Actualización de inventario por cron compramas', 
+                            'id_user' => 1 
+                        );
+
+                        AlpInventario::create($data_inventario_nuevo);
+
+                    }else{
+
+                        $data_inventario_nuevo = array(
+                            'id_almacen' => $almacen, 
+                            'id_producto' => $p->id, 
+                            'cantidad' => $dato['stock'], 
+                            'operacion' => 1, 
+                            'notas' => 'Actualización de inventario por cron compramas', 
+                            'id_user' => 1 
+                        );
+
+                        AlpInventario::create($data_inventario_nuevo);
+
+
+                    }
+
+                    # code...
+                }
+
+                } 
+                
+            } //end foreach datos
+
+       } //(end if hay resspuessta)
+
+
+
+    return response(json_encode($r), 200) ->header('Content-Type', 'application/json');
+   
+  }
+
+
+
     public function getXml()
     {
 
