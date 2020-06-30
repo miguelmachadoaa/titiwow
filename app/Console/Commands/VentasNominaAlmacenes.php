@@ -94,7 +94,7 @@ class VentasNominaAlmacenes extends Command
 
         /*********Envio de formato*************/
 
-        $almacen=AlpAlmacenes::where('id', $this->alm)->first();
+        $almacen=AlpAlmacenes::where('id', $alm)->first();
 
             if ($almacen->formato=='1') {
 
@@ -102,7 +102,7 @@ class VentasNominaAlmacenes extends Command
 
             $date_hasta = Carbon::parse($this->desde.' 23:59:59')->toDateTimeString(); 
 
-              $ordenes=AlpOrdenes::where('alp_ordenes.id_almacen', $this->alm)
+              $ordenes=AlpOrdenes::where('alp_ordenes.id_almacen', $alm)
               ->where('alp_ordenes.created_at', '>=', $date_desde)
               ->where('alp_ordenes.created_at', '<=', $date_hasta)
               ->whereIn('alp_ordenes.estatus', ['1','2','3','5','6','7','8'])
