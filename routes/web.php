@@ -245,7 +245,7 @@ Route::get('xml', 'FrontEndController@getXml')->name('xml');
 
 Route::post('compramas', 'FrontEndController@getCompramas')->name('compramas');
 
-Route::post('compramasInventario', 'FrontEndController@getCompramasInventario')->name('compramasInventario');
+Route::post('compramasinventario', 'FrontEndController@getCompramasInventario')->name('compramasinventario');
 
 Route::get('ibm', 'FrontEndController@ibm')->name('ibm');
 

@@ -608,10 +608,17 @@ class AlpCartController extends JoshController
 
       $user = Sentinel::getUser();
 
-            activity($user->full_name)
+      if (isset($user->id)) { activity($user->full_name)
                     ->performedOn($user)
                     ->causedBy($user)
                     ->withProperties($input)->log('Order Pse, captura de pago con pse');
+        # code...
+      }else{
+
+         activity()->withProperties($input)->log('Order Pse, captura de pago con pse');
+      }
+
+           
 
 
        if (\Session::has('pse')) {
@@ -903,11 +910,19 @@ class AlpCartController extends JoshController
 
       $user = Sentinel::getUser();
 
-       activity($user->full_name)
+      if (isset($user->id)) { 
+        activity($user->full_name)
                     ->performedOn($user)
                     ->causedBy($user)
                     ->withProperties($request->all())
                     ->log('orderCreditcard captura de pago con creditcard');
+        # code...
+      }else{
+
+       activity()->withProperties($request->all())->log('orderCreditcard captura de pago con creditcard');
+      }
+
+      
 
 
       $avisos = array(
