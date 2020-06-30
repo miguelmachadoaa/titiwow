@@ -12,7 +12,10 @@ Carrito de Compras
 <meta property="og:image" content="{{$configuracion->seo_image}}" />
 <meta property="og:url" content="{{$url}}" />
 <meta property="og:description" content="Carrito de Compras">
+
+@if(isset($url))
 <link rel="canonical" href="{{$url}}" />
+@endif
 @endsection
 
 {{-- page level styles --}}
