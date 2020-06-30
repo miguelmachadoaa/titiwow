@@ -70,7 +70,9 @@ class VerificarPagos extends Command
        // $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
         $ordenes=AlpOrdenes::where('id','=', 5125)->get();
 
-         \Log::debug('1 listado' . $ordenes);
+         //\Log::debug('1 listado' . $ordenes);
+
+         activity()->withProperties($ordenes)->log('Listado de ordenes a consultar');
 
         // die;
       
@@ -96,26 +98,27 @@ class VerificarPagos extends Command
           $orden=AlpOrdenes::where('id', $ord->id)->first();
 
 
-           //\Log::debug('1.1 detalle orden ' . $orden);
+           
 
           $user_cliente=User::where('id', $ord->id_user)->first();
 
-            // \Log::debug('1.2 detalle cliente ' . $user_cliente);
+            
 
           $preference = MP::get("/v1/payments/search?external_reference=".$ord->referencia);
+//\Log::debug('preference ' . json_encode($preference));
 
-\Log::debug('preference ' . json_encode($preference));
+activity()->withProperties($preference)->log('preference');
 
 
           //if (isset($preference['response']['results'][0])) {
           if (isset($preference)) {
 
             $cantidad=count($preference['response']['results']);
-            $aproved=1;
+            $aproved=0;
             $cancel=0;
             $pending=0;
 
-            /*foreach ($preference['response']['results'] as $r) {
+            foreach ($preference['response']['results'] as $r) {
 
                     
                   if ($r['status']=='rejected' || $r['status']=='cancelled' || $r['status']=='refunded') {
@@ -130,16 +133,19 @@ class VerificarPagos extends Command
                     $pending=1;
                   }
 
-            }*/
+            }
 
             if ( $aproved ) 
               {
 
                 $direccion=AlpDirecciones::where('id', $ord->id_address)->withTrashed()->first();
 
-                 \Log::debug('1.3 direccion detalle direccion ' . $direccion);
+                activity()->withProperties($direccion)->log('detalle de direccion en verificar pagos ');
+                activity()->withProperties($ord->id)->log('Orden aprobada verificar pagos ');
 
-                 \Log::debug('1.4 orden  aprobada ' . $ord->id);
+                // \Log::debug('1.3 direccion detalle direccion ' . $direccion);
+
+                 //\Log::debug('1.4 orden  aprobada ' . $ord->id);
 
 
                 $feriados=AlpFeriados::feriados();

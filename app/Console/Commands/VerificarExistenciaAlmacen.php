@@ -12,6 +12,8 @@ use Mail;
 use DB;
 
 use Illuminate\Console\Command;
+use Spatie\Activitylog\Models\Activity;
+
 
 class VerificarExistenciaAlmacen extends Command
 {
@@ -71,7 +73,9 @@ class VerificarExistenciaAlmacen extends Command
         curl_close($ch);
 
 
-        \Log::debug('Respuesta compra mas' . $result);
+       // \Log::debug('Respuesta compra mas' . $result);
+
+        activity()->withProperties($result)->log('Respuesta compra mas');
 
 
        $datos = json_decode($result);
@@ -149,7 +153,9 @@ class VerificarExistenciaAlmacen extends Command
                 }else{  //end fif $p->id
 
 
-                    \Log::debug('Sku no encontrado: ' . json_encode($dato));
+                   // \Log::debug('Sku no encontrado: ' . json_encode($dato));
+
+                    activity()->withProperties($dato)->log('Sku no encontrado:');
 
 
                 } 

@@ -86,20 +86,6 @@ class ProductoC extends Command
         Mail::to($configuracion->correo_cedi)->send(new \App\Mail\CronProductoB($archivo, $hoy, $documentos));
 
 
-        #$vacio = array();
-
-        #$date = Carbon::now();
-
-        #$hoy=$date->format('Y-m-d');
-
-       # $archivo=$configuracion->base_url.'reportes/cronexportproductosc';
-
-
-       // Excel::store(new CronLogisticaExport(), $archivo);
-
-        #$enlace=storage_path('/app/'.$archivo);
-
-       # Mail::to($configuracion->correo_cedi)->send(new \App\Mail\CronProductoB($archivo, $hoy, $vacio));
 
 
 

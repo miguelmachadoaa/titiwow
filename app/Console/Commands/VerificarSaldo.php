@@ -58,7 +58,9 @@ class VerificarSaldo extends Command
 
         $clientes=AlpSaldo::whereDate('fecha_vencimiento', '<', $hoy)->where('estado_registro', '1')->groupBy('id_cliente')->get();
 
-        \Log::debug('Clientes a verificar saldo' . $clientes);
+       // \Log::debug('Clientes a verificar saldo' . $clientes);
+
+        activity()->withProperties($clientes)->log('Clientes a verificar saldo ');
 
         //dd($clientes);
 
