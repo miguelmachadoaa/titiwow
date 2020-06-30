@@ -108,7 +108,6 @@ class VerificarSaldo extends Command
 
               }
 
-
             $salidas = AlpSaldo::groupBy('id_cliente')
               ->select("alp_saldo.*", DB::raw(  "SUM(alp_saldo.saldo) as cantidad_total"))
               ->where('alp_saldo.operacion', '2')
@@ -123,8 +122,5 @@ class VerificarSaldo extends Command
             return $inv;
       
     }
-
-
-
 
 }
