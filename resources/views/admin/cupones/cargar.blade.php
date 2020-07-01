@@ -85,9 +85,9 @@ Cargar Cupones
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <div class="form-group">
                             <div class="row">
-                                <label class="col-md-3 col-lg-3 col-12 control-label" for="upload">Archivo CSV (Código Cupón,Tipo de Cupón,Valor, Limite de Uso, Limite de Uso por Persona, Fecha Inicio, Fecha Final, Monto Minimo en el Carro, Cantidad Máxima SKU)</label>
+                                <label class="col-md-3 col-lg-3 col-12 control-label" for="upload">Archivo XLSX (Código Cupón,Tipo de Cupón,Valor, Limite de Uso, Limite de Uso por Persona, Fecha Inicio, Fecha Final, Monto Minimo en el Carro, Cantidad Máxima SKU)</label>
                                 <div class="col-md-9 col-12 col-lg-9">
-                                    <input type="file" accept=".csv" name="file_cupones" name="cupones" id="cupones"> <!-- rename it -->
+                                    <input type="file" accept=".xlsx" name="file_cupones" name="cupones" id="cupones"> <!-- rename it -->
                                 </div>
                             </div>
                         </div>
