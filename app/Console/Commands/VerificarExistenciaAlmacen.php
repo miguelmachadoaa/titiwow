@@ -55,7 +55,7 @@ class VerificarExistenciaAlmacen extends Command
 
          $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, $configuracion->compramas_hash.'/checkinventory/'.$configuracion->compramas_hash);
+        curl_setopt($ch, CURLOPT_URL, $configuracion->compramas_url.'/checkinventory/'.$configuracion->compramas_hash);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
@@ -180,6 +180,8 @@ class VerificarExistenciaAlmacen extends Command
               $inv = array();
 
               foreach ($entradas as $row) {
+
+                
                 
                 $inv[$row->id_producto]=$row->cantidad_total;
 
@@ -192,8 +194,14 @@ class VerificarExistenciaAlmacen extends Command
               ->get();
 
               foreach ($salidas as $row) {
+
+                if (isset($inv[$row->id_producto])) {
+                    $inv[$row->id_producto]= $inv[$row->id_producto]-$row->cantidad_total;
+                }else{
+                    $inv[$row->id_producto]= $row->cantidad_total;
+                }
                 
-                $inv[$row->id_producto]= $inv[$row->id_producto]-$row->cantidad_total;
+                
 
             }
 
