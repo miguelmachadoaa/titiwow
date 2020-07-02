@@ -375,6 +375,20 @@ Editar Configuracion General
                                 </div>
 
 
+                                <div class="form-group {{ $errors->first('compramas_url', 'has-error') }}">
+                                    <label for="compramas_url" class="col-sm-2 control-label">
+                                        Compramas Url 
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="compramas_url" name="compramas_url" class="form-control" placeholder="Compramas Url "
+                                            value="{!! old('compramas_url', $configuracion->compramas_url) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('compramas_url', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+
                             </fieldset>
 
                             <br />

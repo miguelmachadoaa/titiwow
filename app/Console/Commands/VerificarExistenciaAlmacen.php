@@ -55,7 +55,7 @@ class VerificarExistenciaAlmacen extends Command
 
          $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, 'https://mercaas.com/api/checkinventory/'.$configuracion->compramas_hash);
+        curl_setopt($ch, CURLOPT_URL, $configuracion->compramas_hash.'/checkinventory/'.$configuracion->compramas_hash);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
@@ -152,18 +152,13 @@ class VerificarExistenciaAlmacen extends Command
                     # code...
                 }else{  //end fif $p->id
 
-
-                   // \Log::debug('Sku no encontrado: ' . json_encode($dato));
-
                     activity()->withProperties($dato)->log('Sku no encontrado:');
 
 
                 } 
                 } 
-
                 
             } //end foreach datos
-
            
        } //(end if hay resspuessta)
 
@@ -190,7 +185,6 @@ class VerificarExistenciaAlmacen extends Command
 
               }
 
-
             $salidas = AlpInventario::select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
               ->groupBy('id_producto')
               ->where('operacion', '2')
@@ -206,12 +200,6 @@ class VerificarExistenciaAlmacen extends Command
             return $inv;
       
     }
-
-
-
-
-
-
 
 
 }

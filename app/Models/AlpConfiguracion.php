@@ -54,6 +54,7 @@ class AlpConfiguracion extends Model
         'vence_ordenes',
         'compramas_hash',
         'compramas_token',
+        'compramas_url',
         'robots',
         'h1_home',
         'h1_marcas',
