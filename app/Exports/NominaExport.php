@@ -17,7 +17,6 @@ use Illuminate\Contracts\View\View;
 use \DB;
 use Carbon\Carbon;
 
-
 class NominaExport implements FromView
 {
     

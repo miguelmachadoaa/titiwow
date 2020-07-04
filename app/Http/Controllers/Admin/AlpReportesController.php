@@ -109,7 +109,6 @@ class AlpReportesController extends Controller
           ->groupBy('alp_ordenes.id_cliente')
           ->get();
 
-
         return view('admin.reportes.ventas', compact('clientes'));
 
     }

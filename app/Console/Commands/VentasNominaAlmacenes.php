@@ -90,8 +90,6 @@ class VentasNominaAlmacenes extends Command
 
         }
 
-
-
         /*********Envio de formato*************/
 
         $almacen=AlpAlmacenes::where('id', $alm)->first();

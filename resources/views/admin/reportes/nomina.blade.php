@@ -1,5 +1,4 @@
 @extends('admin/layouts/default')
-
 {{-- Web site Title --}}
 @section('title')
 Listado de Ordenes por Almacen
