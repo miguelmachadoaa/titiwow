@@ -52,5 +52,6 @@ class VerifyCsrfToken extends Middleware
        'productos/addrelacionado', //
        'delamigo', //
        'compramas' //
+       'compramasinventario' //
     ];
 }
