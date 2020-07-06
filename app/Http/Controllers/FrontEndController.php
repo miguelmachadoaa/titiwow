@@ -271,9 +271,15 @@ class FrontEndController extends JoshController
 
             foreach ($datos as $dato ) {
 
+              activity()
+          ->withProperties($dato)->log('FrontEndController/getCompramas 2.1');
+
               if ($dato->stock>0) {
 
                 $p=AlpProductos::where('referencia_producto', $dato['sku'])->first();
+
+                  activity()
+          ->withProperties($p)->log('FrontEndController/getCompramas 2.2');
 
                 if (isset($p->id)) {
 
