@@ -243,16 +243,18 @@ class FrontEndController extends JoshController
         }
 
         
+     // $content = $request->getContent();
+
+    //  $input = json_decode($content, true);
+
+
       $content = $request->getContent();
 
       $input = json_decode($content, true);
 
-
-      $content = $request->getContent();
-
-      $input = json_decode($content, true);
-
-      dd($input);
+      //dd($input);
+       activity()
+          ->withProperties($input)->log('FrontEndController/getCompramas2');
 
 
     $r="false";
