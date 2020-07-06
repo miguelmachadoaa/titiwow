@@ -252,7 +252,7 @@ class FrontEndController extends JoshController
 
     //$orden=AlpOrdenes::where('referencia', $input['ordenId'])->first();
 
-       $datos = json_decode($result);
+       $datos = json_decode($input);
 
        $inventario=$this->inventario();
 
