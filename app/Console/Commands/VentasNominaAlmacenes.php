@@ -54,10 +54,6 @@ class VentasNominaAlmacenes extends Command
 
         $almacen=AlpAlmacenes::where('id', $alm)->first();
 
-
-       // dd($alm);
-
-        //
         $configuracion=AlpConfiguracion::where('id', '1')->first();
 
          $date = Carbon::now();
@@ -65,7 +61,6 @@ class VentasNominaAlmacenes extends Command
         $hoy=$date->format('Y-m-d');
 
         $archivo=$configuracion->base_url.'reportes/exportnomina';
-
 
         $documentos = array();
 
@@ -119,7 +114,6 @@ class VentasNominaAlmacenes extends Command
                $documentos[]='/home2/alpago/alpinago/storage/app/public/'.$archivo_clientes;
              
                 $enlace=storage_path('/app/'.$archivo);
-
 
                 if (isset($almacen->id)) {
 
