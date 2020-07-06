@@ -250,7 +250,7 @@ class FrontEndController extends JoshController
 
       $content = $request->getContent();
 
-      $input = json_decode($content, true);
+      $datos = json_decode($content, true);
 
       //dd($input);
        activity()
@@ -261,7 +261,7 @@ class FrontEndController extends JoshController
 
     //$orden=AlpOrdenes::where('referencia', $input['ordenId'])->first();
 
-       $datos = json_decode($input);
+       //$datos = json_decode($input);
 
        $inventario=$this->inventario();
 
@@ -269,7 +269,7 @@ class FrontEndController extends JoshController
 
        if (count($datos)) {
 
-            foreach ($input as $dato ) {
+            foreach ($datos as $dato ) {
 
               if ($dato->stock>0) {
 
