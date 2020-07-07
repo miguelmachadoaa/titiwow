@@ -341,7 +341,7 @@ class FrontEndController extends JoshController
 
                      if (isset($ap->id)) {
 
-                        $ap=AlpAlmacenProducto::where('id_almacen', $almacen)->where('id_producto', $p->id)->detele();
+                        $ap=AlpAlmacenProducto::where('id_almacen', $almacen)->where('id_producto', $p->id)->delete();
 
                          AlpInventario::where('id_producto', $p->id)->where('id_almacen', $almacen)->delete();
                        
