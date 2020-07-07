@@ -1296,3 +1296,6 @@ Route::get('compra', function(){
 
 
 
+Route::get('clear-cache', function() {
+    $exitCode = Artisan::call('venta:almacenes', ['alm' => '1']);
+});

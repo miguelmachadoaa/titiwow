@@ -64,11 +64,11 @@ class VentasNominaAlmacenes extends Command
 
         $documentos = array();
 
-        $archivo_clientes='ventas_almacen_'.$almacen->nombre_almacen.'_'.$hoy.'.xlsx';
+        $archivo_clientes='ventas_almacen_'.$almacen->nombre_almacen.'_'.time().'.xls';
 
         Excel::store(new NominaExportAlmacen($hoy, $alm), $archivo_clientes, 'excel');
             
-       //$documentos[]='C:\xampp\htdocs/alpina/storage/app/public/'.$archivo_clientes;
+       //$documentos[]='C:\xampp\htdocs\alpina\storage\app\public/'.$archivo_clientes;
        $documentos[]='/home2/alpago/alpinago/storage/app/public/'.$archivo_clientes;
      
         $enlace=storage_path('/app/'.$archivo);
