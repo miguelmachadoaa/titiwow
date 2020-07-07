@@ -79,13 +79,7 @@ class AlpAlmacenesController extends JoshController
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
         }
 
-        
-
-      
-
         $almacenes = AlpAlmacenes::all();
-       
-
 
         // Show the page
         return view('admin.almacenes.index', compact('almacenes'));
@@ -739,11 +733,6 @@ class AlpAlmacenesController extends JoshController
     private function inventario()
     {
 
-     
-
-
-       
-
         if (Sentinel::check()) {
 
           $user = Sentinel::getUser();
@@ -764,6 +753,7 @@ class AlpAlmacenesController extends JoshController
       $entradas = AlpInventario::groupBy('id_producto')->groupBy('id_almacen')
               ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
               ->where('alp_inventarios.operacion', '1')
+              ->whereNull('deleted_at')
               ->get();
 
               $inv = array();
@@ -784,6 +774,7 @@ class AlpAlmacenesController extends JoshController
               ->groupBy('id_producto')
               ->groupBy('id_almacen')
               ->where('operacion', '2')
+              ->whereNull('deleted_at')
               ->get();
 
               foreach ($salidas as $row) {
