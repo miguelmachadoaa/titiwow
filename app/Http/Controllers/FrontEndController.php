@@ -282,16 +282,16 @@ class FrontEndController extends JoshController
                 $p=AlpProductos::where('referencia_producto', $dato['sku'])->first();
 
                   activity()
-          ->withProperties($p)->log('FrontEndController/getCompramas 2.2');
+                    ->withProperties($p)->log('FrontEndController/getCompramas 2.2');
 
                 if (isset($p->id)) {
 
                   $r='true';
 
                     $data = array(
-                        'id_almacen' => $almacen, 
-                        'id_producto' => $p->id, 
-                        'id_user' => 1 
+                      'id_almacen' => $almacen, 
+                       'id_producto' => $p->id, 
+                      'id_user' => 1 
                     );
 
                     AlpAlmacenProducto::create($data);
@@ -300,7 +300,6 @@ class FrontEndController extends JoshController
 
                       AlpInventario::where('id_producto', $p->id)->where('id_almacen', $almacen)->delete();
                       
-                    
 
                         $data_inventario_nuevo = array(
                             'id_almacen' => $almacen, 
@@ -332,7 +331,26 @@ class FrontEndController extends JoshController
                     # code...
                 }
 
-                } 
+                }else{
+
+                  $p=AlpProductos::where('referencia_producto', $dato['sku'])->first();
+
+                  if (isset($p->id)) {
+                    
+                     $ap=AlpAlmacenProducto::where('id_almacen', $almacen)->where('id_producto', $p->id)->first();
+
+                     if (isset($ap->id)) {
+
+                        $ap=AlpAlmacenProducto::where('id_almacen', $almacen)->where('id_producto', $p->id)->detele();
+
+                         AlpInventario::where('id_producto', $p->id)->where('id_almacen', $almacen)->delete();
+                       
+                     }
+                  }
+
+                 
+                  
+                }
                 
             } //end foreach datos
 
