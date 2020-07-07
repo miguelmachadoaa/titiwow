@@ -254,7 +254,7 @@ class FrontEndController extends JoshController
 
       //dd($input);
        activity()
-          ->withProperties($input)->log('FrontEndController/getCompramas2');
+          ->withProperties($datos)->log('FrontEndController/getCompramas2');
 
 
     $r="false";
@@ -274,7 +274,10 @@ class FrontEndController extends JoshController
               activity()
           ->withProperties($dato)->log('FrontEndController/getCompramas 2.1');
 
-              if ($dato->stock>0) {
+           activity()
+          ->withProperties($dato['stock'])->log('FrontEndController/getCompramas2');
+
+              if ($dato['stock']>0) {
 
                 $p=AlpProductos::where('referencia_producto', $dato['sku'])->first();
 
@@ -282,6 +285,8 @@ class FrontEndController extends JoshController
           ->withProperties($p)->log('FrontEndController/getCompramas 2.2');
 
                 if (isset($p->id)) {
+
+                  $r='true';
 
                     $data = array(
                         'id_almacen' => $almacen, 
