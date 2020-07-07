@@ -9,7 +9,6 @@ Carrito de Compras
 
 {{-- page level styles --}}
 @section('header_styles')
-<link rel="canonical" href="{{$url}}" />
 
  <meta property="og:title" content="{{ $configuracion->seo_titulo }} | Alpina GO!">
 
@@ -17,7 +16,14 @@ Carrito de Compras
 
     <meta property="og:image" content="{{ $configuracion->seo_image }}" />
 
+    @if(isset($url))
+
+    <link rel="canonical" href="{{$url}}" />
+
+
     <meta property="og:url" content="{{$url}}" />
+
+    @endif
 
 
     <meta name="description" content="{{$configuracion->seo_description}}"/>
@@ -85,18 +91,11 @@ Carrito de Compras
                         <div class="row">
                         @if(!$productos->isEmpty())
 
-
-
-
-
                             @foreach($prods as $producto)
-
 
                             @if(isset($inventario[$producto->id]))
 
                                 @if($inventario[$producto->id]>0)
-
-
 
                                 <div class="col-md-2 col-sm-6 col-xs-6 ">
                                     <div class="productos">

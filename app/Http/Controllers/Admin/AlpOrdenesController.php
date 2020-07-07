@@ -140,7 +140,7 @@ class AlpOrdenesController extends JoshController
 
     }
 
-      public function data(Request $request)
+      public function data2(Request $request)
     {
 
   
@@ -162,7 +162,7 @@ class AlpOrdenesController extends JoshController
 
    // dd($input['order'][0]['column']);
    
-   $temp=AlpTemp::orderBy('id', 'desc')->first();
+   //$temp=AlpTemp::orderBy('id', 'desc')->first();
 
    //dd($temp->id);
 
@@ -351,7 +351,7 @@ class AlpOrdenesController extends JoshController
 
 
 
-      public function data2()
+      public function data()
     {
 
      // dd('i');
@@ -2992,14 +2992,11 @@ class AlpOrdenesController extends JoshController
 
           foreach($ordenes as $row){
 
-
             $pago="<div style='display: inline-block;' class='pago_".$row->id."'>  
 
                                             <button data-id='".$row->id."' class='btn btn-xs btn-success pago' > ".$row->estatus_pago_nombre." </button></div>";
 
              $estatus="<span class='badge badge-default' >".$row->estatus_nombre."</span>";
-
-
 
                  $actions = " 
                   <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'>
@@ -3041,13 +3038,10 @@ class AlpOrdenesController extends JoshController
               }
 
 
-
-
               $nombre_almacen='';
 
               $nombre_ciudad='';
 
-             // dd($cities); 
 
               if (isset($almacenes[$row->id_almacen])) {
                 
@@ -3058,8 +3052,6 @@ class AlpOrdenesController extends JoshController
 
                 if (isset($ciudades[$direcciones[$row->id_address]])) {
 
-                  //dd($ciudades[$direcciones[$row->id_address]]);
-                  
                   $nombre_ciudad=$ciudades[$direcciones[$row->id_address]];
 
                 }

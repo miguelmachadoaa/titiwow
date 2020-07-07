@@ -140,6 +140,19 @@
 
     /*funciones para crear ubicacion del comprador*/
 
+
+     $('.btnpg').click(function(){
+
+        $('.btnpg').fadeOut('fast');
+
+        setTimeout(function(){
+
+            $('.btnpg').fadeIn();
+
+        },4000);
+
+    });
+
     
         $(document).ready(function(){
 

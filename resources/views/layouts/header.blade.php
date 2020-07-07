@@ -118,12 +118,6 @@
                     </div>
 
 
-                     
-
-
-
-
-
                     <div class="col-sm-3  col-xs-4" style="text-align: right;" >
 
                         <button style="float: none; display: inline-block;" type="button" class="navbar-toggle collapsed " data-toggle="collapse" data-target="#collapse">
