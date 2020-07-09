@@ -836,6 +836,85 @@ class AlpConfiguracionController extends JoshController
 
     }
 
+
+
+      public function ibm($id)
+    {
+        
+        $pod = 0;
+        $username = 'api_alpina@alpina.com';
+        $password = 'Alpina2020!';
+
+        $endpoint = "https://api2.ibmmarketingcloud.com/XMLAPI";
+        $jsessionid = null;
+
+        $baseXml = '%s';
+        $loginXml = '';
+        $getListsXml = '%s%s';
+        $logoutXml = '';
+
+        try {
+
+        $xml='<Envelope> <Body> <Login> <USERNAME>api_alpina@alpina.com</USERNAME> <PASSWORD>Alpina2020!</PASSWORD> </Login> </Body> </Envelope> ';
+
+        $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
+
+       // print_r($result);
+
+        $jsessionid = $result['SESSIONID'];
+
+      //  echo $jsessionid.'<br>';
+
+            $xml='
+            <Envelope>
+               <Body>
+                  <AddRecipient>
+                     <LIST_ID>10491915  </LIST_ID>
+                     <CREATED_FROM>1</CREATED_FROM>
+                     <COLUMN>
+                        <NAME>Customer Id</NAME>
+                        <VALUE>1</VALUE>
+                     </COLUMN>
+                     <COLUMN>
+                        <NAME>EMAIL</NAME>
+                        <VALUE>mmachado@crearemos.com</VALUE>
+                     </COLUMN>
+                     <COLUMN>
+                        <NAME>Miguel</NAME>
+                        <VALUE>Machado</VALUE>
+                     </COLUMN>
+                  </AddRecipient>
+               </Body>
+            </Envelope>
+            ';
+
+        $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
+
+       // print_r($result);
+
+       // echo "3<br>";
+
+    //LOGOUT
+
+        $xml = '<Envelope>
+          <Body>
+          <Logout/>
+          </Body>
+          </Envelope>';
+
+              $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml, true));
+
+              print_r($result);
+
+              $jsessionid = null;
+
+          } catch (Exception $e) {
+
+              die("\nException caught: {$e->getMessage()}\n\n");
+
+          }
+    }
+
     
     
 }

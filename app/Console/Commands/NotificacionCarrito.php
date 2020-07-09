@@ -53,19 +53,18 @@ class NotificacionCarrito extends Command
         //
         $configuracion=AlpConfiguracion::where('id', '1')->first();
 
-
-
          $date = Carbon::now();
 
         $hoy=$date->format('Y-m-d');
-
-
 
 
         $carritos =  DB::table('alp_carrito')->select('alp_carrito.*','users.first_name as first_name','users.last_name as last_name','users.email as email')
           ->join('users','alp_carrito.id_user' , '=', 'users.id')
           ->where('alp_carrito.notificacion','=', 0)
           ->get();
+
+
+        activity()->withProperties($carritos)->log('carritos');
 
 
       foreach ($carritos  as $car) {

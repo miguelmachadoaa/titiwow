@@ -66,7 +66,6 @@ class FrontEndController extends JoshController
   public function ibm()
   {
 
-
     $pod = 0;
     $username = 'api_alpina@alpina.com';
     $password = 'Alpina2020!';
@@ -81,16 +80,15 @@ class FrontEndController extends JoshController
 
     try {
 
-
     $xml='<Envelope> <Body> <Login> <USERNAME>api_alpina@alpina.com</USERNAME> <PASSWORD>Alpina2020!</PASSWORD> </Login> </Body> </Envelope> ';
 
     $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-    print_r($result);
+   // print_r($result);
 
     $jsessionid = $result['SESSIONID'];
 
-    echo $jsessionid.'<br>';
+  //  echo $jsessionid.'<br>';
 
         $xml='
         <Envelope>
@@ -117,9 +115,9 @@ class FrontEndController extends JoshController
 
     $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-    print_r($result);
+   // print_r($result);
 
-    echo "3<br>";
+   // echo "3<br>";
 
 //LOGOUT
 
@@ -1191,88 +1189,7 @@ class FrontEndController extends JoshController
 
 
 
-
-
-
-
-
-
-
-            $pod = 0;
-    $username = 'api_alpina@alpina.com';
-    $password = 'Alpina2020!';
-
-    $endpoint = "https://api2.ibmmarketingcloud.com/XMLAPI";
-    $jsessionid = null;
-
-    $baseXml = '%s';
-    $loginXml = '';
-    $getListsXml = '%s%s';
-    $logoutXml = '';
-
-    try {
-
-
-        $xml='<Envelope> <Body> <Login> <USERNAME>api_alpina@alpina.com</USERNAME> <PASSWORD>Alpina2020!</PASSWORD> </Login> </Body> </Envelope> ';
-
-        $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
-
-        print_r($result);
-
-        $jsessionid = $result['SESSIONID'];
-
-        echo $jsessionid.'<br>';
-
-            $xml='
-            <Envelope>
-               <Body>
-                  <AddRecipient>
-                     <LIST_ID>10491915  </LIST_ID>
-                     <CREATED_FROM>1</CREATED_FROM>
-                     <COLUMN>
-                        <NAME>Customer Id</NAME>
-                        <VALUE>1</VALUE>
-                     </COLUMN>
-                     <COLUMN>
-                        <NAME>EMAIL</NAME>
-                        <VALUE>mmachado@crearemos.com</VALUE>
-                     </COLUMN>
-                     <COLUMN>
-                        <NAME>Miguel</NAME>
-                        <VALUE>Machado</VALUE>
-                     </COLUMN>
-                  </AddRecipient>
-               </Body>
-            </Envelope>
-            ';
-
-        $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
-
-        print_r($result);
-
-        echo "3<br>";
-
-    //LOGOUT
-
-        $xml = '<Envelope>
-          <Body>
-          <Logout/>
-          </Body>
-          </Envelope>';
-
-              $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml, true));
-
-              print_r($result);
-
-              $jsessionid = null;
-
-          } catch (Exception $e) {
-
-              die("\nException caught: {$e->getMessage()}\n\n");
-
-          }
-
-
+            $ibm=$this->addibm($user);
 
 
 
@@ -2183,6 +2100,100 @@ public function getApiUrl($endpoint, $jsessionid)
       return $id_almacen;
 
     }
+
+
+
+
+    private function addibm($user)
+    {
+        
+        $pod = 0;
+        $username = 'api_alpina@alpina.com';
+        $password = 'Alpina2020!';
+
+        $endpoint = "https://api2.ibmmarketingcloud.com/XMLAPI";
+        $jsessionid = null;
+
+        $baseXml = '%s';
+        $loginXml = '';
+        $getListsXml = '%s%s';
+        $logoutXml = '';
+
+        try {
+
+        $xml='<Envelope> <Body> <Login> <USERNAME>api_alpina@alpina.com</USERNAME> <PASSWORD>Alpina2020!</PASSWORD> </Login> </Body> </Envelope> ';
+
+        $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
+
+       // print_r($result);
+
+        $jsessionid = $result['SESSIONID'];
+
+      //  echo $jsessionid.'<br>';
+
+            $xml='
+            <Envelope>
+               <Body>
+                  <AddRecipient>
+                     <LIST_ID>10491915  </LIST_ID>
+                     <CREATED_FROM>1</CREATED_FROM>
+                     <COLUMN>
+                        <NAME>Customer Id</NAME>
+                        <VALUE>'.$user->id.'</VALUE>
+                     </COLUMN>
+                     <COLUMN>
+                        <NAME>EMAIL</NAME>
+                        <VALUE>'.$user->email.'</VALUE>
+                     </COLUMN>
+                     <COLUMN>
+                        <NAME>'.$user->first_name.'</NAME>
+                        <VALUE>'.$user->last_name.'</VALUE>
+                     </COLUMN>
+                  </AddRecipient>
+               </Body>
+            </Envelope>
+            ';
+
+
+            activity()->withProperties($xml)->log('xml_ibm_add_recipiente');
+
+        $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
+
+        activity()->withProperties($result)->log('xml_ibm_add_result');
+
+       // print_r($result);
+
+       // echo "3<br>";
+
+    //LOGOUT
+
+        $xml = '<Envelope>
+          <Body>
+          <Logout/>
+          </Body>
+          </Envelope>';
+
+              $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml, true));
+
+              activity()->withProperties($result)->log('xml_ibm_add_result2');
+
+             // print_r($result);
+
+              return $result2['SUCCESS'];
+
+              $jsessionid = null;
+
+          } catch (Exception $e) {
+
+              die("\nException caught: {$e->getMessage()}\n\n");
+
+              return 'FALSE';
+
+          }
+    }
+
+
+
 
 
 
