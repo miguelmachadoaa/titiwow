@@ -177,6 +177,15 @@ class FrontEndController extends JoshController
 
     if (isset($orden->id)) {
 
+      $user=User::where('id', $orden->id_cliente)->first();
+
+      if (isset($user->id)) {
+
+        $ibm=$this->addibm($user);
+
+        # code...
+      }
+
       $envio=AlpEnvios::where('id_orden', $orden->id)->first();
 
 
@@ -2191,6 +2200,9 @@ public function getApiUrl($endpoint, $jsessionid)
 
           }
     }
+
+
+
 
 
 
