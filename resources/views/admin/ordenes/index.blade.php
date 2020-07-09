@@ -277,22 +277,7 @@ $("#aprobarOrdenForm").bootstrapValidator({
 
 
 
-    $(document).ready(function() {
-
-
-        base=$('#base').val();
-
-    $('#tbOrdenes').DataTable( {
-
-        "processing": true,
-
-        "serverSide": true,
-
-        "ajax": base+'/admin/ordenes/data'
-        
-        } );
-
-    } );
+   
 
 
 
@@ -303,7 +288,7 @@ $(document).ready(function() {
 
 
         
-   /* var table =$('#tbOrdenes').DataTable({
+    var table =$('#tbOrdenes').DataTable({
         "processing": true,
         "order": [[ 0, "desc" ]],
         "ajax": {
@@ -315,7 +300,7 @@ $(document).ready(function() {
         $('.livicon').each(function(){
             $(this).updateLivicon();
         });
-    });*/
+    });
 
 
 
