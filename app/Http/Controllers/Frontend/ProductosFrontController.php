@@ -952,8 +952,6 @@ class ProductosFrontController extends Controller
 
         $role=Roles::where('id', $rol)->first();
 
-        dd($combos);
-
          $states=State::where('config_states.country_id', '47')->get();
 
         
