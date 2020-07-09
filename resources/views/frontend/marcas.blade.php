@@ -109,9 +109,9 @@
 
                 @else
 
-                    @if(isset($inventario[$producto->id]))
+                    @if(isset($combos[$producto->id]))
 
-                        @if($combos[$producto->id]>0)
+                        @if($combos[$producto->id])
 
                             @php $i++; @endphp
 

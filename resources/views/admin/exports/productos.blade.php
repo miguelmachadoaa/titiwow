@@ -11,6 +11,7 @@
             <th><b>Cantidad de unidades</b></th>
             <th><b>Numero de Pedidos</b></th>
             <th><b>Fecha</b></th>
+            <th><b>Barrio</b></th>
         </tr>
     </thead>
     <tbody>
@@ -27,6 +28,7 @@
             <td>{!! $row->total_cantidad !!}</td>
             <td>{!! $row->num_pedidos !!}</td>
             <td>{!! $row->fecha !!}</td>
+            <td>{!! $row->barrio_address !!}</td>
           
         </tr>
         @endforeach
