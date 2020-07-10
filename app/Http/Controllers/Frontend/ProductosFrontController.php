@@ -558,7 +558,19 @@ class ProductosFrontController extends Controller
                         $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
                         $precio[$producto->id]['pum']=$pregiogrupo->pum;
 
-                    }
+                    }else{
+
+
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $role->role_id)->first();
+
+                      if (isset($pregiogrupo->id)) {
+                         
+                          $precio[$producto->id]['precio']=$pregiogrupo->precio;
+                          $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
+                          $precio[$producto->id]['pum']=$pregiogrupo->pum;
+
+                      }
+                      }
 
                    
 
@@ -578,13 +590,24 @@ class ProductosFrontController extends Controller
                         $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
                         $precio[$producto->id]['pum']=$pregiogrupo->pum;
 
-                    }
+                    }else{
+
+
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $r)->first();
+
+                      if (isset($pregiogrupo->id)) {
+                         
+                          $precio[$producto->id]['precio']=$pregiogrupo->precio;
+                          $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
+                          $precio[$producto->id]['pum']=$pregiogrupo->pum;
+
+                      }
+                      }
 
 
                 
         }
 
-        //dd($precio);
 
         if ($descuento=='1') {
 

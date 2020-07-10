@@ -227,11 +227,12 @@
 
                                        @if($almacen->descuento_productos=='1')
 
-                                        @if($producto->precio_base>$producto->precio_oferta)
+                                            @if($producto->precio_base>$producto->precio_oferta)
 
-                                        <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
+                                            <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
 
-                                        @endif
+                                            @endif
+                                            
                                         @endif
 
                                                 <span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
