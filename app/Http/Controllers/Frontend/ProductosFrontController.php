@@ -688,6 +688,8 @@ class ProductosFrontController extends Controller
 
         $id_almacen=$this->getAlmacen();
 
+        $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
+
         //dd($id_almacen);
 
         $rol=9;
@@ -754,7 +756,7 @@ class ProductosFrontController extends Controller
 
         
 
-        return \View::make('frontend.categorias', compact('productos','cataname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos','url', 'categoria'));
+        return \View::make('frontend.categorias', compact('productos','cataname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos','url', 'categoria', 'almacen'));
 
     }
     public function marcas($slug)
