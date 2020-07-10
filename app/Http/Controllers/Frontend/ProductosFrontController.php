@@ -44,6 +44,8 @@ class ProductosFrontController extends Controller
 
         if (Sentinel::check()) {
 
+
+
             $user_id = Sentinel::getUser()->id;
 
             $user=Sentinel::getUser();
@@ -127,14 +129,14 @@ class ProductosFrontController extends Controller
 
         }else{
 
+        
+
           $role = array( );
 
             $r='9';
 
                 foreach ($productos as  $row) {
 
-                  //dd($row);
-                    
                     $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $r)->where('city_id', $ciudad)->first();
 
                     if (isset($pregiogrupo->id)) {
@@ -163,7 +165,9 @@ class ProductosFrontController extends Controller
                 
         }
 
-       // dd($precio);
+
+
+      // dd($precio);
 
         $prods = array( );
 
@@ -821,6 +825,8 @@ class ProductosFrontController extends Controller
            $url=secure_url('marcas/'.$slug);
 
            $marcaun = AlpMarcas::where('slug','=', $slug)->firstOrFail();
+
+           //dd($precio);
 
 
 

@@ -38,7 +38,7 @@
                         <a href="{{ route('producto', [$producto->slug]) }}" ><h3>{{ $producto->nombre_producto }}</h3></a>
                         <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="text-align:center;">{{ $producto->presentacion_producto }}</h6></a>
                         <div class="product_info">
-                            
+
                             @if($descuento==1)
 
                                 @if(isset($precio[$producto->id]))
@@ -47,7 +47,7 @@
 
                                         @case(1)
 
-                                            <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
+                                            <p id="precio_prod"><span class="precio_base">5${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
                                             
                                             @break
 
@@ -55,11 +55,12 @@
 
                                             <p id="precio_prod">
                                                 @if($almacen->descuento_productos=='1')
+
                                                 <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
 
                                                 @endif
 
-                                                <span class="precio_base">${{ number_format($producto->precio_base*(1-($precio[$producto->id]['precio']/100)),0,",",".") }}</span></p>
+                                                <span class="precio_base">4${{ number_format($producto->precio_base*(1-($precio[$producto->id]['precio']/100)),0,",",".") }}</span></p>
                                             @break
 
                                         @case(3)
@@ -71,7 +72,7 @@
 
                                                 @endif
 
-                                                <span class="precio_base">${{ number_format($precio[$producto->id]['precio'],0,",",".") }}</span></p>
+                                                <span class="precio_base">3${{ number_format($precio[$producto->id]['precio'],0,",",".") }}</span></p>
                                             @break
 
                                         
@@ -81,7 +82,24 @@
 
                                 @else
 
-                                    <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_oferta*$descuento,0,",",".") }}</span></p>
+                                     
+
+                                    <p id="precio_prod"><span class="precio_base">
+
+                                        @if($almacen->descuento_productos=='1')
+
+                                        @if($producto->precio_base>$producto->precio_oferta)
+
+                                        <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
+
+                                        @endif
+
+                                    @endif
+
+
+
+
+                                        ${{ number_format($producto->precio_oferta*$descuento,0,",",".") }}</span></p>
 
                                     <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
 
@@ -100,7 +118,7 @@
 
                                     
 
-                                    <span class="precio_base">8${{ number_format($producto->precio_base*$descuento,0,",",".").' -'.$producto->operacion }}</span></p>
+                                    <span class="precio_base">1${{ number_format($producto->precio_base*$descuento,0,",",".").' -'.$producto->operacion }}</span></p>
 
                                 <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
 
