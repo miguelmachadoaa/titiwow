@@ -138,7 +138,7 @@ class VerificarExistenciaAlmacen extends Command
                         $data_inventario_nuevo = array(
                             'id_almacen' => $almacen, 
                             'id_producto' => $p->id, 
-                            'cantidad' => $row[1], 
+                            'cantidad' => $dato->stock, 
                             'operacion' => 1, 
                             'notas' => 'Actualización de inventario por cron compramas', 
                             'id_user' => 1 

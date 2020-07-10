@@ -158,18 +158,36 @@ Inicio @parent
                 <div class="col-md-12 col-sm-12 wow bounceInUp center" data-wow-duration="1.5s"> 
                     <div class="products">
                         <div class="row">
-                        @if(!$productos->isEmpty())
+
+
+                        @if(count($prods))
+
 
                        
                             @php $i=0; @endphp
                             @foreach($prods as $producto)
+
+
                                 @if($producto->tipo_producto=='1')
+
+                               
+
                                     @if(isset($inventario[$producto->id]))
+
                                         @if($inventario[$producto->id]>0)
+
                                              @php $i++; @endphp
 
 
-                                                    <div class="col-md-2 col-sm-6 col-xs-6 ">
+
+
+
+
+
+
+
+
+                                         <div class="col-md-2 col-sm-6 col-xs-6 ">
                                                         <div class="productos">
                                                             <div class="text-align:center;">
                                                                 <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" alt="{{ $producto->nombre_producto }}" title="{{ $producto->nombre_producto }}" class="img-responsive homi"></a>
@@ -333,178 +351,195 @@ Inicio @parent
                                                         <div class="row">
                                                     @endif
 
-                                    @endif
-                                @endif
-                            @else
 
-                            @if(isset($combos[$producto->id]))
 
-                            @php $i++; @endphp
 
-                             <div class="col-md-2 col-sm-6 col-xs-6 ">
-                                    <div class="productos">
-                                        <div class="text-align:center;">
-                                            <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" alt="{{ $producto->nombre_producto }}" title="{{ $producto->nombre_producto }}" class="img-responsive homi"></a>
 
-                                            @if(isset($inventario[$producto->id]))
 
-                                                @if($inventario[$producto->id]<=0)
 
-                                                    <img class="agotado" style="" src="{{ secure_url('/').'/uploads/files/agotado.png' }}" alt="Agotado" title="Agotado">
 
-                                                @endif
 
-                                            @endif
-                                            
-                                        </div>
-                                        <a href="{{ route('producto', [$producto->slug]) }}" ><h3>{{ $producto->nombre_producto }}</h3></a>
-                                        <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="text-align:center;">{{ $producto->presentacion_producto }}</h6></a>
-                                        <div class="product_info">
-
-                                        @if($descuento==1)
-
-                                            @if(isset($precio[$producto->id]))
-
-                                                @switch($precio[$producto->id]['operacion'])
-
-                                                    @case(1)
-
-                                                        <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-                                                        
-                                                        @break
-
-                                                    @case(2)
-
-                                                        <p id="precio_prod">
-                                                            @if($role->oferta=='0')
-                                                             <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
-
-                                                            @endif
-
-                                                           
-
-                                                            <span class="precio_base">${{ number_format($producto->precio_base*(1-($precio[$producto->id]['precio']/100)),0,",",".") }}</span></p>
-                                                        @break
-
-                                                    @case(3)
-
-                                                        <p id="precio_prod">
-                                                            @if($role->oferta=='0')
-                                                             <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
-
-                                                            @endif
-
-                            
-                                                            
-
-                                                            <span class="precio_base">${{ number_format($precio[$producto->id]['precio'],0,",",".") }}</span></p>
-                                                        @break
-
-                                                    
-                                                @endswitch
-
-                                                <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $precio[$producto->id]['pum'] }}</h6></a>
-
-                                            @else
-            
-                                                <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-
-                                                <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
-
-                                            @endif
-
-                                        @else
-
-                                            <p id="precio_prod">
-                                                @if($role->oferta=='0')
-                                                <del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base,0,",",".")}}</del>&nbsp;
-                                                @endif
-                                                <span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-
-                                            <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
+                                                   
 
                                         @endif
+                                     @endif
+                                @else
+                                    @if(isset($combos[$producto->id]))
 
-                                            
+                                   
 
-                                        <div class="product_botones boton_{{ $producto->id }}">
+                                        @php $i++; @endphp
 
-                                             @if(isset($inventario[$producto->id]))
+                                         <div class="col-md-2 col-sm-6 col-xs-6 ">
+                                                        <div class="productos">
+                                                            <div class="text-align:center;">
+                                                                <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" alt="{{ $producto->nombre_producto }}" title="{{ $producto->nombre_producto }}" class="img-responsive homi"></a>
 
-                                                @if($inventario[$producto->id]>0)
+                                                                @if(isset($inventario[$producto->id]))
 
-                                                    
+                                                                    @if($inventario[$producto->id]<=0)
 
-                                              
+                                                                        <img class="agotado" style="" src="{{ secure_url('/').'/uploads/files/agotado.png' }}" alt="Agotado" title="Agotado">
 
-                                                @if(isset($cart[$producto->slug]))
+                                                                    @endif
 
-                                                    <div class="row" style="margin-bottom:5px;">
-                                                      <div class="col-sm-10 col-sm-offset-1">
-                                                        <div class="input-group">
-                                                          <span class="input-group-btn">
-                                                            
-                                                            <button data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-danger updatecart" type="button"><i class="fa fa-minus"></i></button>
+                                                                @endif
+                                                                
+                                                            </div>
+                                                            <a href="{{ route('producto', [$producto->slug]) }}" ><h3>{{ $producto->nombre_producto }}</h3></a>
+                                                            <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="text-align:center;">{{ $producto->presentacion_producto }}</h6></a>
+                                                            <div class="product_info">
 
-                                                          </span>
+                                                            @if($descuento==1)
 
-                                                          <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
+                                                                @if(isset($precio[$producto->id]))
 
+                                                                    @switch($precio[$producto->id]['operacion'])
 
-                                                          <span class="input-group-btn">
+                                                                        @case(1)
 
-                                                                @if($configuracion->maximo_productos==$cart[$producto->slug]->cantidad) 
+                                                                            <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
+                                                                            
+                                                                            @break
 
-                                                                <button disabled="disabled" data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success " type="button"><i class="fa fa-plus"></i></button>
+                                                                        @case(2)
 
-                                                                @else
+                                                                            <p id="precio_prod">
+                                                                                @if($role->oferta=='0')
+                                                                                 <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
 
-                                                                <button data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
+                                                                                @endif
 
-                                                                 @endif 
+                                                                               
 
+                                                                                <span class="precio_base">${{ number_format($producto->precio_base*(1-($precio[$producto->id]['precio']/100)),0,",",".") }}</span></p>
+                                                                            @break
 
-                                                            
+                                                                        @case(3)
 
-                                                            
+                                                                            <p id="precio_prod">
+                                                                                @if($role->oferta=='0')
+                                                                                 <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
 
-                                                          </span>
-
-                                                        </div><!-- /input-group -->
-                                                      </div><!-- /.col-lg-6 -->
-                                                     
-                                                    </div><!-- /.row -->
-
-                                                    <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
-
-
-                                                @else
-                                                     <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
-                                                     <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
-
-                                                @endif
-
-
-                                                @else
-
-
-                                                <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
-
-                                                  @endif
-
-                                            @endif
-
+                                                                                @endif
 
                                                 
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                                                                
 
-                                @endif
+                                                                                <span class="precio_base">${{ number_format($precio[$producto->id]['precio'],0,",",".") }}</span></p>
+                                                                            @break
+
+                                                                        
+                                                                    @endswitch
+
+                                                                    <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $precio[$producto->id]['pum'] }}</h6></a>
+
+                                                                @else
+                                
+                                                                    <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
+
+                                                                    <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
+
+                                                                @endif
+
+                                                            @else
+
+                                                                <p id="precio_prod">
+                                                                    @if($role->oferta=='0')
+                                                                    <del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base,0,",",".")}}</del>&nbsp;
+                                                                    @endif
+                                                                    <span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
+
+                                                                <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
+
+                                                            @endif
+
+                                                                
+
+                                                            <div class="product_botones boton_{{ $producto->id }}">
+
+                                                                 @if(isset($inventario[$producto->id]))
+
+                                                                    @if($inventario[$producto->id]>0)
+
+                                                                        
+
+                                                                  
+
+                                                                    @if(isset($cart[$producto->slug]))
+
+                                                                        <div class="row" style="margin-bottom:5px;">
+                                                                          <div class="col-sm-10 col-sm-offset-1">
+                                                                            <div class="input-group">
+                                                                              <span class="input-group-btn">
+                                                                                
+                                                                                <button data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-danger updatecart" type="button"><i class="fa fa-minus"></i></button>
+
+                                                                              </span>
+
+                                                                              <input id="cantidad_{{ $producto->id }}" name="cantidad_{{ $producto->id }}" type="number" step="1" readonly class="form-control" value="{{ $cart[$producto->slug]->cantidad }}" placeholder="">
+
+
+                                                                              <span class="input-group-btn">
+
+                                                                                    @if($configuracion->maximo_productos==$cart[$producto->slug]->cantidad) 
+
+                                                                                    <button disabled="disabled" data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success " type="button"><i class="fa fa-plus"></i></button>
+
+                                                                                    @else
+
+                                                                                    <button data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success updatecart" type="button"><i class="fa fa-plus"></i></button>
+
+                                                                                     @endif 
+
+
+                                                                                
+
+                                                                                
+
+                                                                              </span>
+
+                                                                            </div><!-- /input-group -->
+                                                                          </div><!-- /.col-lg-6 -->
+                                                                         
+                                                                        </div><!-- /.row -->
+
+                                                                        <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+
+
+                                                                    @else
+                                                                         <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                                                         <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
+
+                                                                    @endif
+
+
+                                                                    @else
+
+
+                                                                    <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}" style="margin-bottom:5px;">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+
+                                                                      @endif
+
+                                                                @endif
+
+
+                                                                    
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @if ($i % 6 == 0)
+                                                        </div>
+                                                        <div class="row">
+                                                    @endif
+
+                           
+                                    @endif
+                                
                                 @endif
 
-                                @endforeach
+                            @endforeach
 
                             @else
 
