@@ -725,6 +725,7 @@ class FrontEndController extends JoshController
        $url=secure_url('/');
 
 
+      // dd($inventario);
 
         return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion','inventario', 'combos', 'role', 'almacen','url'));
 
@@ -1652,6 +1653,7 @@ class FrontEndController extends JoshController
               ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
               ->where('alp_inventarios.operacion', '1')
               ->where('alp_inventarios.id_almacen', '=', $id_almacen)
+              //->whereNull('alp_inventarios.deleted_at')
               ->get();
 
 
@@ -1668,6 +1670,7 @@ class FrontEndController extends JoshController
               ->groupBy('id_producto')
               ->where('operacion', '2')
               ->where('alp_inventarios.id_almacen', '=', $id_almacen)
+              //->whereNull('alp_inventarios.deleted_at')
               ->get();
 
               foreach ($salidas as $row) {
