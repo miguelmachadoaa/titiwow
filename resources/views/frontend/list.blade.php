@@ -75,7 +75,7 @@ Productos @parent
                     
                     @php $i=0; @endphp
 
-                    @foreach($prods as $producto)
+                    @foreach($leche as $producto)
 
                 @if($producto->tipo_producto=='1')
 
@@ -150,24 +150,49 @@ Productos @parent
                     @php $i=0; @endphp
 
                     @foreach($lacteos as $producto)
-                         
-                        @if(isset($inventario[$producto->id]))
-
-                            @if($inventario[$producto->id]>0)
-
-                                 @php $i++; @endphp
-
-                    @include('frontend.producto')
+                     @if($producto->tipo_producto=='1')
 
 
-                        @if ($i % 4 == 0)
-                            </div>
-                            <div class="row">
+                    @if(isset($inventario[$producto->id]))
+
+                        @if($inventario[$producto->id]>0)
+
+                            @php $i++; @endphp
+
+                            @include('frontend.producto')
+
+
+                                @if ($i % 4 == 0)
+                                    </div>
+                                    <div class="row">
+                                @endif
+
                         @endif
 
-                            @endif
+                    @endif
+
+                @else
+
+                  @if(isset($combos[$producto->id]))
+
+                        @if($combos[$producto->id])
+
+                            @php $i++; @endphp
+
+                            @include('frontend.producto')
+
+
+                                @if ($i % 4 == 0)
+                                    </div>
+                                    <div class="row">
+                                @endif
 
                         @endif
+
+                    @endif
+
+
+                @endif
                     @endforeach
                         
                     @else
@@ -198,13 +223,17 @@ Productos @parent
                     @foreach($quesos as $producto)
                        
 
-                        @if(isset($inventario[$producto->id]))
+                        @if($producto->tipo_producto=='1')
+
+
+                    @if(isset($inventario[$producto->id]))
 
                         @if($inventario[$producto->id]>0)
 
-                             @php $i++; @endphp
+                            @php $i++; @endphp
 
-                                @include('frontend.producto')
+                            @include('frontend.producto')
+
 
                                 @if ($i % 4 == 0)
                                     </div>
@@ -214,6 +243,29 @@ Productos @parent
                         @endif
 
                     @endif
+
+                @else
+
+                  @if(isset($combos[$producto->id]))
+
+                        @if($combos[$producto->id])
+
+                            @php $i++; @endphp
+
+                            @include('frontend.producto')
+
+
+                                @if ($i % 4 == 0)
+                                    </div>
+                                    <div class="row">
+                                @endif
+
+                        @endif
+
+                    @endif
+
+
+                @endif
 
                     @endforeach
                         
@@ -246,23 +298,49 @@ Productos @parent
                       
 
 
-                            @if(isset($inventario[$producto->id]))
+                           @if($producto->tipo_producto=='1')
 
-                                @if($inventario[$producto->id]>0)
 
-                                     @php $i++; @endphp
+                    @if(isset($inventario[$producto->id]))
 
-                                @include('frontend.producto')
+                        @if($inventario[$producto->id]>0)
+
+                            @php $i++; @endphp
+
+                            @include('frontend.producto')
+
 
                                 @if ($i % 4 == 0)
                                     </div>
                                     <div class="row">
                                 @endif
 
+                        @endif
+
+                    @endif
+
+                @else
+
+                  @if(isset($combos[$producto->id]))
+
+                        @if($combos[$producto->id])
+
+                            @php $i++; @endphp
+
+                            @include('frontend.producto')
+
+
+                                @if ($i % 4 == 0)
+                                    </div>
+                                    <div class="row">
                                 @endif
 
-                            @endif
+                        @endif
 
+                    @endif
+
+
+                @endif
 
                     @endforeach
                         
@@ -295,13 +373,16 @@ Productos @parent
                        
 
 
-                        @if(isset($inventario[$producto->id]))
+                         @if($producto->tipo_producto=='1')
 
-                            @if($inventario[$producto->id]>0)
 
-                                @php $i++; @endphp
+                    @if(isset($inventario[$producto->id]))
 
-                                @include('frontend.producto')
+                        @if($inventario[$producto->id]>0)
+
+                            @php $i++; @endphp
+
+                            @include('frontend.producto')
 
 
                                 @if ($i % 4 == 0)
@@ -309,10 +390,32 @@ Productos @parent
                                     <div class="row">
                                 @endif
 
-                            @endif
+                        @endif
+
+                    @endif
+
+                @else
+
+                  @if(isset($combos[$producto->id]))
+
+                        @if($combos[$producto->id])
+
+                            @php $i++; @endphp
+
+                            @include('frontend.producto')
+
+
+                                @if ($i % 4 == 0)
+                                    </div>
+                                    <div class="row">
+                                @endif
 
                         @endif
 
+                    @endif
+
+
+                @endif
 
                     @endforeach
                         
@@ -345,23 +448,49 @@ Productos @parent
                      
 
 
-                           @if(isset($inventario[$producto->id]))
-
-                                @if($inventario[$producto->id]>0)
-
-                                    @php $i++; @endphp
-
-                                    @include('frontend.producto')
+                          @if($producto->tipo_producto=='1')
 
 
-                                    @if ($i % 4 == 0)
-                                        </div>
-                                        <div class="row">
-                                    @endif
+                    @if(isset($inventario[$producto->id]))
 
+                        @if($inventario[$producto->id]>0)
+
+                            @php $i++; @endphp
+
+                            @include('frontend.producto')
+
+
+                                @if ($i % 4 == 0)
+                                    </div>
+                                    <div class="row">
                                 @endif
 
-                            @endif
+                        @endif
+
+                    @endif
+
+                @else
+
+                  @if(isset($combos[$producto->id]))
+
+                        @if($combos[$producto->id])
+
+                            @php $i++; @endphp
+
+                            @include('frontend.producto')
+
+
+                                @if ($i % 4 == 0)
+                                    </div>
+                                    <div class="row">
+                                @endif
+
+                        @endif
+
+                    @endif
+
+
+                @endif
 
 
                     @endforeach
@@ -395,22 +524,49 @@ Productos @parent
                        
 
 
-                        @if(isset($inventario[$producto->id]))
+                    @if($producto->tipo_producto=='1')
 
-                            @if($inventario[$producto->id]>0)
 
-                                @php $i++; @endphp
+                    @if(isset($inventario[$producto->id]))
 
-                                @include('frontend.producto')
+                        @if($inventario[$producto->id]>0)
+
+                            @php $i++; @endphp
+
+                            @include('frontend.producto')
+
 
                                 @if ($i % 4 == 0)
                                     </div>
                                     <div class="row">
                                 @endif
 
-                            @endif
+                        @endif
+
+                    @endif
+
+                @else
+
+                  @if(isset($combos[$producto->id]))
+
+                        @if($combos[$producto->id])
+
+                            @php $i++; @endphp
+
+                            @include('frontend.producto')
+
+
+                                @if ($i % 4 == 0)
+                                    </div>
+                                    <div class="row">
+                                @endif
 
                         @endif
+
+                    @endif
+
+
+                @endif
 
 
                     @endforeach
@@ -444,23 +600,49 @@ Productos @parent
                         
 
 
-                        @if(isset($inventario[$producto->id]))
-
-                            @if($inventario[$producto->id]>0)
-
-                                 @php $i++; @endphp
-
-                                @include('frontend.producto')
+                       @if($producto->tipo_producto=='1')
 
 
-                                    @if ($i % 4 == 0)
-                                        </div>
-                                        <div class="row">
-                                    @endif
+                    @if(isset($inventario[$producto->id]))
 
-                            @endif
+                        @if($inventario[$producto->id]>0)
+
+                            @php $i++; @endphp
+
+                            @include('frontend.producto')
+
+
+                                @if ($i % 4 == 0)
+                                    </div>
+                                    <div class="row">
+                                @endif
 
                         @endif
+
+                    @endif
+
+                @else
+
+                  @if(isset($combos[$producto->id]))
+
+                        @if($combos[$producto->id])
+
+                            @php $i++; @endphp
+
+                            @include('frontend.producto')
+
+
+                                @if ($i % 4 == 0)
+                                    </div>
+                                    <div class="row">
+                                @endif
+
+                        @endif
+
+                    @endif
+
+
+                @endif
 
 
                     @endforeach
@@ -493,23 +675,49 @@ Productos @parent
                     @foreach($nolacteos as $producto)
                         
                          
-                        @if(isset($inventario[$producto->id]))
-
-                            @if($inventario[$producto->id]>0)
-
-                                 @php $i++; @endphp
-
-                    @include('frontend.producto')
+                        @if($producto->tipo_producto=='1')
 
 
-                        @if ($i % 4 == 0)
-                            </div>
-                            <div class="row">
+                    @if(isset($inventario[$producto->id]))
+
+                        @if($inventario[$producto->id]>0)
+
+                            @php $i++; @endphp
+
+                            @include('frontend.producto')
+
+
+                                @if ($i % 4 == 0)
+                                    </div>
+                                    <div class="row">
+                                @endif
+
                         @endif
 
-                            @endif
+                    @endif
+
+                @else
+
+                  @if(isset($combos[$producto->id]))
+
+                        @if($combos[$producto->id])
+
+                            @php $i++; @endphp
+
+                            @include('frontend.producto')
+
+
+                                @if ($i % 4 == 0)
+                                    </div>
+                                    <div class="row">
+                                @endif
 
                         @endif
+
+                    @endif
+
+
+                @endif
 
                     @endforeach
                         
