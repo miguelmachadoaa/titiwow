@@ -47,7 +47,7 @@ use Carbon\Carbon;
 class AlpOrdenesController extends JoshController
 {
     /**
-     * Show a list of all the groups.
+     * Show a list of all recibthe groups.
      *
      * @return View
      */
@@ -2701,10 +2701,38 @@ class AlpOrdenesController extends JoshController
                 }
                 curl_close($ch);
 
-                $dtt = array('json' => $result );
 
-                $orden->update($dtt);
+                  $res=json_decode($result);
 
+
+
+             if (isset($res->codigo)) {
+                  
+                  if ($res->codigo=='200') {
+
+                      $dtt = array('json' => $result );
+
+                      $orden->update($dtt);
+
+                      $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
+
+                    Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+
+                     Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+                   
+                  }else{
+
+                    $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
+
+                    Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+
+                     Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+
+
+                  }
+
+
+                }
 
 
                
