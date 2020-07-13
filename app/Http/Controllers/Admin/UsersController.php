@@ -159,6 +159,9 @@ class UsersController extends JoshController
     public function store(UsuarioRequest $request)
     {
 
+        $input=$request->all();
+
+
         //upload image
         if ($file = $request->file('pic_file')) {
             $extension = $file->extension()?: 'png';
@@ -171,6 +174,18 @@ class UsersController extends JoshController
         $activate = $request->get('activate') ? true : false;
 
         try {
+
+            $input=$request->all();
+
+            if ($input['almacen']==null || $input['almacen']=='') {
+
+                $request->almacen=0;
+
+               // dd($request->almacen);
+            }
+
+          //  dd($request->all());
+
             // Register the user
             $user = Sentinel::register($request->except('_token', 'password_confirm', 'group', 'activate', 'pic_file'), $activate);
 
@@ -184,7 +199,7 @@ class UsersController extends JoshController
                 // Data to be used on the email view
                 $data =[
                     'user_name' => $user->first_name .' '. $user->last_name,
-                    'activationUrl' => URL::secure_url('activate', [$user->id, Activation::create($user)->code])
+                    'activationUrl' => secure_url('activate', [$user->id, Activation::create($user)->code])
                 ];
                 // Send the activation code through email
                 Mail::to($user->email)
