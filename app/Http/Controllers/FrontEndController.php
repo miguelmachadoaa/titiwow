@@ -2074,15 +2074,6 @@ public function getApiUrl($endpoint, $jsessionid)
 
 
 
-
-
-
-
-
-
-
-
-
               
             }else{
 
