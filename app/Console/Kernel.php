@@ -85,11 +85,11 @@ class Kernel extends ConsoleKernel
 
          $schedule->command('generate:sitemap')->weekly();
          
-        $schedule->command('verificar:pagos')->everyFifteenMinutes();
+        $schedule->command('verificar:pagos')->everyFiveMinutes();
 
         $schedule->command('notificacion:carrito')->hourly();
 
-        $schedule->command('verificar:almacen')->hourly();
+        $schedule->command('verificar:almacen')->everyFiveMinutes();
 
         $schedule->command('activitylog:clean')->dailyAt('00:05');
 
