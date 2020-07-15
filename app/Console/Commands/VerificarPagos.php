@@ -451,7 +451,7 @@ class VerificarPagos extends Command
 
         Log::useDailyFiles(storage_path().'/logs/compramas.log');
         
-        Log::info('compramas dataraw '.$dataupdate);
+        Log::info('compramas dataraw '.json_encode($dataupdate));
 
          $configuracion = AlpConfiguracion::where('id','1')->first();
 
