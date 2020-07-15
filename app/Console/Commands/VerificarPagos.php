@@ -525,7 +525,7 @@ class VerificarPagos extends Command
                          $data_history = array(
                           'id_orden' => $orden->id, 
                          'id_status' => '9', 
-                          'notas' => 'Registro de orden en compramas. '.$res->mensaje, 
+                          'notas' => 'Error de orden en compramas. '.$res->mensaje, 
                           'json' => json_encode($result), 
                          'id_user' => 1
                       );

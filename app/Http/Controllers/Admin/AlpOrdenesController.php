@@ -3242,8 +3242,6 @@ public function detallealmacen($id)
 
        $dataraw=json_encode($dataupdate);
 
-       
-
          Log::useDailyFiles(storage_path().'/logs/compramas.log');
         
         Log::info('compramas dataraw '.$dataupdate);
@@ -3321,7 +3319,7 @@ public function detallealmacen($id)
                          $data_history = array(
                           'id_orden' => $orden->id, 
                          'id_status' => '9', 
-                          'notas' => 'Registro de orden en compramas. '.$res->mensaje, 
+                          'notas' => 'Error de orden en compramas. '.$res->mensaje, 
                           'json' => json_encode($result), 
                          'id_user' => 1
                       );

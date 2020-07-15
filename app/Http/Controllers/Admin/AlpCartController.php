@@ -6619,7 +6619,7 @@ private function getAlmacen3(){
 
 
               $dir = array(
-                'ordenId' => 'P'.$orden->referencia, 
+                'ordenId' => $orden->referencia, 
                 'ciudad' => $direccion->state_name, 
                 'telefonoCliente' => $cliente->telefono_cliente, 
                 'identificacionCliente' => $cliente->doc_cliente, 
@@ -6711,10 +6711,6 @@ private function getAlmacen3(){
                         $history=AlpOrdenesHistory::create($data_history);
 
 
-
-
-
-
           Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
 
            Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
@@ -6726,14 +6722,12 @@ private function getAlmacen3(){
           $data_history = array(
               'id_orden' => $orden->id, 
              'id_status' => '9', 
-              'notas' => 'Registro de orden en compramas. '.$res->mensaje, 
+              'notas' => 'Error de orden en compramas. '.$res->mensaje, 
               'json' => json_encode($result), 
              'id_user' => 1
           );
 
             $history=AlpOrdenesHistory::create($data_history);
-
-
 
           Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
 
@@ -6745,15 +6739,8 @@ private function getAlmacen3(){
 
       }
 
-
-
-
       
     }
-
-
-
-
 
 
 
