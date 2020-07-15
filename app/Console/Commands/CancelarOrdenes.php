@@ -78,7 +78,6 @@ class CancelarOrdenes extends Command
 
                 $ord->update($arrayName);
 
-
                 $detalles=AlpDetalles::where('id_orden', $orden->id)->get();
 
                 foreach ($detalles as $detalle) {

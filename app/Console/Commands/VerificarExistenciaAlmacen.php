@@ -13,6 +13,7 @@ use DB;
 
 use Illuminate\Console\Command;
 use Spatie\Activitylog\Models\Activity;
+use Illuminate\Support\Facades\Log;
 
 
 class VerificarExistenciaAlmacen extends Command
@@ -72,12 +73,9 @@ class VerificarExistenciaAlmacen extends Command
         }
         curl_close($ch);
 
-        activity()->withProperties($result)->log('existencia respuesta :');
-
-
-       // \Log::debug('Respuesta compra mas' . $result);
-
-        activity()->withProperties($result)->log('Respuesta compra mas');
+        Log::useDailyFiles(storage_path().'/logs/compramas.log');
+        
+        Log::info($result);
 
 
        $datos = json_decode($result);
@@ -111,23 +109,7 @@ class VerificarExistenciaAlmacen extends Command
                     AlpAlmacenProducto::create($data);
 
 
-                   /* if (isset($inventario[$p->id])) {
-                    
-
-                        $data_inventario = array(
-                            'id_almacen' => $almacen, 
-                            'id_producto' => $p->id, 
-                            'cantidad' => abs($inventario[$p->id]), 
-                            'operacion' => 2, 
-                            'notas' => 'Actualización de inventario por cron compramas', 
-                            'id_user' => 1 
-                        );
-
-                        //dd($data_inventario);   
-
-                        AlpInventario::create($data_inventario);
-
-
+                
                         $data_inventario_nuevo = array(
                             'id_almacen' => $almacen, 
                             'id_producto' => $p->id, 
@@ -139,26 +121,13 @@ class VerificarExistenciaAlmacen extends Command
 
                         AlpInventario::create($data_inventario_nuevo);
 
-                    }else{*/
-
-                        $data_inventario_nuevo = array(
-                            'id_almacen' => $almacen, 
-                            'id_producto' => $p->id, 
-                            'cantidad' => $dato->stock, 
-                            'operacion' => 1, 
-                            'notas' => 'Actualización de inventario por cron compramas', 
-                            'id_user' => 1 
-                        );
-
-                        AlpInventario::create($data_inventario_nuevo);
-
-
-                   /* }*/
 
                     # code...
                 }else{  //end fif $p->id
 
-                    activity()->withProperties($dato)->log('Sku no encontrado:');
+                    //activity()->withProperties($dato)->log('Sku no encontrado:');
+
+                    Log::info('Sku no encontrado:'.$dato);
 
 
                 } 
