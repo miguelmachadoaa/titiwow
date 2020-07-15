@@ -18,7 +18,7 @@ use App\Models\AlpDetalles;
 use App\Models\AlpOrdenesHistory;
 use App\Exports\CronNuevosUsuarios;
 use Maatwebsite\Excel\Facades\Excel;
-
+use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 use Mail;
 use MP;
@@ -488,8 +488,8 @@ class VerificarPagos extends Command
 
 
                    Log::info('compramas result '.$result);
-                   
-                    Log::info('compramas res '.$res);
+
+                    Log::info('compramas res '.json_encode($res));
 
 
                   if (isset($res->codigo)) {

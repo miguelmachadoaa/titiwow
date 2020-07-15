@@ -74,7 +74,7 @@ class VerificarExistenciaAlmacen extends Command
         curl_close($ch);
 
         Log::useDailyFiles(storage_path().'/logs/compramas.log');
-        
+
         Log::info($result);
 
 
@@ -127,7 +127,7 @@ class VerificarExistenciaAlmacen extends Command
 
                     //activity()->withProperties($dato)->log('Sku no encontrado:');
 
-                    Log::info('Sku no encontrado:'.$dato);
+                    Log::info('Sku no encontrado:'.json_encode($dato));
 
 
                 } 

@@ -26,6 +26,7 @@ use App\Models\AlpEstatusPagos;
 use App\Models\AlpInventario;
 use App\Models\AlpSaldo;
 use App\Models\AlpTemp;
+use Illuminate\Support\Facades\Log;
 
 use App\User;
 use App\City;
@@ -3280,11 +3281,11 @@ public function detallealmacen($id)
 
                   $res=json_decode($result);
 
-                 
+
                Log::info('compramas result '.$result);
 
-               
-               Log::info('compramas res '.$res);
+
+               Log::info('compramas res '.json_encode($res));
 
 
                   if (isset($res->codigo)) {

@@ -12,6 +12,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
 use Mail;
 use DB;
+use Illuminate\Support\Facades\Log;
 
 use Illuminate\Console\Command;
 
