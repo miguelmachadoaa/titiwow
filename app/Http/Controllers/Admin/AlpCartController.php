@@ -6649,7 +6649,7 @@ private function getAlmacen3(){
 
               //activity()->withProperties($dataraw)->log('compramas dataraw ');
 
-              Log::info('compramas dataraw '.$dataraw);
+             // Log::info('compramas dataraw '.$dataraw);
 
               $urls=$configuracion->compramas_url.'/registerOrderReserved/'.$configuracion->compramas_hash;
 
