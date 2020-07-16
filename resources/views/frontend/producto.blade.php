@@ -88,20 +88,20 @@
 
                                         @if($almacen->descuento_productos=='1')
 
-                                        @if($producto->precio_base>$producto->precio_oferta)
+                                            @if($producto->precio_base>$producto->precio_oferta)
 
-                                        <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
+                                            <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
+
+                                            @endif
 
                                         @endif
-
-                                    @endif
 
 
 
 
                                         ${{ number_format($producto->precio_oferta*$descuento,0,",",".") }}</span></p>
 
-                                    <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
+                                        <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
 
                                 @endif
 

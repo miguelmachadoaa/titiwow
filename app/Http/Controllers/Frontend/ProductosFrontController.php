@@ -183,18 +183,21 @@ class ProductosFrontController extends Controller
                 case 1:
 
                   $producto->precio_oferta=$producto->precio_base*$descuento;
+                  $producto->pum=$precio[$producto->id]['pum'];
 
                   break;
 
                 case 2:
 
                   $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
+                  $producto->pum=$precio[$producto->id]['pum'];
                   
                   break;
 
                 case 3:
 
                   $producto->precio_oferta=$precio[$producto->id]['precio'];
+                  $producto->pum=$precio[$producto->id]['pum'];
                   
                   break;
                 
