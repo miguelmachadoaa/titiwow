@@ -94,8 +94,6 @@ class VerificarExistenciaAlmacen extends Command
 
                 $p=AlpProductos::where('referencia_producto', $dato->sku)->first();
 
-
-
                 if (isset($p->id)) {
 
                   AlpInventario::where('id_almacen', '=', '1')->where('id_producto', $p->id)->delete();

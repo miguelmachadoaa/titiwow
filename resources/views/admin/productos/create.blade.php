@@ -730,8 +730,36 @@
 
                             <div id="price_page" class="panel-collapse collapse" style="height: 36.400001525878906px;">
                                 <div class="panel-body">
+
+                            
+                                                            
+                                <div class="form-group col-sm-12  {{ $errors->first('mostrar_descuento', 'has-error') }}">
+                                            <label for="select21" class="col-sm-3 control-label">
+                                                Mostrar Descuento 
+                                            </label>
+                                            <div class="col-sm-9">   
+                                             <select id="mostrar_descuento" name="mostrar_descuento" class="form-control ">
+                                                <option value="">Seleccione</option>
+                                                   
+                                                    <option value="{{ 1 }}"
+                                                             >Mostrar</option>
+
+                                                    <option value="{{ 0}}"
+                                                           >No Mostrar</option>
+                                                   
+                                            </select>
+
+                                            {!! $errors->first('mostrar_descuento', '<span class="help-block">:message</span> ') !!}
+                                            
+                                              
+                                            </div>
+                                           
+                                        </div>
+
+
+
                                     <div class="form-group clearfix col-sm-12 {{ $errors->
-                            first('precio_base', 'has-error') }}">
+                                        first('precio_base', 'has-error') }}">
                                        <label class="col-md-3 control-label producto_label" for="referencia_producto">@lang('productos/title.price') </label>
                                         <div class="col-md-9">
                                             <input id="precio_base" step="0.01" name="precio_base" type="number" placeholder="Precio" class="form-control" value="{{ old('precio_base') }}"  >{!! $errors->first('precio_base', '<span class="help-block">:message</span> ') !!}
@@ -745,7 +773,6 @@
                                         
                                         <div class="col-sm-12">
                                         
-                                            <!-- Select role -->
 
                                             <div class="form-group col-sm-3" style="margin: 0 0 15px 0;">
 
@@ -837,7 +864,7 @@
                                                
                                                     <div class="" >
 
-                                                        <select style="width: 100%; height: 2.5em;" id="test_tipo" name="test_tipo" class="form-control ">
+                                                        <select style="width: 100%; height: 2.5em;" id="test_tipo" name="test_tipo" class="form-control test_tipo">
 
                                                             <option value="1" Selected>Dejar Precio Base</option>
                                                             <option value="2">Porcentaje Descuento</option>
@@ -850,18 +877,30 @@
 
 
                                                 
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-2">
                                                     <input id="test_precio" step="0.01" name="test_precio" type="number" placeholder="Valor" class="form-control" readonly="" value="{{ old('precio_role') }}"  >
 
                                                     <h3><span class="label label-success ">Precio  </span></h3>
                                                 </div>
 
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-2">
                                                     <input id="test_pum"  name="test_pum" type="text" placeholder="PUM" class="form-control" value="{{ old('pum') }}"  >
-
                                                     
                                                 </div>
+                                                
+                                                <div class="form-group col-sm-2" style="margin: 0 0 15px 0;">
+                                               
+                                                    <div class="" >
 
+                                                        <select style="width: 100%; height: 2.5em;" id="test_descuento" name="test_descuento" class="form-control ">
+
+                                                            <option value="1" Selected>Mostrar </option>
+                                                            <option value="0">No Mostrar</option>
+
+                                                        </select>       
+                                                    </div>
+
+                                                </div>
 
 
 
@@ -1112,13 +1151,13 @@
                     ele.find('#test_precio').attr('id', 'rolprecio_'+role_separado[0]+'_'+city_separado[0]+'');
 
 
-                    ele.find('select').attr('name', 'select_'+role_separado[0]+'_'+city_separado[0]+'');
+                    ele.find('.test_tipo').attr('name', 'select_'+role_separado[0]+'_'+city_separado[0]+'');
 
-                    ele.find('select').attr('id', 'select_'+role_separado[0]+'_'+city_separado[0]+'');
+                    ele.find('.test_tipo').attr('id', 'select_'+role_separado[0]+'_'+city_separado[0]+'');
 
-                    ele.find('select').attr('data-rc', role_separado[0]+'_'+city_separado[0]+'');
+                    ele.find('.test_tipo').attr('data-rc', role_separado[0]+'_'+city_separado[0]+'');
 
-                    ele.find('select').addClass('selectprecio');
+                    ele.find('.test_tipo').addClass('selectprecio');
 
 
                     
@@ -1129,6 +1168,15 @@
                     ele.find('#test_pum').addClass('rolpum');
 
                     ele.find('#test_pum').attr('id', 'rolpum_'+role_separado[0]+'_'+city_separado[0]+'');
+
+
+                    ele.find('#test_descuento').attr('name', 'roldescuento_'+role_separado[0]+'_'+city_separado[0]+'');
+
+                    ele.find('#test_descuento').attr('data-rc', role_separado[0]+'_'+city_separado[0]+'');
+
+                    ele.find('#test_descuento').addClass('roldescuento');
+
+                    ele.find('#test_descuento').attr('id', 'roldescuento_'+role_separado[0]+'_'+city_separado[0]+'');
 
                     
 

@@ -501,6 +501,7 @@ class AlpProductosController extends JoshController
             'precio_base' =>$request->precio_base,             
             'pum' =>$request->pum,
             'medida' =>$request->medida,
+            'mostrar_descuento' =>$request->mostrar_descuento,
             'id_user' =>$user_id
         );
          
@@ -537,6 +538,7 @@ class AlpProductosController extends JoshController
 
         $select = array();
         $pum = array();
+        $mostrar = array();
 
         foreach ($input as $key => $value) {
 
@@ -564,6 +566,19 @@ class AlpProductosController extends JoshController
             
           }
 
+
+          if (substr($key, 0, 12)=='roldescuento') {
+
+            #echo $key.':'.$value.'<br>';
+
+            $par=explode('_', $key);
+
+            $mostrar[$par[1]][$par[2]]=$value;            
+            
+          }
+
+
+
         }
 
        
@@ -583,6 +598,7 @@ class AlpProductosController extends JoshController
               'operacion' => $select[$par[1]][$par[2]], 
               'precio' => $value, 
               'pum' => $pum[$par[1]][$par[2]],
+              'mostrar_descuento' => $mostrar[$par[1]][$par[2]],
               'id_user' => $user_id
             );
 
@@ -1102,6 +1118,7 @@ class AlpProductosController extends JoshController
                 'id_impuesto' =>$request->id_impuesto,
                 'pum' =>$request->pum,
                 'medida' =>$request->medida,
+                'mostrar_descuento' =>$request->mostrar_descuento,
                 'precio_base' =>$request->precio_base
                 );
 
@@ -1123,6 +1140,7 @@ class AlpProductosController extends JoshController
                 'id_impuesto' =>$request->id_impuesto,                
                 'pum' =>$request->pum,
                 'medida' =>$request->medida,
+                'mostrar_descuento' =>$request->mostrar_descuento,
                 'id_marca' =>$request->id_marca
                 );
 
@@ -1163,6 +1181,8 @@ class AlpProductosController extends JoshController
         
         $pum = array();
 
+        $mostrar = array();
+
         foreach ($input as $key => $value) {
 
          # echo substr($key, 0, 6).'<br>';
@@ -1187,7 +1207,21 @@ class AlpProductosController extends JoshController
             
           }
 
+
+          if (substr($key, 0, 12)=='roldescuento') {
+
+            #echo $key.':'.$value.'<br>';
+
+            $par=explode('_', $key);
+
+            $mostrar[$par[1]][$par[2]]=$value;            
+            
+          }
+
         }
+
+
+        //dd($mostrar);
 
        # print_r($select).'<br><br><br>';
 
@@ -1206,8 +1240,11 @@ class AlpProductosController extends JoshController
               'operacion' => $select[$par[1]][$par[2]], 
               'precio' => $value, 
               'pum' => $pum[$par[1]][$par[2]],
+              'mostrar_descuento' => $mostrar[$par[1]][$par[2]],
               'id_user' => $user_id
             );
+
+           //(()) dd($data_precio);
 
             AlpPrecioGrupo::create($data_precio);
 

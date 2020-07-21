@@ -25,6 +25,7 @@ class AlpPrecioGrupo extends Model
         'operacion',
         'precio',
         'pum',
+        'mostrar_descuento',
         'estado_registro',
         'id_user'
     ];

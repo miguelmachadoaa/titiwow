@@ -58,6 +58,7 @@ class AlpProductos extends Model
         'sugerencia',
         'orden',
         'robots',
+        'mostrar_descuento',
         'estado_registro',
         'id_user'
     ];

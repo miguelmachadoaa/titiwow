@@ -66,6 +66,7 @@ foreach ($cities as $city) {
                                     'id_producto' => $p->id, 
                                     'city_id' => $city, 
                                     'pum' => $row[2], 
+                                    'mostrar_descuento' => $row[3], 
                                     'id_role' => $rol, 
                                     'id_user' => $user_id, 
                                 );

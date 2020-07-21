@@ -43,7 +43,8 @@ class ProductosPrecioBase implements ToCollection
 
                             $data_precio_new = array(
                                 'precio_base' => $row[1], 
-                                'pum' => $row[2]
+                                'pum' => $row[2],
+                                'mostrar_descuento' => $row[3]
                             );
 
                             $p->update($data_precio_new);

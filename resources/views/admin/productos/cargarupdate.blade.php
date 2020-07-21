@@ -159,15 +159,13 @@ Actualizar Precios
                         <div class="form-group {{ $errors->
                             first('file', 'has-error') }}">
                             <div class="row" style="margin-top: 1em;">
-                                <label class="col-md-3 col-lg-3 col-12 control-label" for="upload">Archivo CSV (Referencia, Precio, PUM)</label>
+                                <label class="col-md-3 col-lg-3 col-12 control-label" for="upload">Archivo CSV (Referencia, Precio, PUM, Mostrar Descuento)</label>
 
 
                                 <div class="col-md-9 col-12 col-lg-9">
                                     <input type="file" accept=".xlsx" name="file_update"  id="file_update"> <!-- rename it -->
 
-
                                     {!! $errors->first('file', '<span class="help-block">:message</span> ') !!}
-
 
                                 </div>
 
