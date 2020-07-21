@@ -90,19 +90,26 @@
 
                                             @if($producto->mostrar_descuento=='1')
 
-                                                @if($producto->precio_base>$producto->precio_oferta)
+                                                @if(isset($producto->mostrar))
 
-                                                <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
+                                                    @if($producto->mostrar==1)
+
+                                                        @if($producto->precio_base>$producto->precio_oferta)
+
+                                                            <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
+
+                                                        @endif
+
+
+                                                    @endif
 
                                                 @endif
 
+                                                
                                             @endif
 
-                                            
 
                                         @endif
-
-
 
 
                                         ${{ number_format($producto->precio_oferta*$descuento,0,",",".") }}</span></p>

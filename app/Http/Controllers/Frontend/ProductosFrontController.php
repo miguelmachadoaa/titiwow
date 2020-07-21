@@ -105,6 +105,7 @@ class ProductosFrontController extends Controller
                         $precio[$row->id]['precio']=$pregiogrupo->precio;
                         $precio[$row->id]['operacion']=$pregiogrupo->operacion;
                         $precio[$row->id]['pum']=$pregiogrupo->pum;
+                        $precio[$row->id]['mostrar']=$pregiogrupo->mostrar_descuento;
 
                     }else{
 
@@ -116,6 +117,8 @@ class ProductosFrontController extends Controller
                           $precio[$row->id]['precio']=$pregiogrupo->precio;
                           $precio[$row->id]['operacion']=$pregiogrupo->operacion;
                           $precio[$row->id]['pum']=$pregiogrupo->pum;
+                          $precio[$row->id]['mostrar']=$pregiogrupo->mostrar_descuento;
+
 
                       }
 
@@ -144,6 +147,8 @@ class ProductosFrontController extends Controller
                         $precio[$row->id]['precio']=$pregiogrupo->precio;
                         $precio[$row->id]['operacion']=$pregiogrupo->operacion;
                         $precio[$row->id]['pum']=$pregiogrupo->pum;
+                        $precio[$row->id]['mostrar']=$pregiogrupo->mostrar_descuento;
+
 
                     }else{
 
@@ -154,6 +159,8 @@ class ProductosFrontController extends Controller
                           $precio[$row->id]['precio']=$pregiogrupo->precio;
                           $precio[$row->id]['operacion']=$pregiogrupo->operacion;
                           $precio[$row->id]['pum']=$pregiogrupo->pum;
+                          $precio[$row->id]['mostrar']=$pregiogrupo->mostrar_descuento;
+
 
                       }
 
@@ -184,6 +191,7 @@ class ProductosFrontController extends Controller
 
                   $producto->precio_oferta=$producto->precio_base*$descuento;
                   $producto->pum=$precio[$producto->id]['pum'];
+                  $producto->mostrar=$precio[$producto->id]['mostrar'];
 
                   break;
 
@@ -191,6 +199,7 @@ class ProductosFrontController extends Controller
 
                   $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
                   $producto->pum=$precio[$producto->id]['pum'];
+                  $producto->mostrar=$precio[$producto->id]['mostrar'];
                   
                   break;
 
@@ -198,6 +207,7 @@ class ProductosFrontController extends Controller
 
                   $producto->precio_oferta=$precio[$producto->id]['precio'];
                   $producto->pum=$precio[$producto->id]['pum'];
+                  $producto->mostrar=$precio[$producto->id]['mostrar'];
                   
                   break;
                 
