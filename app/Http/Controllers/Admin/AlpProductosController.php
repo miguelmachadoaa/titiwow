@@ -127,9 +127,6 @@ class AlpProductosController extends JoshController
                                                 data-loop='true' data-c='#f56954' data-hc='#f56954'
                                                 title='Eliminar'></i>
                                              </a>
-
-
-
                  ";
 
 
@@ -138,8 +135,6 @@ class AlpProductosController extends JoshController
             }else{
 
                    $destacado="  <div style=' display: inline-block; padding: 0; margin: 0;' id='td_".$alpProductos->id."'><button title='Normal' data-url='".secure_url('productos/destacado')."' data-destacado='1' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  destacado'>  <span class='glyphicon glyphicon-star-empty' aria-hidden='true'></span>   </button></div>";
-
-
             }
 
                 if ($alpProductos->sugerencia == 1) {
@@ -152,10 +147,8 @@ class AlpProductosController extends JoshController
 
             }
 
-
             $imagen="<img src='../uploads/productos/".$alpProductos->imagen_producto."' height='60px'>";
 
-            //dd($alpProductos);
 
                $data[]= array(
                  $alpProductos->id, 
@@ -502,6 +495,8 @@ class AlpProductosController extends JoshController
             'pum' =>$request->pum,
             'medida' =>$request->medida,
             'mostrar_descuento' =>$request->mostrar_descuento,
+            'cantidad' =>$request->cantidad,
+            'unidad' =>$request->unidad,
             'id_user' =>$user_id
         );
          
@@ -1076,16 +1071,13 @@ class AlpProductosController extends JoshController
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
-
-
         $producto = AlpProductos::find($id);
-
 
         $user_id = Sentinel::getUser()->id;
 
         $input = $request->all();
 
-        //dd($input);
+        //dd($producto);
 
         $imagen='0';
 
@@ -1119,6 +1111,8 @@ class AlpProductosController extends JoshController
                 'pum' =>$request->pum,
                 'medida' =>$request->medida,
                 'mostrar_descuento' =>$request->mostrar_descuento,
+                'cantidad' =>$request->cantidad,
+                'unidad' =>$request->unidad,
                 'precio_base' =>$request->precio_base
                 );
 
@@ -1141,10 +1135,14 @@ class AlpProductosController extends JoshController
                 'pum' =>$request->pum,
                 'medida' =>$request->medida,
                 'mostrar_descuento' =>$request->mostrar_descuento,
+                'cantidad' =>$request->cantidad,
+                'unidad' =>$request->unidad,
                 'id_marca' =>$request->id_marca
                 );
 
         }
+
+       // dd($data);
          
         $producto->update($data);
 

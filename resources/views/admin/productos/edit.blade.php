@@ -770,6 +770,42 @@
 
                                             </div>
 
+
+                                            <div class="form-group col-sm-12 clearfix {{ $errors->first('unidad', 'has-error') }}">
+
+                                                <label class="col-sm-3 col-xs-12 control-label" for="referencia_producto">Unidad de Medida</label>
+
+                                                <div class="col-sm-9 col-xs-12">
+                                                    <input id="unidad" name="unidad" type="text" placeholder="Unidad de Medida" class="form-control" value="{{$producto->unidad}}"  >
+
+                                                     {!! $errors->first('unidad', '<span class="help-block">:message</span> ') !!}
+
+                                                </div>
+                                                <br>    
+
+                                              
+
+                                            </div>
+
+
+                                            <div class="form-group col-sm-12 clearfix {{ $errors->first('cantidad', 'has-error') }}">
+
+                                                <label class="col-sm-3 col-xs-12 control-label" for="referencia_producto">Cantidad del Producto </label>
+
+                                                <div class="col-sm-9 col-xs-12">
+                                                    <input id="cantidad" name="cantidad" type="text" placeholder="Cantidad del Producto" class="form-control" value="{{$producto->cantidad}}"  >
+
+                                                     {!! $errors->first('cantidad', '<span class="help-block">:message</span> ') !!}
+
+                                                </div>
+                                                <br>    
+
+                                              
+
+                                            </div>
+
+
+
                                            
                                             <div class="acc-wizard-step">
                                                 
