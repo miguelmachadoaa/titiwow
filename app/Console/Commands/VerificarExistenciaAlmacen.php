@@ -94,19 +94,17 @@ class VerificarExistenciaAlmacen extends Command
 
                 $p=AlpProductos::where('referencia_producto', $dato->sku)->first();
 
-                if (isset($p->id)) {
+                    if (isset($p->id)) {
 
-                  AlpInventario::where('id_almacen', '=', '1')->where('id_producto', $p->id)->delete();
+                        AlpInventario::where('id_almacen', '=', '1')->where('id_producto', $p->id)->delete();
 
-                    $data = array(
-                        'id_almacen' => $almacen, 
-                        'id_producto' => $p->id, 
-                        'id_user' => 1 
-                    );
+                        $data = array(
+                            'id_almacen' => $almacen, 
+                            'id_producto' => $p->id, 
+                            'id_user' => 1 
+                        );
 
-                    AlpAlmacenProducto::create($data);
-
-
+                        AlpAlmacenProducto::create($data);
                 
                         $data_inventario_nuevo = array(
                             'id_almacen' => $almacen, 
@@ -120,15 +118,12 @@ class VerificarExistenciaAlmacen extends Command
                         AlpInventario::create($data_inventario_nuevo);
 
 
-                    # code...
-                }else{  //end fif $p->id
+                        # code...
+                    }else{  //end fif $p->id
 
-                    //activity()->withProperties($dato)->log('Sku no encontrado:');
+                        Log::info('Sku no encontrado:'.json_encode($dato));
 
-                    Log::info('Sku no encontrado:'.json_encode($dato));
-
-
-                } 
+                    } 
                 } 
                 
             } //end foreach datos
