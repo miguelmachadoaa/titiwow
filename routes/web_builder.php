@@ -979,6 +979,10 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
         Route::post('{menu}/updson', 'Admin\AlpMenuController@updson')->name('menus.updson');
 
+        Route::get('{menu}/ordenar', 'Admin\AlpMenuController@ordenar')->name('menus.ordenar');
+
+        Route::post('{menu}/postordenar', 'Admin\AlpMenuController@postordenar')->name('menus.postordenar');
+
     });
 
     Route::post('menus/create', 'Admin\AlpMenuController@store');
@@ -1135,6 +1139,8 @@ Route::get('cart/deldir/{direccion}',['as'=>'cart.deldir', 'uses'=>'Admin\AlpCar
 Route::get('configuracion/states/{id}',array('as'=>'configuracion.states','uses'=>'Admin\AlpConfiguracionController@selectState'));
        
 Route::get('configuracion/cities/{id}',array('as'=>'configuracion.cities','uses'=>'Admin\AlpConfiguracionController@selectCity'));
+
+Route::get('configuracion/tipourl/{id}',array('as'=>'configuracion.tipourl','uses'=>'Admin\AlpConfiguracionController@selectTipoUrl'));
 
 
 

@@ -17,6 +17,9 @@ Menu {{$menu->id}}
     <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ secure_asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
     <link href="{{ secure_asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
+
+    <link href="{{ secure_asset('assets/css/pages/sortable.css') }}" rel="stylesheet" type="text/css">
+
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
     <!--end of page level css-->
 @stop
@@ -71,10 +74,61 @@ Menu {{$menu->id}}
                             </div>
                         </div>
 
+                       
+
+
+
+                        <div class="form-group  {{ $errors->first('tipo_enlace', 'has-error') }}">
+                            <label for="select21" class="col-sm-2 control-label">
+                                Tipo de Enlace
+                            </label>
+                            <div class="col-sm-5">   
+                             <select id="tipo_enlace" name="tipo_enlace" class="form-control ">
+                                <option value="">Seleccione</option>
+                                    
+                                   
+                                    <option value="{{ 1 }}" >Paginas</option>
+
+                                    <option value="{{ 2}}" >Producto</option>
+
+                                    <option value="{{ 3 }}" >Categoria</option>
+
+                                    <option value="{{ 4}}" >Marca</option>
+
+                                    <option value="{{ 5}}" >Url</option>
+                                   
+                            </select>
+                            <div class="col-sm-4">
+                                {!! $errors->first('tipo_enlace', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                              
+                            </div>
+                           
+                        </div>
+
+
+                        <div class="form-group  {{ $errors->first('elemento_enlace', 'has-error') }}">
+                            <label for="select21" class="col-sm-2 control-label">
+                                Elemento Enlace
+                            </label>
+                            <div class="col-sm-5">   
+                             <select id="elemento_enlace" name="elemento_enlace" class="form-control ">
+                                <option value="">Seleccione</option>
+                                   
+                            </select>
+                            <div class="col-sm-4">
+                                {!! $errors->first('elemento_enlace', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                              
+                            </div>
+                           
+                        </div>
+
+
                         <div class="form-group {{ $errors->
                             first('slug', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Slug
+                                Slug (Modificar solo si selecciona la opcion url)
                             </label>
                             <div class="col-sm-5">
                                 <input type="text" id="slug" name="slug" class="form-control" placeholder="Slug Sub Menu" value="">
@@ -83,6 +137,9 @@ Menu {{$menu->id}}
                                 {!! $errors->first('slug', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
+
+
+
 
 
                        <div class="form-group">
@@ -198,6 +255,8 @@ Menu {{$menu->id}}
         </div>
     </div>    <!-- row-->
 </section>
+
+<input type="hidden" id="base" name="base" value="{{secure_url('/')}}">
 @stop
 
 
@@ -218,6 +277,11 @@ Menu {{$menu->id}}
 <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
     <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
 
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/nestable-list/jquery.nestable.js') }}"></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/html5sortable/html.sortable.js') }}"></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/js/pages/ui-nestable.js') }}"></script>
+
+
 
 <script>
 
@@ -225,6 +289,48 @@ Menu {{$menu->id}}
      $(document).ready(function() {
 
             $('#table').DataTable();
+            
+        });
+
+
+
+
+
+      $('select[name="tipo_enlace"]').on('change', function() {
+            var stateID = $(this).val();
+            var base = $('#base').val();
+
+            if(stateID) {
+                $.ajax({
+                    url: base+'/configuracion/tipourl/'+stateID,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+
+                        
+                        $('select[name="elemento_enlace"]').empty();
+
+                        $.each(data, function(key, value) {
+                            $('select[name="elemento_enlace"]').append('<option value="'+ key+'">'+ value +'</option>');
+                        });
+
+                    }
+                });
+            }else{
+                $('select[name="elemento_enlace"]').empty();
+            }
+        });
+
+
+
+      $('select[name="elemento_enlace"]').on('change', function() {
+
+            var stateID = $(this).val();
+
+            var base = $('#base').val();
+
+            $('#slug').val($(this).val());
+
             
         });
 

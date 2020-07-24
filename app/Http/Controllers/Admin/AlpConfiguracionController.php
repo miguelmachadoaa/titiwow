@@ -7,6 +7,10 @@ use App\Models\AlpConfiguracion;
 use App\Models\AlpDespachoCiudad;
 use App\Models\AlpAlmacenDespacho;
 use App\Models\AlpAlmacenes;
+use App\Models\AlpCms;
+use App\Models\AlpCategorias;
+use App\Models\AlpMarcas;
+use App\Models\AlpProductos;
 use App\Country;
 use App\State;
 use App\City;
@@ -914,6 +918,85 @@ class AlpConfiguracionController extends JoshController
 
           }
     }
+
+
+
+
+       public function selectTipoUrl($id)
+    {
+
+
+      $elementos=0;
+
+      $data = array();
+
+
+        switch ($id) {
+          case '1':
+            //code to be executed if n=label1;
+            //
+            $elementos = AlpCms::all();
+
+
+            foreach ($elementos as $e) {
+
+              $data['paginas/'.$e->slug]=$e->titulo_pagina;
+              # code...
+            }
+
+            break;
+          case '2':
+
+           $elementos=AlpProductos::get();
+
+           foreach ($elementos as $e) {
+
+              $data['producto/'.$e->slug]=$e->nombre_producto ;
+              # code...
+            }
+
+            break;
+          case '3':
+            $elementos=AlpCategorias::get();
+
+            foreach ($elementos as $e) {
+
+              $data['categoria/'.$e->slug]=$e->nombre_categoria ;
+              # code...
+            }
+
+
+            break;
+
+          case '4':
+            $elementos=AlpMarcas::get();
+
+            foreach ($elementos as $e) {
+
+              $data['marcas/'.$e->slug]=$e->nombre_marca ;
+              # code...
+            }
+
+
+            break;
+
+          case '5':
+            
+            break;
+            
+          default:
+           
+        }
+
+
+        $data[0]='Seleccione';
+
+       
+        return json_encode($data);
+    }
+
+
+
 
     
     

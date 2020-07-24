@@ -241,6 +241,161 @@ class AlpMenuController extends JoshController
         return view('admin.menus.edit', compact('menu'));
     }
 
+
+     public function ordenar($id)
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpMenuController/ordenar ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpMenuController/ordenar');
+
+
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['menus.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+
+       
+        $menus = AlpDetalleSubmenu::where('alp_menu_detalles.id_menu',$id)
+        ->where('parent', '=', 0)->orderby('order')->get();
+
+        foreach ($menus as $m) {
+
+            $h = AlpDetalleSubmenu::where('alp_menu_detalles.parent',$m->id)->get();
+
+            foreach ($h as $hh) {
+
+                $a = AlpDetalleSubmenu::where('alp_menu_detalles.parent',$hh->id)->get();
+
+                foreach ($a as $aa) {
+
+                    $b = AlpDetalleSubmenu::where('alp_menu_detalles.parent',$hh->id)->get();
+
+                    if (count($b)) {
+                        $aa->hijos=$b;
+                    }
+                }
+
+                if (count($a)) {
+                     $hh->hijos=$a;
+                }
+
+               
+            }
+
+
+            if (count($h)) {
+                $m->hijos=$h;
+            }
+
+
+             
+            
+            
+        }
+
+        //dd($menus);
+
+        return view('admin.menus.orden', compact('menus'));
+    }
+
+
+     public function postordenar(Request $request, $id)
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpMenuController/ordenar ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpMenuController/ordenar');
+
+
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['menus.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+
+        $input=$request->all();
+
+         $datos = json_decode($input['orden']);
+
+        $i=0;
+         foreach ($datos as $d) {
+
+            
+
+            $i++;
+             
+             $data = array(
+                'order' => $i ,
+                'parent' => '0' 
+            );
+
+
+
+             $m=AlpDetalleSubmenu::where('id', $d->id)->first();
+
+             $m->update($data);
+            
+
+             if (isset($d->children)) {
+
+                $j=0;
+                 
+                foreach ($d->children as $b ) {
+
+                    
+
+                    $j++;
+
+                    $datab = array(
+                        'order' => $j,
+                        'parent' => $d->id,
+                    );
+
+
+                    $n=AlpDetalleSubmenu::where('id', $b->id)->first();
+
+                    $n->update($datab);
+                }
+
+
+             }
+         }
+
+
+        return json_encode($datos);
+    }
+
+
+
+
     /**
      * Group update form processing page.
      *
@@ -400,6 +555,7 @@ class AlpMenuController extends JoshController
 
 
 
+
        
        $menu = AlpMenu::find($id);
 
@@ -439,7 +595,9 @@ class AlpMenuController extends JoshController
         
          $user_id = Sentinel::getUser()->id;
 
-        //$input = $request->all();
+        $input = $request->all();
+
+        //dd($input);
 
         //var_dump($input);
        
