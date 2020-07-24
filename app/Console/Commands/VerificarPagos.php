@@ -72,7 +72,7 @@ class VerificarPagos extends Command
 
          //\Log::debug('1 listado' . $ordenes);
 
-         activity()->withProperties($ordenes)->log('Listado de ordenes a consultar');
+        // activity()->withProperties($ordenes)->log('Listado de ordenes a consultar');
 
         // die;
       
@@ -107,7 +107,7 @@ class VerificarPagos extends Command
           $preference = MP::get("/v1/payments/search?external_reference=".$ord->referencia);
 //\Log::debug('preference ' . json_encode($preference));
 
-          activity()->withProperties($preference)->log('preference');
+        //  activity()->withProperties($preference)->log('preference');
 
 
           //if (isset($preference['response']['results'][0])) {
@@ -140,8 +140,8 @@ class VerificarPagos extends Command
 
                 $direccion=AlpDirecciones::where('id', $ord->id_address)->withTrashed()->first();
 
-                activity()->withProperties($direccion)->log('detalle de direccion en verificar pagos ');
-                activity()->withProperties($ord->id)->log('Orden aprobada verificar pagos ');
+            //    activity()->withProperties($direccion)->log('detalle de direccion en verificar pagos ');
+             //   activity()->withProperties($ord->id)->log('Orden aprobada verificar pagos ');
 
                 // \Log::debug('1.3 direccion detalle direccion ' . $direccion);
 
@@ -601,11 +601,11 @@ class VerificarPagos extends Command
             ';
 
 
-            activity()->withProperties($xml)->log('xml_ibm_add_recipiente');
+          //  activity()->withProperties($xml)->log('xml_ibm_add_recipiente');
 
         $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-        activity()->withProperties($result)->log('xml_ibm_add_result');
+       // activity()->withProperties($result)->log('xml_ibm_add_result');
 
        // print_r($result);
 
@@ -621,7 +621,7 @@ class VerificarPagos extends Command
 
               $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml, true));
 
-              activity()->withProperties($result)->log('xml_ibm_add_result2');
+           //   activity()->withProperties($result)->log('xml_ibm_add_result2');
 
              // print_r($result);
 

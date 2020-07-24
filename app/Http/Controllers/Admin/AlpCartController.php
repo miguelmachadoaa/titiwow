@@ -6575,9 +6575,6 @@ private function getAlmacen3(){
 
        $orden=AlpOrdenes::where('id', $id_orden)->first();
 
-
-        //activity()->withProperties($orden)->log('compramas orden ');
-
         Log::useDailyFiles(storage_path().'/logs/compramas.log');
         
         Log::info('compramas orden '.json_encode($orden));
@@ -6590,7 +6587,10 @@ private function getAlmacen3(){
                   $productos = array();
 
                   foreach ($detalles as $d) {
-                    
+
+                    if ($d->precio_unitario>0) {
+
+
                       $dt = array(
                         'sku' => $d->referencia_producto, 
                         'name' => $d->nombre_producto, 
@@ -6601,6 +6601,10 @@ private function getAlmacen3(){
                       );
 
                       $productos[]=$dt;
+                     
+                    }
+                    
+                      
                   }
 
               $cliente =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista','alp_clientes.doc_cliente as doc_cliente')
@@ -6646,19 +6650,10 @@ private function getAlmacen3(){
 
               $dataraw=json_encode($o);
 
-
-              //activity()->withProperties($dataraw)->log('compramas dataraw ');
-
-             // Log::info('compramas dataraw '.$dataraw);
-
               $urls=$configuracion->compramas_url.'/registerOrderReserved/'.$configuracion->compramas_hash;
-
-               //activity()->withProperties($urls)->log('compramas dataraw ');
 
                Log::info('compramas urls '.$urls);
 
-
-        //$dataraw=json_encode($o);
 
       $ch = curl_init();
 
@@ -6682,11 +6677,8 @@ private function getAlmacen3(){
 
       $res=json_decode($result);
 
-     // activity()->withProperties($res)->log('compramas res ');
-      //activity()->withProperties($result)->log('compramas result ');
-
-
        Log::info('compramas res '.json_encode($res));
+       
        Log::info('compramas result '.$result);
 
       if (isset($res->codigo)) {

@@ -395,7 +395,6 @@ class AlpOrdenesController extends JoshController
          ->limit('1000')
          ->orderBy('alp_ordenes.id', 'desc')
           ->get();
-
          
 
           $formaspago=AlpFormaspago::pluck('nombre_forma_pago', 'id');
