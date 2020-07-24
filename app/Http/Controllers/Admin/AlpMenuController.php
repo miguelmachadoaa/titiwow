@@ -275,15 +275,15 @@ class AlpMenuController extends JoshController
 
         foreach ($menus as $m) {
 
-            $h = AlpDetalleSubmenu::where('alp_menu_detalles.parent',$m->id)->get();
+            $h = AlpDetalleSubmenu::where('alp_menu_detalles.parent',$m->id)->orderby('order')->get();
 
             foreach ($h as $hh) {
 
-                $a = AlpDetalleSubmenu::where('alp_menu_detalles.parent',$hh->id)->get();
+                $a = AlpDetalleSubmenu::where('alp_menu_detalles.parent',$hh->id)->orderby('order')->get();
 
                 foreach ($a as $aa) {
 
-                    $b = AlpDetalleSubmenu::where('alp_menu_detalles.parent',$hh->id)->get();
+                    $b = AlpDetalleSubmenu::where('alp_menu_detalles.parent',$hh->id)->orderby('order')->get();
 
                     if (count($b)) {
                         $aa->hijos=$b;
@@ -370,8 +370,6 @@ class AlpMenuController extends JoshController
                  
                 foreach ($d->children as $b ) {
 
-                    
-
                     $j++;
 
                     $datab = array(
@@ -379,10 +377,35 @@ class AlpMenuController extends JoshController
                         'parent' => $d->id,
                     );
 
-
                     $n=AlpDetalleSubmenu::where('id', $b->id)->first();
 
                     $n->update($datab);
+
+
+                    if (isset($b->children)) {
+
+                        $k=0;
+                        foreach ($b->children as $c ) {
+
+                            $k++;
+
+                              $datac = array(
+                                    'order' => $k,
+                                    'parent' => $b->id,
+                                );
+
+                                $l=AlpDetalleSubmenu::where('id', $c->id)->first();
+
+                                $l->update($datac);
+
+
+                        }
+
+                        
+
+                    }
+
+
                 }
 
 
