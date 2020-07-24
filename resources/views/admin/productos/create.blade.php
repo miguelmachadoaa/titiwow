@@ -1528,8 +1528,6 @@ $('#productosForm').keypress(
 
 
 
-
-
 $('#tipo_producto').change(function(){
 
     if ($(this).val()=='1') {
@@ -1548,10 +1546,6 @@ $('#tipo_producto').change(function(){
     }
 
 });
-
-
-
-
 
 
      </script>

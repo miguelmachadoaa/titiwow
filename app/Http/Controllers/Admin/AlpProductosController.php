@@ -1242,7 +1242,7 @@ class AlpProductosController extends JoshController
               'id_user' => $user_id
             );
 
-           //(()) dd($data_precio);
+           // dd($data_precio);
 
             AlpPrecioGrupo::create($data_precio);
 

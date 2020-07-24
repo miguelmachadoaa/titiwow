@@ -1006,10 +1006,10 @@
                                                
                                                     <div class="" >
 
-                                                        <select style="width: 100%; height: 2.5em;" id="{{ 'roldescuento_'.$pg->id_role.'_'.$pg->city_id }}" name="{{ 'roldescuento_'.$pg->id_role.'_'.$pg->city_id }}" data-rc="{{ $pg->id_role.'_'.$pg->city_id }}" class="form-control selectprecio select2">
+                                                        <select style="width: 100%; height: 2.5em;" id="{{ 'roldescuento_'.$pg->id_role.'_'.$pg->city_id }}" name="{{ 'roldescuento_'.$pg->id_role.'_'.$pg->city_id }}" data-rc="{{ $pg->id_role.'_'.$pg->city_id }}" class="form-control  select2">
 
                                                             <option value="1"  @if($pg->mostrar_descuento == '1') selected="selected" @endif  >Mostrar</option>
-                                                            <option value="2" @if($pg->mostrar_descuento == '0') selected="selected" @endif  >No Mostrar</option>
+                                                            <option value="2" @if($pg->mostrar_descuento == '2') selected="selected" @endif  >No Mostrar</option>
                                                             
 
                                                         </select>       
