@@ -88,6 +88,13 @@ class AlpMenuController extends JoshController
                                                 title='Eliminar'></i>
                                              </a>
 
+                                             <a href='".secure_url('admin/menus/'.$row->id.'/ordenar')."'>
+                                                <i class='livicon' data-name='list' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Ordenar Menu'></i>
+                                            </a>
+
+
+
+
 ";
 
                 
@@ -628,6 +635,7 @@ class AlpMenuController extends JoshController
         $data = array(
             'name' => $request->name, 
             'slug' => $request->slug, 
+            'open' => $request->open, 
             'parent' =>'0', 
             'order' =>0, 
             'id_menu' =>$id_menu
@@ -715,19 +723,16 @@ class AlpMenuController extends JoshController
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
-       
 
-                $data = array(
+        $data = array(
             'name' => $request->name, 
             'slug' => $request->slug, 
             'order' => $request->order, 
+            'open' => $request->open, 
             'parent' =>$request->parent
-                );
+        );
 
         $detalle = AlpDetalleSubmenu::find($id);
-
-
-       
     
         $detalle->update($data);
 
@@ -806,21 +811,15 @@ class AlpMenuController extends JoshController
         }
 
         
-        
          $user_id = Sentinel::getUser()->id;
 
         $detalle = AlpDetalleSubmenu::find($id_detalle);
-
-
-        //$input = $request->all();
-
-        //var_dump($input);
-       
 
         $data = array(
             'name' => $request->name, 
             'slug' => $request->slug, 
             'parent' =>$request->parent, 
+            'open' => $request->open, 
             'order' =>0, 
             'id_menu' =>$detalle->id_menu
         );

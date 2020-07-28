@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class AlpDetalleSubmenu extends Model
+class AlpAlmacenSlider extends Model
 {
     use SoftDeletes;
 
-    public $table = 'alp_menu_detalles';
+    public $table = 'alp_almacen_slider';
     
 
     protected $dates = ['deleted_at'];
@@ -19,13 +19,10 @@ class AlpDetalleSubmenu extends Model
 
     public $fillable = [
         'id',
-        'name',
-        'slug',
-        'parent',
-        'order',
-        'enabled',
-        'open',
-        'id_menu'
+        'id_almacen',
+        'id_slider',
+        'estado_registro',
+        'id_user'
     ];
 
     /**
@@ -34,7 +31,7 @@ class AlpDetalleSubmenu extends Model
      * @var array
      */
     protected $casts = [
-        'name' => 'string'
+        'id_almacen' => 'string'
     ];
 
     /**
@@ -43,6 +40,6 @@ class AlpDetalleSubmenu extends Model
      * @var array
      */
     public static $rules = [
-        'slug' => 'required'
+        'id_almacen' => 'required'
     ];
 }

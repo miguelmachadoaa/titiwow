@@ -165,6 +165,37 @@ Editar Slider
                                 {!! $errors->first('order', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
+
+
+
+                         <fieldset >
+
+                         <div class="col-sm-10 col-sm-offset-2">
+                
+                            <h3>Seleccione los almacenes.</h3>
+
+
+                                @foreach($almacenes as $a)
+
+                                <div class="checkbox">
+                                  <label>
+                                    <input type="checkbox" id="almacen_{{$a->id}}" name="almacenes_{{$a->id}}" value="{{$a->id}}" @if(in_array($a->id, $as)) {{'checked'}} @endif >
+                                   {{$a->nombre_almacen}}
+                                  </label>
+                                </div>
+
+
+                                @endforeach
+
+                               <br>
+                               <br>
+                               <br>
+
+                            </fieldset>
+
+
+
+
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                 

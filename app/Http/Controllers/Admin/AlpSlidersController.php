@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\JoshController;
 use App\Http\Requests\SlidersRequest;
 use App\Models\AlpSliders;
+use App\Models\AlpAlmacenes;
+use App\Models\AlpAlmacenSlider;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Redirect;
@@ -60,18 +62,29 @@ class AlpSlidersController extends JoshController
             $imagen="<img src='../uploads/sliders/".$row->imagen_slider."' height='60px'>";
 
             $actions = "   <a href='".secure_url('admin/sliders/'.$row->id.'/edit')."'>
-                                                <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Editar Estado de Envio'></i>
-                                            </a>
+                            <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Editar Estado de Envio'></i>
+                        </a>
+
+
+                        <!-- let's not delete 'Admin' group by accident -->
+                        
+                        <a href='".secure_url('admin/sliders/'.$row->id.'/confirm-delete')."' data-toggle='modal' data-target='#delete_confirm'>
+                        <i class='livicon' data-name='remove-alt' data-size='18'
+                            data-loop='true' data-c='#f56954' data-hc='#f56954'
+                            title='Eliminar'></i>
+                         </a>
 
 
 
-                                            <!-- let's not delete 'Admin' group by accident -->
-                                            
-                                            <a href='".secure_url('admin/sliders/'.$row->id.'/confirm-delete')."' data-toggle='modal' data-target='#delete_confirm'>
-                                            <i class='livicon' data-name='remove-alt' data-size='18'
-                                                data-loop='true' data-c='#f56954' data-hc='#f56954'
-                                                title='Eliminar'></i>
-                                             </a>";
+
+
+                            
+
+                                             "
+
+
+                                             ;
+
 
 
 
@@ -106,11 +119,16 @@ class AlpSlidersController extends JoshController
     public function create()
     {
         
-if (!Sentinel::getUser()->hasAnyAccess(['sliders.*'])) {
+        if (!Sentinel::getUser()->hasAnyAccess(['sliders.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
-        return view('admin.sliders.create');
+
+
+        $almacenes=AlpAlmacenes::get();
+
+
+        return view('admin.sliders.create', compact('almacenes'));
     }
 
     /**
@@ -130,7 +148,7 @@ if (!Sentinel::getUser()->hasAnyAccess(['sliders.*'])) {
 
         $input = $request->all();
 
-        //var_dump($input);
+       // dd($input);
 
         $imagen='default.png';
 
@@ -172,6 +190,25 @@ if (!Sentinel::getUser()->hasAnyAccess(['sliders.*'])) {
         );
          
         $slider=AlpSliders::create($data);
+
+
+
+
+        foreach ($input as $key => $value) {
+
+            if (substr($key,0,7)=='almacen') {
+
+                $data_sa = array(
+                    'id_almacen' =>$value,
+                    'id_slider' =>$slider->id,
+                    'id_user' =>$user_id
+                );
+
+                AlpAlmacenSlider::create($data_sa);
+
+            }
+            # code...
+        }
 
         /*se guarda inventario*/
 
@@ -220,9 +257,24 @@ if (!Sentinel::getUser()->hasAnyAccess(['sliders.*'])) {
         }
 
       $slider=AlpSliders::where('id', $id)->first();
+
+
+      $almacenes=AlpAlmacenes::get();
+
+      $almacenslider=AlpAlmacenSlider::where('id_slider', '=', $id)->get();
+
+      $as = array();
+
+      foreach ($almacenslider as $almacens) {
+
+            $as[$almacens->id_almacen]=$almacens->id_almacen;
+          # code...
+      }
+
+     // dd($as);
         
 
-        return view('admin.sliders.edit', compact('slider'));
+        return view('admin.sliders.edit', compact('slider', 'almacenes', 'as'));
 
     }
 
@@ -298,6 +350,24 @@ if (!Sentinel::getUser()->hasAnyAccess(['sliders.*'])) {
        // dd($data);
          
         $slider->update($data);
+
+        AlpAlmacenSlider::where('id_slider', '=', $id)->delete();
+
+         foreach ($input as $key => $value) {
+
+            if (substr($key,0,7)=='almacen') {
+
+                $data_sa = array(
+                    'id_almacen' =>$value,
+                    'id_slider' =>$id,
+                    'id_user' =>$user_id
+                );
+
+                AlpAlmacenSlider::create($data_sa);
+
+            }
+            # code...
+        }
 
         if ($slider->id) {
 

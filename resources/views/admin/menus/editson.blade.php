@@ -149,6 +149,30 @@ Editar Sub Menu
                         </div>
 
 
+                        <div class="form-group  {{ $errors->first('open', 'has-error') }}">
+                            <label for="select21" class="col-sm-2 control-label">
+                                Abrir enlace
+                            </label>
+                            <div class="col-sm-5">   
+                             <select id="open" name="open" class="form-control ">
+                                <option value="">Seleccione</option>
+                                   
+                                    <option value="{{ 1 }}" @if($detalle->open=='1') {{'Selected'}} @endif >Misma Ventana</option>
+
+                                    <option value="{{ 2}}" @if($detalle->open=='2') {{'Selected'}} @endif  >Ventana Nueva</option>
+                                   
+                            </select>
+                            <div class="col-sm-4">
+                                {!! $errors->first('open', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                              
+                            </div>
+                           
+                        </div>
+
+
+
+
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                 

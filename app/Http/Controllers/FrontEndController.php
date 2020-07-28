@@ -708,7 +708,7 @@ class FrontEndController extends JoshController
             }
         }
       
-        $sliders=AlpSliders::orderBy("order")->get();
+
 
         $inventario=$this->inventario();
 
@@ -723,6 +723,14 @@ class FrontEndController extends JoshController
        //dd($inventario);
 
        $url=secure_url('/');
+
+
+        $sliders=AlpSliders::select('alp_slider.*')
+        ->join('alp_almacen_slider','alp_slider.id', '=', 'alp_almacen_slider.id_slider')
+        ->where('alp_almacen_slider.id_almacen', '=', $id_almacen)
+        ->orderBy("order")->get();
+
+        //dd($sliders);
 
 
       // dd($inventario);

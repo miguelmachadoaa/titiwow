@@ -34,6 +34,8 @@ class Menu extends Model
             $item = [ array_merge($line, ['submenu' => $menus->getChildren($data, $line) ]) ];
             $menuAll = array_merge($menuAll, $item);
         }
+
+        dd($menuAll);
         return $menus->menuAll = $menuAll;
     }
 }
