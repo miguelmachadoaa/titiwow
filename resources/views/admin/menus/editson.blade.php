@@ -69,6 +69,52 @@ Editar Sub Menu
                             </div>
                         </div>
 
+                        <div class="form-group  {{ $errors->first('tipo_enlace', 'has-error') }}">
+                            <label for="select21" class="col-sm-2 control-label">
+                                Tipo de Enlace
+                            </label>
+                            <div class="col-sm-5">   
+                             <select id="tipo_enlace" name="tipo_enlace" class="form-control ">
+                                <option value="">Seleccione</option>
+                                    
+                                   
+                                    <option value="{{ 1 }}" >Paginas</option>
+
+                                    <option value="{{ 2}}" >Producto</option>
+
+                                    <option value="{{ 3 }}" >Categoria</option>
+
+                                    <option value="{{ 4}}" >Marca</option>
+
+                                    <option value="{{ 5}}" >Url</option>
+                                   
+                            </select>
+                            <div class="col-sm-4">
+                                {!! $errors->first('tipo_enlace', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                              
+                            </div>
+                           
+                        </div>
+
+
+                        <div class="form-group  {{ $errors->first('elemento_enlace', 'has-error') }}">
+                            <label for="select21" class="col-sm-2 control-label">
+                                Elemento Enlace
+                            </label>
+                            <div class="col-sm-5">   
+                             <select id="elemento_enlace" name="elemento_enlace" class="form-control ">
+                                <option value="">Seleccione</option>
+                                   
+                            </select>
+                            <div class="col-sm-4">
+                                {!! $errors->first('elemento_enlace', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                              
+                            </div>
+                           
+                        </div>
+
                         <div class="form-group {{ $errors->first('slug', 'has-error') }}">
 
                             <label for="title" class="col-sm-2 control-label"> Slug </label>
@@ -124,6 +170,9 @@ Editar Sub Menu
     <!-- row-->
 </section>
 
+
+<input type="hidden" name="base" id="base" value="{{secure_url('/')}}">
+
 @stop
 
 
@@ -141,6 +190,51 @@ Editar Sub Menu
 <script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
 
 <script src="{{ secure_asset('assets/js/pages/add_newblog.js') }}" type="text/javascript"></script>
+
+
+<script>
+    
+
+     $('select[name="tipo_enlace"]').on('change', function() {
+            var stateID = $(this).val();
+            var base = $('#base').val();
+
+            if(stateID) {
+                $.ajax({
+                    url: base+'/configuracion/tipourl/'+stateID,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+
+                        
+                        $('select[name="elemento_enlace"]').empty();
+
+                        $.each(data, function(key, value) {
+                            $('select[name="elemento_enlace"]').append('<option value="'+ key+'">'+ value +'</option>');
+                        });
+
+                    }
+                });
+            }else{
+                $('select[name="elemento_enlace"]').empty();
+            }
+        });
+
+
+
+      $('select[name="elemento_enlace"]').on('change', function() {
+
+            var stateID = $(this).val();
+
+            var base = $('#base').val();
+
+            $('#slug').val($(this).val());
+
+            
+        });
+
+
+</script>
 
 @stop
 

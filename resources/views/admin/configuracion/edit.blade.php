@@ -543,6 +543,22 @@ Editar Configuracion General
 
                                                     <div class="checkbox">
                                                       <label>
+                                                        <input type="checkbox" id="robots_index" name="robots_index" value="index"    @if(in_array('index', $robots)) {{'checked'}} @endif >
+                                                       Index
+                                                      </label>
+                                                    </div>
+
+                                                    <div class="checkbox">
+                                                      <label>
+                                                        <input type="checkbox" id="robots_index" name="robots_index" value="index"    @if(in_array('index', $robots)) {{'checked'}} @endif >
+                                                       Follow
+                                                      </label>
+                                                    </div>
+
+
+
+                                                    <div class="checkbox">
+                                                      <label>
                                                         <input type="checkbox" id="robots_noindex" name="robots_noindex" value="noindex"  @if(in_array('noindex', $robots)) {{'checked'}} @endif >
                                                        noindex
                                                       </label>

@@ -29,7 +29,9 @@
     @yield('meta_tags')
     <!--global css starts-->
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/lib.css') }}">
+
     <link href="https://fonts.googleapis.com/css?family=Comfortaa|Oswald|Montserrat:300,400,600|Roboto" rel="stylesheet">    
+    
     <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
     <!--end of global css-->
 
