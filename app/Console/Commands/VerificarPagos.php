@@ -542,6 +542,27 @@ class VerificarPagos extends Command
                   }
 
 
+                }else{
+
+                    $data_history = array(
+                        'id_orden' => $orden->id, 
+                       'id_status' => '9', 
+                        'notas' => 'Respuesta de orden en compramas. ',
+                        'json' => json_encode($result), 
+                       'id_user' => 1
+                    );
+
+                    $history=AlpOrdenesHistory::create($data_history);
+
+
+                      $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
+
+                    Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+
+                     Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+
+                     
+
                 }
 
 

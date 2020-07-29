@@ -713,12 +713,10 @@ class AlpCartController extends JoshController
 
 
            if ($compra->id_almacen==1) {
-                
 
-                  $compramas=$this->reservarOrden($id_orden);
+              
 
-
-                }
+            }
 
 
 
@@ -1194,7 +1192,7 @@ class AlpCartController extends JoshController
            if ($compra->id_almacen==1) {
                 
 
-                  $compramas=$this->reservarOrden($compra->id);
+                  
 
 
                 }
@@ -1818,7 +1816,7 @@ class AlpCartController extends JoshController
                 if ($compra->id_almacen==1) {
                 
 
-                  $compramas=$this->reservarOrden($compra->id);
+                  
 
 
                 }
@@ -2470,7 +2468,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
             if ($compra->id_almacen==1) {
                 
 
-                  $compramas=$this->reservarOrden($compra->id);
+                  
 
 
                 }
@@ -4617,6 +4615,12 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
             }
 
+
+            if ($orden->id_almacen==1) {
+              $compramas=$this->reservarOrden($orden->id);
+            }
+
+
             \Session::put('cr', $orden->id);
 
          }
@@ -6572,7 +6576,6 @@ private function getAlmacen3(){
 
       $configuracion=AlpConfiguracion::first();
       
-
        $orden=AlpOrdenes::where('id', $id_orden)->first();
 
         Log::useDailyFiles(storage_path().'/logs/compramas.log');
@@ -6623,7 +6626,7 @@ private function getAlmacen3(){
 
 
               $dir = array(
-                'ordenId' => $orden->referencia, 
+                'ordenId' => 'P'.$orden->referencia, 
                 'ciudad' => $direccion->state_name, 
                 'telefonoCliente' => $cliente->telefono_cliente, 
                 'identificacionCliente' => $cliente->doc_cliente, 
@@ -6681,6 +6684,18 @@ private function getAlmacen3(){
        
        Log::info('compramas result '.$result);
 
+
+       $data_history = array(
+            'id_orden' => $orden->id, 
+           'id_status' => '9', 
+            'notas' => 'Registro de orden en compramas. ',
+            'json' => json_encode($result), 
+           'id_user' => 1
+        );
+
+          $history=AlpOrdenesHistory::create($data_history);
+
+
       if (isset($res->codigo)) {
         
         if ($res->codigo=='200') {
@@ -6728,6 +6743,26 @@ private function getAlmacen3(){
 
         }
 
+
+      }else{
+
+        $data_history = array(
+            'id_orden' => $orden->id, 
+           'id_status' => '9', 
+            'notas' => 'Respuesta de orden en compramas. ',
+            'json' => json_encode($result), 
+           'id_user' => 1
+        );
+
+        $history=AlpOrdenesHistory::create($data_history);
+
+          $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
+
+          Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+
+           Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+
+                     
 
       }
 

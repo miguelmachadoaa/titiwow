@@ -1888,6 +1888,9 @@ public function getApiUrl($endpoint, $jsessionid)
 
             if (isset($d->id)) {
 
+
+               \Session::put('ciudad', $d->city_id);
+
               $tipo=0;
 
             if ($role->role_id=='14') {

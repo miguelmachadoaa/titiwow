@@ -140,6 +140,8 @@
 
     /*funciones para crear ubicacion del comprador*/
 
+    
+
 
      $('.btnpg').click(function(){
 
@@ -209,8 +211,7 @@
         });
 
 
-
-         $('.saveubicacion').click(function () {
+         $('.saveubicacion').click(function (){
     
             var $validator = $('#addCiuadadForm').data('bootstrapValidator').validate();
 
@@ -363,8 +364,6 @@
 
                             }
                         });
-
-
 
 
          });
