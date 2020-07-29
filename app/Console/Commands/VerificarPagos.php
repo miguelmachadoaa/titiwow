@@ -373,6 +373,7 @@ class VerificarPagos extends Command
 
                
             }elseif($pending){
+              
 
             }elseif($cancel){
 
@@ -399,7 +400,6 @@ class VerificarPagos extends Command
                     $this->sendcompramas($orden->id, 'rejected');
                     # code...
                   }
-
 
 
             }
@@ -447,7 +447,6 @@ class VerificarPagos extends Command
 
        $dataraw=json_encode($dataupdate);
 
-        
 
         Log::useDailyFiles(storage_path().'/logs/compramas.log');
         

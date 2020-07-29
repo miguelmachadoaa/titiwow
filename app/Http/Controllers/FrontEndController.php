@@ -736,12 +736,12 @@ class FrontEndController extends JoshController
        $url=secure_url('/');
 
 
-      //  $sliders=AlpSliders::select('alp_slider.*')
-      //  ->join('alp_almacen_slider','alp_slider.id', '=', 'alp_almacen_slider.id_slider')
-      //  ->where('alp_almacen_slider.id_almacen', '=', $id_almacen)
-      //  ->orderBy("order")->get();
+        $sliders=AlpSliders::select('alp_slider.*')
+        ->join('alp_almacen_slider','alp_slider.id', '=', 'alp_almacen_slider.id_slider')
+        ->where('alp_almacen_slider.id_almacen', '=', $id_almacen)
+        ->orderBy("order")->get();
 
-        $sliders=AlpSliders::get();
+       // $sliders=AlpSliders::get();
 
         //dd($sliders);
 
