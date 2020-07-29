@@ -22,6 +22,7 @@ class AlpMenuDetalle extends Model
             ->orderby('parent')
             ->orderby('order')
             ->orderby('name')
+            ->whereNull('deleted_at')
             ->get()
             ->toArray();
     }

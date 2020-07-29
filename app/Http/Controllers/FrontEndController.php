@@ -37,6 +37,8 @@ use App\Models\AlpEnvios;
 use App\Models\AlpEnviosEstatus;
 use App\Models\AlpEnviosHistory;
 use App\Models\AlpXml;
+
+
 use App\User;
 use App\State;
 use App\City;
@@ -485,6 +487,11 @@ class FrontEndController extends JoshController
 
       $id_almacen=$this->getAlmacen();
 
+
+      $m=AlpMenuDetalle::menus(1);
+
+    //  dd($m);
+
       //dd($id_almacen);
 
         $rol=9;
@@ -655,24 +662,28 @@ class FrontEndController extends JoshController
             case 1:
 
               $producto->precio_oferta=$producto->precio_base*$descuento;
+              $producto->pum=$precio[$producto->id]['pum'];
 
               break;
 
             case 2:
 
               $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
+              $producto->pum=$precio[$producto->id]['pum'];
               
               break;
 
             case 3:
 
               $producto->precio_oferta=$precio[$producto->id]['precio'];
+              $producto->pum=$precio[$producto->id]['pum'];
               
               break;
             
             default:
             
              $producto->precio_oferta=$producto->precio_base*$descuento;
+             
               # code...
               break;
           }
@@ -725,10 +736,12 @@ class FrontEndController extends JoshController
        $url=secure_url('/');
 
 
-        $sliders=AlpSliders::select('alp_slider.*')
-        ->join('alp_almacen_slider','alp_slider.id', '=', 'alp_almacen_slider.id_slider')
-        ->where('alp_almacen_slider.id_almacen', '=', $id_almacen)
-        ->orderBy("order")->get();
+      //  $sliders=AlpSliders::select('alp_slider.*')
+      //  ->join('alp_almacen_slider','alp_slider.id', '=', 'alp_almacen_slider.id_slider')
+      //  ->where('alp_almacen_slider.id_almacen', '=', $id_almacen)
+      //  ->orderBy("order")->get();
+
+        $sliders=AlpSliders::get();
 
         //dd($sliders);
 

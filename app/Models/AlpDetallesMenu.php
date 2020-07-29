@@ -35,7 +35,6 @@ class Menu extends Model
             $menuAll = array_merge($menuAll, $item);
         }
 
-        dd($menuAll);
         return $menus->menuAll = $menuAll;
     }
 }

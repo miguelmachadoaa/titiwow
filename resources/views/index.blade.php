@@ -249,11 +249,41 @@ Inicio @parent
                                                                         
                                                                     @endswitch
 
-                                                                    <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $precio[$producto->id]['pum'] }}</h6></a>
+                                                                    @if($producto->cantidad==null)
+                                                                    <a href="{{ route('producto', [$producto->slug]) }}" >
+                                                                        <h6 class="pum">{{ $producto->pum }}</h6>
+                                                                    </a>
+                                                                    @else
+
+                                                                    <a href="{{ route('producto', [$producto->slug]) }}" >
+                                                                        <h6 class="pum">
+                                                                            {{ $producto->unidad.' a $'.number_format($producto->precio_oferta/$producto->cantidad,2,",",".") }} pesos
+                                                                        </h6>
+                                                                    </a>
+
+                                                                    @endif
+
+                                                                    
+
+                                                                    
 
                                                                 @else
                                 
                                                                     <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
+
+                                                                    @if($producto->cantidad==null)
+                                                                    <a href="{{ route('producto', [$producto->slug]) }}" >
+                                                                        <h6 class="pum">{{ $producto->pum }}</h6>
+                                                                    </a>
+                                                                    @else
+
+                                                                    <a href="{{ route('producto', [$producto->slug]) }}" >
+                                                                        <h6 class="pum">
+                                                                            {{ $producto->unidad.' a $'.number_format($producto->precio_oferta/$producto->cantidad,2,",",".") }} pesos
+                                                                        </h6>
+                                                                    </a>
+
+                                                                    @endif
 
                                                                     <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
 

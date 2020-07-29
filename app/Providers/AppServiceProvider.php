@@ -1,13 +1,9 @@
 <?php
-
 namespace App\Providers;
-
 use App\Models\AlpMenuDetalle;
 use App\Models\AlpConfiguracion;
-
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
-
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,8 +24,6 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('categorias', AlpMenuDetalle::menus(2));
 
                 $categ=AlpMenuDetalle::menus(2);
-
-                //dd($categ);
 
             });
 

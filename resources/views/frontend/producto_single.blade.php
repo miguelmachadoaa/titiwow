@@ -262,11 +262,21 @@
 
                             @endif
 
-                            @if(isset($precio[$producto->id]))
-                                                  <p style="font-size: 0.8em; margin: 0px;">{{ $precio[$producto->id]['pum'] }}</p> 
-                                                @else
-                                                 <p style="font-size: 12px; margin: 0px;">{{ $producto->pum}}</p>
-                                                @endif
+                            @if($producto->cantidad==null)
+                                <a href="{{ route('producto', [$producto->slug]) }}" >
+                                    <h6 class="pum">{{ $producto->pum }}</h6>
+                                </a>
+                                @else
+
+                                <a href="{{ route('producto', [$producto->slug]) }}" >
+                                    <h6 class="pum">
+                                        {{ $producto->unidad.' a $'.number_format($producto->precio_oferta/$producto->cantidad,2,",",".") }} pesos
+                                    </h6>
+                                </a>
+
+                                @endif
+
+                                
 
                             <p style="font-size: 0.8em; margin: 0px;" class="span_impuesto">
                                 @if($producto->id_impuesto == 1)

@@ -100,6 +100,11 @@ Menús
                             </ol>
                         </div>
 
+                        <br>
+                        <br>
+
+                        <button type="button" id="guardar" class="btn btn-primary  ">Guardar </button>
+
 
   
                 </div>
@@ -147,40 +152,39 @@ Menús
 <script>
 
 
+    
+
+
 var UINestable = function () {
 
     var updateOutput = function (e) {
-        var list = e.length ? e : $(e.target),
-            output = list.data('output');
-        if (window.JSON) {
 
-            //output.val(window.JSON.stringify(list.nestable('serialize'))); //, null, 2));
+        var list = e.length ? e : $(e.target),
+
+            output = list.data('output');
+
+        $('#guardar').on('click', function(){
 
             orden=window.JSON.stringify(list.nestable('serialize'));
 
-            base=$('#base').val();
+                base=$('#base').val();
 
-            _token=$('#_token').val();
+                _token=$('#_token').val();
 
-            $.ajax({
-            type: "POST",
-            data:{ orden,  _token },
-            url: base+"/admin/menus/"+"1"+"/postordenar",
-                
-            complete: function(datos){     
+                $.ajax({
+                type: "POST",
+                data:{ orden,  _token },
+                url: base+"/admin/menus/"+"1"+"/postordenar",
+                    
+                complete: function(datos){   
 
-              
-            
-            }
+                    $( location ).attr("href", base+"/admin/menus/");  
+
+                }
+            });
+
+
         });
-
-
-
-
-
-        } else {
-            output.val('JSON browser support required for this demo.');
-        }
     };
 
 
