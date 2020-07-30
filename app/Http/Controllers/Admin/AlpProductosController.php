@@ -35,6 +35,8 @@ use DOMDocument;
 use View;
 use DB;
 
+use Intervention\Image\ImageManager;
+
 
 class AlpProductosController extends JoshController
 {
@@ -82,6 +84,10 @@ class AlpProductosController extends JoshController
         $productos = AlpProductos::select('alp_productos.*', 'alp_categorias.nombre_categoria as nombre_categoria')
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
           ->get();
+
+
+
+        
 
         // Show the page
         return view('admin.productos.index', compact('productos'));
@@ -147,7 +153,7 @@ class AlpProductosController extends JoshController
 
             }
 
-            $imagen="<img src='../uploads/productos/".$alpProductos->imagen_producto."' height='60px'>";
+            $imagen="<img src='../uploads/productos/60/".$alpProductos->imagen_producto."' height='60px'>";
 
 
                $data[]= array(
@@ -471,7 +477,11 @@ class AlpProductosController extends JoshController
             $extension = $file->extension()?: 'jpg';
             $picture = str_random(10) . '.' . $extension;    
             $destinationPath = public_path('uploads/productos/' . $picture);
-            Image::make($file)->resize(600, 600)->save($destinationPath);            
+            Image::make($file)->resize(600, 600)->save($destinationPath); 
+            $destinationPath = public_path('uploads/productos/250/' . $picture);
+            Image::make($file)->resize(250, 250)->save($destinationPath);
+            $destinationPath = public_path('uploads/productos/60/' . $picture);
+            Image::make($file)->resize(60, 60)->save($destinationPath);             
             $imagen = $picture;
 
         }     
@@ -1090,7 +1100,14 @@ class AlpProductosController extends JoshController
           $extension = $file->extension()?: 'jpg';
           $picture = str_random(10) . '.' . $extension;    
           $destinationPath = public_path('uploads/productos/' . $picture);
-          Image::make($file)->resize(600, 600)->save($destinationPath);            
+          Image::make($file)->resize(600, 600)->save($destinationPath);   
+
+          $destinationPath = public_path('uploads/productos/250/' . $picture);
+          Image::make($file)->resize(250, 250)->save($destinationPath);
+
+          $destinationPath = public_path('uploads/productos/60/' . $picture);
+          Image::make($file)->resize(60, 60)->save($destinationPath);   
+
           $imagen = $picture;
 
              $data = array(
@@ -2213,6 +2230,42 @@ class AlpProductosController extends JoshController
         Excel::import(new ProductosPrecioBase, $archivo);
         
         return redirect('admin/productos/cargarpreciobase')->with('success', 'Productos Actualizados Exitosamente');
+    }
+
+
+    public function generarImagenes(){
+
+
+      $productos=AlpProductos::get();
+
+        foreach ($productos as $p) {
+
+            if (is_file('uploads/productos/' .$p->imagen_producto)) {
+
+              //dd($p->imagen_producto);
+
+              $intervention = new ImageManager();
+
+              $image = $intervention->make('uploads/productos/' .$p->imagen_producto);
+
+              $image->resize(250, 250);
+
+              $image->save('uploads/productos/250/' .$p->imagen_producto, 90);
+
+              $image->resize(60, 60);
+
+              $image->save('uploads/productos/60/' .$p->imagen_producto, 90);
+
+            }
+            
+          }
+
+
+
+          return redirect('admin/productos');
+
+
+
     }
 
 

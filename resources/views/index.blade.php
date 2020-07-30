@@ -190,7 +190,7 @@ Inicio @parent
                                          <div class="col-md-2 col-sm-6 col-xs-6 ">
                                                         <div class="productos">
                                                             <div class="text-align:center;">
-                                                                <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" alt="{{ $producto->nombre_producto }}" title="{{ $producto->nombre_producto }}" class="img-responsive homi"></a>
+                                                                <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/250/'.$producto->imagen_producto }}" alt="{{ $producto->nombre_producto }}" title="{{ $producto->nombre_producto }}" class="img-responsive homi"></a>
 
                                                                 @if(isset($inventario[$producto->id]))
 
@@ -403,7 +403,7 @@ Inicio @parent
                                          <div class="col-md-2 col-sm-6 col-xs-6 ">
                                                         <div class="productos">
                                                             <div class="text-align:center;">
-                                                                <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" alt="{{ $producto->nombre_producto }}" title="{{ $producto->nombre_producto }}" class="img-responsive homi"></a>
+                                                                <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/250/'.$producto->imagen_producto }}" alt="{{ $producto->nombre_producto }}" title="{{ $producto->nombre_producto }}" class="img-responsive homi"></a>
 
                                                                 @if(isset($inventario[$producto->id]))
 

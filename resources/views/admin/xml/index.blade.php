@@ -145,7 +145,7 @@ Xml Productos
 
                             <td>
                                 <figure>
-                                    <img style="width: 60px;" src="{{secure_url('uploads/productos/'.$p->imagen_producto)}}" data-src="{{secure_url('uploads/productos/'.$p->imagen_producto)}}" alt="img">
+                                    <img style="width: 60px;" src="{{secure_url('uploads/productos/'.$p->imagen_producto)}}" data-src="{{secure_url('uploads/productos/60/'.$p->imagen_producto)}}" alt="img">
                                 </figure>
                             </td>
 

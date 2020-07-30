@@ -5,7 +5,7 @@
         @if($error=='0')
 
         <div class="col-sm-6">
-            <img class="img img-responsive" src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" alt="{{ $producto->nombre_producto }}" title="{{ $producto->nombre_producto }}">
+            <img class="img img-responsive" src="{{ secure_url('/').'/uploads/productos/60/'.$producto->imagen_producto }}" alt="{{ $producto->nombre_producto }}" title="{{ $producto->nombre_producto }}">
         </div>
         <div class="col-sm-6">
             <h3 style="font-size: 1.3em;">{{ $producto->nombre_producto }}</h3>

@@ -35,7 +35,7 @@
                     <div class="row @if($row->disponible==0) {{'nodisponible'}} @endif " style="text-align: left;">
                         
                         <div class="col-sm-2 col-xs-4">
-                            <a target="_blank"  href="{{ route('producto', [$row->slug]) }}" ><img style="padding: 5px 0px; height: 8em;"  src="../uploads/productos/{{$row->imagen_producto}}" alt="{{ $row->nombre_producto }}" title="{{ $row->nombre_producto }}"></a>
+                            <a target="_blank"  href="{{ route('producto', [$row->slug]) }}" ><img style="padding: 5px 0px; height: 8em;"  src="../uploads/productos/60/{{$row->imagen_producto}}" alt="{{ $row->nombre_producto }}" title="{{ $row->nombre_producto }}"></a>
                         </div>
 
                         <div class="col-sm-6 col-xs-8">

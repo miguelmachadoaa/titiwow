@@ -332,7 +332,7 @@ Orden {{$orden->id}}
                  <tbody>
                      @foreach($detalles as $row)
                         <tr>
-                            <td><img height="60px" src="{{ secure_url('/') }}/uploads/productos/{{$row->imagen_producto}}"></td>
+                            <td><img height="60px" src="{{ secure_url('/') }}/uploads/productos/60/{{$row->imagen_producto}}"></td>
                             <td>{{$row->referencia_producto}}</td>
                             <td>{{$row->nombre_producto}}</td>
                             <td>{{number_format($row->precio_unitario,2)}}</td>

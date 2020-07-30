@@ -88,6 +88,8 @@ Route::get('admin/ordenes/dataalmacen', 'Admin\AlpOrdenesController@dataalmacen'
 
 Route::get('admin/productos/data', 'Admin\AlpProductosController@data')->name('productos.data');
 
+Route::get('admin/productos/generarImagenes', 'Admin\AlpProductosController@generarImagenes')->name('productos.generarImagenes');
+
 Route::get('admin/categorias/data', 'Admin\AlpCategoriasController@data')->name('categorias.data');
 
 Route::get('admin/marcas/data', 'Admin\AlpMarcasController@data')->name('marcas.data');

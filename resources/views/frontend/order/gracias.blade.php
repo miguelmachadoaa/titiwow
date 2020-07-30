@@ -112,7 +112,7 @@ Carrito de Compras
                  <tbody>
                      @foreach($detalles as $row)
                         <tr>
-                            <td><a target="_blank"  href="{{ secure_url('producto', [$row->slug]) }}" ><img height="60px" src="{{secure_url('/uploads/productos/'.$row->imagen_producto)}}"></a></td>
+                            <td><a target="_blank"  href="{{ secure_url('producto', [$row->slug]) }}" ><img height="60px" src="{{secure_url('/uploads/productos/60/'.$row->imagen_producto)}}"></a></td>
 
                             <td><a target="_blank"  href="{{ secure_url('producto', [$row->slug]) }}" >{{$row->nombre_producto}}</a></td>
 
