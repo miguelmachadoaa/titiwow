@@ -59,6 +59,7 @@ use URL;
 use Validator;
 use View;
 use DB; 
+use Exception;
 
 
 class FrontEndController extends JoshController
@@ -1767,12 +1768,11 @@ class FrontEndController extends JoshController
 ///////////////////////Funciones de IBM//////////////////////////////////////////
 
 
-
 public function makeRequest($endpoint, $jsessionid, $xml, $ignoreResult = false)
 {
     $url = $this->getApiUrl($endpoint, $jsessionid);
 
-    echo  $url.'<br>';
+    //echo  $url.'<br>';
     
     $xmlObj = new \SimpleXmlElement($xml);
 
@@ -2135,6 +2135,11 @@ public function getApiUrl($endpoint, $jsessionid)
 
     private function addibm($user)
     {
+
+
+      $u=User::where('id', $user->id)->first();
+
+
         
         $pod = 0;
         $username = 'api_alpina@alpina.com';
@@ -2190,11 +2195,6 @@ public function getApiUrl($endpoint, $jsessionid)
 
         activity()->withProperties($result)->log('xml_ibm_add_result');
 
-       // print_r($result);
-
-       // echo "3<br>";
-
-    //LOGOUT
 
         $xml = '<Envelope>
           <Body>
@@ -2206,7 +2206,25 @@ public function getApiUrl($endpoint, $jsessionid)
 
               activity()->withProperties($result)->log('xml_ibm_add_result2');
 
-             // print_r($result);
+            if (isset($result2['SUCCESS'])) {
+              
+              $data_u = array(
+                'estatus_ibm' => 1, 
+                'json_ibm' => json_encode($result2) 
+              );
+
+              $u->update($data_u);
+
+            }else{
+
+              $data_u = array(
+                'estatus_ibm' => 0, 
+                'json_ibm' => json_encode($result2) 
+              );
+
+              $u->update($data_u);
+
+            }
 
               return $result2['SUCCESS'];
 

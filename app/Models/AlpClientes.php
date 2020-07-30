@@ -34,6 +34,8 @@ class AlpClientes extends Model
         'id_empresa',
         'id_embajador',
         'nota',
+        'estatus_ibm',
+        'json_ibm',
         'id_user'
     ];
 
