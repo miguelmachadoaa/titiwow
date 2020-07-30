@@ -6626,7 +6626,7 @@ private function getAlmacen3(){
 
 
               $dir = array(
-                'ordenId' => 'P'.$orden->referencia, 
+                'ordenId' => $orden->referencia, 
                 'ciudad' => $direccion->state_name, 
                 'telefonoCliente' => $cliente->telefono_cliente, 
                 'identificacionCliente' => $cliente->doc_cliente, 
