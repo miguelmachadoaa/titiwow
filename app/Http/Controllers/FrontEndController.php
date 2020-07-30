@@ -1220,10 +1220,22 @@ class FrontEndController extends JoshController
 
             $cliente->update($data_c);
 
+            try {
+
+              $ibm=$this->addibm($user);
+
+               $data_u = array(
+                'estatus_ibm' => 1
+              );
+
+              $user->update($data_u);
+              
+            } catch (Exception $e) {
+              
+            }
 
 
-
-            $ibm=$this->addibm($user);
+            
 
 
 
@@ -1768,11 +1780,12 @@ class FrontEndController extends JoshController
 ///////////////////////Funciones de IBM//////////////////////////////////////////
 
 
+
 public function makeRequest($endpoint, $jsessionid, $xml, $ignoreResult = false)
 {
     $url = $this->getApiUrl($endpoint, $jsessionid);
 
-    //echo  $url.'<br>';
+    echo  $url.'<br>';
     
     $xmlObj = new \SimpleXmlElement($xml);
 
