@@ -60,6 +60,10 @@ Cliente
 
 
                                 <div class="col-md-8">
+
+                                        
+                                            
+
                                                 <div class="table-responsive-lg table-responsive-sm table-responsive-md table-responsive">
                                                     <table class="table table-bordered table-striped" id="users">
 
@@ -110,6 +114,21 @@ Cliente
                                                             <td><b> Código Cliente</b></td>
                                                             <td>
                                                                 {{ $cliente->codigo_cliente }}
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td><b> Registro Ibm</b></td>
+                                                            <td>
+                                                               @if($cliente->estatus_ibm==0)
+
+                                                               {{'No Registrado en Ibm'}}
+
+                                                               @else
+
+                                                               {{'Registrado en Ibm'}}
+
+                                                               @endif
                                                             </td>
                                                         </tr>
 
