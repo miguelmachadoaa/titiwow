@@ -79,7 +79,11 @@
             <meta name="com.silverpop.cothost" content="pod2.ibmmarketingcloud.com" />
 
             <script src="https://www.sc.pages02.net/lp/static/js/iMAWebCookie.js?792cb3c0-164f112d980-df4cba773885eb54dfcebd294a039c37&h=www.pages02.net" type="text/javascript"></script>
-
+            
+            <script src ="https://up.pixel.ad/assets/up.js?um=1"></script>
+            <script type="text/javascript">
+                cntrUpTag.track('cntrData', '51294cf2f157c230');
+            </script>
         @endif
 </head>
 
