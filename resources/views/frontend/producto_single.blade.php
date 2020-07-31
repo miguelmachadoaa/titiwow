@@ -172,29 +172,38 @@
                                         @case(1)
 
                                             <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
-
-
-                                                
-
                                             
                                             @break
 
                                         @case(2)
 
                                             <p id="precio_prod">
-                                                @if($almacen->descuento_productos)
-                                                    <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
+                                                 @if($almacen->descuento_productos=='1')
+
+                                                    @if($producto->mostrar_descuento=='1')
+
+                                                        @if(isset($producto->mostrar))
+
+                                                            @if($producto->mostrar==1)
+
+                                                                @if($producto->precio_base>$producto->precio_oferta)
+
+                                                                    <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
+
+                                                                @endif
+
+
+                                                            @endif
+
+                                                        @endif
+
+                                                        
+                                                    @endif
 
 
                                                 @endif
 
-
-                                                
-
                                                 <span class="precio_base">${{ number_format($producto->precio_base*(1-($precio[$producto->id]['precio']/100)),0,",",".") }}</span></p>
-
-
-                                                 
 
 
                                             @break
@@ -202,19 +211,33 @@
                                         @case(3)
 
                                             <p id="precio_prod">
-                                                @if($almacen->descuento_productos)
+                                                 @if($almacen->descuento_productos=='1')
 
-                                                    <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
+                                                    @if($producto->mostrar_descuento=='1')
+
+                                                        @if(isset($producto->mostrar))
+
+                                                            @if($producto->mostrar==1)
+
+                                                                @if($producto->precio_base>$producto->precio_oferta)
+
+                                                                    <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
+
+                                                                @endif
+
+
+                                                            @endif
+
+                                                        @endif
+
+                                                        
+                                                    @endif
+
 
                                                 @endif
 
-
-                                                
-
                                                 <span class="precio_base">${{ number_format($precio[$producto->id]['precio'],0,",",".") }}</span></p>
 
-
-                                                 
 
                                             @break
 
@@ -227,30 +250,64 @@
 
                                        @if($almacen->descuento_productos=='1')
 
-                                            @if($producto->precio_base>$producto->precio_oferta)
+                                            @if($almacen->descuento_productos=='1')
 
-                                            <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
+                                            @if($producto->mostrar_descuento=='1')
 
+                                                @if(isset($producto->mostrar))
+
+                                                    @if($producto->mostrar==1)
+
+                                                        @if($producto->precio_base>$producto->precio_oferta)
+
+                                                            <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
+
+                                                        @endif
+
+
+                                                    @endif
+
+                                                @endif
+
+                                                
                                             @endif
+
+
+                                        @endif
                                             
                                         @endif
 
-                                                <span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
+                                            <span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
 
-                                  
-
-
-                                @endif
-
-
-                               
+                                        @endif
 
                             @else
 
                                 <p id="precio_prod">
-                                    @if($almacen->descuento_productos)
-                                        <del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base,0,",",".").' -'.$producto->operacion }}</del>&nbsp;
-                                    @endif
+                                     @if($almacen->descuento_productos=='1')
+
+                                            @if($producto->mostrar_descuento=='1')
+
+                                                @if(isset($producto->mostrar))
+
+                                                    @if($producto->mostrar==1)
+
+                                                        @if($producto->precio_base>$producto->precio_oferta)
+
+                                                            <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
+
+                                                        @endif
+
+
+                                                    @endif
+
+                                                @endif
+
+                                                
+                                            @endif
+
+
+                                        @endif
 
 
                                     
@@ -270,7 +327,7 @@
 
                                 <a href="{{ route('producto', [$producto->slug]) }}" >
                                     <h6 class="pum">
-                                        {{ $producto->unidad.' a $'.number_format($producto->precio_oferta/$producto->cantidad,2,",",".") }} pesos
+                                        {{ $producto->unidad.' a $'.number_format($producto->precio_base/$producto->cantidad,2,",",".") }} pesos
                                     </h6>
                                 </a>
 
