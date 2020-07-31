@@ -237,8 +237,6 @@ class ProductosFrontController extends Controller
            
           }
 
-         // dd($prods);
-
         return $prods;
 
 
