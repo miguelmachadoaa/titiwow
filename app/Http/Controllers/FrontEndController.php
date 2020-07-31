@@ -740,6 +740,8 @@ class FrontEndController extends JoshController
         $sliders=AlpSliders::select('alp_slider.*')
         ->join('alp_almacen_slider','alp_slider.id', '=', 'alp_almacen_slider.id_slider')
         ->where('alp_almacen_slider.id_almacen', '=', $id_almacen)
+        ->whereNull('alp_slider.deleted_at')
+        ->whereNull('alp_almacen_slider.deleted_at')
         ->orderBy("order")->get();
 
        // $sliders=AlpSliders::get();
@@ -2152,7 +2154,7 @@ public function getApiUrl($endpoint, $jsessionid)
 
       $u=User::where('id', $user->id)->first();
 
-
+      $c=AlpClientes::where('id_user_client', $u->id)->first();
         
         $pod = 0;
         $username = 'api_alpina@alpina.com';
@@ -2226,7 +2228,7 @@ public function getApiUrl($endpoint, $jsessionid)
                 'json_ibm' => json_encode($result2) 
               );
 
-              $u->update($data_u);
+              $c->update($data_u);
 
             }else{
 
@@ -2235,7 +2237,7 @@ public function getApiUrl($endpoint, $jsessionid)
                 'json_ibm' => json_encode($result2) 
               );
 
-              $u->update($data_u);
+              $c->update($data_u);
 
             }
 

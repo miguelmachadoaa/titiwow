@@ -35,7 +35,7 @@ class ProductosPrecioBase implements ToCollection
 
                 if ($row[1]!=0) {
                    
-                        $p=AlpProductos::select('alp_productos.id as id','alp_productos.pum as pum', 'alp_productos.precio_base as precio_base', 'alp_productos.referencia_producto as referencia_producto')->where('referencia_producto', $row[0])->first();
+                        $p=AlpProductos::select('alp_productos.id as id','alp_productos.pum as pum', 'alp_productos.precio_base as precio_base', 'alp_productos.referencia_producto as referencia_producto')->where('referencia_producto', trim($row[0]))->first();
 
                         if (isset($p->id)) {
 
