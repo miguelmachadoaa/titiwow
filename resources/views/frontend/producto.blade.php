@@ -80,12 +80,12 @@
 
                                     @if($producto->cantidad==null)
                                         <a href="{{ route('producto', [$producto->slug]) }}" >
-                                        <h6 class="pum">5{{ $producto->pum }}</h6>
+                                        <h6 class="pum c2">{{ $producto->pum }}</h6>
                                         </a>
                                     @else
 
                                     <a href="{{ route('producto', [$producto->slug]) }}" >
-                                        <h6 class="pum">6
+                                        <h6 class="pum c3">
                                             {{ $producto->unidad.' a $'.number_format($producto->precio_base/$producto->cantidad,2,",",".") }} pesos
                                         </h6>
                                     </a>
@@ -126,12 +126,12 @@
 
                                         @if($producto->cantidad==null)
                                             <a href="{{ route('producto', [$producto->slug]) }}" >
-                                            <h6 class="pum">1{{ $producto->pum }}</h6>
+                                            <h6 class="pum c4">{{ $producto->pum }}</h6>
                                             </a>
                                         @else
 
                                         <a href="{{ route('producto', [$producto->slug]) }}" >
-                                            <h6 class="pum">2
+                                            <h6 class="pum c5">
                                                 {{ $producto->unidad.' a $'.number_format($producto->precio_base/$producto->cantidad,2,",",".") }} pesos
                                             </h6>
                                         </a>
@@ -154,12 +154,12 @@
 
                                     @if($producto->cantidad==null)
                                         <a href="{{ route('producto', [$producto->slug]) }}" >
-                                        <h6 class="pum">3{{ $producto->pum }}</h6>
+                                        <h6 class="pum c6">{{ $producto->pum }}</h6>
                                         </a>
                                     @else
 
                                     <a href="{{ route('producto', [$producto->slug]) }}" >
-                                        <h6 class="pum">4
+                                        <h6 class="pum c1">
                                             {{ $producto->unidad.' a $'.number_format($producto->precio_base/$producto->cantidad,2,",",".") }} pesos
                                         </h6>
                                     </a>
