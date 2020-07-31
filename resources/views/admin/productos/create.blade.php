@@ -926,7 +926,6 @@
 
                                                 </div>
 
-
                                                 
                                                 <div class="col-sm-2">
                                                     <input id="test_precio" step="0.01" name="test_precio" type="number" placeholder="Valor" class="form-control" readonly="" value="{{ old('precio_role') }}"  >
@@ -953,15 +952,12 @@
 
                                                 </div>
 
-
-
                                                 <div class="col-sm-1">
                                                     <button class="btn btn-xs btn-danger">x</button>
                                                 </div>
                                             </div>
 
                                              </div>
-
                                            
                                             <div class="acc-wizard-step">
                                                 
