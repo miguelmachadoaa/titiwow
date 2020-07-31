@@ -120,9 +120,7 @@
                                                 
                                             @endif
 
-
                                         @endif
-
 
                                         ${{ number_format($producto->precio_oferta*$descuento,0,",",".") }}</span></p>
 

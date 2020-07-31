@@ -299,9 +299,9 @@ Inicio @parent
                                                                     <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
 
                                                                     @if($producto->cantidad==null)
-                                                                    <a href="{{ route('producto', [$producto->slug]) }}" >
-                                                                        <h6 class="pum">11{{ $producto->pum }}</h6>
-                                                                    </a>
+                                                                        <a href="{{ route('producto', [$producto->slug]) }}" >
+                                                                            <h6 class="pum">11{{ $producto->pum }}</h6>
+                                                                        </a>
                                                                     @else
 
                                                                     <a href="{{ route('producto', [$producto->slug]) }}" >
