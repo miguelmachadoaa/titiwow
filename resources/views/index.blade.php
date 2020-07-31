@@ -312,20 +312,7 @@ Inicio @parent
 
                                                                     @endif
 
-                                                                    @if($producto->cantidad==null)
-                                                                            <a href="{{ route('producto', [$producto->slug]) }}" >
-                                                                                <h6 class="pum">13{{ $producto->pum }}</h6>
-                                                                            </a>
-                                                                            
-                                                                        @else
-
-                                                                            <a href="{{ route('producto', [$producto->slug]) }}" >
-                                                                                <h6 class="pum">14
-                                                                                    {{ $producto->unidad.' a $'.number_format($producto->precio_base/$producto->cantidad,2,",",".") }} pesos
-                                                                                </h6>
-                                                                            </a>
-
-                                                                        @endif
+                                                                    
 
                                                                 @endif
 
