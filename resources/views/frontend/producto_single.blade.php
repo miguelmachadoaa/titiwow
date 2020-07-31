@@ -319,17 +319,18 @@
 
                             @endif
 
-                            @if($producto->cantidad==null)
-                                <a href="{{ route('producto', [$producto->slug]) }}" >
-                                    <h6 class="pum">{{ $producto->pum }}</h6>
-                                </a>
+                                @if($producto->cantidad==null)
+                                    <a href="{{ route('producto', [$producto->slug]) }}" >
+                                        <h6 class="pum">{{ $producto->pum }}</h6>
+                                    </a>
+                                    
                                 @else
 
-                                <a href="{{ route('producto', [$producto->slug]) }}" >
-                                    <h6 class="pum">
-                                        {{ $producto->unidad.' a $'.number_format($producto->precio_base/$producto->cantidad,2,",",".") }} pesos
-                                    </h6>
-                                </a>
+                                    <a href="{{ route('producto', [$producto->slug]) }}" >
+                                        <h6 class="pum">
+                                            {{ $producto->unidad.' a $'.number_format($producto->precio_base/$producto->cantidad,2,",",".") }} pesos
+                                        </h6>
+                                    </a>
 
                                 @endif
 

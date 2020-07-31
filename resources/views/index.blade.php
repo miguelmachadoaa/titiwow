@@ -159,10 +159,7 @@ Inicio @parent
                     <div class="products">
                         <div class="row">
 
-
                         @if(count($prods))
-
-
                        
                             @php $i=0; @endphp
                             @foreach($prods as $producto)
@@ -170,21 +167,11 @@ Inicio @parent
 
                                 @if($producto->tipo_producto=='1')
 
-                               
-
                                     @if(isset($inventario[$producto->id]))
 
                                         @if($inventario[$producto->id]>0)
 
                                              @php $i++; @endphp
-
-
-
-
-
-
-
-
 
 
                                          <div class="col-md-2 col-sm-6 col-xs-6 ">
@@ -222,10 +209,30 @@ Inicio @parent
                                                                         @case(2)
 
                                                                             <p id="precio_prod">
-                                                                                @if($role->oferta=='0')
-                                                                                 <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
+                                                                                @if($almacen->descuento_productos=='1')
 
-                                                                                @endif
+                                            @if($producto->mostrar_descuento=='1')
+
+                                                @if(isset($producto->mostrar))
+
+                                                    @if($producto->mostrar==1)
+
+                                                        @if($producto->precio_base>$producto->precio_oferta)
+
+                                                            <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
+
+                                                        @endif
+
+
+                                                    @endif
+
+                                                @endif
+
+                                                
+                                            @endif
+
+
+                                        @endif
 
                                                                                
 
@@ -235,10 +242,30 @@ Inicio @parent
                                                                         @case(3)
 
                                                                             <p id="precio_prod">
-                                                                                @if($role->oferta=='0')
-                                                                                 <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
+@if($almacen->descuento_productos=='1')
 
-                                                                                @endif
+                                            @if($producto->mostrar_descuento=='1')
+
+                                                @if(isset($producto->mostrar))
+
+                                                    @if($producto->mostrar==1)
+
+                                                        @if($producto->precio_base>$producto->precio_oferta)
+
+                                                            <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
+
+                                                        @endif
+
+
+                                                    @endif
+
+                                                @endif
+
+                                                
+                                            @endif
+
+
+                                        @endif
 
                                                 
                                                                                 
@@ -285,19 +312,66 @@ Inicio @parent
 
                                                                     @endif
 
-                                                                    <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
+                                                                    @if($producto->cantidad==null)
+                                                                            <a href="{{ route('producto', [$producto->slug]) }}" >
+                                                                                <h6 class="pum">{{ $producto->pum }}</h6>
+                                                                            </a>
+                                                                            
+                                                                        @else
+
+                                                                            <a href="{{ route('producto', [$producto->slug]) }}" >
+                                                                                <h6 class="pum">
+                                                                                    {{ $producto->unidad.' a $'.number_format($producto->precio_base/$producto->cantidad,2,",",".") }} pesos
+                                                                                </h6>
+                                                                            </a>
+
+                                                                        @endif
 
                                                                 @endif
 
                                                             @else
 
                                                                 <p id="precio_prod">
-                                                                    @if($role->oferta=='0')
-                                                                    <del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base,0,",",".")}}</del>&nbsp;
-                                                                    @endif
+                                                                   @if($almacen->descuento_productos=='1')
+
+                                            @if($producto->mostrar_descuento=='1')
+
+                                                @if(isset($producto->mostrar))
+
+                                                    @if($producto->mostrar==1)
+
+                                                        @if($producto->precio_base>$producto->precio_oferta)
+
+                                                            <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
+
+                                                        @endif
+
+
+                                                    @endif
+
+                                                @endif
+
+                                                
+                                            @endif
+
+
+                                        @endif
                                                                     <span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
 
-                                                                <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
+                                                                @if($producto->cantidad==null)
+                                    <a href="{{ route('producto', [$producto->slug]) }}" >
+                                        <h6 class="pum">{{ $producto->pum }}</h6>
+                                    </a>
+                                    
+                                @else
+
+                                    <a href="{{ route('producto', [$producto->slug]) }}" >
+                                        <h6 class="pum">
+                                            {{ $producto->unidad.' a $'.number_format($producto->precio_base/$producto->cantidad,2,",",".") }} pesos
+                                        </h6>
+                                    </a>
+
+                                @endif
 
                                                             @endif
 
@@ -435,10 +509,30 @@ Inicio @parent
                                                                         @case(2)
 
                                                                             <p id="precio_prod">
-                                                                                @if($role->oferta=='0')
-                                                                                 <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
+                                                                                @if($almacen->descuento_productos=='1')
 
-                                                                                @endif
+                                            @if($producto->mostrar_descuento=='1')
+
+                                                @if(isset($producto->mostrar))
+
+                                                    @if($producto->mostrar==1)
+
+                                                        @if($producto->precio_base>$producto->precio_oferta)
+
+                                                            <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
+
+                                                        @endif
+
+
+                                                    @endif
+
+                                                @endif
+
+                                                
+                                            @endif
+
+
+                                        @endif
 
                                                                                
 
@@ -448,10 +542,30 @@ Inicio @parent
                                                                         @case(3)
 
                                                                             <p id="precio_prod">
-                                                                                @if($role->oferta=='0')
-                                                                                 <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
+                                                                                @if($almacen->descuento_productos=='1')
 
-                                                                                @endif
+                                            @if($producto->mostrar_descuento=='1')
+
+                                                @if(isset($producto->mostrar))
+
+                                                    @if($producto->mostrar==1)
+
+                                                        @if($producto->precio_base>$producto->precio_oferta)
+
+                                                            <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
+
+                                                        @endif
+
+
+                                                    @endif
+
+                                                @endif
+
+                                                
+                                            @endif
+
+
+                                        @endif
 
                                                 
                                                                                 
@@ -462,25 +576,85 @@ Inicio @parent
                                                                         
                                                                     @endswitch
 
-                                                                    <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $precio[$producto->id]['pum'] }}</h6></a>
+                                                                    @if($producto->cantidad==null)
+                                    <a href="{{ route('producto', [$producto->slug]) }}" >
+                                        <h6 class="pum">{{ $producto->pum }}</h6>
+                                    </a>
+                                    
+                                @else
+
+                                    <a href="{{ route('producto', [$producto->slug]) }}" >
+                                        <h6 class="pum">
+                                            {{ $producto->unidad.' a $'.number_format($producto->precio_base/$producto->cantidad,2,",",".") }} pesos
+                                        </h6>
+                                    </a>
+
+                                @endif
 
                                                                 @else
                                 
                                                                     <p id="precio_prod"><span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
 
-                                                                    <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
+                                                                    @if($producto->cantidad==null)
+                                    <a href="{{ route('producto', [$producto->slug]) }}" >
+                                        <h6 class="pum">{{ $producto->pum }}</h6>
+                                    </a>
+                                    
+                                @else
+
+                                    <a href="{{ route('producto', [$producto->slug]) }}" >
+                                        <h6 class="pum">
+                                            {{ $producto->unidad.' a $'.number_format($producto->precio_base/$producto->cantidad,2,",",".") }} pesos
+                                        </h6>
+                                    </a>
+
+                                @endif
 
                                                                 @endif
 
                                                             @else
 
                                                                 <p id="precio_prod">
-                                                                    @if($role->oferta=='0')
-                                                                    <del class="@if($descuento==1) hidden @endif">${{ number_format($producto->precio_base,0,",",".")}}</del>&nbsp;
-                                                                    @endif
+                                                                    @if($almacen->descuento_productos=='1')
+
+                                            @if($producto->mostrar_descuento=='1')
+
+                                                @if(isset($producto->mostrar))
+
+                                                    @if($producto->mostrar==1)
+
+                                                        @if($producto->precio_base>$producto->precio_oferta)
+
+                                                            <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
+
+                                                        @endif
+
+
+                                                    @endif
+
+                                                @endif
+
+                                                
+                                            @endif
+
+
+                                        @endif
                                                                     <span class="precio_base">${{ number_format($producto->precio_base*$descuento,0,",",".") }}</span></p>
 
-                                                                <a href="{{ route('producto', [$producto->slug]) }}" ><h6 class="pum">{{ $producto->pum }}</h6></a>
+                                                                @if($producto->cantidad==null)
+                                    <a href="{{ route('producto', [$producto->slug]) }}" >
+                                        <h6 class="pum">{{ $producto->pum }}</h6>
+                                    </a>
+                                    
+                                @else
+
+                                    <a href="{{ route('producto', [$producto->slug]) }}" >
+                                        <h6 class="pum">
+                                            {{ $producto->unidad.' a $'.number_format($producto->precio_base/$producto->cantidad,2,",",".") }} pesos
+                                        </h6>
+                                    </a>
+
+                                @endif
 
                                                             @endif
 
