@@ -6685,10 +6685,34 @@ private function getAlmacen3(){
        Log::info('compramas result '.$result);
 
 
+       $notas='Registro de orden en compramas.';
+
+
+       if (isset($res->mensaje)) {
+         $notas=$notas.$res->mensaje.' ';
+       }
+
+       if (isset($res->codigo)) {
+         $notas=$notas.$res->codigo.' ';
+       }
+
+       if (isset($res->causa)) {
+         $notas=$notas.$res->causa.' ';
+       }
+
+       if (isset($res->message)) {
+         $notas=$notas.$res->message.' ';
+       }
+
+       if (isset($res->causa->message)) {
+         $notas=$notas.$res->causa->message.' ';
+       }
+
+
        $data_history = array(
             'id_orden' => $orden->id, 
            'id_status' => '9', 
-            'notas' => 'Registro de orden en compramas. ',
+            'notas' => $notas,
             'json' => json_encode($result), 
            'id_user' => 1
         );
@@ -6710,7 +6734,7 @@ private function getAlmacen3(){
              $data_history = array(
                           'id_orden' => $orden->id, 
                          'id_status' => '9', 
-                          'notas' => 'Registro de orden en compramas. '.$res->mensaje, 
+                          'notas' => $notas, 
                           'json' => json_encode($result), 
                          'id_user' => 1
                       );
@@ -6729,7 +6753,7 @@ private function getAlmacen3(){
           $data_history = array(
               'id_orden' => $orden->id, 
              'id_status' => '9', 
-              'notas' => 'Error de orden en compramas. '.$res->mensaje, 
+              'notas' => 'Error '.$notas, 
               'json' => json_encode($result), 
              'id_user' => 1
           );
@@ -6749,7 +6773,7 @@ private function getAlmacen3(){
         $data_history = array(
             'id_orden' => $orden->id, 
            'id_status' => '9', 
-            'notas' => 'Respuesta de orden en compramas. ',
+            'notas' => $notas,
             'json' => json_encode($result), 
            'id_user' => 1
         );
