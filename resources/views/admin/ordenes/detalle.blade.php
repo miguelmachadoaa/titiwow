@@ -777,7 +777,7 @@ Orden {{$orden->id}}
                                                     <p>
                                                         <small class="text-muted">
                                                             <i class="livicon" data-name="bell" data-c="#F89A14" data-hc="#F89A14" data-size="18" data-loop="true"></i>
-                                                            {!! $row->created_at->diffForHumans().' por  '.$row->first_name.' '.$row->last_name !!}
+                                                            {!! date("d/m/Y H:i:s", strtotime($row->created_at)).' por  '.$row->first_name.' '.$row->last_name !!}
                                                         </small>
                                                     </p>
                                                 </div>
@@ -801,7 +801,7 @@ Orden {{$orden->id}}
                                                     <p>
                                                         <small class="text-muted">
                                                             <i class="livicon" data-name="bell" data-c="#F89A14" data-hc="#F89A14" data-size="18" data-loop="true"></i>
-                                                            {!! $row->created_at->diffForHumans().' por  '.$row->first_name.' '.$row->last_name !!}
+                                                            {!! date("d/m/Y H:i:s", strtotime($row->created_at)).' por  '.$row->first_name.' '.$row->last_name !!}
                                                         </small>
                                                     </p>
                                                 </div>
