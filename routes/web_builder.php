@@ -70,6 +70,11 @@ Route::get('admin/clientes/datarechazados', 'Admin\AlpClientesController@datarec
 
 Route::get('admin/ordenes/data', 'Admin\AlpOrdenesController@data')->name('ordenes.data');
 
+
+Route::get('admin/ordenes/dataupdateordenes', 'Admin\AlpOrdenesController@dataupdateordenes')->name('ordenes.dataupdateordenes');
+
+
+
 Route::get('admin/ordenes/datacompramas', 'Admin\AlpOrdenesController@datacompramas')->name('ordenes.datacompramas');
 
 Route::get('admin/ordenes/dataespera', 'Admin\AlpOrdenesController@dataespera')->name('ordenes.dataespera');
@@ -87,10 +92,9 @@ Route::get('admin/ordenes/datafacturados', 'Admin\AlpOrdenesController@datafactu
 
 Route::get('admin/ordenes/dataenviados', 'Admin\AlpOrdenesController@dataenviados')->name('ordenes.dataenviados');
 
-
 Route::get('admin/ordenes/dataempresas', 'Admin\AlpOrdenesController@dataempresas')->name('ordenes.dataempresas');
-Route::get('admin/ordenes/datadescuento', 'Admin\AlpOrdenesController@datadescuento')->name('ordenes.datadescuento');
 
+Route::get('admin/ordenes/datadescuento', 'Admin\AlpOrdenesController@datadescuento')->name('ordenes.datadescuento');
 
 Route::get('admin/ordenes/dataalmacen', 'Admin\AlpOrdenesController@dataalmacen')->name('ordenes.dataalmacen');
 

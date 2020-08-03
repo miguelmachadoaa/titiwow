@@ -712,11 +712,7 @@ class AlpCartController extends JoshController
           $idc=$id_orden*1024;
 
 
-           if ($compra->id_almacen==1) {
-
-              
-
-            }
+           
 
 
 
@@ -1172,30 +1168,14 @@ class AlpCartController extends JoshController
 
               $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
 
-             # Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega, 1));
-
-              
-              #Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega, 1));
+            
             }
 
-            #Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
-
-           #Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
-
-            #Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
-
-           #Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
+          
            $idc=$compra->id*1024;
 
 
 
-           if ($compra->id_almacen==1) {
-                
-
-                  
-
-
-                }
 
 
 
@@ -1813,13 +1793,7 @@ class AlpCartController extends JoshController
                 }
 
 
-                if ($compra->id_almacen==1) {
                 
-
-                  
-
-
-                }
 
            
 
@@ -2465,16 +2439,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
           //Mail::to($configuracion->correo_cedi)->send(new \App\Mail\NotificacionOrden($compra->id, $texto));
           //
-            if ($compra->id_almacen==1) {
-                
-
-                  
-
-
-                }
-
-                
-
+          
 
            $idc=$orden->id*1024;
 
@@ -6757,7 +6722,7 @@ private function getAlmacen3(){
 
             $orden->update($dtt);
 
-            
+
 
           $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
 
