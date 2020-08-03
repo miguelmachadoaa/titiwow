@@ -953,7 +953,13 @@ class AlpProductosController extends JoshController
 
         $producto = AlpProductos::find($id);
 
-        $producto['inventario_inicial']=$inventario->cantidad;
+        if (isset($inventario->cantidad)) {
+          $producto['inventario_inicial']=$inventario->cantidad;
+        }else{
+          $producto['inventario_inicial']=0;
+        }
+
+        
 
         $roles = DB::table('roles')->select('id', 'name')->get();
 

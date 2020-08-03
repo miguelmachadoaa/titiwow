@@ -261,9 +261,18 @@
                                                 <option value="">Seleccione</option>
                                                     
                                                     @foreach($productos as $pro)
+
+                                                        @if(isset($inventario[$pro->id]))
                                                         
                                                         <option value="{{ $pro->id }}">{{ $pro->nombre_producto.' - '.$pro->referencia_producto.' - Disp:'.$inventario[$pro->id]}}
                                                         </option>
+
+                                                        @else
+
+                                                            <option value="{{ $pro->id }}">{{ $pro->nombre_producto.' - '.$pro->referencia_producto.' - Disp: 0'}}
+                                                        </option>
+
+                                                        @endif
 
                                                     @endforeach
 
@@ -473,14 +482,14 @@
 
                                                 <div class="checkbox">
                                                       <label>
-                                                        <input type="checkbox" id="robots_index" name="robots_index" value="index"    @if(in_array('index', $robots)) {{'checked'}} @endif >
+                                                        <input type="checkbox" id="robots_index" name="robots_index" value="index"     >
                                                        Index
                                                       </label>
                                                     </div>
 
                                                     <div class="checkbox">
                                                       <label>
-                                                        <input type="checkbox" id="robots_index" name="robots_index" value="index"    @if(in_array('index', $robots)) {{'checked'}} @endif >
+                                                        <input type="checkbox" id="robots_index" name="robots_index" value="index"     >
                                                        Follow
                                                       </label>
                                                     </div>
