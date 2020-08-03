@@ -38,6 +38,7 @@ class ProductosRequest extends FormRequest {
             'pum' => 'required',
             'medida' => 'required',
             'inventario_inicial' => 'required',
+            'mostrar_descuento' => 'required',
 			'precio_base' => 'required',
 			'image' => 'image',
 		];

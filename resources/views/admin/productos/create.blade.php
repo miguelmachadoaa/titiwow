@@ -746,7 +746,7 @@
 
 
 
-                                            <div class="form-group clearfix col-sm-12 {{ $errors->
+                                            <!--div class="form-group clearfix col-sm-12 {{ $errors->
                                                 first('cantidad', 'has-error') }}">
                                                 
                                                 <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.cantidad') </label>
@@ -759,7 +759,7 @@
                                                 </div>
 
                                                 
-                                            </div>
+                                            </div-->
 
 
 
