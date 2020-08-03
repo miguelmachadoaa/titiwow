@@ -3682,4 +3682,45 @@ public function detallealmacen($id)
 
 
 
+
+
+
+
+
+      public function dataupdateordenes()
+    {
+
+      $ordenes=AlpOrdenes::whereNotNull('json')->get();
+
+      foreach ($ordenes as $o) {
+
+        $ord=AlpOrdenes::where('id', $o->id)->first();
+
+        $json=json_decode($o->json);
+
+        $dtt = array('estado_compramas' => $json->codigo);
+
+        $ord->update($dtt);
+        
+
+      }
+
+      
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
