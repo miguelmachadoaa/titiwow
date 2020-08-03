@@ -6724,7 +6724,10 @@ private function getAlmacen3(){
         
         if ($res->codigo=='200') {
 
-            $dtt = array('json' => $result );
+            $dtt = array(
+              'json' => $result,
+              'estado_compramas' => $res->codigo
+            );
 
             $orden->update($dtt);
 
@@ -6747,6 +6750,15 @@ private function getAlmacen3(){
            Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
          
         }else{
+
+           $dtt = array(
+              'json' => $result,
+              'estado_compramas' => $res->codigo
+            );
+
+            $orden->update($dtt);
+
+            
 
           $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
 

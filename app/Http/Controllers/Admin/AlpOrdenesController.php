@@ -2560,11 +2560,8 @@ public function compramasupdate()
 
           $texto="La orden ".$orden->id.", el pago ha sido notificado y espera por el proceso de aprobación!";
 
-           //return $texto;
 
           Mail::to($configuracion->correo_cedi)->send(new \App\Mail\NotificacionOrden($orden->id, $texto));
-
-          
 
           $view= View::make('admin.ordenes.recibir', compact('orden'));
 
@@ -2722,9 +2719,6 @@ public function compramasupdate()
         $data_envio = array('fecha_envio' =>  $fecha_entrega);
 
         $envio->update($data_envio);
-
-
-
 
           $texto="La orden ".$orden->id." Ha sido aprobada y espera para ser facturada!";
           
@@ -3599,7 +3593,10 @@ public function detallealmacen($id)
                   
                   if ($res->codigo=='200') {
 
-                      $dtt = array('json' => $result );
+                      $dtt = array(
+                        'json' => $result,
+                        'estado_compramas' => $res->codigo
+                      );
 
                       $orden->update($dtt);
 
@@ -3623,6 +3620,13 @@ public function detallealmacen($id)
                    
                   }else{
 
+
+                     $dtt = array(
+                        'json' => $result,
+                        'estado_compramas' => $res->codigo
+                      );
+
+                      $orden->update($dtt);
 
 
                          $data_history = array(
