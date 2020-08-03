@@ -42,6 +42,7 @@ class AlpOrdenes extends Model
         'factura',
         'ip',
         'json',
+        'estado_compramas',
         'estatus',
         'estatus_pago',
         'id_user'

@@ -2,14 +2,14 @@
 
 {{-- Web site Title --}}
 @section('title')
-Todas las Ordenes
+Ordenes Compramas
 @parent
 @stop
 
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1>Todas las Ordenes</h1>
+    <h1>Ordenes Compramas</h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}">
@@ -17,7 +17,7 @@ Todas las Ordenes
                Inicio
             </a>
         </li>
-        <li><a href="#"> Todas las Ordenes</a></li>
+        <li><a href="#"> Ordenes Compramas</a></li>
         <li class="active">Index</li>
     </ol>
 </section>
@@ -59,6 +59,7 @@ Todas las Ordenes
                                     <th>Almacen</th>
                                     <th>Ciudad</th>
                                     <th>Creado</th>
+                                    <th>Estado Compramas</th>
                                     <th>Estado Pago</th>
                                     <th>Estado</th>
                                     <th>Accion</th>
@@ -277,15 +278,22 @@ $("#aprobarOrdenForm").bootstrapValidator({
 
 
 
+   
+
+
+
 $(document).ready(function() {
 
     base=$('#base').val();
+
+
+
         
     var table =$('#tbOrdenes').DataTable({
         "processing": true,
         "order": [[ 0, "desc" ]],
         "ajax": {
-            "url": base+'/admin/ordenes/data'
+            "url": base+'/admin/ordenes/datacompramas'
         }
     });
 

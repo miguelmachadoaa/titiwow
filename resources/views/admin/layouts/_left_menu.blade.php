@@ -132,6 +132,21 @@
             @endif
 
 
+            @if (Sentinel::getUser()->hasAnyAccess(['ordenes.compramas']))
+                <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.ordenes.compramas') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Ordenes Compramas
+                </a>
+            </li>
+            @endif
+
+
+            
+
+
+
+
             
            
         </ul>

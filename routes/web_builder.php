@@ -70,7 +70,12 @@ Route::get('admin/clientes/datarechazados', 'Admin\AlpClientesController@datarec
 
 Route::get('admin/ordenes/data', 'Admin\AlpOrdenesController@data')->name('ordenes.data');
 
+Route::get('admin/ordenes/datacompramas', 'Admin\AlpOrdenesController@datacompramas')->name('ordenes.datacompramas');
+
 Route::get('admin/ordenes/dataespera', 'Admin\AlpOrdenesController@dataespera')->name('ordenes.dataespera');
+Route::get('admin/ordenes/dataalmacenespera', 'Admin\AlpOrdenesController@dataalmacenespera')->name('ordenes.dataalmacenespera');
+
+Route::get('admin/ordenes/dataalmacenrecibidos', 'Admin\AlpOrdenesController@dataalmacenrecibidos')->name('ordenes.dataalmacenrecibidos');
 
 Route::get('admin/ordenes/datarecibidos', 'Admin\AlpOrdenesController@datarecibidos')->name('ordenes.datarecibidos');
 
@@ -78,8 +83,16 @@ Route::get('admin/ordenes/datanomina', 'Admin\AlpOrdenesController@datanomina')-
 
 Route::get('admin/ordenes/dataaprobados', 'Admin\AlpOrdenesController@dataaprobados')->name('ordenes.dataaprobados');
 
+Route::get('admin/ordenes/dataalmacenaprobados', 'Admin\AlpOrdenesController@dataalmacenaprobados')->name('ordenes.dataalmacenaprobados');
+
 Route::get('admin/ordenes/datafacturados', 'Admin\AlpOrdenesController@datafacturados')->name('ordenes.datafacturados');
+
+Route::get('admin/ordenes/dataalmacenfacturados', 'Admin\AlpOrdenesController@dataalmacenfacturados')->name('ordenes.dataalmacenfacturados');
+
 Route::get('admin/ordenes/dataenviados', 'Admin\AlpOrdenesController@dataenviados')->name('ordenes.dataenviados');
+
+Route::get('admin/ordenes/dataalmacenenviados', 'Admin\AlpOrdenesController@dataalmacenenviados')->name('ordenes.dataalmacenenviados');
+
 Route::get('admin/ordenes/dataempresas', 'Admin\AlpOrdenesController@dataempresas')->name('ordenes.dataempresas');
 Route::get('admin/ordenes/datadescuento', 'Admin\AlpOrdenesController@datadescuento')->name('ordenes.datadescuento');
 
@@ -910,23 +923,40 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
         Route::get('/aprobados/list', 'Admin\AlpOrdenesController@aprobados')->name('ordenes.aprobados');
 
+
+        Route::get('/almacenaprobados/list', 'Admin\AlpOrdenesController@almacenaprobados')->name('ordenes.almacenaprobados');
+
         Route::get('/espera/list', 'Admin\AlpOrdenesController@espera')->name('ordenes.espera');
 
+        Route::get('/almacenespera/list', 'Admin\AlpOrdenesController@almacenespera')->name('ordenes.almacenespera');
+
         Route::get('/recibidos/list', 'Admin\AlpOrdenesController@recibidos')->name('ordenes.recibidos');
+
+        Route::get('/almacenrecibidos/list', 'Admin\AlpOrdenesController@almacenrecibidos')->name('ordenes.almacenrecibidos');
 
         Route::get('/nomina/list', 'Admin\AlpOrdenesController@nomina')->name('ordenes.nomina');
 
         Route::get('/facturados/list', 'Admin\AlpOrdenesController@facturados')->name('ordenes.facturados');
 
+        Route::get('/almacenfacturados/list', 'Admin\AlpOrdenesController@almacenfacturados')->name('ordenes.almacenfacturados');
+
         Route::get('/enviados/list', 'Admin\AlpOrdenesController@enviados')->name('ordenes.enviados');
 
+        Route::get('/almacenenviados/list', 'Admin\AlpOrdenesController@almacenenviados')->name('ordenes.almacenenviados');
+
         Route::get('/cancelados/list', 'Admin\AlpOrdenesController@cancelados')->name('ordenes.cancelados');
+
+        Route::get('/almacencancelados/list', 'Admin\AlpOrdenesController@almacencancelados')->name('ordenes.almacencancelados');
 
         Route::get('/consolidado/list', 'Admin\AlpOrdenesController@consolidado')->name('ordenes.consolidado');
 
         Route::get('/descuento/list', 'Admin\AlpOrdenesController@descuento')->name('ordenes.descuento');
 
         Route::get('/almacen/list', 'Admin\AlpOrdenesController@almacen')->name('ordenes.almacen');
+
+
+        Route::get('/compramas/list', 'Admin\AlpOrdenesController@compramas')->name('ordenes.compramas');
+
 
         Route::get('/sendmail/{id}', 'Admin\AlpOrdenesController@sendmail')->name('ordenes.sendmail');
 

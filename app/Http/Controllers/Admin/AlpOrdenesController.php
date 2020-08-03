@@ -106,6 +106,290 @@ class AlpOrdenesController extends JoshController
     }
 
 
+
+
+
+
+public function compramasupdate()
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpOrdenesController/compramas ');
+
+        }else{
+
+          activity()
+          ->log('AlpOrdenesController/compramas');
+
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['ordenes.compramas'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+        $estatus_ordenes = AlpEstatusOrdenes::all();
+
+        $ordenes=AlpOrdenes::limit(1)->get();
+
+       // dd($ordenes);
+
+          $almacen=AlpAlmacenes::where('id', $user->almacen)->first();
+
+        return view('admin.ordenes.compramas', compact('ordenes', 'estatus_ordenes', 'almacen'));
+
+    }
+
+
+    public function compramas()
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpOrdenesController/compramas ');
+
+        }else{
+
+          activity()
+          ->log('AlpOrdenesController/compramas');
+
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['ordenes.compramas'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+        $estatus_ordenes = AlpEstatusOrdenes::all();
+
+        $ordenes=AlpOrdenes::limit(1)->get();
+
+       // dd($ordenes);
+
+          $almacen=AlpAlmacenes::where('id', $user->almacen)->first();
+
+        return view('admin.ordenes.compramas', compact('ordenes', 'estatus_ordenes', 'almacen'));
+
+    }
+
+
+
+
+      public function datacompramas()
+    {
+
+     // dd('i');
+
+      $permiso_cancelar = array('1','2','3' );
+       
+
+       $id_rol=0;
+
+        if (Sentinel::check()) {
+
+            $user_id = Sentinel::getUser()->id;
+
+            $role=RoleUser::where('user_id', $user_id)->first();
+
+            $id_rol=$role->role_id;
+        }
+      
+
+        $ordenes = AlpOrdenes::select(
+          'alp_ordenes.id as id',
+          'alp_ordenes.estado_compramas as estado_compramas',
+          'alp_ordenes.estatus as estatus', 
+          'alp_ordenes.estatus_pago as estatus_pago', 
+          'alp_ordenes.ordencompra as ordencompra', 
+          'alp_ordenes.monto_total as monto_total', 
+          'alp_ordenes.factura as factura', 
+          'alp_ordenes.referencia as referencia', 
+          'alp_ordenes.tracking as tracking', 
+          'alp_ordenes.id_forma_envio as id_forma_envio', 
+          'alp_ordenes.id_forma_pago as id_forma_pago', 
+          'alp_ordenes.id_almacen as id_almacen', 
+          'alp_ordenes.id_address as id_address', 
+          'alp_ordenes.created_at as created_at', 
+          'alp_clientes.telefono_cliente as telefono_cliente',
+          'users.first_name as first_name', 
+          'users.last_name as last_name')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+          ->whereNotNull('alp_ordenes.estado_compramas')
+          ->groupBy('alp_ordenes.id')
+         ->limit('1000')
+         ->orderBy('alp_ordenes.id', 'desc')
+          ->get();
+         
+
+          $formaspago=AlpFormaspago::pluck('nombre_forma_pago', 'id');
+          $formasenvio=AlpFormasenvio::pluck('nombre_forma_envios', 'id');
+          $estatus_pago=AlpEstatusPagos::pluck('estatus_pago_nombre', 'id');
+          $estatus_ordenes=AlpEstatusOrdenes::pluck('estatus_nombre', 'id');
+          $almacenes=AlpAlmacenes::pluck('nombre_almacen', 'id');
+          $direcciones=AlpDirecciones::pluck('city_id', 'id');
+
+         // dd($ordenes);
+
+          //dd($formasenvio);
+
+            $data = array();
+
+          foreach($ordenes as $row){
+
+            $envio=AlpEnvios::where('id_orden', $row->id)->first();
+
+            $pago="<div style='display: inline-block;' class='pago_".$row->id."'>  
+            <button data-id='".$row->id."' class='btn btn-xs btn-success pago' > ".$estatus_pago[$row->estatus_pago]." </button></div>";
+
+             $estatus="<span class='badge badge-default' >".$estatus_ordenes[$row->estatus]."</span>";
+
+
+                 $actions = " 
+                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'>
+                      ver detalles
+                  </a>
+
+                   <div style='display: inline-block;' class='estatus_".$row->id."'>";
+
+                if (in_array($id_rol, $permiso_cancelar)) {
+                  
+                  if ($row->estatus!=4) {
+                    
+                    $cancelado = " <button data-id='".$row->id."'  data-codigo='".$row->ordencompra."'  data-estatus='".$estatus_ordenes[$row->estatus]."' class='btn btn-xs btn-danger confirmar' > Cancelar </button></div>";
+
+                  }else{
+
+                    $cancelado = " ";
+                    
+                  }
+
+              }else{
+
+                  $cancelado = " ";
+
+              }
+
+              if (isset($envio->id)) {
+
+                $row->monto_total=$row->monto_total+$envio->costo;
+
+              }
+
+              $descuento=AlpOrdenesDescuento::where('id_orden', $row->id)->first();
+
+              if (isset($descuento->id)) {
+
+                $cupon=$descuento->codigo_cupon;
+                # code...
+              }else{
+
+                $cupon='N/A';
+
+              }
+
+              if (isset($formasenvio[$row->id_forma_envio])) {
+               $fe=$formasenvio[$row->id_forma_envio];
+              }else{
+
+                $fe='No se reconoce';
+              }
+
+              if (isset($formaspago[$row->id_forma_pago])) {
+                $fp=$formaspago[$row->id_forma_pago];
+              }else{
+                $fp='No se reconoce';
+              }
+
+              $nombre_almacen='';
+
+              $nombre_ciudad='';
+
+             // dd($cities); 
+
+              if (isset($almacenes[$row->id_almacen])) {
+                
+                $nombre_almacen=$almacenes[$row->id_almacen];
+              }
+
+              if (isset($direcciones[$row->id_address])) {
+
+                if (isset($ciudades[$direcciones[$row->id_address]])) {
+
+                  //dd($ciudades[$direcciones[$row->id_address]]);
+                  
+                  $nombre_ciudad=$ciudades[$direcciones[$row->id_address]];
+
+                }
+               
+              }
+
+
+               if ($row->estado_compramas=='200') {
+                    
+                    $compramas = " <button  class='btn btn-xs btn-primary ' > Recibido </button></div>";
+
+                  }else{
+
+                    $compramas = " <button  class='btn btn-xs btn-danger ' > Error compramas </button></div>";
+                    
+                  }
+
+              //dd($nombre_almacen);
+
+               $data[]= array(
+                 $row->id, 
+                 $row->referencia, 
+                 $row->first_name.' '.$row->last_name, 
+                 $row->telefono_cliente, 
+                 $fe, 
+                 $fp,
+                 number_format($row->monto_total,2), 
+                 $row->ordencompra, 
+                 $cupon, 
+                 $row->factura, 
+                 $row->tracking, 
+                 $nombre_almacen, 
+                 $nombre_ciudad, 
+                 date("d/m/Y H:i:s", strtotime($row->created_at)),
+                 $compramas, 
+                 $pago, 
+                 $estatus, 
+                 $actions.$cancelado
+              );
+
+          }
+
+
+          return json_encode( array('data' => $data ));
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function index()
     {
         // Grab all the groups
@@ -3388,6 +3672,818 @@ public function detallealmacen($id)
 
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public function almacenespera()
+    {
+        // Grab all the groups
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpOrdenesController/espera ');
+
+        }else{
+
+          activity()
+          ->log('AlpOrdenesController/espera');
+
+        }
+
+         if (!Sentinel::getUser()->hasAnyAccess(['ordenes.almacenespera'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+    
+        $estatus_ordenes = AlpEstatusOrdenes::all();
+
+         $ordenes = AlpOrdenes::where('id', '1')->get();
+        // Show the page
+        return view('admin.ordenes.almacenespera', compact('ordenes', 'estatus_ordenes'));
+
+    }
+
+
+
+      public function dataalmacenespera()
+    {
+
+      $user = Sentinel::getUser();
+
+       $ordenes = AlpOrdenes::select('alp_ordenes.*', 'alp_clientes.telefono_cliente as telefono_cliente','users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
+          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
+           ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
+          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
+          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+          ->where('alp_ordenes.estatus', '8')
+          ->where('alp_ordenes.id_almacen', $user->almacen)
+          ->groupBy('alp_ordenes.id')
+          ->get();
+
+          $almacenes=AlpAlmacenes::pluck('nombre_almacen', 'id');
+          $direcciones=AlpDirecciones::pluck('city_id', 'id');
+          $ciudades=City::pluck('city_name', 'id');
+
+
+
+          //dd($ordenes);
+
+            $data = array();
+
+          foreach($ordenes as $row){
+
+            $pago="<div style='display: inline-block;' class='pago_".$row->id."'>  
+
+              <button data-id='".$row->id."' class='btn btn-xs btn-success pago' > ".$row->estatus_pago_nombre." </button></div>";
+
+             $estatus="<span class='badge badge-default' >".$row->estatus_nombre."</span>";
+
+
+                 $actions = " 
+                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detallealmacen', $row->id)."'>
+                                                ver detalles
+                                            </a>";
+
+                 $envio=AlpEnvios::where('id_orden', $row->id)->first();
+              if (isset($envio->id)) {
+                # code...
+
+                $row->monto_total=$row->monto_total+$envio->costo;
+              } 
+
+              $descuento=AlpOrdenesDescuento::where('id_orden', $row->id)->first();
+
+              if (isset($descuento->id)) {
+
+                $cupon=$descuento->codigo_cupon;
+                # code...
+              }else{
+
+                $cupon='N/A';
+
+              }
+
+              $nombre_almacen='';
+
+              $nombre_ciudad='';
+
+             // dd($cities); 
+
+              if (isset($almacenes[$row->id_almacen])) {
+                
+                $nombre_almacen=$almacenes[$row->id_almacen];
+              }
+
+              if (isset($direcciones[$row->id_address])) {
+
+                if (isset($ciudades[$direcciones[$row->id_address]])) {
+
+                  //dd($ciudades[$direcciones[$row->id_address]]);
+                  
+                  $nombre_ciudad=$ciudades[$direcciones[$row->id_address]];
+
+                }
+               
+              }
+
+
+
+
+               $data[]= array(
+                 $row->id, 
+                 $row->referencia, 
+                 $row->first_name.' '.$row->last_name, 
+                 $row->telefono_cliente, 
+                 $row->nombre_forma_envios, 
+                 $row->nombre_forma_pago, 
+                 $nombre_almacen, 
+                 $nombre_ciudad, 
+                 number_format($row->monto_total,2), 
+                 $row->ordencompra, 
+                 $cupon, 
+                 $row->factura, 
+                 $row->tracking, 
+                 date("d/m/Y H:i:s", strtotime($row->created_at)), 
+                 $pago, 
+                 $estatus, 
+                 $actions
+              );
+
+
+
+          }
+
+
+          return json_encode( array('data' => $data ));
+
+    }
+
+
+
+
+
+    public function almacenrecibidos()
+    {
+        // Grab all the groups
+
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpOrdenesController/recibidos ');
+
+        }else{
+
+          activity()
+          ->log('AlpOrdenesController/recibidos');
+
+        }
+
+         if (!Sentinel::getUser()->hasAnyAccess(['ordenes.almacenrecibidos'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+      
+       
+
+        $estatus_ordenes = AlpEstatusOrdenes::all();
+
+          $ordenes = AlpOrdenes::where('id', '1')->get();
+       
+        // Show the page
+        return view('admin.ordenes.almacenrecibidos', compact('ordenes', 'estatus_ordenes'));
+
+    }
+
+
+
+ public function dataalmacenrecibidos()
+    {
+       
+      $user = Sentinel::getUser();
+        
+
+      $ordenes = AlpOrdenes::select('alp_ordenes.*', 'alp_clientes.telefono_cliente as telefono_cliente','users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
+          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
+          ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
+          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
+          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+          ->where('alp_ordenes.estatus', '1')
+          ->where('alp_ordenes.id_forma_pago', '<>', '3')
+          ->where('alp_ordenes.id_almacen', $user->almacen)
+          ->groupBy('alp_ordenes.id')
+          ->get();
+
+          $almacenes=AlpAlmacenes::pluck('nombre_almacen', 'id');
+          $direcciones=AlpDirecciones::pluck('city_id', 'id');
+          $ciudades=City::pluck('city_name', 'id');
+
+
+
+            $data = array();
+
+
+          foreach($ordenes as $row){
+
+
+            $pago="<div style='display: inline-block;' class='pago_".$row->id."'>  
+
+                                            <button data-id='".$row->id."' class='btn btn-xs btn-success pago' > ".$row->estatus_pago_nombre." </button></div>";
+
+             $estatus="<span class='badge badge-default' >".$row->estatus_nombre."</span>";
+
+
+
+                 $actions = " 
+                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detallealmacen', $row->id)."'>
+                                                ver detalles
+                                            </a> ";
+
+
+                                            if ($row->ordencompra=='') {
+
+                                              $actions=$actions."<div style='display: inline-block;' class='aprobar_".$row->id."'>
+                                            <button data-id='".$row->id."'  data-codigo='".$row->ordencompra."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-info aprobar' > Aprobar </button></div>";
+ 
+                                              
+
+                                            }else{
+                                              $actions=$actions."<div style='display: inline-block;' class='aprobar_".$row->id."'>
+                                            <button data-id='".$row->id."'  data-codigo='".$row->ordencompra."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-success aprobar' > Aprobado </button></div>";
+                                            }
+
+
+                                             $envio=AlpEnvios::where('id_orden', $row->id)->first();
+              if (isset($envio->id)) {
+                # code...
+
+                $row->monto_total=$row->monto_total+$envio->costo;
+              } 
+
+
+               $descuento=AlpOrdenesDescuento::where('id_orden', $row->id)->first();
+
+              if (isset($descuento->id)) {
+
+                $cupon=$descuento->codigo_cupon;
+                # code...
+              }else{
+
+                $cupon='N/A';
+
+              }
+
+
+
+                $nombre_almacen='';
+
+              $nombre_ciudad='';
+
+             // dd($cities); 
+
+              if (isset($almacenes[$row->id_almacen])) {
+                
+                $nombre_almacen=$almacenes[$row->id_almacen];
+              }
+
+              if (isset($direcciones[$row->id_address])) {
+
+                if (isset($ciudades[$direcciones[$row->id_address]])) {
+
+                  //dd($ciudades[$direcciones[$row->id_address]]);
+                  
+                  $nombre_ciudad=$ciudades[$direcciones[$row->id_address]];
+
+                }
+               
+              }
+
+
+
+               $data[]= array(
+                 $row->id, 
+                 $row->referencia, 
+                 $row->first_name.' '.$row->last_name, 
+                 $row->telefono_cliente, 
+                 $row->nombre_forma_envios, 
+                 $row->nombre_forma_pago, 
+                 $nombre_almacen, 
+                 $nombre_ciudad, 
+                 number_format($row->monto_total,2), 
+                 //$row->ordencompra, 
+                 $cupon, 
+                 $row->factura, 
+                 //$row->tracking, 
+                 date("d/m/Y H:i:s", strtotime($row->created_at)), 
+                 $actions
+              );
+
+
+
+          }
+
+
+          return json_encode( array('data' => $data ));
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+    public function almacenfacturados()
+    {
+        // Grab all the groups
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpOrdenesController/facturados ');
+
+        }else{
+
+          activity()
+          ->log('AlpOrdenesController/facturados');
+
+        }
+
+         if (!Sentinel::getUser()->hasAnyAccess(['ordenes.almacenfacturados'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+      
+        
+
+        $estatus_ordenes = AlpEstatusOrdenes::all();
+
+         $ordenes = AlpOrdenes::where('id', '1')->get();
+       
+        // Show the page
+        return view('admin.ordenes.almacenfacturados', compact('ordenes', 'estatus_ordenes'));
+
+    }
+
+
+
+
+ public function dataalmacenfacturados()
+    {
+       $user = Sentinel::getUser();
+    
+         $ordenes = AlpOrdenes::select('alp_ordenes.*', 'alp_clientes.telefono_cliente as telefono_cliente','users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
+          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
+          ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
+          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
+          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+          ->where('alp_ordenes.estatus', '6')
+          ->where('alp_ordenes.id_almacen', $user->almacen)
+          ->groupBy('alp_ordenes.id')
+          ->get();
+
+          $almacenes=AlpAlmacenes::pluck('nombre_almacen', 'id');
+          $direcciones=AlpDirecciones::pluck('city_id', 'id');
+          $ciudades=City::pluck('city_name', 'id');
+
+
+
+            $data = array();
+
+
+          foreach($ordenes as $row){
+
+
+            $pago="<div style='display: inline-block;' class='pago_".$row->id."'>  
+
+                                            <button data-id='".$row->id."' class='btn btn-xs btn-success pago' > ".$row->estatus_pago_nombre." </button></div>";
+
+             $estatus="<span class='badge badge-default' >".$row->estatus_nombre."</span>";
+
+
+
+                 $actions = " 
+                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detallealmacen', $row->id)."'>
+                                                ver detalles
+                                            </a> ";
+
+
+                                            if ($row->tracking=='') {
+
+                                              $actions=$actions."<div style='display: inline-block;' class='tracking_".$row->id."'>
+                                            <button data-id='".$row->id."'  data-codigo='".$row->tracking."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-info tracking' > Enviar </button></div>";
+ 
+                                              
+
+                                            }else{
+                                              $actions=$actions."<div style='display: inline-block;' class='tracking_".$row->id."'>
+                                            <button data-id='".$row->id."'  data-codigo='".$row->tracking."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-success tracking' > Enviado </button></div>";
+                                            }
+
+                                             $envio=AlpEnvios::where('id_orden', $row->id)->first();
+              if (isset($envio->id)) {
+                # code...
+
+                $row->monto_total=$row->monto_total+$envio->costo;
+              } 
+
+
+
+
+               $descuento=AlpOrdenesDescuento::where('id_orden', $row->id)->first();
+
+              if (isset($descuento->id)) {
+
+                $cupon=$descuento->codigo_cupon;
+                # code...
+              }else{
+
+                $cupon='N/A';
+
+              }
+
+
+
+
+              $nombre_almacen='';
+
+              $nombre_ciudad='';
+
+             // dd($cities); 
+
+              if (isset($almacenes[$row->id_almacen])) {
+                
+                $nombre_almacen=$almacenes[$row->id_almacen];
+              }
+
+              if (isset($direcciones[$row->id_address])) {
+
+                if (isset($ciudades[$direcciones[$row->id_address]])) {
+
+                  //dd($ciudades[$direcciones[$row->id_address]]);
+                  
+                  $nombre_ciudad=$ciudades[$direcciones[$row->id_address]];
+
+                }
+               
+              }
+
+
+               $data[]= array(
+                 $row->id, 
+                 $row->referencia, 
+                 $row->first_name.' '.$row->last_name, 
+                 $row->telefono_cliente, 
+                 $row->nombre_forma_envios, 
+                 $row->nombre_forma_pago, 
+                 $nombre_almacen, 
+                 $nombre_ciudad, 
+                 number_format($row->monto_total,2), 
+                 $row->ordencompra, 
+                 $cupon, 
+                 $row->factura, 
+                 $row->tracking, 
+                 date("d/m/Y H:i:s", strtotime($row->created_at)), 
+                 $actions
+              );
+
+
+
+          }
+
+
+          return json_encode( array('data' => $data ));
+
+    }
+
+
+
+
+
+
+
+
+    public function almacenenviados()
+    {
+        // Grab all the groups
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpOrdenesController/enviados ');
+
+        }else{
+
+          activity()
+          ->log('AlpOrdenesController/enviados');
+
+        } 
+
+        if (!Sentinel::getUser()->hasAnyAccess(['ordenes.almacenenviados'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+
+      
+        
+
+        $estatus_ordenes = AlpEstatusOrdenes::all();
+
+        $ordenes = AlpOrdenes::where('id', '1')->get();
+       
+        // Show the page
+        return view('admin.ordenes.almacenenviados', compact('ordenes', 'estatus_ordenes'));
+
+    }
+
+
+     public function dataalmacenenviados()
+    {
+       
+    $user = Sentinel::getUser();
+           $ordenes = AlpOrdenes::select('alp_ordenes.*', 'alp_clientes.telefono_cliente as telefono_cliente','users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
+          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
+           ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
+          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
+          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+          ->where('alp_ordenes.estatus', '7')
+          ->where('alp_ordenes.id_almacen', $user->almacen)
+          ->groupBy('alp_ordenes.id')
+          ->get();
+
+          $almacenes=AlpAlmacenes::pluck('nombre_almacen', 'id');
+          $direcciones=AlpDirecciones::pluck('city_id', 'id');
+          $ciudades=City::pluck('city_name', 'id');
+
+
+       
+
+            $data = array();
+
+
+          foreach($ordenes as $row){
+
+
+            $pago="<div style='display: inline-block;' class='pago_".$row->id."'>  
+
+                                            <button data-id='".$row->id."' class='btn btn-xs btn-success pago' > ".$row->estatus_pago_nombre." </button></div>";
+
+             $estatus="<span class='badge badge-default' >".$row->estatus_nombre."</span>";
+
+
+
+                 $actions = " 
+                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detallealmacen', $row->id)."'>
+                                                ver detalles
+                                            </a> ";
+
+
+                                             $envio=AlpEnvios::where('id_orden', $row->id)->first();
+              if (isset($envio->id)) {
+                # code...
+
+                $row->monto_total=$row->monto_total+$envio->costo;
+              } 
+
+              
+               $descuento=AlpOrdenesDescuento::where('id_orden', $row->id)->first();
+
+              if (isset($descuento->id)) {
+
+                $cupon=$descuento->codigo_cupon;
+                # code...
+              }else{
+
+                $cupon='N/A';
+
+              }
+
+                                          
+              $nombre_almacen='';
+
+              $nombre_ciudad='';
+
+             // dd($cities); 
+
+              if (isset($almacenes[$row->id_almacen])) {
+                
+                $nombre_almacen=$almacenes[$row->id_almacen];
+              }
+
+              if (isset($direcciones[$row->id_address])) {
+
+                if (isset($ciudades[$direcciones[$row->id_address]])) {
+
+                  //dd($ciudades[$direcciones[$row->id_address]]);
+                  
+                  $nombre_ciudad=$ciudades[$direcciones[$row->id_address]];
+
+                }
+               
+              }
+
+               $data[]= array(
+                 $row->id, 
+                 $row->referencia, 
+                 $row->first_name.' '.$row->last_name, 
+                 $row->telefono_cliente, 
+                 $row->nombre_forma_envios, 
+                 $row->nombre_forma_pago, 
+                 $nombre_almacen, 
+                 $nombre_ciudad, 
+                 number_format($row->monto_total,2), 
+                 $row->ordencompra, 
+                 $cupon, 
+                 $row->factura, 
+                 $row->tracking, 
+                 date("d/m/Y H:i:s", strtotime($row->created_at)), 
+                 $actions
+              );
+
+
+
+          }
+
+
+          return json_encode( array('data' => $data ));
+
+    }
+
+
+    public function almacencancelados()
+    {
+        // Grab all the groups
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpOrdenesController/cancelados ');
+
+        }else{
+
+          activity()
+          ->log('AlpOrdenesController/cancelados');
+
+        } 
+
+        if (!Sentinel::getUser()->hasAnyAccess(['ordenes.almacencancelados'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+      
+       $user = Sentinel::getUser();
+
+        $estatus_ordenes = AlpEstatusOrdenes::all();
+
+       $ordenes = AlpOrdenes::where('id', '1')->where('id_almacen', '=', $user->almacen)->get();
+       
+        // Show the page
+        return view('admin.ordenes.almacencancelados', compact('ordenes', 'estatus_ordenes'));
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
