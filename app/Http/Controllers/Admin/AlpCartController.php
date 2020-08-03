@@ -6606,7 +6606,6 @@ private function getAlmacen3(){
                       $productos[]=$dt;
                      
                     }
-                    
                       
                   }
 

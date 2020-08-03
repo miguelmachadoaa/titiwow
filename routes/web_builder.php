@@ -957,7 +957,6 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
         Route::get('/compramas/list', 'Admin\AlpOrdenesController@compramas')->name('ordenes.compramas');
 
-
         Route::get('/sendmail/{id}', 'Admin\AlpOrdenesController@sendmail')->name('ordenes.sendmail');
 
     });

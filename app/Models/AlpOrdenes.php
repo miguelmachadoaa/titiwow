@@ -48,6 +48,7 @@ class AlpOrdenes extends Model
         'id_user'
     ];
 
+    
     /**
      * The attributes that should be casted to native types.
      *

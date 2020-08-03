@@ -67,7 +67,6 @@ Ordenes Compramas
                             </thead>
                             <tbody>
 
-                               
                             </tbody>
                         </table>
                         </div>

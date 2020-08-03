@@ -3646,7 +3646,6 @@ public function detallealmacen($id)
 
                      Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
 
-
                   }
 
 
