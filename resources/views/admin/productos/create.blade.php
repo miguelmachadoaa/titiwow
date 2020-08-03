@@ -713,53 +713,56 @@
                                                 
                                             </div>
 
-                                            <div class="form-group clearfix col-sm-12 {{ $errors->
-                                                first('medida', 'has-error') }}">
-                                                
-                                                <label class="col-md-3 control-label" for="referencia_producto">Unidad de Medida </label>
-                                                
-                                                <div class="col-md-9">
-                                                    <input id="medida" name="medida" type="text" placeholder="Unidad de Medida" class="form-control" value="{{ old('medida') }}" >
+                                            <div class="form-group col-sm-12 clearfix {{ $errors->first('medida', 'has-error') }}">
 
-                                                    {!! $errors->first('medida', '<span class="help-block">:message</span> ') !!}
+                                                <label class="col-sm-3 col-xs-12 control-label" for="referencia_producto">@lang('productos/title.medida') </label>
+
+                                                <div class="col-sm-9 col-xs-12">
+                                                    <input id="medida" name="medida" type="text" placeholder="Medida" class="form-control" value=""  >
+
+                                                     {!! $errors->first('medida', '<span class="help-block">:message</span> ') !!}
 
                                                 </div>
+                                                <br>    
 
-                                                
+                                              
+
                                             </div>
 
 
-                                            <div class="form-group clearfix col-sm-12 {{ $errors->
-                                                first('unidad', 'has-error') }}">
-                                                
-                                                <label class="col-md-3 control-label" for="referencia_producto">Cantidad del producto</label>
-                                                
-                                                <div class="col-md-9">
-                                                    <input id="unidad" name="unidad" type="text" placeholder="Cantidad del producto" class="form-control" value="{{ old('unidad') }}" >
+                                            <div class="form-group col-sm-12 clearfix {{ $errors->first('unidad', 'has-error') }}">
 
-                                                    {!! $errors->first('unidad', '<span class="help-block">:message</span> ') !!}
+                                                <label class="col-sm-3 col-xs-12 control-label" for="referencia_producto">Unidad de Medida</label>
+
+                                                <div class="col-sm-9 col-xs-12">
+                                                    <input id="unidad" name="unidad" type="text" placeholder="Unidad de Medida" class="form-control" value=""  >
+
+                                                     {!! $errors->first('unidad', '<span class="help-block">:message</span> ') !!}
 
                                                 </div>
+                                                <br>    
 
-                                                
+                                              
+
                                             </div>
 
 
+                                            <div class="form-group col-sm-12 clearfix {{ $errors->first('cantidad', 'has-error') }}">
 
-                                            <!--div class="form-group clearfix col-sm-12 {{ $errors->
-                                                first('cantidad', 'has-error') }}">
-                                                
-                                                <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.cantidad') </label>
-                                                
-                                                <div class="col-md-9">
-                                                    <input id="cantidad" name="cantidad" type="text" placeholder="cantidad" class="form-control" value="{{ old('cantidad') }}" >
+                                                <label class="col-sm-3 col-xs-12 control-label" for="referencia_producto">Cantidad del Producto </label>
 
-                                                    {!! $errors->first('cantidad', '<span class="help-block">:message</span> ') !!}
+                                                <div class="col-sm-9 col-xs-12">
+                                                    <input id="cantidad" name="cantidad" type="text" placeholder="Cantidad del Producto" class="form-control" value=""  >
+
+                                                     {!! $errors->first('cantidad', '<span class="help-block">:message</span> ') !!}
 
                                                 </div>
+                                                <br>    
 
-                                                
-                                            </div-->
+                                              
+
+                                            </div>
+
 
 
 

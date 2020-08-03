@@ -40,6 +40,8 @@ class ProductosRequest extends FormRequest {
             'inventario_inicial' => 'required',
             'mostrar_descuento' => 'required',
 			'precio_base' => 'required',
+			'cantidad' => 'required',
+			'unidad' => 'required',
 			'image' => 'image',
 		];
 	}
