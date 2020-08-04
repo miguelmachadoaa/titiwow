@@ -1045,7 +1045,7 @@
                 <li {!! (Request::is('admin/reportes/productostotales') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ secure_url('admin/reportes/productostotales') }}">
                     <i class="fa fa-angle-double-right"></i>
-                    Productos con Impuesto
+                    Productos SellOut
                 </a>
             </li>
             @endif

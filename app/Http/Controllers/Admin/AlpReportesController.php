@@ -31,6 +31,10 @@ use App\Exports\InventarioExport;
 use App\Exports\ClientesExport;
 use App\Exports\FormatoSolicitudPedidoAlpinista;
 
+
+use App\Http\Requests\FinancieroRequest;
+
+
 use App\User;
 use App\State;
 use App\Models\AlpOrdenes;
@@ -207,11 +211,13 @@ class AlpReportesController extends Controller
 
         $productos=AlpProductos::all();
 
-        return view('admin.reportes.productostotales', compact('productos'));
+        $almacenes=AlpAlmacenes::where('estado_registro', '=', '1')->get();
+
+        return view('admin.reportes.productostotales', compact('productos', 'almacenes'));
 
     }
 
-     public function exportproductostotales(Request $request) 
+     public function exportproductostotales(FinancieroRequest $request) 
     {
 
 
@@ -237,10 +243,16 @@ class AlpReportesController extends Controller
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
+        if ($request->almacen==0) {
+          $a='todos';
+        }else{
+          $alm=AlpAlmacenes::where('id', $request->almacen)->first();
 
-       // dd($request->all());
+          $a=$alm->nombre_almacen;
+        }
 
-        return Excel::download(new ProductostotalesExport($request->desde, $request->hasta), 'productos_con_impuesto.xlsx');
+
+        return Excel::download(new ProductostotalesExport($request->desde, $request->hasta, $request->almacen), 'productos_con_impuesto_'.$a.'.xlsx');
     }
 
     public function carrito() 
@@ -403,14 +415,15 @@ class AlpReportesController extends Controller
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
+        $almacenes=AlpAlmacenes::where('estado_registro', '=', '1')->get();
         
 
-        return view('admin.reportes.financiero');
+        return view('admin.reportes.financiero', compact('almacenes'));
 
     }
 
 
-    public function exportfinanciero(Request $request) 
+    public function exportfinanciero(FinancieroRequest $request) 
     {
 
          if (Sentinel::check()) {
@@ -435,11 +448,20 @@ class AlpReportesController extends Controller
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
+        $input=$request->all();
+
+       // dd($input);
+
+        if ($request->almacen==0) {
+          $a='todos';
+        }else{
+          $alm=AlpAlmacenes::where('id', $request->almacen)->first();
+
+          $a=$alm->nombre_almacen;
+        }
 
 
-       // dd($request->all());
-
-        return Excel::download(new FinancieroExport($request->desde, $request->hasta), 'financiero_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+        return Excel::download(new FinancieroExport($request->desde, $request->hasta, $request->almacen), 'financiero_desde_'.$request->desde.'_hasta_'.$request->hasta.'_'.$a.'.xlsx');
     }
 
 

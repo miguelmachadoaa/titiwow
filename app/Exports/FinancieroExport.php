@@ -21,17 +21,19 @@ use \DB;
 class FinancieroExport implements FromView
 {
     
-    public function __construct(string $desde, string $hasta)
+    public function __construct(string $desde, string $hasta, string $almacen)
     {
         $this->desde = $desde;
         $this->hasta = $hasta;
+        $this->almacen = $almacen;
     }
 
     public function view(): View
     {
 
-        $ordenes=AlpOrdenes::query()->select(
+        $c=AlpOrdenes::query()->select(
            DB::raw('DATE_FORMAT(alp_ordenes.created_at, "%d/%m/%Y")  as fecha'),
+          'alp_ordenes.created_at as created_at',
           'alp_ordenes.id as id',
           'alp_ordenes.ip as ip',
           'alp_ordenes.base_impuesto as base_impuesto',
@@ -53,17 +55,32 @@ class FinancieroExport implements FromView
           'users.last_name as last_name', 
           'users.email as email', 
           'alp_ordenes_pagos.json as json',
+          'alp_almacenes.nombre_almacen as nombre_almacen',
           'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago'
           )
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
           ->join('alp_clientes', 'alp_ordenes.id_cliente', '=', 'alp_clientes.id_user_client')
           ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
+          ->join('alp_almacenes', 'alp_ordenes.id_almacen', '=', 'alp_almacenes.id')
           ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
           ->groupBy('alp_ordenes.id')
           ->whereIn('alp_ordenes.estatus', [5,6,7])
           ->where('alp_ordenes.id_forma_pago', '<>', '3')
           ->whereDate('alp_ordenes.created_at', '>=', $this->desde)
-          ->whereDate('alp_ordenes.created_at', '<=', $this->hasta)->get();
+          ->whereDate('alp_ordenes.created_at', '<=', $this->hasta);
+
+
+          if ($this->almacen==0) {
+            # code...
+          }else{
+
+            $c->where('alp_ordenes.id_almacen', '=', $this->almacen);
+
+          }
+
+
+
+          $ordenes=$c->get();
 
 
           $d = array();

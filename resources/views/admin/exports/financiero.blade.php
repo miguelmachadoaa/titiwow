@@ -23,6 +23,7 @@
             <th><b>Total a Transferir</b></th>
             <th><b>Embajador</b></th>
             <th><b>Empresa Asociada</b></th>
+            <th><b>Almacen</b></th>
             <th><b>Ip</b></th>
 
         </tr>
@@ -132,6 +133,7 @@
 
                 @endif
 
+                <td>{!! $row->nombre_almacen !!}</td>
                 <td>{!! $row->ip !!}</td>
           
         </tr>

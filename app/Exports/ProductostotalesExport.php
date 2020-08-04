@@ -17,10 +17,11 @@ use \DB;
 class ProductostotalesExport implements FromView
 {
     
-    public function __construct(string $desde, string $hasta)
+    public function __construct(string $desde, string $hasta, string $almacen)
     {
         $this->desde = $desde;
         $this->hasta = $hasta;
+        $this->almacen = $almacen;
     }
 
 
@@ -29,17 +30,20 @@ class ProductostotalesExport implements FromView
     {
 
      // dd($this->desde.'-'.$this->hasta);
-         $productos= AlpDetalles::select(
+         $c= AlpDetalles::select(
           'alp_ordenes_detalle.*', 
            DB::raw('DATE_FORMAT(alp_ordenes_detalle.created_at, "%d/%m/%Y")  as fecha'),
           // DB::raw('sum(alp_ordenes_detalle.cantidad)  as total_cantidad'),
            'alp_productos.presentacion_producto as presentacion_producto',
           'alp_productos.nombre_producto as nombre_producto',
           'alp_productos.referencia_producto as referencia_producto',
+          'alp_productos.referencia_producto_sap as referencia_producto_sap',
           'alp_categorias.nombre_categoria as nombre_categoria',
+          'alp_almacenes.nombre_almacen as nombre_almacen',
           'alp_marcas.nombre_marca as nombre_marca'
           )
           ->join('alp_ordenes', 'alp_ordenes_detalle.id_orden', '=', 'alp_ordenes.id')
+          ->join('alp_almacenes', 'alp_ordenes.id_almacen', '=', 'alp_almacenes.id')
           ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
           ->join('alp_marcas', 'alp_productos.id_marca', '=', 'alp_marcas.id')
@@ -47,8 +51,21 @@ class ProductostotalesExport implements FromView
           ->whereDate('alp_ordenes_detalle.created_at', '>=', $this->desde)
           ->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta)
           ->whereIn('alp_ordenes.estatus', [1,2,3,5,6,7])
-          ->where('alp_ordenes.id_forma_pago', '<>', '3')
-          ->get();
+          ->where('alp_ordenes.id_forma_pago', '<>', '3');
+
+
+           if ($this->almacen==0) {
+            # code...
+          }else{
+
+            $c->where('alp_ordenes.id_almacen', '=', $this->almacen);
+
+          }
+
+
+          $productos=$c->get();
+
+
 
 
           $pro = array();

@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Reporte de Ventas por Producto
+Reporte Sellout
 @parent
 @stop
 
@@ -25,7 +25,7 @@ Reporte de Ventas por Producto
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1>Reporte de Ventas por Producto con Iva </h1>
+    <h1>Reporte de Sellout</h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}">
@@ -34,7 +34,7 @@ Reporte de Ventas por Producto
             </a>
         </li>
         <li><a href="#"> Reportes </a></li>
-        <li class="active">Ventas por Producto</li>
+        <li class="active">Sellout</li>
     </ol>
 </section>
 
@@ -45,7 +45,7 @@ Reporte de Ventas por Producto
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Reporte Ventas por Producto
+                       Reporte SellOut
                     </h4>
                 </div>
                 <br />
@@ -56,23 +56,7 @@ Reporte de Ventas por Producto
                         {{ csrf_field() }}
 
                 <div class="row">   
-                   <!-- <div class="form-group col-sm-12 ">
-                        <label for="select21" class="col-md-2 control-label text-right">
-                        Producto                                               
-                        </label>
-                        <div class="col-md-10">   
-                            <select id="producto" name="producto" class="form-control select2">
-                                <option value="">Seleccione</option>
-
-                                 @foreach($productos as $producto)
-                                 
-                                    <option  value="{{ $producto->id }}">{{ $producto->nombre_producto }}</option>
-
-                                 @endforeach
-                                
-                            </select>
-                        </div>           
-                    </div>-->
+                  
 
 
                     <div class="form-group">
@@ -99,6 +83,35 @@ Reporte de Ventas por Producto
                                 </div>
                             </div>
                         </div>
+
+                         <div class="row">
+
+                            <br>
+                            
+                            <div class="form-group col-sm-12 ">
+                            <label for="select21" class="col-md-2 control-label text-right">
+                            Almacen                                               
+                            </label>
+                            <div class="col-md-10">   
+                                <select id="almacen" name="almacen" class="form-control select2">
+                                    <option value="">Seleccione</option>
+
+                                    <option value="0">Todos</option>
+
+                                     @foreach($almacenes as $alm)
+                                     
+                                        <option  value="{{ $alm->id }}">{{ $alm->nombre_almacen }}</option>
+
+                                     @endforeach
+                                    
+                                </select>
+                            </div>           
+                        </div>
+
+                        </div>
+
+
+                        
                             <!-- /.input group -->
                     </div>
 

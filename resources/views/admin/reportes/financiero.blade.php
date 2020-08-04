@@ -64,7 +64,7 @@ Reporte Conciliacion Financiera
                                 <label class="col-md-2 control-label text-right">Desde - Hasta:</label>
 
                         <div class="row">
-                                <div class="col-sm-5 pad-0-res mt-5">
+                                <div class="col-sm-4 pad-0-res mt-5">
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="livicon" data-name="calendar" data-size="16" data-c="#555555"
@@ -83,6 +83,35 @@ Reporte Conciliacion Financiera
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+
+                            <br>
+                            
+                            <div class="form-group col-sm-12 ">
+                            <label for="select21" class="col-md-2 control-label text-right">
+                            Almacen                                               
+                            </label>
+                            <div class="col-md-10">   
+                                <select id="almacen" name="almacen" class="form-control select2">
+                                    <option value="">Seleccione</option>
+
+                                    <option value="0">Todos</option>
+
+                                     @foreach($almacenes as $alm)
+                                     
+                                        <option  value="{{ $alm->id }}">{{ $alm->nombre_almacen }}</option>
+
+                                     @endforeach
+                                    
+                                </select>
+                            </div>           
+                        </div>
+
+                        </div>
+
+
+                         
                             <!-- /.input group -->
                     </div>
 
