@@ -978,7 +978,11 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
         Route::get('{menu}/delete', 'Admin\AlpMenuController@destroy')->name('menus.delete');
 
+        Route::get('{menu}/deletedetalle', 'Admin\AlpMenuController@destroydetalle')->name('menus.deletedetalle');
+
         Route::get('{menu}/confirm-delete', 'Admin\AlpMenuController@getModalDelete')->name('menus.confirm-delete');
+
+        Route::get('{menu}/confirm-delete-detalle', 'Admin\AlpMenuController@getModalDeleteDetalle')->name('menus.confirm-delete-detalle');
 
         Route::get('{menu}/restore', 'Admin\AlpMenuController@getRestore')->name('menus.restore');
 

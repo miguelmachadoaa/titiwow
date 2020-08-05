@@ -502,6 +502,27 @@ class AlpMenuController extends JoshController
         }
     }
 
+
+
+    public function getModalDeleteDetalle($id = null)
+    {
+        $model = 'menus';
+        $confirm_route = $error = null;
+        try {
+            // Get group information
+            
+            $menu = AlpDetalleSubmenu::find($id);
+
+            $confirm_route = route('admin.menus.deletedetalle', ['id' => $menu->id]);
+
+            return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
+        } catch (GroupNotFoundException $e) {
+            $error = trans('Ha ocurrido un error al eliminar registro');
+            return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
+        }
+    }
+
+
     /**
      * Delete the given group.
      *
@@ -551,6 +572,53 @@ class AlpMenuController extends JoshController
             return Redirect::route('admin.menus.index')->with('error', trans('Error al eliminar el registro'));
         }
     }
+
+
+    public function destroydetalle($id)
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('AlpMenuController/destroy ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('AlpMenuController/destroy');
+
+
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['menus.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+
+        try {
+            // Get group information
+           
+            $menu = AlpDetalleSubmenu::find($id);
+
+            // Delete the group
+            $menu->delete();
+
+            // Redirect to the group management page
+            return Redirect::route('admin.menus.index')->with('success', trans('Se ha eliminado el registro satisfactoriamente'));
+        } catch (GroupNotFoundException $e) {
+            // Redirect to the group management page
+            return Redirect::route('admin.menus.index')->with('error', trans('Error al eliminar el registro'));
+        }
+    }
+
+
+
 
     /**
      * Group update.

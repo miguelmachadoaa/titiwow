@@ -248,7 +248,7 @@ Menu {{$menu->id}}
                                             </a>
                                             <!-- let's not delete 'Admin' group by accident -->
                                             
-                                            <a href="{{ secure_url('admin/menus/'.$row->id.'/confirm-delete') }}" data-toggle="modal" data-target="#delete_confirm">
+                                            <a href="{{ secure_url('admin/menus/'.$row->id.'/confirm-delete-detalle') }}" data-toggle="modal" data-target="#delete_confirm">
                                             <i class="livicon" data-name="remove-alt" data-size="18"
                                                 data-loop="true" data-c="#f56954" data-hc="#f56954"
                                                 title="Eliminar"></i>
@@ -286,6 +286,17 @@ Menu {{$menu->id}}
 
 {{-- page level scripts --}}
 @section('footer_scripts')
+
+<div class="modal fade" id="delete_confirm" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+
+
+
+
 <!-- begining of page level js -->
 <!--edit blog-->
 <script src="{{ secure_asset('assets/vendors/summernote/summernote.js') }}" type="text/javascript"></script>
@@ -357,6 +368,19 @@ Menu {{$menu->id}}
 
             
         });
+
+
+
+      $(function () {$('body').on('hidden.bs.modal', '.modal', function () {$(this).removeData('bs.modal');});});
+      
+    $(document).on("click", ".users_exists", function () {
+
+        var group_name = $(this).data('name');
+        $(".modal-header h4").text( group_name+" Group" );
+    });
+
+
+
 
      </script>
 

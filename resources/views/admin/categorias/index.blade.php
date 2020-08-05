@@ -136,7 +136,6 @@ Categorias
         } );
 
 
-
     $('#categoriastable').on('click', '.destacado', function(){
 
 
@@ -153,8 +152,6 @@ Categorias
            
         });
 
-
-
     $(function () {$('body').on('hidden.bs.modal', '.modal', function () {$(this).removeData('bs.modal');});});
 
     $(document).on("click", ".users_exists", function () {
@@ -162,8 +159,6 @@ Categorias
         var group_name = $(this).data('name');
         $(".modal-header h4").text( group_name+" Group" );
     });
-
-
 
 </script>
 @stop
