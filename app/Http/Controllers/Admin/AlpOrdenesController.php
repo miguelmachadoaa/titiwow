@@ -1304,15 +1304,11 @@ public function compramasupdate()
                  $row->telefono_cliente, 
                  $row->nombre_forma_envios, 
                  $row->nombre_forma_pago, 
-                 $nombre_almacen, 
-                 $nombre_ciudad, 
                  number_format($row->monto_total,2), 
-                 //$row->ordencompra, 
                  $cupon, 
                  $row->factura, 
                  $nombre_almacen, 
                  $nombre_ciudad, 
-                 //$row->tracking, 
                  date("d/m/Y H:i:s", strtotime($row->created_at)), 
                  $actions
               );
