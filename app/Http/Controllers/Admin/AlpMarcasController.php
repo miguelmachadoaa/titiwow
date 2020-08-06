@@ -1,4 +1,5 @@
-<?php namespace App\Http\Controllers\Admin;
+<?php 
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\JoshController;
 use App\Http\Requests\MarcaRequest;
