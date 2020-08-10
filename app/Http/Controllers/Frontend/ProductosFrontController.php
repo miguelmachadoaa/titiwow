@@ -1304,7 +1304,7 @@ class ProductosFrontController extends Controller
 
                   $c=City::where('id', $ciudad)->first();
 
-                  if (isset($->id)) {
+                  if (isset($c->id)) {
                       $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
                   ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
                   ->where('alp_almacenes.tipo_almacen', '=', $tipo)
