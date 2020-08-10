@@ -499,8 +499,6 @@ class AlpConfiguracionController extends JoshController
 
 
       }
-
-
         
         $cities['0'] = 'Seleccione';
         return json_encode($cities);
