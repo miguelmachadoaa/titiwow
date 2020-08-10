@@ -3564,9 +3564,7 @@ public function detallealmacen($id)
                      $notas=$notas.$res->codigo.' ';
                    }
 
-                   if (isset($res->causa)) {
-                     $notas=$notas.$res->causa.' ';
-                   }
+                   
 
                    if (isset($res->message)) {
                      $notas=$notas.$res->message.' ';

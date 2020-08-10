@@ -6660,9 +6660,7 @@ private function getAlmacen3(){
          $notas=$notas.$res->codigo.' ';
        }
 
-       if (isset($res->causa)) {
-         $notas=$notas.$res->causa.' ';
-       }
+       
 
        if (isset($res->message)) {
          $notas=$notas.$res->message.' ';
