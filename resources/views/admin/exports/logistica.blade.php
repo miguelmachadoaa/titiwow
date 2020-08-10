@@ -1,6 +1,7 @@
 <table class="" id="categoriastable">
     <thead>
         <tr>
+            <th ><b>Id Orden</b></th>
             <th ><b>Numero_pedido</b></th>
             <th><b> Ciudad</b></th>
             <th><b>Direccion Entrega</b></th>
@@ -14,12 +15,14 @@
             <th><b>Telefono Cliente</b></th>
             <th><b>Ruta</b></th>
             <th><b>Observaciones</b></th>
+            <th><b>Fecha</b></th>
         </tr>
     </thead>
     <tbody>
 
         @foreach ($ventas as $row)
         <tr>
+            <td>{!! $row->id !!}</td>
             <td>{!! $row->ordencompra !!}</td>
             <td>{!! $row->city_name!!}</td>
             <td>{{ $row->abrevia_estructura.' '.$row->principal_address.' '.$row->secundaria_address.' '.$row->edificio_address.' '.$row->detalle_address     }}</td>
@@ -33,6 +36,7 @@
             <td>{!! $row->telefono_cliente !!}</td>
             <td></td>
             <td>{!! $row->barrio_address !!}</td>
+            <td>{!! $row->fecha !!}</td>
           
         </tr>
         @endforeach

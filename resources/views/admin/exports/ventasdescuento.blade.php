@@ -11,6 +11,7 @@
             <th><b> Codigo Cupon </b></th>
             <th><b> % Descuento </b></th>
             <th><b>Valor Descuento</b></th>
+            <th><b>Fecha</b></th>
         </tr>
     </thead>
     <tbody>
@@ -20,13 +21,14 @@
             <td>{!! $venta->id!!}</td>
             <td>{!! $venta->first_name.' '.$venta->last_name !!}</td>
             <td>{!! $venta->doc_cliente !!}</td>
-            <td>{!! ''!!}</td>
-            <td>{!! '' !!}</td>
+            <td>{!! $venta->referencia_producto!!}</td>
+            <td>{!! $venta->referencia_producto_sap !!}</td>
             <td>{!! $venta->total_articulos !!}</td>
             <td>{!! $venta->monto_total !!}</td>
             <td>{!! $venta->codigo_cupon !!}</td>
             <td>{!! number_format((($venta->monto_descuento/$venta->monto_total)*100),2).'%'; !!}</td>
             <td>{!! $venta->monto_descuento !!}</td>
+            <td>{!! $venta->fecha !!}</td>
             
           
         </tr>

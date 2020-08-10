@@ -1015,7 +1015,7 @@
                 <li {!! (Request::is('admin/reportes/financiero') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ secure_url('admin/reportes/financiero') }}">
                     <i class="fa fa-angle-double-right"></i>
-                    Conciliacion Financiera
+                    Conciliacion Financiera Bogotá
                 </a>
             </li>
             @endif
@@ -1035,7 +1035,8 @@
                 <li {!! (Request::is('admin/reportes/ventasdescuento') ? 'class="active" id="active"' : '') !!}>
                     <a href="{{ secure_url('admin/reportes/ventasdescuento') }}">
                         <i class="fa fa-angle-double-right"></i>
-                        Ventas con Descuento
+                        Cupones de descuento
+
                     </a>
                 </li>
             @endif
