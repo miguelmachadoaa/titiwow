@@ -441,14 +441,16 @@ class AlpConfiguracionController extends JoshController
         if (isset($ad->id)) {
           
           $states = DB::table("config_states")
-                    ->where("country_id",$id)
+                    ->where("country_id",'=',$id)
                     ->pluck("state_name","id")->all();
 
         }else{
 
           $states = DB::table("config_states")
                     ->join('alp_almacen_despacho', 'config_states.id', '=', 'alp_almacen_despacho.id_state')
-                    ->where("config_states.country_id",$id)
+                    ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
+                    ->where("config_states.country_id",'=', $id)
+                    ->where("alp_almacenes.estado_registro",'=', '1')
                     ->pluck("config_states.state_name","config_states.id")->all();
 
         }
@@ -487,7 +489,9 @@ class AlpConfiguracionController extends JoshController
 
           $cities = DB::table("config_cities")
             ->join('alp_almacen_despacho', 'config_cities.id', '=', 'alp_almacen_despacho.id_city')
-            ->where("config_cities.state_id",$id)
+            ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
+            ->where("config_cities.state_id",'=', $id)
+            ->where("alp_almacenes.estado_registro",'=', '1')
             ->pluck("config_cities.city_name","config_cities.id")->all();
 
 
