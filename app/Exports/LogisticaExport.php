@@ -16,17 +16,18 @@ use \DB;
 class LogisticaExport implements FromView
 {
     
-    public function __construct(string $desde, string $hasta)
+    public function __construct(string $desde, string $hasta, string $id_almacen)
     {
         $this->desde = $desde;
         $this->hasta = $hasta;
+        $this->id_almacen = $id_almacen;
     }
 
 
 
     public function view(): View
     {
-        $ordenes=AlpOrdenes::query()->select(
+        $o=AlpOrdenes::query()->select(
           'alp_ordenes.id as id',
           'alp_ordenes.ordencompra as ordencompra',
           'alp_ordenes.referencia as referencia', 
@@ -67,8 +68,18 @@ class LogisticaExport implements FromView
           ->whereIn('alp_ordenes.estatus', [5])
           ->where('alp_ordenes.id_forma_pago', '<>', '3')
           ->whereDate('alp_ordenes.created_at', '>=', $this->desde)
-          ->whereDate('alp_ordenes.created_at', '<=', $this->hasta)
-          ->get();
+          ->whereDate('alp_ordenes.created_at', '<=', $this->hasta);
+          //->get();
+
+            if ($this->id_almacen==0) {
+            # code...
+          }else{
+
+            $o->where('alp_ordenes.id_almacen', '=', $this->id_almacen);
+          }
+
+
+          $ordenes=$o->get();
 
           //dd($ordenes);
 

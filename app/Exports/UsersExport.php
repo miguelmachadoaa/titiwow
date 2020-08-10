@@ -17,10 +17,11 @@ use \DB;
 class UsersExport implements FromView
 {
     
-    public function __construct(string $desde, string $hasta)
+    public function __construct(string $desde, string $hasta, string $id_almacen)
     {
         $this->desde = $desde;
         $this->hasta = $hasta;
+        $this->id_almacen = $id_almacen;
     }
 
 

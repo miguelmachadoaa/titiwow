@@ -77,8 +77,10 @@ class AlpReportesController extends Controller
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
+        $almacenes=AlpAlmacenes::get();
 
-        return view('admin.reportes.registrados');
+
+        return view('admin.reportes.registrados', compact('almacenes'));
     }
 
     public function ventas() 
@@ -380,7 +382,7 @@ class AlpReportesController extends Controller
 
         //dd($request->all());
 
-        return Excel::download(new UsersExport($request->desde, $request->hasta), 'users_.xlsx');
+        return Excel::download(new UsersExport($request->desde, $request->hasta, $request->id_almacen), 'users_.xlsx');
     }
     
     public function import() 
@@ -679,7 +681,12 @@ class AlpReportesController extends Controller
         }
 
 
-        return view('admin.reportes.logistica');
+        $almacenes=AlpAlmacenes::get();
+
+
+
+
+        return view('admin.reportes.logistica', compact('almacenes'));
 
     }
 
@@ -711,10 +718,10 @@ class AlpReportesController extends Controller
 
 
 
-        Excel::store(new LogisticaExport($request->desde, $request->hasta), 'logistica_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx', 'public');
+        Excel::store(new LogisticaExport($request->desde, $request->hasta, $request->id_almacen), 'logistica_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx', 'public');
 
 
-        return Excel::download(new LogisticaExport($request->desde, $request->hasta), 'logistica_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+        return Excel::download(new LogisticaExport($request->desde, $request->hasta, $request->id_almacen), 'logistica_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
     }
 
     public function storeexportlogistica(Request $request) 
@@ -743,7 +750,7 @@ class AlpReportesController extends Controller
         }
 
 
-         Excel::store(new LogisticaExport($request->desde, $request->hasta), 'logistica_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+         Excel::store(new LogisticaExport($request->desde, $request->hasta,'1'), 'logistica_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
 
          return true;
     }
@@ -949,7 +956,9 @@ class AlpReportesController extends Controller
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
-        return view('admin.reportes.ventasdescuento');
+        $almacenes=AlpAlmacenes::get();
+
+        return view('admin.reportes.ventasdescuento', compact('almacenes'));
 
     }
 
@@ -977,7 +986,7 @@ class AlpReportesController extends Controller
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
-        return Excel::download(new DescuentoVentasExport($request->desde, $request->hasta), 'ventasdescuento_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+        return Excel::download(new DescuentoVentasExport($request->desde, $request->hasta, $request->id_almacen), 'ventasdescuento_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
     }
 
     /*********************funciones para descarga de reporte************************/
