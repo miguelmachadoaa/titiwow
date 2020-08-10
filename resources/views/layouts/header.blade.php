@@ -243,17 +243,23 @@
                             </div>
                         </div>
                         <div class="col-md-4 col-xs-4 navbar-nav" class="pull_left">
-                            <div id="cart_block_top" class="pull-right navbar-nav">
-                                
+                            <div class="row">
+                                <div class="col-md-8 text-center" style="padding-top:10px;">
+                                    <img src="{{ secure_asset('assets/images/apoyemos.png') }}" alt="Apoyemos lo Nuestro" class="logo_position">
+                                </div>
 
-                                <!--button type="button" name="submit_search" class="btn btn-default button-cart dropdown nav-item "-->
-                                
-                                    <a class="btn btn-default" role="button"  aria-expanded="false"  href="{{ secure_url('cart/show') }}" alt="Ir a Mi Carrito de Compras"><i class="fa fa-cart-arrow-down" aria-hidden="true" id="carrto"></i></a>
- 
-                                <!--/button-->
+                                <div id="cart_block_top" class="col-md-4 pull-right navbar-nav">
+                                    
+
+                                    <!--button type="button" name="submit_search" class="btn btn-default button-cart dropdown nav-item "-->
+                                    
+                                        <a class="btn btn-default" role="button"  aria-expanded="false"  href="{{ secure_url('cart/show') }}" alt="Ir a Mi Carrito de Compras"><i class="fa fa-cart-arrow-down" aria-hidden="true" id="carrto"></i></a>
+    
+                                    <!--/button-->
 
 
-                                
+                                    
+                                </div>
                             </div>
                         </div>
                     </div>
