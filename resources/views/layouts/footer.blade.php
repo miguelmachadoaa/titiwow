@@ -122,8 +122,14 @@
     </div>
 
 <!-- Modal Direccion -->
+    @if(isset($almacen))
+        <div class="almacen" data-id="{{$almacen->id}}"></div>
+    @endif
 
-
+    @if(isset($inventario))
+        <div class="inventario" data-inventario="{{json_encode($inventario)}}"></div>
+    @endif
+    
 
 
 
