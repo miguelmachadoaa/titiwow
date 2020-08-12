@@ -4,6 +4,7 @@
         <thead>
             <tr>
             <th>Marca</th>
+            <th>Condición</th>
             <th>Accion</th>
         </tr>
         </thead>
@@ -12,6 +13,17 @@
 
             <tr>
                 <td>{{$marca->nombre_marca}}</td>
+                <td>
+                    @if($marca->condicion=='1')
+
+                        {{'Incluido '}}
+
+                    @else
+
+                        {{'Excluido '}}
+
+                    @endif
+                </td>
                 <td>
                     <button data-idcupon="{{ $marca->id_cupon }}" data-id="{{$marca->id}}" class="btn btn-danger delcuponmarca">
                         <i class="fa fa-trash"></i>

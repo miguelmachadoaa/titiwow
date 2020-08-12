@@ -13,6 +13,17 @@
                                     <tr>
                                         <td>{{$empresa->nombre_empresa}}</td>
                                         <td>
+                                             @if($empresa->condicion=='1')
+
+                                                {{'Incluido '}}
+
+                                            @else
+
+                                                {{'Excluido '}}
+
+                                            @endif
+                                        </td>
+                                        <td>
                                             <button data-idcupon="{{$empresa->id_cupon}}" data-id="{{$empresa->id}}" class="btn btn-danger delcuponempresa">
                                                 <i class="fa fa-trash"></i>
                                             </button>

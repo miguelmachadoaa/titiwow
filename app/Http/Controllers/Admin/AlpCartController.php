@@ -4807,6 +4807,17 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
               if(isset($cc->id)){
 
+
+                          if ($cc->condicion==0) {
+                              
+                             $b_user_valido=1;
+
+                              $mensaje_user=$mensaje_user.' No aplicable por filtro empresa. ';
+
+                             $clase='danger';
+
+                          }
+
                 }else{
 
                   $b_user_valido=1;
@@ -4827,6 +4838,17 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
               if(isset($cc->id)){
 
+
+                if ($cc->condicion==0) {
+                              
+                             $b_user_valido=1;
+
+                                $mensaje_user=$mensaje_user.' No aplicable por filtro rol. ';
+
+                               $clase='danger';
+
+                          }
+
               }else{
 
                 $b_user_valido=1;
@@ -4844,6 +4866,18 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
               $cc=AlpCuponesUser::where('id_cupon', $cupon->id)->where('id_cliente', $user_id)->first();
 
               if(isset($cc->id)){
+
+                       if ($cc->condicion==0) {
+                              
+                             $b_user_valido=1;
+
+                                $mensaje_user=$mensaje_user.' No aplicable por filtro usuario. ';
+
+                               $clase='danger';
+
+                          }
+
+
 
               }else{
 
@@ -4883,11 +4917,18 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                       if(isset($cc->id)){
 
+                          if ($cc->condicion==0) {
+                              
+                            $b_producto_valido=1;
+                            $mensaje_producto=' No aplicable por filtro categoria. ';
+                            $clase='info';
+
+                          }
+
 
                         }else{
 
                           $b_producto_valido=1;
-
                           $mensaje_producto=' No aplicable por filtro categoria. ';
                           $clase='info';
                       }
@@ -4902,12 +4943,19 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                       if(isset($cc->id)){
 
+                          if ($cc->condicion==0) {
+                            
+                            $b_producto_valido=1;
+                            $mensaje_producto=' No aplicable por filtro marca. ';
+                            $clase='info';
+
+                          }
+
                        
 
                         }else{
 
                           $b_producto_valido=1;
-
                           $mensaje_producto=' No aplicable por filtro marca. ';
                           $clase='info';
 
@@ -4922,6 +4970,16 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                       $cc=AlpCuponesProducto::where('id_cupon', $cupon->id)->where('id_producto', $detalle->id)->first();
 
                       if(isset($cc->id)){
+
+                        if ($cc->condicion==0) {
+                              
+                             $b_user_valido=1;
+
+                                $mensaje_user=$mensaje_user.' No aplicable por filtro producto. ';
+
+                               $clase='danger';
+
+                          }
 
                         }else{
 
@@ -4938,8 +4996,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                     if ($b_producto_valido==0) {
 
                       $base_descuento=$base_descuento+($detalle->precio_oferta*$detalle->cantidad);
-
-                      
 
                     }
 

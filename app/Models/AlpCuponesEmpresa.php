@@ -21,6 +21,7 @@ class AlpCuponesEmpresa extends Model
         'id',
         'id_cupon',
         'id_empresa',
+        'condicion',
         'estado_registro',
         'id_user'
     ];

@@ -47,6 +47,7 @@ class AlpProductos extends Model
         'imagen_producto',
         'seo_titulo',
         'seo_descripcion',
+        'enlace_youtube',
         'slug',
         'id_categoria_default',
         'id_impuesto',

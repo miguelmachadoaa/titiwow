@@ -21,6 +21,7 @@ class AlpCuponesRol extends Model
         'id',
         'id_cupon',
         'id_rol',
+        'condicion',
         'estado_registro',
         'id_user'
     ];

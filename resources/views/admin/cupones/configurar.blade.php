@@ -57,7 +57,7 @@ Editar Cupon
                                 <label for="select21" class="col-sm-4 control-label">
                                   Categoria de Productos 
                                 </label>
-                                <div class="col-sm-8">   
+                                <div class="col-sm-4">   
                                  <select id="id_categoria" name="id_categoria" class="form-control select2">
                                     
                                     <option value="">Seleccione</option>
@@ -70,6 +70,19 @@ Editar Cupon
 
                                   {!! $errors->first('id_categoria', '<span class="help-block">:message</span> ') !!}
                                 </div>
+
+                                 <div class="col-sm-4">   
+                                 <select id="condicion_categoria" name="condicion_categoria" class="form-control select2">
+                                    
+                                        <option value="1">Incluir</option>
+                                        <option value="0">Excluir</option>
+
+                                </select>
+
+                                  {!! $errors->first('id_marca', '<span class="help-block">:message</span> ') !!}
+                                </div>
+
+
                            
                             </div>
                             <div class="form-group col-sm-4">
@@ -105,7 +118,7 @@ Editar Cupon
                                 <label for="select21" class="col-sm-4 control-label">
                                   Marcas de Productos 
                                 </label>
-                                <div class="col-sm-8">   
+                                <div class="col-sm-4">   
                                  <select id="id_marca" name="id_marca" class="form-control select2">
                                     
                                     <option value="">Seleccione</option>
@@ -118,8 +131,23 @@ Editar Cupon
 
                                   {!! $errors->first('id_marca', '<span class="help-block">:message</span> ') !!}
                                 </div>
+
+                                <div class="col-sm-4">   
+                                 <select id="condicion_marca" name="condicion_marca" class="form-control select2">
+                                    
+                                        <option value="1">Incluir</option>
+                                        <option value="0">Excluir</option>
+
+                                </select>
+
+                                  {!! $errors->first('id_marca', '<span class="help-block">:message</span> ') !!}
+                                </div>
+
+
                            
                             </div>
+
+
                             <div class="form-group col-sm-4">
                                 <div class="col-sm-offset-2 col-sm-4">
                                     
@@ -155,7 +183,7 @@ Editar Cupon
                                 <label for="select21" class="col-sm-4 control-label">
                                   Producto
                                 </label>
-                                <div class="col-sm-8">   
+                                <div class="col-sm-4">   
 
                                  <select id="id_producto" name="id_producto" class="form-control select2">
                                     
@@ -169,6 +197,21 @@ Editar Cupon
 
                                   {!! $errors->first('id_producto', '<span class="help-block">:message</span> ') !!}
                                 </div>
+
+
+                                 <div class="col-sm-4">   
+                                 <select id="condicion_producto" name="condicion_producto" class="form-control select2">
+                                    
+                                        <option value="1">Incluir</option>
+                                        <option value="0">Excluir</option>
+
+                                </select>
+
+                                  {!! $errors->first('id_marca', '<span class="help-block">:message</span> ') !!}
+                                </div>
+
+
+
                            
                             </div>
 
@@ -228,7 +271,7 @@ Editar Cupon
                                 <label for="select21" class="col-sm-4 control-label">
                                   Empresas
                                 </label>
-                                <div class="col-sm-8">   
+                                <div class="col-sm-4">   
 
                                  <select id="id_empresa" name="id_empresa" class="form-control select2">
                                     
@@ -242,6 +285,20 @@ Editar Cupon
 
                                   {!! $errors->first('id_empresa', '<span class="help-block">:message</span> ') !!}
                                 </div>
+
+                                 <div class="col-sm-4">   
+                                 <select id="condicion_empresa" name="condicion_empresa" class="form-control select2">
+                                    
+                                        <option value="1">Incluir</option>
+                                        <option value="0">Excluir</option>
+
+                                </select>
+
+                                  {!! $errors->first('id_marca', '<span class="help-block">:message</span> ') !!}
+                                </div>
+
+
+
                            
                             </div>
 
@@ -277,7 +334,7 @@ Editar Cupon
                                 <label for="select21" class="col-sm-4 control-label">
                                   Cliente
                                 </label>
-                                <div class="col-sm-8">   
+                                <div class="col-sm-4">   
 
                                  <select id="id_cliente" name="id_cliente" class="form-control select2">
                                     
@@ -291,6 +348,21 @@ Editar Cupon
 
                                   {!! $errors->first('id_cliente', '<span class="help-block">:message</span> ') !!}
                                 </div>
+
+
+                                 <div class="col-sm-4">   
+                                 <select id="condicion_cliente" name="condicion_cliente" class="form-control select2">
+                                    
+                                        <option value="1">Incluir</option>
+                                        <option value="0">Excluir</option>
+
+                                </select>
+
+                                  {!! $errors->first('id_marca', '<span class="help-block">:message</span> ') !!}
+                                </div>
+
+
+
                            
                             </div>
 
@@ -325,7 +397,7 @@ Editar Cupon
                                 <label for="select21" class="col-sm-4 control-label">
                                   Rol
                                 </label>
-                                <div class="col-sm-8">   
+                                <div class="col-sm-4">   
 
                                  <select id="id_rol" name="id_rol" class="form-control select2">
                                     
@@ -340,6 +412,22 @@ Editar Cupon
 
                                   {!! $errors->first('id_rol', '<span class="help-block">:message</span> ') !!}
                                 </div>
+
+
+
+                                 <div class="col-sm-4">   
+                                 <select id="condicion_rol" name="condicion_rol" class="form-control select2">
+                                    
+                                        <option value="1">Incluir</option>
+                                        <option value="0">Excluir</option>
+
+                                </select>
+
+                                  {!! $errors->first('id_marca', '<span class="help-block">:message</span> ') !!}
+                                </div>
+
+
+
                            
                             </div>
 
@@ -397,12 +485,14 @@ Editar Cupon
 
         id_cupon = $('#id_cupon').val();
 
+        condicion = $('#condicion_categoria').val();
+
         _token = $('#_token').val();
 
 
          $.ajax({
             type: "POST",
-            data:{ id_categoria, id_cupon, _token},
+            data:{ id_categoria, id_cupon, condicion, _token},
             url: base+"/admin/cupones/"+id_categoria+"/addcategoria",
                 
             complete: function(datos){     
@@ -445,6 +535,7 @@ Editar Cupon
         base = $('#base').val();
 
         id_marca = $('#id_marca').val();
+        condicion = $('#condicion_marca').val();
 
         id_cupon = $('#id_cupon').val();
 
@@ -453,7 +544,7 @@ Editar Cupon
 
          $.ajax({
             type: "POST",
-            data:{ id_marca, id_cupon, _token},
+            data:{ id_marca, id_cupon, condicion, _token},
             url: base+"/admin/cupones/"+id_marca+"/addmarca",
                 
             complete: function(datos){     
@@ -497,6 +588,8 @@ Editar Cupon
 
         id_empresa = $('#id_empresa').val();
 
+        condicion = $('#condicion_empresa').val();
+
         id_cupon = $('#id_cupon').val();
 
         _token = $('#_token').val();
@@ -504,7 +597,7 @@ Editar Cupon
 
          $.ajax({
             type: "POST",
-            data:{ id_empresa, id_cupon, _token},
+            data:{ id_empresa, id_cupon, condicion, _token},
             url: base+"/admin/cupones/"+id_empresa+"/addempresa",
                 
             complete: function(datos){     
@@ -553,6 +646,8 @@ Editar Cupon
 
         id_producto = $('#id_producto').val();
 
+        condicion = $('#condicion_producto').val();
+
         id_cupon = $('#id_cupon').val();
 
         _token = $('#_token').val();
@@ -560,7 +655,7 @@ Editar Cupon
 
          $.ajax({
             type: "POST",
-            data:{ id_producto, id_cupon, _token},
+            data:{ id_producto, id_cupon, condicion, _token},
             url: base+"/admin/cupones/"+id_producto+"/addproducto",
                 
             complete: function(datos){     
@@ -604,6 +699,8 @@ Editar Cupon
 
         id_cliente = $('#id_cliente').val();
 
+        condicion = $('#condicion_cliente').val();
+
         id_cupon = $('#id_cupon').val();
 
         _token = $('#_token').val();
@@ -611,7 +708,7 @@ Editar Cupon
 
          $.ajax({
             type: "POST",
-            data:{ id_cliente, id_cupon, _token},
+            data:{ id_cliente, id_cupon, condicion, _token},
             url: base+"/admin/cupones/"+id_producto+"/addcliente",
                 
             complete: function(datos){     
@@ -655,6 +752,8 @@ Editar Cupon
 
         id_rol = $('#id_rol').val();
 
+        condicion = $('#condicion_rol').val();
+
         id_cupon = $('#id_cupon').val();
 
         _token = $('#_token').val();
@@ -662,7 +761,7 @@ Editar Cupon
 
          $.ajax({
             type: "POST",
-            data:{ id_rol, id_cupon, _token},
+            data:{ id_rol, id_cupon, condicion, _token},
             url: base+"/admin/cupones/"+id_rol+"/addrol",
                 
             complete: function(datos){     

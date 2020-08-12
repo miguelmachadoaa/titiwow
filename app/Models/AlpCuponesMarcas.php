@@ -21,6 +21,7 @@ class AlpCuponesMarcas extends Model
        'id',
         'id_cupon',
         'id_marca',
+        'condicion',
         'estado_registro',
         'id_user'
     ];

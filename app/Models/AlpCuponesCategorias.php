@@ -21,6 +21,7 @@ class AlpCuponesCategorias extends Model
        'id',
         'id_cupon',
         'id_categoria',
+        'condicion',
         'estado_registro',
         'id_user'
     ];

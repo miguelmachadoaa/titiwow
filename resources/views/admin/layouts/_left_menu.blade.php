@@ -319,6 +319,7 @@
     @if (
         Sentinel::getUser()->hasAnyAccess(['formaspago.*']) || 
         Sentinel::getUser()->hasAnyAccess(['configuracion.*']) || 
+        Sentinel::getUser()->hasAnyAccess(['basica.*']) || 
         Sentinel::getUser()->hasAnyAccess(['estatus.*']) || 
         Sentinel::getUser()->hasAnyAccess(['formasenvio.*']) || 
         Sentinel::getUser()->hasAnyAccess(['rolenvios.*']) || 
@@ -354,6 +355,20 @@
             </li> 
         </ul>
     @endif
+
+
+    @if (Sentinel::getUser()->hasAnyAccess(['basica.*']))
+        <ul class="sub-menu">
+            <li {!! (Request::is('admin/basica*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.basica.index') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Configuracion Seo 
+                </a>
+            </li> 
+        </ul>
+    @endif
+
+
 
     @if (Sentinel::getUser()->hasAnyAccess(['configuracion.robots']))
         <ul class="sub-menu">

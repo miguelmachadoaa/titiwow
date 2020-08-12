@@ -712,6 +712,22 @@ class ProductosFrontController extends Controller
 
       $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
+
+      if ($producto->enlace_youtube==null) {
+        # code...
+      }else{
+
+        $ytarray=explode("/", $producto->enlace_youtube);
+        $ytendstring=end($ytarray);
+        $ytendarray=explode("?v=", $ytendstring);
+        $ytendstring=end($ytendarray);
+        $ytendarray=explode("&", $ytendstring);
+        $ytcode=$ytendarray[0];
+
+        $producto->enlace_youtube=$ytcode;
+
+      }
+
         
         return \View::make('frontend.producto_single', compact('producto', 'descuento', 'precio','categos', 'states', 'cart', 'total','catprincipal', 'relacionados', 'prods', 'inventario', 'combos', 'role', 'almacen', 'url'));
 

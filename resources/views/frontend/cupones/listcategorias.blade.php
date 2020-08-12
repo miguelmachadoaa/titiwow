@@ -13,6 +13,17 @@
             <tr>
                 <td>{{$categoria->nombre_categoria}}</td>
                 <td>
+                     @if($categoria->condicion=='1')
+
+                        {{'Incluido '}}
+
+                    @else
+
+                        {{'Excluido '}}
+
+                    @endif
+                </td>
+                <td>
                     <button data-idcupon="{{ $categoria->id_cupon }}" data-id="{{$categoria->id}}" class="btn btn-danger delcuponcategoria">
                         <i class="fa fa-trash"></i>
                     </button>

@@ -505,6 +505,7 @@ class AlpProductosController extends JoshController
             'pum' =>$request->pum,
             'medida' =>$request->medida,
             'mostrar_descuento' =>$request->mostrar_descuento,
+            'enlace_youtube' =>$request->enlace_youtube,
             'cantidad' =>$request->cantidad,
             'unidad' =>$request->unidad,
             'id_user' =>$user_id
@@ -1134,6 +1135,7 @@ class AlpProductosController extends JoshController
                 'pum' =>$request->pum,
                 'medida' =>$request->medida,
                 'mostrar_descuento' =>$request->mostrar_descuento,
+                'enlace_youtube' =>$request->enlace_youtube,
                 'cantidad' =>$request->cantidad,
                 'unidad' =>$request->unidad,
                 'precio_base' =>$request->precio_base
@@ -1158,6 +1160,7 @@ class AlpProductosController extends JoshController
                 'pum' =>$request->pum,
                 'medida' =>$request->medida,
                 'mostrar_descuento' =>$request->mostrar_descuento,
+                'enlace_youtube' =>$request->enlace_youtube,
                 'cantidad' =>$request->cantidad,
                 'unidad' =>$request->unidad,
                 'id_marca' =>$request->id_marca

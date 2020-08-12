@@ -33,7 +33,7 @@ class AlpCuponesController extends JoshController
     /**
      * Show a list of all the groups.
      *
-     * @return View
+     * @return 
      */
     public function index()
     {
@@ -62,11 +62,8 @@ class AlpCuponesController extends JoshController
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
-      
 
         $cupones = AlpCupones::all();
-       
-
 
         // Show the page
         return view('admin.cupones.index', compact('cupones'));
@@ -80,8 +77,6 @@ class AlpCuponesController extends JoshController
         $data = array();
 
         foreach($cupones as $row){
-
-
 
             $actions = "   <a href='".secure_url('/admin/cupones/'.$row->id.'/edit')."'>
             <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Editar Cupon'></i>
@@ -100,8 +95,6 @@ class AlpCuponesController extends JoshController
             title='Eliminar'></i>
          </a>";
 
-
-
                $data[]= array(
                  $row->id, 
                  $row->codigo_cupon, 
@@ -111,8 +104,6 @@ class AlpCuponesController extends JoshController
                  date("d/m/Y H:i:s", strtotime($row->created_at)),
                  $actions
               );
-
-
 
           }
 
@@ -223,7 +214,6 @@ class AlpCuponesController extends JoshController
 
     }
 
-
     /**
      * Group update.
      *
@@ -299,6 +289,7 @@ class AlpCuponesController extends JoshController
         $data = array(
             'id_cupon' => $request->id_cupon, 
             'id_categoria' => $request->id_categoria, 
+            'condicion' => $request->condicion,
             'user_id' => $request->user_id
         );
 
@@ -345,8 +336,6 @@ class AlpCuponesController extends JoshController
 
 
         }
-
-
 
          $user_id = Sentinel::getUser()->id;
 
@@ -402,6 +391,7 @@ class AlpCuponesController extends JoshController
         $data = array(
             'id_cupon' => $request->id_cupon, 
             'id_empresa' => $request->id_empresa, 
+            'condicion' => $request->condicion,
             'user_id' => $request->user_id
         );
 
@@ -498,6 +488,7 @@ class AlpCuponesController extends JoshController
         $data = array(
             'id_cupon' => $request->id_cupon, 
             'id_producto' => $request->id_producto, 
+            'condicion' => $request->condicion,
             'user_id' => $request->user_id
         );
 
@@ -596,6 +587,7 @@ class AlpCuponesController extends JoshController
         $data = array(
             'id_cupon' => $request->id_cupon, 
             'id_cliente' => $request->id_cliente, 
+            'condicion' => $request->condicion,
             'user_id' => $request->user_id
         );
 
@@ -700,6 +692,7 @@ class AlpCuponesController extends JoshController
         $data = array(
             'id_cupon' => $request->id_cupon, 
             'id_rol' => $request->id_rol, 
+            'condicion' => $request->condicion,
             'user_id' => $request->user_id
         );
 
@@ -795,28 +788,23 @@ class AlpCuponesController extends JoshController
 
         }
 
-
-
-
          $user_id = Sentinel::getUser()->id;
-
        
         $data = array(
             'id_cupon' => $request->id_cupon, 
             'id_marca' => $request->id_marca, 
+            'condicion' => $request->condicion, 
             'user_id' => $request->user_id
         );
 
-
-
         AlpCuponesMarcas::create($data);
-
-        
 
        $marcas_list = AlpCuponesMarcas::select('alp_cupones_marca.*', 'alp_marcas.nombre_marca as nombre_marca')
           ->join('alp_marcas', 'alp_cupones_marca.id_marca', '=', 'alp_marcas.id')
           ->where('alp_cupones_marca.id_cupon', $request->id_cupon)
           ->get();
+
+          dd($marcas_list);
 
           $view= View::make('frontend.cupones.listmarcas', compact('marcas_list'));
 

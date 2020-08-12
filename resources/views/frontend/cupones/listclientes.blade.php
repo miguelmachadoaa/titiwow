@@ -12,6 +12,20 @@
             
                                     <tr>
                                         <td>{{$cliente->first_name.' '.$cliente->last_name}}</td>
+
+                                         <td>
+                                             @if($cliente->condicion=='1')
+
+                                                {{'Incluido '}}
+
+                                            @else
+
+                                                {{'Excluido '}}
+
+                                            @endif
+                                        </td>
+
+                
                                         <td>
                                             <button data-idcupon="{{$cliente->id_cupon}}" data-id="{{$cliente->id}}" class="btn btn-danger delcuponcliente">
                                                 <i class="fa fa-trash"></i>

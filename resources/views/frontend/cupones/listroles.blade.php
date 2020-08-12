@@ -13,6 +13,17 @@
                                     <tr>
                                         <td>{{$rol->name}}</td>
                                         <td>
+                                             @if($rol->condicion=='1')
+
+                                                {{'Incluido '}}
+
+                                            @else
+
+                                                {{'Excluido '}}
+
+                                            @endif
+                                        </td>
+                                        <td>
                                             <button data-idcupon="{{$rol->id_cupon}}" data-id="{{$rol->id}}" class="btn btn-danger delcuponrol">
                                                 <i class="fa fa-trash"></i>
                                             </button>

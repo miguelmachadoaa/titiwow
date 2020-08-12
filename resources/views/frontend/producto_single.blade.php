@@ -470,6 +470,20 @@
                         <!-- //Nav Nav-tabs End -->
                         <!-- Tab-content Start -->
                         <div class="tab-content">
+
+                            @if($producto->enlace_youtube==null)
+
+                            @else
+
+                            <div class="col-sm-12">
+                               <iframe src="https://www.youtube.com/embed/{{$producto->enlace_youtube}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
+                            </div>
+
+                            
+
+                            @endif
+
+
                             <div class="tab-pane active" id="tab_default_1">
                                 <p>{{ $producto->descripcion_larga}}</p>
                             </div>

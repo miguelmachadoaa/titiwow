@@ -867,6 +867,15 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
     /*CMS Fin*/
 
+
+
+     Route::get('basica', 'Admin\AlpBasicaController@index')->name('basica.index');
+
+     Route::put('basica/{id}', 'Admin\AlpBasicaController@update')->name('basica.update');
+
+
+
+
      Route::get('configuracion', 'Admin\AlpConfiguracionController@index')->name('configuracion.index');
 
      Route::put('configuracion/{id}', 'Admin\AlpConfiguracionController@update')->name('configuracion.update');
