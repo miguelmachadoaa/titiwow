@@ -748,12 +748,11 @@ class FrontEndController extends JoshController
        // $sliders=AlpSliders::get();
 
         //dd($sliders);
- $configuracion=AlpConfiguracion::first();
 
 
       // dd($inventario);
 
-        return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion','inventario', 'combos', 'role', 'almacen','url', 'configuracion'));
+        return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion','inventario', 'combos', 'role', 'almacen','url'));
 
     }
 
