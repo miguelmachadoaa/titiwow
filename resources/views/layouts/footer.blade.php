@@ -126,6 +126,10 @@
         <div class="almacen" data-id="{{$almacen->id}}"></div>
     @endif
 
+     @if(isset($prods))
+        <div class="prods" data-id="{{count($prods)}}"></div>
+    @endif
+
     @if(isset($inventario))
         <div class="inventario" data-inventario="{{json_encode($inventario)}}"></div>
     @endif

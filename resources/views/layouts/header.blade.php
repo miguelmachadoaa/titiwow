@@ -169,7 +169,7 @@
                             <li><a href="https://twitter.com/Alpina" target="_blank"><i class="fa fa-twitter color-top" ></i></a></li>
                             <li><a href="https://www.youtube.com/user/AlpinaSA" target="_blank"><i class="fa fa-youtube-play color-top" ></i></a></li>
                         <li class="menu-top">
-                            <label ><a id="detalle_carro_front" href="https://www.alpina.com" target="_blank">Ir Alpina Digital</a></label>    
+                            <label ><a id="detalle_carro_front" href="https://www.alpina.com" target="_blank">Ir Alpina Digital </a></label>    
                         </li>
                         </ul>
                     </div>

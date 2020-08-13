@@ -507,7 +507,7 @@ class FrontEndController extends JoshController
 
         $categorias = DB::table('alp_categorias')->select('alp_categorias.*')->where('destacado','=', 1)->where('alp_categorias.estado_registro','=',1)->orderBy('order', 'asc')->limit(9)->get();
 
-        $productos = DB::table('alp_productos')->select('alp_productos.*')->where('destacado','=', 1)
+        $productos = DB::table('alp_productos')->select('alp_productos.*')
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
         ->where('alp_almacenes.id', '=', $id_almacen)
@@ -515,10 +515,11 @@ class FrontEndController extends JoshController
         ->whereNull('alp_productos.deleted_at')
         ->where('alp_productos.estado_registro','=',1)
         ->groupBy('alp_productos.id')
-        ->orderBy('order', 'asc')
-        
-        ->orderBy('updated_at', 'desc')
-        ->limit(12)->get();
+        ->orderBy('alp_productos.order', 'asc')
+        ->orderBy('alp_productos.updated_at', 'desc')
+        ->where('alp_productos.destacado','=', 1)
+        //->limit(12)
+        ->get();
 
         $marcas = DB::table('alp_marcas')->select('alp_marcas.*')->where('destacado','=', 1)->where('alp_marcas.estado_registro','=',1)->whereNull('alp_marcas.deleted_at')->orderBy('order', 'asc')->limit(12)->get();
 
@@ -747,11 +748,12 @@ class FrontEndController extends JoshController
        // $sliders=AlpSliders::get();
 
         //dd($sliders);
+ $configuracion=AlpConfiguracion::first();
 
 
       // dd($inventario);
 
-        return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion','inventario', 'combos', 'role', 'almacen','url'));
+        return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion','inventario', 'combos', 'role', 'almacen','url', 'configuracion'));
 
     }
 

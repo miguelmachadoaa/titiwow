@@ -500,6 +500,8 @@ class VerificarPagos extends Command
                      $notas=$notas.$res->causa->message.' ';
                    }
 
+                   $notas=$notas.'Codigo: VF.';
+
 
                    Log::info('compramas result '.$result);
 

@@ -162,8 +162,10 @@ Inicio @parent
                         @if(count($prods))
                        
                             @php $i=0; @endphp
+
                             @foreach($prods as $producto)
 
+                                @if($i<12)
 
                                 @if($producto->tipo_producto=='1')
 
@@ -729,6 +731,7 @@ Inicio @parent
                                     @endif
                                 
                                 @endif
+                                @endif<!--//endif $i<12-->
 
                             @endforeach
 

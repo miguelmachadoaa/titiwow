@@ -3575,14 +3575,12 @@ public function detallealmacen($id)
                    }
 
 
-
+                   $notas=$notas.'Codigo: OC.';
 
 
                Log::info('compramas result '.$result);
 
-
                Log::info('compramas res '.json_encode($res));
-
 
                   if (isset($res->codigo)) {
                   

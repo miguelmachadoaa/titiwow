@@ -69,7 +69,7 @@ class VerificarExistenciaAlmacen extends Command
 
         $result = curl_exec($ch);
         if (curl_errno($ch)) {
-            echo 'Error:' . curl_error($ch);
+            echo 'Error curl:' . curl_error($ch);
         }
         curl_close($ch);
 
@@ -83,6 +83,10 @@ class VerificarExistenciaAlmacen extends Command
        $inventario=$this->inventario();
 
        $almacen=1;
+
+       if (is_null($datos)) {
+           # code...
+       }else{
 
        if (count($datos)) {
 
@@ -129,6 +133,9 @@ class VerificarExistenciaAlmacen extends Command
             } //end foreach datos
            
        } //(end if hay resspuessta)
+
+       } 
+
 
 
     }

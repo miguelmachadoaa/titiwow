@@ -186,8 +186,9 @@ class AlpCartController extends JoshController
 
         $url=secure_url('cart/show');
 
+        $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
-      return view('frontend.cart', compact('cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario','url'));
+      return view('frontend.cart', compact('cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario','url', 'almacen'));
     }
 
     public function detalle()
@@ -6727,15 +6728,7 @@ private function getAlmacen3(){
        }
 
 
-       $data_history = array(
-            'id_orden' => $orden->id, 
-           'id_status' => '9', 
-            'notas' => $notas,
-            'json' => json_encode($result), 
-           'id_user' => 1
-        );
-
-          $history=AlpOrdenesHistory::create($data_history);
+       $notas=$notas.'Codigo: CC.';
 
 
       if (isset($res->codigo)) {
