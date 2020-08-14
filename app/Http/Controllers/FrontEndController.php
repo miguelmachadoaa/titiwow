@@ -1869,7 +1869,8 @@ public function getApiUrl($endpoint, $jsessionid)
     $tipo=0;
 
 
-        if (isset(Sentinel::getUser()->id)) {
+      //  if (isset(Sentinel::getUser()->id)) {
+        if (1==0) {
 
             # code...
             $user_id = Sentinel::getUser()->id;
@@ -2038,7 +2039,7 @@ public function getApiUrl($endpoint, $jsessionid)
 
             $ciudad= \Session::get('ciudad');
 
-
+            #dd($ciudad);
 
             if (isset($ciudad)) {
 

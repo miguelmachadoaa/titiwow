@@ -4,7 +4,7 @@
             <div class="row" style="margin:0px;padding:0px;">
                 <!-- Categorias Section Start -->
                 <div class="col-sm-3 clearfix">
-                    <h4>Categorías</h4>
+                    <h4>Categorías @if(isset($almacen->id)){{$almacen->id}}@endif</h4>
                     <p>
                         <ul id="menu-categorias" class="menu_footer">
                             <li class="menu-item"><a href="{{ secure_url('categoria/leche') }}">Leche</a></li>
@@ -78,7 +78,7 @@
 
 
         <!-- Modal Direccion -->
-    <div class="modal fade" id="ubicacionModal" role="dialog" aria-labelledby="modalLabeldanger">
+    <div class="modal fade" id="ubicacionModal" role="dialog" aria-labelledby="modalLabeldanger" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-sucess">
@@ -113,7 +113,7 @@
                         </form>     
                 </div>
                 <div class="modal-footer">
-                    <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
+                    <!--button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button-->
                     <button type="button"   class="btn  btn-primary saveubicacion" >Aceptar</button>
                     
                 </div>
@@ -205,7 +205,7 @@
 
                  $('.ubicacion_header a').html('BOGOTÁ CUNDINAMARCA');
 
-                $('#ubicacionModal').modal('show');
+                $('#ubicacionModal').modal('show', {backdrop: 'static', keyboard: false});
             }
 
         });

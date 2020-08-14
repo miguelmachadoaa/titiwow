@@ -985,7 +985,7 @@ class ProductosFrontController extends Controller
         ->orderBy('alp_marcas.order', 'asc')
         ->orderBy('alp_productos.updated_at', 'desc')
         ->paginate(36); 	
-        $productos->appends(['buscar' => $request->get('buscar')]);
+        //$productos->appends(['buscar' => $request->get('buscar')]);
 
         
 
@@ -1140,7 +1140,8 @@ class ProductosFrontController extends Controller
     $tipo=0;
 
 
-        if (isset(Sentinel::getUser()->id)) {
+        //if (isset(Sentinel::getUser()->id)) {
+        if (1==0) {
 
             # code...
             $user_id = Sentinel::getUser()->id;
