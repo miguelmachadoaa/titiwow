@@ -342,7 +342,7 @@ Editar Configuracion General
 
                              <div class="form-group {{ $errors->first('cuenta_twitter', 'has-error') }}">
                                 <label for="cuenta_twitter" class="col-sm-2 control-label">
-                                    Cuenta Twitter <small>(Colocar usuarion sin el @)</small>
+                                    Cuenta Twitter <small>(Colocar usuario sin el @)</small>
                                 </label>
                                 <div class="col-sm-5">
                                     <input type="text" id="cuenta_twitter" name="cuenta_twitter" class="form-control" placeholder="Cuenta Twitter"
