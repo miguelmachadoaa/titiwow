@@ -504,7 +504,7 @@
 
                                                     <div class="checkbox">
                                                       <label>
-                                                        <input type="checkbox" id="robots_index" name="robots_index" value="index"   checked  >
+                                                        <input type="checkbox" id="robots_index" name="robots_follow" value="follow"   checked  >
                                                        Follow
                                                       </label>
                                                     </div>
