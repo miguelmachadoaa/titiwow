@@ -8,11 +8,11 @@
 @endforeach @parent
 @stop
 @section('meta_tags')
-@php 
-    foreach($marcaname as $marca)
-        $marcago = $marca->seo_titulo;
-        $marcades = $marca->seo_descripcion
-@endphp
+    @php 
+        foreach($marcaname as $marca)
+            $marcago = $marca->seo_titulo;
+            $marcades = $marca->seo_descripcion
+    @endphp
 
 <link rel="canonical" href="{{$url}}" />
 <meta property="og:title" content="{{$marcago}} | Alpina GO!">
@@ -23,19 +23,16 @@
 
 
 
+    @if(isset($configuracion->cuenta_twitter))
 
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="{{'@'.$configuracion->cuenta_twitter}}">
+    <meta name="twitter:description" content="{{$marcades}}">
+    <meta name="twitter:title" content="{{ $marcago}}">
+    <meta name="twitter:image" content="{{ secure_url('/').'/uploads/marcas/'.$marcaun->imagen_marca }}">
 
+    @endif
 
-
-@if(isset($configuracion->cuenta_twitter))
-
-<meta name="twitter:card" content="summary">
-<meta name="twitter:site" content="{{'@'.$configuracion->cuenta_twitter}}">
-<meta name="twitter:description" content="{{$marca->seo_description}}">
-<meta name="twitter:title" content="{{ $marca->seo_title}}">
-<meta name="twitter:image" content="{{ secure_url('/').'/uploads/marcas/'.$marca->imagen_marca }}">
-
-@endif
     @if($configuracion->robots==null)
         
     @else
@@ -43,7 +40,8 @@
         <meta property="og:robots" content="{{$configuracion->robots}}">
     @endif
 
-@endsection
+
+@stop
 
 {{-- page level styles --}}
 @section('header_styles')
