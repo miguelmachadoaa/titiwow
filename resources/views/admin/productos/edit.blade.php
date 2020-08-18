@@ -500,7 +500,7 @@
 
                                                 <div class="col-sm-9 col-xs-12">
 
-                                                    <input id="seo_descripcion" name="seo_descripcion" type="text" placeholder="Seo Descripcion" class="form-control   {{ $errors->first('seo_descripcion', 'has-error') }}" value="{!! old('Seo Titulo', $producto->seo_titulo) !!}">{!! $errors->first('seo_descripcion', '<span class="help-block">:message</span>') !!}
+                                                    <input id="seo_descripcion" name="seo_descripcion" type="text" maxlength="160" placeholder="Seo Descripcion" class="form-control   {{ $errors->first('seo_descripcion', 'has-error') }}" value="{!! old('Seo Titulo', $producto->seo_titulo) !!}">{!! $errors->first('seo_descripcion', '<span class="help-block">:message</span>') !!}
 
                                                 </div>
 

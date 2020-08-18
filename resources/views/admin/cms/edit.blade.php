@@ -55,7 +55,7 @@
                             <span class="help-block">{{ $errors->first('seo_titulo', ':message') }}</span>
                         </div>
                         <div class="form-group {{ $errors->first('seo_descripcion', 'has-error') }}">
-                            {!! Form::text('seo_descripcion', null, array('class' => 'form-control input-md','placeholder'=> 'Descripción SEO')) !!}
+                            {!! Form::text('seo_descripcion', null, array('class' => 'form-control input-md','placeholder'=> 'Descripción SEO' ,'maxlength'=> 160)) !!}
                             <span class="help-block">{{ $errors->first('seo_descripcion', ':message') }}</span>
                         </div>
                         <div class="form-group {{ $errors->first('slug', 'has-error') }}">

@@ -483,7 +483,7 @@ Editar Configuracion General
                                         SEO Description
                                     </label>
                                     <div class="col-sm-5">
-                                        <input type="text" id="seo_description" name="seo_description" class="form-control" placeholder="SEO Description"
+                                        <input type="text" id="seo_description" name="seo_description" class="form-control" maxlength="160" placeholder="SEO Description"
                                             value="{!! old('seo_description', $configuracion->seo_description) !!}">
                                     </div>
                                     <div class="col-sm-4">

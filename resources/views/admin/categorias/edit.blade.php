@@ -167,7 +167,7 @@ Editar Categoria
                             Seo Descripción
                             </label>
                             <div class="col-sm-5">
-                                <input type="text"  id="seo_descripcion" name="seo_descripcion" class="form-control" placeholder="Seo Descripcion"
+                                <input type="text"  id="seo_descripcion" name="seo_descripcion" class="form-control" maxlength="160"  placeholder="Seo Descripcion"
                                        value="{!! old('seo_descripcion', $categoria->seo_descripcion) !!}">
                             </div>
                             <div class="col-sm-4">

@@ -465,7 +465,7 @@
                             first('seo_descripcion', 'has-error') }}">
                                                 <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.seo_des')</label>
                                                 <div class="col-md-9">
-                                                    <input id="seo_descripcion" name="seo_descripcion" type="text" placeholder="Seo Descripcion" class="form-control" value="{{ old('seo_descripcion') }}">
+                                                    <input id="seo_descripcion" name="seo_descripcion" type="text" placeholder="Seo Descripcion" class="form-control" maxlength="160" value="{{ old('seo_descripcion') }}">
 
                                                      {!! $errors->first('seo_descripcion', '<span class="help-block">:message</span> ') !!}
 
