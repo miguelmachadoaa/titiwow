@@ -815,7 +815,7 @@ Inicio @parent
             </div>
         <!-- //Seccion marcas Fin -->
 
-        <h1 class="catego">{{$configuracion->h1_home}}</h1>
+        <h1 style="font-size: 24px; text-align: center;" class="catego">{{$configuracion->h1_home}}</h1>
 
 
 
