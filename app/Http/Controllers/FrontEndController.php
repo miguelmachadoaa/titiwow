@@ -943,6 +943,7 @@ class FrontEndController extends JoshController
                     ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
                     ->where("config_states.country_id",'=', '47')
                     ->where("alp_almacenes.estado_registro",'=', '1')
+                    ->groupBy('config_states.id')
                     ->get();
 
         }
