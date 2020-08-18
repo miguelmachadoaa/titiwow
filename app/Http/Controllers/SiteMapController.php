@@ -54,7 +54,7 @@ class SiteMapController extends JoshController
         $this->siteMap->add(
             Url::create('/contacto')
                 ->lastUpdate($startOfMonth)
-                ->frequency('yearly')
+                ->frequency('monthly')
                 ->priority('0.7')
         );
     
