@@ -14,7 +14,7 @@
 <meta name="description" content="{{$cms->seo_description}}"/>
 
 @if($cms->robots==null)
-   <meta name="robots" content="index y follow">
+   
 @else
 <meta name="robots" content="{{$cms->robots}}">
 @endif

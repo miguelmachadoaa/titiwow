@@ -490,21 +490,21 @@
 
                                                 <div class="checkbox">
                                                   <label>
-                                                    <input type="checkbox" id="robots_all" name="robots_all" value="all" checked>
+                                                    <input type="checkbox" id="robots_all" name="robots_all" value="all" >
                                                    All
                                                   </label>
                                                 </div>
 
                                                 <div class="checkbox">
                                                       <label>
-                                                        <input type="checkbox" id="robots_index" name="robots_index" value="index"     >
+                                                        <input type="checkbox" id="robots_index" name="robots_index" value="index"   checked  >
                                                        Index
                                                       </label>
                                                     </div>
 
                                                     <div class="checkbox">
                                                       <label>
-                                                        <input type="checkbox" id="robots_index" name="robots_index" value="index"     >
+                                                        <input type="checkbox" id="robots_index" name="robots_index" value="index"   checked  >
                                                        Follow
                                                       </label>
                                                     </div>

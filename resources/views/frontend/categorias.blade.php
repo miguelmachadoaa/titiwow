@@ -45,7 +45,7 @@
 
 @if($configuracion->robots==null)
 
-<meta name="robots" content="index y follow">
+
 
 @else
 

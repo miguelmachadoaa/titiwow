@@ -20,7 +20,7 @@ Resultado de la Búsqueda @parent
 
 
   @if($configuracion->robots==null)
-  <meta name="robots" content="index y follow">
+ 
         @else
         <meta name="robots" content="{{$configuracion->robots}}">
 

@@ -37,7 +37,7 @@
 
 @endif
     @if($configuracion->robots==null)
-        <meta name="robots" content="index y follow">
+        
     @else
         <meta name="robots" content="{{$configuracion->robots}}">
         <meta property="og:robots" content="{{$configuracion->robots}}">
