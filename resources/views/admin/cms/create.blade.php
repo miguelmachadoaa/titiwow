@@ -71,7 +71,7 @@
 
                         <div class="checkbox">
                           <label>
-                            <input type="checkbox" id="robots_all" name="robots_all" value="all" checked>
+                            <input type="checkbox" id="robots_all" name="robots_all" value="all" >
                            All
                           </label>
                         </div>
