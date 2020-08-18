@@ -34,7 +34,7 @@ Inicio @parent
 <meta name="twitter:site" content="{{'@'.$configuracion->cuenta_twitter}}">
 <meta name="twitter:description" content="{{$configuracion->seo_description}}">
 <meta name="twitter:title" content="{{ $configuracion->seo_title}}">
-<meta name="twitter:image" content="{{$configuracion->seo_url}}">
+<meta name="twitter:image" content="{{$configuracion->seo_image}}">
 @endif
 
 
