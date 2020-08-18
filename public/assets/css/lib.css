@@ -1681,21 +1681,25 @@ padding: 0.3em 0.3em 0em 1em;
     padding: 10px 5px;
 
 }
-
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
 @media (min-width: 991px) {
 .video-responsive {
-  height: 0;
+  height: 360px;
   overflow: hidden;
   padding-bottom: 56.25%;
   padding-top: 30px;
   position: relative;
+  width: 640px;
   }
 .video-responsive iframe, .video-responsive object, .video-responsive embed {
   height: 315px;
   left: 0;
   position: absolute;
   top: 0;
-  width: 560px;
+  width: 630px;
   }
 }
 

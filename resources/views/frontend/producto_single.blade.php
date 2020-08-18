@@ -497,23 +497,21 @@
                         </ul>
                         <!-- //Nav Nav-tabs End -->
                         <!-- Tab-content Start -->
-                        <div class="tab-content">
+                        <div class="tab-content ">
 
                             @if($producto->enlace_youtube==null)
 
                             @else
 
-                            <div class=" col-sm-offset-3 col-sm-6 col-xs-12">
+                            <div class=" col-sm-6 col-xs-12 col-centered">
                                 <div class="video-responsive">
-
-                               <iframe style="width: 560px; height: 100%;" src="https://www.youtube.com/embed/{{$producto->enlace_youtube}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" width="560" height="100%"  allowfullscreen></iframe> 
-
+                                    <iframe src="https://www.youtube.com/embed/{{$producto->enlace_youtube}}" frameborder="0" width="100%" height="100%"  allowfullscreen></iframe> 
                                </div>  
                             </div>
 
                             <div class="clearfix"></div>
 
-                            
+                            <br />
 
                             @endif
 
