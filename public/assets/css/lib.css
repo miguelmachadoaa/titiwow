@@ -1681,3 +1681,38 @@ padding: 0.3em 0.3em 0em 1em;
     padding: 10px 5px;
 
 }
+
+@media (min-width: 991px) {
+.video-responsive {
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  position: relative;
+  }
+.video-responsive iframe, .video-responsive object, .video-responsive embed {
+  height: 315px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 560px;
+  }
+}
+
+@media (max-width: 990px) {
+  .video-responsive {
+    height: 0;
+    overflow: hidden;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    position: relative;
+    }
+  .video-responsive iframe, .video-responsive object, .video-responsive embed {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    }
+
+}
