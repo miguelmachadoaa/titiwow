@@ -18,6 +18,17 @@
 @else
 <meta name="robots" content="{{$cms->robots}}">
 @endif
+
+
+@if(isset($configuracion->cuenta_twitter))
+          <meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="{{'@'.$configuracion->cuenta_twitter}}">
+<meta name="twitter:description" content="{{$configuracion->seo_description}}">
+<meta name="twitter:title" content="{{ $configuracion->seo_title}}">
+<meta name="twitter:image" content="{{$configuracion->seo_url}}">
+@endif
+
+
 @endsection
 
 {{-- page level styles --}}
