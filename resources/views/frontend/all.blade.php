@@ -25,7 +25,7 @@ Todos los productos
          <meta property="og:robots" content="{{$configuracion->robots}}">
         @endif
 
-    @stop
+   
 
     <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="{{'@'.$configuracion->cuenta_twitter}}">
