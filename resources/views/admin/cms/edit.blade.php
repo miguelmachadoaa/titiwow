@@ -86,7 +86,7 @@
 
                                                     <div class="checkbox">
                                                       <label>
-                                                        <input type="checkbox" id="robots_index" name="robots_follow" value="follow"    @if(in_array('follow', $robots)) {{'checked'}} @endif >
+                                                        <input type="checkbox" id="robots_follow" name="robots_follow" value="follow"    @if(in_array('follow', $robots)) {{'checked'}} @endif >
                                                        Follow
                                                       </label>
                                                     </div>
