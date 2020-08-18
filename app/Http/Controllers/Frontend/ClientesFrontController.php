@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\AlpAlmacenDespacho;
 use App\Models\AlpOrdenes;
 use App\Models\AlpOrdenesHistory;
 use App\Models\AlpOrdenesDescuento;
@@ -335,7 +336,24 @@ class ClientesFrontController extends Controller
 
 
 
-            $states=State::where('config_states.country_id', '47')->get();
+            $ad=AlpAlmacenDespacho::where('id_state', 0)->first();
+
+        if (isset($ad->id)) {
+
+          $states=State::where('config_states.country_id', '47')->get();
+
+        }else{
+
+           $states = DB::table("config_states")
+                    ->select('config_states.*')
+                    ->join('alp_almacen_despacho', 'config_states.id', '=', 'alp_almacen_despacho.id_state')
+                    ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
+                    ->where("config_states.country_id",'=', '47')
+                    ->where("alp_almacenes.estado_registro",'=', '1')
+                    ->groupBy('config_states.id')
+                    ->get();
+
+        }
 
         if (isset($direccion->id)) {
 

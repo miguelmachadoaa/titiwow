@@ -939,6 +939,7 @@ class FrontEndController extends JoshController
         }else{
 
            $states = DB::table("config_states")
+                    ->select('config_states.*')
                     ->join('alp_almacen_despacho', 'config_states.id', '=', 'alp_almacen_despacho.id_state')
                     ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
                     ->where("config_states.country_id",'=', '47')
@@ -947,6 +948,8 @@ class FrontEndController extends JoshController
                     ->get();
 
         }
+
+       // dd($states);
 
 
         $t_documento = AlpTDocumento::where('estado_registro','=',1)->get();
@@ -1690,10 +1693,42 @@ class FrontEndController extends JoshController
      */
     public function selectCity($id)
     {
+        $ad=AlpAlmacenDespacho::where('id_state', 0)->where('id_city', 0)->first();
+
+
+      if (isset($ad->id)) {
+
         $cities = DB::table("config_cities")
                     ->where("state_id",$id)
                     ->pluck("city_name","id")->all();
-        $states['0'] = 'Seleccione Ciudad';
+
+        
+      }else{
+
+        $ad=AlpAlmacenDespacho::where('id_state', $id)->where('id_city', 0)->first();
+
+        if (isset($ad->id)) {
+
+          $cities = DB::table("config_cities")
+            ->where("state_id",$id)
+            ->pluck("city_name","id")->all();
+
+        }else{
+
+          $cities = DB::table("config_cities")
+            ->join('alp_almacen_despacho', 'config_cities.id', '=', 'alp_almacen_despacho.id_city')
+            ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
+            ->where("config_cities.state_id",'=', $id)
+            ->where("alp_almacenes.estado_registro",'=', '1')
+            ->pluck("config_cities.city_name","config_cities.id")->all();
+
+
+        }
+
+
+      }
+        
+        $cities['0'] = 'Seleccione';
         return json_encode($cities);
     }
 

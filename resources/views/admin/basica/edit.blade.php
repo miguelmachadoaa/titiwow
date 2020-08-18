@@ -39,12 +39,10 @@ Editar Configuracion Seo
          <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
                     
                     
-                        {!! Form::model($configuracion, ['url' => secure_url('admin/configuracion/'. $configuracion->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($configuracion, ['url' => secure_url('admin/basica/'. $configuracion->id), 'method' => 'put', 'class' => 'form-horizontal']) !!}
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
                           
-
-
 
                             <br />
                                 <h4>Seo Principal</h4>

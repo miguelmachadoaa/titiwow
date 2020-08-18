@@ -119,6 +119,9 @@ class AlpBasicaController extends JoshController
 
         $input=$request->all();
 
+
+        dd($input);
+
        $data = array(
             'seo_title' => $request->seo_title,
             'seo_type' => $request->seo_type,

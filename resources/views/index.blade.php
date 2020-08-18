@@ -90,7 +90,7 @@ Inicio @parent
 @section('content')
 
 
-<h1 style="font-size: 0px; margin: 0px;">{{$configuracion->h1_home}}</h1>
+
 
 
 @if (session('success'))
@@ -814,6 +814,10 @@ Inicio @parent
                 </div>
             </div>
         <!-- //Seccion marcas Fin -->
+
+        <h1 class="catego">{{$configuracion->h1_home}}</h1>
+
+
 
     </div>
     <!-- //Container End -->
