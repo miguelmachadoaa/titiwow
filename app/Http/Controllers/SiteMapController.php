@@ -40,15 +40,15 @@ class SiteMapController extends JoshController
         $this->siteMap->add(
             Url::create('/')
                 ->lastUpdate($startOfMonth)
-                ->frequency('monthly')
+                ->frequency('daily')
                 ->priority('1.00')
         );
     
         $this->siteMap->add(
             Url::create('/productos')
                 ->lastUpdate($startOfMonth)
-                ->frequency('monthly')
-                ->priority('0.9')
+                ->frequency('weekly')
+                ->priority('0.8')
         );
     
         $this->siteMap->add(
@@ -61,8 +61,8 @@ class SiteMapController extends JoshController
         $this->siteMap->add(
             Url::create('/marcas')
                 ->lastUpdate($startOfMonth)
-                ->frequency('monthly')
-                ->priority('0.8')
+                ->frequency('weekly')
+                ->priority('0.9')
         );
     
         $this->siteMap->add(
@@ -75,8 +75,8 @@ class SiteMapController extends JoshController
         $this->siteMap->add(
             Url::create('/categorias')
                 ->lastUpdate($startOfMonth)
-                ->frequency('yearly')
-                ->priority('0.8')
+                ->frequency('weekly')
+                ->priority('0.9')
         );
     
     }
@@ -95,7 +95,7 @@ class SiteMapController extends JoshController
                 Url::create("/blog/".$blog->slug)
                 ->lastUpdate($startOfMonth)
                 ->frequency('monthly')
-                    ->priority('0.8')
+                    ->priority('0.7')
             );
         }
     }
@@ -117,8 +117,8 @@ class SiteMapController extends JoshController
             $this->siteMap->add(
                 Url::create("/categoria/".$categoria->slug)
                 ->lastUpdate($startOfMonth)
-                ->frequency('monthly')
-                    ->priority('0.8')
+                ->frequency('weekly')
+                    ->priority('0.9')
             );
         }
     }
@@ -142,8 +142,8 @@ class SiteMapController extends JoshController
             $this->siteMap->add(
                 Url::create("/marca/".$marca->slug)
                 ->lastUpdate($startOfMonth)
-                ->frequency('monthly')
-                    ->priority('0.8')
+                ->frequency('weekly')
+                    ->priority('0.9')
             );
         }
 
@@ -166,8 +166,8 @@ class SiteMapController extends JoshController
             $this->siteMap->add(
                 Url::create("/producto/".$producto->slug)
                 ->lastUpdate($startOfMonth)
-                ->frequency('hourly')
-                    ->priority('0.9')
+                ->frequency('weekly')
+                    ->priority('0.8')
             );
         }
     }
