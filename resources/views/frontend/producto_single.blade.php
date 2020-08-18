@@ -6,17 +6,45 @@
 @stop
 @section('meta_tags')
 
+
 <link rel="canonical" href="{{$url}}" />
-<meta property="og:title" content="{{ $producto->seo_titulo }} | Alpina GO!">
+<meta property="og:title" content="{{ $producto->seo_titulo }}| Alpina GO!">
 <meta property="og:description" content="{{ $producto->seo_descripcion }}">
 <meta property="og:image" content="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" />
 <meta property="og:url" content="{{$url}}" />
 <meta name="description" content="{{$producto->seo_descripcion}}"/>
 
-@if($producto->robots==null)
-@else
-<meta name="robots" content="{{$producto->robots}}">
+@if(isset($configuracion->cuenta_twitter))
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="{{'@'.$configuracion->cuenta_twitter}}">
+<meta name="twitter:description" content="{{ $producto->seo_descripcion }}">
+<meta name="twitter:title" content="{{ $producto->seo_titulo }}">
+<meta name="twitter:image" content="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}">
+
 @endif
+
+
+@if(isset($producto->robots))
+
+    @if($producto->robots==null)
+
+        <meta name="robots" content="index y follow">
+
+    @else
+
+        <meta property="og:robots" content="{{$producto->robots}}">
+        <meta name="robots" content="{{$producto->robots}}">
+        
+    @endif
+
+@else
+
+    <meta name="robots" content="index y follow">
+    
+@endif
+
+
+
 
 
 @endsection

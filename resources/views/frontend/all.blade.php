@@ -9,17 +9,29 @@ Todos los productos
 @section('meta_tags')
 
 
-    <link rel="canonical" href="{{$url}}" />
-    <meta property="og:title" content="{{ $configuracion->seo_titulo }} | Alpina GO!">
-    <meta property="og:description" content="{{ $configuracion->seo_description }}">
-    <meta property="og:image" content="{{ $configuracion->seo_image }}" />
+
+    <meta property="og:title" content="Productos | Alpina GO!">
+<meta property="og:description" content="">
+<meta property="og:revisit-after" content="3 days">
+<meta property="og:image" content="{{ $configuracion->seo_image }}" />
     <meta property="og:url" content="{{$url}}" />
     <meta name="description" content="{{$configuracion->seo_description}}"/>
 
+
     @if($configuracion->robots==null)
-    @else
-    <meta name="robots" content="{{$configuracion->robots}}">
-    @endif
+        @else
+        <meta name="robots" content="{{$configuracion->robots}}">
+
+         <meta property="og:robots" content="{{$configuracion->robots}}">
+        @endif
+
+    @stop
+
+    <meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="{{'@'.$configuracion->cuenta_twitter}}">
+<meta name="twitter:description" content="{{$configuracion->seo_description}}">
+<meta name="twitter:title" content="{{ $configuracion->seo_title}}">
+<meta name="twitter:image" content="{{$configuracion->seo_url}}">
 
 @endsection
 

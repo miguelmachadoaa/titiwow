@@ -11,24 +11,60 @@
 @php 
     foreach($cataname as $catana)
         $catego = $catana->seo_titulo;
-        $categodes = $catana->seo_descripcion
+        $categodes = $catana->seo_descripcion;
+        $categoname = $catana->nombre_categoria;
 @endphp
 
+
 <link rel="canonical" href="{{$url}}" />
+
 <meta property="og:title" content="{{$catego}} | Alpina GO!">
 <meta property="og:description" content="{{$categodes}}">
-
+<meta name="description" content="{{$categodes}}"/>
+<meta property="og:revisit-after" content="3 days">
 @if($categoria->imagen_categoria==0)
     <meta property="og:image" content="{{ $configuracion->seo_image }}" />
 @else
     <meta property="og:image" content="{{ secure_url('uploads/categorias/'.$categoria->imagen_categoria )}}" />
 @endif
 <meta property="og:url" content="{{$url}}" />
+
 <meta name="description" content="{{$categodes}}"/>
-@if($configuracion->robots==null)
-@else
-<meta name="robots" content="{{$configuracion->robots}}">
+
+@if(isset($configuracion->cuenta_twitter))
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="{{'@'.$configuracion->cuenta_twitter}}">
+<meta name="twitter:description" content="{{$categodes}}">
+<meta name="twitter:title" content="{{ $catego}}">
+<meta name="twitter:image" content="{{ secure_url('/').'/uploads/categorias/'.$categoria->imagen_categoria }}">
+
 @endif
+
+
+@if($configuracion->robots==null)
+
+<meta name="robots" content="index y follow">
+
+@else
+
+<meta name="robots" content="{{$configuracion->robots}}">
+<meta property="og:robots" content="{{$configuracion->robots}}">
+
+@endif
+
+
+
+
+
+
+
+
+
+
+
+
 @endsection
 
 {{-- page level styles --}}

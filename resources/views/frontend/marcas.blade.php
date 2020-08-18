@@ -21,10 +21,27 @@
 <meta property="og:url" content="{{$url}}" />
 <meta name="description" content="{{$marcades}}"/>
 
-@if($configuracion->robots==null)
-@else
-<meta name="robots" content="{{$configuracion->robots}}">
+
+
+
+
+
+
+@if(isset($configuracion->cuenta_twitter))
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="{{'@'.$configuracion->cuenta_twitter}}">
+<meta name="twitter:description" content="{{$marca->seo_description}}">
+<meta name="twitter:title" content="{{ $marca->seo_title}}">
+<meta name="twitter:image" content="{{ secure_url('/').'/uploads/marcas/'.$marca->imagen_marca }}">
+
 @endif
+    @if($configuracion->robots==null)
+        <meta name="robots" content="index y follow">
+    @else
+        <meta name="robots" content="{{$configuracion->robots}}">
+        <meta property="og:robots" content="{{$configuracion->robots}}">
+    @endif
 
 @endsection
 
