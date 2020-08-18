@@ -460,7 +460,7 @@ $(document).ready(function(){
 
                     if(stateID) {
                         $.ajax({
-                            url: base+'/registro/cities/'+stateID,
+                            url: base+'/registro/citiesModal/'+stateID,
                             type: "GET",
                             dataType: "json",
                             success:function(data) {

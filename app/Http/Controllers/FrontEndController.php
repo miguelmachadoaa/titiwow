@@ -929,8 +929,24 @@ class FrontEndController extends JoshController
                 return view('desactivado');
             # code...
         }
-        
-        $states=State::where('config_states.country_id', '47')->get();
+
+        $ad=AlpAlmacenDespacho::where('id_state', 0)->first();
+
+        if (isset($ad->id)) {
+
+          $states=State::where('config_states.country_id', '47')->get();
+
+        }else{
+
+           $states = DB::table("config_states")
+                    ->join('alp_almacen_despacho', 'config_states.id', '=', 'alp_almacen_despacho.id_state')
+                    ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
+                    ->where("config_states.country_id",'=', '47')
+                    ->where("alp_almacenes.estado_registro",'=', '1')
+                    ->get();
+
+        }
+
 
         $t_documento = AlpTDocumento::where('estado_registro','=',1)->get();
 

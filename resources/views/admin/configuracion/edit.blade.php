@@ -340,7 +340,6 @@ Editar Configuracion General
                             </div>
 
 
-
                              <div class="form-group {{ $errors->first('cuenta_twitter', 'has-error') }}">
                                 <label for="cuenta_twitter" class="col-sm-2 control-label">
                                     Cuenta Twitter <small>(Colocar usuarion sin el @)</small>

@@ -86,6 +86,9 @@ Inicio @parent
 @section('content')
 
 
+<h1 style="font-size: 0px; margin: 0px;">{{$configuracion->h1_home}}</h1>
+
+
 @if (session('success'))
 
 
