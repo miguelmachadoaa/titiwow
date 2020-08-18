@@ -384,7 +384,7 @@
                                             first('enlace_youtube', 'has-error') }}">
                                                 <label class="col-md-3 control-label" for="enlace_youtube">Video YouTube</label>
                                                 <div class="col-md-9">
-                                                    <input id="enlace_youtube" name="enlace_youtube" type="text" placeholder="Referencia del PRoducto" class="form-control" value="{{ old('enlace_youtube', $producto->enlace_youtube) }}">
+                                                    <input id="enlace_youtube" name="enlace_youtube" type="text" placeholder="Video YouTube" class="form-control" value="{{ old('enlace_youtube', $producto->enlace_youtube) }}">
 
                                                     {!! $errors->first('enlace_youtube', '<span class="help-block">:message</span> ') !!}
 

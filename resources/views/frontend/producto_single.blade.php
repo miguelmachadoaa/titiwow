@@ -503,9 +503,11 @@
 
                             @else
 
-                            <div class="col-sm-12">
-                               <iframe src="https://www.youtube.com/embed/{{$producto->enlace_youtube}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
+                            <div class=" col-sm-offset-3 col-sm-6 col-xs-12">
+                               <iframe style="width: 100%" src="https://www.youtube.com/embed/{{$producto->enlace_youtube}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
                             </div>
+
+                            <div class="clearfix"></div>
 
                             
 

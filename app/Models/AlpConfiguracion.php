@@ -30,6 +30,7 @@ class AlpConfiguracion extends Model
         'maximo_productos',
         'comision_mp',
         'retencion_fuente_mp',
+        'cuenta_twitter',
         'retencion_iva_mp',
         'retencion_ica_mp',
         'mensaje_bienvenida',

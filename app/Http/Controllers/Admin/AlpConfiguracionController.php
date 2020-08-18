@@ -160,6 +160,7 @@ class AlpConfiguracionController extends JoshController
             'h1_home' => $request->h1_home,
             'h1_categorias' => $request->h1_categorias,
             'h1_marcas' => $request->h1_marcas,
+            'cuenta_twitter' => $request->cuenta_twitter,
             'h1_terminos' => $request->h1_terminos
         );
 
