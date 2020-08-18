@@ -26,7 +26,14 @@ class CuponesImport implements ToCollection
 
             if($existcupon->isEmpty()){
 
-                AlpCupones::create([
+                if (is_null($row[0])) {
+                    # code...
+                }else{
+
+            //dd($row);
+
+
+                       AlpCupones::create([
                     'codigo_cupon'     => $row[0],
                     'tipo_reduccion'    => $row[1], 
                     'valor_cupon'    => $row[2], 
@@ -41,6 +48,11 @@ class CuponesImport implements ToCollection
                     'id_user' => 1, 
                 ]);
     
+
+
+                }
+
+             
             }
 
              }

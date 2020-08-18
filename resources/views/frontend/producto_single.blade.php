@@ -28,7 +28,6 @@
 
     @if($producto->robots==null)
 
-
     @else
 
         <meta property="og:robots" content="{{$producto->robots}}">
