@@ -51,10 +51,7 @@ Inicio @parent
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/owl_carousel/css/owl.carousel.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/owl_carousel/css/owl.theme.css') }}">
 
-    <!--end of page level css-->
-@stop
-
-<style>
+    <style>
     
     .modal-header {
     min-height: 16.43px;
@@ -66,6 +63,13 @@ Inicio @parent
 
 
 </style>
+
+
+
+    <!--end of page level css-->
+@stop
+
+
 
 {{-- slider --}}
 @section('top')
