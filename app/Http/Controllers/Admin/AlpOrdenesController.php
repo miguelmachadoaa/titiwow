@@ -3717,7 +3717,6 @@ public function detallealmacen($id)
 
 
 
-                      if ($estatus=='approved') {
                       
 
                        $dtt = array(
@@ -3725,23 +3724,6 @@ public function detallealmacen($id)
                         'estado_compramas' => $res->codigo,
                         'envio_compramas' => '2'
                       );
-
-
-                    }
-
-
-                    if ($estatus=='rejected') {
-                      
-
-                       $dtt = array(
-                        'json' => $result,
-                        'estado_compramas' => $res->codigo,
-                        'envio_compramas' => '3'
-                        
-                      );
-
-                       
-                    }
 
 
                       $orden->update($dtt);
