@@ -119,9 +119,6 @@ class AlpBasicaController extends JoshController
 
         $input=$request->all();
 
-
-        dd($input);
-
        $data = array(
             'seo_title' => $request->seo_title,
             'seo_type' => $request->seo_type,
@@ -168,15 +165,13 @@ class AlpBasicaController extends JoshController
 
         $configuracion->update($datar);
 
-
-
         if ($configuracion->id) {
 
-            return redirect('admin/configuracion')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
+            return redirect('admin/basica')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
 
         } else {
 
-            return Redirect::route('admin/configuracion')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+            return Redirect::route('admin/basica')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
         }  
 
     }
