@@ -281,6 +281,11 @@ Orden {{$orden->id}}
              </table>
 
              <!--a href="{{secure_url('admin/ordenes/sendmail/'.$orden->id )}}" class="btn btn-danger">Notificar</a-->
+
+
+             <a href="{{secure_url('admin/ordenes/'.$orden->id.'/reenviarcompramas' )}}" class="btn btn-danger">Reenviar Orden Compramas</a>
+
+
                     
             <p style="text-align: center;"> 
                     <a class="btn btn-default" href="{{ secure_url('admin/ordenes') }}">Regresar</a>

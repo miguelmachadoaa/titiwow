@@ -3637,8 +3637,6 @@ public function detallealmacen($id)
 
       $orden=AlpOrdenes::where('id', $id_orden)->first();
 
-      dd($orden);
-
        $dataupdate = array(
           'ordenId' => $orden->referencia, 
           'status' => 'approved', 
@@ -3749,7 +3747,6 @@ public function detallealmacen($id)
                       $orden->update($dtt);
 
 
-
                       $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
 
                          $data_history = array(
@@ -3812,7 +3809,7 @@ public function detallealmacen($id)
                     $history=AlpOrdenesHistory::create($data_history);
 
 
-                      $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
+                      $texto='No Hubo respuesta de compramas';
 
                     Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
 
