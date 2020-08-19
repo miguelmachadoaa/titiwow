@@ -133,13 +133,6 @@ class VerificarPagos extends Command
 
                 $direccion=AlpDirecciones::where('id', $ord->id_address)->withTrashed()->first();
 
-            //    activity()->withProperties($direccion)->log('detalle de direccion en verificar pagos ');
-             //   activity()->withProperties($ord->id)->log('Orden aprobada verificar pagos ');
-
-                // \Log::debug('1.3 direccion detalle direccion ' . $direccion);
-
-                 //\Log::debug('1.4 orden  aprobada ' . $ord->id);
-
 
                 $feriados=AlpFeriados::feriados();
 
@@ -263,6 +256,21 @@ class VerificarPagos extends Command
                   ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
 
 
+                  if ($orden->id_almacen==1) {
+
+                    $this->sendcompramas($orden->id, 'approved');
+                    
+
+                   }//if es almacen 1
+
+
+                   $this->addibm($user_cliente);
+
+
+
+
+
+
 
                   if ($compra->id_forma_envio!=1) {
 
@@ -352,17 +360,9 @@ class VerificarPagos extends Command
 
               $dataraw=json_encode($o);
 
-             //dd($dataraw);
+          
              //
-             if ($orden->id_almacen==1) {
-
-                    $this->sendcompramas($orden->id, 'approved');
-                    # code...
-               # code...
-             }//if es almacen 1
-
-
-             $this->addibm($user_cliente);
+             
 
                
             }elseif($pending){
@@ -385,8 +385,6 @@ class VerificarPagos extends Command
                   );
 
                   $history=AlpOrdenesHistory::create($data_history);
-
-
 
                   if ($orden->id_almacen=='1') {
 
@@ -512,10 +510,34 @@ class VerificarPagos extends Command
                   
                   if ($res->codigo=='200') {
 
-                     $dtt = array(
+                    if ($estatus=='approved') {
+                      
+
+                       $dtt = array(
                         'json' => $result,
-                        'estado_compramas' => $res->codigo
+                        'estado_compramas' => $res->codigo,
+                        'envio_compramas' => '2'
                       );
+
+
+                    }
+
+
+                    if ($estatus=='rejected') {
+                      
+
+                       $dtt = array(
+                        'json' => $result,
+                        'estado_compramas' => $res->codigo,
+                        'envio_compramas' => '3'
+                        
+                      );
+
+                       
+                    }
+
+
+                    
 
                       $orden->update($dtt);
 

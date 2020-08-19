@@ -266,7 +266,7 @@ public function compramasupdate()
 
                 if (in_array($id_rol, $permiso_cancelar)) {
                   
-                  if ($row->estatus!=4) {
+                  if ($row->estatus!=4) { 
                     
                     $cancelado = " <button data-id='".$row->id."'  data-codigo='".$row->ordencompra."'  data-estatus='".$estatus_ordenes[$row->estatus]."' class='btn btn-xs btn-danger confirmar' > Cancelar </button></div>";
 
@@ -3490,12 +3490,38 @@ public function detallealmacen($id)
                   
                   if ($res->codigo=='200') {
 
-                      $dtt = array(
+
+
+                      if ($estatus=='approved') {
+                      
+
+                       $dtt = array(
                         'json' => $result,
-                        'estado_compramas' => $res->codigo
+                        'estado_compramas' => $res->codigo,
+                        'envio_compramas' => '2'
                       );
 
+
+                    }
+
+
+                    if ($estatus=='rejected') {
+                      
+
+                       $dtt = array(
+                        'json' => $result,
+                        'estado_compramas' => $res->codigo,
+                        'envio_compramas' => '3'
+                        
+                      );
+
+                       
+                    }
+
+
                       $orden->update($dtt);
+
+
 
                       $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
 
@@ -3565,17 +3591,12 @@ public function detallealmacen($id)
 
                      Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
 
-                     
 
                 }
 
 
 
     }
-
-
-
-
 
 
 

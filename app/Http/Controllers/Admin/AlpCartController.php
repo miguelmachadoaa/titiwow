@@ -6735,12 +6735,13 @@ private function getAlmacen3(){
         
         if ($res->codigo=='200') {
 
-            $dtt = array(
-              'json' => $result,
-              'estado_compramas' => $res->codigo
-            );
+             $dtt = array(
+                'json' => $result,
+                'estado_compramas' => $res->codigo
+                
+              );
 
-            $orden->update($dtt);
+              $orden->update($dtt);
 
             $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
 
@@ -6762,14 +6763,14 @@ private function getAlmacen3(){
          
         }else{
 
-           $dtt = array(
+            $dtt = array(
               'json' => $result,
-              'estado_compramas' => $res->codigo
+              'estado_compramas' => $res->codigo,
+              'envio_compramas' => '3'
+              
             );
 
             $orden->update($dtt);
-
-
 
           $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
 

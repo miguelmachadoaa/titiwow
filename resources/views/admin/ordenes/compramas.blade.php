@@ -62,6 +62,7 @@ Ordenes Compramas
                                     <th>Estado Compramas</th>
                                     <th>Estado Pago</th>
                                     <th>Estado</th>
+                                    <th>Reenviar</th>
                                     <th>Accion</th>
                                 </tr>
                             </thead>
