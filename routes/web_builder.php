@@ -98,6 +98,10 @@ Route::get('admin/ordenes/datadescuento', 'Admin\AlpOrdenesController@datadescue
 
 Route::get('admin/ordenes/dataalmacen', 'Admin\AlpOrdenesController@dataalmacen')->name('ordenes.dataalmacen');
 
+Route::get('admin/ordenes/{id}/reenviarcompramas/', 'Admin\AlpOrdenesController@reenviarcompramas')->name('ordenes.reenviarcompramas');
+
+
+
 Route::get('admin/productos/data', 'Admin\AlpProductosController@data')->name('productos.data');
 
 Route::get('admin/productos/generarImagenes', 'Admin\AlpProductosController@generarImagenes')->name('productos.generarImagenes');

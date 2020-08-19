@@ -61,7 +61,8 @@ Ordenes Compramas
                                     <th>Creado</th>
                                     <th>Estado Compramas</th>
                                     <th>Estado Pago</th>
-                                    <th>Estado</th>
+                                    <th>Estado Orden </th>
+                                    <th>Estado Proceso Compramas</th>
                                     <th>Reenviar</th>
                                     <th>Accion</th>
                                 </tr>
@@ -285,9 +286,6 @@ $("#aprobarOrdenForm").bootstrapValidator({
 $(document).ready(function() {
 
     base=$('#base').val();
-
-
-
         
     var table =$('#tbOrdenes').DataTable({
         "processing": true,
@@ -302,6 +300,43 @@ $(document).ready(function() {
             $(this).updateLivicon();
         });
     });
+
+
+
+
+
+
+$('.compramas').on('click', function(){
+
+    alert('click');
+ 
+        base=$('#base').val();
+        
+        id=$(this).data(id);
+
+        alert(id);
+       
+
+       /* $.ajax({
+            type: "POST",
+            data:{ base, id },
+            url: base+"/admin/ordenes/"+id+"/sendcompramas",
+                
+            complete: function(datos){     
+
+                table.ajax.reload();
+
+            
+            }
+        });*/
+
+
+        //document.getElementById("addDireccionForm").submit();
+
+
+});
+
+
 
 
 
