@@ -3683,7 +3683,7 @@ public function detallealmacen($id)
                   $res=json_decode($result);
 
 
-                  $notas='Registro de orden en compramas.';
+                  $notas='Reenvio aprobacion de orden en compramas.';
 
                    if (isset($res->mensaje)) {
                      $notas=$notas.$res->mensaje.' ';
