@@ -4,7 +4,7 @@
             <div class="row" style="margin:0px;padding:0px;">
                 <!-- Categorias Section Start -->
                 <div class="col-sm-3 clearfix">
-                    <h4>Categorías @if(isset($almacen->id)){{$almacen->id}}@endif</h4>
+                    <h4>Categorías </h4>
                     <p>
                         <ul id="menu-categorias" class="menu_footer">
                             <li class="menu-item"><a href="{{ secure_url('categoria/leche') }}">Leche</a></li>
