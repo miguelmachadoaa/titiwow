@@ -277,7 +277,7 @@ Inicio @parent
                                                                         @case(3)
 
                                                                             <p id="precio_prod">
-@if($almacen->descuento_productos=='1')
+                                    @if($almacen->descuento_productos=='1')
 
                                             @if($producto->mostrar_descuento=='1')
 

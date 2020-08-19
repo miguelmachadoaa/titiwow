@@ -3693,7 +3693,6 @@ public function detallealmacen($id)
                      $notas=$notas.$res->codigo.' ';
                    }
 
-                   
 
                    if (isset($res->message)) {
                      $notas=$notas.$res->message.' ';
@@ -3714,10 +3713,6 @@ public function detallealmacen($id)
                   if (isset($res->codigo)) {
                   
                   if ($res->codigo=='200') {
-
-
-
-                      
 
                        $dtt = array(
                         'json' => $result,

@@ -751,7 +751,7 @@ class FrontEndController extends JoshController
         //dd($sliders);
 
 
-       dd($inventario);
+      // dd($inventario);
 
         return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion','inventario', 'combos', 'role', 'almacen','url'));
 
