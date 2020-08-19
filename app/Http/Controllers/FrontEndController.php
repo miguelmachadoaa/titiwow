@@ -521,6 +521,7 @@ class FrontEndController extends JoshController
         //->limit(12)
         ->get();
 
+
         $marcas = DB::table('alp_marcas')->select('alp_marcas.*')->where('destacado','=', 1)->where('alp_marcas.estado_registro','=',1)->whereNull('alp_marcas.deleted_at')->orderBy('order', 'asc')->limit(12)->get();
 
         $ciudad= \Session::get('ciudad');
@@ -750,7 +751,7 @@ class FrontEndController extends JoshController
         //dd($sliders);
 
 
-      // dd($inventario);
+       dd($inventario);
 
         return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion','inventario', 'combos', 'role', 'almacen','url'));
 

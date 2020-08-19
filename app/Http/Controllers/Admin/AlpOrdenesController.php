@@ -344,7 +344,7 @@ public function compramasupdate()
 
 
             $reenviar="<div style='display: inline-block;' class='compramas_".$row->id."'>  
-            <a href='".secure_url('admin/ordenes/'.$row->id.'/reenviarcompramas')."' data-id='".$row->id."' class='btn btn-xs btn-success compramas' >Reenviar Orden </a></div>";
+            <a href='".secure_url('admin/ordenes/'.$row->id.'/reenviarcompramas')."' data-id='".$row->id."' class='btn btn-xs btn-success compramas' >Aprobar Orden Compramas </a></div>";
 
 
 
@@ -353,7 +353,7 @@ public function compramasupdate()
                     
 
                      $reenviar="<div style='display: inline-block;' class='compramas_".$row->id."'>  
-            <a href='".secure_url('admin/ordenes/'.$row->id.'/reenviarcompramas')."' data-id='".$row->id."' class='btn btn-xs btn-success compramas' >Reenviar Orden </a></div>";
+            <a href='".secure_url('admin/ordenes/'.$row->id.'/reenviarcompramas')."' data-id='".$row->id."' class='btn btn-xs btn-success compramas' >Aprobar Orden Compramas</a></div>";
 
 
                     $compramas = " <button  class='btn btn-xs btn-danger ' > Error compramas </button></div>";

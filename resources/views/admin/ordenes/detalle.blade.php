@@ -283,7 +283,7 @@ Orden {{$orden->id}}
              <!--a href="{{secure_url('admin/ordenes/sendmail/'.$orden->id )}}" class="btn btn-danger">Notificar</a-->
 
 
-             <a href="{{secure_url('admin/ordenes/'.$orden->id.'/reenviarcompramas' )}}" class="btn btn-danger">Reenviar Orden Compramas</a>
+             <a href="{{secure_url('admin/ordenes/'.$orden->id.'/reenviarcompramas' )}}" class="btn btn-danger">Aprobar Orden Compramas</a>
 
 
                     
