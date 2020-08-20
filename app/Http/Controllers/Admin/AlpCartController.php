@@ -4832,7 +4832,7 @@ public function verificarDireccion( Request $request)
                               
                              $b_user_valido=1;
 
-                              $mensaje_user=$mensaje_user.' No aplicable por filtro Almacen. ';
+                              $mensaje_user=$mensaje_user.' Descuento no disponible para tu ubicación ';
 
                              $clase='danger';
 
@@ -4847,7 +4847,7 @@ public function verificarDireccion( Request $request)
 
                       $b_user_valido=1;
 
-                      $mensaje_user=$mensaje_user.' No aplicable por filtro Almacen. ';
+                      $mensaje_user=$mensaje_user.' Descuento no disponible para tu ubicación ';
 
                       $clase='danger';
                       
