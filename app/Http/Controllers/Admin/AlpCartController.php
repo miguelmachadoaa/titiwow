@@ -1221,6 +1221,15 @@ class AlpCartController extends JoshController
 
       $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
+      //dd($total);
+
+      if ($total<0 ){
+
+        return redirect('cart/show');
+
+      }
+
+
       if (!isset($almacen->id) ){
 
         //dd($almacen);
@@ -1228,6 +1237,9 @@ class AlpCartController extends JoshController
         return redirect('cart/show');
 
       }
+
+
+
       foreach ($cart as $vcart) {
 
         if ($vcart->disponible==0) {
@@ -1816,7 +1828,11 @@ class AlpCartController extends JoshController
                 return secure_url('cart/'.$idc.'/gracias?pago=pendiente');
 
 
+                \Session::forget('pagando');
+
         }else{
+
+          \Session::forget('pagando');
 
           return redirect('order/detail');
 
@@ -4283,7 +4299,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
     }
 
-    public function verificarDireccion( Request $request)
+public function verificarDireccion( Request $request)
     {
 
      if (Sentinel::check()) {
@@ -4595,6 +4611,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         
     }
+    
 
 
     private function asignaCupon($codigo){
