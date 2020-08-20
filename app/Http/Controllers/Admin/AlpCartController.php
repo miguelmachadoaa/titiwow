@@ -266,7 +266,7 @@ class AlpCartController extends JoshController
 
           $user_cliente=User::where('id', $compra->id_cliente)->first();
 
-         // $aviso_pago='';
+          $aviso_pago='';
 
 
  
