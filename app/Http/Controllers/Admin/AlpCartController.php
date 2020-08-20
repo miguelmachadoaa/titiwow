@@ -4830,11 +4830,20 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                 }else{
 
-                  $b_user_valido=1;
+                  $cb=AlpCuponesAlmacen::where('id_cupon', $cupon->id)->where('condicion','=', '1')->first();
 
-                  $mensaje_user=$mensaje_user.' No aplicable por filtro Almacen. ';
+                    if (isset($cb->id)) {
 
-               $clase='danger';
+
+                      $b_user_valido=1;
+
+                      $mensaje_user=$mensaje_user.' No aplicable por filtro Almacen. ';
+
+                      $clase='danger';
+                      
+                    }
+
+                 
 
               }
 
