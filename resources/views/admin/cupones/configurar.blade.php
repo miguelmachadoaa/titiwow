@@ -46,6 +46,70 @@ Editar Cupon
 
                     <input type="hidden" name="id_cupon" id="id_cupon" value="{{ $cupon->id }}">
 
+                     <fieldset>
+                        <legend>Filtro para Almacenes</legend>
+
+                        <div class="row">
+                            
+                                
+                             <div class="form-group col-sm-8 {{ $errors->first('id_almacen', 'has-error') }}">
+                                <label for="select21" class="col-sm-4 control-label">
+                                  Almacenes
+                                </label>
+                                <div class="col-sm-4">   
+                                 <select id="id_almacen" name="id_almacen" class="form-control select2">
+                                    
+                                    <option value="">Seleccione</option>
+                                    @foreach($almacenes as $alm)
+
+                                        <option value="{{$alm->id}}">{{$alm->nombre_almacen}}</option>
+                                    @endforeach
+
+                                </select>
+
+                                  {!! $errors->first('id_almacen', '<span class="help-block">:message</span> ') !!}
+                                </div>
+
+                                 <div class="col-sm-4">   
+                                 <select id="condicion_almacen" name="condicion_almacen" class="form-control select2">
+                                    
+                                        <option value="1">Incluir</option>
+                                        <option value="0">Excluir</option>
+
+                                </select>
+
+                                  {!! $errors->first('condicion_almacen', '<span class="help-block">:message</span> ') !!}
+                                </div>
+
+
+                           
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <div class="col-sm-offset-2 col-sm-4">
+                                    
+
+                                    <button type="button" role="button" class="btn btn-success addAlmacenCupon" >
+                                        Agregar
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row listalmacen">
+
+                            @include('frontend.cupones.listalmacen')
+                            
+
+
+                        </div>
+                    </fieldset>
+
+                        <hr>
+
+
+
+
                         
                     <fieldset>
                         <legend>Filtro para Categorias</legend>
@@ -60,7 +124,6 @@ Editar Cupon
                                 <div class="col-sm-4">   
                                  <select id="id_categoria" name="id_categoria" class="form-control select2">
                                     
-                                    <option value="">Seleccione</option>
                                     @foreach($categorias as $categoria)
 
                                         <option value="{{$categoria->id}}">{{$categoria->nombre_categoria}}</option>
@@ -121,7 +184,6 @@ Editar Cupon
                                 <div class="col-sm-4">   
                                  <select id="id_marca" name="id_marca" class="form-control select2">
                                     
-                                    <option value="">Seleccione</option>
                                     @foreach($marcas as $marca)
 
                                         <option value="{{$marca->id}}">{{$marca->nombre_marca}}</option>
@@ -187,7 +249,6 @@ Editar Cupon
 
                                  <select id="id_producto" name="id_producto" class="form-control select2">
                                     
-                                    <option value="">Seleccione</option>
                                     @foreach($productos as $producto)
 
                                         <option value="{{$producto->id}}">{{$producto->nombre_producto.' - '.$producto->referencia_producto}}</option>
@@ -275,7 +336,6 @@ Editar Cupon
 
                                  <select id="id_empresa" name="id_empresa" class="form-control select2">
                                     
-                                    <option value="">Seleccione</option>
                                     @foreach($empresas as $empresa)
 
                                         <option value="{{$empresa->id}}">{{$empresa->nombre_empresa}}</option>
@@ -401,7 +461,6 @@ Editar Cupon
 
                                  <select id="id_rol" name="id_rol" class="form-control select2">
                                     
-                                    <option value="">Seleccione</option>
                                     @foreach($roles as $rol)
 
                                         <option value="{{$rol->id}}">{{$rol->name}}</option>
@@ -528,6 +587,65 @@ Editar Cupon
         });
 
     });
+
+
+
+ $('.addAlmacenCupon').on('click', function(){
+
+        base = $('#base').val();
+
+        id_almacen = $('#id_almacen').val();
+
+        id_cupon = $('#id_cupon').val();
+
+        condicion = $('#condicion_almacen').val();
+
+        _token = $('#_token').val();
+
+
+         $.ajax({
+            type: "POST",
+            data:{ id_almacen, id_cupon, condicion, _token},
+            url: base+"/admin/cupones/"+id_almacen+"/addalmacen",
+                
+            complete: function(datos){     
+
+                $(".listalmacen").html(datos.responseText);
+
+            }
+        });
+
+       
+
+    });
+
+    $(document).on('click','.delcuponalmacen',  function(){
+
+        base = $('#base').val();
+
+        id = $(this).data('id');
+
+        id_cupon = $(this).data('idcupon');
+
+        _token = $('#_token').val();
+
+
+         $.ajax({
+            type: "POST",
+            data:{ id, id_cupon, _token},
+            url: base+"/admin/cupones/"+id+"/delalmacen",
+                
+            complete: function(datos){     
+
+                $(".listalmacen").html(datos.responseText);
+
+            }
+        });
+
+    });
+
+
+
 
 
      $('.addMarcaCupon').on('click', function(){
@@ -797,6 +915,8 @@ Editar Cupon
         });
 
     });
+
+
 
 
 

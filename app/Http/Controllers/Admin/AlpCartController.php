@@ -71,6 +71,7 @@ use App\Models\AlpCuponesMarcas;
 use App\Models\AlpCuponesUser;
 use App\Models\AlpOrdenesDescuento;
 use App\Models\AlpCombosProductos;
+use App\Models\AlpCuponesAlmacen;
 use Illuminate\Support\Facades\Log;
 
 use Illuminate\Support\Facades\Storage;
@@ -1447,7 +1448,9 @@ class AlpCartController extends JoshController
 
         }
 
-            MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+
+
+          MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
           $preference = MP::post("/checkout/preferences",$preference_data);
 
@@ -4621,6 +4624,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       }
 
+
+      $id_almacen=$this->getAlmacen();
+
      $configuracion=AlpConfiguracion::where('id', '1')->first();
       
       $carrito= \Session::get('cr');
@@ -4698,6 +4704,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
             $c_categoria=AlpCuponesCategorias::where('id_cupon', $cupon->id)->first();
 
+            $c_almacen=AlpCuponesAlmacen::where('id_cupon', $cupon->id)->first();
+
 
             if (isset($c_empresa->id)) {  $b_empresa=1;    }
 
@@ -4711,6 +4719,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
             if (isset($c_marca->id)) {  $b_marca=1;    }
 
             if (isset($c_categoria->id)) {  $b_categoria=1;    }
+
+            if (isset($c_almacen->id)) {  $b_almacen=1;    }
 
 
             if(count($usados_orden)>0){
@@ -4797,6 +4807,36 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                $clase='info';
 
+
+            }
+
+
+            if($b_almacen==1){
+
+              $cc=AlpCuponesAlmacen::where('id_cupon', $cupon->id)->where('id_almacen', $id_almacen)->first();
+
+              if(isset($cc->id)){
+
+
+                          if ($cc->condicion==0) {
+                              
+                             $b_user_valido=1;
+
+                              $mensaje_user=$mensaje_user.' No aplicable por filtro Almacen. ';
+
+                             $clase='danger';
+
+                          }
+
+                }else{
+
+                  $b_user_valido=1;
+
+                  $mensaje_user=$mensaje_user.' No aplicable por filtro Almacen. ';
+
+               $clase='danger';
+
+              }
 
             }
 
@@ -6794,6 +6834,8 @@ private function getAlmacen3(){
 
       }else{
 
+        $notas='No hubo respuesta compramas';
+
         $data_history = array(
             'id_orden' => $orden->id, 
            'id_status' => '9', 
@@ -6804,7 +6846,7 @@ private function getAlmacen3(){
 
         $history=AlpOrdenesHistory::create($data_history);
 
-          $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
+          $texto='No hubo respuesta compramas CC';
 
           Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
 

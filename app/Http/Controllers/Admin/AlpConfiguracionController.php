@@ -235,11 +235,9 @@ class AlpConfiguracionController extends JoshController
           #->withProperties($request->all())
           ->log('configuracion/robost');
 
-
         }
 
         $contenido='';
-
 
        try
         {

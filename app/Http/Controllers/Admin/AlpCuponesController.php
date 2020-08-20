@@ -1,4 +1,5 @@
-<?php namespace App\Http\Controllers\Admin;
+<?php 
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\JoshController;
 use App\Http\Requests\CuponesRequest;
@@ -14,6 +15,8 @@ use App\Models\AlpProductos;
 use App\Models\AlpEmpresas;
 use App\Models\AlpMarcas;
 use App\Models\AlpClientes;
+use App\Models\AlpAlmacenes;
+use App\Models\AlpCuponesAlmacen;
 
 use App\Imports\CuponesImport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -359,6 +362,120 @@ class AlpCuponesController extends JoshController
 
 
     }
+
+
+
+
+       public function addalmacen(Request $request)
+    {
+
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        #->withProperties(['id'=>$id]))
+                        ->withProperties($request->all())
+                        ->log('cupones/addalmacen ');
+
+        }else{
+
+          activity()
+          #->withProperties(['id'=>$id])
+          ->withProperties($request->all())
+          ->log('cupones/addalmacen');
+
+
+        }
+
+         $user_id = Sentinel::getUser()->id;
+
+       
+        $data = array(
+            'id_cupon' => $request->id_cupon, 
+            'id_almacen' => $request->id_almacen, 
+            'condicion' => $request->condicion,
+            'user_id' => $request->user_id
+        );
+
+
+
+        AlpCuponesAlmacen::create($data);
+
+        $almacenes_list=AlpCuponesAlmacen::where('id_cupon', $request->id_cupon)
+        ->get();
+
+        $almacenes_list = AlpCuponesAlmacen::select('alp_cupones_almacen.*', 'alp_almacenes.nombre_almacen as nombre_almacen')
+          ->join('alp_almacenes', 'alp_cupones_almacen.id_almacen', '=', 'alp_almacenes.id')
+          ->where('alp_cupones_almacen.id_cupon', $request->id_cupon)
+          ->get();
+
+
+          $view= View::make('frontend.cupones.listalmacen', compact('almacenes_list'));
+
+      $data=$view->render();
+
+      return $data;
+
+
+        
+    }
+
+ public function delalmacen(Request $request)
+    {
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cupones/delalmacen ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('cupones/delalmacen');
+
+
+        }
+
+         $user_id = Sentinel::getUser()->id;
+
+
+         $cat=AlpCuponesAlmacen::where('id', $request->id)->first();
+
+         if (isset($cat->id)) {
+           $cat->delete();
+         }
+
+         
+       
+
+         $almacenes_list = AlpCuponesAlmacen::select('alp_cupones_almacen.*', 'alp_almacenes.nombre_almacen as nombre_almacen')
+          ->join('alp_almacenes', 'alp_cupones_almacen.id_almacen', '=', 'alp_almacenes.id')
+          ->where('alp_cupones_almacen.id_cupon', $request->id_cupon)
+          ->get();
+
+          $view= View::make('frontend.cupones.listalmacen', compact('almacenes_list'));
+
+      $data=$view->render();
+
+      return $data;
+
+
+
+    }
+
+
+
+
 
     public function addempresa(Request $request)
     {
@@ -902,6 +1019,8 @@ class AlpCuponesController extends JoshController
 
        $marcas=AlpMarcas::where('estado_registro', '1')->get();
 
+       $almacenes=AlpAlmacenes::where('estado_registro', '1')->get();
+
        $roles=Roles::select('roles.id', 'roles.name')->get();
 
        $productos=AlpProductos::where('estado_registro', '1')->get();
@@ -955,8 +1074,14 @@ class AlpCuponesController extends JoshController
           ->get();
 
 
+          $almacenes_list = AlpCuponesAlmacen::select('alp_cupones_almacen.*', 'alp_almacenes.nombre_almacen as nombre_almacen')
+          ->join('alp_almacenes', 'alp_cupones_almacen.id_almacen', '=', 'alp_almacenes.id')
+          ->where('alp_cupones_almacen.id_cupon', $id)
+          ->get();
 
-        return view('admin.cupones.configurar', compact('cupon', 'categorias', 'clientes', 'empresas', 'productos', 'categorias_list', 'empresas_list', 'clientes_list', 'productos_list', 'roles', 'roles_list', 'marcas', 'marcas_list'));
+
+
+        return view('admin.cupones.configurar', compact('cupon', 'categorias', 'clientes', 'empresas', 'productos', 'categorias_list', 'empresas_list', 'clientes_list', 'productos_list', 'roles', 'roles_list', 'marcas', 'marcas_list', 'almacenes', 'almacenes_list'));
     }
 
     /**

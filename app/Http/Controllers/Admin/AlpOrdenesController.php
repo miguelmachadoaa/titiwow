@@ -3192,6 +3192,9 @@ public function compramasupdate()
     {
 
       $user = Sentinel::getUser();
+
+      if (isset($user->id)) {
+        # code...
     
           $ordenes = AlpOrdenes::select('alp_ordenes.*', 'alp_clientes.telefono_cliente as telefono_cliente','users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
@@ -3293,6 +3296,13 @@ public function compramasupdate()
           }
 
           return json_encode( array('data' => $data ));
+
+
+      }else{
+
+        return json_encode( array('data' => false ));
+      }
+
 
     }
 
@@ -3682,7 +3692,6 @@ public function detallealmacen($id)
 
                   $res=json_decode($result);
 
-
                   $notas='Reenvio aprobacion de orden en compramas.';
 
                    if (isset($res->mensaje)) {
@@ -3737,13 +3746,11 @@ public function detallealmacen($id)
                         $history=AlpOrdenesHistory::create($data_history);
 
 
-
                     Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
 
                      Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
                    
                   }else{
-
 
                      $dtt = array(
                         'json' => $result,
@@ -3775,6 +3782,8 @@ public function detallealmacen($id)
 
                 }else{
 
+                  $notas='No hubo Respuesta de compramas';
+
                     $data_history = array(
                         'id_orden' => $orden->id, 
                        'id_status' => '9', 
@@ -3794,7 +3803,6 @@ public function detallealmacen($id)
 
 
                 }
-
 
                 return redirect('admin/ordenes/compramas/list')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
 

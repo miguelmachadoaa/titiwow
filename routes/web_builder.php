@@ -263,6 +263,10 @@ Route::post('productos/postgrid/', ['as'=> 'productos.postgrid', 'uses' => 'Admi
 
         Route::post('{id}/delcategoria', 'Admin\AlpCuponesController@delcategoria')->name('cupones.delcategoria');
 
+        Route::post('{id}/addalmacen', 'Admin\AlpCuponesController@addalmacen')->name('cupones.addalmacen');
+
+        Route::post('{id}/delalmacen', 'Admin\AlpCuponesController@delalmacen')->name('cupones.delalmacen');
+
          Route::post('{id}/addempresa', 'Admin\AlpCuponesController@addempresa')->name('cupones.addempresa');
 
         Route::post('{id}/delempresa', 'Admin\AlpCuponesController@delempresa')->name('cupones.delempresa');
