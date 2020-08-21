@@ -159,7 +159,7 @@
      $('.btnpg').click(function(){
 
         $('.btnpg').fadeOut('fast');
-        $('#banpago').val('1');
+       // $('#banpago').val('1');
 
         setTimeout(function(){
 

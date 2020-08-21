@@ -525,20 +525,21 @@ $('.sendCupon').click(function () {
 
    $(document).on('click', '.pse', function (){
 
-            //llenamos los campos necesarios para procesar 
 
-            id_direccion= $("#id_direccion").val(); 
-            
-            //id_forma_envio=$("input[name='id_forma_envio']:checked").val(); 
+        //llenamos los campos necesarios para procesar 
 
-            id_forma_envio=$("#id_forma_envio").val(); 
-            
-            id_forma_pago=$(this).data('id');
+        id_direccion= $("#id_direccion").val(); 
+        
+        //id_forma_envio=$("input[name='id_forma_envio']:checked").val(); 
+
+        id_forma_envio=$("#id_forma_envio").val(); 
+        
+        id_forma_pago=$(this).data('id');
 
 
-            $('#modalPse').modal('show');
+        $('#modalPse').modal('show');
 
-       });
+});
 
 
 

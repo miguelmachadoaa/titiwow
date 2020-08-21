@@ -141,6 +141,9 @@ class UsersExport implements FromView
 
           }
 
+
+          
+
         return view('admin.exports.users', [
             'users' => $usuario
         ]);
