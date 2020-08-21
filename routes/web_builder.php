@@ -1330,7 +1330,9 @@ Route::get('emailAmigo', function(){
 });
 
 Route::get('notificacion', function(){
-        return new \App\Mail\NotificacionOrden('25', 'La orden 25 Ha sido Enviada!');
+        //return new \App\Mail\NotificacionOrden('25', 'La orden 25 Ha sido Enviada!');
+
+        Mail::to('obarrerafranco@gmail.com')->send(new \App\Mail\NotificacionOrden('25', 'La orden 25 Ha sido Enviada!'));
 });
 
 Route::get('compra', function(){
@@ -1343,3 +1345,4 @@ Route::get('compra', function(){
 Route::get('clear-cache', function() {
     $exitCode = Artisan::call('venta:almacenes', ['alm' => '1']);
 });
+

@@ -133,6 +133,9 @@
     @if(isset($inventario))
         <div class="inventario" data-inventario="{{json_encode($inventario)}}"></div>
     @endif
+
+
+    <input type="hideen" name="banpago" id="banpago" value="0">
     
 
 
@@ -156,12 +159,14 @@
      $('.btnpg').click(function(){
 
         $('.btnpg').fadeOut('fast');
+        $('#banpago').val('1');
 
         setTimeout(function(){
 
             $('.btnpg').fadeIn();
+             $('#banpago').val('0');
 
-        },4000);
+        },10000);
 
     });
 
