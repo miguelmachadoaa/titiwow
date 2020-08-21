@@ -105,7 +105,10 @@
     @endif
 
 
-   
+   @if(isset($error))
+
+  
+   @endif
    
 
 @endif

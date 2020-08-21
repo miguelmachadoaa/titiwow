@@ -123,6 +123,8 @@ class AlpCartController extends JoshController
 
       $cart=$this->reloadCart();
 
+      //dd($cart);
+
       $combos=$this->combos();
 
       $configuracion=AlpConfiguracion::where('id', '1')->first();
@@ -162,8 +164,6 @@ class AlpCartController extends JoshController
 
         $descuento=1;
 
-    
-
 
       $productos = DB::table('alp_productos')->select('alp_productos.*')
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
@@ -181,7 +181,6 @@ class AlpCartController extends JoshController
 
 
         $prods=$this->addOferta($productos);
-
 
         $inventario=$this->inventario();
 
@@ -2664,11 +2663,12 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
     public function addtocart( Request $request)
     {
 
-
           $producto=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
           ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
           ->where('alp_productos.slug', $request->slug)
           ->first();
+
+          //dd($producto);
 
         if (!\Session::has('cr')) {
 
@@ -2702,6 +2702,12 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        $inv=$this->inventario();
 
+       $almacen=$this->getAlmacen();
+
+       //dd($almacen);
+
+
+
        if (isset($producto->id)) {
 
          $producto->precio_oferta=$request->price;
@@ -2709,6 +2715,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         $producto->cantidad=1;
 
         $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
+
+
 
         if (isset($inv[$producto->id])) {
 
@@ -2725,9 +2733,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
              AlpCarritoDetalle::create($data_detalle);
 
-
-
-
           }else{
 
             $error="No hay existencia suficiente de este producto";
@@ -2738,33 +2743,29 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           # code...
         }else{
 
-            $error="No hay existencia suficiente de este producto";
+            $error="No hay existencia suficiente de este producto, en su ubicacion";
 
           }
 
+       }else{
 
-        
-
+        $error="No encontro el producto";
 
        }
-
-     
-      
 
 
        \Session::put('cart', $cart);
 
-      
 
        if (isset($request->datasingle)) {
 
           $datasingle=$request->datasingle;
        
-          $view= View::make('frontend.order.botones', compact('producto', 'cart', 'datasingle'));
+          $view= View::make('frontend.order.botones', compact('producto', 'cart', 'datasingle', 'error'));
         
       }else{
 
-        $view= View::make('frontend.order.botones', compact('producto', 'cart'));
+        $view= View::make('frontend.order.botones', compact('producto', 'cart', 'error'));
 
 
        }
@@ -2793,13 +2794,21 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           $res = array('data' => $data);
 
           return $data;
-       // return json_encode($cart);
+      
       
     }
 
 
-        public function addtocartdetail( Request $request)
+    public function addtocartdetail( Request $request)
     {
+
+        $cart= \Session::get('cart');
+
+        $combos=$this->combos();
+
+        $configuracion=AlpConfiguracion::first();
+
+
 
 
           $producto=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
@@ -2839,14 +2848,12 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        $inv=$this->inventario();
 
-       if (isset($p->id)) {
-         
+       if (isset($producto->id)) {
 
-         $producto->precio_oferta=$request->price;
-
+          $producto->precio_oferta=$request->price;
           $producto->cantidad=1;
+          $producto->disponible=1;
           $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
-
 
 
           if (isset($inv[$producto->id])) {
@@ -2882,11 +2889,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
               }
 
-         
-
-
-          
-
 
           $impuesto=$this->impuesto();
 
@@ -2913,22 +2915,18 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
 
-              $configuracion=AlpConfiguracion::where('id', '1')->first();
-           
+       }
 
-              $view= View::make('frontend.listcart', compact('producto', 'cart', 'total', 'impuesto', 'configuracion'));
+       $total=$this->total();
 
-            
+
+       $view= View::make('frontend.listcart', compact('combos', 'cart','configuracion', 'total'));
 
               $data=$view->render();
 
               $res = array('data' => $data);
 
               return $data;
-
-
-
-       }
 
 
       
@@ -3804,51 +3802,63 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        $producto=AlpProductos::where('id', $request->id)->first();
 
-       //dd(print_r($producto));
 
        $error='0';
 
-       if (isset($inv[$request->id])) {
-         # code...
-       
+       if ( isset($producto->id)) {
 
-       if ($request->cantidad>0) {
-         
+        $producto->precio_oferta=$request->price;
 
-           if($inv[$request->id]>=$request->cantidad){
+        $producto->cantidad=1;
 
+        $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
 
-                if ($configuracion->maximo_productos<$request->cantidad) {
+           if (isset($inv[$request->id])) {
 
-                $error="No puede añadir más de ".$configuracion->maximo_productos." Unidades al carrito";
+             if ($request->cantidad>0) {
+               
+                 if($inv[$request->id]>=$request->cantidad){
 
-                
-              }else{
+                      if ($configuracion->maximo_productos<$request->cantidad) {
 
-                $cart[$request->slug]->cantidad=$request->cantidad;
+                      $error="No puede añadir más de ".$configuracion->maximo_productos." Unidades al carrito";
+                      
+                    }else{
 
-              }
+                      if (isset($cart[$request->slug])) {
 
-            
+                        $cart[$request->slug]->cantidad=$request->cantidad;
 
-          }else{
+                      }else{
 
-            $error="No hay existencia suficiente de este producto";
-          }
-
-       }else{
-
-        unset( $cart[$producto->slug]);
+                        $cart[$request->slug]=$producto;
 
 
-       }//aqui termina 
+                      }
 
-     }else{
+                      
 
-      unset( $cart[$producto->slug]);
+                    }
+                  
+
+                }else{
+
+                  $error="No hay existencia suficiente de este producto";
+                }
+
+             }else{
+
+              unset( $cart[$producto->slug]);
 
 
-     }
+             }//aqui termina 
+
+         }else{
+
+          unset( $cart[$producto->slug]);
+
+         }
+       }
 
 
        //dd($producto->slug.' - '.$producto->id.' - '.$request->id);
@@ -3865,17 +3875,14 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
          
        }
 
-       // $cart=$this->reloadCart();
 
-
-       \Session::put('cart', $cart);
+      \Session::put('cart', $cart);
 
       $impuesto=$this->impuesto();
 
+      $total=$this->total();
 
-       $total=$this->total();
-
-     $configuracion=AlpConfiguracion::where('id', '1')->first();
+      $configuracion=AlpConfiguracion::where('id', '1')->first();
 
 
         $view= View::make('frontend.listcart', compact('producto', 'cart', 'total', 'impuesto', 'configuracion', 'error'));

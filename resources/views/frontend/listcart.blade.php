@@ -44,13 +44,13 @@
 
                                 <h4><a target="_blank"  href="{{ route('producto', [$row->slug]) }}" >{{$row->nombre_producto}}</a></h4>
 
-                                @if($row->disponible==0) 
+                                @if($row->disponible==0)
 
-                                @php $ban_disponible=1; @endphp 
+                                    @php $ban_disponible=1; @endphp 
 
-                                <h4><a style="color: #f70072;" target="_blank"  href="{{ route('producto', [$row->slug]) }}" >Este producto no esta disponible para su dirección de envio</a></h4>
+                                    <h4><a style="color: #f70072;" target="_blank"  href="{{ route('producto', [$row->slug]) }}" >Este producto no esta disponible para su dirección de envio</a></h4>
 
-                                @endif
+                                    @endif
 
                             </div>    
 

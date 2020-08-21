@@ -916,7 +916,7 @@ class ProductosFrontController extends Controller
         ->paginate(36); 
 
 
-      
+        
 
     $prods=$this->addOferta($productos);
 
