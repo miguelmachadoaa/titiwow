@@ -294,6 +294,11 @@ Route::post('productos/postgrid/', ['as'=> 'productos.postgrid', 'uses' => 'Admi
         Route::get('cargar', 'Admin\AlpCuponesController@cargarcupones')->name('cupones.cargar');
         Route::post('import', 'Admin\AlpCuponesController@import');
 
+
+
+        Route::get('cargargestion', 'Admin\AlpCuponesController@cargargestion')->name('cupones.cargargestion');
+        Route::post('postcargargestion', 'Admin\AlpCuponesController@postcargargestion');
+
     });
     Route::post('cupones/create', 'Admin\AlpCuponesController@store');
 

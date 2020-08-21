@@ -19,6 +19,7 @@ use App\Models\AlpAlmacenes;
 use App\Models\AlpCuponesAlmacen;
 
 use App\Imports\CuponesImport;
+use App\Imports\CuponesGestionImport;
 use Maatwebsite\Excel\Facades\Excel;
 
 use App\Roles;
@@ -1280,5 +1281,71 @@ class AlpCuponesController extends JoshController
         
         return redirect('admin/cupones')->with('success', 'Cupones Cargados Exitosamente');
     }
+
+
+      public function cargargestion()
+    {
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('cupones/cargarcupones ');
+
+        }else{
+
+          activity()
+          ->log('cupones/cargarcupones');
+
+
+        }
+
+
+        if (!Sentinel::getUser()->hasAnyAccess(['cupones.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+      
+
+      
+
+        return view('admin.cupones.cargargestion');
+    }
+    
+
+
+    public function postcargargestion(Request $request) 
+    {
+
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('cupones/postcargargestion ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('cupones/postcargargestion');
+
+
+        }
+
+
+        $archivo = $request->file('file_cupones');
+
+        Excel::import(new CuponesGestionImport, $archivo);
+        
+        return redirect('admin/cupones')->with('success', 'Cupones Cargados Exitosamente');
+    }
+
+
 
 }
