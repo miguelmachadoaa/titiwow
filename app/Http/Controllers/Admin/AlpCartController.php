@@ -5227,6 +5227,8 @@ public function addcupon(Request $request)
 
         $user_cliente=User::where('id', $user_id)->first();
 
+        $request->codigo_cupon=strip_tags($request->codigo_cupon);
+
         $mensaje_cupon=$this->asignaCupon($request->codigo_cupon);
 
         if ($mensaje_cupon['mensaje_user']=='') {
@@ -5326,6 +5328,8 @@ public function addcupon(Request $request)
         $usuario=User::where('id', $user_id)->first();
 
         $user_cliente=User::where('id', $user_id)->first();
+
+        $request->codigo_cupon=strip_tags($request->codigo_cupon);
 
         $mensaje_cupon=$this->asignaCupon($request->codigo_cupon);
 
