@@ -988,6 +988,27 @@ class FrontEndController extends JoshController
 
          }
 
+
+
+
+
+                  $request->first_name=strip_tags($request->first_name);
+                  $request->last_name=strip_tags($request->last_name);
+                  $request->email=strip_tags($request->email);
+                  $request->password=strip_tags($request->password);
+                  $request->doc_cliente=strip_tags($request->doc_cliente);
+                  $request->cod_alpinista=strip_tags($request->cod_alpinista);
+                  $request->principal_address=strip_tags($request->principal_address);
+                  $request->secundaria_address=strip_tags($request->secundaria_address);
+                  $request->edificio_address=strip_tags($request->edificio_address);
+                  $request->detalle_address=strip_tags($request->detalle_address);
+                  $request->barrio_address=strip_tags($request->barrio_address);
+
+
+                 // dd($request);
+
+
+
         try {
 
             if($request->chkalpinista == 1) {
@@ -996,10 +1017,17 @@ class FrontEndController extends JoshController
 
                 if ($codalpin) {
 
-                  //  $activate=false;
 
-                    // Register the user
-                    $user = Sentinel::register($request->only(['first_name', 'last_name', 'email', 'password']), $activate);
+                  $data_user = array(
+                    'first_name' => $request->first_name, 
+                    'last_name' => $request->last_name, 
+                    'email' => $request->email, 
+                    'password' => $request->password, 
+                  );
+
+
+
+                    $user = Sentinel::register($data_user, $activate);
 
 
 
@@ -1067,8 +1095,16 @@ class FrontEndController extends JoshController
 
             }else{
 
+              $data_user = array(
+                    'first_name' => $request->first_name, 
+                    'last_name' => $request->last_name, 
+                    'email' => $request->email, 
+                    'password' => $request->password, 
+                  );
 
-                  $user = Sentinel::register($request->only(['first_name', 'last_name', 'email', 'password']), $activate);
+
+
+                  $user = Sentinel::register($data_user, $activate);
 
                   if ($request->convenio!='') {
                     
@@ -1244,7 +1280,7 @@ class FrontEndController extends JoshController
 
             $cliente->update($data_c);
 
-            try {
+         /*   try {
 
               $ibm=$this->addibm($user);
 
@@ -1256,7 +1292,7 @@ class FrontEndController extends JoshController
               
             } catch (Exception $e) {
               
-            }
+            }*/
 
 
             

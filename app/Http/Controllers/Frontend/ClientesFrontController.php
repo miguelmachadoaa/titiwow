@@ -1336,8 +1336,21 @@ class ClientesFrontController extends Controller
         $user_id = Sentinel::getUser()->id;
 
 
+
+
+
          $input = $request->all();
 
+        // dd($input);
+
+
+        $input['titulo']=strip_tags($input['titulo']);
+        $input['principal_address']=strip_tags($input['principal_address']);
+        $input['secundaria_address']=strip_tags($input['secundaria_address']);
+        $input['edificio_address']=strip_tags($input['edificio_address']);
+        $input['detalle_address']=strip_tags($input['detalle_address']);
+        $input['barrio_address']=strip_tags($input['barrio_address']);
+        $input['notas']=strip_tags($input['notas']);
         //var_dump($input);
 
         $input['id_user']=$user_id;
@@ -1477,13 +1490,25 @@ class ClientesFrontController extends Controller
 
          $input = $request->all();
 
-
+       //  dd($input);
 
         //var_dump($input);
 
         $input['id_user']=$user_id;
         $input['id_client']=$user_id;
         $input['default_address']=1;
+
+
+         $input['titulo']=strip_tags($input['titulo']);
+        $input['principal_address']=strip_tags($input['principal_address']);
+        $input['secundaria_address']=strip_tags($input['secundaria_address']);
+        $input['edificio_address']=strip_tags($input['edificio_address']);
+        $input['detalle_address']=strip_tags($input['detalle_address']);
+        $input['barrio_address']=strip_tags($input['barrio_address']);
+        $input['notas']=strip_tags($input['notas']);
+
+
+        
 
         if ($input['id_barrio']=='0') {
               # code...
