@@ -231,6 +231,8 @@ Route::post('productos/postgrid/', ['as'=> 'productos.postgrid', 'uses' => 'Admi
 
         Route::get('{categoria}/detalle', 'Admin\AlpCategoriasController@detalle')->name('categorias.detalle');
 
+        Route::get('{categoria}/gestionar', 'Admin\AlpCategoriasController@gestionar')->name('categorias.gestionar');
+
         Route::post('{categoria}/storeson', 'Admin\AlpCategoriasController@storeson')->name('categorias.storeson');
 
         Route::get('{categoria}/editson', 'Admin\AlpCategoriasController@editson')->name('categorias.editson');
@@ -238,10 +240,18 @@ Route::post('productos/postgrid/', ['as'=> 'productos.postgrid', 'uses' => 'Admi
         Route::post('{categoria}/updson', 'Admin\AlpCategoriasController@updson')->name('categorias.updson');
 
 
+         Route::post('{id}/adddestacado', 'Admin\AlpCategoriasController@adddestacado')->name('cupones.adddestacado');
+
+        Route::post('{id}/deldestacado', 'Admin\AlpCategoriasController@deldestacado')->name('cupones.deldestacado');
+
+
+
  	});
     Route::post('categorias/create', 'Admin\AlpCategoriasController@store');
 
     Route::resource('categorias', 'Admin\AlpCategoriasController');
+
+
 
     //fin direcciones categorias
 

@@ -478,7 +478,7 @@ class AlpCuponesController extends JoshController
 
 
 
-    public function addempresa(Request $request)
+    public function adddestacado(Request $request)
     {
 
 
@@ -490,13 +490,13 @@ class AlpCuponesController extends JoshController
                         ->performedOn($user)
                         ->causedBy($user)
                         ->withProperties($request->all())
-                        ->log('cupones/addempresa ');
+                        ->log('cupones/adddestacado ');
 
         }else{
 
           activity()
           ->withProperties($request->all())
-          ->log('cupones/addempresa');
+          ->log('cupones/adddestacado');
 
 
         }
@@ -507,24 +507,24 @@ class AlpCuponesController extends JoshController
 
        
         $data = array(
-            'id_cupon' => $request->id_cupon, 
-            'id_empresa' => $request->id_empresa, 
-            'condicion' => $request->condicion,
+            'id_categoria' => $request->id_categoria, 
+            'id_almacen' => $request->id_almacen, 
+            'id_producto' => $request->id_producto, 
             'user_id' => $request->user_id
         );
 
 
 
-        AlpCuponesEmpresa::create($data);
+        AlpCategoriasDestacado::create($data);
 
         
 
-       $empresas_list = AlpCuponesEmpresa::select('alp_cupones_empresa.*', 'alp_empresas.nombre_empresa as nombre_empresa')
-          ->join('alp_empresas', 'alp_cupones_empresa.id_empresa', '=', 'alp_empresas.id')
-          ->where('alp_cupones_empresa.id_cupon', $request->id_cupon)
+         $almacenes_list = AlpCuponesAlmacen::select('alp_cupones_almacen.*', 'alp_almacenes.nombre_almacen as nombre_almacen')
+          ->join('alp_almacenes', 'alp_cupones_almacen.id_almacen', '=', 'alp_almacenes.id')
+          ->where('alp_cupones_almacen.id_cupon', $request->id_categoria)
           ->get();
 
-          $view= View::make('frontend.cupones.listempresas', compact('empresas_list'));
+          $view= View::make('admin.categorias.listdestacado', compact('almacenes_list'));
 
       $data=$view->render();
 
@@ -533,7 +533,7 @@ class AlpCuponesController extends JoshController
 
     }
 
- public function delempresa(Request $request)
+ public function deldestacado(Request $request)
     {
 
       if (Sentinel::check()) {
@@ -544,13 +544,13 @@ class AlpCuponesController extends JoshController
                         ->performedOn($user)
                         ->causedBy($user)
                         ->withProperties($request->all())
-                        ->log('cupones/delempresa ');
+                        ->log('cupones/deldestacado ');
 
         }else{
 
           activity()
           ->withProperties($request->all())
-          ->log('cupones/delempresa');
+          ->log('cupones/deldestacado');
 
 
         }
@@ -558,14 +558,14 @@ class AlpCuponesController extends JoshController
          $user_id = Sentinel::getUser()->id;
 
 
-         $cat=AlpCuponesEmpresa::where('id', $request->id)->first();
+         $cat=AlpCategoriasDestacado::where('id', $request->id)->first();
 
          $cat->delete();
        
 
-        $empresas_list = AlpCuponesEmpresa::select('alp_cupones_empresa.*', 'alp_empresas.nombre_empresa as nombre_empresa')
-          ->join('alp_empresas', 'alp_cupones_empresa.id_empresa', '=', 'alp_empresas.id')
-          ->where('alp_cupones_empresa.id_cupon', $request->id_cupon)
+       $almacenes_list = AlpCuponesAlmacen::select('alp_cupones_almacen.*', 'alp_almacenes.nombre_almacen as nombre_almacen')
+          ->join('alp_almacenes', 'alp_cupones_almacen.id_almacen', '=', 'alp_almacenes.id')
+          ->where('alp_cupones_almacen.id_cupon', $cat->id_categoria)
           ->get();
 
           $view= View::make('frontend.cupones.listempresas', compact('empresas_list'));

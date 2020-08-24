@@ -27,42 +27,29 @@
 @else
     <meta property="og:image" content="{{ secure_url('uploads/categorias/'.$categoria->imagen_categoria )}}" />
 @endif
-<meta property="og:url" content="{{$url}}" />
-
-<meta name="description" content="{{$categodes}}"/>
+    
+    <meta property="og:url" content="{{$url}}" />
+    <meta name="description" content="{{$categodes}}"/>
 
 @if(isset($configuracion->cuenta_twitter))
 
-
-<meta name="twitter:card" content="summary">
-<meta name="twitter:site" content="{{'@'.$configuracion->cuenta_twitter}}">
-<meta name="twitter:description" content="{{$categodes}}">
-<meta name="twitter:title" content="{{ $catego}}">
-<meta name="twitter:image" content="{{ secure_url('/').'/uploads/categorias/'.$categoria->imagen_categoria }}">
-
-@endif
-
-
-@if($configuracion->robots==null)
-
-
-
-@else
-
-<meta name="robots" content="{{$configuracion->robots}}">
-<meta property="og:robots" content="{{$configuracion->robots}}">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="{{'@'.$configuracion->cuenta_twitter}}">
+    <meta name="twitter:description" content="{{$categodes}}">
+    <meta name="twitter:title" content="{{ $catego}}">
+    <meta name="twitter:image" content="{{ secure_url('/').'/uploads/categorias/'.$categoria->imagen_categoria }}">
 
 @endif
 
 
+    @if($configuracion->robots==null)
 
+    @else
 
+    <meta name="robots" content="{{$configuracion->robots}}">
+    <meta property="og:robots" content="{{$configuracion->robots}}">
 
-
-
-
-
-
+    @endif
 
 
 @endsection
@@ -107,12 +94,92 @@
 
 {{-- Page content --}}
 @section('content')
-<div class="container contain_body">
-<div class="row">
+<div class="container contain_body ">
+<div class="row ">
+
+
 <div class="col-md-3 hidden-xs hidden-sm" style="padding-right:30px">
     @include('layouts.sidebar')
 </div>
 <div class="col-md-9">
+
+
+    <div class="products">
+        <div class="row">
+
+             <h1 style="font-size: 24px; color: #143473; margin-bottom: 15px;" class="subtitulo">Productos mas vendidos</h1>
+
+
+        @if(count($destacados))
+
+        @php $i=0; @endphp
+
+
+            @foreach($destacados as $producto)
+
+                @if($producto->tipo_producto=='1')
+
+
+                    @if(isset($inventario[$producto->id]))
+
+                        @if($inventario[$producto->id]>0)
+
+                            @php $i++; @endphp
+
+                            @include('frontend.producto')
+
+
+                                @if ($i % 4 == 0)
+                                    </div>
+                                    <div class="row">
+                                @endif
+
+                        @endif
+
+                    @endif
+
+                @else
+
+                   @if(isset($combos[$producto->id]))
+
+                        @if($combos[$producto->id])
+
+                            @php $i++; @endphp
+
+                            @include('frontend.producto')
+
+
+                                @if ($i % 4 == 0)
+                                    </div>
+                                    <div class="row">
+                                @endif
+
+                        @endif
+
+                    @endif
+
+
+                @endif
+
+
+            @endforeach
+        @else
+            <div class="alert alert-danger">
+                <strong>Lo Sentimos!</strong> No Existen productos en esta categoría.
+            </div>
+        @endif
+        </div>
+
+
+        @include('frontend.includes.paginador')
+
+      
+
+    </div>
+
+
+
+
     <div class="products">
         <div class="row">
 

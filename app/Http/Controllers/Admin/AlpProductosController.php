@@ -26,6 +26,7 @@ use App\State;
 use App\City;
 use App\Roles;
 use App\Models\AlpMarcas;
+use App\Models\AlpCategoriasDestacado;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Response;

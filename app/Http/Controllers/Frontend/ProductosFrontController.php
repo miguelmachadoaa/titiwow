@@ -740,8 +740,6 @@ class ProductosFrontController extends Controller
 
         $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
-        //dd($id_almacen);
-
         $rol=9;
 
         $descuento='1'; 
@@ -756,33 +754,47 @@ class ProductosFrontController extends Controller
 
         $productos =  DB::table('alp_productos')->select('alp_productos.*', 'alp_marcas.order as order')
         ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
-
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
        ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
        ->whereNull('alp_almacen_producto.deleted_at')
        ->whereNull('alp_productos.deleted_at')
-
         ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
         ->where('alp_productos_category.id_categoria','=', $categoria->id)
         ->whereNull('alp_productos_category.deleted_at')
         ->where('alp_productos.estado_registro','=',1)
         ->groupBy('alp_productos.id')
         ->orderBy('alp_marcas.order') 
-
-        
         ->orderBy('alp_productos.updated_at', 'desc')
-
         ->paginate(36); 
 
 
-    $prods=$this->addOferta($productos);
+        $prods=$this->addOferta($productos);
+
+        $states=State::where('config_states.country_id', '47')->get();
+
+        $cart= \Session::get('cart');
 
 
-         $states=State::where('config_states.country_id', '47')->get();
+        $destacados =  DB::table('alp_productos')->select('alp_productos.*', 'alp_marcas.order as order')
+        ->join('alp_productos_category','alp_productos.id' , '=', 'alp_productos_category.id_producto')
+        ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
+        ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
+        ->join('alp_categoria_destacado', 'alp_productos.id', '=', 'alp_categoria_destacado.id_producto')
+       ->where('alp_categoria_destacado.id_almacen', '=', $id_almacen)
+       ->where('alp_categoria_destacado.id_categoria', '=', $categoria->id)
+       ->whereNull('alp_categoria_destacado.deleted_at')
+       ->whereNull('alp_almacen_producto.deleted_at')
+       ->whereNull('alp_productos.deleted_at')
+        ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+        ->whereNull('alp_productos_category.deleted_at')
+        ->where('alp_productos.estado_registro','=',1)
+        ->groupBy('alp_productos.id')
+        ->orderBy('alp_marcas.order') 
+        ->orderBy('alp_productos.updated_at', 'desc')
+        ->paginate(36); 
 
-         $cart= \Session::get('cart');
-
+        $destacados=$this->addOferta($destacados);
 
         $total=0;
 
@@ -799,14 +811,11 @@ class ProductosFrontController extends Controller
 
         $combos=$this->combos();
 
-        //$role=Roles::where('id', $rol)->first();
-        //
-        
         $url=secure_url('categoria/'.$slug);
 
         
 
-        return \View::make('frontend.categorias', compact('productos','cataname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos','url', 'categoria', 'almacen'));
+        return \View::make('frontend.categorias', compact('productos','cataname','slug', 'descuento', 'precio', 'states', 'cart', 'total', 'prods', 'inventario', 'combos','url', 'categoria', 'almacen', 'destacados'));
 
     }
     public function marcas($slug)

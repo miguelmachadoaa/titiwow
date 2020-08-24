@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\JoshController;
+use App\Models\AlpProductos;
+use App\Models\AlpAlmacenes;
 use App\Models\AlpCategorias;
+use App\Models\AlpCategoriasDestacado;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Redirect;
@@ -95,6 +98,12 @@ class AlpCategoriasController extends JoshController
                                                 data-loop='true' data-c='#f56954' data-hc='#f56954'
                                                 title='Eliminar'></i>
                                              </a>
+
+                                              <a href='".secure_url('admin/categorias/'.$row->id.'/gestionar')."'>
+                                                Gestionar</i>
+                                            </a>
+
+
 
 
                   ";
@@ -742,5 +751,163 @@ if (Sentinel::check()) {
         
         return $data;
     }
+
+
+
+     public function gestionar($id)
+    {
+
+             if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])
+                        ->log('categorias/gestionar ');
+
+        }else{
+
+          activity()->withProperties(['id'=>$id])
+                        ->log('categorias/gestionar');
+
+
+        }
+
+         if (!Sentinel::getUser()->hasAnyAccess(['categorias.gestionar'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+
+
+        $almacenes=AlpAlmacenes::get();
+
+        $productos=AlpProductos::get();
+
+       
+       $categoria = AlpCategorias::find($id);
+
+
+
+       $destacados_list=AlpCategoriasDestacado::select('alp_categoria_destacado.*', 'alp_productos.nombre_producto as nombre_producto', 'alp_almacenes.nombre_almacen as nombre_almacen' )
+       ->join('alp_productos', 'alp_categoria_destacado.id_producto', '=', 'alp_productos.id')
+       ->join('alp_almacenes', 'alp_categoria_destacado.id_almacen', '=', 'alp_almacenes.id')
+       ->where('alp_categoria_destacado.id_categoria', '0', $id)
+       ->get();
+
+        return view('admin.categorias.gestionar', compact('categoria', 'productos', 'almacenes', 'destacados_list'));
+    }
+
+
+
+ public function adddestacado(Request $request)
+    {
+
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cupones/adddestacado ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('cupones/adddestacado');
+
+
+        }
+
+
+
+         $user_id = Sentinel::getUser()->id;
+
+       
+        $data = array(
+            'id_categoria' => $request->id_categoria, 
+            'id_almacen' => $request->id_almacen, 
+            'id_producto' => $request->id_producto, 
+            'user_id' => $request->user_id
+        );
+
+
+
+        AlpCategoriasDestacado::create($data);
+
+        
+
+         $destacados_list = AlpCategoriasDestacado::select('alp_categoria_destacado.*', 'alp_almacenes.nombre_almacen as nombre_almacen', 'alp_productos.nombre_producto as nombre_producto')
+          ->join('alp_almacenes', 'alp_categoria_destacado.id_almacen', '=', 'alp_almacenes.id')
+          ->join('alp_productos', 'alp_categoria_destacado.id_producto', '=', 'alp_productos.id')
+          ->where('alp_categoria_destacado.id_categoria', $request->id_categoria)
+          ->get();
+
+          $view= View::make('admin.categorias.listdestacado', compact('destacados_list'));
+
+      $data=$view->render();
+
+      return $data;
+
+
+    }
+
+ public function deldestacado(Request $request)
+    {
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cupones/deldestacado ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('cupones/deldestacado');
+
+
+        }
+
+         $user_id = Sentinel::getUser()->id;
+
+
+         $cat=AlpCategoriasDestacado::where('id', $request->id)->first();
+
+         $cat->delete();
+       
+
+       $destacados_list = AlpCategoriasDestacado::select('alp_categoria_destacado.*', 'alp_almacenes.nombre_almacen as nombre_almacen', 'alp_productos.nombre_producto as nombre_producto')
+          ->join('alp_almacenes', 'alp_categoria_destacado.id_almacen', '=', 'alp_almacenes.id')
+          ->join('alp_productos', 'alp_categoria_destacado.id_producto', '=', 'alp_productos.id')
+          ->where('alp_categoria_destacado.id_categoria', $cat->id_categoria)
+          ->get();
+
+          $view= View::make('admin.categorias.listdestacado', compact('destacados_list'));
+
+      $data=$view->render();
+
+      return $data;
+
+
+    }
+
+
+
+
+
+
+
 
 }
