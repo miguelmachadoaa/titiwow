@@ -38,6 +38,8 @@ use DB;
 
 use Intervention\Image\ImageManager;
 
+use App\Custom\Tinify;
+
 
 class AlpProductosController extends JoshController
 {
@@ -88,7 +90,18 @@ class AlpProductosController extends JoshController
 
 
 
-        
+      Tinify::setKey("s9KCyn5X1bS0F1wDC6yBlp40yLbB2tR8");  
+      
+      $p=AlpProductos::where('id', '=', 2)->first();
+
+      $source = Tinify::fromFile("/uploads/productos/".$p->imagen_producto);
+
+      $source->toFile("optimized.jpg");
+
+      dd($source);
+
+
+
 
         // Show the page
         return view('admin.productos.index', compact('productos'));

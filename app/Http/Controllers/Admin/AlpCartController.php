@@ -1759,12 +1759,12 @@ class AlpCartController extends JoshController
               ];
 
           
-            Log::info($preference_data);
+           // Log::info($preference_data);
 
             $payment = MP::post("/v1/payments",$preference_data);
 
 
-            Log::info($payment);
+           // Log::info($payment);
 
 
             if (isset($payment['response']['id'])) {
