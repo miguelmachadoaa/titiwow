@@ -41,7 +41,7 @@ class Tinify {
         }
 
         if (!self::$client) {
-            self::$client = new Client(self::$key, self::$appIdentifier, self::$proxy);
+            self::$client = new Tinify\Client(self::$key, self::$appIdentifier, self::$proxy);
         }
 
         return self::$client;

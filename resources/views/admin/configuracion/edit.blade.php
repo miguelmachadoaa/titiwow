@@ -100,6 +100,20 @@ Editar Configuracion General
                                 </div>
                             </div>
 
+
+                            <div class="form-group {{ $errors->first('vence_ordenes', 'has-error') }}">
+                                <label for="vence_ordenes" class="col-sm-2 control-label">
+                                    Tiempo para vencer ordenes
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="number" step="0.01" min="0"  id="vence_ordenes" name="vence_ordenes" class="form-control" placeholder="Maximo Productos"
+                                        value="{!! old('vence_ordenes', $configuracion->vence_ordenes) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('vence_ordenes', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+
                              <div class="form-group  {{ $errors->first('explicacion_precios', 'has-error') }}">
                                 <label for="select21" class="col-sm-2 control-label">
                                     Explicacion de Precios

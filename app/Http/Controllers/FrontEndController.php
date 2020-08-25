@@ -83,7 +83,7 @@ class FrontEndController extends JoshController
 
     try {
 
-    $xml='<Envelope> <Body> <Login> <USERNAME>api_alpina@alpina.com</USERNAME> <PASSWORD>Alpina2020!</PASSWORD> </Login> </Body> </Envelope> ';
+    $xml='<Envelope><Body><Login><USERNAME>api_alpina@alpina.com</USERNAME><PASSWORD>Alpina2020!</PASSWORD></Login></Body> </Envelope> ';
 
     $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
@@ -97,7 +97,7 @@ class FrontEndController extends JoshController
         <Envelope>
            <Body>
               <AddRecipient>
-                 <LIST_ID>10491915  </LIST_ID>
+                 <LIST_ID>8739683</LIST_ID>
                  <CREATED_FROM>1</CREATED_FROM>
                  <COLUMN>
                     <NAME>Customer Id</NAME>
@@ -252,26 +252,14 @@ class FrontEndController extends JoshController
 
         }
 
-        
-     // $content = $request->getContent();
-
-    //  $input = json_decode($content, true);
-
-
       $content = $request->getContent();
 
       $datos = json_decode($content, true);
 
-      //dd($input);
-       activity()
-          ->withProperties($datos)->log('FrontEndController/getCompramas2');
+       activity()->withProperties($datos)->log('FrontEndController/getCompramas2');
 
 
     $r="false";
-
-    //$orden=AlpOrdenes::where('referencia', $input['ordenId'])->first();
-
-       //$datos = json_decode($input);
 
        $inventario=$this->inventario();
 
@@ -1280,7 +1268,7 @@ class FrontEndController extends JoshController
 
             $cliente->update($data_c);
 
-         /*   try {
+            try {
 
               $ibm=$this->addibm($user);
 
@@ -1292,7 +1280,7 @@ class FrontEndController extends JoshController
               
             } catch (Exception $e) {
               
-            }*/
+            }
 
 
             
@@ -1888,6 +1876,8 @@ public function makeRequest($endpoint, $jsessionid, $xml, $ignoreResult = false)
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $request);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
     curl_setopt($curl, CURLINFO_HEADER_OUT, true);
 
     $headers = array(
@@ -2269,37 +2259,38 @@ public function getApiUrl($endpoint, $jsessionid)
 
         $jsessionid = $result['SESSIONID'];
 
-      //  echo $jsessionid.'<br>';
+     
 
-            $xml='
-            <Envelope>
-               <Body>
-                  <AddRecipient>
-                     <LIST_ID>10491915  </LIST_ID>
-                     <CREATED_FROM>1</CREATED_FROM>
-                     <COLUMN>
-                        <NAME>Customer Id</NAME>
-                        <VALUE>'.$user->id.'</VALUE>
-                     </COLUMN>
-                     <COLUMN>
-                        <NAME>EMAIL</NAME>
-                        <VALUE>'.$user->email.'</VALUE>
-                     </COLUMN>
-                     <COLUMN>
-                        <NAME>'.$user->first_name.'</NAME>
-                        <VALUE>'.$user->last_name.'</VALUE>
-                     </COLUMN>
-                  </AddRecipient>
-               </Body>
-            </Envelope>
-            ';
+
+            $xml='<Envelope>
+                   <Body>
+                     <AddRecipient>
+                       <LIST_ID>8739683</LIST_ID>
+                       <SYNC_FIELDS>
+                         <SYNC_FIELD>
+                           <NAME>EMAIL</NAME>
+                           <VALUE>'.$user->email.'</VALUE>
+                         </SYNC_FIELD>
+                       </SYNC_FIELDS>
+                       <UPDATE_IF_FOUND>true</UPDATE_IF_FOUND>
+                       <COLUMN>
+                         <NAME>Email</NAME>
+                         <VALUE>'.$user->email.'</VALUE>
+                       </COLUMN>
+                       <COLUMN>
+                        <NAME>Fuente_ecommerce</NAME>
+                        <VALUE>Yes</VALUE>
+                       </COLUMN>
+                     </AddRecipient>
+                   </Body>
+                 </Envelope>';
 
 
             activity()->withProperties($xml)->log('xml_ibm_add_recipiente');
 
-        $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
+            $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-        activity()->withProperties($result)->log('xml_ibm_add_result');
+            activity()->withProperties($result)->log('xml_ibm_add_result');
 
 
         $xml = '<Envelope>

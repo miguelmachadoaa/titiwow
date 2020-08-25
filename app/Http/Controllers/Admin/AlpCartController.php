@@ -4967,15 +4967,13 @@ public function verificarDireccion( Request $request)
 
                   $b_producto_valido=0;
 
-
-
                   if($cupon->maximo_productos<$detalle->cantidad){
 
                       $b_cantidad=1;
 
                       $mensaje_user='La cantidad de: '.$detalle->nombre_producto.', en el carrito excede lo permitido para comprar con este cupón. El Máximo permitido es de: '.$cupon->maximo_productos.' Unidades. ';
 
-                    }
+                  }
 
 
                   if($b_categoria==1){
@@ -4987,7 +4985,9 @@ public function verificarDireccion( Request $request)
                           if ($cc->condicion==0) {
                               
                             $b_producto_valido=1;
+
                             $mensaje_producto=' No aplicable por filtro categoria. ';
+
                             $clase='info';
 
                           }
@@ -4995,9 +4995,20 @@ public function verificarDireccion( Request $request)
 
                         }else{
 
-                          $b_producto_valido=1;
-                          $mensaje_producto=' No aplicable por filtro categoria. ';
-                          $clase='info';
+                           $cb=AlpCuponesCategorias::where('id_cupon', $cupon->id)->where('condicion','=', '1')->first();
+
+                              if (isset($cb->id)) {
+
+                                $b_producto_valido=1;
+
+                                $mensaje_producto=' No aplicable por filtro categoria. ';
+
+                                $clase='info';
+                                
+                              }
+
+
+                         
                       }
 
                     }
@@ -5008,9 +5019,12 @@ public function verificarDireccion( Request $request)
 
                       $cc=AlpCuponesMarcas::where('id_cupon', $cupon->id)->where('id_marca', $detalle->id_marca)->first();
 
+
                       if(isset($cc->id)){
 
-                          if ($cc->condicion==0) {
+                       // dd($cc->condicion);
+
+                          if ($cc->condicion=='0') {
                             
                             $b_producto_valido=1;
                             $mensaje_producto=' No aplicable por filtro marca. ';
@@ -5018,13 +5032,19 @@ public function verificarDireccion( Request $request)
 
                           }
 
-                       
 
                         }else{
 
-                          $b_producto_valido=1;
-                          $mensaje_producto=' No aplicable por filtro marca. ';
-                          $clase='info';
+
+                           $cb=AlpCuponesMarcas::where('id_cupon', $cupon->id)->where('condicion','=', '1')->first();
+
+                            if (isset($cb->id)) {
+
+                              $b_producto_valido=1;
+                              $mensaje_producto=' No aplicable por filtro marca. ';
+                              $clase='info';
+                              
+                            }
 
                       }
 
@@ -5040,7 +5060,7 @@ public function verificarDireccion( Request $request)
 
                         if ($cc->condicion==0) {
                               
-                             $b_user_valido=1;
+                             $b_producto_valido=1;
 
                                 $mensaje_user=$mensaje_user.' No aplicable por filtro producto. ';
 
@@ -5053,6 +5073,7 @@ public function verificarDireccion( Request $request)
                           $b_producto_valido=1;
 
                           $mensaje_producto=' No aplicable por filtro producto. ';
+
                           $clase='info';
 
                       }
@@ -5062,12 +5083,16 @@ public function verificarDireccion( Request $request)
 
                     if ($b_producto_valido==0) {
 
+                     // dd($detalle);
+
                       $base_descuento=$base_descuento+($detalle->precio_oferta*$detalle->cantidad);
 
                     }
 
                 
               }//endforeach detalles
+
+            //  dd($base_descuento);
 
             
             if ($b_cantidad==0) {
@@ -5102,11 +5127,9 @@ public function verificarDireccion( Request $request)
 
                   if (isset($c->id)) {
 
-                  $c->delete();
+                    $c->delete();
                     # code...
                   }
-
-                  
 
                 }
 
@@ -5132,7 +5155,7 @@ public function verificarDireccion( Request $request)
 
               $mensaje_producto='Cupón aplicado satisfactoriamente ';
 
-                      $clase='info';
+              $clase='info';
 
 
             }

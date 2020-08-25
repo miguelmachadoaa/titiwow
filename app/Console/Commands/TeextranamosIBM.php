@@ -7,13 +7,15 @@ use App\Models\AlpOrdenes;
 use App\Models\AlpOrdenesDescuento;
 use App\Models\AlpDetalles;
 use App\Models\AlpInventario;
+use App\Models\AlpCupones;
+use App\Models\AlpCuponesUser;
 use App\Models\AlpConfiguracion;
 use App\Models\AlpSaldo;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
 use Mail;
 use DB;
-
+use Exception;
 use Illuminate\Console\Command;
 
 class TeextranamosIBM extends Command
@@ -50,11 +52,19 @@ class TeextranamosIBM extends Command
     public function handle()
     {
 
+
+        
+
+        //dd($date_inicio.' '.$date_fin);
+
         $date = Carbon::now();
 
-        $d=$date->subDay(15)->format('Y-m-d');
+        //$d=$date->subDay(15)->format('Y-m-d');
+        $d=$date->subDay(100)->format('Y-m-d');
       
         $users=User::whereDate('created_at','=', $d)->get();
+
+       // dd($users);
 
         foreach ($users as $u) {
 
@@ -69,8 +79,45 @@ class TeextranamosIBM extends Command
                 $diff = $date->diffInDays($now); 
 
                 if ($diff>30) {
-                    
-                    $this->addibm($u);
+
+
+                    $codigo=strtoupper(substr(md5(time()), 0,12));
+
+                    $date_inicio = Carbon::now()->format('Y-m-d');
+                    $date_fecha = Carbon::now()->format('d/m/Y');
+
+                    $date_fin = Carbon::now()->addDay(30)->format('Y-m-d');
+
+
+
+                    $data = array(
+                        'codigo_cupon' => $codigo, 
+                        'valor_cupon' =>  '20', 
+                        'tipo_reduccion' => '2', 
+                        'limite_uso' => '1', 
+                        'limite_uso_persona' => '1', 
+                        'fecha_inicio' => $date_inicio, 
+                        'fecha_final' => $date_fin, 
+                        'monto_minimo' =>'20000', 
+                        'maximo_productos' =>'6', 
+                        'primeracompra' => '0', 
+                        'id_user' =>'1'
+                    );
+                     
+                    $cupon=AlpCupones::create($data);
+
+                   // dd($cupon);
+
+                    $datac = array(
+                        'id_cupon' => $cupon->id, 
+                        'id_cliente' => $u->id, 
+                        'condicion' => '1' 
+                    );
+
+                    AlpCuponesUser::create($datac);
+
+
+                    $this->addibm($u, $cupon, $date_fecha);
                     
                 }
                 
@@ -81,7 +128,7 @@ class TeextranamosIBM extends Command
     }
 
 
-    private function addibm($user)
+    private function addibm($user, $cupon, $fecha)
     {
         
         $pod = 0;
@@ -110,24 +157,30 @@ class TeextranamosIBM extends Command
 
             $xml='
             <Envelope>
-               <Body>
-                  <AddRecipient>
-                     <LIST_ID>10491915  </LIST_ID>
-                     <CREATED_FROM>1</CREATED_FROM>
+                 <Body>
+                     <AddRecipient>
+                     <LIST_ID>8739683</LIST_ID>
+                     <SYNC_FIELDS>
+                         <SYNC_FIELD>
+                             <NAME>EMAIL</NAME>
+                             <VALUE>'.$user->email.'</VALUE>
+                         </SYNC_FIELD>
+                     </SYNC_FIELDS>
+                     <UPDATE_IF_FOUND>true</UPDATE_IF_FOUND>
                      <COLUMN>
-                        <NAME>Customer Id</NAME>
-                        <VALUE>'.$user->id_user.'</VALUE>
+                         <NAME>Email</NAME>
+                         <VALUE>'.$user->email.'</VALUE>
                      </COLUMN>
                      <COLUMN>
-                        <NAME>EMAIL</NAME>
-                        <VALUE>'.$user->email.'</VALUE>
+                         <NAME>Codigo_beneficio_ecommerce</NAME>
+                         <VALUE>'.$cupon->codigo_cupon.'</VALUE>
                      </COLUMN>
                      <COLUMN>
-                        <NAME>'.$user->first_name.'</NAME>
-                        <VALUE>'.$user->last_name.'</VALUE>
+                         <NAME>Fecha_beneficio_ecommerce</NAME>
+                         <VALUE>['.$fecha.']</VALUE>
                      </COLUMN>
-                  </AddRecipient>
-               </Body>
+                     </AddRecipient>
+                 </Body>
             </Envelope>
             ';
 
@@ -187,6 +240,8 @@ public function makeRequest($endpoint, $jsessionid, $xml, $ignoreResult = false)
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $request);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
     curl_setopt($curl, CURLINFO_HEADER_OUT, true);
 
     $headers = array(

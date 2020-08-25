@@ -69,8 +69,48 @@ class Teextranamos2IBM extends Command
                 $diff = $date->diffInDays($now); 
 
                 if ($diff>60) {
+
+
                     
-                    $this->addibm($u);
+                    $codigo=strtoupper(substr(md5(time()), 0,12));
+
+                    $date_inicio = Carbon::now()->format('Y-m-d');
+                    $date_fecha = Carbon::now()->format('d/m/Y');
+
+                    $date_fin = Carbon::now()->addDay(30)->format('Y-m-d');
+
+
+
+                    $data = array(
+                        'codigo_cupon' => $codigo, 
+                        'valor_cupon' =>  '20', 
+                        'tipo_reduccion' => '2', 
+                        'limite_uso' => '1', 
+                        'limite_uso_persona' => '1', 
+                        'fecha_inicio' => $date_inicio, 
+                        'fecha_final' => $date_fin, 
+                        'monto_minimo' =>'20000', 
+                        'maximo_productos' =>'6', 
+                        'primeracompra' => '0', 
+                        'id_user' =>'1'
+                    );
+                     
+                    $cupon=AlpCupones::create($data);
+
+                   // dd($cupon);
+
+                    $datac = array(
+                        'id_cupon' => $cupon->id, 
+                        'id_cliente' => $u->id, 
+                        'condicion' => '1' 
+                    );
+
+                    AlpCuponesUser::create($datac);
+
+
+                    $this->addibm($u, $cupon, $date_fecha);
+                    
+                    
 
                 }
                 
@@ -187,6 +227,8 @@ public function makeRequest($endpoint, $jsessionid, $xml, $ignoreResult = false)
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $request);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
     curl_setopt($curl, CURLINFO_HEADER_OUT, true);
 
     $headers = array(

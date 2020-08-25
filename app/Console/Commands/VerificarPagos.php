@@ -23,6 +23,7 @@ use Carbon\Carbon;
 use Mail;
 use MP;
 use DB;
+use Exception;
 
 
 
@@ -67,7 +68,8 @@ class VerificarPagos extends Command
 
       $d=$date->subDay(3)->format('Y-m-d');
       
-        $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
+       // $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
+        $ordenes=AlpOrdenes::where('id', '5232')->get();
         
 
       $configuracion = AlpConfiguracion::where('id', '1')->first();
@@ -90,15 +92,14 @@ class VerificarPagos extends Command
 
           $orden=AlpOrdenes::where('id', $ord->id)->first();
 
-
-           
-
           $user_cliente=User::where('id', $ord->id_user)->first();
 
             
 
           $preference = MP::get("/v1/payments/search?external_reference=".$ord->referencia);
-//\Log::debug('preference ' . json_encode($preference));
+         
+         
+          //\Log::debug('preference ' . json_encode($preference));
 
         //  activity()->withProperties($preference)->log('preference');
 
@@ -107,7 +108,7 @@ class VerificarPagos extends Command
           if (isset($preference)) {
 
             $cantidad=count($preference['response']['results']);
-            $aproved=0;
+            $aproved=1;
             $cancel=0;
             $pending=0;
 
@@ -264,10 +265,14 @@ class VerificarPagos extends Command
                    }//if es almacen 1
 
 
-                   $this->addibm($user_cliente);
+                   $this->ibmConfirmarCompra($user_cliente, $orden);
+
+                   $this->ibmConfirmarPago($user_cliente, $orden);
+
+                   $this->ibmConfirmarEnvio($user_cliente, $orden, $envio);
 
 
-
+                   
 
 
 
@@ -607,7 +612,7 @@ class VerificarPagos extends Command
                     $history=AlpOrdenesHistory::create($data_history);
 
 
-                      $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
+                      $texto='No se obtuvo respuesta de compramas. VP610';
 
                     Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
 
@@ -673,11 +678,212 @@ class VerificarPagos extends Command
             ';
 
 
-          //  activity()->withProperties($xml)->log('xml_ibm_add_recipiente');
+
+            $xml='<Envelope>
+             <Body>
+             <InsertUpdateRelationalTable>
+               <TABLE_ID>10843783</TABLE_ID>
+               <ROWS>
+                 <ROW>
+                 <COLUMN name="Correo">
+                 <![CDATA[axluis.gomez@gmail.com]]>
+                 </COLUMN>
+                <COLUMN name="Referencia_Orden">
+                 <![CDATA[090393039303]]>
+                 </COLUMN>
+                <COLUMN name="Fecha_Compra">
+                 <![CDATA[08/11/2020]]>
+                 </COLUMN>
+                 </ROW>
+               </ROWS>
+             </InsertUpdateRelationalTable>
+             </Body>
+          </Envelope>';
+
+
+            activity()->withProperties($xml)->log('xml_ibm_add_recipiente');
 
         $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-       // activity()->withProperties($result)->log('xml_ibm_add_result');
+        activity()->withProperties($result)->log('xml_ibm_add_result');
+
+       // print_r($result);
+
+       // echo "3<br>";
+
+    //LOGOUT
+
+        $xml = '<Envelope>
+          <Body>
+          <Logout/>
+          </Body>
+          </Envelope>';
+
+              $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml, true));
+
+           //   activity()->withProperties($result)->log('xml_ibm_add_result2');
+
+             // print_r($result);
+
+              return $result2['SUCCESS'];
+
+              $jsessionid = null;
+
+          } catch (Exception $e) {
+
+              die("\nException caught: {$e->getMessage()}\n\n");
+
+              return 'FALSE';
+
+          }
+    }
+
+
+     private function ibmConfirmarCompra($user, $orden)
+    {
+
+
+        $pod = 0;
+        $username = 'api_alpina@alpina.com';
+        $password = 'Alpina2020!';
+
+        $endpoint = "https://api2.ibmmarketingcloud.com/XMLAPI";
+        $jsessionid = null;
+
+        $baseXml = '%s';
+        $loginXml = '';
+        $getListsXml = '%s%s';
+        $logoutXml = '';
+
+        try {
+
+        $xml='<Envelope> <Body> <Login> <USERNAME>api_alpina@alpina.com</USERNAME> <PASSWORD>Alpina2020!</PASSWORD> </Login> </Body> </Envelope> ';
+
+        $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
+
+       // print_r($result);
+
+        $jsessionid = $result['SESSIONID'];
+
+      //  echo $jsessionid.'<br>';
+
+
+            $xml='<Envelope>
+             <Body>
+             <InsertUpdateRelationalTable>
+               <TABLE_ID>10843783</TABLE_ID>
+               <ROWS>
+                 <ROW>
+                 <COLUMN name="Correo">
+                 <![CDATA['.$user->email.']]>
+                 </COLUMN>
+                <COLUMN name="Referencia_Orden">
+                 <![CDATA['.$orden->referencia.']]>
+                 </COLUMN>
+                <COLUMN name="Fecha_Compra">
+                 <![CDATA['.date("d/m/Y", strtotime($orden->created_at)).']]>
+                 </COLUMN>
+                 </ROW>
+               </ROWS>
+             </InsertUpdateRelationalTable>
+             </Body>
+          </Envelope>';
+
+
+            activity()->withProperties($xml)->log('xml_ibm_add_recipiente');
+
+        $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
+
+        activity()->withProperties($result)->log('xml_ibm_add_result');
+
+       // print_r($result);
+
+       // echo "3<br>";
+
+    //LOGOUT
+
+        $xml = '<Envelope>
+          <Body>
+          <Logout/>
+          </Body>
+          </Envelope>';
+
+              $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml, true));
+
+           //   activity()->withProperties($result)->log('xml_ibm_add_result2');
+
+             // print_r($result);
+
+              return $result2['SUCCESS'];
+
+              $jsessionid = null;
+
+          } catch (Exception $e) {
+
+              die("\nException caught: {$e->getMessage()}\n\n");
+
+              return 'FALSE';
+
+          }
+    }
+
+
+ private function ibmConfirmarPago($user, $orden)
+    {
+
+
+        $pod = 0;
+        $username = 'api_alpina@alpina.com';
+        $password = 'Alpina2020!';
+
+        $endpoint = "https://api2.ibmmarketingcloud.com/XMLAPI";
+        $jsessionid = null;
+
+        $baseXml = '%s';
+        $loginXml = '';
+        $getListsXml = '%s%s';
+        $logoutXml = '';
+
+        try {
+
+        $xml='<Envelope> <Body> <Login> <USERNAME>api_alpina@alpina.com</USERNAME> <PASSWORD>Alpina2020!</PASSWORD> </Login> </Body> </Envelope> ';
+
+        $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
+
+       // print_r($result);
+
+        $jsessionid = $result['SESSIONID'];
+
+      //  echo $jsessionid.'<br>';
+
+
+            $xml='<Envelope>
+               <Body>
+               <InsertUpdateRelationalTable>
+                 <TABLE_ID>10843783</TABLE_ID>
+                 <ROWS>
+                   <ROW>
+                     <COLUMN name="Correo">
+                     <![CDATA['.$user->email.']]>
+                     </COLUMN>
+                    <COLUMN name="Referencia_Orden">
+                     <![CDATA['.$orden->referencia.']]>
+                     </COLUMN>
+                    <COLUMN name="Fecha_Pago">
+                     <![CDATA['.date("d/m/Y", strtotime($orden->created_at)).']]>
+                     </COLUMN>
+                   </ROW>
+                 </ROWS>
+                 </InsertUpdateRelationalTable>
+               </Body>
+            </Envelope>';
+
+
+            activity()->withProperties($xml)->log('xml_ibm_confima_pago');
+
+        $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
+
+        activity()->withProperties($result)->log('xml_ibm_add_result');
 
        // print_r($result);
 
@@ -713,6 +919,101 @@ class VerificarPagos extends Command
 
 
 
+
+ private function ibmConfirmarEnvio($user, $orden, $envio)
+    {
+
+
+        $pod = 0;
+        $username = 'api_alpina@alpina.com';
+        $password = 'Alpina2020!';
+
+        $endpoint = "https://api2.ibmmarketingcloud.com/XMLAPI";
+        $jsessionid = null;
+
+        $baseXml = '%s';
+        $loginXml = '';
+        $getListsXml = '%s%s';
+        $logoutXml = '';
+
+        try {
+
+        $xml='<Envelope> <Body> <Login> <USERNAME>api_alpina@alpina.com</USERNAME> <PASSWORD>Alpina2020!</PASSWORD> </Login> </Body> </Envelope> ';
+
+        $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
+
+       // print_r($result);
+
+        $jsessionid = $result['SESSIONID'];
+
+      //  echo $jsessionid.'<br>';
+
+
+            $xml='<Envelope>
+               <Body>
+               <InsertUpdateRelationalTable>
+                 <TABLE_ID>10843783</TABLE_ID>
+                 <ROWS>
+                   <ROW>
+                     <COLUMN name="Correo">
+                     <![CDATA['.$user->email.']]>
+                     </COLUMN>
+                    <COLUMN name="Referencia_Orden">
+                     <![CDATA['.$orden->referencia.']]>
+                     </COLUMN>
+                    <COLUMN name="Fecha_Envio">
+                     <![CDATA['.date("d/m/Y", strtotime($envio->fecha_envio)).']]>
+                     </COLUMN>
+                   </ROW>
+                 </ROWS>
+                 </InsertUpdateRelationalTable>
+               </Body>
+            </Envelope>';
+
+
+            activity()->withProperties($xml)->log('xml_ibm_confima_fecha_envio');
+
+        $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
+
+        activity()->withProperties($result)->log('xml_ibm_add_result');
+
+       // print_r($result);
+
+       // echo "3<br>";
+
+    //LOGOUT
+
+        $xml = '<Envelope>
+          <Body>
+          <Logout/>
+          </Body>
+          </Envelope>';
+
+              $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml, true));
+
+           //   activity()->withProperties($result)->log('xml_ibm_add_result2');
+
+             // print_r($result);
+
+              return $result2['SUCCESS'];
+
+              $jsessionid = null;
+
+          } catch (Exception $e) {
+
+              die("\nException caught: {$e->getMessage()}\n\n");
+
+              return 'FALSE';
+
+          }
+    }
+
+
+
+
+
+
+
 public function makeRequest($endpoint, $jsessionid, $xml, $ignoreResult = false)
 {
     $url = $this->getApiUrl($endpoint, $jsessionid);
@@ -728,6 +1029,8 @@ public function makeRequest($endpoint, $jsessionid, $xml, $ignoreResult = false)
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $request);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
     curl_setopt($curl, CURLINFO_HEADER_OUT, true);
 
     $headers = array(
