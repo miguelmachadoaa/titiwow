@@ -5008,7 +5008,7 @@ public function verificarDireccion( Request $request)
                               }
 
 
-                         
+
                       }
 
                     }
@@ -5070,11 +5070,20 @@ public function verificarDireccion( Request $request)
 
                         }else{
 
-                          $b_producto_valido=1;
+                          
 
-                          $mensaje_producto=' No aplicable por filtro producto. ';
 
-                          $clase='info';
+                           $cb=AlpCuponesProducto::where('id_cupon', $cupon->id)->where('condicion','=', '1')->first();
+
+                            if (isset($cb->id)) {
+
+                              $b_producto_valido=1;
+
+                              $mensaje_producto=' No aplicable por filtro producto. ';
+
+                              $clase='info';
+                              
+                            }
 
                       }
 
