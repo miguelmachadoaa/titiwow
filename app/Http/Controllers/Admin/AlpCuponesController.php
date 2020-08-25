@@ -922,7 +922,7 @@ class AlpCuponesController extends JoshController
           ->where('alp_cupones_marca.id_cupon', $request->id_cupon)
           ->get();
 
-          dd($marcas_list);
+          //dd($marcas_list);
 
           $view= View::make('frontend.cupones.listmarcas', compact('marcas_list'));
 
