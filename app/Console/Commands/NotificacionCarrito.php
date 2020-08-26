@@ -12,7 +12,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
 use Mail;
 use DB;
-
+use Exception;
 
 
 use Illuminate\Console\Command;
@@ -57,11 +57,17 @@ class NotificacionCarrito extends Command
 
         $hoy=$date->format('Y-m-d');
 
+        $fecha_hoy=$date->format('d/m/Y');
+
 
         $carritos =  DB::table('alp_carrito')->select('alp_carrito.*','users.first_name as first_name','users.last_name as last_name','users.email as email')
           ->join('users','alp_carrito.id_user' , '=', 'users.id')
-          ->where('alp_carrito.notificacion','=', 0)
+          ->limit('10')
+         ->where('alp_carrito.notificacion','=', 0)
           ->get();
+
+
+         // dd($carritos);
 
 
         activity()->withProperties($carritos)->log('carritos');
@@ -87,20 +93,18 @@ class NotificacionCarrito extends Command
           ->join('alp_productos','alp_carrito_detalle.id_producto' , '=', 'alp_productos.id')
           ->where('alp_carrito_detalle.id_carrito', $car->id)->get();
 
-            Mail::to($car->email)->send(new \App\Mail\NotificacionCarrito($car, $detalles, $configuracion));
+          //dd($detalles);
 
-           Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionCarrito($car, $detalles, $configuracion));
+          Mail::to($car->email)->send(new \App\Mail\NotificacionCarrito($car, $detalles, $configuracion));
+
+         Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionCarrito($car, $detalles, $configuracion));
 
 
-
-           $this->addibm($car);
-
+           $this->addibm($car, $detalles, $fecha_hoy);
 
             $arrayName = array('notificacion' => 1 );
 
-
             $ord=AlpCarrito::where('id', $car->id)->first();
-
 
             $ord->update($arrayName);
 
@@ -115,7 +119,7 @@ class NotificacionCarrito extends Command
     }
 
 
-    private function addibm($user)
+    private function addibm($user, $cart, $fecha)
     {
         
         $pod = 0;
@@ -142,28 +146,57 @@ class NotificacionCarrito extends Command
 
       //  echo $jsessionid.'<br>';
 
-            $xml='
-            <Envelope>
-               <Body>
-                  <AddRecipient>
-                     <LIST_ID>10491915  </LIST_ID>
-                     <CREATED_FROM>1</CREATED_FROM>
-                     <COLUMN>
-                        <NAME>Customer Id</NAME>
-                        <VALUE>'.$user->id_user.'</VALUE>
-                     </COLUMN>
-                     <COLUMN>
-                        <NAME>EMAIL</NAME>
-                        <VALUE>'.$user->email.'</VALUE>
-                     </COLUMN>
-                     <COLUMN>
-                        <NAME>'.$user->first_name.'</NAME>
-                        <VALUE>'.$user->last_name.'</VALUE>
-                     </COLUMN>
-                  </AddRecipient>
-               </Body>
-            </Envelope>
-            ';
+
+            $rows='';
+
+            foreach ($cart as $d) {
+
+              $rows=$rows.'<ROW>
+      <COLUMN name="Correo">
+      <![CDATA['.$user->email.']]>
+      </COLUMN>
+
+      <COLUMN name="Referencia_producto">
+      <![CDATA['.$d->referencia_producto.']]>
+      </COLUMN>
+
+      <COLUMN name="Nombre_producto">
+
+      <![CDATA['.$d->nombre_producto.']]>
+      </COLUMN>
+
+      <COLUMN name="Precio_Unitario">
+      <![CDATA['.$d->precio_base.']]>
+      </COLUMN>
+
+      <COLUMN name="Cantidad">
+      <![CDATA['.$d->cantidad.']]>
+      </COLUMN>
+
+      <COLUMN name="Imagen_producto">
+
+      <![CDATA['.secure_url('uploads/productos/'.$d->imagen_producto).']]>
+      </COLUMN>
+
+      <COLUMN name="Fecha_carrito">
+      <![CDATA['.$fecha.']]>
+      </COLUMN>
+      
+    </ROW>';
+              
+            }
+
+
+            $xml='<Envelope>
+  <Body>
+  <InsertUpdateRelationalTable>
+  <TABLE_ID>10843849</TABLE_ID>
+  <ROWS>
+    '.$rows.'
+  </ROWS>
+  </InsertUpdateRelationalTable>
+  </Body>
+</Envelope>';
 
 
             activity()->withProperties($xml)->log('xml_ibm_add_recipiente');
@@ -220,6 +253,9 @@ public function makeRequest($endpoint, $jsessionid, $xml, $ignoreResult = false)
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $request);
+
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
     curl_setopt($curl, CURLINFO_HEADER_OUT, true);
 
     $headers = array(
