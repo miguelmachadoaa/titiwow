@@ -3932,13 +3932,13 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        if ($request->cantidad>0) {
 
+        if (isset($inv[$request->id])) {
 
-           if($inv[$request->id]>=$request->cantidad){
+          if($inv[$request->id]>=$request->cantidad){
 
               if ($configuracion->maximo_productos<$request->cantidad) {
 
                 $error="No puede añadir más de ".$configuracion->maximo_productos." Unidades al carrito";
-
                 
               }else{
 
@@ -3951,6 +3951,13 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
             $error="No hay existencia suficiente de este producto";
           }
+
+          
+         
+        }
+
+
+           
 
        }else{
 
