@@ -285,6 +285,11 @@ Orden {{$orden->id}}
 
              <a href="{{secure_url('admin/ordenes/'.$orden->id.'/reenviarcompramas' )}}" class="btn btn-danger">Aprobar Orden Compramas</a>
 
+             <br>
+
+
+             <a style="margin-top: 1em; " href="{{secure_url('admin/ordenes/'.$orden->id.'/reenviaryaprobarcompramas' )}}" class="btn btn-danger">Reenviar y Aprobar Orden Compramas</a>
+
 
                     
             <p style="text-align: center;"> 
