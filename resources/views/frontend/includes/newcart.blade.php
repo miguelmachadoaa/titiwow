@@ -1,11 +1,11 @@
 
 
-<div class="cd-cart-container @if($cart!=NULL) @else empty @endif">
+<div class="cd-cart-container @if($cart!=NULL) @else  @endif">
     <a href="#0" class="cd-cart-trigger">
         
         <ul class="count"> <!-- cart items count -->
-            <li>@if($cart!=NULL) {{ count($cart) }}  @endif</li>
-            <li>@if($cart!=NULL) {{ count($cart)+1 }} @endif</li>
+            <li>@if($cart!=NULL) {{ count($cart) }}  @else {{0}} @endif</li>
+            <li>@if($cart!=NULL) {{ count($cart)+1 }} @else {{0}} @endif</li>
         </ul> <!-- .count -->
     </a>
 

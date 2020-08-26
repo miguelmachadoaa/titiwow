@@ -116,12 +116,15 @@
     <div class="products">
 
 
-        <div class="row">
-
-             <h2 style="font-size: 24px; color: #143473; margin-bottom: 15px; font-weight: 500;  font-family: 'PlutoMedium';" class="subtitulo">Productos mas vendidos</h2>
-
+       
 
         @if(count($destacados))
+
+
+         <div class="row">
+
+             <h2 style="font-size: 20px; color: #143473; margin-bottom: 15px; font-weight: 500;  font-family: 'PlutoMedium';" class="subtitulo">Productos más vendidos</h2>
+
 
         @php $j=0; @endphp
 
@@ -174,9 +177,11 @@
 
             @endforeach
 
+            </div>
+
         @endif
 
-        </div>
+        
 
 
 

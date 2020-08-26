@@ -23,24 +23,19 @@ jQuery(document).ready(function($){
 
 		$(document).on('click', '.addtocart', function(e){
 
-
-
 			e.preventDefault();
 
 			window.setTimeout(addToCart2($(this)), 2000);
 
-
-            });
+        });
 
 		$(document).on('click', '.addtocartsingle', function(e){
 
-
-
 			e.preventDefault();
 
 			window.setTimeout(addToCart2($(this)), 2000);
 
-            });
+        });
 
 
 		$(document).on('click', '.updatecart', function(){

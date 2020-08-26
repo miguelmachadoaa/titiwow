@@ -246,6 +246,8 @@ Route::post('productos/postgrid/', ['as'=> 'productos.postgrid', 'uses' => 'Admi
 
         Route::post('{id}/deldestacado', 'Admin\AlpCategoriasController@deldestacado')->name('cupones.deldestacado');
 
+        Route::get('almacen/{almacen}/categoria/{categoria}/getproductos', 'Admin\AlpCategoriasController@getproductos')->name('cupones.getproductos');
+
 
 
  	});

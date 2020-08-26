@@ -104,7 +104,14 @@ class AlpXmlController extends JoshController
 
 
 
-        $productos = AlpProductos::whereNull('alp_productos.deleted_at')->get();
+        $productos = AlpProductos::select('alp_productos.*')
+        ->join('alp_xml', 'alp_productos.id', '=', 'alp_xml.id_producto')
+        ->whereNull('alp_productos.deleted_at')
+        ->whereNull('alp_xml.deleted_at')
+        ->get();
+
+
+        $listaproductos=AlpProductos::where('estado_registro', '=', '1')->get();
 
         $almacen = AlpAlmacenes::where('id', '1')->first();
 
@@ -214,7 +221,7 @@ class AlpXmlController extends JoshController
       }
 
 
-        return view('admin.xml.index', compact('roles', 'prods', 'almacen', 'inventario', 'check', 'rolxml'));
+        return view('admin.xml.index', compact('roles', 'prods', 'almacen', 'inventario', 'check', 'rolxml', 'listaproductos'));
     }
 
     public function data()

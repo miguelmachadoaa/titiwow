@@ -9,6 +9,7 @@ Categorias Gestión
 @section('header_styles')
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
     <link href="{{ secure_asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
+     <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
 @stop
 
 {{-- Content --}}
@@ -78,10 +79,7 @@ Categorias Gestión
                                  <select id="id_producto" name="id_producto" class="form-control select2">
                                     
                                     <option value="">Seleccione</option>
-                                    @foreach($productos as $pro)
-
-                                        <option value="{{$pro->id}}">{{$pro->nombre_producto}}</option>
-                                    @endforeach
+                                   
 
                                 </select>
 
@@ -117,6 +115,10 @@ Categorias Gestión
                 </div>
             </div>
         </div>
+
+        <div class="col-sm-12">
+            <a class="btn btn-primary" href="{{secure_url('admin/categorias')}}">Volver</a>
+        </div>
     </div>    <!-- row-->
 </section>
 
@@ -149,9 +151,40 @@ Categorias Gestión
 
 <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
     <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
-
+<script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
 
 <script>
+
+$(".select2").select2();
+
+    $('select[name="id_almacen"]').on('change', function() {
+                    var stateID = $(this).val();
+                var base = $('#base').val();
+                var id_categoria = $('#id_categoria').val();
+                var id_almacen = $('#id_almacen').val();
+
+                    if(id_categoria) {
+                        $.ajax({
+                            url: base+'/admin/categorias/almacen/'+id_almacen+'/categoria/'+id_categoria+'/getproductos',
+                            type: "GET",
+                            dataType: "json",
+                            success:function(data) {
+
+                                
+                                $('select[name="id_producto"]').empty();
+                                $.each(data, function(key, value) {
+                                    $('select[name="id_producto"]').append('<option value="'+ key+'_'+value +'">'+ value +'</option>');
+                                });
+
+                            }
+                        });
+                    }else{
+                        $('select[name="city_id"]').empty();
+                    }
+                });
+
+
+
 
 
       $('.addAlmacenCupon').on('click', function(){

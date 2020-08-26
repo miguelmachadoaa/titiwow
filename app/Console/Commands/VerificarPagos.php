@@ -391,11 +391,7 @@ class VerificarPagos extends Command
 
                   $history=AlpOrdenesHistory::create($data_history);
 
-                  if ($orden->id_almacen=='1') {
-
-                    $this->sendcompramas($orden->id, 'rejected');
-                    # code...
-                  }
+                 
 
 
             }

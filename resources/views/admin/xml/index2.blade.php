@@ -74,31 +74,6 @@ Xml Productos
                                 
                             </div> 
 
-
-                            <div class="form-group {{ $errors->
-                                first('state_id', 'has-error') }}">
-                                <label for="title" class="col-sm-2 control-label">
-                                    Seleccione el Rol a Mostrar
-                                </label>
-                                <div class="col-sm-5">
-                                    
-                                    <select id="id_producto" name="id_producto" class="form-control select2">
-
-                                        @foreach($listaproductos as $lp)
-
-                                        <option      value="{{ $lp->id }}">
-                                                {{ $lp->nombre_producto.' '.$lp->referencia_producto}}</option>
-                                        @endforeach
-                                        
-                                      
-                                    </select>
-                                </div>
-                                
-                            </div> 
-
-
-
-
                           
                             <!-- CSRF Token -->
                             {{ csrf_field() }}

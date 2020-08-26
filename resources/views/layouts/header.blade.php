@@ -162,12 +162,18 @@
                 <div class="col-sm-4 " >
                    
                     <div class="pull-left hidden-md hidden-xs hidden-sm hidden-md">
+
                         <ul class="list-inline icon-position" style="margin-bottom:0px !important">
                             <li><a href="https://www.facebook.com/alpina" target="_blank"><i class="fa fa-facebook-f color-top" ></i></a></li>
+
                             <li><a href="https://www.instagram.com/alpinacol/" target="_blank"><i class="fa fa-instagram color-top" ></i></a></li>
+
                             <li><a href="https://www.linkedin.com/company/alpina/?trk=vsrp_companies_res_name&trkInfo=VSRPsearchId%3A3286542181450727911739%2CVSRPtargetId%3A48174%2CVSRPcmpt%3Aprimary" target="_blank"><i class="fa fa-linkedin-square color-top" ></i></a></li>
+
                             <li><a href="https://twitter.com/Alpina" target="_blank"><i class="fa fa-twitter color-top" ></i></a></li>
+
                             <li><a href="https://www.youtube.com/user/AlpinaSA" target="_blank"><i class="fa fa-youtube-play color-top" ></i></a></li>
+
                         <li class="menu-top">
                             <label ><a id="detalle_carro_front" href="https://www.alpina.com" target="_blank">Ir Alpina Digital </a></label>    
                         </li>
@@ -269,9 +275,8 @@
         <!-- //logo Section End -->
         
         <nav class="navbar navbar-default navbar-expand-lg container">
-            <div class="collapse navbar-collapse" id="collapse"> 
-                <ul class="nav navbar-nav">
-                    <li style="padding: 0.2em 1em;" class="hidden-lg hidden-md hidden-sm">
+
+            <li style="padding: 0.2em 1em;" class="hidden-lg hidden-md hidden-sm">
 
                         <form method="GET" action="{{ secure_url('buscar') }}">
                                     <div class="row">
@@ -287,6 +292,11 @@
                                 </form>
                         
                     </li>
+
+                    
+            <div class="collapse navbar-collapse" id="collapse"> 
+                <ul class="nav navbar-nav">
+                    
                     <hr class="hidden-lg">
 
                     @foreach ($menus as $key => $item)

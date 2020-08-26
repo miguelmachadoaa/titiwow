@@ -25,6 +25,8 @@ class AlpProductos extends Model
             'alp_productos.nombre_producto' => 10,
             'alp_productos.referencia_producto' => 5,
             'alp_productos.presentacion_producto' => 4,
+            'alp_productos.descripcion_corta' => 4,
+            'alp_productos.descripcion_larga' => 4,
            // 'alp_productos.descripcion_corta' => 3,
         ]
     ];

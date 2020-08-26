@@ -794,7 +794,7 @@ if (Sentinel::check()) {
        $destacados_list=AlpCategoriasDestacado::select('alp_categoria_destacado.*', 'alp_productos.nombre_producto as nombre_producto', 'alp_almacenes.nombre_almacen as nombre_almacen' )
        ->join('alp_productos', 'alp_categoria_destacado.id_producto', '=', 'alp_productos.id')
        ->join('alp_almacenes', 'alp_categoria_destacado.id_almacen', '=', 'alp_almacenes.id')
-       ->where('alp_categoria_destacado.id_categoria', '0', $id)
+       ->where('alp_categoria_destacado.id_categoria', '=', $id)
        ->get();
 
         return view('admin.categorias.gestionar', compact('categoria', 'productos', 'almacenes', 'destacados_list'));
@@ -829,8 +829,15 @@ if (Sentinel::check()) {
 
          $user_id = Sentinel::getUser()->id;
 
-       
-        $data = array(
+
+         $d=AlpCategoriasDestacado::where('id_categoria', $request->id_categoria)->where('id_almacen', $request->id_almacen)->where('id_producto', $request->id_producto)->first();
+
+
+         if (isset($d->id)) {
+             # code...
+         }else{
+
+             $data = array(
             'id_categoria' => $request->id_categoria, 
             'id_almacen' => $request->id_almacen, 
             'id_producto' => $request->id_producto, 
@@ -840,6 +847,12 @@ if (Sentinel::check()) {
 
 
         AlpCategoriasDestacado::create($data);
+
+
+         }
+
+       
+       
 
         
 
@@ -904,7 +917,17 @@ if (Sentinel::check()) {
     }
 
 
-
+    public function getproductos($almacen, $categoria)
+    {
+        
+        $producto=AlpProductos::select('alp_productos.*')
+        ->join('alp_almacen_producto', 'alp_productos.id','=','alp_almacen_producto.id_producto')
+        ->where('alp_almacen_producto.id_almacen','=', $almacen)
+        ->where('alp_productos.id_categoria_default','=', $categoria)
+        ->pluck("alp_productos.nombre_producto","alp_productos.id")->all();
+        $producto['0'] = 'Seleccione Producto';
+        return json_encode($producto);
+    }
 
 
 
