@@ -3952,7 +3952,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
             $error="No hay existencia suficiente de este producto";
           }
 
-          
+
          
         }
 
@@ -6884,6 +6884,12 @@ private function getAlmacen3(){
        if (isset($res->causa->message)) {
          $notas=$notas.$res->causa->message.' ';
        }
+
+       if (isset($res->causa[0])) {
+         $notas=$notas.$res->causa[0].' ';
+       }
+
+       
 
 
        $notas=$notas.'Codigo: CC.';

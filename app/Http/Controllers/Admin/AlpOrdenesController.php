@@ -4000,6 +4000,10 @@ public function detallealmacen($id)
          $notas=$notas.$res->causa->message.' ';
        }
 
+       if (isset($res->causa[0])) {
+         $notas=$notas.$res->causa[0].' ';
+       }
+
 
        $notas=$notas.'Codigo: CC.';
 
