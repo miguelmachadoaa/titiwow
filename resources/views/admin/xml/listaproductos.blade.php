@@ -10,6 +10,12 @@
                                         <th>
                                             Imagen
                                         </th>
+
+                                        <th>
+                                            Rol
+                                        </th>
+
+
                                         <th>
                                             Nombre
                                         </th>
@@ -65,6 +71,10 @@
                                 <figure>
                                     <img style="width: 60px;" src="{{secure_url('uploads/productos/'.$p->imagen_producto)}}" data-src="{{secure_url('uploads/productos/60/'.$p->imagen_producto)}}" alt="img">
                                 </figure>
+                            </td>
+
+                            <td>
+                                {{$p->name}}
                             </td>
 
                             <td>

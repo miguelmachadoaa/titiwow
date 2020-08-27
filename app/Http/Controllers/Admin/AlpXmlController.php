@@ -104,8 +104,9 @@ class AlpXmlController extends JoshController
 
 
 
-        $productos = AlpProductos::select('alp_productos.*', 'alp_xml.id as xml_id')
+        $productos = AlpProductos::select('alp_productos.*', 'alp_xml.id as xml_id', 'roles.name as name')
         ->join('alp_xml', 'alp_productos.id', '=', 'alp_xml.id_producto')
+         ->join('roles', 'alp_xml.id_rol', '=', 'roles.id')
         ->whereNull('alp_productos.deleted_at')
         ->whereNull('alp_xml.deleted_at')
         ->get();
@@ -438,8 +439,9 @@ public function addproducto(Request $request)
 
 
 
-        $productos = AlpProductos::select('alp_productos.*', 'alp_xml.id as xml_id')
+        $productos = AlpProductos::select('alp_productos.*', 'alp_xml.id as xml_id', 'roles.name as name')
         ->join('alp_xml', 'alp_productos.id', '=', 'alp_xml.id_producto')
+         ->join('roles', 'alp_xml.id_rol', '=', 'roles.id')
         ->whereNull('alp_productos.deleted_at')
         ->whereNull('alp_xml.deleted_at')
         ->get();
@@ -593,8 +595,9 @@ public function addproducto(Request $request)
 
          $xml->delete();
 
-        $productos = AlpProductos::select('alp_productos.*', 'alp_xml.id as xml_id')
+        $productos = AlpProductos::select('alp_productos.*', 'alp_xml.id as xml_id', 'roles.name as name')
         ->join('alp_xml', 'alp_productos.id', '=', 'alp_xml.id_producto')
+        ->join('roles', 'alp_xml.id_rol', '=', 'roles.id')
         ->whereNull('alp_productos.deleted_at')
         ->whereNull('alp_xml.deleted_at')
         ->get();
