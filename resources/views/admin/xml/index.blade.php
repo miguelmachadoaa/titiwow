@@ -14,6 +14,8 @@ Xml Productos
 
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
 
+    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+
 @stop
 
 
@@ -78,7 +80,7 @@ Xml Productos
                             <div class="form-group {{ $errors->
                                 first('state_id', 'has-error') }}">
                                 <label for="title" class="col-sm-2 control-label">
-                                    Seleccione el Rol a Mostrar
+                                    Seleccione el producto 
                                 </label>
                                 <div class="col-sm-5">
                                     
@@ -96,6 +98,11 @@ Xml Productos
                                 
                             </div> 
 
+                            <div class="form-group col-sm-5  sm-offset-2">
+                                
+                                <button type="button" class="btn btn-primary addproducto">Agregar</button>
+                            </div>
+
 
 
 
@@ -104,159 +111,15 @@ Xml Productos
                             {{ csrf_field() }}
 
 
-                            <div class="row" style="margin-bottom: 2em;">
-                                <div class="col-sm-12">
-                                    <button type="button" class="btn btn-info marcar">Marcar Todos</button>
-                                    <button type="button" class="btn btn-danger desmarcar">Desmascar Todos</button>
-                                </div>
-                            </div>
-
-                            <table class="table table-striped" id="tableAlmacen">
-                                
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            Seleccionar
-                                        </th>
-                                        <th>
-                                            Imagen
-                                        </th>
-                                        <th>
-                                            Nombre
-                                        </th>
-                                        <th>Referencia</th>
-                                        <th>
-                                            Precio Base
-                                        </th>
-
-                                        <th>
-                                            Precio Oferta
-                                        </th>
-
-                                        <th>
-                                            Inventario
-                                        </th>
-
-                                        <th>
-                                            Disponible para la venta
-                                        </th>
-
-                                        <th>
-                                            XML
-                                        </th>
-                                    </tr>
-                                </thead>
-                            
-
-                        <tbody>
-
-                        @foreach($prods as $p)
-
-                        <tr>
-                            <td>
-                                <div class="checkbox">
-                                    <label>
-                                      <input 
-                                      class="cb " 
-                                      id="p_{{$p->id}}" 
-                                      name="p_{{$p->id}}" 
-                                      @if(isset($check[$p->id]))
-                                            {{'checked'}}
-                                      @endif
-                                      type="checkbox" > 
-                                    </label>
-                                  </div>
-                            </td>
-
-                            <td>
-                                <figure>
-                                    <img style="width: 60px;" src="{{secure_url('uploads/productos/'.$p->imagen_producto)}}" data-src="{{secure_url('uploads/productos/60/'.$p->imagen_producto)}}" alt="img">
-                                </figure>
-                            </td>
-
-                            <td>
-                                {{$p->nombre_producto}}
-                            </td>
-                            <td>
-                                {{$p->referencia_producto}}
-                            </td>
-
-                            <td>
-                                {{$p->precio_base}}
-                            </td>
-
-                            <td>
-                                {{$p->precio_oferta}}
-                            </td>
-
-
-                            <td>
-                                @if(isset($inventario[$p->id][$almacen->id]))
-
-                                    {{$inventario[$p->id][$almacen->id]}}
-
-                                @else
-
-                                    {{'0'}}
-
-                                @endif
-                            </td>
-
-
-                             <td>
-                                @if($p->estado_registro==1)
-
-                                    <a href="#" class="label label-success">Si</a>
-
-                                @else
-
-                                    <a href="#" class="label label-danger">No</a>
-
-                                @endif
-                            </td>
+                    </form>
 
 
 
-                            <td>
-                                @if(isset($check[$p->id]))
+                           
 
-                                    <a href="#" class="label label-success">Activo</a>
+                         @include('admin.xml.listaproductos')
 
-                                @else
-
-                                    <a href="#" class="label label-danger">Inactivo</a>
-
-                                @endif
-                            </td>
-                        </tr>
-
-
-
-                        <!--div class="row">
-                            <div class="col-sm-12">
-                                 <div class="checkbox">
-                                    <label>
-                                      <input 
-                                      class="cb " 
-                                      id="p_{{$p->id}}" 
-                                      name="p_{{$p->id}}" 
-                                      @if(isset($check[$p->id]))
-                                            {{'checked'}}
-                                      @endif
-                                      type="checkbox" > {{$p->nombre_producto.' REF.:'.$p->referencia_producto}}
-                                    </label>
-                                  </div>
-                                
-                            </div>
-                        </div-->
-    
-                        @endforeach
-
-                        </tbody>
-    
-                        </table>
-
-                       <div class="form-group">
+                       <!--div class="form-group">
                             <div class="col-sm-4" style="margin-top: 2em;">
                                 
                                 <a class="btn btn-danger" href="{{ route('admin.almacenes.index') }}">
@@ -267,15 +130,16 @@ Xml Productos
                                     Actualizar
                                 </button>
                             </div>
-                        </div>
-                    </form>
+                        </div-->
                    
                 </div>
             </div>
         </div>
     </div>
 
-    <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+    <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}" />
+
+    <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}" />
 
     <!-- row-->
 </section>
@@ -295,7 +159,66 @@ Xml Productos
 
 <script type="text/javascript" src="{{ secure_asset('assets/js/in-view.min.js') }}"></script>
 
+
+
+<script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
+
 <script>
+
+
+$(".select2").select2();
+
+    $('.addproducto').on('click', function(){
+
+        base = $('#base').val();
+
+        id_producto = $('#id_producto').val();
+
+        id_rol = $('#id_rol').val();
+
+        _token = $('#_token').val();
+
+
+         $.ajax({
+            type: "POST",
+            data:{ id_rol, id_producto, _token},
+            url: base+"/admin/xml/addproducto",
+                
+            complete: function(datos){     
+
+                $(".listaproductos").html(datos.responseText);
+
+            }
+        });
+
+    });
+
+
+    $('.listaproductos').on('click', '.delproducto', function(){
+
+        base = $('#base').val();
+
+        id = $(this).data('id');
+
+        _token = $('#_token').val();
+
+
+         $.ajax({
+            type: "POST",
+            data:{ id, _token},
+            url: base+"/admin/xml/delproducto",
+                
+            complete: function(datos){     
+
+                $(".listaproductos").html(datos.responseText);
+
+            }
+        });
+
+    });
+
+
+
 
     inView( 'figure2' ).on( 'enter', function( figure ) {
  

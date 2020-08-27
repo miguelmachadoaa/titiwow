@@ -104,7 +104,7 @@ class AlpXmlController extends JoshController
 
 
 
-        $productos = AlpProductos::select('alp_productos.*')
+        $productos = AlpProductos::select('alp_productos.*', 'alp_xml.id as xml_id')
         ->join('alp_xml', 'alp_productos.id', '=', 'alp_xml.id_producto')
         ->whereNull('alp_productos.deleted_at')
         ->whereNull('alp_xml.deleted_at')
@@ -224,104 +224,8 @@ class AlpXmlController extends JoshController
         return view('admin.xml.index', compact('roles', 'prods', 'almacen', 'inventario', 'check', 'rolxml', 'listaproductos'));
     }
 
-    public function data()
-    {
-       
-        $almacenes = AlpAlmacenes::all();
-         
-        $data = array();
-
-        foreach($almacenes as $row){
-
-          if ($row->estado_registro=='1') {
-
-             $estatus=" <div class='estatus_".$row->id."'>
-             <button data-url='".secure_url('admin/almacenes/estatus')."' type='buttton' data-id='".$row->id."' data-estatus='0' class='btn btn-xs btn-danger estatus'>Desactivar</button>
-            </div>";
-
-          }else{
-
-                        $estatus="<div class='estatus_".$row->id."'>
-            <button data-url='".secure_url('admin/almacenes/estatus')."' type='buttton' data-id='".$row->id."' data-estatus='1' class='btn btn-xs btn-success estatus'>Activar</button>
-             </div>";
-
-           }
-
-        $actions = " 
-              <a href='".secure_url('admin/almacenes/'.$row->id.'/gestionar')."'>
-                              <i class='livicon' data-name='gears' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Agregar Productos'></i>
-                      </a>
-
-
-                      <a href='".secure_url('admin/almacenes/'.$row->id.'/upload')."'>
-                              <i class='livicon' data-name='arrow-circle-up' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Agregar Productos'></i>
-                      </a>
-
-
-                      <!--a href='".secure_url('admin/almacenes/'.$row->id.'/roles')."'>
-                              <i class='livicon' data-name='users' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Editar Empresa'></i>
-                      </a-->
-                      
-
-              <a href='".secure_url('admin/almacenes/'.$row->id.'/edit')."'>
-                              <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Editar Empresa'></i>
-                      </a>  
-                      <a href='".secure_url('admin/almacenes/'.$row->id.'/confirm-delete')."' data-toggle='modal' data-target='#delete_confirm'> <i class='livicon' data-name='remove-alt' data-size='18'
-                        data-loop='true' data-c='#f56954' data-hc='#f56954' title='Eliminar'></i>
-
-                      </a>";
-
-
-               $data[]= array(
-                 $row->id, 
-                 $row->nombre_almacen, 
-                 $row->descripcion_almacen,
-                 $estatus, 
-                 $actions
-              );
-
-          }
-
-          return json_encode( array('data' => $data ));
-          
-      }
  
-    public function create()
-    {
-
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-           activity($user->full_name)
-                        ->performedOn($user)
-                        ->causedBy($user)
-                        ->log('almacenes/create ');
-
-        }else{
-
-          activity()
-          ->log('almacenes/create');
-
-
-        }
-
-        
-        if (!Sentinel::getUser()->hasAnyAccess(['xml.*'])) {
-
-           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
-        }
-        $almacen=AlpAlmacenes::get();
-
-        $states=State::where('config_states.country_id', '47')->get();
-
-        $cities=City::get();
-      
-
-        // Show the page
-        return view ('admin.almacenes.create', compact('almacen', 'states', 'cities'));
-    }
-
+    
     /**
      * Group create form processing.
      *
@@ -399,385 +303,7 @@ class AlpXmlController extends JoshController
      * @param  int $id
      * @return View
      */
-    public function edit($id)
-    {
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-           activity($user->full_name)
-                        ->performedOn($user)
-                        ->causedBy($user)
-                        ->withProperties(['id'=>$id])->log('almacen/edit ');
-
-        }else{
-
-          activity()
-          ->withProperties(['id'=>$id])->log('almacen/edit');
-
-
-        }
-        
-        if (!Sentinel::getUser()->hasAnyAccess(['xml.*'])) {
-
-           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
-        }
-       
-       $almacen = AlpAlmacenes::where('id', $id)->first();
-
-       $states=State::where('config_states.country_id', '47')->get();
-
-       $city=City::where('id', $almacen->id_city)->first();
-
-      $cities=City::where('state_id', $city->state_id)->get();
-
-
-        return view('admin.almacenes.edit', compact('almacen', 'cities', 'states', 'city'));
-    }
-
-    /**
-     * Group update form processing page.
-     *
-     * @param  int $id
-     * @return Redirect
-     */
-    public function update(AlmacenesRequest $request, $id)
-    {
-
-          if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-           activity($user->full_name)
-                        ->performedOn($user)
-                        ->causedBy($user)
-                        ->withProperties($request->all())->log('almacenes/update ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->all())->log('almacenes/update');
-
-
-        }
-        
-        if (!Sentinel::getUser()->hasAnyAccess(['xml.*'])) {
-
-           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
-        }
-
-         if ($request->defecto=='1') {
-
-          $as=AlpAlmacenes::get();
-
-          foreach ($as as $a) {
-
-            $a->update(['defecto'=>'0']);
-            # code...
-          }
-
-          
-        }
-
-
-
-                $data = array(
-                'nombre_alamcen' => $request->nombre_alamcen, 
-                'descripcion_alamcen' => $request->descripcion_alamcen,
-                'defecto' => $request->defecto, 
-                'id_city' => $request->city_id
-                );
-
-
-       $almacen = AlpAlmacenes::find($id);
-    
-        $almacen->update($data);
-
-        if ($almacen->id) {
-
-            return redirect('admin/almacenes')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
-
-        } else {
-            return Redirect::route('admin/almacenes')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
-        }  
-
-    }
-
-    /**
-     * Delete confirmation for the given group.
-     *
-     * @param  int $id
-     * @return View
-     */
-    public function getModalDelete($id = null)
-    {
-        $model = 'empresas';
-        $confirm_route = $error = null;
-        try {
-            // Get group inempresastion
-            
-            $empresas = AlpAlmacenes::find($id);
-
-            $confirm_route = route('admin.almacenes.delete', ['id' => $empresas->id]);
-
-            return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
-        } catch (GroupNotFoundException $e) {
-            $error = trans('Ha ocurrido un error al eliminar registro');
-            return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
-        }
-    }
-
-    /**
-     * Delete the given group.
-     *
-     * @param  int $id
-     * @return Redirect
-     */
-    public function destroy($id)
-    {
-
-         if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-           activity($user->full_name)
-                        ->performedOn($user)
-                        ->causedBy($user)
-                        ->withProperties(['id'=>$id])->log('empresas/destroy ');
-
-        }else{
-
-          activity()
-          ->withProperties(['id'=>$id])->log('empresas/destroy');
-
-
-        }
-        
-        if (!Sentinel::getUser()->hasAnyAccess(['xml.*'])) {
-
-           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
-        }
-
-
-        try {
-            // Get group inempresastion
-           
-            $empresas = AlpAlmacenes::find($id);
-
-            // Delete the group
-            $empresas->delete();
-
-            // Redirect to the group management page
-            return Redirect::route('admin.almacenes.index')->with('success', trans('Se ha eliminado el registro satisfactoriamente'));
-        } catch (GroupNotFoundException $e) {
-            // Redirect to the group management page
-            return Redirect::route('admin.almacenes.index')->with('error', trans('Error al eliminar el registro'));
-        }
-    }
-
-
-
-     public function gestionar($id)
-    {
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-           activity($user->full_name)
-                        ->performedOn($user)
-                        ->causedBy($user)
-                        ->withProperties(['id'=>$id])->log('almacen/edit ');
-
-        }else{
-
-          activity()
-          ->withProperties(['id'=>$id])->log('almacen/edit');
-
-        }
-        
-        if (!Sentinel::getUser()->hasAnyAccess(['xml.*'])) {
-
-           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
-        }
-
-       
-       $productos = AlpProductos::get();
-
-       $almacen = AlpAlmacenes::where('id', $id)->first();
-
-       $cs=AlpAlmacenProducto::where('id_almacen', $id)->get();
-
-       $inventario=$this->inventario();
-
-       //dd($inventario);
-
-       $check = array();
-
-       foreach ($cs as $c) {
-
-        $check[$c->id_producto]=1;
-         # code...
-       }
-
-
-
-        return view('admin.almacenes.gestionar', compact('almacen', 'productos', 'check', 'inventario'));
-    }
-
-
-     public function postgestionar(Request $request, $id)
-    {
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-           activity($user->full_name)
-              ->performedOn($user)
-              ->causedBy($user)
-              ->withProperties(['id'=>$id])->log('almacen/postgestionar ');
-
-        }else{
-
-          activity()
-          ->withProperties(['id'=>$id])->log('almacen/postgestionar');
-
-        }
-        
-        if (!Sentinel::getUser()->hasAnyAccess(['xml.*'])) {
-
-           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
-        }
-
-        $input=$request->all();
-
-        //dd($input);
-
-        AlpAlmacenProducto::where('id_almacen', '=', $id)->delete();
-
-        foreach ($input as $key => $value) {
-          
-
-          if (substr($key, 0, 2)=='p_') {
-
-            #echo $key.':'.$value.'<br>';
-
-            $par=explode('p_', $key);
-
-            $data = array(
-              'id_producto' => $par[1], 
-              'id_almacen' => $id, 
-              'id_user' => $user->id, 
-            );
-
-            AlpAlmacenProducto::create($data);
-            
-          }
-
-        }
-       
-        return Redirect::route('admin.almacenes.index')->with('success', trans('Se ha creado satisfactoriamente'));
-    }
-
-
-
-
-     public function roles($id)
-    {
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-           activity($user->full_name)
-                        ->performedOn($user)
-                        ->causedBy($user)
-                        ->withProperties(['id'=>$id])->log('almacen/roles ');
-
-        }else{
-
-          activity()
-          ->withProperties(['id'=>$id])->log('almacen/roles');
-
-        }
-        
-        if (!Sentinel::getUser()->hasAnyAccess(['xml.*'])) {
-
-           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
-        }
-
-
-        $roles = Sentinel::getRoleRepository()->all();
-
-
-       
-
-       $almacen = AlpAlmacenes::where('id', $id)->first();
-
-       $cs=AlpAlmacenRol::where('id_almacen', $id)->get();
-
-       $check = array();
-
-
-       foreach ($cs as $c) {
-
-        $check[$c->id_rol]=1;
-         # code...
-       }
-
-        return view('admin.almacenes.roles', compact('almacen', 'roles', 'check'));
-    }
-
-
-     public function postroles(Request $request, $id)
-    {
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-           activity($user->full_name)
-              ->performedOn($user)
-              ->causedBy($user)
-              ->withProperties(['id'=>$id])->log('almacen/postroles ');
-
-        }else{
-
-          activity()
-          ->withProperties(['id'=>$id])->log('almacen/postroles');
-
-        }
-        
-        if (!Sentinel::getUser()->hasAnyAccess(['xml.*'])) {
-
-           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
-        }
-
-        $input=$request->all();
-
-
-        AlpAlmacenRol::where('id_almacen', '=', $id)->delete();
-
-        foreach ($input as $key => $value) {
-          
-
-          if (substr($key, 0, 2)=='p_') {
-
-            #echo $key.':'.$value.'<br>';
-
-            $par=explode('p_', $key);
-
-            $data = array(
-              'id_rol' => $par[1], 
-              'id_almacen' => $id, 
-              'id_user' => $user->id, 
-            );
-
-            AlpAlmacenRol::create($data);
-            
-          }
-
-        }
-       
-        return Redirect::route('admin.almacenes.index')->with('success', trans('Se ha creado satisfactoriamente'));
-    }
+   
 
 
 
@@ -862,82 +388,331 @@ class AlpXmlController extends JoshController
 
 
 
-     public function upload($id)
+
+
+
+
+public function addproducto(Request $request)
     {
-        if (Sentinel::check()) {
+
+
+      if (Sentinel::check()) {
 
           $user = Sentinel::getUser();
 
            activity($user->full_name)
                         ->performedOn($user)
                         ->causedBy($user)
-                        ->withProperties(['id'=>$id])->log('almacen/edit ');
+                        ->withProperties($request->all())
+                        ->log('cupones/adddestacado ');
 
         }else{
 
           activity()
-          ->withProperties(['id'=>$id])->log('almacen/edit');
+          ->withProperties($request->all())
+          ->log('cupones/adddestacado');
+
 
         }
-        
-        if (!Sentinel::getUser()->hasAnyAccess(['xml.*'])) {
 
-           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        $user_id = Sentinel::getUser()->id;
+
+        $p=AlpXml::where('id_producto', $request->id_producto)->where('id_rol', '=', $request->id_rol)->first();
+
+
+        if (isset($p->id)) {
+          # code...
+        }else{
+
+
+         $data = array(
+            'id_producto' => $request->id_producto, 
+            'id_rol' => $request->id_rol, 
+            'id_user' => $user->id, 
+          );
+
+          AlpXml::create($data);
+
         }
-       
-
-       $almacen = AlpAlmacenes::where('id', $id)->first();
-
-       $almacenes = AlpAlmacenes::get();
 
 
-        return view('admin.almacenes.upload', compact('almacen', 'almacenes'));
+
+
+        $productos = AlpProductos::select('alp_productos.*', 'alp_xml.id as xml_id')
+        ->join('alp_xml', 'alp_productos.id', '=', 'alp_xml.id_producto')
+        ->whereNull('alp_productos.deleted_at')
+        ->whereNull('alp_xml.deleted_at')
+        ->get();
+
+
+        $listaproductos=AlpProductos::where('estado_registro', '=', '1')->get();
+
+        $almacen = AlpAlmacenes::where('id', '1')->first();
+
+        $inventario=$this->inventario();
+
+        $cs=AlpXml::get();
+
+        $cs1=AlpXml::first();
+
+        if (isset($cs1->id)) {
+
+            \Session::put('rolxml', $cs1->id_rol);
+
+            $rolxml=$cs1->id_rol;
+
+          }else{
+
+            \Session::put('rolxml', '9');
+
+            $rolxml=9;
+
+          }
+
+
+        $check = array();
+
+        foreach ($cs as $c) {
+
+          $check[$c->id_producto]=1;
+           # code...
+         }
+
+
+         $roles = DB::table('roles')->select('id', 'name')->where('id','>',8)->get();
+
+          $precio = array();
+
+         foreach ($productos as  $row) {
+                    
+            $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $rolxml)->first();
+
+            if (isset($pregiogrupo->id)) {
+               
+                $precio[$row->id]['precio']=$pregiogrupo->precio;
+                $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                $precio[$row->id]['pum']=$pregiogrupo->pum;
+
+            }
+
+        }
+
+        $descuento=1;
+
+        $prods = array( );
+
+        foreach ($productos as $producto) {
+
+      if ($descuento=='1') {
+
+        if (isset($precio[$producto->id])) {
+          # code...
+         
+          switch ($precio[$producto->id]['operacion']) {
+
+            case 1:
+
+              $producto->precio_oferta=$producto->precio_base*$descuento;
+
+              break;
+
+            case 2:
+
+              $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
+              
+              break;
+
+            case 3:
+
+              $producto->precio_oferta=$precio[$producto->id]['precio'];
+              
+              break;
+            
+            default:
+            
+             $producto->precio_oferta=$producto->precio_base*$descuento;
+              # code...
+              break;
+          }
+
+        }else{
+
+          $producto->precio_oferta=$producto->precio_base*$descuento;
+
+        }
+
+
+       }else{
+
+       $producto->precio_oferta=$producto->precio_base*$descuento;
+
+
+       }
+
+
+       $prods[]=$producto;
+
+      }
+
+
+
+
+      $view= View::make('admin.xml.listaproductos', compact('prods', 'check','inventario','almacen'));
+
+      $data=$view->render();
+
+      return $data;
+
+
     }
 
+ public function delproducto(Request $request){
 
-     public function postupload(Request $request, $id)
-    {
-        if (Sentinel::check()) {
+      if (Sentinel::check()) {
 
           $user = Sentinel::getUser();
 
            activity($user->full_name)
-              ->performedOn($user)
-              ->causedBy($user)
-              ->withProperties(['id'=>$id])->log('almacen/postgestionar ');
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cupones/deldestacado ');
 
         }else{
 
           activity()
-          ->withProperties(['id'=>$id])->log('almacen/postgestionar');
+          ->withProperties($request->all())
+          ->log('cupones/deldestacado');
+
 
         }
 
-        $input=$request->all();
+         $user_id = Sentinel::getUser()->id;
 
-        //dd($id);
+         $xml=AlpXml::where('id', $request->id)->first();
 
-        //dd($input);
+         $xml->delete();
 
-         $archivo = $request->file('file_update');
+        $productos = AlpProductos::select('alp_productos.*', 'alp_xml.id as xml_id')
+        ->join('alp_xml', 'alp_productos.id', '=', 'alp_xml.id_producto')
+        ->whereNull('alp_productos.deleted_at')
+        ->whereNull('alp_xml.deleted_at')
+        ->get();
 
-        //$porciones = explode("_", $request->cities);
+        $listaproductos=AlpProductos::where('estado_registro', '=', '1')->get();
 
-        \Session::put('almacen', $id);
-        
-        \Session::put('inventario', $this->inventario());
+        $almacen = AlpAlmacenes::where('id', '1')->first();
 
-        \Session::put('cities', $request->cities);
+        $inventario=$this->inventario();
 
-        Excel::import(new AlmacenImport, $archivo);
-        
+        $cs=AlpXml::get();
 
-       
-       
-        return Redirect::route('admin.almacenes.index')->with('success', trans('Se ha creado satisfactoriamente'));
+        $cs1=AlpXml::first();
+
+        if (isset($cs1->id)) {
+
+            \Session::put('rolxml', $cs1->id_rol);
+
+            $rolxml=$cs1->id_rol;
+
+          }else{
+
+            \Session::put('rolxml', '9');
+
+            $rolxml=9;
+
+          }
+
+        $check = array();
+
+        foreach ($cs as $c) {
+
+          $check[$c->id_producto]=1;
+           # code...
+         }
+
+         $roles = DB::table('roles')->select('id', 'name')->where('id','>',8)->get();
+
+          $precio = array();
+
+         foreach ($productos as  $row) {
+                    
+            $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $rolxml)->first();
+
+            if (isset($pregiogrupo->id)) {
+               
+                $precio[$row->id]['precio']=$pregiogrupo->precio;
+                $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                $precio[$row->id]['pum']=$pregiogrupo->pum;
+
+            }
+
+        }
+
+        $descuento=1;
+
+        $prods = array( );
+
+        foreach ($productos as $producto) {
+
+      if ($descuento=='1') {
+
+        if (isset($precio[$producto->id])) {
+          # code...
+         
+          switch ($precio[$producto->id]['operacion']) {
+
+            case 1:
+
+              $producto->precio_oferta=$producto->precio_base*$descuento;
+
+              break;
+
+            case 2:
+
+              $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
+              
+              break;
+
+            case 3:
+
+              $producto->precio_oferta=$precio[$producto->id]['precio'];
+              
+              break;
+            
+            default:
+            
+             $producto->precio_oferta=$producto->precio_base*$descuento;
+              # code...
+              break;
+          }
+
+        }else{
+
+          $producto->precio_oferta=$producto->precio_base*$descuento;
+
+        }
+
+       }else{
+
+       $producto->precio_oferta=$producto->precio_base*$descuento;
+
+       }
+
+
+       $prods[]=$producto;
+
+      }
+
+
+       $view= View::make('admin.xml.listaproductos', compact('prods', 'check','inventario','almacen'));
+
+      $data=$view->render();
+
+      return $data;
+
+
     }
-
-
 
 
 
