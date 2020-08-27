@@ -237,8 +237,8 @@
                                             <span class="input-group-btn">
                                                 <button class="btn btn-default busqueda " alt="Buscar" ><i class="fa fa-search" aria-hidden="true" id="busqueda"></i></button>
                                             </span>
-                                            </div><!-- /input-group -->
-                                        </div><!-- /.col-lg-6 -->
+                                            </div>
+                                        </div>
                                     </div>  
                                 </form>
                             </div>

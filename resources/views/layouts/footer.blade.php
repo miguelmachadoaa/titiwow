@@ -135,7 +135,7 @@
     @endif
 
 
-    <input type="hideen" name="banpago" id="banpago" value="0">
+    <input type="hidden" name="banpago" id="banpago" value="0">
     
 
 

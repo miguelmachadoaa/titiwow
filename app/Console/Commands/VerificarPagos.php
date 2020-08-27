@@ -68,8 +68,8 @@ class VerificarPagos extends Command
 
       $d=$date->subDay(3)->format('Y-m-d');
       
-       // $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
-        $ordenes=AlpOrdenes::where('id', '5232')->get();
+        $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
+       // $ordenes=AlpOrdenes::where('id', '5232')->get();
         
 
       $configuracion = AlpConfiguracion::where('id', '1')->first();

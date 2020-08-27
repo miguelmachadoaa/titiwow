@@ -57,9 +57,9 @@ class CancelarOrdenes extends Command
 
         $hoy=$date->format('Y-m-d');
 
-        $ordenes =  DB::table('alp_ordenes')->select('alp_ordenes.*')
-          ->where('alp_ordenes.estatus','=', 8)
-          ->get();
+        $ordenes =  DB::table('alp_ordenes')->select('alp_ordenes.*') ->where('alp_ordenes.estatus','=', 8)->get();
+
+        //$ordenes=AlpOrdenes::where('id', '5000')->get();
 
         foreach ($ordenes  as $orden) {
 
