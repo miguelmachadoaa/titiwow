@@ -276,7 +276,7 @@
         
         <nav class="navbar navbar-default navbar-expand-lg container">
 
-            <li style="padding: 0.2em 1em;" class="hidden-lg hidden-md hidden-sm">
+            <li style="padding: 0.8em 0.2em;list-style:none;" class="hidden-lg hidden-md hidden-sm">
 
                         <form method="GET" action="{{ secure_url('buscar') }}">
                                     <div class="row">

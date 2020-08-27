@@ -976,10 +976,6 @@ class FrontEndController extends JoshController
 
          }
 
-
-
-
-
                   $request->first_name=strip_tags($request->first_name);
                   $request->last_name=strip_tags($request->last_name);
                   $request->email=strip_tags($request->email);
@@ -993,9 +989,6 @@ class FrontEndController extends JoshController
                   $request->barrio_address=strip_tags($request->barrio_address);
 
 
-                 // dd($request);
-
-
 
         try {
 
@@ -1005,19 +998,14 @@ class FrontEndController extends JoshController
 
                 if ($codalpin) {
 
-
-                  $data_user = array(
-                    'first_name' => $request->first_name, 
-                    'last_name' => $request->last_name, 
-                    'email' => $request->email, 
-                    'password' => $request->password, 
-                  );
-
-
+                    $data_user = array(
+                      'first_name' => $request->first_name, 
+                      'last_name' => $request->last_name, 
+                      'email' => $request->email, 
+                      'password' => $request->password, 
+                    );
 
                     $user = Sentinel::register($data_user, $activate);
-
-
 
                     $data = array(
                     'id_user_client' => $user->id, 
@@ -1063,13 +1051,10 @@ class FrontEndController extends JoshController
 
                     }
 
-                       $mensaje='Estamos procesando tu solicitud de registro, te notificaremos una vez haya finalizado el proceso, este proceso puede tomar hasta 24 horas.';
+                      $mensaje='Estamos procesando tu solicitud de registro, te notificaremos una vez haya finalizado el proceso, este proceso puede tomar hasta 24 horas.';
 
 
-                       $roleusuario=RoleUser::where('user_id', $user->id)->first();
-
- 
-
+                      $roleusuario=RoleUser::where('user_id', $user->id)->first();
 
                       Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $configuracion->mensaje_bienvenida, $roleusuario ));
 
