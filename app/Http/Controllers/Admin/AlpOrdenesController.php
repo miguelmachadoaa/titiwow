@@ -2337,9 +2337,6 @@ public function compramasupdate()
 
           }
 
-
-           
-
          // dd($history_envio);
 
 

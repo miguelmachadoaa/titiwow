@@ -15,6 +15,11 @@ use Mail;
 use DB;
 use Illuminate\Support\Facades\Log;
 
+use MP;
+
+use Exception;
+
+
 use Illuminate\Console\Command;
 
 class CancelarOrdenes extends Command
@@ -59,7 +64,7 @@ class CancelarOrdenes extends Command
 
         $ordenes =  DB::table('alp_ordenes')->select('alp_ordenes.*') ->where('alp_ordenes.estatus','=', 8)->get();
 
-        //$ordenes=AlpOrdenes::where('id', '5000')->get();
+        //$ordenes=AlpOrdenes::where('id', '5233')->get();
 
         foreach ($ordenes  as $orden) {
 
@@ -68,10 +73,9 @@ class CancelarOrdenes extends Command
             $now = Carbon::now();
 
             $diff = $date->diffInHours($now); 
-
-            //dd($diff);
-
+           
             if ($diff>$configuracion->vence_ordenes) {
+            
                 # code...
 
                 $ord=AlpOrdenes::where('id', $orden->id)->first();
@@ -111,6 +115,56 @@ class CancelarOrdenes extends Command
                     $this->sendcompramas($orden->id, 'rejected');
                     # code...
                   }
+
+
+
+                     $configuracion = AlpConfiguracion::where('id', '1')->first();
+
+                     if ($configuracion->mercadopago_sand=='1') {
+                        
+                        MP::sandbox_mode(TRUE);
+
+                      }
+
+                      if ($configuracion->mercadopago_sand=='2') {
+                        
+                        MP::sandbox_mode(FALSE);
+
+                      }
+
+                      MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+
+                       $preference = MP::get("/v1/payments/search?external_reference=".$orden->referencia);
+
+                      // dd($preference);
+
+                        foreach ($preference['response']['results'] as $r) {
+
+                            $idpago=$r['id'];
+
+                           
+                             $preference_data_cancelar = '{"status": "cancelled"}';
+
+                             //dd($preference_data_cancelar);
+
+                            $pre = MP::put("/v1/payments/".$idpago."", $preference_data_cancelar);
+
+                            //dd($pre);
+                               
+
+                          }
+
+
+
+                   
+
+
+
+
+
+
+
+
 
 
 

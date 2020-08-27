@@ -69,7 +69,7 @@ class VerificarPagos extends Command
       $d=$date->subDay(3)->format('Y-m-d');
       
         $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
-       // $ordenes=AlpOrdenes::where('id', '5232')->get();
+        //$ordenes=AlpOrdenes::where('id', '5233')->get();
         
 
       $configuracion = AlpConfiguracion::where('id', '1')->first();
@@ -94,25 +94,22 @@ class VerificarPagos extends Command
 
           $user_cliente=User::where('id', $ord->id_user)->first();
 
-            
-
           $preference = MP::get("/v1/payments/search?external_reference=".$ord->referencia);
-         
-         
-          //\Log::debug('preference ' . json_encode($preference));
-
-        //  activity()->withProperties($preference)->log('preference');
-
+          
 
           //if (isset($preference['response']['results'][0])) {
           if (isset($preference)) {
 
             $cantidad=count($preference['response']['results']);
-            $aproved=1;
-            $cancel=0;
+            $aproved=0;
+            $cancel=1;
             $pending=0;
 
             foreach ($preference['response']['results'] as $r) {
+
+              $idpago=$r['id'];
+
+             // dd($idpago);
 
                     
                   if ($r['status']=='rejected' || $r['status']=='cancelled' || $r['status']=='refunded') {
@@ -370,10 +367,23 @@ class VerificarPagos extends Command
              
 
                
-            }elseif($pending){
+            //}elseif($pending){
               
 
             }elseif($cancel){
+
+
+
+
+                $date = Carbon::parse($orden->created_at); 
+
+                $now = Carbon::now();
+
+                $diff = $date->diffInMinutes($now); 
+
+               // dd($idpago);
+
+               if ($diff>30) {
 
                 $data_update = array(
                   'estatus' =>4, 
@@ -391,7 +401,14 @@ class VerificarPagos extends Command
 
                   $history=AlpOrdenesHistory::create($data_history);
 
+                   if ($orden->id_almacen=='1') {
+
+                    $this->sendcompramas($orden->id, 'rejected');
+                    # code...
+                  }
+
                  
+               }
 
 
             }
