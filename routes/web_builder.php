@@ -100,6 +100,8 @@ Route::get('admin/ordenes/dataalmacen', 'Admin\AlpOrdenesController@dataalmacen'
 
 Route::get('admin/ordenes/{id}/reenviarcompramas/', 'Admin\AlpOrdenesController@reenviarcompramas')->name('ordenes.reenviarcompramas');
 
+Route::get('admin/ordenes/{id}/cancelarcompramas/', 'Admin\AlpOrdenesController@cancelarcompramas')->name('ordenes.cancelarcompramas');
+
 Route::get('admin/ordenes/{id}/reenviaryaprobarcompramas/', 'Admin\AlpOrdenesController@reenviaryaprobarcompramas')->name('ordenes.reenviaryaprobarcompramas');
 
 
