@@ -41,7 +41,7 @@ class SiteMapController extends JoshController
             Url::create('/')
                 ->lastUpdate($startOfMonth)
                 ->frequency('daily')
-                ->priority('1.00')
+                ->priority('1.0')
         );
     
         $this->siteMap->add(

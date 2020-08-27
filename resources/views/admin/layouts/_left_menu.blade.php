@@ -344,8 +344,9 @@
             <span class="title">Configuraciones</span>
             <span class="fa arrow"></span>
         </a>
-        
+    @endif   
 
+    @if (Sentinel::getUser()->hasAnyAccess(['configuracion.index']))
         <ul class="sub-menu">
             <li {!! (Request::is('admin/configuracion*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.configuracion.index') !!}">

@@ -113,7 +113,7 @@ $(document).ready(function() {
             },
             {
                 title: 'Click for Google',
-                url: 'http://google.com/',
+                url: 'https://google.com/',
                 start: YM + '-28',
                 backgroundColor: ('#418BCA')
             }
