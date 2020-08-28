@@ -825,6 +825,8 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
     Route::post('xml/delproducto', 'Admin\AlpXmlController@delproducto');
 
+    Route::get('xml/deltodos/list', 'Admin\AlpXmlController@deltodos');
+
 
 
 

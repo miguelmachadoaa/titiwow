@@ -761,4 +761,57 @@ public function addproducto(Request $request)
 
 
 
+
+
+
+
+
+
+
+
+
+
+    public function deltodos(Request $request){
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cupones/deldestacado ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('cupones/deldestacado');
+
+
+        }
+
+         $user_id = Sentinel::getUser()->id;
+
+         $xml=AlpXml::where('id', '>', 0)->delete();
+
+         
+       return redirect('admin/xml')->withInput()->with('success', trans('Se ha actualizado satisfactoriamente'));
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

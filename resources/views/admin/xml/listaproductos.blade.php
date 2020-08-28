@@ -165,7 +165,7 @@
 
         <div class="col-sm-12" style="margin-top: 2em;">
             
-            <a class="btn btn-danger" href="{{secure_url('admin/xml/deltodos')}}">
+            <a class="btn btn-danger" href="{{secure_url('admin/xml/deltodos/list')}}">
                 Eliminar Todos Los Productos de la lista 
             </a>
 
