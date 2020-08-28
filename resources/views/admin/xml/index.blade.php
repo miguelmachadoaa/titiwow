@@ -86,6 +86,8 @@ Xml Productos
                                     
                                     <select id="id_producto" name="id_producto" class="form-control select2">
 
+                                        <option value="0">Todos</option>
+
                                         @foreach($listaproductos as $lp)
 
                                         <option      value="{{ $lp->id }}">
@@ -101,36 +103,18 @@ Xml Productos
                             <div class="form-group col-sm-5  sm-offset-2">
                                 
                                 <button type="button" class="btn btn-primary addproducto">Agregar</button>
+
                             </div>
 
-
-
-
-                          
-                            <!-- CSRF Token -->
                             {{ csrf_field() }}
 
 
                     </form>
 
 
-
-                           
-
                          @include('admin.xml.listaproductos')
 
-                       <!--div class="form-group">
-                            <div class="col-sm-4" style="margin-top: 2em;">
-                                
-                                <a class="btn btn-danger" href="{{ route('admin.almacenes.index') }}">
-                                    Cancelar
-                                </a>
-
-                                <button type="submit" class="btn btn-success">
-                                    Actualizar
-                                </button>
-                            </div>
-                        </div-->
+                      
                    
                 </div>
             </div>
@@ -164,6 +148,12 @@ Xml Productos
 <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
 
 <script>
+
+
+    var table =$('#tableAlmacen2').DataTable({
+        "processing": true,
+        "order": [[ 0, "desc" ]]    
+    });
 
 
 $(".select2").select2();

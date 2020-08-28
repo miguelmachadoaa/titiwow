@@ -418,23 +418,59 @@ public function addproducto(Request $request)
 
         $user_id = Sentinel::getUser()->id;
 
-        $p=AlpXml::where('id_producto', $request->id_producto)->where('id_rol', '=', $request->id_rol)->first();
+
+        if ($request->id_producto=='0') {
 
 
-        if (isset($p->id)) {
-          # code...
+          AlpXml::where('id', '>', '0')->delete();
+
+          $listaproductos=AlpProductos::where('estado_registro', '=', '1')->get();
+
+
+
+          foreach ($listaproductos as $lp) {
+
+            $data = array(
+              'id_producto' => $lp->id, 
+              'id_rol' => $request->id_rol, 
+              'id_user' => $user->id
+            );
+
+           // dd($data);
+
+            AlpXml::create($data);
+
+          }
+          
+
+
         }else{
 
 
-         $data = array(
-            'id_producto' => $request->id_producto, 
-            'id_rol' => $request->id_rol, 
-            'id_user' => $user->id, 
-          );
 
-          AlpXml::create($data);
+          $p=AlpXml::where('id_producto', $request->id_producto)->where('id_rol', '=', $request->id_rol)->first();
+
+
+          if (isset($p->id)) {
+            # code...
+          }else{
+
+
+           $data = array(
+              'id_producto' => $request->id_producto, 
+              'id_rol' => $request->id_rol, 
+              'id_user' => $user->id, 
+            );
+
+            AlpXml::create($data);
+
+          }
+
+
 
         }
+
+        
 
 
 
