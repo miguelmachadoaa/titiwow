@@ -951,10 +951,9 @@ if (Sentinel::check()) {
         }
 
 
+       return json_encode($producto);
 
 
-
-        
     }
 
 
