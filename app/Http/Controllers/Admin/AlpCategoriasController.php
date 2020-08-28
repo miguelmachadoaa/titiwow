@@ -920,10 +920,6 @@ if (Sentinel::check()) {
     public function getproductos($almacen, $categoria)
     {
         
-        
-
-
-
 
          $producto=AlpAlmacenProducto::select('alp_almacen_producto.*','alp_productos.nombre_producto as nombre_producto' )
         ->join('alp_productos', 'alp_almacen_producto.id_producto', '=', 'alp_productos.id')
@@ -932,10 +928,6 @@ if (Sentinel::check()) {
         ->pluck("alp_productos.nombre_producto","alp_almacen_producto.id_producto")->all();
 
        // dd($alm);
-
-        
-
-      
 
 
         if (count($producto)) {
@@ -949,7 +941,6 @@ if (Sentinel::check()) {
             $producto['0'] = 'Seleccione Producto';
 
         }
-
 
        return json_encode($producto);
 
