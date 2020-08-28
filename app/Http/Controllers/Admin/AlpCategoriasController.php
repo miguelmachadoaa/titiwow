@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\JoshController;
 use App\Models\AlpProductos;
 use App\Models\AlpAlmacenes;
+use App\Models\AlpAlmacenProducto;
 use App\Models\AlpCategorias;
 use App\Models\AlpCategoriasDestacado;
 use App\Http\Requests;
