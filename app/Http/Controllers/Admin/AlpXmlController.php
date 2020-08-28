@@ -754,23 +754,6 @@ public function addproducto(Request $request)
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function deltodos(Request $request){
 
       if (Sentinel::check()) {
@@ -799,6 +782,208 @@ public function addproducto(Request $request)
          
        return redirect('admin/xml')->withInput()->with('success', trans('Se ha actualizado satisfactoriamente'));
 
+
+    }
+
+
+
+    public function data()
+    {
+
+        $productos = AlpProductos::select('alp_productos.*', 'alp_xml.id as xml_id', 'roles.name as name')
+        ->join('alp_xml', 'alp_productos.id', '=', 'alp_xml.id_producto')
+        ->join('roles', 'alp_xml.id_rol', '=', 'roles.id')
+        ->whereNull('alp_productos.deleted_at')
+        ->whereNull('alp_xml.deleted_at')
+        ->get();
+
+
+
+
+
+
+        $almacen = AlpAlmacenes::where('id', '1')->first();
+
+        $inventario=$this->inventario();
+
+        $cs=AlpXml::get();
+
+        $cs1=AlpXml::first();
+
+        if (isset($cs1->id)) {
+
+            \Session::put('rolxml', $cs1->id_rol);
+
+            $rolxml=$cs1->id_rol;
+
+          }else{
+
+            \Session::put('rolxml', '9');
+
+            $rolxml=9;
+
+          }
+
+
+        $check = array();
+
+        foreach ($cs as $c) {
+
+          $check[$c->id_producto]=1;
+           # code...
+         }
+
+
+         $roles = DB::table('roles')->select('id', 'name')->where('id','>',8)->get();
+
+          $precio = array();
+
+         foreach ($productos as  $row) {
+                    
+            $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $rolxml)->first();
+
+            if (isset($pregiogrupo->id)) {
+               
+                $precio[$row->id]['precio']=$pregiogrupo->precio;
+                $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                $precio[$row->id]['pum']=$pregiogrupo->pum;
+
+            }
+
+        }
+
+        $descuento=1;
+
+        $prods = array( );
+
+        foreach ($productos as $producto) {
+
+      if ($descuento=='1') {
+
+        if (isset($precio[$producto->id])) {
+          # code...
+         
+          switch ($precio[$producto->id]['operacion']) {
+
+            case 1:
+
+              $producto->precio_oferta=$producto->precio_base*$descuento;
+
+              break;
+
+            case 2:
+
+              $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
+              
+              break;
+
+            case 3:
+
+              $producto->precio_oferta=$precio[$producto->id]['precio'];
+              
+              break;
+            
+            default:
+            
+             $producto->precio_oferta=$producto->precio_base*$descuento;
+              # code...
+              break;
+          }
+
+        }else{
+
+          $producto->precio_oferta=$producto->precio_base*$descuento;
+
+        }
+
+
+       }else{
+
+       $producto->precio_oferta=$producto->precio_base*$descuento;
+
+
+       }
+
+
+       $prods[]=$producto;
+
+      }
+
+
+
+
+
+            $data = array();
+
+          foreach($prods as $row){
+
+              $imagen='<figure>
+                        <img style="width: 60px;" src="'.secure_url('uploads/productos/'.$row->imagen_producto).'" data-src="'.secure_url('uploads/productos/60/'.$row->imagen_producto).'" alt="img">
+                    </figure>';
+
+
+                    $inv=0;
+
+
+
+                 if(isset($inventario[$row->id][$almacen->id])){
+
+                        $inv=$inventario[$row->id][$almacen->id];
+
+                    }else{
+
+                        $inv=0;
+
+                    }
+
+
+                    if($row->estado_registro==1){
+
+                        $estado='<a href="#" class="label label-success">Si</a>';
+
+                    }else{
+
+                        $estado=' <a href="#" class="label label-danger">No</a>';
+
+                    }
+
+                    if(isset($check[$row->id])){
+
+                        $c='<a href="#" class="label label-success">Activo</a>';
+
+                    }else{
+
+                        $c='<a href="#" class="label label-danger">Inactivo</a>';
+
+                    }
+
+                    $eliminar=' <button data-id="'.$row->xml_id.'" type="button" class="btn btn-danger delproducto">
+                        Eliminar
+                    </button>';
+
+
+
+
+                 
+
+
+               $data[]= array(
+                 $imagen, 
+                 $row->name, 
+                 $row->nombre_producto, 
+                 $row->referencia_producto,
+                 $row->precio_base,
+                 $row->precio_oferta,
+                 $inv,
+                 $estado,
+                 $c,
+                 $eliminar
+              );
+
+          }
+
+
+          return json_encode( array('data' => $data ));
 
     }
 

@@ -149,10 +149,24 @@ Xml Productos
 
 <script>
 
+    $(document).ready(function(){
 
-    var table =$('#tableAlmacen2').DataTable({
+
+
+    base=$('#base').val();
+
+    var table =$('#tableAlmacen').DataTable({
         "processing": true,
-        "order": [[ 0, "desc" ]]    
+        "order": [[ 0, "desc" ]],
+        "ajax": {
+            "url": base+'/admin/xml/data'
+        }
+    });
+
+    table.on( 'draw', function () {
+        $('.livicon').each(function(){
+            $(this).updateLivicon();
+        });
     });
 
 
@@ -176,7 +190,9 @@ $(".select2").select2();
                 
             complete: function(datos){     
 
-                $(".listaproductos").html(datos.responseText);
+                table.ajax.reload();
+
+                //$(".listaproductos").html(datos.responseText);
 
             }
         });
@@ -184,28 +200,41 @@ $(".select2").select2();
     });
 
 
-    $('.listaproductos').on('click', '.delproducto', function(){
+        $('.listaproductos').on('click', '.delproducto', function(){
 
-        base = $('#base').val();
+            base = $('#base').val();
 
-        id = $(this).data('id');
+            id = $(this).data('id');
 
-        _token = $('#_token').val();
+            _token = $('#_token').val();
 
 
-         $.ajax({
-            type: "POST",
-            data:{ id, _token},
-            url: base+"/admin/xml/delproducto",
-                
-            complete: function(datos){     
+             $.ajax({
+                type: "POST",
+                data:{ id, _token},
+                url: base+"/admin/xml/delproducto",
+                    
+                complete: function(datos){   
 
-                $(".listaproductos").html(datos.responseText);
+                table.ajax.reload();  
 
-            }
+                   // $(".listaproductos").html(datos.responseText);
+
+                }
+            });
+
         });
 
+
+
+
+
+
+
     });
+
+
+    
 
 
 
