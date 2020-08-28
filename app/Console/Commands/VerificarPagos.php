@@ -367,12 +367,10 @@ class VerificarPagos extends Command
              
 
                
-            //}elseif($pending){
+            }elseif($pending){
               
 
             }elseif($cancel){
-
-
 
 
                 $date = Carbon::parse($orden->created_at); 
