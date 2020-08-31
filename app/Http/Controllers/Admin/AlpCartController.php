@@ -2920,7 +2920,15 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
        $total=$this->total();
 
 
-       $view= View::make('frontend.listcart', compact('combos', 'cart','configuracion', 'total'));
+       $almacen_id=$this->getAlmacen();
+
+
+      $almacen=AlpAlmacenes::where('id', $almacen_id)->first();
+
+
+
+
+       $view= View::make('frontend.listcart', compact('combos', 'cart','configuracion', 'total', 'almacen'));
 
               $data=$view->render();
 
@@ -3884,8 +3892,13 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       $configuracion=AlpConfiguracion::where('id', '1')->first();
 
+      $almacen_id=$this->getAlmacen();
 
-        $view= View::make('frontend.listcart', compact('producto', 'cart', 'total', 'impuesto', 'configuracion', 'error'));
+
+      $almacen=AlpAlmacenes::where('id', $almacen_id)->first();
+
+
+        $view= View::make('frontend.listcart', compact('producto', 'cart', 'total', 'impuesto', 'configuracion', 'error', 'almacen'));
 
         $data=$view->render();
 

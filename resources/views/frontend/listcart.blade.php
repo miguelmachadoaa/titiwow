@@ -138,17 +138,18 @@
 
                 <hr>
 
+                        @if(isset($almacen->id))
+                            @if($almacen->mensaje_promocion!=null && $almacen->mensaje_promocion!='')
 
-                        @if($almacen->mensaje_promocion!=null && $almacen->mensaje_promocion!='')
+                                <div class="col-sm-12">
 
-                            <div class="col-sm-12">
+                                    <h4 style="color: #d5006e;">{{$almacen->mensaje_promocion}} </h4>
 
-                                <h4 style="color: #d5006e;">{{$almacen->mensaje_promocion}} </h4>
+                                </div>
 
-                            </div>
+                                <hr>
 
-                            <hr>
-
+                            @endif
                         @endif
 
 
