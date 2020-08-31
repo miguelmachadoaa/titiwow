@@ -139,11 +139,11 @@
                 <hr>
 
 
-                        @if($configuracion->mensaje_promocion!=null && $configuracion->mensaje_promocion!='')
+                        @if($almacen->mensaje_promocion!=null && $almacen->mensaje_promocion!='')
 
                             <div class="col-sm-12">
 
-                                <h4 style="color: #d5006e;">{{$configuracion->mensaje_promocion}} </h4>
+                                <h4 style="color: #d5006e;">{{$almacen->mensaje_promocion}} </h4>
 
                             </div>
 

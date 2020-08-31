@@ -260,6 +260,7 @@ class AlpAlmacenesController extends JoshController
             'tipo_almacen' => $request->tipo_almacen, 
             'formato' => $request->formato, 
             'descuento_productos' => $request->descuento_productos, 
+            'mensaje_promocion' => $request->mensaje_promocion, 
             'id_user' =>$user_id
         );
          
@@ -418,6 +419,7 @@ class AlpAlmacenesController extends JoshController
                 'correos' => $request->correos, 
                 'minimo_compra' => $request->minimo_compra, 
                 'descuento_productos' => $request->descuento_productos, 
+                'mensaje_promocion' => $request->mensaje_promocion, 
                 'formato' => $request->formato, 
                 'tipo_almacen' => $request->tipo_almacen
                 );
