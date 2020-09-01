@@ -24,7 +24,7 @@ class ExcelUploadRequest extends FormRequest {
 	public function rules()
 	{
 		return [
-			'file' => 'required',
+			'file_update' => 'required',
 		];
 	}
 
