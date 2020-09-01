@@ -47,6 +47,7 @@ class AlpProductos extends Model
         'descripcion_corta',
         'descripcion_larga',
         'imagen_producto',
+        'imagen_tiny',
         'seo_titulo',
         'seo_descripcion',
         'enlace_youtube',

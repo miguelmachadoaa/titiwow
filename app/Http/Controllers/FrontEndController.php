@@ -2363,10 +2363,8 @@ public function getApiUrl($endpoint, $jsessionid)
             'slug' => $p->slug, 
             'enlace_producto' => secure_url('producto/'.$p->slug), 
             'precio_base' => $p->precio_base, 
-            'pum' => $p->pum, 
+            'pum' => number_format($p->precio_base/$p->cantidad, '2').' '.$p->unidad, 
             'medida' => $p->medida, 
-            'unidad' => $p->unidad, 
-            'cantidad' => $p->cantidad, 
             'nombre_marca' => $p->nombre_marca, 
             'nombre_categoria' => $p->nombre_categoria
           );
