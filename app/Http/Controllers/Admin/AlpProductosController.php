@@ -2381,14 +2381,12 @@ class AlpProductosController extends JoshController
           activity()
           ->withProperties($request->all())->log('AlpProductosController/postprecio');
 
-
         }
 
         $archivo = $request->file('file_update');
 
          Excel::import(new ProductosMasivosImport, $archivo);
 
-        // Show the page
         return view('admin.productos.productosmasivos');
     }
 

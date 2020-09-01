@@ -104,7 +104,7 @@ Actualizacion de Productos Masivos
                         <div class="form-group {{ $errors->
                             first('file', 'has-error') }}">
                             <div class="row" style="margin-top: 1em;">
-                                <label class="col-md-3 col-lg-3 col-12 control-label" for="upload">Archivo CSV (Referencia, Inventario Disponible)</label>
+                                <label class="col-md-3 col-lg-3 col-12 control-label" for="upload">Archivo CSV </label>
 
                                 <div class="col-md-9 col-12 col-lg-9">
                                     <input type="file" accept=".xlsx" name="file_update"  id="file_update"> <!-- rename it -->
@@ -153,24 +153,16 @@ Actualizacion de Productos Masivos
 
     <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
 
-
-
 <script>
-
-
 
      $(document).ready(function(){
 
     $('.select2').select2();
-        
-       
-        //Inicio select región
-
-            //inicio select ciudad
+            
+        //inicio select ciudad
             $('select[name="state"]').on('change', function() {
 
-
-                    var stateID = $(this).val();
+                var stateID = $(this).val();
                 var base = $('#base').val();
 
                     if(stateID) {

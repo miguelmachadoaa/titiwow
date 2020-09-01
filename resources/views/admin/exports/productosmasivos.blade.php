@@ -10,8 +10,8 @@
             <th><b>Video Youtube</b></th>
             <th><b>Categoria por Defecto</b></th>
             <th><b>Marca </b></th>
-            <th><b>Medida</b></th>
-            <th><b>Unidad de Medida</b></th>
+            <th><b>Medida </b></th>
+            <th><b>Unidad de Medida (Mililitro o Gramo)</b></th>
             <th><b>Cantidad del Producto</b></th>
             <th><b>No Modificar Este Campo</b></th>
         </tr>
