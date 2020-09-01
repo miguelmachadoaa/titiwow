@@ -42,6 +42,9 @@ use DOMDocument;
 use View;
 use DB;
 
+use Redirect;
+
+
 use Intervention\Image\ImageManager;
 
 
@@ -2387,7 +2390,8 @@ class AlpProductosController extends JoshController
 
          Excel::import(new ProductosMasivosImport, $archivo);
 
-        return view('admin.productos.productosmasivos');
+
+        return Redirect::route('admin.productos.productosmasivos')->with('success', trans('Se ha creado satisfactoriamente'));
     }
 
 
