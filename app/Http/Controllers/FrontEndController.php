@@ -2350,6 +2350,13 @@ public function getApiUrl($endpoint, $jsessionid)
         $prods = array();
 
         foreach ($productos as $p) {
+
+
+          if (!is_numeric($p->cantidad)) {
+            $pum='';
+          }else{
+            $pum=number_format($p->precio_base/$p->cantidad, '2').' '.$p->unidad;
+          }
          
           $ps = array(
             'nombre_producto' => $p->nombre_producto, 
@@ -2363,7 +2370,7 @@ public function getApiUrl($endpoint, $jsessionid)
             'slug' => $p->slug, 
             'enlace_producto' => secure_url('producto/'.$p->slug), 
             'precio_base' => $p->precio_base, 
-            'pum' => number_format($p->precio_base/$p->cantidad, '2').' '.$p->unidad, 
+            'pum' => $pum, 
             'medida' => $p->medida, 
             'nombre_marca' => $p->nombre_marca, 
             'nombre_categoria' => $p->nombre_categoria
