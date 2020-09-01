@@ -47,10 +47,9 @@
       {
         "@context": "https://schema.org/",
         "@type": "Product",
-        "name": "$producto->nombre_producto",
-        "image": [
-          "{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}",
-         ],
+        "name": "{{$producto->nombre_producto}}",
+        "image": "{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}",
+        
         "description": "{{$producto->descripcion_corta}}",
         "sku": "{{$producto->referencia_producto}}",
         "mpn": "{{$producto->referencia_producto_sap}}",
@@ -60,6 +59,7 @@
         },
         "offers": {
           "@type": "AggregateOffer",
+          "availability": "http://schema.org/InStock",
           "offerCount": "5",
           "lowPrice": "{{$producto->precio_oferta}}",
           "highPrice": "{{$producto->precio_base}}",
