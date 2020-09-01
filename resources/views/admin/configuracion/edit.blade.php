@@ -88,7 +88,7 @@ Editar Configuracion General
                                         Token Api
                                     </label>
                                     <div class="col-sm-5">
-                                        <input type="text" id="token_api" name="token_api" class="form-control" placeholder="Compramas Token "
+                                        <input type="text" id="token_api" name="token_api" class="form-control" placeholder="Token api "
                                             value="{!! old('token_api', $configuracion->token_api) !!}">
                                     </div>
                                     <div class="col-sm-4">
