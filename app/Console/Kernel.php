@@ -77,7 +77,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('productosc:venta')->saturdays()->at('14:00');
 
 
-        $schedule->command('nomina:venta')->dailyAt('16:00');
+        
 
         $schedule->command('verificar:saldo')->dailyAt('1:00');
         
@@ -97,13 +97,15 @@ class Kernel extends ConsoleKernel
 
         foreach ($almacenes as $alm) {
 
-           // $schedule->command('nomina:venta '.$alm->id)->dailyAt($alm->hora);
+            if (isset($alm->id)) {
 
-            $schedule->command('venta:almacenes '.$alm->id)->dailyAt($alm->hora);
+                $schedule->command('venta:almacenes '.$alm->id)->dailyAt($alm->hora);
+
+                $schedule->command('nomina:venta '.$alm->id)->dailyAt($alm->hora);
+                
+            }
             
         }
-
-
 
     }
 
