@@ -39,7 +39,6 @@ Route::get('reportes/cronexportcuponesusados', 'Admin\AlpReportesController@cron
 
 
 
-
 Route::post('admin/clientes/updaterol', 'Admin\AlpClientesController@updaterol')->name('clientes.updaterol');
 
 Route::get('admin/clientes/saldo', 'Admin\AlpClientesController@saldo')->name('clientes.saldo');
@@ -185,6 +184,17 @@ Route::post('productos/dataprecio', ['as'=> 'productos.dataprecio', 'uses' => 'A
 
 Route::get('productos/precio/', ['as'=> 'productos.precio', 'uses' => 'Admin\AlpProductosController@precio']);
 Route::post('productos/postprecio/', ['as'=> 'productos.postprecio', 'uses' => 'Admin\AlpProductosController@postprecio']);
+
+/*Productos Masivos */
+
+Route::get('productos/productosmasivos/', ['as'=> 'productos.productosmasivos', 'uses' => 'Admin\AlpProductosController@productosmasivos']);
+
+Route::post('productos/postproductosmasivos/', ['as'=> 'productos.postproductosmasivos', 'uses' => 'Admin\AlpProductosController@postproductosmasivos']);
+
+Route::get('productos/productosmasivosexport', 'Admin\AlpProductosController@productosmasivosexport')->name('productos.productosmasivosexport');
+
+/*Fin Productos Masivos */
+
 
 
 Route::get('productos/grid/', ['as'=> 'productos.grid', 'uses' => 'Admin\AlpProductosController@grid']);

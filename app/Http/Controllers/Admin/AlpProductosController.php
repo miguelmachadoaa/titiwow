@@ -16,6 +16,11 @@ use App\Models\AlpPrecioGrupo;
 use App\Models\AlpImpuestos;
 use App\Models\AlpEmpresas;
 use App\Models\AlpCombosProductos;
+use App\Models\AlpUnidades;
+
+use App\Exports\ProductosMasivosExport;
+use App\Imports\ProductosMasivosImport;
+
 
 use App\Imports\ProductosUpdateImport;
 use App\Imports\ProductosPrecioBase;
@@ -118,7 +123,8 @@ class AlpProductosController extends JoshController
         if (curl_errno($ch)) {
             echo 'Error:' . curl_error($ch);
         }
-        curl_close($ch);
+        curl_close($ch);creare
+
 
 
         //dd($result);*/
@@ -418,6 +424,8 @@ class AlpProductosController extends JoshController
 
         $empresas = AlpEmpresas::all();
 
+        $unidades = AlpUnidades::all();
+
         $arbol = array();
 
         foreach ($categorias_todas as $cat) {
@@ -459,8 +467,10 @@ class AlpProductosController extends JoshController
 
         $productos=AlpProductos::where('estado_registro', '1')->get();
 
+        $unidades = AlpUnidades::all();
 
-        return view('admin.productos.create', compact('categorias', 'marcas', 'tree', 'check', 'roles', 'states', 'impuestos', 'empresas', 'productos', 'inventario'));
+
+        return view('admin.productos.create', compact('categorias', 'marcas', 'tree', 'check', 'roles', 'states', 'impuestos', 'empresas', 'productos', 'inventario', 'unidades'));
     }
 
     /**
@@ -1087,8 +1097,11 @@ class AlpProductosController extends JoshController
 
         $robots=explode(' ,', $producto->robots);
 
+        $unidades = AlpUnidades::all();
 
-        return view('admin.productos.edit', compact('producto', 'categorias', 'marcas', 'check', 'tree', 'roles',  'precio_grupo',  'precio_grupo_corporativo', 'states', 'impuestos', 'empresas', 'productos', 'productos_list', 'robots'));
+
+
+        return view('admin.productos.edit', compact('producto', 'categorias', 'marcas', 'check', 'tree', 'roles',  'precio_grupo',  'precio_grupo_corporativo', 'states', 'impuestos', 'empresas', 'productos', 'productos_list', 'robots', 'unidades'));
 
     }
 
@@ -1122,6 +1135,7 @@ class AlpProductosController extends JoshController
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
+
 
         $producto = AlpProductos::find($id);
 
@@ -2311,6 +2325,76 @@ class AlpProductosController extends JoshController
 
 
     }
+
+
+     public function productosmasivosexport()
+    {
+        // Grab all the blogs
+
+
+
+        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+        // Show the page
+        return Excel::download(new ProductosMasivosExport(), 'productos.xlsx');
+    }
+
+
+
+
+    public function productosmasivos()
+    {
+        // Grab all the blogs
+
+
+
+        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+    
+
+        // Show the page
+        return view('admin.productos.productosmasivos');
+    }
+
+
+     public function postproductosmasivos(Request $request)
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpProductosController/postprecio ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpProductosController/postprecio');
+
+
+        }
+
+        $archivo = $request->file('file_update');
+
+         Excel::import(new ProductosMasivosImport, $archivo);
+
+        // Show the page
+        return view('admin.productos.productosmasivos');
+    }
+
+
+
+
+
 
 
 

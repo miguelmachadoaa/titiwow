@@ -274,6 +274,20 @@
     @endif
 
 
+    @if (Sentinel::getUser()->hasAnyAccess(['productos.*']))
+
+          <li {!! (Request::is('admin/productosmasivos*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.productos.productosmasivos') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Editor de productos masivos
+                </a>
+            </li>
+
+    @endif
+
+
+
+
             
 
         

@@ -750,7 +750,18 @@
                                                 <label class="col-sm-3 col-xs-12 control-label" for="referencia_producto">Unidad de Medida</label>
 
                                                 <div class="col-sm-9 col-xs-12">
-                                                    <input id="unidad" name="unidad" type="text" placeholder="Unidad de Medida" class="form-control" value=""  >
+                                                     <select id="unidad" name="unidad" class="form-control ">
+                                                        @foreach($unidades as $u)
+                                                           
+                                                            <option value="{{ $u->nombre_unidad }}"
+                                                                    @if($producto->unidad == $u->nombre_unidad) selected="selected" @endif >{{$u->nombre_unidad}}</option>
+
+
+                                                                    @endforeach
+
+                                                            
+                                                           
+                                                    </select>
 
                                                      {!! $errors->first('unidad', '<span class="help-block">:message</span> ') !!}
 
