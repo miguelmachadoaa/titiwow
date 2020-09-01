@@ -18,13 +18,12 @@ class ProductosMasivosImport implements ToCollection
         foreach ($rows as $row) 
         {
 
+           
+
+            if (trim($row[12])=='1') {
 
 
-
-            if ($row[0]!=NULL) {
-
-
-                        $p=AlpProductos::select('alp_productos.id as id', 'alp_productos.precio_base as precio_base', 'alp_productos.referencia_producto as referencia_producto')->where('alp_productos.id', trim($row[12]))->first();
+                        $p=AlpProductos::select('alp_productos.id as id', 'alp_productos.precio_base as precio_base', 'alp_productos.referencia_producto as referencia_producto')->where('alp_productos.id', trim($row[13]))->first();
 
                         if (isset($p->id)) {
 

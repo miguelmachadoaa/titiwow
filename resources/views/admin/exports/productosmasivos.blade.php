@@ -13,6 +13,7 @@
             <th><b>Medida </b></th>
             <th><b>Unidad de Medida (Mililitro o Gramo)</b></th>
             <th><b>Cantidad del Producto</b></th>
+            <th><b>Actualizar Colocar 1 Para actualizar el producto</b></th>
             <th><b>No Modificar Este Campo</b></th>
         </tr>
     </thead>
@@ -32,6 +33,7 @@
             <td>{!! $row->medida !!}</td>
             <td>{!! $row->unidad !!}</td>
             <td>{!! $row->cantidad !!}</td>
+            <td>0</td>
             <td>{!! $row->id !!}</td>
           
         </tr>
