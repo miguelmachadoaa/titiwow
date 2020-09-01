@@ -17,16 +17,16 @@ class ProductosMasivosImport implements ToCollection
 
         foreach ($rows as $row) 
         {
-            
+
+
+
+
             if ($row[0]!=NULL) {
 
-                if ($row[1]!=0) {
-                   
+
                         $p=AlpProductos::select('alp_productos.id as id', 'alp_productos.precio_base as precio_base', 'alp_productos.referencia_producto as referencia_producto')->where('alp_productos.id', trim($row[12]))->first();
 
                         if (isset($p->id)) {
-
-                           // dd($p);
 
                                 $data_update = array(
                                     'nombre_producto' => $row[0], 
@@ -46,12 +46,10 @@ class ProductosMasivosImport implements ToCollection
 
                                 $p->update($data_update);
 
-                              //  dd($data_update);
+                        }else{
 
-                            $productos[]=$p;
-
+                           // dd($row);
                         }
-                }
 
             }//if row->0 != NULL
 
