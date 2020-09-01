@@ -754,7 +754,7 @@
                                                         @foreach($unidades as $u)
                                                            
                                                             <option value="{{ $u->nombre_unidad }}"
-                                                                    @if($producto->unidad == $u->nombre_unidad) selected="selected" @endif >{{$u->nombre_unidad}}</option>
+                                                                    >{{$u->nombre_unidad}}</option>
 
 
                                                                     @endforeach
