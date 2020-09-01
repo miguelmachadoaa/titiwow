@@ -754,13 +754,10 @@
                                                         @foreach($unidades as $u)
                                                            
                                                             <option value="{{ $u->nombre_unidad }}"
-                                                                    >{{$u->nombre_unidad}}</option>
-
+                                                                     >{{$u->nombre_unidad}}</option>
 
                                                                     @endforeach
 
-                                                            
-                                                           
                                                     </select>
 
                                                      {!! $errors->first('unidad', '<span class="help-block">:message</span> ') !!}

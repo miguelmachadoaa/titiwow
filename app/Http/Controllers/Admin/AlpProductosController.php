@@ -7,6 +7,7 @@ use App\Http\Requests\CargaRequest;
 use App\Http\Requests\PrecioBaseRequest;
 use App\Http\Requests\ProductosRequest;
 use App\Http\Requests\ProductosUpdateRequest;
+use App\Http\Requests\ExcelUploadRequest;
 use App\Models\AlpProductos;
 use App\Models\AlpProductosRelacionados;
 use App\Models\AlpCategorias;
@@ -2363,7 +2364,7 @@ class AlpProductosController extends JoshController
     }
 
 
-     public function postproductosmasivos(Request $request)
+     public function postproductosmasivos(ExcelUploadRequest $request)
     {
 
          if (Sentinel::check()) {

@@ -858,13 +858,7 @@ class AlpAlmacenesController extends JoshController
 
         $input=$request->all();
 
-        //dd($id);
-
-        //dd($input);
-
          $archivo = $request->file('file_update');
-
-        //$porciones = explode("_", $request->cities);
 
         \Session::put('almacen', $id);
         
