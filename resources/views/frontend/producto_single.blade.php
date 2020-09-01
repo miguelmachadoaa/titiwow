@@ -43,6 +43,34 @@
 
 
 
+<script type="application/ld+json">
+      {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "$producto->nombre_producto",
+        "image": [
+          "{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}",
+         ],
+        "description": "{{$producto->descripcion_corta}}",
+        "sku": "{{$producto->referencia_producto}}",
+        "mpn": "{{$producto->referencia_producto_sap}}",
+        "brand": {
+          "@type": "Brand",
+          "name": "{{$producto->nombre_marca}}"
+        },
+        "offers": {
+          "@type": "AggregateOffer",
+          "offerCount": "5",
+          "lowPrice": "{{$producto->precio_oferta}}",
+          "highPrice": "{{$producto->precio_base}}",
+          "priceCurrency": "COP"
+        }
+      }
+    </script>
+
+
+
+
 
 
 @endsection
