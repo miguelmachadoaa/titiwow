@@ -83,6 +83,20 @@ Editar Configuracion General
                             </div>
 
 
+                             <div class="form-group {{ $errors->first('token_api', 'has-error') }}">
+                                    <label for="token_api" class="col-sm-2 control-label">
+                                        Token Api
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="token_api" name="token_api" class="form-control" placeholder="Compramas Token "
+                                            value="{!! old('token_api', $configuracion->token_api) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('token_api', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+
                           
 
                             

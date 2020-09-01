@@ -243,6 +243,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 
 Route::get('xml', 'FrontEndController@getXml')->name('xml');
 
+Route::get('api/getmasvendidos/{token}', 'FrontEndController@getmasvendidos')->name('xml');
+
 Route::post('compramas', 'FrontEndController@getCompramas')->name('compramas');
 
 Route::post('compramasinventario', 'FrontEndController@getCompramasInventario')->name('compramasinventario');

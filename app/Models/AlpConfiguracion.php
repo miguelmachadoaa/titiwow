@@ -62,6 +62,7 @@ class AlpConfiguracion extends Model
         'h1_categorias',
         'h1_terminos',
         'estado_registro',
+        'token_api',
         'id_user'
     ];
 

@@ -162,6 +162,7 @@ class AlpConfiguracionController extends JoshController
             'h1_categorias' => $request->h1_categorias,
             'h1_marcas' => $request->h1_marcas,
             'cuenta_twitter' => $request->cuenta_twitter,
+            'token_api' => $request->token_api,
             'h1_terminos' => $request->h1_terminos
         );
 

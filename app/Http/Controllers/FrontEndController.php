@@ -2323,7 +2323,60 @@ public function getApiUrl($endpoint, $jsessionid)
 
 
 
+     public function getmasvendidos($token)
+    {
 
+
+
+      
+      $productos=AlpProductos::select(
+        'alp_productos.*', 
+        'alp_marcas.nombre_marca as nombre_marca', 
+        'alp_categorias.nombre_categoria as nombre_categoria',
+        DB::raw('sum(alp_ordenes_detalle.cantidad)  as cantidad_producto')
+
+      )
+      ->join('alp_marcas', 'alp_productos.id_marca', '=','alp_marcas.id')
+      ->join('alp_categorias', 'alp_productos.id_categoria_default', '=','alp_categorias.id')
+      ->join('alp_ordenes_detalle', 'alp_productos.id', '=','alp_ordenes_detalle.id_producto')
+      ->where('alp_productos.estado_registro','=',1)
+      ->groupBy('alp_productos.id')
+      ->orderBy('cantidad_producto', 'desc')
+      ->limit(20)
+      ->get();
+
+      $prods = array();
+
+      foreach ($productos as $p) {
+       
+        $ps = array(
+          'nombre_producto' => $p->nombre_producto, 
+          'presentacion_producto' => $p->presentacion_producto, 
+          'referencia_producto' => $p->referencia_producto, 
+          'referencia_producto_sap' => $p->referencia_producto_sap, 
+          'descripcion_corta' => $p->descripcion_corta, 
+          'descripcion_larga' => $p->descripcion_larga, 
+          'enlace_youtube' => $p->enlace_youtube, 
+          'imagen_producto' => secure_url('uploads/productos/'.$p->imagen_producto), 
+          'slug' => $p->slug, 
+          'enlace_producto' => secure_url('producto/'.$p->slug), 
+          'precio_base' => $p->precio_base, 
+          'pum' => $p->pum, 
+          'medida' => $p->medida, 
+          'unidad' => $p->unidad, 
+          'cantidad' => $p->cantidad, 
+          'nombre_marca' => $p->nombre_marca, 
+          'nombre_categoria' => $p->nombre_categoria
+        );
+
+        $prods[]=$ps;
+
+      }
+
+     return response(json_encode($prods), 200) ->header('Content-Type', 'application/json');
+
+      
+    }
 
 
 
