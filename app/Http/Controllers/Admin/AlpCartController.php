@@ -1397,7 +1397,24 @@ class AlpCartController extends JoshController
           $total_descuentos=0;
 
 
-          $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
+          if (!\Session::has('orden')) {
+
+            $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
+
+          }else{
+
+            $idOrden=\Session::get('orden');
+
+
+
+            $descuentos=AlpOrdenesDescuento::where('id_orden', $idOrden)->get();
+
+           // dd($idOrden);
+
+          }
+
+
+          
 
             foreach ($descuentos as $pago) {
 

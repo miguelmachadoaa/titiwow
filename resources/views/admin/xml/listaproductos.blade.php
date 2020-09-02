@@ -3,7 +3,7 @@
         
     <div class="col-sm-12">
         
-        @if(count($prods))
+        
            <table class="table table-striped" id="tableAlmacen">
                                         
 
@@ -59,15 +59,7 @@
             </table>
 
 
-        @else
-
-            <div class="alert alert-danger">
-                Aun no hay productos en el listado
-            </div>
-
-        @endif 
-
-        </div>
+       
 
 
         <div class="col-sm-12" style="margin-top: 2em;">
