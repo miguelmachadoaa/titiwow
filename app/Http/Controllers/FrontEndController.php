@@ -174,6 +174,9 @@ class FrontEndController extends JoshController
 
     $r="false";
 
+    if (isset($input['ordenId'])) {
+      # code...
+
     $orden=AlpOrdenes::where('referencia', $input['ordenId'])->first();
 
 
@@ -223,6 +226,7 @@ class FrontEndController extends JoshController
 
       }
      
+    }
     }
 
     return response(json_encode($r), 200) ->header('Content-Type', 'application/json');
