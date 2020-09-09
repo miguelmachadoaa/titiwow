@@ -210,6 +210,8 @@ class AlpCartController extends JoshController
 
       $id=$id/1024;
 
+
+
       $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
               ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
               ->join('alp_clientes','alp_ordenes.id_cliente' , '=', 'alp_clientes.id_user_client')
@@ -267,6 +269,8 @@ class AlpCartController extends JoshController
           $user_cliente=User::where('id', $compra->id_cliente)->first();
 
           $aviso_pago='';
+
+          $metodo='';
 
 
  
