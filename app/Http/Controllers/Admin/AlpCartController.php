@@ -1405,8 +1405,6 @@ class AlpCartController extends JoshController
 
             $idOrden=\Session::get('orden');
 
-
-
             $descuentos=AlpOrdenesDescuento::where('id_orden', $idOrden)->get();
 
            // dd($idOrden);
@@ -3972,7 +3970,13 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                 
               }else{
 
-                $cart[$request->slug]->cantidad=$request->cantidad;
+                if (isset($cart[$request->slug]->cantidad)) {
+
+                  $cart[$request->slug]->cantidad=$request->cantidad;
+                  
+                }
+
+                
 
               }
 
@@ -3991,7 +3995,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        }else{
 
-        unset( $cart[$producto->slug]);
+        unset( $cart[$request->slug]);
 
 
        }
