@@ -3973,7 +3973,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                 if (isset($cart[$request->slug]->cantidad)) {
 
                   $cart[$request->slug]->cantidad=$request->cantidad;
-                  
+
                 }
 
                 
@@ -4200,17 +4200,23 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         $input['id_client']=$user_id;
         $input['default_address']=1;
 
-        if ($input['id_barrio']=='0') {
-              # code...
-        }else{
+        if (isset($input['id_barrio'])) {
+          
+            if ($input['id_barrio']=='0') {
+                  # code...
+            }else{
 
-          $b=Barrio::where('id', $input['id_barrio'])->first();
+              $b=Barrio::where('id', $input['id_barrio'])->first();
 
-          if (isset($b->id)) {
-            $input['barrio_address']=$b->barrio_name;
-            
-          }
+              if (isset($b->id)) {
+                $input['barrio_address']=$b->barrio_name;
+                
+              }
+            }
+
         }
+
+        
 
 
 
