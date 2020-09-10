@@ -20,7 +20,7 @@ use Carbon\Carbon;
 class NominaExport implements FromView
 {
     
-    public function __construct(string $desde,string $hasta,string $alm)
+    public function __construct(string $desde,string $hasta, string $alm)
     {
         $this->desde = $desde;
         $this->hasta = $hasta;

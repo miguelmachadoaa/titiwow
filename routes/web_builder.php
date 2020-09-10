@@ -825,6 +825,74 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
 
 
+
+    Route::group(['prefix' => 'pedidos'], function () {
+
+
+        Route::post('estatus', ['as'=> 'pedidos.estatus', 'uses' => 'Admin\AlpPedidosController@estatus']);
+
+
+
+        Route::get('{id}/delete', 'Admin\AlpPedidosController@destroy')->name('pedidos.delete');
+
+        Route::get('{id}/confirm-delete', 'Admin\AlpPedidosController@getModalDelete')->name('pedidos.confirm-delete');
+
+        Route::get('{id}/restore', 'Admin\AlpPedidosController@getRestore')->name('pedidos.restore');
+
+
+        Route::post('{id}/adddespacho', 'Admin\AlpPedidosController@adddespacho')->name('pedidos.adddespacho');
+
+        Route::post('{id}/deldespacho', 'Admin\AlpPedidosController@deldespacho')->name('pedidos.deldespacho');
+
+
+        Route::post('{id}/addformenvio', 'Admin\AlpPedidosController@addformenvio')->name('pedidos.addformenvio');
+
+        Route::post('{id}/delformaenvio', 'Admin\AlpPedidosController@delformaenvio')->name('pedidos.delformaenvio');
+
+
+        Route::post('{id}/addformapago', 'Admin\AlpPedidosController@addformapago')->name('pedidos.addformapago');
+
+        Route::post('{id}/delformapago', 'Admin\AlpPedidosController@delformapago')->name('pedidos.delformapago');
+
+
+
+        });
+
+    Route::post('pedidos/create', 'Admin\AlpPedidosController@store');
+
+    Route::get('pedidos/{id}/upload', 'Admin\AlpPedidosController@upload');
+
+    Route::post('pedidos/{id}/postupload', 'Admin\AlpPedidosController@postupload');
+    
+
+    Route::get('pedidos/{id}/gestionar', 'Admin\AlpPedidosController@gestionar');
+
+    Route::get('pedidos/{id}/datacategorias', 'Admin\AlpPedidosController@datacategorias');
+
+    Route::get('pedidos/{id}/databuscar', 'Admin\AlpPedidosController@databuscar');
+
+    Route::get('pedidos/{id}/addtocart', 'Admin\AlpPedidosController@addtocart');
+
+    Route::get('pedidos/{id}/datamarcas', 'Admin\AlpPedidosController@datamarcas');
+
+    Route::post('pedidos/{id}/postgestionar', 'Admin\AlpPedidosController@postgestionar');
+
+    Route::get('pedidos/{id}/roles', 'Admin\AlpPedidosController@roles');
+
+    Route::post('pedidos/{id}/postroles', 'Admin\AlpPedidosController@postroles');
+
+    Route::resource('pedidos', 'Admin\AlpPedidosController');
+
+
+
+
+
+
+
+
+
+
+
      Route::resource('xml', 'Admin\AlpXmlController');
 
     Route::post('xml', 'Admin\AlpXmlController@index');
@@ -1380,6 +1448,10 @@ Route::get('compra', function(){
 
 
 Route::get('clear-cache', function() {
-    $exitCode = Artisan::call('venta:almacenes', ['alm' => '1']);
+    $exitCode = Artisan::call('cache:clear');
+    $exitCode = Artisan::call('config:clear');
+    $exitCode = Artisan::call('config:cache');
+    $exitCode = Artisan::call('view:clear');
+    $exitCode = Artisan::call('route:clear');
 });
 
