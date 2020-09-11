@@ -712,8 +712,8 @@ public function compramasupdate()
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
           ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
           ->groupBy('alp_ordenes.id')
-         ->limit('22')
-         ->orderBy('alp_ordenes.id', 'asc')
+         ->limit('2')
+         ->orderBy('alp_ordenes.id', 'desc')
           ->get();
          
 
@@ -2477,13 +2477,14 @@ public function compramasupdate()
 
 
 
+        }else{
 
-
+           $history=AlpOrdenesHistory::create($data_history);
         }//endif
 
 
          
-        $history=AlpOrdenesHistory::create($data_history);
+       
 
         $orden=AlpOrdenes::find($input['confirm_id']);
 
@@ -4345,7 +4346,7 @@ public function sendcompramascancelar($id_orden){
 
                   $res=json_decode($result);
 
-                  $notas='Reenvio aprobacion de orden en compramas.';
+                  $notas='Cancelacion de Orden en Compramas .';
 
                    if (isset($res->mensaje)) {
                      $notas=$notas.$res->mensaje.' ';
@@ -4467,8 +4468,12 @@ public function sendcompramascancelar($id_orden){
 
     public function cancelarMercadopago($id_orden){
 
+      $user_id = Sentinel::getUser()->id;
+
 
       $orden=AlpOrdenes::where('id', $id_orden)->first();
+
+     // dd($orden);
 
       $configuracion = AlpConfiguracion::where('id', '1')->first();
 
@@ -4502,6 +4507,31 @@ public function sendcompramascancelar($id_orden){
               $pre = MP::put("/v1/payments/".$idpago."", $preference_data_cancelar);
 
               //dd($pre);
+              //
+              
+              $data_cancelar = array(
+                'id_orden' => $orden->id, 
+                'id_forma_pago' => $orden->id_forma_pago, 
+                'id_estatus_pago' => 4, 
+                'monto_pago' => $orden->monto_total, 
+                'json' => json_encode($pre), 
+                'id_user' => $user_id
+              );
+
+              AlpPagos::create($data_cancelar);
+
+
+               $data_history_json = array(
+                'id_orden' => $orden->id, 
+                'id_status' =>'4', 
+                'notas' => 'Cancelacion de pago en Mercadopago', 
+                'json' => json_encode($pre), 
+                'id_user' => $user_id 
+            );
+
+            $history=AlpOrdenesHistory::create($data_history_json);
+
+
                  
 
             }

@@ -1,5 +1,8 @@
 @if(isset($cart))
 
+ <h3>Detalle de Compra</h3>
+ 
+
 <table class="table table-responsive table-striped table-bordered" id="tblorden" width="100%">
     <thead>
      <tr>
@@ -18,7 +21,6 @@
             <td><img style="width: 60px;" src="{{secure_url('uploads/productos/60/'.$p->imagen_producto)}}" alt="{{$p->nombre_producto}}"></td>
             <td>
                 <p><b>{{$p->nombre_producto}}</b></p>
-               
             </td>
             <td>{{$p->precio_base}}</td>
             <td>{{$p->cantidad}}</td>
@@ -29,7 +31,7 @@
         @endforeach
   
     </tbody>
-    
+
 </table>
 
 @endif

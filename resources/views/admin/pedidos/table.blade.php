@@ -27,7 +27,8 @@
             <td>{{$p->precio_base}}</td>
             <td><button class="btn btn-primary addproducto" 
                 data-id="{{$p->id}}"
-                >Agregar</button></td>
+                >Agregar</button>
+            </td>
          </tr>
 
         @endforeach

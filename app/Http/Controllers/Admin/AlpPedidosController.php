@@ -1392,7 +1392,7 @@ class AlpPedidosController extends JoshController
 
        $inv=$this->inventario();
 
-       $almacen=$this->getAlmacen();
+       $almacen='1';
 
        //dd($almacen);
 

@@ -322,9 +322,13 @@ $(document).ready(function() {
             data:{ base, confirm_id, id_status, cod_oracle_pedido, notas },
             url: base+"/admin/ordenes/storeconfirm",
                 
-            complete: function(datos){     
+            complete: function(datos){    
+
+                $('.estatus_'+confirm_id).html(datos); 
 
                 table.ajax.reload();
+
+
 
                 $('#confirmarOrdenModal').modal('hide');
 

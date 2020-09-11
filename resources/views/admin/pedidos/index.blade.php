@@ -108,7 +108,7 @@ Pedidos
                             </div>
                              Panel de Venta
                          </div>
-                         <div class="col-sm-4">
+                         <div class="col-sm-4 listaorden">
                          <h3>Detalle de Compra</h3>
 
                          @include('admin.pedidos.listaorden')
@@ -191,6 +191,21 @@ Pedidos
                     $('.lista_de_productos').html(data);
             });
     });
+
+
+      $('.addproducto').on('click', function(){
+
+             base=$('#base').val();
+
+             id=$(this).data('id');
+
+            $.get(base+'/admin/pedidos/'+id+'/addtocart', function(data) {
+
+                    $('.listaorden').html(data);
+            });
+    });
+
+
 
 
 
