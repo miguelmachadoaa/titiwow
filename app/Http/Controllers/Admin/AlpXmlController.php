@@ -969,6 +969,7 @@ public function addproducto(Request $request)
 
 
                $data[]= array(
+                  $row->id,
                  $imagen, 
                  $row->name, 
                  $row->nombre_producto, 

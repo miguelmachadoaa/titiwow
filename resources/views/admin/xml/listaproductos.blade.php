@@ -9,6 +9,9 @@
 
                     <thead>
                         <tr>
+                            <th>
+                                ID
+                            </th>
                            
                             <th>
                                 Imagen
