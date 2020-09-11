@@ -712,7 +712,7 @@ public function compramasupdate()
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
           ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
           ->groupBy('alp_ordenes.id')
-         ->limit('2')
+         ->limit('2000')
          ->orderBy('alp_ordenes.id', 'desc')
           ->get();
          
