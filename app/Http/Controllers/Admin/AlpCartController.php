@@ -1400,22 +1400,7 @@ class AlpCartController extends JoshController
 
           $total_descuentos=0;
 
-
-          if (!\Session::has('orden')) {
-
-            $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
-
-          }else{
-
-            $idOrden=\Session::get('orden');
-
-            $descuentos=AlpOrdenesDescuento::where('id_orden', $idOrden)->get();
-
-           // dd($idOrden);
-
-          }
-
-
+            $descuentos=AlpOrdenesDescuento::where('id_orden','=', $carrito)->get();
           
 
             foreach ($descuentos as $pago) {
@@ -4650,7 +4635,6 @@ public function verificarDireccion( Request $request)
 
             }
 
-
             if ($orden->id_almacen==1) {
               $compramas=$this->reservarOrden($orden->id);
             }
@@ -4695,8 +4679,15 @@ public function verificarDireccion( Request $request)
       $id_almacen=$this->getAlmacen();
 
      $configuracion=AlpConfiguracion::where('id', '1')->first();
+
+     if (!\Session::has('orden')) {
+          $carrito=\Session::get('orden');
+        }else{
+          $carrito= \Session::get('cr');
+
+        }
       
-      $carrito= \Session::get('cr');
+      
 
       $cart=$this->reloadCart();
 
@@ -5195,6 +5186,8 @@ public function verificarDireccion( Request $request)
                      // dd($detalle);
 
                       $base_descuento=$base_descuento+($detalle->precio_oferta*$detalle->cantidad);
+
+                      
 
                     }
 
