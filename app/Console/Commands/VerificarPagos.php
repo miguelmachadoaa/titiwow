@@ -70,7 +70,9 @@ class VerificarPagos extends Command
       
         $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
         //$ordenes=AlpOrdenes::where('id', '5233')->get();
+        //
         
+       
 
       $configuracion = AlpConfiguracion::where('id', '1')->first();
 
@@ -87,6 +89,9 @@ class VerificarPagos extends Command
         }
 
         MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+
+        if (count($ordenes)) {
+       
 
         foreach ($ordenes as $ord) {
 
@@ -436,6 +441,8 @@ class VerificarPagos extends Command
           }
 
         }//endforeach ordenes
+
+      }//endifhay ordenes 
 
     }//endhadle
 
