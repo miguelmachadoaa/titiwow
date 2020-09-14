@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>500 Internal Error | Welcome to Josh Frontend</title>
+    <title>Error 500 | Alpina GO</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- global level js -->
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/bootstrap.min.css') }}">
@@ -20,10 +20,9 @@
                         500
                     </h1>
                     <h3>
-                        Thats an error.
-                        <br>There was an error. Please Try again later. Thats all we know
+                        Error.
+                        <br>Comuníquese con el Administrador
                     </h3>
-                        <a href="{{ secure_url('/') }}" class="btn btn-primary">Home</a>
                     <br>
                 </div>
             </div>
