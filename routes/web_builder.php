@@ -23,6 +23,8 @@ Route::post('admin/ordenes/storeconfirm', 'Admin\AlpOrdenesController@storeconfi
 
 Route::get('reportes/exportinventario', 'Admin\AlpReportesController@exportinventario')->name('reportes.exportinventario');
 
+Route::get('reportes/exportultimamilla', 'Admin\AlpReportesController@exportultimamilla')->name('reportes.exportultimamilla');
+
  Route::get('reportes/exportcronlogisticaexport', 'Admin\AlpReportesController@exportcronlogisticaexport')->name('reportes.exportcronlogisticaexport');
 
 Route::get('reportes/cronnuevosusuariosexport', 'Admin\AlpReportesController@cronnuevosusuariosexport')->name('reportes.cronnuevosusuariosexport');
@@ -1455,3 +1457,37 @@ Route::get('clear-cache', function() {
     $exitCode = Artisan::call('route:clear');
 });
 
+
+Route::get('ibm-bienvenida', function() {
+    $exitCode = Artisan::call('bienvenida:ibm');
+  
+});
+
+
+Route::get('ibm-descuento', function() {
+    $exitCode = Artisan::call('codigodescuento:ibm');
+  
+});
+
+Route::get('ibm-carrito', function() {
+    $exitCode = Artisan::call('notificacion:carrito');
+  
+});
+
+Route::get('ibm-teextranamos2', function() {
+    $exitCode = Artisan::call('teextranamos2:ibm');
+  
+});
+
+
+Route::get('ibm-teextranamos', function() {
+    $exitCode = Artisan::call('teextranamos:ibm');
+  
+});
+
+
+
+Route::get('ibm-pagos', function() {
+    $exitCode = Artisan::call('verificar:pagos');
+  
+});

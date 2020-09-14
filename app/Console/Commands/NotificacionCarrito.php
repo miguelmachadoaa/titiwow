@@ -199,11 +199,11 @@ class NotificacionCarrito extends Command
 </Envelope>';
 
 
-            activity()->withProperties($xml)->log('xml_ibm_add_recipiente');
+            activity()->withProperties($xml)->log('carrito-xml_ibm_add_recipiente-carrito');
 
         $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-        activity()->withProperties($result)->log('xml_ibm_add_result');
+        activity()->withProperties($result)->log('carrito-xml_ibm_add_result-carrito');
 
        // print_r($result);
 
@@ -219,7 +219,7 @@ class NotificacionCarrito extends Command
 
               $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml, true));
 
-              activity()->withProperties($result)->log('xml_ibm_add_result2');
+              activity()->withProperties($result)->log('xml_ibm_add_result2-carrito');
 
              // print_r($result);
 

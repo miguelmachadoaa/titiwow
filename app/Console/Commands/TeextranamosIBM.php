@@ -59,7 +59,7 @@ class TeextranamosIBM extends Command
 
         $date = Carbon::now();
 
-        $d=$date->subDay(15)->format('Y-m-d');
+        $d=$date->subDay(30)->format('Y-m-d');
        // $d=$date->subDay(100)->format('Y-m-d');
       
         $users=User::whereDate('created_at','=', $d)->get();
@@ -185,11 +185,11 @@ class TeextranamosIBM extends Command
             ';
 
 
-            activity()->withProperties($xml)->log('xml_ibm_add_recipiente');
+            activity()->withProperties($xml)->log('teextranamos-xml_ibm_add_recipiente');
 
         $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-        activity()->withProperties($result)->log('xml_ibm_add_result');
+        activity()->withProperties($result)->log('teextranamos-xml_ibm_add_result');
 
        // print_r($result);
 
@@ -205,7 +205,7 @@ class TeextranamosIBM extends Command
 
               $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml, true));
 
-              activity()->withProperties($result)->log('xml_ibm_add_result2');
+              activity()->withProperties($result)->log('teextranamos-xml_ibm_add_result2');
 
              // print_r($result);
 

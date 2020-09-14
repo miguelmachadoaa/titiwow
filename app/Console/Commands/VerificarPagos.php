@@ -808,11 +808,11 @@ class VerificarPagos extends Command
           </Envelope>';
 
 
-            activity()->withProperties($xml)->log('xml_ibm_add_recipiente');
+            activity()->withProperties($xml)->log('compra-xml_ibm_add_recipiente');
 
         $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-        activity()->withProperties($result)->log('xml_ibm_add_result');
+        activity()->withProperties($result)->log('compra-xml_ibm_add_result');
 
        // print_r($result);
 
@@ -897,11 +897,11 @@ class VerificarPagos extends Command
             </Envelope>';
 
 
-            activity()->withProperties($xml)->log('xml_ibm_confima_pago');
+            activity()->withProperties($xml)->log('pago-xml_ibm_confima_pago');
 
         $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-        activity()->withProperties($result)->log('xml_ibm_add_result');
+        activity()->withProperties($result)->log('pago-xml_ibm_add_result');
 
        // print_r($result);
 
@@ -989,11 +989,11 @@ class VerificarPagos extends Command
             </Envelope>';
 
 
-            activity()->withProperties($xml)->log('xml_ibm_confima_fecha_envio');
+            activity()->withProperties($xml)->log('envio-pago-xml_ibm_confima_fecha_envio');
 
         $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-        activity()->withProperties($result)->log('xml_ibm_add_result');
+        activity()->withProperties($result)->log('envio-pago-xml_ibm_add_result');
 
        // print_r($result);
 

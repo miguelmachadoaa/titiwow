@@ -116,11 +116,11 @@ class BienvenidaIBM extends Command
             ';
 
 
-            activity()->withProperties($xml)->log('xml_ibm_add_recipiente');
+            activity()->withProperties($xml)->log('bienvenida-ibm-bienvenida');
 
         $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-        activity()->withProperties($result)->log('xml_ibm_add_result');
+        activity()->withProperties($result)->log('bienvenida-xml_ibm_add_result-bienvenida');
 
        // print_r($result);
 
@@ -136,7 +136,7 @@ class BienvenidaIBM extends Command
 
               $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml, true));
 
-              activity()->withProperties($result)->log('xml_ibm_add_result2');
+              activity()->withProperties($result)->log('bienvenida-xml_ibm_add_result2-bienvenida');
 
              // print_r($result);
 

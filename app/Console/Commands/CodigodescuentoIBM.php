@@ -126,11 +126,11 @@ class CodigodescuentoIBM extends Command
             ';
 
 
-            activity()->withProperties($xml)->log('xml_ibm_add_recipiente');
+            activity()->withProperties($xml)->log('codigo-descuento-xml_ibm_add_recipiente-codigodescuento');
 
         $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-        activity()->withProperties($result)->log('xml_ibm_add_result');
+        activity()->withProperties($result)->log('codigo-descuento-xml_ibm_add_result-codigodescuento');
 
        // print_r($result);
 
@@ -146,7 +146,7 @@ class CodigodescuentoIBM extends Command
 
               $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml, true));
 
-              activity()->withProperties($result)->log('xml_ibm_add_result2');
+              activity()->withProperties($result)->log('codigo-descuento-xml_ibm_add_result2-codigodescuento');
 
              // print_r($result);
 
@@ -181,6 +181,8 @@ public function makeRequest($endpoint, $jsessionid, $xml, $ignoreResult = false)
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $request);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
     curl_setopt($curl, CURLINFO_HEADER_OUT, true);
 
     $headers = array(

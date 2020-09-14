@@ -2275,11 +2275,11 @@ public function getApiUrl($endpoint, $jsessionid)
                  </Envelope>';
 
 
-            activity()->withProperties($xml)->log('xml_ibm_add_recipiente');
+            activity()->withProperties($xml)->log('registro-xml_ibm_add_recipiente');
 
             $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-            activity()->withProperties($result)->log('xml_ibm_add_result');
+            activity()->withProperties($result)->log('registro-xml_ibm_add_result');
 
 
         $xml = '<Envelope>
@@ -2290,7 +2290,7 @@ public function getApiUrl($endpoint, $jsessionid)
 
               $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml, true));
 
-              activity()->withProperties($result)->log('xml_ibm_add_result2');
+              activity()->withProperties($result)->log('registro-xml_ibm_add_result2');
 
             if (isset($result2['SUCCESS'])) {
               
