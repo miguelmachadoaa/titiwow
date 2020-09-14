@@ -17,7 +17,6 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         'App\Console\Commands\loggerLink',
-        Commands\GenerateSitemap::class,
         Commands\PedidosDelDia::class,
         Commands\NuevosUsuarios::class,
         Commands\VerificarPagos::class,
@@ -82,8 +81,6 @@ class Kernel extends ConsoleKernel
         $schedule->command('verificar:saldo')->dailyAt('1:00');
         
         $schedule->command('cancelar:ordenes')->dailyAt('07:00');
-
-         $schedule->command('generate:sitemap')->weekly();
          
         $schedule->command('verificar:pagos')->everyFiveMinutes();
 

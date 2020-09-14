@@ -67,7 +67,5 @@ Página No Encontrada
     <script src="{{ secure_asset('assets/js/raphael-min.js') }}"></script>
     <script src="{{ secure_asset('assets/js/livicons-1.4.min.js') }}"></script>
     <!-- end of global js -->
-    <!-- begining of page level js-->
-    <script src="{{ secure_asset('assets/js/frontend/404.js') }}"></script>
     <!--page level js ends-->
 @stop
