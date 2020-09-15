@@ -9,6 +9,8 @@ use App\Models\AlpDetalles;
 use App\Models\AlpInventario;
 use App\Models\AlpConfiguracion;
 use App\Models\AlpSaldo;
+use App\Models\AlpCupones;
+use App\Models\AlpCuponesUser;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
 use Mail;
@@ -52,9 +54,11 @@ class Teextranamos2IBM extends Command
 
         $date = Carbon::now();
 
-        $d=$date->subDay(15)->format('Y-m-d');
+        $d=$date->subDay(60)->format('Y-m-d');
       
         $users=User::whereDate('created_at','=', $d)->get();
+
+      //  dd($d);
 
         foreach ($users as $u) {
 

@@ -56,6 +56,8 @@ class CodigodescuentoIBM extends Command
       
         $users=User::whereDate('created_at','=', $d)->get();
 
+       // dd($users);
+
         foreach ($users as $u) {
 
             $orden=AlpOrdenes::where('id_cliente', $u->id)->first();
@@ -148,7 +150,7 @@ class CodigodescuentoIBM extends Command
 
               activity()->withProperties($result)->log('codigo-descuento-xml_ibm_add_result2-codigodescuento');
 
-             // print_r($result);
+             print_r($result);
 
               return $result2['SUCCESS'];
 

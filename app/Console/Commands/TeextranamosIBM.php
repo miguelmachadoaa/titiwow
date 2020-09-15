@@ -64,11 +64,13 @@ class TeextranamosIBM extends Command
       
         $users=User::whereDate('created_at','=', $d)->get();
 
-       // dd($users);
+        //dd($users);
 
         foreach ($users as $u) {
 
             $orden=AlpOrdenes::where('id_cliente', $u->id)->orderBy('id', 'desc')->first();
+
+
 
             if (isset($orden->id)) {
 
@@ -191,7 +193,7 @@ class TeextranamosIBM extends Command
 
         activity()->withProperties($result)->log('teextranamos-xml_ibm_add_result');
 
-       // print_r($result);
+        print_r($result);
 
        // echo "3<br>";
 

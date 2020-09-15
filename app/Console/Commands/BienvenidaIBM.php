@@ -56,6 +56,8 @@ class BienvenidaIBM extends Command
       
         $users=User::whereDate('created_at','>=', $d)->get();
 
+       // dd($users);
+
         foreach ($users as $u) {
 
             $this->addibm($u);
@@ -171,6 +173,8 @@ public function makeRequest($endpoint, $jsessionid, $xml, $ignoreResult = false)
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $request);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
     curl_setopt($curl, CURLINFO_HEADER_OUT, true);
 
     $headers = array(
