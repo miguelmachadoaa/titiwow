@@ -2230,7 +2230,7 @@ public function getApiUrl($endpoint, $jsessionid)
         $username = 'api_alpina@alpina.com';
         $password = 'Alpina2020!';
 
-        $endpoint = "https://api2.ibmmarketingcloud.com/XMLAPI";
+        $endpoint = "https://api-campaign-us-2.goacoustic.com/XMLAPI";
         $jsessionid = null;
 
         $baseXml = '%s';
@@ -2247,9 +2247,6 @@ public function getApiUrl($endpoint, $jsessionid)
        // print_r($result);
 
         $jsessionid = $result['SESSIONID'];
-
-     
-
 
             $xml='<Envelope>
                    <Body>
@@ -2270,6 +2267,14 @@ public function getApiUrl($endpoint, $jsessionid)
                         <NAME>Fuente_ecommerce</NAME>
                         <VALUE>Yes</VALUE>
                        </COLUMN>
+                       <COLUMN>
+                            <NAME>Nombres</NAME>
+                            <VALUE>'.$user->first_name.'</VALUE>
+                        </COLUMN>
+                        <COLUMN>
+                            <NAME>Apellidos</NAME>
+                            <VALUE>'.$user->last_name.'</VALUE>
+                        </COLUMN>
                      </AddRecipient>
                    </Body>
                  </Envelope>';

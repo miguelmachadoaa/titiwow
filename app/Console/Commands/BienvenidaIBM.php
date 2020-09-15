@@ -94,28 +94,36 @@ class BienvenidaIBM extends Command
 
       //  echo $jsessionid.'<br>';
 
-            $xml='
-            <Envelope>
-               <Body>
-                  <AddRecipient>
-                     <LIST_ID>10491915  </LIST_ID>
-                     <CREATED_FROM>1</CREATED_FROM>
-                     <COLUMN>
-                        <NAME>Customer Id</NAME>
-                        <VALUE>'.$user->id_user.'</VALUE>
-                     </COLUMN>
-                     <COLUMN>
-                        <NAME>EMAIL</NAME>
-                        <VALUE>'.$user->email.'</VALUE>
-                     </COLUMN>
-                     <COLUMN>
-                        <NAME>'.$user->first_name.'</NAME>
-                        <VALUE>'.$user->last_name.'</VALUE>
-                     </COLUMN>
-                  </AddRecipient>
-               </Body>
-            </Envelope>
-            ';
+            $xml='<Envelope>
+                   <Body>
+                     <AddRecipient>
+                       <LIST_ID>8739683</LIST_ID>
+                       <SYNC_FIELDS>
+                         <SYNC_FIELD>
+                           <NAME>EMAIL</NAME>
+                           <VALUE>'.$user->email.'</VALUE>
+                         </SYNC_FIELD>
+                       </SYNC_FIELDS>
+                       <UPDATE_IF_FOUND>true</UPDATE_IF_FOUND>
+                       <COLUMN>
+                         <NAME>Email</NAME>
+                         <VALUE>'.$user->email.'</VALUE>
+                       </COLUMN>
+                       <COLUMN>
+                        <NAME>Fuente_ecommerce</NAME>
+                        <VALUE>Yes</VALUE>
+                       </COLUMN>
+                       <COLUMN>
+                            <NAME>Nombres</NAME>
+                            <VALUE>'.$user->first_name.'</VALUE>
+                        </COLUMN>
+                        <COLUMN>
+                            <NAME>Apellidos</NAME>
+                            <VALUE>'.$user->last_name.'</VALUE>
+                        </COLUMN>
+                     </AddRecipient>
+                   </Body>
+                 </Envelope>';
 
 
             activity()->withProperties($xml)->log('bienvenida-ibm-bienvenida');
