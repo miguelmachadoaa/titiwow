@@ -68,8 +68,8 @@ class VerificarPagos extends Command
 
       $d=$date->subDay(3)->format('Y-m-d');
       
-        $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
-        //$ordenes=AlpOrdenes::where('id', '5233')->get();
+       // $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
+        $ordenes=AlpOrdenes::where('id', '5233')->get();
         //
         
        
@@ -106,7 +106,7 @@ class VerificarPagos extends Command
           if (isset($preference)) {
 
             $cantidad=count($preference['response']['results']);
-            $aproved=0;
+            $aproved=1;
             $cancel=1;
             $pending=0;
 
@@ -652,7 +652,7 @@ class VerificarPagos extends Command
         $username = 'api_alpina@alpina.com';
         $password = 'Alpina2020!';
 
-        $endpoint = "https://api2.ibmmarketingcloud.com/XMLAPI";
+        $endpoint = "https://api-campaign-us-2.goacoustic.com/XMLAPI";
         $jsessionid = null;
 
         $baseXml = '%s';
@@ -697,29 +697,10 @@ class VerificarPagos extends Command
 
 
 
-            $xml='<Envelope>
-             <Body>
-             <InsertUpdateRelationalTable>
-               <TABLE_ID>10843783</TABLE_ID>
-               <ROWS>
-                 <ROW>
-                 <COLUMN name="Correo">
-                 <![CDATA[axluis.gomez@gmail.com]]>
-                 </COLUMN>
-                <COLUMN name="Referencia_Orden">
-                 <![CDATA[090393039303]]>
-                 </COLUMN>
-                <COLUMN name="Fecha_Compra">
-                 <![CDATA[08/11/2020]]>
-                 </COLUMN>
-                 </ROW>
-               </ROWS>
-             </InsertUpdateRelationalTable>
-             </Body>
-          </Envelope>';
+            $xml='<Envelope><Body><InsertUpdateRelationalTable><TABLE_ID>10843783</TABLE_ID><ROWS><ROW><COLUMN name="Correo"><![CDATA[axluis.gomez@gmail.com]]></COLUMN><COLUMN name="Referencia_Orden"><![CDATA[090393039303]]></COLUMN><COLUMN name="Fecha_Compra"><![CDATA[08/11/2020]]></COLUMN></ROW>  </ROWS></InsertUpdateRelationalTable></Body></Envelope>';
 
 
-            activity()->withProperties($xml)->log('xml_ibm_add_recipiente');
+         activity()->withProperties($xml)->log('xml_ibm_add_recipiente');
 
         $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
@@ -757,7 +738,75 @@ class VerificarPagos extends Command
     }
 
 
+
+
+
      private function ibmConfirmarCompra($user, $orden)
+    {
+        
+        $pod = 0;
+        $username = 'api_alpina@alpina.com';
+        $password = 'Alpina2020!';
+
+        $endpoint = "https://api-campaign-us-2.goacoustic.com/XMLAPI";
+        $jsessionid = null;
+
+        $baseXml = '%s';
+        $loginXml = '';
+        $getListsXml = '%s%s';
+        $logoutXml = '';
+
+        try {
+
+        $xml='<Envelope><Body><Login><USERNAME>api_alpina@alpina.com</USERNAME><PASSWORD>Alpina2020!</PASSWORD></Login></Body></Envelope> ';
+
+        $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
+
+        //print_r($result);
+
+        $jsessionid = $result['SESSIONID'];
+
+      //  echo $jsessionid.'<br>';
+
+
+           $xml='<Envelope><Body><InsertUpdateRelationalTable><TABLE_ID>10843783</TABLE_ID><ROWS><ROW><COLUMN  name="Correo"><![CDATA['.$user->email.']]></COLUMN><COLUMN name="Referencia_Orden"><![CDATA['.$orden->referencia.']]></COLUMN><COLUMN name="Fecha_Compra"><![CDATA['.date("d/m/Y", strtotime($orden->created_at)).']]></COLUMN></ROW></ROWS></InsertUpdateRelationalTable></Body> </Envelope>';
+
+
+            activity()->withProperties($xml)->log('carrito-xml_ibm_add_recipiente-carrito');
+
+        $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
+
+        activity()->withProperties($result2)->log('carrito-xml_ibm_add_result-carrito');
+
+       // print_r($result);
+
+       // echo "3<br>";
+
+    //LOGOUT
+
+        $xml = '<Envelope><Body><Logout/></Body></Envelope>';
+
+              $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml, true));
+
+              activity()->withProperties($result)->log('xml_ibm_add_result2-carrito');
+
+             // print_r($result);
+
+              return $result2['SUCCESS'];
+
+              $jsessionid = null;
+
+          } catch (Exception $e) {
+
+              die("\nException caught: {$e->getMessage()}\n\n");
+
+              return 'FALSE';
+
+          }
+    }
+
+
+     private function ibmConfirmarCompra2($user, $orden)
     {
 
 
@@ -765,7 +814,7 @@ class VerificarPagos extends Command
         $username = 'api_alpina@alpina.com';
         $password = 'Alpina2020!';
 
-        $endpoint = "https://api2.ibmmarketingcloud.com/XMLAPI";
+        $endpoint = "https://api-campaign-us-2.goacoustic.com/XMLAPI";
         $jsessionid = null;
 
         $baseXml = '%s';
@@ -786,26 +835,7 @@ class VerificarPagos extends Command
       //  echo $jsessionid.'<br>';
 
 
-            $xml='<Envelope>
-             <Body>
-             <InsertUpdateRelationalTable>
-               <TABLE_ID>10843783</TABLE_ID>
-               <ROWS>
-                 <ROW>
-                 <COLUMN name="Correo">
-                 <![CDATA['.$user->email.']]>
-                 </COLUMN>
-                <COLUMN name="Referencia_Orden">
-                 <![CDATA['.$orden->referencia.']]>
-                 </COLUMN>
-                <COLUMN name="Fecha_Compra">
-                 <![CDATA['.date("d/m/Y", strtotime($orden->created_at)).']]>
-                 </COLUMN>
-                 </ROW>
-               </ROWS>
-             </InsertUpdateRelationalTable>
-             </Body>
-          </Envelope>';
+        $xml='<Envelope><Body><InsertUpdateRelationalTable><TABLE_ID>10843783</TABLE_ID><ROWS><ROW><COLUMN  name="Correo"><![CDATA['.$user->email.']]></COLUMN><COLUMN name="Referencia_Orden"><![CDATA['.$orden->referencia.']]></COLUMN><COLUMN name="Fecha_Compra"><![CDATA['.date("d/m/Y", strtotime($orden->created_at)).']]></COLUMN></ROW></ROWS></InsertUpdateRelationalTable></Body> </Envelope>';
 
 
             activity()->withProperties($xml)->log('compra-xml_ibm_add_recipiente');
@@ -854,7 +884,7 @@ class VerificarPagos extends Command
         $username = 'api_alpina@alpina.com';
         $password = 'Alpina2020!';
 
-        $endpoint = "https://api2.ibmmarketingcloud.com/XMLAPI";
+        $endpoint = "https://api-campaign-us-2.goacoustic.com/XMLAPI";
         $jsessionid = null;
 
         $baseXml = '%s';
@@ -875,26 +905,7 @@ class VerificarPagos extends Command
       //  echo $jsessionid.'<br>';
 
 
-            $xml='<Envelope>
-               <Body>
-               <InsertUpdateRelationalTable>
-                 <TABLE_ID>10843783</TABLE_ID>
-                 <ROWS>
-                   <ROW>
-                     <COLUMN name="Correo">
-                     <![CDATA['.$user->email.']]>
-                     </COLUMN>
-                    <COLUMN name="Referencia_Orden">
-                     <![CDATA['.$orden->referencia.']]>
-                     </COLUMN>
-                    <COLUMN name="Fecha_Pago">
-                     <![CDATA['.date("d/m/Y", strtotime($orden->created_at)).']]>
-                     </COLUMN>
-                   </ROW>
-                 </ROWS>
-                 </InsertUpdateRelationalTable>
-               </Body>
-            </Envelope>';
+            $xml='<Envelope><Body><InsertUpdateRelationalTable><TABLE_ID>10843783</TABLE_ID><ROWS><ROW><COLUMNname="Correo"><![CDATA['.$user->email.']]></COLUMN><COLUMN name="Referencia_Orden"><![CDATA['.$orden->referencia.']]></COLUMN><COLUMN name="Fecha_Pago"><![CDATA['.date("d/m/Y",strtotime($orden->created_at)).']]></COLUMN></ROW></ROWS></InsertUpdateRelationalTable></Body></Envelope>';
 
 
             activity()->withProperties($xml)->log('pago-xml_ibm_confima_pago');
@@ -946,7 +957,7 @@ class VerificarPagos extends Command
         $username = 'api_alpina@alpina.com';
         $password = 'Alpina2020!';
 
-        $endpoint = "https://api2.ibmmarketingcloud.com/XMLAPI";
+        $endpoint = "https://api-campaign-us-2.goacoustic.com/XMLAPI";
         $jsessionid = null;
 
         $baseXml = '%s';
@@ -967,25 +978,7 @@ class VerificarPagos extends Command
       //  echo $jsessionid.'<br>';
 
 
-            $xml='<Envelope>
-               <Body>
-               <InsertUpdateRelationalTable>
-                 <TABLE_ID>10843783</TABLE_ID>
-                 <ROWS>
-                   <ROW>
-                     <COLUMN name="Correo">
-                     <![CDATA['.$user->email.']]>
-                     </COLUMN>
-                    <COLUMN name="Referencia_Orden">
-                     <![CDATA['.$orden->referencia.']]>
-                     </COLUMN>
-                    <COLUMN name="Fecha_Envio">
-                     <![CDATA['.date("d/m/Y", strtotime($envio->fecha_envio)).']]>
-                     </COLUMN>
-                   </ROW>
-                 </ROWS>
-                 </InsertUpdateRelationalTable>
-               </Body>
+            $xml='<Envelope<Body><InsertUpdateRelationalTable><TABLE_ID>10843783</TABLE_ID><ROWS><ROW>       <COLUMN name="Correo"><![CDATA['.$user->email.']]></COLUMN><COLUMN name="Referencia_Orden">       <![CDATA['.$orden->referencia.']]></COLUMN><COLUMN name="Fecha_Envio"><![CDATA['.date("d/m/Y", strtotime($envio->fecha_envio)).']]></COLUMN></ROW></ROWS></InsertUpdateRelationalTable> </Body>
             </Envelope>';
 
 
@@ -1030,8 +1023,6 @@ class VerificarPagos extends Command
 
 
 
-
-
 public function makeRequest($endpoint, $jsessionid, $xml, $ignoreResult = false)
 {
     $url = $this->getApiUrl($endpoint, $jsessionid);
@@ -1047,6 +1038,7 @@ public function makeRequest($endpoint, $jsessionid, $xml, $ignoreResult = false)
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $request);
+
     curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
     curl_setopt($curl, CURLINFO_HEADER_OUT, true);
@@ -1103,8 +1095,6 @@ public function makeRequest($endpoint, $jsessionid, $xml, $ignoreResult = false)
               $json = $this->xmlToJson($xml);
               return json_decode($json, true);
           }
-
-
 
 
 

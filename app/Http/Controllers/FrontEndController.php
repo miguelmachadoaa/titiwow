@@ -2248,43 +2248,14 @@ public function getApiUrl($endpoint, $jsessionid)
 
         $jsessionid = $result['SESSIONID'];
 
-            $xml='<Envelope>
-                   <Body>
-                     <AddRecipient>
-                       <LIST_ID>8739683</LIST_ID>
-                       <SYNC_FIELDS>
-                         <SYNC_FIELD>
-                           <NAME>EMAIL</NAME>
-                           <VALUE>'.$user->email.'</VALUE>
-                         </SYNC_FIELD>
-                       </SYNC_FIELDS>
-                       <UPDATE_IF_FOUND>true</UPDATE_IF_FOUND>
-                       <COLUMN>
-                         <NAME>Email</NAME>
-                         <VALUE>'.$user->email.'</VALUE>
-                       </COLUMN>
-                       <COLUMN>
-                        <NAME>Fuente_ecommerce</NAME>
-                        <VALUE>Yes</VALUE>
-                       </COLUMN>
-                       <COLUMN>
-                            <NAME>Nombres</NAME>
-                            <VALUE>'.$user->first_name.'</VALUE>
-                        </COLUMN>
-                        <COLUMN>
-                            <NAME>Apellidos</NAME>
-                            <VALUE>'.$user->last_name.'</VALUE>
-                        </COLUMN>
-                     </AddRecipient>
-                   </Body>
-                 </Envelope>';
+            $xml='<Envelope><Body><AddRecipient><LIST_ID>8739683</LIST_ID><SYNC_FIELDS><SYNC_FIELD><NAME>EMAIL</NAME><VALUE>'.$user->email.'</VALUE></SYNC_FIELD></SYNC_FIELDS><UPDATE_IF_FOUND>true</UPDATE_IF_FOUND><COLUMN><NAME>Email</NAME><VALUE>'.$user->email.'</VALUE></COLUMN><COLUMN><NAME>Fuente_ecommerce</NAME><VALUE>Yes</VALUE></COLUMN><COLUMN><NAME>Nombres</NAME><VALUE>'.$user->first_name.'</VALUE></COLUMN><COLUMN><NAME>Apellidos</NAME><VALUE>'.$user->last_name.'</VALUE></COLUMN></AddRecipient></Body></Envelope>';
 
 
             activity()->withProperties($xml)->log('registro-xml_ibm_add_recipiente');
 
             $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-            activity()->withProperties($result)->log('registro-xml_ibm_add_result');
+            activity()->withProperties($result2)->log('registro-xml_ibm_add_result');
 
 
         $xml = '<Envelope>

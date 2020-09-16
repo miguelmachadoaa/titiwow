@@ -95,7 +95,7 @@ class NotificacionCarrito extends Command
 
           //dd($detalles);
 
-          Mail::to($car->email)->send(new \App\Mail\NotificacionCarrito($car, $detalles, $configuracion));
+        //Mail::to($car->email)->send(new \App\Mail\NotificacionCarrito($car, $detalles, $configuracion));
 
          Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionCarrito($car, $detalles, $configuracion));
 
@@ -107,6 +107,9 @@ class NotificacionCarrito extends Command
             $ord=AlpCarrito::where('id', $car->id)->first();
 
             $ord->update($arrayName);
+
+
+            die;
 
         }
 
@@ -126,7 +129,7 @@ class NotificacionCarrito extends Command
         $username = 'api_alpina@alpina.com';
         $password = 'Alpina2020!';
 
-        $endpoint = "https://api2.ibmmarketingcloud.com/XMLAPI";
+        $endpoint = "https://api-campaign-us-2.goacoustic.com/XMLAPI";
         $jsessionid = null;
 
         $baseXml = '%s';
@@ -136,7 +139,7 @@ class NotificacionCarrito extends Command
 
         try {
 
-        $xml='<Envelope> <Body> <Login> <USERNAME>api_alpina@alpina.com</USERNAME> <PASSWORD>Alpina2020!</PASSWORD> </Login> </Body> </Envelope> ';
+        $xml='<Envelope><Body><Login><USERNAME>api_alpina@alpina.com</USERNAME><PASSWORD>Alpina2020!</PASSWORD></Login></Body></Envelope> ';
 
         $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
@@ -151,59 +154,18 @@ class NotificacionCarrito extends Command
 
             foreach ($cart as $d) {
 
-              $rows=$rows.'<ROW>
-      <COLUMN name="Correo">
-      <![CDATA['.$user->email.']]>
-      </COLUMN>
-
-      <COLUMN name="Referencia_producto">
-      <![CDATA['.$d->referencia_producto.']]>
-      </COLUMN>
-
-      <COLUMN name="Nombre_producto">
-
-      <![CDATA['.$d->nombre_producto.']]>
-      </COLUMN>
-
-      <COLUMN name="Precio_Unitario">
-      <![CDATA['.$d->precio_base.']]>
-      </COLUMN>
-
-      <COLUMN name="Cantidad">
-      <![CDATA['.$d->cantidad.']]>
-      </COLUMN>
-
-      <COLUMN name="Imagen_producto">
-
-      <![CDATA['.secure_url('uploads/productos/'.$d->imagen_producto).']]>
-      </COLUMN>
-
-      <COLUMN name="Fecha_carrito">
-      <![CDATA['.$fecha.']]>
-      </COLUMN>
-      
-    </ROW>';
-              
+              $rows=$rows.'<ROW> <COLUMN name="Correo"> <![CDATA['.$user->email.']]> </COLUMN><COLUMN name="Referencia_producto"> <![CDATA['.$d->referencia_producto.']]> </COLUMN><COLUMN name="Nombre_producto"><![CDATA['.$d->nombre_producto.']]> </COLUMN><COLUMN name="Precio_Unitario"> <![CDATA['.$d->precio_base.']]> </COLUMN><COLUMN name="Cantidad"> <![CDATA['.$d->cantidad.']]> </COLUMN><COLUMN name="Imagen_producto"><![CDATA['.secure_url('uploads/productos/'.$d->imagen_producto).']]> </COLUMN><COLUMN name="Fecha_carrito"> <![CDATA['.$fecha.']]> </COLUMN></ROW>';         
             }
 
 
-            $xml='<Envelope>
-  <Body>
-  <InsertUpdateRelationalTable>
-  <TABLE_ID>10843849</TABLE_ID>
-  <ROWS>
-    '.$rows.'
-  </ROWS>
-  </InsertUpdateRelationalTable>
-  </Body>
-</Envelope>';
+            $xml='<Envelope><Body><InsertUpdateRelationalTable><TABLE_ID>10843849</TABLE_ID><ROWS>'.$rows.'</ROWS></InsertUpdateRelationalTable></Body></Envelope>';
 
 
             activity()->withProperties($xml)->log('carrito-xml_ibm_add_recipiente-carrito');
 
         $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-        activity()->withProperties($result)->log('carrito-xml_ibm_add_result-carrito');
+        activity()->withProperties($result2)->log('carrito-xml_ibm_add_result-carrito');
 
        // print_r($result);
 
@@ -211,11 +173,7 @@ class NotificacionCarrito extends Command
 
     //LOGOUT
 
-        $xml = '<Envelope>
-          <Body>
-          <Logout/>
-          </Body>
-          </Envelope>';
+        $xml = '<Envelope><Body><Logout/></Body></Envelope>';
 
               $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml, true));
 

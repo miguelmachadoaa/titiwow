@@ -54,7 +54,9 @@ class BienvenidaIBM extends Command
 
         $d=$date->subDay(1)->format('Y-m-d');
       
-        $users=User::whereDate('created_at','>=', $d)->get();
+       // $users=User::whereDate('created_at','>=', $d)->get();
+
+        $users=User::where('id', '=', '9466')->get();
 
        // dd($users);
 
@@ -74,7 +76,7 @@ class BienvenidaIBM extends Command
         $username = 'api_alpina@alpina.com';
         $password = 'Alpina2020!';
 
-        $endpoint = "https://api2.ibmmarketingcloud.com/XMLAPI";
+        $endpoint = "https://api-campaign-us-2.goacoustic.com/XMLAPI";
         $jsessionid = null;
 
         $baseXml = '%s';
@@ -94,43 +96,16 @@ class BienvenidaIBM extends Command
 
       //  echo $jsessionid.'<br>';
 
-            $xml='<Envelope>
-                   <Body>
-                     <AddRecipient>
-                       <LIST_ID>8739683</LIST_ID>
-                       <SYNC_FIELDS>
-                         <SYNC_FIELD>
-                           <NAME>EMAIL</NAME>
-                           <VALUE>'.$user->email.'</VALUE>
-                         </SYNC_FIELD>
-                       </SYNC_FIELDS>
-                       <UPDATE_IF_FOUND>true</UPDATE_IF_FOUND>
-                       <COLUMN>
-                         <NAME>Email</NAME>
-                         <VALUE>'.$user->email.'</VALUE>
-                       </COLUMN>
-                       <COLUMN>
-                        <NAME>Fuente_ecommerce</NAME>
-                        <VALUE>Yes</VALUE>
-                       </COLUMN>
-                       <COLUMN>
-                            <NAME>Nombres</NAME>
-                            <VALUE>'.$user->first_name.'</VALUE>
-                        </COLUMN>
-                        <COLUMN>
-                            <NAME>Apellidos</NAME>
-                            <VALUE>'.$user->last_name.'</VALUE>
-                        </COLUMN>
-                     </AddRecipient>
-                   </Body>
-                 </Envelope>';
+            $xml='<Envelope><Body><AddRecipient><LIST_ID>8739683</LIST_ID><SYNC_FIELDS><SYNC_FIELD><NAME>EMAIL</NAME><VALUE>'.$user->email.'</VALUE></SYNC_FIELD></SYNC_FIELDS><UPDATE_IF_FOUND>true</UPDATE_IF_FOUND><COLUMN><NAME>Email</NAME><VALUE>'.$user->email.'</VALUE></COLUMN><COLUMN><NAME>Fuente_ecommerce</NAME><VALUE>Yes</VALUE></COLUMN><COLUMN><NAME>Nombres</NAME><VALUE>'.$user->first_name.'</VALUE></COLUMN><COLUMN><NAME>Apellidos</NAME><VALUE>'.$user->last_name.'</VALUE></COLUMN></AddRecipient></Body></Envelope>';
 
 
-            activity()->withProperties($xml)->log('bienvenida-ibm-bienvenida');
+        activity()->withProperties($xml)->log('bienvenida-ibm-xml');
 
         $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-        activity()->withProperties($result)->log('bienvenida-xml_ibm_add_result-bienvenida');
+
+
+        activity()->withProperties($result2)->log('bienvenida-result2');
 
        // print_r($result);
 
@@ -170,8 +145,6 @@ public function makeRequest($endpoint, $jsessionid, $xml, $ignoreResult = false)
 {
     $url = $this->getApiUrl($endpoint, $jsessionid);
 
-    echo  $url.'<br>';
-    
     $xmlObj = new \SimpleXmlElement($xml);
 
     $request = $xmlObj->asXml();

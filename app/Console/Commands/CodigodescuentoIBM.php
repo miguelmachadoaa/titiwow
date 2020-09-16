@@ -9,6 +9,8 @@ use App\Models\AlpDetalles;
 use App\Models\AlpInventario;
 use App\Models\AlpConfiguracion;
 use App\Models\AlpSaldo;
+use App\Models\AlpCupones;
+use App\Models\AlpCuponesUser;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
 use Mail;
@@ -47,44 +49,83 @@ class CodigodescuentoIBM extends Command
      *
      * @return mixed
      */
-    public function handle()
+   public function handle()
     {
+
+
+        
+
+        //dd($date_inicio.' '.$date_fin);
 
         $date = Carbon::now();
 
         $d=$date->subDay(15)->format('Y-m-d');
+       // $d=$date->subDay(100)->format('Y-m-d');
       
         $users=User::whereDate('created_at','=', $d)->get();
 
-       // dd($users);
+        //dd($users);
 
         foreach ($users as $u) {
 
-            $orden=AlpOrdenes::where('id_cliente', $u->id)->first();
+            $orden=AlpOrdenes::where('id_cliente', $u->id)->orderBy('id', 'desc')->first();
 
-            if (isset($orden->id)) {
+            if (isset($orden->id)) {}else{
+
+                    $codigo=strtoupper(substr(md5(time()), 0,12));
+
+                    $date_inicio = Carbon::now()->format('Y-m-d');
+                    $date_fecha = Carbon::now()->format('d/m/Y');
+
+                    $date_fin = Carbon::now()->addDay(30)->format('Y-m-d');
+
+                    $data = array(
+                        'codigo_cupon' => $codigo, 
+                        'valor_cupon' =>  '20', 
+                        'tipo_reduccion' => '2', 
+                        'limite_uso' => '1', 
+                        'limite_uso_persona' => '1', 
+                        'fecha_inicio' => $date_inicio, 
+                        'fecha_final' => $date_fin, 
+                        'monto_minimo' =>'20000', 
+                        'maximo_productos' =>'6', 
+                        'primeracompra' => '0', 
+                        'id_user' =>'1'
+                    );
+                     
+                    $cupon=AlpCupones::create($data);
+
+                   // dd($cupon);
+
+                    $datac = array(
+                        'id_cupon' => $cupon->id, 
+                        'id_cliente' => $u->id, 
+                        'condicion' => '1' 
+                    );
+
+                    AlpCuponesUser::create($datac);
+
+
+                    $this->addibm($u, $cupon, $date_fecha);
+
+                    die;
+                    
                 
-            }else{
-
-                $this->addibm($u);
-
             }
 
-            
-            
         }
 
     }
 
 
-    private function addibm($user)
+    private function addibm($user, $cupon, $fecha)
     {
         
         $pod = 0;
         $username = 'api_alpina@alpina.com';
         $password = 'Alpina2020!';
 
-        $endpoint = "https://api2.ibmmarketingcloud.com/XMLAPI";
+        $endpoint = "https://api-campaign-us-2.goacoustic.com/XMLAPI";
         $jsessionid = null;
 
         $baseXml = '%s';
@@ -104,31 +145,10 @@ class CodigodescuentoIBM extends Command
 
       //  echo $jsessionid.'<br>';
 
-            $xml='
-            <Envelope>
-               <Body>
-                  <AddRecipient>
-                     <LIST_ID>10491915  </LIST_ID>
-                     <CREATED_FROM>1</CREATED_FROM>
-                     <COLUMN>
-                        <NAME>Customer Id</NAME>
-                        <VALUE>'.$user->id_user.'</VALUE>
-                     </COLUMN>
-                     <COLUMN>
-                        <NAME>EMAIL</NAME>
-                        <VALUE>'.$user->email.'</VALUE>
-                     </COLUMN>
-                     <COLUMN>
-                        <NAME>'.$user->first_name.'</NAME>
-                        <VALUE>'.$user->last_name.'</VALUE>
-                     </COLUMN>
-                  </AddRecipient>
-               </Body>
-            </Envelope>
-            ';
+            $xml='<Envelope><Body><AddRecipient><LIST_ID>8739683</LIST_ID><SYNC_FIELDS><SYNC_FIELD><NAME>EMAIL</NAME><VALUE>'.$user->email.'</VALUE></SYNC_FIELD></SYNC_FIELDS><UPDATE_IF_FOUND>true</UPDATE_IF_FOUND><COLUMN><NAME>Email</NAME><VALUE>'.$user->email.'</VALUE></COLUMN><COLUMN><NAME>Codigo_cupon_ecommerce</NAME><VALUE>'.$cupon->codigo_cupon.'</VALUE></COLUMN><COLUMN><NAME>Fecha_cupon_ecommerce</NAME><VALUE>'.$fecha.'</VALUE></COLUMN></AddRecipient></Body></Envelope>';
 
 
-            activity()->withProperties($xml)->log('codigo-descuento-xml_ibm_add_recipiente-codigodescuento');
+           activity()->withProperties($xml)->log('codigo-descuento-xml_ibm_add_recipiente-codigodescuento');
 
         $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
