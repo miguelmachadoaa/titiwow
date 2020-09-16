@@ -28,8 +28,25 @@ class UltimamillaExport implements FromView
     public function view(): View
     {
 
+      $date = Carbon::now();
 
-      $ordenes=AlpOrdenes::limit(24)->where('estatus', '=', '1')->where('id_almacen', '=', '1')->orderBy('id', 'desc')->get();
+      $hoy=$date->format('Y-m-d');
+
+      $date = Carbon::now();
+
+      $ayer=$date->subDay(1)->format('Y-m-d');
+
+      $date_desde = Carbon::parse($ayer.' '.'17:00:00')->subDay()->toDateTimeString();
+
+      $date_hasta = Carbon::parse($hoy.' 17:00:00')->toDateTimeString(); 
+
+
+      $ordenes=AlpOrdenes::where('estatus', '=', '1')
+      ->where('id_almacen', '=', '1')
+      ->where('alp_ordenes.created_at', '>=', $date_desde)
+      ->where('alp_ordenes.created_at', '<=', $date_hasta)
+      ->orderBy('id', 'desc')
+      ->get();
 
       //dd($ordenes);
 

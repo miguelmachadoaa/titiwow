@@ -12,6 +12,16 @@
     </thead>
     <tbody>
 
+        <tr>
+            <td>CL 78#77B-28 LA GRANJA, Bogotá</td>
+            <td>0 Grs</td>
+            <td></td>
+            <td>bodega</td>
+            <td>bodega</td>
+            <td>3003000000</td>
+            <td>gerenciaoperaciones@mercadoasucasa.com</td>
+        </tr>
+
         @foreach ($ordenes as $row)
 
         @if(isset($row->direccion))
