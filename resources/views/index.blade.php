@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-Inicio @parent
+{{ $configuracion->seo_title}} @parent
 @stop
 @section('meta_tags')
 
@@ -19,15 +19,22 @@ Inicio @parent
     <meta property="og:revisit-after" content="3 days">
 
 
-    @if($configuracion->robots==null)
+  
+   @if(isset($producto->robots))
 
-
+    @if($producto->robots==null)
 
     @else
-    <meta name="robots" content="{{$configuracion->robots}}">
 
-     <meta property="og:robots" content="{{$configuracion->robots}}">
+        <meta name="robots" content="{{$producto->robots}}">
+        
     @endif
+
+@else
+
+    <meta name="robots" content="index, follow">
+    
+@endif
 
     @if(isset($configuracion->cuenta_twitter))
 <meta name="twitter:card" content="summary">

@@ -27,7 +27,6 @@
 
     @else
 
-        <meta property="og:robots" content="{{$cms->robots}}">
         <meta name="robots" content="{{$cms->robots}}">
         
     @endif

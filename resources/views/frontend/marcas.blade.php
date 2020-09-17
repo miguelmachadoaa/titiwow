@@ -3,28 +3,23 @@
 
 {{-- Page title --}}
 @section('title')
-@foreach($marcaname as $marca)
-{{ $marca->nombre_marca }}
-@endforeach @parent
+{{ $marcaun->seo_titulo }}
+ @parent
 @stop
 @section('meta_tags')
-    @php 
-        foreach($marcaname as $marca)
-            $marcago = $marca->seo_titulo;
-            $marcades = $marca->seo_descripcion
-    @endphp
+   
 
 <link rel="canonical" href="{{$url}}" />
 
-<meta property="og:title" content="{{$marcago}} | Alpina GO!">
+<meta property="og:title" content="{{$marcaun->seo_titulo}} | Alpina GO!">
 
-<meta property="og:description" content="{{$marcades}}">
+<meta property="og:description" content="{{$marcaun->seo_descripcion}}">
 
 <meta property="og:image" content="{{ secure_url('uploads/marcas/'.$marcaun->imagen_marca) }}" />
 
 <meta property="og:url" content="{{$url}}" />
 
-<meta name="description" content="{{$marcades}}"/>
+<meta name="description" content="{{$marcaun->seo_descripcion}}"/>
 
 
     @if(isset($configuracion->cuenta_twitter))
@@ -33,22 +28,21 @@
 
         <meta name="twitter:site" content="{{'@'.$configuracion->cuenta_twitter}}">
 
-        <meta name="twitter:description" content="{{$marcades}}">
+        <meta name="twitter:description" content="{{$marcaun->seo_descripcion}}">
 
-        <meta name="twitter:title" content="{{ $marcago}}">
+        <meta name="twitter:title" content="{{ $marcaun->seo_titulo}}">
         
         <meta name="twitter:image" content="{{ secure_url('/').'/uploads/marcas/'.$marcaun->imagen_marca }}">
 
     @endif
 
-   @if(isset($configuracion->robots))
+   @if(isset($marcaun->robots))
 
-    @if($configuracion->robots==null)
+    @if($marcaun->robots==null)
 
     @else
 
-        <meta property="og:robots" content="{{$configuracion->robots}}">
-        <meta name="robots" content="{{$configuracion->robots}}">
+        <meta name="robots" content="{{$marcaun->robots}}">
         
     @endif
 

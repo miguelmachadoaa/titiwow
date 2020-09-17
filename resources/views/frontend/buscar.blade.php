@@ -26,7 +26,6 @@ Resultado de la Búsqueda @parent
 
     @else
 
-        <meta property="og:robots" content="{{$configuracion->robots}}">
         <meta name="robots" content="{{$configuracion->robots}}">
         
     @endif

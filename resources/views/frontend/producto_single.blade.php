@@ -30,7 +30,6 @@
 
     @else
 
-        <meta property="og:robots" content="{{$producto->robots}}">
         <meta name="robots" content="{{$producto->robots}}">
         
     @endif
