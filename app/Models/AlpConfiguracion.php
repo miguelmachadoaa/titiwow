@@ -63,6 +63,9 @@ class AlpConfiguracion extends Model
         'h1_terminos',
         'estado_registro',
         'token_api',
+        'username_ibm',
+        'password_ibm',
+        'endpoint_ibm',
         'id_user'
     ];
 

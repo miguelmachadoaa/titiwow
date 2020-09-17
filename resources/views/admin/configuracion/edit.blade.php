@@ -436,6 +436,63 @@ Editar Configuracion General
 
                             </fieldset>
 
+
+
+                            <fieldset>
+
+
+                                <br />
+                                <h4>Api Ibm</h4>
+                                <hr>
+
+                                <div class="form-group {{ $errors->first('username_ibm', 'has-error') }}">
+                                    <label for="username_ibm" class="col-sm-2 control-label">
+                                        Username Ibm
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="username_ibm" name="username_ibm" class="form-control" placeholder="Username Ibm"
+                                            value="{!! old('username_ibm', $configuracion->username_ibm) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('username_ibm', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group {{ $errors->first('password_ibm', 'has-error') }}">
+                                    <label for="password_ibm" class="col-sm-2 control-label">
+                                        Password Ibm
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="password_ibm" name="password_ibm" class="form-control" placeholder="Password Ibm"
+                                            value="{!! old('password_ibm', $configuracion->password_ibm) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('password_ibm', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group {{ $errors->first('endpoint_ibm', 'has-error') }}">
+                                    <label for="endpoint_ibm" class="col-sm-2 control-label">
+                                        Endpoint Ibm 
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="endpoint_ibm" name="endpoint_ibm" class="form-control" placeholder="Endpoint Ibm"
+                                            value="{!! old('endpoint_ibm', $configuracion->endpoint_ibm) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('endpoint_ibm', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+
+                            </fieldset>
+
+
+
+
+
                             <br />
                                 <h4>Seo Principal</h4>
                                 <hr>

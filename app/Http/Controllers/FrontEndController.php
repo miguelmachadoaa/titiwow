@@ -69,11 +69,14 @@ class FrontEndController extends JoshController
   public function ibm()
   {
 
-    $pod = 0;
-    $username = 'api_alpina@alpina.com';
-    $password = 'Alpina2020!';
+    $configuracion=AlpConfiguracion::where('id', '=', '1')->first();
+        
+        $pod = 0;
+        $username = $configuracion->username_ibm;
+        $password = $configuracion->password_ibm;
+        $endpoint = $configuracion->endpoint_ibm;
 
-    $endpoint = "https://api2.ibmmarketingcloud.com/XMLAPI";
+        
     $jsessionid = null;
 
     $baseXml = '%s';
@@ -2226,11 +2229,12 @@ public function getApiUrl($endpoint, $jsessionid)
 
       $c=AlpClientes::where('id_user_client', $u->id)->first();
         
+        $configuracion=AlpConfiguracion::where('id', '=', '1')->first();
+        
         $pod = 0;
-        $username = 'api_alpina@alpina.com';
-        $password = 'Alpina2020!';
-
-        $endpoint = "https://api-campaign-us-2.goacoustic.com/XMLAPI";
+        $username = $configuracion->username_ibm;
+        $password = $configuracion->password_ibm;
+        $endpoint = $configuracion->endpoint_ibm;
         $jsessionid = null;
 
         $baseXml = '%s';

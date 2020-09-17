@@ -28,6 +28,7 @@ class Kernel extends ConsoleKernel
         Commands\VerificarSaldo::class,
         Commands\CancelarOrdenes::class,
         Commands\VerificarExistenciaAlmacen::class,
+        Commands\VentasUltimaMilla::class,
 
 
     ];
@@ -76,11 +77,14 @@ class Kernel extends ConsoleKernel
         $schedule->command('productosc:venta')->saturdays()->at('14:00');
 
 
-        
-
         $schedule->command('verificar:saldo')->dailyAt('1:00');
         
         $schedule->command('cancelar:ordenes')->dailyAt('07:00');
+
+
+        $schedule->command('reporte:ultimamilla')->dailyAt('07:00');
+
+        
          
         $schedule->command('verificar:pagos')->everyFiveMinutes();
 

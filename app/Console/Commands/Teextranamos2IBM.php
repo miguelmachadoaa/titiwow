@@ -129,11 +129,12 @@ class Teextranamos2IBM extends Command
     private function addibm($user, $cupon, $fecha)
     {
         
+       $configuracion=AlpConfiguracion::where('id', '=', '1')->first();
+        
         $pod = 0;
-        $username = 'api_alpina@alpina.com';
-        $password = 'Alpina2020!';
-
-        $endpoint = "https://api-campaign-us-2.goacoustic.com/XMLAPI";
+        $username = $configuracion->username_ibm;
+        $password = $configuracion->password_ibm;
+        $endpoint = $configuracion->endpoint_ibm;
         $jsessionid = null;
 
         $baseXml = '%s';

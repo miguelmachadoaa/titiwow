@@ -163,6 +163,9 @@ class AlpConfiguracionController extends JoshController
             'h1_marcas' => $request->h1_marcas,
             'cuenta_twitter' => $request->cuenta_twitter,
             'token_api' => $request->token_api,
+            'username_ibm' => $request->username_ibm,
+            'password_ibm' => $request->password_ibm,
+            'endpoint_ibm' => $request->endpoint_ibm,
             'h1_terminos' => $request->h1_terminos
         );
 

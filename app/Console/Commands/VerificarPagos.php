@@ -68,8 +68,8 @@ class VerificarPagos extends Command
 
       $d=$date->subDay(3)->format('Y-m-d');
       
-       // $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
-        $ordenes=AlpOrdenes::where('id', '5233')->get();
+        $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
+       // $ordenes=AlpOrdenes::where('id', '5233')->get();
         //
         
        
@@ -647,12 +647,15 @@ class VerificarPagos extends Command
 
     private function addibm($user)
     {
+
+
+      $configuracion=AlpConfiguracion::where('id', '=', '1')->first();
         
         $pod = 0;
-        $username = 'api_alpina@alpina.com';
-        $password = 'Alpina2020!';
+        $username = $configuracion->username_ibm;
+        $password = $configuracion->password_ibm;
 
-        $endpoint = "https://api-campaign-us-2.goacoustic.com/XMLAPI";
+        $endpoint = $configuracion->endpoint_ibm;
         $jsessionid = null;
 
         $baseXml = '%s';
@@ -744,11 +747,13 @@ class VerificarPagos extends Command
      private function ibmConfirmarCompra($user, $orden)
     {
         
+        $configuracion=AlpConfiguracion::where('id', '=', '1')->first();
+        
         $pod = 0;
-        $username = 'api_alpina@alpina.com';
-        $password = 'Alpina2020!';
+        $username = $configuracion->username_ibm;
+        $password = $configuracion->password_ibm;
 
-        $endpoint = "https://api-campaign-us-2.goacoustic.com/XMLAPI";
+        $endpoint = $configuracion->endpoint_ibm;
         $jsessionid = null;
 
         $baseXml = '%s';
@@ -812,11 +817,13 @@ class VerificarPagos extends Command
     {
 
 
+        $configuracion=AlpConfiguracion::where('id', '=', '1')->first();
+        
         $pod = 0;
-        $username = 'api_alpina@alpina.com';
-        $password = 'Alpina2020!';
+        $username = $configuracion->username_ibm;
+        $password = $configuracion->password_ibm;
 
-        $endpoint = "https://api-campaign-us-2.goacoustic.com/XMLAPI";
+        $endpoint = $configuracion->endpoint_ibm;
         $jsessionid = null;
 
         $baseXml = '%s';
@@ -885,11 +892,13 @@ class VerificarPagos extends Command
     {
 
 
+        $configuracion=AlpConfiguracion::where('id', '=', '1')->first();
+        
         $pod = 0;
-        $username = 'api_alpina@alpina.com';
-        $password = 'Alpina2020!';
-
-        $endpoint = "https://api-campaign-us-2.goacoustic.com/XMLAPI";
+        $username = $configuracion->username_ibm;
+        $password = $configuracion->password_ibm;
+        $endpoint = $configuracion->endpoint_ibm;
+        
         $jsessionid = null;
 
         $baseXml = '%s';
