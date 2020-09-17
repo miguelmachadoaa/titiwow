@@ -123,14 +123,8 @@ class TeextranamosIBM extends Command
                     AlpCuponesUser::create($datac);
 
 
-                    if ($i==0) {
-
                     $this->addibm($u, $cupon, $date_fecha);
 
-
-                    $i++;
-                        
-                    }
 
 
                     

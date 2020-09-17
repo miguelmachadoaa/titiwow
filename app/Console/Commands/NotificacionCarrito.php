@@ -102,14 +102,8 @@ class NotificacionCarrito extends Command
          Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionCarrito($car, $detalles, $configuracion));
 
 
-         if ($i==0) {
             $this->addibm($car, $detalles, $fecha_hoy);
 
-            $i++;
-         }
-
-
-           
 
             $arrayName = array('notificacion' => 1 );
 

@@ -106,8 +106,8 @@ class VerificarPagos extends Command
           if (isset($preference)) {
 
             $cantidad=count($preference['response']['results']);
-            $aproved=1;
-            $cancel=1;
+            $aproved=0;
+            $cancel=0;
             $pending=0;
 
             foreach ($preference['response']['results'] as $r) {
