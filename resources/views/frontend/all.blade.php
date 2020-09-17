@@ -8,7 +8,7 @@ Todos los productos
 @stop
 @section('meta_tags')
 
-
+<link rel="canonical" href="{{$url}}" />
 
     <meta property="og:title" content="Productos | Alpina GO!">
 <meta property="og:description" content="">
@@ -18,12 +18,23 @@ Todos los productos
     <meta name="description" content="{{$configuracion->seo_description}}"/>
 
 
-    @if($configuracion->robots==null)
-        @else
-        <meta name="robots" content="{{$configuracion->robots}}">
+   @if(isset($producto->robots))
 
-         <meta property="og:robots" content="{{$configuracion->robots}}">
-        @endif
+    @if($producto->robots==null)
+
+    @else
+
+        <meta property="og:robots" content="{{$producto->robots}}">
+        <meta name="robots" content="{{$producto->robots}}">
+        
+    @endif
+
+@else
+
+    <meta name="robots" content="index, follow">
+    
+@endif
+
 
    
 

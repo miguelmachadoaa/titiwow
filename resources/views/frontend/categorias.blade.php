@@ -43,16 +43,23 @@
 @endif
 
 
-@if($configuracion->robots==null)
+@if(isset($configuracion->robots))
 
+    @if($configuracion->robots==null)
 
+    @else
+
+        <meta property="og:robots" content="{{$configuracion->robots}}">
+        <meta name="robots" content="{{$configuracion->robots}}">
+        
+    @endif
 
 @else
 
-<meta name="robots" content="{{$configuracion->robots}}">
-<meta property="og:robots" content="{{$configuracion->robots}}">
-
+    <meta name="robots" content="index, follow">
+    
 @endif
+
 
 
 

@@ -3869,6 +3869,13 @@ public function detallealmacen($id)
       
        $orden=AlpOrdenes::where('id', $id_orden)->first();
 
+
+       $canc=$this->sendcompramascancelar($id_orden);
+
+       //dd($canc);
+
+
+
        $dataupdateorden = array('referencia' => $orden->referencia.'C');
 
        $orden->update($dataupdateorden);
@@ -4538,6 +4545,7 @@ public function sendcompramascancelar($id_orden){
 
 
     }
+
 
 
 

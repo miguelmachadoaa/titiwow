@@ -213,6 +213,104 @@
                         </div>
 
 
+
+
+                                            <fieldset>
+                                                
+                                                <div class="col-sm-10 col-sm-offset-2">
+                            
+                                                <h3>Opciones robots.</h3>
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_all" name="robots_all" value="all" >
+                                                   All
+                                                  </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                      <label>
+                                                        <input type="checkbox" id="robots_index" name="robots_index" value="index"   checked  >
+                                                       Index
+                                                      </label>
+                                                    </div>
+
+                                                    <div class="checkbox">
+                                                      <label>
+                                                        <input type="checkbox" id="robots_follow" name="robots_follow" value="follow"   checked  >
+                                                       Follow
+                                                      </label>
+                                                    </div>
+
+
+
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_noindex" name="robots_noindex" value="noindex">
+                                                   noindex
+                                                  </label>
+                                                </div>
+
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_nofollow" name="robots_nofollow" value="nofollow">
+                                                   nofollow
+                                                  </label>
+                                                </div>
+
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_none" name="robots_none" value="none">
+                                                   none
+                                                  </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_noarchive" name="robots_noarchive" value="noarchive">
+                                                   noarchive
+                                                  </label>
+                                                </div>
+
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_nosnippet" name="robots_nosnippet" value="nosnippet">
+                                                   nosnippet
+                                                  </label>
+                                                </div>
+
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_notranslate" name="robots_notranslate" value="notranslate">
+                                                   notranslate
+                                                  </label>
+                                                </div>
+
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_noimageindex" name="robots_noimageindex" value="noimageindex">
+                                                   noimageindex
+                                                  </label>
+                                                </div>
+                                                </div>
+
+
+
+                                                </fieldset>
+
+                                          
+
+                            <br>
+                            <br>
+
+
+
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                 <a class="btn btn-danger" href="{{ secure_url('admin/categorias') }}">

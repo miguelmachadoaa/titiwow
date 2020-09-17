@@ -28,6 +28,7 @@ class AlpCategorias extends Model
         'seo_descripcion',
         'destacado',
         'order',
+        'robots',
         'css_categoria',
         'id_user'
     ];

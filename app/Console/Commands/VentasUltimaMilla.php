@@ -53,7 +53,6 @@ class VentasUltimaMilla extends Command
 
         
 
-        $almacen=AlpAlmacenes::where('id', $alm)->first();
 
         $configuracion=AlpConfiguracion::where('id', '1')->first();
 
@@ -65,7 +64,7 @@ class VentasUltimaMilla extends Command
 
         $documentos = array();
 
-        $archivo_clientes='ventas_ulrimamilla_'.time().'.xls';
+        $archivo_clientes='ventas_ultimamilla_'.time().'.xls';
 
         Excel::store(new UltimamillaExport(), $archivo_clientes, 'excel');
             
@@ -76,7 +75,6 @@ class VentasUltimaMilla extends Command
 
        // Mail::to($configuracion->correo_cedi)->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
 
-        if (isset($almacen->id)) {
 
             $correos = explode(";", 'alpina.vueltap@vueltap.com; okam1@mercadoasucasa.com; gerenciaoperaciones@mercadoasucasa.com; facturadormasc@gmail.com');
 
@@ -85,7 +83,6 @@ class VentasUltimaMilla extends Command
                 Mail::to(trim($value))->send(new \App\Mail\CronUltimaMilla($archivo, $hoy, $documentos));
             }
 
-        }
 
 
     }

@@ -6,17 +6,36 @@
 {{$cms->titulo_pagina}} @parent
 @stop
 @section('meta_tags')
-<meta property="og:title" content="{{ $cms->seo_title}} | Alpina GO!">
-<meta property="og:image" content="{{$configuracion->seo_image}}" />
-<meta property="og:url" content="{{$url}}" />
-<meta property="og:description" content="{{$cms->seo_description}}">
+
 <link rel="canonical" href="{{$url}}" />
+
+<meta property="og:title" content="{{ $cms->seo_title}} | Alpina GO!">
+
+<meta property="og:image" content="{{$configuracion->seo_image}}" />
+
+<meta property="og:url" content="{{$url}}" />
+
+<meta property="og:description" content="{{$cms->seo_description}}">
+
+<link rel="canonical" href="{{$url}}" />
+
 <meta name="description" content="{{$cms->seo_description}}"/>
 
-@if($cms->robots==null)
-   
+@if(isset($cms->robots))
+
+    @if($cms->robots==null)
+
+    @else
+
+        <meta property="og:robots" content="{{$cms->robots}}">
+        <meta name="robots" content="{{$cms->robots}}">
+        
+    @endif
+
 @else
-<meta name="robots" content="{{$cms->robots}}">
+
+    <meta name="robots" content="index, follow">
+    
 @endif
 
 

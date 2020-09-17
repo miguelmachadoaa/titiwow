@@ -1212,6 +1212,8 @@ class AlpCartController extends JoshController
       
       $carrito= \Session::get('cr');
 
+      //echo $carrito;
+
       $cart=$this->reloadCart();
 
       $total=$this->total();
@@ -1400,6 +1402,8 @@ class AlpCartController extends JoshController
 
           $total_descuentos=0;
 
+         // dd($carrito);
+
             $descuentos=AlpOrdenesDescuento::where('id_orden','=', $carrito)->get();
 
             foreach ($descuentos as $pago) {
@@ -1410,6 +1414,8 @@ class AlpCartController extends JoshController
 
             }
 
+
+          //dd($descuentos);
 
          if(count($cart)<=0){
 
@@ -4679,15 +4685,10 @@ public function verificarDireccion( Request $request)
 
      $configuracion=AlpConfiguracion::where('id', '1')->first();
 
-     //if (!\Session::has('orden')) {
-     //     $carrito=\Session::get('orden');
-      //  }else{
-          $carrito= \Session::get('cr');
+      $carrito= \Session::get('cr');
 
-      //  }
+     //echo($carrito);
       
-      
-
       $cart=$this->reloadCart();
 
       $total=$this->total();
@@ -6920,12 +6921,6 @@ private function getAlmacen3(){
        if (isset($res->causa->message)) {
          $notas=$notas.$res->causa->message.' ';
        }
-
-       if (isset($res->causa[0])) {
-         $notas=$notas.$res->causa[0].' ';
-       }
-
-       
 
 
        $notas=$notas.'Codigo: CC.';

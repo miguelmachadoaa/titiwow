@@ -177,7 +177,7 @@ class AlpMarcasController extends JoshController
         
          $user_id = Sentinel::getUser()->id;
 
-        //$input = $request->all();
+        $input = $request->all();
 
         //var_dump($input);
 
@@ -212,6 +212,36 @@ class AlpMarcasController extends JoshController
         );
          
         $forma=AlpMarcas::create($data);
+
+
+        $i=1;
+
+         $robots='';
+
+        foreach ($input as $key => $value) {
+
+            if (substr($key,0,6)=='robots') {
+
+                if ($i==1) {
+
+                   $robots=$value;
+
+                   $i=0;
+
+                }else{
+
+                    $robots=$robots.' ,'.$value;
+                }
+
+            }
+            # code...
+        }
+
+        $data = array('robots' => $robots);
+
+        $forma->update($data);
+
+
 
         if ($forma->id) {
 
@@ -259,7 +289,10 @@ class AlpMarcasController extends JoshController
        
        $marca = AlpMarcas::find($id);
 
-        return view('admin.marcas.edit', compact('marca'));
+
+        $robots=explode(' ,', $marca->robots);
+
+        return view('admin.marcas.edit', compact('marca', 'robots'));
     }
 
     /**
@@ -292,6 +325,9 @@ class AlpMarcasController extends JoshController
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
+
+
+        $input=$request->all();
 
 
        $imagen='0';
@@ -336,6 +372,38 @@ class AlpMarcasController extends JoshController
        $marca = AlpMarcas::find($id);
     
         $marca->update($data);
+
+
+         $i=1;
+
+         $robots='';
+
+        foreach ($input as $key => $value) {
+
+            if (substr($key,0,6)=='robots') {
+
+                if ($i==1) {
+
+                   $robots=$value;
+
+                   $i=0;
+
+                }else{
+
+                    $robots=$robots.' ,'.$value;
+                }
+
+            }
+            # code...
+        }
+
+        $data = array('robots' => $robots);
+
+        $marca->update($data);
+
+
+
+
 
         if ($marca->id) {
 

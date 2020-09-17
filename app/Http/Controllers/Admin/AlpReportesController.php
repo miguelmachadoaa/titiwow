@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\UltimamillaExport;
 use App\Exports\NominaExport;
 use App\Exports\NominaExportAlmacen;
 use App\Exports\ListadoProductosExport;
@@ -1858,6 +1859,24 @@ public function formato()
 
         return Excel::download(new FormatoSolicitudPedidoAlpinista(1864), 'Listado_de_ventas_almacen.xlsx');
     }
+
+
+     public function exportultimamilla() 
+    {
+
+       
+       // dd($request->all());
+
+         $date = Carbon::now();
+
+        $hoy=$date->format('Y-m-d');
+
+        return Excel::download(new UltimamillaExport(), 'reporte_ultima_milla.xlsx');
+    }
+
+
+
+
 
 
 

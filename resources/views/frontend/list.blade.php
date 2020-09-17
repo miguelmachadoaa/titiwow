@@ -16,10 +16,23 @@ Productos @parent
 <meta property="og:url" content="{{$url}}" />
 <meta name="description" content="{{$configuracion->seo_description}}"/>
 
-@if($configuracion->robots==null)
+@if(isset($producto->robots))
+
+    @if($producto->robots==null)
+
+    @else
+
+        <meta property="og:robots" content="{{$producto->robots}}">
+        <meta name="robots" content="{{$producto->robots}}">
+        
+    @endif
+
 @else
-<meta name="robots" content="{{$configuracion->robots}}">
+
+    <meta name="robots" content="index, follow">
+    
 @endif
+
 
 
 

@@ -15,30 +15,48 @@
     @endphp
 
 <link rel="canonical" href="{{$url}}" />
-<meta property="og:title" content="{{$marcago}} | Alpina GO!">
-<meta property="og:description" content="{{$marcades}}">
-<meta property="og:image" content="{{ secure_url('uploads/marcas/'.$marcaun->imagen_marca) }}" />
-<meta property="og:url" content="{{$url}}" />
-<meta name="description" content="{{$marcades}}"/>
 
+<meta property="og:title" content="{{$marcago}} | Alpina GO!">
+
+<meta property="og:description" content="{{$marcades}}">
+
+<meta property="og:image" content="{{ secure_url('uploads/marcas/'.$marcaun->imagen_marca) }}" />
+
+<meta property="og:url" content="{{$url}}" />
+
+<meta name="description" content="{{$marcades}}"/>
 
 
     @if(isset($configuracion->cuenta_twitter))
 
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="{{'@'.$configuracion->cuenta_twitter}}">
-    <meta name="twitter:description" content="{{$marcades}}">
-    <meta name="twitter:title" content="{{ $marcago}}">
-    <meta name="twitter:image" content="{{ secure_url('/').'/uploads/marcas/'.$marcaun->imagen_marca }}">
+        <meta name="twitter:card" content="summary">
+
+        <meta name="twitter:site" content="{{'@'.$configuracion->cuenta_twitter}}">
+
+        <meta name="twitter:description" content="{{$marcades}}">
+
+        <meta name="twitter:title" content="{{ $marcago}}">
+        
+        <meta name="twitter:image" content="{{ secure_url('/').'/uploads/marcas/'.$marcaun->imagen_marca }}">
 
     @endif
+
+   @if(isset($configuracion->robots))
 
     @if($configuracion->robots==null)
-        
+
     @else
-        <meta name="robots" content="{{$configuracion->robots}}">
+
         <meta property="og:robots" content="{{$configuracion->robots}}">
+        <meta name="robots" content="{{$configuracion->robots}}">
+        
     @endif
+
+@else
+
+    <meta name="robots" content="index, follow">
+    
+@endif
 
 
 @stop

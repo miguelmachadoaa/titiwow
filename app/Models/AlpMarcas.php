@@ -27,6 +27,7 @@ class AlpMarcas extends Model
         'seo_descripcion',
         'destacado',
         'order',
+        'robots',
         'estado_registro',
         'id_user'
     ];

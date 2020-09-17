@@ -37,7 +37,7 @@
 
 @else
 
-    <meta name="robots" content="index y follow">
+    <meta name="robots" content="index, follow">
     
 @endif
 

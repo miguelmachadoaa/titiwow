@@ -217,6 +217,9 @@ class AlpCategoriasController extends JoshController
         }
 
 
+        $input=$request->all();
+
+
 
          $imagen='0';
 
@@ -250,6 +253,40 @@ class AlpCategoriasController extends JoshController
 
          
         $categoria=AlpCategorias::create($data);
+
+
+          $i=1;
+
+         $robots='';
+
+        foreach ($input as $key => $value) {
+
+            if (substr($key,0,6)=='robots') {
+
+                if ($i==1) {
+
+                   $robots=$value;
+
+                   $i=0;
+
+                }else{
+
+                    $robots=$robots.' ,'.$value;
+                }
+
+            }
+            # code...
+        }
+
+        $data = array('robots' => $robots);
+
+        $categoria->update($data);
+
+
+
+
+
+
 
         if ($categoria->id) {
 
@@ -297,11 +334,14 @@ class AlpCategoriasController extends JoshController
 
 
 
-
        
        $categoria = AlpCategorias::find($id);
 
-        return view('admin.categorias.edit', compact('categoria'));
+
+         $robots=explode(' ,', $categoria->robots);
+       
+
+        return view('admin.categorias.edit', compact('categoria', 'robots'));
     }
 
     /**
@@ -386,6 +426,39 @@ class AlpCategoriasController extends JoshController
        $categoria = AlpCategorias::find($id);
     
         $categoria->update($data);
+
+
+
+          $i=1;
+
+         $robots='';
+
+        foreach ($input as $key => $value) {
+
+            if (substr($key,0,6)=='robots') {
+
+                if ($i==1) {
+
+                   $robots=$value;
+
+                   $i=0;
+
+                }else{
+
+                    $robots=$robots.' ,'.$value;
+                }
+
+            }
+            # code...
+        }
+
+        $data = array('robots' => $robots);
+
+        $categoria->update($data);
+
+
+
+
 
         if ($categoria->id) {
 
@@ -543,7 +616,7 @@ class AlpCategoriasController extends JoshController
         
          $user_id = Sentinel::getUser()->id;
 
-        //$input = $request->all();
+        $input = $request->all();
 
         //var_dump($input);
 
@@ -576,6 +649,39 @@ class AlpCategoriasController extends JoshController
         );
          
         $categoria=AlpCategorias::create($data);
+
+
+
+
+          $i=1;
+
+         $robots='';
+
+        foreach ($input as $key => $value) {
+
+            if (substr($key,0,6)=='robots') {
+
+                if ($i==1) {
+
+                   $robots=$value;
+
+                   $i=0;
+
+                }else{
+
+                    $robots=$robots.' ,'.$value;
+                }
+
+            }
+            # code...
+        }
+
+        $data = array('robots' => $robots);
+
+        $categoria->update($data);
+
+
+
 
         if ($categoria->id) {
 
@@ -624,7 +730,10 @@ class AlpCategoriasController extends JoshController
        
        $categoria = AlpCategorias::find($id);
 
-        return view('admin.categorias.editson', compact('categoria'));
+
+       $robots=explode(' ,', $categoria->robots);
+
+        return view('admin.categorias.editson', compact('categoria', 'robots'));
     }
 
     /**
@@ -653,6 +762,9 @@ if (Sentinel::check()) {
 
 
         }
+
+
+        $input=$request->all();
 
 
        
@@ -697,6 +809,36 @@ if (Sentinel::check()) {
 
 
        $categoria = AlpCategorias::find($id);
+
+
+        $i=1;
+
+         $robots='';
+
+        foreach ($input as $key => $value) {
+
+            if (substr($key,0,6)=='robots') {
+
+                if ($i==1) {
+
+                   $robots=$value;
+
+                   $i=0;
+
+                }else{
+
+                    $robots=$robots.' ,'.$value;
+                }
+
+            }
+            # code...
+        }
+
+        $data = array('robots' => $robots);
+
+        $categoria->update($data);
+
+
     
         $categoria->update($data);
 
