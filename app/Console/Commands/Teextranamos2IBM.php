@@ -58,6 +58,8 @@ class Teextranamos2IBM extends Command
       
         $users=User::whereDate('created_at','=', $d)->get();
 
+        $i=0;
+
       //  dd($d);
 
         foreach ($users as $u) {
@@ -79,7 +81,7 @@ class Teextranamos2IBM extends Command
                     $codigo=strtoupper(substr(md5(time()), 0,12));
 
                     $date_inicio = Carbon::now()->format('Y-m-d');
-                    $date_fecha = Carbon::now()->format('d/m/Y');
+                    $date_fecha = Carbon::now()->format('m/d/Y');
 
                     $date_fin = Carbon::now()->addDay(30)->format('Y-m-d');
 
@@ -112,7 +114,14 @@ class Teextranamos2IBM extends Command
                     AlpCuponesUser::create($datac);
 
 
-                    $this->addibm($u, $cupon, $date_fecha);
+                    if ($i==0) {
+                        
+                        $this->addibm($u, $cupon, $date_fecha);
+
+                        $i++;
+                    }
+
+                    
                     
                     
 
@@ -152,7 +161,7 @@ class Teextranamos2IBM extends Command
 
       //  echo $jsessionid.'<br>';
 
-            $xml='<Envelope><Body><AddRecipient><LIST_ID>8739683</LIST_ID><SYNC_FIELDS><SYNC_FIELD><NAME>EMAIL</NAME><VALUE>'.$user->email.'</VALUE></SYNC_FIELD></SYNC_FIELDS><UPDATE_IF_FOUND>true</UPDATE_IF_FOUND><COLUMN><NAME>Email</NAME><VALUE>'.$user->email.'</VALUE></COLUMN><COLUMN><NAME>Codigo_beneficio_ecommerce</NAME><VALUE>'.$cupon->codigo_cupon.'</VALUE></COLUMN><COLUMN><NAME>Fecha_beneficio_ecommerce</NAME><VALUE>['.$fecha.']</VALUE></COLUMN></AddRecipient></Body></Envelope>';
+            $xml='<Envelope><Body><AddRecipient><LIST_ID>8739683</LIST_ID><SYNC_FIELDS><SYNC_FIELD><NAME>EMAIL</NAME><VALUE>'.$user->email.'</VALUE></SYNC_FIELD></SYNC_FIELDS><UPDATE_IF_FOUND>true</UPDATE_IF_FOUND><COLUMN><NAME>Email</NAME><VALUE>'.$user->email.'</VALUE></COLUMN><COLUMN><NAME>Codigo_beneficio_ecommerce</NAME><VALUE>'.$cupon->codigo_cupon.'</VALUE></COLUMN><COLUMN><NAME>Fecha_beneficio_ecommerce</NAME><VALUE>'.$fecha.'</VALUE></COLUMN></AddRecipient></Body></Envelope>';
 
 
       activity()->withProperties($xml)->log('teextranamos-xml_ibm_add_recipiente');

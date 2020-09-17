@@ -57,7 +57,7 @@ class NotificacionCarrito extends Command
 
         $hoy=$date->format('Y-m-d');
 
-        $fecha_hoy=$date->format('d/m/Y');
+        $fecha_hoy=$date->format('m/d/Y');
 
 
         $carritos =  DB::table('alp_carrito')->select('alp_carrito.*','users.first_name as first_name','users.last_name as last_name','users.email as email')
@@ -71,6 +71,8 @@ class NotificacionCarrito extends Command
 
 
         activity()->withProperties($carritos)->log('carritos');
+
+        $i=0;
 
 
       foreach ($carritos  as $car) {
@@ -100,7 +102,14 @@ class NotificacionCarrito extends Command
          Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionCarrito($car, $detalles, $configuracion));
 
 
-           $this->addibm($car, $detalles, $fecha_hoy);
+         if ($i==0) {
+            $this->addibm($car, $detalles, $fecha_hoy);
+
+            $i++;
+         }
+
+
+           
 
             $arrayName = array('notificacion' => 1 );
 
@@ -109,7 +118,7 @@ class NotificacionCarrito extends Command
             $ord->update($arrayName);
 
 
-            die;
+           // die;
 
         }
 
@@ -152,26 +161,27 @@ class NotificacionCarrito extends Command
 
             $rows='';
 
+
             foreach ($cart as $d) {
 
-              $rows=$rows.'<ROW> <COLUMN name="Correo"> <![CDATA['.$user->email.']]> </COLUMN><COLUMN name="Referencia_producto"> <![CDATA['.$d->referencia_producto.']]> </COLUMN><COLUMN name="Nombre_producto"><![CDATA['.$d->nombre_producto.']]> </COLUMN><COLUMN name="Precio_Unitario"> <![CDATA['.$d->precio_base.']]> </COLUMN><COLUMN name="Cantidad"> <![CDATA['.$d->cantidad.']]> </COLUMN><COLUMN name="Imagen_producto"><![CDATA['.secure_url('uploads/productos/'.$d->imagen_producto).']]> </COLUMN><COLUMN name="Fecha_carrito"> <![CDATA['.$fecha.']]> </COLUMN></ROW>';         
+                # code...
+
+              $rows=$rows.'<ROW> <COLUMN name="Correo"> <![CDATA['.$user->email.']]> </COLUMN><COLUMN name="Referencia_producto"> <![CDATA['.$d->referencia_producto.']]> </COLUMN><COLUMN name="Nombre_producto"><![CDATA['.$d->nombre_producto.']]> </COLUMN><COLUMN name="Precio_Unitario"> <![CDATA['.$d->precio_base.']]> </COLUMN><COLUMN name="Cantidad"> <![CDATA['.$d->cantidad.']]> </COLUMN><COLUMN name="Imagen_producto"><![CDATA['.secure_url('uploads/productos/'.$d->imagen_producto).']]> </COLUMN><COLUMN name="Fecha_carrito"> <![CDATA['.$fecha.']]> </COLUMN></ROW>'; 
+
+
+
             }
 
 
             $xml='<Envelope><Body><InsertUpdateRelationalTable><TABLE_ID>10843849</TABLE_ID><ROWS>'.$rows.'</ROWS></InsertUpdateRelationalTable></Body></Envelope>';
 
 
-            activity()->withProperties($xml)->log('carrito-xml_ibm_add_recipiente-carrito');
+            activity()->withProperties($xml)->log('carrito-xml');
 
         $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-        activity()->withProperties($result2)->log('carrito-xml_ibm_add_result-carrito');
+        activity()->withProperties($result2)->log('carrito-result');
 
-       // print_r($result);
-
-       // echo "3<br>";
-
-    //LOGOUT
 
         $xml = '<Envelope><Body><Logout/></Body></Envelope>';
 

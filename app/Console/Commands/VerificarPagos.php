@@ -769,14 +769,14 @@ class VerificarPagos extends Command
       //  echo $jsessionid.'<br>';
 
 
-           $xml='<Envelope><Body><InsertUpdateRelationalTable><TABLE_ID>10843783</TABLE_ID><ROWS><ROW><COLUMN  name="Correo"><![CDATA['.$user->email.']]></COLUMN><COLUMN name="Referencia_Orden"><![CDATA['.$orden->referencia.']]></COLUMN><COLUMN name="Fecha_Compra"><![CDATA['.date("d/m/Y", strtotime($orden->created_at)).']]></COLUMN></ROW></ROWS></InsertUpdateRelationalTable></Body> </Envelope>';
+           $xml='<Envelope><Body><InsertUpdateRelationalTable><TABLE_ID>10843783</TABLE_ID><ROWS><ROW><COLUMN  name="Correo"><![CDATA['.$user->email.']]></COLUMN><COLUMN name="Referencia_Orden"><![CDATA['.$orden->referencia.']]></COLUMN><COLUMN name="Fecha_Compra"><![CDATA['.date("m/d/Y", strtotime($orden->created_at)).']]></COLUMN></ROW></ROWS></InsertUpdateRelationalTable></Body> </Envelope>';
 
 
-            activity()->withProperties($xml)->log('carrito-xml_ibm_add_recipiente-carrito');
+            activity()->withProperties($xml)->log('compra-xml');
 
         $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-        activity()->withProperties($result2)->log('carrito-xml_ibm_add_result-carrito');
+        activity()->withProperties($result2)->log('compra-resultado');
 
        // print_r($result);
 
@@ -806,75 +806,7 @@ class VerificarPagos extends Command
     }
 
 
-     private function ibmConfirmarCompra2($user, $orden)
-    {
-
-
-        $pod = 0;
-        $username = 'api_alpina@alpina.com';
-        $password = 'Alpina2020!';
-
-        $endpoint = "https://api-campaign-us-2.goacoustic.com/XMLAPI";
-        $jsessionid = null;
-
-        $baseXml = '%s';
-        $loginXml = '';
-        $getListsXml = '%s%s';
-        $logoutXml = '';
-
-        try {
-
-        $xml='<Envelope> <Body> <Login> <USERNAME>api_alpina@alpina.com</USERNAME> <PASSWORD>Alpina2020!</PASSWORD> </Login> </Body> </Envelope> ';
-
-        $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
-
-       // print_r($result);
-
-        $jsessionid = $result['SESSIONID'];
-
-      //  echo $jsessionid.'<br>';
-
-
-        $xml='<Envelope><Body><InsertUpdateRelationalTable><TABLE_ID>10843783</TABLE_ID><ROWS><ROW><COLUMN  name="Correo"><![CDATA['.$user->email.']]></COLUMN><COLUMN name="Referencia_Orden"><![CDATA['.$orden->referencia.']]></COLUMN><COLUMN name="Fecha_Compra"><![CDATA['.date("d/m/Y", strtotime($orden->created_at)).']]></COLUMN></ROW></ROWS></InsertUpdateRelationalTable></Body> </Envelope>';
-
-
-            activity()->withProperties($xml)->log('compra-xml_ibm_add_recipiente');
-
-        $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
-
-        activity()->withProperties($result)->log('compra-xml_ibm_add_result');
-
-       // print_r($result);
-
-       // echo "3<br>";
-
-    //LOGOUT
-
-        $xml = '<Envelope>
-          <Body>
-          <Logout/>
-          </Body>
-          </Envelope>';
-
-              $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml, true));
-
-           //   activity()->withProperties($result)->log('xml_ibm_add_result2');
-
-             // print_r($result);
-
-              return $result2['SUCCESS'];
-
-              $jsessionid = null;
-
-          } catch (Exception $e) {
-
-              die("\nException caught: {$e->getMessage()}\n\n");
-
-              return 'FALSE';
-
-          }
-    }
-
+   
 
  private function ibmConfirmarPago($user, $orden)
     {
@@ -905,14 +837,14 @@ class VerificarPagos extends Command
       //  echo $jsessionid.'<br>';
 
 
-            $xml='<Envelope><Body><InsertUpdateRelationalTable><TABLE_ID>10843783</TABLE_ID><ROWS><ROW><COLUMNname="Correo"><![CDATA['.$user->email.']]></COLUMN><COLUMN name="Referencia_Orden"><![CDATA['.$orden->referencia.']]></COLUMN><COLUMN name="Fecha_Pago"><![CDATA['.date("d/m/Y",strtotime($orden->created_at)).']]></COLUMN></ROW></ROWS></InsertUpdateRelationalTable></Body></Envelope>';
+            $xml='<Envelope><Body><InsertUpdateRelationalTable><TABLE_ID>10843783</TABLE_ID><ROWS><ROW><COLUMN name="Correo"><![CDATA['.$user->email.']]></COLUMN><COLUMN name="Referencia_Orden"><![CDATA['.$orden->referencia.']]></COLUMN><COLUMN name="Fecha_Pago"><![CDATA['.date("m/d/Y",strtotime($orden->created_at)).']]></COLUMN></ROW></ROWS></InsertUpdateRelationalTable></Body></Envelope>';
 
 
-            activity()->withProperties($xml)->log('pago-xml_ibm_confima_pago');
+            activity()->withProperties($xml)->log('pago-xml');
 
         $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-        activity()->withProperties($result)->log('pago-xml_ibm_add_result');
+        activity()->withProperties($result2)->log('pago-result');
 
        // print_r($result);
 
@@ -978,15 +910,16 @@ class VerificarPagos extends Command
       //  echo $jsessionid.'<br>';
 
 
-            $xml='<Envelope<Body><InsertUpdateRelationalTable><TABLE_ID>10843783</TABLE_ID><ROWS><ROW>       <COLUMN name="Correo"><![CDATA['.$user->email.']]></COLUMN><COLUMN name="Referencia_Orden">       <![CDATA['.$orden->referencia.']]></COLUMN><COLUMN name="Fecha_Envio"><![CDATA['.date("d/m/Y", strtotime($envio->fecha_envio)).']]></COLUMN></ROW></ROWS></InsertUpdateRelationalTable> </Body>
-            </Envelope>';
+      $xml='<Envelope><Body><InsertUpdateRelationalTable><TABLE_ID>10843783</TABLE_ID><ROWS><ROW><COLUMN name="Correo"><![CDATA['.$user->email.']]></COLUMN><COLUMN name="Referencia_Orden"><![CDATA['.$orden->referencia.']]></COLUMN><COLUMN name="Fecha_Envio"><![CDATA['.date("m/d/Y", strtotime($envio->fecha_envio)).']]></COLUMN></ROW></ROWS></InsertUpdateRelationalTable></Body></Envelope>';
+
+     //dd($xml);
 
 
-            activity()->withProperties($xml)->log('envio-pago-xml_ibm_confima_fecha_envio');
+            activity()->withProperties($xml)->log('envio-xml');
 
         $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-        activity()->withProperties($result)->log('envio-pago-xml_ibm_add_result');
+        activity()->withProperties($result)->log('envio-result');
 
        // print_r($result);
 
