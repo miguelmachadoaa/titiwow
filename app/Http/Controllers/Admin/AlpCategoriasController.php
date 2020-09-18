@@ -372,7 +372,7 @@ class AlpCategoriasController extends JoshController
         }
 
 
-      
+        $input=$request->all();
 
         $imagen='0';
 
