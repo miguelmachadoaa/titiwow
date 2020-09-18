@@ -110,6 +110,12 @@
                                     </select>
                                 </div>
                             </div>
+
+                            <div class="col-sm-12">
+                                <div class="resciudad "></div>
+                            </div>
+
+                            
                         </form>     
                 </div>
                 <div class="modal-footer">
@@ -236,7 +242,16 @@
 
                 city_id=$('#city_id_ubicacion').val();
 
-                $.ajax({
+
+                if (city_id==0) {
+
+
+                    $('.resciudad').html('<div class="alert alert-danger">Debe seleccionar una ciudad.</div>');
+
+                }else{
+
+
+                    $.ajax({
                     type: "POST",
                     data:{  city_id },
                     url: base+"/configuracion/verificarciudad",
@@ -270,6 +285,13 @@
 
                     }
                 });
+
+
+
+
+                }
+
+                
 
             }
 

@@ -95,7 +95,7 @@ jQuery(document).ready(function($){
 
 			}
 
-			alert(cantidad+'-'+id+'-'+tipo);
+			//alert(cantidad+'-'+id+'-'+tipo);
 
 			if (cantidad==0) {
 
