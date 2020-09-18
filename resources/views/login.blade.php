@@ -17,7 +17,7 @@
     <link rel="manifest" href="{{ secure_asset('assets/img/favicon/site.webmanifest')}}">
     <link rel="mask-icon" href="{{ secure_asset('assets/img/favicon/safari-pinned-tab.svg')}}" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">    <!--end of global css-->
+    <meta name="theme-color" content="#ffffff">
     <!--end of global css-->
     <!--page level css starts-->
     <link type="text/css" rel="stylesheet" href="{{secure_asset('assets/vendors/iCheck/css/all.css')}}" />
