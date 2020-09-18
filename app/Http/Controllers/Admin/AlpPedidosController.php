@@ -83,8 +83,6 @@ class AlpPedidosController extends JoshController
 
         $almacenes = AlpAlmacenes::all();
 
-        
-
         $productos = AlpProductos::select('alp_productos.*', 'alp_categorias.nombre_categoria as nombre_categoria')
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
           ->where('alp_productos.destacado', '1')
@@ -96,9 +94,65 @@ class AlpPedidosController extends JoshController
 
           $marcas=AlpMarcas::orderBy('nombre_marca')->get();
 
+          $cart= \Session::get('cart');
+
+          $total_venta=$this->totalcart($cart);
+
+          //dd($cart);
+
         // Show the page
-        return view('admin.pedidos.index', compact('almacenes', 'productos', 'categorias', 'marcas'));
+        return view('admin.pedidos.index', compact('almacenes', 'productos', 'categorias', 'marcas', 'cart', 'total_venta'));
     }
+
+
+    public function checkout()
+    {
+        // Grab all the groups
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('almacenes/checkout ');
+
+        }else{
+
+          activity()
+          ->log('almacenes/checkout');
+
+
+        }
+
+
+        if (!Sentinel::getUser()->hasAnyAccess(['almacenes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+        $almacenes = AlpAlmacenes::all();
+
+         $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista')
+        ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+        ->join('role_users', 'users.id', '=', 'role_users.user_id')
+        ->join('roles', 'role_users.role_id', '=', 'roles.id')
+        ->where('role_users.role_id', '<>', 1)->get();
+
+       
+          $cart= \Session::get('cart');
+
+          $total_venta=$this->totalcart($cart);
+
+          //dd($cart);
+
+        // Show the page
+        return view('admin.pedidos.checkout', compact('almacenes', 'cart', 'total_venta', 'clientes'));
+    }
+
+
+
 
     public function data()
     {
@@ -1432,7 +1486,9 @@ class AlpPedidosController extends JoshController
 
       \Session::put('cart', $cart);
 
-      $view= View::make('admin.pedidos.listaorden', compact('producto', 'cart', 'error'));
+      $total_venta=$this->totalcart($cart);
+
+      $view= View::make('admin.pedidos.listaorden', compact('producto', 'cart', 'error', 'total_venta'));
 
       $data=$view->render();
 
@@ -1444,9 +1500,127 @@ class AlpPedidosController extends JoshController
 
 
 
+      public function updatecart($id, $cantidad)
+    {
+
+      if (!\Session::has('cart')) {
+          \Session::put('cart', array());
+        }
+
+          $producto=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
+          ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
+          ->where('alp_productos.id', $id)
+          ->first();
+
+          //dd($producto);
+
+       $cart= \Session::get('cart');
+
+       $descuento='1'; 
+
+       $error='0'; 
+
+       $precio = array();
+
+       $inv=$this->inventario();
+
+       $almacen='1';
+
+       //dd($almacen);
+
+       if (isset($producto->id)) {
+
+       // $producto->precio_oferta=$request->price;
+
+        $producto->cantidad=$cantidad;
+
+       // $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
+
+        if (isset($inv[$producto->id])) {
+
+
+          if($inv[$producto->id]>=$producto->cantidad){
+
+            $cart[$producto->slug]=$producto;
+
+          }else{
+
+            $error="No hay existencia suficiente de este producto";
+
+          }
+
+          # code...
+        }else{
+
+            $error="No hay existencia suficiente de este producto, en su ubicacion";
+
+        }
+
+       }else{
+
+        $error="No encontro el producto";
+
+       }
 
 
 
+
+      \Session::put('cart', $cart);
+
+      $total_venta=$this->totalcart($cart);
+
+      $view= View::make('admin.pedidos.listaorden', compact('producto', 'cart', 'error', 'total_venta'));
+
+      $data=$view->render();
+
+      $res = array('data' => $data);
+
+      return $data;
+      
+    }
+
+
+    private function totalcart($cart){
+
+      $total=0;
+
+      foreach ($cart as $c) {
+
+        $total=$total+($c->cantidad*$c->precio_base);
+
+        # code...
+      }
+
+      return $total;
+    }
+
+
+
+    public function getdirecciones($id)
+    {
+
+      if (!\Session::has('cart')) {
+          \Session::put('cart', array());
+        }
+
+          $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+          ->where('alp_direcciones.id_client', $id)->get();
+
+      
+
+      $view= View::make('admin.pedidos.listadirecciones', compact('direcciones'));
+
+      $data=$view->render();
+
+      $res = array('data' => $data);
+
+      return $data;
+      
+    }
 
 
 
