@@ -29,6 +29,10 @@ class Kernel extends ConsoleKernel
         Commands\CancelarOrdenes::class,
         Commands\VerificarExistenciaAlmacen::class,
         Commands\VentasUltimaMilla::class,
+        Commands\BienvenidaIBM::class,
+        Commands\CodigodescuentoIBM::class,
+        Commands\Teextranamos2IBM::class,
+        Commands\TeextranamosIBM::class,
 
 
     ];
@@ -81,10 +85,17 @@ class Kernel extends ConsoleKernel
         
         $schedule->command('cancelar:ordenes')->dailyAt('07:00');
 
+        //reporte de ultima milla a las 5 pm
+       # $schedule->command('reporte:ultimamilla')->dailyAt('07:00');
 
-        $schedule->command('reporte:ultimamilla')->dailyAt('07:00');
+        //llamadas ibm a las 5pm 
 
-        
+      #  $schedule->command('bienvenida:ibm')->dailyAt('07:00');
+      #  $schedule->command('codigodescuento:ibm')->dailyAt('07:00');
+      #  $schedule->command('teextranamos2:ibm')->dailyAt('07:00');
+      #  $schedule->command('teextranamos:ibm')->dailyAt('07:00');
+
+
          
         $schedule->command('verificar:pagos')->everyFiveMinutes();
 
