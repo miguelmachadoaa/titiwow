@@ -205,12 +205,51 @@ Editar Configuracion General
                                 </div>
                             </div>
 
-                             <div class="form-group {{ $errors->first('comision_mp', 'has-error') }}">
-                                <label for="comision_mp" class="col-sm-2 control-label">
-                                    % Comision Mercado Pago
+                             <div class="form-group {{ $errors->first('comision_mp_baloto', 'has-error') }}">
+                                <label for="comision_mp_baloto" class="col-sm-2 control-label">
+                                    % Comision Mercado Pago Baloto
                                 </label>
                                 <div class="col-sm-5">
-                                    <input type="text" id="comision_mp" name="comision_mp" class="form-control" placeholder="% Comision Mercado Pago"
+                                    <input type="text" id="comision_mp_baloto" name="comision_mp_baloto" class="form-control" placeholder="% Comision Mercado Pago Baloto"
+                                        value="{!! old('comision_mp_baloto', $configuracion->comision_mp_baloto) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('comision_mp_baloto', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+
+                             <div class="form-group {{ $errors->first('comision_mp_efecty', 'has-error') }}">
+                                <label for="comision_mp_efecty" class="col-sm-2 control-label">
+                                    % Comision Mercado Pago Efecty
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="comision_mp_efecty" name="comision_mp_efecty" class="form-control" placeholder="% Comision Mercado Pago Efecty"
+                                        value="{!! old('comision_mp_efecty', $configuracion->comision_mp_efecty) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('comision_mp_efecty', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+
+                             <div class="form-group {{ $errors->first('comision_mp_pse', 'has-error') }}">
+                                <label for="comision_mp_pse" class="col-sm-2 control-label">
+                                    % Comision Mercado Pago PSE
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="comision_mp_pse" name="comision_mp_pse" class="form-control" placeholder="% Comision Mercado Pago PSE"
+                                        value="{!! old('comision_mp_pse', $configuracion->comision_mp_pse) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('comision_mp_pse', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+
+                             <div class="form-group {{ $errors->first('comision_mp', 'has-error') }}">
+                                <label for="comision_mp" class="col-sm-2 control-label">
+                                    % Comision Mercado Pago Credit Card
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="comision_mp" name="comision_mp" class="form-control" placeholder="% Comision Mercado Pago Credit Card"
                                         value="{!! old('comision_mp', $configuracion->comision_mp) !!}">
                                 </div>
                                 <div class="col-sm-4">

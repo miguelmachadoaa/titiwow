@@ -476,7 +476,7 @@ class AlpCartController extends JoshController
       
       $configuracion = AlpConfiguracion::where('id', '1')->first();
 
-      $comision_mp=$configuracion->comision_mp/100;
+      $comision_mp=$configuracion->comision_mp_pse/100;
 
       $data_update = array(
         
@@ -661,7 +661,7 @@ class AlpCartController extends JoshController
 
         // 1.- eststus orden, 2.- estatus pago, 3 json pedido 
 
-        $data=$this->generarPedido('8', '4', $input, 'mercadopago');
+        $data=$this->generarPedido('8', '4', $input, 'pse');
 
        // $data=$this->generarPedido('8', '4', $input, 'credit_card');
 
@@ -1780,7 +1780,7 @@ class AlpCartController extends JoshController
            
           
               // 1.- eststus orden, 2.- estatus pago, 3 json pedido 
-              $data=$this->generarPedido('8', '4', $payment, 'mercadopago');
+              $data=$this->generarPedido('8', '4', $payment, 'baloto');
 
               $id_orden=$data['id_orden'];
 
@@ -2112,6 +2112,33 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           'retencion_fuente_mp' =>($orden->monto_total-$orden->monto_impuesto)*$retencion_fuente_mp,
           'retencion_iva_mp' =>$orden->monto_impuesto*$retencion_iva_mp,
           'retencion_ica_mp' =>($orden->monto_total-$orden->monto_impuesto)*$retencion_ica_mp
+           );
+
+        }elseif($tipo=='pse'){
+
+          $comision_mp=$configuracion->comision_mp_pse/100;
+
+          $data_update = array(
+          'estatus' =>$estatus_orden, 
+          'estatus_pago' =>$estatus_pago,
+          'comision_mp' =>(($orden->monto_total*$comision_mp)+($orden->monto_total*$comision_mp*0.19)),
+          'retencion_fuente_mp' =>0,
+          'retencion_iva_mp' =>0,
+          'retencion_ica_mp' =>0
+           );
+
+        }elseif($tipo=='baloto'){
+
+
+          $comision_mp=$configuracion->comision_mp_baloto/100;
+
+          $data_update = array(
+          'estatus' =>$estatus_orden, 
+          'estatus_pago' =>$estatus_pago,
+          'comision_mp' =>(($orden->monto_total*$comision_mp)+($orden->monto_total*$comision_mp*0.19)),
+          'retencion_fuente_mp' =>0,
+          'retencion_iva_mp' =>0,
+          'retencion_ica_mp' =>0
            );
 
         }else{

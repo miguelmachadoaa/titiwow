@@ -117,6 +117,7 @@ class AlpConfiguracionController extends JoshController
 
         }
 
+
         $input=$request->all();
 
        $data = array(
@@ -127,6 +128,9 @@ class AlpConfiguracionController extends JoshController
             'key_mercadopago' => $request->key_mercadopago, 
             'public_key_mercadopago' => $request->public_key_mercadopago, 
             'public_key_mercadopago_test' => $request->public_key_mercadopago_test, 
+            'comision_mp_baloto' => $request->comision_mp_baloto, 
+            'comision_mp_efecty' => $request->comision_mp_efecty, 
+            'comision_mp_pse' => $request->comision_mp_pse, 
             'comision_mp' => $request->comision_mp, 
             'retencion_fuente_mp' => $request->retencion_fuente_mp, 
             'retencion_iva_mp' => $request->retencion_iva_mp, 
