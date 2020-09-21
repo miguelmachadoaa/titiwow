@@ -144,7 +144,8 @@
     <input type="hidden" name="banpago" id="banpago" value="0">
     
 
-
+    <button style="width: 0px; height: 0px;" class="addtocartTrigger">.</button>
+    <button style="width: 0px; height: 0px;" class="updatecartTrigger">.</button>
 
     <!--global js starts-->
     <script type="text/javascript" src="{{ secure_asset('assets/js/frontend/lib.js') }}"></script>
@@ -427,11 +428,33 @@
 
             url=$(this).attr('href');
 
+
+            pimagen=$(this).data('pimagen');
+            name=$(this).data('name');
+
+
             $('.boton_'+id+'').html('<img style="max-width:32px; max-height:32px;" src="'+imagen+'">');
 
             $.post(base+'/cart/agregar', {price, slug, datasingle}, function(data) {
 
                 $('.boton_'+id+'').html(data);
+
+
+                if (data.indexOf("<!--") > -1) {
+
+                        $('.addtocartTrigger').data('imagen', pimagen);
+                        $('.addtocartTrigger').data('name', name);
+                        $('.addtocartTrigger').data('slug', slug);
+                        $('.addtocartTrigger').data('price', price);
+                        $('.addtocartTrigger').data('id', id);
+
+                        $('.addtocartTrigger').trigger('click');
+
+
+
+                    }
+
+
 
 
                        if (single==1) {
@@ -466,11 +489,29 @@
 
             url=$(this).attr('href');
 
+             pimagen=$(this).data('pimagen');
+                name=$(this).data('name');
+
+
             $('.boton_'+id+'').html('<img style="max-width:32px; max-height:32px;" src="'+imagen+'">');
 
             $.post(base+'/cart/agregarsingle', {price, slug}, function(data) {
 
                 $('.boton_'+id+'').html(data);
+
+                    if (data.indexOf("<!--") > -1) {
+
+                        $('.addtocartTrigger').data('imagen', pimagen);
+                        $('.addtocartTrigger').data('name', name);
+                        $('.addtocartTrigger').data('slug', slug);
+                        $('.addtocartTrigger').data('price', price);
+                        $('.addtocartTrigger').data('id', id);
+
+                        $('.addtocartTrigger').trigger('click');
+
+                    }
+
+
 
 
                        if (single==1) {
@@ -505,6 +546,8 @@
 
             cantidad=$('#cantidad_'+id+'').val();
 
+             cantidadinicio=$('#cantidad_'+id+'').val();
+
             if (tipo=='suma') {
 
                 cantidad=parseInt(cantidad);
@@ -524,6 +567,22 @@
 
                         $('.boton_'+id+'').html('');
                         $('.boton_'+id+'').html(data);
+
+
+                         if (data.indexOf("<!--") > -1) {
+
+                            $('.updatecartTrigger').data('tipo', tipo);
+                            $('.updatecartTrigger').data('cantidad', cantidadinicio);
+                            $('.updatecartTrigger').data('single', single);
+                            $('.updatecartTrigger').data('id', id);
+
+                            $('.updatecartTrigger').trigger('click');
+
+                        }
+
+
+
+
 
                          if (single==1) {
 
@@ -555,6 +614,8 @@
 
             cantidad=$('#cantidad_'+id+'').val();
 
+            cantidadinicio=$('#cantidad_'+id+'').val();
+
             if (tipo=='suma') {
 
                 cantidad=parseInt(cantidad);
@@ -574,6 +635,19 @@
 
                         $('.boton_'+id+'').html('');
                         $('.boton_'+id+'').html(data);
+
+
+                         if (data.indexOf("<!--") > -1) {
+
+                            $('.updatecartTrigger').data('tipo', tipo);
+                            $('.updatecartTrigger').data('cantidad', cantidadinicio);
+                            $('.updatecartTrigger').data('single', single);
+                            $('.updatecartTrigger').data('id', id);
+
+                            $('.updatecartTrigger').trigger('click');
+
+                        }
+
 
                          if (single==1) {
 

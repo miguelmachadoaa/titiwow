@@ -21,7 +21,7 @@ jQuery(document).ready(function($){
 			addToCart($(this));
 		});
 
-		$(document).on('click', '.addtocart', function(e){
+		$(document).on('click', '.addtocartTrigger', function(e){
 
 			e.preventDefault();
 
@@ -29,7 +29,7 @@ jQuery(document).ready(function($){
 
         });
 
-		$(document).on('click', '.addtocartsingle', function(e){
+		$(document).on('click', '.addtocartsingleTrigger', function(e){
 
 			e.preventDefault();
 
@@ -38,7 +38,7 @@ jQuery(document).ready(function($){
         });
 
 
-		$(document).on('click', '.updatecart', function(){
+		$(document).on('click', '.updatecartTrigger', function(){
 
 			tipo=$(this).data('tipo');
 
@@ -77,7 +77,7 @@ jQuery(document).ready(function($){
 
 		});
 
-		$(document).on('click', '.updatecartsingle', function(){
+		$(document).on('click', '.updatecartsingleTrigger', function(){
 
 			tipo=$(this).data('tipo');
 			id=$(this).data('id');
