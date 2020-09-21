@@ -2,6 +2,8 @@
 
  <h3>Detalle de Compra</h3>
 
+    @if(count($cart))
+
     @foreach($cart as $p)
 
         <div class="row">
@@ -18,7 +20,7 @@
                         <option value="4" @if($p->cantidad==4)Selected @endif >4</option>
                         <option value="5" @if($p->cantidad==5)Selected @endif >5</option>
                         @if($p->cantidad>5)
-                            <option value=" {{$p->cantidad}}">{{$p->cantidad}}</option>
+                            <option Selected value="{{$p->cantidad}}">{{$p->cantidad}}</option>
                         @endif 
                         <option value="0">Otra...</option>
                     </select>
@@ -40,6 +42,9 @@
 
         <a class="btn btn-primary btn-lg" href="{{secure_url('admin/pedidos/checkout')}}">Finalizar Compra</a>
 
+
+
+    @endif
     @endif
 
  

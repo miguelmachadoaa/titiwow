@@ -1584,12 +1584,18 @@ class AlpPedidosController extends JoshController
 
       $total=0;
 
-      foreach ($cart as $c) {
-
-        $total=$total+($c->cantidad*$c->precio_base);
-
+      if (is_array($cart)) {
         # code...
+
+        foreach ($cart as $c) {
+
+          $total=$total+($c->cantidad*$c->precio_base);
+
+          # code...
+        }
+
       }
+
 
       return $total;
     }

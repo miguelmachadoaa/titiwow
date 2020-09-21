@@ -159,6 +159,122 @@ Pedidos
 
 {{-- Body Bottom confirm modal --}}
 @section('footer_scripts')
+
+
+  
+<!-- Modal Direccion -->
+ <div class="modal fade" id="confirmarOrdenModal" role="dialog" aria-labelledby="modalLabeldanger">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h4 class="modal-title" id="modalLabeldanger">Ingrese La Cantidad</h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <form method="POST" action="{{secure_url('ordenes/confirmar')}}" id="confirmarOrdenForm" name="confirmarOrdenForm" class="form-horizontal">
+
+                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+
+                            {{ csrf_field() }}
+                            <div class="row">
+
+                                <input type="hidden"  name="idproducto_modal" id="idproducto_modal" >
+
+                                
+
+                                <div class="form-group col-sm-12">
+                                    <label for="select21" class="col-md-3 control-label">
+                                        Cantidad
+                                    </label>
+                                    <div class="col-md-8" >
+
+                                        <input class="form-control" type="number" step="1" min="0" name="cantidad_modal" id="cantidad_modal" >
+                                        
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn  btn-primary sendConfirmar" >Agregar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- Modal Direccion -->
+  
+<!-- Modal Direccion -->
+ <div class="modal fade" id="confirmarOrdenModal" role="dialog" aria-labelledby="modalLabeldanger">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h4 class="modal-title" id="modalLabeldanger">Confirmar Orden</h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <form method="POST" action="{{secure_url('ordenes/confirmar')}}" id="confirmarOrdenForm" name="confirmarOrdenForm" class="form-horizontal">
+
+                            <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
+                            <input type="hidden" name="confirm_id" id="confirm_id" value="">
+
+                            {{ csrf_field() }}
+                            <div class="row">
+
+                                
+
+                                <div class="form-group col-sm-12">
+                                    <label for="select21" class="col-md-3 control-label">
+                                        Estatus Ordenes
+                                    </label>
+                                    <div class="col-md-8" >
+                                        <select style="margin: 4px 0;" id="id_status" name="id_status" class="form-control ">
+                                            <option value="">Seleccione</option>
+                                            
+                                            <option value="4"
+                                                     selected="selected" >Cancelado</option>
+                                          
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group clearfix">
+                                    <label class="col-md-3 control-label" for="nombre_producto">Notas</label>
+
+                                    <div class="col-sm-8">
+                                        <textarea style="margin: 4px 0;" id="notas" name="notas" type="text" placeholder="Notas" class="form-control"></textarea>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </form>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn  btn-primary sendConfirmar" >Agregar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- Modal Direccion -->
+
+
+
+
+
+
+
+
+
+
 <div class="modal fade" id="delete_confirm" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -223,7 +339,7 @@ Pedidos
     });
 
 
-      $('.addproducto').on('click', function(){
+      $(document).on('click','.addproducto', function(){
 
              base=$('#base').val();
 
@@ -249,6 +365,10 @@ Pedidos
 
         if (cantidad==0) {
 
+            $('#idproducto_modal').val(id);
+
+            $('#confirmarOrdenModal').modal('show');
+
 
         }else{
 
@@ -267,7 +387,23 @@ Pedidos
     });
 
 
+    $('.sendConfirmar').click(function(){
 
+        base=$('#base').val();
+
+        id=$('#idproducto_modal').val();
+
+        cantidad=$('#cantidad_modal').val();
+
+         $.get(base+'/admin/pedidos/'+id+'/updatecart/'+cantidad, function(data) {
+
+                    $('.listaorden').html(data);
+
+                    $('#confirmarOrdenModal').modal('hide');
+
+            });
+
+    });
 
 
 
