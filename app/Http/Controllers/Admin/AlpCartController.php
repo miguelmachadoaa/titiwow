@@ -2734,7 +2734,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
           $cart[$producto->slug]=$producto;
 
-
            $data_detalle = array(
               'id_carrito' => $carrito, 
               'id_producto' => $producto->id, 
