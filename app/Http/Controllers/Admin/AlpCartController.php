@@ -2685,8 +2685,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
           $ciudad= \Session::get('ciudad');
 
+          $crrid=time();
+
           $data = array(
-            'id' => time(), 
             'referencia' => time(), 
             'id_city' => $ciudad, 
             'id_user' => '0'
