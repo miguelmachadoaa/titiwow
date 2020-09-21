@@ -581,6 +581,20 @@
                         }
 
 
+                         if (cantidad==0) {
+
+
+                                $('.updatecartTrigger').data('tipo', tipo);
+                                $('.updatecartTrigger').data('cantidad', cantidadinicio);
+                                $('.updatecartTrigger').data('single', single);
+                                $('.updatecartTrigger').data('id', id);
+
+                                $('.updatecartTrigger').trigger('click');
+
+
+                        }
+
+
 
 
 
@@ -645,6 +659,19 @@
                             $('.updatecartTrigger').data('id', id);
 
                             $('.updatecartTrigger').trigger('click');
+
+                        }
+
+                        if (cantidad==0) {
+
+
+                                $('.updatecartTrigger').data('tipo', tipo);
+                                $('.updatecartTrigger').data('cantidad', cantidadinicio);
+                                $('.updatecartTrigger').data('single', single);
+                                $('.updatecartTrigger').data('id', id);
+
+                                $('.updatecartTrigger').trigger('click');
+
 
                         }
 

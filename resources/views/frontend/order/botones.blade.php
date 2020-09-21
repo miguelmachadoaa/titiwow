@@ -3,7 +3,7 @@
 
 <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}" style="">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
 
-   @if(isset($cart[$producto->slug]))
+  @if(isset($cart[$producto->slug]))
 
         @if(isset($datasingle))
 
@@ -58,10 +58,6 @@
 
                      @endif 
                     
-
-
-                  
-                  
                 </span>
               </div><!-- /input-group -->
             </div><!-- /.col-lg-6 -->
@@ -70,9 +66,6 @@
 
 
         @endif
-
-
-          
 
     @else
 
@@ -99,7 +92,7 @@
                 href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
 
         @endif
-        
+
 
 
     @endif
@@ -112,4 +105,3 @@
    
 
 @endif
-<!-- /.row -->
