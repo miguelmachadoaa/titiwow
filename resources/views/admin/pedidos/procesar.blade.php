@@ -48,69 +48,8 @@ Pedidos
 
                      <div class="row" style="padding-top: 0;">
                          
-                         <div class="col-sm-12">
-
-                            <div class="row">
-                                <div class="col-sm-4">
-
-                                   <h4>Categorias</h4> 
-
-                                   <select class="form-control" name="categoria" id="categoria">
-
-                                        @foreach($categorias as $c)
-
-                                            <option value="{{$c->id}}">{{$c->nombre_categoria}}</option>
-                                           
-                                        @endforeach
-
-                                    </select>
-                                </div>
-
-
-                                <div class="col-sm-4">
-
-                                   <h4>Marcas</h4> 
-
-                                   <select class="form-control" name="marca" id="marca">
-
-                                        @foreach($marcas as $m)
-
-                                            <option value="{{$m->id}}">{{$m->nombre_marca}}</option>
-                                            
-                                        @endforeach
-
-                                    </select>
-                                </div>
-
-                                <div class="col-sm-4">
-
-                                   <h4>Buscar</h4> 
-
-                                   
-                                   <div class="input-group">
-                                     
-                                      <input type="text" name="buscar" id="buscar" class="form-control" placeholder="Buscar...">
-
-                                       <span class="input-group-btn">
-                                        <button class="btn btn-default btn_buscar" type="button">Buscar!</button>
-                                      </span>
-                                    </div><!-- /input-group -->
-
-
-                                </div>
-
-
-
-                            </div>
-
-                            <div class="row lista_de_productos" style="margin-right: 1em;">
-                                
-                               @include('admin.pedidos.table')
-                                
-                            </div>
-                             Panel de Venta
-                         </div>
-                         
+                       
+                         {{$orden->id}}
                      </div> 
 
                     

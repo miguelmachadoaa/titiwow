@@ -6,6 +6,8 @@
 
     @foreach($cart as $p)
 
+    @if(isset($p->nombre_producto))
+
         <div class="row">
             
             <div class="col-sm-2"><img style="width: 60px;" src="{{secure_url('uploads/productos/60/'.$p->imagen_producto)}}" alt=""></div>
@@ -32,6 +34,8 @@
             </div>
         </div>
 
+         @endif
+
     @endforeach
 
 
@@ -40,7 +44,7 @@
 
     @if($total_venta>0)
 
-        <a class="btn btn-primary btn-lg" href="{{secure_url('admin/pedidos/checkout')}}">Finalizar Compra</a>
+        <button class="btn btn-primary btn-lg" type="submit">Finalizar Compra</button>
 
 
 

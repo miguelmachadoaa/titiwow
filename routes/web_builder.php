@@ -871,6 +871,8 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
     Route::get('pedidos/{id}/datacategorias', 'Admin\AlpPedidosController@datacategorias');
 
+    Route::get('pedidos/{id}/databuscarcliente', 'Admin\AlpPedidosController@databuscarcliente');
+
     Route::get('pedidos/{id}/databuscar', 'Admin\AlpPedidosController@databuscar');
 
     Route::get('pedidos/{id}/addtocart', 'Admin\AlpPedidosController@addtocart');
@@ -882,7 +884,11 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
     Route::get('pedidos/{id}/getdirecciones', 'Admin\AlpPedidosController@getdirecciones');
 
+    Route::get('pedidos/{id}/asignacliente', 'Admin\AlpPedidosController@asignacliente');
+
     Route::get('pedidos/checkout', 'Admin\AlpPedidosController@checkout');
+
+    Route::post('pedidos/procesar', 'Admin\AlpPedidosController@procesar');
 
 
     Route::get('pedidos/{id}/datamarcas', 'Admin\AlpPedidosController@datamarcas');
