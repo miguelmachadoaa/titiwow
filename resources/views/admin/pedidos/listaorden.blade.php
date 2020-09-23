@@ -44,7 +44,7 @@
 
     @if($total_venta>0)
 
-        <button class="btn btn-primary btn-lg" type="submit">Finalizar Compra</button>
+        <a  href="{{secure_url('admin/pedidos/checkout')}}" class="btn btn-primary btn-lg" >Ir al Checkout</a>
 
 
 

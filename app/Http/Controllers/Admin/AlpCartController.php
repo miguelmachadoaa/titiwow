@@ -4606,7 +4606,7 @@ public function verificarDireccion( Request $request)
 
           }//endfreach
 
-          $total_descuentos=0;
+            $total_descuentos=0;
 
             $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
 

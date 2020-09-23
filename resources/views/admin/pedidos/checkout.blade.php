@@ -76,7 +76,7 @@ Pedidos
                          
                          <div class="col-sm-12 listaorden">
 
-                         @include('admin.pedidos.listaorden')
+                         @include('admin.pedidos.listaordencheckout')
                         </div>
                      </div> 
 

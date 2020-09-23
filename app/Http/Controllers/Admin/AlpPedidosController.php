@@ -195,9 +195,40 @@ class AlpPedidosController extends JoshController
 
           }
 
+          if (isset($cart['id_forma_pago'])) {
+            
+          }else{
+
+            $i=0;  
+            foreach ($formaspago as $fp) {
+
+              if ($i==0) {
+                
+                $cart['id_forma_pago']=$fp->id;
+
+                $i++;
+              }
+            }
+          }
 
 
-          /*Datos para direcciones*/
+          if (isset($cart['id_forma_envio'])) {
+            # code...
+          }else{
+
+            $i=0;  
+            foreach ($formasenvio as $fe) {
+
+              if ($i==0) {
+                
+                $cart['id_forma_envio']=$fe->id;
+                $i++;
+              }
+            }
+          }
+
+
+
 
 
           $t_documento = AlpTDocumento::where('estado_registro','=',1)->get();
@@ -211,12 +242,11 @@ class AlpPedidosController extends JoshController
 
              $cities=City::where('state_id', '47')->get();
 
-
-
-          //dd($cart);
-
+             \Session::put('cart', $cart);
         // Show the page
         return view('admin.pedidos.checkout', compact('almacenes', 'cart', 'total_venta', 'clientes', 'formaspago', 'formasenvio', 't_documento', 'estructura', 'countries', 'listabarrios', 'states', 'cities'));
+
+
     }
 
 
@@ -266,9 +296,9 @@ class AlpPedidosController extends JoshController
            $data_orden = array(
               'referencia ' => time(), 
               'id_cliente' => $cart['id_cliente'], 
-              'id_forma_envio' =>$request->id_forma_envio, 
-              'id_address' =>$request->id_address, 
-              'id_forma_pago' =>$request->id_forma_pago,  
+              'id_forma_envio' =>$cart['id_forma_envio'], 
+              'id_address' =>$cart['id_direccion'], 
+              'id_forma_pago' =>$cart['id_forma_pago'],  
               'estatus' =>'8', 
               'estatus_pago' =>'4', 
               'monto_total' =>$total_venta,
@@ -283,6 +313,12 @@ class AlpPedidosController extends JoshController
 
 
           $orden=AlpOrdenes::create($data_orden);
+
+          $resto=0;
+
+          $total_descuentos=0;
+
+          $base_imponible=0;
 
           $monto_total_base=0;
 
@@ -324,9 +360,9 @@ class AlpPedidosController extends JoshController
                 'id_orden' => $orden->id, 
                 'id_producto' => $detalle->id, 
                 'cantidad' =>$detalle->cantidad, 
-                'precio_unitario' =>$detalle->precio_oferta, 
+                'precio_unitario' =>$detalle->precio_base, 
                 'precio_base' =>$detalle->precio_base, 
-                'precio_total' =>$detalle->cantidad*$detalle->precio_oferta,
+                'precio_total' =>$detalle->cantidad*$detalle->precio_base,
                 'precio_total_base' =>$detalle->cantidad*$detalle->precio_base,
                 'valor_impuesto' =>$valor_impuesto,
                 'monto_impuesto' =>$base_imponible_detalle*$valor_impuesto,
@@ -888,201 +924,9 @@ class AlpPedidosController extends JoshController
     }
 
 
-     public function gestionar($id)
-    {
 
-      if (!Sentinel::getUser()->hasAnyAccess(['almacenes.*'])) {
 
-           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
-        }
 
-
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-           activity($user->full_name)
-                        ->performedOn($user)
-                        ->causedBy($user)
-                        ->withProperties(['id'=>$id])->log('almacen/edit ');
-
-        }else{
-
-          activity()
-          ->withProperties(['id'=>$id])->log('almacen/edit');
-
-        }
-
-       
-       $productos = AlpProductos::get();
-
-       $almacen = AlpAlmacenes::where('id', $id)->first();
-
-       $cs=AlpAlmacenProducto::where('id_almacen', $id)->get();
-
-       $inventario=$this->inventario();
-
-       //dd($inventario);
-
-       $check = array();
-
-       foreach ($cs as $c) {
-
-        $check[$c->id_producto]=1;
-         # code...
-       }
-
-
-
-        return view('admin.pedidos.gestionar', compact('almacen', 'productos', 'check', 'inventario'));
-    }
-
-
-     public function postgestionar(Request $request, $id)
-    {
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-           activity($user->full_name)
-              ->performedOn($user)
-              ->causedBy($user)
-              ->withProperties(['id'=>$id])->log('almacen/postgestionar ');
-
-        }else{
-
-          activity()
-          ->withProperties(['id'=>$id])->log('almacen/postgestionar');
-
-        }
-
-        $input=$request->all();
-
-        //dd($input);
-
-        AlpAlmacenProducto::where('id_almacen', '=', $id)->delete();
-
-        foreach ($input as $key => $value) {
-          
-
-          if (substr($key, 0, 2)=='p_') {
-
-            #echo $key.':'.$value.'<br>';
-
-            $par=explode('p_', $key);
-
-            $data = array(
-              'id_producto' => $par[1], 
-              'id_almacen' => $id, 
-              'id_user' => $user->id, 
-            );
-
-            AlpAlmacenProducto::create($data);
-            
-          }
-
-        }
-       
-        return Redirect::route('admin.pedidos.index')->with('success', trans('Se ha creado satisfactoriamente'));
-    }
-
-
-
-
-     public function roles($id)
-    {
-
-      if (!Sentinel::getUser()->hasAnyAccess(['almacenes.*'])) {
-
-           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
-        }
-
-
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-           activity($user->full_name)
-                        ->performedOn($user)
-                        ->causedBy($user)
-                        ->withProperties(['id'=>$id])->log('almacen/roles ');
-
-        }else{
-
-          activity()
-          ->withProperties(['id'=>$id])->log('almacen/roles');
-
-        }
-
-
-        $roles = Sentinel::getRoleRepository()->all();
-
-
-       
-
-       $almacen = AlpAlmacenes::where('id', $id)->first();
-
-       $cs=AlpAlmacenRol::where('id_almacen', $id)->get();
-
-       $check = array();
-
-
-       foreach ($cs as $c) {
-
-        $check[$c->id_rol]=1;
-         # code...
-       }
-
-        return view('admin.pedidos.roles', compact('almacen', 'roles', 'check'));
-    }
-
-
-     public function postroles(Request $request, $id)
-    {
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-           activity($user->full_name)
-              ->performedOn($user)
-              ->causedBy($user)
-              ->withProperties(['id'=>$id])->log('almacen/postroles ');
-
-        }else{
-
-          activity()
-          ->withProperties(['id'=>$id])->log('almacen/postroles');
-
-        }
-
-        $input=$request->all();
-
-
-        AlpAlmacenRol::where('id_almacen', '=', $id)->delete();
-
-        foreach ($input as $key => $value) {
-          
-
-          if (substr($key, 0, 2)=='p_') {
-
-            #echo $key.':'.$value.'<br>';
-
-            $par=explode('p_', $key);
-
-            $data = array(
-              'id_rol' => $par[1], 
-              'id_almacen' => $id, 
-              'id_user' => $user->id, 
-            );
-
-            AlpAlmacenRol::create($data);
-            
-          }
-
-        }
-       
-        return Redirect::route('admin.pedidos.index')->with('success', trans('Se ha creado satisfactoriamente'));
-    }
 
 
 
@@ -1157,77 +1001,7 @@ class AlpPedidosController extends JoshController
 
 
 
-     public function upload($id)
-    {
-
-       if (!Sentinel::getUser()->hasAnyAccess(['almacenes.*'])) {
-
-           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
-        }
-
-
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-           activity($user->full_name)
-                        ->performedOn($user)
-                        ->causedBy($user)
-                        ->withProperties(['id'=>$id])->log('almacen/edit ');
-
-        }else{
-
-          activity()
-          ->withProperties(['id'=>$id])->log('almacen/edit');
-
-        }
-       
-
-       $almacen = AlpAlmacenes::where('id', $id)->first();
-
-       $almacenes = AlpAlmacenes::get();
-
-
-        return view('admin.pedidos.upload', compact('almacen', 'almacenes'));
-    }
-
-
-     public function postupload(Request $request, $id)
-    {
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-           activity($user->full_name)
-              ->performedOn($user)
-              ->causedBy($user)
-              ->withProperties(['id'=>$id])->log('almacen/postgestionar ');
-
-        }else{
-
-          activity()
-          ->withProperties(['id'=>$id])->log('almacen/postgestionar');
-
-        }
-
-        $input=$request->all();
-
-         $archivo = $request->file('file_update');
-
-        \Session::put('almacen', $id);
-        
-        \Session::put('inventario', $this->inventario());
-
-        \Session::put('cities', $request->cities);
-
-        Excel::import(new AlmacenImport, $archivo);
-        
-
-       
-       
-        return Redirect::route('admin.pedidos.index')->with('success', trans('Se ha creado satisfactoriamente'));
-    }
-
+   
 
 
      public function show($id)
@@ -1978,9 +1752,21 @@ class AlpPedidosController extends JoshController
         $cart['direcciones']=$direcciones;
 
 
+        $i=0;
+
+        foreach ($direcciones as $d) {
+
+          if ($i==0){
+
+            $cart['id_direccion']=$d->id;
+
+            $i++;
+            # code...
+          }
+        }
+
+
          \Session::put('cart', $cart);
-
-
 
            $afe=AlpAlmacenFormaEnvio::where('id_almacen', $id_almacen)->first();
 
@@ -2022,7 +1808,8 @@ class AlpPedidosController extends JoshController
 
 
 
-
+        
+        \Session::put('cart', $cart);
 
 
       $view= View::make('admin.pedidos.clientecompra', compact('cart', 'formaspago', 'formasenvio'));
@@ -2113,6 +1900,9 @@ class AlpPedidosController extends JoshController
           ->where('alp_direcciones.id_client', $user_id)->get();
 
           $cart['direcciones']=$direcciones;
+
+
+          \Session::put('cart', $cart);
 
 
           $view= View::make('admin.pedidos.clientecompra', compact('cart', 'formaspago', 'formasenvio'));

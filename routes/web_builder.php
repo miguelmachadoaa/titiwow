@@ -888,7 +888,7 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
     Route::get('pedidos/checkout', 'Admin\AlpPedidosController@checkout');
 
-    Route::post('pedidos/procesar', 'Admin\AlpPedidosController@procesar');
+    Route::get('pedidos/procesar', 'Admin\AlpPedidosController@procesar');
 
 
     Route::get('pedidos/{id}/datamarcas', 'Admin\AlpPedidosController@datamarcas');
