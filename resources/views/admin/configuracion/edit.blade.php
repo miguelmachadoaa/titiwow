@@ -915,7 +915,7 @@ Editar Configuracion General
 
 
 
- <div class="form-group {{ $errors->first('nombre_correo_respuesta', 'has-error') }}">
+                                <div class="form-group {{ $errors->first('nombre_correo_respuesta', 'has-error') }}">
                                     <label for="nombre_correo_respuesta" class="col-sm-2 control-label">
                                        Nombre  Correo Respuesta
                                     </label>

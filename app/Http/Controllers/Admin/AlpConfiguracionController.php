@@ -156,7 +156,7 @@ class AlpConfiguracionController extends JoshController
             'correo_logistica' => $request->correo_logistica, 
             'correo_finanzas' => $request->correo_finanzas,
             'correo_respuesta' => $request->correo_respuesta,
-            'nombre_correo_finanzas' => $request->nombre_correo_finanzas,
+            'nombre_correo_respuesta' => $request->nombre_correo_respuesta,
             'seo_title' => $request->seo_title,
             'seo_type' => $request->seo_type,
             'seo_url' => $request->seo_url,

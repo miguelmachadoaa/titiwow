@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Models\AlpConfiguracion;
 
 class NotificacionOrden extends Mailable
 {
@@ -14,7 +15,7 @@ class NotificacionOrden extends Mailable
 
     public $orden;
     public $texto;
-
+public $configuracion;
     /**
      * Create a new message instance.
      *
@@ -22,7 +23,7 @@ class NotificacionOrden extends Mailable
      */
     public function __construct($orden, $texto)
     {
-        //
+        $this->configuracion= AlpConfiguracion::where('id', '1')->first();//
         $this->orden=$orden;
         $this->texto=$texto;    
     }
@@ -34,7 +35,7 @@ class NotificacionOrden extends Mailable
      */
     public function build()
     {
-        return $this->from('noresponder@alpinago.com')
+        return $this->from($this->configuracion->correo_respuesta)
         ->subject('Nuevo Pedido | ApinaGo')
         ->markdown('emails.notificacion-orden');
     }

@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Models\AlpConfiguracion;
 
 class NotificacionEnvio extends Mailable
 {
@@ -17,7 +18,7 @@ class NotificacionEnvio extends Mailable
     public $envio;
     public $status;
     public $input;
-
+public $configuracion;
     /**
      * Create a new message instance.
      *
@@ -25,7 +26,7 @@ class NotificacionEnvio extends Mailable
      */
     public function __construct($user, $orden, $envio, $status, $input)
     {
-        //
+        $this->configuracion= AlpConfiguracion::where('id', '1')->first();//
         $this->user=$user;
         $this->orden=$orden;
         $this->envio=$envio;
@@ -41,7 +42,7 @@ class NotificacionEnvio extends Mailable
     public function build()
     {
 
-        return $this->from('noresponder@alpinago.com')
+        return $this->from($this->configuracion->correo_respuesta)
         ->subject('El envio de su orden '.$this->orden->id.' ha sido '.$this->status->estatus_envio_nombre.' | Alpina Alimenta tu vida')
         ->markdown('emails.envio');
 

@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Models\AlpConfiguracion;
 
 class NotificacionAmigo extends Mailable
 {
@@ -16,7 +17,7 @@ class NotificacionAmigo extends Mailable
     public $lastname;
     public $token;
     public $embajador;
-
+public $configuracion;
     /**
      * Create a new message instance.
      *
@@ -24,7 +25,7 @@ class NotificacionAmigo extends Mailable
      */
     public function __construct($name, $lastname, $token, $embajador)
     {
-        //
+        $this->configuracion= AlpConfiguracion::where('id', '1')->first();//
         $this->name=$name;
         $this->lastname=$lastname;
         $this->token=$token;
@@ -38,7 +39,7 @@ class NotificacionAmigo extends Mailable
      */
     public function build()
     {
-        return $this->from('noresponder@alpinago.com')
+        return $this->from($this->configuracion->correo_respuesta)
         ->subject('Invitación a Alpina Go | Alpina Alimenta tu vida')
         ->markdown('emails.amigo');
     }

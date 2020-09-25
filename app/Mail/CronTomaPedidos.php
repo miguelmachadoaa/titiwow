@@ -7,6 +7,10 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
+use App\Models\AlpConfiguracion;
+
+
+
 class CronTomaPedidos extends Mailable
 {
     use Queueable, SerializesModels;
@@ -15,6 +19,8 @@ class CronTomaPedidos extends Mailable
     public $enlace;
     public $documentos;
     public $fecha;
+
+public $configuracion;
 
     /**
      * Create a new message instance.
@@ -27,6 +33,8 @@ class CronTomaPedidos extends Mailable
         $this->enlace=$enlace;
         $this->fecha=$fecha;
         $this->documentos=$documentos;    
+        
+$this->configuracion= AlpConfiguracion::where('id', '1')->first();
     }
 
     /**
@@ -36,7 +44,7 @@ class CronTomaPedidos extends Mailable
      */
     public function build()
     {
-        $email= $this->from('noresponder@alpinago.com')
+        $email= $this->from($this->configuracion->correo_respuesta)
         ->subject('Ventas ALPINA GO '.$this->fecha.' | ApinaGo')
         ->markdown('emails.tomapedidos');
 

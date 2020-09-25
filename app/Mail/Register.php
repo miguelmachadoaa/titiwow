@@ -6,11 +6,11 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
-
+use App\Models\AlpConfiguracion;
 class Register extends Mailable
 {
     use Queueable, SerializesModels;
-    public $user;
+    public $user;public $configuracion;
     /**
      * Create a new message instance.
      *
@@ -19,6 +19,7 @@ class Register extends Mailable
     public function __construct($user)
     {
         $this->user = $user;
+        $this->configuracion= AlpConfiguracion::where('id', '1')->first();
     }
 
     /**
@@ -28,7 +29,7 @@ class Register extends Mailable
      */
     public function build()
     {
-        return $this->from('noresponder@alpinago.com')
+        return $this->from($this->configuracion->correo_respuesta)
             ->subject('Activa tu Cuenta | Alpina Alimenta tu vida')
             ->markdown('emails.emailTemplates.activate');
     }

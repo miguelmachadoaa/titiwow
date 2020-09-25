@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use App\Models\AlpEnvios;
+use App\Models\AlpConfiguracion;
 
 
 use Illuminate\Bus\Queueable;
@@ -24,7 +25,7 @@ class CompraRealizada extends Mailable
     public $fecha_entrega;
     public $envio;
     public $role;
-
+public $configuracion;
     /**
      * Create a new message instance.
      *
@@ -44,6 +45,7 @@ class CompraRealizada extends Mailable
 
         $this->role=$role;
         
+$this->configuracion= AlpConfiguracion::where('id', '1')->first();
 
     }
 
@@ -54,7 +56,8 @@ class CompraRealizada extends Mailable
      */
     public function build()
     {
-        return $this->from('noresponder@alpinago.com')
+        
+return $this->from($this->configuracion->correo_respuesta)
         ->subject('Gracias por Su Compra | Alpina Alimenta tu vida')
         ->markdown('emails.compra');
     }

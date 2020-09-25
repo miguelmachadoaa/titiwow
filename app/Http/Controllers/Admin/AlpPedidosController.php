@@ -491,7 +491,7 @@ class AlpPedidosController extends JoshController
             }
 
 
-             $monto_impuesto=($base_impuesto/(1+$valor_impuesto))*$valor_impuesto;
+          $monto_impuesto=($base_impuesto/(1+$valor_impuesto))*$valor_impuesto;
 
           $base_imponible=($base_impuesto/(1+$valor_impuesto));
 

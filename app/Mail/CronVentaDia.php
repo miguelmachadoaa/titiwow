@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Models\AlpConfiguracion;
 
 class CronVentaDia extends Mailable
 {
@@ -14,7 +15,7 @@ class CronVentaDia extends Mailable
 
     public $enlace;
     public $fecha;
-
+public $configuracion;
     /**
      * Create a new message instance.
      *
@@ -22,7 +23,7 @@ class CronVentaDia extends Mailable
      */
     public function __construct($enlace, $fecha)
     {
-        //
+        $this->configuracion= AlpConfiguracion::where('id', '1')->first();//
         $this->enlace=$enlace;
         $this->fecha=$fecha;    
     }
@@ -34,7 +35,7 @@ class CronVentaDia extends Mailable
      */
     public function build()
     {
-        return $this->from('noresponder@alpinago.com')
+        return $this->from($this->configuracion->correo_respuesta)
         ->subject('Reporte de Ventas del Dia | ApinaGo')
         ->markdown('emails.ventasdeldia');
     }

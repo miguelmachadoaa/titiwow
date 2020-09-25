@@ -2,6 +2,9 @@
 
 namespace App\Mail;
 
+
+use App\Models\AlpConfiguracion;
+
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -11,6 +14,8 @@ class ContactUser extends Mailable
 {
     use Queueable, SerializesModels;
     public $data;
+
+public $configuracion;
     /**
      * Create a new message instance.
      *
@@ -19,7 +24,9 @@ class ContactUser extends Mailable
     public function __construct($data)
     {
         $this->data = $data;
-    }
+        $this->configuracion= AlpConfiguracion::where('id', '1')->first();
+
+}
 
     /**
      * Build the message.
@@ -28,7 +35,8 @@ class ContactUser extends Mailable
      */
     public function build()
     {
-        return $this->from('noresponder@alpinago.com')
+        
+    return $this->from($this->configuracion->correo_respuesta)
             ->subject('Welcome '.$this->data['contact-name'])
             ->markdown('emails.emailTemplates.contactUser');
     }

@@ -7,6 +7,8 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
+use App\Models\AlpConfiguracion;
+
 class CronNuevosUsuarios extends Mailable
 {
     use Queueable, SerializesModels;
@@ -14,6 +16,8 @@ class CronNuevosUsuarios extends Mailable
 
     public $enlace;
     public $fecha;
+
+public $configuracion;
 
     /**
      * Create a new message instance.
@@ -25,6 +29,8 @@ class CronNuevosUsuarios extends Mailable
         //
         $this->enlace=$enlace;
         $this->fecha=$fecha;    
+        
+$this->configuracion= AlpConfiguracion::where('id', '1')->first();
     }
 
     /**
@@ -34,7 +40,8 @@ class CronNuevosUsuarios extends Mailable
      */
     public function build()
     {
-        return $this->from('noresponder@alpinago.com')
+        
+return $this->from($this->configuracion->correo_respuesta)
         ->subject('Reporte de Nuevos Usuarios por Activar | ApinaGo')
         ->markdown('emails.nuevosusuarios');
     }

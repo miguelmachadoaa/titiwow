@@ -6,7 +6,7 @@ use App\Models\AlpEnvios;
 use App\Models\AlpFormasenvio;
 use App\Models\AlpClientes;
 use App\Models\AlpDirecciones;
-
+use App\Models\AlpConfiguracion;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -26,7 +26,8 @@ class CompraSac extends Mailable
     public $formaenvio;
     public $cliente;
     public $direccion;
-
+    
+public $configuracion;
     /**
      * Create a new message instance.
      *
@@ -65,7 +66,8 @@ class CompraSac extends Mailable
           }
 
          
-
+          
+$this->configuracion= AlpConfiguracion::where('id', '1')->first();
 
             
         }
@@ -93,7 +95,8 @@ class CompraSac extends Mailable
     public function build()
     {
 
-        return $this->from('noresponder@alpinago.com')
+        
+return $this->from($this->configuracion->correo_respuesta)
         ->subject($this->asunto)
         ->markdown('emails.compra-sac');
     }

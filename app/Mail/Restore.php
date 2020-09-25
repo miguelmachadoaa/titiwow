@@ -8,12 +8,12 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\User;
 use Illuminate\Support\Facades\Log;
-
+use App\Models\AlpConfiguracion;
 class Restore extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $user;
+    public $user;public $configuracion;
     /**
      * Create a new message instance.
      *
@@ -23,6 +23,7 @@ class Restore extends Mailable
     {
 
         $this->user = $user;
+        $this->configuracion= AlpConfiguracion::where('id', '1')->first();
     }
 
     /**
@@ -32,7 +33,7 @@ class Restore extends Mailable
      */
     public function build()
     {
-        return $this->from('example@example.com')
+        return $this->from($this->configuracion->correo_respuesta)
             ->subject('Restore Your Account')
             ->markdown('emails.emailTemplates.restore');
 

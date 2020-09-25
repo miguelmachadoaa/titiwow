@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
-
+use App\Models\AlpConfiguracion;
 class UserAprobado extends Mailable
 {
     use Queueable, SerializesModels;
@@ -14,7 +14,7 @@ class UserAprobado extends Mailable
 
     public $name;
     public $lastname;
-
+public $configuracion;
     /**
      * Create a new message instance.
      *
@@ -25,6 +25,7 @@ class UserAprobado extends Mailable
         //
         $this->name=$name;
         $this->lastname=$lastname;
+        $this->configuracion= AlpConfiguracion::where('id', '1')->first();
     }
 
     /**
@@ -34,7 +35,7 @@ class UserAprobado extends Mailable
      */
     public function build()
     {
-        return $this->from('noresponder@alpinago.com')
+        return $this->from($this->configuracion->correo_respuesta)
         ->subject('Ya Puedes Comprar en Alpina Go | Alpina Alimenta tu vida')
         ->markdown('emails.aprobado');
     }

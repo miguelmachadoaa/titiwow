@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Mail;
-
+use App\Models\AlpConfiguracion;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -14,7 +14,7 @@ class AmigoRegistrado extends Mailable
 
     public $name;
     public $lastname;
-
+  public $configuracion;
     /**
      * Create a new message instance.
      *
@@ -25,7 +25,8 @@ class AmigoRegistrado extends Mailable
         //
         $this->name=$name;
         $this->lastname=$lastname;
-   
+           $this->configuracion= AlpConfiguracion::where('id', '1')->first();
+
     }
 
     /**
@@ -35,7 +36,7 @@ class AmigoRegistrado extends Mailable
      */
     public function build()
     {
-        return $this->from('noresponder@alpinago.com')
+        return $this->from($this->configuracion->correo_respuesta)
         ->subject('Status de tus Amigos en Alpina Go | Alpina Alimenta tu vida')
         ->markdown('emails.amigo-registrado');
     }

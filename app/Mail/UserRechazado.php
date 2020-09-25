@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
-
+use App\Models\AlpConfiguracion;
 class UserRechazado extends Mailable
 {
     use Queueable, SerializesModels;
@@ -15,7 +15,7 @@ class UserRechazado extends Mailable
     public $name;
     public $lastname;
     public $motivo;
-
+public $configuracion;
     /**
      * Create a new message instance.
      *
@@ -27,6 +27,7 @@ class UserRechazado extends Mailable
         $this->name=$name;
         $this->lastname=$lastname;
         $this->motivo=$motivo;
+        $this->configuracion= AlpConfiguracion::where('id', '1')->first();
     }
 
     /**
@@ -36,7 +37,7 @@ class UserRechazado extends Mailable
      */
     public function build()
     {
-        return $this->from('noresponder@alpinago.com')
+        return $this->from($this->configuracion->correo_respuesta)
         ->subject('Usuario Rechazado | Masterfile')
         ->markdown('emails.rechazado');
     }
