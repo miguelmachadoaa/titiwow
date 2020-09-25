@@ -354,6 +354,8 @@ class AlpPedidosController extends JoshController
               'monto_impuesto' =>'0',
               'ip' =>$clientIP,
               'id_almacen' =>$id_almacen,
+              'origen' =>'1',
+              'token' =>substr(md5(time()), 0, 16),
               'id_user' =>$cart['id_cliente']
           );
 

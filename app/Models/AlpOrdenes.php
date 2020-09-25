@@ -38,6 +38,8 @@ class AlpOrdenes extends Model
         'cod_oracle_pedido',
         'ordencompra',
         'id_almacen',
+        'origen',
+        'token',
         'tracking',
         'factura',
         'ip',
