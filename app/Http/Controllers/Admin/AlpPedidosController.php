@@ -25,15 +25,23 @@ use App\Models\AlpOrdenes;
 use App\Models\AlpOrdenesHistory;
 use App\Models\AlpDescuentos;
 use App\Models\AlpDetalles;
+use App\Models\AlpConfiguracion;
+use App\Models\AlpEmpresas;
+use App\Models\AlpClientesHistory;
+use App\Models\AlpCombosProductos;
+use App\Models\AlpOrdenesDescuento;
 use App\User;
 use App\State;
 use App\City;
 use App\Barrio;
 use App\Country;
+use App\RoleUser;
 
 use App\Models\AlpAlmacenesUser;
 use App\Http\Requests\AlmacenesRequest;
 use App\Http\Requests\UploadRequest;
+use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserModalRequest;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
@@ -48,6 +56,9 @@ use Redirect;
 use Sentinel;
 use View;
 use DB;
+
+use MP;
+
 
 
 class AlpPedidosController extends JoshController
@@ -86,6 +97,8 @@ class AlpPedidosController extends JoshController
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
         }
 
+        $id_almacen='1';
+
         $almacenes = AlpAlmacenes::all();
 
         $productos = AlpProductos::select('alp_productos.*', 'alp_categorias.nombre_categoria as nombre_categoria')
@@ -95,15 +108,25 @@ class AlpPedidosController extends JoshController
           ->limit(12)
           ->get();
 
+
+          $productos=$this->addOferta($productos);
+
           $categorias=AlpCategorias::orderBy('nombre_categoria')->get();
 
           $marcas=AlpMarcas::orderBy('nombre_marca')->get();
 
           $cart= \Session::get('cart');
 
+          if (isset($cart['id_almacen'])) {
+            # code...
+          }else{
+
+            $cart['id_almacen']='1';
+          }
+
           $total_venta=$this->totalcart($cart);
 
-          //dd($cart);
+          $cart=$this->reloadCart();
 
         // Show the page
         return view('admin.pedidos.index', compact('almacenes', 'productos', 'categorias', 'marcas', 'cart', 'total_venta'));
@@ -243,6 +266,12 @@ class AlpPedidosController extends JoshController
              $cities=City::where('state_id', '47')->get();
 
              \Session::put('cart', $cart);
+
+
+              $cart=$this->reloadCart();
+
+
+            
         // Show the page
         return view('admin.pedidos.checkout', compact('almacenes', 'cart', 'total_venta', 'clientes', 'formaspago', 'formasenvio', 't_documento', 'estructura', 'countries', 'listabarrios', 'states', 'cities'));
 
@@ -287,6 +316,8 @@ class AlpPedidosController extends JoshController
         $cart= \Session::get('cart');
 
         $total_venta=$this->totalcart($cart);
+
+        $total=$total_venta;
 
 
         if (isset($cart['id_cliente'])) {
@@ -422,6 +453,34 @@ class AlpPedidosController extends JoshController
           }//endfreach
 
 
+          $total_descuentos=0;
+
+            $descuentos=AlpOrdenesDescuento::where('id_orden', $orden->id)->get();
+
+            foreach ($descuentos as $pago) {
+
+              $total_descuentos=$total_descuentos+$pago->monto_descuento;
+
+            }
+
+
+
+             $resto=$total-$total_descuentos;
+
+            if ($resto<$base_impuesto) {
+
+              $base_impuesto=$resto;
+              
+            }
+
+
+             $monto_impuesto=($base_impuesto/(1+$valor_impuesto))*$valor_impuesto;
+
+          $base_imponible=($base_impuesto/(1+$valor_impuesto));
+
+
+
+
           $data_update = array(
               'referencia' => 'ALP'.$orden->id,
               'monto_total' =>$resto,
@@ -447,7 +506,26 @@ class AlpPedidosController extends JoshController
 
 
 
-            return view('admin.pedidos.procesar', compact('orden'));
+
+            $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
+                  ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
+                  ->join('alp_clientes','alp_ordenes.id_cliente' , '=', 'alp_clientes.id_user_client')
+                  ->join('alp_formas_envios','alp_ordenes.id_forma_envio' , '=', 'alp_formas_envios.id')
+                  ->join('alp_formas_pagos','alp_ordenes.id_forma_pago' , '=', 'alp_formas_pagos.id')
+                  ->where('alp_ordenes.id', $orden->id)->first();
+
+
+              $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
+                ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
+                ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
+
+
+
+
+
+
+
+            return view('admin.pedidos.procesar', compact('compra', 'detalles'));
 
           # code...
         }else{
@@ -742,13 +820,7 @@ class AlpPedidosController extends JoshController
 
       $cities=City::get();
 
-       //$listaestados=State::pluck('state_name', 'id');
-
-       // $listaestados[0]='Todos';
-
-       // $listaciudades=City::pluck('city_name', 'id');
-
-       // $listaciudades[0]='Todos';
+      
        // 
         $estructura = AlpEstructuraAddress::where('estado_registro','=',1)->get();
 
@@ -1072,298 +1144,6 @@ class AlpPedidosController extends JoshController
         return view('admin.pedidos.show', compact('almacen', 'productos',  'inventario', 'formas_pago', 'formas_envio', 'listaestados', 'listaciudades', 'listabarrios','despachos', 'states', 'almacen_formas_pago', 'almacen_formas_envio'));
     }
 
-      public function addformenvio(Request $request)
-    {
-
-         if (Sentinel::check()) {
-          $user = Sentinel::getUser();
-           activity($user->full_name)
-                        ->performedOn($user)
-                        ->causedBy($user)
-                        ->withProperties($request->all())
-                        ->log('almacenes/addformaenvio ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->all())
-          ->log('almacenes/addformaenvio');
-        }
-
-         $user_id = Sentinel::getUser()->id;
-        $data = array(
-            'id_almacen' => $request->id_almacen, 
-            'id_forma_envio' => $request->id_forma_envio, 
-            'user_id' => $request->user_id
-        );
-
-        AlpAlmacenFormaEnvio::create($data);
-
-        $almacen_formas_envio=AlpAlmacenFormaEnvio::select('alp_almacen_formas_envio.*', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios')
-        ->join('alp_formas_envios', 'alp_almacen_formas_envio.id_forma_envio', '=', 'alp_formas_envios.id')
-        ->where('alp_almacen_formas_envio.id_almacen', $request->id_almacen)->get();
-
-          $view= View::make('admin.pedidos.listformasenvio', compact('almacen_formas_envio'));
-
-      $data=$view->render();
-
-      return $data;
-
-
-    }
-
-
-  public function delformaenvio(Request $request)
-    {
-
-         if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-           activity($user->full_name)
-                        ->performedOn($user)
-                        ->causedBy($user)
-                        ->withProperties($request->all())
-                        ->log('almacenes/addformaenvio ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->all())
-          ->log('almacenes/addformaenvio');
-
-
-        }
-
-         $user_id = Sentinel::getUser()->id;
-       
-
-        $afe=AlpAlmacenFormaEnvio::where('id', $request->id)->first();
-
-        $id_alamcen=$afe->id_almacen;
-
-        $afe->delete();
-
-
-        $almacen_formas_envio=AlpAlmacenFormaEnvio::select('alp_almacen_formas_envio.*', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios')
-        ->join('alp_formas_envios', 'alp_almacen_formas_envio.id_forma_envio', '=', 'alp_formas_envios.id')
-        ->where('alp_almacen_formas_envio.id_almacen', $id_alamcen)->get();
-
-          $view= View::make('admin.pedidos.listformasenvio', compact('almacen_formas_envio'));
-
-      $data=$view->render();
-
-      return $data;
-
-
-    }
-
-
-
-      public function addformapago(Request $request)
-    {
-
-         if (Sentinel::check()) {
-          $user = Sentinel::getUser();
-           activity($user->full_name)
-                        ->performedOn($user)
-                        ->causedBy($user)
-                        ->withProperties($request->all())
-                        ->log('almacenes/addformapago ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->all())
-          ->log('almacenes/addformapago');
-        }
-
-         $user_id = Sentinel::getUser()->id;
-
-        $data = array(
-            'id_almacen' => $request->id_almacen, 
-            'id_forma_pago' => $request->id_forma_pago, 
-            'user_id' => $request->user_id
-        );
-
-        AlpAlmacenFormaPago::create($data);
-
-       $almacen_formas_pago=AlpAlmacenFormaPago::select('alp_almacen_formas_pago.*','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago')
-        ->join('alp_formas_pagos', 'alp_almacen_formas_pago.id_forma_pago', '=' ,'alp_formas_pagos.id')
-        ->where('alp_almacen_formas_pago.id_almacen', $request->id_almacen)->get();
-
-          $view= View::make('admin.pedidos.listformaspago', compact('almacen_formas_pago'));
-
-      $data=$view->render();
-
-      return $data;
-
-
-    }
-
-
-  public function delformapago(Request $request)
-    {
-
-         if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-           activity($user->full_name)
-                        ->performedOn($user)
-                        ->causedBy($user)
-                        ->withProperties($request->all())
-                        ->log('almacenes/delformapago ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->all())
-          ->log('almacenes/delformapago');
-
-
-        }
-
-         $user_id = Sentinel::getUser()->id;
-       
-
-        $afp=AlpAlmacenFormaPago::where('id', $request->id)->first();
-
-        $id_alamcen=$afp->id_almacen;
-
-        $afp->delete();
-
-
-        $almacen_formas_pago=AlpAlmacenFormaPago::select('alp_almacen_formas_pago.*','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago')
-        ->join('alp_formas_pagos', 'alp_almacen_formas_pago.id_forma_pago', '=' ,'alp_formas_pagos.id')
-        ->where('alp_almacen_formas_pago.id_almacen', $id_alamcen)->get();
-
-
-          $view= View::make('admin.pedidos.listformaspago', compact('almacen_formas_pago'));
-
-      $data=$view->render();
-
-      return $data;
-
-
-    }
-
-
-
-
-
-      public function adddespacho(Request $request)
-    {
-
-         if (Sentinel::check()) {
-          $user = Sentinel::getUser();
-           activity($user->full_name)
-                        ->performedOn($user)
-                        ->causedBy($user)
-                        ->withProperties($request->all())
-                        ->log('almacenes/adddespacho ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->all())
-          ->log('almacenes/adddespacho');
-        }
-
-         $user_id = Sentinel::getUser()->id;
-
-        $data = array(
-            'id_almacen' => $request->id_almacen, 
-            'id_city' => $request->id_city, 
-            'id_state' => $request->id_state, 
-            'id_barrio' => $request->id_barrio, 
-            'user_id' => $request->user_id
-        );
-
-        AlpAlmacenDespacho::create($data);
-
-       $despachos=AlpAlmacenDespacho::where('id_almacen', $request->id_almacen)->get();
-
-        $listaestados=State::pluck('state_name', 'id');
-
-        $listaestados[0]='Todos';
-
-        $listaciudades=City::pluck('city_name', 'id');
-
-        $listaciudades[0]='Todos';
-
-        $listabarrios=Barrio::pluck('barrio_name', 'id');
-
-         $listabarrios[0]='Todos';
-
-
-          $view= View::make('admin.pedidos.listdespachos', compact('despachos', 'listaestados', 'listaciudades', 'listabarrios'));
-
-      $data=$view->render();
-
-      return $data;
-
-
-    }
-
-
-  public function deldespacho(Request $request)
-    {
-
-         if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-           activity($user->full_name)
-                        ->performedOn($user)
-                        ->causedBy($user)
-                        ->withProperties($request->all())
-                        ->log('almacenes/deldespacho ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->all())
-          ->log('almacenes/deldespacho');
-
-
-        }
-
-         $user_id = Sentinel::getUser()->id;
-       
-
-        $afd=AlpAlmacenDespacho::where('id', $request->id)->first();
-
-        $id_alamcen=$afd->id_almacen;
-
-        $afd->delete();
-
-
-        $despachos=AlpAlmacenDespacho::where('id_almacen', $id_alamcen)->get();
-
-        $listaestados=State::pluck('state_name', 'id');
-
-        $listaestados[0]='Todos';
-
-        $listaciudades=City::pluck('city_name', 'id');
-
-        $listaciudades[0]='Todos';
-
-         $listabarrios=Barrio::pluck('barrio_name', 'id');
-
-         $listabarrios[0]='Todos';
-
-          $view= View::make('admin.pedidos.listdespachos', compact('despachos', 'listaestados', 'listaciudades', 'listabarrios'));
-
-      $data=$view->render();
-
-      return $data;
-
-
-    }
-
-
-
 
 
 
@@ -1429,6 +1209,9 @@ class AlpPedidosController extends JoshController
          // ->limit(12)
           ->get();
 
+
+          $productos=$this->addOferta($productos);
+
            $view= View::make('admin.pedidos.table', compact('productos'));
 
             $data=$view->render();
@@ -1448,6 +1231,11 @@ class AlpPedidosController extends JoshController
          // ->limit(12)
           ->get();
 
+
+          $productos=$this->addOferta($productos);
+
+
+
            $view= View::make('admin.pedidos.table', compact('productos'));
 
             $data=$view->render();
@@ -1465,6 +1253,11 @@ class AlpPedidosController extends JoshController
          // ->where('alp_productos.id_marca', $id)
           ->orderBy('alp_productos.nombre_producto')
           ->get();
+
+
+          $productos=$this->addOferta($productos);
+
+          
 
            $view= View::make('admin.pedidos.table', compact('productos'));
 
@@ -1922,6 +1715,848 @@ class AlpPedidosController extends JoshController
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ public function postregistro(UserModalRequest $request)
+    {
+
+         $configuracion=AlpConfiguracion::where('id', '1')->first();
+
+         $input=$request->all();
+
+         if($configuracion->user_activacion==0){
+
+            $activate=true;
+
+            $masterfi=1;
+
+         }else{
+
+            $activate=false;
+
+            $masterfi=0;
+
+         }
+
+                  $request->first_name=strip_tags($request->first_name);
+                  $request->last_name=strip_tags($request->last_name);
+                  $request->email=strip_tags($request->email);
+                  $request->password=strip_tags(substr(md5(time()), 0,8));
+                  $request->doc_cliente=strip_tags($request->doc_cliente);
+                  $request->cod_alpinista=strip_tags($request->cod_alpinista);
+                  $request->principal_address=strip_tags($request->principal_address);
+                  $request->secundaria_address=strip_tags($request->secundaria_address);
+                  $request->edificio_address=strip_tags($request->edificio_address);
+                  $request->detalle_address=strip_tags($request->detalle_address);
+                  $request->barrio_address=strip_tags($request->barrio_address);
+
+
+
+        try {
+
+            if($request->chkalpinista == 1) {
+
+                $codalpin = AlpCodAlpinistas::where('documento_alpi', $request->doc_cliente)->where('codigo_alpi', $request->cod_alpinista)->where('estatus_alpinista',1)->first();
+
+                if ($codalpin) {
+
+                    $data_user = array(
+                      'first_name' => $request->first_name, 
+                      'last_name' => $request->last_name, 
+                      'email' => $request->email, 
+                      'password' => $request->password, 
+                    );
+
+                    $user = Sentinel::register($data_user, $activate);
+
+                    $data = array(
+                    'id_user_client' => $user->id, 
+                    'id_type_doc' => $request->id_type_doc, 
+                    'doc_cliente' =>$request->doc_cliente, 
+                    'telefono_cliente' => $request->telefono_cliente,
+                    'habeas_cliente' => '1',
+                    'estado_masterfile' =>$masterfi,
+                    'cod_alpinista'=> $request->cod_alpinista,
+                    'cod_oracle_cliente'=> $codalpin->cod_oracle_cliente,
+                    'id_empresa' =>'0',               
+                    'id_embajador' =>'0',               
+                    'id_user' =>0,               
+                    );
+
+                    $cliente=AlpClientes::create($data);
+
+
+                    $sialpin = array(
+                        'id_usuario_creado' => $user->id, 
+                        'estatus_alpinista' => 2    
+                    );
+
+                    AlpCodAlpinistas::where('id',$codalpin->id)->update($sialpin);
+
+                    $masterfile = array(
+                        'estado_masterfile' => 1 ,
+                        'nota' => 'Alpinista Registrado automaticamente'
+                    );
+
+                    AlpClientes::where('id',$user->id)->update($masterfile);
+
+                    //add user to 'Embajador' group
+                    $role = Sentinel::findRoleById(10);
+
+                    $role->users()->attach($user);
+                    
+                    /*$activation = Activation::exists($user);
+
+                    if ($activation) {
+
+                        Activation::complete($user, $activation->code);
+
+                    }*/
+
+                      $mensaje='Estamos procesando tu solicitud de registro, te notificaremos una vez haya finalizado el proceso, este proceso puede tomar hasta 24 horas.';
+
+
+                      $roleusuario=RoleUser::where('user_id', $user->id)->first();
+
+                      Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $configuracion->mensaje_bienvenida, $roleusuario ));
+
+                      Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $configuracion->mensaje_bienvenida, $roleusuario ));
+
+
+                      $cart= \Session::get('cart');
+
+                      $cart['id_cliente']=$user->id;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                     \Session::put('cart', $cart);
+
+
+                    }else{
+
+                        return redirect('admin/pedidos/checkout')->with('error', trans('auth/message.failure.error'))->withInput();
+
+                    }
+
+            }else{
+
+              $data_user = array(
+                    'first_name' => $request->first_name, 
+                    'last_name' => $request->last_name, 
+                    'email' => $request->email, 
+                    'password' => $request->password, 
+                  );
+
+
+
+                  $user = Sentinel::register($data_user, $activate);
+
+                  if ($request->convenio!='') {
+                    
+                    $empresa=AlpEmpresas::where('convenio', $request->convenio)->first();
+
+                    if (isset($empresa->id)) {
+                      # code...
+                    }else{
+
+                      return redirect('registro')->with('error', trans('El Código de Convenio no existe'))->withInput();
+
+                    }
+
+                    #dd($empresa);
+
+
+                  }
+
+                  if (isset($empresa->id)) {
+                    
+                  }else{
+
+                    $dominio=explode('@', $request->email);
+
+                    $empresa=AlpEmpresas::where('dominio',$dominio[1])->first();
+
+                  }
+
+
+                 // dd($empresa);
+
+                  $id_empresa=0;
+
+                  if (isset($empresa->id)) {
+
+                      $id_empresa=$empresa->id;
+                     
+                  }
+
+                    $data = array(
+                    'id_user_client' => $user->id, 
+                    'id_type_doc' => $request->id_type_doc, 
+                    'doc_cliente' =>$request->doc_cliente, 
+                    'telefono_cliente' => $request->telefono_cliente,
+                    'habeas_cliente' => '1',
+                    'cod_oracle_cliente' =>$request->telefono_cliente,
+                    'estado_masterfile' =>'1',
+                    'id_empresa' =>$id_empresa,               
+                    'id_embajador' =>'0',               
+                    'id_user' =>0,               
+                    );
+
+
+                  $cliente=AlpClientes::create($data);
+
+                   if ($id_empresa==0) {
+
+                    $role = Sentinel::findRoleById(9);
+
+
+                        $user_history = array(
+                        'id_cliente' => $user->id,
+                        'estatus_cliente' => "Activado",
+                        'notas' => "Ha sido registrado satisfactoriamente",
+                        'id_user'=>$user->id
+                         );
+
+                        AlpClientesHistory::create($user_history);
+
+
+                    }else{
+
+                      $role = Sentinel::findRoleById(12);
+
+                       $user_history = array(
+                        'id_cliente' => $user->id,
+                        'estatus_cliente' => "Activado",
+                        'notas' => "Ha sido registrado satisfactoriamente bajo la empresa ".$empresa->nombre_empresa,
+                        'id_user'=>$user->id
+                         );
+
+                        AlpClientesHistory::create($user_history);
+
+                    }
+
+                    $role->users()->attach($user);
+
+
+                    $roleusuario=RoleUser::where('user_id', $user->id)->first();
+
+                     $mensaje='Estamos procesando tu solicitud de registro, te notificaremos una vez haya finalizado el proceso, este proceso puede tomar hasta 24 horas.';
+
+                    Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name,  $configuracion->mensaje_bienvenida, $roleusuario));
+
+                    Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name,  $configuracion->mensaje_bienvenida, $roleusuario));
+
+
+
+                    $cart= \Session::get('cart');
+
+                      $cart['id_cliente']=$user->id;
+
+
+
+                     \Session::put('cart', $cart);
+
+
+
+
+            }
+
+            if ($request->id_barrio=='0') {
+              # code...
+            }else{
+
+              $b=Barrio::where('id', $request->id_barrio)->first();
+
+              if (isset($b->id)) {
+                $request->barrio_address=$b->barrio_name;
+              }
+            }
+
+
+            $direccion = array(
+                'id_client' => $user->id, 
+                'city_id' => $request->city_id, 
+                'id_estructura_address' => $request->id_estructura_address, 
+                'principal_address' => $request->principal_address,
+                'secundaria_address' => $request->secundaria_address,
+                'edificio_address' => $request->edificio_address,
+                'detalle_address' => $request->detalle_address,
+                'barrio_address'=> $request->barrio_address,             
+                'id_barrio'=> $request->id_barrio,             
+                'id_user' => 0,               
+            );
+
+            $dir=AlpDirecciones::create($direccion);
+
+            $cart= \Session::get('cart');
+
+            $cart['id_direccion']=$dir->id;
+
+
+              $cliente =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista')
+        ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+        ->join('role_users', 'users.id', '=', 'role_users.user_id')
+        ->join('roles', 'role_users.role_id', '=', 'roles.id')
+        ->where('role_users.role_id', '<>', 1)
+        ->where('alp_clientes.id_user_client', '=', $user->id)
+        ->first();
+
+
+       $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+          ->where('alp_direcciones.id_client', $cliente->id)->get();
+
+
+
+          $cart['cliente']=$cliente;
+          $cart['direcciones']=$direcciones;
+
+           \Session::put('cart', $cart);
+
+
+            //if you set $activate=false above then user will receive an activation mail
+            if (!$activate) {
+                // Data to be used on the email view
+                $data=[
+                    'user_name' => $user->first_name .' '. $user->last_name,
+                    'activationUrl' => URL::route('activate', [$user->id, Activation::create($user)->code]),
+                ];
+                // Send the activation code through email
+                //Mail::to($user->email)->send(new Register($data));
+                //Redirect to login page
+
+                if ($id_empresa==0) {
+                   
+                  //  return redirect('login')->with('success', trans('auth/message.signup.success'));
+
+                }else{
+
+                    $user_history = array(
+                        'id_client' => $user->id,
+                        'estatus_cliente' => "Activado",
+                        'notas' => "Ha sido registrado satisfactoriamente bajo la empresa ".$empresa->nombre_empresa,
+                        'id_user'=>$user->id
+                         );
+
+                    AlpClientesHistory::create($user_history);
+
+
+                     $configuracion->mensaje_bienvenida="Ha sido registrado satisfactoriamente bajo la empresa ".$empresa->nombre_empresa.", debe esperar que su Usuario sea activado en un proceso interno, te notificaremos vía email su activación.";
+
+                  //return redirect('login?registro='.$user->id)->with('success', trans($mensaje));
+
+                }
+
+            }
+
+            // login user automatically
+         //   Sentinel::login($user, false);
+            //Activity log for new account
+          //  activity($user->full_name)
+          //      ->performedOn($user)
+          //      ->causedBy($user)
+          //      ->log('Nueva Cuenta Creada');
+
+
+           $data_c = array(
+                    'cod_oracle_cliente' =>$request->telefono_cliente,
+                    'estado_masterfile' =>'1'
+                );
+
+
+            $cliente->update($data_c);
+
+
+            return redirect('admin/pedidos/checkout')->with('success', trans('Usuario resitrado satisfactoriamente '))->withInput();
+
+
+
+
+
+        } catch (UserExistsException $e) {
+
+            $this->messageBag->add('email', trans('auth/message.account_already_exists'));
+            
+        }
+
+        // Ooops.. something went wrong
+        return Redirect::back()->withInput()->withErrors($this->messageBag);
+    }
+
+
+
+
+
+
+
+
+ private function reloadCart()
+    {
+       
+      $cart= \Session::get('cart');
+
+      $s_user= \Session::get('user');
+
+      if (isset($cart['id_almacen'])) {
+
+         $id_almacen=$cart['id_almacen'];
+        
+      }else{
+
+         $id_almacen='1';
+
+          $cart['id_almacen']='1';
+      }
+
+    
+
+      $total=0;
+
+      $cambio=1;
+
+      $descuento='1'; 
+
+      $precio = array();
+
+        if (isset($cart['id_cliente'])) {
+
+            $user_id = Sentinel::getUser()->id;
+
+            //if ($user_id!=$s_user) {
+            if (1) {
+
+              $cambio=1;
+
+              \Session::put('user', $cart['id_cliente']);
+
+              $role=RoleUser::where('user_id', $cart['id_cliente'])->first();
+
+              $cliente = AlpClientes::where('id_user_client', $cart['id_cliente'] )->first();
+
+              if (isset($cliente->id_empresa) ) {
+
+                  if ($cliente->id_empresa!=0) {
+
+                      $role->role_id='E'.$cliente->id_empresa.'';
+                  }
+                 
+              }
+
+             if ($role->role_id) {
+                    
+                    
+                foreach ($cart as $producto ) {
+
+                  if (isset($producto->nombre_producto)) {
+
+
+                  $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $role->role_id)->first();
+
+                  if (isset($pregiogrupo->id)) {
+                     
+                      $precio[$producto->id]['precio']=$pregiogrupo->precio;
+
+                      $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
+                      $precio[$producto->id]['pum']=$pregiogrupo->pum;
+
+                  }
+
+                }
+                }
+                
+            }
+
+          }
+
+        }else{
+
+          $role = array( );
+
+            $r='9';
+                foreach ($cart as  $producto) {
+
+                  if (isset($producto->nombre_producto)) {
+                    # code...
+                    
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $r)->first();
+
+                    if (isset($pregiogrupo->id)) {
+                       
+                        $precio[$producto->id]['precio']=$pregiogrupo->precio;
+                        $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$producto->id]['pum']=$pregiogrupo->pum;
+
+                    }
+
+                }
+                }
+                
+        } //end sentinel check
+
+
+
+    if ($cambio==1) {
+
+      foreach ($cart as $producto) {
+
+      if (isset($producto->nombre_producto)) {
+        # code...
+
+      if ($descuento=='1') {
+
+        if (isset($precio[$producto->id])) {
+          # code...
+         
+          switch ($precio[$producto->id]['operacion']) {
+
+            case 1:
+
+              $producto->precio_oferta=$producto->precio_base*$descuento;
+
+              break;
+
+            case 2:
+
+              $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
+              
+              break;
+
+            case 3:
+
+              $producto->precio_oferta=$precio[$producto->id]['precio'];
+              
+              break;
+            
+            default:
+            
+             $producto->precio_oferta=$producto->precio_base*$descuento;
+              # code...
+              break;
+          }
+
+        }else{
+
+          $producto->precio_oferta=$producto->precio_base*$descuento;
+
+        }
+
+
+       }else{
+
+       $producto->precio_oferta=$producto->precio_base*$descuento;
+
+
+       }
+
+
+        $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
+
+        $almp=AlpAlmacenProducto::where('id_almacen', $id_almacen)->where('id_producto', $producto->id)->first();
+
+        //dd($almp);
+
+        if (isset($almp->id)) {
+
+          $producto->disponible=1;
+
+        }else{
+
+          $producto->disponible=0;
+
+        }
+
+
+       $cart[$producto->slug]=$producto;
+       
+      }
+      }
+
+     // dd($cart);
+
+       return $cart;
+
+      }else{
+
+        return $cart;
+
+      }
+      
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     private function addOferta($productos){
+
+
+        $descuento='1'; 
+
+        $precio = array();
+
+        $cart= \Session::get('cart');
+
+        $ciudad= \Session::get('ciudad');
+
+        if (isset($cart['id_cliente'])) {
+
+
+
+            $user_id = $cart['id_cliente'];
+
+            $user=Sentinel::getUser();
+             
+            $role=RoleUser::where('user_id', $user_id)->first();
+
+            $rol=$role->role_id;
+
+            $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+              ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+              ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+              ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+              ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+              ->where('alp_direcciones.id_client', $user_id)
+              ->where('alp_direcciones.default_address', '=', '1')
+              ->first();
+
+            if (isset($d->id)) {
+
+            }else{
+
+                  $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+                ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+                ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+                ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+                ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+                ->where('alp_direcciones.id_client', $user_id)
+                ->first();
+            }
+
+            if (isset($d->id)) {
+              $ciudad=$d->city_id;
+            }
+
+
+
+            $cliente = AlpClientes::where('id_user_client', $user_id )->first();
+
+            if (isset($cliente) ) {
+
+                if ($cliente->id_empresa!=0) {
+                    
+                    $role->role_id='E'.$role->role_id.'';
+                }
+               
+            }
+
+            if ($role->role_id) {
+
+               
+                foreach ($productos as  $row) {
+                    
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $role->role_id)->where('city_id', $ciudad)->first();
+
+                    if (isset($pregiogrupo->id)) {
+                       
+                        $precio[$row->id]['precio']=$pregiogrupo->precio;
+                        $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$row->id]['pum']=$pregiogrupo->pum;
+                        $precio[$row->id]['mostrar']=$pregiogrupo->mostrar_descuento;
+
+                    }else{
+
+
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $role->role_id)->first();
+
+                      if (isset($pregiogrupo->id)) {
+                         
+                          $precio[$row->id]['precio']=$pregiogrupo->precio;
+                          $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                          $precio[$row->id]['pum']=$pregiogrupo->pum;
+                          $precio[$row->id]['mostrar']=$pregiogrupo->mostrar_descuento;
+
+
+                      }
+
+                    
+
+                    }
+
+                }
+                
+            }
+
+        }else{
+
+        
+
+          $role = array( );
+
+            $r='9';
+
+                foreach ($productos as  $row) {
+
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $r)->where('city_id', $ciudad)->first();
+
+                    if (isset($pregiogrupo->id)) {
+                       
+                        $precio[$row->id]['precio']=$pregiogrupo->precio;
+                        $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$row->id]['pum']=$pregiogrupo->pum;
+                        $precio[$row->id]['mostrar']=$pregiogrupo->mostrar_descuento;
+
+
+                    }else{
+
+                      $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $r)->first();
+
+                      if (isset($pregiogrupo->id)) {
+                       
+                          $precio[$row->id]['precio']=$pregiogrupo->precio;
+                          $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+                          $precio[$row->id]['pum']=$pregiogrupo->pum;
+                          $precio[$row->id]['mostrar']=$pregiogrupo->mostrar_descuento;
+
+
+                      }
+
+                      
+
+                    }
+
+                }
+                
+        }
+
+
+
+      // dd($precio);
+
+        $prods = array( );
+
+        foreach ($productos as $producto) {
+
+          if ($descuento=='1') {
+
+            if (isset($precio[$producto->id])) {
+              # code...
+             
+              switch ($precio[$producto->id]['operacion']) {
+
+                case 1:
+
+                  $producto->precio_oferta=$producto->precio_base*$descuento;
+                  $producto->pum=$precio[$producto->id]['pum'];
+                  $producto->mostrar=$precio[$producto->id]['mostrar'];
+
+                  break;
+
+                case 2:
+
+                  $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
+                  $producto->pum=$precio[$producto->id]['pum'];
+                  $producto->mostrar=$precio[$producto->id]['mostrar'];
+                  
+                  break;
+
+                case 3:
+
+                  $producto->precio_oferta=$precio[$producto->id]['precio'];
+                  $producto->pum=$precio[$producto->id]['pum'];
+                  $producto->mostrar=$precio[$producto->id]['mostrar'];
+                  
+                  break;
+                
+                default:
+                
+                 $producto->precio_oferta=$producto->precio_base*$descuento;
+                  # code...
+                  break;
+              }
+
+            }else{
+
+              $producto->precio_oferta=$producto->precio_base*$descuento;
+
+            }
+
+
+           }else{
+
+           $producto->precio_oferta=$producto->precio_base*$descuento;
+
+
+           }
+
+
+           $prods[]=$producto;
+           
+          }
+
+        return $prods;
+
+
+    }
 
 
 

@@ -49,6 +49,8 @@ class AlpConfiguracion extends Model
         'correo_cedi',
         'correo_logistica',
         'correo_finanzas',
+        'correo_respuesta',
+        'npmbre_correo_respuesta',
         'seo_title',
         'seo_type',
         'seo_url',

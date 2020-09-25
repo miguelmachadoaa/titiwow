@@ -900,6 +900,37 @@ Editar Configuracion General
                                     </div>
                                 </div>
 
+                                 <div class="form-group {{ $errors->first('correo_respuesta', 'has-error') }}">
+                                    <label for="correo_respuesta" class="col-sm-2 control-label">
+                                        Correo Respuesta
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="correo_respuesta" name="correo_respuesta" class="form-control" placeholder="Correo Respuesta"
+                                            value="{!! old('correo_respuesta', $configuracion->correo_respuesta) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('correo_respuesta', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+
+
+ <div class="form-group {{ $errors->first('nombre_correo_respuesta', 'has-error') }}">
+                                    <label for="nombre_correo_respuesta" class="col-sm-2 control-label">
+                                       Nombre  Correo Respuesta
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="nombre_correo_respuesta" name="nombre_correo_respuesta" class="form-control" placeholder="Nombre  Correo Respuesta"
+                                            value="{!! old('nombre_correo_respuesta', $configuracion->nombre_correo_respuesta) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('nombre_correo_respuesta', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+
+
+
 
 
 

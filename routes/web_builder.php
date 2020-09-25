@@ -895,6 +895,8 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
     Route::post('pedidos/{id}/postgestionar', 'Admin\AlpPedidosController@postgestionar');
 
+    Route::post('pedidos/postregistro', 'Admin\AlpPedidosController@postregistro');
+
     Route::get('pedidos/{id}/roles', 'Admin\AlpPedidosController@roles');
 
     Route::post('pedidos/{id}/postroles', 'Admin\AlpPedidosController@postroles');

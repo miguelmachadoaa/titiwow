@@ -51,6 +51,23 @@ Pedidos
                          <div class="col-sm-12">
 
                             <div class="row">
+
+                              <div class="col-sm-12">
+
+                                   <h4>Almacenes</h4> 
+
+                                   <select class="form-control" name="categoria" id="categoria">
+
+                                        @foreach($almacenes as $a)
+
+                                            <option @if($cart['id_almacen']==$a->id) 'selected' @endif value="{{$a->id}}">{{$a->nombre_almacen}}</option>
+                                           
+                                        @endforeach
+
+                                    </select>
+                                </div>
+
+
                                 <div class="col-sm-4">
 
                                    <h4>Categorias</h4> 

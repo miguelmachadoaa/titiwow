@@ -34,7 +34,7 @@ Pedidos
     <div class="row">
 
 
-        <div class="col-lg-8">
+        <div class="col-lg-12">
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
@@ -48,9 +48,75 @@ Pedidos
 
                      <div class="row" style="padding-top: 0;">
                          
-                       
-                         {{$orden->id}}
-                     </div> 
+                            <h1>Detalle de Su Pedido</h1>
+                            
+                            <br>
+                             <div class="col-md-10 col-md-offset-1 table-responsive">
+                             <table class="table  ">
+                                     <thead style="border-top: 1px solid rgba(0,0,0,0.1);">
+                                         <tr>
+                                             <th>Imagen</th>
+                                             <th>Producto</th>
+                                             <th>Precio</th>
+                                             <th>Cantidad</th>
+                                             <th>SubTotal</th>
+                                         </tr>
+                                     </thead>
+                                     <tbody>
+                                         @foreach($detalles as $row)
+                                            <tr>
+                                                <td><a target="_blank"  href="{{ secure_url('producto', [$row->slug]) }}" ><img height="60px" src="../uploads/productos/60/{{$row->imagen_producto}}"></a></td>
+                                                <td><a target="_blank"  href="{{ secure_url('producto', [$row->slug]) }}" >{{$row->nombre_producto}}</a></td>
+                                                <td>{{number_format($row->precio_unitario,0,",",".")}}</td>
+                                                <td> {{ $row->cantidad }} </td>
+                                                <td>{{ number_format($row->precio_total, 0,",",".") }}</td>
+                                            </tr>
+                                         @endforeach
+
+                                         <tr>
+                                             <td colspan="4" style="text-align: right;">
+                                                 <b>Total: </b>
+                                             </td>
+                                             <td>
+                                                 {{number_format($compra->monto_total, 0,",",".")}}
+                                             </td>
+                                         </tr>
+                                         <tr>
+                                             <td colspan="4" style="text-align: right;">
+                                                 <b>Base Impuesto: </b>
+                                             </td>
+                                             <td>
+                                                 {{number_format($compra->base_impuesto, 0,",",".")}}
+                                             </td>
+                                         </tr>
+
+                                         <tr>
+                                             <td colspan="4" style="text-align: right;">
+                                                 <b>Iva:</b> {{ $compra->valor_impuesto*100 }}%: 
+                                             </td>
+                                             <td>
+                                                 {{number_format($compra->monto_impuesto, 0,",",".")}}
+                                             </td>
+                                         </tr>
+
+                                           <tr>
+                                             <td colspan="4" style="text-align: right;">
+                                                 <b>Monto Ahorrado: </b>
+                                             </td>
+                                             <td>
+                                                 {{number_format($compra->monto_total_base-$compra->monto_total, 0,",",".")}}
+                                             </td>
+                                         </tr>
+
+                                         
+
+                                     </tbody>
+                                 </table>
+
+                                 <hr>
+
+                             </div>
+                                         </div> 
 
                     
                 </div>
@@ -58,33 +124,9 @@ Pedidos
         </div>
 
 
+<a class="btn btn-primary" href="{{secure_url('admin/pedidos/')}}">Realizar Otro Pedido</a>
 
-
-         <div class="col-lg-4">
-            <div class="panel panel-primary ">
-                <div class="panel-heading clearfix">
-                    <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Detalle de Compra 
-                    </h4>
-                    
-                </div>
-                <br />
-                <div class="panel-body" style="padding-top: 0;">
-                     <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
-
-                     <div class="row" style="padding-top: 0;">
-                         
-                         
-                         <div class="col-sm-12 listaorden">
-
-                         @include('admin.pedidos.listaorden')
-                        </div>
-                     </div> 
-
-                    
-                </div>
-            </div>
-        </div>
+       
 
 
 

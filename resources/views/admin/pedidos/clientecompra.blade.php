@@ -16,7 +16,7 @@
 
 
 
-                            @if(isset($cart['id_cliente']))
+                            @if(isset($cart['id_cliente']) && isset($cart['cliente']))
 
                                 <p><b>Nombre:</b>{{$cart['cliente']->first_name.' '.$cart['cliente']->last_name}}</p>
                                 <p><b>Documento: </b>{{$cart['cliente']->doc_cliente}}</p>
