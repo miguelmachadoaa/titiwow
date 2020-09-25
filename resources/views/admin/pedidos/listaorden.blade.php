@@ -13,7 +13,7 @@
             <div class="col-sm-2"><img style="width: 60px;" src="{{secure_url('uploads/productos/60/'.$p->imagen_producto)}}" alt=""></div>
             <div class="col-sm-10">
                 <p><b>{{$p->nombre_producto}}</b></p>
-                <p class="">{{$p->precio_base}} x 
+                <p class="">{{$p->precio_oferta}} x 
 
                     <select data-id="{{$p->id}}" style="width: 30%" class="  cantidadcarrito" name="cantidad_{{$p->id}}" id="cantidad_{{$p->id}}">
                         <option value="1"  @if($p->cantidad==1) Selected  @endif  >1</option>
@@ -29,7 +29,7 @@
 
                     
                 </p>
-                <p>Total: {{$p->cantidad*$p->precio_base}}</p>
+                <p>Total: {{$p->cantidad*$p->precio_oferta}}</p>
                 
             </div>
         </div>

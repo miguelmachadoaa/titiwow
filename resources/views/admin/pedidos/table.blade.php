@@ -7,12 +7,15 @@
         <th>Imagen</th>
         <th>Nombre de Producto</th>
         <th>Precio</th>
+        <th>Oferta</th>
+        <th>Existencia</th>
         <th>Accion</th>
      </tr>
     </thead>
     <tbody>
 
         @foreach($productos as $p)
+
 
         <tr>
             <td><img style="width: 60px;" src="{{secure_url('uploads/productos/60/'.$p->imagen_producto)}}" alt="{{$p->nombre_producto}}"></td>
@@ -25,11 +28,14 @@
             </td>
             
             <td>{{$p->precio_base}}</td>
+            <td>{{$p->precio_oferta}}</td>
+            <td>{{$cart['inventario'][$p->id]}}</td>
             <td><button class="btn btn-primary addproducto" 
                 data-id="{{$p->id}}"
                 >Agregar</button>
             </td>
          </tr>
+
 
         @endforeach
   

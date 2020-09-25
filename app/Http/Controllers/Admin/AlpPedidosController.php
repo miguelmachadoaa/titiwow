@@ -128,6 +128,21 @@ class AlpPedidosController extends JoshController
 
           $cart=$this->reloadCart();
 
+
+          if (isset($cart['inventari2o'])) {
+            # code...
+          }else{
+
+            $cart['inventario']=$this->inventario();
+          }
+
+
+
+          \Session::put('cart', $cart);
+
+        //  dd($cart);
+
+
         // Show the page
         return view('admin.pedidos.index', compact('almacenes', 'productos', 'categorias', 'marcas', 'cart', 'total_venta'));
     }
@@ -391,9 +406,9 @@ class AlpPedidosController extends JoshController
                 'id_orden' => $orden->id, 
                 'id_producto' => $detalle->id, 
                 'cantidad' =>$detalle->cantidad, 
-                'precio_unitario' =>$detalle->precio_base, 
+                'precio_unitario' =>$detalle->precio_oferta, 
                 'precio_base' =>$detalle->precio_base, 
-                'precio_total' =>$detalle->cantidad*$detalle->precio_base,
+                'precio_total' =>$detalle->cantidad*$detalle->precio_oferta,
                 'precio_total_base' =>$detalle->cantidad*$detalle->precio_base,
                 'valor_impuesto' =>$valor_impuesto,
                 'monto_impuesto' =>$base_imponible_detalle*$valor_impuesto,
@@ -521,7 +536,7 @@ class AlpPedidosController extends JoshController
 
 
 
-
+             \Session::forget('cart');
 
 
 
@@ -1001,73 +1016,56 @@ class AlpPedidosController extends JoshController
 
 
 
-
-    private function inventario()
+ private function inventario()
     {
 
-        if (Sentinel::check()) {
+      if (isset($cart['id_almacen'])) {
 
-          $user = Sentinel::getUser();
+        $id_almacen=$cart['id_almacen'];
 
-           activity($user->full_name)
-              ->performedOn($user)
-              ->causedBy($user)
-              ->log('AlpInventarioController/inventario ');
+      }else{
 
-        }else{
+        $id_almacen='1';
+      }
+       
+       
 
-          activity()
-          ->log('AlpInventarioController/inventario');
+      $entradas = AlpInventario::groupBy('id_producto')
+        ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
+        ->where('alp_inventarios.operacion', '1')
+        ->where('alp_inventarios.id_almacen', '=', $id_almacen)
+        ->get();
+
+        $inv = array();
+
+        foreach ($entradas as $row) {
+          
+          $inv[$row->id_producto]=$row->cantidad_total;
 
         }
 
 
-      $entradas = AlpInventario::groupBy('id_producto')->groupBy('id_almacen')
-              ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
-              ->where('alp_inventarios.operacion', '1')
-              ->whereNull('deleted_at')
-              ->get();
+      $salidas = AlpInventario::select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
+        ->groupBy('id_producto')
+        ->where('operacion', '2')
+        ->where('alp_inventarios.id_almacen', '=', $id_almacen)
+        ->get();
 
-              $inv = array();
-              $inv2 = array();
+        foreach ($salidas as $row) {
 
-             foreach ($entradas as $row) {
-                
-                $inv[$row->id_producto]=$row->cantidad_total;
+          if (isset($inv[$row->id_producto])) {
+            # code...
+          }else{
 
-                $inv2[$row->id_producto][$row->id_almacen]=$row->cantidad_total;
+            $inv[$row->id_producto]=0;
 
-              }
+          }
+          
+          $inv[$row->id_producto]= $inv[$row->id_producto]-$row->cantidad_total;
 
+      }
 
-
-
-            $salidas = AlpInventario::select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
-              ->groupBy('id_producto')
-              ->groupBy('id_almacen')
-              ->where('operacion', '2')
-              ->whereNull('deleted_at')
-              ->get();
-
-              foreach ($salidas as $row) {
-                
-                //$inv[$row->id_producto]= $inv[$row->id_producto]-$row->cantidad_total;
-
-                  if (  isset( $inv2[$row->id_producto][$row->id_almacen])) {
-                    $inv2[$row->id_producto][$row->id_almacen]= $inv2[$row->id_producto][$row->id_almacen]-$row->cantidad_total;
-                  }else{
-
-                    $inv2[$row->id_producto][$row->id_almacen]= 0;
-                  }
-
-              
-                //$inv2[$row->id_producto][$row->id_almacen]= $row->cantidad_total;
-
-            }
-
-           // dd($inv2);
-
-            return $inv2;
+      return $inv;
       
     }
 
@@ -1212,7 +1210,11 @@ class AlpPedidosController extends JoshController
 
           $productos=$this->addOferta($productos);
 
-           $view= View::make('admin.pedidos.table', compact('productos'));
+          $cart= \Session::get('cart');
+
+
+
+           $view= View::make('admin.pedidos.table', compact('productos', 'cart'));
 
             $data=$view->render();
 
@@ -1234,9 +1236,9 @@ class AlpPedidosController extends JoshController
 
           $productos=$this->addOferta($productos);
 
+          $cart= \Session::get('cart');
 
-
-           $view= View::make('admin.pedidos.table', compact('productos'));
+           $view= View::make('admin.pedidos.table', compact('productos', 'cart'));
 
             $data=$view->render();
 
@@ -1257,9 +1259,11 @@ class AlpPedidosController extends JoshController
 
           $productos=$this->addOferta($productos);
 
-          
 
-           $view= View::make('admin.pedidos.table', compact('productos'));
+          $cart= \Session::get('cart');
+
+
+           $view= View::make('admin.pedidos.table', compact('productos', 'cart'));
 
             $data=$view->render();
 
@@ -1291,13 +1295,6 @@ class AlpPedidosController extends JoshController
 
 
 
-
-
-
-
-
-
-
       public function addtocart($id)
     {
 
@@ -1310,7 +1307,7 @@ class AlpPedidosController extends JoshController
           ->where('alp_productos.id', $id)
           ->first();
 
-          //dd($producto);
+          
 
        $cart= \Session::get('cart');
 
@@ -1320,9 +1317,30 @@ class AlpPedidosController extends JoshController
 
        $precio = array();
 
-       $inv=$this->inventario();
+       if (isset($cart['inventario'])) {
 
-       $almacen='1';
+        $inv=$cart['inventario'];
+         
+       }else{
+
+        $inv=$this->inventario();
+
+       }
+
+
+       if (isset($cart['id_almacen'])) {
+
+        $almacen=$cart['id_almacen'];
+         
+       }else{
+
+        $almacen='1';
+        
+       }
+
+       
+
+       
 
        //dd($almacen);
 
