@@ -373,7 +373,10 @@ class FrontEndController extends JoshController
       $productos=AlpProductos::select('alp_productos.*', 'alp_marcas.nombre_marca as nombre_marca')
       ->join('alp_marcas', 'alp_productos.id_marca', '=','alp_marcas.id')
       ->join('alp_xml', 'alp_productos.id', '=','alp_xml.id_producto')
+      ->join('alp_almacen_producto', 'alp_productos.id', '=','alp_almacen_producto.id_producto')
       ->where('alp_productos.estado_registro','=',1)
+      ->where('alp_almacen_producto.id_almacen','=','1')
+      ->whereNull('alp_almacen_producto.deleted_at')
       ->whereNull('alp_xml.deleted_at')
       ->whereNull('alp_productos.deleted_at')
       ->get();
