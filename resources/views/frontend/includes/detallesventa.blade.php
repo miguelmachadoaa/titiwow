@@ -26,6 +26,8 @@
 
                                         @foreach($cart as $car)
 
+                                        @if(isset($car->nombre_producto))
+
                                         <li style="list-style-type: none;">
 
                                             <div class="row">
@@ -47,6 +49,8 @@
                                             </div>
 
                                         </li>
+
+                                        @endif
 
                                         @endforeach
 

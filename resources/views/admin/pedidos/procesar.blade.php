@@ -47,11 +47,19 @@ Pedidos
                      <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
 
                      <div class="row" style="padding-top: 0;">
-                         
+
+                        <div class="col-sm-6">
+                            
+                            Enlace para pago 
+
+                            <p>{{secure_url('pedidos/'.$compra->token.'/pago')}}</p>
+
+                        </div>
+
+                        <div class="col-sm-6">
+
                             <h1>Detalle de Su Pedido</h1>
                             
-                            <br>
-                             <div class="col-md-10 col-md-offset-1 table-responsive">
                              <table class="table  ">
                                      <thead style="border-top: 1px solid rgba(0,0,0,0.1);">
                                          <tr>
@@ -113,9 +121,14 @@ Pedidos
                                      </tbody>
                                  </table>
 
-                                 <hr>
 
-                             </div>
+
+                        </div>
+                         
+                            
+                            
+                            
+                            
                                          </div> 
 
                     

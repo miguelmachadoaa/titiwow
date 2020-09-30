@@ -16,25 +16,33 @@
 
         @foreach($productos as $p)
 
+        @if(isset($cart['inventario'][$p->id]))
 
-        <tr>
-            <td><img style="width: 60px;" src="{{secure_url('uploads/productos/60/'.$p->imagen_producto)}}" alt="{{$p->nombre_producto}}"></td>
-            <td>
-                <p><b>{{$p->nombre_producto}}</b></p>
-                <p style="font-size: 0.8em; line-height: 1;">Presentacion : {{$p->presentacion_producto}}</p>
-                <p style="font-size: 0.8em; line-height: 1;">Referencia: {{$p->referencia_producto}}</p>
-                <p style="font-size: 0.8em; line-height: 1;">SKU: {{$p->referencia_producto_sap}}</p>
-                <p style="font-size: 0.8em; line-height: 1;">Categoria: {{$p->nombre_categoria}}</p>
-            </td>
-            
-            <td>{{$p->precio_base}}</td>
-            <td>{{$p->precio_oferta}}</td>
-            <td>{{$cart['inventario'][$p->id]}}</td>
-            <td><button class="btn btn-primary addproducto" 
-                data-id="{{$p->id}}"
-                >Agregar</button>
-            </td>
-         </tr>
+            @if($cart['inventario'][$p->id]>0)
+
+
+            <tr>
+                <td><img style="width: 60px;" src="{{secure_url('uploads/productos/60/'.$p->imagen_producto)}}" alt="{{$p->nombre_producto}}"></td>
+                <td>
+                    <p><b>{{$p->nombre_producto}}</b></p>
+                    <p style="font-size: 0.8em; line-height: 1;">Presentacion : {{$p->presentacion_producto}}</p>
+                    <p style="font-size: 0.8em; line-height: 1;">Referencia: {{$p->referencia_producto}}</p>
+                    <p style="font-size: 0.8em; line-height: 1;">SKU: {{$p->referencia_producto_sap}}</p>
+                    <p style="font-size: 0.8em; line-height: 1;">Categoria: {{$p->nombre_categoria}}</p>
+                </td>
+                
+                <td>{{$p->precio_base}}</td>
+                <td>{{$p->precio_oferta}}</td>
+                <td>{{$cart['inventario'][$p->id]}}</td>
+                <td><button class="btn btn-primary addproducto" 
+                    data-id="{{$p->id}}"
+                    >Agregar</button>
+                </td>
+             </tr>
+
+             @endif
+             
+         @endif
 
 
         @endforeach

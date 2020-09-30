@@ -5,6 +5,8 @@
 
    <div class="col-sm-12">
 
+                        <h3>Paso 1. Seleccionar Cliente</h3>
+
 
                             <button class="btn btn-primary seleccionarCliente" type="button" >Seleccionar Cliente</button>
 
@@ -30,6 +32,8 @@
 
                         <div class="col-sm-12">
 
+                            <h3>Paso 2. Seleccionar Dirección</h3>
+
                                <h4>Dirección</h4> 
 
                                 @if(isset($cart['direcciones']))
@@ -52,7 +56,7 @@
 
                             <br>
 
-                            <button data-id="{{$cart['id_cliente']}}" class="btn btn-primary agregarDireccion" >Agregar Nueva Dirección</button>
+                            <button type="button" data-id="{{$cart['id_cliente']}}" class="btn btn-primary agregarDireccion" >Agregar Nueva Dirección</button>
 
                             @endif
 
@@ -63,6 +67,8 @@
                         </div>
 
                             <div class="col-sm-12">
+
+                                <h3>Paso 3. Seleccionar Forma de Pago</h3>
 
                                    <h4>Forma de Pago</h4> 
 
@@ -80,6 +86,8 @@
 
 
                             <div class="col-sm-12">
+
+                                <h3>Paso 4. Seleccionar Forma de Envio</h3>
 
                                    <h4>Forma de Envio</h4> 
 

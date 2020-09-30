@@ -30,6 +30,7 @@ use App\Models\AlpEmpresas;
 use App\Models\AlpClientesHistory;
 use App\Models\AlpCombosProductos;
 use App\Models\AlpOrdenesDescuento;
+use App\Models\AlpPagos;
 use App\User;
 use App\State;
 use App\City;
@@ -1380,6 +1381,14 @@ class AlpPedidosController extends JoshController
 
        }
 
+
+
+
+
+      \Session::put('cart', $cart);
+
+      $cart=$this->reloadCart();
+
       \Session::put('cart', $cart);
 
       $total_venta=$this->totalcart($cart);
@@ -2577,6 +2586,387 @@ class AlpPedidosController extends JoshController
 
 
     }
+
+
+
+
+    public function pedidopago($token)
+    {
+        // Grab all the groups
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('almacenes/checkout ');
+
+        }else{
+
+          activity()
+          ->log('almacenes/checkout');
+
+
+        }
+
+
+        
+        $configuracion=AlpConfiguracion::where('id', '=', '1')->first();
+
+        $orden=AlpOrdenes::where('token', '=', $token)->first();
+
+        $id_almacen=1;
+
+        $almacenes = AlpAlmacenes::all();
+
+         $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista')
+        ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+        ->join('role_users', 'users.id', '=', 'role_users.user_id')
+        ->join('roles', 'role_users.role_id', '=', 'roles.id')
+        ->where('role_users.role_id', '<>', 1)
+        ->limit(50)
+        ->get();
+       
+          $cart= \Session::get('cart');
+
+          $total_venta=$this->totalcart($cart);
+
+          $total=$this->totalcart($cart);
+
+           $total_base=$this->precio_base();
+
+
+
+          $impuesto=$this->impuesto();
+
+          $afe=AlpAlmacenFormaEnvio::where('id_almacen', $id_almacen)->first();
+
+          if (isset($afe->id)) {
+
+            $formasenvio = AlpFormasenvio::select('alp_formas_envios.*')
+            ->join('alp_almacen_formas_envio', 'alp_formas_envios.id', '=', 'alp_almacen_formas_envio.id_forma_envio')
+            ->where('alp_almacen_formas_envio.id_almacen', $id_almacen)
+            ->whereNull('alp_almacen_formas_envio.deleted_at')
+            ->groupBy('alp_formas_envios.id')->get();
+            # code...
+          }else{
+
+             $formasenvio = AlpFormasenvio::select('alp_formas_envios.*')
+            ->join('alp_rol_envio', 'alp_formas_envios.id', '=', 'alp_rol_envio.id_forma_envio')
+            ->where('alp_rol_envio.id_rol', '9')->get();
+
+          }
+
+          $afe=AlpAlmacenFormaPago::where('id_almacen', $id_almacen)->first();
+
+          if (isset($afe->id)) {
+
+            $formaspago = AlpFormaspago::select('alp_formas_pagos.*')
+              ->join('alp_almacen_formas_pago', 'alp_formas_pagos.id', '=', 'alp_almacen_formas_pago.id_forma_pago')
+              ->where('alp_almacen_formas_pago.id_almacen', $id_almacen)
+              ->whereNull('alp_almacen_formas_pago.deleted_at')
+              ->groupBy('alp_formas_pagos.id')->get();
+            # code...
+          }else{
+
+              $formaspago = AlpFormaspago::select('alp_formas_pagos.*')
+              ->join('alp_rol_pago', 'alp_formas_pagos.id', '=', 'alp_rol_pago.id_forma_pago')
+              ->where('alp_rol_pago.id_rol', '9')->get();
+
+          }
+
+          if (isset($cart['id_forma_pago'])) {
+            
+          }else{
+
+            $i=0;  
+            foreach ($formaspago as $fp) {
+
+              if ($i==0) {
+                
+                $cart['id_forma_pago']=$fp->id;
+
+                $i++;
+              }
+            }
+          }
+
+
+          if (isset($cart['id_forma_envio'])) {
+            # code...
+          }else{
+
+            $i=0;  
+            foreach ($formasenvio as $fe) {
+
+              if ($i==0) {
+                
+                $cart['id_forma_envio']=$fe->id;
+                $i++;
+              }
+            }
+          }
+
+          $t_documento = AlpTDocumento::where('estado_registro','=',1)->get();
+
+            $estructura = AlpEstructuraAddress::where('estado_registro','=',1)->get();
+
+            $countries = Country::all();
+             $listabarrios=Barrio::get();
+
+             $states=State::where('config_states.country_id', '47')->get();
+
+             $cities=City::where('state_id', '47')->get();
+
+             \Session::put('cart', $cart);
+
+
+              $cart=$this->reloadCart();
+
+              $url='';
+
+
+
+              $costo_envio=$this->envio();
+
+               if ($costo_envio>0) {
+               
+                 $envio_base=$costo_envio/(1+$valor_impuesto->valor_impuesto);
+
+                $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
+
+              }else{
+
+               $envio_base=0;
+
+                $envio_impuesto=0;
+
+              }
+
+
+
+
+          $pagos=AlpPagos::where('id_orden', $orden->id)->get();
+
+          $total_pagos=0;
+
+          foreach ($pagos as $pago) {
+
+            $total_pagos=$total_pagos+$pago->monto_pago;
+
+          }
+
+          $total_descuentos=0;
+
+         // dd($carrito);
+
+            $descuentos=AlpOrdenesDescuento::where('id_orden','=', $orden->id)->get();
+
+            foreach ($descuentos as $pago) {
+
+              $total_pagos=$total_pagos+$pago->monto_descuento;
+
+              $total_descuentos=$total_descuentos+$pago->monto_descuento;
+
+            }
+
+
+             $mp = new MP();
+
+           if ($configuracion->mercadopago_sand=='1') {
+          
+              $mp::sandbox_mode(TRUE);
+
+            }
+
+            if ($configuracion->mercadopago_sand=='2') {
+              
+              $mp::sandbox_mode(FALSE);
+
+            }
+
+
+
+          MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+
+            $payment_methods = MP::get("/v1/payment_methods");
+
+            
+        // Show the page
+        return view('admin.pedidos.pago', compact('almacenes', 'cart', 'total', 'clientes', 'formaspago', 'formasenvio', 't_documento', 'estructura', 'countries', 'listabarrios', 'states', 'cities', 'url', 'impuesto', 'envio_base', 'envio_impuesto', 'costo_envio', 'total_pagos', 'total_base', 'total_descuentos', 'descuentos', 'orden', 'payment_methods'));
+
+
+    }
+
+
+
+
+
+     private function impuesto()
+    {
+       $cart= \Session::get('cart');
+
+      $impuesto=0;
+
+      $valor_impuesto=0;
+
+      $carrito= \Session::get('cr');
+
+
+      $base=0;
+
+      $total=$this->totalcart($cart);
+
+      $total_descuentos=0;
+
+
+        $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
+
+        foreach ($descuentos as $pago) {
+
+          $total_descuentos=$total_descuentos+$pago->monto_descuento;
+
+        }
+
+          foreach($cart as $row) {
+
+            if (isset($row->nombre_producto)) {
+              
+              if($row->valor_impuesto>0){
+
+                $valor_impuesto=$row->valor_impuesto;
+
+              }
+
+              $impuesto=$impuesto+($row->impuesto*$row->cantidad);
+
+              $base=$base+($row->precio_oferta*$row->cantidad);
+              }
+
+
+          }
+
+
+      $resto=$total-$total_descuentos;
+
+       if ($resto<$base) {
+
+        $impuesto=($resto/(1+$valor_impuesto))*$valor_impuesto;
+
+      }
+
+       return $impuesto;
+      
+    }
+
+
+
+
+
+     public function envio(){
+
+      $formasenvio= \Session::get('envio');
+
+      $direccion= \Session::get('direccion');
+
+     //dd($formasenvio.' '.$direccion);
+
+      $user_id = Sentinel::getUser()->id;
+      
+      $role=RoleUser::where('user_id', $user_id)->first();
+      
+      $dir=AlpDirecciones::where('id', $direccion)->first();
+
+      if ($formasenvio==1) {
+
+        if (isset($dir->id)) {
+
+          $ciudad=AlpFormaCiudad::where('id_forma', $formasenvio)->where('id_ciudad', $dir->city_id)->first();
+
+          if (isset($ciudad->id)) {
+
+            $envio=$ciudad->costo;
+            
+          }else{
+
+            $envio=-1;
+
+          }
+
+          
+        }else{
+
+          $envio=-1;
+        }
+
+      }else{
+
+
+        if (isset($dir->id)) {
+
+          $ciudad=AlpFormaCiudad::where('id_forma', $formasenvio)->where('id_ciudad', $dir->city_id)->where('id_rol', $role->role_id)->first();
+
+          if (isset($ciudad->id)) {
+
+            $envio=$ciudad->costo;
+            
+          }else{
+
+            $envio=-1;
+
+          }
+
+          
+        }else{
+
+          $envio=-1;
+        }
+
+
+
+      }
+
+      return $envio;
+
+    } 
+
+
+
+     private function precio_base()
+    {
+       $cart= \Session::get('cart');
+
+      $total=0;
+
+      foreach($cart as $row) {
+
+        if (isset($row->nombre_producto)) {
+
+          $total=$total+($row->cantidad*$row->precio_base);# co
+          de...
+        }
+
+      }
+
+       return $total;
+      
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

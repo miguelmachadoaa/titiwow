@@ -332,22 +332,11 @@ Pedidos
                            value="{!! old('telefono_cliente') !!}" >
                     {!! $errors->first('telefono_cliente', '<span class="help-block">:message</span>') !!}
                 </div>
-                <div class="form-group {{ $errors->first('password', 'has-error') }}">
-                    <input type="password" class="form-control" id="Password1" name="password" placeholder="Contraseña">
-                    {!! $errors->first('password', '<span class="help-block">:message</span>') !!}
-                </div>
-                <div class="form-group {{ $errors->first('password_confirm', 'has-error') }}">
-                    <input type="password" class="form-control" id="Password2" name="password_confirm"
-                           placeholder="Confirmar Contraseña">
-                    {!! $errors->first('password_confirm', '<span class="help-block">:message</span>') !!}
-                </div>
-                <div class="clearfix"></div>
+              
 
 
                 </div>
                 <div class="col-sm-6">
-                    
-
 
                 <h4 class="text-primary">Dirección</h4>
                 <div class="form-group {{ $errors->first('state_id', 'has-error') }}">
@@ -566,7 +555,7 @@ Pedidos
 
     <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
-    <script type="text/javascript" src="{{ secure_asset('assets/js/frontend/register_custom.js') }}"></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/js/frontend/register_custom_checkout.js') }}"></script>
 <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
 
 
@@ -662,6 +651,8 @@ Pedidos
                     $('#ClienteModal').modal('hide');
 
                     $('.clientecompra').html(data);
+
+                    location.reload();
             });
              
     });
