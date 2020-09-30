@@ -553,7 +553,7 @@ class AlpPedidosController extends JoshController
         }else{
 
 
-          return redirect('admin/pedidos/checkout')->withInput()->with('error', trans('Debes seleccionar un cliente'));
+          return redirect('admin/pedidos/')->withInput()->with('error', trans('Hubo un error al procesar la compra'));
 
 
         }
