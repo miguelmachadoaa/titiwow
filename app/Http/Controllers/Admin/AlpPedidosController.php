@@ -543,7 +543,9 @@ class AlpPedidosController extends JoshController
 
              \Session::forget('cart');
 
+             $user_cliente=User::where('id', $user_id)->first();
 
+             Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionTomapedidos($compra, ''));
 
             return view('admin.pedidos.procesar', compact('compra', 'detalles'));
 

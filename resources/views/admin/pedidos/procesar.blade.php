@@ -49,8 +49,14 @@ Pedidos
                      <div class="row" style="padding-top: 0;">
 
                         <div class="col-sm-6">
+
+                            <h3>Datos de la compra  </h3>
+
+                            <p>Nombre: {{$compra->first_name.' '.$compra->last_name}}</p>
+                            <p>Forma de Pago: {{$compra->nombre_forma_envios}}</p>
+                            <p>Forma de Envio: {{$compra->nombre_forma_pago}}</p>
                             
-                            Enlace para pago 
+                            <h3>Enlace para pago </h3>
 
                             <p>{{secure_url('pedidos/'.$compra->token.'/pago')}}</p>
 
