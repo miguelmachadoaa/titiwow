@@ -217,7 +217,7 @@
 
                  $('.ubicacion_header a').html('BOGOTÁ CUNDINAMARCA');
 
-                $('#ubicacionModal').modal('show', {backdrop: 'static', keyboard: false});
+              //  $('#ubicacionModal').modal('show', {backdrop: 'static', keyboard: false});
             }
 
         });
@@ -368,7 +368,6 @@
                             }else{
 
                             $('select[name="state_id_ubicacion"]').append('<option value="'+ key +'">'+ value +'</option>');
-
 
                             }
 

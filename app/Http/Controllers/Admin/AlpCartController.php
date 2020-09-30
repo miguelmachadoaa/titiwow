@@ -3639,16 +3639,23 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                     
                 foreach ($cart as $producto ) {
 
-                  $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $role->role_id)->first();
+                  if (isset($producto->id)) {
 
-                  if (isset($pregiogrupo->id)) {
-                     
-                      $precio[$producto->id]['precio']=$pregiogrupo->precio;
+                      $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $role->role_id)->first();
 
-                      $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
-                      $precio[$producto->id]['pum']=$pregiogrupo->pum;
+                      if (isset($pregiogrupo->id)) {
+                         
+                          $precio[$producto->id]['precio']=$pregiogrupo->precio;
 
+                          $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
+                          $precio[$producto->id]['pum']=$pregiogrupo->pum;
+
+                      }
+                    
+                    
                   }
+
+                  
 
                 }
                 
@@ -4401,7 +4408,9 @@ public function verificarDireccion( Request $request)
 
         }else{
 
-          return 'false';
+          $direccion=AlpDirecciones::where('id', $request->id_direccion)->first();
+
+          $user_id=$direccion->id_client;
 
         }
 
@@ -4486,7 +4495,7 @@ public function verificarDireccion( Request $request)
 
       if (isset($ciudad->id)  ||  $validado=='1'){
 
-        if (!\Session::has('orden')) {
+        if (!\Session::has('orden')){
          
           $data_orden = array(
               'referencia ' => time(), 

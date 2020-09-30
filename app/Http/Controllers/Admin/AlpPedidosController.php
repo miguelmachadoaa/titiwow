@@ -31,6 +31,7 @@ use App\Models\AlpClientesHistory;
 use App\Models\AlpCombosProductos;
 use App\Models\AlpOrdenesDescuento;
 use App\Models\AlpPagos;
+use App\Models\AlpFormaCiudad;
 use App\User;
 use App\State;
 use App\City;
@@ -2617,6 +2618,28 @@ class AlpPedidosController extends JoshController
 
         $orden=AlpOrdenes::where('token', '=', $token)->first();
 
+
+        \Session::put('orden', $orden->id);
+        \Session::put('carrito', $orden->id);
+
+         $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
+            ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
+            ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
+
+            $cart = array();
+
+        foreach ($detalles as $d) {
+          $p=AlpProductos::where('slug', $d->slug)->first();
+
+          $cart[$d->slug]=$p;
+
+          $cart[$d->slug]->cantidad=$d->cantidad;
+          $cart[$d->slug]->precio_oferta=$d->precio_unitario;
+
+        }
+
+        \Session::put('cart', $cart);
+
         $id_almacen=1;
 
         $almacenes = AlpAlmacenes::all();
@@ -2629,17 +2652,47 @@ class AlpPedidosController extends JoshController
         ->limit(50)
         ->get();
        
-          $cart= \Session::get('cart');
+         // $cart= \Session::get('cart');
 
-          $total_venta=$this->totalcart($cart);
+          $total_venta=0;
 
-          $total=$this->totalcart($cart);
+          $total=0;
 
-           $total_base=$this->precio_base();
+          $total_base=0;
+
+          $impuesto=$this->impuesto($detalles, $orden);
 
 
 
-          $impuesto=$this->impuesto();
+          foreach ($detalles as $c) {
+
+          if (isset($c->id)) {
+
+            $total_base=$total_base+($c->cantidad*$c->precio_base);
+
+            $total=$total+($c->cantidad*$c->precio_unitario);
+
+            $total_venta=$total_venta+($c->cantidad*$c->precio_unitario);
+
+            $total_venta=$total_venta+($c->cantidad*$c->precio_unitario);
+
+          }
+
+          # code...
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
           $afe=AlpAlmacenFormaEnvio::where('id_almacen', $id_almacen)->first();
 
@@ -2729,7 +2782,7 @@ class AlpPedidosController extends JoshController
 
 
 
-              $costo_envio=$this->envio();
+              $costo_envio=$this->enviopago($orden);
 
                if ($costo_envio>0) {
                
@@ -2795,7 +2848,7 @@ class AlpPedidosController extends JoshController
 
             
         // Show the page
-        return view('admin.pedidos.pago', compact('almacenes', 'cart', 'total', 'clientes', 'formaspago', 'formasenvio', 't_documento', 'estructura', 'countries', 'listabarrios', 'states', 'cities', 'url', 'impuesto', 'envio_base', 'envio_impuesto', 'costo_envio', 'total_pagos', 'total_base', 'total_descuentos', 'descuentos', 'orden', 'payment_methods'));
+        return view('admin.pedidos.pago', compact('almacenes', 'cart', 'total', 'clientes', 'formaspago', 'formasenvio', 't_documento', 'estructura', 'countries', 'listabarrios', 'states', 'cities', 'url', 'impuesto', 'envio_base', 'envio_impuesto', 'costo_envio', 'total_pagos', 'total_base', 'total_descuentos', 'descuentos', 'orden', 'payment_methods', 'orden', 'detalles'));
 
 
     }
@@ -2804,25 +2857,37 @@ class AlpPedidosController extends JoshController
 
 
 
-     private function impuesto()
+     private function impuesto($detalles, $orden)
     {
-       $cart= \Session::get('cart');
+       
 
       $impuesto=0;
 
       $valor_impuesto=0;
 
-      $carrito= \Session::get('cr');
-
-
       $base=0;
 
-      $total=$this->totalcart($cart);
+      $total=0;
+
+
+       foreach ($detalles as $c) {
+
+          if (isset($c->id)) {
+
+            $total=$total+($c->cantidad*$c->precio_unitario);
+
+          }
+
+          # code...
+        }
+
+
+
 
       $total_descuentos=0;
 
 
-        $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
+        $descuentos=AlpOrdenesDescuento::where('id_orden', $orden->id)->get();
 
         foreach ($descuentos as $pago) {
 
@@ -2830,7 +2895,7 @@ class AlpPedidosController extends JoshController
 
         }
 
-          foreach($cart as $row) {
+          foreach($detalles as $row) {
 
             if (isset($row->nombre_producto)) {
               
@@ -2840,9 +2905,9 @@ class AlpPedidosController extends JoshController
 
               }
 
-              $impuesto=$impuesto+($row->impuesto*$row->cantidad);
+              $impuesto=$impuesto+($row->monto_impuesto*$row->cantidad);
 
-              $base=$base+($row->precio_oferta*$row->cantidad);
+              $base=$base+($row->precio_unitario*$row->cantidad);
               }
 
 
@@ -2860,6 +2925,77 @@ class AlpPedidosController extends JoshController
        return $impuesto;
       
     }
+
+
+      public function enviopago($orden){
+
+      $formasenvio= $orden->id_forma_envio;
+
+      $direccion= $orden->id_address;
+
+     //dd($formasenvio.' '.$direccion);
+
+      $user = User::where('id',$orden->id_cliente)->first();
+      
+      $role=RoleUser::where('user_id', $user->id)->first();
+      
+      $dir=AlpDirecciones::where('id', $direccion)->first();
+
+      if ($formasenvio==1) {
+
+        if (isset($dir->id)) {
+
+          $ciudad=AlpFormaCiudad::where('id_forma', $formasenvio)->where('id_ciudad', $dir->city_id)->first();
+
+          if (isset($ciudad->id)) {
+
+            $envio=$ciudad->costo;
+            
+          }else{
+
+            $envio=-1;
+
+          }
+
+          
+        }else{
+
+          $envio=-1;
+        }
+
+      }else{
+
+
+        if (isset($dir->id)) {
+
+          $ciudad=AlpFormaCiudad::where('id_forma', $formasenvio)->where('id_ciudad', $dir->city_id)->where('id_rol', $role->role_id)->first();
+
+          if (isset($ciudad->id)) {
+
+            $envio=$ciudad->costo;
+            
+          }else{
+
+            $envio=-1;
+
+          }
+
+          
+        }else{
+
+          $envio=-1;
+        }
+
+
+
+      }
+
+      return $envio;
+
+    } 
+
+
+
 
 
 
@@ -2945,7 +3081,7 @@ class AlpPedidosController extends JoshController
         if (isset($row->nombre_producto)) {
 
           $total=$total+($row->cantidad*$row->precio_base);# co
-          de...
+
         }
 
       }
@@ -2953,16 +3089,6 @@ class AlpPedidosController extends JoshController
        return $total;
       
     }
-
-
-
-
-
-
-
-
-
-
 
 
 

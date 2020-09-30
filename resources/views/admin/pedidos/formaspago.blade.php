@@ -33,7 +33,7 @@
                                   <div class="panel-body">
 
                                     <p class=" col-sm-6 col-xs-12">
-                                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/pse.jpg">
+                                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="{{secure_url('/uploads/files/pse.jpg')}}">
                                     </p>
 
                                     <div data-id="2" class="pse col-sm-6 col-xs-12  btnpg" style="padding:8px;background-color:#3c763d;color:#ffffff; cursor: pointer;">
@@ -66,7 +66,7 @@
                                   <div class="panel-body">
 
                                        <p class=" col-sm-6 col-xs-12">
-                                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/tdc.jpg">
+                                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="{{secure_url('/uploads/files/tdc.jpg')}}">
                                         </p> 
 
                                      <div data-type='creditcard' id="creditcard" data-id="2" class=" col-sm-6 col-xs-12 btnpg" style="padding:8px;background-color:#3c763d;color:#ffffff; cursor: pointer;">
@@ -144,7 +144,7 @@
 
 
                                        <p class=" col-sm-6 col-xs-12">
-                                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/{{ $pm['id'] }}.jpg">
+                                        <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="{{secure_url('/uploads/files').'/'.$pm['id'].'.jpg' }}">
                                         </p> 
 
                                      <div data-idpago="{{ $pm['id'] }}" data-type="ticket" data-id="2" class=" col-sm-6 col-xs-12 procesar btnpg" style="padding:8px;background-color:#3c763d;color:#ffffff; cursor: pointer;">

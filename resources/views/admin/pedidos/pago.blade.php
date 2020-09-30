@@ -166,7 +166,7 @@ div.overlay > div {
 
         <div class="res_direccion"></div>
 
-        @include('frontend.includes.detallesventa')
+        @include('admin.pedidos.detallesventa')
 
     </div> <!-- end Row --><!-- col-sm-8 -->
 
