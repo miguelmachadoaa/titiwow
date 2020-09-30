@@ -1663,6 +1663,8 @@ class AlpCartController extends JoshController
      
       $input=$request->all();
 
+      if (Sentinel::check()) {
+
          $user = Sentinel::getUser();
 
        activity($user->full_name)
@@ -1670,6 +1672,10 @@ class AlpCartController extends JoshController
                     ->causedBy($user)
                     ->withProperties($input)
                     ->log('orderProcesarTicket pago con ticket');
+
+      }
+
+        
 
       $cart= \Session::get('cart');
 
@@ -1713,6 +1719,18 @@ class AlpCartController extends JoshController
         $user_cliente=User::where('id', $user_id)->first();
 
 
+      }else{
+
+        $user_id= \Session::get('iduser');
+
+         $user_cliente=User::where('id', $user_id)->first();
+
+      }
+
+        
+
+      if ($user_id) {
+      
          $configuracion = AlpConfiguracion::where('id', '1')->first();
 
           MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
@@ -2012,7 +2030,26 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         $total=$this->total();
 
+        
+
+
+      if (Sentinel::check()) {
+
         $user_id = Sentinel::getUser()->id;
+
+       
+
+
+      }else{
+
+        $user_id= \Session::get('iduser');
+
+       
+
+      }
+
+
+      
 
         $direccion=AlpDirecciones::where('id', $orden->id_address)->first();
 
@@ -3424,6 +3461,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
     {
        $cart= \Session::get('cart');
 
+      // dd($cart);
+
         $carrito= \Session::get('cr');
 
       $total=0;
@@ -3433,7 +3472,11 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       foreach($cart as $row) {
 
-        $total=$total+($row->cantidad*$row->precio_oferta);
+        if (isset($row->id)) {
+           $total=$total+($row->cantidad*$row->precio_oferta);
+        }
+
+       
 
       }
 
@@ -3486,15 +3529,19 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
           foreach($cart as $row) {
 
-            if($row->valor_impuesto>0){
+            if (isset($row->id)) {
+              if($row->valor_impuesto>0){
 
-              $valor_impuesto=$row->valor_impuesto;
+                $valor_impuesto=$row->valor_impuesto;
 
-            }
+              }
 
-            $impuesto=$impuesto+($row->impuesto*$row->cantidad);
+              $impuesto=$impuesto+($row->impuesto*$row->cantidad);
 
-            $base=$base+($row->precio_oferta*$row->cantidad);
+              $base=$base+($row->precio_oferta*$row->cantidad);
+              }
+
+            
 
           }
 
@@ -3669,16 +3716,22 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
             $r='9';
                 foreach ($cart as  $producto) {
-                    
-                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $r)->first();
 
-                    if (isset($pregiogrupo->id)) {
-                       
-                        $precio[$producto->id]['precio']=$pregiogrupo->precio;
-                        $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
-                        $precio[$producto->id]['pum']=$pregiogrupo->pum;
+                    if (isset($producto->id)) {
+                      
+                       $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $r)->first();
+
+                      if (isset($pregiogrupo->id)) {
+                         
+                          $precio[$producto->id]['precio']=$pregiogrupo->precio;
+                          $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
+                          $precio[$producto->id]['pum']=$pregiogrupo->pum;
+
+                      }
 
                     }
+                    
+                   
 
                 }
                 
@@ -3689,6 +3742,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
     if ($cambio==1) {
 
       foreach ($cart as $producto) {
+
+        if (isset($producto->nombre_producto)) {
+          # code...
 
       if ($descuento=='1') {
 
@@ -3756,6 +3812,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        $cart[$producto->slug]=$producto;
        
+      }
       }
 
      // dd($cart);
@@ -4421,6 +4478,7 @@ public function verificarDireccion( Request $request)
 
       $direccion=AlpDirecciones::where('id', $request->id_direccion)->first();
 
+      //dd($direccion->city_id);
 
       if ($direccion->id_barrio!=0) {
 
@@ -4484,12 +4542,24 @@ public function verificarDireccion( Request $request)
       );
 
 
-       activity($user->full_name)
+
+     if (Sentinel::check()) {
+
+          activity($user->full_name)
           ->performedOn($user)
           ->causedBy($user)
           ->withProperties($edata)
           ->log('cartcontroller/verificarDireccion Mostrar Datos ');
-      
+
+      }else{
+
+
+
+      }
+
+
+
+
 
       $clientIP = \Request::getClientIp(true);
 
@@ -4689,7 +4759,7 @@ public function verificarDireccion( Request $request)
 
       }else{
 
-        return 'false';
+        return 'false1';
       }
 
         
@@ -5583,8 +5653,21 @@ public function addcupon(Request $request)
       $direccion= \Session::get('direccion');
 
      //dd($formasenvio.' '.$direccion);
+     //
+        if (Sentinel::check()) {
 
-      $user_id = Sentinel::getUser()->id;
+          $user_id = Sentinel::getUser()->id;
+
+        }else{
+
+          $user_id= \Session::get('iduser');
+
+        }
+     
+
+
+
+      
       
       $role=RoleUser::where('user_id', $user_id)->first();
       

@@ -32,6 +32,7 @@ use App\Models\AlpCombosProductos;
 use App\Models\AlpOrdenesDescuento;
 use App\Models\AlpPagos;
 use App\Models\AlpFormaCiudad;
+use App\Models\AlpImpuestos;
 use App\User;
 use App\State;
 use App\City;
@@ -2621,6 +2622,7 @@ class AlpPedidosController extends JoshController
 
         \Session::put('orden', $orden->id);
         \Session::put('carrito', $orden->id);
+        \Session::put('iduser', $orden->id_cliente);
 
          $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
             ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
@@ -2629,12 +2631,15 @@ class AlpPedidosController extends JoshController
             $cart = array();
 
         foreach ($detalles as $d) {
+
           $p=AlpProductos::where('slug', $d->slug)->first();
+
+          $p->cantidad=$d->cantidad;
+
+          $p->precio_oferta=$d->precio_unitario;
 
           $cart[$d->slug]=$p;
 
-          $cart[$d->slug]->cantidad=$d->cantidad;
-          $cart[$d->slug]->precio_oferta=$d->precio_unitario;
 
         }
 
@@ -2780,7 +2785,7 @@ class AlpPedidosController extends JoshController
 
               $url='';
 
-
+$valor_impuesto=AlpImpuestos::where('id', '1')->first();
 
               $costo_envio=$this->enviopago($orden);
 
