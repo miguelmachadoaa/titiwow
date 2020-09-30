@@ -23,6 +23,8 @@
                     
                     @foreach($cart as $row)
 
+                    @if(isset($row->nombre_producto))
+
                     <li class="product">
                         <div class="product-image">
                             <a href="#0">
@@ -54,6 +56,8 @@
                             </div>
                         </div>
                     </li>
+                    @endif
+                    
 
                     @endforeach
                     @endif

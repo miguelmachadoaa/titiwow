@@ -62,7 +62,7 @@ use DB;
 
 use MP;
 
-
+use Carbon\Carbon;
 
 class AlpPedidosController extends JoshController
 {
@@ -3095,6 +3095,317 @@ $valor_impuesto=AlpImpuestos::where('id', '1')->first();
       
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  public function orderCreditcard(Request $request)
+    {
+
+     // dd(1);
+
+
+      
+
+    
+      
+
+
+      $avisos = array(
+        'cc_rejected_bad_filled_card_number' => 'No pudimos procesar su pago, Revisa el numero de tarjeta.', 
+        'cc_rejected_bad_filled_date' => 'No pudimos procesar su pago, Revisa la fecha de vencimiento.', 
+        'cc_rejected_bad_filled_other' => 'No pudimos procesar su pago, Revisa los datos.', 
+        'cc_rejected_bad_filled_security_code' => 'No pudimos procesar su pago, Revisa el codigo de seguridad.', 
+        'cc_rejected_blacklist' => 'No pudimos procesar su pago.', 
+        'cc_rejected_call_for_authorize' => 'No pudimos procesar su pago, Debes autorizar ante el banco el pago a mercadopago.', 
+        'cc_rejected_card_disabled' => 'No pudimos procesar su pago, Debes activar tu tarjeta.', 
+        'cc_rejected_card_error' => 'No pudimos procesar su pago.', 
+        'cc_rejected_duplicated_payment' => 'No pudimos procesar su pago, ya realizaste un pago por este monto', 
+        'cc_rejected_high_risk' => 'No pudimos procesar su pago, su pago fue rechazado', 
+        'cc_rejected_insufficient_amount' => 'No pudimos procesar su pago, no tiene fondos suficientes', 
+        'cc_rejected_invalid_installments' => 'No pudimos procesar su pago, no puede procesar pagos por cuotas', 
+        'cc_rejected_max_attempts' => 'No pudimos procesar su pago, llegaste al limite de intentos permitidos', 
+        'cc_rejected_other_reason' => 'No pudimos procesar su pago, el banco rechazo el pago'
+      );
+      
+      $cart= \Session::get('cart');
+
+      $carrito= \Session::get('cr');
+
+
+      $id_orden= \Session::get('orden');
+
+      $orden=AlpOrdenes::where('id', $id_orden)->first();
+
+      $input=$request->all();
+
+     //dd($input);
+
+      if (Sentinel::check()) {
+
+        $user_id = Sentinel::getUser()->id;
+
+       
+
+
+      }else{
+
+        $user_id= \Session::get('iduser');
+
+       
+
+      }
+
+      if ($user_id) {
+        # code...
+
+
+       // $user_id = Sentinel::getUser()->id;
+
+        $user_cliente=User::where('id', $user_id)->first();
+
+        $datos_cliente=AlpClientes::where('id_user_client', $user_id)->first();
+
+        $configuracion = AlpConfiguracion::where('id', '1')->first();
+
+        MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+
+
+        $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
+          ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
+          ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
+
+          $envio=$this->enviopago($orden);
+
+
+            $valor_impuesto=AlpImpuestos::where('id', '1')->first();
+
+            if ($envio>0) {
+             
+               $envio_base=$envio/(1+$valor_impuesto->valor_impuesto);
+
+            $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
+
+
+            }else{
+
+              $envio_base=0;
+
+              $envio_impuesto=0;
+
+            }
+
+
+            $total=$orden->monto_total+$envio;
+
+            $impuesto=$orden->monto_impuesto+$envio_impuesto;
+            
+            $net_amount=$total-$impuesto;
+
+            $det_array = array();
+
+            foreach ($detalles as $d ) {
+
+              $det_array[]= array(
+
+                    "id"          => $d->id_producto,
+                    "title"       => $d->nombre_producto,
+                    "description" => $d->descripcion_corta,
+                    "quantity"    => (int)number_format($d->cantidad, 0, '.', ''),
+                    "unit_price"  => intval($d->precio_unitario),
+                    );
+            }
+
+            $phone= array(
+              'area_code' =>'+57' , 
+              'number' => $datos_cliente->telefono_cliente, 
+            );
+
+
+        $direccion = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+          ->where('alp_direcciones.id', $orden->id)->first();
+
+
+      
+
+
+          if (isset($direccion->id)) {
+           
+           $address = array( 
+              'street_name' => $direccion->nombre_estructura.' '.$direccion->principal_address.' - '.$direccion->secundaria_address.' '.$direccion->edificio_address.' '.$direccion->detalle_address.' '.$direccion->barrio_address, 
+              'street_number' => $direccion->principal_address
+            );
+
+          }else{
+
+            $address = array( 
+              'street_name' => '', 
+              'street_number' => ''
+            );
+
+          }
+
+        $fecha = Carbon::now()->format('c');
+
+        $payer = array(
+          'first_name' => $user_cliente->first_name, 
+          'last_name' => $user_cliente->last_name, 
+          'registration_date' => $fecha, 
+          'phone' => $phone, 
+          'address' => $address
+        );
+
+        $additional_info = array(
+          'items' => $det_array, 
+          'payer' => $payer, 
+        );  
+
+        $preference_data = [
+        "transaction_amount" => doubleval($orden->monto_total+$envio),
+        "net_amount"=>(float)number_format($net_amount, 2, '.', ''),
+            "taxes"=>[[
+              "value"=>(float)number_format($impuesto, 2, '.', ''),
+              "type"=>"IVA"]],
+          "token" => $request->token,
+          "binary_mode" => true,
+          "description" => 'Pago de orden: '.$orden->id,
+          "installments" => intval($request->installments),
+          "external_reference"=> "ALP".$orden->id."",
+          "payment_method_id" => $request->payment_method_id,
+          "additional_info" => $additional_info,
+          
+          "issuer_id" => $request->issuer_id,
+          "payer" => [
+            "email"=>$user_cliente->email]
+        ];
+
+        //dd($preference_data);
+
+        $preference = MP::post("/v1/payments",$preference_data);
+
+         
+
+        if (isset($preference['response']['id'])) {
+
+
+          if ($preference['response']['status']=='rejected' || $preference['response']['status']=='cancelled' || $preference['response']['status']=='cancelled/expired' )  {
+
+              if (isset($avisos[$preference['response']['status_detail']])) {
+
+                $aviso=$avisos[$preference['response']['status_detail']];
+                
+              }else{
+
+                $aviso='No pudimos procesar su pago, por favor intente Nuevamente.';
+
+              }
+                $data_pago = array(
+                'id_orden' => $orden->id, 
+                'id_forma_pago' => $orden->id_forma_pago, 
+                'id_estatus_pago' => '3', 
+                'monto_pago' => 0, 
+                'json' => json_encode($preference), 
+                'id_user' => '1', 
+                );
+
+             AlpPagos::create($data_pago);
+
+            return redirect('pedidos/'.$orden->token.'/pago')->with('aviso', $aviso);
+
+          }
+
+           /// $data=$this->generarPedido('1', '2', $preference, 'credit_card');
+           $data=$this->generarPedido('8', '4', $preference, 'credit_card');
+
+            $id_orden=$data['id_orden'];
+
+            $fecha_entrega=$data['fecha_entrega'];
+
+            //  $datalles=AlpDetalles::where('id_orden', $orden->id)->get();
+
+            $compra =  DB::table('alp_ordenes')->select(
+              'alp_ordenes.*',
+              'users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
+            ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
+            ->join('alp_clientes','alp_ordenes.id_cliente' , '=', 'alp_clientes.id_user_client')
+            ->join('alp_formas_envios','alp_ordenes.id_forma_envio' , '=', 'alp_formas_envios.id')
+            ->join('alp_formas_pagos','alp_ordenes.id_forma_pago' , '=', 'alp_formas_pagos.id')
+            ->where('alp_ordenes.id', $id_orden)->first();
+
+           $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
+          ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
+          ->where('alp_ordenes_detalle.id_orden', $id_orden)->get();
+
+            $cart= \Session::forget('cart');
+
+           $states=State::where('config_states.country_id', '47')->get();
+
+           $configuracion = AlpConfiguracion::where('id','1')->first();
+
+           $envio=AlpEnvios::where('id_orden', $compra->id)->first();
+
+
+           $texto='Se ha creado la siguiente orden '.$compra->id.' y esta a espera de aprobacion  ';
+
+           $aviso_pago="Hemos recibido su pago satisfactoriamente, una vez sea confirmado, Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!";
+
+            $aviso_pago = array(
+            'tipo' => 'success', 
+            'texto' => 'yellow', 
+            'medio' => 'Tarjeta de Credito', 
+            'mensaje' => 'Hemos recibido su pago satisfactoriamente, una vez sea confirmado, Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!', 
+          );
+
+            if ($compra->id_forma_envio!=1) {
+
+              $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
+
+            
+            }
+
+          
+           $idc=$compra->id*1024;
+
+
+
+
+
+
+
+
+           return redirect('cart/'.$idc.'/gracias?pago=aprobado');
+
+         #  return view('frontend.order.procesar_completo', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
+        
+        }else{
+
+          return redirect('order/detail');
+
+        }
+
+
+      }else{
+
+          return redirect('login'); //sino esta logueado
+      }
+
+    }
 
 
 

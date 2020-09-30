@@ -713,8 +713,13 @@ class FrontEndController extends JoshController
 
             foreach($cart as $row) {
 
+              if (isset($row->id)) {
+                
                 $total=$total+($row->cantidad*$row->precio_oferta);
 
+              }
+
+                
             }
         }
       

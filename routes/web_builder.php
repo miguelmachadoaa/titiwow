@@ -860,6 +860,8 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
         });
 
+  
+
     Route::post('pedidos/create', 'Admin\AlpPedidosController@store');
 
     Route::get('pedidos/{id}/upload', 'Admin\AlpPedidosController@upload');

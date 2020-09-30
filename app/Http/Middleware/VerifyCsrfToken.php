@@ -15,6 +15,7 @@ class VerifyCsrfToken extends Middleware
        'order/procesar', //
        'order/procesarticket', //
        'order/creditcard', //
+       'pedidos/order/creditcard', //
        'order/pse', //
        'order/getpse', //
        'order/notificacion', //

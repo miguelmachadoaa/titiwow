@@ -248,7 +248,7 @@ Route::get('xml', 'FrontEndController@getXml')->name('xml');
 
 Route::get('pedidos/{token}/pago', 'Admin\AlpPedidosController@pedidopago')->name('pedidopago');
 
-
+  Route::post('pedidos/order/creditcard', 'Admin\AlpPedidosController@orderCreditcard');
 
 
 Route::get('api/getmasvendidos/{token}', 'FrontEndController@getmasvendidos')->name('xml');
