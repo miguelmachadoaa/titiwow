@@ -461,13 +461,31 @@ class AlpCartController extends JoshController
         $envio_impuesto=0;
 
       }
-      
-      $user = Sentinel::getUser();
+
+
+      if (Sentinel::check()) {
+
+        
+
+       $user = Sentinel::getUser();
 
        activity($user->full_name)
                     ->performedOn($user)
                     ->causedBy($user)
                     ->withProperties($request->all())->log('Get Pse');
+
+        $user_id = Sentinel::getUser()->id;
+      }else{
+
+        $user_id= \Session::get('iduser');
+      }
+
+
+      
+
+      
+      
+      
 
 
       $total=$orden->monto_total+$envio;
@@ -574,7 +592,7 @@ class AlpCartController extends JoshController
 
           $pse = MP::post("/v1/payments",$preference_data);
 
-          $user_id = Sentinel::getUser()->id;
+          //$user_id = Sentinel::getUser()->id;
          
 
           if (isset($pse['response']['id'])) {
@@ -658,6 +676,19 @@ class AlpCartController extends JoshController
       if (Sentinel::check()) {
 
         $user_id = Sentinel::getUser()->id;
+
+       
+
+
+      }else{
+
+        $user_id= \Session::get('iduser');
+
+       
+
+      }
+
+      if ($user_id) {
 
         // 1.- eststus orden, 2.- estatus pago, 3 json pedido 
 
@@ -968,6 +999,23 @@ class AlpCartController extends JoshController
      //dd($input);
 
       if (Sentinel::check()) {
+
+        $user_id = Sentinel::getUser()->id;
+
+       
+
+
+      }else{
+
+        $user_id= \Session::get('iduser');
+
+       
+
+      }
+
+      if ($user_id) {
+        # code...
+
 
         $user_id = Sentinel::getUser()->id;
 
@@ -2049,7 +2097,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       }
 
 
-      
+
 
         $direccion=AlpDirecciones::where('id', $orden->id_address)->first();
 
