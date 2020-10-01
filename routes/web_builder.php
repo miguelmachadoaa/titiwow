@@ -879,6 +879,8 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
     Route::get('pedidos/{id}/addtocart', 'Admin\AlpPedidosController@addtocart');
 
+    Route::get('pedidos/{slug}/deletecart', 'Admin\AlpPedidosController@deletecart');
+
 
     Route::get('pedidos/{id}/updatecart/{cantidad}', 'Admin\AlpPedidosController@updatecart');
 

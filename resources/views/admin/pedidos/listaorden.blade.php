@@ -10,9 +10,8 @@
 
         <div class="row">
             
-            <div class="col-sm-2"><img style="width: 60px;" src="{{secure_url('uploads/productos/60/'.$p->imagen_producto)}}" alt=""></div>
-            <div class="col-sm-10">
-                <p><b>{{$p->nombre_producto}}</b></p>
+             <div class="col-sm-2" style="padding:0;"><img style="width: 100%;" src="{{secure_url('uploads/productos/60/'.$p->imagen_producto)}}" alt=""></div>            <div class="col-sm-10">
+                <p><b>{{$p->nombre_producto}}</b> <button type="button" data-slug="{{$p->slug}}" class="btn btn-link delcar"><i class="fa fa-trash"></i></button></p>
                 <p class="">{{$p->precio_oferta}} x 
 
                     <select data-id="{{$p->id}}" style="width: 30%" class="  cantidadcarrito" name="cantidad_{{$p->id}}" id="cantidad_{{$p->id}}">

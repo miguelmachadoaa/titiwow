@@ -1,6 +1,6 @@
 @if(isset($cart))
 
- <h3>Detalle de Compra</h3>
+ <h3>Detalle de Compra  <a class="btn btn-link" href="{{secure_url('admin/pedidos/')}}"><i class="fa fa-edit"></i></a></h3>
 
     @if(count($cart))
 
@@ -10,7 +10,7 @@
 
         <div class="row">
             
-            <div class="col-sm-2"><img style="width: 60px;" src="{{secure_url('uploads/productos/60/'.$p->imagen_producto)}}" alt=""></div>
+            <div class="col-sm-2" style="padding:0;"><img style="width: 100px;" src="{{secure_url('uploads/productos/60/'.$p->imagen_producto)}}" alt=""></div>
             <div class="col-sm-10">
                 <p><b>{{$p->nombre_producto}}</b></p>
                 <p class="">{{$p->precio_base}} x {{$p->cantidad}} </p>

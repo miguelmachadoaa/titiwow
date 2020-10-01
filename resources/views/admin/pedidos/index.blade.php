@@ -56,7 +56,7 @@ Pedidos
 
                                    <h4>Almacenes</h4> 
 
-                                   <select class="form-control" name="categoria" id="categoria">
+                                   <select class="form-control select2" name="categoria" id="categoria">
 
                                         @foreach($almacenes as $a)
 
@@ -266,6 +266,8 @@ Pedidos
 
     $('#categoria').on('change', function(){
 
+            alert('categoria');
+
              base=$('#base').val();
 
              categoria=$('#categoria').val();
@@ -316,7 +318,17 @@ Pedidos
     });
 
 
+        $(document).on('click','.delcar', function(){
 
+             base=$('#base').val();
+
+             slug=$(this).data('slug');
+
+            $.get(base+'/admin/pedidos/'+slug+'/deletecart', function(data) {
+
+                    $('.listaorden').html(data);
+            });
+    });
 
 
     $(document).on('change','.cantidadcarrito', function(){

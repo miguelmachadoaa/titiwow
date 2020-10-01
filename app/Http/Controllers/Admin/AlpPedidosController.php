@@ -1489,6 +1489,52 @@ class AlpPedidosController extends JoshController
     }
 
 
+
+      public function deletecart($slug)
+    {
+
+
+          $producto=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
+          ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
+          ->where('alp_productos.slug', $slug)
+          ->first();
+
+          //dd($producto);
+
+       $cart= \Session::get('cart');
+
+      if (isset($cart[$slug])) {
+       
+       unset( $cart[$slug]);
+
+       $error="Producto eliminado satisfacctoriamente ";
+
+      }else{
+
+        $error="No se encontro producto en el carrito";
+
+
+      }
+
+
+      \Session::put('cart', $cart);
+
+      $total_venta=$this->totalcart($cart);
+
+      $view= View::make('admin.pedidos.listaorden', compact('producto', 'cart', 'error', 'total_venta'));
+
+      $data=$view->render();
+
+      $res = array('data' => $data);
+
+      return $data;
+      
+    }
+
+
+
+
+
     private function totalcart($cart){
 
       $total=0;
