@@ -209,6 +209,7 @@ public function compramasupdate()
 
         $ordenes = AlpOrdenes::select(
           'alp_ordenes.id as id',
+          'alp_ordenes.origen as origen', 
           'alp_ordenes.estado_compramas as estado_compramas',
           'alp_ordenes.estatus as estatus', 
           'alp_ordenes.estatus_pago as estatus_pago', 
@@ -396,6 +397,7 @@ public function compramasupdate()
                  $row->tracking, 
                  $nombre_almacen, 
                  $nombre_ciudad, 
+                 $origen, 
                  date("d/m/Y H:i:s", strtotime($row->created_at)),
                  $compramas, 
                  $pago, 
@@ -630,6 +632,7 @@ public function compramasupdate()
                  $row->tracking, 
                  $nombre_almacen, 
                  $nombre_ciudad, 
+                 $origen,
                  date("d/m/Y H:i:s", strtotime($row->created_at)),
                  $pago, 
                  $estatus
@@ -987,6 +990,17 @@ public function compramasupdate()
               }
 
 
+               if ($row->origen=='1') {
+
+                $origen='Tomapedidos';
+                # code...
+              }else{
+
+                $origen='Web';
+
+              }
+
+
 
 
                $data[]= array(
@@ -998,6 +1012,7 @@ public function compramasupdate()
                  $row->nombre_forma_pago, 
                  $nombre_almacen, 
                  $nombre_ciudad, 
+                 $origen,
                  number_format($row->monto_total,2), 
                  number_format($row->monto_total_base,2), 
                  $cupon,
@@ -1171,6 +1186,16 @@ public function compramasupdate()
                
               }
 
+               if ($row->origen=='1') {
+
+                $origen='Tomapedidos';
+                # code...
+              }else{
+
+                $origen='Web';
+
+              }
+
 
 
 
@@ -1183,11 +1208,13 @@ public function compramasupdate()
                  $row->nombre_forma_pago, 
                  $nombre_almacen, 
                  $nombre_ciudad, 
+                 $origen,
                  number_format($row->monto_total,2), 
                  $row->ordencompra, 
                  $cupon, 
                  $row->factura, 
                  $row->tracking, 
+                 
                  date("d/m/Y H:i:s", strtotime($row->created_at)), 
                  $pago, 
                  $estatus, 
@@ -1344,6 +1371,16 @@ public function compramasupdate()
                
               }
 
+               if ($row->origen=='1') {
+
+                $origen='Tomapedidos';
+                # code...
+              }else{
+
+                $origen='Web';
+
+              }
+
 
 
                $data[]= array(
@@ -1358,6 +1395,7 @@ public function compramasupdate()
                  $row->factura, 
                  $nombre_almacen, 
                  $nombre_ciudad, 
+                 $origen,
                  date("d/m/Y H:i:s", strtotime($row->created_at)), 
                  $actions
               );
@@ -1530,6 +1568,15 @@ public function compramasupdate()
                
               }
 
+               if ($row->origen=='1') {
+
+                $origen='Tomapedidos';
+                # code...
+              }else{
+
+                $origen='Web';
+
+              }
 
 
                $data[]= array(
@@ -1541,10 +1588,12 @@ public function compramasupdate()
                  $row->nombre_forma_pago, 
                  $nombre_almacen, 
                  $nombre_ciudad, 
+                 $origen,
                  number_format($row->monto_total,2), 
                  //$row->ordencompra, 
                  $cupon, 
                  $row->factura, 
+                 
                  //$row->tracking, 
                  date("d/m/Y H:i:s", strtotime($row->created_at)), 
                  $actions
@@ -1712,6 +1761,16 @@ public function compramasupdate()
                
               }
 
+               if ($row->origen=='1') {
+
+                $origen='Tomapedidos';
+                # code...
+              }else{
+
+                $origen='Web';
+
+              }
+
 
                $data[]= array(
                  $row->id, 
@@ -1722,11 +1781,13 @@ public function compramasupdate()
                  $row->nombre_forma_pago, 
                  $nombre_almacen, 
                  $nombre_ciudad, 
+                 $origen,
                  number_format($row->monto_total,2), 
                  $row->ordencompra, 
                  $cupon, 
                  $row->factura, 
                  $row->tracking, 
+                 
                  date("d/m/Y H:i:s", strtotime($row->created_at)), 
                  $actions
               );
@@ -1874,6 +1935,17 @@ public function compramasupdate()
                
               }
 
+
+               if ($row->origen=='1') {
+
+                $origen='Tomapedidos';
+                # code...
+              }else{
+
+                $origen='Web';
+
+              }
+
                $data[]= array(
                  $row->id, 
                  $row->referencia, 
@@ -1883,11 +1955,13 @@ public function compramasupdate()
                  $row->nombre_forma_pago, 
                  $nombre_almacen, 
                  $nombre_ciudad, 
+                 $origen,
                  number_format($row->monto_total,2), 
                  $row->ordencompra, 
                  $cupon, 
                  $row->factura, 
                  $row->tracking, 
+                 
                  date("d/m/Y H:i:s", strtotime($row->created_at)), 
                  $actions
               );
@@ -2080,6 +2154,7 @@ public function compramasupdate()
                  $row->nombre_forma_pago, 
                  $nombre_almacen, 
                  $nombre_ciudad, 
+                 $origen,
                  number_format($row->monto_total,2), 
                  $row->ordencompra, 
                  $cupon, 
@@ -3136,6 +3211,7 @@ public function compramasupdate()
                  $row->nombre_forma_pago, 
                  $nombre_almacen, 
                  $nombre_ciudad, 
+                 $origen,
                  number_format($row->monto_total,2), 
                  //$row->ordencompra, 
                  $cupon, 
@@ -3308,6 +3384,7 @@ public function compramasupdate()
                  $row->nombre_forma_pago, 
                  $nombre_almacen, 
                  $nombre_ciudad, 
+                 $origen,
                  number_format($row->monto_total,2), 
                  number_format($row->monto_total_base,2), 
                  $cupon,

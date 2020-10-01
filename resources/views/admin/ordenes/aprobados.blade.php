@@ -55,6 +55,7 @@ Ordenes Aprobadas
                                     <th>Factura</th>
                                     <th>Almacen</th>
                                     <th>Ciudad</th>
+                                    <th>Origen</th>
                                     <!--th>Tracking</th-->
                                     <th>Creado</th>
                                     <th>Accion</th>

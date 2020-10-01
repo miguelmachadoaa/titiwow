@@ -58,6 +58,7 @@ Ordenes Compramas
                                     <th>Tracking</th>
                                     <th>Almacen</th>
                                     <th>Ciudad</th>
+                                    <th>Origen</th>
                                     <th>Creado</th>
                                     <th>Estado Compramas</th>
                                     <th>Estado Pago</th>
