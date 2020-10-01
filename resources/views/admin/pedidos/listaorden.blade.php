@@ -12,7 +12,7 @@
             
              <div class="col-sm-2 col-xs-2" style="padding:0;"><img style="width: 100%;" src="{{secure_url('uploads/productos/60/'.$p->imagen_producto)}}" alt=""></div>            <div class="col-sm-10 col-xs-10">
                 <p><b>{{$p->nombre_producto}}</b> <button type="button" data-slug="{{$p->slug}}" class="btn btn-link delcar"><i class="fa fa-trash"></i></button></p>
-                <p class="">{{$p->precio_oferta}} x 
+                <p class="">{{number_format($p->precio_oferta, 0,',', '.')}} x 
 
                     <select data-id="{{$p->id}}" style="width: 30%" class="  cantidadcarrito" name="cantidad_{{$p->id}}" id="cantidad_{{$p->id}}">
                         <option value="1"  @if($p->cantidad==1) Selected  @endif  >1</option>
@@ -28,7 +28,7 @@
 
                     
                 </p>
-                <p>Total: {{$p->cantidad*$p->precio_oferta}}</p>
+                <p>Total: {{number_format($p->cantidad*$p->precio_oferta,0,',','.')}}</p>
                 
             </div>
         </div>
@@ -38,7 +38,7 @@
     @endforeach
 
 
-    <h4>Total Venta {{$total_venta}}</h4>
+    <h4>Total Venta {{number_format($total_venta,0,',','.')}}</h4>
 
 
     @if($total_venta>0)

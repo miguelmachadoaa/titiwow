@@ -1905,6 +1905,11 @@ class AlpPedidosController extends JoshController
                   $request->barrio_address=strip_tags($request->barrio_address);
 
 
+                  if ($request->email=='' || $request->email==null) {
+                     $request->email=$request->first_name.$request->doc_cliente.'@alpinago.com';
+                  }
+
+
 
         try {
 

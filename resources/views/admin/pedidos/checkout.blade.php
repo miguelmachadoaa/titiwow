@@ -561,6 +561,9 @@ Pedidos
 
 <script>
 
+      $("select").select2();
+      
+
     $('#categoria').on('change', function(){
 
              base=$('#base').val();

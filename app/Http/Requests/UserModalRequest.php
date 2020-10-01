@@ -58,7 +58,7 @@ class UserModalRequest extends FormRequest
                 return [
                     'first_name' => 'required|min:3',
                     'last_name' => 'required|min:3',
-                    'email' => 'required|email|unique:users,email',
+                  //  'email' => 'required|email|unique:users,email',
                     'doc_cliente' => 'unique:alp_clientes,doc_cliente',
                     'id_type_doc' => 'required',
                     'telefono_cliente' => 'required|min:5',
@@ -73,7 +73,7 @@ class UserModalRequest extends FormRequest
                 return [
                     'first_name' => 'required|min:3',
                     'last_name' => 'required|min:3',
-                    'email' => 'required|unique:users,email,' . $this->user->id,
+                   // 'email' => 'required|unique:users,email,' . $this->user->id,
                     'doc_cliente' => 'unique:alp_clientes,doc_cliente',
                     'id_type_doc' => 'required',
                     'telefono_cliente' => 'required|min:5',

@@ -12,11 +12,7 @@
 
                             <button class="btn btn-primary addCliente" type="button" >Registrar Cliente</button>
 
-
-
                             <h4>Cliente</h4>
-
-
 
                             @if(isset($cart['id_cliente']) && isset($cart['cliente']))
 

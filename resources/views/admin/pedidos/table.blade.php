@@ -31,8 +31,8 @@
                     <p style="font-size: 0.8em; line-height: 1;">Categoria: {{$p->nombre_categoria}}</p>
                 </td>
                 
-                <td>{{$p->precio_base}}</td>
-                <td>{{$p->precio_oferta}}</td>
+                <td>{{number_format($p->precio_base,0,',','.')}}</td>
+                <td>{{number_format($p->precio_oferta,0,',','.')}}</td>
                 <td>{{$cart['inventario'][$p->id]}}</td>
                 <td><button class="btn btn-primary addproducto" 
                     data-id="{{$p->id}}"
