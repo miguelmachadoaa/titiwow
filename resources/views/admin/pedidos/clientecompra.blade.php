@@ -8,9 +8,9 @@
                         <h3>Paso 1. Seleccionar Cliente</h3>
 
 
-                            <button class="btn btn-primary seleccionarCliente" type="button" >Seleccionar Cliente</button>
+                            <button class="btn btn-primary seleccionarCliente" type="button" >Buscar Cliente</button>
 
-                            <button class="btn btn-primary addCliente" type="button" >Agregar Cliente</button>
+                            <button class="btn btn-primary addCliente" type="button" >Registrar Cliente</button>
 
 
 

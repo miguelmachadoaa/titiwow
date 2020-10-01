@@ -52,7 +52,7 @@ Pedidos
 
                      <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
 
-                     <div class="row clientecompra" style="padding-top: 0;">
+                     <div class="row clientecompra table-responsive" style="padding-top: 0;">
                          
                         @include('admin.pedidos.clientecompra')
 
@@ -419,17 +419,17 @@ Pedidos
                     {!! $errors->first('convenio', '<span class="help-block">:message</span>') !!}
                 </div-->
                 <div class="clearfix"></div>
-                <div class="form-group checkbox">
+                <!--div class="form-group checkbox">
                     <label>
                         <input type="checkbox" name="chkalpinista" id="chkalpinista" value="1"> ¡Soy Alpinista! <small>(Opcional)</small> </a>
                     </label>
-                </div>
-                <div class="form-group {{ $errors->first('cod_alpinista', 'has-error') }}">
+                </div-->
+                <!--div class="form-group {{ $errors->first('cod_alpinista', 'has-error') }}">
                     <input type="text" class="form-control" value="{!! old('cod_alpinista') !!}" id="cod_alpinista" name="cod_alpinista" placeholder="Código de Alpinista" value="{!! old('cod_alpinista') !!}" >
                     <div class="res_cod_alpinista"></div>
 
                     {!! $errors->first('cod_alpinista', '<span class="help-block">:message</span>') !!}
-                </div>
+                </div-->
                 <div class="clearfix"></div>
                 
                 
@@ -445,7 +445,7 @@ Pedidos
                             <button id="btnsubmit" name="btnsubmit" type="button" class="btn btn-block btn-primary">Registrarse</button>
                         </div>
                         <div class="col-sm-6">
-                            <a class="btn btn-block btn-danger" href="#">Cancelar</a>
+                            <a class="btn btn-block btn-danger" data-dismiss="modal" href="#">Cancelar</a>
                         </div>
                     </div>
                 </div>
@@ -606,10 +606,14 @@ Pedidos
 
              buscar=$('#buscar_cliente').val();
 
+             if (buscar.length>2) {
+
             $.get(base+'/admin/pedidos/'+buscar+'/databuscarcliente', function(data) {
 
                     $('.lista_clientes').html(data);
             });
+
+            }
     });
 
 

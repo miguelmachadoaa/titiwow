@@ -56,7 +56,7 @@ Pedidos
 
                                    <h4>Almacenes</h4> 
 
-                                   <select class="form-control select2" name="categoria" id="categoria">
+                                   <select class="form-control select2" name="almacen" id="almacen">
 
                                         @foreach($almacenes as $a)
 
@@ -120,7 +120,7 @@ Pedidos
 
                             </div>
 
-                            <div class="row lista_de_productos" style="margin-right: 1em;">
+                            <div class="row lista_de_productos table-responsive" style="margin-right: 1em;">
                                 
                                @include('admin.pedidos.table')
                                 
@@ -153,7 +153,7 @@ Pedidos
                      <div class="row" style="padding-top: 0;">
                          
                          
-                         <div class="col-sm-12 listaorden">
+                         <div class="col-sm-12 listaorden table-responsive">
 
                          @include('admin.pedidos.listaorden')
                         </div>
@@ -266,8 +266,6 @@ Pedidos
 
     $('#categoria').on('change', function(){
 
-            alert('categoria');
-
              base=$('#base').val();
 
              categoria=$('#categoria').val();
@@ -292,6 +290,22 @@ Pedidos
     });
 
 
+
+    $('#almacen').on('change', function(){
+
+             base=$('#base').val();
+
+             almacen=$('#almacen').val();
+
+            $.get(base+'/admin/pedidos/'+almacen+'/asignaalmacen', function(data) {
+
+                    $('.lista_de_productos').html('');
+            });
+    });
+
+
+
+
       $('.btn_buscar').on('click', function(){
 
              base=$('#base').val();
@@ -302,6 +316,7 @@ Pedidos
 
                     $('.lista_de_productos').html(data);
             });
+
     });
 
 
@@ -329,6 +344,19 @@ Pedidos
                     $('.listaorden').html(data);
             });
     });
+
+
+ $(document).on('click','.vaciarCarrito', function(){
+
+             base=$('#base').val();
+
+            $.get(base+'/admin/pedidos/vaciarcarrito', function(data) {
+
+                    $('.listaorden').html(data);
+            });
+    });
+
+
 
 
     $(document).on('change','.cantidadcarrito', function(){
@@ -374,6 +402,10 @@ Pedidos
          $.get(base+'/admin/pedidos/'+id+'/updatecart/'+cantidad, function(data) {
 
                     $('.listaorden').html(data);
+
+                    $('#cantidad_modal').val('');
+
+                    $('#idproducto_modal').val('');
 
                     $('#confirmarOrdenModal').modal('hide');
 

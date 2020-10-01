@@ -62,7 +62,7 @@ Pedidos
 
                         </div>
 
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 table-responsive">
 
                             <h1>Detalle de Su Pedido</h1>
                             

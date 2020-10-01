@@ -6,6 +6,8 @@
 
         @foreach($clientes as $c)
 
+            @if($c->role_id!=1)
+
             <div class="row" style="padding: 0;border-bottom: 1px solid rgba(0,0,0,0.1); ">
                 
                 <div class="col-sm-10">
@@ -18,6 +20,8 @@
                     <button type="button" data-id="{{$c->id}}" class="btn btn-primary asignaCliente">Seleccionar</button>
                 </div>
             </div>
+
+            @endif
 
         @endforeach
 

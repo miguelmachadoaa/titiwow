@@ -1,6 +1,6 @@
 @if(isset($cart))
 
- <h3>Detalle de Compra</h3>
+ <h3>Detalle de Compra <button type="button" class="btn btn-link vaciarCarrito"> Vaciar Carrito</button></h3>
 
     @if(count($cart))
 
@@ -8,9 +8,9 @@
 
     @if(isset($p->nombre_producto))
 
-        <div class="row">
+        <div class="row table-responsive">
             
-             <div class="col-sm-2" style="padding:0;"><img style="width: 100%;" src="{{secure_url('uploads/productos/60/'.$p->imagen_producto)}}" alt=""></div>            <div class="col-sm-10">
+             <div class="col-sm-2 col-xs-2" style="padding:0;"><img style="width: 100%;" src="{{secure_url('uploads/productos/60/'.$p->imagen_producto)}}" alt=""></div>            <div class="col-sm-10 col-xs-10">
                 <p><b>{{$p->nombre_producto}}</b> <button type="button" data-slug="{{$p->slug}}" class="btn btn-link delcar"><i class="fa fa-trash"></i></button></p>
                 <p class="">{{$p->precio_oferta}} x 
 

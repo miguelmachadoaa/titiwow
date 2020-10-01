@@ -100,7 +100,16 @@ class AlpPedidosController extends JoshController
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
         }
 
-        $id_almacen='1';
+       $cart= \Session::get('cart');
+
+          if (isset($cart['id_almacen'])) {
+            # code...
+          }else{
+
+            $cart['id_almacen']='1';
+          }
+
+
 
         $almacenes = AlpAlmacenes::all();
 
@@ -118,32 +127,19 @@ class AlpPedidosController extends JoshController
 
           $marcas=AlpMarcas::orderBy('nombre_marca')->get();
 
-          $cart= \Session::get('cart');
-
-          if (isset($cart['id_almacen'])) {
-            # code...
-          }else{
-
-            $cart['id_almacen']='1';
-          }
-
           $total_venta=$this->totalcart($cart);
 
           $cart=$this->reloadCart();
 
 
-          if (isset($cart['inventari2o'])) {
+          if (isset($cart['inventario'])) {
             # code...
           }else{
 
             $cart['inventario']=$this->inventario();
           }
 
-
-
           \Session::put('cart', $cart);
-
-        //  dd($cart);
 
 
         // Show the page
@@ -178,8 +174,14 @@ class AlpPedidosController extends JoshController
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
         }
 
+        $cart= \Session::get('cart');
 
-        $id_almacen=1;
+
+        $id_almacen=$cart['id_almacen'];
+
+        $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
+
+       // dd($almacen);
 
         $almacenes = AlpAlmacenes::all();
 
@@ -192,9 +194,16 @@ class AlpPedidosController extends JoshController
         ->get();
 
        
-          $cart= \Session::get('cart');
+          
 
           $total_venta=$this->totalcart($cart);
+
+          if ($total_venta<$almacen->minimo_compra) {
+
+            return redirect('admin/pedidos/')->withInput()->with('error', trans('El monto de compra minimo para este almacen es de '.$almacen->minimo_compra));
+
+            
+          }
 
 
           $afe=AlpAlmacenFormaEnvio::where('id_almacen', $id_almacen)->first();
@@ -1282,8 +1291,11 @@ class AlpPedidosController extends JoshController
      public function databuscarcliente($buscar)
     {
 
-         $clientes = AlpClientes::select('alp_clientes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+         $clientes = AlpClientes::select('alp_clientes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email',  'role_users.role_id  as role_id')
           ->join('users', 'alp_clientes.id_user_client', '=', 'users.id')
+          ->join('role_users', 'users.id', '=', 'role_users.user_id')
+        ->join('roles', 'role_users.role_id', '=', 'roles.id')
+         // ->where('role_users.role_id', '<>', 1)
           ->orWhere('users.first_name','like',  '%'.$buscar.'%')
           ->orWhere('users.last_name','like',  '%'.$buscar.'%')
           ->orWhere('users.email','like',  '%'.$buscar.'%')
@@ -1476,6 +1488,10 @@ class AlpPedidosController extends JoshController
 
       \Session::put('cart', $cart);
 
+      $cart=$this->reloadCart();
+
+      \Session::put('cart', $cart);
+
       $total_venta=$this->totalcart($cart);
 
       $view= View::make('admin.pedidos.listaorden', compact('producto', 'cart', 'error', 'total_venta'));
@@ -1530,6 +1546,35 @@ class AlpPedidosController extends JoshController
       return $data;
       
     }
+
+
+
+      public function vaciarCarrito()
+    {
+
+        \Session::forget('cart');
+
+        \Session::put('cart', array());
+
+        $error='';
+
+        $cart= \Session::get('cart');
+
+
+      $total_venta=$this->totalcart($cart);
+
+      $view= View::make('admin.pedidos.listaorden', compact('cart', 'error', 'total_venta'));
+
+      $data=$view->render();
+
+      $res = array('data' => $data);
+
+      return $data;
+      
+    }
+
+
+
 
 
 
@@ -3457,6 +3502,35 @@ $valor_impuesto=AlpImpuestos::where('id', '1')->first();
 
 
 
+       public function asignaalmacen($id)
+    {
+
+      if (!\Session::has('cart')) {
+        \Session::put('cart', array());
+      }
+
+      $cart=\Session::get('cart');
+
+      $cart['id_almacen']=$id;
+
+     // \Session::put('cart', $cart);
+
+      if (isset($cart['inventario'])) {
+
+          unset($cart['inventario']);
+
+          $cart['inventario']=$this->inventario();
+            # code...
+          }else{
+
+            $cart['inventario']=$this->inventario();
+          }
+
+    \Session::put('cart', $cart);
+
+      return $cart;
+      
+    }
 
 
 
