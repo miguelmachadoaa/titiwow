@@ -58,6 +58,7 @@ Todas las Ordenes
                                     <th>Tracking</th>
                                     <th>Almacen</th>
                                     <th>Ciudad</th>
+                                    <th>Origen</th>
                                     <th>Creado</th>
                                     <th>Estado Pago</th>
                                     <th>Estado</th>

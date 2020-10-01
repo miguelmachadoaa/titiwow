@@ -694,6 +694,7 @@ public function compramasupdate()
 
         $ordenes = AlpOrdenes::select(
           'alp_ordenes.id as id',
+          'alp_ordenes.origen as origen', 
           'alp_ordenes.estatus as estatus', 
           'alp_ordenes.estatus_pago as estatus_pago', 
           'alp_ordenes.ordencompra as ordencompra', 
@@ -783,6 +784,17 @@ public function compramasupdate()
 
               }
 
+
+              if ($row->origen=='1') {
+
+                $origen='Tomapedidos';
+                # code...
+              }else{
+
+                $origen='Web';
+
+              }
+
               if (isset($formasenvio[$row->id_forma_envio])) {
                $fe=$formasenvio[$row->id_forma_envio];
               }else{
@@ -835,6 +847,7 @@ public function compramasupdate()
                  $row->tracking, 
                  $nombre_almacen, 
                  $nombre_ciudad, 
+                 $origen, 
                  date("d/m/Y H:i:s", strtotime($row->created_at)),
                  $pago, 
                  $estatus, 
