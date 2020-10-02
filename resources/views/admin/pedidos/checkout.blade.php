@@ -708,9 +708,6 @@ Pedidos
     });
 
 
-
-
-
      $('select[name="id_cliente"]').on('change', function() {
             
                 var idcliente = $(this).val();
@@ -1072,12 +1069,6 @@ $(document).ready(function(){
 
             //fin select ciudad
         });
-
-
-
-
-
-
 
 
 

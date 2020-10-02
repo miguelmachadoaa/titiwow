@@ -140,7 +140,7 @@ $("#dir_form").bootstrapValidator({
     fields: {
         
         
-        state_id: {
+        state_id_dir: {
             validators: {
                 notEmpty: {
                     message: 'Debe Indicar el Departamento'
@@ -148,7 +148,7 @@ $("#dir_form").bootstrapValidator({
             },
             required: true
         },
-        city_id: {
+        city_id_dir: {
             validators: {
                 notEmpty: {
                     message: 'Debe Indicar La Ciudad'
@@ -156,7 +156,7 @@ $("#dir_form").bootstrapValidator({
             },
             required: true
         },
-        id_estructura_address: {
+        id_estructura_address_dir: {
             validators: {
                 notEmpty: {
                     message: 'Debe Indicar La Dirección'
@@ -164,7 +164,7 @@ $("#dir_form").bootstrapValidator({
             },
             required: true
         },
-        principal_address: {
+        principal_address_dir: {
             validators: {
                 notEmpty: {
                     message: 'Dirección Principal es Requerida'
@@ -173,7 +173,7 @@ $("#dir_form").bootstrapValidator({
             required: true,
             minlength: 1
         },
-        secundaria_address: {
+        secundaria_address_dir: {
             validators: {
                 notEmpty: {
                     message: 'Dirección Secundaria es Requerida'
@@ -182,7 +182,7 @@ $("#dir_form").bootstrapValidator({
             required: true,
             minlength: 1
         },
-        edificio_address: {
+        edificio_address_dir: {
             validators: {
                 notEmpty: {
                     message: 'El Número del Edificio es Requerido'
@@ -191,7 +191,7 @@ $("#dir_form").bootstrapValidator({
             required: true,
             minlength: 3
         },
-        id_barrio: {
+        id_barrio_dir: {
             validators: {
                 notEmpty: {
                     message: 'Debe Indicar El Barrio'
@@ -199,7 +199,7 @@ $("#dir_form").bootstrapValidator({
             },
             required: true
         },
-        barrio_address: {
+        barrio_address_dir: {
             validators: {
                 notEmpty: {
                     message: 'El Barrio es Requerido'
