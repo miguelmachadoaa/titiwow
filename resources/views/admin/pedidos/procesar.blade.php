@@ -132,7 +132,7 @@ Pedidos
                         </div>
 
                         <div class="col-sm-12">
-                            <a class="btn btn-primary" href="{{secure_url('admin/pedidos/')}}">Realizar Otro Pedido</a>
+                            <a class="btn btn-primary" href="{{secure_url('admin/tomapedidos/')}}">Realizar Otro Pedido</a>
                         </div>
                          
                             

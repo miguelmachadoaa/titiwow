@@ -40,6 +40,12 @@ Pedidos
 <section class="content">
     <div class="row">
 
+        @if($errors)
+
+        {{var_dump($errors)}}
+
+        @endif
+
          <form action="{{secure_url('admin/tomapedidos/procesar')}}" method="post" >
 
         <div class="col-lg-8">
@@ -269,7 +275,7 @@ Pedidos
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-primary">
-                        <h4 class="modal-title" id="modalLabeldanger">Agregar Dirección</h4>
+                        <h4 class="modal-title" id="modalLabeldanger">Agregar Cliente</h4>
                     </div>
                     <div class="modal-body">
 

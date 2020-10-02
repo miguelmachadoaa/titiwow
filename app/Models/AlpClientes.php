@@ -37,7 +37,7 @@ class AlpClientes extends Model
         'estatus_ibm',
         'json_ibm',
         'origen',
-        'modal',
+        'token',
         'id_user'
     ];
 

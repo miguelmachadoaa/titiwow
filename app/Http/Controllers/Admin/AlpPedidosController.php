@@ -1431,7 +1431,7 @@ public function postdireccion(DireccionModalRequest $request)
 
       $input=$request->all();
 
-      //dd($input);
+      dd($input);
 
       $request->principal_address_dir=strip_tags($request->principal_address_dir);
       $request->secundaria_address_dir=strip_tags($request->secundaria_address_dir);
@@ -1494,12 +1494,14 @@ public function postdireccion(DireccionModalRequest $request)
 
 
 
- public function postregistro(UserModalRequest $request)
+ public function postregistro(Request $request)
     {
 
          $configuracion=AlpConfiguracion::where('id', '1')->first();
 
          $input=$request->all();
+
+         dd($input);
 
          if($configuracion->user_activacion==0){
 
@@ -1562,11 +1564,12 @@ public function postdireccion(DireccionModalRequest $request)
                     'cod_oracle_cliente'=> $codalpin->cod_oracle_cliente,
                     'id_empresa' =>'0',               
                     'id_embajador' =>'0',               
+                    'origen' =>'1',               
+                    'token' =>substr(md5(md5(time())), 0,12),               
                     'id_user' =>0,               
                     );
 
                     $cliente=AlpClientes::create($data);
-
 
                     $sialpin = array(
                         'id_usuario_creado' => $user->id, 
@@ -1696,7 +1699,9 @@ public function postdireccion(DireccionModalRequest $request)
                     'cod_oracle_cliente' =>$request->telefono_cliente,
                     'estado_masterfile' =>'1',
                     'id_empresa' =>$id_empresa,               
-                    'id_embajador' =>'0',               
+                    'id_embajador' =>'0',  
+                    'origen' =>'1',               
+                    'token' =>substr(md5(md5(time())), 0,12),              
                     'id_user' =>0,               
                     );
 

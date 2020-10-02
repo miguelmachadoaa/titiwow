@@ -22,8 +22,6 @@ class ClientesExport implements FromView
        
     }
 
-
-
     public function view(): View
     {
         $users= User::select(
@@ -52,6 +50,7 @@ class ClientesExport implements FromView
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
           ->join('role_users', 'users.id', '=', 'role_users.user_id')
           ->join('roles', 'role_users.role_id', '=', 'roles.id')
+          ->where('alp_clientes.origen', '=' '0')
           ->where('alp_direcciones.city_id', $this->city_id)
           ->get();
 
