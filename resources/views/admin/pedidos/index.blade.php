@@ -129,7 +129,6 @@ Pedidos
                                @include('admin.pedidos.table')
                                 
                             </div>
-                             Panel de Venta
                          </div>
                          
                      </div> 
@@ -237,6 +236,28 @@ Pedidos
 
 
 
+<!-- Modal Direccion -->
+ <div class="modal fade" id="avisoAlmacenModal" role="dialog" aria-labelledby="modalLabeldanger">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h4 class="modal-title" id="modalLabeldanger">Mensaje</h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                      <h3>Al Cambiar de Almacen, Se borraran los archivos que hay en el carrito.</h3>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn  btn-primary sendConfirmar" >Agregar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- Modal Direccion -->
+  
 
 
 
@@ -274,6 +295,8 @@ Pedidos
 
     $('#categoria').on('change', function(){
 
+      $('.lista_de_productos').html('');
+
              base=$('#base').val();
 
              categoria=$('#categoria').val();
@@ -286,6 +309,8 @@ Pedidos
 
 
       $('#marca').on('change', function(){
+
+        $('.lista_de_productos').html('');
 
              base=$('#base').val();
 
@@ -308,6 +333,8 @@ Pedidos
             $.get(base+'/admin/tomapedidos/'+almacen+'/asignaalmacen', function(data) {
 
                     $('.lista_de_productos').html('');
+
+                    location.reload();
             });
     });
 
@@ -315,6 +342,8 @@ Pedidos
 
 
       $('.btn_buscar').on('click', function(){
+
+        $('.lista_de_productos').html('');
 
              base=$('#base').val();
 

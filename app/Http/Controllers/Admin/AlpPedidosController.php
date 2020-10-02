@@ -779,6 +779,7 @@ class AlpPedidosController extends JoshController
           ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
           ->where('alp_almacen_producto.id_almacen', '=', $cart['id_almacen'])
           ->where('alp_productos.id_categoria_default', $id)
+          ->whereNull('alp_almacen_producto.deleted_at')
           ->orderBy('alp_productos.nombre_producto')
          // ->limit(12)
           ->get();
@@ -809,6 +810,7 @@ class AlpPedidosController extends JoshController
           ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
           ->where('alp_almacen_producto.id_almacen', '=', $cart['id_almacen'])
           ->where('alp_productos.id_marca', $id)
+           ->whereNull('alp_almacen_producto.deleted_at')
           ->orderBy('alp_productos.nombre_producto')
          // ->limit(12)
           ->get();
@@ -3169,6 +3171,16 @@ $valor_impuesto=AlpImpuestos::where('id', '1')->first();
           }else{
 
             $cart['inventario']=$this->inventario();
+          }
+
+
+
+          foreach ($cart as $c) {
+
+            if (isset($c->nombre_producto)) {
+              unset($cart[$c->slug]);
+            }
+            # code...
           }
 
     \Session::put('cart', $cart);
