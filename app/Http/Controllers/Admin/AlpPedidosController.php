@@ -3199,7 +3199,24 @@ $valor_impuesto=AlpImpuestos::where('id', '1')->first();
 
 
 
+ public function asignadireccion($id)
+    {
 
+      if (!\Session::has('cart')) {
+        \Session::put('cart', array());
+      }
+
+      $cart=\Session::get('cart');
+
+      $cart['id_direccion']=$id;
+
+     // \Session::put('cart', $cart);
+
+    \Session::put('cart', $cart);
+
+      return $cart;
+      
+    }
 
 
 

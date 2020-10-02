@@ -671,6 +671,17 @@ Pedidos
 
 
 
+      $('#id_address').on('change', function(){
+
+             base=$('#base').val();
+
+             id_address=$('#id_address').val();
+
+            $.get(base+'/admin/tomapedidos/'+id_address+'/asignadireccion', function(data) {
+
+                     location.reload();
+            });
+    });
 
 
     $(document).on('change','.cantidadcarrito', function(){
