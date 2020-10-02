@@ -113,7 +113,7 @@ class AlpPedidosController extends JoshController
 
 
 
-        $almacenes = AlpAlmacenes::all();
+        $almacenes = AlpAlmacenes::where('estado_registro', '=', '1')->get();
 
         $productos = AlpProductos::select('alp_productos.*', 'alp_categorias.nombre_categoria as nombre_categoria')
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
@@ -3262,6 +3262,17 @@ $valor_impuesto=AlpImpuestos::where('id', '1')->first();
       $id_almacen=$cart['id_almacen'];
 
       //dd($re_u);
+      //
+      
+
+      $ad=AlpAlmacenDespacho::where('id_almacen', '=', $cart['id_almacen'])->where('id_city', '=', $direccion->city_id)->first();
+
+      if (isset($ad->id)) {
+        
+      }else{
+
+        return false;
+      }
 
       if (count($re)==1) {
           
