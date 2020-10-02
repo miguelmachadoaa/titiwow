@@ -1,6 +1,6 @@
 @if(isset($cart))
 
- <h3>Detalle de Compra  <a class="btn btn-link" href="{{secure_url('admin/pedidos/')}}"><i class="fa fa-edit"></i></a></h3>
+ <h3>Detalle de Compra  <a class="btn btn-link" href="{{secure_url('admin/tomapedidos/')}}"><i class="fa fa-edit"></i></a></h3>
 
     @if(count($cart))
 

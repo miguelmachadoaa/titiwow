@@ -40,12 +40,6 @@ Pedidos
 <section class="content">
     <div class="row">
 
-        @if($errors)
-
-        {{var_dump($errors)}}
-
-        @endif
-
          <form action="{{secure_url('admin/tomapedidos/procesar')}}" method="post" >
 
         <div class="col-lg-8">
@@ -126,18 +120,18 @@ Pedidos
                     </div>
                     <div class="modal-body">
 
-                         <form action="{{ secure_url('admin/tomapedidos/postdireccion') }}" method="POST" id="reg_form" name="reg_form">
+                         <form action="{{ secure_url('admin/tomapedidos/postdireccion') }}" method="POST" id="dir_form" name="dir_form">
 
                         <div class="row">
 
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
-                <div class="col-sm-12">
+                <div class="col-sm-6 col-sm-offset-3">
 
                 <h4 class="text-primary">Dirección</h4>
                 <div class="form-group {{ $errors->first('state_id_dir', 'has-error') }}">
                     <div class="" >
-                        <select id="state_id_dir" name="state_id_dir" value="{!! old('state_id_dir') !!}" class="form-control">
+                        <select style="width:100%;" id="state_id_dir" name="state_id_dir" value="{!! old('state_id_dir') !!}" class="form-control">
                             <option value="">Seleccione Departamento</option>     
                             @foreach($states as $state)
                             <option value="{{ $state->id }}">
@@ -149,7 +143,7 @@ Pedidos
                 </div>
                 <div class="form-group {{ $errors->first('city_id_dir', 'has-error') }}">
                     <div class="" >
-                        <select id="city_id_dir" name="city_id_dir" value="{!! old('city_id_dir') !!}" class="form-control">
+                        <select style="width:100%;" id="city_id_dir" name="city_id_dir" value="{!! old('city_id_dir') !!}" class="form-control">
                             <option value="">Seleccione Ciudad</option>
                         </select>
                     </div>
@@ -158,7 +152,7 @@ Pedidos
                 <div class="clearfix"></div>
                 <div class="form-group">
                     <div style="padding: 0;" class="form-group  col-sm-6  col-xs-6 {{ $errors->first('id_estructura_address_dir', 'has-error') }}">
-                            <select id="id_estructura_address_dir" name="id_estructura_address_dir" value="{!! old('id_estructura_address_dir') !!}" class="form-control">
+                            <select style="width:100%;" id="id_estructura_address_dir" name="id_estructura_address_dir" value="{!! old('id_estructura_address_dir') !!}" class="form-control">
                                 @foreach($estructura as $estru)
                                 <option value="{{ $estru->id }}">
                                 {{ $estru->abrevia_estructura}} - {{ $estru->nombre_estructura}} </option>
@@ -169,7 +163,7 @@ Pedidos
                     <div style="padding-right: 0;" class="form-group col-sm-6 col-xs-6  {{ $errors->first('principal_address_dir', 'has-error') }}">
                         <div class="input-group">
                             <!--span class="input-group-addon azul" id="basic-addon2">Principal</span-->
-                            <input type="text" class="form-control" id="principal_address_dir" name="principal_address_dir" style="font-style:italic" value="{!! old('principal_address_dir') !!}" placeholder="Ejemplo: 100" aria-describedby="basic-addon2">
+                            <input style="width:100%;" type="text" class="form-control" id="principal_address_dir" name="principal_address_dir" style="font-style:italic" value="{!! old('principal_address_dir') !!}" placeholder="Ejemplo: 100" aria-describedby="basic-addon2">
                         </div>
                         {!! $errors->first('principal_address_dir', '<span class="help-block">:message</span>') !!}
                     </div>
@@ -177,24 +171,24 @@ Pedidos
                 <div class="clearfix"></div>
                 <div style="padding: 0;" class="form-group col-sm-6  col-xs-6 {{ $errors->first('secundaria_address_dir', 'has-error') }}">
                     <div class="input-group">
-                        <input type="text" class="form-control" id="secundaria_address_dir" name="secundaria_address_dir" value="{!! old('secundaria_address_dir') !!}"  placeholder="Ejemplo: #21" aria-describedby="basic-addon3">
+                        <input style="width:100%;" type="text" class="form-control" id="secundaria_address_dir" name="secundaria_address_dir" value="{!! old('secundaria_address_dir') !!}"  placeholder="Ejemplo: #21" aria-describedby="basic-addon3">
                     </div>
                     {!! $errors->first('secundaria_address_dir', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div style="padding-right: 0;" class="form-group col-sm-6  col-xs-6 {{ $errors->first('edificio_address_dir', 'has-error') }}">
                     <div class="input-group">
-                        <input type="text" class="form-control" value="{!! old('edificio_address_dir') !!}" id="edificio_address_dir" name="edificio_address_dir" placeholder="Ejemplo: -14" aria-describedby="basic-addon4">
+                        <input style="width:100%;" type="text" class="form-control" value="{!! old('edificio_address_dir') !!}" id="edificio_address_dir" name="edificio_address_dir" placeholder="Ejemplo: -14" aria-describedby="basic-addon4">
                     </div>
                     {!! $errors->first('edificio_address_dir', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="clearfix"></div>
                 <div class="form-group {{ $errors->first('detalle_address_dir', 'has-error') }}">
-                    <input type="text" class="form-control" value="{!! old('detalle_address_dir') !!}" id="detalle_address_dir" name="detalle_address_dir" placeholder="Apto, Puerta, Interior"
+                    <input style="width:100%;" type="text" class="form-control" value="{!! old('detalle_address_dir') !!}" id="detalle_address_dir" name="detalle_address_dir" placeholder="Apto, Puerta, Interior"
                            value="{!! old('detalle_address_dir') !!}" >
                     {!! $errors->first('detalle_address_dir', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="form-group barrio_address_dir {{ $errors->first('barrio_address_dir', 'has-error') }}">
-                    <input type="text" class="form-control" value="{!! old('barrio_address_dir') !!}" id="barrio_address_dir" name="barrio_address_dir" placeholder="Barrio"
+                    <input style="width:100%;" type="text" class="form-control" value="{!! old('barrio_address_dir') !!}" id="barrio_address_dir" name="barrio_address_dir" placeholder="Barrio"
                            value="{!! old('barrio_address_dir') !!}" >
                     {!! $errors->first('barrio_address_dir', '<span class="help-block">:message</span>') !!}
                 </div>
@@ -202,7 +196,7 @@ Pedidos
 
                 <div style="padding: 0;" class="form-group col-sm-12 id_barrio_dir {{ $errors->first('id_barrio_dir', 'has-error') }} hidden">
                     <div class="" >
-                        <select id="id_barrio_dir" name="id_barrio_dir" value="{!! old('id_barrio_dir') !!}" class="form-control">
+                        <select style="width:100%;" id="id_barrio_dir" name="id_barrio_dir" value="{!! old('id_barrio_dir') !!}" class="form-control">
                             <option value="">Seleccione Barrio</option>
                         </select>
                     </div>
@@ -231,14 +225,14 @@ Pedidos
                 
                 </div>
 
-                <div class="col-sm-12">
+                <div class="col-sm-6 col-sm-offset-3">
                     
 
                 
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-6">
-                            <button id="btnsubmit" name="btnsubmit" type="button" class="btn btn-block btn-primary">Registrarse</button>
+                            <button id="btnsubmitdir" name="btnsubmitdir" type="button" class="btn btn-block btn-primary">Registrarse</button>
                         </div>
                         <div class="col-sm-6">
                             <a class="btn btn-block btn-danger" data-dismiss="modal" href="#">Cancelar</a>
@@ -303,7 +297,7 @@ Pedidos
                 </div>
                 <div class="form-group {{ $errors->first('id_type_doc', 'has-error') }}">
                     <div class="" >
-                        <select id="id_type_doc" name="id_type_doc" class="form-control {{ $errors->first('id_type_doc', 'has-error') }}">
+                        <select style="width:100%;" id="id_type_doc" name="id_type_doc" class="form-control {{ $errors->first('id_type_doc', 'has-error') }}">
                             <option value="">Seleccione Tipo de Documento</option>     
                             @foreach($t_documento as $tdoc)
                                 <option value="{{ $tdoc->id }}" {{ (old("id_type_doc") == $tdoc->id ? "selected":"") }}>{{ $tdoc->abrev_tipo_documento}} - {{ $tdoc->nombre_tipo_documento}}</option>
@@ -336,7 +330,7 @@ Pedidos
                 <h4 class="text-primary">Dirección</h4>
                 <div class="form-group {{ $errors->first('state_id', 'has-error') }}">
                     <div class="" >
-                        <select id="state_id" name="state_id" value="{!! old('state_id') !!}" class="form-control">
+                        <select style="width:100%;" id="state_id" name="state_id" value="{!! old('state_id') !!}" class="form-control">
                             <option value="">Seleccione Departamento</option>     
                             @foreach($states as $state)
                             <option value="{{ $state->id }}">
@@ -348,7 +342,7 @@ Pedidos
                 </div>
                 <div class="form-group {{ $errors->first('city_id', 'has-error') }}">
                     <div class="" >
-                        <select id="city_id" name="city_id" value="{!! old('city_id') !!}" class="form-control">
+                        <select style="width:100%;" id="city_id" name="city_id" value="{!! old('city_id') !!}" class="form-control">
                             <option value="">Seleccione Ciudad</option>
                         </select>
                     </div>
@@ -357,7 +351,7 @@ Pedidos
                 <div class="clearfix"></div>
                 <div class="form-group">
                     <div style="padding: 0;" class="form-group  col-sm-6  col-xs-6 {{ $errors->first('id_estructura_address', 'has-error') }}">
-                            <select id="id_estructura_address" name="id_estructura_address" value="{!! old('id_estructura_address') !!}" class="form-control">
+                            <select style="width:100%;" id="id_estructura_address" name="id_estructura_address" value="{!! old('id_estructura_address') !!}" class="form-control">
                                 @foreach($estructura as $estru)
                                 <option value="{{ $estru->id }}">
                                 {{ $estru->abrevia_estructura}} - {{ $estru->nombre_estructura}} </option>
@@ -368,7 +362,7 @@ Pedidos
                     <div style="padding-right: 0;" class="form-group col-sm-6 col-xs-6  {{ $errors->first('principal_address', 'has-error') }}">
                         <div class="input-group">
                             <!--span class="input-group-addon azul" id="basic-addon2">Principal</span-->
-                            <input type="text" class="form-control" id="principal_address" name="principal_address" style="font-style:italic" value="{!! old('principal_address') !!}" placeholder="Ejemplo: 100" aria-describedby="basic-addon2">
+                            <input style="width: 100%;" type="text" class="form-control" id="principal_address" name="principal_address" style="font-style:italic" value="{!! old('principal_address') !!}" placeholder="Ejemplo: 100" aria-describedby="basic-addon2">
                         </div>
                         {!! $errors->first('principal_address', '<span class="help-block">:message</span>') !!}
                     </div>
@@ -376,24 +370,24 @@ Pedidos
                 <div class="clearfix"></div>
                 <div style="padding: 0;" class="form-group col-sm-6  col-xs-6 {{ $errors->first('secundaria_address', 'has-error') }}">
                     <div class="input-group">
-                        <input type="text" class="form-control" id="secundaria_address" name="secundaria_address" value="{!! old('secundaria_address') !!}"  placeholder="Ejemplo: #21" aria-describedby="basic-addon3">
+                        <input style="width: 100%;" type="text" class="form-control" id="secundaria_address" name="secundaria_address" value="{!! old('secundaria_address') !!}"  placeholder="Ejemplo: #21" aria-describedby="basic-addon3">
                     </div>
                     {!! $errors->first('secundaria_address', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div style="padding-right: 0;" class="form-group col-sm-6  col-xs-6 {{ $errors->first('edificio_address', 'has-error') }}">
                     <div class="input-group">
-                        <input type="text" class="form-control" value="{!! old('edificio_address') !!}" id="edificio_address" name="edificio_address" placeholder="Ejemplo: -14" aria-describedby="basic-addon4">
+                        <input style="width: 100%;" type="text" class="form-control" value="{!! old('edificio_address') !!}" id="edificio_address" name="edificio_address" placeholder="Ejemplo: -14" aria-describedby="basic-addon4">
                     </div>
                     {!! $errors->first('edificio_address', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="clearfix"></div>
                 <div class="form-group {{ $errors->first('detalle_address', 'has-error') }}">
-                    <input type="text" class="form-control" value="{!! old('detalle_address') !!}" id="detalle_address" name="detalle_address" placeholder="Apto, Puerta, Interior"
+                    <input style="width: 100%;" type="text" class="form-control" value="{!! old('detalle_address') !!}" id="detalle_address" name="detalle_address" placeholder="Apto, Puerta, Interior"
                            value="{!! old('detalle_address') !!}" >
                     {!! $errors->first('detalle_address', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="form-group barrio_address {{ $errors->first('barrio_address', 'has-error') }}">
-                    <input type="text" class="form-control" value="{!! old('barrio_address') !!}" id="barrio_address" name="barrio_address" placeholder="Barrio"
+                    <input style="width: 100%;" type="text" class="form-control" value="{!! old('barrio_address') !!}" id="barrio_address" name="barrio_address" placeholder="Barrio"
                            value="{!! old('barrio_address') !!}" >
                     {!! $errors->first('barrio_address', '<span class="help-block">:message</span>') !!}
                 </div>
@@ -401,7 +395,7 @@ Pedidos
 
                 <div style="padding: 0;" class="form-group col-sm-12 id_barrio {{ $errors->first('id_barrio', 'has-error') }} hidden">
                     <div class="" >
-                        <select id="id_barrio" name="id_barrio" value="{!! old('id_barrio') !!}" class="form-control">
+                        <select style="width:100%;" id="id_barrio" name="id_barrio" value="{!! old('id_barrio') !!}" class="form-control">
                             <option value="">Seleccione Barrio</option>
                         </select>
                     </div>
@@ -928,6 +922,34 @@ $(document).ready(function(){
             //alert(codigo);
 
         });
+
+
+
+        $(document).on('click','#btnsubmitdir', function(e){
+
+            codigo=0;
+
+            e.preventDefault();
+
+            base=$('#base').val();
+
+            _token=$('input[name="_token"]').val();
+
+            var $validator = $('#dir_form').data('bootstrapValidator').validate();
+
+            if ($validator.isValid()) {
+
+                $("#dir_form")[0].submit();
+
+            }
+
+
+            //alert(codigo);
+
+        });
+
+
+
 
 
         $("#state_id").select2();

@@ -772,9 +772,12 @@ class AlpPedidosController extends JoshController
 
     public function datacategorias($id)
     {
+      $cart= \Session::get('cart');
 
          $productos = AlpProductos::select('alp_productos.*', 'alp_categorias.nombre_categoria as nombre_categoria')
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
+          ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
+          ->where('alp_almacen_producto.id_almacen', '=', $cart['id_almacen'])
           ->where('alp_productos.id_categoria_default', $id)
           ->orderBy('alp_productos.nombre_producto')
          // ->limit(12)
@@ -799,8 +802,12 @@ class AlpPedidosController extends JoshController
     public function datamarcas($id)
     {
 
+      $cart= \Session::get('cart');
+
          $productos = AlpProductos::select('alp_productos.*', 'alp_categorias.nombre_categoria as nombre_categoria')
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
+          ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
+          ->where('alp_almacen_producto.id_almacen', '=', $cart['id_almacen'])
           ->where('alp_productos.id_marca', $id)
           ->orderBy('alp_productos.nombre_producto')
          // ->limit(12)
@@ -823,9 +830,15 @@ class AlpPedidosController extends JoshController
     public function databuscar($buscar)
     {
 
+       $cart= \Session::get('cart');
+
+
+
          $productos = AlpProductos::search($buscar)->select('alp_productos.*', 'alp_categorias.nombre_categoria as nombre_categoria')
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
-         // ->where('alp_productos.id_marca', $id)
+          ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
+          ->where('alp_almacen_producto.id_almacen', '=', $cart['id_almacen'])
+          ->whereNull('alp_almacen_producto.deleted_at')
           ->orderBy('alp_productos.nombre_producto')
           ->get();
 
@@ -1431,7 +1444,7 @@ public function postdireccion(DireccionModalRequest $request)
 
       $input=$request->all();
 
-      dd($input);
+      //dd($input);
 
       $request->principal_address_dir=strip_tags($request->principal_address_dir);
       $request->secundaria_address_dir=strip_tags($request->secundaria_address_dir);
@@ -1493,15 +1506,14 @@ public function postdireccion(DireccionModalRequest $request)
 
 
 
-
- public function postregistro(Request $request)
+ public function postregistro(UserModalRequest $request)
     {
 
          $configuracion=AlpConfiguracion::where('id', '1')->first();
 
          $input=$request->all();
 
-         dd($input);
+         //dd($input)
 
          if($configuracion->user_activacion==0){
 

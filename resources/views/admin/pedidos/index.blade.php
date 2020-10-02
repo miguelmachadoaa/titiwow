@@ -60,7 +60,7 @@ Pedidos
 
                                    <h4>Almacenes</h4> 
 
-                                   <select class="form-control select2" name="almacen" id="almacen">
+                                   <select style="width: 100%;" class="form-control select2" name="almacen" id="almacen">
 
                                         @foreach($almacenes as $a)
 

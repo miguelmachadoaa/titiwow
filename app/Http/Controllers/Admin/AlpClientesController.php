@@ -124,6 +124,7 @@ class AlpClientesController extends JoshController
         ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
         ->join('role_users', 'users.id', '=', 'role_users.user_id')
         ->join('roles', 'role_users.role_id', '=', 'roles.id')
+        ->where('alp_clientes.origen', '=', '0')
         ->where('role_users.role_id', '<>', 1)->get();
 
             $data = array();
@@ -298,6 +299,7 @@ class AlpClientesController extends JoshController
         ->join('roles', 'role_users.role_id', '=', 'roles.id')
         ->where('role_users.role_id', '<>', 1)
         ->where('alp_clientes.estado_registro', '=', 0)
+        ->where('alp_clientes.origen', '=', '0')
         ->whereNull('alp_clientes.deleted_at')
         ->get();
 
@@ -433,6 +435,7 @@ class AlpClientesController extends JoshController
         ->join('role_users', 'users.id', '=', 'role_users.user_id')
         ->join('roles', 'role_users.role_id', '=', 'roles.id')
         ->where('role_users.role_id', '<>', 1)
+        ->where('alp_clientes.origen', '=', '0')
         ->where('alp_clientes.deleted_at', '<>', NULL)
         ->get();
 
@@ -550,6 +553,7 @@ class AlpClientesController extends JoshController
         ->join('alp_empresas', 'alp_clientes.id_empresa', '=', 'alp_empresas.id')
         ->join('role_users', 'users.id', '=', 'role_users.user_id')
         ->join('roles', 'role_users.role_id', '=', 'roles.id')
+        ->where('alp_clientes.origen', '=', 0)
         ->where('role_users.role_id', '<>', 1)->get();
 
 
@@ -568,7 +572,9 @@ class AlpClientesController extends JoshController
         ->join('alp_empresas', 'alp_clientes.id_empresa', '=', 'alp_empresas.id')
         ->join('role_users', 'users.id', '=', 'role_users.user_id')
         ->join('roles', 'role_users.role_id', '=', 'roles.id')
-        ->where('role_users.role_id', '<>', 1)->get();
+        ->where('alp_clientes.origen', '=', '0')
+        ->where('role_users.role_id', '<>', 1)
+        ->get();
 
             $data = array();
 
@@ -1864,7 +1870,7 @@ class AlpClientesController extends JoshController
         ->join('alp_saldo', 'users.id', '=', 'alp_saldo.id_cliente')
         ->join('role_users', 'users.id', '=', 'role_users.user_id')
         ->join('roles', 'role_users.role_id', '=', 'roles.id')
-
+        ->where('alp_clientes.origen', '=', '0')
         ->where('role_users.role_id', '<>', 1)
         ->groupBy('users.id')
         ->get();
