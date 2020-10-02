@@ -33,6 +33,7 @@ use App\Models\AlpOrdenesDescuento;
 use App\Models\AlpPagos;
 use App\Models\AlpFormaCiudad;
 use App\Models\AlpImpuestos;
+use App\Models\AlpRolenvio;
 use App\User;
 use App\State;
 use App\City;
@@ -331,12 +332,19 @@ class AlpPedidosController extends JoshController
         }
 
 
-        if (!Sentinel::getUser()->hasAnyAccess(['almacenes.*'])) {
 
-           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        $vd=$this->verificarDireccion();
+
+
+        if ($vd=='true') {
+          
+        }else{
+
+          return redirect('admin/tomapedidos/checkout')->withInput()->with('error', trans('Su dirección no esta disponible para despacho en este almacen.'));
+
         }
 
-       // dd($request->all());
+
 
          $clientIP = \Request::getClientIp(true);
 
@@ -3188,6 +3196,88 @@ $valor_impuesto=AlpImpuestos::where('id', '1')->first();
       return $cart;
       
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function verificarDireccion()
+    {
+
+      $cart=\Session::get('cart');
+      
+
+      $direccion=AlpDirecciones::where('id', $cart['id_direccion'])->first();
+
+      if ($direccion->id_barrio!=0) {
+
+          $ciudad=AlpFormaCiudad::where('id_forma', $cart['id_forma_envio'])->where('id_barrio', $direccion->id_barrio)->first();
+
+      }else{
+
+         $ciudad=AlpFormaCiudad::where('id_forma', $cart['id_forma_envio'])->where('id_ciudad', $direccion->city_id)->first();
+
+      }
+
+      $validado=0;
+
+      $role=RoleUser::select('role_id')->where('user_id', $cart['id_cliente'])->first();
+
+      $re=AlpRolenvio::where('id_rol', $role->role_id)->get();
+
+      $re_u=AlpRolenvio::where('id_rol', $role->role_id)->first();
+
+      $id_almacen=$cart['id_almacen'];
+
+      //dd($re_u);
+
+      if (count($re)==1) {
+          
+          if ($re_u->id_forma_envio=='4') {
+
+              $validado='1';
+              
+          }
+
+      }
+
+     
+
+      if (isset($ciudad->id)  ||  $validado=='1'){
+
+          return 'true';
+
+      }else{
+
+        return 'false';
+      }
+
+        
+    }
+    
+
+
+
+
+
+
+
+
 
 
 
