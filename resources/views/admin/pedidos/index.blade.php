@@ -278,7 +278,7 @@ Pedidos
 
              categoria=$('#categoria').val();
 
-            $.get(base+'/admin/pedidos/'+categoria+'/datacategorias', function(data) {
+            $.get(base+'/admin/tomapedidos/'+categoria+'/datacategorias', function(data) {
 
                     $('.lista_de_productos').html(data);
             });
@@ -291,7 +291,7 @@ Pedidos
 
              marca=$('#marca').val();
 
-            $.get(base+'/admin/pedidos/'+marca+'/datamarcas', function(data) {
+            $.get(base+'/admin/tomapedidos/'+marca+'/datamarcas', function(data) {
 
                     $('.lista_de_productos').html(data);
             });
@@ -305,7 +305,7 @@ Pedidos
 
              almacen=$('#almacen').val();
 
-            $.get(base+'/admin/pedidos/'+almacen+'/asignaalmacen', function(data) {
+            $.get(base+'/admin/tomapedidos/'+almacen+'/asignaalmacen', function(data) {
 
                     $('.lista_de_productos').html('');
             });
@@ -320,7 +320,7 @@ Pedidos
 
              buscar=$('#buscar').val();
 
-            $.get(base+'/admin/pedidos/'+buscar+'/databuscar', function(data) {
+            $.get(base+'/admin/tomapedidos/'+buscar+'/databuscar', function(data) {
 
                     $('.lista_de_productos').html(data);
             });
@@ -334,7 +334,7 @@ Pedidos
 
              id=$(this).data('id');
 
-            $.get(base+'/admin/pedidos/'+id+'/addtocart', function(data) {
+            $.get(base+'/admin/tomapedidos/'+id+'/addtocart', function(data) {
 
                     $('.listaorden').html(data);
             });
@@ -347,7 +347,7 @@ Pedidos
 
              slug=$(this).data('slug');
 
-            $.get(base+'/admin/pedidos/'+slug+'/deletecart', function(data) {
+            $.get(base+'/admin/tomapedidos/'+slug+'/deletecart', function(data) {
 
                     $('.listaorden').html(data);
             });
@@ -358,7 +358,7 @@ Pedidos
 
              base=$('#base').val();
 
-            $.get(base+'/admin/pedidos/vaciarcarrito', function(data) {
+            $.get(base+'/admin/tomapedidos/vaciarcarrito', function(data) {
 
                     $('.listaorden').html(data);
             });
@@ -384,7 +384,7 @@ Pedidos
 
         }else{
 
-            $.get(base+'/admin/pedidos/'+id+'/updatecart/'+cantidad, function(data) {
+            $.get(base+'/admin/tomapedidos/'+id+'/updatecart/'+cantidad, function(data) {
 
                     $('.listaorden').html(data);
             });
@@ -407,7 +407,7 @@ Pedidos
 
         cantidad=$('#cantidad_modal').val();
 
-         $.get(base+'/admin/pedidos/'+id+'/updatecart/'+cantidad, function(data) {
+         $.get(base+'/admin/tomapedidos/'+id+'/updatecart/'+cantidad, function(data) {
 
                     $('.listaorden').html(data);
 

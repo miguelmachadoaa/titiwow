@@ -45,6 +45,7 @@ use App\Http\Requests\AlmacenesRequest;
 use App\Http\Requests\UploadRequest;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserModalRequest;
+use App\Http\Requests\DireccionModalRequest;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
@@ -176,6 +177,8 @@ class AlpPedidosController extends JoshController
 
         $cart= \Session::get('cart');
 
+        //dd($cart);
+
 
         $id_almacen=$cart['id_almacen'];
 
@@ -200,7 +203,7 @@ class AlpPedidosController extends JoshController
 
           if ($total_venta<$almacen->minimo_compra) {
 
-            return redirect('admin/pedidos/')->withInput()->with('error', trans('El monto de compra minimo para este almacen es de '.$almacen->minimo_compra));
+            return redirect('admin/tomapedidos/')->withInput()->with('error', trans('El monto de compra minimo para este almacen es de '.$almacen->minimo_compra));
 
             
           }
@@ -297,7 +300,7 @@ class AlpPedidosController extends JoshController
 
               $cart=$this->reloadCart();
 
-
+              //dd($cart);
             
         // Show the page
         return view('admin.pedidos.checkout', compact('almacenes', 'cart', 'total_venta', 'clientes', 'formaspago', 'formasenvio', 't_documento', 'estructura', 'countries', 'listabarrios', 'states', 'cities'));
@@ -562,7 +565,7 @@ class AlpPedidosController extends JoshController
         }else{
 
 
-          return redirect('admin/pedidos/')->withInput()->with('error', trans('Hubo un error al procesar la compra'));
+          return redirect('admin/tomapedidos/')->withInput()->with('error', trans('Hubo un error al procesar la compra'));
 
 
         }
@@ -579,452 +582,6 @@ class AlpPedidosController extends JoshController
 
 
 
-
-
-
-
-
-    public function data()
-    {
-       
-        $almacenes = AlpAlmacenes::all();
-         
-        $data = array();
-
-        foreach($almacenes as $row){
-
-          if ($row->estado_registro=='1') {
-
-             $estatus=" <div class='estatus_".$row->id."'>
-             <button data-url='".secure_url('admin/almacenes/estatus')."' type='buttton' data-id='".$row->id."' data-estatus='0' class='btn btn-xs btn-danger estatus'>Desactivar</button>
-            </div>";
-
-          }else{
-
-                        $estatus="<div class='estatus_".$row->id."'>
-            <button data-url='".secure_url('admin/almacenes/estatus')."' type='buttton' data-id='".$row->id."' data-estatus='1' class='btn btn-xs btn-success estatus'>Activar</button>
-             </div>";
-
-           }
-
-        $actions = " 
-              <a href='".secure_url('admin/almacenes/'.$row->id.'/gestionar')."'>
-                              <i class='livicon' data-name='gears' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Gestionar Almacen'></i>
-                      </a>
-
-
-                      <a href='".secure_url('admin/almacenes/'.$row->id.'/upload')."'>
-                              <i class='livicon' data-name='arrow-circle-up' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Agregar Productos'></i>
-                      </a>
-
-
-                      <!--a href='".secure_url('admin/almacenes/'.$row->id.'/roles')."'>
-                              <i class='livicon' data-name='users' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Editar Empresa'></i>
-                      </a-->
-                      
-
-                      <a href='".secure_url('admin/almacenes/'.$row->id.'/edit')."'>
-                              <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Editar Almacen'></i>
-                      </a>
-
-
-                        <a href='".secure_url('admin/almacenes/'.$row->id.'')."'>
-                              <i class='livicon' data-name='eye-open' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Datos del almacen'></i>
-                      </a>  
-
-                      <a href='".secure_url('admin/almacenes/'.$row->id.'/confirm-delete')."' data-toggle='modal' data-target='#delete_confirm'> <i class='livicon' data-name='remove-alt' data-size='18'
-                        data-loop='true' data-c='#f56954' data-hc='#f56954' title='Eliminar'></i>
-
-                      </a>";
-
-                      $ap=AlpAlmacenProducto::where('id_almacen', $row->id)->groupBy('id_producto')->get();
-
-                      if ($row->tipo_almacen==0) {
-
-                        $tipo='Normal';
-                        # code...
-                      }else{
-
-                        $tipo='Nomina';
-                      }
-
-               $data[]= array(
-                 $row->id, 
-                 $row->nombre_almacen, 
-                 $row->descripcion_almacen,
-                 count($ap),
-                 $row->hora, 
-                 $tipo,
-                 $row->minimo_compra, 
-                 $estatus, 
-                 $actions
-              );
-
-          }
-
-          return json_encode( array('data' => $data ));
-          
-      }
- 
-    public function create()
-    {
-
-      if (!Sentinel::getUser()->hasAnyAccess(['almacenes.*'])) {
-
-           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
-        }
-
-
-
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-           activity($user->full_name)
-              ->performedOn($user)
-              ->causedBy($user)
-              ->log('almacenes/create ');
-
-        }else{
-
-          activity()
-          ->log('almacenes/create');
-
-        }
-
-        $almacen=AlpAlmacenes::get();
-
-        $states=State::where('config_states.country_id', '47')->get();
-
-        $cities=City::get();
-
-
-         $t_documento = AlpTDocumento::where('estado_registro','=',1)->get();
-
-            $estructura = AlpEstructuraAddress::where('estado_registro','=',1)->get();
-
-
-
-        // Show the page
-        return view ('admin.pedidos.create', compact('almacen', 'states', 'cities','t_documento', 'estructura'));
-    }
-
-    /**
-     * Group create form processing.
-     *
-     * @return Redirect
-     */
-    public function store(AlmacenesRequest $request)
-    {
-
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-          activity($user->full_name)
-            ->performedOn($user)
-            ->causedBy($user)
-            ->withProperties($request->all())->log('almacenes/store ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->all())->log('almacenes/store');
-
-        }
-        
-        $user_id = Sentinel::getUser()->id;
-
-        if ($request->defecto=='1') {
-
-          $as=AlpAlmacenes::get();
-
-          foreach ($as as $a) {
-
-            $a->update(['defecto'=>'0']);
-            # code...
-          }
-
-          
-        }
-
-        $data = array(
-            'nombre_almacen' => $request->nombre_almacen, 
-            'descripcion_almacen' => $request->descripcion_almacen, 
-            'defecto' => $request->defecto, 
-            'id_city' => $request->city_id, 
-            'hora' => $request->hora, 
-            'correos' => $request->correos, 
-            'minimo_compra' => $request->minimo_compra, 
-            'tipo_almacen' => $request->tipo_almacen, 
-            'formato' => $request->formato, 
-            'descuento_productos' => $request->descuento_productos, 
-            'mensaje_promocion' => $request->mensaje_promocion, 
-            'id_user' =>$user_id
-        );
-         
-        $almacen=AlpAlmacenes::create($data);
-
-
-
-        $data_direccion = array(
-        'id_client'=>'A'.$almacen->id,
-        'titulo'=>$request->titulo,
-        'city_id'=>$request->city_id,
-        'id_estructura_address'=>$request->id_estructura_address,
-        'principal_address'=>$request->principal_address,
-        'secundaria_address'=>$request->secundaria_address,
-        'edificio_address'=>$request->edificio_address,
-        'detalle_address'=>$request->detalle_address,
-        'barrio_address'=>$request->barrio_address,
-        'id_barrio'=>$request->id_barrio,
-        'notas'=>$request->notas
-        );
-
-        $dir=AlpDirecciones::create($data_direccion);
-      
-
-        if ($almacen->id) {
-
-            return redirect('admin/almacenes')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
-
-        } else {
-            return Redirect::route('admin/almacenes')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
-        }  
-
-    }
-
-
-    /**
-     * Group update.
-     *
-     * @param  int $id
-     * @return View
-     */
-    public function edit($id)
-    {
-
-      if (!Sentinel::getUser()->hasAnyAccess(['almacenes.*'])) {
-
-           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
-        }
-
-
-        if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-           activity($user->full_name)
-                        ->performedOn($user)
-                        ->causedBy($user)
-                        ->withProperties(['id'=>$id])->log('almacen/edit ');
-
-        }else{
-
-          activity()
-          ->withProperties(['id'=>$id])->log('almacen/edit');
-
-
-        }
-       
-       $almacen = AlpAlmacenes::where('id', $id)->first();
-
-      
-
-       $states=State::where('config_states.country_id', '47')->get();
-
-       if ($almacen->id_city=='0') {
-         
-          $almacen->id_state=0;
-
-       }else{
-
-        $city=City::where('id', $almacen->id_city)->first();
-
-         $almacen->id_state=$city->state_id;
-
-       }
-
-        //dd($almacen);
-
-       //
-
-      $cities=City::get();
-
-      
-       // 
-        $estructura = AlpEstructuraAddress::where('estado_registro','=',1)->get();
-
-        $direccion=AlpDirecciones::where('id_client', 'A'.$almacen->id)->first();
-
-
-
-        return view('admin.pedidos.edit', compact('almacen', 'states', 'cities', 'estructura', 'direccion'));
-    }
-
-    /**
-     * Group update form processing page.
-     *
-     * @param  int $id
-     * @return Redirect
-     */
-    public function update(AlmacenesRequest $request, $id)
-    {
-
-          if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-           activity($user->full_name)
-                        ->performedOn($user)
-                        ->causedBy($user)
-                        ->withProperties($request->all())->log('almacenes/update ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->all())->log('almacenes/update');
-
-
-        }
-
-        //dd($request->all());
-
-         if ($request->defecto=='1') {
-
-          $as=AlpAlmacenes::get();
-
-          foreach ($as as $a) {
-
-            $a->update(['defecto'=>'0']);
-            # code...
-          }
-
-          
-        }
-
-                $data = array(
-                'nombre_alamcen' => $request->nombre_alamcen, 
-                'descripcion_alamcen' => $request->descripcion_alamcen,
-                'defecto' => $request->defecto, 
-                'id_city' => $request->city_id,
-                'hora' => $request->hora, 
-                'correos' => $request->correos, 
-                'minimo_compra' => $request->minimo_compra, 
-                'descuento_productos' => $request->descuento_productos, 
-                'mensaje_promocion' => $request->mensaje_promocion, 
-                'formato' => $request->formato, 
-                'tipo_almacen' => $request->tipo_almacen
-                );
-
-               // dd($data);
-
-
-       $almacen = AlpAlmacenes::find($id);
-    
-        $almacen->update($data);
-
-         $data_direccion = array(
-          'id_client'=>'A'.$almacen->id,
-        'titulo'=>$request->titulo,
-        'city_id'=>$request->city_id,
-        'id_estructura_address'=>$request->id_estructura_address,
-        'principal_address'=>$request->principal_address,
-        'secundaria_address'=>$request->secundaria_address,
-        'edificio_address'=>$request->edificio_address,
-        'detalle_address'=>$request->detalle_address,
-        'barrio_address'=>$request->barrio_address,
-        'id_barrio'=>$request->id_barrio,
-        'notas'=>$request->notas
-        );
-
-        $direccion=AlpDirecciones::where('id_client', 'A'.$almacen->id)->first();
-
-        if (isset($direcion->id)) {
-          # code...
-          $direccion->update($data_direccion);
-        }else{
-
-
-          AlpDirecciones::create($data_direccion);
-        }
-
-        if ($almacen->id) {
-
-            return redirect('admin/almacenes')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
-
-        } else {
-            return Redirect::route('admin/almacenes')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
-        }  
-
-    }
-
-    /**
-     * Delete confirmation for the given group.
-     *
-     * @param  int $id
-     * @return View
-     */
-    public function getModalDelete($id = null)
-    {
-        $model = 'empresas';
-        $confirm_route = $error = null;
-        try {
-            // Get group inempresastion
-            
-            $empresas = AlpAlmacenes::find($id);
-
-            $confirm_route = route('admin.pedidos.delete', ['id' => $empresas->id]);
-
-            return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
-        } catch (GroupNotFoundException $e) {
-            $error = trans('Ha ocurrido un error al eliminar registro');
-            return view('admin.layouts.modal_confirmation', compact('error', 'model', 'confirm_route'));
-        }
-    }
-
-    /**
-     * Delete the given group.
-     *
-     * @param  int $id
-     * @return Redirect
-     */
-    public function destroy($id)
-    {
-
-         if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-           activity($user->full_name)
-                        ->performedOn($user)
-                        ->causedBy($user)
-                        ->withProperties(['id'=>$id])->log('empresas/destroy ');
-
-        }else{
-
-          activity()
-          ->withProperties(['id'=>$id])->log('empresas/destroy');
-
-
-        }
-
-
-        try {
-            // Get group inempresastion
-           
-            $empresas = AlpAlmacenes::find($id);
-
-            // Delete the group
-            $empresas->delete();
-
-            // Redirect to the group management page
-            return Redirect::route('admin.pedidos.index')->with('success', trans('Se ha eliminado el registro satisfactoriamente'));
-        } catch (GroupNotFoundException $e) {
-            // Redirect to the group management page
-            return Redirect::route('admin.pedidos.index')->with('error', trans('Error al eliminar el registro'));
-        }
-    }
 
 
 
@@ -1860,7 +1417,73 @@ class AlpPedidosController extends JoshController
 
 
 
+public function postdireccion(DireccionModalRequest $request)
+    {
 
+      $configuracion=AlpConfiguracion::where('id', '1')->first();
+
+       $cart=\Session::get('cart');
+
+         $user = Sentinel::getUser();
+
+
+     //  dd($cart);
+
+      $input=$request->all();
+
+      //dd($input);
+
+      $request->principal_address_dir=strip_tags($request->principal_address_dir);
+      $request->secundaria_address_dir=strip_tags($request->secundaria_address_dir);
+      $request->edificio_address_dir=strip_tags($request->edificio_address_dir);
+      $request->detalle_address_dir=strip_tags($request->detalle_address_dir);
+      $request->barrio_address_dir=strip_tags($request->barrio_address_dir);
+
+
+       $direccion = array(
+            'id_client' => $cart['id_cliente'], 
+            'city_id' => $request->city_id_dir, 
+            'id_estructura_address' => $request->id_estructura_address_dir, 
+            'principal_address' => $request->principal_address_dir,
+            'secundaria_address' => $request->secundaria_address_dir,
+            'edificio_address' => $request->edificio_address_dir,
+            'detalle_address' => $request->detalle_address_dir,
+            'barrio_address'=> $request->barrio_address_dir,             
+            'id_barrio'=> $request->id_barrio_dir,             
+            'id_user' => $user->id,               
+        );
+
+      // dd($direccion);
+
+        $dir=AlpDirecciones::create($direccion);
+
+        $cart['id_direccion']=$dir->id;
+
+
+         $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+          ->where('alp_direcciones.id_client', $cart['id_cliente'])->get();
+
+          $cart['direcciones']=$direcciones;
+
+          \Session::put('cart', $cart);
+
+       if (isset($dir->id)) {
+
+          return redirect('admin/tomapedidos/checkout')->with('success', trans('Dirección agregada satisfactoriamente'));
+       }else{
+
+        return redirect('admin/tomapedidos/checkout')->with('error', trans('Error al agregar la dirección intente nuevamente '));
+
+       }
+
+
+
+
+    }
 
 
 
@@ -2009,7 +1632,7 @@ class AlpPedidosController extends JoshController
 
                     }else{
 
-                        return redirect('admin/pedidos/checkout')->with('error', trans('auth/message.failure.error'))->withInput();
+                        return redirect('admin/tomapedidos/checkout')->with('error', trans('auth/message.failure.error'))->withInput();
 
                     }
 
@@ -2245,7 +1868,7 @@ class AlpPedidosController extends JoshController
             $cliente->update($data_c);
 
 
-            return redirect('admin/pedidos/checkout')->with('success', trans('Usuario resitrado satisfactoriamente '))->withInput();
+            return redirect('admin/tomapedidos/checkout')->with('success', trans('Usuario resitrado satisfactoriamente '))->withInput();
 
 
 

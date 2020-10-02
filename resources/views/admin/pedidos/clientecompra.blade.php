@@ -16,10 +16,10 @@
 
                             @if(isset($cart['id_cliente']) && isset($cart['cliente']))
 
-                                <p><b>Nombre:</b>{{$cart['cliente']->first_name.' '.$cart['cliente']->last_name}}</p>
-                                <p><b>Documento: </b>{{$cart['cliente']->doc_cliente}}</p>
-                                <p><b>Telefono: </b>{{$cart['cliente']->telefono_cliente}}</p>
-                                <p><b>Email: </b>{{$cart['cliente']->email}}</p>
+                                <p><b>Nombre: </b> {{$cart['cliente']->first_name.' '.$cart['cliente']->last_name}}</p>
+                                <p><b>Documento: </b> {{$cart['cliente']->doc_cliente}}</p>
+                                <p><b>Telefono: </b> {{$cart['cliente']->telefono_cliente}}</p>
+                                <p><b>Email: </b> {{$cart['cliente']->email}}</p>
 
                             @endif
                                    
@@ -39,7 +39,7 @@
 
                                     @foreach($cart['direcciones'] as $d)
 
-                                        <option value="{{$d->id}}">{{ $d->nombre_estructura.' '.$d->principal_address.' - '.$d->secundaria_address.' '.$d->edificio_address.' '.$d->detalle_address.' '.$d->barrio_address }}</option>
+                                        <option @if($cart['id_direccion']==$d->id) {{'Selected'}} @endif value="{{$d->id}}">{{ $d->state_name.' '.$d->city_name.' '.$d->nombre_estructura.' '.$d->principal_address.' - '.$d->secundaria_address.' '.$d->edificio_address.' '.$d->detalle_address.' '.$d->barrio_address }}</option>
 
                                     @endforeach
                                     

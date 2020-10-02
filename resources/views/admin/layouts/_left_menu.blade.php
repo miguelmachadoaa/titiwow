@@ -9,6 +9,17 @@
     </li>
 
 
+    @if (Sentinel::getUser()->hasAnyAccess(['tomapedidos.*']))
+        <li {!! (Request::is('admin/tomapedidos*') ? 'class="active"' : '') !!}>
+        <a href="{!! secure_url('admin/tomapedidos') !!}">
+            <i class="fa fa-angle-double-right"></i>
+            Tomapedidos
+        </a>
+    </li>
+    @endif
+
+
+
     @if (Sentinel::getUser()->hasAnyAccess(['ordenes.*']))
 
      <li class="{{ Request::is('admin/ordenes*') ? 'active' : '' }}">

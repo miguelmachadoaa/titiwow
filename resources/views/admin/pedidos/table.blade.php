@@ -1,6 +1,9 @@
            <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}" />
             <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}" />
 
+
+            @if(count($productos))
+
 <table class="table table-responsive table-striped table-bordered" id="alpProductos-table" width="100%">
     <thead>
      <tr>
@@ -49,3 +52,9 @@
   
     </tbody>
 </table>
+
+@else
+
+    <div class="alert alert-danger ">No hay productos disponibles</div>
+
+@endif

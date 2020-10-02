@@ -68,8 +68,10 @@ Ordenes Canceladas
                                     <td>{!! $row->id !!}</td>
                                     <td>{!! $row->referencia!!}</td>
                                     <td>{!! $row->first_name.' '.$row->last_name !!}</td>
+                                    <td>{!! $row->telefono_cliente !!}</td>
                                     <td>{!! $row->nombre_forma_envios !!}</td>
                                     <td>{!! $row->nombre_forma_pago !!}</td>
+                                    <td>{!! $row->nombre_almacen !!}</td>
                                     
                                     <td>{!! number_format($row->monto_total,2) !!}</td>
 

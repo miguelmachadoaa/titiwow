@@ -274,6 +274,24 @@ Orden {{$orden->id}}
                          </tr>
 
                      @endif
+
+
+
+                      @if($orden->origen=='1')
+
+                             <tr>
+                                 <td>Origen: </td>
+                                 <td>Tomapedidos</td>
+                             </tr>
+
+                         @else
+
+                            <tr>
+                                 <td>Origen: </td>
+                                 <td>Web</td>
+                             </tr>
+
+                         @endif
                          
                     
                  </tbody>

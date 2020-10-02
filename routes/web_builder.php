@@ -828,33 +828,33 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
 
 
-    Route::group(['prefix' => 'pedidos'], function () {
+    Route::group(['prefix' => 'tomapedidos'], function () {
 
 
-        Route::post('estatus', ['as'=> 'pedidos.estatus', 'uses' => 'Admin\AlpPedidosController@estatus']);
+        Route::post('estatus', ['as'=> 'tomapedidos.estatus', 'uses' => 'Admin\AlpPedidosController@estatus']);
 
 
 
-        Route::get('{id}/delete', 'Admin\AlpPedidosController@destroy')->name('pedidos.delete');
+        Route::get('{id}/delete', 'Admin\AlpPedidosController@destroy')->name('tomapedidos.delete');
 
-        Route::get('{id}/confirm-delete', 'Admin\AlpPedidosController@getModalDelete')->name('pedidos.confirm-delete');
+        Route::get('{id}/confirm-delete', 'Admin\AlpPedidosController@getModalDelete')->name('tomapedidos.confirm-delete');
 
-        Route::get('{id}/restore', 'Admin\AlpPedidosController@getRestore')->name('pedidos.restore');
-
-
-        Route::post('{id}/adddespacho', 'Admin\AlpPedidosController@adddespacho')->name('pedidos.adddespacho');
-
-        Route::post('{id}/deldespacho', 'Admin\AlpPedidosController@deldespacho')->name('pedidos.deldespacho');
+        Route::get('{id}/restore', 'Admin\AlpPedidosController@getRestore')->name('tomapedidos.restore');
 
 
-        Route::post('{id}/addformenvio', 'Admin\AlpPedidosController@addformenvio')->name('pedidos.addformenvio');
+        Route::post('{id}/adddespacho', 'Admin\AlpPedidosController@adddespacho')->name('tomapedidos.adddespacho');
 
-        Route::post('{id}/delformaenvio', 'Admin\AlpPedidosController@delformaenvio')->name('pedidos.delformaenvio');
+        Route::post('{id}/deldespacho', 'Admin\AlpPedidosController@deldespacho')->name('tomapedidos.deldespacho');
 
 
-        Route::post('{id}/addformapago', 'Admin\AlpPedidosController@addformapago')->name('pedidos.addformapago');
+        Route::post('{id}/addformenvio', 'Admin\AlpPedidosController@addformenvio')->name('tomapedidos.addformenvio');
 
-        Route::post('{id}/delformapago', 'Admin\AlpPedidosController@delformapago')->name('pedidos.delformapago');
+        Route::post('{id}/delformaenvio', 'Admin\AlpPedidosController@delformaenvio')->name('tomapedidos.delformaenvio');
+
+
+        Route::post('{id}/addformapago', 'Admin\AlpPedidosController@addformapago')->name('tomapedidos.addformapago');
+
+        Route::post('{id}/delformapago', 'Admin\AlpPedidosController@delformapago')->name('tomapedidos.delformapago');
 
 
 
@@ -862,56 +862,58 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
   
 
-    Route::post('pedidos/create', 'Admin\AlpPedidosController@store');
+    Route::post('tomapedidos/create', 'Admin\AlpPedidosController@store');
 
-    Route::get('pedidos/{id}/upload', 'Admin\AlpPedidosController@upload');
+    Route::get('tomapedidos/{id}/upload', 'Admin\AlpPedidosController@upload');
 
-    Route::post('pedidos/{id}/postupload', 'Admin\AlpPedidosController@postupload');
+    Route::post('tomapedidos/{id}/postupload', 'Admin\AlpPedidosController@postupload');
     
 
-    Route::get('pedidos/{id}/gestionar', 'Admin\AlpPedidosController@gestionar');
+    Route::get('tomapedidos/{id}/gestionar', 'Admin\AlpPedidosController@gestionar');
 
-    Route::get('pedidos/{id}/datacategorias', 'Admin\AlpPedidosController@datacategorias');
+    Route::get('tomapedidos/{id}/datacategorias', 'Admin\AlpPedidosController@datacategorias');
 
-    Route::get('pedidos/{id}/databuscarcliente', 'Admin\AlpPedidosController@databuscarcliente');
+    Route::get('tomapedidos/{id}/databuscarcliente', 'Admin\AlpPedidosController@databuscarcliente');
 
-    Route::get('pedidos/{id}/databuscar', 'Admin\AlpPedidosController@databuscar');
+    Route::get('tomapedidos/{id}/databuscar', 'Admin\AlpPedidosController@databuscar');
 
-    Route::get('pedidos/{id}/addtocart', 'Admin\AlpPedidosController@addtocart');
+    Route::get('tomapedidos/{id}/addtocart', 'Admin\AlpPedidosController@addtocart');
 
-    Route::get('pedidos/{slug}/deletecart', 'Admin\AlpPedidosController@deletecart');
+    Route::get('tomapedidos/{slug}/deletecart', 'Admin\AlpPedidosController@deletecart');
 
-    Route::get('pedidos/vaciarcarrito', 'Admin\AlpPedidosController@vaciarcarrito');
-
-
-     Route::get('pedidos/{id}/asignaalmacen', 'Admin\AlpPedidosController@asignaalmacen');
+    Route::get('tomapedidos/vaciarcarrito', 'Admin\AlpPedidosController@vaciarcarrito');
 
 
-
-    Route::get('pedidos/{id}/updatecart/{cantidad}', 'Admin\AlpPedidosController@updatecart');
-
-    Route::get('pedidos/{id}/deletecart', 'Admin\AlpPedidosController@deletecart');
-
-    Route::get('pedidos/{id}/getdirecciones', 'Admin\AlpPedidosController@getdirecciones');
-
-    Route::get('pedidos/{id}/asignacliente', 'Admin\AlpPedidosController@asignacliente');
-
-    Route::get('pedidos/checkout', 'Admin\AlpPedidosController@checkout');
-
-    Route::get('pedidos/procesar', 'Admin\AlpPedidosController@procesar');
+     Route::get('tomapedidos/{id}/asignaalmacen', 'Admin\AlpPedidosController@asignaalmacen');
 
 
-    Route::get('pedidos/{id}/datamarcas', 'Admin\AlpPedidosController@datamarcas');
 
-    Route::post('pedidos/{id}/postgestionar', 'Admin\AlpPedidosController@postgestionar');
+    Route::get('tomapedidos/{id}/updatecart/{cantidad}', 'Admin\AlpPedidosController@updatecart');
 
-    Route::post('pedidos/postregistro', 'Admin\AlpPedidosController@postregistro');
+    Route::get('tomapedidos/{id}/deletecart', 'Admin\AlpPedidosController@deletecart');
 
-    Route::get('pedidos/{id}/roles', 'Admin\AlpPedidosController@roles');
+    Route::get('tomapedidos/{id}/getdirecciones', 'Admin\AlpPedidosController@getdirecciones');
 
-    Route::post('pedidos/{id}/postroles', 'Admin\AlpPedidosController@postroles');
+    Route::get('tomapedidos/{id}/asignacliente', 'Admin\AlpPedidosController@asignacliente');
 
-    Route::resource('pedidos', 'Admin\AlpPedidosController');
+    Route::get('tomapedidos/checkout', 'Admin\AlpPedidosController@checkout');
+
+    Route::get('tomapedidos/procesar', 'Admin\AlpPedidosController@procesar');
+
+
+    Route::get('tomapedidos/{id}/datamarcas', 'Admin\AlpPedidosController@datamarcas');
+
+    Route::post('tomapedidos/{id}/postgestionar', 'Admin\AlpPedidosController@postgestionar');
+
+    Route::post('tomapedidos/postregistro', 'Admin\AlpPedidosController@postregistro');
+
+    Route::post('tomapedidos/postdireccion', 'Admin\AlpPedidosController@postdireccion');
+
+    Route::get('tomapedidos/{id}/roles', 'Admin\AlpPedidosController@roles');
+
+    Route::post('tomapedidos/{id}/postroles', 'Admin\AlpPedidosController@postroles');
+
+    Route::resource('tomapedidos', 'Admin\AlpPedidosController');
 
 
 
