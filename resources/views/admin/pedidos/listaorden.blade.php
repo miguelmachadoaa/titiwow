@@ -43,7 +43,7 @@
 
     @if($total_venta>0)
 
-        <a  href="{{secure_url('admin/pedidos/checkout')}}" class="btn btn-primary btn-lg" >Ir al Checkout</a>
+        <a  href="{{secure_url('admin/tomapedidos/checkout')}}" class="btn btn-primary btn-lg" >Ir al Checkout</a>
 
 
 

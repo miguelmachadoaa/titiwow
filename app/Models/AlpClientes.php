@@ -36,6 +36,8 @@ class AlpClientes extends Model
         'nota',
         'estatus_ibm',
         'json_ibm',
+        'origen',
+        'modal',
         'id_user'
     ];
 

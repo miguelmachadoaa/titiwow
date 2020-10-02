@@ -7,8 +7,11 @@ Pedidos
 @stop
 
 @section('header_styles')
+
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
+
     <link href="{{ secure_asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
+
     <link href="{{ secure_asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet"/>
 <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
 
@@ -635,6 +638,8 @@ Pedidos
 
 
       $(document).on('click','.seleccionarCliente', function(){
+
+            $('.lista_clientes').html('');
 
              $('#ClienteModal').modal('show');
 
