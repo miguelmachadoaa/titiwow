@@ -560,6 +560,14 @@ class AlpPedidosController extends JoshController
                 ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
 
 
+                $direccion = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+          ->where('alp_direcciones.id', $compra->id_address)->first();
+
+
 
              \Session::forget('cart');
 
@@ -567,7 +575,7 @@ class AlpPedidosController extends JoshController
 
              Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionTomapedidos($compra, ''));
 
-            return view('admin.pedidos.procesar', compact('compra', 'detalles'));
+            return view('admin.pedidos.procesar', compact('compra', 'detalles', 'direccion'));
 
           # code...
         }else{

@@ -55,6 +55,7 @@ Pedidos
                             <p>Nombre: {{$compra->first_name.' '.$compra->last_name}}</p>
                             <p>Forma de Pago: {{$compra->nombre_forma_envios}}</p>
                             <p>Forma de Envio: {{$compra->nombre_forma_pago}}</p>
+                            <p>Dirección:  {{ $direccion->state_name.' '.$direccion->city_name.' '.$direccion->nombre_estructura.' '.$direccion->principal_address.' - '.$direccion->secundaria_address.' '.$direccion->edificio_address.' '.$direccion->detalle_address.' '.$direccion->barrio_address }}</p>
                             
                             <h3>Enlace para pago </h3>
 
