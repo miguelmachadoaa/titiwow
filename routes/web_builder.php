@@ -134,6 +134,12 @@ Route::get('admin/empresas/data', 'Admin\AlpEmpresasController@data')->name('emp
 
 Route::get('admin/almacenes/data', 'Admin\AlpAlmacenesController@data')->name('almacenes.data');
 
+Route::get('admin/almacenes/{id}/datagestionar', 'Admin\AlpAlmacenesController@datagestionar')->name('almacenes.datagestionar');
+
+Route::get('admin/almacenes/{id}/delproducto', 'Admin\AlpAlmacenesController@delproducto')->name('almacenes.delproducto');
+
+Route::get('admin/almacenes/{id}/addproducto/{producto}', 'Admin\AlpAlmacenesController@addproducto')->name('almacenes.addproducto');
+
 Route::get('admin/feriados/data', 'Admin\AlpFeriadosController@data')->name('feriados.data');
 
 Route::get('admin/formaspago/data', 'Admin\AlpFormaspagoController@data')->name('formaspago.data');

@@ -14,6 +14,9 @@ Editar Almacen
 
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
 
+        <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+
+
 @stop
 
 
@@ -46,25 +49,61 @@ Editar Almacen
                     </h4>
                 </div>
                 <div class="panel-body">
-                    
-                        {!! Form::model($almacen, ['url' => secure_url('admin/almacenes/'. $almacen->id.'/postgestionar'), 'method' => 'POST', 'class' => 'form-horizontal', 'files'=> true]) !!}
-                            <!-- CSRF Token -->
-                            {{ csrf_field() }}
 
-                            <div class="row" style="margin-bottom: 2em;">
-                                <div class="col-sm-12">
-                                    <button type="button" class="btn btn-info marcar">Marcar Todos</button>
-                                    <button type="button" class="btn btn-danger desmarcar">Desmascar Todos</button>
+                    <div class="row">
+
+                        <input type="hidden" id="id_almacen" name="id_almacen" value="{{$almacen->id}}">
+                        
+
+                         <form enctype="multipart/form-data" class="form-horizontal" role="form" method="POST" action="{{ secure_url('admin/xml/') }}">
+                            <!-- CSRF Token -->
+
+                            <div class="form-group {{ $errors->
+                                first('state_id', 'has-error') }}">
+                                <label for="title" class="col-sm-2 control-label">
+                                    Seleccione el producto 
+                                </label>
+                                <div class="col-sm-5">
+                                    
+                                    <select id="id_producto" name="id_producto" class="form-control select2">
+
+                                        <option value="0">Todos</option>
+
+                                        @foreach($productos as $lp)
+
+                                        <option      value="{{ $lp->id }}">
+                                                {{ $lp->nombre_producto.' '.$lp->referencia_producto}}</option>
+                                        @endforeach
+                                        
+                                      
+                                    </select>
                                 </div>
+                                
+                            </div> 
+
+                            <div class="form-group col-sm-5  sm-offset-2">
+                                
+                                <button type="button" class="btn btn-primary addproducto">Agregar</button>
+
                             </div>
 
+                            {{ csrf_field() }}
+
+                    </form>
+
+                    </div>
+
+
+                    <div class="row">
+                        
+
+                        <div class="col-sm 12">
+                            
                             <table class="table table-striped" id="tableAlmacen">
                                 
                                 <thead>
                                     <tr>
-                                        <th>
-                                            Seleccionar
-                                        </th>
+                                        
                                         <th>
                                             Imagen
                                         </th>
@@ -83,108 +122,31 @@ Editar Almacen
                                         <th>
                                             Estado del producto
                                         </th>
-                                    </tr>
+
+                                         <th>
+                                            Accion
+                                        </th>
+
+
+                                        </tr>
                                 </thead>
                             
 
                         <tbody>
 
-                        @foreach($productos as $p)
-
-                        <tr>
-                            <td>
-                                <div class="checkbox">
-                                    <label>
-                                      <input 
-                                      class="cb " 
-                                      id="p_{{$p->id}}" 
-                                      name="p_{{$p->id}}" 
-                                      @if(isset($check[$p->id]))
-                                            {{'checked'}}
-                                      @endif
-                                      type="checkbox" > 
-                                    </label>
-                                  </div>
-                            </td>
-
-                            <td>
-                                <img style="width: 60px;" src="{{secure_url('uploads/productos/'.$p->imagen_producto)}}" alt="img">
-                            </td>
-
-                            <td>
-                                {{$p->nombre_producto}}
-                            </td>
-                            <td>
-                                {{$p->referencia_producto}}
-                            </td>
-
-                            <td>
-                                {{$p->referencia_producto_sap}}
-                            </td>
-                            <td>
-                                @if(isset($inventario[$p->id][$almacen->id]))
-
-                                    {{$inventario[$p->id][$almacen->id]}}
-
-                                @else
-
-                                    {{'0'}}
-
-                                @endif
-                            </td>
-
-                            <td>
-                                @if(isset($check[$p->id]))
-
-                                    <a href="#" class="label label-success">Activo</a>
-
-                                @else
-
-                                    <a href="#" class="label label-danger">Inactivo</a>
-
-                                @endif
-                            </td>
-                        </tr>
-
-
-
-                        <!--div class="row">
-                            <div class="col-sm-12">
-                                 <div class="checkbox">
-                                    <label>
-                                      <input 
-                                      class="cb " 
-                                      id="p_{{$p->id}}" 
-                                      name="p_{{$p->id}}" 
-                                      @if(isset($check[$p->id]))
-                                            {{'checked'}}
-                                      @endif
-                                      type="checkbox" > {{$p->nombre_producto.' REF.:'.$p->referencia_producto}}
-                                    </label>
-                                  </div>
-                                
-                            </div>
-                        </div-->
-    
-                        @endforeach
+                      
 
                         </tbody>
     
                         </table>
 
-                       <div class="form-group">
-                            <div class="col-sm-4" style="margin-top: 2em;">
-                                
-                                <a class="btn btn-danger" href="{{ route('admin.almacenes.index') }}">
-                                    Cancelar
-                                </a>
 
-                                <button type="submit" class="btn btn-success">
-                                    Actualizar
-                                </button>
-                            </div>
                         </div>
-                    </form>
+                    </div>
+
+                           
+
+                    
                    
                 </div>
             </div>
@@ -209,7 +171,84 @@ Editar Almacen
 
 <script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
 
+<script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
+
 <script>
+
+    $(".select2").select2();
+
+    $(document).ready(function(){
+
+        base=$('#base').val();
+        id_almacen=$('#id_almacen').val();
+
+        var table =$('#tableAlmacen').DataTable({
+            "processing": true,
+            "order": [[ 0, "desc" ]],
+            "ajax": {
+                "url": base+'/admin/almacenes/'+id_almacen+'/datagestionar'
+            }
+        });
+
+        table.on( 'draw', function () {
+            $('.livicon').each(function(){
+                $(this).updateLivicon();
+            });
+        });
+
+
+
+    });
+
+
+    $('.addproducto').on('click', function(){
+
+        alert('addproducto');
+
+        base = $('#base').val();
+
+        id_producto = $('#id_producto').val();
+
+        id_almacen = $('#id_almacen').val();
+
+         $.ajax({
+            type: "GET",
+            url: base+"/admin/almacenes/"+id_almacen+"/addproducto/"+id_producto,
+                
+            complete: function(datos){     
+
+                table.ajax.reload();
+
+            }
+        });
+
+    });
+
+
+     $(document).on('click', '.delproducto', function(){
+
+        alert('delproducto');
+
+        base = $('#base').val();
+
+        id = $(this).data('id');
+
+         $.ajax({
+            type: "GET",
+            url: base+"/admin/almacenes/"+id+"/delproducto",
+                
+            complete: function(datos){     
+
+                table.ajax.reload();
+
+            }
+        });
+
+    });
+
+
+
+
 
 
     //$('#tableAlmacen').DataTable();

@@ -564,7 +564,18 @@ class AlpAlmacenesController extends JoshController
 
        $almacen = AlpAlmacenes::where('id', $id)->first();
 
-       $cs=AlpAlmacenProducto::where('id_almacen', $id)->get();
+       $cs=AlpAlmacenProducto::select(
+        'alp_almacen_producto.*', 
+        'alp_productos.nombre_producto as nombre_producto',
+        'alp_productos.referencia_producto_sap as referencia_producto_sap',
+        'alp_productos.referencia_producto as referencia_producto',
+        'alp_productos.imagen_producto as imagen_producto'
+      )
+       ->join('alp_productos', 'alp_almacen_producto.id_producto', '=', 'alp_productos.id')
+       ->where('alp_almacen_producto.id_almacen', $id)
+       ->whereNull('alp_almacen_producto.deleted_at')
+       ->where('id_almacen', $id)
+       ->get();
 
        $inventario=$this->inventario();
 
@@ -579,8 +590,7 @@ class AlpAlmacenesController extends JoshController
        }
 
 
-
-        return view('admin.almacenes.gestionar', compact('almacen', 'productos', 'check', 'inventario'));
+        return view('admin.almacenes.gestionar', compact('almacen', 'productos', 'check', 'inventario', 'cs'));
     }
 
 
@@ -1291,6 +1301,151 @@ class AlpAlmacenesController extends JoshController
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function datagestionar($id)
+    {
+
+
+       $cs=AlpAlmacenProducto::select(
+        'alp_almacen_producto.*', 
+        'alp_productos.nombre_producto as nombre_producto',
+        'alp_productos.referencia_producto_sap as referencia_producto_sap',
+        'alp_productos.referencia_producto as referencia_producto',
+        'alp_productos.imagen_producto as imagen_producto'
+      )
+       ->join('alp_productos', 'alp_almacen_producto.id_producto', '=', 'alp_productos.id')
+       ->where('alp_almacen_producto.id_almacen', $id)
+       ->whereNull('alp_almacen_producto.deleted_at')
+       ->get();
+
+
+        $almacen = AlpAlmacenes::where('id', '1')->first();
+
+        $inventario=$this->inventario();
+
+
+        $data = array();
+
+          foreach($cs as $row){
+
+              $imagen='<figure>
+                        <img style="width: 60px;" src="'.secure_url('uploads/productos/'.$row->imagen_producto).'" data-src="'.secure_url('uploads/productos/60/'.$row->imagen_producto).'" alt="img">
+                    </figure>';
+
+
+                    $inv=0;
+
+
+
+                 if(isset($inventario[$row->id][$almacen->id])){
+
+                        $inv=$inventario[$row->id][$almacen->id];
+
+                    }else{
+
+                        $inv=0;
+
+                    }
+
+
+                    if($row->estado_registro==1){
+
+                        $estado='<a href="#" class="label label-success">Si</a>';
+
+                    }else{
+
+                        $estado=' <a href="#" class="label label-danger">No</a>';
+
+                    }
+
+                    
+
+                    $eliminar=' <button data-id="'.$row->id.'" type="button" class="btn btn-danger delproducto">
+                        Eliminar
+                    </button>';
+
+
+               $data[]= array(
+                 $imagen, 
+                 $row->nombre_producto, 
+                 $row->referencia_producto,
+                 $row->referencia_producto_sap,
+                 $inv,
+                 $estado,
+                 $eliminar
+              );
+
+          }
+
+
+          return json_encode( array('data' => $data ));
+
+    }
+
+
+
+
+
+
+
+
+
+
+public function delproducto($id)
+    {
+
+            AlpAlmacenProducto::where('id', '=', $id)->delete();
+    
+
+          return json_encode( array('data' => 'true' ));
+
+    }
+
+
+
+
+
+
+public function addproducto($id, $producto)
+    {
+
+              $user = Sentinel::getUser();
+
+
+              $p=AlpAlmacenProducto::where('id_producto', $producto)->where('id_almacen', $id)->first();
+
+              if (isset($p->id)) {
+                # code...
+              }else{
+
+                $data = array(
+              'id_producto' => $producto, 
+              'id_almacen' => $id, 
+              'id_user' => $user->id, 
+            );
+
+            AlpAlmacenProducto::create($data);
+
+
+              }
+    
+
+          return json_encode( array('data' => 'true' ));
+
+    }
 
 
 
