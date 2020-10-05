@@ -66,7 +66,7 @@ Pedidos
 
                                         @foreach($almacenes as $a)
 
-                                            <option @if($cart['id_almacen']==$a->id) 'selected' @endif value="{{$a->id}}">{{$a->nombre_almacen}}</option>
+                                            <option @if($cart['id_almacen']==$a->id) {{'selected'}} @endif value="{{$a->id}}">{{$a->nombre_almacen}}</option>
                                            
                                         @endforeach
 
