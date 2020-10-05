@@ -62,6 +62,8 @@ Pedidos
 
                                    <select style="width: 100%;" class="form-control select2" name="almacen" id="almacen">
 
+                                    <option value="">Seleccione</option>
+
                                         @foreach($almacenes as $a)
 
                                             <option @if($cart['id_almacen']==$a->id) 'selected' @endif value="{{$a->id}}">{{$a->nombre_almacen}}</option>
@@ -78,6 +80,8 @@ Pedidos
 
                                    <select class="form-control" name="categoria" id="categoria">
 
+                                    <option value="">Seleccione</option>
+
                                         @foreach($categorias as $c)
 
                                             <option value="{{$c->id}}">{{$c->nombre_categoria}}</option>
@@ -93,6 +97,9 @@ Pedidos
                                    <h4>Marcas</h4> 
 
                                    <select class="form-control" name="marca" id="marca">
+
+
+                                    <option value="">Seleccione</option>
 
                                         @foreach($marcas as $m)
 
@@ -117,10 +124,7 @@ Pedidos
                                       </span>
                                     </div><!-- /input-group -->
 
-
                                 </div>
-
-
 
                             </div>
 
