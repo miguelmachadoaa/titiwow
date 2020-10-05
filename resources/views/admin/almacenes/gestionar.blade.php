@@ -123,6 +123,7 @@ Editar Almacen
                                             Estado del producto
                                         </th>
 
+
                                          <th>
                                             Accion
                                         </th>
@@ -197,13 +198,7 @@ Editar Almacen
         });
 
 
-
-    });
-
-
-    $('.addproducto').on('click', function(){
-
-        alert('addproducto');
+         $('.addproducto').on('click', function(){
 
         base = $('#base').val();
 
@@ -227,8 +222,6 @@ Editar Almacen
 
      $(document).on('click', '.delproducto', function(){
 
-        alert('delproducto');
-
         base = $('#base').val();
 
         id = $(this).data('id');
@@ -245,6 +238,16 @@ Editar Almacen
         });
 
     });
+
+
+     
+
+
+
+    });
+
+
+   
 
 
 

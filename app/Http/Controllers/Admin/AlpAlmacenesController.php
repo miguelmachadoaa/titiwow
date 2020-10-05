@@ -1322,6 +1322,7 @@ class AlpAlmacenesController extends JoshController
        $cs=AlpAlmacenProducto::select(
         'alp_almacen_producto.*', 
         'alp_productos.nombre_producto as nombre_producto',
+        'alp_productos.estado_registro as estado_registro',
         'alp_productos.referencia_producto_sap as referencia_producto_sap',
         'alp_productos.referencia_producto as referencia_producto',
         'alp_productos.imagen_producto as imagen_producto'
@@ -1332,10 +1333,9 @@ class AlpAlmacenesController extends JoshController
        ->get();
 
 
-        $almacen = AlpAlmacenes::where('id', '1')->first();
+        $almacen = AlpAlmacenes::where('id', $id)->first();
 
         $inventario=$this->inventario();
-
 
         $data = array();
 
@@ -1350,9 +1350,9 @@ class AlpAlmacenesController extends JoshController
 
 
 
-                 if(isset($inventario[$row->id][$almacen->id])){
+                 if(isset($inventario[$row->id_producto][$almacen->id])){
 
-                        $inv=$inventario[$row->id][$almacen->id];
+                        $inv=$inventario[$row->id_producto][$almacen->id];
 
                     }else{
 
@@ -1371,7 +1371,9 @@ class AlpAlmacenesController extends JoshController
 
                     }
 
-                    
+
+
+
 
                     $eliminar=' <button data-id="'.$row->id.'" type="button" class="btn btn-danger delproducto">
                         Eliminar
