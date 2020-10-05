@@ -125,6 +125,8 @@ class AlpPedidosController extends JoshController
           ->limit(12)
           ->get();
 
+          $productos=AlpProductos::where('id', '=', -1)->get();
+
           $productos=$this->addOferta($productos);
 
           $categorias=AlpCategorias::orderBy('nombre_categoria')->get();
@@ -806,8 +808,6 @@ class AlpPedidosController extends JoshController
           $productos=$this->addOferta($productos);
 
           $cart= \Session::get('cart');
-
-
 
            $view= View::make('admin.pedidos.table', compact('productos', 'cart'));
 
