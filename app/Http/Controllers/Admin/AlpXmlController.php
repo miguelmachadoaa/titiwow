@@ -799,10 +799,6 @@ public function addproducto(Request $request)
         ->get();
 
 
-
-
-
-
         $almacen = AlpAlmacenes::where('id', '1')->first();
 
         $inventario=$this->inventario();
@@ -958,6 +954,16 @@ public function addproducto(Request $request)
 
                     }
 
+
+                    $pa=AlpAlmacenProducto::where('id_almacen', '=', '1')->where('id_producto', '=', $row->id)->first();
+
+                    if (isset($pa->id)) {
+                       $alm='<a href="#" class="label label-success">Activo</a>';
+                    }else{
+
+                       $alm='<a href="#" class="label label-danger">Inactivo</a>';
+                    }
+
                     $eliminar=' <button data-id="'.$row->xml_id.'" type="button" class="btn btn-danger delproducto">
                         Eliminar
                     </button>';
@@ -979,6 +985,7 @@ public function addproducto(Request $request)
                  $inv,
                  $estado,
                  $c,
+                 $alm,
                  $eliminar
               );
 

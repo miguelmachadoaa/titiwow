@@ -46,6 +46,12 @@
                                 XML
                             </th>
 
+
+                            <th>
+                                Estado en Almacen
+                            </th>
+
+
                             <th>
                                 Acción
                             </th>

@@ -12,7 +12,7 @@
     @if (Sentinel::getUser()->hasAnyAccess(['tomapedidos.*']))
         <li {!! (Request::is('admin/tomapedidos*') ? 'class="active"' : '') !!}>
         <a href="{!! secure_url('admin/tomapedidos') !!}">
-            <i style="color: red;" class="fa fa-shopping-cart"></i>
+            <i style="color: #EF6F6C;" class="fa fa-shopping-cart"></i>
             Tomapedidos
         </a>
     </li>
