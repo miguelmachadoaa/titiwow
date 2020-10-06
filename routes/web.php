@@ -44,7 +44,6 @@ Route::group(['prefix' => 'admin', 'namespace'=>'Admin'], function () {
 //    Route::get('{provider}/callback', 'AuthController@handleProviderCallback');
 
 
-
     # register2
     Route::get('register2', function () {
         return view('admin/register2');
@@ -247,6 +246,16 @@ Route::get('xml', 'FrontEndController@getXml')->name('xml');
 
 
 Route::get('pedidos/{token}/pago', 'Admin\AlpPedidosController@pedidopago')->name('pedidopago');
+
+Route::post('tomapedidos/addcupon/',['as'=>'tomapedidos.addcupon', 'uses'=>'Admin\AlpPedidosController@addcupon']);
+
+Route::post('tomapedidos/addcuponform/',['as'=>'tomapedidos.addcuponform', 'uses'=>'Admin\AlpPedidosController@addcuponform']);
+
+Route::post('tomapedidos/delcupon/',['as'=>'tomapedidos.delcupon', 'uses'=>'Admin\AlpPedidosController@delcupon']);
+
+
+
+
 
   Route::post('pedidos/order/creditcard', 'Admin\AlpPedidosController@orderCreditcard');
 

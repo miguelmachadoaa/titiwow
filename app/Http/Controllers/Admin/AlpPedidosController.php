@@ -41,7 +41,19 @@ use App\Barrio;
 use App\Country;
 use App\RoleUser;
 
+
+
 use App\Models\AlpAlmacenesUser;
+
+use App\Models\AlpCupones;
+use App\Models\AlpCuponesUser;
+use App\Models\AlpCuponesCategorias;
+use App\Models\AlpCuponesAlmacen;
+use App\Models\AlpCuponesMarcas;
+use App\Models\AlpCuponesProducto;
+use App\Models\AlpCuponesEmpresa;
+use App\Models\AlpCuponesRol;
+
 use App\Http\Requests\AlmacenesRequest;
 use App\Http\Requests\UploadRequest;
 use App\Http\Requests\UserRequest;
@@ -1255,6 +1267,9 @@ class AlpPedidosController extends JoshController
 
 
       $cart=\Session::get('cart');
+
+
+
 
       $cliente =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista')
         ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
@@ -3315,6 +3330,935 @@ $valor_impuesto=AlpImpuestos::where('id', '1')->first();
         
     }
     
+
+
+
+
+
+
+
+
+
+
+
+
+ private function asignaCupon($codigo){
+
+      if (Sentinel::check()) {
+
+      $user = Sentinel::getUser();
+
+       activity($user->full_name)
+                    ->performedOn($user)
+                    ->causedBy($user)
+                    ->withProperties(['codigo'=>$codigo])
+                    ->log('cartcontroller/asignaCupon ');
+
+      }else{
+
+      activity()->withProperties(['codigo'=>$codigo])
+                    ->log('cartcontroller/asignaCupon');
+
+      }
+
+
+
+       $ordenId=\Session::get('orden');
+
+      $orden=AlpOrdenes::where('id', $ordenId)->first();
+
+      $id_almacen=$orden->id_almacen;
+
+     $configuracion=AlpConfiguracion::where('id', '1')->first();
+
+      $cart= \Session::get('cart');
+
+
+
+
+
+       
+
+
+      $cart=$this->reloadCart($cart);
+
+      $total=$this->totalcart($cart);
+
+
+        $orden=AlpOrdenes::where('id', '=', $ordenId)->first();
+        
+        $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
+            ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
+            ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
+
+
+
+      $total_base=$this->precio_base();
+
+      $impuesto=$this->impuesto($detalles, $orden);
+
+
+
+        $date = Carbon::now();
+
+        $hoy=$date->format('Y-m-d');
+
+        $user_id = $orden->id_cliente;
+
+        $usuario=User::where('id', $user_id)->first();
+
+        $user_cliente=User::where('id', $user_id)->first();
+
+        $cliente=AlpClientes::where('id_user_client', $user_id)->first();
+
+      $cupon=AlpCupones::where('codigo_cupon', $codigo)
+          ->whereDate('fecha_inicio','<=',$hoy)
+          ->whereDate('fecha_final','>=',$hoy)
+          ->first();
+
+      $usados=AlpOrdenesDescuento::where('codigo_cupon', $codigo)->where('aplicado', '1')->get();
+
+      $usados_persona=AlpOrdenesDescuento::where('codigo_cupon', $codigo)->where('id_user', $user_id)->where('aplicado', '1')->get();
+
+      $usados_orden=AlpOrdenesDescuento::where('id_orden', $ordenId)->where('id_user', $user_id)->get();
+
+
+          $mensaje_user='';
+          
+          $mensaje_producto = '';
+          
+          $pago = '';
+
+          $clase='info';
+
+
+           $b_empresa=0;
+            $b_rol=0;
+            $b_user=0;
+
+
+            $b_marca=0;
+            $b_categoria=0;
+            $b_producto=0;
+            $b_almacen=0;
+
+            $b_cantidad=0;
+
+            $b_user_valido=0;
+
+
+            $b_producto_valido=0;
+
+
+      if (isset($cupon->id)) {
+
+
+            $c_user=AlpCuponesUser::where('id_cupon', $cupon->id)->first();
+
+            $c_rol=AlpCuponesRol::where('id_cupon', $cupon->id)->first();
+
+            $c_empresa=AlpCuponesEmpresa::where('id_cupon', $cupon->id)->first();
+
+            $c_producto=AlpCuponesProducto::where('id_cupon', $cupon->id)->first();
+
+            $c_marca=AlpCuponesMarcas::where('id_cupon', $cupon->id)->first();
+
+            $c_categoria=AlpCuponesCategorias::where('id_cupon', $cupon->id)->first();
+
+            $c_almacen=AlpCuponesAlmacen::where('id_cupon', $cupon->id)->first();
+
+
+            if (isset($c_empresa->id)) {  $b_empresa=1;    }
+
+            if (isset($c_rol->id)) {  $b_rol=1;    }
+
+            if (isset($c_user->id)) {  $b_user=1;    }
+
+
+            if (isset($c_producto->id)) {  $b_producto=1;    }
+
+            if (isset($c_marca->id)) {  $b_marca=1;    }
+
+            if (isset($c_categoria->id)) {  $b_categoria=1;    }
+
+            if (isset($c_almacen->id)) {  $b_almacen=1;    }
+
+
+            if(count($usados_orden)>0){
+
+               $b_user_valido=1;
+
+              $mensaje_user=$mensaje_user.'Ya el usuario aplico un cupón en la orden. ';
+               $clase='info';
+
+            }
+
+            if($cupon->primeracompra=='1'){
+
+              $orden=AlpOrdenes::where('id_cliente', $user_id)->first();
+
+              if (isset($orden->id)) {
+                
+                $b_user_valido=1;
+
+                $mensaje_user=$mensaje_user.'Este cupón solo puede ser usado en la primera compra de cada cliente. ';
+                
+                $clase='danger';
+
+              }
+
+            }
+
+            if($cupon->registrado!= NULL){
+
+             $f=Carbon::parse($cupon->registrado);
+
+             $fecha=Carbon::parse($cupon->registrado)->timestamp;
+
+
+
+             $fecha_cliente=Carbon::parse($usuario->created_at)->timestamp;
+
+             if ($fecha_cliente>=$fecha) {
+               
+             }else{
+
+              $b_user_valido=1;
+
+                $mensaje_user=$mensaje_user.'Este Cupón solo esta disponible para clientes que se registraron después del '.$f->format('d/m/Y').'. ';
+                
+                $clase='danger';
+
+
+             }
+              
+
+            }
+
+
+
+
+            if($cupon->limite_uso<=count($usados)){
+
+               $b_user_valido=1;
+
+                $mensaje_user=$mensaje_user.'Ya se usaron los cupones disponibles. ';
+               $clase='info';
+
+
+            }
+
+
+             if($cupon->limite_uso_persona<=count($usados_persona)){
+
+               $b_user_valido=1;
+
+                $mensaje_user=$mensaje_user.'Ya el usuario aplico el máximo de cupones disponibles.  ';
+               $clase='info';
+
+
+            }
+
+
+              if(intval($cupon->monto_minimo)<intval($total)){ }else{
+
+               $b_user_valido=1;
+
+                $mensaje_user=$mensaje_user.'Para usar el cupón debe tener mínimo $'.intval($cupon->monto_minimo).' en el carrito. ';
+
+               $clase='info';
+
+
+            }
+
+
+            if($b_almacen==1){
+
+              $cc=AlpCuponesAlmacen::where('id_cupon', $cupon->id)->where('id_almacen', $id_almacen)->first();
+
+              if(isset($cc->id)){
+
+
+                          if ($cc->condicion==0) {
+                              
+                             $b_user_valido=1;
+
+                              $mensaje_user=$mensaje_user.' Descuento no disponible para tu ubicación ';
+
+                             $clase='danger';
+
+                          }
+
+                }else{
+
+                  $cb=AlpCuponesAlmacen::where('id_cupon', $cupon->id)->where('condicion','=', '1')->first();
+
+                    if (isset($cb->id)) {
+
+
+                      $b_user_valido=1;
+
+                      $mensaje_user=$mensaje_user.' Descuento no disponible para tu ubicación ';
+
+                      $clase='danger';
+                      
+                    }
+
+                 
+
+              }
+
+            }
+
+
+
+            if($b_empresa==1){
+
+              $cc=AlpCuponesEmpresa::where('id_cupon', $cupon->id)->where('id_empresa', $cliente->id_empresa)->first();
+
+              if(isset($cc->id)){
+
+
+                          if ($cc->condicion==0) {
+                              
+                             $b_user_valido=1;
+
+                              $mensaje_user=$mensaje_user.' No aplicable por filtro empresa. ';
+
+                             $clase='danger';
+
+                          }
+
+                }else{
+
+                  $b_user_valido=1;
+
+                  $mensaje_user=$mensaje_user.' No aplicable por filtro empresa. ';
+
+               $clase='danger';
+
+              }
+
+            }
+
+            if($b_rol==1){
+
+              $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
+
+              $cc=AlpCuponesRol::where('id_cupon', $cupon->id)->where('id_rol', $role->role_id)->first();
+
+              if(isset($cc->id)){
+
+
+                if ($cc->condicion==0) {
+                              
+                             $b_user_valido=1;
+
+                                $mensaje_user=$mensaje_user.' No aplicable por filtro rol. ';
+
+                               $clase='danger';
+
+                          }
+
+              }else{
+
+                $b_user_valido=1;
+
+                $mensaje_user=$mensaje_user.' No aplicable por filtro rol. ';
+
+               $clase='danger';
+
+              }
+
+            }
+
+            if($b_user==1){
+
+              $cc=AlpCuponesUser::where('id_cupon', $cupon->id)->where('id_cliente', $user_id)->first();
+
+              if(isset($cc->id)){
+
+                       if ($cc->condicion==0) {
+                              
+                             $b_user_valido=1;
+
+                                $mensaje_user=$mensaje_user.' No aplicable por filtro usuario. ';
+
+                               $clase='danger';
+
+                          }
+
+
+
+              }else{
+
+                $b_user_valido=1;
+                $mensaje_user=$mensaje_user.' No aplicable por filtro usuario. ';
+
+               $clase='danger';
+
+              }
+
+            }
+
+            $base_descuento=0;
+
+
+            if($b_user_valido==0){
+
+
+              foreach ($cart as $detalle) {
+
+                if(isset($detalle->nombre_producto)){
+
+                  $b_producto_valido=0;
+
+                  if($cupon->maximo_productos<$detalle->cantidad){
+
+                      $b_cantidad=1;
+
+                      $mensaje_user='La cantidad de: '.$detalle->nombre_producto.', en el carrito excede lo permitido para comprar con este cupón. El Máximo permitido es de: '.$cupon->maximo_productos.' Unidades. ';
+
+                  }
+
+
+                  if($b_categoria==1){
+
+                      $cc=AlpCuponesCategorias::where('id_cupon', $cupon->id)->where('id_categoria', $detalle->id_categoria_default)->first();
+
+                      if(isset($cc->id)){
+
+                        //dd($cc);
+
+                          if ($cc->condicion==0) {
+                              
+                            $b_producto_valido=1;
+
+                            $mensaje_producto=' No aplicable por filtro categoria. ';
+
+                            $clase='info';
+
+                          }
+
+
+                        }else{
+
+                           $cb=AlpCuponesCategorias::where('id_cupon', $cupon->id)->where('condicion','=', '1')->first();
+
+                              if (isset($cb->id)) {
+
+                                $b_producto_valido=1;
+
+                                $mensaje_producto=' No aplicable por filtro categoria. ';
+
+                                $clase='info';
+                                
+                              }
+
+                        }
+
+
+                        if ($b_producto_valido=='0') {
+                          # code...
+
+
+                      $cas=AlpCategoriasProductos::where('id_producto', $detalle->id)->get();
+
+                      foreach ($cas as $ca) {
+
+                         $cc=AlpCuponesCategorias::where('id_cupon', $cupon->id)->where('id_categoria', $ca->id_categoria)->first();
+
+                      if(isset($cc->id)){
+
+                        //dd($cc);
+
+                          if ($cc->condicion==0) {
+                              
+                            $b_producto_valido=1;
+
+                            $mensaje_producto=' No aplicable por filtro categoria. ';
+
+                            $clase='info';
+
+                          }
+
+
+                        }else{
+
+                           $cb=AlpCuponesCategorias::where('id_cupon', $cupon->id)->where('condicion','=', '1')->first();
+
+                              if (isset($cb->id)) {
+
+                                $b_producto_valido=1;
+
+                                $mensaje_producto=' No aplicable por filtro categoria. ';
+
+                                $clase='info';
+                                
+                              }
+
+                        }
+
+                      }//endforeach
+
+                        }//si se venrifica
+
+
+
+
+                    }
+
+
+
+                  if($b_marca==1){
+
+                      $cc=AlpCuponesMarcas::where('id_cupon', $cupon->id)->where('id_marca', $detalle->id_marca)->first();
+
+
+                      if(isset($cc->id)){
+
+                       // dd($cc->condicion);
+
+                          if ($cc->condicion=='0') {
+                            
+                            $b_producto_valido=1;
+                            $mensaje_producto=' No aplicable por filtro marca. ';
+                            $clase='info';
+
+                          }
+
+
+                        }else{
+
+
+                           $cb=AlpCuponesMarcas::where('id_cupon', $cupon->id)->where('condicion','=', '1')->first();
+
+                            if (isset($cb->id)) {
+
+                              $b_producto_valido=1;
+                              $mensaje_producto=' No aplicable por filtro marca. ';
+                              $clase='info';
+                              
+                            }
+
+                      }
+
+                    }
+
+
+
+                    if($b_producto==1){
+
+                      $cc=AlpCuponesProducto::where('id_cupon', $cupon->id)->where('id_producto', $detalle->id)->first();
+
+                      if(isset($cc->id)){
+
+                        if ($cc->condicion==0) {
+                              
+                             $b_producto_valido=1;
+
+                                $mensaje_user=$mensaje_user.' No aplicable por filtro producto. ';
+
+                               $clase='danger';
+
+                          }
+
+                        }else{
+
+                          
+
+
+                           $cb=AlpCuponesProducto::where('id_cupon', $cupon->id)->where('condicion','=', '1')->first();
+
+                            if (isset($cb->id)) {
+
+                              $b_producto_valido=1;
+
+                              $mensaje_producto=' No aplicable por filtro producto. ';
+
+                              $clase='info';
+                              
+                            }
+
+                      }
+
+                    }
+
+
+                    if ($b_producto_valido==0) {
+
+                     // dd($detalle);
+
+                      $base_descuento=$base_descuento+($detalle->precio_oferta*$detalle->cantidad);
+
+                      
+
+                    }
+                    }
+
+                
+              }//endforeach detalles
+
+            //  dd($base_descuento);
+
+            
+            if ($b_cantidad==0) {
+              
+
+              if ($base_descuento>0) {
+
+                  $mensaje_producto='';
+
+                   $valor=0;
+
+                if ($cupon->tipo_reduccion==1) {
+                  
+                  $valor=$cupon->valor_cupon;
+
+                  if ($valor>$base_descuento) {
+
+                    $valor=$base_descuento;
+
+                  }
+
+                }else{
+
+                  $valor=($cupon->valor_cupon/100)*$base_descuento;
+                }
+
+                $cupones=AlpOrdenesDescuento::where('id_orden', $ordenId)->get();
+
+                foreach ($cupones as $cupon) {
+                  
+                  $c=AlpOrdenesDescuento::where('id', $cupon->id)->first();
+
+                  if (isset($c->id)) {
+
+                    $c->delete();
+                    # code...
+                  }
+
+                }
+
+                $valor_int=intval($valor);
+
+                if ($valor>$valor_int) {
+
+                  $valor_int=$valor_int+1;
+                  
+                }
+
+
+                $data_pago = array(
+                  'id_orden' => $ordenId, 
+                  'codigo_cupon' => $codigo, 
+                  'monto_descuento' => $valor_int, 
+                  'json' => json_encode($cupon), 
+                  'id_user' => $user_id 
+                );
+              
+              $pago=AlpOrdenesDescuento::create($data_pago);
+
+
+              $mensaje_producto='Cupón aplicado satisfactoriamente ';
+
+              $clase='info';
+
+
+            }
+
+          }
+
+          } //en if usuario paso
+
+
+      }else{//end if hay cupon 
+
+            $b_user_valido=1;
+
+              $mensaje_user=$mensaje_user.'Lo sentimos, es código no esta disponible';
+              $clase='danger';
+      }
+
+      return array(
+        'codigo' => $codigo, 
+        'cupon' => $cupon, 
+        'pago' => $pago, 
+        'user_valido' => $b_user_valido, 
+        'producto_valido' => $b_producto_valido, 
+        'mensaje_user' => $mensaje_user, 
+        'mensaje_producto' => $mensaje_producto, 
+        'clase' => $clase
+      );
+
+    }
+
+public function addcupon(Request $request)
+    {
+
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cartcontroller/addcupon ');
+
+        }else{
+
+          activity()->withProperties($request->all())
+                        ->log('cartcontroller/addcupon');
+
+
+        }
+
+      $configuracion=AlpConfiguracion::where('id', '1')->first();
+
+
+      $ordenId= \Session::get('orden');
+
+      $cart= \Session::get('cart');
+
+      $cart=$this->reloadCart($cart);
+
+      $total=$this->totalcart($cart);
+
+
+        $orden=AlpOrdenes::where('id', '=', $ordenId)->first();
+        
+        $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
+            ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
+            ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
+
+
+
+      $total_base=$this->precio_base();
+
+      $impuesto=$this->impuesto($detalles, $orden);
+
+      $aviso='';
+
+
+      if ($total<$configuracion->minimo_compra) {
+
+            $aviso='El monto mínimo de compra es de $'.number_format($configuracion->minimo_compra,0,",",".");
+
+            $cart=$this->reloadCart();
+
+
+          $configuracion=AlpConfiguracion::where('id', '1')->first();
+
+          $total=$this->total();
+
+          $inv=$this->inventario();
+
+         return Redirect::back()->withInput()->withErrors($aviso);
+      }
+
+      
+
+        $user_id = $orden->id_cliente;
+
+        $usuario=User::where('id', $user_id)->first();
+
+        $user_cliente=User::where('id', $user_id)->first();
+
+        $request->codigo_cupon=strip_tags($request->codigo_cupon);
+
+        $mensaje_cupon=$this->asignaCupon($request->codigo_cupon);
+
+        if ($mensaje_cupon['mensaje_user']=='') {
+          
+        }else{
+
+          $aviso=$aviso.$mensaje_cupon['mensaje_user'];
+
+        }
+
+        if ($mensaje_cupon['mensaje_producto']=='') {
+          
+        }else{
+
+          $aviso=$aviso.$mensaje_cupon['mensaje_producto'];
+
+        }
+
+        $texto="<div class='alert alert-".$mensaje_cupon['clase']."'>".$aviso."</div>";
+
+
+        return $texto;
+
+
+
+    }
+
+    public function addcuponform(Request $request)
+    {
+
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cartcontroller/addcuponform ');
+
+        }else{
+
+          activity()->withProperties($request->all())
+                        ->log('cartcontroller/addcuponform');
+
+
+        }
+;
+
+      $configuracion=AlpConfiguracion::where('id', '1')->first();
+      
+      $carrito= \Session::get('cr');
+
+      $cart=$this->reloadCart();
+
+      $total=$this->total();
+
+      $total_base=$this->precio_base();
+
+      $impuesto=$this->impuesto();
+
+      $aviso='';
+
+
+      if ($total<$configuracion->minimo_compra) {
+
+            $aviso='El monto mínimo de compra es de $'.number_format($configuracion->minimo_compra,0,",",".");
+
+
+            $cart=$this->reloadCart();
+
+
+          $configuracion=AlpConfiguracion::where('id', '1')->first();
+
+          $total=$this->total();
+
+          $inv=$this->inventario();
+
+          return view('frontend.cart', compact('cart', 'total', 'configuracion', 'inv', 'aviso'));
+
+            return redirect('cart/show');
+
+      }
+
+      if (Sentinel::check()) {
+
+        $user_id = Sentinel::getUser()->id;
+
+        $usuario=User::where('id', $user_id)->first();
+
+        $user_cliente=User::where('id', $user_id)->first();
+
+        $request->codigo_cupon=strip_tags($request->codigo_cupon);
+
+        $mensaje_cupon=$this->asignaCupon($request->codigo_cupon);
+
+        if ($mensaje_cupon['mensaje_user']=='') {
+          
+        }else{
+
+          $aviso=$aviso.$mensaje_cupon['mensaje_user'];
+
+        }
+
+        if ($mensaje_cupon['mensaje_producto']=='') {
+          
+        }else{
+
+          $aviso=$aviso.$mensaje_cupon['mensaje_producto'];
+
+        }
+
+        return redirect('order/detail')->with('aviso', $aviso);
+
+      }else{
+
+        $url='order.detail';
+
+          //return redirect('login');
+        return view('frontend.order.login', compact('url'));
+
+      }
+
+    }
+
+
+
+
+    public function delcupon(Request $request)
+    {
+
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cartcontroller/delcupon ');
+
+        }else{
+
+          activity()->withProperties($request->all())
+                        ->log('cartcontroller/delcupon');
+
+
+        }
+
+        
+
+      $configuracion=AlpConfiguracion::where('id', '1')->first();
+      
+      $carrito= \Session::get('orden');
+
+      $cart= \Session::get('cart');
+
+    //  $cart=$this->reloadCart();
+
+     // $total=$this->total();
+
+    //  $total_base=$this->precio_base();
+
+    //  $impuesto=$this->impuesto();
+
+      $texto="<div class='alert alert-danger'>El cupón ha sido eliminado</div>";
+
+      $o=AlpOrdenesDescuento::where('id', $request->id)->first();
+
+      if (isset($o->id)) {
+
+      $o->delete();
+        # code...
+      }
+
+
+      return $texto;
+
+    }
+
+
+
+
+
+
+
+
+
+
 
 
 

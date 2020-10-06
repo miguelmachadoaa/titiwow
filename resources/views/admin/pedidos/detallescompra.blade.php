@@ -74,7 +74,7 @@
                                     </div>
                                     <div class="col-sm-4 col-xs-4">
 
-                                        <h4 style="color: #22b14c;">{{   number_format($pago->monto_descuento,0,",",".") }}    <button data-id="{{ $pago->id }}" style="color: red !important; margin:0; padding: 0em 1em;" class="btn btn-link delCupon" ><i class="fa fa-trash"></i></button></h4> 
+                                        <h4 style="color: #22b14c;">{{   number_format($pago->monto_descuento,0,",",".") }}    <button data-id="{{ $pago->id }}" style="color: red !important; margin:0; padding: 0em 1em;" class="btn btn-link delCuponTomapedidos" ><i class="fa fa-trash"></i></button></h4> 
 
                                     </div>
                                     
@@ -145,6 +145,47 @@
 
                     </div>
 
+
+
+@if(count($descuentos)>0)
+
+@else
+
+<div class="col-sm-12">
+    
+    <div class=" text-center " style="margin-top: 1em;">
+
+        <div class="col-sm-12 col-xs-12" style="padding: 1em;">
+
+            <div  data-id="4" class="row forma border pointer cupones">
+
+                <div class="col-sm-8 col-xs-12">
+
+                   <p>Cupón de Descuento</p> 
+
+                </div>
+
+                <div class="col-sm-4 col-xs-12" style="padding:8px;background-color:#3c763d;color:#ffffff;">
+
+                    <h5 class="text-center">Agregar <i class="fa fa-chevron-right"></i></h5>
+
+                </div>
+
+            </div>
+
+        </div>
+                               
+
+    </div>
+
+
+</div>
+@endif
+
+                                 
+
+
+                                    
 
 
 

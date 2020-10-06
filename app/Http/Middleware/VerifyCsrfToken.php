@@ -21,6 +21,7 @@ class VerifyCsrfToken extends Middleware
        'order/notificacion', //
        'order/rapipago', //
        'cart/addcupon', //
+       'tomapedidos/addcupon', //
        'productos/verificar/referenciasap', //
        'cart/storedir', //
        'admin/ordenes/storeconfirm', //

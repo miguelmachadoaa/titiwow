@@ -329,7 +329,7 @@ div.overlay > div {
                     </div>
                     <div class="modal-body">
                         
-                        <form method="POST" action="{{secure_url('cart/addcuponform')}}" id="addCuponForm" name="addCuponForm" class="form-horizontal">
+                        <form method="POST" action="{{secure_url('tomapedidos/addcuponform')}}" id="addCuponForm" name="addCuponForm" class="form-horizontal">
 
                             <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
 
@@ -352,7 +352,7 @@ div.overlay > div {
                     </div>
                     <div class="modal-footer">
                         <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn  btn-primary sendCupon" >Agregar</button>
+                        <button type="button" class="btn  btn-primary sendCuponTomapedidos" >Agregar</button>
                     </div>
                 </div>
             </div>
@@ -452,7 +452,7 @@ div.overlay > div {
 
        });
 
-$('.delCupon').on('click', function(){
+$('.delCuponTomapedidos').on('click', function(){
 
     id=$(this).data('id');
 
@@ -465,7 +465,7 @@ $('.delCupon').on('click', function(){
 
             data:{id, _token},
 
-            url: base+"/cart/delcupon",
+            url: base+"/tomapedidos/delcupon",
                 
             complete: function(datos){     
 
@@ -480,7 +480,7 @@ $('.delCupon').on('click', function(){
 });
 
 
-$('.sendCupon').click(function () {
+$('.sendCuponTomapedidos').click(function () {
     
     var $validator = $('#addCuponForm').data('bootstrapValidator').validate();
 
@@ -494,7 +494,7 @@ $('.sendCupon').click(function () {
             type: "POST",
             data:{codigo_cupon},
 
-            url: base+"/cart/addcupon",
+            url: base+"/tomapedidos/addcupon",
                 
             complete: function(datos){     
 
