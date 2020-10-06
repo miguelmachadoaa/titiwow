@@ -13,6 +13,16 @@
                 <div class="col-sm-10">
                     <p><b>{{$c->first_name.' '.$c->last_name}}</b></p>
                     <p class="">{{$c->email}}   </p>
+
+                    @if($c->origen=='1')
+
+                    <p class=""> <b>Origen:</b> Tomapedidos  </p>
+
+                    @else
+
+                    <p class=""><b>Origen:</b>  Web  </p>
+
+                    @endif
                     
                 </div>
 

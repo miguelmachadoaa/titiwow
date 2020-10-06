@@ -1908,28 +1908,14 @@ public function postdireccion(DireccionModalRequest $request)
 
             }
 
-            // login user automatically
-         //   Sentinel::login($user, false);
-            //Activity log for new account
-          //  activity($user->full_name)
-          //      ->performedOn($user)
-          //      ->causedBy($user)
-          //      ->log('Nueva Cuenta Creada');
-
-
            $data_c = array(
                     'cod_oracle_cliente' =>$request->telefono_cliente,
                     'estado_masterfile' =>'1'
                 );
 
-
             $cliente->update($data_c);
 
-
             return redirect('admin/tomapedidos/checkout')->with('success', trans('Usuario resitrado satisfactoriamente '))->withInput();
-
-
-
 
 
         } catch (UserExistsException $e) {

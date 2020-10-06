@@ -21,6 +21,16 @@
                                 <p><b>Telefono: </b> {{$cart['cliente']->telefono_cliente}}</p>
                                 <p><b>Email: </b> {{$cart['cliente']->email}}</p>
 
+                                @if($cart['cliente']->origen=='1')
+
+                                <p class=""> <b>Origen:</b> Tomapedidos  </p>
+
+                                @else
+
+                                <p class=""><b>Origen:</b>  Web  </p>
+
+                                @endif
+
                             @endif
                                    
                         </div>
