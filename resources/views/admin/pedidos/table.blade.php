@@ -7,9 +7,9 @@
 
                     @if(isset($almacen->nombre_almacen))
                 
-                        <h3>Usted se Encuentra en el Almacen {{$almacen->nombre_almacen}}</h3>
+                        <h4 style="margin-top:0px !important;">Usted se Encuentra en el Almacén <strong>{{$almacen->nombre_almacen}}</strong></h4>
 
-                        <h3>{{$descripcion}}</h3>
+                        <h4 style="margin-top:0px !important;">{{$descripcion}}</h4>
 
                     @else
 
