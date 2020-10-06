@@ -144,8 +144,8 @@
     <input type="hidden" name="banpago" id="banpago" value="0">
     
 
-    <button style="width: 0px; height: 0px;" class="addtocartTrigger">.</button>
-    <button style="width: 0px; height: 0px;" class="updatecartTrigger">.</button>
+    <button style="width: 0px; display: none; height: 0px;" class="addtocartTrigger">.</button>
+    <button style="width: 0px; display: none; height: 0px;" class="updatecartTrigger">.</button>
 
     <!--global js starts-->
     <script type="text/javascript" src="{{ secure_asset('assets/js/frontend/lib.js') }}"></script>

@@ -206,9 +206,6 @@ class AlpPedidosController extends JoshController
         ->limit(50)
         ->get();
 
-       
-          
-
           $total_venta=$this->totalcart($cart);
 
           if ($total_venta<$almacen->minimo_compra) {

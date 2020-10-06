@@ -4,13 +4,22 @@
             <div class="row">
                 
                 <div class="col-sm-12 text-center">
-                
-                    <h3>Usted se Encuentra en el Almacen {{$almacen->nombre_almacen}}</h3>
 
-                    <h3>{{$descripcion}}</h3>
+                    @if(isset($almacen->nombre_almacen))
+                
+                        <h3>Usted se Encuentra en el Almacen {{$almacen->nombre_almacen}}</h3>
+
+                        <h3>{{$descripcion}}</h3>
+
+                    @else
+
+                        <h3>Debe Seleccionar un Almacen </h3>
+
+
+                    @endif
 
                 </div>
-                
+
             </div>
 
             
