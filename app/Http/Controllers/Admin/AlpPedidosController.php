@@ -115,6 +115,9 @@ class AlpPedidosController extends JoshController
 
         $almacenes = AlpAlmacenes::where('estado_registro', '=', '1')->get();
 
+
+        $almacen=AlpAlmacenes::where('id', $cart['id_almacen'])->first();
+
         $productos = AlpProductos::select('alp_productos.*', 'alp_categorias.nombre_categoria as nombre_categoria')
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
            ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
@@ -125,7 +128,7 @@ class AlpPedidosController extends JoshController
           ->limit(12)
           ->get();
 
-          $productos=AlpProductos::where('id', '=', -1)->get();
+         // $productos=AlpProductos::where('id', '=', -1)->get();
 
           $productos=$this->addOferta($productos);
 
@@ -136,6 +139,8 @@ class AlpPedidosController extends JoshController
           $total_venta=$this->totalcart($cart);
 
           $cart=$this->reloadCart();
+
+          $descripcion='Lista de productos destacados';
 
 
           if (isset($cart['inventario'])) {
@@ -149,7 +154,7 @@ class AlpPedidosController extends JoshController
 
 
         // Show the page
-        return view('admin.pedidos.index', compact('almacenes', 'productos', 'categorias', 'marcas', 'cart', 'total_venta'));
+        return view('admin.pedidos.index', compact('almacenes', 'productos', 'categorias', 'marcas', 'cart', 'total_venta', 'almacen', 'descripcion'));
     }
 
 
@@ -809,7 +814,13 @@ class AlpPedidosController extends JoshController
 
           $cart= \Session::get('cart');
 
-           $view= View::make('admin.pedidos.table', compact('productos', 'cart'));
+          $almacen=AlpAlmacenes::where('id', $cart['id_almacen'])->first();
+
+          $categoria=AlpCategorias::where('id', $id)->first();
+
+          $descripcion='Listado de productos de la Categoria: '.$categoria->nombre_categoria;
+
+           $view= View::make('admin.pedidos.table', compact('productos', 'cart', 'almacen', 'descripcion'));
 
             $data=$view->render();
 
@@ -838,7 +849,14 @@ class AlpPedidosController extends JoshController
 
           $cart= \Session::get('cart');
 
-           $view= View::make('admin.pedidos.table', compact('productos', 'cart'));
+
+           $almacen=AlpAlmacenes::where('id', $cart['id_almacen'])->first();
+
+          $marca=AlpMarcas::where('id', $id)->first();
+
+          $descripcion='Listado de productos de la Marca: '.$marca->nombre_marca;
+
+           $view= View::make('admin.pedidos.table', compact('productos', 'cart', 'almacen', 'descripcion'));
 
             $data=$view->render();
 
@@ -869,7 +887,13 @@ class AlpPedidosController extends JoshController
           $cart= \Session::get('cart');
 
 
-           $view= View::make('admin.pedidos.table', compact('productos', 'cart'));
+           $almacen=AlpAlmacenes::where('id', $cart['id_almacen'])->first();
+
+
+          $descripcion='Listado de productos de la Busqueda: '.$buscar;
+
+
+           $view= View::make('admin.pedidos.table', compact('productos', 'cart', 'almacen', 'descripcion'));
 
             $data=$view->render();
 

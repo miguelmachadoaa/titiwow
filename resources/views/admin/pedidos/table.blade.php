@@ -1,6 +1,19 @@
            <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}" />
             <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}" />
 
+            <div class="row">
+                
+                <div class="col-sm-12 text-center">
+                
+                    <h3>Usted se Encuentra en el Almacen {{$almacen->nombre_almacen}}</h3>
+
+                    <h3>{{$descripcion}}</h3>
+
+                </div>
+                
+            </div>
+
+            
 
             @if(count($productos))
 
