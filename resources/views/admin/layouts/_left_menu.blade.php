@@ -7,13 +7,21 @@
             Escritorio
         </a>
     </li>
+    <li {!! (Request::is('admin') ? 'class="active"' : '') !!}>
+        <a target="_blank" href="{{  secure_url('/') }}">
+            <i class="livicon" data-name="web" data-size="18" data-c="#6CC66C" data-hc="#6CC66C"
+               data-loop="true"></i>
+            Ver Pagina
+        </a>
+    </li>
 
 
     @if (Sentinel::getUser()->hasAnyAccess(['tomapedidos.*']))
         <li {!! (Request::is('admin/tomapedidos*') ? 'class="active"' : '') !!}>
-        <a href="{!! secure_url('admin/tomapedidos') !!}">
-            <i style="color: #EF6F6C;" class="fa fa-shopping-cart"></i>
-            Tomapedidos
+            <a href="{!! secure_url('admin/tomapedidos') !!}">
+            <i class="livicon" data-name="shopping-cart" data-size="18" data-c="#EF6F6C" data-hc="#EF6F6C"
+               data-loop="true"></i>
+             Tomapedidos
         </a>
     </li>
     @endif
