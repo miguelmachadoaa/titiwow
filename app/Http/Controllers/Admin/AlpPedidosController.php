@@ -54,6 +54,10 @@ use App\Models\AlpCuponesProducto;
 use App\Models\AlpCuponesEmpresa;
 use App\Models\AlpCuponesRol;
 
+use App\Models\AlpCategoriasProductos;
+
+
+
 use App\Http\Requests\AlmacenesRequest;
 use App\Http\Requests\UploadRequest;
 use App\Http\Requests\UserRequest;
