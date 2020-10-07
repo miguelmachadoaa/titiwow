@@ -4262,9 +4262,81 @@ public function addcupon(Request $request)
 
 
 
+    public function terminoscliente()
+    {
+
+
+      $iduser=\Session::get('iduser');
+
+      if ($iduser) {
+
+      $id_cliente=$iduser;
+
+      $data = array('tomapedidos_termino' => 1);
+
+      $c=AlpClientes::where('id_user_client', $id_cliente)->first();
+
+      $c->update($data);
+
+
+      $data_history = array(
+        'id_cliente' => $c->id_user_client, 
+        'estatus_cliente' => 'activado', 
+        'notas' => 'El Cliente ha aceptado terminos y condiciones de Tomapedidos', 
+        'id_user'=>$c->id_user_client
+      );
+
+      AlpClientesHistory::create($data_history);
+
+      return 'true';
 
 
 
+      }else{
+        return 'false';
+      }
+
+   
+      
+    }
+
+
+
+public function marketingcliente()
+    {
+
+
+      $iduser=\Session::get('iduser');
+
+      if ($iduser) {
+         $id_cliente=$iduser;
+
+
+      $data = array('tomapedidos_marketing' => 1);
+
+      $c=AlpClientes::where('id_user_client', $id_cliente)->first();
+
+      $c->update($data);
+
+
+      $data_history = array(
+        'id_cliente' => $c->id_user_client, 
+        'estatus_cliente' => 'activado', 
+        'notas' => 'El Cliente ha aceptado terminos y condiciones de Tomapedidos', 
+        'id_user'=>$c->id_user_client
+      );
+
+      AlpClientesHistory::create($data_history);
+
+      return 'true';
+      }else{
+
+        return 'false';
+      }
+
+     
+      
+    }
 
 
 

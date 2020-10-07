@@ -926,9 +926,7 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
 
 
-Route::post('tomapedidos/addcupon/',['as'=>'tomapedidos.addcupon', 'uses'=>'Admin\AlpPedidosController@addcupon']);
 
-Route::post('tomapedidos/addcuponform/',['as'=>'tomapedidos.addcuponform', 'uses'=>'Admin\AlpPedidosController@addcuponform']);
 
 
 

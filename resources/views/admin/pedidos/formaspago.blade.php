@@ -260,3 +260,37 @@
             </div> 
 
         @endif 
+
+
+        <div class="col-sm-12">
+
+
+          <div class="form-group {{ $errors->first('tomapedidos_terminos', 'has-error') }} checkbox">
+              <label style="font-size:12px;">
+
+                  <input type="checkbox" name="tomapedidos_terminos" id="tomapedidos_terminos" value="1" require>  Acepto los <a href="{{ secure_url('paginas/terminos-condiciones')}}" class="menu-item" target="_blank" alt="Términos y Condiciones de Acceso a Alpina Go" title="Términos y Condiciones de Acceso a Alpina Go">Términos y Condiciones de Tomapedidos de Alpina Go.</a> 
+              </label>
+              {!! $errors->first('tomapedidos_terminos', '<span class="help-block">:message</span>') !!}
+          </div>
+
+          <p style="color: red;" class="error_tomapedidos_terminos"></p>
+          
+
+        </div>
+
+
+        <div class="col-sm-12">
+
+
+          <div class="form-group {{ $errors->first('tomapedidos_marketing', 'has-error') }} checkbox">
+              <label style="font-size:12px;">
+                
+                  <input type="checkbox" name="tomapedidos_marketing" id="tomapedidos_marketing" value="1" require>  Me gustaria recibir promocione de productos y servicios.
+              </label>
+              {!! $errors->first('tomapedidos_marketing', '<span class="help-block">:message</span>') !!}
+          </div>
+
+           <p style="color: red;" class="error_tomapedidos_marketing"></p>
+          
+
+        </div>

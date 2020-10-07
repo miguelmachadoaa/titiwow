@@ -146,6 +146,8 @@ div.overlay > div {
 {{-- Page content --}}
 @section('content')
 
+<input type="hidden" name="tomapedidos" id="tomapedidos" value="1">
+
 <div style="display:none;" class="overlay"><div>Procesando...</div></div>
 
 
@@ -419,10 +421,6 @@ div.overlay > div {
 
 
 
-
-
-
-
             $('button.mercadopago-button').hide();
 
 
@@ -525,19 +523,45 @@ $('.sendCuponTomapedidos').click(function () {
 
    $(document).on('click', '.pse', function (){
 
+     var base = $('#base').val();
+
+        if( $('#tomapedidos_marketing').is(':checked') ) {
+
+            $.get(base+'/tomapedidos/marketingcliente', function(data) {
+                   
+            });
+
+        }
+
+
+        if( $('#tomapedidos_terminos').is(':checked') ) {
+
+
+            $.get(base+'/tomapedidos/terminoscliente', function(data) {
+                   
+            });
+
+
+            id_direccion= $("#id_direccion").val(); 
+            
+            //id_forma_envio=$("input[name='id_forma_envio']:checked").val(); 
+
+            id_forma_envio=$("#id_forma_envio").val(); 
+            
+            id_forma_pago=$(this).data('id');
+
+
+            $('#modalPse').modal('show');
+
+        }else{
+
+             $('.error_tomapedidos_terminos').html('Debe aceptar terminos y condiciones de Tomapedidos.');
+
+        }
+
 
         //llenamos los campos necesarios para procesar 
 
-        id_direccion= $("#id_direccion").val(); 
-        
-        //id_forma_envio=$("input[name='id_forma_envio']:checked").val(); 
-
-        id_forma_envio=$("#id_forma_envio").val(); 
-        
-        id_forma_pago=$(this).data('id');
-
-
-        $('#modalPse').modal('show');
 
 });
 
@@ -560,21 +584,13 @@ $('.sendCuponTomapedidos').click(function () {
 
         id_fi=$("#id_fi_pse").val();
 
-       // alert(nombre+' '+id_type_doc+' '+doc_cliente+' '+email+' '+id_fi);
-
-        /*********************************************/ 
-
         id_direccion= $("#id_direccion").val(); 
             
-       // id_forma_envio=$("input[name='id_forma_envio']:checked").val(); 
+        id_forma_envio=$("#id_forma_envio").val(); 
 
-            id_forma_envio=$("#id_forma_envio").val(); 
-
-            
         id_forma_pago='2';
 
         var base = $('#base').val();
-
 
          $.ajax({
             type: "POST",
@@ -675,47 +691,90 @@ $('.sendCuponTomapedidos').click(function () {
 
                     if(type=="ticket"){
 
-                        $.ajax({
-                            type: "POST",
-                            data:{id_forma_envio, id_direccion, id_forma_pago},
 
-                            url: base+"/cart/verificarDireccion",
-                                
-                            complete: function(datos){     
 
-                               if(datos.responseText=='true'){
+                        if( $('#tomapedidos_marketing').is(':checked') ) {
 
-                                    $('#procesarForm').submit();
+                            $.get(base+'/tomapedidos/marketingcliente', function(data) {
+                                   
+                            });
 
-                                    $.ajax({
-                                        type: "POST",
-                                        data:{id_direccion, id_forma_envio, id_forma_pago, type, idpago},
+                        }
 
-                                        url: base+"/order/procesarticket",
+
+                        if( $('#tomapedidos_terminos').is(':checked') ) {
+
+
+                            $.get(base+'/tomapedidos/terminoscliente', function(data) {
+
+                            });
+
+
+                            $.ajax({
+                                type: "POST",
+                                data:{id_forma_envio, id_direccion, id_forma_pago},
+
+                                url: base+"/cart/verificarDireccion",
+                                    
+                                complete: function(datos){     
+
+                                   if(datos.responseText=='true'){
+
+                                        $('#procesarForm').submit();
+
+                                        $.ajax({
+                                            type: "POST",
+                                            data:{id_direccion, id_forma_envio, id_forma_pago, type, idpago},
+
+                                            url: base+"/order/procesarticket",
+                                                
+                                            complete: function(datos){     
+
+                                                $(location).attr("href", datos.responseText);
+
+
+                                                //$('.contain_body').html(datos.responseText);
+
+                                                //$('.overlay').fadeOut();
                                             
-                                        complete: function(datos){     
+                                            }
 
-                                            $(location).attr("href", datos.responseText);
+                                        });
 
+                                    }else{
 
-                                            //$('.contain_body').html(datos.responseText);
+                                       // $('.overlay').hidden();
 
-                                            //$('.overlay').fadeOut();
-                                        
-                                        }
+                                        $('.res_direccion').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
 
-                                    });
-
-                                }else{
-
-                                   // $('.overlay').hidden();
-
-                                    $('.res_direccion').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
-
+                                    }
+                                
                                 }
-                            
-                            }
-                        });
+                            });
+
+
+
+                        }else{
+
+
+
+                            $('.error_tomapedidos_terminos').html('Debe aceptar terminos y condiciones de Tomapedidos.');
+
+
+                        }
+
+
+
+
+
+
+                        
+
+
+
+
+
+
 
                     }else{
 
@@ -723,6 +782,26 @@ $('.sendCuponTomapedidos').click(function () {
                     }
 
                 }else{
+
+
+                    if( $('#tomapedidos_marketing').is(':checked') ) {
+
+                            $.get(base+'/tomapedidos/marketingcliente', function(data) {
+                                   
+                            });
+
+                        }
+
+
+                      if( $('#tomapedidos_terminos').is(':checked') ) {
+
+
+                            $.get(base+'/tomapedidos/terminoscliente', function(data) {
+
+                            });
+
+
+
 
                     $.ajax({
                         type: "POST",
@@ -762,6 +841,26 @@ $('.sendCuponTomapedidos').click(function () {
                     
                     });
 
+
+
+
+
+                        }else{
+
+
+
+                            $('.error_tomapedidos_terminos').html('Debe aceptar terminos y condiciones de Tomapedidos.');
+
+
+                        }
+
+
+
+
+
+
+
+
                 }
 
             }
@@ -795,7 +894,30 @@ $('.sendCuponTomapedidos').click(function () {
 
                 base=$('#base').val();
 
-                $.ajax({
+
+
+
+
+
+
+                if( $('#tomapedidos_marketing').is(':checked') ) {
+
+                            $.get(base+'/tomapedidos/marketingcliente', function(data) {
+                                   
+                            });
+
+                        }
+
+
+                      if( $('#tomapedidos_terminos').is(':checked') ) {
+
+
+                            $.get(base+'/tomapedidos/terminoscliente', function(data) {
+
+                            });
+
+
+                             $.ajax({
                     type: "POST",
                     data:{id_forma_envio, id_direccion, id_forma_pago},
 
@@ -815,6 +937,30 @@ $('.sendCuponTomapedidos').click(function () {
                     
                     }
                 });
+
+
+
+                        }else{
+
+
+
+                            $('.error_tomapedidos_terminos').html('Debe aceptar terminos y condiciones de Tomapedidos.');
+
+
+                        }
+
+
+
+
+
+
+
+
+
+
+
+
+               
 
             }
 
@@ -848,7 +994,28 @@ $('.sendCuponTomapedidos').click(function () {
 
                 base=$('#base').val();
 
-                $.ajax({
+
+
+
+
+                if( $('#tomapedidos_marketing').is(':checked') ) {
+
+                            $.get(base+'/tomapedidos/marketingcliente', function(data) {
+                                   
+                            });
+
+                        }
+
+
+                      if( $('#tomapedidos_terminos').is(':checked') ) {
+
+
+                            $.get(base+'/tomapedidos/terminoscliente', function(data) {
+
+                            });
+
+
+                              $.ajax({
                     type: "POST",
                     
                     data:{id_forma_envio, id_direccion, id_forma_pago},
@@ -871,6 +1038,26 @@ $('.sendCuponTomapedidos').click(function () {
                     }
                 });
 
+
+
+
+                        }else{
+
+
+
+                            $('.error_tomapedidos_terminos').html('Debe aceptar terminos y condiciones de Tomapedidos.');
+
+
+                        }
+
+
+
+
+
+
+
+
+              
             }
 
         });

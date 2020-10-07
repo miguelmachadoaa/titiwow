@@ -254,6 +254,11 @@ Route::post('tomapedidos/addcuponform/',['as'=>'tomapedidos.addcuponform', 'uses
 Route::post('tomapedidos/delcupon/',['as'=>'tomapedidos.delcupon', 'uses'=>'Admin\AlpPedidosController@delcupon']);
 
 
+Route::get('tomapedidos/terminoscliente/',['as'=>'tomapedidos.terminoscliente', 'uses'=>'Admin\AlpPedidosController@terminoscliente']);
+
+Route::get('tomapedidos/marketingcliente/',['as'=>'tomapedidos.marketingcliente', 'uses'=>'Admin\AlpPedidosController@marketingcliente']);
+
+
 
 
 

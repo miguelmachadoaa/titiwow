@@ -38,6 +38,8 @@ class AlpClientes extends Model
         'json_ibm',
         'origen',
         'token',
+        'tomapedidos_termino',
+        'tomapedidos_marketing',
         'id_user'
     ];
 
