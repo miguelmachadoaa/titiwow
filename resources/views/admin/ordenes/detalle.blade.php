@@ -209,6 +209,98 @@ Orden {{$orden->id}}
 
 
 
+
+
+
+
+
+
+                             @if($cliente->origen=='1')
+
+                                     <tr>
+                                        <td><b> Origen</b></td>
+                                        <td>
+                                           Tomapedidos
+                                        </td>
+                                    </tr>
+
+
+                                    @if($cliente->tomapedidos_tratamiento=='1')
+
+                                     <tr>
+                                        <td><b> Acepto</b></td>
+                                        <td>
+                                           Terminos y Condiciones Tomapedidos
+                                        </td>
+                                    </tr>
+
+
+                                    @else
+
+                                         <tr>
+                                            <td><b> No Acepto</b></td>
+                                            <td>
+                                               Terminos y Condiciones Tomapedidos
+                                            </td>
+                                        </tr>
+                                    @endif
+
+                                    @if($cliente->tomapedidos_marketing=='1')
+
+                                        <tr>
+                                        <td><b> Acepto</b></td>
+                                        <td>
+                                           Envio de Promociones y Ofertas 
+                                        </td>
+                                    </tr>
+
+
+                                    @else
+
+                                         <tr>
+                                            <td><b> No Acepto</b></td>
+                                            <td>
+                                               Envio de Promociones y Ofertas 
+                                            </td>
+                                        </tr>
+                                    @endif
+
+
+
+
+
+                                @else
+
+
+
+
+
+
+
+                                   <tr>
+                                        <td><b> Origen</b></td>
+                                        <td>
+                                           Web
+                                        </td>
+                                    </tr>
+
+
+
+
+
+
+
+                                @endif
+
+
+
+
+
+
+
+
+
+
                      <tr>
                          <td>Ubicacion </td>
                          <td>{{ $direccion->country_name.', '.$direccion->state_name.', '.$direccion->city_name }}</td>

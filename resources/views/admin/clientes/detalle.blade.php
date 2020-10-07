@@ -64,128 +64,256 @@ Cliente
                                         
                                             
 
-                                                <div class="table-responsive-lg table-responsive-sm table-responsive-md table-responsive">
-                                                    <table class="table table-bordered table-striped" id="users">
+                    <div class="table-responsive-lg table-responsive-sm table-responsive-md table-responsive">
+                        <table class="table table-bordered table-striped" id="users">
 
-                                                        <tr>
-                                                            <td><b> Rol</b></td>
-                                                            <td>
-                                                                <b></b>{{ $usuario->name_rol }}
-                                                            </td>
-                                                        </tr>
+                            <tr>
+                                <td><b> Rol</b></td>
+                                <td>
+                                    <b></b>{{ $usuario->name_rol }}
+                                </td>
+                            </tr>
 
-                                                        <tr>
-                                                            <td><b> Nombre</b></td>
-                                                            <td>
-                                                                <p class="user_name_max">{{ $usuario->first_name }}</p>
-                                                            </td>
+                            <tr>
+                                <td><b> Nombre</b></td>
+                                <td>
+                                    <p class="user_name_max">{{ $usuario->first_name }}</p>
+                                </td>
 
-                                                        </tr>
-                                                        <tr>
-                                                            <td><b>Apellido </b></td>
-                                                            <td>
-                                                                <p class="user_name_max">{{ $usuario->last_name }}</p>
-                                                            </td>
+                            </tr>
+                            <tr>
+                                <td><b>Apellido </b></td>
+                                <td>
+                                    <p class="user_name_max">{{ $usuario->last_name }}</p>
+                                </td>
 
-                                                        </tr>
-                                                        <tr>
-                                                            <td><b> Email</b></td>
-                                                            <td>
-                                                                {{ $usuario->email }}
-                                                            </td>
-                                                        </tr>
+                            </tr>
+                            <tr>
+                                <td><b> Email</b></td>
+                                <td>
+                                    {{ $usuario->email }}
+                                </td>
+                            </tr>
 
-                                                          <tr>
-                                                            <td><b> Documento</b></td>
-                                                            <td>
-                                                                {{ $cliente->nombre_tipo_documento.': '.$cliente->doc_cliente }}
-                                                            </td>
-                                                        </tr>
+                              <tr>
+                                <td><b> Documento</b></td>
+                                <td>
+                                    {{ $cliente->nombre_tipo_documento.': '.$cliente->doc_cliente }}
+                                </td>
+                            </tr>
 
-                                                         <tr>
-                                                            <td><b> Teléfono</b></td>
-                                                            <td>
-                                                                {{ $cliente->telefono_cliente }}
-                                                            </td>
-                                                        </tr>
-
-
-                                                        <tr>
-                                                            <td><b> Código Cliente</b></td>
-                                                            <td>
-                                                                {{ $cliente->codigo_cliente }}
-                                                            </td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td><b> Registro Ibm</b></td>
-                                                            <td>
-                                                               @if($cliente->estatus_ibm==0)
-
-                                                               {{'No Registrado en Ibm'}}
-
-                                                               @else
-
-                                                               {{'Registrado en Ibm'}}
-
-                                                               @endif
-                                                            </td>
-                                                        </tr>
-
-                                                        @if( isset($cliente->embajador) )
-
-                                                        <tr>
-                                                            <td><b> Embajador</b></td>
-                                                            <td>
-                                                                {{ $cliente->embajador->first_name.' '.$cliente->embajador->last_name }}
-                                                            </td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td><b> Embajador Email</b></td>
-                                                            <td>
-                                                                {{ $cliente->embajador->email }}
-                                                            </td>
-                                                        </tr>
-
-                                                        @endif
-
-                                                        @if(isset($un_saldo->id))
-
-                                                            @if(isset($disponible[$cliente->id_user_client]))
-
-                                                                 <tr>
-                                                                    <td><b> Saldo Disponible</b></td>
-                                                                    <td>
-                                                                        {{ $disponible[$cliente->id_user_client] }}
-                                                                    </td>
-                                                                </tr>
-
-                                                            @else
-
-                                                                <tr>
-                                                                    <td><b> Saldo Disponible</b></td>
-                                                                    <td>
-                                                                        {{ '0' }}
-                                                                    </td>
-                                                                </tr>
-
-                                                            @endif
-
-                                                            <tr>
-                                                                <td><b> Fecha de Vencimiento</b></td>
-                                                                <td>
-                                                                    {{ $un_saldo->fecha_vencimiento }}
-                                                                </td>
-                                                            </tr>
+                             <tr>
+                                <td><b> Teléfono</b></td>
+                                <td>
+                                    {{ $cliente->telefono_cliente }}
+                                </td>
+                            </tr>
 
 
-                                                        @endif
+                            <tr>
+                                <td><b> Código Cliente</b></td>
+                                <td>
+                                    {{ $cliente->codigo_cliente }}
+                                </td>
+                            </tr>
 
-                                                       
-                                                    </table>
+                            <tr>
+                                <td><b> Registro Ibm</b></td>
+                                <td>
+                                   @if($cliente->estatus_ibm==0)
 
-                                                    <br>
+                                   {{'No Registrado en Ibm'}}
+
+                                   @else
+
+                                   {{'Registrado en Ibm'}}
+
+                                   @endif
+                                </td>
+                            </tr>
+
+                            @if( isset($cliente->embajador) )
+
+                            <tr>
+                                <td><b> Embajador</b></td>
+                                <td>
+                                    {{ $cliente->embajador->first_name.' '.$cliente->embajador->last_name }}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td><b> Embajador Email</b></td>
+                                <td>
+                                    {{ $cliente->embajador->email }}
+                                </td>
+                            </tr>
+
+                            @endif
+
+                            @if(isset($un_saldo->id))
+
+                                @if(isset($disponible[$cliente->id_user_client]))
+
+                                     <tr>
+                                        <td><b> Saldo Disponible</b></td>
+                                        <td>
+                                            {{ $disponible[$cliente->id_user_client] }}
+                                        </td>
+                                    </tr>
+
+                                @else
+
+                                    <tr>
+                                        <td><b> Saldo Disponible</b></td>
+                                        <td>
+                                            {{ '0' }}
+                                        </td>
+                                    </tr>
+
+                                @endif
+
+                                <tr>
+                                    <td><b> Fecha de Vencimiento</b></td>
+                                    <td>
+                                        {{ $un_saldo->fecha_vencimiento }}
+                                    </td>
+                                </tr>
+
+
+                            @endif
+
+
+                             @if($cliente->origen='1')
+
+                                     <tr>
+                                        <td><b> Origen</b></td>
+                                        <td>
+                                           Tomapedidos
+                                        </td>
+                                    </tr>
+
+
+                                    @if($cliente->tomapedidos_tratamiento=='1')
+
+                                     <tr>
+                                        <td><b> Acepto</b></td>
+                                        <td>
+                                           Terminos y Condiciones Tomapedidos
+                                        </td>
+                                    </tr>
+
+
+                                    @else
+
+                                         <tr>
+                                            <td><b> No Acepto</b></td>
+                                            <td>
+                                               Terminos y Condiciones Tomapedidos
+                                            </td>
+                                        </tr>
+                                    @endif
+
+                                    @if($cliente->tomapedidos_marketing=='1')
+
+                                        <tr>
+                                        <td><b> Acepto</b></td>
+                                        <td>
+                                           Envio de Promociones y Ofertas 
+                                        </td>
+                                    </tr>
+
+
+                                    @else
+
+                                         <tr>
+                                            <td><b> No Acepto</b></td>
+                                            <td>
+                                               Envio de Promociones y Ofertas 
+                                            </td>
+                                        </tr>
+                                    @endif
+
+
+
+
+
+                                @else
+
+
+
+
+
+
+
+                                   <tr>
+                                        <td><b> Origen</b></td>
+                                        <td>
+                                           Web
+                                        </td>
+                                    </tr>
+
+
+
+
+                                      @if($cliente->habeas_cliente=='1')
+
+                                     <tr>
+                                        <td><b> Acepto</b></td>
+                                        <td>
+                                           Terminos y Condiciones 
+                                        </td>
+                                    </tr>
+
+
+                                    @else
+
+                                         <tr>
+                                            <td><b> No Acepto</b></td>
+                                            <td>
+                                               Terminos y Condiciones 
+                                            </td>
+                                        </tr>
+                                    @endif
+
+
+
+                                    @if($cliente->marketing_cliente=='1')
+
+                                        <tr>
+                                        <td><b> Acepto</b></td>
+                                        <td>
+                                           Envio de Promociones y Ofertas 
+                                        </td>
+                                    </tr>
+
+
+                                    @else
+
+                                         <tr>
+                                            <td><b> No Acepto</b></td>
+                                            <td>
+                                               Envio de Promociones y Ofertas 
+                                            </td>
+                                        </tr>
+                                    @endif
+
+
+
+
+
+
+
+
+
+
+
+
+                                @endif
+
+                           
+                        </table>
+
+                        <br>
 
                     @if($usuario->role_id=='10')
                 

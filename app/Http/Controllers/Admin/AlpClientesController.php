@@ -695,7 +695,7 @@ class AlpClientesController extends JoshController
         ->join('alp_tipo_documento', 'alp_clientes.id_type_doc', '=', 'alp_tipo_documento.id')
         ->where('id_user_client', $id)->first();
 
-        //dd($un_saldo);
+        //dd($cliente);
 
 
         if ($cliente->id_embajador!=0) {
