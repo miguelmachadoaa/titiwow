@@ -41,6 +41,11 @@ use App\Models\AlpAlmacenProducto;
 
 use App\Models\AlpSaldo;
 use App\Models\AlpRolenvio;
+
+use App\Models\AlpPromociones;
+use App\Models\AlppromocionesRegalo;
+
+
 use App\Http\Requests\AddressRequest;
 
 use App\Country;
@@ -121,6 +126,8 @@ class AlpCartController extends JoshController
 
       $states=State::where('config_states.country_id', '47')->get();
 
+      $cart=$this->addPromocion();
+
       $cart=$this->reloadCart();
 
       //dd($cart);
@@ -187,6 +194,8 @@ class AlpCartController extends JoshController
         $url=secure_url('cart/show');
 
         $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
+
+
 
       return view('frontend.cart', compact('cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario','url', 'almacen'));
     }
@@ -1260,6 +1269,8 @@ class AlpCartController extends JoshController
       
       $carrito= \Session::get('cr');
 
+      $cart=$this->addPromocion();
+
       //echo $carrito;
 
       $cart=$this->reloadCart();
@@ -1296,7 +1307,14 @@ class AlpCartController extends JoshController
       foreach ($cart as $vcart) {
 
         if ($vcart->disponible==0) {
-          return redirect('cart/show');
+
+          if (isset($vcart->promocion)) {
+            # code...
+          }else{
+
+              return redirect('cart/show');
+          }
+          
         }
         # code...
       }
@@ -1522,7 +1540,7 @@ class AlpCartController extends JoshController
 
           $preference = MP::post("/checkout/preferences",$preference_data);
 
-          //$preference = array( );
+         // dd($preference);
 
           $this->saveOrden($preference);
 
@@ -2303,6 +2321,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       $cart= \Session::get('cart');
 
+     //dd($cart)
+
 
       $total=$this->total();
 
@@ -2340,6 +2360,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
               'precio_total' =>$detalle->cantidad*$detalle->precio_oferta,
               'id_user' =>$user_id 
             );
+
+            //dd($data_detalle);
 
             AlpPreDetalles::create($data_detalle);
 
@@ -3791,75 +3813,86 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       foreach ($cart as $producto) {
 
+      if (isset($producto->promocion)) {
+        # code...
+      }else{
+
         if (isset($producto->nombre_producto)) {
           # code...
 
-      if ($descuento=='1') {
+          if ($descuento=='1') {
 
-        if (isset($precio[$producto->id])) {
-          # code...
-         
-          switch ($precio[$producto->id]['operacion']) {
+            if (isset($precio[$producto->id])) {
+              # code...
+             
+              switch ($precio[$producto->id]['operacion']) {
 
-            case 1:
+                case 1:
+
+                  $producto->precio_oferta=$producto->precio_base*$descuento;
+
+                  break;
+
+                case 2:
+
+                  $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
+                  
+                  break;
+
+                case 3:
+
+                  $producto->precio_oferta=$precio[$producto->id]['precio'];
+                  
+                  break;
+                
+                default:
+                
+                 $producto->precio_oferta=$producto->precio_base*$descuento;
+                  # code...
+                  break;
+              }
+
+            }else{
 
               $producto->precio_oferta=$producto->precio_base*$descuento;
 
-              break;
+            }
 
-            case 2:
 
-              $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
-              
-              break;
+           }else{
 
-            case 3:
+           $producto->precio_oferta=$producto->precio_base*$descuento;
 
-              $producto->precio_oferta=$precio[$producto->id]['precio'];
-              
-              break;
-            
-            default:
-            
-             $producto->precio_oferta=$producto->precio_base*$descuento;
-              # code...
-              break;
+
+           }
+
+
+            $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
+
+            $almp=AlpAlmacenProducto::where('id_almacen', $id_almacen)->where('id_producto', $producto->id)->first();
+
+            //dd($almp);
+
+            if (isset($almp->id)) {
+
+              $producto->disponible=1;
+
+            }else{
+
+              if (isset($producto->promocion)) {
+                $producto->disponible=1;
+              }else{
+
+                $producto->disponible=0;
+
+              }
+
+            }
+
+
+           $cart[$producto->slug]=$producto;
+           
           }
-
-        }else{
-
-          $producto->precio_oferta=$producto->precio_base*$descuento;
-
-        }
-
-
-       }else{
-
-       $producto->precio_oferta=$producto->precio_base*$descuento;
-
-
-       }
-
-
-        $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
-
-        $almp=AlpAlmacenProducto::where('id_almacen', $id_almacen)->where('id_producto', $producto->id)->first();
-
-        //dd($almp);
-
-        if (isset($almp->id)) {
-
-          $producto->disponible=1;
-
-        }else{
-
-          $producto->disponible=0;
-
-        }
-
-
-       $cart[$producto->slug]=$producto;
-       
       }
       }
 
@@ -7180,6 +7213,126 @@ private function getAlmacen3(){
 
       
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+private function addpromocion(){
+       
+      $cart= \Session::get('cart');
+
+
+      $date = Carbon::now();
+
+        $hoy=$date->format('Y-m-d');
+
+
+      foreach ($cart as $c) {
+
+        if (isset($c->promocion)) {
+          unset($cart[$c->slug]);
+        }
+        # code...
+      }
+
+
+
+      $promociones=AlpPromociones::whereDate('fecha_inicio','<=',$hoy)
+          ->whereDate('fecha_final','>=',$hoy)
+          ->get();
+
+          foreach ($promociones as $promo) {
+
+            if ($promo->tipo==1) {
+
+              $monto=0;
+              
+              foreach ($cart as $c) {
+
+                if ($c->id_categoria_default==$promo->referencia) {
+                  
+                  $monto=$monto+($c->precio_oferta*$c->cantidad);
+
+                }else{
+
+                  $cps=AlpCategoriasProductos::where('id_producto', $c->id)->get();
+
+                  foreach ($cps as $cp) {
+                    
+                    if ($c->id_categoria==$promo->referencia) {
+                    
+                        $monto=$monto+($c->precio_oferta*$c->cantidad);
+                    }
+
+                  }
+
+                }
+                
+              }
+
+              if ($monto>$promo->monto_minimo) {
+
+                $prs=AlppromocionesRegalo::where('id_promocion', $promo->id)->get();
+
+                foreach ($prs as $pr) {
+
+                  $p=AlpProductos::where('id', $pr->id_producto)->first();
+
+                  if (isset($p->id)) {
+
+                      $p->promocion='1';
+                      $p->cantidad=$pr->cantidad;
+                      $p->precio_oferta=$pr->precio;
+
+                      $cart[$p->slug]=$p;
+                      # code...
+                  }
+                    # code...
+                }
+
+
+              }
+
+
+            }
+            # code...
+          }
+
+
+
+      \Session::put('cart', $cart);
+
+      return $cart;
+
+     
+      
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
