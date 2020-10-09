@@ -66,6 +66,7 @@ class AlpProductos extends Model
         'mostrar_descuento',
         'cantidad',
         'unidad',
+        'mostrar',
         'estado_registro',
         'id_user'
     ];

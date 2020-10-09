@@ -908,6 +908,33 @@
                                            
                                         </div>
 
+
+                                        <div class="form-group col-sm-12  {{ $errors->first('mostrar', 'has-error') }}">
+                                            <label for="select21" class="col-sm-3 control-label">
+                                                Mostrar en Listados 
+                                            </label>
+                                            <div class="col-sm-9">   
+                                             <select id="mostrar" name="mostrar" class="form-control ">
+                                                <option value="">Seleccione</option>
+                                                   
+                                                    <option value="{{ 1 }}"
+                                                            @if($producto->mostrar == 1) selected="selected" @endif >Mostrar</option>
+
+                                                    <option value="{{ 0}}"
+                                                            @if($producto->mostrar == 0) selected="selected" @endif >No Mostrar</option>
+                                                   
+                                            </select>
+
+                                            {!! $errors->first('mostrar', '<span class="help-block">:message</span> ') !!}
+                                            
+                                              
+                                            </div>
+                                           
+                                        </div>
+
+
+
+
                                         
                                             <div class="form-group clearfix col-sm-12 {{ $errors->first('precio_base', 'has-error') }}">
                                                 <label class="col-sm-3 col-xs-12 control-label" for="referencia_producto">@lang('productos/title.price') </label>

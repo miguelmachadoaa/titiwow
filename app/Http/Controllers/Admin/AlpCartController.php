@@ -43,8 +43,8 @@ use App\Models\AlpSaldo;
 use App\Models\AlpRolenvio;
 
 use App\Models\AlpPromociones;
-use App\Models\AlppromocionesRegalo;
-
+use App\Models\AlpPromocionesRegalo;
+use App\Models\AlpPromocionesCategorias;
 
 use App\Http\Requests\AddressRequest;
 
@@ -3069,9 +3069,14 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       $almacen=AlpAlmacenes::where('id', $almacen_id)->first();
 
 
+       $mensaje_promocion= $this->addPromocion();
+
+        $cart= \Session::get('cart');
 
 
-       $view= View::make('frontend.listcart', compact('combos', 'cart','configuracion', 'total', 'almacen'));
+
+
+       $view= View::make('frontend.listcart', compact('combos', 'cart','configuracion', 'total', 'almacen', 'mensaje_promocion'));
 
               $data=$view->render();
 
@@ -7236,6 +7241,7 @@ private function addpromocion(){
        
       $cart= \Session::get('cart');
 
+      $inventario=$this->inventario();
 
       $date = Carbon::now();
 
@@ -7257,30 +7263,137 @@ private function addpromocion(){
           ->whereDate('fecha_final','>=',$hoy)
           ->get();
 
+
+
           foreach ($promociones as $promo) {
 
-              if ($promo->tipo==1) {
+            $disponible=0;
+
+            if (isset($inventario[$promo->id_producto])) {
+
+               $iprs=AlpPromocionesRegalo::where('id_promocion', $promo->id)->get();
+
+               foreach ($iprs as $ipr) {
+
+                  if (isset($inventario[$ipr->id_producto])) {
+
+                    if ($inventario[$ipr->id_producto]>$ipr->cantidad) {
+                        
+
+                    }else{
+
+                      $disponible=1;
+                    }
+                    
+                  }else{
+
+                    $disponible=1;
+
+                  }
+                 # code...
+               }
+              
+            }
+
+            if ($disponible==0) {
+
+                if ($promo->tipo==1) {
+
+                  $pcs=AlpPromocionesCategorias::where('id_promocion', $promo->id)->get();
+
+                  $categorias = array();
+
+                    foreach ($pcs as $pc) {
+
+                      $categorias[]=$pc->id_categoria;
+
+                    }
+
+                    $categorias[]=$promo->referencia;
+
+                   // dd($categorias);
+
+                  $monto=0;
+                  
+                  foreach ($cart as $c) {
+
+                   # echo($c->id.'-1<br>');
+
+                    if (in_array($c->id_categoria_default, $categorias)) {
+
+                     #echo($c->id.'-1<br>');
+                      
+                      $monto=$monto+($c->precio_oferta*$c->cantidad);
+
+                    }else{
+
+                      $cps=AlpCategoriasProductos::where('id_producto', $c->id)->get();
+
+                      foreach ($cps as $cp) {
+                        #echo($cp->id_producto.'-3<br>');
+                        
+                        if (in_array($cp->id_categoria, $categorias)) {
+
+                         # echo($cp->id_producto.'-4<br>');
+                        
+                            $monto=$monto+($c->precio_oferta*$c->cantidad);
+                        }
+
+                      }
+
+                    }
+
+                    
+                  }
+
+                  if ($monto>$promo->monto_minimo) {
+
+                    $prs=AlpPromocionesRegalo::where('id_promocion', $promo->id)->get();
+
+                    foreach ($prs as $pr) {
+
+                      $p=AlpProductos::where('id', $pr->id_producto)->first();
+
+                      if (isset($p->id)) {
+
+                          $p->promocion='1';
+                          $p->cantidad=$pr->cantidad;
+                          $p->precio_oferta=$pr->precio;
+                          $p->nombre_producto=$p->nombre_producto.' x '.$pr->cantidad;
+
+                          $cart[$p->slug]=$p;
+                          # code...
+                      }
+                        # code...
+                    }
+
+
+                  }else{
+
+                    $categoria=AlpCategorias::where('id', $promo->referencia)->first();
+
+                    $dif=$promo->monto_minimo-$monto;
+
+                    $enlace='<a href="'.secure_url('categoria/'.$categoria->slug).'" class="btn btn-link ">'.$categoria->nombre_categoria.'</a>';
+
+                    $mensaje='Te hacen falata '.$dif.' en compras en productos de la categoria '.$categoria->nombre_categoria.'  para obtener un obsequio.';
+
+
+                  }
+
+
+              }
+
+
+              if ($promo->tipo==2) {
 
                 $monto=0;
                 
                 foreach ($cart as $c) {
 
-                  if ($c->id_categoria_default==$promo->referencia) {
+                  if ($c->id_marca==$promo->referencia) {
                     
                     $monto=$monto+($c->precio_oferta*$c->cantidad);
-
-                  }else{
-
-                    $cps=AlpCategoriasProductos::where('id_producto', $c->id)->get();
-
-                    foreach ($cps as $cp) {
-                      
-                      if ($c->id_categoria==$promo->referencia) {
-                      
-                          $monto=$monto+($c->precio_oferta*$c->cantidad);
-                      }
-
-                    }
 
                   }
                   
@@ -7288,7 +7401,7 @@ private function addpromocion(){
 
                 if ($monto>$promo->monto_minimo) {
 
-                  $prs=AlppromocionesRegalo::where('id_promocion', $promo->id)->get();
+                  $prs=AlpPromocionesRegalo::where('id_promocion', $promo->id)->get();
 
                   foreach ($prs as $pr) {
 
@@ -7309,74 +7422,23 @@ private function addpromocion(){
 
                 }else{
 
-                  $categoria=AlpCategorias::where('id', $promo->referencia)->first();
+                    $marca=AlpMarcas::where('id', $promo->referencia)->first();
 
-                  $dif=$promo->monto_minimo-$monto;
+                    $dif=$promo->monto_minimo-$monto;
 
-                  $enlace='<a href="'.secure_url('categoria/'.$categoria->slug).'" class="btn btn-link ">'.$categoria->nombre_categoria.'</a>';
-
-                  $mensaje='Te hacen falata '.$dif.' en compras en productos de la categoria '.$categoria->nombre_categoria.'  para obtener un obsequio.';
+                    $mensaje='Te hacen falata '.$dif.' en compras en productos de la marca '.$marca->nombre_marca.'  para obtener un obsequio.';
 
 
-                }
-
-
-            }
-
-
-            if ($promo->tipo==2) {
-
-              $monto=0;
-              
-              foreach ($cart as $c) {
-
-                if ($c->id_marca==$promo->referencia) {
-                  
-                  $monto=$monto+($c->precio_oferta*$c->cantidad);
-
-                }
-                
-              }
-
-              if ($monto>$promo->monto_minimo) {
-
-                $prs=AlppromocionesRegalo::where('id_promocion', $promo->id)->get();
-
-                foreach ($prs as $pr) {
-
-                  $p=AlpProductos::where('id', $pr->id_producto)->first();
-
-                  if (isset($p->id)) {
-
-                      $p->promocion='1';
-                      $p->cantidad=$pr->cantidad;
-                      $p->precio_oferta=$pr->precio;
-
-                      $cart[$p->slug]=$p;
-                      # code...
                   }
-                    # code...
-                }
 
 
-              }else{
-
-                  $marca=AlpMarcas::where('id', $promo->referencia)->first();
-
-                  $dif=$promo->monto_minimo-$monto;
-
-                  $mensaje='Te hacen falata '.$dif.' en compras en productos de la marca '.$marca->nombre_marca.'  para obtener un obsequio.';
-
-
-                }
-
-
+              }
             }
 
 
 
             # code...
-          }
+          }//endforeach
 
 
 

@@ -557,6 +557,7 @@ class AlpProductosController extends JoshController
             'enlace_youtube' =>$request->enlace_youtube,
             'cantidad' =>$request->cantidad,
             'unidad' =>$request->unidad,
+            'mostrar' =>$request->mostrar,
             'id_user' =>$user_id
         );
          
@@ -1191,6 +1192,7 @@ class AlpProductosController extends JoshController
                 'enlace_youtube' =>$request->enlace_youtube,
                 'cantidad' =>$request->cantidad,
                 'unidad' =>$request->unidad,
+                'mostrar' =>$request->mostrar,
                 'precio_base' =>$request->precio_base
                 );
 
@@ -1216,6 +1218,7 @@ class AlpProductosController extends JoshController
                 'enlace_youtube' =>$request->enlace_youtube,
                 'cantidad' =>$request->cantidad,
                 'unidad' =>$request->unidad,
+                'mostrar' =>$request->mostrar,
                 'id_marca' =>$request->id_marca
                 );
 
