@@ -126,7 +126,7 @@ class AlpCartController extends JoshController
 
       $states=State::where('config_states.country_id', '47')->get();
 
-      $cart=$this->addPromocion();
+      $mensaje_promocion=$this->addPromocion();
 
       $cart=$this->reloadCart();
 
@@ -197,7 +197,7 @@ class AlpCartController extends JoshController
 
 
 
-      return view('frontend.cart', compact('cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario','url', 'almacen'));
+      return view('frontend.cart', compact('cart', 'total', 'configuracion', 'states', 'inv','productos', 'prods', 'descuento', 'combos', 'inventario','url', 'almacen', 'mensaje_promocion'));
     }
 
     public function detalle()
@@ -7359,7 +7359,16 @@ private function addpromocion(){
                 }
 
 
-              }
+              }else{
+
+                  $marca=AlpMarcas::where('id', $promo->referencia)->first();
+
+                  $dif=$promo->monto_minimo-$monto;
+
+                  $mensaje='Te hacen falata '.$dif.' en compras en productos de la marca '.$marca->nombre_marca.'  para obtener un obsequio.';
+
+
+                }
 
 
             }
