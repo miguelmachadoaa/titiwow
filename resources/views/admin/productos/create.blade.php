@@ -220,6 +220,8 @@
                                                         <option value="1"  >Normal</option>
 
                                                          <option value="2"  >Combo</option>
+
+                                                         <option value="3"  >Ancheta</option>
                                                        
 
                                                     </select>

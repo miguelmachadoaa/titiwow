@@ -157,7 +157,17 @@
 
 
 
+                        @if(isset($mensaje_promocion))
 
+                            @if($mensaje_promocion!='')
+
+                                <div class="alert alert-info">
+                                    {{$mensaje_promocion}}
+                                </div>
+
+                            @endif
+
+                        @endif
 
 
                         @if($ban_promocion==1)

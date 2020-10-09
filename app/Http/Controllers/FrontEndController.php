@@ -190,7 +190,7 @@ class FrontEndController extends JoshController
 
       if (isset($user->id)) {
 
-        $ibm=$this->addibm($user);
+       // $ibm=$this->addibm($user);
 
         # code...
       }
@@ -1270,7 +1270,7 @@ class FrontEndController extends JoshController
 
             $cliente->update($data_c);
 
-            try {
+         /*   try {
 
               $ibm=$this->addibm($user);
 
@@ -1282,7 +1282,7 @@ class FrontEndController extends JoshController
               
             } catch (Exception $e) {
               
-            }
+            }*/
 
 
             
