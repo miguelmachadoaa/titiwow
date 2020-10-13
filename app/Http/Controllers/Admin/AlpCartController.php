@@ -7437,7 +7437,7 @@ private function addpromocion(){
 
                     $enlace='<a href="'.secure_url('categoria/'.$categoria->slug).'" class="btn btn-link ">'.$categoria->nombre_categoria.'</a>';
 
-                    $mensaje='Si agregas '.number_format($dif,0,",",".").' COP más en compras de productos de la categoria: '.$categoria->nombre_categoria.'  puedes obtener un regalo.'; 
+                    $mensaje='Si agregas '.number_format($dif,0,",",".").' COP más en compras de productos de las categorias: '.$categoria->nombre_categoria.',  puedes obtener un regalo.'; 
 
 
                   }
@@ -7519,7 +7519,7 @@ private function addpromocion(){
 
                     $dif=$promo->monto_minimo-$monto;
 
-                    $mensaje='Si agregas '.number_format($dif,0,",",".").' COP más en compras de productos de la marca: '.$des_marca.'  puedes obtener un regalo.';
+                    $mensaje='Si agregas '.number_format($dif,0,",",".").' COP más en compras de productos de las marcas: '.$des_marca.',  puedes obtener un regalo.';
 
 
                   }
