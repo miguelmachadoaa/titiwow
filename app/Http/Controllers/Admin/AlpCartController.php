@@ -7243,6 +7243,8 @@ private function addpromocion(){
 
       $inventario=$this->inventario();
 
+      //dd($inventario);
+
       $date = Carbon::now();
 
         $hoy=$date->format('Y-m-d');
@@ -7263,26 +7265,27 @@ private function addpromocion(){
           ->whereDate('fecha_final','>=',$hoy)
           ->get();
 
-
+        //dd($promociones);
 
           foreach ($promociones as $promo) {
 
-            $disponible=0;
-
-            if (isset($inventario[$promo->id_producto])) {
+            $disponible=1;
 
                $iprs=AlpPromocionesRegalo::where('id_promocion', $promo->id)->get();
 
                foreach ($iprs as $ipr) {
 
+               // dd($ipr);
+
                   if (isset($inventario[$ipr->id_producto])) {
 
-                    if ($inventario[$ipr->id_producto]>$ipr->cantidad) {
-                        
+                    if ($inventario[$ipr->id_producto]>=$ipr->cantidad) {
+
+                        $disponible=0;
 
                     }else{
 
-                      $disponible=1;
+                        $disponible=1;
                     }
                     
                   }else{
@@ -7293,7 +7296,6 @@ private function addpromocion(){
                  # code...
                }
               
-            }
 
             if ($disponible==0) {
 
@@ -7376,7 +7378,7 @@ private function addpromocion(){
 
                     $enlace='<a href="'.secure_url('categoria/'.$categoria->slug).'" class="btn btn-link ">'.$categoria->nombre_categoria.'</a>';
 
-                    $mensaje='Si agregas '.$dif.' COP más en compras de productos de la categoria: '.$categoria->nombre_categoria.'  puedes obtener un regalo.'; 
+                    $mensaje='Si agregas '.number_format($dif,0,",",".").' COP más en compras de productos de la categoria: '.$categoria->nombre_categoria.'  puedes obtener un regalo.'; 
 
 
                   }
@@ -7390,9 +7392,26 @@ private function addpromocion(){
 
                  $pcs=AlpPromocionesCategorias::where('id_promocion', $promo->id)->get();
 
+                 $des_marca='';
+
                   $marcas = array();
 
+                 $i=0;
+
                     foreach ($pcs as $pc) {
+
+                      $mc=AlpMarcas::where('id', $pc->id_categoria)->first();
+
+                      if ($i==0) {
+
+                        $des_marca=$mc->nombre_marca;
+
+                        $i=1;
+                        # code...
+                      }else{
+
+                         $des_marca=$des_marca.', '.$mc->nombre_marca;
+                      }
 
                       $marcas[]=$pc->id_categoria;
 
@@ -7441,7 +7460,7 @@ private function addpromocion(){
 
                     $dif=$promo->monto_minimo-$monto;
 
-                    $mensaje='Si agregas '.$dif.' COP más en compras de productos de la marca: '.$marca->nombre_marca.'  puedes obtener un regalo.';
+                    $mensaje='Si agregas '.number_format($dif,0,",",".").' COP más en compras de productos de la marca: '.$des_marca.'  puedes obtener un regalo.';
 
 
                   }
