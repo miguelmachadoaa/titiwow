@@ -24,6 +24,8 @@
                     @foreach($cart as $row)
 
                     @if(isset($row->nombre_producto))
+                    @if(isset($row->promocion))
+                    @else       
 
                     <li class="product">
                         <div class="product-image">
@@ -56,6 +58,7 @@
                             </div>
                         </div>
                     </li>
+                    @endif
                     @endif
                     
 

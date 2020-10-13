@@ -7387,15 +7387,30 @@ private function addpromocion(){
 
               if ($promo->tipo==2) {
 
+
+                 $pcs=AlpPromocionesCategorias::where('id_promocion', $promo->id)->get();
+
+                  $marcas = array();
+
+                    foreach ($pcs as $pc) {
+
+                      $marcas[]=$pc->id_categoria;
+
+                    }
+
+                    $marcas[]=$promo->referencia;
+
+
+
                 $monto=0;
                 
                 foreach ($cart as $c) {
 
-                  if ($c->id_marca==$promo->referencia) {
-                    
-                    $monto=$monto+($c->precio_oferta*$c->cantidad);
+                    if (in_array($c->id_marca, $marcas)) {
 
-                  }
+                      $monto=$monto+($c->precio_oferta*$c->cantidad);
+
+                    }
                   
                 }
 
@@ -7433,6 +7448,8 @@ private function addpromocion(){
 
 
               }
+
+
             }
 
 
