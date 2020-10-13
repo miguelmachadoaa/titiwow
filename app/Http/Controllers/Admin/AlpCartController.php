@@ -1271,6 +1271,9 @@ class AlpCartController extends JoshController
 
       $cart=$this->addPromocion();
 
+
+
+
       //echo $carrito;
 
       $cart=$this->reloadCart();
@@ -7243,6 +7246,8 @@ private function addpromocion(){
 
       $inventario=$this->inventario();
 
+       $id_almacen=$this->getAlmacenCart();
+
       //dd($inventario);
 
       $date = Carbon::now();
@@ -7275,7 +7280,9 @@ private function addpromocion(){
 
               foreach ($iprs as $ipr) {
 
-                $apa=AlpAlmacenProducto::where('id_almacen', '=', '1')->where('id_producto', '=', $ipr->id_producto)->first();
+                $apa=AlpAlmacenProducto::where('id_almacen', '=', $id_almacen)->where('id_producto', '=', $ipr->id_producto)->first();
+
+                //dd($apa);
 
                   if (isset($apa->id)) {
                     
@@ -7306,7 +7313,7 @@ private function addpromocion(){
                }
 
 
-            if ($disponible==2) {
+            if ($disponible==0) {
 
                 if ($promo->tipo==1) {
 
