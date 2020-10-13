@@ -7275,37 +7275,47 @@ private function addpromocion(){
 
                foreach ($iprs as $ipr) {
 
-               // dd($ipr);
 
-                  if (isset($inventario[$ipr->id_producto])) {
+                $apa=AlpAlmacenProducto::where('id_almacen', '=', '1')->where('id_producto', '=', $ipr->id_producto)->first();
 
-                    if ($inventario[$ipr->id_producto]>=$ipr->cantidad) {
-
-                        $disponible=0;
-
-                    }else{
-
-                        $disponible=1;
-                    }
-                    
-                  }else{
-
-                    $disponible=1;
-
-                  }
-
-
-                  $apa=AlpAlmacenProducto::where('id_almacen', '=', '1')->where('id_producto', '=', $ipr->id_producto)->first();
-
-                 // dd($apa);
 
                   if (isset($apa->id)) {
-                    # code...
+                    
+                      if (isset($inventario[$ipr->id_producto])) {
+
+                        if ($inventario[$ipr->id_producto]>=$ipr->cantidad) {
+
+                            $disponible=0;
+
+                        }else{
+
+                            $disponible=1;
+                        }
+                        
+                      }else{
+
+                        $disponible=1;
+
+                      }
+
                   }else{
 
                     $disponible=1;
 
                   }
+
+
+
+
+
+
+
+               // dd($ipr);
+
+                  
+
+
+                
                  # code...
                }
 
