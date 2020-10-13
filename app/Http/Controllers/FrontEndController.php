@@ -514,6 +514,7 @@ class FrontEndController extends JoshController
         ->whereNull('alp_almacen_producto.deleted_at')
         ->whereNull('alp_productos.deleted_at')
         ->where('alp_productos.estado_registro','=',1)
+        ->where('alp_productos.mostrar','=',1)
         ->groupBy('alp_productos.id')
         ->orderBy('alp_productos.order', 'asc')
         ->orderBy('alp_productos.updated_at', 'desc')

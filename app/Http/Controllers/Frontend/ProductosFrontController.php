@@ -471,6 +471,7 @@ class ProductosFrontController extends Controller
        ->whereNull('alp_productos.deleted_at')
             ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
             ->where('alp_productos.estado_registro','=',1)
+            ->where('alp_productos.mostrar','=',1)
             ->where('alp_productos.slug','=', $slug)->first(); 
 
 
