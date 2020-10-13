@@ -7376,7 +7376,7 @@ private function addpromocion(){
 
                     $enlace='<a href="'.secure_url('categoria/'.$categoria->slug).'" class="btn btn-link ">'.$categoria->nombre_categoria.'</a>';
 
-                    $mensaje='Si agregas '.$dif.'COP más en compras en productos de la categoria: '.$categoria->nombre_categoria.'  puedes obtener un regalo.';
+                    $mensaje='Si agregas '.$dif.' COP más en compras de productos de la categoria: '.$categoria->nombre_categoria.'  puedes obtener un regalo.'; 
 
 
                   }
@@ -7441,7 +7441,7 @@ private function addpromocion(){
 
                     $dif=$promo->monto_minimo-$monto;
 
-                    $mensaje='Te hacen falata '.$dif.' en compras en productos de la marca '.$marca->nombre_marca.'  para obtener un obsequio.';
+                    $mensaje='Si agregas '.$dif.' COP más en compras de productos de la marca: '.$marca->nombre_marca.'  puedes obtener un regalo.';
 
 
                   }
