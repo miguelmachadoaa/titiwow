@@ -7293,8 +7293,24 @@ private function addpromocion(){
                     $disponible=1;
 
                   }
+
+
+                  $apa=AlpAlmacenProducto::where('id_almacen', '=', '1')->where('id_producto', '=', $ipr->id_producto)->first();
+
+                 // dd($apa);
+
+                  if (isset($apa->id)) {
+                    # code...
+                  }else{
+
+                    $disponible=1;
+
+                  }
                  # code...
                }
+
+
+              // dd($disponible);
               
 
             if ($disponible==0) {
@@ -7305,11 +7321,44 @@ private function addpromocion(){
 
                   $categorias = array();
 
+                  $i=0;
+
+                  $des_categoria='';
+
                     foreach ($pcs as $pc) {
+
+                      $cc=AlpCategorias::where('id', $pc->id_categoria)->first();
+
+                       if ($i==0) {
+
+                        $des_categoria=$cc->nombre_categoria;
+
+                        $i=1;
+                        # code...
+                      }else{
+
+                         $des_categoria=$des_categoria.', '.$cc->nombre_categoria;
+                      }
 
                       $categorias[]=$pc->id_categoria;
 
                     }
+
+                    $cc=AlpCategorias::where('id', $pc->id_categoria)->first();
+
+                      if ($i==0) {
+
+                        $des_categoria=$cc->nombre_categoria;
+
+                        $i=1;
+                        # code...
+                      }else{
+
+                         $des_categoria=$des_categoria.', '.$cc->nombre_categoria;
+                      }
+
+
+
 
                     $categorias[]=$promo->referencia;
 
