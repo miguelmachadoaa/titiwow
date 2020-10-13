@@ -7269,15 +7269,13 @@ private function addpromocion(){
 
           foreach ($promociones as $promo) {
 
-            $disponible=1;
+              $disponible=1;
 
-               $iprs=AlpPromocionesRegalo::where('id_promocion', $promo->id)->get();
+              $iprs=AlpPromocionesRegalo::where('id_promocion', $promo->id)->get();
 
-               foreach ($iprs as $ipr) {
-
+              foreach ($iprs as $ipr) {
 
                 $apa=AlpAlmacenProducto::where('id_almacen', '=', '1')->where('id_producto', '=', $ipr->id_producto)->first();
-
 
                   if (isset($apa->id)) {
                     
@@ -7305,25 +7303,10 @@ private function addpromocion(){
                   }
 
 
-
-
-
-
-
-               // dd($ipr);
-
-                  
-
-
-                
-                 # code...
                }
 
 
-              // dd($disponible);
-              
-
-            if ($disponible==0) {
+            if ($disponible==2) {
 
                 if ($promo->tipo==1) {
 
@@ -7528,6 +7511,9 @@ private function addpromocion(){
               }
 
 
+            }else{
+
+              $mensaje_promocion='';
             }
 
 
