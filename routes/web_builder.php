@@ -193,6 +193,10 @@ Route::post('productos/dataprecio', ['as'=> 'productos.dataprecio', 'uses' => 'A
 
 
 Route::get('productos/precio/', ['as'=> 'productos.precio', 'uses' => 'Admin\AlpProductosController@precio']);
+
+
+
+
 Route::post('productos/postprecio/', ['as'=> 'productos.postprecio', 'uses' => 'Admin\AlpProductosController@postprecio']);
 
 /*Productos Masivos */
@@ -216,6 +220,9 @@ Route::post('productos/postgrid/', ['as'=> 'productos.postgrid', 'uses' => 'Admi
     Route::resource('productos', 'Admin\AlpProductosController');
 
     Route::get('productos/{id}/confirmar', array('as' => 'productos.confirmar', 'uses' => 'Admin\AlpProductosController@confirmar'));
+
+
+    Route::get('productos/{id}/ancheta', array('as' => 'productos.ancheta', 'uses' => 'Admin\AlpProductosController@ancheta'));
 
     Route::get('productos/{id}/relacionado', array('as' => 'productos.relacionado', 'uses' => 'Admin\AlpProductosController@relacionado'));
 

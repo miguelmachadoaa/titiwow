@@ -737,8 +737,35 @@ class ProductosFrontController extends Controller
 
       }
 
-        
+
+      if ($prdoucto->tipo_producto==3) {
+
+
+        $anchetas_categorias=AlpAnchetasCategorias::where('id_ancheta', $id)->get();
+
+        foreach ($anchetas_categorias as $c) {
+
+          $productos=AlpAnchetasProductos::where('id_ancheta_productos', $c->id)->get();
+
+          $c->productos=$productos;
+
+          # code...
+        }
+
+
+        return \View::make('frontend.ancheta', compact('producto', 'descuento', 'precio','categos', 'states', 'cart', 'total','catprincipal', 'relacionados', 'prods', 'inventario', 'combos', 'role', 'almacen', 'url', 'anchetas_categorias'));
+      
+
+
+      }else{
+
         return \View::make('frontend.producto_single', compact('producto', 'descuento', 'precio','categos', 'states', 'cart', 'total','catprincipal', 'relacionados', 'prods', 'inventario', 'combos', 'role', 'almacen', 'url'));
+
+
+      }
+
+        
+        
 
     }
 

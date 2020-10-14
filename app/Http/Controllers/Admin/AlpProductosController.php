@@ -18,6 +18,8 @@ use App\Models\AlpImpuestos;
 use App\Models\AlpEmpresas;
 use App\Models\AlpCombosProductos;
 use App\Models\AlpUnidades;
+use App\Models\AlpAnchetasCategorias;
+use App\Models\AlpAnchetasProductos;
 
 use App\Exports\ProductosMasivosExport;
 use App\Imports\ProductosMasivosImport;
@@ -1921,6 +1923,14 @@ class AlpProductosController extends JoshController
     }
 
 
+
+
+    
+
+
+
+
+
      public function postprecio(Request $request)
     {
 
@@ -2400,7 +2410,47 @@ class AlpProductosController extends JoshController
 
 
 
+    public function ancheta($id)
+    {
+        // Grab all the blogs
 
+
+
+        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+      
+
+      $producto=AlpProductos::where('id', $id)->first();
+        
+
+        if ($producto->tipo_producto==3) {
+          # code...
+        }else{
+
+          $data = array('tipo_producto' => 3 );
+
+          $producto->update($data);
+        }
+
+
+        $categorias=AlpAnchetasCategorias::where('id_ancheta', $id)->get();
+
+        foreach ($categorias as $c) {
+
+          $productos=AlpAnchetasProductos::where('id_ancheta_productos', $c->id)->get();
+
+          $c->productos=$productos;
+
+          # code...
+        }
+
+
+
+        // Show the page
+        return view('admin.productos.ancheta', compact('producto', 'categorias'));
+    }
 
 
 
