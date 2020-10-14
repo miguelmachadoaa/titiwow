@@ -172,7 +172,7 @@
 
                         @if($ban_promocion==1)
 
-                        <h3>Obsequios por promociones</h3>
+                        <h3>Gratis por mis Compras</h3>
 
                         @foreach($cart as $row)
 
