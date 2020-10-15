@@ -49,7 +49,7 @@ Configuracion Ancheta
                 <div style="margin-bottom: 1em; margin-top: 1em;" class="row">
 
 
-                     <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" action="{{ secure_url('admin/productos/'.$producto->id.'storeancheta') }}">
+                     <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" action="{{ secure_url('admin/productos/'.$producto->id.'/storecategoria') }}">
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
 
@@ -145,9 +145,12 @@ Configuracion Ancheta
                                 {{$c->nombre_categoria}}
                             </td>
                             <td>
-                                <button class="btn btn-info">Editar</button>
-                                
+
                                 <a  href="{{secure_url('productos/'.$c->id.'/gestionarancheta')}}" class="btn btn-primary">Gestionar</a>
+
+                                <a  href="{{secure_url('productos/'.$c->id.'/eliminarcategoria')}}" class="btn btn-danger"><i class=" fa fa-trash"></i></a>
+
+                                <a  href="{{secure_url('productos/'.$c->id.'/editarcategoria')}}" class="btn btn-info"><i class=" fa fa-trash"></i></a>
 
                             </td>
                         </tr>

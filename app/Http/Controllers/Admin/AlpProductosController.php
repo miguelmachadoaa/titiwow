@@ -2453,6 +2453,132 @@ class AlpProductosController extends JoshController
     }
 
 
+     public function storecategoria(Request $request)
+    {
+        // Grab all the blogs
+
+
+
+      $data = array(
+        'id_ancheta' => $request->id_ancheta, 
+        'nombre_categoria' => $request->nombre_categoria, 
+      );
+
+
+
+      $c=AlpAnchetasCategorias::create($data);
+
+      //$producto=AlpProductos::where('id', $id)->first();
+        
+
+        if (isset($c->id)) {
+          return redirect('admin/productos/'.$request->id_ancheta.'/ancheta')->with('success', 'Registro creado satisfactoriamente');
+        }else{
+
+           return redirect('admin/productos/'.$request->id_ancheta.'/ancheta')->with('error', 'No Error al guardar intenta nuevamente ');
+
+        }
+
+
+
+        // Show the page
+        return view('admin.productos.editarcategoria', compact('producto', 'categorias'));
+    }
+
+
+
+
+
+    public function editarcategoria($id)
+    {
+        // Grab all the blogs
+
+
+
+        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+      
+
+      $producto=AlpProductos::where('id', $id)->first();
+        
+
+        if ($producto->tipo_producto==3) {
+          # code...
+        }else{
+
+          $data = array('tipo_producto' => 3 );
+
+          $producto->update($data);
+        }
+
+
+        $categorias=AlpAnchetasCategorias::where('id_ancheta', $id)->get();
+
+        foreach ($categorias as $c) {
+
+          $productos=AlpAnchetasProductos::where('id_ancheta_categoria', $c->id)->get();
+
+          $c->productos=$productos;
+
+          # code...
+        }
+
+
+
+        // Show the page
+        return view('admin.productos.editarcategoria', compact('producto', 'categorias'));
+    }
+
+
+    public function eliminarcategoria($id)
+    {
+        // Grab all the blogs
+
+
+
+        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+      
+
+      $producto=AlpProductos::where('id', $id)->first();
+        
+
+        if ($producto->tipo_producto==3) {
+          # code...
+        }else{
+
+          $data = array('tipo_producto' => 3 );
+
+          $producto->update($data);
+        }
+
+
+        $categorias=AlpAnchetasCategorias::where('id_ancheta', $id)->get();
+
+        foreach ($categorias as $c) {
+
+          $productos=AlpAnchetasProductos::where('id_ancheta_categoria', $c->id)->get();
+
+          $c->productos=$productos;
+
+          # code...
+        }
+
+
+
+        // Show the page
+        return view('admin.productos.editarcategoria', compact('producto', 'categorias'));
+    }
+
+
+
+
+
+
 
     
 }

@@ -231,7 +231,7 @@
 
 
 
-                                <div class="panel panel-success  @if($producto->tipo_producto==1) {{ 'hidden' }}  @endif " id="panelComboProductos">
+                                <div class="panel panel-success  @if($producto->tipo_producto==2) @else {{ 'hidden' }}  @endif " id="panelComboProductos">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a href="#addProductos" data-parent="#accordion-demo" data-toggle="collapse">Incluir Productos</a>

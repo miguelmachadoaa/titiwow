@@ -225,9 +225,13 @@ Route::post('productos/postgrid/', ['as'=> 'productos.postgrid', 'uses' => 'Admi
     Route::get('productos/{id}/ancheta', array('as' => 'productos.ancheta', 'uses' => 'Admin\AlpProductosController@ancheta'));
 
 
-     Route::post('productos/{id}/storeancheta', array('as' => 'productos.storeancheta', 'uses' => 'Admin\AlpProductosController@storeancheta'));
+     Route::post('productos/{id}/storecategoria', array('as' => 'productos.storecategoria', 'uses' => 'Admin\AlpProductosController@storecategoria'));
 
      Route::get('productos/{id}/gestionarancheta', array('as' => 'productos.gestionarancheta', 'uses' => 'Admin\AlpProductosController@gestionarancheta'));
+
+     Route::get('productos/{id}/editarcategoria', array('as' => 'productos.editarcategoria', 'uses' => 'Admin\AlpProductosController@editarcategoria'));
+
+     Route::get('productos/{id}/eliminarcategoria', array('as' => 'productos.eliminarcategoria', 'uses' => 'Admin\AlpProductosController@eliminarcategoria'));
 
 
 
