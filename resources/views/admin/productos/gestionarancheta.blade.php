@@ -1,7 +1,7 @@
 @extends('admin/layouts/default')
 
 @section('title')
-Configuracion Ancheta
+Agregar Productos a Categoria de Ancheta 
 @parent
 @stop
 
@@ -25,7 +25,7 @@ Configuracion Ancheta
                 Escritorio
             </a>
         </li>
-        <li>Configuracion Ancheta</li>
+        <li>Agregar Productos a Categoria de Ancheta </li>
         <li class="active">Listado de Productos</li>
     </ol>
 </section>
@@ -36,7 +36,7 @@ Configuracion Ancheta
         <div class="panel panel-primary ">
             <div class="panel-heading clearfix">
                 <h4 class="panel-title pull-left"> <i class="livicon" data-name="list-ul" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                    Configuracion Ancheta
+                    Agregar Productos a Categoria de Ancheta 
                 </h4>
                 <div class="pull-right">
                     
@@ -49,25 +49,34 @@ Configuracion Ancheta
                 <div style="margin-bottom: 1em; margin-top: 1em;" class="row">
 
 
-                     <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" action="{{ secure_url('admin/productos/'.$producto->id.'/storecategoria') }}">
+                     <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" action="{{ secure_url('admin/productos/'.$categoria->id.'/storeproductoancheta') }}">
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
 
-                             <input type="hidden" name="id_ancheta" id="id_ancheta" value="{{$producto->id}}">
+                             <input type="hidden" name="id_ancheta_categoria" id="id_ancheta_categoria" value="{{$categoria->id}}">
                           
                              <div class="form-group {{ $errors->
-                            first('nombre_categoria', 'has-error') }}">
-                            <label for="title" class="col-sm-2 control-label">
-                                Nombre Categoria
-                            </label>
-                            <div class="col-sm-5">
-                                <input type="text" id="nombre_categoria" name="nombre_categoria" class="form-control" placeholder="Nombre de Categoria"
-                                       value="">
-                            </div>
-                            <div class="col-sm-4">
-                                {!! $errors->first('nombre_categoria', '<span class="help-block">:message</span> ') !!}
-                            </div>
-                        </div>
+                                first('id_producto', 'has-error') }}">
+                                <label for="title" class="col-sm-2 control-label">
+                                    Seleccione el producto 
+                                </label>
+                                <div class="col-sm-5">
+                                    
+                                    <select id="id_producto" name="id_producto" class="form-control select2">
+
+                                        <option value="">Seleccione</option>
+
+                                        @foreach($productos as $lp)
+
+                                        <option      value="{{ $lp->id }}">
+                                                {{ $lp->nombre_producto.' '.$lp->referencia_producto}}</option>
+                                        @endforeach
+                                        
+                                      
+                                    </select>
+                                </div>
+                                
+                            </div> 
 
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
@@ -128,38 +137,38 @@ Configuracion Ancheta
 
 
 
-                    @if(count($categorias ))
+                    @if(count($productos ))
 
                     <table class="table">
                         <tr>
                             
                             <th>Id</th>
-                            <th>Categoria</th>
-                            <th>Cantidad de Productos</th>
+                            <td>Imagen</td>
+                            <th>Nombre Producto</th>
+                            <td>Referencia</td>
                             <th>Accion</th>
                         </tr>
 
 
-                        @foreach($categorias as $c )
+                        @foreach($producto_ancheta as $pro )
 
                         <tr>
-                            <td>{{$c->id}}</td>
+                            <td>{{$pro->id}}</td>
                             <td>
-                                {{$c->nombre_categoria}}
+                                <img src='{{secure_url('/uploads/productos/60/'.$pro->imagen_producto)}}' height='60px'>
                             </td>
 
-                            <td>{{count($c->productos)}}</td>
+                            <td>
+                                {{$pro->nombre_producto}}
+                            </td>
+
+                            <td>
+                                {{$pro->referencia_producto}}
+                            </td>
+
                             <td>
 
-
-                                
-
-
-                                <a  href="{{secure_url('admin/productos/'.$c->id.'/gestionarancheta')}}" class="btn btn-success">Gestionar</i></a>
-
-                                <a  href="{{secure_url('admin/productos/'.$c->id.'/eliminarcategoria')}}" class="btn btn-danger"><i class=" fa fa-trash"></i></a>
-
-                                <a  href="{{secure_url('admin/productos/'.$c->id.'/editarcategoria')}}" class="btn btn-info"><i class=" fa fa-pencil"></i></a>
+                                <a  href="{{secure_url('admin/productos/'.$pro->id.'/eliminarproductoacheta')}}" class="btn btn-danger"><i class=" fa fa-trash"></i></a>
 
                             </td>
                         </tr>

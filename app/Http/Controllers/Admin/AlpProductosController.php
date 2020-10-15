@@ -7,7 +7,12 @@ use App\Http\Requests\CargaRequest;
 use App\Http\Requests\PrecioBaseRequest;
 use App\Http\Requests\ProductosRequest;
 use App\Http\Requests\ProductosUpdateRequest;
+
 use App\Http\Requests\ExcelUploadRequest;
+use App\Http\Requests\AnchetaCategoriasRequest;
+use App\Http\Requests\AnchetaProductosRequest;
+
+
 use App\Models\AlpProductos;
 use App\Models\AlpProductosRelacionados;
 use App\Models\AlpCategorias;
@@ -2453,7 +2458,7 @@ class AlpProductosController extends JoshController
     }
 
 
-     public function storecategoria(Request $request)
+     public function storecategoria(AnchetaCategoriasRequest $request)
     {
         // Grab all the blogs
 
@@ -2489,46 +2494,34 @@ class AlpProductosController extends JoshController
 
 
 
-    public function editarcategoria($id)
+    public function editarcategoria( $id)
     {
         // Grab all the blogs
 
 
-
-        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
-
-           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
-        }
-      
-
-      $producto=AlpProductos::where('id', $id)->first();
-        
-
-        if ($producto->tipo_producto==3) {
-          # code...
-        }else{
-
-          $data = array('tipo_producto' => 3 );
-
-          $producto->update($data);
-        }
-
-
-        $categorias=AlpAnchetasCategorias::where('id_ancheta', $id)->get();
-
-        foreach ($categorias as $c) {
-
-          $productos=AlpAnchetasProductos::where('id_ancheta_categoria', $c->id)->get();
-
-          $c->productos=$productos;
-
-          # code...
-        }
-
+      $categoria=AlpAnchetasCategorias::where('id', $id)->first();
 
 
         // Show the page
-        return view('admin.productos.editarcategoria', compact('producto', 'categorias'));
+        return view('admin.productos.editarcategoria', compact('categoria'));
+    }
+
+
+    public function updatecategoria(AnchetaCategoriasRequest $request, $id)
+    {
+        // Grab all the blogs
+
+
+      $categoria=AlpAnchetasCategorias::where('id', $id)->first();
+
+      $data = array('nombre_categoria' => $request->nombre_categoria );
+
+
+      $categoria->update($data);
+
+
+        // Show the page
+      return redirect('admin/productos/'.$request->id_ancheta.'/ancheta')->with('success', 'Registro creado satisfactoriamente');
     }
 
 
@@ -2536,43 +2529,127 @@ class AlpProductosController extends JoshController
     {
         // Grab all the blogs
 
+       $categoria=AlpAnchetasCategorias::where('id', $id)->first();
+
+       if (isset($categoria->id)) {
+
+         $id_ancheta=$categoria->id_ancheta;
+
+         $categoria->delete();
+
+          return redirect('admin/productos/'.$id_ancheta.'/ancheta')->with('success', 'Registro eliminado satisfactoriamente');
 
 
-        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+       }else{
 
-           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
-        }
-      
-
-      $producto=AlpProductos::where('id', $id)->first();
+            return back()->with('error', 'No se encontro el registro ');
+       }
         
 
-        if ($producto->tipo_producto==3) {
-          # code...
+
+       
+
+   return redirect('admin/productos/'.$request->id_ancheta.'/ancheta')->with('success', 'Registro creado satisfactoriamente');
+
+        
+    }
+
+
+
+
+
+    public function gestionarancheta($id)
+    {
+        // Grab all the blogs
+
+
+
+        $categoria=AlpAnchetasCategorias::where('id', $id)->first();
+
+
+          $producto_ancheta=AlpAnchetasProductos::select('alp_ancheta_productos.*', 'alp_productos.nombre_producto as nombre_producto', 'alp_productos.imagen_producto as imagen_producto', 'alp_productos.referencia_producto as referencia_producto')
+          ->join('alp_productos', 'alp_ancheta_productos.id_producto','=', 'alp_productos.id')
+          ->where('id_ancheta_categoria', $categoria->id)->get();
+
+
+
+
+
+          $productos=AlpProductos::get();
+
+
+        // Show the page
+        return view('admin.productos.gestionarancheta', compact('producto_ancheta', 'categoria', 'productos'));
+    }
+
+
+     public function storeproductoancheta(AnchetaProductosRequest $request)
+    {
+        // Grab all the blogs
+
+
+
+      $data = array(
+        'id_ancheta_categoria' => $request->id_ancheta_categoria, 
+        'id_producto' => $request->id_producto, 
+      );
+
+
+
+      $p=AlpAnchetasProductos::create($data);
+
+      //$producto=AlpProductos::where('id', $id)->first();
+        
+
+        if (isset($p->id)) {
+          return redirect('admin/productos/'.$request->id_ancheta_categoria.'/gestionarancheta')->with('success', 'Registro creado satisfactoriamente');
         }else{
 
-          $data = array('tipo_producto' => 3 );
+           return redirect('admin/productos/'.$request->id_ancheta_categoria.'/gestionarancheta')->with('error', 'No Error al guardar intenta nuevamente ');
 
-          $producto->update($data);
         }
-
-
-        $categorias=AlpAnchetasCategorias::where('id_ancheta', $id)->get();
-
-        foreach ($categorias as $c) {
-
-          $productos=AlpAnchetasProductos::where('id_ancheta_categoria', $c->id)->get();
-
-          $c->productos=$productos;
-
-          # code...
-        }
-
 
 
         // Show the page
         return view('admin.productos.editarcategoria', compact('producto', 'categorias'));
     }
+
+
+
+
+    public function eliminarproductoacheta($id)
+    {
+        // Grab all the blogs
+
+       $categoria=AlpAnchetasProductos::where('id', $id)->first();
+
+       if (isset($categoria->id)) {
+
+         $id_ancheta_categoria=$categoria->id_ancheta_categoria;
+
+         $categoria->delete();
+
+          return redirect('admin/productos/'.$id_ancheta_categoria.'/gestionarancheta')->with('success', 'Registro eliminado satisfactoriamente');
+
+
+       }else{
+
+            return back()->with('error', 'No se encontro el registro ');
+       }
+        
+
+
+       
+
+   return redirect('admin/productos/'.$request->id_ancheta.'/ancheta')->with('success', 'Registro creado satisfactoriamente');
+
+        
+    }
+
+
+
+
+
 
 
 

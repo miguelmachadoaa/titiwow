@@ -227,13 +227,21 @@ Route::post('productos/postgrid/', ['as'=> 'productos.postgrid', 'uses' => 'Admi
 
      Route::post('productos/{id}/storecategoria', array('as' => 'productos.storecategoria', 'uses' => 'Admin\AlpProductosController@storecategoria'));
 
-     Route::get('productos/{id}/gestionarancheta', array('as' => 'productos.gestionarancheta', 'uses' => 'Admin\AlpProductosController@gestionarancheta'));
+     
 
      Route::get('productos/{id}/editarcategoria', array('as' => 'productos.editarcategoria', 'uses' => 'Admin\AlpProductosController@editarcategoria'));
+
+     Route::post('productos/{id}/updatecategoria', array('as' => 'productos.updatecategoria', 'uses' => 'Admin\AlpProductosController@updatecategoria'));
 
      Route::get('productos/{id}/eliminarcategoria', array('as' => 'productos.eliminarcategoria', 'uses' => 'Admin\AlpProductosController@eliminarcategoria'));
 
 
+Route::get('productos/{id}/gestionarancheta', array('as' => 'productos.gestionarancheta', 'uses' => 'Admin\AlpProductosController@gestionarancheta'));
+
+
+Route::post('productos/{id}/storeproductoancheta', array('as' => 'productos.storeproductoancheta', 'uses' => 'Admin\AlpProductosController@storeproductoancheta'));
+
+Route::get('productos/{id}/eliminarproductoacheta', array('as' => 'productos.eliminarproductoacheta', 'uses' => 'Admin\AlpProductosController@eliminarproductoacheta'));
 
 
 

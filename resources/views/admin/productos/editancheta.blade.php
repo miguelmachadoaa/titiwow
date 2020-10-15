@@ -1,7 +1,7 @@
 @extends('admin/layouts/default')
 
 @section('title')
-Configuracion Ancheta
+Editar Categoria
 @parent
 @stop
 
@@ -25,7 +25,7 @@ Configuracion Ancheta
                 Escritorio
             </a>
         </li>
-        <li>Configuracion Ancheta</li>
+        <li>Editar Categoria</li>
         <li class="active">Listado de Productos</li>
     </ol>
 </section>
@@ -36,7 +36,7 @@ Configuracion Ancheta
         <div class="panel panel-primary ">
             <div class="panel-heading clearfix">
                 <h4 class="panel-title pull-left"> <i class="livicon" data-name="list-ul" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                    Configuracion Ancheta
+                    Editar Categoria
                 </h4>
                 <div class="pull-right">
                     
@@ -49,11 +49,11 @@ Configuracion Ancheta
                 <div style="margin-bottom: 1em; margin-top: 1em;" class="row">
 
 
-                     <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" action="{{ secure_url('admin/productos/'.$producto->id.'/storecategoria') }}">
+                     <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" action="{{ secure_url('admin/productos/'.$categoria->id.'/editarcategoria') }}">
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
 
-                             <input type="hidden" name="id_ancheta" id="id_ancheta" value="{{$producto->id}}">
+                             <input type="hidden" name="id_ancheta" id="id_ancheta" value="{{$categoria->id_ancheta}}">
                           
                              <div class="form-group {{ $errors->
                             first('nombre_categoria', 'has-error') }}">
@@ -62,7 +62,7 @@ Configuracion Ancheta
                             </label>
                             <div class="col-sm-5">
                                 <input type="text" id="nombre_categoria" name="nombre_categoria" class="form-control" placeholder="Nombre de Categoria"
-                                       value="">
+                                       value="{{$categoria->nombre_categoria}}">
                             </div>
                             <div class="col-sm-4">
                                 {!! $errors->first('nombre_categoria', '<span class="help-block">:message</span> ') !!}
@@ -135,7 +135,6 @@ Configuracion Ancheta
                             
                             <th>Id</th>
                             <th>Categoria</th>
-                            <th>Cantidad de Productos</th>
                             <th>Accion</th>
                         </tr>
 
@@ -147,19 +146,13 @@ Configuracion Ancheta
                             <td>
                                 {{$c->nombre_categoria}}
                             </td>
-
-                            <td>{{count($c->productos)}}</td>
                             <td>
 
+                                <a  href="{{secure_url('productos/'.$c->id.'/gestionarancheta')}}" class="btn btn-primary">Gestionar</a>
 
-                                
+                                <a  href="{{secure_url('productos/'.$c->id.'/eliminarcategoria')}}" class="btn btn-danger"><i class=" fa fa-trash"></i></a>
 
-
-                                <a  href="{{secure_url('admin/productos/'.$c->id.'/gestionarancheta')}}" class="btn btn-success">Gestionar</i></a>
-
-                                <a  href="{{secure_url('admin/productos/'.$c->id.'/eliminarcategoria')}}" class="btn btn-danger"><i class=" fa fa-trash"></i></a>
-
-                                <a  href="{{secure_url('admin/productos/'.$c->id.'/editarcategoria')}}" class="btn btn-info"><i class=" fa fa-pencil"></i></a>
+                                <a  href="{{secure_url('productos/'.$c->id.'/editarcategoria')}}" class="btn btn-info"><i class=" fa fa-pencil"></i></a>
 
                             </td>
                         </tr>
@@ -168,11 +161,40 @@ Configuracion Ancheta
                         @endforeach  
                         
 
+
+
                     </table>
+
+
+
+
 
                     @else
 
+
                     @endif 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
