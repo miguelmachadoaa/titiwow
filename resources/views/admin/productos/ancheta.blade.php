@@ -49,20 +49,11 @@ Configuracion Ancheta
                 <div style="margin-bottom: 1em; margin-top: 1em;" class="row">
 
 
-
-
-
-
-
-
-
-
-
-                     <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" action="{{ secure_url('admin/categorias/'.$categoria->id.'/storeson') }}">
+                     <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" action="{{ secure_url('admin/productos/'.$producto->id.'storeancheta') }}">
                             <!-- CSRF Token -->
                             {{ csrf_field() }}
 
-                             <input type="hidden" name="id_categoria_padre" id="id_categoria_padre" value="{{$categoria->id}}">
+                             <input type="hidden" name="id_ancheta" id="id_ancheta" value="{{$producto->id}}">
                           
                              <div class="form-group {{ $errors->
                             first('nombre_categoria', 'has-error') }}">
@@ -111,6 +102,106 @@ Configuracion Ancheta
                  
             </div>
         </div>
+ </div>
+
+ <div class="row">
+     
+
+
+     <div class="panel panel-primary ">
+            <div class="panel-heading clearfix">
+                <h4 class="panel-title pull-left"> <i class="livicon" data-name="list-ul" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                    Categorias 
+                </h4>
+                <div class="pull-right">
+                    
+                </div>
+            </div>
+            <br />
+            
+            <div class="panel-body table-responsive">
+
+                <div style="margin-bottom: 1em; margin-top: 1em;" class="row">
+
+
+
+
+
+
+                    @if(count($categorias ))
+
+                    <table class="table">
+                        <tr>
+                            
+                            <th>Categoria</th>
+                            <th>Accion</th>
+                        </tr>
+
+
+                        @foreach($categorias as $c )
+
+                        <tr>
+                            <td>
+                                {{$c->nombre_categoria}}
+                            </td>
+                            <td>
+                                <button class="btn btn-info">Editar</button>
+                                
+                                <a  href="{{secure_url('productos/'.$c->id.'/gestionarancheta')}}" class="btn btn-primary">Gestionar</a>
+
+                            </td>
+                        </tr>
+
+
+                        @endforeach  
+                        
+
+
+
+                    </table>
+
+
+
+
+
+                    @else
+
+
+                    @endif 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+                 
+            </div>
+        </div>
+
+
+
  </div>
 </section>
 

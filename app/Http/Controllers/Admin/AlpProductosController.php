@@ -2439,7 +2439,7 @@ class AlpProductosController extends JoshController
 
         foreach ($categorias as $c) {
 
-          $productos=AlpAnchetasProductos::where('id_ancheta_productos', $c->id)->get();
+          $productos=AlpAnchetasProductos::where('id_ancheta_categoria', $c->id)->get();
 
           $c->productos=$productos;
 

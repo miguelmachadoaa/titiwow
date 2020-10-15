@@ -82,6 +82,8 @@
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/cart.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/font-awesome.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/tabbular.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/frontend/verticalform.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/bootstrap-rating/bootstrap-rating.css') }}">
     <!--end of page level css-->
 
@@ -230,94 +232,162 @@
         </div>
         <!--item view end-->
         <!--item desciption start-->
+
+        <div class="widget-body">
         <div class="row">
+
+
+            
+
             <div class="col-sm-12">
-                <!-- Tabbable-Panel Start -->
-                <div class="tabbable-panel">
-                    <!-- Tabbablw-line Start -->
-                    <div class="tabbable-line">
-                        <!-- Nav Nav-tabs Start -->
-                        <ul class="nav nav-tabs ">
-                            <li class="active">
-                                <a href="#tab_default_1" data-toggle="tab">
-                                Descripción </a>
-                            </li>
-                           
-                        </ul>
-                        <!-- //Nav Nav-tabs End -->
-                        <!-- Tab-content Start -->
-                        <div class="tab-content ">
+                
+                <h1  class="text-primary tetx-center" id="titulo_single">Arma tu ancheta  </h1>
 
-                            @if($producto->enlace_youtube==null)
-
-                            @else
-
-                            <div class=" col-sm-6 col-xs-12 col-centered">
-                                <div class="video-responsive">
-                                    <iframe src="https://www.youtube.com/embed/{{$producto->enlace_youtube}}" frameborder="0" width="100%" height="100%"  allowfullscreen></iframe> 
-                               </div>  
-                            </div>
-
-                            <div class="clearfix"></div>
-
-                            <br />
-
-                            @endif
-
-
-                            <div class="tab-pane active" id="tab_default_1">
-                                <p>{{ $producto->descripcion_larga}}</p>
-                            </div>
-                            
-                            <!-- Tab-content End -->
-                        </div>
-                        <!-- //Tabbable-line End -->
-                    </div>
-                    <!-- Tabbable_panel End -->
-                </div>
             </div>
-        </div>
-        <!-- Productos Relacionados -->
-        <div class="products">
-        <div class="row">
-        @if(count($relacionados)>0)
 
-        @if(count($prods)>0)
-        <div class="col-md-12 col-sm-12 text-center">
+            <!--div class="col-sm-3">
 
-                    <h3 class="catego">También te puede Interesar</h3>
+                <div class="vrtwiz">
 
-                    <div class="separador"></div>
+                    <ul class="verticalwiz">
+
+                        @foreach($anchetas_categorias as $ac)
+
+                            <li class="@if($loop->index==0) active @endif" data-target="#step{{$loop->index+1}}">
+                                <a href="#tab{{$loop->index+1}}" data-toggle="tab" class="active"> <span class="step">Paso {{$loop->index+1}}</span> <span class="title">{{$ac->nombre_categoria}}</span> </a>
+                            </li>
+
+                        @endforeach
+
+                    </ul>
+
+                    <div class="clearfix"></div>
                 </div>
+                
+            </div-->
 
-            @foreach($prods as $producto)
 
-                @if(isset($inventario[$producto->id]))
 
-                    @if($inventario[$producto->id]>0)
+                <div class="col-sm-12 col-md-12">
+                                <div class="rightab">
+                                    <div class="tab-content">
 
-                        @include('frontend.producto')
+                    @foreach($anchetas_categorias as $ac)
 
-                        @if ($loop->iteration % 4 == 0)
+                    <div class="tab-pane @if($loop->index==0) active @endif" id="tab{{$loop->index+1}}">
+                                            <br>
+                                            <h3><strong>Paso {{$loop->index+1}}  </strong> - Seleccione {{$ac->nombre_categoria}}</h3>
+
+                                        @foreach($ac->productos as $p)
+
+                                        <div class="col-sm-4" style=" ">
+
+                                            <div class="row" style="">
+                                                
+                                                <div class="col-sm-5" style="padding: 0;margin: 0;">
+                                                     <a href="{{ route('producto', [$p->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/250/'.$p->imagen_producto }}" alt="{{ $p->nombre_producto }}" title="{{ $p->nombre_producto }}" class="img-responsive"></a>
+
+                                                </div>
+
+                                                <div class="col-sm-7">
+
+                                                    <p> {{$p->nombre_producto}}</p>
+
+                                                    <a href="{{ route('producto', [$p->slug]) }}" ><h6 class="text-align:center;">{{ $p->presentacion_producto }}</h6></a>
+
+                                                    <!--button type="button" class="btn btn-info ">Seleccionar</button-->
+                                                    
+                                                </div>
+                                            </div>
+
+
+
+                                        
+
+                                           
+                                       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        
+
+                                           
+
+                                         
+
+
+                                        </div>
+
+                                        
+
+
+                                        @endforeach
+
+                                         <div class="form-actions">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <ul class="pager wizard no-margin">
+                                                            @if($loop->index==0)
+
+                                                            <li class="previous disabled">
+                                                                <a href="#tab{{$loop->index}}" data-toggle="tab" class="" class="btn btn-lg btn-primary"> Anterior </a>
+                                                            </li>
+                                                            @else
+
+                                                            <li class="previous ">
+                                                                <a href="#tab{{$loop->index}}" data-toggle="tab" class="" class="btn btn-lg btn-primary"> Anterior </a>
+                                                            </li>
+
+
+
+                                                            @endif
+                                                            
+                                                            <li class="next">
+                                                                <a href="#tab{{$loop->index+2}}" data-toggle="tab" class="" class="btn btn-lg btn-primary"> Siguiente </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                         </div>
+                                        
+                                            
+                                        
+                                   
+
+                    @endforeach
+
+                     </div>
+
+                                </div>
 
                             </div>
-                            
-                            <div class="row">
-                        @endif
-                    
-                    @endif
+                
 
-                @endif
-            @endforeach
-           
-       
-        @endif
-        @endif
-
-    </div>
-    </div>
-<!-- Productos Relacionados -->
         
+    </div>
+    </div>
+
+
     </div>
     <!-- //Container Section End -->
 
@@ -363,6 +433,17 @@
     <script type="text/javascript" src="{{ secure_asset('assets/js/cart.js') }}"></script>
 
     <script>
+
+
+        $('.anchetabtn').on('click', function(){
+            id=$(this).data('id');
+
+            $('.anchetapanel').fadeOut('fast', function() { });
+            $('.'+id).fadeIn('fast', function() { });
+        });
+
+
+
         jQuery(document).ready(function () {
             new WOW().init();
         });

@@ -21,6 +21,11 @@ use App\Models\AlpAlmacenProducto;
 use App\Models\AlpDirecciones;
 use App\Models\AlpRolenvio;
 
+use App\Models\AlpAnchetasCategorias;
+use App\Models\AlpAnchetasProductos;
+
+
+
 
 use App\RoleUser;
 use App\State;
@@ -738,18 +743,20 @@ class ProductosFrontController extends Controller
       }
 
 
-      if ($prdoucto->tipo_producto==3) {
+      if ($producto->tipo_producto==3) {
 
 
-        $anchetas_categorias=AlpAnchetasCategorias::where('id_ancheta', $id)->get();
+        $anchetas_categorias=AlpAnchetasCategorias::where('id_ancheta', $producto->id)->get();
 
         foreach ($anchetas_categorias as $c) {
 
-          $productos=AlpAnchetasProductos::where('id_ancheta_productos', $c->id)->get();
+          $productos=AlpProductos::select('alp_productos.*')
+          ->join('alp_ancheta_productos', 'alp_productos.id', '=', 'alp_ancheta_productos.id_producto')
+          ->where('alp_ancheta_productos.id_ancheta_categoria', $c->id)
+          ->get();
 
           $c->productos=$productos;
-
-          # code...
+          
         }
 
 
