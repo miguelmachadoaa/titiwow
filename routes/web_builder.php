@@ -134,9 +134,7 @@ Route::get('admin/empresas/data', 'Admin\AlpEmpresasController@data')->name('emp
 
 Route::get('admin/almacenes/data', 'Admin\AlpAlmacenesController@data')->name('almacenes.data');
 
-Route::get('admin/almacenes/
-
-    {id}/datagestionar', 'Admin\AlpAlmacenesController@datagestionar')->name('almacenes.datagestionar');
+Route::get('admin/almacenes/{id}/datagestionar', 'Admin\AlpAlmacenesController@datagestionar')->name('almacenes.datagestionar');
 
 Route::get('admin/almacenes/{id}/delproducto', 'Admin\AlpAlmacenesController@delproducto')->name('almacenes.delproducto');
 
