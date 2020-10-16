@@ -329,8 +329,29 @@
 
 
 
+                             <div class="panel panel-success  @if($producto->tipo_producto==3) @else {{ 'hidden' }}  @endif " id="panelAnchetaProductos">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a href="#addAncheta" data-parent="#accordion-demo" data-toggle="collapse">Configurar Ancheta</a>
+                                    </h4>
+                                </div>
+                                <div id="addAncheta" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                        
+                                            <!--a class="btn btn-primary" href="{{secure_url('admin/productos/'.$producto->id.'/ancheta')}}">Configurar Ancheta</a-->
 
 
+                                            <h3>Debes Guardar el producto parar poder gestionar la ancheta.</h3>
+
+                                            <div class="acc-wizard-step"></div>
+
+                                             <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
+                                        
+                                    </div>
+
+                                </div>
+
+                            </div>
 
 
 
@@ -1606,22 +1627,43 @@ $('#productosForm').keypress(
 
 
 
-$('#tipo_producto').change(function(){
+   $('#tipo_producto').change(function(){
 
-    if ($(this).val()=='1') {
+    if ($(this).val()=='2') {
 
-        $('#panelComboProductos').addClass('hidden');
-
-         $('#panel_combo').attr('href', '#addwizard');
-
-    }else{
-
-        $('#panelComboProductos').removeClass('hidden');
+         $('#panelComboProductos').removeClass('hidden');
 
         $('#panel_combo').attr('href', '#addProductos');
 
+       
+
+    }else{
+
+       
+         $('#panelComboProductos').addClass('hidden');
+
+         $('#panel_combo').attr('href', '#addwizard');
 
     }
+
+
+
+    if ($(this).val()=='3') {
+
+        $('#panelAnchetaProductos').removeClass('hidden');
+
+        $('#panel_combo').attr('href', '#addAncheta');
+
+    }else{
+
+        $('#panelAnchetaProductos').addClass('hidden');
+
+         $('#panel_combo').attr('href', '#addwizard');
+
+    }
+
+
+
 
 });
 
