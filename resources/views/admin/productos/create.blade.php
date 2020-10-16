@@ -329,7 +329,7 @@
 
 
 
-                             <div class="panel panel-success  @if($producto->tipo_producto==3) @else {{ 'hidden' }}  @endif " id="panelAnchetaProductos">
+                             <div class="panel panel-success hidden " id="panelAnchetaProductos">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a href="#addAncheta" data-parent="#accordion-demo" data-toggle="collapse">Configurar Ancheta</a>
@@ -338,7 +338,7 @@
                                 <div id="addAncheta" class="panel-collapse collapse in">
                                     <div class="panel-body">
                                         
-                                            <!--a class="btn btn-primary" href="{{secure_url('admin/productos/'.$producto->id.'/ancheta')}}">Configurar Ancheta</a-->
+                                            
 
 
                                             <h3>Debes Guardar el producto parar poder gestionar la ancheta.</h3>

@@ -2467,6 +2467,7 @@ class AlpProductosController extends JoshController
       $data = array(
         'id_ancheta' => $request->id_ancheta, 
         'nombre_categoria' => $request->nombre_categoria, 
+        'cantidad_minima' => $request->cantidad_minima
       );
 
 
@@ -2514,11 +2515,12 @@ class AlpProductosController extends JoshController
 
       $categoria=AlpAnchetasCategorias::where('id', $id)->first();
 
-      $data = array('nombre_categoria' => $request->nombre_categoria );
-
+      $data = array(
+        'nombre_categoria' => $request->nombre_categoria, 
+        'cantidad_minima' => $request->cantidad_minima
+      );
 
       $categoria->update($data);
-
 
         // Show the page
       return redirect('admin/productos/'.$request->id_ancheta.'/ancheta')->with('success', 'Registro creado satisfactoriamente');

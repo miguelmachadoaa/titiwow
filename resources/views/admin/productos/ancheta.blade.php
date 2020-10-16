@@ -18,7 +18,7 @@ Configuracion Ancheta
 {{-- Page content --}}
 @section('content')
 <section class="content-header">
-    <h1>Precios de Productos</h1>
+    <h1>Configuracion Ancheta</h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ secure_url('admin') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
@@ -57,17 +57,37 @@ Configuracion Ancheta
                           
                              <div class="form-group {{ $errors->
                             first('nombre_categoria', 'has-error') }}">
-                            <label for="title" class="col-sm-2 control-label">
-                                Nombre Categoria
-                            </label>
-                            <div class="col-sm-5">
-                                <input type="text" id="nombre_categoria" name="nombre_categoria" class="form-control" placeholder="Nombre de Categoria"
-                                       value="">
+                                <label for="title" class="col-sm-2 control-label">
+                                    Nombre Categoria
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="nombre_categoria" name="nombre_categoria" class="form-control" placeholder="Nombre de Categoria"
+                                           value="">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('nombre_categoria', '<span class="help-block">:message</span> ') !!}
+                                </div>
                             </div>
-                            <div class="col-sm-4">
-                                {!! $errors->first('nombre_categoria', '<span class="help-block">:message</span> ') !!}
+
+
+
+                            <div class="form-group {{ $errors->
+                            first('cantidad_minima', 'has-error') }}">
+                                <label for="title" class="col-sm-2 control-label">
+                                    Cantidad minima a seleccionar
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="number" step="1" min="1" id="cantidad_minima" name="cantidad_minima" class="form-control" placeholder="Cantidad minima a seleccionar"
+                                           value="">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('cantidad_minima', '<span class="help-block">:message</span> ') !!}
+                                </div>
                             </div>
-                        </div>
+
+
+
+
 
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">

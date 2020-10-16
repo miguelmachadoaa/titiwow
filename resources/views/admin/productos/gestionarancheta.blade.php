@@ -18,7 +18,7 @@ Agregar Productos a Categoria de Ancheta
 {{-- Page content --}}
 @section('content')
 <section class="content-header">
-    <h1>Precios de Productos</h1>
+    <h1>Agregar Productos a Categoria de Ancheta </h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ secure_url('admin') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
