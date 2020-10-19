@@ -596,10 +596,18 @@ class AlpCartController extends JoshController
                        }]
        }' ;
 
-       
+       $pse=[];
 
+       
+        try {
 
           $pse = MP::post("/v1/payments",$preference_data);
+          
+        } catch (Exception $e) {
+          
+        }
+
+          
 
           //$user_id = Sentinel::getUser()->id;
          

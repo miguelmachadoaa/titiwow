@@ -274,22 +274,21 @@ class FrontEndController extends JoshController
 
             foreach ($datos as $dato ) {
 
-              activity()
+          activity()
           ->withProperties($dato)->log('FrontEndController/getCompramas 2.1');
 
-           activity()
+          activity()
           ->withProperties($dato['stock'])->log('FrontEndController/getCompramas2');
 
               if ($dato['stock']>0) {
 
                 $p=AlpProductos::where('referencia_producto', $dato['sku'])->first();
 
-                  activity()
-                    ->withProperties($p)->log('FrontEndController/getCompramas 2.2');
+                //  activity()->withProperties($p)->log('FrontEndController/getCompramas 2.2');
 
                 if (isset($p->id)) {
 
-                  $r='true';
+                    $r='true';
 
                     $data = array(
                       'id_almacen' => $almacen, 
@@ -299,39 +298,19 @@ class FrontEndController extends JoshController
 
                     AlpAlmacenProducto::create($data);
 
-                    if (isset($inventario[$p->id])) {
+                    AlpInventario::where('id_producto', $p->id)->where('id_almacen', $almacen)->delete();
 
-                      AlpInventario::where('id_producto', $p->id)->where('id_almacen', $almacen)->delete();
-                      
+                    $data_inventario_nuevo = array(
+                        'id_almacen' => $almacen, 
+                        'id_producto' => $p->id, 
+                        'cantidad' => $dato['stock'], 
+                        'operacion' => 1, 
+                        'notas' => 'Actualización de inventario por cron compramas', 
+                        'id_user' => 1 
+                    );
 
-                        $data_inventario_nuevo = array(
-                            'id_almacen' => $almacen, 
-                            'id_producto' => $p->id, 
-                            'cantidad' => $dato['stock'], 
-                            'operacion' => 1, 
-                            'notas' => 'Actualización de inventario por cron compramas', 
-                            'id_user' => 1 
-                        );
-
-                        AlpInventario::create($data_inventario_nuevo);
-
-                    }else{
-
-                        $data_inventario_nuevo = array(
-                            'id_almacen' => $almacen, 
-                            'id_producto' => $p->id, 
-                            'cantidad' => $dato['stock'], 
-                            'operacion' => 1, 
-                            'notas' => 'Actualización de inventario por cron compramas', 
-                            'id_user' => 1 
-                        );
-
-                        AlpInventario::create($data_inventario_nuevo);
-
-
-                    }
-
-                    # code...
+                    AlpInventario::create($data_inventario_nuevo);
+                   
                 }
 
                 }else{
@@ -814,8 +793,34 @@ class FrontEndController extends JoshController
 
                if ( $role->role_id>'8' || $role->role_id=='13'  || $role->role_id!='15') {
 
+
+                 $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+                  ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+                  ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+                  ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+                  ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+                  ->where('alp_direcciones.id_client', $user->id)
+                  ->where('alp_direcciones.default_address', '=', '1')
+                  ->first();
+
+
+                  if (isset($d->id)) {
+                    
+                  }else{
+
+                     return redirect('misdirecciones')->with('error', 'Debes crear una dirección para completar el proceso de compra..');
+
+                  }
+
+
+
+
                   if ($request->back=='0') {
-                     
+
+
+
+
+
                       return Redirect::route("clientes")->with('success', trans('auth/message.login.success'));
                      
                   }else{
@@ -1056,6 +1061,43 @@ class FrontEndController extends JoshController
 
                     AlpClientes::where('id',$user->id)->update($masterfile);
 
+
+                    if ($request->id_barrio=='0') {
+              # code...
+                      }else{
+
+                        $b=Barrio::where('id', $request->id_barrio)->first();
+
+                        if (isset($b->id)) {
+                          $request->barrio_address=$b->barrio_name;
+                        }
+                      }
+
+                      $direccion = array(
+                          'id_client' => $user->id, 
+                          'city_id' => $request->city_id, 
+                          'id_estructura_address' => $request->id_estructura_address, 
+                          'principal_address' => $request->principal_address,
+                          'secundaria_address' => $request->secundaria_address,
+                          'edificio_address' => $request->edificio_address,
+                          'detalle_address' => $request->detalle_address,
+                          'barrio_address'=> $request->barrio_address,             
+                          'id_barrio'=> $request->id_barrio,             
+                          'id_user' => 0,               
+                      );
+
+                      AlpDirecciones::create($direccion);
+
+
+                       $data_c = array(
+                            'cod_oracle_cliente' =>$request->telefono_cliente,
+                            'estado_masterfile' =>'1'
+                        );
+
+                    $cliente->update($data_c);
+
+
+
                     //add user to 'Embajador' group
                     $role = Sentinel::findRoleById(10);
 
@@ -1109,9 +1151,6 @@ class FrontEndController extends JoshController
 
                     }
 
-                    #dd($empresa);
-
-
                   }
 
                   if (isset($empresa->id)) {
@@ -1123,10 +1162,6 @@ class FrontEndController extends JoshController
                     $empresa=AlpEmpresas::where('dominio',$dominio[1])->first();
 
                   }
-
-
-                 // dd($empresa);
-
                   $id_empresa=0;
 
                   if (isset($empresa->id)) {
@@ -1155,7 +1190,6 @@ class FrontEndController extends JoshController
 
                     $role = Sentinel::findRoleById(9);
 
-
                         $user_history = array(
                         'id_cliente' => $user->id,
                         'estatus_cliente' => "Activado",
@@ -1164,7 +1198,6 @@ class FrontEndController extends JoshController
                          );
 
                         AlpClientesHistory::create($user_history);
-
 
                     }else{
 
@@ -1183,42 +1216,59 @@ class FrontEndController extends JoshController
 
                     $role->users()->attach($user);
 
-
                     $roleusuario=RoleUser::where('user_id', $user->id)->first();
+
+
+
+                     if ($request->id_barrio=='0') {
+              # code...
+                      }else{
+
+                        $b=Barrio::where('id', $request->id_barrio)->first();
+
+                        if (isset($b->id)) {
+                          $request->barrio_address=$b->barrio_name;
+                        }
+                      }
+
+                      $direccion = array(
+                          'id_client' => $user->id, 
+                          'city_id' => $request->city_id, 
+                          'id_estructura_address' => $request->id_estructura_address, 
+                          'principal_address' => $request->principal_address,
+                          'secundaria_address' => $request->secundaria_address,
+                          'edificio_address' => $request->edificio_address,
+                          'detalle_address' => $request->detalle_address,
+                          'barrio_address'=> $request->barrio_address,             
+                          'id_barrio'=> $request->id_barrio,             
+                          'id_user' => 0,               
+                      );
+
+                      AlpDirecciones::create($direccion);
+
+
+                       $data_c = array(
+                            'cod_oracle_cliente' =>$request->telefono_cliente,
+                            'estado_masterfile' =>'1'
+                        );
+
+                    $cliente->update($data_c);
+
 
                      $mensaje='Estamos procesando tu solicitud de registro, te notificaremos una vez haya finalizado el proceso, este proceso puede tomar hasta 24 horas.';
 
-                    Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name,  $configuracion->mensaje_bienvenida, $roleusuario));
+                    
+                     if (filter_var($user->email, FILTER_VALIDATE_EMAIL)) {
+                      
+                       Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name,  $configuracion->mensaje_bienvenida, $roleusuario));
 
-                    Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name,  $configuracion->mensaje_bienvenida, $roleusuario));
+                      Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name,  $configuracion->mensaje_bienvenida, $roleusuario));
+
+                     }
+                    
             }
 
-            if ($request->id_barrio=='0') {
-              # code...
-            }else{
-
-              $b=Barrio::where('id', $request->id_barrio)->first();
-
-              if (isset($b->id)) {
-                $request->barrio_address=$b->barrio_name;
-              }
-            }
-
-
-            $direccion = array(
-                'id_client' => $user->id, 
-                'city_id' => $request->city_id, 
-                'id_estructura_address' => $request->id_estructura_address, 
-                'principal_address' => $request->principal_address,
-                'secundaria_address' => $request->secundaria_address,
-                'edificio_address' => $request->edificio_address,
-                'detalle_address' => $request->detalle_address,
-                'barrio_address'=> $request->barrio_address,             
-                'id_barrio'=> $request->id_barrio,             
-                'id_user' => 0,               
-            );
-
-            AlpDirecciones::create($direccion);
+           
             //if you set $activate=false above then user will receive an activation mail
             if (!$activate) {
                 // Data to be used on the email view
@@ -1227,8 +1277,6 @@ class FrontEndController extends JoshController
                     'activationUrl' => URL::route('activate', [$user->id, Activation::create($user)->code]),
                 ];
                 // Send the activation code through email
-                //Mail::to($user->email)->send(new Register($data));
-                //Redirect to login page
 
                 if ($id_empresa==0) {
                    
@@ -1244,7 +1292,6 @@ class FrontEndController extends JoshController
                          );
 
                     AlpClientesHistory::create($user_history);
-
 
                      $configuracion->mensaje_bienvenida="Ha sido registrado satisfactoriamente bajo la empresa ".$empresa->nombre_empresa.", debe esperar que su Usuario sea activado en un proceso interno, te notificaremos vía email su activación.";
 
@@ -1262,34 +1309,7 @@ class FrontEndController extends JoshController
                 ->causedBy($user)
                 ->log('Nueva Cuenta Creada');
 
-
-           $data_c = array(
-                    'cod_oracle_cliente' =>$request->telefono_cliente,
-                    'estado_masterfile' =>'1'
-                );
-
-
-            $cliente->update($data_c);
-
-         /*   try {
-
-              $ibm=$this->addibm($user);
-
-               $data_u = array(
-                'estatus_ibm' => 1
-              );
-
-              $user->update($data_u);
-              
-            } catch (Exception $e) {
-              
-            }*/
-
-
-            
-
-
-
+          
 
            // return Redirect::route("clientes")->with('success', trans('auth/message.signup.success'));
             return redirect("/?registro=".time())->with('success', trans('Bienvenido a Alpina GO!. Ya puedes comprar todos nuestro productos y promociones. Alpina Alimenta tu vida. '));

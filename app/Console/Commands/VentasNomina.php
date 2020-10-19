@@ -83,7 +83,14 @@ class VentasNomina extends Command
 
             foreach ($correos as $key => $value) {
 
-                Mail::to(trim($value))->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
+
+                if (filter_var($value, FILTER_VALIDATE_EMAIL)) {
+
+                    Mail::to(trim($value))->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
+
+                }
+
+                
             }
 
         }
