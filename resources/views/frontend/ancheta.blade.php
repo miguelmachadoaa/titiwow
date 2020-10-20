@@ -237,8 +237,6 @@
         <div class="row">
 
 
-            
-
             <div class="col-sm-12">
                 
                 <h1  class="text-primary tetx-center" id="titulo_single">Arma tu ancheta  </h1>
@@ -257,83 +255,97 @@
                         
                         <h3><strong>Paso {{$loop->index+1}}  </strong> - Seleccione {{$ac->nombre_categoria}} <small>Debe seleccionar almenos {{$ac->cantidad_minima}}</small></h3>
 
+                            @foreach($ac->productos as $p)
 
-                                        @foreach($ac->productos as $p)
+                            <div class="p{{$p->id}}">
 
-                                        <div class="p{{$p->id}}">
+                                @include('frontend.pancheta')
+                                
+                            </div>
 
-                                            @include('frontend.pancheta')
-                                            
+                            @endforeach
+
+                            <div class="clearfix"></div>
+
+                            <div class="form-actions" style="margin-top: 1em;">
+                                
+                                <div class="row">
+                                    
+                                    <div class="col-sm-6">
+                                        
+                                        <ul class="pager1 wizard no-margin">
+                                            @if($loop->index==0)
+
+                                                <li class="previous disabled">
+                                                    <a href="#tab{{$loop->index}}" 
+                                                       data-cantidad="-1"
+                                                        class="btn  btn-danger btnnetx s{{$ac->id}}"
+                                                        > Anterior </a>
+                                                </li>
+
+                                            @else
+
+                                                <li class="previous ">
+                                                    <a 
+                                                    href="#tab{{$loop->index}}" 
+                                                    class="btn  btn-danger btnnetx s{{$ac->id}}"
+                                                    data-cantidad="-1"
+                                                    > Anterior </a>
+                                                </li>
+
+                                            @endif
+                                                
+                                                
+                                            </ul>
                                         </div>
 
-                                        
+
+                                         <div class="col-sm-6">
+                                            <ul class="pager1 wizard no-margin">
+                                               
+                                                <li class="next">
+                                                    <a 
+                                                    data-id="{{$ac->id}}" 
+                                                    href="#tab{{$loop->index+2}}" 
+                                                    data-cantidad="{{$ac->cantidad_minima}}"
+                                                    class="btn  btn-danger btnnetx s{{$ac->id}}"
+                                                    > Siguiente </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
 
-                                        @endforeach
-
-                                        <div class="clearfix"></div>
-
-
-                                         <div class="form-actions" style="margin-top: 1em;">
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <ul class="pager1 wizard no-margin">
-                                                            @if($loop->index==0)
-
-                                                            <li class="previous disabled">
-                                                                <a href="#tab{{$loop->index}}" 
-                                                                   
-                                                                    class="btn  btn-danger btnnetx s{{$ac->id}}"
-                                                                    > Anterior </a>
-                                                            </li>
-                                                            @else
-
-                                                            <li class="previous ">
-                                                                <a 
-                                                                href="#tab{{$loop->index}}" 
-                                                                class="btn  btn-danger btnnetx s{{$ac->id}}"
-                                                                > Anterior </a>
-                                                            </li>
-
-
-
-                                                            @endif
-                                                            
-                                                            
-                                                        </ul>
-                                                    </div>
-
-
-                                                     <div class="col-sm-6">
-                                                        <ul class="pager1 wizard no-margin">
-                                                           
-                                                            <li class="next">
-                                                                <a 
-                                                                data-id="{{$ac->id}}" 
-                                                                href="#tab{{$loop->index+2}}" 
-                                                                
-                                                                class="btn  btn-danger btnnetx s{{$ac->id}}"
-                                                                > Siguiente </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                         </div>
-                                        
-                                            
-                                        
                                    
-
-                    @endforeach
-
-                     </div>
 
                                 </div>
 
                             </div>
+                                   
+                        @endforeach
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                                        
+                <div class="col-sm-12">
+                    
+                    <div class="errorcantidad">
+                        
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
                 
 
         
@@ -397,11 +409,25 @@
 
             id=$(this).data('id');
 
+            cantidad=$(this).data('cantidad');
+
+            seleccionados=$('.tabpane'+id+" .pseleccionado").toArray().length;
+
+            if (cantidad <=seleccionados) {
+
+                $('.active').removeClass('active');
+
+                $(href).addClass('active');
+
+                $('.errorcantidad').html('');
+
+
+            }else{
+
+                $('.errorcantidad').html('<div class="alert alert-danger">Desbes seleccionar al menos '+cantidad+' productos</div>');
+            }
+
             
-
-            $('.active').removeClass('active');
-
-            $(href).addClass('active');
 
            
         });
