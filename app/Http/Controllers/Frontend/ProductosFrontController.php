@@ -743,6 +743,19 @@ class ProductosFrontController extends Controller
       }
 
 
+
+      if (!\Session::has('cartancheta')) {
+
+          \Session::put('cartancheta',   array());
+
+        }
+
+       $cartancheta= \Session::get('cartancheta');
+
+
+
+
+
       if ($producto->tipo_producto==3) {
 
 
@@ -760,7 +773,7 @@ class ProductosFrontController extends Controller
         }
 
 
-        return \View::make('frontend.ancheta', compact('producto', 'descuento', 'precio','categos', 'states', 'cart', 'total','catprincipal', 'relacionados', 'prods', 'inventario', 'combos', 'role', 'almacen', 'url', 'anchetas_categorias'));
+        return \View::make('frontend.ancheta', compact('producto', 'descuento', 'precio','categos', 'states', 'cart', 'total','catprincipal', 'relacionados', 'prods', 'inventario', 'combos', 'role', 'almacen', 'url', 'anchetas_categorias', 'cartancheta'));
       
 
 

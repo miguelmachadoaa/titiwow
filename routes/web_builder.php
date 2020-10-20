@@ -1295,8 +1295,16 @@ Route::bind('product', function($slug){
     return App\Models\AlpProductos::where('slug', $slug)->first();
 });
 
+
+
+Route::post('cart/addtocartancheta/',['as'=>'cart.addtocartancheta', 'uses'=>'Admin\AlpCartController@addtocartancheta']);
+
+Route::post('cart/deltocartancheta/',['as'=>'cart.deltocartancheta', 'uses'=>'Admin\AlpCartController@deltocartancheta']);
+
 //agregar item al carro
 Route::get('cart/add/{product}',['as'=>'cart.add', 'uses'=>'Admin\AlpCartController@add']);
+
+
 
 //responde json
 Route::get('cart/addtocart/{product}',['as'=>'cart.addtocart', 'uses'=>'Admin\AlpCartController@addtocart']);

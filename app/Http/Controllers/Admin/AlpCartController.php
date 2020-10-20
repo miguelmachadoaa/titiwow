@@ -7560,6 +7560,149 @@ private function addpromocion(){
 
 
 
+  public function addtocartancheta( Request $request)
+    {
+
+          $producto=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
+          ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
+          ->where('alp_productos.slug', $request->slug)
+          ->first();
+
+          //dd($producto);
+
+        if (!\Session::has('cartancheta')) {
+
+          \Session::put('cartancheta',   array());
+
+        }
+
+       $cartancheta= \Session::get('cartancheta');
+
+       $descuento='1'; 
+
+       $error='0'; 
+
+       $precio = array();
+
+       $inv=$this->inventario();
+
+       $almacen=$this->getAlmacen();
+
+
+       if (isset($producto->id)) {
+
+          $producto->precio_oferta=$request->price;
+
+          $producto->cantidad=1;
+
+          $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
+
+
+        if (isset($inv[$producto->id])) {
+
+          if($inv[$producto->id]>=$producto->cantidad){
+
+          $cartancheta[$producto->slug]=$producto;
+
+
+          }else{
+
+            $error="No hay existencia suficiente de este producto";
+
+          }
+
+
+          # code...
+        }else{
+
+            $error="No hay existencia suficiente de este producto, en su ubicacion";
+
+          }
+
+       }else{
+
+        $error="No encontro el producto";
+
+       }
+
+       $p=$producto;
+          
+       \Session::put('cartancheta', $cartancheta);
+       
+        $view= View::make('frontend.pancheta', compact('p',  'cartancheta', 'error'));
+
+        $data=$view->render();
+
+        $res = array('data' => $data);
+
+        return $data;
+      
+      
+    }
+
+
+
+
+
+
+
+public function deltocartancheta( Request $request)
+    {
+
+          $producto=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
+          ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
+          ->where('alp_productos.slug', $request->slug)
+          ->first();
+
+          //dd($producto);
+
+        if (!\Session::has('cartancheta')) {
+
+          \Session::put('cartancheta',   array());
+
+        }
+
+       $cartancheta= \Session::get('cartancheta');
+
+       $descuento='1'; 
+
+       $error='0'; 
+
+       $precio = array();
+
+       if (isset($producto->id)) {
+
+          if (isset($cartancheta[$producto->slug])) {
+
+            unset($cartancheta[$p->slug]);
+
+         }
+         
+       }
+
+       
+
+       $p=$producto;
+          
+       \Session::put('cartancheta', $cartancheta);
+       
+        $view= View::make('frontend.pancheta', compact('p',  'cartancheta', 'error'));
+
+        $data=$view->render();
+
+        $res = array('data' => $data);
+
+        return $data;
+      
+      
+    }
+
+
+
+
+
+
+
 
 
 

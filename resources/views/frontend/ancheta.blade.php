@@ -245,94 +245,25 @@
 
             </div>
 
-            <!--div class="col-sm-3">
-
-                <div class="vrtwiz">
-
-                    <ul class="verticalwiz">
-
-                        @foreach($anchetas_categorias as $ac)
-
-                            <li class="@if($loop->index==0) active @endif" data-target="#step{{$loop->index+1}}">
-                                <a href="#tab{{$loop->index+1}}" data-toggle="tab" class="active"> <span class="step">Paso {{$loop->index+1}}</span> <span class="title">{{$ac->nombre_categoria}}</span> </a>
-                            </li>
-
-                        @endforeach
-
-                    </ul>
-
-                    <div class="clearfix"></div>
-                </div>
-                
-            </div-->
-
-
-
-                <div class="col-sm-12 col-md-12">
+                <div class="row">
                                 <div class="rightab">
                                     <div class="tab-content">
 
                     @foreach($anchetas_categorias as $ac)
 
-                    <div class="tab-pane @if($loop->index==0) active @endif" id="tab{{$loop->index+1}}">
-                                            <br>
-                                            <h3><strong>Paso {{$loop->index+1}}  </strong> - Seleccione {{$ac->nombre_categoria}}</h3>
+                    <div class="tab-pane @if($loop->index==0) active @endif  {{'tabpane'.$ac->id}}     " id="tab{{$loop->index+1}}" data-minima="{{$ac->cantidad_minima}}">
+
+                        <br>
+                        
+                        <h3><strong>Paso {{$loop->index+1}}  </strong> - Seleccione {{$ac->nombre_categoria}} <small>Debe seleccionar almenos {{$ac->cantidad_minima}}</small></h3>
+
 
                                         @foreach($ac->productos as $p)
 
-                                        <div class="col-sm-4" style=" ">
+                                        <div class="p{{$p->id}}">
 
-                                            <div class="row" style="">
-                                                
-                                                <div class="col-sm-5" style="padding: 0;margin: 0;">
-                                                     <a href="{{ route('producto', [$p->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/250/'.$p->imagen_producto }}" alt="{{ $p->nombre_producto }}" title="{{ $p->nombre_producto }}" class="img-responsive"></a>
-
-                                                </div>
-
-                                                <div class="col-sm-7">
-
-                                                    <p> {{$p->nombre_producto}}</p>
-
-                                                    <a href="{{ route('producto', [$p->slug]) }}" ><h6 class="text-align:center;">{{ $p->presentacion_producto }}</h6></a>
-
-                                                    <!--button type="button" class="btn btn-info ">Seleccionar</button-->
-                                                    
-                                                </div>
-                                            </div>
-
-
-
-                                        
-
-                                           
-                                       
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                        
-
-                                           
-
-                                         
-
-
+                                            @include('frontend.pancheta')
+                                            
                                         </div>
 
                                         
@@ -340,27 +271,49 @@
 
                                         @endforeach
 
-                                         <div class="form-actions">
+                                        <div class="clearfix"></div>
+
+
+                                         <div class="form-actions" style="margin-top: 1em;">
                                                 <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <ul class="pager wizard no-margin">
+                                                    <div class="col-sm-6">
+                                                        <ul class="pager1 wizard no-margin">
                                                             @if($loop->index==0)
 
                                                             <li class="previous disabled">
-                                                                <a href="#tab{{$loop->index}}" data-toggle="tab" class="" class="btn btn-lg btn-primary"> Anterior </a>
+                                                                <a href="#tab{{$loop->index}}" 
+                                                                   
+                                                                    class="btn  btn-danger btnnetx s{{$ac->id}}"
+                                                                    > Anterior </a>
                                                             </li>
                                                             @else
 
                                                             <li class="previous ">
-                                                                <a href="#tab{{$loop->index}}" data-toggle="tab" class="" class="btn btn-lg btn-primary"> Anterior </a>
+                                                                <a 
+                                                                href="#tab{{$loop->index}}" 
+                                                                class="btn  btn-danger btnnetx s{{$ac->id}}"
+                                                                > Anterior </a>
                                                             </li>
 
 
 
                                                             @endif
                                                             
+                                                            
+                                                        </ul>
+                                                    </div>
+
+
+                                                     <div class="col-sm-6">
+                                                        <ul class="pager1 wizard no-margin">
+                                                           
                                                             <li class="next">
-                                                                <a href="#tab{{$loop->index+2}}" data-toggle="tab" class="" class="btn btn-lg btn-primary"> Siguiente </a>
+                                                                <a 
+                                                                data-id="{{$ac->id}}" 
+                                                                href="#tab{{$loop->index+2}}" 
+                                                                
+                                                                class="btn  btn-danger btnnetx s{{$ac->id}}"
+                                                                > Siguiente </a>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -426,6 +379,8 @@
 @section('footer_scripts')
     <!--page level js start-->
     <script type="text/javascript" src="{{ secure_asset('assets/vendors/bootstrap-rating/bootstrap-rating.js') }}"></script>
+
+
    
     <!--page level js start-->
 
@@ -433,6 +388,25 @@
     <script type="text/javascript" src="{{ secure_asset('assets/js/cart.js') }}"></script>
 
     <script>
+
+        $(document).on('click', '.btnnetx', function(e){
+
+            e.preventDefault();
+
+            href=$(this).attr('href');
+
+            id=$(this).data('id');
+
+            
+
+            $('.active').removeClass('active');
+
+            $(href).addClass('active');
+
+           
+        });
+
+
 
 
         $('.anchetabtn').on('click', function(){
@@ -447,6 +421,68 @@
         jQuery(document).ready(function () {
             new WOW().init();
         });
+
+
+
+
+
+
+
+
+
+
+        $(document).on('click','.addtocartancheta', function(e){
+
+            e.preventDefault();
+
+            base=$('#base').val();
+
+            imagen=base+'/uploads/files/loader.gif';
+
+            id=$(this).data('id');
+
+            price=$(this).data('price');
+
+            slug=$(this).data('slug');
+
+            $.post(base+'/cart/addtocartancheta', {price, slug, id}, function(data) {
+
+                $('.p'+id+'').html(data);
+
+            });
+
+        });
+
+
+        $(document).on('click','.deltocartancheta', function(e){
+
+            e.preventDefault();
+
+            base=$('#base').val();
+
+            imagen=base+'/uploads/files/loader.gif';
+
+            id=$(this).data('id');
+
+            price=$(this).data('price');
+
+            slug=$(this).data('slug');
+
+            $.post(base+'/cart/deltocartancheta', {price, slug, id}, function(data) {
+
+                $('.p'+id+'').html(data);
+
+            });
+
+        });
+
+
+
+
+
+
+
+
 
     </script>
 
