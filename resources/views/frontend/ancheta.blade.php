@@ -306,21 +306,21 @@
 
                                                 @if($loop->last)
 
-                                                    <li class="next disabled">
+                                                    <!--li class="next disabled">
                                                         <a 
                                                         data-id="{{$ac->id}}" 
                                                         href="#tab{{$loop->iteration}}" 
                                                         data-cantidad="{{$ac->cantidad_minima}}"
                                                         class="btn  btn-primary addancheta "
                                                         > Comprar Ancheta  </a>
-                                                    </li>
+                                                    </li-->
 
 
                                                     <a 
                                                     data-slug="{{ $producto->slug }}" 
                                                     data-price="{{ intval($producto->precio_oferta) }}" 
                                                     data-id="{{ $producto->id }}" 
-                                                    data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
+                                                    data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocartunaancheta" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Comprar Ancheta ">Comprar Ancheta </a>
 
 
 
@@ -448,6 +448,64 @@
     <script type="text/javascript" src="{{ secure_asset('assets/js/cart.js') }}"></script>
 
     <script>
+
+
+         $(document).on('click','.addtocartunaancheta', function(e){
+
+            e.preventDefault();
+
+            base=$('#base').val();
+
+            imagen=base+'/uploads/files/loader.gif';
+
+            id=$(this).data('id');
+
+            datasingle=$(this).data('single');
+
+            price=$(this).data('price')+$('.totalancheta').val();
+
+            slug=$(this).data('slug');
+
+            single=$('#single').val();
+
+            url=$(this).attr('href');
+
+
+            pimagen=$(this).data('pimagen');
+            
+            name=$(this).data('name');
+
+
+            $('.boton_'+id+'').html('<img style="max-width:32px; max-height:32px;" src="'+imagen+'">');
+
+            $.post(base+'/cart/agregarunaancheta', {price, slug, datasingle}, function(data) {
+
+                $('.boton_'+id+'').html(data);
+
+
+                if (data.indexOf("<!--") > -1) {
+
+                        $('.addtocartTrigger').data('imagen', pimagen);
+                        $('.addtocartTrigger').data('name', name);
+                        $('.addtocartTrigger').data('slug', slug);
+                        $('.addtocartTrigger').data('price', price);
+                        $('.addtocartTrigger').data('id', id);
+
+                        $('.addtocartTrigger').trigger('click');
+
+                    }
+
+                   if (single==1) {
+
+                        $('.vermas').remove();
+                    }
+
+            });
+
+        });
+
+
+
 
         $(document).on('click', '.btnnetx', function(e){
 

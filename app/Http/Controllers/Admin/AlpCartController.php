@@ -7730,6 +7730,155 @@ public function totalancheta()
 
 
 
+    public function addtocartunaancheta( Request $request)
+    {
+
+          $producto=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
+          ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
+          ->where('alp_productos.slug', $request->slug)
+          ->first();
+
+          //dd($producto);
+
+        if (!\Session::has('cr')) {
+
+          \Session::put('cr', '0');
+
+          $ciudad= \Session::get('ciudad');
+
+          $crrid=time();
+
+          $data = array(
+            'referencia' => time(), 
+            'id_city' => $ciudad, 
+            'id_user' => '0'
+          );
+
+          $carr=AlpCarrito::create($data);
+
+          \Session::put('cr', $carr->id);
+       
+        }
+
+       $cart= \Session::get('cart');
+
+
+       $carrito= \Session::get('cr');
+
+       $descuento='1'; 
+
+       $error='0'; 
+
+       $precio = array();
+
+       $inv=$this->inventario();
+
+       $almacen=$this->getAlmacen();
+
+       //dd($almacen);
+
+
+
+       if (isset($producto->id)) {
+
+
+        $cartancheta= \Session::get('cartancheta');
+
+         $producto->precio_oferta=$request->price;
+
+         $producto->ancheta=$cartancheta;
+
+        $producto->cantidad=1;
+
+        $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
+
+
+
+        if (isset($inv[$producto->id])) {
+
+          if($inv[$producto->id]>=$producto->cantidad){
+
+          $cart[$producto->slug]=$producto;
+
+           $data_detalle = array(
+              'id_carrito' => $carrito, 
+              'id_producto' => $producto->id, 
+              'cantidad' => $producto->cantidad
+            );
+
+             AlpCarritoDetalle::create($data_detalle);
+
+          }else{
+
+            $error="No hay existencia suficiente de este producto";
+
+          }
+
+
+          # code...
+        }else{
+
+            $error="No hay existencia suficiente de este producto, en su ubicacion";
+
+          }
+
+       }else{
+
+        $error="No encontro el producto";
+
+       }
+
+
+       \Session::put('cart', $cart);
+
+
+       if (isset($request->datasingle)) {
+
+          $datasingle=$request->datasingle;
+       
+          $view= View::make('frontend.order.botones', compact('producto', 'cart', 'datasingle', 'error'));
+        
+      }else{
+
+        $view= View::make('frontend.order.botones', compact('producto', 'cart', 'error'));
+
+
+       }
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($cart)
+                        ->log('addtocart ');
+
+        }else{
+
+          activity()->withProperties($cart)
+                        ->log('addtocart');
+
+
+        }
+
+
+          $data=$view->render();
+
+          $res = array('data' => $data);
+
+          return $data;
+      
+      
+    }
+
+
+
+
+
+
+
 
 
 }
