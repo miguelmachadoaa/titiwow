@@ -197,7 +197,7 @@ Agregar Productos a Categoria de Ancheta
  </div>
 
 
-<a class="btn btn-primary" href="{{secure_url('admin/productos/'.$categoria->id_ancheta.'/ancheta')}}"></a>
+<a class="btn btn-primary" href="{{secure_url('admin/productos/'.$categoria->id_ancheta.'/ancheta')}}">Volver</a>
 
 
 </section>

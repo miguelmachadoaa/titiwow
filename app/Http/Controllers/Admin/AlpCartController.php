@@ -3883,6 +3883,26 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
            }
 
 
+            if (isset($producto->ancheta)) {
+
+              $total=0;
+
+                foreach ($producto->ancheta as $c) {
+          
+                  $total=$total+($c->precio_base);
+                  
+                }
+
+                $producto->precio_oferta=$total;
+
+               
+             }
+
+
+
+
+
+
             $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
 
             $almp=AlpAlmacenProducto::where('id_almacen', $id_almacen)->where('id_producto', $producto->id)->first();

@@ -559,14 +559,7 @@ class VerificarPagos extends Command
                        
                     }
 
-
-                    
-
                       $orden->update($dtt);
-
-
-
-                      
 
                       $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
 
@@ -635,8 +628,6 @@ class VerificarPagos extends Command
                     Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
 
                      Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
-
-                     
 
                 }
 

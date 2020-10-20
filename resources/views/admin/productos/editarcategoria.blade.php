@@ -69,6 +69,22 @@ Editar Categoria
                             </div>
                         </div>
 
+                         <div class="form-group {{ $errors->
+                            first('cantidad_minima', 'has-error') }}">
+                                <label for="title" class="col-sm-2 control-label">
+                                    Cantidad minima a seleccionar
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="number" step="1" min="1" id="cantidad_minima" name="cantidad_minima" class="form-control" placeholder="Cantidad minima a seleccionar"
+                                           value="{{$categoria->cantidad_minima}}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('cantidad_minima', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+
+                            
+
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                 <a class="btn btn-danger" href="{{ secure_url('admin/productos') }}">
