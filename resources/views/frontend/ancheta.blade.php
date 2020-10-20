@@ -249,11 +249,11 @@
 
                     @foreach($anchetas_categorias as $ac)
 
-                    <div class="tab-pane @if($loop->index==0) active @endif  {{'tabpane'.$ac->id}}     " id="tab{{$loop->index+1}}" data-minima="{{$ac->cantidad_minima}}">
+                    <div class="tab-pane @if($loop->index==0) active @endif  {{'tabpane'.$ac->id}}     " id="tab{{$loop->iteration}}" data-minima="{{$ac->cantidad_minima}}">
 
                         <br>
                         
-                        <h3><strong>Paso {{$loop->index+1}}  </strong> - Seleccione {{$ac->nombre_categoria}} <small>Debe seleccionar almenos {{$ac->cantidad_minima}}</small></h3>
+                        <h3><strong>Paso {{$loop->iteration}}  </strong> - Seleccione {{$ac->nombre_categoria}} <small>Debe seleccionar almenos {{$ac->cantidad_minima}}</small></h3>
 
                             @foreach($ac->productos as $p)
 
@@ -271,23 +271,23 @@
                                 
                                 <div class="row">
                                     
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6" style="text-align: left;">
                                         
                                         <ul class="pager1 wizard no-margin">
                                             @if($loop->index==0)
 
-                                                <li class="previous disabled">
-                                                    <a href="#tab{{$loop->index}}" 
+                                                <!--li class="previous disabled">
+                                                    <a href="#tab{{$loop->iteration}}" 
                                                        data-cantidad="-1"
                                                         class="btn  btn-danger btnnetx s{{$ac->id}}"
                                                         > Anterior </a>
-                                                </li>
+                                                </li-->
 
                                             @else
 
                                                 <li class="previous ">
                                                     <a 
-                                                    href="#tab{{$loop->index}}" 
+                                                    href="#tab{{$loop->iteration-1}}" 
                                                     class="btn  btn-danger btnnetx s{{$ac->id}}"
                                                     data-cantidad="-1"
                                                     > Anterior </a>
@@ -300,18 +300,47 @@
                                         </div>
 
 
-                                         <div class="col-sm-6">
+                                         <div class="col-sm-6" style="text-align: right;">
+
                                             <ul class="pager1 wizard no-margin">
-                                               
-                                                <li class="next">
+
+                                                @if($loop->last)
+
+                                                    <li class="next disabled">
+                                                        <a 
+                                                        data-id="{{$ac->id}}" 
+                                                        href="#tab{{$loop->iteration}}" 
+                                                        data-cantidad="{{$ac->cantidad_minima}}"
+                                                        class="btn  btn-primary addancheta "
+                                                        > Comprar Ancheta  </a>
+                                                    </li>
+
+
                                                     <a 
-                                                    data-id="{{$ac->id}}" 
-                                                    href="#tab{{$loop->index+2}}" 
-                                                    data-cantidad="{{$ac->cantidad_minima}}"
-                                                    class="btn  btn-danger btnnetx s{{$ac->id}}"
-                                                    > Siguiente </a>
-                                                </li>
+                                                    data-slug="{{ $producto->slug }}" 
+                                                    data-price="{{ intval($producto->precio_oferta) }}" 
+                                                    data-id="{{ $producto->id }}" 
+                                                    data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
+
+
+
+
+
+                                                @else
+
+                                                     <li class="next">
+                                                        <a 
+                                                        data-id="{{$ac->id}}" 
+                                                        href="#tab{{$loop->iteration+1}}" 
+                                                        data-cantidad="{{$ac->cantidad_minima}}"
+                                                        class="btn  btn-danger btnnetx s{{$ac->id}}"
+                                                        > Siguiente </a>
+                                                    </li>
+
+                                                @endif
+                                               
                                             </ul>
+
                                         </div>
                                     </div>
 
@@ -329,6 +358,25 @@
                 </div>
 
             </div>
+
+
+
+             <div class="row">
+                                        
+                <div class="col-sm-12">
+                    
+                    <div class="">
+
+                        <h3>Total de la Ancheta : <span class="totalancheta"></span></h3>
+                        
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
 
 
             <div class="row">
@@ -452,7 +500,16 @@
 
 
 
+        $(document).ready(function(){
 
+            base=$('#base').val();
+
+             $.get(base+'/cart/totalancheta', function(data) {
+
+                    $('.totalancheta').html(data);
+
+                });
+        });
 
 
 
@@ -474,6 +531,14 @@
             $.post(base+'/cart/addtocartancheta', {price, slug, id}, function(data) {
 
                 $('.p'+id+'').html(data);
+
+
+                $.get(base+'/cart/totalancheta', function(data) {
+
+                    $('.totalancheta').html(data);
+
+                });
+
 
             });
 
@@ -497,6 +562,12 @@
             $.post(base+'/cart/deltocartancheta', {price, slug, id}, function(data) {
 
                 $('.p'+id+'').html(data);
+
+                $.get(base+'/cart/totalancheta', function(data) {
+
+                    $('.totalancheta').html(data);
+
+                });
 
             });
 

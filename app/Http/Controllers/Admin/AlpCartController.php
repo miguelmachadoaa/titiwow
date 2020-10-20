@@ -7700,7 +7700,32 @@ public function deltocartancheta( Request $request)
 
 
 
+public function totalancheta()
+    {
 
+          
+
+      if (!\Session::has('cartancheta')) {
+
+        \Session::put('cartancheta',   array());
+
+      }
+
+       $cartancheta= \Session::get('cartancheta');
+
+      
+      $total=0;
+
+      foreach ($cartancheta as $c) {
+        
+        $total=$total+($c->precio_base);
+        
+      }
+
+        return number_format($total, 0, ',', '.');
+      
+      
+    }
 
 
 

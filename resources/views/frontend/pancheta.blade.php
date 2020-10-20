@@ -26,6 +26,16 @@
 
             @endif 
 
+            @if(isset($error))
+
+                @if($error!='')
+
+                    <p><small style="color:red">{{$error}}</small></p>
+
+                @endif
+
+            @endif
+
 
            
 
