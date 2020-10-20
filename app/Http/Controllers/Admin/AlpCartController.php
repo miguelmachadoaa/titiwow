@@ -7742,8 +7742,12 @@ public function totalancheta()
         
       }
 
-        return number_format($total, 0, ',', '.');
-      
+
+          $view= View::make('frontend.listaancheta', compact('cartancheta', 'total'));
+          
+          $data=$view->render();
+
+          return $data;
       
     }
 

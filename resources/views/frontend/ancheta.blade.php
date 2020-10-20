@@ -361,18 +361,9 @@
 
 
 
-             <div class="row">
+             <div class="row listaancheta">
                                         
-                <div class="col-sm-12">
-                    
-                    <div class="">
-
-                        <h3>Total de la Ancheta : <span class="totalancheta"></span></h3>
-                        
-
-                    </div>
-
-                </div>
+                @include('frontend.listaancheta')
 
             </div>
 
@@ -564,7 +555,7 @@
 
              $.get(base+'/cart/totalancheta', function(data) {
 
-                    $('.totalancheta').html(data);
+                    $('.listaancheta').html(data);
 
                 });
         });
@@ -593,7 +584,7 @@
 
                 $.get(base+'/cart/totalancheta', function(data) {
 
-                    $('.totalancheta').html(data);
+                    $('.listaancheta').html(data);
 
                 });
 
@@ -623,7 +614,7 @@
 
                 $.get(base+'/cart/totalancheta', function(data) {
 
-                    $('.totalancheta').html(data);
+                    $('.listaancheta').html(data);
 
                 });
 
