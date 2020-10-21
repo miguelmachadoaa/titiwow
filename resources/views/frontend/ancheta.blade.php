@@ -306,24 +306,11 @@
 
                                                 @if($loop->last)
 
-                                                    <!--li class="next disabled">
+                                                    <li class="next disabled">
                                                         <a 
-                                                        data-id="{{$ac->id}}" 
-                                                        href="#tab{{$loop->iteration}}" 
-                                                        data-cantidad="{{$ac->cantidad_minima}}"
-                                                        class="btn  btn-primary addancheta "
-                                                        > Comprar Ancheta  </a>
-                                                    </li-->
-
-
-                                                    <a 
-                                                    data-slug="{{ $producto->slug }}" 
-                                                    data-price="{{ intval($producto->precio_oferta) }}" 
-                                                    data-id="{{ $producto->id }}" 
-                                                    data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocartunaancheta" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Comprar Ancheta ">Comprar Ancheta </a>
-
-
-
+                                                        class="btn  btn-primary finalizarAncheta "
+                                                        > Finalizar Ancheta </a>
+                                                    </li>
 
 
                                                 @else
@@ -361,7 +348,7 @@
 
 
 
-             <div class="row listaancheta">
+             <div class="row listaancheta " style="text-align: right;">
                                         
                 @include('frontend.listaancheta')
 
@@ -441,6 +428,12 @@
     <script>
 
 
+        $('.finalizarAncheta').on('click', function(){
+
+            $('.addtocartunaancheta').fadeIn();
+        });
+
+
          $(document).on('click','.addtocartunaancheta', function(e){
 
             e.preventDefault();
@@ -473,7 +466,8 @@
 
                 $('.boton_'+id+'').html(data);
 
-
+                $(location).attr('href',base+'/cart/show');
+                
                 if (data.indexOf("<!--") > -1) {
 
                         $('.addtocartTrigger').data('imagen', pimagen);
@@ -491,6 +485,9 @@
                         $('.vermas').remove();
                     }
 
+
+
+
             });
 
         });
@@ -499,6 +496,8 @@
 
 
         $(document).on('click', '.btnnetx', function(e){
+
+            $('.addtocartunaancheta').fadeOut();
 
             e.preventDefault();
 
@@ -550,6 +549,8 @@
 
 
         $(document).ready(function(){
+
+            $('.addtocartunaancheta').fadeOut();
 
             base=$('#base').val();
 

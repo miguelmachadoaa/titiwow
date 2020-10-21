@@ -480,6 +480,13 @@ class ProductosFrontController extends Controller
             ->where('alp_productos.slug','=', $slug)->first(); 
 
 
+
+            if ($producto->tipo_producto=='3') {
+              \Session::put('producto_ancheta',  $producto);
+            }
+
+
+
            if($producto){
 
 
@@ -824,6 +831,10 @@ class ProductosFrontController extends Controller
         ->orderBy('alp_marcas.order') 
         ->orderBy('alp_productos.updated_at', 'desc')
         ->paginate(36); 
+        //->get();
+
+
+        //dd($productos);
 
 
         $prods=$this->addOferta($productos);

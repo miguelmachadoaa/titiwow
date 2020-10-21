@@ -80,7 +80,7 @@ Agregar Productos a Categoria de Ancheta
 
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
-                                <a class="btn btn-danger" href="{{ secure_url('admin/productos') }}">
+                                <a class="btn btn-danger" href="{{ secure_url('admin/productos/'.$categoria->id_ancheta.'/ancheta') }}">
                                     Cancelar
                                 </a>
                                 <button type="submit" class="btn btn-success">Crear</button>

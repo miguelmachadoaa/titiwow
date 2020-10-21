@@ -91,7 +91,7 @@ Configuracion Ancheta
 
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
-                                <a class="btn btn-danger" href="{{ secure_url('admin/productos') }}">
+                                <a class="btn btn-danger" href="{{ secure_url('admin/productos/'.$producto->id.'edit') }}">
                                     Cancelar
                                 </a>
                                 <button type="submit" class="btn btn-success">Crear</button>

@@ -89,7 +89,7 @@ Productos @parent
 
                     @foreach($leche as $producto)
 
-                @if($producto->tipo_producto=='1')
+                @if($producto->tipo_producto=='1' || $producto->tipo_producto=='3' )
 
 
                     @if(isset($inventario[$producto->id]))

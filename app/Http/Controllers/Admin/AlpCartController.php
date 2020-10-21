@@ -3893,7 +3893,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                   
                 }
 
-                $producto->precio_oferta=$total;
+                $producto->precio_oferta=$producto->precio_base+$total;
 
                
              }
@@ -7727,13 +7727,16 @@ public function totalancheta()
 
       if (!\Session::has('cartancheta')) {
 
-        \Session::put('cartancheta',   array());
+        \Session::put('cartancheta',  array());
 
       }
 
-       $cartancheta= \Session::get('cartancheta');
 
-      
+
+      $cartancheta= \Session::get('cartancheta');
+
+      $producto= \Session::get('producto_ancheta');
+
       $total=0;
 
       foreach ($cartancheta as $c) {
@@ -7743,7 +7746,10 @@ public function totalancheta()
       }
 
 
-          $view= View::make('frontend.listaancheta', compact('cartancheta', 'total'));
+      $total=$total+$producto->precio_base;
+
+
+          $view= View::make('frontend.listaancheta', compact('cartancheta', 'total', 'producto'));
           
           $data=$view->render();
 
@@ -7817,7 +7823,6 @@ public function totalancheta()
         $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
 
 
-
         if (isset($inv[$producto->id])) {
 
           if($inv[$producto->id]>=$producto->cantidad){
@@ -7851,6 +7856,8 @@ public function totalancheta()
         $error="No encontro el producto";
 
        }
+
+       \Session::forget('cartancheta');
 
 
        \Session::put('cart', $cart);

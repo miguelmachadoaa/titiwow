@@ -502,6 +502,8 @@ class FrontEndController extends JoshController
         ->get();
 
 
+        //dd($productos);
+
         $marcas = DB::table('alp_marcas')->select('alp_marcas.*')->where('destacado','=', 1)->where('alp_marcas.estado_registro','=',1)->whereNull('alp_marcas.deleted_at')->orderBy('order', 'asc')->limit(12)->get();
 
         $ciudad= \Session::get('ciudad');

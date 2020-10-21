@@ -40,8 +40,6 @@
                         @else
 
 
-
-
                         <hr>
                         <div class="row @if($row->disponible==0) {{'nodisponible'}} @endif " style="text-align: left;">
                             
@@ -96,6 +94,28 @@
 
 
                                 @endif
+
+
+                                @if($row->tipo_producto=='3')
+
+                                    <b style="color: #143473; padding-left: 1em;">Incluye:</b>
+
+                                        @foreach($row->ancheta as $cp)
+
+                                            <div class="col-xs-12" style=" @if($loop->last) {{'margin-bottom:10px;'}} @endif padding-left: 4em;">
+
+                                                <h6><a target="_blank"  href="{{ route('producto', [$cp->slug]) }}" ><i class="fa fa-angle-double-right"></i>{{$cp->cantidad.'- '.$cp->nombre_producto}}</a></h6>
+
+                                            </div>  
+
+                                        @endforeach
+
+                                    
+
+
+                                @endif
+
+
                                
                                
                                 
@@ -230,45 +250,6 @@
                                 
                                
                             </div>
-
-                            <!--div class="col-sm-2 col-xs-9">
-
-
-                                   <div class="input-group">
-                                  <span class="input-group-btn">
-                                    
-                                    <button data-cantidad="{{ $row->cantidad }}" data-slug="{{ $row->slug }}" data-tipo='resta' data-id="{{ $row->id }}" class="btn btn-danger updatecartdetalle" type="button"><i class="fa fa-minus"></i></button>
-
-                                  </span>
-
-                                  <input id="cantidad_{{ $row->id }}" name="cantidad_{{ $row->id }}" type="number" step="1" readonly class="form-control" value="{{ $row->cantidad }}" placeholder="">
-
-
-                                  <span class="input-group-btn">
-
-
-                                        @if($configuracion->maximo_productos==$row->cantidad) 
-
-                                        <button disabled="disabled" data-cantidad="{{ $row->cantidad }}" data-slug="{{ $row->slug }}" data-tipo='suma' data-id="{{ $row->id }}" class="btn btn-success " type="button"><i class="fa fa-plus"></i></button>
-
-                                        @else
-
-                                        <button data-cantidad="{{ $row->cantidad }}" data-slug="{{ $row->slug }}" data-tipo='suma' data-id="{{ $row->id }}" class="btn btn-success updatecartdetalle" type="button"><i class="fa fa-plus"></i></button>
-
-                                         @endif 
-
-                                  </span>
-
-                                </div>
-                                
-                            </div>
-
-                            <div class="col-sm-2 col-xs-3">
-                                <a class="btn btn-danger btn-xs" href="{{secure_url('cart/delete', [$row->slug])}}">Borrar</a>
-                            </div!-->
-
-
-
 
                         </div>
 

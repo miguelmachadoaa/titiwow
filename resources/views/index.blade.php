@@ -212,7 +212,7 @@
 
                                 @if($i<12)
 
-                                @if($producto->tipo_producto=='1')
+                                @if($producto->tipo_producto=='1' || $producto->tipo_producto=='3')
 
                                     @if(isset($inventario[$producto->id]))
 
@@ -258,28 +258,28 @@
                                                                             <p id="precio_prod">
                                                                                 @if($almacen->descuento_productos=='1')
 
-                                            @if($producto->mostrar_descuento=='1')
+                                                        @if($producto->mostrar_descuento=='1')
 
-                                                @if(isset($producto->mostrar))
+                                                            @if(isset($producto->mostrar))
 
-                                                    @if($producto->mostrar==1)
+                                                                @if($producto->mostrar==1)
 
-                                                        @if($producto->precio_base>$producto->precio_oferta)
+                                                                    @if($producto->precio_base>$producto->precio_oferta)
 
-                                                            <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
+                                                                        <del class="">${{ number_format($producto->precio_base,0,",",".") }}</del>&nbsp;
 
+                                                                    @endif
+
+
+                                                                @endif
+
+                                                            @endif
+
+                                                            
                                                         @endif
 
 
                                                     @endif
-
-                                                @endif
-
-                                                
-                                            @endif
-
-
-                                        @endif
 
                                                                                
 
@@ -317,19 +317,20 @@
                                                 
                                                                                 
 
-                                                                                <span class="precio_base">${{ number_format($precio[$producto->id]['precio'],0,",",".") }}</span></p>
+                                        <span class="precio_base">${{ number_format($precio[$producto->id]['precio'],0,",",".") }}</span></p>
                                                                             @break
 
                                                                         
-                                                                    @endswitch
+                                    @endswitch
 
-                                                                    @if($producto->cantidad==null)
-                                                                    <a href="{{ route('producto', [$producto->slug]) }}" >
+                                        @if($producto->cantidad==null)
+                                            
+                                            <a href="{{ route('producto', [$producto->slug]) }}" >
                                                                         <h6 class="pum c9">{{ $producto->pum }}</h6>
                                                                     </a>
-                                                                    @else
+                                        @else
 
-                                                                    <a href="{{ route('producto', [$producto->slug]) }}" >
+                                            <a href="{{ route('producto', [$producto->slug]) }}" >
                                                                         <h6 class="pum c10">
                                                                             {{ $producto->unidad.' a $'.number_format($producto->precio_oferta/$producto->cantidad,2,",",".") }} pesos
                                                                         </h6>
@@ -421,12 +422,13 @@
 
                                                                   
 
-                                                                    @if(isset($cart[$producto->slug]))
+                                                        @if(isset($cart[$producto->slug]))
 
-                                                                        <div class="row" style="margin-bottom:5px;">
-                                                                          <div class="col-sm-10 col-sm-offset-1">
-                                                                            <div class="input-group">
-                                                                              <span class="input-group-btn">
+                                                            <div class="row" style="margin-bottom:5px;">
+                                                                <div class="col-sm-10 col-sm-offset-1">
+                                                                    <div class="input-group">
+                                                                        
+                                                                        <span class="input-group-btn">
                                                                                 
                                                                                 <button data-slug="{{ $producto->slug }}" data-tipo='resta' data-id="{{ $producto->id }}" class="btn btn-danger updatecart" type="button"><i class="fa fa-minus"></i></button>
 
@@ -437,7 +439,7 @@
 
                                                                               <span class="input-group-btn">
 
-                                                                                    @if($configuracion->maximo_productos==$cart[$producto->slug]->cantidad) 
+                                                                                @if($configuracion->maximo_productos==$cart[$producto->slug]->cantidad) 
 
                                                                                     <button disabled="disabled" data-slug="{{ $producto->slug }}" data-tipo='suma' data-id="{{ $producto->id }}" class="btn btn-success " type="button"><i class="fa fa-plus"></i></button>
 
@@ -447,10 +449,6 @@
 
                                                                                      @endif 
 
-
-                                                                                
-
-                                                                                
 
                                                                               </span>
 
@@ -463,8 +461,21 @@
 
 
                                                                     @else
+
+
                                                                          <a class="btn btn-md btn-vermas" href="{{ route('producto', [$producto->slug]) }}">Ver <i class="fa fa-plus" aria-hidden="true"></i></a>
+
+                                                                         @if($producto->tipo_producto=='1')
+
                                                                          <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
+
+
+                                                                         @endif
+
+
+                                                                         
+
+
 
                                                                     @endif
 
@@ -502,9 +513,8 @@
                                         @endif
                                      @endif
                                 @else
-                                    @if(isset($combos[$producto->id]))
 
-                                   
+                                    @if(isset($combos[$producto->id]))
 
                                         @php $i++; @endphp
 
