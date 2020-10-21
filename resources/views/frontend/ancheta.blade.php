@@ -234,7 +234,7 @@
         <!--item desciption start-->
 
         <div class="widget-body">
-        <div class="row">
+        <div class="row container">
 
 
             <div class="col-sm-12">
@@ -253,15 +253,24 @@
 
                         <br>
                         
-                        <h3 style="margin-top: 1em;"><strong>Paso {{$loop->iteration}}  </strong> - Seleccione {{$ac->nombre_categoria}} <small>Debe seleccionar almenos {{$ac->cantidad_minima}}</small></h3>
+                        <h3 style="margin-top: 1em;"><strong>Paso {{$loop->iteration}}  </strong> - Seleccione {{$ac->nombre_categoria}} <small>Debe seleccionar como minimo {{$ac->cantidad_minima}} productos</small></h3>
 
                             @foreach($ac->productos as $p)
 
-                            <div class="p{{$p->id}}">
+                                @if(isset($inventario[$p->id]))
 
-                                @include('frontend.pancheta')
-                                
-                            </div>
+                                    @if($inventario[$p->id]>0)
+
+                                        <div class="p{{$p->id}}">
+
+                                            @include('frontend.pancheta')
+                                            
+                                        </div>
+
+
+                                    @endif
+
+                                @endif
 
                             @endforeach
 
@@ -348,7 +357,7 @@
 
 
 
-             <div class="row listaancheta " style="text-align: right;">
+             <div class="row listaancheta container" style="text-align: right;">
                                         
                 @include('frontend.listaancheta')
 
@@ -467,7 +476,7 @@
                 $('.boton_'+id+'').html(data);
 
                 $(location).attr('href',base+'/cart/show');
-                
+
                 if (data.indexOf("<!--") > -1) {
 
                         $('.addtocartTrigger').data('imagen', pimagen);

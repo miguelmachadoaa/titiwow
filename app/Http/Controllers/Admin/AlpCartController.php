@@ -7583,12 +7583,12 @@ private function addpromocion(){
   public function addtocartancheta( Request $request)
     {
 
-          $producto=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
+          $p=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
           ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
           ->where('alp_productos.slug', $request->slug)
           ->first();
 
-          //dd($producto);
+          //dd($p);
 
         if (!\Session::has('cartancheta')) {
 
@@ -7600,7 +7600,7 @@ private function addpromocion(){
 
        $descuento='1'; 
 
-       $error='0'; 
+       $error=''; 
 
        $precio = array();
 
@@ -7609,20 +7609,20 @@ private function addpromocion(){
        $almacen=$this->getAlmacen();
 
 
-       if (isset($producto->id)) {
+       if (isset($p->id)) {
 
-          $producto->precio_oferta=$request->price;
+          $p->precio_oferta=$request->price;
 
-          $producto->cantidad=1;
+          $p->cantidad=1;
 
-          $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
+          $p->impuesto=$p->precio_oferta*$p->valor_impuesto;
 
 
-        if (isset($inv[$producto->id])) {
+        if (isset($inv[$p->id])) {
 
-          if($inv[$producto->id]>=$producto->cantidad){
+          if($inv[$p->id]>=$p->cantidad){
 
-          $cartancheta[$producto->slug]=$producto;
+          $cartancheta[$p->slug]=$p;
 
 
           }else{
@@ -7645,7 +7645,6 @@ private function addpromocion(){
 
        }
 
-       $p=$producto;
           
        \Session::put('cartancheta', $cartancheta);
        
@@ -7669,7 +7668,7 @@ private function addpromocion(){
 public function deltocartancheta( Request $request)
     {
 
-          $producto=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
+          $p=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
           ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
           ->where('alp_productos.slug', $request->slug)
           ->first();
@@ -7686,13 +7685,13 @@ public function deltocartancheta( Request $request)
 
        $descuento='1'; 
 
-       $error='0'; 
+       $error=''; 
 
        $precio = array();
 
-       if (isset($producto->id)) {
+       if (isset($p->id)) {
 
-          if (isset($cartancheta[$producto->slug])) {
+          if (isset($cartancheta[$p->slug])) {
 
             unset($cartancheta[$p->slug]);
 
@@ -7700,10 +7699,6 @@ public function deltocartancheta( Request $request)
          
        }
 
-       
-
-       $p=$producto;
-          
        \Session::put('cartancheta', $cartancheta);
        
         $view= View::make('frontend.pancheta', compact('p',  'cartancheta', 'error'));
