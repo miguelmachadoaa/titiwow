@@ -280,7 +280,7 @@
                                 
                                 <div class="row">
                                     
-                                    <div class="col-sm-6" style="text-align: left;">
+                                    <div class="col-sm-6 col-xs-6" style="text-align: left;">
                                         
                                         <ul class="pager1 wizard no-margin">
                                             @if($loop->index==0)
@@ -309,7 +309,7 @@
                                         </div>
 
 
-                                         <div class="col-sm-6" style="text-align: right;">
+                                         <div class="col-sm-6 col-xs-6" style="text-align: right;">
 
                                             <ul class="pager1 wizard no-margin">
 
