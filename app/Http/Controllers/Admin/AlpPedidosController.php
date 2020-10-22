@@ -544,7 +544,7 @@ class AlpPedidosController extends JoshController
 
 
           $data_update = array(
-              'referencia' => 'ALP'.$orden->id,
+              'referencia' => 'SC'.$orden->id,
               'monto_total' =>$resto,
               'monto_descuento' =>$total_descuentos,
               'monto_total_base' => $monto_total_base,

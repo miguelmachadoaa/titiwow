@@ -7755,6 +7755,24 @@ public function totalancheta()
 
 
 
+public function reiniciarancheta()
+    {
+
+          
+
+      if (!\Session::has('cartancheta')) {
+
+        \Session::forget('cartancheta');
+
+      }
+
+
+      return true;
+     
+      
+    }
+
+
     public function addtocartunaancheta( Request $request)
     {
 

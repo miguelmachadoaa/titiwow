@@ -218,9 +218,9 @@
 
                             <div class="col-sm-12" style="padding:0; margin:0;">
                         
-                        <a href="#" target="_blank"><img src="{{secure_url('uploads/files/banner-750x100.jpg')}}" alt="banner"></a>
+                                <a href="#" target="_blank"><img src="{{secure_url('uploads/files/banner-750x100.jpg')}}" alt="banner"></a>
 
-                    </div>
+                            </div>
 
                             @endif
 
@@ -631,7 +631,19 @@
         });
 
 
+        $(document).on('click','.reiniciarAncheta', function(e){
 
+            e.preventDefault();
+
+            base=$('#base').val();
+
+            $.get(base+'/cart/reiniciarancheta', function(data) {
+
+                     location.reload();
+
+                });
+
+        });
 
 
 

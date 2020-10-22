@@ -1303,6 +1303,8 @@ Route::post('cart/deltocartancheta/',['as'=>'cart.deltocartancheta', 'uses'=>'Ad
 
 Route::get('cart/totalancheta/',['as'=>'cart.totalancheta', 'uses'=>'Admin\AlpCartController@totalancheta']);
 
+Route::get('cart/reinicarancheta/',['as'=>'cart.reinicarancheta', 'uses'=>'Admin\AlpCartController@reinicarancheta']);
+
 //agregar item al carro
 Route::get('cart/add/{product}',['as'=>'cart.add', 'uses'=>'Admin\AlpCartController@add']);
 
