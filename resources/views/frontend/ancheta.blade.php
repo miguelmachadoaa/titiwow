@@ -297,7 +297,7 @@
                                                 <li class="previous ">
                                                     <a 
                                                     href="#tab{{$loop->iteration-1}}" 
-                                                    class="btn  btn-danger btnnetx s{{$ac->id}}"
+                                                    class="btn  btn-primary btnnetx s{{$ac->id}}"
                                                     data-cantidad="-1"
                                                     > Anterior </a>
                                                 </li>
@@ -329,7 +329,7 @@
                                                         data-id="{{$ac->id}}" 
                                                         href="#tab{{$loop->iteration+1}}" 
                                                         data-cantidad="{{$ac->cantidad_minima}}"
-                                                        class="btn  btn-danger btnnetx s{{$ac->id}}"
+                                                        class="btn  btn-primary btnnetx s{{$ac->id}}"
                                                         > Siguiente </a>
                                                     </li>
 
@@ -438,6 +438,12 @@
         $('.finalizarAncheta').on('click', function(){
 
             $('.addtocartunaancheta').fadeIn();
+
+            $('.addtocartunaancheta').focus();
+
+            $('.reiniciarAncheta').fadeOut();
+
+            
         });
 
 
@@ -530,7 +536,7 @@
                 $('.errorcantidad').html('<div class="alert alert-danger">Desbes seleccionar al menos '+cantidad+' productos</div>');
             }
 
-            
+             $('.reiniciarAncheta').fadeIn();
 
            
         });
