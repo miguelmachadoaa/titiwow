@@ -14,7 +14,7 @@
 
         @endif
 
-        <h3>Total de la Ancheta : <span class="totalancheta">{{number_format($total, 0, ',', '.')}}</span></h3>
+        <h3 style="color: #143473;margin-bottom: 15px;">Total de la Ancheta : <span class="totalancheta">COP {{number_format($total, 0, ',', '.')}}</span></h3>
 
     </div>
 
@@ -22,6 +22,8 @@
     <div class="row">
         
         <div class="col-sm-12">
+
+             <a   class="btn btn-md btn-danger reiniciarAncheta" href="{{secure_url('cart/reiniciarancheta')}}" alt="Reiniciar Ancheta ">Reiniciar Ancheta </a>
             
             <a  style="display: none;" 
                 data-slug="{{ $producto->slug }}" 
@@ -30,7 +32,7 @@
                 data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocartunaancheta" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Comprar Ancheta ">Comprar Ancheta </a>
 
 
-             <a   class="btn btn-md btn-danger reiniciarAncheta" href="{{secure_url('cart/reiniciarancheta')}}" alt="Reiniciar Ancheta ">Reiniciar Ancheta </a>
+
 
 
         </div>
