@@ -765,6 +765,8 @@ class ProductosFrontController extends Controller
 
       if ($producto->tipo_producto==3) {
 
+        $cartancheta[$producto->slug]=$producto;
+
 
         $anchetas_categorias=AlpAnchetasCategorias::where('id_ancheta', $producto->id)->get();
 

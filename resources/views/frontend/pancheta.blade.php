@@ -9,11 +9,11 @@
 
         <div class="col-sm-7 col-xs-8">
 
-            <p style="    height: 4em;    line-height: 1.5;  font-size: 14px;    color: #143473;     margin: 20px 5px 15px 5px;    min-height: 45px;"> {{$p->nombre_producto}}</p>
+            <p style="   font-size: 14px;color: #143473;margin: 20px 5px 15px 5px;min-height: 45px; font-family: 'PlutoMedium';"> {{$p->nombre_producto}}</p>
 
-            <a href="{{ route('producto', [$p->slug]) }}" ><h6 class="text-align:center; " style="font-size: 11px;    color: #199ad9;      margin: 20px 0px 15px 0px;">{{ $p->presentacion_producto }}</h6></a>
+            <a href="{{ route('producto', [$p->slug]) }}" ><h6 class="text-align:center; " style=" font-size: 11px;color: #199ad9;margin: 20px 0px 15px 0px; font-family: 'PlutoBold';">{{ $p->presentacion_producto }}</h6></a>
 
-            <p style="color: #143473;    font-size: 1.2em;">Precio: {{$p->precio_base}}</p>
+            <p style="color: #143473;font-size: 1.2em; font-family: 'Roboto', sans-serif !important;">Precio: {{$p->precio_base}}</p>
             <p style="height: 2em;">
                @if(isset($cartancheta[$p->slug]))
 

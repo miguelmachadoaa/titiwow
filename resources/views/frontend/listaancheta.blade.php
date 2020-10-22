@@ -8,13 +8,13 @@
 
             @foreach($cartancheta as $carta)
 
-                <h6> <i class="fa fa-angle-double-right"></i>{{$carta->nombre_producto}}</h6>
+                <h6 style="color: #009fe3;text-decoration: none;font-family: 'PlutoBold';"> <i class="fa fa-angle-double-right"></i>{{$carta->nombre_producto}} Precio: {{$carta->precio_base}}</h6>
 
             @endforeach
 
         @endif
 
-        <h3>Total de la Ancheta : <span class="totalancheta">{{$total}}</span></h3>
+        <h3>Total de la Ancheta : <span class="totalancheta">{{number_format($total, 0, ',', '.')}}</span></h3>
 
     </div>
 

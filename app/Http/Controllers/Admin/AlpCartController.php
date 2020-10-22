@@ -7741,7 +7741,7 @@ public function totalancheta()
       }
 
 
-      $total=$total+$producto->precio_base;
+      //$total=$total+$producto->precio_base;
 
 
           $view= View::make('frontend.listaancheta', compact('cartancheta', 'total', 'producto'));
