@@ -767,6 +767,8 @@ class ProductosFrontController extends Controller
 
         $cartancheta[$producto->slug]=$producto;
 
+         \Session::put('cartancheta',  $cartancheta);
+
 
         $anchetas_categorias=AlpAnchetasCategorias::where('id_ancheta', $producto->id)->get();
 

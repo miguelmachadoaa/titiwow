@@ -280,9 +280,9 @@
                                 
                                 <div class="row">
                                     
-                                    <div class="col-sm-6 col-xs-6" style="text-align: left;">
+                                    <div class="col-sm-6 col-xs-6" style="text-align: left; padding: 0;">
                                         
-                                        <ul class="pager1 wizard no-margin">
+                                        <ul class="pager1 wizard no-margin" style="padding: 0;">
                                             @if($loop->index==0)
 
                                                 <!--li class="previous disabled">
@@ -309,9 +309,9 @@
                                         </div>
 
 
-                                         <div class="col-sm-6 col-xs-6" style="text-align: right;">
+                                         <div class="col-sm-6 col-xs-6" style="text-align: right; padding: 0;">
 
-                                            <ul class="pager1 wizard no-margin">
+                                            <ul class="pager1 wizard no-margin" style="padding: 0;">
 
                                                 @if($loop->last)
 
