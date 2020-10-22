@@ -7760,11 +7760,7 @@ public function reiniciarancheta()
 
           
 
-      if (!\Session::has('cartancheta')) {
-
         \Session::forget('cartancheta');
-
-      }
 
 
       return 'true';
