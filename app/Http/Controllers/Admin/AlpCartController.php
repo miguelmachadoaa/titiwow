@@ -7767,7 +7767,7 @@ public function reiniciarancheta()
       }
 
 
-      return true;
+      return 'true';
      
       
     }
