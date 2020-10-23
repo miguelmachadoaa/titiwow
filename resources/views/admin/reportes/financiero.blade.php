@@ -111,6 +111,31 @@ Reporte Conciliacion Financiera Bogotá
                         </div>
 
 
+                        <div class="row">
+
+                            <br>
+                            
+                            <div class="form-group col-sm-12 ">
+                            <label for="select21" class="col-md-2 control-label text-right">
+                        Origen                                               
+                        </label>
+
+                        <div class="col-md-10">   
+                            <select id="origen" name="origen" class="form-control select2">
+                                <option value="">Seleccione</option>
+                                <option value="-1">Todos</option>
+                                <option value="0">Web</option>
+                                <option value="1">Tomapedidos</option>
+
+                            </select>
+                        </div>           
+                        </div>
+
+                        </div>
+
+
+
+
                          
                             <!-- /.input group -->
                     </div>

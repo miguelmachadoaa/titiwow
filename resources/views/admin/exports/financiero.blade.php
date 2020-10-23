@@ -25,6 +25,7 @@
             <th><b>Empresa Asociada</b></th>
             <th><b>Almacen</b></th>
             <th><b>Ip</b></th>
+            <th><b>Origen</b></th>
 
         </tr>
     </thead>
@@ -135,6 +136,20 @@
 
                 <td>{!! $row->nombre_almacen !!}</td>
                 <td>{!! $row->ip !!}</td>
+                <td>
+
+                    @if($row->origen==0)
+
+                    Web
+
+                    @else
+
+                    Tomapedidos
+
+                    @endif
+
+
+                </td>
           
         </tr>
         @endforeach

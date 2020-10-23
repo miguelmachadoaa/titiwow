@@ -464,7 +464,7 @@ class AlpReportesController extends Controller
         }
 
 
-        return Excel::download(new FinancieroExport($request->desde, $request->hasta, $request->almacen), 'financiero_desde_'.$request->desde.'_hasta_'.$request->hasta.'_'.$a.'.xlsx');
+        return Excel::download(new FinancieroExport($request->origen,$request->desde, $request->hasta, $request->almacen), 'financiero_desde_'.$request->desde.'_hasta_'.$request->hasta.'_'.$a.'.xlsx');
     }
 
 
@@ -719,10 +719,10 @@ class AlpReportesController extends Controller
 
 
 
-        Excel::store(new LogisticaExport($request->desde, $request->hasta, $request->id_almacen), 'logistica_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx', 'public');
+        Excel::store(new LogisticaExport($request->origen, $request->desde, $request->hasta, $request->id_almacen), 'logistica_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx', 'public');
 
 
-        return Excel::download(new LogisticaExport($request->desde, $request->hasta, $request->id_almacen), 'logistica_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+        return Excel::download(new LogisticaExport($request->origen, $request->desde, $request->hasta, $request->id_almacen), 'logistica_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
     }
 
     public function storeexportlogistica(Request $request) 

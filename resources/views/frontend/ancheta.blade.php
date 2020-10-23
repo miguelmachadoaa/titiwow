@@ -435,15 +435,29 @@
     <script>
 
 
-        $('.finalizarAncheta').on('click', function(){
+         $('.finalizarAncheta').on('click', function(){
 
-            $('.addtocartunaancheta').fadeIn();
 
-            $('.addtocartunaancheta').focus();
+             id=$(this).data('id');
 
-            $('.reiniciarAncheta').fadeOut();
+            cantidad=$(this).data('cantidad');
 
-            
+            seleccionados=$('.tabpane'+id+" .pseleccionado").toArray().length;
+
+            if (cantidad <=seleccionados) {
+
+               
+                $('.addtocartunaancheta').fadeIn();
+
+                $('.addtocartunaancheta').focus();
+
+                $('.reiniciarAncheta').fadeOut();
+
+            }else{
+
+                $('.errorcantidad').html('<div class="alert alert-danger">Desbes seleccionar al menos '+cantidad+' productos</div>');
+            }
+
         });
 
 

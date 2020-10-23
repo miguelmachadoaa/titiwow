@@ -16,6 +16,7 @@
             <th><b>Ruta</b></th>
             <th><b>Observaciones</b></th>
             <th><b>Fecha</b></th>
+            <th><b>Origen</b></th>
         </tr>
     </thead>
     <tbody>
@@ -37,6 +38,7 @@
             <td></td>
             <td>{!! $row->barrio_address !!}</td>
             <td>{!! $row->fecha !!}</td>
+            <td>{!! $row->origen !!}</td>
           
         </tr>
         @endforeach

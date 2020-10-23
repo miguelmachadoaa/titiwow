@@ -21,8 +21,9 @@ use \DB;
 class FinancieroExport implements FromView
 {
     
-    public function __construct(string $desde, string $hasta, string $almacen)
+    public function __construct(string $origen,string $desde, string $hasta, string $almacen)
     {
+        $this->origen = $origen;
         $this->desde = $desde;
         $this->hasta = $hasta;
         $this->almacen = $almacen;
@@ -34,6 +35,7 @@ class FinancieroExport implements FromView
         $c=AlpOrdenes::query()->select(
            DB::raw('DATE_FORMAT(alp_ordenes.created_at, "%d/%m/%Y")  as fecha'),
           'alp_ordenes.created_at as created_at',
+          'alp_ordenes.origen as origen',
           'alp_ordenes.id as id',
           'alp_ordenes.ip as ip',
           'alp_ordenes.base_impuesto as base_impuesto',
@@ -68,6 +70,15 @@ class FinancieroExport implements FromView
           ->where('alp_ordenes.id_forma_pago', '<>', '3')
           ->whereDate('alp_ordenes.created_at', '>=', $this->desde)
           ->whereDate('alp_ordenes.created_at', '<=', $this->hasta);
+
+
+
+if ($this->origen==-1) {
+            # code...
+          }else{
+
+            $c->where('alp_ordenes.origen', '=', $this->origen);
+          }
 
 
           if ($this->almacen==0) {

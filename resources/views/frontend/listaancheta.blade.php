@@ -8,7 +8,7 @@
 
             @foreach($cartancheta as $carta)
 
-                <h6 style="color: #009fe3;text-decoration: none;font-family: 'PlutoBold';"> <i class="fa fa-angle-double-right"></i>{{$carta->nombre_producto}} Precio: {{$carta->precio_base}}</h6>
+               <h6 style="color: #009fe3;text-decoration: none;font-family: 'PlutoBold';"> <i class="fa fa-angle-double-right"></i>{{$carta->nombre_producto}} Precio: {{number_format($carta->precio_base, 0, ',', '.')}}</h6>
 
             @endforeach
 
