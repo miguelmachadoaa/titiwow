@@ -345,11 +345,11 @@
          </p> 
 
         
-         <!--div class="row">
+         <div class="row">
              <div class="col-sm-12">
                  {{json_encode($cart)}}
              </div>
-         </div-->
+         </div>
 
      @else
 

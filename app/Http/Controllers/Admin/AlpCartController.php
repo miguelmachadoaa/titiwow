@@ -3886,14 +3886,17 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
             if (isset($producto->ancheta)) {
 
               $total=0;
+              $total_oferta=0;
 
                 foreach ($producto->ancheta as $c) {
           
                   $total=$total+($c->precio_base);
+                  $total_oferta=$total_oferta+($c->precio_oferta);
                   
                 }
 
-                $producto->precio_oferta=$producto->precio_base+$total;
+                $producto->precio_oferta=$total_oferta;
+                $producto->precio_base=$total;
 
                
              }
@@ -4804,6 +4807,43 @@ public function verificarDireccion( Request $request)
                   }
 
               }
+
+
+              if ($detalle->tipo_producto=='3') {
+
+                    foreach ($detalle->ancheta as $l) {
+
+                        $data_detalle_l = array(
+                          'id_orden' => $orden->id, 
+                          'id_producto' => $l->id, 
+                          'cantidad' =>$l->cantidad*$detalle->cantidad, 
+                          'precio_unitario' =>0, 
+                          'precio_base' =>0, 
+                          'precio_total' =>0,
+                          'precio_total_base' =>0,
+                          'valor_impuesto' =>0,
+                          'monto_impuesto' =>0,
+                          'id_combo' =>$detalle->id,
+                          'id_user' =>$user_id 
+                        );
+
+                        $data_inventario_l = array(
+                          'id_producto' => $l->id, 
+                          'id_almacen' => $id_almacen, 
+                          'cantidad' =>$l->cantidad*$detalle->cantidad, 
+                          'operacion' =>'2', 
+                          'notas' =>'Orden '.$orden->id,
+                          'id_user' =>$user_id 
+                        );
+
+                        AlpDetalles::create($data_detalle_l);
+
+                        AlpInventario::create($data_inventario_l);
+                  }
+
+              }
+
+
 
           }//endfreach
 

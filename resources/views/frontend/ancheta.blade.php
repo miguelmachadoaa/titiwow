@@ -317,6 +317,8 @@
 
                                                     <li class="next disabled">
                                                         <a 
+                                                         data-id="{{$ac->id}}" 
+                                                        data-cantidad="{{$ac->cantidad_minima}}"
                                                         class="btn  btn-primary finalizarAncheta "
                                                         > Finalizar Ancheta </a>
                                                     </li>

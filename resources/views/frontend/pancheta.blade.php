@@ -13,7 +13,7 @@
 
             <a href="{{ route('producto', [$p->slug]) }}" ><h6 class="text-align:center; " style=" font-size: 11px;color: #199ad9;margin: 20px 0px 15px 0px; font-family: 'PlutoBold';">{{ $p->presentacion_producto }}</h6></a>
 
-            <p style="color: #143473;font-size: 1.2em; font-family: 'Roboto', sans-serif !important;">Precio: {{$p->precio_base}}</p>
+             <p style="color: #143473;font-size: 1.2em; font-family: 'Roboto', sans-serif !important;">Precio: ${{number_format($p->precio_base, 0, ',', '.')}}</p>
             <p style="height: 2em;">
                @if(isset($cartancheta[$p->slug]))
 
