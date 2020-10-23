@@ -104,6 +104,25 @@ Listado de Ordenes por Almacen
                         </div>           
                     </div>
 
+                      <div class="form-group col-sm-12 ">
+
+                                    <br>
+                                    <label for="select21" class="col-md-2 control-label text-right">
+                                        Origen                                               
+                                        </label>
+
+                                        <div class="col-md-10">   
+                                            <select id="origen" name="origen" class="form-control select2">
+                                                <option value="-1">Todos</option>
+                                                <option value="0">Web</option>
+                                                <option value="1">Tomapedidos</option>
+
+                                            </select>
+                                        </div>         
+                                </div>
+
+                                
+
 
                     <div class="form-group">
                             <div class="col-sm-offset-4 col-sm-8">

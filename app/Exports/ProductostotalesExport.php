@@ -17,8 +17,9 @@ use \DB;
 class ProductostotalesExport implements FromView
 {
     
-    public function __construct(string $desde, string $hasta, string $almacen)
+    public function __construct(string $origen, string $desde, string $hasta, string $almacen)
     {
+        $this->origen = $origen;
         $this->desde = $desde;
         $this->hasta = $hasta;
         $this->almacen = $almacen;
@@ -40,6 +41,7 @@ class ProductostotalesExport implements FromView
           'alp_productos.referencia_producto_sap as referencia_producto_sap',
           'alp_categorias.nombre_categoria as nombre_categoria',
           'alp_almacenes.nombre_almacen as nombre_almacen',
+          'alp_ordenes.origen as origen',
           'alp_marcas.nombre_marca as nombre_marca'
           )
           ->join('alp_ordenes', 'alp_ordenes_detalle.id_orden', '=', 'alp_ordenes.id')
@@ -52,6 +54,16 @@ class ProductostotalesExport implements FromView
           ->whereDate('alp_ordenes_detalle.created_at', '<=', $this->hasta)
           ->whereIn('alp_ordenes.estatus', [1,2,3,5,6,7])
           ->where('alp_ordenes.id_forma_pago', '<>', '3');
+
+
+
+ if ($this->origen==-1) {
+            # code...
+          }else{
+
+            $c->where('alp_ordenes.origen', '=', $this->origen);
+          }
+
 
 
            if ($this->almacen==0) {

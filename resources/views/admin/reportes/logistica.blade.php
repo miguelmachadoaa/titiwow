@@ -116,7 +116,6 @@ Reporte Logistica
 
                         <div class="col-md-10">   
                             <select id="origen" name="origen" class="form-control select2">
-                                <option value="">Seleccione</option>
                                 <option value="-1">Todos</option>
                                 <option value="0">Web</option>
                                 <option value="1">Tomapedidos</option>

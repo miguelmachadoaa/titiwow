@@ -20,8 +20,9 @@ use Carbon\Carbon;
 class NominaExport implements FromView
 {
     
-    public function __construct(string $desde,string $hasta, string $alm)
+    public function __construct(string $origen ,string $desde,string $hasta, string $alm)
     {
+        $this->origen = $origen;
         $this->desde = $desde;
         $this->hasta = $hasta;
         $this->alm = $alm;
@@ -42,10 +43,9 @@ class NominaExport implements FromView
       $date_hasta = Carbon::parse($this->hasta.' 23:59:59')->toDateTimeString(); 
 
 
-        $ordenes=AlpOrdenes::where('alp_ordenes.created_at', '>=', $date_desde)
+        $o=AlpOrdenes::where('alp_ordenes.created_at', '>=', $date_desde)
           ->where('alp_ordenes.created_at', '<=', $date_hasta)
-          ->whereIn('alp_ordenes.estatus', ['1','2','3','5','6','7','8'])
-          ->get();
+          ->whereIn('alp_ordenes.estatus', ['1','2','3','5','6','7','8']);
         
       }else{
 
@@ -54,12 +54,22 @@ class NominaExport implements FromView
 
       $date_hasta = Carbon::parse($this->hasta.' 23:59:59')->toDateTimeString(); 
 
-        $ordenes=AlpOrdenes::where('alp_ordenes.id_almacen', $this->alm)
+        $o=AlpOrdenes::where('alp_ordenes.id_almacen', $this->alm)
           ->where('alp_ordenes.created_at', '>=', $date_desde)
           ->where('alp_ordenes.created_at', '<=', $date_hasta)
-          ->whereIn('alp_ordenes.estatus', ['1','2','3','5','6','7','8'])
-          ->get();
+          ->whereIn('alp_ordenes.estatus', ['1','2','3','5','6','7','8']);
       }
+
+
+       if ($this->origen==-1) {
+            # code...
+          }else{
+
+            $o->where('alp_ordenes.origen', '=', $this->origen);
+          }
+
+
+          $ordenes=$o->get();
 
           
 

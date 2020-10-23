@@ -255,7 +255,7 @@ class AlpReportesController extends Controller
         }
 
 
-        return Excel::download(new ProductostotalesExport($request->desde, $request->hasta, $request->almacen), 'productos_con_impuesto_'.$a.'.xlsx');
+        return Excel::download(new ProductostotalesExport($request->origen, $request->desde, $request->hasta, $request->almacen), 'productos_con_impuesto_'.$a.'.xlsx');
     }
 
     public function carrito() 
@@ -987,7 +987,7 @@ class AlpReportesController extends Controller
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
-        return Excel::download(new DescuentoVentasExport($request->desde, $request->hasta, $request->id_almacen), 'ventasdescuento_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+        return Excel::download(new DescuentoVentasExport( $request->origen, $request->desde, $request->hasta, $request->id_almacen), 'ventasdescuento_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
     }
 
     /*********************funciones para descarga de reporte************************/
@@ -1544,7 +1544,7 @@ class AlpReportesController extends Controller
 
         $hoy=$date->format('Y-m-d');
 
-        return Excel::download(new NominaExport($request->desde, $request->hasta, $request->id_almacen), 'Listado_de_ventas_almacen.xlsx');
+        return Excel::download(new NominaExport($request->origen,$request->desde, $request->hasta, $request->id_almacen), 'Listado_de_ventas_almacen.xlsx');
     }
 
 

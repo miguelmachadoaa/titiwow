@@ -11,6 +11,7 @@
             <th ><b>Cantidad </b></th>
             <th ><b>Creado  </b></th>
             <th ><b>Ciudad  </b></th>
+            <th ><b>Origen  </b></th>
         </tr>
     </thead>
     <tbody>
@@ -29,6 +30,21 @@
                         <td>{!! $detalle->cantidad!!}</td>
                         <td>{!! date("d/m/Y H:i:s", strtotime($row->created_at))!!}</td>
                         <td>{!! $row->direccion->city_name !!}</td>
+
+                         <td>
+
+                    @if($row->origen==0)
+
+                    Web
+
+                    @else
+
+                    Tomapedidos
+
+                    @endif
+
+
+                </td>
 
                       
                     </tr>
