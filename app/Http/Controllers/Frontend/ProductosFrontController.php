@@ -779,6 +779,8 @@ class ProductosFrontController extends Controller
           ->where('alp_ancheta_productos.id_ancheta_categoria', $c->id)
           ->get();
 
+           $productos=$this->addOferta($productos);
+
           $c->productos=$productos;
           
         }

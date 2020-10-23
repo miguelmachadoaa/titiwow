@@ -7776,7 +7776,7 @@ public function totalancheta()
 
       foreach ($cartancheta as $c) {
         
-        $total=$total+($c->precio_base);
+        $total=$total+($c->precio_oferta);
         
       }
 
