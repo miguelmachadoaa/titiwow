@@ -38,7 +38,20 @@
             <td></td>
             <td>{!! $row->barrio_address !!}</td>
             <td>{!! $row->fecha !!}</td>
-            <td>{!! $row->origen !!}</td>
+           <td>
+
+                    @if($row->origen==0)
+
+                    Web
+
+                    @else
+
+                    Tomapedidos
+
+                    @endif
+
+
+                </td>
           
         </tr>
         @endforeach
