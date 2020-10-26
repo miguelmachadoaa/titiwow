@@ -3571,6 +3571,12 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
     }
 
 
+
+  
+
+
+
+
     private function precio_base()
     {
        $cart= \Session::get('cart');
@@ -7792,6 +7798,53 @@ public function totalancheta()
       
     }
 
+
+
+public function verificarancheta()
+    {
+
+          
+
+      if (!\Session::has('cartancheta')) {
+
+        \Session::put('cartancheta',  array());
+
+      }
+
+
+
+      $cartancheta= \Session::get('cartancheta');
+
+      $producto= \Session::get('producto_ancheta');
+
+      $inv=$this->inventario();
+
+      //dd($cartancheta);
+
+      $total=0;
+
+      $respuesta=1;
+
+      foreach ($cartancheta as $c) {
+        
+        if (isset($inv[$c->id])) {
+          
+          if ($inv[$c->id]<$c->cantidad) {
+            
+            $respuesta=1;
+
+          }
+
+        }else{
+          $respuesta=1;
+        }
+        
+      }
+
+
+        return $respuesta;
+      
+    }
 
 
 

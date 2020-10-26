@@ -765,10 +765,11 @@ class ProductosFrontController extends Controller
 
       if ($producto->tipo_producto==3) {
 
+        $producto->cantidad=1;
+
         $cartancheta[$producto->slug]=$producto;
 
          \Session::put('cartancheta',  $cartancheta);
-
 
         $anchetas_categorias=AlpAnchetasCategorias::where('id_ancheta', $producto->id)->get();
 

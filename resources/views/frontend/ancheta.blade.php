@@ -446,14 +446,34 @@
 
             seleccionados=$('.tabpane'+id+" .pseleccionado").toArray().length;
 
-            if (cantidad <=seleccionados) {
+            if (cantidad<=seleccionados) {
+
+
+                $.get(base+'/cart/verificarancheta', function(data) {
+
+                    
+                    if (data=='0') {
+
+                        $('.addtocartunaancheta').fadeIn();
+
+                        $('.addtocartunaancheta').focus();
+
+                        $('.reiniciarAncheta').fadeOut();
+
+                    }else{
+
+                        $('.errorcantidad').html('<div class="alert alert-danger">No hay existencia disponible, de la caja de ancheta </div>');
+
+                    }
+                    
+
+
+
+
+                });
 
                
-                $('.addtocartunaancheta').fadeIn();
-
-                $('.addtocartunaancheta').focus();
-
-                $('.reiniciarAncheta').fadeOut();
+                
 
             }else{
 
