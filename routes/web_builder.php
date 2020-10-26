@@ -1303,7 +1303,7 @@ Route::post('cart/deltocartancheta/',['as'=>'cart.deltocartancheta', 'uses'=>'Ad
 
 Route::get('cart/totalancheta/',['as'=>'cart.totalancheta', 'uses'=>'Admin\AlpCartController@totalancheta']);
 
-Route::get('cart/verificarancheta/',['as'=>'cart.verificarancheta', 'uses'=>'Admin\AlpCartController@verificarancheta']);
+Route::post('cart/verificarancheta/',['as'=>'cart.verificarancheta', 'uses'=>'Admin\AlpCartController@verificarancheta']);
 
 Route::get('cart/reiniciarancheta/',['as'=>'cart.reiniciarancheta', 'uses'=>'Admin\AlpCartController@reiniciarancheta']);
 

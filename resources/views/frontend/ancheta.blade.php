@@ -439,17 +439,22 @@
 
          $('.finalizarAncheta').on('click', function(){
 
-
              id=$(this).data('id');
 
             cantidad=$(this).data('cantidad');
+
+
+            ancheta_de=$('#ancheta_de').val();
+            ancheta_para=$('#ancheta_para').val();
+            ancheta_mensaje=$('#ancheta_mensaje').val();
 
             seleccionados=$('.tabpane'+id+" .pseleccionado").toArray().length;
 
             if (cantidad<=seleccionados) {
 
 
-                $.get(base+'/cart/verificarancheta', function(data) {
+
+                $.post(base+'/cart/verificarancheta', {ancheta_de, ancheta_para, ancheta_mensaje}, function(data) {
 
                     
                     if (data=='0') {
@@ -495,6 +500,12 @@
 
             datasingle=$(this).data('single');
 
+            ancheta_de=$('#ancheta_de').val();
+            ancheta_para=$('#ancheta_para').val();
+            ancheta_mensaje=$('#ancheta_mensaje').val();
+
+
+
             price=$(this).data('price')+$('.totalancheta').val();
 
             slug=$(this).data('slug');
@@ -511,7 +522,7 @@
 
             $('.boton_'+id+'').html('<img style="max-width:32px; max-height:32px;" src="'+imagen+'">');
 
-            $.post(base+'/cart/agregarunaancheta', {price, slug, datasingle}, function(data) {
+            $.post(base+'/cart/agregarunaancheta', {price, slug, datasingle, ancheta_para, ancheta_de, ancheta_mensaje}, function(data) {
 
                 $('.boton_'+id+'').html(data);
 

@@ -9,7 +9,7 @@
 
         <div class="col-sm-7 col-xs-8">
 
-            <p style="   font-size: 14px;color: #143473;margin: 20px 5px 15px 5px;min-height: 45px; font-family: 'PlutoMedium'; text-align: left;" > {{$p->nombre_producto}}</p>
+            <p style="   font-size: 14px;color: #143473;margin: 20px 5px 15px 5px;min-height: 5em; font-family: 'PlutoMedium'; text-align: left;" > {{$p->nombre_producto}}</p>
 
             <a href="{{ route('producto', [$p->slug]) }}" ><h6 class="text-align:center; " style=" font-size: 11px;color: #199ad9;margin: 20px 0px 15px 0px; font-family: 'PlutoBold';">{{ $p->presentacion_producto }}</h6></a>
 

@@ -38,6 +38,7 @@ use App\Models\AlpAlmacenDespacho;
 use App\Models\AlpAlmacenFormaPago;
 use App\Models\AlpAlmacenFormaEnvio;
 use App\Models\AlpAlmacenProducto;
+use App\Models\AlpAnchetaMensaje;
 
 use App\Models\AlpSaldo;
 use App\Models\AlpRolenvio;
@@ -1531,6 +1532,8 @@ class AlpCartController extends JoshController
               "external_reference" =>time()
             ];
 
+            //echo json_encode($cart);
+
            $mp = new MP();
 
            if ($configuracion->mercadopago_sand=='1') {
@@ -1862,13 +1865,18 @@ class AlpCartController extends JoshController
                   "type"=>"IVA"]]
               ];
 
+
+             // dd($preference_data);
+
           
-           // Log::info($preference_data);
+            Log::info($preference_data);
 
             $payment = MP::post("/v1/payments",$preference_data);
 
 
-           // Log::info($payment);
+
+
+            Log::info($payment);
 
 
             if (isset($payment['response']['id'])) {
@@ -4919,6 +4927,30 @@ public function verificarDireccion( Request $request)
             }
 
 
+
+
+
+            if (\Session::has('mensajeancheta')) {
+
+              $mensaje=\Session::get('mensajeancheta');
+
+                $data_ancheta_mensaje = array(
+                  'id_orden' => $orden->id,
+                  'id_ancheta' => $orden->id,
+                  'ancheta_de' => $mensaje['ancheta_de'],
+                  'ancheta_para' => $mensaje['ancheta_para'],
+                  'ancheta_mensaje' => $mensaje['ancheta_mensaje'],
+              );
+
+              AlpAnchetaMensaje::create($data_ancheta_mensaje);
+
+            }
+
+
+
+
+
+
             \Session::put('cr', $orden->id);
 
          }
@@ -7800,7 +7832,7 @@ public function totalancheta()
 
 
 
-public function verificarancheta()
+public function verificarancheta(Request $request)
     {
 
           
@@ -7811,6 +7843,21 @@ public function verificarancheta()
 
       }
 
+
+      if (!\Session::has('mensajeancheta')) {
+
+        \Session::put('mensajeancheta',  array());
+
+      }
+
+
+      $mensaje = array(
+        'ancheta_de' => $request->ancheta_de, 
+        'ancheta_para' => $request->ancheta_para, 
+        'ancheta_mensaje' => $request->ancheta_mensaje, 
+      );
+
+      \Session::put('mensajeancheta',  $mensaje);
 
 
       $cartancheta= \Session::get('cartancheta');
@@ -7823,7 +7870,7 @@ public function verificarancheta()
 
       $total=0;
 
-      $respuesta=1;
+      $respuesta=0;
 
       foreach ($cartancheta as $c) {
         
@@ -7869,6 +7916,23 @@ public function reiniciarancheta()
           ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
           ->where('alp_productos.slug', $request->slug)
           ->first();
+
+
+           if (!\Session::has('mensajeancheta')) {
+
+        \Session::put('mensajeancheta',  array());
+
+      }
+
+
+      $mensaje = array(
+        'ancheta_de' => $request->ancheta_de, 
+        'ancheta_para' => $request->ancheta_para, 
+        'ancheta_mensaje' => $request->ancheta_mensaje, 
+      );
+
+      \Session::put('mensajeancheta',  $mensaje);
+
 
           //dd($producto);
 

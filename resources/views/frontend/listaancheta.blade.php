@@ -1,4 +1,48 @@
-<div class="col-sm-12">
+
+<div class="col-sm-6">
+    
+    <h3 style="text-align: left;">Formulario <small>Mensaje Personalizado para su ancheta</small></h3>
+
+    <form action="{{ secure_url('login') }}" class="omb_loginForm"  autocomplete="off" method="POST">
+     
+
+
+        <div class="form-group {{ $errors->first('ancheta_de', 'has-error') }}">
+            <label class="sr-only">De:</label>
+            <input type="text" class="form-control" maxlength="50" name="ancheta_de" id="ancheta_de" placeholder="De"
+                   value="{!! old('ancheta_de') !!}">
+        </div>
+
+
+        <span class="help-block">{{ $errors->first('ancheta_de', ':message') }}</span>
+
+
+         <div class="form-group {{ $errors->first('ancheta_para', 'has-error') }}">
+            <label class="sr-only">Para: </label>
+            <input type="text" class="form-control" maxlength="50"  name="ancheta_para" id="ancheta_para" placeholder="Para"
+                   value="{!! old('ancheta_para') !!}">
+        </div>
+
+        
+        <span class="help-block">{{ $errors->first('ancheta_para', ':message') }}</span>
+
+
+         <div class="form-group {{ $errors->first('ancheta_mensaje', 'has-error') }}">
+            <label class="sr-only">Mensaje</label>
+
+            <textarea class="form-control" maxlength="250"  name="ancheta_mensaje" id="ancheta_mensaje" cols="30" rows="10" placeholder="Mensaje">{!! old('ancheta_mensaje') !!}</textarea>
+            
+        </div>
+
+        
+        <span class="help-block">{{ $errors->first('ancheta_mensaje', ':message') }}</span>
+
+
+       
+       
+    </form>
+</div>
+<div class="col-sm-6">
                     
     <div class="">
 
