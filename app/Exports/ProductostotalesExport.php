@@ -57,7 +57,7 @@ class ProductostotalesExport implements FromView
 
 
 
- if ($this->origen==-1) {
+          if ($this->origen==-1) {
             # code...
           }else{
 

@@ -7751,6 +7751,8 @@ public function deltocartancheta( Request $request)
           ->where('alp_productos.slug', $request->slug)
           ->first();
 
+          $p=$this->addOfertaUn($p);
+
           //dd($producto);
 
         if (!\Session::has('cartancheta')) {
@@ -8069,6 +8071,238 @@ public function reiniciarancheta()
       
       
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private function addOfertaUn($producto)
+    {
+       
+
+      $s_user= \Session::get('user');
+
+     $id_almacen=$this->getAlmacenCart();
+
+      $total=0;
+
+      $cambio=1;
+
+      $descuento='1'; 
+
+      $precio = array();
+
+        if (Sentinel::check()) {
+
+            $user_id = Sentinel::getUser()->id;
+
+            //if ($user_id!=$s_user) {
+            if (1) {
+
+              $cambio=1;
+
+              \Session::put('user', $user_id);
+
+              $role=RoleUser::where('user_id', $user_id)->first();
+
+              $cliente = AlpClientes::where('id_user_client', $user_id )->first();
+
+              if (isset($cliente->id_empresa) ) {
+
+                  if ($cliente->id_empresa!=0) {
+
+                      $role->role_id='E'.$cliente->id_empresa.'';
+                  }
+                 
+              }
+
+             if ($role->role_id) {
+                    
+                    
+                foreach ($cart as $producto ) {
+
+                  if (isset($producto->id)) {
+
+                      $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $role->role_id)->first();
+
+                      if (isset($pregiogrupo->id)) {
+                         
+                          $precio[$producto->id]['precio']=$pregiogrupo->precio;
+
+                          $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
+                          $precio[$producto->id]['pum']=$pregiogrupo->pum;
+
+                      }
+                    
+                    
+                  }
+
+                  
+
+                }
+                
+            }
+
+          }
+
+        }else{
+
+          $role = array( );
+
+            $r='9';
+
+                    if (isset($producto->id)) {
+                      
+                       $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $r)->first();
+
+                      if (isset($pregiogrupo->id)) {
+                         
+                          $precio[$producto->id]['precio']=$pregiogrupo->precio;
+                          $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
+                          $precio[$producto->id]['pum']=$pregiogrupo->pum;
+
+                      }
+
+                    }
+                    
+                   
+
+                
+        } //end sentinel check
+
+
+
+    if ($cambio==1) {
+
+
+      if (isset($producto->promocion)) {
+        # code...
+      }else{
+
+        if (isset($producto->nombre_producto)) {
+          # code...
+
+          if ($descuento=='1') {
+
+            if (isset($precio[$producto->id])) {
+              # code...
+             
+              switch ($precio[$producto->id]['operacion']) {
+
+                case 1:
+
+                  $producto->precio_oferta=$producto->precio_base*$descuento;
+
+                  break;
+
+                case 2:
+
+                  $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
+                  
+                  break;
+
+                case 3:
+
+                  $producto->precio_oferta=$precio[$producto->id]['precio'];
+                  
+                  break;
+                
+                default:
+                
+                 $producto->precio_oferta=$producto->precio_base*$descuento;
+                  # code...
+                  break;
+              }
+
+            }else{
+
+              $producto->precio_oferta=$producto->precio_base*$descuento;
+
+            }
+
+
+           }else{
+
+           $producto->precio_oferta=$producto->precio_base*$descuento;
+
+
+           }
+
+
+            if (isset($producto->ancheta)) {
+
+              $total=0;
+              $total_oferta=0;
+
+                foreach ($producto->ancheta as $c) {
+          
+                  $total=$total+($c->precio_base);
+                  $total_oferta=$total_oferta+($c->precio_oferta);
+                  
+                }
+
+                $producto->precio_oferta=$total_oferta;
+                $producto->precio_base=$total;
+
+               
+             }
+
+
+
+
+
+
+            $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
+
+            $almp=AlpAlmacenProducto::where('id_almacen', $id_almacen)->where('id_producto', $producto->id)->first();
+
+            //dd($almp);
+
+            if (isset($almp->id)) {
+
+              $producto->disponible=1;
+
+            }else{
+
+              if (isset($producto->promocion)) {
+                $producto->disponible=1;
+              }else{
+
+                $producto->disponible=0;
+
+              }
+
+            }
+
+          }
+      }
+
+     // dd($cart);
+
+       return $producto;
+
+      }else{
+
+        return $producto;
+
+      }
+      
+    }
+
+
+
 
 
 
