@@ -7852,6 +7852,10 @@ public function verificarancheta(Request $request)
 
       }
 
+      $request->ancheta_de=strip_tags($request->ancheta_de);
+      $request->ancheta_para=strip_tags($request->ancheta_para);
+      $request->ancheta_mensaje=strip_tags($request->ancheta_mensaje);
+
 
       $mensaje = array(
         'ancheta_de' => $request->ancheta_de, 
@@ -7925,6 +7929,10 @@ public function reiniciarancheta()
         \Session::put('mensajeancheta',  array());
 
       }
+
+      $request->ancheta_de=strip_tags($request->ancheta_de);
+      $request->ancheta_para=strip_tags($request->ancheta_para);
+      $request->ancheta_mensaje=strip_tags($request->ancheta_mensaje);
 
 
       $mensaje = array(

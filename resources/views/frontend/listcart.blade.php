@@ -344,7 +344,6 @@
              <a class="btn btn-cart sendDetail" href="{{secure_url('order/detail')}}">Finalizar Tu Compra <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
          </p> 
 
-        
          <!--div class="row">
              <div class="col-sm-12">
                  {{json_encode($cart)}}

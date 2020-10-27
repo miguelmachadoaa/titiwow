@@ -401,7 +401,7 @@
                          <div class="form-group {{ $errors->first('ancheta_mensaje', 'has-error') }}">
                             <label class="sr-only">Mensaje</label>
 
-                            <textarea class="form-control" maxlength="250"  name="ancheta_mensaje" id="ancheta_mensaje" cols="30" rows="10" placeholder="Mensaje">{!! old('ancheta_mensaje') !!}</textarea>
+                            <textarea class="form-control" maxlength="250"  name="ancheta_mensaje" id="ancheta_mensaje" cols="5" rows="10" placeholder="Mensaje">{!! old('ancheta_mensaje') !!}</textarea>
                             
                         </div>
 
@@ -488,6 +488,8 @@
 
 
          $('.finalizarAncheta').on('click', function(){
+
+            $('.errorcantidad').html('');
 
              id=$(this).data('id');
 
