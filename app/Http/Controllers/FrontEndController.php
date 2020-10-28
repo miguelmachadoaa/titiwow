@@ -356,8 +356,9 @@ class FrontEndController extends JoshController
       ->where('alp_productos.estado_registro','=',1)
       ->where('alp_almacen_producto.id_almacen','=','1')
       ->whereNull('alp_almacen_producto.deleted_at')
-     // ->whereNull('alp_xml.deleted_at')
+      //->whereNull('alp_xml.deleted_at')
       ->whereNull('alp_productos.deleted_at')
+      ->groupBy('alp_productos.id')
       ->get();
 
       //  dd($productos);
