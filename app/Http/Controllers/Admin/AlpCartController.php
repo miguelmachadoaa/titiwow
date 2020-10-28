@@ -4825,37 +4825,40 @@ public function verificarDireccion( Request $request)
 
               if ($detalle->tipo_producto=='3') {
 
-                    foreach ($detalle->ancheta as $l) {
+                  if (isset($detalle->ancheta)) {
 
-                        $data_detalle_l = array(
-                          'id_orden' => $orden->id, 
-                          'id_producto' => $l->id, 
-                          'cantidad' =>$l->cantidad*$detalle->cantidad, 
-                          'precio_unitario' =>0, 
-                          'precio_base' =>0, 
-                          'precio_total' =>0,
-                          'precio_total_base' =>0,
-                          'valor_impuesto' =>0,
-                          'monto_impuesto' =>0,
-                          'id_combo' =>$detalle->id,
-                          'id_user' =>$user_id 
-                        );
+                      foreach ($detalle->ancheta as $l) {
 
-                        $data_inventario_l = array(
-                          'id_producto' => $l->id, 
-                          'id_almacen' => $id_almacen, 
-                          'cantidad' =>$l->cantidad*$detalle->cantidad, 
-                          'operacion' =>'2', 
-                          'notas' =>'Orden '.$orden->id,
-                          'id_user' =>$user_id 
-                        );
+                          $data_detalle_l = array(
+                            'id_orden' => $orden->id, 
+                            'id_producto' => $l->id, 
+                            'cantidad' =>$l->cantidad*$detalle->cantidad, 
+                            'precio_unitario' =>0, 
+                            'precio_base' =>0, 
+                            'precio_total' =>0,
+                            'precio_total_base' =>0,
+                            'valor_impuesto' =>0,
+                            'monto_impuesto' =>0,
+                            'id_combo' =>$detalle->id,
+                            'id_user' =>$user_id 
+                          );
 
-                        AlpDetalles::create($data_detalle_l);
+                          $data_inventario_l = array(
+                            'id_producto' => $l->id, 
+                            'id_almacen' => $id_almacen, 
+                            'cantidad' =>$l->cantidad*$detalle->cantidad, 
+                            'operacion' =>'2', 
+                            'notas' =>'Orden '.$orden->id,
+                            'id_user' =>$user_id 
+                          );
 
-                        AlpInventario::create($data_inventario_l);
+                          AlpDetalles::create($data_detalle_l);
+
+                          AlpInventario::create($data_inventario_l);
+                    }
+
                   }
-
-              }
+               }
 
 
 
