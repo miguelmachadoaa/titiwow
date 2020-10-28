@@ -1869,14 +1869,14 @@ class AlpCartController extends JoshController
              // dd($preference_data);
 
           
-            Log::info($preference_data);
+            //Log::info($preference_data);
 
             $payment = MP::post("/v1/payments",$preference_data);
 
 
 
 
-            Log::info($payment);
+            //Log::info($payment);
 
 
             if (isset($payment['response']['id'])) {
@@ -4937,9 +4937,9 @@ public function verificarDireccion( Request $request)
                 $data_ancheta_mensaje = array(
                   'id_orden' => $orden->id,
                   'id_ancheta' => $orden->id,
-                  'ancheta_de' => $mensaje['ancheta_de'],
-                  'ancheta_para' => $mensaje['ancheta_para'],
-                  'ancheta_mensaje' => $mensaje['ancheta_mensaje'],
+                  'mensaje_de' => $mensaje['ancheta_de'],
+                  'mensaje_para' => $mensaje['ancheta_para'],
+                  'mensaje_mensaje' => $mensaje['ancheta_mensaje'],
               );
 
               AlpAnchetaMensaje::create($data_ancheta_mensaje);

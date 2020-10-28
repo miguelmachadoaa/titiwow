@@ -4,8 +4,6 @@
             <th><b> Id_Pedido</b></th>
             <th><b>Nombre</b></th>
             <th><b>Cedula</b></th>
-            <th><b>EAN</b></th>
-            <th><b>SKU</b></th>
             <th><b>Cantidad productos</b></th>
             <th><b>Total Productos</b></th>
             <th><b> Codigo Cupon </b></th>
@@ -17,12 +15,12 @@
     <tbody>
 
         @foreach ($ventas as $venta)
+        @if(is_null($venta->codigo_cupon))
+        @else
         <tr>
             <td>{!! $venta->id!!}</td>
             <td>{!! $venta->first_name.' '.$venta->last_name !!}</td>
             <td>{!! $venta->doc_cliente !!}</td>
-            <td>{!! $venta->referencia_producto!!}</td>
-            <td>{!! $venta->referencia_producto_sap !!}</td>
             <td>{!! $venta->total_articulos !!}</td>
             <td>{!! $venta->monto_total !!}</td>
             <td>{!! $venta->codigo_cupon !!}</td>
@@ -32,6 +30,7 @@
             
           
         </tr>
+        @endif
         @endforeach
     </tbody>
 </table>

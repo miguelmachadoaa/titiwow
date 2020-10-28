@@ -16,6 +16,8 @@ use App\Models\AlpEnviosHistory;
 use App\Models\AlpOrdenes;
 use App\Models\AlpDetalles;
 use App\Models\AlpOrdenesHistory;
+use App\Models\AlpOrdenesDescuento;
+
 use App\Exports\CronNuevosUsuarios;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Log;
@@ -69,7 +71,7 @@ class VerificarPagos extends Command
       $d=$date->subDay(3)->format('Y-m-d');
       
         $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
-       // $ordenes=AlpOrdenes::where('id', '5233')->get();
+       // $ordenes=AlpOrdenes::where('id', '9949')->get();
         //
         
        
@@ -409,6 +411,20 @@ class VerificarPagos extends Command
                     $this->sendcompramas($orden->id, 'rejected');
                     # code...
                   }
+
+
+                   $descuentos=AlpOrdenesDescuento::where('id_orden', $orden->id)->get();
+
+                      foreach ($descuentos as $desc) {
+                        
+                        $d=AlpOrdenesDescuento::where('id', $desc->id)->first();
+
+                        $d->delete();
+
+                      }
+
+
+
 
                  
                }
