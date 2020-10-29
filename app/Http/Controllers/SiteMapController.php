@@ -140,7 +140,7 @@ class SiteMapController extends JoshController
 
         foreach ($marcas as $marca) {
             $this->siteMap->add(
-                Url::create("/marca/".$marca->slug)
+                Url::create("/marcas/".$marca->slug)
                 ->lastUpdate($startOfMonth)
                 ->frequency('weekly')
                     ->priority('0.9')
