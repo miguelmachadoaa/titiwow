@@ -579,7 +579,7 @@ class AlpCartController extends JoshController
                }
            },
            "description": "Pago de orden Nro. '.$orden->id.'",
-           "external_reference": "ALP'.$orden->id.'",
+           "external_reference": "'.$orden->referencia.'",
            "callback_url": "'.secure_url('/order/pse').'",
            "additional_info": {
                "ip_address": "'.request()->ip().'",
@@ -1149,7 +1149,7 @@ class AlpCartController extends JoshController
           "binary_mode" => true,
           "description" => 'Pago de orden: '.$orden->id,
           "installments" => intval($request->installments),
-          "external_reference"=> "ALP".$orden->id."",
+          "external_reference"=> "".$orden->referencia."",
           "payment_method_id" => $request->payment_method_id,
           "additional_info" => $additional_info,
           
@@ -1850,7 +1850,7 @@ class AlpCartController extends JoshController
 
                $preference_data = [
                 "transaction_amount" => doubleval($orden->monto_total+$envio),
-                "external_reference" =>"ALP".$orden->id."",
+                "external_reference" =>"".$orden->referencia."",
                 "description" => 'Pago de orden: '.$orden->id,
                 "payment_method_id" => $request->idpago,
                   "additional_info"=> [

@@ -28,6 +28,7 @@ public $configuracion;
     {
         //
         $this->configuracion= AlpConfiguracion::where('id', '1')->first();
+        
         $this->texto=$texto;    
 
 
@@ -49,12 +50,6 @@ public $configuracion;
                   ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
 
         $this->detalles=$detalles;
-
-
-       
-
-
-
 
 
     }

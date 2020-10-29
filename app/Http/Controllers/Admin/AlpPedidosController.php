@@ -2631,8 +2631,6 @@ $valor_impuesto=AlpImpuestos::where('id', '1')->first();
 
             }
 
-
-
           MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
             $payment_methods = MP::get("/v1/payment_methods");
