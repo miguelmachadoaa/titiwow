@@ -51,6 +51,12 @@ Pedidos
                      <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
 
                      <div class="row" style="padding-top: 0;">
+
+                      <!--div class="col-sm-12">
+                          
+                          {{json_encode($cart)}}
+
+                      </div-->
                          
                          <div class="col-sm-12">
 
@@ -62,7 +68,7 @@ Pedidos
 
                                    <select style="width: 100%;" class="form-control select2" name="almacen" id="almacen">
 
-                                    <option value="">Seleccione</option>
+                                    <option @if($cart['id_almacen']=='') {{'selected'}} @endif  value="">Seleccione</option>
 
                                         @foreach($almacenes as $a)
 
@@ -142,7 +148,7 @@ Pedidos
             </div>
         </div>
 
-
+        
 
 
          <div class="col-lg-4">
