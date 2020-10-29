@@ -39,7 +39,7 @@ public $configuracion;
     public function build()
     {
         $email= $this->from($this->configuracion->correo_respuesta)
-        ->subject('Reporte Ultima Milla '.$this->fecha.' | ApinaGo')
+        ->subject('Reporte Ultima Milla '.$this->fecha.' | AlpinaGo')
         ->markdown('emails.ultimamilla');
 
         foreach ($this->documentos as $doc) {

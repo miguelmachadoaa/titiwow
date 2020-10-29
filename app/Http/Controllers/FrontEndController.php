@@ -471,10 +471,6 @@ class FrontEndController extends JoshController
 
       $m=AlpMenuDetalle::menus(1);
 
-    //  dd($m);
-
-      //dd($id_almacen);
-
         $rol=9;
 
         $descuento='1'; 

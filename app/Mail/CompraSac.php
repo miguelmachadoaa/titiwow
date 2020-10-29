@@ -64,12 +64,9 @@ public $configuracion;
             $asunto= ' ENVIO EXPRESS | Nuevo Pedido Nro.: '.$this->compra->id.' | En Espera de Pago ';
 
           }
-
-         
           
-$this->configuracion= AlpConfiguracion::where('id', '1')->first();
+        $this->configuracion= AlpConfiguracion::where('id', '1')->first();
 
-            
         }
 
         $this->asunto=$asunto;
@@ -94,9 +91,8 @@ $this->configuracion= AlpConfiguracion::where('id', '1')->first();
      */
     public function build()
     {
-
         
-return $this->from($this->configuracion->correo_respuesta)
+        return $this->from($this->configuracion->correo_respuesta)
         ->subject($this->asunto)
         ->markdown('emails.compra-sac');
     }

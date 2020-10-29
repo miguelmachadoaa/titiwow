@@ -74,8 +74,6 @@ class VerificarPagos extends Command
        // $ordenes=AlpOrdenes::where('id', '9949')->get();
         //
         
-       
-
       $configuracion = AlpConfiguracion::where('id', '1')->first();
 
        if ($configuracion->mercadopago_sand=='1') {

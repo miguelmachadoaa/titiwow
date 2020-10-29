@@ -67,7 +67,7 @@ public $configuracion;
     public function build()
     {
         return $this->from($this->configuracion->correo_respuesta)
-        ->subject('Nuevo Pedido | ApinaGo')
+        ->subject('Nuevo Pedido | AlpinaGo')
         ->markdown('emails.notificacion-orden-envio');
     }
 }

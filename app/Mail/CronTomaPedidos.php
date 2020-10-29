@@ -45,7 +45,7 @@ $this->configuracion= AlpConfiguracion::where('id', '1')->first();
     public function build()
     {
         $email= $this->from($this->configuracion->correo_respuesta)
-        ->subject('Ventas ALPINA GO '.$this->fecha.' | ApinaGo')
+        ->subject('Ventas ALPINA GO '.$this->fecha.' | AlpinaGo')
         ->markdown('emails.tomapedidos');
 
          foreach ($this->documentos as $doc) {

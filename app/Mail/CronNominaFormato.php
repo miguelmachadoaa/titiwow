@@ -43,7 +43,7 @@ $this->configuracion= AlpConfiguracion::where('id', '1')->first();
     {
         
 $email= $this->from($this->configuracion->correo_respuesta)
-        ->subject('Formato ventas Nomina ALPINA GO '.$this->fecha.' | ApinaGo')
+        ->subject('Formato ventas Nomina ALPINA GO '.$this->fecha.' | AlpinaGo')
         ->markdown('emails.formato');
 
         foreach ($this->documentos as $doc) {
