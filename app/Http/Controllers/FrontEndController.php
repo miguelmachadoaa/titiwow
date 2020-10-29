@@ -1300,6 +1300,16 @@ class FrontEndController extends JoshController
 
             }
 
+
+            if (isset($user->id)) {
+
+              $ibm=$this->addibm($user);
+
+              # code...
+            }
+
+
+
             // login user automatically
             Sentinel::login($user, false);
             //Activity log for new account
