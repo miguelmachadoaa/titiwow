@@ -428,7 +428,7 @@
             url=$(this).attr('href');
 
 
-            pimagen=$(this).data('pimagen');
+            pimagen=$(this).data('imagen');
             
             name=$(this).data('name');
 

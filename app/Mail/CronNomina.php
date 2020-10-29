@@ -42,7 +42,7 @@ public $configuracion;
     {
         
 $email= $this->from($this->configuracion->correo_respuesta)
-        ->subject('Ventas con Descuento Nomina ALPINA GO '.$this->fecha.' | ApinaGo')
+        ->subject('Ventas con Descuento Nomina ALPINA GO '.$this->fecha.' | AlpinaGo')
         ->markdown('emails.nomina');
 
         foreach ($this->documentos as $doc) {

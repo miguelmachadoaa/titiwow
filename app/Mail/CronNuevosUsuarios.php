@@ -42,7 +42,7 @@ $this->configuracion= AlpConfiguracion::where('id', '1')->first();
     {
         
 return $this->from($this->configuracion->correo_respuesta)
-        ->subject('Reporte de Nuevos Usuarios por Activar | ApinaGo')
+        ->subject('Reporte de Nuevos Usuarios por Activar | AlpinaGo')
         ->markdown('emails.nuevosusuarios');
     }
 }
