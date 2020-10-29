@@ -470,20 +470,22 @@ class ProductosFrontController extends Controller
             $producto =  DB::table('alp_productos')->select('alp_productos.*','alp_marcas.nombre_marca','alp_marcas.slug  as marca_slug')
 
             ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
-        ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
-       ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
-       ->whereNull('alp_almacen_producto.deleted_at')
-       ->whereNull('alp_productos.deleted_at')
+            ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
+           ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
+           ->whereNull('alp_almacen_producto.deleted_at')
+           ->whereNull('alp_productos.deleted_at')
             ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
             ->where('alp_productos.estado_registro','=',1)
             ->where('alp_productos.mostrar','=',1)
             ->where('alp_productos.slug','=', $slug)->first(); 
 
 
-
-            if ($producto->tipo_producto=='3') {
-              \Session::put('producto_ancheta',  $producto);
+            if (isset($producto->tipo_producto)) {
+              if ($producto->tipo_producto=='3') {
+                \Session::put('producto_ancheta',  $producto);
+              }
             }
+
 
 
 
