@@ -821,6 +821,7 @@ class AlpPedidosController extends JoshController
           ->where('alp_productos.id_categoria_default', $id)
           ->whereNull('alp_almacen_producto.deleted_at')
           ->orderBy('alp_productos.nombre_producto')
+          ->groupBy('alp_productos.id')
          // ->limit(12)
           ->get();
 
@@ -856,6 +857,7 @@ class AlpPedidosController extends JoshController
           ->where('alp_productos.id_marca', $id)
            ->whereNull('alp_almacen_producto.deleted_at')
           ->orderBy('alp_productos.nombre_producto')
+          ->groupBy('alp_productos.id')
          // ->limit(12)
           ->get();
 
@@ -893,6 +895,7 @@ class AlpPedidosController extends JoshController
           ->where('alp_almacen_producto.id_almacen', '=', $cart['id_almacen'])
           ->whereNull('alp_almacen_producto.deleted_at')
           ->orderBy('alp_productos.nombre_producto')
+          ->groupBy('alp_productos.id')
           ->get();
 
 
