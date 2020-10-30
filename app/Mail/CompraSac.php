@@ -65,9 +65,10 @@ public $configuracion;
 
           }
           
-        $this->configuracion= AlpConfiguracion::where('id', '1')->first();
 
         }
+
+        $this->configuracion= AlpConfiguracion::where('id', '1')->first();
 
         $this->asunto=$asunto;
 
