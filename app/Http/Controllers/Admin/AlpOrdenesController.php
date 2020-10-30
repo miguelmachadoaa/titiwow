@@ -3390,6 +3390,19 @@ public function compramasupdate()
               }
 
 
+               if ($row->origen=='1') {
+
+                $origen='Tomapedidos';
+                # code...
+              }else{
+
+                $origen='Web';
+
+              }
+
+              
+
+
 
 
                $data[]= array(
