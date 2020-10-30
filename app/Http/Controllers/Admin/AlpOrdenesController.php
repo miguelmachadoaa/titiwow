@@ -3400,10 +3400,6 @@ public function compramasupdate()
 
               }
 
-              
-
-
-
 
                $data[]= array(
                  $row->id, 

@@ -575,6 +575,7 @@ class AlpAlmacenesController extends JoshController
        ->where('alp_almacen_producto.id_almacen', $id)
        ->whereNull('alp_almacen_producto.deleted_at')
        ->where('id_almacen', $id)
+       ->groupBy('alp_productos.id')
        ->get();
 
        $inventario=$this->inventario();
@@ -1330,6 +1331,7 @@ class AlpAlmacenesController extends JoshController
        ->join('alp_productos', 'alp_almacen_producto.id_producto', '=', 'alp_productos.id')
        ->where('alp_almacen_producto.id_almacen', $id)
        ->whereNull('alp_almacen_producto.deleted_at')
+       ->groupBy('alp_productos.id')
        ->get();
 
 
