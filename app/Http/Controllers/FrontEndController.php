@@ -1301,12 +1301,7 @@ class FrontEndController extends JoshController
             }
 
 
-            if (isset($user->id)) {
-
-              $ibm=$this->addibm($user);
-
-              # code...
-            }
+          
 
 
 
