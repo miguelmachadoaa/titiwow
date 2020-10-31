@@ -26,6 +26,7 @@ use App\Models\AlpEstatusPagos;
 use App\Models\AlpInventario;
 use App\Models\AlpSaldo;
 use App\Models\AlpTemp;
+use App\Models\AlpAnchetaMensaje;
 use Illuminate\Support\Facades\Log;
 
 use App\User;
@@ -42,7 +43,8 @@ use DB;
 use MP;
 use Intervention\Image\Facades\Image;
 use DOMDocument;
-use Carbon\Carbon;
+use App\Custom\fpdf\fpdf;
+
 
 
 
@@ -53,6 +55,112 @@ class AlpOrdenesController extends JoshController
      *
      * @return View
      */
+    
+
+
+     public function index()
+    {
+        // Grab all the groups
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpOrdenesController/index ');
+
+        }else{
+
+          activity()
+          ->log('AlpOrdenesController/index');
+
+        }
+
+         if (!Sentinel::getUser()->hasAnyAccess(['ordenes.index'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+        $mensaje=AlpAnchetaMensaje::where('id_orden', '=', '10995')->first();
+
+        $this->fpdf = new fpdf;
+        $this->fpdf->AddPage();
+        $this->fpdf->SetFont('Times');
+        $this->fpdf->cell(40,40,'', 0, 1);
+
+        $partes=explode(' ', $mensaje->mensaje_mensaje );
+
+        $i=0;
+
+        $j=0;
+
+        $cadena='';
+
+        foreach ($partes as $key => $value) {
+
+        //dd($value);
+            
+            if ($i<50) {
+
+              $cadena=$cadena.$value.' ';
+
+              $i=strlen($value)+1+$i;
+
+
+              
+            }else{
+
+              //dd($i);
+
+              $i=0;
+
+              $j=$j+1;
+
+              $this->fpdf->Cell(100, 8, $cadena, 0,1);
+
+              $cadena=$value.' ';
+
+              $i=strlen($value)+1+$i;
+
+              
+            }
+
+
+        }
+
+         $this->fpdf->Cell(100, 8, $cadena, 0,1);
+
+         $j=$j+1;
+
+         while ($j <= 7) {
+           $this->fpdf->Cell(100, 8, '', 0,1);
+           $j=$j+1;
+         }
+
+         $this->fpdf->Cell(100, 15, $mensaje->mensaje_de, 0,1);
+         $this->fpdf->Cell(100, 15, $mensaje->mensaje_para, 0,1);
+
+
+
+       // $this->fpdf->MultiCell(90, 8, $mensaje->mensaje_mensaje, 1);       
+         
+        $this->fpdf->Output();
+        exit;
+      
+
+        $estatus_ordenes = AlpEstatusOrdenes::all();
+
+          $ordenes = AlpOrdenes::where('id', '1')->get();
+
+        // Show the page
+        return view('admin.ordenes.index', compact('ordenes', 'estatus_ordenes'));
+
+    }
+
+
+
 
        public function sendmail($id)
     {
@@ -428,40 +536,7 @@ public function compramasupdate()
 
 
 
-    public function index()
-    {
-        // Grab all the groups
-
-         if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-           activity($user->full_name)
-                        ->performedOn($user)
-                        ->causedBy($user)
-                        ->log('AlpOrdenesController/index ');
-
-        }else{
-
-          activity()
-          ->log('AlpOrdenesController/index');
-
-        }
-
-         if (!Sentinel::getUser()->hasAnyAccess(['ordenes.index'])) {
-
-           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
-        }
-      
-
-        $estatus_ordenes = AlpEstatusOrdenes::all();
-
-          $ordenes = AlpOrdenes::where('id', '1')->get();
-
-        // Show the page
-        return view('admin.ordenes.index', compact('ordenes', 'estatus_ordenes'));
-
-    }
+   
 
       public function data2(Request $request)
     {
