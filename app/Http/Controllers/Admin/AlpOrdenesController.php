@@ -83,73 +83,74 @@ class AlpOrdenesController extends JoshController
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
-        $mensaje=AlpAnchetaMensaje::where('id_orden', '=', '10995')->first();
+        $mensaje=AlpAnchetaMensaje::where('id_orden', '=', '9845')->first();
 
-        $this->fpdf = new fpdf;
-        $this->fpdf->AddPage();
-        $this->fpdf->SetFont('Times');
-        $this->fpdf->cell(40,40,'', 0, 1);
+        
+              $this->fpdf = new fpdf;
+              $this->fpdf->AddPage();
+              $this->fpdf->SetFont('Times');
+              $this->fpdf->cell(40,40,'', 0, 1);
 
-        $partes=explode(' ', $mensaje->mensaje_mensaje );
-
-        $i=0;
-
-        $j=0;
-
-        $cadena='';
-
-        foreach ($partes as $key => $value) {
-
-        //dd($value);
-            
-            if ($i<50) {
-
-              $cadena=$cadena.$value.' ';
-
-              $i=strlen($value)+1+$i;
-
-
-              
-            }else{
-
-              //dd($i);
+              $partes=explode(' ', $mensaje->mensaje_mensaje );
 
               $i=0;
 
-              $j=$j+1;
+              $j=0;
+
+              $cadena='';
+
+              foreach ($partes as $key => $value) {
+
+              //dd($value);
+                  
+                  if ($i<50) {
+
+                    $cadena=$cadena.$value.' ';
+
+                    $i=strlen($value)+1+$i;
+
+
+                    
+                  }else{
+
+                    //dd($i);
+
+                    $i=0;
+
+                    $j=$j+1;
+
+                    $this->fpdf->Cell(100, 8, $cadena, 0,1);
+
+                    $cadena=$value.' ';
+
+                    $i=strlen($value)+1+$i;
+
+                    
+                  }
+
+
+              }
 
               $this->fpdf->Cell(100, 8, $cadena, 0,1);
 
-              $cadena=$value.' ';
+              $j=$j+1;
 
-              $i=strlen($value)+1+$i;
+              while ($j <= 5) {
+                $this->fpdf->Cell(100, 8, '', 0,1);
+                $j=$j+1;
+              }
 
+              $this->fpdf->Cell(100, 15, $mensaje->mensaje_de, 0,1);
+              $this->fpdf->Cell(100, 15, $mensaje->mensaje_para, 0,0);
+              $this->fpdf->Cell(80, 15, 'ALP9845', 0,1,'R');
+
+
+            // $this->fpdf->MultiCell(90, 8, $mensaje->mensaje_mensaje, 1);       
               
-            }
-
-
-        }
-
-         $this->fpdf->Cell(100, 8, $cadena, 0,1);
-
-         $j=$j+1;
-
-         while ($j <= 7) {
-           $this->fpdf->Cell(100, 8, '', 0,1);
-           $j=$j+1;
-         }
-
-         $this->fpdf->Cell(100, 15, $mensaje->mensaje_de, 0,1);
-         $this->fpdf->Cell(100, 15, $mensaje->mensaje_para, 0,1);
-
-
-
-       // $this->fpdf->MultiCell(90, 8, $mensaje->mensaje_mensaje, 1);       
-         
-        $this->fpdf->Output();
-        exit;
-      
-
+              $this->fpdf->Output();
+              exit;
+            
+            
         $estatus_ordenes = AlpEstatusOrdenes::all();
 
           $ordenes = AlpOrdenes::where('id', '1')->get();
