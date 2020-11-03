@@ -1100,6 +1100,8 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
         Route::get('{id}/detalle', 'Admin\AlpOrdenesController@detalle')->name('ordenes.detalle');
 
+        Route::get('{id}/pdf', 'Admin\AlpOrdenesController@pdf')->name('ordenes.pdf');
+
         Route::get('{id}/detallealmacen', 'Admin\AlpOrdenesController@detallealmacen')->name('ordenes.detallealmacen');
 
         Route::get('{id}/confirm-delete', 'Admin\AlpOrdenesController@getModalDelete')->name('ordenes.confirm-delete');

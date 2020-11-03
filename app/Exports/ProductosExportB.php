@@ -35,6 +35,7 @@ class ProductosExportB implements FromView
           'alp_ordenes.ip as ip',
         
 
+          'alp_ordenes.origen as origen',
           'alp_ordenes.monto_total as monto_total_orden',
           'alp_ordenes.referencia as referencia_orden',
           'alp_ordenes.base_impuesto as base_impuesto_orden',

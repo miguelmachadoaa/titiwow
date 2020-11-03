@@ -98,6 +98,7 @@ class AlpOrdenesController extends JoshController
 
         $cadena='';
               $this->fpdf->Cell(100, 8, '', 0,1);
+              $this->fpdf->Cell(100, 8, '', 0,1);
 
 
         foreach ($partes as $key => $value) {
@@ -136,20 +137,29 @@ class AlpOrdenesController extends JoshController
 
          $j=$j+1;
 
-         while ($j <= 7) {
+         while ($j <= 6) {
            $this->fpdf->Cell(100, 8, '', 0,1);
            $j=$j+1;
          }
 
-         $this->fpdf->Cell(100, 15, $mensaje->mensaje_de, 0,1);
-         $this->fpdf->Cell(100, 15, $mensaje->mensaje_para, 0,1);
+         $this->fpdf->Cell(20, 10, '', 0,0);
+
+         $this->fpdf->Cell(100, 10, $mensaje->mensaje_de, 0,1);
+
+         $this->fpdf->Cell(40, 10, '', 0,0);
+
+         $this->fpdf->Cell(100, 10, $mensaje->mensaje_para, 0,1);
 
 
 
-       // $this->fpdf->MultiCell(90, 8, $mensaje->mensaje_mensaje, 1);       
+       // $this->fpdf->MultiCell(90, 8, $mensaje->mensaje_mensaje, 1);     
+
+        $this->fpdf->Cell(100, 15, '', 0,0);
+
+           $this->fpdf->Cell(80, 15, 'ALP9845', 0,1,'R');  
          
-        $this->fpdf->Output();
-        exit;
+      //  $this->fpdf->Output();
+     //  exit;
       
 
         $estatus_ordenes = AlpEstatusOrdenes::all();
@@ -911,6 +921,22 @@ public function compramasupdate()
                
               }
 
+
+              $mensaje=AlpAnchetaMensaje::where('id_orden', $row->id)->first();
+
+              if (isset($mensaje->id)) {
+
+                $actions = $actions." 
+                  <a target='_blank' class='btn btn-info  btn-xs' href='".secure_url('admin/ordenes/'.$row->id.'/pdf'). "'>
+                      Ver Pdf
+                  </a>";
+                
+              }
+
+
+
+
+
               //dd($nombre_almacen);
 
                $data[]= array(
@@ -1077,6 +1103,21 @@ public function compramasupdate()
                 $origen='Web';
 
               }
+
+
+              $mensaje=AlpAnchetaMensaje::where('id_orden', $row->id)->first();
+
+              if (isset($mensaje->id)) {
+
+                $actions = $actions." 
+                  <a target='_blank' class='btn btn-info  btn-xs' href='".secure_url('admin/ordenes/'.$row->id.'/pdf'). "'>
+                      Ver Pdf
+                  </a>";
+                
+              }
+
+
+
 
 
 
@@ -1276,6 +1317,21 @@ public function compramasupdate()
               }
 
 
+              $mensaje=AlpAnchetaMensaje::where('id_orden', $row->id)->first();
+
+              if (isset($mensaje->id)) {
+
+                $actions = $actions." 
+                  <a target='_blank' class='btn btn-info  btn-xs' href='".secure_url('admin/ordenes/'.$row->id.'/pdf'). "'>
+                      Ver Pdf
+                  </a>";
+                
+              }
+
+
+
+
+
 
 
                $data[]= array(
@@ -1459,6 +1515,21 @@ public function compramasupdate()
                 $origen='Web';
 
               }
+
+
+              $mensaje=AlpAnchetaMensaje::where('id_orden', $row->id)->first();
+
+              if (isset($mensaje->id)) {
+
+                $actions = $actions." 
+                  <a target='_blank' class='btn btn-info  btn-xs' href='".secure_url('admin/ordenes/'.$row->id.'/pdf'). "'>
+                      Ver Pdf
+                  </a>";
+                
+              }
+
+
+
 
 
 
@@ -1659,6 +1730,20 @@ public function compramasupdate()
               }
 
 
+              $mensaje=AlpAnchetaMensaje::where('id_orden', $row->id)->first();
+
+              if (isset($mensaje->id)) {
+
+                $actions = $actions." 
+                  <a target='_blank'  class='btn btn-info btn-xs' href='".secure_url('admin/ordenes/'.$row->id.'/pdf'). "'>
+                      Ver Pdf
+                  </a>";
+                
+              }
+
+
+
+
                $data[]= array(
                  $row->id, 
                  $row->referencia, 
@@ -1853,6 +1938,21 @@ public function compramasupdate()
               }
 
 
+              $mensaje=AlpAnchetaMensaje::where('id_orden', $row->id)->first();
+
+              if (isset($mensaje->id)) {
+
+                $actions = $actions." 
+                  <a target='_blank' class='btn btn-info  btn-xs' href='".secure_url('admin/ordenes/'.$row->id.'/pdf'). "'>
+                      Ver Pdf
+                  </a>";
+                
+              }
+
+
+
+
+
                $data[]= array(
                  $row->id, 
                  $row->referencia, 
@@ -2027,6 +2127,21 @@ public function compramasupdate()
                 $origen='Web';
 
               }
+
+
+              $mensaje=AlpAnchetaMensaje::where('id_orden', $row->id)->first();
+
+              if (isset($mensaje->id)) {
+
+                $actions = $actions." 
+                  <a target='_blank' class='btn btn-info  btn-xs' href='".secure_url('admin/ordenes/'.$row->id.'/pdf'). "'>
+                      Ver Pdf
+                  </a>";
+                
+              }
+
+
+
 
                $data[]= array(
                  $row->id, 
@@ -3294,6 +3409,21 @@ public function compramasupdate()
               }
 
 
+              $mensaje=AlpAnchetaMensaje::where('id_orden', $row->id)->first();
+
+              if (isset($mensaje->id)) {
+
+                $actions = $actions." 
+                  <a target='_blank' class='btn btn-info  btn-xs' href='".secure_url('admin/ordenes/'.$row->id.'/pdf'). "'>
+                      Ver Pdf
+                  </a>";
+                
+              }
+
+
+
+
+
                $data[]= array(
                  $row->id, 
                  $row->referencia, 
@@ -3476,6 +3606,21 @@ public function compramasupdate()
                 $origen='Web';
 
               }
+
+
+              $mensaje=AlpAnchetaMensaje::where('id_orden', $row->id)->first();
+
+              if (isset($mensaje->id)) {
+
+                $actions = $actions." 
+                  <a target='_blank' class='btn btn-info  btn-xs' href='".secure_url('admin/ordenes/'.$row->id.'/pdf'). "'>
+                      Ver Pdf
+                  </a>";
+                
+              }
+
+
+
 
 
                $data[]= array(
@@ -4738,6 +4883,132 @@ public function sendcompramascancelar($id_orden){
 
 
     }
+
+
+
+        public function pdf($id)
+    {
+        // Grab all the groups
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpOrdenesController/pdf ');
+
+        }else{
+
+          activity()
+          ->log('AlpOrdenesController/pdf');
+
+        }
+
+         if (!Sentinel::getUser()->hasAnyAccess(['ordenes.index'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+         $mensaje=AlpAnchetaMensaje::where('id_orden', '=', $id)->first();
+
+
+         if (isset($mensaje->id)) {
+          
+
+
+
+        $this->fpdf = new fpdf;
+        $this->fpdf->AddPage();
+        $this->fpdf->SetFont('Times');
+        $this->fpdf->cell(40,40,'', 0, 1);
+
+        $partes=explode(' ', $mensaje->mensaje_mensaje );
+
+        $i=0;
+
+        $j=0;
+
+        $cadena='';
+              $this->fpdf->Cell(100, 8, '', 0,1);
+              $this->fpdf->Cell(100, 8, '', 0,1);
+
+
+        foreach ($partes as $key => $value) {
+
+        //dd($value);
+            
+            if ($i<50) {
+
+              $cadena=$cadena.$value.' ';
+
+              $i=strlen($value)+1+$i;
+
+
+              
+            }else{
+
+              //dd($i);
+
+              $i=0;
+
+              $j=$j+1;
+
+              $this->fpdf->Cell(100, 8, $cadena, 0,1);
+
+              $cadena=$value.' ';
+
+              $i=strlen($value)+1+$i;
+
+              
+            }
+
+
+        }
+
+         $this->fpdf->Cell(100, 8, $cadena, 0,1);
+
+         $j=$j+1;
+
+         while ($j <= 6) {
+           $this->fpdf->Cell(100, 8, '', 0,1);
+           $j=$j+1;
+         }
+
+         $this->fpdf->Cell(20, 10, '', 0,0);
+
+         $this->fpdf->Cell(100, 10, $mensaje->mensaje_de, 0,1);
+
+         $this->fpdf->Cell(40, 10, '', 0,0);
+
+         $this->fpdf->Cell(100, 10, $mensaje->mensaje_para, 0,1);
+
+
+
+       // $this->fpdf->MultiCell(90, 8, $mensaje->mensaje_mensaje, 1);     
+
+        $this->fpdf->Cell(100, 15, '', 0,0);
+
+        $this->fpdf->Cell(80, 15, $id, 0,1,'R');  
+         
+        $this->fpdf->Output();
+
+       exit;
+
+
+     }else{
+
+       abort('404');
+      
+     }
+
+      
+
+    }
+
+
+
 
 
 
