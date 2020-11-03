@@ -8,6 +8,8 @@
             <th ><b>Contacto </b></th>
             <th ><b>Telefono </b></th>
             <th ><b>Email </b></th>
+            <th ><b>Referencia Orden </b></th>
+            <th ><b>Origen </b></th>
         </tr>
     </thead>
     <tbody>
@@ -34,6 +36,22 @@
                         <td>{!! $row->cliente->first_name.' '.$row->cliente->last_name!!}</td>
                         <td>{!! $row->cliente->telefono_cliente!!}</td>
                         <td>{!! $row->cliente->email!!}</td>
+
+                         <td>{!! $row->referencia !!}</td>
+                        <td>
+
+                            @if($row->origen==0)
+
+                            Web
+
+                            @else
+
+                            Tomapedidos
+
+                            @endif
+
+
+                        </td>
                         
 
                       

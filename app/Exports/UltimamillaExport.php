@@ -96,6 +96,8 @@ class UltimamillaExport implements FromView
             # code...
           }
 
+        //  dd($ordenes);
+
         return view('admin.exports.ultimamilla', [
             'ordenes' => $ordenes
         ]);
