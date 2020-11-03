@@ -54,6 +54,7 @@ Ordenes por Almacen
                                     <th>Forma de Pago</th>
                                     <th>Almacen</th>
                                     <th>Ciudad</th>
+                                    <th>Origen</th>
                                     <th>Total</th>
                                     <th>Total Sin Descuento</th>
                                     <th>Cupón</th>

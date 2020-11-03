@@ -926,7 +926,7 @@
     </li>
 
     @endif
-    @if (Sentinel::getUser()->hasAnyAccess(['reportes.clientes']))
+    @if (Sentinel::getUser()->hasAnyAccess(['reportes.registrados']))
 
     <li {!! (Request::is('admin/reportes/*') || Request::is('admin/groups/create') || Request::is('admin/groups/*') ? 'class="active"' : '') !!}>
         <a href="#">
