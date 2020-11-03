@@ -1687,23 +1687,6 @@ public function postdireccion(DireccionModalRequest $request)
                       $cart['id_cliente']=$user->id;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                      \Session::put('cart', $cart);
 
 

@@ -869,7 +869,7 @@ Pedidos
 
                 <div class="col-sm-12">
 
-                    
+                    <div class="errorregistrocliente"></div>
 
 
 
@@ -1640,17 +1640,19 @@ $(document).ready(function(){
 
             codigo=0;
 
+            $('.errorregistrocliente').html('');
+
             e.preventDefault();
 
             base=$('#base').val();
 
             _token=$('input[name="_token"]').val();
 
-            convenio=$('#convenio').val();
+            email=$('#Email').val();
 
-            if (convenio!='' && convenio!=undefined) {
+            if (email!='' && email!=undefined) {
 
-                $.post('postconveniosregistro', { convenio, _token}, function(data) {
+                $.post(base+'/postemailregistro', { email, _token}, function(data) {
 
                     if (data==1) {
 
@@ -1674,7 +1676,7 @@ $(document).ready(function(){
                             }else{
 
 
-                                $('.res_cod_alpinista').html('<span class="help-block">Código de Alpinista es requerido</span>');
+                                $('.errorregistrocliente').html('<span class="help-block">Código de Alpinista es requerido</span>');
 
                             }
 
@@ -1702,11 +1704,8 @@ $(document).ready(function(){
 
 
 
-                        $('.res_convenio').html('<span class="help-block">El Código de convenio no existe</span>');
+                        $('.errorregistrocliente').html('<span class="danger">El Email ya se encuentra registrado </span>');
 
-
-
-                        $('#convenio').val('');
 
                     }
 
@@ -1722,43 +1721,23 @@ $(document).ready(function(){
 
                 $('.res_cod_alpinista').html('');
 
-
-
                 var $validator = $('#reg_form').data('bootstrapValidator').validate();
-
-
 
                 if( $('#chkalpinista').is(':checked') ) {
 
-
-
                     if ($('#cod_alpinista').val()!='') {
-
-
 
                         if ($validator.isValid()) {
 
-
-
                             $("#reg_form")[0].submit();
-
-
 
                         }
 
-
-
                     }else{
 
-
-
-                        $('.res_cod_alpinista').html('<span class="help-block">Código de Alpinista es requerido</span>');
-
-
+                        $('.errorregistrocliente').html('<span class="help-block">Código de Alpinista es requerido</span>');
 
                         //$('#btnsubmit').attr('disabled', '1');
-
-
 
                     }
 

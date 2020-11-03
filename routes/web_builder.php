@@ -1482,6 +1482,8 @@ Route::post('postconvenios', 'Frontend\ClientesFrontController@postconvenios')->
 
 Route::post('postconveniosregistro', 'Frontend\ClientesFrontController@postconveniosregistro')->name('frontend.clientes.postconveniosregistro');
 
+Route::post('postemailregistro', 'Frontend\ClientesFrontController@postemailregistro')->name('frontend.clientes.postemailregistro');
+
 
 Route::get('miestatus', 'Frontend\ClientesFrontController@miestatus')->name('frontend.clientes.miestatus');
 
