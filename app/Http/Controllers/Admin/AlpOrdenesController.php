@@ -3448,7 +3448,7 @@ public function compramasupdate()
           ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
           ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
            ->groupBy('alp_ordenes.id')
-           ->limit(99)
+           ->limit(2000)
            ->where('alp_ordenes.id_almacen', $user->almacen)
           ->get();
 
