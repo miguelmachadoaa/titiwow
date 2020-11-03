@@ -113,7 +113,7 @@ class AlpPedidosController extends JoshController
         }
 
 
-        if (!Sentinel::getUser()->hasAnyAccess(['almacenes.*'])) {
+        if (!Sentinel::getUser()->hasAnyAccess(['tomapedidos.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
         }
@@ -197,7 +197,7 @@ class AlpPedidosController extends JoshController
         }
 
 
-        if (!Sentinel::getUser()->hasAnyAccess(['almacenes.*'])) {
+        if (!Sentinel::getUser()->hasAnyAccess(['tomapedidos.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
         }
@@ -707,7 +707,7 @@ class AlpPedidosController extends JoshController
         }
 
 
-         if (!Sentinel::getUser()->hasAnyAccess(['almacenes.*'])) {
+         if (!Sentinel::getUser()->hasAnyAccess(['tomapedidos.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
         }
@@ -767,7 +767,7 @@ class AlpPedidosController extends JoshController
       public function estatus(Request $request)
     {
 
-       if (!Sentinel::getUser()->hasAnyAccess(['almacenes.*'])) {
+       if (!Sentinel::getUser()->hasAnyAccess(['tomapedidos.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
         }

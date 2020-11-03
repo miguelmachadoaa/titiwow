@@ -97,6 +97,8 @@ class AlpOrdenesController extends JoshController
         $j=0;
 
         $cadena='';
+              $this->fpdf->Cell(100, 8, '', 0,1);
+
 
         foreach ($partes as $key => $value) {
 
