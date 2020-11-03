@@ -1723,6 +1723,43 @@ class ClientesFrontController extends Controller
     }
 
 
+    public function postemailregistro(Request $request)
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('ClientesFrontController/postemailregistro ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('ClientesFrontController/postemailregistro');
+
+        }
+        
+
+        $u=User::where('email', $request->email)->first();
+
+        if(isset($u->id)){
+
+            return 0;
+
+        }else{
+
+            return 1;
+
+        }
+
+    }
+
+
+
+
 
 
 }
