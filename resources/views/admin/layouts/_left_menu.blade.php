@@ -752,7 +752,7 @@
 
     @endif
 
-    @if (Sentinel::getUser()->hasAnyAccess(['clientes.*']))
+    @if (Sentinel::getUser()->hasAnyAccess(['clientes.index']))
 
      <li {!! (Request::is('admin/clientes') || Request::is('admin/clientes/create') || Request::is('admin/user_profile') || Request::is('admin/clientes/*') || Request::is('admin/deleted_users') ? 'class="active"' : '') !!}>
         <a href="#">
@@ -811,7 +811,7 @@
                     Crear Nuevo Cliente
                 </a>
             </li>
-            @endif 
+           
 
              <li {!! (Request::is('admin/clientes/saldo') ? 'class="active" id="active"' : '') !!}>
                     <a href="{{ secure_url('admin/clientes/saldo') }}">
@@ -836,14 +836,14 @@
                         Cargar Saldo Clientes
                     </a>
                 </li>
-
+                @endif 
 
         </ul>
     </li>
 
     @endif
 
-    @if (Sentinel::getUser()->hasAnyAccess(['alpinistas.*']))
+    @if (Sentinel::getUser()->hasAnyAccess(['alpinistas.index']))
 
         <li {!! (Request::is('admin/alpinistas') ? 'class="active"' : '') !!}>
         <a href="#">
@@ -926,7 +926,7 @@
     </li>
 
     @endif
-    @if (Sentinel::getUser()->hasAnyAccess(['reportes.*']))
+    @if (Sentinel::getUser()->hasAnyAccess(['reportes.clientes']))
 
     <li {!! (Request::is('admin/reportes/*') || Request::is('admin/groups/create') || Request::is('admin/groups/*') ? 'class="active"' : '') !!}>
         <a href="#">
