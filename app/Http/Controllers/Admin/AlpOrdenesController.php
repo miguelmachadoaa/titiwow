@@ -275,7 +275,7 @@ public function compramasupdate()
           ->whereNotNull('alp_ordenes.estado_compramas')
           ->where('alp_ordenes.estado_compramas', '<>', '200')
           ->groupBy('alp_ordenes.id')
-         ->limit('99')
+         ->limit('2000')
          ->orderBy('alp_ordenes.id', 'desc')
           ->get();
          
@@ -518,7 +518,7 @@ public function compramasupdate()
           'users.last_name as last_name')
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
           ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
-          ->groupBy('alp_ordenes.id')->limit(99);
+          ->groupBy('alp_ordenes.id')->limit(2000);
 
 
          $ordenes=$c_orden
@@ -726,7 +726,7 @@ public function compramasupdate()
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
           ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
           ->groupBy('alp_ordenes.id')
-         ->limit(99)
+         ->limit(2000)
          ->orderBy('alp_ordenes.id', 'desc')
           ->get();
          
@@ -944,7 +944,7 @@ public function compramasupdate()
           ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
           ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
            ->groupBy('alp_ordenes.id')
-           ->limit(99)
+           ->limit(2000)
           ->get();
 
           $almacenes=AlpAlmacenes::pluck('nombre_almacen', 'id');
@@ -1160,7 +1160,7 @@ public function compramasupdate()
           ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
           ->where('alp_ordenes.estatus', '8')
           ->groupBy('alp_ordenes.id')
-          ->limit(99)
+          ->limit(2000)
           ->get();
 
           $almacenes=AlpAlmacenes::pluck('nombre_almacen', 'id');
@@ -1555,7 +1555,7 @@ public function compramasupdate()
           ->where('alp_ordenes.estatus', '1')
           ->where('alp_ordenes.id_forma_pago', '<>', '3')
           ->groupBy('alp_ordenes.id')
-          ->limit(99)
+          ->limit(2000)
           ->get();
 
           $almacenes=AlpAlmacenes::pluck('nombre_almacen', 'id');
@@ -1761,7 +1761,7 @@ public function compramasupdate()
           ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
           ->where('alp_ordenes.estatus', '6')
           ->groupBy('alp_ordenes.id')
-          ->limit(99)
+          ->limit(2000)
           ->get();
 
           $almacenes=AlpAlmacenes::pluck('nombre_almacen', 'id');
@@ -1966,7 +1966,7 @@ public function compramasupdate()
           ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
           ->where('alp_ordenes.estatus', '7')
           ->groupBy('alp_ordenes.id')
-          ->limit(99)
+          ->limit(2000)
           ->get();
 
           $almacenes=AlpAlmacenes::pluck('nombre_almacen', 'id');
@@ -2191,7 +2191,7 @@ public function compramasupdate()
           
           ->Join('alp_empresas', 'alp_clientes.id_empresa', '=', 'alp_empresas.id')
           ->groupBy('alp_ordenes.id')
-          ->limit(99)
+          ->limit(2000)
           ->get();
 
           $almacenes=AlpAlmacenes::pluck('nombre_almacen', 'id');
@@ -3224,7 +3224,7 @@ public function compramasupdate()
           ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
           ->where('alp_ordenes.estatus', '1')
           ->groupBy('alp_ordenes.id')
-          ->limit(99)
+          ->limit(2000)
           ->get();
        
         // Show the page
@@ -3251,7 +3251,7 @@ public function compramasupdate()
           ->where('alp_ordenes.estatus', '1')
           ->where('alp_ordenes.id_forma_pago', '=', '3')
           ->groupBy('alp_ordenes.id')
-          ->limit(99)
+          ->limit(2000)
           ->get();
 
           $almacenes=AlpAlmacenes::pluck('nombre_almacen', 'id');
@@ -3418,7 +3418,7 @@ public function compramasupdate()
           ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
           ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
            ->groupBy('alp_ordenes.id')
-           ->limit(99)
+           ->limit(2000)
            ->where('alp_ordenes.id_almacen', $user->almacen)
           ->get();
 
@@ -3448,7 +3448,7 @@ public function compramasupdate()
           ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
           ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
            ->groupBy('alp_ordenes.id')
-           ->limit(99)
+           ->limit(2000)
            ->where('alp_ordenes.id_almacen', $user->almacen)
           ->get();
 
@@ -4899,13 +4899,13 @@ public function sendcompramascancelar($id_orden){
            $j=$j+1;
          }
 
-         $this->fpdf->Cell(20, 10, '', 0,0);
+         $this->fpdf->Cell(10, 11, '', 0,0);
 
-         $this->fpdf->Cell(100, 10, $mensaje->mensaje_de, 0,1);
+         $this->fpdf->Cell(100, 11, $mensaje->mensaje_de, 0,1);
 
-         $this->fpdf->Cell(40, 10, '', 0,0);
+         $this->fpdf->Cell(20, 11, '', 0,0);
 
-         $this->fpdf->Cell(100, 10, $mensaje->mensaje_para, 0,1);
+         $this->fpdf->Cell(100, 11, $mensaje->mensaje_para, 0,1);
 
 
 
@@ -4913,9 +4913,11 @@ public function sendcompramascancelar($id_orden){
 
         $this->fpdf->Cell(100, 15, '', 0,0);
 
-        $this->fpdf->Cell(80, 15, $id, 0,1,'R');  
+        $ord=AlpOrdenes::where('id', $id)->first();
+
+        $this->fpdf->Cell(80, 15, $ord->referencia, 0,1,'R');  
          
-        $this->fpdf->Output();
+        $this->fpdf->Output('D', $ord->referencia.'.pdf');
 
        exit;
 
