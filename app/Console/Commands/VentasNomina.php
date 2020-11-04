@@ -68,7 +68,7 @@ class VentasNomina extends Command
 
         $archivo_clientes='listado_ventas_descuento_nomina_'.$hoy.'.xlsx';
 
-        Excel::store(new NominaExport($hoy,$hoy, $alm), $archivo_clientes, 'excel');
+        Excel::store(new NominaExport('-1', $hoy,$hoy, $alm), $archivo_clientes, 'excel');
             
         $documentos[]='/home2/alpago/alpinago/storage/app/public/'.$archivo_clientes;
      
