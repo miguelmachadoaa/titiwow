@@ -14,6 +14,7 @@ use App\User;
 use App\Roles;
 use App\RoleUser;
 use DB;
+use Sentinel;
 
 class AlpAlpinistasController extends Controller
 {

@@ -68,9 +68,13 @@ Precios Productos
                                                 <option value="">Seleccione</option>
                                                     
                                                     @foreach($productos as $pro)
+
+                                                        @if(isset($inventario[$pro->id]))
                                                         
                                                         <option value="{{ $pro->id }}">{{ $pro->nombre_producto.' - '.$pro->presentacion_producto.' - '.$pro->referencia_producto.' - Disp:'.$inventario[$pro->id]}}
                                                         </option>
+
+                                                        @endif
 
                                                     @endforeach
 
