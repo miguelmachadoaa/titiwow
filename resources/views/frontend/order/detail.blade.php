@@ -202,6 +202,13 @@ div.overlay > div {
 
 </div>
 
+
+<div class="row">
+    <div class="col-sm-12">
+        {{json_encode($cart)}}
+    </div>
+</div>
+
 <!-- Modal Direccion -->
  <div class="modal fade" id="modalPse" role="dialog" aria-labelledby="modalLabeldanger">
     <div class="modal-dialog modal-lg" role="document">
@@ -545,7 +552,7 @@ $('.sendCupon').click(function () {
 
 
   $('.sendPse').click(function () {
-    
+
     var $validator = $('#addPseForm').data('bootstrapValidator').validate();
 
     if ($validator.isValid()) {
@@ -568,61 +575,75 @@ $('.sendCupon').click(function () {
             
        // id_forma_envio=$("input[name='id_forma_envio']:checked").val(); 
 
-            id_forma_envio=$("#id_forma_envio").val(); 
+        id_forma_envio=$("#id_forma_envio").val(); 
 
             
         id_forma_pago='2';
 
         var base = $('#base').val();
 
+        var banpago = $('#banpago').val();
+        console.log($('#banpago').val());
 
-         $.ajax({
-            type: "POST",
+        if (banpago==0) {
 
-            data:{id_forma_envio, id_direccion, id_forma_pago},
+            $('#banpago').val('1');
 
-            url: base+"/cart/verificarDireccion",
+             $.ajax({
+                type: "POST",
+
+                data:{id_forma_envio, id_direccion, id_forma_pago},
+
+                url: base+"/cart/verificarDireccion",
+                    
+                complete: function(datos){     
+
+                   if(datos.responseText=='true'){
+
+                        $('#banpago').val('0');
+                        
+
+                        //$('#procesarForm').submit();
+
+                        $.ajax({
+                            type: "POST",
+                            data:{nombre, id_type_doc, doc_cliente, email, id_fi},
+
+                            url: base+"/order/getpse",
+                                
+                            complete: function(datos){  
+
+                                
+
+                               if(datos.responseText.substr(0, 5)=='https'){
+
+                                //alert(datos.responseText);
+
+                                  $(location).attr("href", datos.responseText);
+
+                               }else{
+
+                                $('.res_direccion').html('<div class="alert alert-danger" role="alert">Ha ocurrido un error, intente nuevamente.</div>');
+
+                               }
+                                                        
+                            }
+
+                        });
+
+                    }else{
+
+                        $('.res_direccion').html('<divhidden class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+
+                         $('#modalPse').modal('hidden');
+
+                    }
                 
-            complete: function(datos){     
-
-               if(datos.responseText=='true'){
-
-                    //$('#procesarForm').submit();
-
-                    $.ajax({
-                        type: "POST",
-                        data:{nombre, id_type_doc, doc_cliente, email, id_fi},
-
-                        url: base+"/order/getpse",
-                            
-                        complete: function(datos){  
-
-                           if(datos.responseText.substr(0, 5)=='https'){
-
-                            //alert(datos.responseText);
-
-                              $(location).attr("href", datos.responseText);
-
-                           }else{
-
-                            $('.res_direccion').html('<div class="alert alert-danger" role="alert">Ha ocurrido un error, intente nuevamente.</div>');
-
-                           }
-                                                    
-                        }
-
-                    });
-
-                }else{
-
-                    $('.res_direccion').html('<divhidden class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
-
-                     $('#modalPse').modal('hidden');
-
                 }
-            
-            }
-        });
+            });
+
+
+     }
 
         //document.getElementById("addDireccionForm").submit();
     }
@@ -659,11 +680,8 @@ $('.sendCupon').click(function () {
 
                 id_direccion= $("#id_direccion").val(); 
             
-                //id_forma_envio=$("input[name='id_forma_envio']:checked").val(); 
+                id_forma_envio=$("#id_forma_envio").val(); 
 
-            id_forma_envio=$("#id_forma_envio").val(); 
-
-                    
                 id_forma_pago=$(this).data('id');
 
                 base=$('#base').val();
@@ -675,47 +693,60 @@ $('.sendCupon').click(function () {
 
                     if(type=="ticket"){
 
-                        $.ajax({
-                            type: "POST",
-                            data:{id_forma_envio, id_direccion, id_forma_pago},
+                        var banpago = $('#banpago').val();
+                        console.log($('#banpago').val());
 
-                            url: base+"/cart/verificarDireccion",
-                                
-                            complete: function(datos){     
+                        if (banpago==0) {
 
-                               if(datos.responseText=='true'){
+                            $('#banpago').val('1');
 
-                                    $('#procesarForm').submit();
+                            $.ajax({
+                                type: "POST",
+                                data:{id_forma_envio, id_direccion, id_forma_pago},
 
-                                    $.ajax({
-                                        type: "POST",
-                                        data:{id_direccion, id_forma_envio, id_forma_pago, type, idpago},
+                                url: base+"/cart/verificarDireccion",
+                                    
+                                complete: function(datos){     
 
-                                        url: base+"/order/procesarticket",
+                                    $('#banpago').val('0');
+
+                                   if(datos.responseText=='true'){
+
+                                        $('#procesarForm').submit();
+
+                                        $.ajax({
+                                            type: "POST",
+                                            data:{id_direccion, id_forma_envio, id_forma_pago, type, idpago},
+
+                                            url: base+"/order/procesarticket",
+                                                
+                                            complete: function(datos){     
+
+                                                  
+
+                                                $(location).attr("href", datos.responseText);
+
+
+                                                //$('.contain_body').html(datos.responseText);
+
+                                                //$('.overlay').fadeOut();
                                             
-                                        complete: function(datos){     
+                                            }
 
-                                            $(location).attr("href", datos.responseText);
+                                        });
 
+                                    }else{
 
-                                            //$('.contain_body').html(datos.responseText);
+                                       // $('.overlay').hidden();
 
-                                            //$('.overlay').fadeOut();
-                                        
-                                        }
+                                        $('.res_direccion').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
 
-                                    });
-
-                                }else{
-
-                                   // $('.overlay').hidden();
-
-                                    $('.res_direccion').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
-
+                                    }
+                                
                                 }
-                            
-                            }
-                        });
+                            });
+
+                        }
 
                     }else{
 
@@ -724,43 +755,56 @@ $('.sendCupon').click(function () {
 
                 }else{
 
-                    $.ajax({
-                        type: "POST",
-                        data:{id_forma_envio, id_direccion, id_forma_pago},
-                        url: base+"/cart/verificarDireccion",
-                        
-                        complete: function(datos){     
+                    var banpago = $('#banpago').val();
+                    console.log($('#banpago').val());
 
-                            if(datos.responseText=='true'){
+                        if (banpago==0) {
 
-                            //$('#procesarForm').submit();
+                        $('#banpago').val('1');
 
-                                $.ajax({
-                                    type: "POST",
-                                    data:{id_direccion, id_forma_envio, id_forma_pago},
-                                    url: base+"/order/procesar",
+                        $.ajax({
+                            type: "POST",
+                            data:{id_forma_envio, id_direccion, id_forma_pago},
+                            url: base+"/cart/verificarDireccion",
+                            
+                            complete: function(datos){     
+
+                                $('#banpago').val('0');
+
+                                if(datos.responseText=='true'){
+
+                                //$('#procesarForm').submit();
+
+                                    $.ajax({
+                                        type: "POST",
+                                        data:{id_direccion, id_forma_envio, id_forma_pago},
+                                        url: base+"/order/procesar",
+                                        
+                                        complete: function(datos){     
+
+                                             
+
+                                             $(location).attr("href", datos.responseText);
+
+                                            //$('.contain_body').html(datos.responseText);
+
+                                            $('.overlay').fadeOut();
                                     
-                                    complete: function(datos){     
+                                        }
 
-                                         $(location).attr("href", datos.responseText);
+                                    });
 
-                                        //$('.contain_body').html(datos.responseText);
+                                }else{
 
-                                        $('.overlay').fadeOut();
-                                
-                                    }
+                                    $('.res_direccion').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
 
-                                });
-
-                            }else{
-
-                                $('.res_direccion').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
-
+                                }
+                        
                             }
-                    
-                        }
-                    
-                    });
+                        
+                        });
+
+                    }
 
                 }
 
@@ -795,26 +839,36 @@ $('.sendCupon').click(function () {
 
                 base=$('#base').val();
 
-                $.ajax({
-                    type: "POST",
-                    data:{id_forma_envio, id_direccion, id_forma_pago},
+                 var banpago = $('#banpago').val();
 
-                    url: base+"/cart/verificarDireccion",
+                if (banpago==0) {
+
+                $('#banpago').val('1');
+
+                    $.ajax({
+                        type: "POST",
+                        data:{id_forma_envio, id_direccion, id_forma_pago},
+
+                        url: base+"/cart/verificarDireccion",
+                            
+                        complete: function(datos){     
+
+                            $('#banpago').val('0');
+
+                           if(datos.responseText=='true'){
+
+                                window.location.href = url;
+
+                           }else{
+
+                                $('.res_direccion').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+
+                           }
                         
-                    complete: function(datos){     
+                        }
+                    });
 
-                       if(datos.responseText=='true'){
-
-                            window.location.href = url;
-
-                       }else{
-
-                            $('.res_direccion').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
-
-                       }
-                    
-                    }
-                });
+                }
 
             }
 
@@ -848,28 +902,42 @@ $('.sendCupon').click(function () {
 
                 base=$('#base').val();
 
-                $.ajax({
-                    type: "POST",
-                    
-                    data:{id_forma_envio, id_direccion, id_forma_pago},
+                var banpago = $('#banpago').val();
 
-                    url: base+"/cart/verificarDireccion",
+                console.log($('#banpago').val());
+
+                if (banpago==0) {
+
+                $('#banpago').val('1');
+
+                    $.ajax({
+                        type: "POST",
                         
-                    complete: function(datos){     
+                        data:{id_forma_envio, id_direccion, id_forma_pago},
 
-                       if(datos.responseText=='true'){
+                        url: base+"/cart/verificarDireccion",
+                            
+                        complete: function(datos){    
 
-                            $('button.mercadopago-button').trigger('click');
+                        $('#banpago').val('0');
+
+                         
+
+                           if(datos.responseText=='true'){
+
+                                $('button.mercadopago-button').trigger('click');
 
 
-                       }else{
+                           }else{
 
-                            $('.res_direccion').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+                                $('.res_direccion').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
 
-                       }
-                    
-                    }
-                });
+                           }
+                        
+                        }
+                    });
+
+                }
 
             }
 

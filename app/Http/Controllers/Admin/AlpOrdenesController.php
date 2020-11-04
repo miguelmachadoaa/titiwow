@@ -4914,6 +4914,8 @@ public function sendcompramascancelar($id_orden){
            $j=$j+1;
          }
 
+         $this->fpdf->Cell(100, 3, '', 0,1);
+
          $this->fpdf->Cell(10, 11, '', 0,0);
 
          $this->fpdf->Cell(100, 11, $mensaje->mensaje_de, 0,1);
@@ -4926,11 +4928,11 @@ public function sendcompramascancelar($id_orden){
 
        // $this->fpdf->MultiCell(90, 8, $mensaje->mensaje_mensaje, 1);     
 
-        $this->fpdf->Cell(100, 15, '', 0,0);
+        $this->fpdf->Cell(100, 8, '', 0,0);
 
         $ord=AlpOrdenes::where('id', $id)->first();
 
-        $this->fpdf->Cell(80, 15, $ord->referencia, 0,1,'R');  
+        $this->fpdf->Cell(80, 8, $ord->referencia, 0,1,'R');  
          
         $this->fpdf->Output('D', $ord->referencia.'.pdf');
 

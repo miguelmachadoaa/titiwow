@@ -166,14 +166,16 @@
      $('.btnpg').click(function(){
 
         $('.btnpg').fadeOut('fast');
-       // $('#banpago').val('1');
+
+        console.log($('#banpago').val());
+       //  $('#banpago').val('1');
 
         setTimeout(function(){
 
             $('.btnpg').fadeIn();
-             $('#banpago').val('0');
+             //$('#banpago').val('0');
 
-        },10000);
+        },1000);
 
     });
 
