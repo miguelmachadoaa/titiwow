@@ -152,8 +152,18 @@
 
             
         @endif
-
-   
+        @if($almacen->id == 1000)
+        <div class="container cont_categorias">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 text-center hidden-xs">
+                    <a href="#" ><img src="{{ secure_url('/').'/assets/images/ancheta_d.jpg' }}" alt="Arma tu Ancheta" title="Arma tu Ancheta" class="img-responsive"></a>
+                </div>
+                <div class="col-md-12 col-sm-12 text-center visible-xs">
+                    <a href="#" ><img src="{{ secure_url('/').'/assets/images/ancheta_m.jpg' }}" alt="Arma tu Ancheta" title="Arma tu Ancheta" class="img-responsive"></a>
+                </div>
+            </div>
+        </div>
+        @endif
     <!-- //Layout Section Start -->
     <!-- Seccion categoria Inicio -->
     <div class="container cont_categorias">
