@@ -1605,7 +1605,7 @@ public function postdireccion(DireccionModalRequest $request)
 
 
                   if ($request->email=='' || $request->email==null) {
-                     $request->email=$request->first_name.$request->doc_cliente.'@alpinago.com';
+                     $request->email='sc'.$request->doc_cliente.'@alpinago.com';
                   }
 
 
