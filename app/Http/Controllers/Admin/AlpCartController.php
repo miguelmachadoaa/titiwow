@@ -1148,7 +1148,7 @@ class AlpCartController extends JoshController
               "value"=>(float)number_format($impuesto, 2, '.', ''),
               "type"=>"IVA"]],
           "token" => $request->token,
-          "binary_mode" => true,
+          //"binary_mode" => true,
           "description" => 'Pago de orden: '.$orden->id,
           "installments" => intval($request->installments),
           "external_reference"=> "".$orden->referencia."",
@@ -5059,6 +5059,9 @@ public function verificarDireccion( Request $request)
 
           foreach ($cart as $detalle) {
 
+            if (isset($detalle->id)) {
+             
+
             $monto_total_base=$monto_total_base+($detalle->cantidad*$detalle->precio_base);
 
              $total_detalle=$detalle->precio_oferta*$detalle->cantidad;
@@ -5185,6 +5188,7 @@ public function verificarDireccion( Request $request)
                     }
 
                   }
+               }
                }
 
 
@@ -7476,6 +7480,22 @@ private function getAlmacen3(){
 
                       $productos[]=$dt;
                      
+                    }else{
+
+                        if (substr($d->referencia_producto, 0,1)=='R') {
+                           $dt = array(
+                          'sku' => $d->referencia_producto, 
+                          'name' => $d->nombre_producto, 
+                          'url_img' => $d->imagen_producto, 
+                          'value' => $d->precio_unitario, 
+                          'value_prom' => $d->precio_unitario, 
+                          'quantity' => $d->cantidad
+                        );
+
+                        $productos[]=$dt;
+                      }
+
+
                     }
                       
                   }
@@ -7526,6 +7546,10 @@ private function getAlmacen3(){
               $urls=$configuracion->compramas_url.'/registerOrderReserved/'.$configuracion->compramas_hash;
 
                Log::info('compramas urls '.$urls);
+
+               Log::info($dataraw);
+
+               activity()->withProperties($dataraw)->log('dataraw');
 
 
       $ch = curl_init();
