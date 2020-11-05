@@ -34,6 +34,10 @@ use App\Models\AlpPagos;
 use App\Models\AlpFormaCiudad;
 use App\Models\AlpImpuestos;
 use App\Models\AlpRolenvio;
+use App\Models\AlpEnvios;
+use App\Models\AlpEnviosHistory;
+
+
 use App\User;
 use App\State;
 use App\City;
@@ -541,9 +545,6 @@ class AlpPedidosController extends JoshController
 
           $base_imponible=($base_impuesto/(1+$valor_impuesto));
 
-
-
-
           $data_update = array(
               'referencia' => 'SC'.$orden->id,
               'monto_total' =>$resto,
@@ -556,7 +557,6 @@ class AlpPedidosController extends JoshController
                );
 
              $orden->update($data_update);
-
 
               $data_history = array(
                 'id_orden' => $orden->id, 
@@ -2382,12 +2382,9 @@ public function postdireccion(DireccionModalRequest $request)
 
         }
 
-
-        
         $configuracion=AlpConfiguracion::where('id', '=', '1')->first();
 
         $orden=AlpOrdenes::where('token', '=', $token)->first();
-
 
         \Session::put('orden', $orden->id);
         \Session::put('carrito', $orden->id);
@@ -3066,6 +3063,18 @@ $valor_impuesto=AlpImpuestos::where('id', '1')->first();
 
         $preference = MP::post("/v1/payments",$preference_data);
 
+
+         $data_pago = array(
+                'id_orden' => $orden->id, 
+                'id_forma_pago' => $orden->id_forma_pago, 
+                'id_estatus_pago' => '3', 
+                'monto_pago' => 0, 
+                'json' => json_encode($preference), 
+                'id_user' => '1', 
+                );
+
+             AlpPagos::create($data_pago);
+
          
 
         if (isset($preference['response']['id'])) {
@@ -3082,20 +3091,12 @@ $valor_impuesto=AlpImpuestos::where('id', '1')->first();
                 $aviso='No pudimos procesar su pago, por favor intente Nuevamente.';
 
               }
-                $data_pago = array(
-                'id_orden' => $orden->id, 
-                'id_forma_pago' => $orden->id_forma_pago, 
-                'id_estatus_pago' => '3', 
-                'monto_pago' => 0, 
-                'json' => json_encode($preference), 
-                'id_user' => '1', 
-                );
-
-             AlpPagos::create($data_pago);
 
             return redirect('pedidos/'.$orden->token.'/pago')->with('aviso', $aviso);
 
           }
+
+
 
            /// $data=$this->generarPedido('1', '2', $preference, 'credit_card');
            $data=$this->generarPedido('8', '4', $preference, 'credit_card');
@@ -3148,13 +3149,6 @@ $valor_impuesto=AlpImpuestos::where('id', '1')->first();
 
           
            $idc=$compra->id*1024;
-
-
-
-
-
-
-
 
            return redirect('cart/'.$idc.'/gracias?pago=aprobado');
 
@@ -3317,15 +3311,6 @@ $valor_impuesto=AlpImpuestos::where('id', '1')->first();
         
     }
     
-
-
-
-
-
-
-
-
-
 
 
 
@@ -4552,6 +4537,268 @@ public function marketingcliente()
 
       
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
+
+    $id_pago='0';
+
+    //dd($tipo);
+
+    if(isset($json_pago['response']['id'])){
+
+      $id_pago=$json_pago['response']['id'];
+
+    }else{
+
+       if (\Session::has('pse')) {
+
+              $id_pago=\Session::get('pse');
+
+          }
+
+    }
+
+        $cart= \Session::get('cart');
+
+        $carrito= \Session::get('cr');
+
+        $configuracion = AlpConfiguracion::where('id','1')->first();
+
+        $id_orden= \Session::get('orden');
+
+        $orden=AlpOrdenes::where('id', $id_orden)->first();
+
+        $total=$this->totalcart($orden);
+
+        
+
+
+      if (Sentinel::check()) {
+
+        $user_id = Sentinel::getUser()->id;
+
+       
+
+
+      }else{
+
+        $user_id= \Session::get('iduser');
+
+       
+
+      }
+
+
+
+
+        $direccion=AlpDirecciones::where('id', $orden->id_address)->first();
+
+        $date = Carbon::now();
+
+        $dias=1;
+        
+
+        $fecha_entrega=$date->addDays($dias)->format('d-m-Y');
+
+        $date = Carbon::now();
+
+        $fecha_envio=$date->addDays($dias)->format('Y-m-d');
+
+
+        $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
+
+        $cliente=AlpClientes::where('id_user_client', $user_id)->first();
+
+        if (isset($cliente)) {
+           
+          if ($cliente->id_embajador!=0) {
+             
+              $data_puntos = array(
+                  'id_orden' => $orden->id,
+                  'id_cliente' => $cliente->id_embajador,
+                  'tipo' => '1',//agregar
+                  'cantidad' =>$total ,
+                  'id_user' =>$user_id                   
+              );
+
+              AlpPuntos::create($data_puntos);
+
+            }
+
+         }
+
+
+         $envio=$this->enviopago($orden);
+
+
+      $valor_impuesto=AlpImpuestos::where('id', '1')->first();
+
+      if ($envio>0) {
+       
+        $envio_base=$envio/(1+$valor_impuesto->valor_impuesto);
+
+        $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
+
+
+      }else{
+
+        $envio_base=0;
+
+        $envio_impuesto=0;
+
+      }
+
+        $data_envio = array(
+          'id_orden' => $orden->id, 
+         // 'fecha_envio' => $date->addDays($ciudad_forma->dias)->format('Y-m-d'),
+          'fecha_envio' => $fecha_envio,
+          'costo' => $envio, 
+          'costo_base' => $envio_base, 
+          'costo_impuesto' => $envio_impuesto, 
+          'estatus' => 1, 
+          'id_user' =>$user_id                   
+
+        );
+
+        $envio=AlpEnvios::create($data_envio);
+
+        $data_envio_history = array(
+          'id_envio' => $envio->id, 
+          'estatus_envio' => 1, 
+          'nota' => 'Envio Generar Pedido', 
+          'id_user' =>$user_id                   
+
+        );
+
+        AlpEnviosHistory::create($data_envio_history);
+
+        $comision_mp=$configuracion->comision_mp/100;
+        $retencion_fuente_mp=$configuracion->retencion_fuente_mp/100;
+        $retencion_iva_mp=$configuracion->retencion_iva_mp/100;
+        $retencion_ica_mp=$configuracion->retencion_ica_mp/100;
+
+       // dd($orden);
+
+        if ($tipo=='credit_card') {
+
+         
+          $data_update = array(
+          'estatus' =>$estatus_orden, 
+          'estatus_pago' =>$estatus_pago,
+          'comision_mp' =>(($orden->monto_total*$comision_mp)+($orden->monto_total*$comision_mp*0.19)),
+          'retencion_fuente_mp' =>($orden->monto_total-$orden->monto_impuesto)*$retencion_fuente_mp,
+          'retencion_iva_mp' =>$orden->monto_impuesto*$retencion_iva_mp,
+          'retencion_ica_mp' =>($orden->monto_total-$orden->monto_impuesto)*$retencion_ica_mp
+           );
+
+        }elseif($tipo=='pse'){
+
+          $comision_mp=$configuracion->comision_mp_pse/100;
+
+          $data_update = array(
+          'estatus' =>$estatus_orden, 
+          'estatus_pago' =>$estatus_pago,
+          'comision_mp' =>(($orden->monto_total*$comision_mp)+($orden->monto_total*$comision_mp*0.19)),
+          'retencion_fuente_mp' =>0,
+          'retencion_iva_mp' =>0,
+          'retencion_ica_mp' =>0
+           );
+
+        }elseif($tipo=='baloto'){
+
+
+          $comision_mp=$configuracion->comision_mp_baloto/100;
+
+          $data_update = array(
+          'estatus' =>$estatus_orden, 
+          'estatus_pago' =>$estatus_pago,
+          'comision_mp' =>(($orden->monto_total*$comision_mp)+($orden->monto_total*$comision_mp*0.19)),
+          'retencion_fuente_mp' =>0,
+          'retencion_iva_mp' =>0,
+          'retencion_ica_mp' =>0
+           );
+
+        }else{
+
+          $data_update = array(
+          'estatus' =>$estatus_orden, 
+          'estatus_pago' =>$estatus_pago,
+          'comision_mp' =>(($orden->monto_total*$comision_mp)+($orden->monto_total*$comision_mp*0.19)),
+          'retencion_fuente_mp' =>0,
+          'retencion_iva_mp' =>0,
+          'retencion_ica_mp' =>0
+           );
+
+        }
+
+        //dd($data_update);
+
+
+        $cupones=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
+
+        foreach ($cupones as $cupon) {
+          
+          $c=AlpOrdenesDescuento::where('id', $cupon->id)->first();
+
+          $data_cupon = array('id_orden' => $orden->id, 'aplicado'=>'1' );
+
+          $c->update($data_cupon);
+
+        }
+
+
+         $orden->update($data_update);
+
+         $data_pago = array(
+          'id_orden' => $orden->id, 
+          'id_forma_pago' => $orden->id_forma_pago, 
+          'id_estatus_pago' => $estatus_pago, 
+          'monto_pago' => $total, 
+          'json' => json_encode($json_pago), 
+          'id_user' => $user_id, 
+        );
+
+         AlpPagos::create($data_pago);
+
+
+         $data_history = array(
+              'id_orden' => $orden->id, 
+             'id_status' => $estatus_orden, 
+              'notas' => 'Orden procesada', 
+             'id_user' => 1
+          );
+
+        $history=AlpOrdenesHistory::create($data_history);
+
+
+         //se limpian las sessiones
+
+         \Session::forget('cart');
+         \Session::forget('orden');
+         \Session::forget('cr');
+         \Session::forget('direccion');
+         \Session::forget('envio');
+
+         return array('id_orden' => $orden->id, 'fecha_entrega' => $fecha_entrega   );
+
+  
+    }
+
+
+
+
 
 
 
