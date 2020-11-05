@@ -204,6 +204,13 @@ div.overlay > div {
 
 </div>
 
+
+<div class="row">
+    <div class="col-sm-12">
+        {{json_encode($cart)}}
+    </div>
+</div>
+
 <!-- Modal Direccion -->
  <div class="modal fade" id="modalPse" role="dialog" aria-labelledby="modalLabeldanger">
     <div class="modal-dialog modal-lg" role="document">
@@ -592,6 +599,15 @@ $('.sendCuponTomapedidos').click(function () {
 
         var base = $('#base').val();
 
+
+        var banpago = $('#banpago').val();
+
+        console.log($('#banpago').val());
+
+        if (banpago==0) {
+
+        $('#banpago').val('1');
+
          $.ajax({
             type: "POST",
 
@@ -600,6 +616,8 @@ $('.sendCuponTomapedidos').click(function () {
             url: base+"/cart/verificarDireccion",
                 
             complete: function(datos){     
+
+                $('#banpago').val('0');
 
                if(datos.responseText=='true'){
 
@@ -641,6 +659,7 @@ $('.sendCuponTomapedidos').click(function () {
         });
 
         //document.getElementById("addDireccionForm").submit();
+    }
     }
 
 });
@@ -710,6 +729,15 @@ $('.sendCuponTomapedidos').click(function () {
                             });
 
 
+
+                            var banpago = $('#banpago').val();
+
+                            console.log($('#banpago').val());
+
+                            if (banpago==0) {
+
+                            $('#banpago').val('1');
+
                             $.ajax({
                                 type: "POST",
                                 data:{id_forma_envio, id_direccion, id_forma_pago},
@@ -717,6 +745,7 @@ $('.sendCuponTomapedidos').click(function () {
                                 url: base+"/cart/verificarDireccion",
                                     
                                 complete: function(datos){     
+                                    $('#banpago').val('0');
 
                                    if(datos.responseText=='true'){
 
@@ -751,6 +780,8 @@ $('.sendCuponTomapedidos').click(function () {
                                 
                                 }
                             });
+
+                        }
 
 
 
@@ -801,45 +832,55 @@ $('.sendCuponTomapedidos').click(function () {
                             });
 
 
+                            var banpago = $('#banpago').val();
+
+                            console.log($('#banpago').val());
+
+                            if (banpago==0) {
+
+                            $('#banpago').val('1');
 
 
-                    $.ajax({
-                        type: "POST",
-                        data:{id_forma_envio, id_direccion, id_forma_pago},
-                        url: base+"/cart/verificarDireccion",
-                        
-                        complete: function(datos){     
+                        $.ajax({
+                            type: "POST",
+                            data:{id_forma_envio, id_direccion, id_forma_pago},
+                            url: base+"/cart/verificarDireccion",
+                            
+                            complete: function(datos){     
+                                $('#banpago').val('0');
 
-                            if(datos.responseText=='true'){
+                                if(datos.responseText=='true'){
 
-                            //$('#procesarForm').submit();
+                                //$('#procesarForm').submit();
 
-                                $.ajax({
-                                    type: "POST",
-                                    data:{id_direccion, id_forma_envio, id_forma_pago},
-                                    url: base+"/order/procesar",
+                                    $.ajax({
+                                        type: "POST",
+                                        data:{id_direccion, id_forma_envio, id_forma_pago},
+                                        url: base+"/order/procesar",
+                                        
+                                        complete: function(datos){     
+
+                                             $(location).attr("href", datos.responseText);
+
+                                            //$('.contain_body').html(datos.responseText);
+
+                                            $('.overlay').fadeOut();
                                     
-                                    complete: function(datos){     
+                                        }
 
-                                         $(location).attr("href", datos.responseText);
+                                    });
 
-                                        //$('.contain_body').html(datos.responseText);
+                                }else{
 
-                                        $('.overlay').fadeOut();
-                                
-                                    }
+                                    $('.res_direccion').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
 
-                                });
-
-                            }else{
-
-                                $('.res_direccion').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
-
+                                }
+                        
                             }
-                    
-                        }
-                    
-                    });
+                        
+                        });
+
+                    }
 
 
 
@@ -917,26 +958,37 @@ $('.sendCuponTomapedidos').click(function () {
                             });
 
 
-                             $.ajax({
-                    type: "POST",
-                    data:{id_forma_envio, id_direccion, id_forma_pago},
+                            var banpago = $('#banpago').val();
 
-                    url: base+"/cart/verificarDireccion",
-                        
-                    complete: function(datos){     
+                            console.log($('#banpago').val());
 
-                       if(datos.responseText=='true'){
+                            if (banpago==0) {
 
-                            window.location.href = url;
+                                $('#banpago').val('1');
 
-                       }else{
+                                 $.ajax({
+                                    type: "POST",
+                                    data:{id_forma_envio, id_direccion, id_forma_pago},
 
-                            $('.res_direccion').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+                                    url: base+"/cart/verificarDireccion",
+                                        
+                                    complete: function(datos){    
+                                    $('#banpago').val('0'); 
 
-                       }
-                    
-                    }
-                });
+                                       if(datos.responseText=='true'){
+
+                                            window.location.href = url;
+
+                                       }else{
+
+                                            $('.res_direccion').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+
+                                       }
+                                    
+                                    }
+                                });
+
+                         }
 
 
 
@@ -1007,38 +1059,49 @@ $('.sendCuponTomapedidos').click(function () {
                         }
 
 
-                      if( $('#tomapedidos_terminos').is(':checked') ) {
+                if( $('#tomapedidos_terminos').is(':checked') ) {
 
 
-                            $.get(base+'/tomapedidos/terminoscliente', function(data) {
+                    $.get(base+'/tomapedidos/terminoscliente', function(data) {
 
-                            });
-
-
-                              $.ajax({
-                    type: "POST",
-                    
-                    data:{id_forma_envio, id_direccion, id_forma_pago},
-
-                    url: base+"/cart/verificarDireccion",
-                        
-                    complete: function(datos){     
-
-                       if(datos.responseText=='true'){
-
-                            $('button.mercadopago-button').trigger('click');
-
-
-                       }else{
-
-                            $('.res_direccion').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
-
-                       }
-                    
-                    }
                 });
 
 
+                    var banpago = $('#banpago').val();
+
+                    console.log($('#banpago').val());
+
+                    if (banpago==0) {
+
+                        $('#banpago').val('1');
+
+
+                        $.ajax({
+
+                        type: "POST",
+                        
+                        data:{id_forma_envio, id_direccion, id_forma_pago},
+
+                        url: base+"/cart/verificarDireccion",
+                            
+                        complete: function(datos){     
+                            $('#banpago').val('0');
+
+                           if(datos.responseText=='true'){
+
+                                $('button.mercadopago-button').trigger('click');
+
+
+                           }else{
+
+                                $('.res_direccion').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+
+                           }
+                        
+                        }
+                    });
+
+                }
 
 
                         }else{
