@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\CompramasExport;
 use App\Exports\UltimamillaExport;
 use App\Exports\NominaExport;
 use App\Exports\NominaExportAlmacen;
@@ -1874,6 +1875,74 @@ public function formato()
         return Excel::download(new UltimamillaExport(), 'reporte_ultima_milla.xlsx');
     }
 
+
+
+
+
+
+
+
+
+
+    public function compramas() 
+    {
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/compramas ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/compramas');
+
+
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+        return view('admin.reportes.compramas');
+
+    }
+
+     public function exportcompramas(Request $request) 
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exportcompramas ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exportcompramas');
+
+
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+        
+
+       // dd($request->all());
+
+        return Excel::download(new CompramasExport($request->desde, $request->hasta), 'compramas_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+    }
 
 
 

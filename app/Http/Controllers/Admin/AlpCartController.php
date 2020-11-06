@@ -4710,7 +4710,6 @@ public function verificarDireccion( Request $request)
 
 
 
-
       $clientIP = \Request::getClientIp(true);
 
       if (isset($ciudad->id)  ||  $validado=='1'){
@@ -5220,7 +5219,6 @@ public function verificarDireccion( Request $request)
           $base_imponible=($base_impuesto/(1+$valor_impuesto));
 
            $data_update = array(
-              'referencia' => 'ALP'.$orden->id,
               'monto_total' =>$resto,
               'monto_descuento' =>$total_descuentos,
               'monto_total_base' => $monto_total_base,
@@ -5236,7 +5234,7 @@ public function verificarDireccion( Request $request)
               $data_history = array(
                 'id_orden' => $orden->id, 
                'id_status' => '8', 
-                'notas' => 'Orden Creada', 
+                'notas' => 'Orden Recargada', 
                'id_user' => 1
               );
 
@@ -5292,7 +5290,7 @@ public function verificarDireccion( Request $request)
 
          }
 
-
+        // dd($cart);
 
           return 'true';
 
@@ -5887,6 +5885,9 @@ public function verificarDireccion( Request $request)
                   $valor_int=$valor_int+1;
                   
                 }
+
+
+                 $carrito= \Session::get('cr');
 
 
                 $data_pago = array(

@@ -7,13 +7,7 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ secure_asset('assets/img/favicon/apple-touch-icon.png')}}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ secure_asset('assets/img/favicon/favicon-32x32.png')}}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ secure_asset('assets/img/favicon/favicon-16x16.png')}}">
-    <link rel="manifest" href="{{ secure_asset('assets/img/favicon/site.webmanifest')}}">
-    <link rel="mask-icon" href="{{ secure_asset('assets/img/favicon/safari-pinned-tab.svg')}}" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
+  
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -51,40 +45,7 @@
     <!--page level css-->
     @yield('header_styles')
     <!--end of page level css-->
-        @if (App::environment('production')) 
-
-            <!-- Global site tag (gtag.js) - Google Analytics -->
-            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129370910-1"></script>
-            <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'UA-129370910-1');
-            </script>
-            <!-- Google Tag Manager -->
-            <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-PG9RTMH');</script>
-            <!-- End Google Tag Manager -->
-
-            <!-- Watson Campaign Automation Web Tracking Code -->
-
-            <!-- Please insert the following code between your HTML document head tags to maintain a common reference to a unique visitor across one or more external web tracked sites. -->
-            <meta name="com.silverpop.brandeddomains" content="www.pages02.net,www.alpina.com,www.alpinago.com" />
-
-            <!-- Optionally uncomment the following code between your HTML document head tags if you use Watson Campaign Automation Conversion Tracking (COT). -->
-            <meta name="com.silverpop.cothost" content="pod2.ibmmarketingcloud.com" />
-
-            <script src="https://www.sc.pages02.net/lp/static/js/iMAWebCookie.js?792cb3c0-164f112d980-df4cba773885eb54dfcebd294a039c37&h=www.pages02.net" type="text/javascript"></script>
-            
-            <script src ="https://up.pixel.ad/assets/up.js?um=1"></script>
-            <script type="text/javascript">
-                cntrUpTag.track('cntrData', '51294cf2f157c230');
-            </script>
-        @endif
+        
 </head>
 
 <body>

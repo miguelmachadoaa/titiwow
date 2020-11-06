@@ -576,6 +576,14 @@ Route::get('productos/{id}/eliminarproductoacheta', array('as' => 'productos.eli
    Route::post('reportes/exportproductos', 'Admin\AlpReportesController@exportproductos')->name('reportes.exportproductos');
 
 
+    Route::get('reportes/compramas', 'Admin\AlpReportesController@compramas')->name('reportes.compramas');
+   //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
+   Route::post('reportes/exportcompramas', 'Admin\AlpReportesController@exportcompramas')->name('reportes.exportcompramas');
+
+
+
+
+
    Route::get('reportes/productosb', 'Admin\AlpReportesController@productosb')->name('reportes.productosb');
 
    Route::get('reportes/productosc', 'Admin\AlpReportesController@productosc')->name('reportes.productosc');

@@ -229,9 +229,9 @@ class AlpPedidosController extends JoshController
 
           $total_venta=$this->totalcart($cart);
 
-          if ($total_venta<$almacen->minimo_compra) {
+          if ($total_venta<7000) {
 
-            return redirect('admin/tomapedidos/')->withInput()->with('error', trans('El monto de compra minimo para este almacen es de '.$almacen->minimo_compra));
+            return redirect('admin/tomapedidos/')->withInput()->with('error', trans('El monto de compra minimo para este almacen es de 7.000'));
 
             
           }
@@ -3059,7 +3059,7 @@ $valor_impuesto=AlpImpuestos::where('id', '1')->first();
             "email"=>$user_cliente->email]
         ];
 
-        //dd($preference_data);
+        dd($preference_data);
 
         $preference = MP::post("/v1/payments",$preference_data);
 
