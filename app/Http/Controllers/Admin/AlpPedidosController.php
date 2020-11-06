@@ -2387,7 +2387,7 @@ public function postdireccion(DireccionModalRequest $request)
         $orden=AlpOrdenes::where('token', '=', $token)->first();
 
         \Session::put('orden', $orden->id);
-        \Session::put('carrito', $orden->id);
+        \Session::put('cr', $orden->id);
         \Session::put('iduser', $orden->id_cliente);
 
          $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
@@ -3050,7 +3050,7 @@ $valor_impuesto=AlpImpuestos::where('id', '1')->first();
           "binary_mode" => true,
           "description" => 'Pago de orden: '.$orden->id,
           "installments" => intval($request->installments),
-          "external_reference"=> $orden->id,
+          "external_reference"=> $orden->referencia,
           "payment_method_id" => $request->payment_method_id,
           "additional_info" => $additional_info,
           
