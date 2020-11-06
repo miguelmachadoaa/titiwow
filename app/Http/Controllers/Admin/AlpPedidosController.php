@@ -3050,7 +3050,7 @@ $valor_impuesto=AlpImpuestos::where('id', '1')->first();
           "binary_mode" => true,
           "description" => 'Pago de orden: '.$orden->id,
           "installments" => intval($request->installments),
-          "external_reference"=> "ALP".$orden->id."",
+          "external_reference"=> $orden->id,
           "payment_method_id" => $request->payment_method_id,
           "additional_info" => $additional_info,
           
