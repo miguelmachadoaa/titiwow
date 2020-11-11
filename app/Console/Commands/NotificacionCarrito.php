@@ -67,7 +67,7 @@ class NotificacionCarrito extends Command
           ->get();
 
 
-         // dd($carritos);
+         //dd($carritos);
 
 
         activity()->withProperties($carritos)->log('carritos');

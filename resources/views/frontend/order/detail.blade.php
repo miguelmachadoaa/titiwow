@@ -583,6 +583,7 @@ $('.sendCupon').click(function () {
         var base = $('#base').val();
 
         var banpago = $('#banpago').val();
+        
         console.log($('#banpago').val());
 
         if (banpago==0) {

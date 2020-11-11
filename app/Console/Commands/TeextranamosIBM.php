@@ -59,20 +59,19 @@ class TeextranamosIBM extends Command
 
         $date = Carbon::now();
 
-        $d=$date->subDay(30)->format('Y-m-d');
+       // $d=$date->subDay(15)->format('Y-m-d');
        // $d=$date->subDay(100)->format('Y-m-d');
       
-        $users=User::whereDate('created_at','=', $d)->get();
+        //$users=User::whereDate('created_at','=', $d)->where('notificacion', '=', 0)->get();
+        $users=User::get();
 
         $i=0;
 
-        //dd($users);
+        //dd($users->count());
 
         foreach ($users as $u) {
 
             $orden=AlpOrdenes::where('id_cliente', $u->id)->orderBy('id', 'desc')->first();
-
-
 
             if (isset($orden->id)) {
 
@@ -82,50 +81,21 @@ class TeextranamosIBM extends Command
 
                 $diff = $date->diffInDays($now); 
 
-                if ($diff>30) {
+                if ($diff>15) {
 
+                  $date_fecha = Carbon::now()->format('m/d/Y');
 
+                  $usuario=User::where('id', $u->id)->first();
 
+                  $data_update_usuario = array('notificacion' => 1 );
 
-                    $codigo=strtoupper(substr(md5(time()), 0,12));
+                  $usuario->update($data_update_usuario);
 
-                    $date_inicio = Carbon::now()->format('Y-m-d');
-                    $date_fecha = Carbon::now()->format('m/d/Y');
+                  $cupon='';
 
-                    $date_fin = Carbon::now()->addDay(30)->format('Y-m-d');
+                  $date_fecha = Carbon::now()->format('m/d/Y');
 
-
-
-                    $data = array(
-                        'codigo_cupon' => $codigo, 
-                        'valor_cupon' =>  '20', 
-                        'tipo_reduccion' => '2', 
-                        'limite_uso' => '1', 
-                        'limite_uso_persona' => '1', 
-                        'fecha_inicio' => $date_inicio, 
-                        'fecha_final' => $date_fin, 
-                        'monto_minimo' =>'20000', 
-                        'maximo_productos' =>'6', 
-                        'primeracompra' => '0', 
-                        'id_user' =>'1'
-                    );
-                     
-                    $cupon=AlpCupones::create($data);
-
-                   // dd($cupon);
-
-                    $datac = array(
-                        'id_cupon' => $cupon->id, 
-                        'id_cliente' => $u->id, 
-                        'condicion' => '1' 
-                    );
-
-                    AlpCuponesUser::create($datac);
-
-
-                    $this->addibm($u, $cupon, $date_fecha);
-
-
+                 $this->addibm($u, $cupon, $date_fecha);
 
                     
                 }

@@ -52,11 +52,11 @@ class Teextranamos2IBM extends Command
     public function handle()
     {
 
-        $date = Carbon::now();
+        //$date = Carbon::now();
 
-        $d=$date->subDay(60)->format('Y-m-d');
+       // $d=$date->subDay(60)->format('Y-m-d');
       
-        $users=User::whereDate('created_at','=', $d)->get();
+        $users=User::get();
 
         $i=0;
 
@@ -74,18 +74,14 @@ class Teextranamos2IBM extends Command
 
                 $diff = $date->diffInDays($now); 
 
-                if ($diff>60) {
+                if ($diff>30) {
 
-
-                    
                     $codigo=strtoupper(substr(md5(time()), 0,12));
 
                     $date_inicio = Carbon::now()->format('Y-m-d');
                     $date_fecha = Carbon::now()->format('m/d/Y');
 
                     $date_fin = Carbon::now()->addDay(30)->format('Y-m-d');
-
-
 
                     $data = array(
                         'codigo_cupon' => $codigo, 
@@ -105,7 +101,7 @@ class Teextranamos2IBM extends Command
 
                    // dd($cupon);
 
-                    $datac = array(
+                   $datac = array(
                         'id_cupon' => $cupon->id, 
                         'id_cliente' => $u->id, 
                         'condicion' => '1' 
@@ -113,9 +109,6 @@ class Teextranamos2IBM extends Command
 
                     AlpCuponesUser::create($datac);
 
-
-                        
-                        $this->addibm($u, $cupon, $date_fecha);
 
                 }
                 

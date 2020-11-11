@@ -2131,18 +2131,11 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         $user_id = Sentinel::getUser()->id;
 
-       
-
-
       }else{
 
         $user_id= \Session::get('iduser');
 
-       
-
       }
-
-
 
 
         $direccion=AlpDirecciones::where('id', $orden->id_address)->first();
