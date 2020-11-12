@@ -203,11 +203,7 @@ div.overlay > div {
 </div>
 
 
-<div class="row">
-    <div class="col-sm-12">
-        {{json_encode($cart)}}
-    </div>
-</div>
+
 
 <!-- Modal Direccion -->
  <div class="modal fade" id="modalPse" role="dialog" aria-labelledby="modalLabeldanger">
@@ -553,6 +549,8 @@ $('.sendCupon').click(function () {
 
   $('.sendPse').click(function () {
 
+    $('.sendPse').attr('disable', true);
+
     var $validator = $('#addPseForm').data('bootstrapValidator').validate();
 
     if ($validator.isValid()) {
@@ -599,9 +597,15 @@ $('.sendCupon').click(function () {
                     
                 complete: function(datos){     
 
+                    $('.sendPse').removeAttr('disable');
+
+                    $('#banpago').val('0');
+
                    if(datos.responseText=='true'){
 
-                        $('#banpago').val('0');
+                  
+
+                       
                         
 
                         //$('#procesarForm').submit();
@@ -647,6 +651,8 @@ $('.sendCupon').click(function () {
      }
 
         //document.getElementById("addDireccionForm").submit();
+    }else{
+        $('.sendPse').removeAttr('disable');
     }
 
 });
