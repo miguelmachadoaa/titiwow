@@ -182,7 +182,7 @@
 
         <div class="row">
 
-             <h1 style="font-size: 24px; color: #143473; margin-bottom: 15px; font-weight: 500;  font-family: 'PlutoMedium';" class="subtitulo">Categoria: {{$categoria->nombre_categoria}}</h1>
+             <h1 style="font-size: 24px; color: #143473; margin-bottom: 15px; font-weight: 500;  font-family: 'PlutoMedium';" class="subtitulo"> {{$categoria->seo_titulo}}</h1>
 
 
         @if(!$productos->isEmpty())
