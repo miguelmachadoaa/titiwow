@@ -1524,9 +1524,11 @@ class ClientesFrontController extends Controller
 
         $direccion=AlpDirecciones::where('id', $input['address_id'])->first();
 
-        $direccion->update($input);
+        
 
         if (isset($direccion->id)) {
+
+            $direccion->update($input);
 
           DB::table('alp_direcciones')->where('id_client', $user_id)->update(['default_address'=>0]);
           DB::table('alp_direcciones')->where('id', $direccion->id)->update(['default_address'=>1]);
