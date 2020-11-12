@@ -782,6 +782,8 @@ class ProductosFrontController extends Controller
           ->join('alp_ancheta_productos', 'alp_productos.id', '=', 'alp_ancheta_productos.id_producto')
           ->where('alp_ancheta_productos.id_ancheta_categoria', $c->id)
           ->where('alp_almacen_producto.id_almacen', '=', 1)
+          ->whereNull('alp_ancheta_productos.deleted_at')
+          ->whereNull('alp_almacen_producto.deleted_at')
           ->get();
 
            $productos=$this->addOferta($productos);
