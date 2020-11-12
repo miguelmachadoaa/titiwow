@@ -51,7 +51,17 @@ $("#reg_form").bootstrapValidator({
             required: true,
             minlength: 3
         },
-        
+        email: {
+            validators: {
+                notEmpty: {
+                    message: 'El Email es Requerido'
+                },
+                regexp: {
+                    regexp: /^(\w+)([\-+.\'0-9A-Za-z_]+)*@(\w[\-\w]*\.){1,5}([A-Za-z]){2,6}$/,
+                    message: 'El Email no es Válido'
+                }
+            }
+        },
         
         state_id: {
             validators: {
