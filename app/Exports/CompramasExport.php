@@ -46,6 +46,7 @@ class CompramasExport implements FromView
           'alp_ordenes.id_forma_envio as id_forma_envio', 
           'alp_ordenes.id_forma_pago as id_forma_pago', 
           'alp_ordenes.id_almacen as id_almacen', 
+          'alp_ordenes.json as json', 
           'alp_ordenes.id_address as id_address', 
           'alp_ordenes.envio_compramas as envio_compramas', 
           'alp_ordenes.created_at as created_at', 
@@ -71,8 +72,10 @@ class CompramasExport implements FromView
 
               $data=json_decode($o->json);
 
+              //dd($data);
+
               if (isset($data->mensaje)) {
-                
+
                 $mensaje=$mensaje.$data->mensaje;
               }
 
