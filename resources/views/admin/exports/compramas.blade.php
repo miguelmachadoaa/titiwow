@@ -2,6 +2,7 @@
     <thead>
         <tr>
             <th ><b>Id_Orden</b></th>
+            <th ><b>Referencia</b></th>
             <th><b>Cliente</b></th>
             <th><b>Telefono</b></th>
             <th><b>Estado Compramas</b></th>
@@ -16,6 +17,7 @@
         @foreach ($ordenes as $row)
         <tr>
             <td>{!! $row->id !!}</td>
+            <td>{!! $row->referencia !!}</td>
             <td>{!! $row->first_name. ' '. $row->last_name !!}</td>
             <td>{!! $row->telefono_cliente !!}</td>
             <td>{!! $row->estado_compramas !!}</td>
