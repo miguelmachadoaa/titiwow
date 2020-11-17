@@ -1282,9 +1282,6 @@ class AlpCartController extends JoshController
 
       $cart=$this->addPromocion();
 
-
-      //echo $carrito;
-
       $cart=$this->reloadCart();
 
       $total=$this->total();
@@ -8661,6 +8658,202 @@ public function reiniciarancheta()
       }
       
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private function consultaIcg()
+    {
+
+     //dd($id_orden);
+
+
+      $s_user= \Session::get('user');
+
+      $c=AlpClientes::where('id_user_client', $s_user->id)->first();
+
+      $data = array('DocumentoEmpleado' =>$c->doc_cliente);
+
+              $dataraw=json_encode($o);
+
+              $urls=$configuracion->compramas_url.'/registerOrderReserved/'.$configuracion->compramas_hash;
+
+               Log::info('compramas urls '.$urls);
+
+               Log::info($dataraw);
+
+               activity()->withProperties($dataraw)->log('dataraw');
+
+
+      $ch = curl_init();
+
+      curl_setopt($ch, CURLOPT_URL, $configuracion->compramas_url.'/registerOrderReserved/'.$configuracion->compramas_hash);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($ch, CURLOPT_POST, 1);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
+      curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+      $headers = array();
+      $headers[] = 'Content-Type: application/json';
+      $headers[] = 'Woobsing-Token: '.$configuracion->compramas_token;
+      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+      $result = curl_exec($ch);
+      if (curl_errno($ch)) {
+          echo 'Error:' . curl_error($ch);
+      }
+      curl_close($ch);
+
+      $res=json_decode($result);
+
+       Log::info('compramas res '.json_encode($res));
+       
+       Log::info('compramas result '.$result);
+
+
+       $notas='Registro de orden en compramas.';
+
+
+       if (isset($res->mensaje)) {
+         $notas=$notas.$res->mensaje.' ';
+       }
+
+       if (isset($res->codigo)) {
+         $notas=$notas.$res->codigo.' ';
+       }
+
+       
+
+       if (isset($res->message)) {
+         $notas=$notas.$res->message.' ';
+       }
+
+       if (isset($res->causa->message)) {
+         $notas=$notas.$res->causa->message.' ';
+       }
+
+
+       $notas=$notas.'Codigo: CC.';
+
+
+      if (isset($res->codigo)) {
+        
+        if ($res->codigo=='200') {
+
+             $dtt = array(
+                'json' => $result,
+                'estado_compramas' => $res->codigo
+                
+              );
+
+              $orden->update($dtt);
+
+            $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
+
+
+             $data_history = array(
+                          'id_orden' => $orden->id, 
+                         'id_status' => '9', 
+                          'notas' => $notas, 
+                          'json' => json_encode($result), 
+                         'id_user' => 1
+                      );
+
+                        $history=AlpOrdenesHistory::create($data_history);
+
+
+          Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+
+           Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+         
+        }else{
+
+            $dtt = array(
+              'json' => $result,
+              'estado_compramas' => $res->codigo,
+              'envio_compramas' => '3'
+              
+            );
+
+            $orden->update($dtt);
+
+          $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
+
+          $data_history = array(
+              'id_orden' => $orden->id, 
+             'id_status' => '9', 
+              'notas' => 'Error '.$notas, 
+              'json' => json_encode($result), 
+             'id_user' => 1
+          );
+
+            $history=AlpOrdenesHistory::create($data_history);
+
+          Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+
+           Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+
+
+        }
+
+
+      }else{
+
+        $notas='No hubo respuesta compramas';
+
+        $data_history = array(
+            'id_orden' => $orden->id, 
+           'id_status' => '9', 
+            'notas' => $notas,
+            'json' => json_encode($result), 
+           'id_user' => 1
+        );
+
+        $history=AlpOrdenesHistory::create($data_history);
+
+          $texto='No hubo respuesta compramas CC';
+
+          Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+
+           Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+
+                     
+
+      }
+
+      
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

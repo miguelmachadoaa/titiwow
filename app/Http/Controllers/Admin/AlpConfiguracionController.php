@@ -172,6 +172,9 @@ class AlpConfiguracionController extends JoshController
             'username_ibm' => $request->username_ibm,
             'password_ibm' => $request->password_ibm,
             'endpoint_ibm' => $request->endpoint_ibm,
+            'username_icg' => $request->username_icg,
+            'password_icg' => $request->password_icg,
+            'endpoint_icg' => $request->endpoint_icg,
             'h1_terminos' => $request->h1_terminos
         );
 

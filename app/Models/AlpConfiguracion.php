@@ -71,6 +71,9 @@ class AlpConfiguracion extends Model
         'username_ibm',
         'password_ibm',
         'endpoint_ibm',
+        'username_icg',
+        'password_icg',
+        'endpoint_icg',
         'id_user'
     ];
 
