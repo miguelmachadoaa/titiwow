@@ -177,6 +177,88 @@
 </div>
 @endif
 
+
+
+@if(isset($cupo_icg))
+
+    @if($cupo_icg>0)
+
+        <div class="col-sm-12">
+    
+            <div class=" text-center " style="margin-top: 1em;">
+
+                <div class="col-sm-12 col-xs-12" style="padding: 1em;">
+
+                    <div  data-id="4" class="row forma border pointer cupones">
+
+                        <div class="col-sm-8 col-xs-12">
+
+                           <p>Cupón de Descuento {{$cupo_icg}}</p> 
+
+                        </div>
+
+                        <div class="col-sm-4 col-xs-12" style="padding:8px;background-color:#3c763d;color:#ffffff;">
+
+                            <h5 class="text-center">Usar Cupon de Descuento <i class="fa fa-chevron-right"></i></h5>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                                       
+
+            </div>
+
+
+        </div>
+
+
+    @else
+
+
+     <div class="col-sm-12">
+    
+            <div class=" text-center " style="margin-top: 1em;">
+
+                <div class="col-sm-12 col-xs-12" style="padding: 1em;">
+
+                    <div  data-id="4" class="row forma border pointer cupones">
+
+                        <div class="col-sm-8 col-xs-12">
+
+                           <p>Cupón Icg Disponible {{$cupo_icg}}</p> 
+
+                        </div>
+
+                        <div class="col-sm-4 col-xs-12" style="padding:8px;background-color:#3c763d;color:#ffffff;">
+
+                            <h5 class="text-center">Aplicar <i class="fa fa-chevron-right"></i></h5>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                                       
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+    @endif
+    
+
+@else
+
+
+@endif
+
                                     <div class="clearfix">  </div>
                              
 

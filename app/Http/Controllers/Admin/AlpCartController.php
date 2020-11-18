@@ -1340,6 +1340,9 @@ class AlpCartController extends JoshController
                     ->log('Orden Detail');
 
 
+        $cupo_icg=$this->consultaIcg();
+
+
         $user_id = Sentinel::getUser()->id;
 
         $usuario=User::where('id', $user_id)->first();
@@ -1717,7 +1720,7 @@ class AlpCartController extends JoshController
 
           //dd($url);
 
-          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos', 'total_descuentos', 'costo_envio', 'id_forma_envio', 'envio_base', 'envio_impuesto', 'express', 'saldo', 'user','role', 'url'));
+          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos', 'total_descuentos', 'costo_envio', 'id_forma_envio', 'envio_base', 'envio_impuesto', 'express', 'saldo', 'user','role', 'url', 'cupo_icg'));
 
          }
 
@@ -8685,28 +8688,30 @@ public function reiniciarancheta()
     {
 
      //dd($id_orden);
-
+      $configuracion=AlpConfiguracion::where('id', '=', 1)->first();
 
       $s_user= \Session::get('user');
 
-      $c=AlpClientes::where('id_user_client', $s_user->id)->first();
+     // dd($s_user);
+
+      $c=AlpClientes::where('id_user_client', $s_user)->first();
 
       $data = array('DocumentoEmpleado' =>$c->doc_cliente);
 
-              $dataraw=json_encode($o);
+      $dataraw=json_encode($data);
 
-              $urls=$configuracion->compramas_url.'/registerOrderReserved/'.$configuracion->compramas_hash;
+      $urls=$configuracion->endpoint_icg;
 
-               Log::info('compramas urls '.$urls);
+       Log::info('api icg urls '.$urls);
 
-               Log::info($dataraw);
+       Log::info($dataraw);
 
-               activity()->withProperties($dataraw)->log('dataraw');
+       activity()->withProperties($dataraw)->log('dataraw');
 
 
       $ch = curl_init();
 
-      curl_setopt($ch, CURLOPT_URL, $configuracion->compramas_url.'/registerOrderReserved/'.$configuracion->compramas_hash);
+      curl_setopt($ch, CURLOPT_URL, $configuracion->endpoint_icg);
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
       curl_setopt($ch, CURLOPT_POST, 1);
       curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
@@ -8715,129 +8720,56 @@ public function reiniciarancheta()
 
       $headers = array();
       $headers[] = 'Content-Type: application/json';
-      $headers[] = 'Woobsing-Token: '.$configuracion->compramas_token;
+    //  $headers[] = 'Woobsing-Token: '.$configuracion->api icg_token;
       curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-      $result = curl_exec($ch);
+      try {
+
+        $result = curl_exec($ch);
+        
+      } catch (Exception $e) {
+        
+      }
+
+      
       if (curl_errno($ch)) {
-          echo 'Error:' . curl_error($ch);
+          //echo 'Error:' . curl_error($ch);
+
+           Log::info('Error:' . curl_error($ch));
       }
       curl_close($ch);
 
       $res=json_decode($result);
 
-       Log::info('compramas res '.json_encode($res));
+       Log::info('api icg res '.json_encode($res));
        
-       Log::info('compramas result '.$result);
+       Log::info('api icg result '.$result);
+
+     //  dd($result);
 
 
-       $notas='Registro de orden en compramas.';
+       $notas='Registro de orden en api icg res.';
 
 
-       if (isset($res->mensaje)) {
-         $notas=$notas.$res->mensaje.' ';
-       }
-
-       if (isset($res->codigo)) {
-         $notas=$notas.$res->codigo.' ';
-       }
-
-       
-
-       if (isset($res->message)) {
-         $notas=$notas.$res->message.' ';
-       }
-
-       if (isset($res->causa->message)) {
-         $notas=$notas.$res->causa->message.' ';
-       }
-
-
-       $notas=$notas.'Codigo: CC.';
-
-
-      if (isset($res->codigo)) {
+      if (isset($res->CodigoRta)) {
         
-        if ($res->codigo=='200') {
+        if ($res->CodigoRta=='OK') {
 
-             $dtt = array(
-                'json' => $result,
-                'estado_compramas' => $res->codigo
-                
-              );
+          return $res->CupoCredito;
 
-              $orden->update($dtt);
-
-            $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
-
-
-             $data_history = array(
-                          'id_orden' => $orden->id, 
-                         'id_status' => '9', 
-                          'notas' => $notas, 
-                          'json' => json_encode($result), 
-                         'id_user' => 1
-                      );
-
-                        $history=AlpOrdenesHistory::create($data_history);
-
-
-          Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
-
-           Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
-         
+           
         }else{
 
-            $dtt = array(
-              'json' => $result,
-              'estado_compramas' => $res->codigo,
-              'envio_compramas' => '3'
-              
-            );
-
-            $orden->update($dtt);
-
-          $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
-
-          $data_history = array(
-              'id_orden' => $orden->id, 
-             'id_status' => '9', 
-              'notas' => 'Error '.$notas, 
-              'json' => json_encode($result), 
-             'id_user' => 1
-          );
-
-            $history=AlpOrdenesHistory::create($data_history);
-
-          Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
-
-           Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
-
+          return 1;
 
         }
 
 
       }else{
 
-        $notas='No hubo respuesta compramas';
+        return 25000;
 
-        $data_history = array(
-            'id_orden' => $orden->id, 
-           'id_status' => '9', 
-            'notas' => $notas,
-            'json' => json_encode($result), 
-           'id_user' => 1
-        );
-
-        $history=AlpOrdenesHistory::create($data_history);
-
-          $texto='No hubo respuesta compramas CC';
-
-          Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
-
-           Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
-
-                     
+                       
 
       }
 
