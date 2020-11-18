@@ -1318,6 +1318,9 @@ Route::post('cart/verificarancheta/',['as'=>'cart.verificarancheta', 'uses'=>'Ad
 
 Route::get('cart/reiniciarancheta/',['as'=>'cart.reiniciarancheta', 'uses'=>'Admin\AlpCartController@reiniciarancheta']);
 
+
+Route::get('cart/adddescuentoicg/',['as'=>'cart.addDescuentoIcg', 'uses'=>'Admin\AlpCartController@addDescuentoIcg']);
+
 //agregar item al carro
 Route::get('cart/add/{product}',['as'=>'cart.add', 'uses'=>'Admin\AlpCartController@add']);
 

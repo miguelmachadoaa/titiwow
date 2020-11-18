@@ -11,7 +11,7 @@ class AlpConsultaIcg extends Model
 {
     use SoftDeletes;
 
-    public $table = 'alp_consulta_icg';
+    public $table = 'alp_consultas_icg';
     
 
     protected $dates = ['deleted_at'];

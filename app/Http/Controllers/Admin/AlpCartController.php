@@ -47,6 +47,9 @@ use App\Models\AlpPromociones;
 use App\Models\AlpPromocionesRegalo;
 use App\Models\AlpPromocionesCategorias;
 
+use App\Models\AlpOrdenesDescuentoIcg;
+use App\Models\AlpConsultaIcg;
+
 use App\Http\Requests\AddressRequest;
 
 use App\Country;
@@ -644,7 +647,7 @@ class AlpCartController extends JoshController
 
 
 
-       public function orderPse(Request $request)
+    public function orderPse(Request $request)
     {
 
       $input=$request->all();
@@ -697,22 +700,32 @@ class AlpCartController extends JoshController
 
         $user_id = Sentinel::getUser()->id;
 
-       
-
-
       }else{
 
         $user_id= \Session::get('iduser');
 
-       
-
       }
+
 
       if ($user_id) {
 
         // 1.- eststus orden, 2.- estatus pago, 3 json pedido 
 
         $data=$this->generarPedido('8', '4', $input, 'pse');
+
+        
+        if (isset($data['id_orden'])) {
+          # code...
+        }else{
+
+            if ($data==0) {
+          
+              return redirect('order/detail')->withInput()->with('error', trans('Error al procesar su orden, por favor intente nuevamente.'));
+
+            }
+
+        }
+       
 
        // $data=$this->generarPedido('8', '4', $input, 'credit_card');
 
@@ -1197,6 +1210,22 @@ class AlpCartController extends JoshController
 
            /// $data=$this->generarPedido('1', '2', $preference, 'credit_card');
            $data=$this->generarPedido('8', '4', $preference, 'credit_card');
+
+
+           if (isset($data['id_orden'])) {
+          # code...
+          }else{
+
+              if ($data==0) {
+            
+                return redirect('order/detail')->withInput()->with('error', trans('Error al procesar su orden, por favor intente nuevamente.'));
+
+              }
+
+          }
+
+
+
 
             $id_orden=$data['id_orden'];
 
@@ -1897,6 +1926,19 @@ class AlpCartController extends JoshController
               // 1.- eststus orden, 2.- estatus pago, 3 json pedido 
               $data=$this->generarPedido('8', '4', $payment, 'baloto');
 
+              if (isset($data['id_orden'])) {
+          # code...
+                }else{
+
+                    if ($data==0) {
+                  
+                      return redirect('order/detail')->withInput()->with('error', trans('Error al procesar su orden, por favor intente nuevamente.'));
+
+                    }
+
+                }
+        
+
               $id_orden=$data['id_orden'];
 
               $fecha_entrega=$data['fecha_entrega'];
@@ -2120,9 +2162,17 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         $id_orden= \Session::get('orden');
 
-        $orden=AlpOrdenes::where('id', $id_orden)->first();
+        //$orden=AlpOrdenes::where('id', $id_orden)->first();
 
         $total=$this->total();
+
+
+        if (isset($orden->id)) {
+          # code...
+        }else{
+
+          return 0;
+        }
 
         
 
@@ -2776,7 +2826,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                 $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
 
 
-              if($inv[$producto->id]>=$producto->cantidad){
+            if (isset($inv[$producto->id])) {
+
+               if($inv[$producto->id]>=$producto->cantidad){
 
                 $cart[$producto->slug]=$producto;
 
@@ -2785,6 +2837,16 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                 $error="No hay existencia suficiente de este producto";
 
               }
+
+              # code...
+            }else{
+
+              $error="No hay existencia suficiente de este producto";
+
+            }
+
+
+             
 
 
              $data_detalle = array(
@@ -8492,7 +8554,6 @@ public function reiniciarancheta()
              if ($role->role_id) {
                     
                     
-                foreach ($cart as $producto ) {
 
                   if (isset($producto->id)) {
 
@@ -8512,7 +8573,6 @@ public function reiniciarancheta()
 
                   
 
-                }
                 
             }
 
@@ -8684,6 +8744,11 @@ public function reiniciarancheta()
 
 
 
+
+
+
+
+
     private function consultaIcg()
     {
 
@@ -8691,6 +8756,8 @@ public function reiniciarancheta()
       $configuracion=AlpConfiguracion::where('id', '=', 1)->first();
 
       $s_user= \Session::get('user');
+
+      $carrito= \Session::get('cr');
 
      // dd($s_user);
 
@@ -8755,10 +8822,34 @@ public function reiniciarancheta()
         
         if ($res->CodigoRta=='OK') {
 
+            $dataicg = array(
+            'id_orden' => $carrito, 
+            'doc_cliente' => $c->doc_cliente, 
+            'monto_descuento' => 0, 
+            'json' => json_encode($res), 
+            'id_user' => $s_user, 
+          );
+
+          AlpConsultasIcg::create($dataicg);
+
+
+
           return $res->CupoCredito;
 
            
         }else{
+
+          $dataicg = array(
+          'id_orden' => $carrito, 
+          'doc_cliente' => $c->doc_cliente, 
+          'monto_descuento' => 0, 
+          'json' => json_encode($res), 
+          'id_user' => $s_user, 
+        );
+
+        AlpConsultasIcg::create($dataicg);
+
+
 
           return 1;
 
@@ -8767,7 +8858,17 @@ public function reiniciarancheta()
 
       }else{
 
-        return 25000;
+        $dataicg = array(
+          'id_orden' => $carrito, 
+          'doc_cliente' => $c->doc_cliente, 
+          'monto_descuento' => 0, 
+          'json' => json_encode($res), 
+          'id_user' => $s_user, 
+        );
+
+        AlpConsultaIcg::create($dataicg);
+
+        return 30;
 
                        
 
@@ -8780,18 +8881,70 @@ public function reiniciarancheta()
 
 
 
+    public function addDescuentoIcg(Request $request)
+    {
+
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cartcontroller/addDescuentoIcg ');
+
+        }else{
+
+          activity()->withProperties($request->all())
+                        ->log('cartcontroller/addDescuentoIcg');
+
+
+        }
+
+         $user = Sentinel::getUser();
+
+      $configuracion=AlpConfiguracion::where('id', '1')->first();
+      
+      $carrito= \Session::get('cr');
+
+      $cart=$this->reloadCart();
+
+      $total=$this->total();
+
+      $total_base=$this->precio_base();
+
+      $impuesto=$this->impuesto();
+
+      $aviso='';
+
+
+      $cupo_icg=$this->consultaIcg();
+
+
+      $descuento=$total*(1-($cupo_icg/100));
+
+
+      $datadescuento = array(
+        'id_orden' => $carrito,
+        'codigo_orden' => $carrito,
+        'monto_descuento' => $descuento,
+        'json' => 0,
+        'aplicado' => 0,
+        'id_user' => $user->id
+      );
+
+
+      AlpOrdenesDescuentoIcg::create($datadescuento);
+
+
+       return redirect('order/detail');
 
 
 
 
-
-
-
-
-
-
-
-
+    }
 
 
 

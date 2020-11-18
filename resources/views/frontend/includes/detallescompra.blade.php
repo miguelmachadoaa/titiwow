@@ -193,13 +193,13 @@
 
                         <div class="col-sm-8 col-xs-12">
 
-                           <p>Cupón de Descuento {{$cupo_icg}}</p> 
+                           <p>Cupo de Descuento ICG de  {{$total*(1-($cupo_icg/100))}}</p> 
 
                         </div>
 
                         <div class="col-sm-4 col-xs-12" style="padding:8px;background-color:#3c763d;color:#ffffff;">
 
-                            <h5 class="text-center">Usar Cupon de Descuento <i class="fa fa-chevron-right"></i></h5>
+                            <h5 class="text-center">Aplicar <i class="fa fa-chevron-right"></i></h5>
 
                         </div>
 
@@ -227,7 +227,7 @@
 
                         <div class="col-sm-8 col-xs-12">
 
-                           <p>Cupón Icg Disponible {{$cupo_icg}}</p> 
+                           <p>Su cupo Mensual se Agoto</p> 
 
                         </div>
 

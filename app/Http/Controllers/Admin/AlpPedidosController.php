@@ -3249,55 +3249,93 @@ $valor_impuesto=AlpImpuestos::where('id', '1')->first();
     public function verificarDireccion()
     {
 
+
+        /*\Session::put('orden', $orden->id);
+        \Session::put('cr', $orden->id);
+        \Session::put('iduser', $orden->id_cliente);*/
+
       $cart=\Session::get('cart');
-      
 
-      $direccion=AlpDirecciones::where('id', $cart['id_direccion'])->first();
 
-      if ($direccion->id_barrio!=0) {
-
-          $ciudad=AlpFormaCiudad::where('id_forma', $cart['id_forma_envio'])->where('id_barrio', $direccion->id_barrio)->first();
-
+      if (isset($cart['id_direccion'])) {
+        # code...
       }else{
 
-         $ciudad=AlpFormaCiudad::where('id_forma', $cart['id_forma_envio'])->where('id_ciudad', $direccion->city_id)->first();
+        $cr=\Session::get('cr');
 
-      }
+        $orden=AlpOrdenes::where('id', $cr)->first();
 
-      $validado=0;
-
-      $role=RoleUser::select('role_id')->where('user_id', $cart['id_cliente'])->first();
-
-      $re=AlpRolenvio::where('id_rol', $role->role_id)->get();
-
-      $re_u=AlpRolenvio::where('id_rol', $role->role_id)->first();
-
-      $id_almacen=$cart['id_almacen'];
-
-      //dd($re_u);
-      //
-      
-
-      $ad=AlpAlmacenDespacho::where('id_almacen', '=', $cart['id_almacen'])->where('id_city', '=', $direccion->city_id)->first();
-
-      if (isset($ad->id)) {
-        
-      }else{
-
-        return false;
-      }
-
-      if (count($re)==1) {
+        if (isset($orden->id)) {
           
-          if ($re_u->id_forma_envio=='4') {
+          $cart['id_direccion']=$orden->id_address;
 
-              $validado='1';
-              
-          }
+        }
+
+
 
       }
 
-     
+
+      if (isset($cart['id_direccion'])) {
+        
+
+
+        $direccion=AlpDirecciones::where('id', $cart['id_direccion'])->first();
+
+        if ($direccion->id_barrio!=0) {
+
+            $ciudad=AlpFormaCiudad::where('id_forma', $cart['id_forma_envio'])->where('id_barrio', $direccion->id_barrio)->first();
+
+        }else{
+
+           $ciudad=AlpFormaCiudad::where('id_forma', $cart['id_forma_envio'])->where('id_ciudad', $direccion->city_id)->first();
+
+        }
+
+
+
+
+         $validado=0;
+
+          $role=RoleUser::select('role_id')->where('user_id', $cart['id_cliente'])->first();
+
+          $re=AlpRolenvio::where('id_rol', $role->role_id)->get();
+
+          $re_u=AlpRolenvio::where('id_rol', $role->role_id)->first();
+
+          $id_almacen=$cart['id_almacen'];
+
+          //dd($re_u);
+          //
+
+
+
+
+
+
+        $ad=AlpAlmacenDespacho::where('id_almacen', '=', $cart['id_almacen'])->where('id_city', '=', $direccion->city_id)->first();
+
+        if (isset($ad->id)) {
+          
+        }else{
+
+          return false;
+        }
+
+        if (count($re)==1) {
+            
+            if ($re_u->id_forma_envio=='4') {
+
+                $validado='1';
+                
+            }
+
+        }
+
+
+
+      }//if existe id_direccion
+      
 
       if (isset($ciudad->id)  ||  $validado=='1'){
 
