@@ -1373,7 +1373,9 @@ class AlpCartController extends JoshController
                     ->log('Orden Detail');
 
 
-        $cupo_icg=$this->consultaIcg();
+       // $cupo_icg=$this->consultaIcg();
+       // 
+       $cupo_icg=0;
 
         $user_id = Sentinel::getUser()->id;
 
