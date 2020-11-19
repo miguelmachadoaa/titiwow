@@ -1344,7 +1344,8 @@ class AlpCartController extends JoshController
 
       foreach ($cart as $vcart) {
 
-        if ($vcart->disponible==0) {
+        if (isset($vcart->id)) {
+          if ($vcart->disponible==0) {
 
           if (isset($vcart->promocion)) {
             # code...
@@ -1354,6 +1355,9 @@ class AlpCartController extends JoshController
           }
           
         }
+        }
+
+        
         # code...
       }
 
@@ -1370,7 +1374,6 @@ class AlpCartController extends JoshController
 
 
         $cupo_icg=$this->consultaIcg();
-
 
         $user_id = Sentinel::getUser()->id;
 
@@ -2162,7 +2165,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         $id_orden= \Session::get('orden');
 
-        //$orden=AlpOrdenes::where('id', $id_orden)->first();
+        $orden=AlpOrdenes::where('id', $id_orden)->first();
 
         $total=$this->total();
 
@@ -3657,7 +3660,11 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       foreach($cart as $row) {
 
-        $total=$total+($row->cantidad*$row->precio_base);
+        if (isset($row->id)) {
+            $total=$total+($row->cantidad*$row->precio_base);
+        }
+
+      
 
       }
 
@@ -8227,6 +8234,8 @@ public function totalancheta()
 
       $producto= \Session::get('producto_ancheta');
 
+     // dd($producto);
+
       $total=0;
 
       foreach ($cartancheta as $c) {
@@ -8234,9 +8243,6 @@ public function totalancheta()
         $total=$total+($c->precio_oferta);
         
       }
-
-
-      //$total=$total+$producto->precio_base;
 
 
           $view= View::make('frontend.listaancheta', compact('cartancheta', 'total', 'producto'));
