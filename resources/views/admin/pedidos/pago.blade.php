@@ -209,11 +209,6 @@ div.overlay > div {
 </div>
 
 
-<div class="row">
-    <div class="col-sm-12">
-        {{json_encode($cart)}}
-    </div>
-</div>
 
 <!-- Modal Direccion -->
  <div class="modal fade" id="modalPse" role="dialog" aria-labelledby="modalLabeldanger">
