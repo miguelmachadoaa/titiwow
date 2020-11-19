@@ -2386,6 +2386,9 @@ public function postdireccion(DireccionModalRequest $request)
 
         $orden=AlpOrdenes::where('token', '=', $token)->first();
 
+       // dd($orden);
+
+
         \Session::put('orden', $orden->id);
         \Session::put('cr', $orden->id);
         \Session::put('iduser', $orden->id_cliente);
@@ -2394,6 +2397,8 @@ public function postdireccion(DireccionModalRequest $request)
             ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
             ->whereNull('alp_ordenes_detalle.deleted_at')
             ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
+
+            //dd($detalles);
 
             $cart = array();
 
@@ -2438,17 +2443,17 @@ public function postdireccion(DireccionModalRequest $request)
 
           foreach ($detalles as $c) {
 
-          if (isset($c->id)) {
+            if (isset($c->id)) {
 
-            $total_base=$total_base+($c->cantidad*$c->precio_base);
+              $total_base=$total_base+($c->cantidad*$c->precio_base);
 
-            $total=$total+($c->cantidad*$c->precio_unitario);
+              $total=$total+($c->cantidad*$c->precio_unitario);
 
-            $total_venta=$total_venta+($c->cantidad*$c->precio_unitario);
+              $total_venta=$total_venta+($c->cantidad*$c->precio_unitario);
 
-            $total_venta=$total_venta+($c->cantidad*$c->precio_unitario);
+              $total_venta=$total_venta+($c->cantidad*$c->precio_unitario);
 
-          }
+            }
 
           # code...
         }
@@ -2456,7 +2461,7 @@ public function postdireccion(DireccionModalRequest $request)
 
 
 
-
+      //  dd($total);
 
 
 
@@ -2552,7 +2557,7 @@ public function postdireccion(DireccionModalRequest $request)
 
               $url='';
 
-$valor_impuesto=AlpImpuestos::where('id', '1')->first();
+              $valor_impuesto=AlpImpuestos::where('id', '1')->first();
 
               $costo_envio=$this->enviopago($orden);
 
@@ -2573,7 +2578,7 @@ $valor_impuesto=AlpImpuestos::where('id', '1')->first();
 
 
 
-          $pagos=AlpPagos::where('id_orden', $orden->id)->get();
+          $pagos=AlpPagos::where('id_orden', $orden->id)->where('id_estatus_pago', '=', 2)->get();
 
           $total_pagos=0;
 
@@ -2587,15 +2592,17 @@ $valor_impuesto=AlpImpuestos::where('id', '1')->first();
 
          // dd($carrito);
 
-            $descuentos=AlpOrdenesDescuento::where('id_orden','=', $orden->id)->get();
+            $descuentos=AlpOrdenesDescuento::where('id_orden','=', $orden->id)->whereNull('alp_ordenes_descuento.deleted_at')->get();
 
             foreach ($descuentos as $pago) {
 
-              $total_pagos=$total_pagos+$pago->monto_descuento;
+              //$total_pagos=$total_pagos+$pago->monto_descuento;
 
               $total_descuentos=$total_descuentos+$pago->monto_descuento;
 
             }
+
+           // dd($total_pagos);
 
 
              $mp = new MP();

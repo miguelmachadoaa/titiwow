@@ -2165,7 +2165,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         $id_orden= \Session::get('orden');
 
-        //$orden=AlpOrdenes::where('id', $id_orden)->first();
+        $orden=AlpOrdenes::where('id', $id_orden)->first();
 
         $total=$this->total();
 
