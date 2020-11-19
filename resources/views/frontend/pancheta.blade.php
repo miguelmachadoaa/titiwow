@@ -17,7 +17,7 @@
             <p style="height: 2em;">
                @if(isset($cartancheta[$p->slug]))
 
-                <button data-id="{{$p->id}}" data-slug="{{$p->slug}}"  type="button" class="btn btn-success deltocartancheta pseleccionado">Seleccionado</button>
+                <button data-id="{{$p->id}}" data-slug="{{$p->slug}}"  type="button" class="btn btn-danger deltocartancheta pseleccionado">Quitar</button>
 
             @else
 

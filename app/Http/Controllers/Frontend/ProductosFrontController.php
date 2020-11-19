@@ -784,6 +784,7 @@ class ProductosFrontController extends Controller
           ->where('alp_almacen_producto.id_almacen', '=', 1)
           ->whereNull('alp_ancheta_productos.deleted_at')
           ->whereNull('alp_almacen_producto.deleted_at')
+          ->groupBy('alp_productos.id')
           ->get();
 
            $productos=$this->addOferta($productos);
