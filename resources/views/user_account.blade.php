@@ -58,6 +58,8 @@
                         <div id="notific">
                         @include('notifications')
                         </div>
+
+                        @if(isset($user->id))
                         {!! Form::model($user, ['url' => secure_url('my-account'), 'method' => 'put', 'class' => 'form-horizontal','enctype'=>"multipart/form-data"]) !!}
 
                         {{ csrf_field() }}
@@ -197,6 +199,12 @@
                             </div>
 
                         </form>{{--{!!  Form::close()  !!}--}}
+
+                        @else
+
+                            <div class="alert alert-danger">No se Encontro usuario. Por favor intente Nuevamente.</div>
+
+                        @endif
                     </div>
                 </div>
             </div>
