@@ -20,6 +20,7 @@ use App\Models\AlpAlmacenRol;
 use App\Models\AlpAlmacenProducto;
 use App\Models\AlpDirecciones;
 use App\Models\AlpRolenvio;
+use App\Models\AlpBannerBusqueda;
 
 use App\Models\AlpAnchetasCategorias;
 use App\Models\AlpAnchetasProductos;
@@ -1063,6 +1064,10 @@ class ProductosFrontController extends Controller
 
         $termino = $request->get('buscar');
 
+        $banner=AlpBannerBusqueda::where('termino', '=', $termino)->first();
+
+       // dd($termino);
+
         $productos = AlpProductos::
         search($request->get('buscar'))->select('alp_productos.*', 'alp_marcas.order as order')
         ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
@@ -1113,7 +1118,7 @@ class ProductosFrontController extends Controller
 
           $url=secure_url('buscar?buscar='.$termino);
 
-        return \View::make('frontend.buscar', compact('productos', 'descuento', 'precio', 'states','termino', 'cart', 'total', 'prods', 'inventario', 'combos', 'role', 'almacen', 'url'));
+        return \View::make('frontend.buscar', compact('productos', 'descuento', 'precio', 'states','termino', 'cart', 'total', 'prods', 'inventario', 'combos', 'role', 'almacen', 'url', 'banner'));
 
     }
 

@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class AlpCategorias extends Model
+class AlpBannerBusqueda extends Model
 {
     use SoftDeletes;
 
-    public $table = 'alp_categorias';
+    public $table = 'alp_banner_busqueda';
     
 
     protected $dates = ['deleted_at'];
@@ -19,17 +19,7 @@ class AlpCategorias extends Model
 
     public $fillable = [
         'id',
-        'nombre_categoria',
-        'descripcion_categoria',
-        'imagen_categoria',
-        'id_categoria_parent',
-        'slug',
-        'seo_titulo',
-        'seo_descripcion',
-        'destacado',
-        'order',
-        'robots',
-        'css_categoria',
+        'termino',
         'banner_categoria',
         'banner_movil_categoria',
         'enlace_categoria',
@@ -42,7 +32,7 @@ class AlpCategorias extends Model
      * @var array
      */
     protected $casts = [
-        'nombre_categoria' => 'string'
+        'termino' => 'string'
     ];
 
     /**
@@ -51,6 +41,6 @@ class AlpCategorias extends Model
      * @var array
      */
     public static $rules = [
-        'nombre_categoria' => 'required'
+        'termino' => 'required'
     ];
 }
