@@ -84,6 +84,30 @@
 
                             @endif
 
+
+                             @if(isset($descuentosIcg))
+
+                                @foreach($descuentosIcg as $pagoicg)
+
+                                <div class="col-sm-12" style="    border-top: 1px solid rgba(0,0,0,0.1);">
+                
+                                    <div class="col-sm-8 col-xs-8" >
+                                        <h4 style="color: #d5006e;">Descuento Icg </h4>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-4">
+
+                                        <h4 style="color: #22b14c;">{{   number_format($pagoicg->monto_descuento,0,",",".") }}    <button data-id="{{ $pagoicg->id }}" style="color: red !important; margin:0; padding: 0em 1em;" class="btn btn-link delCupon" ><i class="fa fa-trash"></i></button></h4> 
+
+                                    </div>
+                                    
+                                </div>
+
+                                @endforeach
+
+                            @endif
+
+
+
                            
                         @if(isset($total))
                             <div class="col-sm-12" style="    border-top: 1px solid rgba(0,0,0,0.1);">
@@ -177,7 +201,11 @@
 </div>
 @endif
 
+@if(isset($total_descuentos_icg))
 
+@if($total_descuentos_icg>0)
+
+@else
 
 @if(isset($cupo_icg))
 
@@ -189,11 +217,11 @@
 
                 <div class="col-sm-12 col-xs-12" style="padding: 1em;">
 
-                    <div  data-id="4" class="row forma border pointer cupones">
+                    <div  data-id="4" class="row forma border pointer addDescuentoIcg">
 
                         <div class="col-sm-8 col-xs-12">
 
-                           <p>Cupo de Descuento ICG de  {{$total*(1-($cupo_icg/100))}}</p> 
+                           <p>Cupo de Descuento ICG de  {{$total*(($cupo_icg/100))}}</p> 
 
                         </div>
 
@@ -257,6 +285,8 @@
 @else
 
 
+@endif
+@endif
 @endif
 
                                     <div class="clearfix">  </div>

@@ -1373,9 +1373,9 @@ class AlpCartController extends JoshController
                     ->log('Orden Detail');
 
 
-       // $cupo_icg=$this->consultaIcg();
+        $cupo_icg=$this->consultaIcg();
        // 
-       $cupo_icg=0;
+      // $cupo_icg=0;
 
         $user_id = Sentinel::getUser()->id;
 
@@ -1525,6 +1525,20 @@ class AlpCartController extends JoshController
               $total_descuentos=$total_descuentos+$pago->monto_descuento;
 
             }
+
+            $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $carrito)->get();
+
+            $total_descuentos_icg=0;
+
+            foreach ($descuentosIcg as $pagoi) {
+
+              $total_pagos=$total_pagos+$pagoi->monto_descuento;
+
+              $total_descuentos_icg=$total_descuentos_icg+$pagoi->monto_descuento;
+
+            }
+
+
 
 
           //dd($descuentos);
@@ -1754,7 +1768,7 @@ class AlpCartController extends JoshController
 
           //dd($url);
 
-          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos', 'total_descuentos', 'costo_envio', 'id_forma_envio', 'envio_base', 'envio_impuesto', 'express', 'saldo', 'user','role', 'url', 'cupo_icg'));
+          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos', 'total_descuentos', 'costo_envio', 'id_forma_envio', 'envio_base', 'envio_impuesto', 'express', 'saldo', 'user','role', 'url', 'cupo_icg', 'total_descuentos_icg', 'descuentosIcg'));
 
          }
 
@@ -4959,6 +4973,21 @@ public function verificarDireccion( Request $request)
 
             }
 
+           
+            $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $carrito)->get();
+
+            $total_descuentos_icg=0;
+
+            foreach ($descuentosIcg as $pagoi) {
+
+              $total_descuentos=$total_descuentos+$pagoi->monto_descuento;
+
+              $total_descuentos_icg=$total_descuentos_icg+$pagoi->monto_descuento;
+
+            }
+
+
+
           //se calcula lo que queda luego del descuento
 
             $resto=$total-$total_descuentos;
@@ -5010,12 +5039,33 @@ public function verificarDireccion( Request $request)
 
             }
 
-            if ($orden->id_almacen==1) {
-              $compramas=$this->reservarOrden($orden->id);
+
+            $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $carrito)->get();
+
+
+            foreach ($descuentosIcg as $pagoi) {
+
+              $dicg=AlpOrdenesDescuentoIcg::where('id', '=', $pagoi->id)->first();
+
+               $data_dicg = array('id_orden' => $orden->id );
+
+              $dicg->update($data_dicg);
+
             }
 
 
 
+            if ($orden->id_almacen==1) {
+
+              $compramas=$this->reservarOrden($orden->id);
+
+            }
+
+            if ($total_descuentos_icg>0) {
+
+              $this->registroIcg($orden->id);
+
+            }
 
 
             if (\Session::has('mensajeancheta')) {
@@ -5033,7 +5083,6 @@ public function verificarDireccion( Request $request)
               AlpAnchetaMensaje::create($data_ancheta_mensaje);
 
             }
-
 
             \Session::put('cr', $orden->id);
 
@@ -5268,6 +5317,18 @@ public function verificarDireccion( Request $request)
 
             }
 
+             $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $carrito)->get();
+
+            $total_descuentos_icg=0;
+
+            foreach ($descuentosIcg as $pagoi) {
+
+              $total_descuentos=$total_descuentos+$pagoi->monto_descuento;
+
+            }
+
+
+
           //se calcula lo que queda luego del descuento
 
             $resto=$total-$total_descuentos;
@@ -5317,6 +5378,22 @@ public function verificarDireccion( Request $request)
               $c->update($data_cupon);
 
             }
+
+
+             $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $carrito)->get();
+
+
+            foreach ($descuentosIcg as $pagoi) {
+
+              $dicg=AlpOrdenesDescuentoIcg::where('id', '=', $pagoi->id)->first();
+
+               $data_dicg = array('id_orden' => $orden->id );
+
+              $dicg->update($data_dicg);
+
+            }
+
+
 
 
 
@@ -8889,6 +8966,8 @@ public function reiniciarancheta()
 
 
 
+
+
     public function addDescuentoIcg(Request $request)
     {
 
@@ -8911,7 +8990,7 @@ public function reiniciarancheta()
 
         }
 
-         $user = Sentinel::getUser();
+      $user = Sentinel::getUser();
 
       $configuracion=AlpConfiguracion::where('id', '1')->first();
       
@@ -8930,9 +9009,7 @@ public function reiniciarancheta()
 
       $cupo_icg=$this->consultaIcg();
 
-
-      $descuento=$total*(1-($cupo_icg/100));
-
+      $descuento=$total*(($cupo_icg/100));
 
       $datadescuento = array(
         'id_orden' => $carrito,
@@ -8949,10 +9026,160 @@ public function reiniciarancheta()
 
        return redirect('order/detail');
 
-
-
-
     }
+
+
+
+
+
+
+
+    private function registroIcg($ordenId)
+    {
+
+     //dd($id_orden);
+      $configuracion=AlpConfiguracion::where('id', '=', 1)->first();
+
+      $s_user= \Session::get('user');
+
+      $carrito= \Session::get('cr');
+
+     
+     $orden=AlpOrdenes::where('id', $ordenId)->first();
+
+     $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden', '=', $orden->id)->first();
+
+     $monto_descuentoicg=0;
+
+     if (isset($descuentosIcg->id)) {
+       $monto_descuentoicg=$descuentoIcg->monto_descuento;
+     }
+
+      $c=AlpClientes::where('id_user_client', $s_user)->first();
+
+      $data = array(
+        'NumeroPedido' =>$orden->referencia,
+        'Fecha'=>$orden->create_at,
+        'DocumentoEmpleado'=>$orden->doc_cliente,
+        'FormaPago'=>'Mercadopago',
+        'ValorTransaccion'=>$orden->total,
+        'ValorDescuento'=>$monto_descuentoicg
+      );
+
+      $dataraw=json_encode($data);
+
+      $urls=$configuracion->endpoint_icg;
+
+       Log::info('api icg urls '.$urls);
+
+       Log::info($dataraw);
+
+       activity()->withProperties($dataraw)->log('dataraw');
+
+
+      $ch = curl_init();
+
+      curl_setopt($ch, CURLOPT_URL, $configuracion->endpoint_icg);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($ch, CURLOPT_POST, 1);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
+      curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+      $headers = array();
+      $headers[] = 'Content-Type: application/json';
+    //  $headers[] = 'Woobsing-Token: '.$configuracion->api icg_token;
+      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+      try {
+
+        $result = curl_exec($ch);
+        
+      } catch (Exception $e) {
+        
+      }
+
+      
+      if (curl_errno($ch)) {
+          //echo 'Error:' . curl_error($ch);
+
+           Log::info('Error:' . curl_error($ch));
+      }
+      curl_close($ch);
+
+      $res=json_decode($result);
+
+       Log::info('api icg res '.json_encode($res));
+       
+       Log::info('api icg result '.$result);
+
+     //  dd($result);
+
+
+       $notas='Registro de orden en api icg res.';
+
+
+      if (isset($res->CodigoRta)) {
+        
+        if ($res->CodigoRta=='OK') {
+
+            $dataicg = array(
+            'id_orden' => $carrito, 
+            'doc_cliente' => $c->doc_cliente, 
+            'monto_descuento' => 0, 
+            'json' => json_encode($res), 
+            'id_user' => $s_user, 
+          );
+
+          AlpConsultasIcg::create($dataicg);
+
+
+
+          return $res->CupoCredito;
+
+           
+        }else{
+
+          $dataicg = array(
+          'id_orden' => $carrito, 
+          'doc_cliente' => $c->doc_cliente, 
+          'monto_descuento' => 0, 
+          'json' => json_encode($res), 
+          'id_user' => $s_user, 
+        );
+
+        AlpConsultasIcg::create($dataicg);
+
+
+
+          return 1;
+
+        }
+
+
+      }else{
+
+        $dataicg = array(
+          'id_orden' => $carrito, 
+          'doc_cliente' => $c->doc_cliente, 
+          'monto_descuento' => 0, 
+          'json' => json_encode($res), 
+          'id_user' => $s_user, 
+        );
+
+        AlpConsultaIcg::create($dataicg);
+
+        return 30;
+
+                       
+
+      }
+
+      
+    }
+
+
+
 
 
 

@@ -70,8 +70,8 @@ class VerificarPagos extends Command
 
       $d=$date->subDay(3)->format('Y-m-d');
       
-        $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
-       // $ordenes=AlpOrdenes::where('id', '9949')->get();
+        //$ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
+        $ordenes=AlpOrdenes::where('id', '11022')->get();
         //
         
       $configuracion = AlpConfiguracion::where('id', '1')->first();
@@ -102,11 +102,12 @@ class VerificarPagos extends Command
           $preference = MP::get("/v1/payments/search?external_reference=".$ord->referencia);
           
 
-          //if (isset($preference['response']['results'][0])) {
-          if (isset($preference)) {
+
+          if (isset($preference['response']['results'][0])) {
+         // if (isset($preference)) {
 
             $cantidad=count($preference['response']['results']);
-            $aproved=0;
+            $aproved=1;
             $cancel=0;
             $pending=0;
 
@@ -136,6 +137,7 @@ class VerificarPagos extends Command
 
                 $direccion=AlpDirecciones::where('id', $ord->id_address)->withTrashed()->first();
 
+                //dd($direccion);
 
                 $feriados=AlpFeriados::feriados();
 
@@ -258,6 +260,7 @@ class VerificarPagos extends Command
                   ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
                   ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
 
+                  //dd($detalles);
 
                   if ($orden->id_almacen==1) {
 
@@ -266,7 +269,7 @@ class VerificarPagos extends Command
 
                    }//if es almacen 1
 
-
+                  // dd(1);
                    $this->ibmConfirmarCompra($user_cliente, $orden);
 
                    $this->ibmConfirmarPago($user_cliente, $orden);
@@ -474,7 +477,6 @@ class VerificarPagos extends Command
 
 
        $dataraw=json_encode($dataupdate);
-
 
         Log::useDailyFiles(storage_path().'/logs/compramas.log');
         

@@ -387,6 +387,15 @@ div.overlay > div {
 
     <script>
 
+        $('.addDescuentoIcg').on('click', function(){
+
+            $(location).attr("href", '{{secure_url('cart/adddescuentoicg')}}');
+
+        });
+
+
+
+
 
          $('.showAddAddress').on('click', function(){
 
