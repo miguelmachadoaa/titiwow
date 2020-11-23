@@ -1247,6 +1247,12 @@ public function compramasupdate()
               if (isset($mensaje->id)) {
 
                 $actions = $actions." 
+
+                <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'>
+                      ver detalles
+                  </a>
+
+                  
                   <a target='_blank' class='btn btn-info  btn-xs' href='".secure_url('admin/ordenes/'.$row->id.'/pdf'). "'>
                       Ver Pdf
                   </a>";

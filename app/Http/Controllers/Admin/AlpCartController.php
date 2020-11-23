@@ -2436,7 +2436,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         foreach ($cart as $detalle) {
 
-          //dd($detalle);
+          if (isset($detalle->id)) {
 
             $monto_total_base=$monto_total_base+($detalle->cantidad*$detalle->precio_base);
 
@@ -2454,6 +2454,12 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
             //dd($data_detalle);
 
             AlpPreDetalles::create($data_detalle);
+            # code...
+          }
+
+          //dd($detalle);
+
+            
 
          }
 
@@ -8001,7 +8007,7 @@ private function addpromocion(){
 
                     }
 
-                    
+
                       # code...
                     }
 
@@ -8089,11 +8095,17 @@ private function addpromocion(){
                 
                 foreach ($cart as $c) {
 
-                    if (in_array($c->id_marca, $marcas)) {
+                    if (isset($c->id)) {
+                      
+                      if (in_array($c->id_marca, $marcas)) {
 
-                      $monto=$monto+($c->precio_oferta*$c->cantidad);
+                        $monto=$monto+($c->precio_oferta*$c->cantidad);
+
+                      }
 
                     }
+
+                    
                   
                 }
 
