@@ -486,10 +486,10 @@ Editar Configuracion General
 
                                 <div class="form-group {{ $errors->first('username_icg', 'has-error') }}">
                                     <label for="username_icg" class="col-sm-2 control-label">
-                                        Username Ibm
+                                        Username Icg
                                     </label>
                                     <div class="col-sm-5">
-                                        <input type="text" id="username_icg" name="username_icg" class="form-control" placeholder="Username Ibm"
+                                        <input type="text" id="username_icg" name="username_icg" class="form-control" placeholder="Username Icg"
                                             value="{!! old('username_icg', $configuracion->username_icg) !!}">
                                     </div>
                                     <div class="col-sm-4">
@@ -500,10 +500,10 @@ Editar Configuracion General
 
                                 <div class="form-group {{ $errors->first('password_icg', 'has-error') }}">
                                     <label for="password_icg" class="col-sm-2 control-label">
-                                        Password Ibm
+                                        Password Icg
                                     </label>
                                     <div class="col-sm-5">
-                                        <input type="text" id="password_icg" name="password_icg" class="form-control" placeholder="Password Ibm"
+                                        <input type="text" id="password_icg" name="password_icg" class="form-control" placeholder="Password Icg"
                                             value="{!! old('password_icg', $configuracion->password_icg) !!}">
                                     </div>
                                     <div class="col-sm-4">
@@ -514,10 +514,10 @@ Editar Configuracion General
 
                                 <div class="form-group {{ $errors->first('endpoint_icg', 'has-error') }}">
                                     <label for="endpoint_icg" class="col-sm-2 control-label">
-                                        Endpoint Ibm 
+                                        Endpoint Icg 
                                     </label>
                                     <div class="col-sm-5">
-                                        <input type="text" id="endpoint_icg" name="endpoint_icg" class="form-control" placeholder="Endpoint Ibm"
+                                        <input type="text" id="endpoint_icg" name="endpoint_icg" class="form-control" placeholder="Endpoint Icg"
                                             value="{!! old('endpoint_icg', $configuracion->endpoint_icg) !!}">
                                     </div>
                                     <div class="col-sm-4">
