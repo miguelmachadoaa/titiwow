@@ -7975,9 +7975,9 @@ private function addpromocion(){
                   
                   foreach ($cart as $c) {
 
-                   # echo($c->id.'-1<br>');
+                    if (isset($c->id)) {
 
-                    if (in_array($c->id_categoria_default, $categorias)) {
+                       if (in_array($c->id_categoria_default, $categorias)) {
 
                      #echo($c->id.'-1<br>');
                       
@@ -8000,6 +8000,14 @@ private function addpromocion(){
                       }
 
                     }
+
+                    
+                      # code...
+                    }
+
+                   # echo($c->id.'-1<br>');
+
+                   
 
                     
                   }
