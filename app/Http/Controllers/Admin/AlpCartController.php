@@ -8973,7 +8973,7 @@ public function reiniciarancheta()
 
         AlpConsultaIcg::create($dataicg);
 
-        return 30;
+        return 0;
 
                        
 
