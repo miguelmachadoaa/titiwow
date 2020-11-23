@@ -1066,7 +1066,7 @@ class ProductosFrontController extends Controller
 
         $banner=AlpBannerBusqueda::where('termino', '=', $termino)->first();
 
-       // dd($termino);
+        //dd($banner);
 
         $productos = AlpProductos::
         search($request->get('buscar'))->select('alp_productos.*', 'alp_marcas.order as order')

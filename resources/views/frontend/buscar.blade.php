@@ -95,25 +95,30 @@ Resultado de la Búsqueda @parent
 <div class="col-md-9">
 
 
+    
+
+
     @if(isset($banner->id))
 
-        @else
 
-            <div class="row hidden-xs" >
-                <div class="col-sm-12">
-                    <a target="_blank" href="{{$banner->enlace_categoria}}"><img src="{{secure_url('/assets/images/'.$banner->banner_categoria)}}" alt=""></a>
-                </div>
+      <div class="row hidden-xs" >
+            <div class="col-sm-12">
+                <a target="_blank" href="{{$banner->enlace_categoria}}"><img style="width: 100%;"  src="{{secure_url('/assets/images/'.$banner->banner_categoria)}}" alt=""></a>
             </div>
+        </div>
 
-            <div class="row visible-xs" >
-                <div class="col-sm-12">
-                   <a target="_blank" href="{{$banner->enlace_categoria}}"><img src="{{secure_url('/assets/images/'.$banner->banner_movil_categoria)}}" alt=""></a> 
-                </div>
+        <div class="row visible-xs" >
+            <div class="col-sm-12">
+               <a  target="_blank" href="{{$banner->enlace_categoria}}"><img  style="width: 100%;" src="{{secure_url('/assets/images/'.$banner->banner_movil_categoria)}}" alt=""></a> 
             </div>
+        </div>
 
 
 
-        @endif
+    @else
+
+
+    @endif
 
 
 
