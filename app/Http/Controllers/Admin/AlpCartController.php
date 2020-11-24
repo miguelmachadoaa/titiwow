@@ -3683,6 +3683,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       foreach($cart as $row) {
 
         if (isset($row->id)) {
+
             $total=$total+($row->cantidad*$row->precio_base);
         }
 
@@ -3759,7 +3760,11 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       foreach($cart as $row) {
 
-        $cantidad=$cantidad+($row->cantidad);
+        if (isset($row->id)) {
+          $cantidad=$cantidad+($row->cantidad);# code...
+        }
+
+        
 
       }
 

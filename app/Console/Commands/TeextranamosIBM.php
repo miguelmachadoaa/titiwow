@@ -75,6 +75,7 @@ class TeextranamosIBM extends Command
 
             if (isset($orden->id)) {
 
+
                 $date = Carbon::parse($orden->created_at); 
 
                 $now = Carbon::now();
@@ -83,13 +84,15 @@ class TeextranamosIBM extends Command
 
                 if ($diff>15) {
 
+                  echo  $u->id.'-';
+
                   $date_fecha = Carbon::now()->format('m/d/Y');
 
                   $usuario=User::where('id', $u->id)->first();
 
-                  $data_update_usuario = array('notificacion' => 1 );
+                //  $data_update_usuario = array('notificacion' => 1 );
 
-                  $usuario->update($data_update_usuario);
+                ///  $usuario->update($data_update_usuario);
 
                   $cupon='';
 

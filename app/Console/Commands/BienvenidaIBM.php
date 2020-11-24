@@ -58,7 +58,7 @@ class BienvenidaIBM extends Command
 
         $users=User::where('id', '=', '9466')->get();
 
-       // dd($users);
+       // dd($users->count());
 
         foreach ($users as $u) {
 
