@@ -116,13 +116,13 @@
         @else
 
             <div class="row hidden-xs" >
-                <div class="col-sm-12">
+                <div class="col-sm-12" style="margin-top:20px">
                     <a target="_blank" href="{{$categoria->enlace_categoria}}"><img style="width: 100%; height: auto;"  src="{{secure_url('/assets/images/'.$categoria->banner_categoria)}}" alt=""></a>
                 </div>
             </div>
 
             <div class="row visible-xs" >
-                <div class="col-sm-12">
+                <div class="col-sm-12" style="margin-top:20px">
                    <a target="_blank" href="{{$categoria->enlace_categoria}}"><img  style="width: 100%; height: auto;" src="{{secure_url('/assets/images/'.$categoria->banner_movil_categoria)}}" alt=""></a> 
                 </div>
             </div>
