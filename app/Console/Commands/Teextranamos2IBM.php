@@ -76,6 +76,8 @@ class Teextranamos2IBM extends Command
 
                 if ($diff>30) {
 
+                  // echo  $u->id.'-';
+
                     $codigo=strtoupper(substr(md5(time()), 0,12));
 
                     $date_inicio = Carbon::now()->format('Y-m-d');
@@ -108,6 +110,8 @@ class Teextranamos2IBM extends Command
                     );
 
                     AlpCuponesUser::create($datac);
+
+                    $this->addibm($u, $cupon, $date_fecha);
 
 
                 }

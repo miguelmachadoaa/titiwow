@@ -95,15 +95,13 @@
 
                                         @if($costo_envio==-1)
 
-                                            <h4 style="color:#143473;">{{ number_format($total-$total_pagos,0,",",".")}}</h4> 
+                                            <h4 style="color:#143473;">{{ number_format($total-$total_pagos-$total_descuentos,0,",",".")}}</h4> 
 
                                         @else
 
-                                            <h4 style="color:#143473;">{{ number_format($total-$total_pagos+$costo_envio,0,",",".")}}</h4> 
+                                            <h4 style="color:#143473;">{{ number_format($total-$total_pagos+$costo_envio-$total_descuentos,0,",",".")}}</h4> 
 
                                         @endif
-
-                                       
 
                                 </div>
 

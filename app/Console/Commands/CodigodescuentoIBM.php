@@ -66,15 +66,17 @@ class CodigodescuentoIBM extends Command
 
         $i=0;
 
-        //dd($users);
+       // dd($users->count());
 
         foreach ($users as $u) {
 
             $orden=AlpOrdenes::where('id_cliente', $u->id)->orderBy('id', 'desc')->first();
 
-            if (isset($orden->id)) { }else{
+            if (isset($orden->id)) { 
 
-              echo  $u->id.'-';
+            }else{
+
+             //
 
                     $codigo=strtoupper(substr(md5(time()), 0,12));
 
@@ -109,7 +111,7 @@ class CodigodescuentoIBM extends Command
 
                     AlpCuponesUser::create($datac);
 
-                    $this->addibm($u, $cupon, $date_fecha);
+                   $this->addibm($u, $cupon, $date_fecha);
 
 
             }

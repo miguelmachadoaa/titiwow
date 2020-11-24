@@ -2594,15 +2594,16 @@ public function postdireccion(DireccionModalRequest $request)
 
             $descuentos=AlpOrdenesDescuento::where('id_orden','=', $orden->id)->whereNull('alp_ordenes_descuento.deleted_at')->get();
 
+
             foreach ($descuentos as $pago) {
 
-              //$total_pagos=$total_pagos+$pago->monto_descuento;
+              $total_pagos=$total_pagos+$pago->monto_descuento;
 
               $total_descuentos=$total_descuentos+$pago->monto_descuento;
 
             }
 
-           // dd($total_pagos);
+           // dd($total_descuentos);
 
 
              $mp = new MP();
@@ -4146,8 +4147,17 @@ public function addcupon(Request $request)
 
       $total_base=$this->precio_base();
 
-      $impuesto=$this->impuesto();
+      $total_base=$this->precio_base();
 
+      $orden=AlpOrdenes::where('id', '=', $carrito)->first();
+ $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
+            ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
+            ->whereNull('alp_ordenes_detalle.deleted_at')
+            ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
+
+
+
+      $impuesto=$this->impuesto($detalles, $orden);
       $aviso='';
 
 
@@ -4849,7 +4859,32 @@ public function marketingcliente()
 
 
 
+    private function total()
+    {
+       $cart= \Session::get('cart');
 
+      // dd($cart);
+
+        $carrito= \Session::get('cr');
+
+      $total=0;
+
+
+      $total_descuentos=0;
+
+      foreach($cart as $row) {
+
+        if (isset($row->id)) {
+
+           $total=$total+($row->cantidad*$row->precio_oferta);
+
+        }
+
+      }
+
+       return $total-$total_descuentos;
+      
+    }
 
 
 
