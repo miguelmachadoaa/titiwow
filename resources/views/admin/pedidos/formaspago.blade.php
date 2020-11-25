@@ -21,7 +21,7 @@
           <div class="form-group {{ $errors->first('tomapedidos_marketing', 'has-error') }} checkbox">
              <label style="padding: 0;">
                 
-                  <input type="checkbox" name="tomapedidos_marketing" id="tomapedidos_marketing" value="1" require>  Me gustaria recibir promocione de productos y servicios.
+                  <input type="checkbox" name="tomapedidos_marketing" id="tomapedidos_marketing" value="1" require>  Me gustaria recibir promociones de productos y servicios.
               </label>
               {!! $errors->first('tomapedidos_marketing', '<span class="help-block">:message</span>') !!}
           </div>
