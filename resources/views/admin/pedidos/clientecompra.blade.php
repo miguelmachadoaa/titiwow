@@ -72,6 +72,16 @@
 
                         </div>
 
+                        <div class="col-sm-12">
+                            <h3>Observaciónes de la compra </h3>
+
+                            <textarea class="form-control" name="notas_orden" id="notas_orden" cols="30" rows="5">
+                                
+                            </textarea>
+
+                        </div>
+
+
                             <div class="col-sm-12">
 
                                 <h3>Paso 3. Seleccionar Forma de Pago</h3>

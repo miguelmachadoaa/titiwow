@@ -29,7 +29,7 @@
 
         @if(isset($cart['id_cliente']) && isset($cart['id_direccion']))
 
-            <a  href="{{secure_url('admin/tomapedidos/procesar')}}" class="btn btn-primary btn-lg" >Finalizar Compra</a>
+            <a  href="{{secure_url('admin/tomapedidos/procesar')}}" class="btn btn-primary btn-lg procesarTomapedidos" >Finalizar Compra</a>
 
         @else
 

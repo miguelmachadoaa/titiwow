@@ -899,6 +899,8 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
         Route::post('{id}/delformapago', 'Admin\AlpPedidosController@delformapago')->name('tomapedidos.delformapago');
 
+        Route::post('/notascompra', 'Admin\AlpPedidosController@notascompra')->name('tomapedidos.notascompra');
+
 
 
         });

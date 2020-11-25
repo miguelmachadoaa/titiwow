@@ -928,7 +928,7 @@ Pedidos
 
 
 
-
+{{json_encode($cart)}}
 
 
 
@@ -1148,7 +1148,23 @@ Pedidos
 
 
     
+    $('.procesarTomapedidos').on('click',function(e){
+        e.preventDefault();
 
+       url=$(this).attr('href');
+
+        base=$('#base').val();
+        notas_orden=$('#notas_orden').val();
+
+        _token=$('input[name="_token"]').val();
+
+        $.post(base+'/admin/tomapedidos/notascompra', { notas_orden, _token}, function(data) {
+
+            $(location).attr('href',url);
+
+        });
+
+    })
 
 
       $("select").select2();

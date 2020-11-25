@@ -46,6 +46,7 @@ class AlpOrdenes extends Model
         'json',
         'estado_compramas',
         'envio_compramas',
+        'notas',
         'estatus',
         'estatus_pago',
         'id_user'

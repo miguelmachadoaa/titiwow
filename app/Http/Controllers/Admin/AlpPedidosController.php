@@ -412,6 +412,13 @@ class AlpPedidosController extends JoshController
 
           $orden=AlpOrdenes::create($data_orden);
 
+          if (isset($cart['notas_orden'])) {
+            $data_notas = array('notas' => $cart['notas_orden'] );
+
+            $orden->update($data_notas);
+
+          }
+
           $resto=0;
 
           $total_descuentos=0;
@@ -4428,7 +4435,7 @@ public function marketingcliente()
                 'identificacionCliente' => $cliente->doc_cliente, 
                 'nombreCliente' => $cliente->first_name." ".$cliente->last_name, 
                 'direccionCliente' => $direccion->nombre_estructura." ".$direccion->principal_address." - ".$direccion->secundaria_address." ".$direccion->edificio_address." ".$direccion->detalle_address." ".$direccion->barrio_address, 
-                'observacionDomicilio' => "", 
+                'observacionDomicilio' =>$orden->notas, 
                 'formaPago' => "Efectivo"
               );
 
@@ -4441,7 +4448,7 @@ public function marketingcliente()
                 'fechaPedido' => date("Ymd", strtotime($orden->created_at)), 
                 'horaMinPedido' => "00:00", 
                 'horaMaxPedido' => "00:00", 
-                'observaciones' => "", 
+                'observaciones' => $orden->notas,
                 'paradas' => $dir, 
                 'products' => $productos, 
               );
@@ -4451,7 +4458,8 @@ public function marketingcliente()
 
               $urls=$configuracion->compramas_url.'/registerOrderReserved/'.$configuracion->compramas_hash;
 
-            //   Log::info('compramas urls '.$urls);
+             activity()
+          ->withProperties($o)->log('compramas datos ');
 
 
       $ch = curl_init();
@@ -4885,6 +4893,35 @@ public function marketingcliente()
        return $total-$total_descuentos;
       
     }
+
+
+
+
+     public function notascompra(Request $request)
+    {
+
+      if (!\Session::has('cart')) {
+        \Session::put('cart', array());
+      }
+
+
+      $id_almacen=1;
+
+      $cart=\Session::get('cart');
+
+
+      $cart['notas_orden']=$request->notas_orden;
+
+
+
+      \Session::put('cart', $cart);
+
+      return 1;
+      
+    }
+
+
+
 
 
 
