@@ -926,43 +926,6 @@ Pedidos
 
 
 
-
-
-{{json_encode($cart)}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
  <div class="modal fade" id="ClienteModal" role="dialog" aria-labelledby="modalLabeldanger">
 
             <div class="modal-dialog modal-lg" role="document">
