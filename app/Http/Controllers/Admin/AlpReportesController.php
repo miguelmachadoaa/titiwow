@@ -26,6 +26,9 @@ use App\Exports\ProductosExportC;
 use App\Exports\ProductostotalesExport;
 use App\Exports\CarritoExport;
 use App\Exports\DescuentoVentasExport;
+
+use App\Exports\InventariopordiaExport;
+
 use App\Exports\TomaPedidosExport;
 use App\Exports\CuponesDescuentoExport;
 use App\Exports\CuponesUsadosExport;
@@ -1943,6 +1946,74 @@ public function formato()
 
         return Excel::download(new CompramasExport($request->desde, $request->hasta), 'compramas_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
     }
+
+
+
+
+
+public function inventariopordia() 
+    {
+
+        
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/inventariopordia ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/inventariopordia');
+
+
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+        return view('admin.reportes.inventariopordia');
+
+    }
+
+     public function exportinventariopordia(Request $request) 
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exportinventariopordia  ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exportinventariopordia ');
+
+
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+        
+
+
+
+        dd($request->all());
+
+        return Excel::download(new InventariopordiaExport($request->desde, $request->hasta), 'inventario_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+    }
+
 
 
 

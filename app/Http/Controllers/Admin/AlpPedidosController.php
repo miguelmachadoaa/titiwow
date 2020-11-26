@@ -4068,7 +4068,7 @@ public function addcupon(Request $request)
       $aviso='';
 
 
-      if ($total<$configuracion->minimo_compra) {
+      if ($total<7000) {
 
             $aviso='El monto mínimo de compra es de $'.number_format($configuracion->minimo_compra,0,",",".");
 
@@ -4154,8 +4154,6 @@ public function addcupon(Request $request)
 
       $total_base=$this->precio_base();
 
-      $total_base=$this->precio_base();
-
       $orden=AlpOrdenes::where('id', '=', $carrito)->first();
  $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
             ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
@@ -4165,12 +4163,13 @@ public function addcupon(Request $request)
 
 
       $impuesto=$this->impuesto($detalles, $orden);
+
       $aviso='';
 
 
-      if ($total<$configuracion->minimo_compra) {
+      if ($total<7000) {
 
-            $aviso='El monto mínimo de compra es de $'.number_format($configuracion->minimo_compra,0,",",".");
+            $aviso='El monto mínimo de compra es de $'.number_format(7000,0,",",".");
 
 
             $cart=$this->reloadCart();
@@ -4182,15 +4181,13 @@ public function addcupon(Request $request)
 
           $inv=$this->inventario();
 
-          return view('frontend.cart', compact('cart', 'total', 'configuracion', 'inv', 'aviso'));
-
-            return redirect('cart/show');
-
+          return redirect('pedidos/'.$orden->token.'/pago')->with('aviso', $aviso);
       }
 
-      if (Sentinel::check()) {
 
-        $user_id = Sentinel::getUser()->id;
+      $user_id = $orden->id_cliente;
+
+       // $user_id = Sentinel::getUser()->id;
 
         $usuario=User::where('id', $user_id)->first();
 
@@ -4216,16 +4213,9 @@ public function addcupon(Request $request)
 
         }
 
-        return redirect('order/detail')->with('aviso', $aviso);
+        return redirect('pedidos/'.$orden->token.'/pago')->with('aviso', $aviso);
 
-      }else{
-
-        $url='order.detail';
-
-          //return redirect('login');
-        return view('frontend.order.login', compact('url'));
-
-      }
+     
 
     }
 

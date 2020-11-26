@@ -361,7 +361,6 @@ class FrontEndController extends JoshController
       ->groupBy('alp_productos.id')
       ->get();
 
-      //  dd($productos);
 
       $cs1=AlpXml::first();
 
@@ -442,11 +441,6 @@ class FrontEndController extends JoshController
 
       $inventario=$this->inventario();
 
-      //dd($inventario);
-
-     // return response(json_encode($r), 200) ->header('Content-Type', 'application/json');
-
-        // Is the user logged in?
       return view('frontend.xml', compact('prods', 'inventario'));
       
     }
