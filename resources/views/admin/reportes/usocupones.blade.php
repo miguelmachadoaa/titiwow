@@ -51,7 +51,7 @@ Reporte de Inventario por Dia
                 <br />
                 <div class="panel-body">
 
-                    <form class="form-horizontal" role="form" method="post" action="{{ secure_url('admin/reportes/exportinventariopordia') }}">
+                    <form class="form-horizontal" role="form" method="post" action="{{ secure_url('admin/reportes/exportusocupones') }}">
 
                         {{ csrf_field() }}
 
@@ -61,10 +61,10 @@ Reporte de Inventario por Dia
 
                     <div class="form-group">
 
-                                <label class="col-md-2 control-label text-right">Desde - Hasta:</label>
+                                <!--label class="col-md-2 control-label text-right">Desde - Hasta:</label-->
 
-                        <div class="row">
-                                <!--div class="col-sm-5 pad-0-res mt-5">
+                        <!--div class="row">
+                                <div class="col-sm-5 pad-0-res mt-5">
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="livicon" data-name="calendar" data-size="16" data-c="#555555"
@@ -72,7 +72,7 @@ Reporte de Inventario por Dia
                                     </div>
                                     <input required class="form-control" id="desde" name="desde" placeholder="Desde">
                                 </div>
-                            </div-->
+                            </div>
                                 <div class="col-sm-5 pad-0-res mt-5">
                                 <div class="input-group">
                                     <div class="input-group-addon">
@@ -82,9 +82,9 @@ Reporte de Inventario por Dia
                                     <input type="date" required class="form-control" id="hasta" name="hasta" placeholder="Hasta">
                                 </div>
                             </div>
-                        </div>
+                        </div-->
                             <!-- /.input group -->
-                     </div>
+                    </div>
 
 
 

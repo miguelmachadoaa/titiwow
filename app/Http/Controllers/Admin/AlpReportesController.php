@@ -26,6 +26,7 @@ use App\Exports\ProductosExportC;
 use App\Exports\ProductostotalesExport;
 use App\Exports\CarritoExport;
 use App\Exports\DescuentoVentasExport;
+use App\Exports\UsocuponesExport;
 
 use App\Exports\InventariopordiaExport;
 
@@ -2018,6 +2019,65 @@ public function inventariopordia()
 
 
 
+
+public function usocupones() 
+    {
+
+        
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/usocupones ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/usocupones');
+
+
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+        return view('admin.reportes.usocupones');
+
+    }
+
+     public function exportusocupones(Request $request) 
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exportusocupones  ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exportusocupones ');
+
+
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+        
+
+        return Excel::download(new UsocuponesExport($request->hasta, $request->hasta), 'usocupones.xlsx');
+    }
 
 
 

@@ -599,8 +599,21 @@ Route::get('productos/{id}/eliminarproductoacheta', array('as' => 'productos.eli
    Route::post('reportes/exportcarrito', 'Admin\AlpReportesController@exportcarrito')->name('reportes.exportcarrito');
 
    Route::get('reportes/inventariopordia', 'Admin\AlpReportesController@inventariopordia')->name('reportes.inventariopordia');
+
+
+
    //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
    Route::post('reportes/exportinventariopordia', 'Admin\AlpReportesController@exportinventariopordia')->name('reportes.exportinventariopordia');
+
+
+
+Route::get('reportes/usocupones', 'Admin\AlpReportesController@usocupones')->name('reportes.usocupones');
+
+
+
+   //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
+   Route::post('reportes/exportusocupones', 'Admin\AlpReportesController@exportusocupones')->name('reportes.exportusocupones');
+
 
 
 
