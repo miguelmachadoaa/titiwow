@@ -64,7 +64,7 @@ Reporte de Inventario por Dia
                                 <label class="col-md-2 control-label text-right">Desde - Hasta:</label>
 
                         <div class="row">
-                                <div class="col-sm-5 pad-0-res mt-5">
+                                <!--div class="col-sm-5 pad-0-res mt-5">
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="livicon" data-name="calendar" data-size="16" data-c="#555555"
@@ -72,14 +72,14 @@ Reporte de Inventario por Dia
                                     </div>
                                     <input required class="form-control" id="desde" name="desde" placeholder="Desde">
                                 </div>
-                            </div>
+                            </div-->
                                 <div class="col-sm-5 pad-0-res mt-5">
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="livicon" data-name="calendar" data-size="16" data-c="#555555"
                                            data-hc="#555555" data-loop="true"></i>
                                     </div>
-                                    <input required class="form-control" id="hasta" name="hasta" placeholder="Hasta">
+                                    <input type="date" required class="form-control" id="hasta" name="hasta" placeholder="Hasta">
                                 </div>
                             </div>
                         </div>

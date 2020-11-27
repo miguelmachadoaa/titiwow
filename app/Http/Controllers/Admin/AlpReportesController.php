@@ -2009,9 +2009,9 @@ public function inventariopordia()
 
 
 
-        dd($request->all());
+      //  dd($request->all());
 
-        return Excel::download(new InventariopordiaExport($request->desde, $request->hasta), 'inventario_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+        return Excel::download(new InventariopordiaExport($request->hasta, $request->hasta), 'inventario_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
     }
 
 
