@@ -384,6 +384,19 @@ Orden {{$orden->id}}
                              </tr>
 
                          @endif
+
+
+                         @if(is_null($orden->notas))
+
+
+                         @else
+
+                            <tr>
+                                 <td>Nota: </td>
+                                 <td>{{$orden->notas}}</td>
+                             </tr>
+
+                         @endif
                          
                     
                  </tbody>

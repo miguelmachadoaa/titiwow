@@ -4892,7 +4892,16 @@ public function marketingcliente()
 
       if (!\Session::has('cart')) {
         \Session::put('cart', array());
+
+
       }
+
+
+      $input=$request->all();
+      
+
+      $input['notas_orden']=strip_tags($input['notas_orden']);
+
 
 
       $id_almacen=1;
@@ -4900,7 +4909,7 @@ public function marketingcliente()
       $cart=\Session::get('cart');
 
 
-      $cart['notas_orden']=$request->notas_orden;
+      $cart['notas_orden']=$input['notas_orden'];
 
 
 
