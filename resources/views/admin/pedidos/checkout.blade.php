@@ -160,23 +160,13 @@ Pedidos
 
                      <div class="row" style="padding-top: 0;">
 
-                         
-
-                         
-
                          <div class="col-sm-12 listaorden">
-
-
 
                          @include('admin.pedidos.listaordencheckout')
 
                         </div>
 
                      </div> 
-
-
-
-                    
 
                 </div>
 
@@ -1117,6 +1107,7 @@ Pedidos
        url=$(this).attr('href');
 
         base=$('#base').val();
+
         notas_orden=$('#notas_orden').val();
 
         _token=$('input[name="_token"]').val();
@@ -1358,7 +1349,11 @@ Pedidos
 
              id_address=$('#id_address').val();
 
+             notas_orden=$('#notas_orden').val();
 
+        _token=$('input[name="_token"]').val();
+
+        $.post(base+'/admin/tomapedidos/notascompra', { notas_orden, _token}, function(data) {
 
             $.get(base+'/admin/tomapedidos/'+id_address+'/asignadireccion', function(data) {
 
@@ -1367,6 +1362,12 @@ Pedidos
                      location.reload();
 
             });
+
+        });
+
+
+
+            
 
     });
 
