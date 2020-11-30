@@ -205,7 +205,11 @@ Carrito de Compras
 
 
 
-
+<div class="row">
+    <div class="col-sm-12">
+        {{json_encode($cart)}}
+    </div>
+</div>
 
 
 

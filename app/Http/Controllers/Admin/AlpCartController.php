@@ -2958,6 +2958,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        //dd($almacen);
 
+       $ban_disponible=0;
 
 
        if (isset($producto->id)) {
@@ -2974,15 +2975,55 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
           if($inv[$producto->id]>=$producto->cantidad){
 
-          $cart[$producto->slug]=$producto;
 
-           $data_detalle = array(
-              'id_carrito' => $carrito, 
-              'id_producto' => $producto->id, 
-              'cantidad' => $producto->cantidad
-            );
+            if ($producto->tipo_producto=='2') {
 
-             AlpCarritoDetalle::create($data_detalle);
+                    $lista=AlpCombosProductos::where('id_combo', $producto->id)->get();
+
+                    foreach ($lista as $l) {
+
+                         if (isset($inv[$l->id_producto])) {
+
+                            if($inv[$l->id_producto]>=($l->cantidad*$producto->cantidad)){
+
+
+                            }else{
+
+                              $ban_disponible=1;
+
+                              $error="No hay existencia suficiente de este producto, en su ubicacion";
+                            }
+
+                        }else{
+
+                          $ban_disponible=1;
+
+                          $error="No hay existencia suficiente de este producto, en su ubicacion";
+
+                        }
+
+                  }
+
+              }
+
+
+              if ($ban_disponible==0) {
+
+                    $cart[$producto->slug]=$producto;
+
+                     $data_detalle = array(
+                    'id_carrito' => $carrito, 
+                    'id_producto' => $producto->id, 
+                    'cantidad' => $producto->cantidad
+                  );
+
+                 AlpCarritoDetalle::create($data_detalle);
+
+
+
+              }
+
+            
 
           }else{
 
@@ -3059,9 +3100,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         $configuracion=AlpConfiguracion::first();
 
-
-
-
           $producto=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
           ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
           ->where('alp_productos.slug', $request->slug)
@@ -3095,6 +3133,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        $error='0'; 
 
+       $ban_disponible=0;
+
+
        $precio = array();
 
        $inv=$this->inventario();
@@ -3111,7 +3152,48 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
              if($inv[$producto->id]>=$producto->cantidad){
 
+
+
+
+                if ($producto->tipo_producto=='2') {
+
+                    $lista=AlpCombosProductos::where('id_combo', $producto->id)->get();
+
+                    foreach ($lista as $l) {
+
+                         if (isset($inv[$l->id_producto])) {
+
+                            if($inv[$l->id_producto]>=($l->cantidad*$producto->cantidad)){
+
+
+                            }else{
+
+                              $ban_disponible=1;
+
+                              $error="No hay existencia suficiente de este producto, en su ubicacion";
+                            }
+
+                        }else{
+
+                          $ban_disponible=1;
+
+                          $error="No hay existencia suficiente de este producto, en su ubicacion";
+
+                        }
+
+                  }
+
+              }
+
+
+              if ($ban_disponible==0) {
+
                 $cart[$producto->slug]=$producto;
+
+              }
+
+
+
 
                  \Session::put('cart', $cart);
 
@@ -3235,6 +3317,10 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        $error='0'; 
 
+       $ban_disponible=0;
+
+
+
        $precio = array();
 
        $inv=$this->inventario();
@@ -3252,20 +3338,58 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
           if($inv[$producto->id]>=$producto->cantidad){
 
-          $cart[$producto->slug]=$producto;
+          
+                if ($producto->tipo_producto=='2') {
+
+                    $lista=AlpCombosProductos::where('id_combo', $producto->id)->get();
+
+                    foreach ($lista as $l) {
+
+                         if (isset($inv[$l->id_producto])) {
+
+                            if($inv[$l->id_producto]>=($l->cantidad*$producto->cantidad)){
+
+
+                            }else{
+
+                              $ban_disponible=1;
+
+                              $error="No hay existencia suficiente de este producto, en su ubicacion";
+                            }
+
+                        }else{
+
+                          $ban_disponible=1;
+
+                          $error="No hay existencia suficiente de este producto, en su ubicacion";
+
+                        }
+
+                  }
+
+              }
+
+
+              if ($ban_disponible==0) {
+
+                $cart[$producto->slug]=$producto;
+
+
+                $data_detalle = array(
+                  'id_carrito' => $carrito, 
+                  'id_producto' => $producto->id, 
+                  'cantidad' => $producto->cantidad
+                );
+
+                AlpCarritoDetalle::create($data_detalle);
+
+
+
+              }
 
           \Session::put('cart', $cart);
 
-       $data_detalle = array(
-        'id_carrito' => $carrito, 
-        'id_producto' => $producto->id, 
-        'cantidad' => $producto->cantidad
-      );
-
-
-      
-
-      AlpCarritoDetalle::create($data_detalle);
+       
 
       
 
@@ -3547,7 +3671,13 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
          if($inv[$request->id]>=$request->cantidad){
 
-        $cart[$request->slug]->cantidad=$request->cantidad;
+          if (isset($cart[$request->slug])) {
+
+            $cart[$request->slug]->cantidad=$request->cantidad;
+
+          }
+
+        
 
       }else{
 

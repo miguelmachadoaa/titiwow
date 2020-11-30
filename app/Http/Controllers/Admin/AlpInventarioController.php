@@ -253,6 +253,7 @@ class AlpInventarioController extends JoshController
         ->join('users', 'alp_inventarios.id_user','=', 'users.id')
         ->where('alp_inventarios.id_producto', $producto->id)
         ->orderBy('alp_inventarios.id', 'desc')
+        ->withTrashed()
         ->get();
 
         $m = array();
