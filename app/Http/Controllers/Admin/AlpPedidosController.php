@@ -1389,101 +1389,20 @@ class AlpPedidosController extends JoshController
       }
 
 
-      $id_almacen=1;
+      
 
       $cart=\Session::get('cart');
 
-      $cliente =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista')
-        ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
-        ->join('role_users', 'users.id', '=', 'role_users.user_id')
-        ->join('roles', 'role_users.role_id', '=', 'roles.id')
-        ->where('role_users.role_id', '<>', 1)
-        ->where('alp_clientes.id', '=', $id)
-        ->first();
+         if (isset($cart['id_forma_pago'])) {
 
-
-       $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-          ->where('alp_direcciones.id_client', $cliente->id)->get();
-
-
-        $cart['id_cliente']=$cliente->id;
-
-        $cart['cliente']=$cliente;
-
-        $cart['direcciones']=$direcciones;
-
-
-        $i=0;
-
-        foreach ($direcciones as $d) {
-
-          if ($i==0){
-
-            $cart['id_direccion']=$d->id;
-
-            $i++;
-            # code...
-          }
-        }
-
-
-         \Session::put('cart', $cart);
-
-           $afe=AlpAlmacenFormaEnvio::where('id_almacen', $id_almacen)->first();
-
-          if (isset($afe->id)) {
-
-            $formasenvio = AlpFormasenvio::select('alp_formas_envios.*')
-            ->join('alp_almacen_formas_envio', 'alp_formas_envios.id', '=', 'alp_almacen_formas_envio.id_forma_envio')
-            ->where('alp_almacen_formas_envio.id_almacen', $id_almacen)
-            ->whereNull('alp_almacen_formas_envio.deleted_at')
-            ->groupBy('alp_formas_envios.id')->get();
-            # code...
+          $cart['id_forma_pago']=$id;
+            
           }else{
 
-             $formasenvio = AlpFormasenvio::select('alp_formas_envios.*')
-            ->join('alp_rol_envio', 'alp_formas_envios.id', '=', 'alp_rol_envio.id_forma_envio')
-            ->where('alp_rol_envio.id_rol', '9')->get();
-
+           $cart['id_forma_pago']=$id;
           }
 
-
-          $afe=AlpAlmacenFormaPago::where('id_almacen', $id_almacen)->first();
-
-
-          if (isset($afe->id)) {
-
-            $formaspago = AlpFormaspago::select('alp_formas_pagos.*')
-              ->join('alp_almacen_formas_pago', 'alp_formas_pagos.id', '=', 'alp_almacen_formas_pago.id_forma_pago')
-              ->where('alp_almacen_formas_pago.id_almacen', $id_almacen)
-              ->whereNull('alp_almacen_formas_pago.deleted_at')
-              ->groupBy('alp_formas_pagos.id')->get();
-            # code...
-          }else{
-
-              $formaspago = AlpFormaspago::select('alp_formas_pagos.*')
-              ->join('alp_rol_pago', 'alp_formas_pagos.id', '=', 'alp_rol_pago.id_forma_pago')
-              ->where('alp_rol_pago.id_rol', '9')->get();
-
-          }
-
-
-
-        
-        \Session::put('cart', $cart);
-
-
-      $view= View::make('admin.pedidos.clientecompra', compact('cart', 'formaspago', 'formasenvio'));
-
-      $data=$view->render();
-
-      $res = array('data' => $data);
-
-      return $data;
+      return '1';
       
     }
 
@@ -1498,106 +1417,24 @@ class AlpPedidosController extends JoshController
       }
 
 
-      $id_almacen=1;
+       $cart=\Session::get('cart');
 
-      $cart=\Session::get('cart');
+         if (isset($cart['id_forma_envio'])) {
 
-      $cliente =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista')
-        ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
-        ->join('role_users', 'users.id', '=', 'role_users.user_id')
-        ->join('roles', 'role_users.role_id', '=', 'roles.id')
-        ->where('role_users.role_id', '<>', 1)
-        ->where('alp_clientes.id', '=', $id)
-        ->first();
-
-
-       $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-          ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-          ->where('alp_direcciones.id_client', $cliente->id)->get();
-
-
-        $cart['id_cliente']=$cliente->id;
-
-        $cart['cliente']=$cliente;
-
-        $cart['direcciones']=$direcciones;
-
-
-        $i=0;
-
-        foreach ($direcciones as $d) {
-
-          if ($i==0){
-
-            $cart['id_direccion']=$d->id;
-
-            $i++;
-            # code...
-          }
-        }
-
-
-         \Session::put('cart', $cart);
-
-           $afe=AlpAlmacenFormaEnvio::where('id_almacen', $id_almacen)->first();
-
-          if (isset($afe->id)) {
-
-            $formasenvio = AlpFormasenvio::select('alp_formas_envios.*')
-            ->join('alp_almacen_formas_envio', 'alp_formas_envios.id', '=', 'alp_almacen_formas_envio.id_forma_envio')
-            ->where('alp_almacen_formas_envio.id_almacen', $id_almacen)
-            ->whereNull('alp_almacen_formas_envio.deleted_at')
-            ->groupBy('alp_formas_envios.id')->get();
-            # code...
+          $cart['id_forma_envio']=$id;
+            
           }else{
 
-             $formasenvio = AlpFormasenvio::select('alp_formas_envios.*')
-            ->join('alp_rol_envio', 'alp_formas_envios.id', '=', 'alp_rol_envio.id_forma_envio')
-            ->where('alp_rol_envio.id_rol', '9')->get();
-
+           $cart['id_forma_envio']=$id;
           }
 
 
-          $afe=AlpAlmacenFormaPago::where('id_almacen', $id_almacen)->first();
-
-
-          if (isset($afe->id)) {
-
-            $formaspago = AlpFormaspago::select('alp_formas_pagos.*')
-              ->join('alp_almacen_formas_pago', 'alp_formas_pagos.id', '=', 'alp_almacen_formas_pago.id_forma_pago')
-              ->where('alp_almacen_formas_pago.id_almacen', $id_almacen)
-              ->whereNull('alp_almacen_formas_pago.deleted_at')
-              ->groupBy('alp_formas_pagos.id')->get();
-            # code...
-          }else{
-
-              $formaspago = AlpFormaspago::select('alp_formas_pagos.*')
-              ->join('alp_rol_pago', 'alp_formas_pagos.id', '=', 'alp_rol_pago.id_forma_pago')
-              ->where('alp_rol_pago.id_rol', '9')->get();
-
-          }
-
-
-
-        
-        \Session::put('cart', $cart);
-
-
-      $view= View::make('admin.pedidos.clientecompra', compact('cart', 'formaspago', 'formasenvio'));
-
-      $data=$view->render();
-
-      $res = array('data' => $data);
-
-      return $data;
+      return '1';
       
     }
 
 
-    
+
 
 
 

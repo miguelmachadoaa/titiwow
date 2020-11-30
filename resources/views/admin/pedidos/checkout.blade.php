@@ -1375,11 +1375,7 @@ Pedidos
 
        $('#id_forma_pago').on('change', function(){
 
-
-
              base=$('#base').val();
-
-
 
              id_forma_pago=$('#id_forma_pago').val();
 
@@ -1398,19 +1394,12 @@ Pedidos
         });
 
 
-
-            
-
     });
 
 
         $('#id_forma_envio').on('change', function(){
 
-
-
              base=$('#base').val();
-
-
 
              id_forma_envio=$('#id_forma_envio').val();
 
@@ -1422,15 +1411,11 @@ Pedidos
 
             $.get(base+'/admin/tomapedidos/'+id_forma_envio+'/asignaformadeenvio', function(data) {
 
-
-
                      location.reload();
 
             });
 
         });
-
-
 
             
 

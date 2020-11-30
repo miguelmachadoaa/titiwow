@@ -75,6 +75,37 @@ Reporte de Inventario por Dia
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            
+                            <div class="form-group col-sm-12 ">
+
+                                    <br>
+                                    <label for="select21" class="col-md-2 control-label text-right">
+                                    Almacen                                               
+                                    </label>
+                                    <div class="col-md-10">   
+                                        <select id="id_almacen" name="id_almacen" class="form-control select2">
+                                            <option value="">Seleccione</option>
+
+                                            <option value="0">Todos</option>
+
+                                             @foreach($almacenes as $alm)
+                                             
+                                                <option  value="{{ $alm->id }}">{{ $alm->nombre_almacen }}</option>
+
+                                             @endforeach
+                                            
+                                        </select>
+                                    </div>           
+                                </div>
+                        </div>
+
+
+                        <div class="row">
+                            
+                            
+                        </div>
                             <!-- /.input group -->
                      </div>
 
