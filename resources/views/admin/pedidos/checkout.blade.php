@@ -1373,6 +1373,73 @@ Pedidos
 
 
 
+       $('#id_forma_pago').on('change', function(){
+
+
+
+             base=$('#base').val();
+
+
+
+             id_forma_pago=$('#id_forma_pago').val();
+
+             notas_orden=$('#notas_orden').val();
+
+        _token=$('input[name="_token"]').val();
+
+        $.post(base+'/admin/tomapedidos/notascompra', { notas_orden, _token}, function(data) {
+
+            $.get(base+'/admin/tomapedidos/'+id_forma_pago+'/asignaformadepago', function(data) {
+
+                     location.reload();
+
+            });
+
+        });
+
+
+
+            
+
+    });
+
+
+        $('#id_forma_envio').on('change', function(){
+
+
+
+             base=$('#base').val();
+
+
+
+             id_forma_envio=$('#id_forma_envio').val();
+
+             notas_orden=$('#notas_orden').val();
+
+        _token=$('input[name="_token"]').val();
+
+        $.post(base+'/admin/tomapedidos/notascompra', { notas_orden, _token}, function(data) {
+
+            $.get(base+'/admin/tomapedidos/'+id_forma_envio+'/asignaformadeenvio', function(data) {
+
+
+
+                     location.reload();
+
+            });
+
+        });
+
+
+
+            
+
+    });
+
+
+
+
+
 
 
     $(document).on('change','.cantidadcarrito', function(){

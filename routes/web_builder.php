@@ -961,6 +961,8 @@ Route::group(['prefix' => 'estatuspagos'], function () {
     Route::get('tomapedidos/{id}/getdirecciones', 'Admin\AlpPedidosController@getdirecciones');
 
     Route::get('tomapedidos/{id}/asignacliente', 'Admin\AlpPedidosController@asignacliente');
+    Route::get('tomapedidos/{id}/asignaformadepago', 'Admin\AlpPedidosController@asignaformadepago');
+    Route::get('tomapedidos/{id}/asignaformadeenvio', 'Admin\AlpPedidosController@asignaformadeenvio');
 
     Route::get('tomapedidos/checkout', 'Admin\AlpPedidosController@checkout');
 
