@@ -305,7 +305,7 @@ class FrontEndController extends JoshController
                         'id_producto' => $p->id, 
                         'cantidad' => $dato['stock'], 
                         'operacion' => 1, 
-                        'notas' => 'Actualización de inventario por cron compramas', 
+                        'notas' => 'Actualización de inventario por api compramas', 
                         'id_user' => 1 
                     );
 
