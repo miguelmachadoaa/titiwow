@@ -856,12 +856,15 @@ class FrontEndController extends JoshController
     {
         $user = Sentinel::getUser();
 
+        $cliente=AlpClientes::where('id_user_client', '=', $user->id)->first();
+
+       // dd($cliente);
+
         $countries = $this->countries;
 
         $cart= \Session::get('cart');
 
-       
-        return view('user_account', compact('user', 'countries', 'cart'));
+        return view('user_account', compact('user', 'countries', 'cart', 'cliente'));
     }
 
     /**
@@ -874,7 +877,7 @@ class FrontEndController extends JoshController
     {
         $user = Sentinel::getUser();
         //update values
-        $user->update($request->except('password','pic','password_confirm'));
+        $user->update($request->except('password','pic','password_confirm','marketing_email','marketing_sms'));
 
         if ($password = $request->get('password')) {
             $user->password = Hash::make($password);
@@ -895,6 +898,33 @@ class FrontEndController extends JoshController
             $user->pic = $safeName;
 
         }
+
+         $cliente=AlpClientes::where('id_user_client', '=', $user->id)->first();
+
+        if (isset($request->marketing_sms)) {
+
+          $cliente->marketing_sms=1;
+          
+        }else{
+
+          $cliente->marketing_sms=0;
+        }
+
+        if (isset($request->marketing_email)) {
+
+          $cliente->marketing_email=1;
+          
+        }else{
+
+          $cliente->marketing_email=0;
+        }
+
+        $cliente->save();
+
+
+       $datos360= $this->datos360($user->id); 
+
+
 
         // Was the user updated?
         if ($user->save()) {
@@ -2522,7 +2552,7 @@ public function getApiUrl($endpoint, $jsessionid)
         'telefono_cliente' =>$c->telefono_cliente,
         'marketig_email' =>$c->marketig_email,
         'marketing_sms' =>$c->marketing_sms,
-        'eliminar_cliente' =>$c->eliminar_cliente,
+        'eliminar_cliente' =>0,
         'email' =>$user->email,
       );
 
@@ -2530,9 +2560,9 @@ public function getApiUrl($endpoint, $jsessionid)
 
       $urls='https://alpinavista360webapp03.azurewebsites.net/api/UsuarioAlpinaGo/Add';
 
-      Log::info('api 360 urls '.$urls);
+      //Log::info('api 360 urls '.$urls);
 
-      Log::info($dataraw);
+      //Log::info($dataraw);
 
       activity()->withProperties($dataraw)->log('360 api ');
 
@@ -2568,9 +2598,9 @@ public function getApiUrl($endpoint, $jsessionid)
 
       $res=json_decode($result);
 
-      Log::info('api 360 res '.json_encode($res));
+     // Log::info('api 360 res '.json_encode($res));
        
-      Log::info('api 360 result '.$result);
+    //  Log::info('api 360 result '.$result);
 
       $notas='Registro de orden en api 360 res.';
 
@@ -2582,6 +2612,92 @@ public function getApiUrl($endpoint, $jsessionid)
 
 
 
+
+  public function get360(Request $request)
+  {
+
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('FrontEndController/get360 ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('FrontEndController/get360');
+
+        }
+
+      $content = $request->getContent();
+
+      $datos = json_decode($content, true);
+
+       activity()->withProperties($datos)->log('FrontEndController/getCompramas2');
+
+
+    $r="false";
+
+
+
+       if (count($datos)) {
+
+            foreach ($datos as $dato ) {
+
+          activity()
+          ->withProperties($dato)->log('FrontEndController/getCompramas 2.1');
+
+          activity()
+          ->withProperties($dato['stock'])->log('FrontEndController/getCompramas2');
+
+              $user=User::where('email', '=', $dato['email'])->first();
+
+              if (isset($user->id)) {
+
+                $r="true";
+
+                 $c=AlpClientes::where('id_user_client', $user->id)->first();
+
+                  $data_user = array(
+                    'first_name' =>$dato['first_name'],
+                    'last_name' =>$dato['last_name'],
+                    'dob' =>$dato['dob'],
+                  );
+
+                   $data = array(
+                    'genero_cliente' =>$dato['genero_cliente'],
+                    'doc_cliente' =>$dato['doc_cliente'],
+                    'telefono_cliente' =>$dato['telefono_cliente'],
+                    'marketig_email' =>$dato['marketig_email'],
+                    'marketing_sms' =>$dato['marketing_sms'],
+                    'eliminar_cliente' =>0,
+                  );
+
+                   $user->update($data_user);
+
+                   $c->update($data);
+
+
+
+                //  activity()->withProperties($p)->log('FrontEndController/getCompramas 2.2');
+
+                
+
+                }
+                
+            } //end foreach datos
+
+       } //(end if hay resspuessta)
+
+
+
+    return response(json_encode($r), 200) ->header('Content-Type', 'application/json');
+   
+  }
 
 
 

@@ -36,7 +36,7 @@ class InventariopordiaExport implements FromView
 
       if ($this->id_almacen=='0') {
 
-        $almacenes=AlpAlmacenws::where('estado_registro', '=', '1')->get();
+        $almacenes=AlpAlmacenes::where('estado_registro', '=', '1')->get();
 
       }else{
 

@@ -40,6 +40,8 @@ class AlpClientes extends Model
         'token',
         'tomapedidos_termino',
         'tomapedidos_marketing',
+        'marketing_email',
+        'marketing_sms',
         'id_user'
     ];
 

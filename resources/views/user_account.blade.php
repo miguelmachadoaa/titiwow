@@ -191,6 +191,55 @@
                                 </div>
                             </div>
 
+                        <div class="col-sm-12">
+
+                            <label class="col-lg-2 control-label">
+                                    
+                                </label>
+
+
+                          <div class="form-group {{ $errors->first('marketing_email', 'has-error') }} checkbox">
+                             <label style="padding: 0;">
+                                
+                                  <input type="checkbox" name="marketing_email" id="marketing_email" value="1" @if($cliente->marketing_sms==1) checked @endif>  Me gustaria recibir promociones de productos y servicios por Email.
+                              </label>
+                              {!! $errors->first('marketing_email', '<span class="help-block">:message</span>') !!}
+                          </div>
+
+                           <p style="color: red;" class="error_marketing_email"></p>
+                          
+
+                        </div>
+
+
+                         <div class="col-sm-12">
+
+                            <label class="col-lg-2 control-label">
+                                    
+                            </label>
+
+
+                          <div class="form-group {{ $errors->first('marketing_sms', 'has-error') }} checkbox">
+                             <label style="padding: 0;">
+                                
+                                  <input type="checkbox" name="marketing_sms" id="marketing_sms" value="1"  @if($cliente->marketing_sms==1) checked @endif>  Me gustaria recibir promociones de productos y servicios por Sms.
+                              </label>
+                              {!! $errors->first('marketing_sms', '<span class="help-block">:message</span>') !!}
+                          </div>
+
+                           <p style="color: red;" class="error_marketing_sms"></p>
+                          
+
+                        </div>
+
+
+
+
+
+
+
+
+
                             <div class="form-group">
                                 <div class="col-lg-offset-2 col-lg-10">
                                     <a class="btn btn-danger" type="button" href="{{ secure_url('clientes') }}">Regresar</a>
