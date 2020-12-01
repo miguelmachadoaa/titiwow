@@ -874,7 +874,7 @@
         </ul>
     @endif
 
-    @if (Sentinel::getUser()->hasAnyAccess(['ordenes.aprobados']))
+    @if (Sentinel::getUser()->hasAnyAccess(['facturasmasivas.index']))
 
         <li {!! (Request::is('admin/facturasmasivas') ? 'class="active"' : '') !!}>
         <a href="#">

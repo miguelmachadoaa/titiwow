@@ -1357,6 +1357,7 @@ public function compramasupdate()
           ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
           ->where('alp_ordenes.estatus', '5')
           ->groupBy('alp_ordenes.id')
+          ->limit(2000)
           ->get();
 
             $data = array();
