@@ -6,6 +6,15 @@ Agregar Inventario
 @parent
 @stop
 
+
+@section('header_styles')
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}" />
+    <link href="{{ secure_asset('assets/css/pages/tables.css') }}" rel="stylesheet" type="text/css" />
+@stop
+
+
+
+
 {{-- Content --}}
 @section('content')
 <section class="content-header">
@@ -246,3 +255,20 @@ Agregar Inventario
 </section>
 
 @stop
+
+@section('footer_scripts')
+<script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
+    <script type="text/javascript" src="{{ secure_asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
+
+<script>
+
+     $(document).ready(function() {
+
+            var table =$('#tbInventario').DataTable( {
+
+            } );
+
+</script>
+
+@stop
+

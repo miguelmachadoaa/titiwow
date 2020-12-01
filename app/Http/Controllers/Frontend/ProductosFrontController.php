@@ -1206,7 +1206,7 @@ class ProductosFrontController extends Controller
 
             if (isset($inventario[$l->id_producto])) {
                 
-                if($inventario[$l->id_producto]>0){
+                if($inventario[$l->id_producto]>$l->cantidad){
 
                 }else{
 

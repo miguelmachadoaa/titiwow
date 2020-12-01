@@ -1335,14 +1335,7 @@ class ClientesFrontController extends Controller
 
         $user_id = Sentinel::getUser()->id;
 
-
-
-
-
-         $input = $request->all();
-
-        // dd($input);
-
+        $input = $request->all();
 
         $input['titulo']=strip_tags($input['titulo']);
         $input['principal_address']=strip_tags($input['principal_address']);
@@ -1389,30 +1382,37 @@ class ClientesFrontController extends Controller
 
           $editar=1;
 
-         if ($direccion->editar_direccion==1) {
-            
-            if (isset($direccion->updated_at)) {
-
-                $editar=0;
-
-                $dt = new Carbon($direccion->updated_at);
-
-                if ($dt->diffInHours()>24) {
-
-                } else{
+          if (isset($direccion->editar_direccion)) {
+              
+            if ($direccion->editar_direccion==1) {
+                        
+                if (isset($direccion->updated_at)) {
 
                     $editar=0;
 
-                }
-                # code...
-            }else{
+                    $dt = new Carbon($direccion->updated_at);
 
-                $editar=1;
+                    if ($dt->diffInHours()>24) {
+
+                    } else{
+
+                        $editar=0;
+
+                    }
+                    # code...
+                }else{
+
+                    $editar=1;
+                }
+
             }
 
-        }
 
-        if ($direccion->id) {
+
+          }
+
+
+        if (isset($direccion->id)) {
 
 
          if ($direccion->editar_direccion==1) {
@@ -1421,8 +1421,6 @@ class ClientesFrontController extends Controller
             Activation::remove($user);
                         //add new record
             Activation::create($user);   
-
-
 
             $data_history = array(
                 'id_cliente' => $user->id, 
@@ -1464,19 +1462,7 @@ class ClientesFrontController extends Controller
 
         }
 
-
-         
-
-                
-
-
-
           
-
-      /*  } else {
-
-            return Redirect::route('order/detail')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
-        }   */ 
 
     }
 

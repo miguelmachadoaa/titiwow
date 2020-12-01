@@ -838,13 +838,23 @@ class AlpPedidosController extends JoshController
 
           $cart= \Session::get('cart');
 
+           if (isset($cart['id_almacen'])) {
+            # code...
+          }else{
+
+            $cart['id_almacen']='1';
+
+          }
+
           $almacen=AlpAlmacenes::where('id', $cart['id_almacen'])->first();
 
           $categoria=AlpCategorias::where('id', $id)->first();
 
           $descripcion='Listado de productos de la Categoria: '.$categoria->nombre_categoria;
 
-           $view= View::make('admin.pedidos.table', compact('productos', 'cart', 'almacen', 'descripcion'));
+           $combos=$this->combos();
+
+           $view= View::make('admin.pedidos.table', compact('productos', 'cart', 'almacen', 'descripcion', 'combos'));
 
             $data=$view->render();
 
@@ -874,6 +884,15 @@ class AlpPedidosController extends JoshController
 
           $cart= \Session::get('cart');
 
+           if (isset($cart['id_almacen'])) {
+            # code...
+          }else{
+
+            $cart['id_almacen']='1';
+
+          }
+
+
 
            $almacen=AlpAlmacenes::where('id', $cart['id_almacen'])->first();
 
@@ -881,8 +900,9 @@ class AlpPedidosController extends JoshController
 
           $descripcion='Listado de productos de la Marca: '.$marca->nombre_marca;
 
-           $view= View::make('admin.pedidos.table', compact('productos', 'cart', 'almacen', 'descripcion'));
+           $combos=$this->combos();
 
+           $view= View::make('admin.pedidos.table', compact('productos', 'cart', 'almacen', 'descripcion', 'combos'));
             $data=$view->render();
 
             return $data;
@@ -894,8 +914,6 @@ class AlpPedidosController extends JoshController
     {
 
        $cart= \Session::get('cart');
-
-
 
          $productos = AlpProductos::search($buscar)->select('alp_productos.*', 'alp_categorias.nombre_categoria as nombre_categoria')
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
@@ -912,14 +930,23 @@ class AlpPedidosController extends JoshController
 
           $cart= \Session::get('cart');
 
+           if (isset($cart['id_almacen'])) {
+            # code...
+          }else{
+
+            $cart['id_almacen']='1';
+
+          }
+
 
            $almacen=AlpAlmacenes::where('id', $cart['id_almacen'])->first();
 
 
           $descripcion='Listado de productos de la Busqueda: '.$buscar;
 
+          $combos=$this->combos();
 
-           $view= View::make('admin.pedidos.table', compact('productos', 'cart', 'almacen', 'descripcion'));
+           $view= View::make('admin.pedidos.table', compact('productos', 'cart', 'almacen', 'descripcion', 'combos'));
 
             $data=$view->render();
 
@@ -972,6 +999,10 @@ class AlpPedidosController extends JoshController
 
        $descuento='1'; 
 
+
+
+       $ban_disponible=0;
+
        $error='0'; 
 
        $precio = array();
@@ -1016,7 +1047,47 @@ class AlpPedidosController extends JoshController
 
           if($inv[$producto->id]>=$producto->cantidad){
 
-            $cart[$producto->slug]=$producto;
+
+
+
+
+
+             if ($producto->tipo_producto=='2') {
+
+                    $lista=AlpCombosProductos::where('id_combo', $producto->id)->get();
+
+                    foreach ($lista as $l) {
+
+                         if (isset($inv[$l->id_producto])) {
+
+                            if($inv[$l->id_producto]>=($l->cantidad*$producto->cantidad)){
+
+
+                            }else{
+
+                              $ban_disponible=1;
+
+                              $error="No hay existencia suficiente de este producto, en su ubicacion";
+                            }
+
+                        }else{
+
+                          $ban_disponible=1;
+
+                          $error="No hay existencia suficiente de este producto, en su ubicacion";
+
+                        }
+
+                  }
+
+              }
+
+
+              if ($ban_disponible==0) {
+
+                    $cart[$producto->slug]=$producto;
+
+              }
 
           }else{
 
@@ -4977,6 +5048,58 @@ public function marketingcliente()
       
     }
 
+
+
+
+
+ private function combos()
+    {
+
+      $c=AlpProductos::where('tipo_producto', '2')->get();
+      
+      $inventario=$this->inventario();
+
+      $combos = array();
+
+      foreach ($c as $co) {
+
+        $ban=0;
+        
+        $lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.slug as slug', 'alp_productos.nombre_producto as nombre_producto', 'alp_productos.imagen_producto as imagen_producto')
+        ->join('alp_productos', 'alp_combos_productos.id_producto', '=', 'alp_productos.id')
+        ->whereNull('alp_productos.deleted_at')
+        ->where('id_combo', $co->id)
+        ->get();
+
+        foreach ($lista as $l) {
+
+            if (isset($inventario[$l->id_producto])) {
+                
+                if($inventario[$l->id_producto]>$l->cantidad){
+
+                }else{
+
+                $ban=1;
+
+                }
+
+            }else{
+
+                $ban=1;
+            }
+            
+        }
+
+
+        if ($ban==0) {
+
+            $combos[$co->id]=$lista;
+        }
+
+      }
+
+      return $combos;
+    }
 
 
 

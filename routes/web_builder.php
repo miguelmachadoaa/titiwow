@@ -9,7 +9,6 @@ Route::get('sitemap.xml', 'SiteMapController@index')->name('sitemap');
 
 
 //inicio direcciones productos 
-
 Route::post('signupembajador', 'Admin\AuthController@postSignupEmbajador')->name('admin.signupembajador');
     
 Route::get('registroembajadores/{id}', 'Frontend\ClientesFrontController@embajadores')->name('frontend.clientes.registro');

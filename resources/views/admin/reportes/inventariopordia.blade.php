@@ -65,7 +65,7 @@ Reporte de Inventario por Dia
 
                         <div class="row">
                                 
-                                <div class="col-sm-5 pad-0-res mt-5">
+                                <div class="col-sm-10 pad-0-res mt-10">
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="livicon" data-name="calendar" data-size="16" data-c="#555555"
@@ -100,6 +100,34 @@ Reporte de Inventario por Dia
                                     </div>           
                                 </div>
                         </div>
+
+
+                        <div class="row">
+                            
+                            <div class="form-group col-sm-12 ">
+
+                                    <br>
+                                    <label for="select21" class="col-md-2 control-label text-right">
+                                    Productos                                               
+                                    </label>
+                                    <div class="col-md-10">   
+                                        <select id="id_producto" name="id_producto" class="form-control select2">
+                                            <option value="">Seleccione</option>
+
+                                            <option value="0">Todos</option>
+
+                                             @foreach($productos as $p)
+                                             
+                                                <option  value="{{ $p->id }}">{{ $p->nombre_producto.' - '.$p->referencia_producto }}</option>
+
+                                             @endforeach
+                                            
+                                        </select>
+                                    </div>           
+                                </div>
+                        </div>
+
+
 
 
                         <div class="row">

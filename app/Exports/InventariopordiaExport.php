@@ -9,6 +9,7 @@ use App\Models\AlpCarritoDetalle;
 use App\Models\AlpCarrito;
 use App\Models\AlpInventario;
 use App\Models\AlpProductos;
+use App\Models\AlpAlmacenes;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -21,10 +22,11 @@ use \DB;
 class InventariopordiaExport implements FromView
 {
     
-    public function __construct(string $desde, string $hasta)
+    public function __construct(string $desde, string $id_almacen, string $id_producto)
     {
         $this->desde = $desde;
-        $this->hasta = $hasta;
+        $this->id_almacen = $id_almacen;
+        $this->id_producto = $id_producto;
     }
 
 
@@ -32,45 +34,59 @@ class InventariopordiaExport implements FromView
     public function view(): View
     {
 
-     $entradas = AlpInventario::groupBy('id_producto')
-              ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
-              ->where('alp_inventarios.operacion', '1')
-              ->whereDate('alp_inventarios.created_at', '<=', $this->hasta)
-              ->get();
+      if ($this->id_almacen=='0') {
 
-              $inv = array();
+        $almacenes=AlpAlmacenws::where('estado_registro', '=', '1')->get();
 
-              foreach ($entradas as $row) {
-                
-                $inv[$row->id_producto]=$row->cantidad_total;
+      }else{
 
-              }
+         $almacenes=AlpAlmacenes::where('id', '=', $this->id_almacen)->get();
+
+      }
 
 
-            $salidas = AlpInventario::select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
-              ->groupBy('id_producto')
-              ->where('operacion', '2')
-              ->whereDate('alp_inventarios.created_at', '<=', $this->hasta)
-              ->get();
+      foreach ($almacenes as $a) {
 
-              foreach ($salidas as $row) {
+        
+        if ($this->id_producto=='0') {
 
-                if (isset( $inv[$row->id_producto])) {
-                  $inv[$row->id_producto]= $inv[$row->id_producto]-$row->cantidad_total;
-                }else{
+          $producto=AlpProductos::get();
 
-                  $inv[$row->id_producto]= 0;
-                }
-                
-                
-            }
+        }else{
+
+           $producto=AlpProductos::where('id', '=', $this->id_producto)->get();
+
+        }
+
+        $a->producto=$producto;
+
+        foreach ($a->producto as $p) {
+
+          $inventario = AlpInventario:: select("alp_inventarios.*")
+          ->whereDate('alp_inventarios.created_at', '=', $this->desde)
+          ->where('alp_inventarios.id_producto', '=', $p->id)
+          ->where('alp_inventarios.id_almacen', '=', $a->id)
+          ->withTrashed()->get();
+
+          $p->inventario=$inventario;
+
+          # code...
+        }
 
 
-       $productos = AlpProductos::all();
+
+      }
+
+
+
+
+      
+
+     // dd($producto);
 
       
         return view('admin.exports.inventariopordia', [
-            'inventario' => $inv, 'productos' => $productos
+           'almacenes' => $almacenes
         ]);
     }
 }

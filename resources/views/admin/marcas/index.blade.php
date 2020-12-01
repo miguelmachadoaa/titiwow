@@ -139,5 +139,6 @@ Marca
 
         var group_name = $(this).data('name');
         $(".modal-header h4").text( group_name+" Group" );
-    });</script>
+    });
+</script>
 @stop

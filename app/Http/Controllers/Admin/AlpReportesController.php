@@ -1978,7 +1978,13 @@ public function inventariopordia()
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
-        return view('admin.reportes.inventariopordia');
+        $almacenes=AlpAlmacenes::where('estado_registro', '=', 1)->get();
+
+        $productos=AlpProductos::where('estado_registro', '=', 1)->get();
+
+
+
+        return view('admin.reportes.inventariopordia', compact('almacenes', 'productos'));
 
     }
 
@@ -2008,15 +2014,8 @@ public function inventariopordia()
         }
         
 
-
-
-      //  dd($request->all());
-
-        return Excel::download(new InventariopordiaExport($request->hasta, $request->hasta), 'inventario_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+        return Excel::download(new InventariopordiaExport($request->hasta,$request->id_almacen, $request->id_producto), 'inventario_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
     }
-
-
-
 
 
 

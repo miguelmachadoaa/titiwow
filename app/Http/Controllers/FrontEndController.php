@@ -1829,7 +1829,7 @@ class FrontEndController extends JoshController
     }
 
 
-    private function combos()
+ private function combos()
     {
 
       $c=AlpProductos::where('tipo_producto', '2')->get();
@@ -1844,6 +1844,7 @@ class FrontEndController extends JoshController
         
         $lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.slug as slug', 'alp_productos.nombre_producto as nombre_producto', 'alp_productos.imagen_producto as imagen_producto')
         ->join('alp_productos', 'alp_combos_productos.id_producto', '=', 'alp_productos.id')
+        ->whereNull('alp_productos.deleted_at')
         ->where('id_combo', $co->id)
         ->get();
 
@@ -1851,7 +1852,7 @@ class FrontEndController extends JoshController
 
             if (isset($inventario[$l->id_producto])) {
                 
-                if($inventario[$l->id_producto]>0){
+                if($inventario[$l->id_producto]>$l->cantidad){
 
                 }else{
 
@@ -2496,6 +2497,92 @@ public function getApiUrl($endpoint, $jsessionid)
 
       
     }
+
+
+
+
+
+
+
+    private function datos360($id_user)
+    {
+
+      $configuracion=AlpConfiguracion::where('id', '=', 1)->first();
+
+      $user=User::where('id', $id_user)->first();
+
+      $c=AlpClientes::where('id_user_client', $user->id)->first();
+
+      $data = array(
+        'first_name' =>$user->first_name,
+        'last_name' =>$user->last_name,
+        'dob' =>$user->dob,
+        'genero_cliente' =>$c->genero_cliente,
+        'doc_cliente' =>$c->doc_cliente,
+        'telefono_cliente' =>$c->telefono_cliente,
+        'marketig_email' =>$c->marketig_email,
+        'marketing_sms' =>$c->marketing_sms,
+        'eliminar_cliente' =>$c->eliminar_cliente,
+        'email' =>$user->email,
+      );
+
+      $dataraw=json_encode($data);
+
+      $urls='https://alpinavista360webapp03.azurewebsites.net/api/UsuarioAlpinaGo/Add';
+
+      Log::info('api 360 urls '.$urls);
+
+      Log::info($dataraw);
+
+      activity()->withProperties($dataraw)->log('360 api ');
+
+      $ch = curl_init();
+
+      curl_setopt($ch, CURLOPT_URL, $urls);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($ch, CURLOPT_POST, 1);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
+      curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+      $headers = array();
+      $headers[] = 'Content-Type: application/json';
+      $headers[] = 'Key: Authorization ';
+      $headers[] = 'Value: Basic zHnI1jLI3GH88tT0Pu6w7Q== ';
+      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+      try {
+
+        $result = curl_exec($ch);
+        
+      } catch (Exception $e) {
+        
+      }
+
+      
+      if (curl_errno($ch)) {
+           Log::info('Error:' . curl_error($ch));
+      }
+      
+      curl_close($ch);
+
+      $res=json_decode($result);
+
+      Log::info('api 360 res '.json_encode($res));
+       
+      Log::info('api 360 result '.$result);
+
+      $notas='Registro de orden en api 360 res.';
+
+      return 1;
+      
+    }
+
+
+
+
+
+
 
 
 

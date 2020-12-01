@@ -426,6 +426,19 @@ public function compramasupdate()
                       $ec='Orden Sin Estatus';
                   }
 
+
+                   if ($row->origen=='1') {
+
+                $origen='Tomapedidos';
+                # code...
+              }else{
+
+                $origen='Web';
+
+              }
+
+              
+
               //dd($nombre_almacen);
 
                $data[]= array(

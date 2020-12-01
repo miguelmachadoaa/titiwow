@@ -756,8 +756,13 @@ class AlpCartController extends JoshController
       //  Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
 
       //  Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
+      //  
+      //  ifx_byteasvarchar(mode
+        
 
-           if ($compra->id_forma_envio!=1) {
+          if (isset($compra->id_forma_envio)) {
+
+            if ($compra->id_forma_envio!=1) {
 
               $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
 
@@ -766,6 +771,10 @@ class AlpCartController extends JoshController
               Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega, 1));
                 
             }
+            
+          }
+
+           
           
           $estatus_aviso='warning';
 
