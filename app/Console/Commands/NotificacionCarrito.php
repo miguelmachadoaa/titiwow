@@ -70,7 +70,7 @@ class NotificacionCarrito extends Command
          //dd($carritos);
 
 
-        activity()->withProperties($carritos)->log('carritos');
+        activity()->withProperties($carritos)->log('carritos a verificar');
 
         $i=0;
 
@@ -91,16 +91,14 @@ class NotificacionCarrito extends Command
         activity()->withProperties($car)->log('car');
 
 
-        $detalles =  DB::table('alp_carrito_detalle')->select('alp_carrito_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.precio_base as precio_base')
+        $detalles =  DB::table('alp_carrito_detalle')->select('alp_carrito_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.precio_base as precio_base','alp_productos.cantidad as cantidad')
           ->join('alp_productos','alp_carrito_detalle.id_producto' , '=', 'alp_productos.id')
           ->where('alp_carrito_detalle.id_carrito', $car->id)->get();
 
+
+      //   Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionCarrito($car, $detalles, $configuracion));
+
           //dd($detalles);
-
-        //Mail::to($car->email)->send(new \App\Mail\NotificacionCarrito($car, $detalles, $configuracion));
-
-         Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionCarrito($car, $detalles, $configuracion));
-
 
             $this->addibm($car, $detalles, $fecha_hoy);
 
@@ -143,7 +141,7 @@ class NotificacionCarrito extends Command
 
         try {
 
-        $xml='<Envelope><Body><Login><USERNAME>api_alpina@alpina.com</USERNAME><PASSWORD>Alpina2020!</PASSWORD></Login></Body></Envelope> ';
+        $xml='<Envelope><Body><Login><USERNAME>api_alpina@alpina.com</USERNAME><PASSWORD>Alpina2020!</PASSWORD></Login></Body></Envelope>';
 
         $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
@@ -159,9 +157,11 @@ class NotificacionCarrito extends Command
 
             foreach ($cart as $d) {
 
-                # code...
+               // dd($d);
 
-              $rows=$rows.'<ROW> <COLUMN name="Correo"> <![CDATA['.$user->email.']]> </COLUMN><COLUMN name="Referencia_producto"> <![CDATA['.$d->referencia_producto.']]> </COLUMN><COLUMN name="Nombre_producto"><![CDATA['.$d->nombre_producto.']]> </COLUMN><COLUMN name="Precio_Unitario"> <![CDATA['.$d->precio_base.']]> </COLUMN><COLUMN name="Cantidad"> <![CDATA['.$d->cantidad.']]> </COLUMN><COLUMN name="Imagen_producto"><![CDATA['.secure_url('uploads/productos/'.$d->imagen_producto).']]> </COLUMN><COLUMN name="Fecha_carrito"> <![CDATA['.$fecha.']]> </COLUMN></ROW>'; 
+              $rows=$rows.'<ROW> <COLUMN name="Correo"> <![CDATA['.$user->email.']]> </COLUMN><COLUMN name="Referencia_producto"> <![CDATA['.$d->referencia_producto.']]> </COLUMN><COLUMN name="Nombre_producto"><![CDATA['.$d->nombre_producto.']]> </COLUMN><COLUMN name="Precio_Unitario"> <![CDATA['.number_format($d->precio_base,0).']]> </COLUMN><COLUMN name="Cantidad"> <![CDATA['.$d->cantidad.']]> </COLUMN><COLUMN name="Imagen_producto"><![CDATA['.secure_url('uploads/productos/'.$d->imagen_producto).']]> </COLUMN><COLUMN name="Url_producto"><![CDATA['.secure_url('/productos/'.$d->slug).']]></COLUMN><COLUMN name="Valor_por_gramo_producto"><![CDATA['.number_format($d->precio_base/$d->cantidad,0).']]> </COLUMN><COLUMN name="Fecha_carrito"> <![CDATA['.$fecha.']]> </COLUMN></ROW>'; 
+
+             // dd($rows);
 
 
 
