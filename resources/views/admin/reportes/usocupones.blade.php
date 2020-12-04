@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Reporte de Inventario por Dia
+Reporte de Uso de Cupones
 @parent
 @stop
 
@@ -25,7 +25,7 @@ Reporte de Inventario por Dia
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1>Reporte de Inventario por Dia </h1>
+    <h1>Reporte de Uso de Cupones </h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}">
@@ -34,7 +34,7 @@ Reporte de Inventario por Dia
             </a>
         </li>
         <li><a href="#"> Reportes </a></li>
-        <li class="active">Carritos Inventario por Dia </li>
+        <li class="active">Uso de Cupones </li>
     </ol>
 </section>
 
@@ -45,7 +45,7 @@ Reporte de Inventario por Dia
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Reporte de Inventario por Dia 
+                       Reporte de Uso de Cupones
                     </h4>
                 </div>
                 <br />
@@ -63,7 +63,7 @@ Reporte de Inventario por Dia
 
                                 <!--label class="col-md-2 control-label text-right">Desde - Hasta:</label-->
 
-                        <!--div class="row">
+                        <div class="row">
                                 <div class="col-sm-5 pad-0-res mt-5">
                                 <div class="input-group">
                                     <div class="input-group-addon">
@@ -82,7 +82,7 @@ Reporte de Inventario por Dia
                                     <input type="date" required class="form-control" id="hasta" name="hasta" placeholder="Hasta">
                                 </div>
                             </div>
-                        </div-->
+                        </div>
                             <!-- /.input group -->
                     </div>
 

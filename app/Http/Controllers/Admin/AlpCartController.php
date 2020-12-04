@@ -5415,42 +5415,43 @@ public function verificarDireccion( Request $request)
               }
 
 
-              if ($detalle->tipo_producto=='3') {
+                if ($detalle->tipo_producto=='3') {
 
-                  if (isset($detalle->ancheta)) {
+                    if (isset($detalle->ancheta)) {
 
-                      foreach ($detalle->ancheta as $l) {
+                        foreach ($detalle->ancheta as $l) {
 
-                          $data_detalle_l = array(
-                            'id_orden' => $orden->id, 
-                            'id_producto' => $l->id, 
-                            'cantidad' =>$l->cantidad*$detalle->cantidad, 
-                            'precio_unitario' =>0, 
-                            'precio_base' =>0, 
-                            'precio_total' =>0,
-                            'precio_total_base' =>0,
-                            'valor_impuesto' =>0,
-                            'monto_impuesto' =>0,
-                            'id_combo' =>$detalle->id,
-                            'id_user' =>$user_id 
-                          );
+                            $data_detalle_l = array(
+                              'id_orden' => $orden->id, 
+                              'id_producto' => $l->id, 
+                              'cantidad' =>$l->cantidad*$detalle->cantidad, 
+                              'precio_unitario' =>0, 
+                              'precio_base' =>0, 
+                              'precio_total' =>0,
+                              'precio_total_base' =>0,
+                              'valor_impuesto' =>0,
+                              'monto_impuesto' =>0,
+                              'id_combo' =>$detalle->id,
+                              'id_user' =>$user_id 
+                            );
 
-                          $data_inventario_l = array(
-                            'id_producto' => $l->id, 
-                            'id_almacen' => $id_almacen, 
-                            'cantidad' =>$l->cantidad*$detalle->cantidad, 
-                            'operacion' =>'2', 
-                            'notas' =>'Orden '.$orden->id,
-                            'id_user' =>$user_id 
-                          );
+                            $data_inventario_l = array(
+                              'id_producto' => $l->id, 
+                              'id_almacen' => $id_almacen, 
+                              'cantidad' =>$l->cantidad*$detalle->cantidad, 
+                              'operacion' =>'2', 
+                              'notas' =>'Orden '.$orden->id,
+                              'id_user' =>$user_id 
+                            );
 
-                          AlpDetalles::create($data_detalle_l);
+                            AlpDetalles::create($data_detalle_l);
 
-                          AlpInventario::create($data_inventario_l);
+                            AlpInventario::create($data_inventario_l);
+                      }
+
                     }
+                 }
 
-                  }
-               }
                }
 
 
@@ -7760,7 +7761,6 @@ private function getAlmacen3(){
 
                     if ($d->precio_unitario>0) {
 
-
                       $dt = array(
                         'sku' => $d->referencia_producto, 
                         'name' => $d->nombre_producto, 
@@ -7785,10 +7785,33 @@ private function getAlmacen3(){
                         );
 
                         $productos[]=$dt;
+
                       }
 
 
-                    }
+                      $pc=AlpProductos::where('id', $d->id_combo)->first();
+
+                      if (isset($pc->id)) {
+
+                          if ($pc->tipo_producto=='3') {
+                            
+                               $dt = array(
+                              'sku' => $d->referencia_producto, 
+                              'name' => $d->nombre_producto, 
+                              'url_img' => $d->imagen_producto, 
+                              'value' => $d->precio_unitario, 
+                              'value_prom' => $d->precio_unitario, 
+                              'quantity' => $d->cantidad
+                            );
+
+                            $productos[]=$dt;
+
+                          # code...
+                        }
+
+                      }
+
+
                       
                   }
 

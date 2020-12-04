@@ -6,6 +6,7 @@ use App\User;
 use App\Models\AlpConfiguracion;
 use App\Models\AlpCarrito;
 use App\Models\AlpCarritoDetalle;
+use App\Models\AlpPrecioGrupo;
 use App\Exports\CronNuevosUsuarios;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -60,6 +61,9 @@ class NotificacionCarrito extends Command
         $fecha_hoy=$date->format('m/d/Y');
 
 
+
+
+
         $carritos =  DB::table('alp_carrito')->select('alp_carrito.*','users.first_name as first_name','users.last_name as last_name','users.email as email')
           ->join('users','alp_carrito.id_user' , '=', 'users.id')
           ->limit('10')
@@ -91,9 +95,14 @@ class NotificacionCarrito extends Command
         activity()->withProperties($car)->log('car');
 
 
-        $detalles =  DB::table('alp_carrito_detalle')->select('alp_carrito_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.precio_base as precio_base','alp_productos.cantidad as cantidad')
+        $detalles =  DB::table('alp_carrito_detalle')->select('alp_carrito_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.precio_base as precio_base','alp_productos.cantidad as cantidad_producto')
           ->join('alp_productos','alp_carrito_detalle.id_producto' , '=', 'alp_productos.id')
           ->where('alp_carrito_detalle.id_carrito', $car->id)->get();
+
+
+          $detalles=$this->addOferta($detalles);
+
+         // dd($detalles);
 
 
       //   Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionCarrito($car, $detalles, $configuracion));
@@ -159,7 +168,7 @@ class NotificacionCarrito extends Command
 
                // dd($d);
 
-              $rows=$rows.'<ROW> <COLUMN name="Correo"> <![CDATA['.$user->email.']]> </COLUMN><COLUMN name="Referencia_producto"> <![CDATA['.$d->referencia_producto.']]> </COLUMN><COLUMN name="Nombre_producto"><![CDATA['.$d->nombre_producto.']]> </COLUMN><COLUMN name="Precio_Unitario"> <![CDATA['.number_format($d->precio_base,0).']]> </COLUMN><COLUMN name="Cantidad"> <![CDATA['.$d->cantidad.']]> </COLUMN><COLUMN name="Imagen_producto"><![CDATA['.secure_url('uploads/productos/'.$d->imagen_producto).']]> </COLUMN><COLUMN name="Url_producto"><![CDATA['.secure_url('/productos/'.$d->slug).']]></COLUMN><COLUMN name="Valor_por_gramo_producto"><![CDATA['.number_format($d->precio_base/$d->cantidad,0).']]> </COLUMN><COLUMN name="Fecha_carrito"> <![CDATA['.$fecha.']]> </COLUMN></ROW>'; 
+              $rows=$rows.'<ROW> <COLUMN name="Correo"> <![CDATA['.$user->email.']]> </COLUMN><COLUMN name="Referencia_producto"> <![CDATA['.$d->referencia_producto.']]> </COLUMN><COLUMN name="Nombre_producto"><![CDATA['.$d->nombre_producto.']]> </COLUMN><COLUMN name="Precio_Unitario"> <![CDATA['.number_format($d->precio_oferta,0,',','').']]> </COLUMN><COLUMN name="Cantidad"> <![CDATA['.$d->cantidad.']]> </COLUMN><COLUMN name="Imagen_producto"><![CDATA['.secure_url('uploads/productos/'.$d->imagen_producto).']]> </COLUMN><COLUMN name="Url_producto"><![CDATA['.secure_url('/productos/'.$d->slug).']]></COLUMN><COLUMN name="Valor_por_gramo_producto"><![CDATA['.number_format($d->precio_oferta/$d->cantidad_producto,2,'.','').']]> </COLUMN><COLUMN name="Fecha_carrito"> <![CDATA['.$fecha.']]> </COLUMN></ROW>'; 
 
              // dd($rows);
 
@@ -169,6 +178,8 @@ class NotificacionCarrito extends Command
 
 
             $xml='<Envelope><Body><InsertUpdateRelationalTable><TABLE_ID>10843849</TABLE_ID><ROWS>'.$rows.'</ROWS></InsertUpdateRelationalTable></Body></Envelope>';
+
+            dd($xml);
 
 
             activity()->withProperties($xml)->log('carrito-xml');
@@ -273,6 +284,104 @@ public function makeRequest($endpoint, $jsessionid, $xml, $ignoreResult = false)
               $json = $this->xmlToJson($xml);
               return json_decode($json, true);
           }
+
+
+
+
+
+  private function addOferta($productos){
+
+        $descuento='1'; 
+
+        $precio = array();
+
+        $role = array( );
+
+        $r='9';
+
+                foreach ($productos as  $row) {
+
+                      $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id_producto)->where('id_role', $r)->first();
+
+                      if (isset($pregiogrupo->id)) {
+                       
+                          $precio[$row->id_producto]['precio']=$pregiogrupo->precio;
+                          $precio[$row->id_producto]['operacion']=$pregiogrupo->operacion;
+                          $precio[$row->id_producto]['pum']=$pregiogrupo->pum;
+                          $precio[$row->id_producto]['mostrar']=$pregiogrupo->mostrar_descuento;
+
+                      }
+
+                }
+
+      // dd($precio);
+
+        $prods = array( );
+
+        foreach ($productos as $producto) {
+
+          if ($descuento=='1') {
+
+            if (isset($precio[$producto->id_producto])) {
+              # code...
+             
+              switch ($precio[$producto->id_producto]['operacion']) {
+
+                case 1:
+
+                  $producto->precio_oferta=$producto->precio_base*$descuento;
+                  $producto->pum=$precio[$producto->id_producto]['pum'];
+
+                  break;
+
+                case 2:
+
+                  $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id_producto]['precio']/100));
+                  $producto->pum=$precio[$producto->id_producto]['pum'];
+                  
+                  break;
+
+                case 3:
+
+                  $producto->precio_oferta=$precio[$producto->id_producto]['precio'];
+                  $producto->pum=$precio[$producto->id_producto]['pum'];
+                  
+                  break;
+                
+                default:
+                
+                 $producto->precio_oferta=$producto->precio_base*$descuento;
+                  # code...
+                  break;
+              }
+
+            }else{
+
+              $producto->precio_oferta=$producto->precio_base*$descuento;
+
+            }
+
+
+           }else{
+
+           $producto->precio_oferta=$producto->precio_base*$descuento;
+
+
+           }
+
+
+           $prods[]=$producto;
+           
+          }
+
+        return $prods;
+
+
+    }
+
+
+
+
 
 
 
