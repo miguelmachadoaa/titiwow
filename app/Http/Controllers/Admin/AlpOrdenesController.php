@@ -4846,7 +4846,7 @@ public function sendcompramascancelar($id_orden){
 
 
 
-        public function pdf($id)
+    public function pdf($id)
     {
         // Grab all the groups
 
@@ -4882,7 +4882,8 @@ public function sendcompramascancelar($id_orden){
         $this->fpdf = new fpdf;
         $this->fpdf->AddPage();
         $this->fpdf->SetFont('Times');
-        $this->fpdf->cell(40,40,'', 0, 1);
+        $this->fpdf->SetMargins(20, 25 , 0);
+        $this->fpdf->cell(20,40,'', 0, 1);
 
 
        // dd($mensaje->mensaje_mensaje);
@@ -4936,7 +4937,7 @@ public function sendcompramascancelar($id_orden){
 
          $j=$j+1;
 
-         while ($j <= 6) {
+         while ($j <= 5) {
            $this->fpdf->Cell(100, 8, '', 0,1);
            $j=$j+1;
          }
