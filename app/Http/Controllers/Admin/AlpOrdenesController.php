@@ -4884,7 +4884,10 @@ public function sendcompramascancelar($id_orden){
         $this->fpdf->SetFont('Times');
         $this->fpdf->cell(40,40,'', 0, 1);
 
-        $partes=explode(' ', $mensaje->mensaje_mensaje );
+
+       // dd($mensaje->mensaje_mensaje);
+
+        $partes=explode(' ', utf8_decode($mensaje->mensaje_mensaje) );
 
         $i=0;
 
@@ -4927,7 +4930,9 @@ public function sendcompramascancelar($id_orden){
 
         }
 
-         $this->fpdf->Cell(100, 8, $cadena, 0,1);
+
+
+         $this->fpdf->Cell(100, 8,utf8_decode($cadena) , 0,1);
 
          $j=$j+1;
 
@@ -4940,11 +4945,11 @@ public function sendcompramascancelar($id_orden){
 
          $this->fpdf->Cell(10, 11, '', 0,0);
 
-         $this->fpdf->Cell(100, 11, $mensaje->mensaje_de, 0,1);
+         $this->fpdf->Cell(100, 11, utf8_decode($mensaje->mensaje_de), 0,1);
 
          $this->fpdf->Cell(20, 11, '', 0,0);
 
-         $this->fpdf->Cell(100, 11, $mensaje->mensaje_para, 0,1);
+         $this->fpdf->Cell(100, 11, utf8_decode($mensaje->mensaje_para), 0,1);
 
 
 
