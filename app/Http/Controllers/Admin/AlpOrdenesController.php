@@ -4919,7 +4919,7 @@ public function sendcompramascancelar($id_orden){
 
               $j=$j+1;
 
-              $this->fpdf->Cell(100, 8, $cadena, 0,1);
+              $this->fpdf->Cell(100, 8, utf8_decode($cadena), 0,1);
 
               $cadena=$value.' ';
 
