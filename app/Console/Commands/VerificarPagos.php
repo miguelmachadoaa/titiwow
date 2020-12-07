@@ -258,7 +258,10 @@ class VerificarPagos extends Command
                   'alp_productos.nombre_producto as nombre_producto',
                   'alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug')
                   ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
-                  ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
+                  ->where('alp_ordenes_detalle.id_orden', $orden->id)
+                  ->whereNull('alp_ordenes_detalle.deleted_at')
+                  ->get();
+
 
                   //dd($detalles);
 
@@ -275,11 +278,6 @@ class VerificarPagos extends Command
                    $this->ibmConfirmarPago($user_cliente, $orden);
 
                    $this->ibmConfirmarEnvio($user_cliente, $orden, $envio);
-
-
-                   
-
-
 
 
                   if ($compra->id_forma_envio!=1) {
@@ -309,6 +307,7 @@ class VerificarPagos extends Command
                  $detalles = AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto','alp_productos.referencia_producto as referencia_producto')
                   ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
                   ->where('alp_ordenes_detalle.id_orden', $orden->id)
+                  ->whereNull('alp_ordenes_detalle.deleted_at')
                   ->get();
 
                   $productos = array();
