@@ -257,7 +257,7 @@
 
                             @if($ac->cantidad_minima==0)
 
-                            Seleccione {{$ac->nombre_categoria}} <small>Debe seleccionar los productos que desee </small></h3>
+                            Seleccione {{$ac->nombre_categoria}} <small>*Productos opcionales</small></h3>
 
                             @else
 

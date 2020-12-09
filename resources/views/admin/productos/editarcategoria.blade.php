@@ -83,8 +83,6 @@ Editar Categoria
                                 </div>
                             </div>
 
-                            
-
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                 <a class="btn btn-danger" href="{{ secure_url('admin/productos') }}">
@@ -95,21 +93,6 @@ Editar Categoria
                             </div>
                         </div>
                     </form>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

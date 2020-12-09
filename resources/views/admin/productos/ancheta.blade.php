@@ -69,8 +69,6 @@ Configuracion Ancheta
                                 </div>
                             </div>
 
-
-
                             <div class="form-group {{ $errors->
                             first('cantidad_minima', 'has-error') }}">
                                 <label for="title" class="col-sm-2 control-label">
@@ -84,9 +82,6 @@ Configuracion Ancheta
                                     {!! $errors->first('cantidad_minima', '<span class="help-block">:message</span> ') !!}
                                 </div>
                             </div>
-
-
-
 
 
                        <div class="form-group">
