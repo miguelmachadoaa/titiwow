@@ -45,7 +45,7 @@ public $configuracion;
 
         $this->role=$role;
         
-$this->configuracion= AlpConfiguracion::where('id', '1')->first();
+        $this->configuracion= AlpConfiguracion::where('id', '1')->first();
 
     }
 

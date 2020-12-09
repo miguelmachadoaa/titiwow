@@ -55,16 +55,21 @@ Datos de la compra
 
 	@foreach($detalles as $row)
 
-		<tr>
-		<td style="border: solid 2px #e9e9e9;">{{$row->referencia_producto}}</td>
-		<td style="border: solid 2px #e9e9e9;">{{$row->referencia_producto_sap}}</td>
-		<td style="border: solid 2px #e9e9e9;">{{$row->id_producto}}</td>
-		<td style="border: solid 2px #e9e9e9;">{{$row->nombre_producto}}</td>
-		<td style="border: solid 2px #e9e9e9;">{{$row->presentacion_producto}}</td>
-        <td style="border: solid 2px #e9e9e9;">{{number_format($row->precio_unitario,0,",",".")}}</td>
-        <td style="border: solid 2px #e9e9e9;"> {{ $row->cantidad }} </td>
-        <td style="border: solid 2px #e9e9e9;">{{ number_format($row->precio_unitario*$row->cantidad, 0,",",".") }}</td>
-	</tr>
+	@if(is_null($row->deleted_at))
+
+
+			<tr>
+			<td style="border: solid 2px #e9e9e9;">{{$row->referencia_producto}}</td>
+			<td style="border: solid 2px #e9e9e9;">{{$row->referencia_producto_sap}}</td>
+			<td style="border: solid 2px #e9e9e9;">{{$row->id_producto}}</td>
+			<td style="border: solid 2px #e9e9e9;">{{$row->nombre_producto}}</td>
+			<td style="border: solid 2px #e9e9e9;">{{$row->presentacion_producto}}</td>
+	        <td style="border: solid 2px #e9e9e9;">{{number_format($row->precio_unitario,0,",",".")}}</td>
+	        <td style="border: solid 2px #e9e9e9;"> {{ $row->cantidad }} </td>
+	        <td style="border: solid 2px #e9e9e9;">{{ number_format($row->precio_unitario*$row->cantidad, 0,",",".") }}</td>
+		</tr>
+
+	@endif
 
 	@endforeach
 

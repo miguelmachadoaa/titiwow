@@ -14,6 +14,8 @@ use Mail;
 use DB;
 use Exception;
 
+use Illuminate\Support\Facades\Crypt;
+
 
 use Illuminate\Console\Command;
 
@@ -75,12 +77,43 @@ class Conexionicg extends Command
      //   $getListsXml = '%s%s';
      //   $logoutXml = '';
 
+        $date = Carbon::now();
+
+        $hoy=$date->format('Ymdh:m:s');
+
+        $fechad=$date->format('Y-m-d');
+        $fechah=$date->format('h:m:s');
+        $fecha=$fechad.' '.$fechah;
+
+        $d='#.Za('.$hoy.'!4$k;';
+
+        $p='Q@4;_'.$hoy.'?rK&%)';
+
+        while (strlen($d) < 32) {
+          $d='0'.$d;
+        }
+
+        while (strlen($p) < 32) {
+          $p='0'.$p;
+        }
+
+      // dd($d);
+
+        $newEncrypter = new \Illuminate\Encryption\Encrypter( $p, 'AES-256-CBC' );
+        $encrypted_user = $newEncrypter->encrypt( 'test1' );
+        //$encrypted_user =  Crypt::encrypt('test1');
+
+
+        $newEncrypter2 = new \Illuminate\Encryption\Encrypter( $d, 'AES-256-CBC' );
+        $encrypted_password = $newEncrypter->encrypt( 'test2' );
+
+       
 
         $xml='<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope/" soap:encodingStyle="http://www.w3.org/2003/05/soap-encoding">';
           $xml=$xml.'<soap:Header>';
-            $xml=$xml.'<tem:LoginInfo xmlns:tem="http://www.w3.org/2003/05/logininfo/" ><tem:UserName>test1</tem:UserName>';
-              $xml=$xml.'<tem:Password>test2</tem:Password>';
-              $xml=$xml.'<tem:Fecha>2020-12-04T11:36:36</tem:Fecha>';
+            $xml=$xml.'<tem:LoginInfo xmlns:tem="http://www.w3.org/2003/05/logininfo/" ><tem:UserName>'.$encrypted_user.'</tem:UserName>';
+              $xml=$xml.'<tem:Password>'.$encrypted_password.'</tem:Password>';
+              $xml=$xml.'<tem:Fecha>'.$fecha.'</tem:Fecha>';
             $xml=$xml.'</tem:LoginInfo>';
           $xml=$xml.'</soap:Header>';
         $xml=$xml.'<soap:Body>';
@@ -96,11 +129,21 @@ class Conexionicg extends Command
         $xml=$xml.'</soap:Body>';
         $xml=$xml.'</soap:Envelope>';
 
-        //echo $xml;
+
+
+
+
+        echo $xml;
+
+        echo '-------';
+
+       
+
 
         $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-        print_r($result);
+        dd($result);
+
 
         $jsessionid = $result['SESSIONID'];
 
@@ -154,7 +197,7 @@ public function makeRequest($endpoint, $jsessionid, $xml, $ignoreResult = false)
 {
    // $url = $this->getApiUrl($endpoint, $jsessionid);
 
-    //echo  $url.'<br>';
+    //echo  $endpoint.'<br>';
     
     $xmlObj = new \SimpleXmlElement($xml);
 

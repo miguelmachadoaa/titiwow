@@ -85,6 +85,8 @@ Se ha registrado un pedido por el usuario {{ $compra->first_name.' '.$compra->la
 
 	@foreach($detalles as $row)
 
+	@if(is_null($row->deleted_at))
+
 		<tr>
 		<td style="border: solid 2px #e9e9e9;">{{$row->referencia_producto}}</td>
 		<td style="border: solid 2px #e9e9e9;">{{$row->nombre_producto}}</td>
@@ -94,6 +96,8 @@ Se ha registrado un pedido por el usuario {{ $compra->first_name.' '.$compra->la
         <td style="border: solid 2px #e9e9e9;">{{number_format($row->precio_unitario*$row->cantidad,0,",",".")}}</td>
         
 	</tr>
+
+	@endif
 
 	@endforeach
 
