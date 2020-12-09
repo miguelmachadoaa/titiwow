@@ -8317,10 +8317,7 @@ private function addpromocion(){
               $mensaje_promocion='';
             }
 
-
-
-            # code...
-          }//endforeach
+          }
 
 
 

@@ -14,6 +14,8 @@ use Mail;
 use DB;
 use Exception;
 
+use SoapClient;
+
 use Illuminate\Support\Facades\Crypt;
 
 
