@@ -253,7 +253,19 @@
 
                         <br>
                         
-                        <h3 style="margin-top: 1em;"><strong>Paso {{$loop->iteration}}  </strong> - Seleccione {{$ac->nombre_categoria}} <small>Debe seleccionar como minimo {{$ac->cantidad_minima}} productos</small></h3>
+                        <h3 style="margin-top: 1em;"><strong>Paso {{$loop->iteration}}  </strong> - 
+
+                            @if($ac->cantidad_minima==0)
+
+                            Seleccione {{$ac->nombre_categoria}} <small>Debe seleccionar los productos que desee </small></h3>
+
+                            @else
+
+                            Seleccione {{$ac->nombre_categoria}} <small>Debe seleccionar como minimo {{$ac->cantidad_minima}} productos </small></h3>
+
+                            @endif
+
+
 
                             @foreach($ac->productos as $p)
 

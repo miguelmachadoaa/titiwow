@@ -75,7 +75,7 @@ Editar Categoria
                                     Cantidad minima a seleccionar
                                 </label>
                                 <div class="col-sm-5">
-                                    <input type="number" step="1" min="1" id="cantidad_minima" name="cantidad_minima" class="form-control" placeholder="Cantidad minima a seleccionar"
+                                    <input type="number" step="1" min="0" id="cantidad_minima" name="cantidad_minima" class="form-control" placeholder="Cantidad minima a seleccionar"
                                            value="{{$categoria->cantidad_minima}}">
                                 </div>
                                 <div class="col-sm-4">
