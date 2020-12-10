@@ -122,15 +122,23 @@ Mis Compras
 
                                                 @if(json_decode($row->json)->response->status!='pending' && json_decode($row->json)->response->status!='aproved')
 
-                                                    <a  class="btn  btn-xs btn-info" href="{{ secure_url('clientes/pagar/'.$row->id) }}">Pagar Orden</a>
+                                                    @if($row->estatus=='8')
+
+                                                        <a  class="btn  btn-xs btn-info" href="{{ secure_url('clientes/pagar/'.$row->id) }}">Pagar Orden</a>
+
+                                                    @endif
+
+                                                    
                                                 
                                                 @endif 
+
                                             @endif 
 
 
                                     @endif 
 
                                 @endif 
+
                             @endif 
 
                                   <button class="btn btn-info btn-xs seeDetalle" data-url="{{ secure_url('clientes/'.$row->id.'/detalle') }}" data-id="{{ $row->id }}" href="{{ secure_url('clientes/'.$row->id.'/detalle') }}">
