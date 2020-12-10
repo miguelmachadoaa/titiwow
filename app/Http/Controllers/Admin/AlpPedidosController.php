@@ -3204,7 +3204,7 @@ public function postdireccion(DireccionModalRequest $request)
             "email"=>$user_cliente->email]
         ];
 
-        dd($preference_data);
+        //dd($preference_data);
 
         $preference = MP::post("/v1/payments",$preference_data);
 
