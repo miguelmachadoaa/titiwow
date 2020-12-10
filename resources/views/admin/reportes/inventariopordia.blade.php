@@ -88,7 +88,6 @@ Reporte de Inventario por Dia
                                         <select id="id_almacen" name="id_almacen" class="form-control select2">
                                             <option value="">Seleccione</option>
 
-                                            <option value="0">Todos</option>
 
                                              @foreach($almacenes as $alm)
                                              
@@ -114,7 +113,6 @@ Reporte de Inventario por Dia
                                         <select id="id_producto" name="id_producto" class="form-control select2">
                                             <option value="">Seleccione</option>
 
-                                            <option value="0">Todos</option>
 
                                              @foreach($productos as $p)
                                              
