@@ -225,6 +225,9 @@ Orden {{$orden->id}}
                                     </tr>
 
 
+                                    
+
+
                                     @if($cliente->tomapedidos_tratamiento=='1')
 
                                      <tr>
@@ -372,14 +375,21 @@ Orden {{$orden->id}}
                       @if($orden->origen=='1')
 
                              <tr>
-                                 <td>Origen: </td>
+                                 <td><b>Origen: </b></td>
                                  <td>Tomapedidos</td>
                              </tr>
+
+                             <tr>
+                                <td><b> Enlace para Pagos</b></td>
+                                <td>
+                                {{secure_url('pedidos/'.$orden->token.'/pago')}}
+                                </td>
+                            </tr>
 
                          @else
 
                             <tr>
-                                 <td>Origen: </td>
+                                 <td><b>Origen: </b></td>
                                  <td>Web</td>
                              </tr>
 
