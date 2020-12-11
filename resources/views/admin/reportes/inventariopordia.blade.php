@@ -71,26 +71,10 @@ Reporte de Inventario por Dia
                                         <i class="livicon" data-name="calendar" data-size="16" data-c="#555555"
                                            data-hc="#555555" data-loop="true"></i>
                                     </div>
-                                    <input type="text" required class="form-control" id="hasta" name="hasta" placeholder="Seleccione el dia">
+                                    <input type="text" required class="form-control" id="hasta" name="hasta" placeholder="Hasta">
                                 </div>
                             </div>
                         </div>
-
-                        <div class="row">
-                            
-                            <div class="form-group col-sm-12 ">
-
-                                    <br>
-                                    <label for="select21" class="col-md-2 control-label text-right">
-                                    Email para enviar el reporte                                               
-                                    </label>
-                                    <div class="col-md-10">   
-                                         <input type="text" required class="form-control" id="email" name="email" placeholder="Ingrese Email">
-                                    </div>           
-                                </div>
-                        </div>
-
-
 
                         <div class="row">
                             
@@ -117,7 +101,7 @@ Reporte de Inventario por Dia
                         </div>
 
 
-                        <!--div class="row">
+                        <div class="row">
                             
                             <div class="form-group col-sm-12 ">
 
@@ -139,8 +123,7 @@ Reporte de Inventario por Dia
                                         </select>
                                     </div>           
                                 </div>
-                        </div-->
-
+                        </div>
 
 
 
@@ -158,7 +141,7 @@ Reporte de Inventario por Dia
 
                     <div class="form-group">
                             <div class="col-sm-offset-4 col-sm-8">
-                                <button type="submit" class="btn btn-md btn-primary"> Enviar </button>
+                                <button type="submit" class="btn btn-md btn-primary">  Descargar  Excel  </button>
                                 
                               
 

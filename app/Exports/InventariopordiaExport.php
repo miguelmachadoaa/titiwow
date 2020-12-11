@@ -22,10 +22,11 @@ use \DB;
 class InventariopordiaExport implements FromView
 {
     
-    public function __construct(string $desde, string $id_almacen)
+    public function __construct(string $desde, string $id_almacen, string $id_producto)
     {
         $this->desde = $desde;
         $this->id_almacen = $id_almacen;
+        $this->id_producto = $id_producto;
     }
 
 
@@ -47,12 +48,15 @@ class InventariopordiaExport implements FromView
       foreach ($almacenes as $a) {
 
         
-        $producto=AlpProductos::select('alp_productos.*')
-        ->join('alp_inventarios', 'alp_productos.id', '=', 'alp_inventarios.id_producto')
-        ->where('alp_inventarios.id_almacen', '=', $a->id)
-        ->whereDate('alp_inventarios.created_at', '=', $this->desde)
-        ->groupBy('alp_productos.id')
-        ->get();
+        if ($this->id_producto=='0') {
+
+          $producto=AlpProductos::get();
+
+        }else{
+
+           $producto=AlpProductos::where('id', '=', $this->id_producto)->get();
+
+        }
 
         $a->producto=$producto;
 
