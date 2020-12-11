@@ -730,6 +730,18 @@ class FrontEndController extends JoshController
 
 
       // dd($inventario);
+      // 
+      
+      $cart= \Session::get('cart');
+
+       if (isset($cart['id_forma_pago']) || isset($cart['id_forma_envio']) || isset($cart['id_cliente']) || isset($cart['id_almacen']) || isset($cart['id_direccion']) || isset($cart['inventario']) ) {
+         
+          $cart= \Session::forget('cart');
+
+          $cart = array();
+       }
+
+       
 
         return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion','inventario', 'combos', 'role', 'almacen','url'));
 

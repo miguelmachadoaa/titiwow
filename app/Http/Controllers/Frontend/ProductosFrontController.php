@@ -253,6 +253,15 @@ class ProductosFrontController extends Controller
     public function index()
     {
 
+      $cart= \Session::get('cart');
+
+       if (isset($cart['id_forma_pago']) || isset($cart['id_forma_envio']) || isset($cart['id_cliente']) || isset($cart['id_almacen']) || isset($cart['id_direccion']) || isset($cart['inventario']) ) {
+         
+          $cart= \Session::forget('cart');
+
+          $cart = array();
+       }
+
        $id_almacen=$this->getAlmacen();
 
 
@@ -458,6 +467,15 @@ class ProductosFrontController extends Controller
  
     public function show($slug)
     {
+
+      $cart= \Session::get('cart');
+
+       if (isset($cart['id_forma_pago']) || isset($cart['id_forma_envio']) || isset($cart['id_cliente']) || isset($cart['id_almacen']) || isset($cart['id_direccion']) || isset($cart['inventario']) ) {
+         
+          $cart= \Session::forget('cart');
+
+          $cart = array();
+       }
 
         $id_almacen=$this->getAlmacen();
 
@@ -814,6 +832,15 @@ class ProductosFrontController extends Controller
     public function categorias($slug)
     {
 
+      $cart= \Session::get('cart');
+
+       if (isset($cart['id_forma_pago']) || isset($cart['id_forma_envio']) || isset($cart['id_cliente']) || isset($cart['id_almacen']) || isset($cart['id_direccion']) || isset($cart['inventario']) ) {
+         
+          $cart= \Session::forget('cart');
+
+          $cart = array();
+       }
+
         $id_almacen=$this->getAlmacen();
 
         $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
@@ -905,6 +932,15 @@ class ProductosFrontController extends Controller
     public function marcas($slug)
     {
 
+      $cart= \Session::get('cart');
+
+       if (isset($cart['id_forma_pago']) || isset($cart['id_forma_envio']) || isset($cart['id_cliente']) || isset($cart['id_almacen']) || isset($cart['id_direccion']) || isset($cart['inventario']) ) {
+         
+          $cart= \Session::forget('cart');
+
+          $cart = array();
+       }
+
 
          $id_almacen=$this->getAlmacen();
 
@@ -983,6 +1019,15 @@ class ProductosFrontController extends Controller
     public function all()
     {
 
+      $cart= \Session::get('cart');
+
+       if (isset($cart['id_forma_pago']) || isset($cart['id_forma_envio']) || isset($cart['id_cliente']) || isset($cart['id_almacen']) || isset($cart['id_direccion']) || isset($cart['inventario']) ) {
+         
+          $cart= \Session::forget('cart');
+
+          $cart = array();
+       }
+
          $id_almacen=$this->getAlmacen();
 
        // dd($id_almacen  );
@@ -1051,6 +1096,15 @@ class ProductosFrontController extends Controller
 
     public function mySearch(Request $request)
     {
+
+      $cart= \Session::get('cart');
+
+       if (isset($cart['id_forma_pago']) || isset($cart['id_forma_envio']) || isset($cart['id_cliente']) || isset($cart['id_almacen']) || isset($cart['id_direccion']) || isset($cart['inventario']) ) {
+         
+          $cart= \Session::forget('cart');
+
+          $cart = array();
+       }
 
 
        $id_almacen=$this->getAlmacen();
@@ -1125,6 +1179,15 @@ class ProductosFrontController extends Controller
     /* Pagina CMS */
     public function cms($slug)
     {
+
+      $cart= \Session::get('cart');
+
+       if (isset($cart['id_forma_pago']) || isset($cart['id_forma_envio']) || isset($cart['id_cliente']) || isset($cart['id_almacen']) || isset($cart['id_direccion']) || isset($cart['inventario']) ) {
+         
+          $cart= \Session::forget('cart');
+
+          $cart = array();
+       }
 
         $cms = AlpCms::where('slug','=', $slug)->firstOrFail();
 

@@ -83,8 +83,8 @@ class Conexionicg extends Command
 
         $hoy=$date->format('YmdH:m:s');
 
-        $fechad=$date->format('Ymd');
-        //$fechad='20201020';
+        //$fechad=$date->format('Ymd');
+        $fechad='20201020';
         //$fechadt=$date->format('Y-m-d');
         $fechadt=$date->format('Y-m-d');
         //$fechah=$date->format('H:m:s');
@@ -124,6 +124,20 @@ class Conexionicg extends Command
 
         echo  $encrypted_password;
         echo "-------";
+
+
+        $plaintext = '1234';
+        $cipher = 'AES-256-CBC';
+        $key = 'this is a bad key';
+        $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($cipher));
+
+       $encrypted = openssl_encrypt('test1', $cipher, $encrypted_password, 0, $iv);
+
+       echo "respuesta";
+
+        dd($encrypted);
+       
+
 
 
        // $encrypted_password=substr($encrypted_password, 0, 32);
