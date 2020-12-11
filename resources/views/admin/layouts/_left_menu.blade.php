@@ -1157,8 +1157,8 @@
 
              @if (Sentinel::getUser()->hasAnyAccess(['reportes.inventariopordia']))
 
-                <li {!! (Request::is('admin/reportes/invenatariopordia') ? 'class="active" id="active"' : '') !!}>
-                    <a href="{{ secure_url('admin/reportes/invenatariopordia') }}">
+                <li {!! (Request::is('admin/reportes/inventariopordia') ? 'class="active" id="active"' : '') !!}>
+                    <a href="{{ secure_url('admin/reportes/inventariopordia') }}">
                         <i class="fa fa-angle-double-right"></i>
                         Reporte  Inventario por Dia
                     </a>

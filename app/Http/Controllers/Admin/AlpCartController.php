@@ -8429,14 +8429,22 @@ private function addpromocion(){
 
         $hoy=$date->format('Y-m-d');
 
+        if (!is_null($cart)) {
 
-      foreach ($cart as $c) {
+          foreach ($cart as $c) {
 
-        if (isset($c->promocion)) {
-          unset($cart[$c->slug]);
+              if (isset($c->promocion)) {
+
+                unset($cart[$c->slug]);
+
+              }
+              # code...
+            }
+          # code...
         }
-        # code...
-      }
+
+
+      
 
       $mensaje='';
 
