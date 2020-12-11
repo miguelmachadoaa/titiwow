@@ -2022,9 +2022,6 @@ public function inventariopordia()
         $documentos[]='/home2/alpago/alpinago/storage/app/public/'.$archivo_clientes;
         
         $almacen=AlpAlmacenes::where('id', $request->id_almacen)->first();
-        //return Excel::download(new InventariopordiaExport($request->hasta,$request->id_almacen, $request->id_producto), 'inventario_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
-        //
-        
 
          Mail::to(trim($request->email))->send(new \App\Mail\EmailInventarioPorDia($archivo_clientes, $request->hasta, $documentos, $almacen->nombre_almacen));
     }

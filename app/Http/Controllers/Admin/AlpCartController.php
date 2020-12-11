@@ -136,7 +136,7 @@ class AlpCartController extends JoshController
          
           $cart= \Session::forget('cart');
 
-          $cart = array();
+          \Session::put('cart', array());
        }
 
       //$fecha=$this->getFechaEntrega('2', '62');

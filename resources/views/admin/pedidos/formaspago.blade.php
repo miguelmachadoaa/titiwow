@@ -205,6 +205,8 @@
 
 
                     @else
+
+                    @if(isset($saldo))
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="heading{{ $fp->id }}">
                                   <h4 class="panel-title">
@@ -275,6 +277,7 @@
 
                             <br>
 
+                    @endif
                     @endif
 
                     @endforeach
