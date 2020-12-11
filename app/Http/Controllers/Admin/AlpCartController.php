@@ -130,6 +130,15 @@ class AlpCartController extends JoshController
     public function show()
     {
 
+      $cart= \Session::get('cart');
+
+       if (isset($cart['id_forma_pago']) || isset($cart['id_forma_envio']) || isset($cart['id_cliente']) || isset($cart['id_almacen']) || isset($cart['id_direccion']) || isset($cart['inventario']) ) {
+         
+          $cart= \Session::forget('cart');
+
+          $cart = array();
+       }
+
       //$fecha=$this->getFechaEntrega('2', '62');
 
       $states=State::where('config_states.country_id', '47')->get();
@@ -3755,13 +3764,89 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        $error='0';
 
+       $ban_disponible=0;
+
        if (isset($inv[$request->id])) {
 
          if($inv[$request->id]>=$request->cantidad){
 
+
+
+            if ($cart[$request->slug]->tipo_producto=='2') {
+
+
+                $lista=AlpCombosProductos::where('id_combo', $cart[$request->slug]->id)->get();
+
+                    foreach ($lista as $l) {
+
+                         if (isset($inv[$l->id_producto])) {
+
+                            if($inv[$l->id_producto]>=($l->cantidad*$request->cantidad)){
+
+
+                            }else{
+
+                              $ban_disponible=1;
+
+                              $error="No hay existencia suficiente de este producto, en su ubicacion";
+                            }
+
+                        }else{
+
+                          $ban_disponible=1;
+
+                          $error="No hay existencia suficiente de este producto, en su ubicacion";
+
+                        }
+
+                  }
+
+            }
+
+
+            if ($cart[$request->slug]->tipo_producto=='3') {
+
+                if (isset($cart[$request->slug]->ancheta)) {
+
+                      foreach ($cart[$request->slug]->ancheta as $l) {
+
+
+                        if (isset($inv[$l->id])) {
+
+                            if($inv[$l->id]>=($l->cantidad*$request->cantidad)){
+
+
+                            }else{
+
+                              $ban_disponible=1;
+
+                              $error="No hay existencia suficiente de este producto, en su ubicacion";
+                            }
+
+                        }else{
+
+                          $ban_disponible=1;
+
+                          $error="No hay existencia suficiente de este producto, en su ubicacion";
+
+                        }
+
+                         
+                    }
+
+                  }
+            }
+
+
+
+
           if (isset($cart[$request->slug])) {
 
-            $cart[$request->slug]->cantidad=$request->cantidad;
+            if ($ban_disponible==0) {
+              $cart[$request->slug]->cantidad=$request->cantidad;
+            }
+
+            
 
           }
 
@@ -4326,7 +4411,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
     }
 
 
-    public function updatecartdetalle(Request $request)
+ public function updatecartdetalle(Request $request)
     {
 
 
@@ -4363,6 +4448,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        $error='0';
 
+       $ban_disponible=0;
+
        if ( isset($producto->id)) {
 
         $producto->precio_oferta=$request->price;
@@ -4383,16 +4470,93 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                       
                     }else{
 
-                      if (isset($cart[$request->slug])) {
 
-                        $cart[$request->slug]->cantidad=$request->cantidad;
 
-                      }else{
 
-                        $cart[$request->slug]=$producto;
+            if ($cart[$request->slug]->tipo_producto=='2') {
 
+
+                $lista=AlpCombosProductos::where('id_combo', $cart[$request->slug]->id)->get();
+
+                    foreach ($lista as $l) {
+
+                         if (isset($inv[$l->id_producto])) {
+
+                            if($inv[$l->id_producto]>=($l->cantidad*$request->cantidad)){
+
+
+                            }else{
+
+                              $ban_disponible=1;
+
+                              $error="No hay existencia suficiente de este producto, en su ubicacion";
+                            }
+
+                        }else{
+
+                          $ban_disponible=1;
+
+                          $error="No hay existencia suficiente de este producto, en su ubicacion";
+
+                        }
+
+                  }
+
+            }
+
+
+            if ($cart[$request->slug]->tipo_producto=='3') {
+
+                if (isset($cart[$request->slug]->ancheta)) {
+
+                      foreach ($cart[$request->slug]->ancheta as $l) {
+
+
+                        if (isset($inv[$l->id])) {
+
+                            if($inv[$l->id]>=($l->cantidad*$request->cantidad)){
+
+
+                            }else{
+
+                              $ban_disponible=1;
+
+                              $error="No hay existencia suficiente de este producto, en su ubicacion";
+                            }
+
+                        }else{
+
+                          $ban_disponible=1;
+
+                          $error="No hay existencia suficiente de este producto, en su ubicacion";
+
+                        }
+
+                         
+                    }
+
+                  }
+            }
+
+
+
+
+                      if ($ban_disponible==0) {
+                        
+                          if (isset($cart[$request->slug])) {
+
+                          $cart[$request->slug]->cantidad=$request->cantidad;
+
+                        }else{
+
+                          $cart[$request->slug]=$producto;
+
+
+                        }
 
                       }
+
+                      
 
                       
 
@@ -4498,6 +4662,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        $error='0';
 
+       $ban_disponible=0;
+
        if ($request->cantidad>0) {
 
         if (isset($inv[$request->id])) {
@@ -4510,11 +4676,86 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                 
               }else{
 
-                if (isset($cart[$request->slug]->cantidad)) {
 
-                  $cart[$request->slug]->cantidad=$request->cantidad;
 
+            if ($cart[$request->slug]->tipo_producto=='2') {
+
+
+                $lista=AlpCombosProductos::where('id_combo', $cart[$request->slug]->id)->get();
+                
+                //dd($lista);
+
+                    foreach ($lista as $l) {
+
+                         if (isset($inv[$l->id_producto])) {
+                             
+                            if($inv[$l->id_producto]>=($l->cantidad*$request->cantidad)){
+
+
+                            }else{
+
+                              $ban_disponible=1;
+
+                              $error="No hay existencia suficiente de este producto, en su ubicacion";
+                            }
+
+                        }else{
+
+                          $ban_disponible=1;
+
+                          $error="No hay existencia suficiente de este producto, en su ubicacion";
+
+                        }
+
+                  }
+
+            }
+
+
+            if ($cart[$request->slug]->tipo_producto=='3') {
+
+                if (isset($cart[$request->slug]->ancheta)) {
+
+                      foreach ($cart[$request->slug]->ancheta as $l) {
+
+
+                        if (isset($inv[$l->id])) {
+
+                            if($inv[$l->id]>=($l->cantidad*$request->cantidad)){
+
+
+                            }else{
+
+                              $ban_disponible=1;
+
+                              $error="No hay existencia suficiente de este producto, en su ubicacion";
+                            }
+
+                        }else{
+
+                          $ban_disponible=1;
+
+                          $error="No hay existencia suficiente de este producto, en su ubicacion";
+
+                        }
+
+                         
+                    }
+
+                  }
+            }
+
+
+
+                if ($ban_disponible==0) {
+                     if (isset($cart[$request->slug]->cantidad)) {
+    
+                      $cart[$request->slug]->cantidad=$request->cantidad;
+    
+                    }
                 }
+
+                
 
                 
 
@@ -4610,6 +4851,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        $error='0';
 
+       $ban_disponible=0;
+
        if ($request->cantidad>0) {
          
 
@@ -4622,7 +4865,79 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                 
               }else{
 
-                $cart[$request->slug]->cantidad=$request->cantidad;
+
+            if ($cart[$request->slug]->tipo_producto=='2') {
+
+
+                $lista=AlpCombosProductos::where('id_combo', $cart[$request->slug]->id)->get();
+
+                    foreach ($lista as $l) {
+
+                         if (isset($inv[$l->id_producto])) {
+
+                            if($inv[$l->id_producto]>=($l->cantidad*$request->cantidad)){
+
+
+                            }else{
+
+                              $ban_disponible=1;
+
+                              $error="No hay existencia suficiente de este producto, en su ubicacion";
+                            }
+
+                        }else{
+
+                          $ban_disponible=1;
+
+                          $error="No hay existencia suficiente de este producto, en su ubicacion";
+
+                        }
+
+                  }
+
+            }
+
+
+            if ($cart[$request->slug]->tipo_producto=='3') {
+
+                if (isset($cart[$request->slug]->ancheta)) {
+
+                      foreach ($cart[$request->slug]->ancheta as $l) {
+
+
+                        if (isset($inv[$l->id])) {
+
+                            if($inv[$l->id]>=($l->cantidad*$request->cantidad)){
+
+
+                            }else{
+
+                              $ban_disponible=1;
+
+                              $error="No hay existencia suficiente de este producto, en su ubicacion";
+                            }
+
+                        }else{
+
+                          $ban_disponible=1;
+
+                          $error="No hay existencia suficiente de este producto, en su ubicacion";
+
+                        }
+
+                         
+                    }
+
+                  }
+            }
+
+                if ($ban_disponible==0) {
+
+                  $cart[$request->slug]->cantidad=$request->cantidad;
+                  # code...
+                }
+
+                
 
               }
 
