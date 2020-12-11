@@ -71,7 +71,7 @@ Reporte de Inventario por Dia
                                         <i class="livicon" data-name="calendar" data-size="16" data-c="#555555"
                                            data-hc="#555555" data-loop="true"></i>
                                     </div>
-                                    <input type="text" required class="form-control" id="hasta" name="hasta" placeholder="Hasta">
+                                    <input type="text" required class="form-control" id="hasta" name="hasta" placeholder="Seleccione el dia">
                                 </div>
                             </div>
                         </div>
