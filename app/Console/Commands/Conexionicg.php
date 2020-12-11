@@ -71,7 +71,7 @@ class Conexionicg extends Command
         $pod = 0;
         $username = $configuracion->username_ibm;
         $password = $configuracion->password_ibm;
-        $endpoint = 'http://201.234.184.25:8099/wsALP2.asmx';
+        $endpoint = 'http://201.234.184.25:8099/wsALP2.asmx?WSDL';
         $jsessionid = null;
 
        // $baseXml = '%s';
@@ -81,15 +81,20 @@ class Conexionicg extends Command
 
         $date = Carbon::now();
 
-        $hoy=$date->format('Ymdh:m:s');
+        $hoy=$date->format('YmdH:m:s');
 
-        $fechad=$date->format('Y-m-d');
-        $fechah=$date->format('h:m:s');
+        $fechad=$date->format('Ymd');
+        //$fechad='20201020';
+        //$fechadt=$date->format('Y-m-d');
+        $fechadt=$date->format('Y-m-d');
+        //$fechah=$date->format('H:m:s');
+        $fechah='10:59:50';
         $fecha=$fechad.' '.$fechah;
+        $fecha_cont=$fechadt.'T'.$fechah;
 
-        $d='#.Za('.$hoy.'!4$k;';
+        $d='#.Za('.$fechad.$fechah.'!4$k;';
 
-        $p='Q@4;_'.$hoy.'?rK&%)';
+        $p='Q@4;_'.$fechah.$fechad.'?rK&%';
 
         while (strlen($d) < 32) {
           $d='0'.$d;
@@ -99,19 +104,35 @@ class Conexionicg extends Command
           $p='0'.$p;
         }
 
-      // dd($d);
+       echo $d;
+       echo "-------";
 
-        $newEncrypter = new \Illuminate\Encryption\Encrypter( $p, 'AES-256-CBC' );
-        $encrypted_user = $newEncrypter->encrypt( 'test1' );
+        $newEncrypter = new \Illuminate\Support\Facades\Crypt($d, 'AES-256-CBC');
+        $encrypted_user = $newEncrypter::encryptString('test1');
+       // $encrypted_user=substr($encrypted_user, 0, 32);
         //$encrypted_user =  Crypt::encrypt('test1');
+        //
+        echo  $encrypted_user;
+        echo "-------";
 
 
-        $newEncrypter2 = new \Illuminate\Encryption\Encrypter( $d, 'AES-256-CBC' );
-        $encrypted_password = $newEncrypter->encrypt( 'test2' );
+        $newEncrypter2 = new \Illuminate\Support\Facades\Crypt($p, 'AES-256-CBC');
+        $encrypted_password = $newEncrypter::encryptString('test2');
 
-       
+         echo $p;
+       echo "-------";
 
-        $xml='<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope/" soap:encodingStyle="http://www.w3.org/2003/05/soap-encoding">';
+        echo  $encrypted_password;
+        echo "-------";
+
+
+       // $encrypted_password=substr($encrypted_password, 0, 32);
+
+      //  dd($encrypted_password);
+
+      //Registrar Consumo
+
+        /*$xml='<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope/" soap:encodingStyle="http://www.w3.org/2003/05/soap-encoding">';
           $xml=$xml.'<soap:Header>';
             $xml=$xml.'<tem:LoginInfo xmlns:tem="http://www.w3.org/2003/05/logininfo/" ><tem:UserName>'.$encrypted_user.'</tem:UserName>';
               $xml=$xml.'<tem:Password>'.$encrypted_password.'</tem:Password>';
@@ -119,79 +140,53 @@ class Conexionicg extends Command
             $xml=$xml.'</tem:LoginInfo>';
           $xml=$xml.'</soap:Header>';
         $xml=$xml.'<soap:Body>';
-          $xml=$xml.'<tem:RegistroConsumo xmlns:tem="http://www.w3.org/2003/05/registroconsumo/">';
-            $xml=$xml.'<tem:NumeroPedido>ALP1000</tem:NumeroPedido>';
-           $xml=$xml.' <tem:Fecha>2020-12-04T11:36:36</tem:Fecha>';
-            $xml=$xml.'<tem:DocumentoEmpleado>12312312</tem:DocumentoEmpleado>';
+          $xml=$xml.'<tem:RegistroConsumoGo xmlns:tem="http://www.w3.org/2003/05/registroconsumogo/">';
+            $xml=$xml.'<tem:NumeroPedido>ALP1024</tem:NumeroPedido>';
+           $xml=$xml.' <tem:Fecha>'.$fecha_cont.'</tem:Fecha>';
+            $xml=$xml.'<tem:DocumentoEmpleado>1020822917</tem:DocumentoEmpleado>';
             $xml=$xml.'<tem:FormaPago>Contado</tem:FormaPago>';
             $xml=$xml.'<tem:ValorTransaccion>100000</tem:ValorTransaccion>';
             $xml=$xml.'<tem:ValorDescuento>100000</tem:ValorDescuento>';
-            $xml=$xml.'<tem:ReferenciaRegistradaAnulado>100000</tem:ReferenciaRegistradaAnulado>';
+            //$xml=$xml.'<tem:ReferenciaRegistradaAnulado>100000</tem:ReferenciaRegistradaAnulado>';
           $xml=$xml.'</tem:RegistroConsumo>';
         $xml=$xml.'</soap:Body>';
+        $xml=$xml.'</soap:Envelope>';*/
+
+       // dd($xml);
+
+        //validar Cupo
+
+
+
+         $xml=' <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/">';
+          $xml=$xml.'<soap:Header>';
+            $xml=$xml.'<tem:LoginInfo><tem:UserName>'.$encrypted_user.'</tem:UserName>';
+              $xml=$xml.'<tem:Password>'.$encrypted_password.'</tem:Password>';
+              $xml=$xml.'<tem:Fecha>'.$fecha.'</tem:Fecha>';
+            $xml=$xml.'</tem:LoginInfo>';
+          $xml=$xml.'</soap:Header>';
+        $xml=$xml.'<soap:Body>';
+          $xml=$xml.'<tem:ValidarCuposGo>';
+            $xml=$xml.'<tem:DocumentoEmpleado>79964463</tem:DocumentoEmpleado>';
+          $xml=$xml.'</tem:ValidarCuposGo>';
+        $xml=$xml.'</soap:Body>';
         $xml=$xml.'</soap:Envelope>';
-
-
-
 
 
         echo $xml;
 
         echo '-------';
 
-       
+       // $client = new \SoapClient($wsdl, $options);
 
+        $client = new SoapClient($endpoint);
 
-        $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
+        $result = $client->ValidarCuposGO($xml);
+        //$result = $client->RegistrarConsumoGo($xml);
 
         dd($result);
-
-
-        $jsessionid = $result['SESSIONID'];
-
-      //  echo $jsessionid.'<br>';
-
-
-            $rows='';
-
-
-            foreach ($cart as $d) {
-
-               // dd($d);
-
-              $rows=$rows.'<ROW> <COLUMN name="Correo"> <![CDATA['.$user->email.']]> </COLUMN><COLUMN name="Referencia_producto"> <![CDATA['.$d->referencia_producto.']]> </COLUMN><COLUMN name="Nombre_producto"><![CDATA['.$d->nombre_producto.']]> </COLUMN><COLUMN name="Precio_Unitario"> <![CDATA['.number_format($d->precio_base,0).']]> </COLUMN><COLUMN name="Cantidad"> <![CDATA['.$d->cantidad.']]> </COLUMN><COLUMN name="Imagen_producto"><![CDATA['.secure_url('uploads/productos/'.$d->imagen_producto).']]> </COLUMN><COLUMN name="Url_producto"><![CDATA['.secure_url('/productos/'.$d->slug).']]></COLUMN><COLUMN name="Valor_por_gramo_producto"><![CDATA['.number_format($d->precio_base/$d->cantidad,0).']]> </COLUMN><COLUMN name="Fecha_carrito"> <![CDATA['.$fecha.']]> </COLUMN></ROW>'; 
-
-             // dd($rows);
-
-
-
-            }
-
-
-            $xml='<Envelope><Body><InsertUpdateRelationalTable><TABLE_ID>10843849</TABLE_ID><ROWS>'.$rows.'</ROWS></InsertUpdateRelationalTable></Body></Envelope>';
-
-
-            activity()->withProperties($xml)->log('carrito-xml');
-
-        $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
-
-        activity()->withProperties($result2)->log('carrito-result');
-
-
-        $xml = '<Envelope><Body><Logout/></Body></Envelope>';
-
-              $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml, true));
-
-              activity()->withProperties($result)->log('xml_ibm_add_result2-carrito');
-
-             // print_r($result);
-
-              return $result2['SUCCESS'];
-
-              $jsessionid = null;
-
           
-    }
+}
 
 
 

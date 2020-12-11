@@ -86,6 +86,10 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Activitylog\Models\Activity;
 
+use SoapClient;
+use Illuminate\Support\Facades\Crypt;
+
+
 class AlpCartController extends JoshController
 {
 
@@ -1382,7 +1386,7 @@ class AlpCartController extends JoshController
                     ->log('Orden Detail');
 
 
-        $cupo_icg=$this->consultaIcg();
+       
        // 
       // $cupo_icg=0;
 
@@ -1393,6 +1397,13 @@ class AlpCartController extends JoshController
         $user_cliente=User::where('id', $user_id)->first();
 
         $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
+
+
+        if ($role->role_id=='16') {
+          
+             $cupo_icg=$this->consultaIcg();
+
+        }
 
 
         $r=Roles::where('id', $role->role_id)->first();
@@ -3573,34 +3584,102 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         }
 
+        $ban_disponible=0;
+
 
         if (isset($inv[$request->id])) {
           
 
            if($inv[$request->id]>=$request->cantidad){
 
-        $cart[$request->slug]->cantidad=$request->cantidad;
+            if ($cart[$request->slug]->tipo_producto=='2') {
 
-        \Session::put('cart', $cart);
 
-        return 'true';
+                $lista=AlpCombosProductos::where('id_combo', $cart[$request->slug]->id)->get();
 
-      }else{
+                    foreach ($lista as $l) {
 
-        return 'false';
+                         if (isset($inv[$l->id_producto])) {
 
-        
-      }
+                            if($inv[$l->id_producto]>=($l->cantidad*$request->cantidad)){
+
+
+                            }else{
+
+                              $ban_disponible=1;
+
+                              $error="No hay existencia suficiente de este producto, en su ubicacion";
+                            }
+
+                        }else{
+
+                          $ban_disponible=1;
+
+                          $error="No hay existencia suficiente de este producto, en su ubicacion";
+
+                        }
+
+                  }
+
+            }
+
+
+            if ($cart[$request->slug]->tipo_producto=='3') {
+
+                if (isset($cart[$request->slug]->ancheta)) {
+
+                      foreach ($cart[$request->slug]->ancheta as $l) {
+
+
+                        if (isset($inv[$l->id])) {
+
+                            if($inv[$l->id]>=($l->cantidad*$request->cantidad)){
+
+
+                            }else{
+
+                              $ban_disponible=1;
+
+                              $error="No hay existencia suficiente de este producto, en su ubicacion";
+                            }
+
+                        }else{
+
+                          $ban_disponible=1;
+
+                          $error="No hay existencia suficiente de este producto, en su ubicacion";
+
+                        }
+
+                         
+                    }
+
+                  }
+            }
+
+
+            if ($ban_disponible==0) {
+              $cart[$request->slug]->cantidad=$request->cantidad;
+            }
+           
+
+            \Session::put('cart', $cart);
+
+            return 'true';
+
+            }else{
+
+              return 'false';
+
+              
+            }
 
       
         }else{
 
-        return 'false';
+          return 'false';
 
-        
-      }
-
-      
+        }
 
       
     }
@@ -8006,6 +8085,7 @@ private function getAlmacen3(){
 
       
     }
+    }
 
 
 
@@ -9034,62 +9114,86 @@ public function reiniciarancheta()
 
       $data = array('DocumentoEmpleado' =>$c->doc_cliente);
 
-      $dataraw=json_encode($data);
 
-      $urls=$configuracion->endpoint_icg;
-
-       Log::info('api icg urls '.$urls);
-
-       Log::info($dataraw);
-
-       activity()->withProperties($dataraw)->log('dataraw');
-
-
-      $ch = curl_init();
-
-      curl_setopt($ch, CURLOPT_URL, $configuracion->endpoint_icg);
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-      curl_setopt($ch, CURLOPT_POST, 1);
-      curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
-      curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-
-      $headers = array();
-      $headers[] = 'Content-Type: application/json';
-    //  $headers[] = 'Woobsing-Token: '.$configuracion->api icg_token;
-      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
-      try {
-
-        $result = curl_exec($ch);
+      $configuracion=AlpConfiguracion::where('id', '=', '1')->first();
         
-      } catch (Exception $e) {
+        $pod = 0;
+        $username = $configuracion->username_ibm;
+        $password = $configuracion->password_ibm;
+        $endpoint = 'http://201.234.184.25:8099/wsALP2.asmx?WSDL';
+        $jsessionid = null;
+
+        $date = Carbon::now();
+
+        $hoy=$date->format('Ymd h:m:s');
+
+        $fechad=$date->format('Y-m-d');
+        $fechah=$date->format('h:m:s');
+        $fecha=$fechad.' '.$fechah;
+
+        $d='#.Za('.$hoy.'!4$k;';
+
+        $p='Q@4;_'.$hoy.'?rK&%)';
+
+        while (strlen($d) < 32) {
+          $d='0'.$d;
+        }
+
+        while (strlen($p) < 32) {
+          $p='0'.$p;
+        }
+
+
+        $newEncrypter = new \Illuminate\Encryption\Encrypter( $p, 'AES-256-CBC' );
+        $encrypted_user = $newEncrypter->encrypt( 'test1' );
+        //$encrypted_user =  Crypt::encrypt('test1');
+
+
+        $newEncrypter2 = new \Illuminate\Encryption\Encrypter( $d, 'AES-256-CBC' );
+        $encrypted_password = $newEncrypter->encrypt( 'test2' );
+
+
+        $xml='<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope/" soap:encodingStyle="http://www.w3.org/2003/05/soap-encoding">';
+          $xml=$xml.'<soap:Header>';
+            $xml=$xml.'<tem:LoginInfo xmlns:tem="http://www.w3.org/2003/05/logininfo/" ><tem:UserName>'.$encrypted_user.'</tem:UserName>';
+              $xml=$xml.'<tem:Password>'.$encrypted_password.'</tem:Password>';
+              $xml=$xml.'<tem:Fecha>'.$fecha.'</tem:Fecha>';
+            $xml=$xml.'</tem:LoginInfo>';
+          $xml=$xml.'</soap:Header>';
+        $xml=$xml.'<soap:Body>';
+          $xml=$xml.'<tem:ValidarCuposGo xmlns:tem="http://www.w3.org/2003/05/validarcuposgo/">';
+            $xml=$xml.'<tem:DocumentoEmpleado>'.$c->doc_cliente.'</tem:DocumentoEmpleado>';
+          $xml=$xml.'</tem:ValidarCuposGo>';
+        $xml=$xml.'</soap:Body>';
+        $xml=$xml.'</soap:Envelope>';
+
+
+         activity()->withProperties($xml)->log('coonsulta icg xml');
+
+        echo '-------';
+
+       // $client = new \SoapClient($wsdl, $options);
+        try {
+
+          $client = new SoapClient($endpoint);
+
+          $res = $client->ValidarCuposGO($xml);
+          
+        } catch (Exception $e) {
+          
+        }
         
-      }
 
-      
-      if (curl_errno($ch)) {
-          //echo 'Error:' . curl_error($ch);
-
-           Log::info('Error:' . curl_error($ch));
-      }
-      curl_close($ch);
-
-      $res=json_decode($result);
-
-       Log::info('api icg res '.json_encode($res));
-       
-       Log::info('api icg result '.$result);
-
-     //  dd($result);
-
-
-       $notas='Registro de orden en api icg res.';
-
-
-      if (isset($res->CodigoRta)) {
         
-        if ($res->CodigoRta=='OK') {
+        //$result = $client->RegistrarConsumoGo($xml);
+        //
+
+        activity()->withProperties($res)->log('respuesta icg res');
+
+
+      if (isset($res->ValidarCuposGoResult)) {
+        
+        if ($res->ValidarCuposGoResult->CodigoRta=='OK') {
 
             $dataicg = array(
             'id_orden' => $carrito, 
@@ -9099,11 +9203,11 @@ public function reiniciarancheta()
             'id_user' => $s_user, 
           );
 
-          AlpConsultasIcg::create($dataicg);
+          AlpConsultaIcg::create($dataicg);
 
 
 
-          return $res->CupoCredito;
+          return $res;
 
            
         }else{
@@ -9116,11 +9220,11 @@ public function reiniciarancheta()
           'id_user' => $s_user, 
         );
 
-        AlpConsultasIcg::create($dataicg);
+        AlpConsultaIcg::create($dataicg);
 
 
 
-          return 1;
+          return null;
 
         }
 
@@ -9137,7 +9241,7 @@ public function reiniciarancheta()
 
         AlpConsultaIcg::create($dataicg);
 
-        return 0;
+        return null;
 
                        
 
@@ -9241,57 +9345,74 @@ public function reiniciarancheta()
 
       $c=AlpClientes::where('id_user_client', $s_user)->first();
 
-      $data = array(
-        'NumeroPedido' =>$orden->referencia,
-        'Fecha'=>$orden->create_at,
-        'DocumentoEmpleado'=>$orden->doc_cliente,
-        'FormaPago'=>'Mercadopago',
-        'ValorTransaccion'=>$orden->total,
-        'ValorDescuento'=>$monto_descuentoicg
-      );
 
-      $dataraw=json_encode($data);
-
+      
       $urls=$configuracion->endpoint_icg;
 
        Log::info('api icg urls '.$urls);
 
-       Log::info($dataraw);
 
-       activity()->withProperties($dataraw)->log('dataraw');
+       $date = Carbon::now();
+
+        $hoy=$date->format('YmdH:m:s');
+
+        $fechad=$date->format('Ymd');
+        $fechadt=$date->format('Y-m-d');
+        $fechah=$date->format('H:m:s');
+        $fecha=$fechad.' '.$fechah;
+        $fecha_cont=$fechadt.'T'.$fechah;
+
+        $d='#.Za('.$hoy.'!4$k;';
+
+        $p='Q@4;_'.$hoy.'?rK&%)';
+
+        while (strlen($d) < 32) {
+          $d='0'.$d;
+        }
+
+        while (strlen($p) < 32) {
+          $p='0'.$p;
+        }
+
+       //dd($p);
+
+        $newEncrypter = new \Illuminate\Encryption\Encrypter($d, 'AES-256-CBC');
+        $encrypted_user = $newEncrypter->encrypt('test1');
+        //$encrypted_user =  Crypt::encrypt('test1');
 
 
-      $ch = curl_init();
+        $newEncrypter2 = new \Illuminate\Encryption\Encrypter($p, 'AES-256-CBC');
+        $encrypted_password = $newEncrypter->encrypt('test2');
 
-      curl_setopt($ch, CURLOPT_URL, $configuracion->endpoint_icg);
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-      curl_setopt($ch, CURLOPT_POST, 1);
-      curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
-      curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+      //  dd($encrypted_password);
 
-      $headers = array();
-      $headers[] = 'Content-Type: application/json';
-    //  $headers[] = 'Woobsing-Token: '.$configuracion->api icg_token;
-      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+      //Registrar Consumo
 
-      try {
+        $xml='<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope/" soap:encodingStyle="http://www.w3.org/2003/05/soap-encoding">';
+          $xml=$xml.'<soap:Header>';
+            $xml=$xml.'<tem:LoginInfo xmlns:tem="http://www.w3.org/2003/05/logininfo/" ><tem:UserName>'.$encrypted_user.'</tem:UserName>';
+              $xml=$xml.'<tem:Password>'.$encrypted_password.'</tem:Password>';
+              $xml=$xml.'<tem:Fecha>'.$fecha.'</tem:Fecha>';
+            $xml=$xml.'</tem:LoginInfo>';
+          $xml=$xml.'</soap:Header>';
+        $xml=$xml.'<soap:Body>';
+          $xml=$xml.'<tem:RegistroConsumoGo xmlns:tem="http://www.w3.org/2003/05/registroconsumogo/">';
+            $xml=$xml.'<tem:NumeroPedido>ALP1024</tem:NumeroPedido>';
+           $xml=$xml.' <tem:Fecha>'.$fecha_cont.'</tem:Fecha>';
+            $xml=$xml.'<tem:DocumentoEmpleado>1020822917</tem:DocumentoEmpleado>';
+            $xml=$xml.'<tem:FormaPago>Contado</tem:FormaPago>';
+            $xml=$xml.'<tem:ValorTransaccion>100000</tem:ValorTransaccion>';
+            $xml=$xml.'<tem:ValorDescuento>100000</tem:ValorDescuento>';
+            //$xml=$xml.'<tem:ReferenciaRegistradaAnulado>100000</tem:ReferenciaRegistradaAnulado>';
+          $xml=$xml.'</tem:RegistroConsumo>';
+        $xml=$xml.'</soap:Body>';
+        $xml=$xml.'</soap:Envelope>';
 
-        $result = curl_exec($ch);
-        
-      } catch (Exception $e) {
-        
-      }
+         $client = new SoapClient($endpoint);
 
-      
-      if (curl_errno($ch)) {
-          //echo 'Error:' . curl_error($ch);
+      //  $result = $client->ValidarCuposGO($xml);
+        $result = $client->RegistrarConsumoGo($xml);
 
-           Log::info('Error:' . curl_error($ch));
-      }
-      curl_close($ch);
-
-      $res=json_decode($result);
 
        Log::info('api icg res '.json_encode($res));
        
@@ -9315,7 +9436,7 @@ public function reiniciarancheta()
             'id_user' => $s_user, 
           );
 
-          AlpConsultasIcg::create($dataicg);
+          AlpConsultaIcg::create($dataicg);
 
 
 
@@ -9332,7 +9453,7 @@ public function reiniciarancheta()
           'id_user' => $s_user, 
         );
 
-        AlpConsultasIcg::create($dataicg);
+        AlpConsultaIcg::create($dataicg);
 
 
 

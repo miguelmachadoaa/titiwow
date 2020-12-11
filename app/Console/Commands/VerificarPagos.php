@@ -398,10 +398,10 @@ class VerificarPagos extends Command
                  $orden->update($data_update);
 
                   $data_history = array(
-                      'id_orden' => $orden->id, 
-                     'id_status' => '4', 
-                      'notas' => 'Notificacion Mercadopago Cron', 
-                     'id_user' => 1
+                    'id_orden' => $orden->id, 
+                    'id_status' => '4', 
+                    'notas' => 'Notificacion Mercadopago Cron',
+                    'id_user' => 1
                   );
 
                   $history=AlpOrdenesHistory::create($data_history);
@@ -423,10 +423,6 @@ class VerificarPagos extends Command
 
                       }
 
-
-
-
-                 
                }
 
 
