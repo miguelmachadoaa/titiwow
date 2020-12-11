@@ -55,6 +55,8 @@ use App\Http\Controllers\DB;
 use Sentinel;
 
 use Carbon\Carbon;
+use Mail;
+
 
 class AlpReportesController extends Controller 
 {
@@ -2012,9 +2014,19 @@ public function inventariopordia()
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
+
+        $archivo_clientes='inventario_por_dia_'.$request->hasta.'.xlsx';
+
+        Excel::store(new InventariopordiaExport($request->hasta,$request->id_almacen), $archivo_clientes, 'excel');
+            
+        $documentos[]='/home2/alpago/alpinago/storage/app/public/'.$archivo_clientes;
+        
+        $almacen=AlpAlmacenes::where('id', $request->id_almacen)->first();
+        //return Excel::download(new InventariopordiaExport($request->hasta,$request->id_almacen, $request->id_producto), 'inventario_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+        //
         
 
-        return Excel::download(new InventariopordiaExport($request->hasta,$request->id_almacen, $request->id_producto), 'inventario_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+         Mail::to(trim($request->email))->send(new \App\Mail\EmailInventarioPorDia($archivo_clientes, $request->hasta, $documentos, $almacen->nombre_almacen));
     }
 
 

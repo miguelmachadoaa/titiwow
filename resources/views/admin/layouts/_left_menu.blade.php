@@ -1155,7 +1155,7 @@
             @endif
 
 
-             @if (Sentinel::getUser()->hasAnyAccess(['reportes.invenatariopordia']))
+             @if (Sentinel::getUser()->hasAnyAccess(['reportes.inventariopordia']))
 
                 <li {!! (Request::is('admin/reportes/invenatariopordia') ? 'class="active" id="active"' : '') !!}>
                     <a href="{{ secure_url('admin/reportes/invenatariopordia') }}">
