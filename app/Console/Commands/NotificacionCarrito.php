@@ -67,8 +67,11 @@ class NotificacionCarrito extends Command
         $carritos =  DB::table('alp_carrito')->select('alp_carrito.*','users.first_name as first_name','users.last_name as last_name','users.email as email')
           ->join('users','alp_carrito.id_user' , '=', 'users.id')
           ->limit('10')
+          ->whereDate('alp_carrito.created_at', '>', '2020-11-01')
          ->where('alp_carrito.notificacion','=', 0)
           ->get();
+
+          dd($carritos);
 
 
          //dd($carritos);

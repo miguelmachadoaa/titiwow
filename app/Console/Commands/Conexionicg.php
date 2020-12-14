@@ -131,7 +131,10 @@ class Conexionicg extends Command
         $key = 'this is a bad key';
         $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($cipher));
 
-       $encrypted = openssl_encrypt('test1', $cipher, $encrypted_password, 0, $iv);
+
+
+
+       $encrypted = crypt('test1', $p);
 
        echo "respuesta";
 

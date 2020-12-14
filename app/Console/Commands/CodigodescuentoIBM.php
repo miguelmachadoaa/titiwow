@@ -62,7 +62,10 @@ class CodigodescuentoIBM extends Command
        // $d=$date->subDay(15)->format('Y-m-d');
        // $d=$date->subDay(100)->format('Y-m-d');
       
-        $users=User::get();
+        $users=User::whereDate('users.created_at', '>', '2020-11-01')->get();
+
+
+        dd(count($users));
 
         $i=0;
 

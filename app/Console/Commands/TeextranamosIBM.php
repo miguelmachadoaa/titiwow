@@ -63,9 +63,11 @@ class TeextranamosIBM extends Command
        // $d=$date->subDay(100)->format('Y-m-d');
       
         //$users=User::whereDate('created_at','=', $d)->where('notificacion', '=', 0)->get();
-        $users=User::get();
+         $users=User::whereDate('users.created_at', '>', '2020-11-01')->get();
 
         $i=0;
+
+        dd(count($users));
 
         //dd($users->count());
 

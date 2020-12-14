@@ -56,9 +56,11 @@ class Teextranamos2IBM extends Command
 
        // $d=$date->subDay(60)->format('Y-m-d');
       
-        $users=User::get();
+        $users=User::whereDate('users.created_at', '>', '2020-11-01')->get();
 
         $i=0;
+
+        dd(count($users));
 
       //  dd($d);
 
