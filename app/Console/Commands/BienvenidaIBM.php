@@ -54,9 +54,9 @@ class BienvenidaIBM extends Command
 
         $d=$date->subDay(1)->format('Y-m-d');
       
-       // $users=User::whereDate('created_at','>=', $d)->get();
+        $users=User::whereDate('created_at','>=', $d)->get();
 
-        $users=User::where('id', '=', '9466')->get();
+       // $users=User::where('id', '=', '9466')->get();
 
        // dd($users->count());
 

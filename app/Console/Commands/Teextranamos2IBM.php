@@ -52,15 +52,15 @@ class Teextranamos2IBM extends Command
     public function handle()
     {
 
-        //$date = Carbon::now();
+        $date = Carbon::now();
 
-       // $d=$date->subDay(60)->format('Y-m-d');
+        $d=$date->subDay(45)->format('Y-m-d');
       
-        $users=User::whereDate('users.created_at', '>', '2020-11-01')->get();
+        $users=User::whereDate('users.created_at', '>', $d)->get();
 
         $i=0;
 
-        dd(count($users));
+      //  dd(count($users));
 
       //  dd($d);
 

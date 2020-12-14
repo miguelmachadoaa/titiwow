@@ -59,13 +59,16 @@ class CodigodescuentoIBM extends Command
 
         $date = Carbon::now();
 
+        $d=$date->subDay(45)->format('Y-m-d');
+
+
        // $d=$date->subDay(15)->format('Y-m-d');
        // $d=$date->subDay(100)->format('Y-m-d');
       
-        $users=User::whereDate('users.created_at', '>', '2020-11-01')->get();
+        $users=User::whereDate('users.created_at', '>',$d)->get();
 
 
-        dd(count($users));
+        //dd(count($users));
 
         $i=0;
 
