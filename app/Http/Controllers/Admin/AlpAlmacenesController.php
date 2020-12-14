@@ -48,8 +48,14 @@ class AlpAlmacenesController extends JoshController
 
    
     /**
-     * Show a list of all the groups.
-     *
+     * Funcion Index
+     * Descrioción: Muestra el index del listado de almacenes del admin
+     * 
+     * Variables:
+     * $almacenes = contiene el resultado de la consulta de almacenes.
+     * activity() = Guarda la actividad del usuario en el activity log.
+     * Sentinel = Chequea los datos de la sesión del usuario.
+     * 
      * @return View
      */
     public function index()
