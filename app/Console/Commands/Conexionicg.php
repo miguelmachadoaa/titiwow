@@ -104,26 +104,26 @@ class Conexionicg extends Command
           $p='0'.$p;
         }
 
-       echo $d;
-       echo "-------";
+     //  echo $d;
+     //  echo "-------";
 
         $newEncrypter = new \Illuminate\Support\Facades\Crypt($d, 'AES-256-CBC');
         $encrypted_user = $newEncrypter::encryptString('test1');
        // $encrypted_user=substr($encrypted_user, 0, 32);
         //$encrypted_user =  Crypt::encrypt('test1');
         //
-        echo  $encrypted_user;
-        echo "-------";
+        //echo  $encrypted_user;
+        //echo "-------";
 
 
         $newEncrypter2 = new \Illuminate\Support\Facades\Crypt($p, 'AES-256-CBC');
         $encrypted_password = $newEncrypter::encryptString('test2');
 
          echo $p;
-       echo "-------";
+       //echo "-------";
 
-        echo  $encrypted_password;
-        echo "-------";
+       // echo  $encrypted_password;
+       // echo "-------";
 
 
         $plaintext = '1234';
@@ -135,6 +135,8 @@ class Conexionicg extends Command
 
 
        $encrypted = crypt('test1', $p);
+      // $encrypted = hash('sha512', $p.'test1');
+       //$encrypted = hash('sha256', $p.'test1');
 
        echo "respuesta";
 

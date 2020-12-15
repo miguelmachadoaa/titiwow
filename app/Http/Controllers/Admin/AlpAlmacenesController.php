@@ -58,6 +58,8 @@ class AlpAlmacenesController extends JoshController
      * 
      * @return View
      */
+    
+    
     public function index()
     {
         // Grab all the groups

@@ -1813,56 +1813,22 @@ $(document).ready(function(){
 
         $(document).on('click','#btnsubmitdir', function(e){
 
-
-
             codigo=0;
-
-
 
             e.preventDefault();
 
-
-
             base=$('#base').val();
-
-
 
             _token=$('input[name="_token"]').val();
 
-
-
             var $validator = $('#dir_form').data('bootstrapValidator').validate();
-
-
 
             if ($validator.isValid()) {
 
-
-
                 $("#dir_form")[0].submit();
-
-
-
             }
 
-
-
-
-
-            //alert(codigo);
-
-
-
         });
-
-
-
-
-
-
-
-
-
 
 
         $("#state_id").select2();
