@@ -113,6 +113,15 @@ class Teextranamos2IBM extends Command
 
                     AlpCuponesUser::create($datac);
 
+                     $usuario=User::where('id', $u->id)->first();
+
+                  $data_update_usuario = array('notificacion' => 1 );
+
+                  $usuario->update($data_update_usuario);
+
+                    
+                    
+
                     $this->addibm($u, $cupon, $date_fecha);
 
 

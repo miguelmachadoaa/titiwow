@@ -89,7 +89,9 @@ class Conexionicg extends Command
         $fechadt=$date->format('Y-m-d');
         //$fechah=$date->format('H:m:s');
         $fechah='10:59:50';
+
         $fecha=$fechad.' '.$fechah;
+
         $fecha_cont=$fechadt.'T'.$fechah;
 
         $d='#.Za('.$fechad.$fechah.'!4$k;';
@@ -107,8 +109,8 @@ class Conexionicg extends Command
      //  echo $d;
      //  echo "-------";
 
-        $newEncrypter = new \Illuminate\Support\Facades\Crypt($d, 'AES-256-CBC');
-        $encrypted_user = $newEncrypter::encryptString('test1');
+      //  $newEncrypter = new \Illuminate\Support\Facades\Crypt($d, 'AES-256-CBC');
+      //  $encrypted_user = $newEncrypter::encryptString('test1');
        // $encrypted_user=substr($encrypted_user, 0, 32);
         //$encrypted_user =  Crypt::encrypt('test1');
         //
@@ -116,10 +118,18 @@ class Conexionicg extends Command
         //echo "-------";
 
 
-        $newEncrypter2 = new \Illuminate\Support\Facades\Crypt($p, 'AES-256-CBC');
-        $encrypted_password = $newEncrypter::encryptString('test2');
+       // $newEncrypter2 = new \Illuminate\Support\Facades\Crypt($p, 'AES-256-CBC');
+       // $encrypted_password = $newEncrypter::encryptString('test2');
 
          echo $p;
+
+         echo  '-----------------';
+
+         echo $d;
+
+         echo "--------------------";
+
+
        //echo "-------";
 
        // echo  $encrypted_password;
@@ -129,18 +139,19 @@ class Conexionicg extends Command
         $plaintext = '1234';
         $cipher = 'AES-256-CBC';
         $key = 'this is a bad key';
-        $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($cipher));
+      //  $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($cipher));
 
 
 
 
-       $encrypted = crypt('test1', $p);
-      // $encrypted = hash('sha512', $p.'test1');
+      // $encrypted_user = crypt('test1', $d);
+       $encrypted_user = strtoupper(hash('sha512', $d.'test1'));
+       $encrypted_password = strtoupper(hash('sha512', $p.'test2'));
        //$encrypted = hash('sha256', $p.'test1');
 
-       echo "respuesta";
+      // echo "respuesta";
 
-        dd($encrypted);
+      //  dd($encrypted);
        
 
 

@@ -96,10 +96,7 @@ class NotificacionCarrito extends Command
 
         $diff = $date->diffInHours($now); 
 
-        //dd($diff);
-
         if ($diff>24) {
-            # code...
 
         activity()->withProperties($car)->log('car');
 
@@ -110,13 +107,6 @@ class NotificacionCarrito extends Command
 
 
           $detalles=$this->addOferta($detalles);
-
-         // dd($detalles);
-
-
-      //   Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionCarrito($car, $detalles, $configuracion));
-
-          //dd($detalles);
 
             $this->addibm($car, $detalles, $fecha_hoy);
 

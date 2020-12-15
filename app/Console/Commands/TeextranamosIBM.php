@@ -92,9 +92,9 @@ class TeextranamosIBM extends Command
 
                   $usuario=User::where('id', $u->id)->first();
 
-                //  $data_update_usuario = array('notificacion' => 1 );
+                  $data_update_usuario = array('notificacion' => 1 );
 
-                ///  $usuario->update($data_update_usuario);
+                  $usuario->update($data_update_usuario);
 
                   $cupon='';
 
@@ -149,7 +149,7 @@ class TeextranamosIBM extends Command
 
         activity()->withProperties($result2)->log('teextranamos-xml_ibm_add_result');
 
-        print_r($result);
+        //print_r($result);
 
        // echo "3<br>";
 

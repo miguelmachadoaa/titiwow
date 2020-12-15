@@ -180,7 +180,7 @@ class CodigodescuentoIBM extends Command
 
               activity()->withProperties($result)->log('codigo-descuento-xml_ibm_add_result2-codigodescuento');
 
-             print_r($result);
+            // print_r($result);
 
               return $result2['SUCCESS'];
 
