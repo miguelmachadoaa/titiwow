@@ -15,6 +15,7 @@ use DB;
 use Exception;
 
 use SoapClient;
+use View;
 
 use Illuminate\Support\Facades\Crypt;
 
@@ -83,12 +84,12 @@ class Conexionicg extends Command
 
         $hoy=$date->format('YmdH:m:s');
 
-        //$fechad=$date->format('Ymd');
-        $fechad='20201020';
+        $fechad=$date->format('Ymd');
+       // $fechad='20201020';
         //$fechadt=$date->format('Y-m-d');
         $fechadt=$date->format('Y-m-d');
-        //$fechah=$date->format('H:m:s');
-        $fechah='10:59:50';
+        $fechah=$date->format('H:m:s');
+       // $fechah='10:59:50';
 
         $fecha=$fechad.' '.$fechah;
 
@@ -186,11 +187,14 @@ class Conexionicg extends Command
 
         //validar Cupo
 
+        $output=View::make('frontend.xmlTemplate')->with(compact('encrypted_user','encrypted_password', 'fecha'))->render();
 
+        //dd($output);
 
-         $xml=' <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/">';
+         $xml='<?xml version="1.0" encoding="UTF-8"?><soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/">';
           $xml=$xml.'<soap:Header>';
-            $xml=$xml.'<tem:LoginInfo><tem:UserName>'.$encrypted_user.'</tem:UserName>';
+            $xml=$xml.'<tem:LoginInfo>';
+            $xml=$xml.'<tem:UserName>'.$encrypted_user.'</tem:UserName>';
               $xml=$xml.'<tem:Password>'.$encrypted_password.'</tem:Password>';
               $xml=$xml.'<tem:Fecha>'.$fecha.'</tem:Fecha>';
             $xml=$xml.'</tem:LoginInfo>';
@@ -203,6 +207,9 @@ class Conexionicg extends Command
         $xml=$xml.'</soap:Envelope>';
 
 
+        $xml=utf8_encode ($xml);
+
+
         echo $xml;
 
         echo '-------';
@@ -211,7 +218,7 @@ class Conexionicg extends Command
 
         $client = new SoapClient($endpoint);
 
-        $result = $client->ValidarCuposGO($xml);
+        $result = $client->ValidarCuposGO($output);
         //$result = $client->RegistrarConsumoGo($xml);
 
         dd($result);
