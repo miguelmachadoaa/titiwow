@@ -131,23 +131,12 @@ class Conexionicg extends Command
          echo "--------------------";
 
 
-       //echo "-------";
-
-       // echo  $encrypted_password;
-       // echo "-------";
-
-
-        $plaintext = '1234';
-        $cipher = 'AES-256-CBC';
-        $key = 'this is a bad key';
-      //  $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($cipher));
-
-
-
 
       // $encrypted_user = crypt('test1', $d);
        $encrypted_user = strtoupper(hash('sha512', $d.'test1'));
+
        $encrypted_password = strtoupper(hash('sha512', $p.'test2'));
+       
        //$encrypted = hash('sha256', $p.'test1');
 
       // echo "respuesta";
@@ -206,7 +195,7 @@ class Conexionicg extends Command
 
 
 
-        $parameters=utf8_encode ($xml);
+        $parameters=utf8_encode($xml);
 
         echo '-------';
         echo $xml;
@@ -215,11 +204,11 @@ class Conexionicg extends Command
 
        // $client = new \SoapClient($wsdl, $options);
 
-       $client = new SoapClient($endpoint,array("trace" => 1));
+       $client = new SoapClient($endpoint);
 
       // dd($client->__getFunctions());
 
-       $result = $client->ValidarCuposGO($parameters);
+       $result = $client->ValidarCuposGO($xml);
 
       // $result = $client->__soapCall("ValidarCuposGO", 'xml:'.$xml);
 

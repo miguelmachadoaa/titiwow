@@ -121,12 +121,31 @@ class AlpCartController extends JoshController
        
     }
 
-     /**
-     * Display the specified resource.
+      /**
+     * Funcion Show
+     * Descrioción: Muestra el ddetalle de la compra en el carrito 
+     * 
+     * Variables:
+     * $cart = contenido del carrito 
      *
-     * @param  Blog $blog
-     * @return view
+     * $mensaje_promocion=Verifica si exite promociones activas y muestra el mensaje 
+     *
+     * reload cart, recarga el carrito para verificar el cambio de precio por rol.
+     *
+     * $combos=contiene un array de combos disponibles para el momento, este verifica la exitencia de cada producto dentro del combo, si esta en la lista es visible 
+     *
+     * $total=contiene el monto total de la compra.
+     *
+     * $inv Contiene el inventario disponible de los productos de la tienda 
+     *
+     * $id_almacen contiene el almacen de la compra.
+     *
+     * $productos = Contiene los productos disponibles para la seccion de relacionados
+     * 
+     * @return View
      */
+    
+
     public function show()
     {
 
@@ -230,6 +249,32 @@ class AlpCartController extends JoshController
 
     }
 
+
+     /**
+     * Funcion Gracias 
+     * Descrioción: Pagina de resumen de compra, muestra el detalle de la compra con forma de pago, envio y fecha posible de entrega, se usa para enlazar con google analitycs 
+     * 
+     * 
+     * Variables:
+     *
+     * $id = Id de la orden 
+     * 
+    
+    *   $compra =  Contendido de la orden.
+    *
+    *   $detalles = Detalle de la compra, articulos precios y cantidad 
+    *
+    * $envio = Contiene la informacion del envio 
+      $valor_impuesto =  cpontiene el monto de impuesto de la orden 
+      $fecha_entrega =  fecha de emtrega de la porden 
+      $user_cliente =  contiene la informacion del cliente de la compra 
+      $aviso_pago =  Contiene mensaje personalizado de el pago de la orden 
+      $metodo =  contiene la fomra de pago de la orden 
+      $estatus_aviso =  contiene mensaje personalizado de el estatus en general de la orden 
+     * 
+     * @return View
+     */
+    
 
      public function gracias($id)
     {
@@ -375,6 +420,14 @@ class AlpCartController extends JoshController
     }
 
 
+    /**
+     * Funcion OrderRapipago
+     * Descrioción: Actualmente no se utiliza, se uso en moentos para hacer pruebas de intentos de pago para mercadopago.
+     * 
+     * @return View
+     */
+
+
 
 
     public function orderRapipago(){
@@ -437,6 +490,14 @@ class AlpCartController extends JoshController
 
     }
 
+
+    /**
+     * Funcion Show
+     * Descrioción: vista de prueba para estructura de procesar orden, muestra informacion de la orden 
+     * 
+     * @return View
+     */
+
     public function mercadopago()
     {
 
@@ -458,6 +519,31 @@ class AlpCartController extends JoshController
 
 
     }
+
+
+    /**
+     * Funcion Show
+     * Descrioción: Muestra el ddetalle de la compra en el carrito 
+     * 
+     * Variables:
+     * $cart = contenido del carrito 
+     *
+     * $mensaje_promocion=Verifica si exite promociones activas y muestra el mensaje 
+     *
+     * reload cart, recarga el carrito para verificar el cambio de precio por rol.
+     *
+     * $combos=contiene un array de combos disponibles para el momento, este verifica la exitencia de cada producto dentro del combo, si esta en la lista es visible 
+     *
+     * $total=contiene el monto total de la compra.
+     *
+     * $inv Contiene el inventario disponible de los productos de la tienda 
+     *
+     * $id_almacen contiene el almacen de la compra.
+     *
+     * $productos = Contiene los productos disponibles para la seccion de relacionados
+     * 
+     * @return View
+     */
 
 
     public function getPse(Request $request)

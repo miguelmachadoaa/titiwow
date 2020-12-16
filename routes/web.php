@@ -260,8 +260,6 @@ Route::get('tomapedidos/marketingcliente/',['as'=>'tomapedidos.marketingcliente'
 
 
 
-
-
   Route::post('pedidos/order/creditcard', 'Admin\AlpPedidosController@orderCreditcard');
 
 
