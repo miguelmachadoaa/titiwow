@@ -1337,7 +1337,7 @@ class FrontEndController extends JoshController
             }
 
 
-          
+            $datos360= $this->datos360($user->id); 
 
 
 

@@ -190,8 +190,8 @@ class Conexionicg extends Command
 
         $encrypted_use2 = '1020822917';
 
-        $xml='<?xml version="1.0" encoding="UTF-8" ?> <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/">';
-          $xml=$xml.'<soap:Header  soap:mustUnderstand="1">';
+        $xml='<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/">';
+          $xml=$xml.'<soap:Header soap:mustUnderstand="1">';
             $xml=$xml.'<tem:LoginInfo><tem:UserName>'.$encrypted_user.'</tem:UserName>';
               $xml=$xml.'<tem:Password>'.$encrypted_password.'</tem:Password>';
               $xml=$xml.'<tem:Fecha>'.$fecha.'</tem:Fecha>';
@@ -204,27 +204,32 @@ class Conexionicg extends Command
         $xml=$xml.'</soap:Body>';
         $xml=$xml.'</soap:Envelope>';
 
-        
 
 
-        $xml=utf8_encode ($xml);
-
-        $xml = simplexml_load_string($xml);
-        dd($xml) ;
+        $parameters=utf8_encode ($xml);
 
         echo '-------';
+        echo $xml;
+
+        $parameteres = array('xml' => 1 );
 
        // $client = new \SoapClient($wsdl, $options);
 
-        $client = new SoapClient($endpoint);
+       $client = new SoapClient($endpoint,array("trace" => 1));
 
-        $result = $client->ValidarCuposGO($output);
-        //$result = $client->RegistrarConsumoGo($xml);
+      // dd($client->__getFunctions());
+
+       $result = $client->ValidarCuposGO($parameters);
+
+      // $result = $client->__soapCall("ValidarCuposGO", 'xml:'.$xml);
 
         dd($result);
+        //$result = $client->RegistrarConsumoGo($xml);
+
+       // dd($result);
        
 
-       /* $client = new SoapClient($endpoint);
+        $client = new SoapClient($endpoint);
         $NAMESPACE = "http://www.thenamespace.net/";
 
       $options = [
@@ -247,14 +252,16 @@ class Conexionicg extends Command
           'DocumentoEmpleado' => 79964463
       ];
       
-      $result = $client->ValidarCuposGO($params);
+     ## $result = $client->ValidarCuposGO($params);
+
+      $result = $client->__soapCall("ValidarCuposGO", $params);
       // 'GetResult' being the name of the soap method
       
       if (is_soap_fault($result)) {
           error_log("SOAP Fault: (faultcode: {$result->faultcode}, faultstring: {$result->faultstring})");
       }
 
-      dd($result);*/
+      dd($result);
         
           
 }
