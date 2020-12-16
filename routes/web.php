@@ -269,6 +269,8 @@ Route::get('api/getmasvendidos/{token}', 'FrontEndController@getmasvendidos')->n
 
 Route::post('compramas', 'FrontEndController@getCompramas')->name('compramas');
 
+Route::post('get360', 'FrontEndController@get360')->name('get360');
+
 Route::post('compramasinventario', 'FrontEndController@getCompramasInventario')->name('compramasinventario');
 
 Route::get('ibm', 'FrontEndController@ibm')->name('ibm');
