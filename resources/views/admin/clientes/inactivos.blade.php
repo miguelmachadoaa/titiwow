@@ -53,6 +53,9 @@
                                     <th>Grupo Cliente</th>
                                     <th>Estado Masterfile</th>
                                     <th>Estado Registro</th>
+                                    <th>Marketing Sms </th>
+                                    <th>Marketin Email</th>
+                                    <th>Cliente Eliminado</th>
                                     <th>Creado</th>
                                     <th>Accion</th>
                                 </tr>

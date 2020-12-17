@@ -122,7 +122,12 @@ class AlpClientesController extends JoshController
       
         
 
-        $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista','alp_clientes.codigo_cliente as codigo_cliente')
+        $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista'
+          ,'alp_clientes.codigo_cliente as codigo_cliente'
+          ,'alp_clientes.marketing_sms as marketing_sms'
+          ,'alp_clientes.marketing_email as marketing_email'
+          ,'alp_clientes.deleted_at as cliente_deleted_at'
+        )
         ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
         ->join('role_users', 'users.id', '=', 'role_users.user_id')
         ->join('roles', 'role_users.role_id', '=', 'roles.id')
@@ -154,6 +159,40 @@ class AlpClientesController extends JoshController
                 $masterfile= "<span class='label label-sm label-warning'>Inactivo</span>";
 
               }
+
+              if($cliente->marketing_email == 1){
+
+                $marketing_email= "<span class='label label-sm label-success'>Activo</span>";
+
+              }else{
+
+                $marketing_email= "<span class='label label-sm label-warning'>Inactivo</span>";
+
+              }
+
+
+              if($cliente->marketing_sms == 1){
+
+                $marketing_sms= "<span class='label label-sm label-success'>Activo</span>";
+
+              }else{
+
+                $marketing_sms= "<span class='label label-sm label-warning'>Inactivo</span>";
+
+              }
+
+
+              if(is_null($cliente->cliente_deleted_at) ){
+
+                $cliente_deleted_at= "<span class='label label-sm label-success'>Activo</span>";
+
+              }else{
+
+                $cliente_deleted_at= "<span class='label label-sm label-warning'>Inactivo</span>";
+
+              }
+
+
 
               if ($id_rol=='13') {
 
@@ -230,6 +269,9 @@ class AlpClientesController extends JoshController
                  $cliente->name_role, 
                  $masterfile, 
                  $estado, 
+                 $marketing_sms, 
+                 $marketing_email, 
+                 $cliente_deleted_at, 
                  date("d/m/Y H:i:s", strtotime($cliente->created_at)),
                  $actions
               );
@@ -295,7 +337,10 @@ class AlpClientesController extends JoshController
 
         
 
-         $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente')
+         $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente'
+        ,'alp_clientes.marketing_sms as marketing_sms'
+          ,'alp_clientes.marketing_email as marketing_email'
+          ,'alp_clientes.deleted_at as cliente_deleted_at')
         ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
         ->join('role_users', 'users.id', '=', 'role_users.user_id')
         ->join('roles', 'role_users.role_id', '=', 'roles.id')
@@ -331,6 +376,39 @@ class AlpClientesController extends JoshController
                 $masterfile= "<span class='label label-sm label-warning'>Inactivo</span>";
 
               }
+
+              if($cliente->marketing_email == 1){
+
+                $marketing_email= "<span class='label label-sm label-success'>Activo</span>";
+
+              }else{
+
+                $marketing_email= "<span class='label label-sm label-warning'>Inactivo</span>";
+
+              }
+
+
+              if($cliente->marketing_sms == 1){
+
+                $marketing_sms= "<span class='label label-sm label-success'>Activo</span>";
+
+              }else{
+
+                $marketing_sms= "<span class='label label-sm label-warning'>Inactivo</span>";
+
+              }
+
+
+              if(is_null($cliente->cliente_deleted_at) ){
+
+                $cliente_deleted_at= "<span class='label label-sm label-success'>Activo</span>";
+
+              }else{
+
+                $cliente_deleted_at= "<span class='label label-sm label-warning'>Inactivo</span>";
+
+              }
+
 
                  $actions = " 
 
@@ -368,6 +446,9 @@ class AlpClientesController extends JoshController
                  $cliente->name_role, 
                  $masterfile, 
                  $estado, 
+                 $marketing_sms, 
+                 $marketing_email, 
+                 $cliente_deleted_at, 
                   date("d/m/Y H:i:s", strtotime($cliente->created_at)),
                  $actions
               );
@@ -432,7 +513,10 @@ class AlpClientesController extends JoshController
     {
         //$users = User::get(['id', 'first_name', 'last_name', 'email','created_at']);
 
-        $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente')
+        $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente'
+       ,'alp_clientes.marketing_sms as marketing_sms'
+          ,'alp_clientes.marketing_email as marketing_email'
+          ,'alp_clientes.deleted_at as cliente_deleted_at')
         ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
         ->join('role_users', 'users.id', '=', 'role_users.user_id')
         ->join('roles', 'role_users.role_id', '=', 'roles.id')
@@ -465,6 +549,38 @@ class AlpClientesController extends JoshController
               }else{
 
                 $masterfile= "<span class='label label-sm label-warning'>Inactivo</span>";
+
+              }
+
+              if($cliente->marketing_email == 1){
+
+                $marketing_email= "<span class='label label-sm label-success'>Activo</span>";
+
+              }else{
+
+                $marketing_email= "<span class='label label-sm label-warning'>Inactivo</span>";
+
+              }
+
+
+              if($cliente->marketing_sms == 1){
+
+                $marketing_sms= "<span class='label label-sm label-success'>Activo</span>";
+
+              }else{
+
+                $marketing_sms= "<span class='label label-sm label-warning'>Inactivo</span>";
+
+              }
+
+
+              if(is_null($cliente->cliente_deleted_at) ){
+
+                $cliente_deleted_at= "<span class='label label-sm label-success'>Activo</span>";
+
+              }else{
+
+                $cliente_deleted_at= "<span class='label label-sm label-warning'>Inactivo</span>";
 
               }
 
@@ -509,6 +625,9 @@ class AlpClientesController extends JoshController
                  $cliente->name_role, 
                  $masterfile, 
                  $estado, 
+                 $marketing_sms, 
+                 $marketing_email, 
+                 $cliente_deleted_at, 
                   $cliente->nota,
                  $actions
               );
@@ -569,7 +688,10 @@ class AlpClientesController extends JoshController
 
         
 
-         $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_empresas.nombre_empresa as nombre_empresa')
+         $clientes =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_empresas.nombre_empresa as nombre_empresa'
+        ,'alp_clientes.marketing_sms as marketing_sms'
+          ,'alp_clientes.marketing_email as marketing_email'
+          ,'alp_clientes.deleted_at as cliente_deleted_at')
         ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
         ->join('alp_empresas', 'alp_clientes.id_empresa', '=', 'alp_empresas.id')
         ->join('role_users', 'users.id', '=', 'role_users.user_id')
@@ -601,6 +723,38 @@ class AlpClientesController extends JoshController
               }else{
 
                 $masterfile= "<span class='label label-sm label-warning'>Inactivo</span>";
+
+              }
+
+              if($cliente->marketing_email == 1){
+
+                $marketing_email= "<span class='label label-sm label-success'>Activo</span>";
+
+              }else{
+
+                $marketing_email= "<span class='label label-sm label-warning'>Inactivo</span>";
+
+              }
+
+
+              if($cliente->marketing_sms == 1){
+
+                $marketing_sms= "<span class='label label-sm label-success'>Activo</span>";
+
+              }else{
+
+                $marketing_sms= "<span class='label label-sm label-warning'>Inactivo</span>";
+
+              }
+
+
+              if(is_null($cliente->cliente_deleted_at) ){
+
+                $cliente_deleted_at= "<span class='label label-sm label-success'>Activo</span>";
+
+              }else{
+
+                $cliente_deleted_at= "<span class='label label-sm label-warning'>Inactivo</span>";
 
               }
 
@@ -639,6 +793,9 @@ class AlpClientesController extends JoshController
                  $cliente->nombre_empresa, 
                  $masterfile, 
                  $estado, 
+                 $marketing_sms, 
+                 $marketing_email, 
+                 $cliente_deleted_at, 
                   $cliente->created_at->diffForHumans(),
                  $actions
               );
