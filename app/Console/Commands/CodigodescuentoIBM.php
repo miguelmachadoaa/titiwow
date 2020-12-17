@@ -158,11 +158,11 @@ class CodigodescuentoIBM extends Command
             $xml='<Envelope><Body><AddRecipient><LIST_ID>8739683</LIST_ID><SYNC_FIELDS><SYNC_FIELD><NAME>EMAIL</NAME><VALUE>'.$user->email.'</VALUE></SYNC_FIELD></SYNC_FIELDS><UPDATE_IF_FOUND>true</UPDATE_IF_FOUND><COLUMN><NAME>Email</NAME><VALUE>'.$user->email.'</VALUE></COLUMN><COLUMN><NAME>Codigo_cupon_ecommerce</NAME><VALUE>'.$cupon->codigo_cupon.'</VALUE></COLUMN><COLUMN><NAME>Fecha_cupon_ecommerce</NAME><VALUE>'.$fecha.'</VALUE></COLUMN></AddRecipient></Body></Envelope>';
 
 
-           activity()->withProperties($xml)->log('codigo-descuento-xml_ibm_add_recipiente-codigodescuento');
+           activity()->withProperties($xml)->log('codigo-descuento-ibm-xml');
 
         $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-        activity()->withProperties($result)->log('codigo-descuento-xml_ibm_add_result-codigodescuento');
+        activity()->withProperties($result)->log('codigo-descuento-xml-result');
 
        // print_r($result);
 
@@ -178,7 +178,7 @@ class CodigodescuentoIBM extends Command
 
               $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml, true));
 
-              activity()->withProperties($result)->log('codigo-descuento-xml_ibm_add_result2-codigodescuento');
+              activity()->withProperties($result)->log('codigo-descuento-xml_ibm_result2');
 
             // print_r($result);
 
