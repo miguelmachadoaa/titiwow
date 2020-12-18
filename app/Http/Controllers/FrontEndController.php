@@ -2612,6 +2612,8 @@ public function getApiUrl($endpoint, $jsessionid)
 
       $res=json_decode($result);
 
+      activity()->withProperties(json_encode($result))->log('360 respuesta ');
+
      // Log::info('api 360 res '.json_encode($res));
        
     //  Log::info('api 360 result '.$result);
