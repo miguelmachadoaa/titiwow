@@ -169,7 +169,7 @@ class Teextranamos2IBM extends Command
 
         $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-        activity()->withProperties($result2)->log('teextranamos-xml_ibm_add_result');
+        activity()->withProperties($result2)->log('teextranamos-xml_ibm_add_resultCupon');
 
        // print_r($result);
 
@@ -185,7 +185,7 @@ class Teextranamos2IBM extends Command
 
               $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml, true));
 
-              activity()->withProperties($result)->log('teextranamos-xml_ibm_add_result2');
+              activity()->withProperties($result)->log('teextranamos-xml_ibm_add_result2Cupon');
 
              // print_r($result);
 
