@@ -192,7 +192,7 @@ class NotificacionCarrito extends Command
 
               $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml, true));
 
-              activity()->withProperties($result)->log('xml_ibm_add_result2-carrito');
+              activity()->withProperties($result)->log('xml_ibm-result2-carrito');
 
              // print_r($result);
 
