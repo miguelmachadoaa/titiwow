@@ -22,6 +22,8 @@ Route::post('admin/ordenes/storeconfirm', 'Admin\AlpOrdenesController@storeconfi
 
 Route::get('reportes/exportinventario', 'Admin\AlpReportesController@exportinventario')->name('reportes.exportinventario');
 
+Route::get('reportes/export360', 'Admin\AlpReportesController@export360')->name('reportes.export360');
+
 Route::get('reportes/exportultimamilla', 'Admin\AlpReportesController@exportultimamilla')->name('reportes.exportultimamilla');
 
  Route::get('reportes/exportcronlogisticaexport', 'Admin\AlpReportesController@exportcronlogisticaexport')->name('reportes.exportcronlogisticaexport');

@@ -27,6 +27,9 @@ use App\Exports\ProductostotalesExport;
 use App\Exports\CarritoExport;
 use App\Exports\DescuentoVentasExport;
 use App\Exports\UsocuponesExport;
+use App\Exports\Usuarios360Export;
+
+
 
 use App\Exports\InventariopordiaExport;
 
@@ -2077,6 +2080,35 @@ public function usocupones()
 
         return Excel::download(new UsocuponesExport($request->hasta, $request->hasta), 'usocupones.xlsx');
     }
+
+
+
+    public function export360(Request $request) 
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exportusocupones  ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exportusocupones ');
+
+
+        }
+        
+
+        return Excel::download(new Usuarios360Export($request->hasta, $request->hasta), 'usuarios360.csv');
+    }
+
+
+
 
 
 

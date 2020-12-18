@@ -204,15 +204,45 @@ class Conexionicg extends Command
 
        // $client = new \SoapClient($wsdl, $options);
 
+        $LoginInfo = array(
+          'tem:UserName' => $encrypted_user, 
+          'tem:Password' => $encrypted_password, 
+          'tem:Fecha' => $fecha
+        );
+
+        $h = array('tem:LoginInfo' => $LoginInfo );
+
        $client = new SoapClient($endpoint);
 
+       $auth = array(
+        'UserName'=>$encrypted_user,
+        'Password'=>$encrypted_password,
+        'Fecha'=>$fecha
+        );
+  
+      $header = new SoapHeader('NAMESPACE','LoginInfo',$auth,false);
+
+       $client->__setSoapHeaders($header);
+
+
+      // dd($client->__getLastRequest());
+      // dd($client->__getLastRequest());
+       //dd($client->__getLastRequest());
+       //dd($client->__getLastRequest());
       // dd($client->__getFunctions());
+
+
+      $resutado=$client->ValidarCuposGo(['DocumentoEmpleado'=>$encrypted_use2]);
+
+       // dd($client->__getLastRequest());
+       // dd($client->__getLastRequestHeaders());
+
 
        $result = $client->ValidarCuposGO($xml);
 
       // $result = $client->__soapCall("ValidarCuposGO", 'xml:'.$xml);
 
-        dd($result);
+        dd($resutado);
         //$result = $client->RegistrarConsumoGo($xml);
 
        // dd($result);

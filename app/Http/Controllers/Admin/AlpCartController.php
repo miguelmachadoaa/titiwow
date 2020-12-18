@@ -130,7 +130,7 @@ class AlpCartController extends JoshController
      *
      * $mensaje_promocion=Verifica si exite promociones activas y muestra el mensaje 
      *
-     * reload cart, recarga el carrito para verificar el cambio de precio por rol.
+     * reloadCart, recarga el carrito para verificar el cambio de precio por rol.
      *
      * $combos=contiene un array de combos disponibles para el momento, este verifica la exitencia de cada producto dentro del combo, si esta en la lista es visible 
      *
@@ -250,13 +250,13 @@ class AlpCartController extends JoshController
     }
 
 
-     /**
-     * Funcion Gracias 
-     * Descrioción: Pagina de resumen de compra, muestra el detalle de la compra con forma de pago, envio y fecha posible de entrega, se usa para enlazar con google analitycs 
-     * 
-     * 
-     * Variables:
-     *
+    /**
+    * Funcion Gracias 
+    * Descrioción: Pagina de resumen de compra, muestra el detalle de la compra con forma de pago, envio y fecha posible de entrega, se usa para enlazar con google analitycs 
+    * 
+    * 
+    * Variables:
+    *
      * $id = Id de la orden 
      * 
     
@@ -421,7 +421,7 @@ class AlpCartController extends JoshController
 
 
     /**
-     * Funcion OrderRapipago
+     * Funcion orderRapipago
      * Descrioción: Actualmente no se utiliza, se uso en moentos para hacer pruebas de intentos de pago para mercadopago.
      * 
      * @return View
@@ -492,7 +492,7 @@ class AlpCartController extends JoshController
 
 
     /**
-     * Funcion Show
+     * Funcion mercadopago
      * Descrioción: vista de prueba para estructura de procesar orden, muestra informacion de la orden 
      * 
      * @return View

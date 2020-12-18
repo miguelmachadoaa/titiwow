@@ -2570,7 +2570,7 @@ public function getApiUrl($endpoint, $jsessionid)
 
       $dataraw=json_encode($data);
 
-      dd($dataraw);
+    //  dd($dataraw);
 
       $urls='https://alpinavista360webapp03.azurewebsites.net/api/UsuarioAlpinaGo/Add';
 
