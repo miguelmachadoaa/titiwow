@@ -123,7 +123,7 @@ class AlpCartController extends JoshController
 
       /**
      * Funcion Show
-     * Descrioción: Muestra el ddetalle de la compra en el carrito 
+     * Descripción: Muestra el ddetalle de la compra en el carrito 
      * 
      * Variables:
      * $cart = contenido del carrito 
