@@ -274,11 +274,9 @@ class FrontEndController extends JoshController
 
             foreach ($datos as $dato ) {
 
-          activity()
-          ->withProperties($dato)->log('FrontEndController/getCompramas 2.1');
+              activity()->withProperties($dato)->log('FrontEndController/getCompramas 2.1');
 
-          activity()
-          ->withProperties($dato['stock'])->log('FrontEndController/getCompramas2');
+              activity()->withProperties($dato['stock'])->log('FrontEndController/getCompramas2');
 
               if ($dato['stock']>0) {
 
@@ -2568,15 +2566,15 @@ public function getApiUrl($endpoint, $jsessionid)
         'email' =>$user->email,
       );
 
-      $dataraw=json_encode($data);
+      $d = array();
 
-    //  dd($dataraw);
+      $d[]=$data;
+
+      $dataraw=json_encode($d);
+
+    // dd($dataraw);
 
       $urls='https://alpinavista360webapp03.azurewebsites.net/api/UsuarioAlpinaGo/Add';
-
-      //Log::info('api 360 urls '.$urls);
-
-      //Log::info($dataraw);
 
       activity()->withProperties($dataraw)->log('360 api ');
 
@@ -2591,8 +2589,8 @@ public function getApiUrl($endpoint, $jsessionid)
 
       $headers = array();
       $headers[] = 'Content-Type: application/json';
-      $headers[] = 'Key: Authorization ';
-      $headers[] = 'Value: Basic zHnI1jLI3GH88tT0Pu6w7Q== ';
+      $headers[] = 'Key: Authorization';
+      $headers[] = 'Value: Basic zHnI1jLI3GH88tT0Pu6w7Q==';
       curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
       try {
@@ -2612,7 +2610,7 @@ public function getApiUrl($endpoint, $jsessionid)
 
       $res=json_decode($result);
 
-      activity()->withProperties(json_encode($result))->log('360 respuesta ');
+      activity()->withProperties($result)->log('360 respuesta ');
 
      // Log::info('api 360 res '.json_encode($res));
        

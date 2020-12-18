@@ -19,6 +19,8 @@ use SoapClient;
 use SoapHeader;
 use Illuminate\Support\Facades\Crypt;
 
+use App\Custom\ValidarCuposGo;
+
 
 use Illuminate\Console\Command;
 
@@ -195,14 +197,12 @@ class Conexionicg extends Command
 
 
 
-        $parameters=utf8_encode($xml);
+        //$parameters=utf8_encode($xml);
 
-        echo '-------';
-        echo $xml;
+       // echo '-------';
+       // echo $xml;
 
         $parameteres = array('xml' => 1 );
-
-       // $client = new \SoapClient($wsdl, $options);
 
         $LoginInfo = array(
           'tem:UserName' => $encrypted_user, 
@@ -212,37 +212,51 @@ class Conexionicg extends Command
 
         $h = array('tem:LoginInfo' => $LoginInfo );
 
-       $client = new SoapClient($endpoint);
+       $client = new SoapClient($endpoint, ['trace'=>true, 'encoding'=>'utf-8', 'Content-Type'=>'application/soap+xml', 'charset'=>'utf-8']);
 
        $auth = array(
-        'UserName'=>$encrypted_user,
-        'Password'=>$encrypted_password,
-        'Fecha'=>$fecha
+        'tem:UserName'=>$encrypted_user,
+        'tem:Password'=>$encrypted_password,
+        'tem:Fecha'=>$fecha
         );
   
-      $header = new SoapHeader('NAMESPACE','LoginInfo',$auth,false);
+      $header = new SoapHeader('Envelope','LoginInfo', $auth, false);
 
        $client->__setSoapHeaders($header);
 
-
       // dd($client->__getLastRequest());
       // dd($client->__getLastRequest());
        //dd($client->__getLastRequest());
-       //dd($client->__getLastRequest());
-      // dd($client->__getFunctions());
+       #dd($client->__getTypes());
+      # dd($client->__getFunctions());
+      # 
+      
+
+  
+
+    $ValidarCuposGo = new ValidarCuposGo($encrypted_use2);
+
+    dd($ValidarCuposGo);
 
 
-      $resutado=$client->ValidarCuposGo(['DocumentoEmpleado'=>$encrypted_use2]);
+
+      $resultado=$client->ValidarCuposGo(['ValidarCuposGo'=>$ValidarCuposGo]);
+      //$resultado=$client->__soapCall("ValidarCuposGo", $ValidarCuposGo,null, $header);
+    //  $client->CustomerSearchS($params)->ValidarCuposGoResponse->any;
+
+      echo "\n REQUEST: \n" . $client->__getLastRequest() . "\n";
+      echo "\n Header: \n" . $client->__getLastRequestHeaders() . "\n";
+
 
        // dd($client->__getLastRequest());
        // dd($client->__getLastRequestHeaders());
 
 
-       $result = $client->ValidarCuposGO($xml);
+      // $result = $client->ValidarCuposGO($xml);
 
       // $result = $client->__soapCall("ValidarCuposGO", 'xml:'.$xml);
 
-        dd($resutado);
+        dd($resultado);
         //$result = $client->RegistrarConsumoGo($xml);
 
        // dd($result);
