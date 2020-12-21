@@ -45,6 +45,7 @@ class UltimamillaExport implements FromView
       ->where('id_almacen', '=', '1')
       ->where('alp_ordenes.created_at', '>=', $date_desde)
       ->where('alp_ordenes.created_at', '<=', $date_hasta)
+      ->where('alp_ordenes.estatus', '=', '1')
       ->orderBy('id', 'desc')
       ->get();
 
@@ -56,6 +57,7 @@ class UltimamillaExport implements FromView
              $detalles = AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto','alp_productos.referencia_producto as referencia_producto','alp_productos.referencia_producto_sap as referencia_producto_sap'
               ,'alp_productos.cantidad as cantidad')
               ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
+              ->whereNull('alp_ordenes_detalle.deleted_at')
               ->where('alp_ordenes_detalle.id_orden', $orden->id)
               ->get();
 
