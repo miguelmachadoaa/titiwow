@@ -477,11 +477,11 @@ Editar Configuracion General
 
 
 
-                            <fieldset>
+                            <!--fieldset>
 
 
                                 <br />
-                                <h4>Api Ibm</h4>
+                                <h4>Api Icg</h4>
                                 <hr>
 
                                 <div class="form-group {{ $errors->first('username_icg', 'has-error') }}">
@@ -581,7 +581,7 @@ Editar Configuracion General
                                 </div>
 
 
-                            </fieldset>
+                            </fieldset-->
 
 
 
