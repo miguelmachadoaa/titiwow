@@ -364,17 +364,15 @@ $("#aprobarOrdenForm").bootstrapValidator({
 
 
 
- $('.sendAprobar').click(function () {
+ $('#tbOrdenes').on('click','.sendAprobar', function () {
     
-    var $validator = $('#aprobarOrdenForm').data('bootstrapValidator').validate();
-
-    if ($validator.isValid()) {
-
         base=$('#base').val();
-        id=$('#aprobar_id').val();
-        codigo=$('#cod_aprobar_pedido').val();
-        notas=$('#notas').val();
 
+        id=$(this).data('id');
+
+        codigo='';
+
+        notas='';
 
         $.ajax({
             type: "POST",
@@ -400,7 +398,6 @@ $("#aprobarOrdenForm").bootstrapValidator({
         //document.getElementById("addDireccionForm").submit();
 
 
-    }
 
 });
 

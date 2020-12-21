@@ -1609,13 +1609,13 @@ public function compramasupdate()
                                             if ($row->ordencompra=='') {
 
                                               $actions=$actions."<div style='display: inline-block;' class='aprobar_".$row->id."'>
-                                            <button data-id='".$row->id."'  data-codigo='".$row->ordencompra."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-info aprobar' > Aprobar </button></div>";
+                                            <button data-id='".$row->id."'  data-codigo='".$row->ordencompra."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-info sendAprobar' > Aprobar </button></div>";
  
                                               
 
                                             }else{
                                               $actions=$actions."<div style='display: inline-block;' class='aprobar_".$row->id."'>
-                                            <button data-id='".$row->id."'  data-codigo='".$row->ordencompra."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-success aprobar' > Aprobado </button></div>";
+                                            <button data-id='".$row->id."'  data-codigo='".$row->ordencompra."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-success sendAprobar' > Aprobado </button></div>";
                                             }
 
 
