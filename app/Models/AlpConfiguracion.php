@@ -50,6 +50,7 @@ class AlpConfiguracion extends Model
         'correo_logistica',
         'correo_finanzas',
         'correo_respuesta',
+        'correo_ultimamilla',
         'nombre_correo_respuesta',
         'seo_title',
         'seo_type',

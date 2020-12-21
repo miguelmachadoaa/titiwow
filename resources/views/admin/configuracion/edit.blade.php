@@ -957,6 +957,21 @@ Editar Configuracion General
                                     </div>
                                 </div>
 
+                                <div class="form-group {{ $errors->first('correo_ultimamilla', 'has-error') }}">
+                                    <label for="correo_ultimamilla" class="col-sm-2 control-label">
+                                        Correo UltimaMilla
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="correo_ultimamilla" name="correo_ultimamilla" class="form-control" placeholder="Correo Ultimamilla"
+                                            value="{!! old('correo_ultimamilla', $configuracion->correo_ultimamilla) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('correo_ultimamilla', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+
+
                                  <div class="form-group {{ $errors->first('correo_respuesta', 'has-error') }}">
                                     <label for="correo_respuesta" class="col-sm-2 control-label">
                                         Correo Respuesta
