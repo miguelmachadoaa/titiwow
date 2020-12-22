@@ -748,7 +748,7 @@ class AlpCartController extends JoshController
 
 
      /**
-     * Funcion Show
+     * Funcion orderPse
      * Descripción: Captura la respuesta de pse y procesa la orden y redifge a gracias 
      * 
      * Variables:
@@ -932,6 +932,42 @@ class AlpCartController extends JoshController
       }
 
 }
+
+
+
+
+
+/**
+     * Funcion Notificacion
+     * Descripción: Captura las notificaciones automaticas desde mercadopago
+     * 
+     * Variables:
+     *
+     * input = Datos que llegan desde mercadopago por metodo post 
+     *
+     * pago = Verificacion con los pagos regstrados en la plataforma 
+     *
+     * Orden = Orden relacionada a la notificacion de mercadopago
+     *
+     * pse = Respuesta de Mercadopago a la consulta del estado del pago 
+     * 
+     * envio = Consulta del envio de la orden 
+     *
+    *  compra =  Detalle de la compra
+    *  
+    *  detalles = Productos de la compra
+    *
+    *   formaenvio = Forma de envio relacionada a la compra
+    *
+    *   data_pago = Datos del pago recibido por mercadopafo 
+      *  
+     *
+     * funcions
+     *
+     * MP = Instancia de api mercadopago
+     * 
+     * @return View
+     */
 
 
     public function notificacion(Request $request)
