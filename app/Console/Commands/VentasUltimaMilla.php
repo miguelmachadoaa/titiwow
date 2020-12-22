@@ -76,13 +76,17 @@ class VentasUltimaMilla extends Command
        // Mail::to($configuracion->correo_cedi)->send(new \App\Mail\CronNomina($archivo, $hoy, $documentos));
        // 
        // //alpina.vueltap@vueltap.com; okam1@mercadoasucasa.com; gerenciaoperaciones@mercadoasucasa.com; facturadormasc@gmail.com; jespinosa@vueltap.com; amonroy@vueltap.com
+       // 
 
 
             $correos = explode(";", $configuracion->correo_ultimamilla);
 
             foreach ($correos as $key => $value) {
 
+
                 Mail::to(trim($value))->send(new \App\Mail\CronUltimaMilla($archivo, $hoy, $documentos));
+
+               //  dd($value);
             }
 
 

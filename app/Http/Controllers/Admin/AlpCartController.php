@@ -477,6 +477,8 @@ class AlpCartController extends JoshController
 
     }
 
+
+
     public function detalle2()
     {
 
@@ -743,6 +745,30 @@ class AlpCartController extends JoshController
           }
 
     }
+
+
+     /**
+     * Funcion Show
+     * Descripción: Captura la respuesta de pse y procesa la orden y redifge a gracias 
+     * 
+     * Variables:
+     *
+     *
+     * id_pago= Id pago que llega desde pse, con este dato se consulta la orden
+    *  
+    *  fecha_entrega = Fecha de entrega posible del pedido calculada en la funcion generarPedido
+    *  
+    *  compra =  Detalle de la compra
+    *  
+    *  detalles = Productos de la compra
+      *  
+     *
+     * funcions
+     *
+     * generarPedido = Procesa y actualiza la orden, vacia el carrito de compras
+     * 
+     * @return View
+     */
 
 
 

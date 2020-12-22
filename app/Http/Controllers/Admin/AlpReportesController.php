@@ -1871,8 +1871,6 @@ public function formato()
 
      public function exportultimamilla() 
     {
-
-       
        // dd($request->all());
 
          $date = Carbon::now();
