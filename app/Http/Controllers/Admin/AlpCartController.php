@@ -2572,6 +2572,67 @@ class AlpCartController extends JoshController
   }
 
 
+   /**
+     * Funcion generarPedido
+     * Descripción: procesa las ordenes segun su metodo de pago, calcula la fechha de envio, registra en la tabla ordenes, detalles y pago las actualizaciones y vacia las variables de carrito 
+     *
+     * 
+     * Variables:
+     *
+     *
+     * id_pago = id de pago recibido por mercadopago 
+     * 
+     * cart = carrito de compra 
+     * 
+     * carrito = id temporal de la orden 
+     * 
+     * id_orden = id de la orden procesada 
+     * 
+     * orden = informacion de la orden 
+     * 
+     * total = monto total de la orden 
+     * 
+     * direccion = direccion de la orden 
+     * 
+     * dias = dias para la entrega
+     * 
+     * fecha_entrega = fecha posible de entrega de la orden 
+     * 
+     * cliente = informacion del cliente de la orden 
+     * 
+     * envio = data enviada a la tabla envios 
+     * 
+     * valor_impuesto = monto del impuesto 
+     * 
+     * data_envio = data registrada en la tabla envios 
+     * 
+     * envio = calculo del costo del envio 
+     * 
+     * data_envio_history = registro en el history del envio 
+     * 
+     * comision_mp = calculo de retenciones mercadopago
+     * 
+     * retencion_fuente_mp = calculo de retenciones mercadopago
+     * 
+     * retencion_iva_mp = calculo de retenciones mercadopago
+     * 
+     * retencion_ica_mp = calculo de retenciones mercadopago
+     * 
+     * cupones = listado de cupones aplicados a la orden 
+     * 
+     * data_pago = datos registrados en la tabla pagos 
+     * 
+     * data_history = registro en history de la orden 
+    *  
+     *
+     * funcions
+     *
+     * generarPedido = Procesa y actualiza la orden, vacia el carrito de compras
+     * 
+     * @return View
+     */
+
+
 
 public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
