@@ -1542,73 +1542,97 @@ class AlpCartController extends JoshController
     }
 
 
+
+
+
+
      /**
      * Funcion orderDetail
      * 
-     * Descripción: Captura de datos de notificacion de marcadopago con pagos realizados con tarjeta de Credito 
+     * Descripción: Informacion para construir la vista de checkout 
      * 
      * Variables:
      *
-     * avisos= Mensajes preestablecidos de estados de compra en mercadopago 
+     * cart= carrito de la compra
      *
      * carrito = Varible de session que almacena el id de orden temporal 
      *
+     * total = Total de la compra
+     *
+     * total_base = total de la compra antes de impuesto 
+     *
+     * impuesto = monto de impuesto de la compra 
+     *
+     * id_almacen = almacen de la compra 
+     *
+     * almacen = contenido del almacen 
+     *
      * id_orden = Id de orden de compra
      *
-     * orden = detalle de la orden de compra
+     * inv = inventario disponible del almacen actual 
      *
-     * input = Datos que llegan desde mercadopago por metodo post 
-     *
-     * pago = Verificacion con los pagos regstrados en la plataforma 
-     *
-     * Orden = Orden relacionada a la notificacion de mercadopago
-     *
-     * pse = Respuesta de Mercadopago a la consulta del estado del pago 
+     * direcciones = direcciones del cliente 
      * 
-     * envio = Consulta del envio de la orden 
+     * afe = Formas de Envio por Almacen 
+     * 
+     * formasenvio   = Formas de Envio que se envian a la vista 
+     * 
+     * formaspago = Formas de pago quue se envian a la vista 
      *
-     * valor_impuesto = valor del impuesto de la compra, se usa para calculo del monto de impuesto 
+     * pagos  = Pagos cargados a la orden 
+     *  
+     * total_descuentos = total de cupones y descuentos de la orden 
+     *  
+     * descuentos = lista de cupones alpllicados 
+     *  
+     * descuentosIcg  = descuento de icg aplicado a la orden 
+     * 
+     * total_descuentos_icg  = monto de descuento icg aplicado a la orden 
+     * 
+     * preference_data = datos enviados a mercadopago para codigo de pago con creditcard
+     * 
+     * net_amount=monto neto de la orden 
+     * 
+     * payment_methods = Metodos de pago activos por mercadopago 
      *
-     * total =  monto total de la compra
+     *tdocumento = Listado de tipos de documentos
      *
-     * impuesto = Monto de impuesto de la comrpa
+     *estructura = listado de tipos de estructiras para direccion 
      *
-     * net_amount = monto de compra antes de impuesto
+     *labelpagos = mensaje personalizado para cada tipo de pago 
+     * 
+     *costo_envio = Costo del envio a la direccion asiganda 
      *
-     * det_array = contiene informacion que se procesa en mercadopago 
+     *ciudad_forma = listado de ciudades disponibles para envio 
      *
-     * direccion = Consulta de la direccion de la orden 
+     *feriados = listado de dias feriados 
      *
-     * address = Datos de la direccion que se envian a mercadopago 
-    *  
-    *  compra =  Detalle de la compra
-    *  
-    *  detalles = Productos de la compra
-    *
-    *   formaenvio = Forma de envio relacionada a la compra
-    *
-    *   data_pago = Datos del pago recibido por mercadopafo 
-    *
-    * additional_info = Contiene los articulos de la compra e informacion del cliente que se envia a mercadopago 
-    *
-    * preference_data = Array de datos que contiene toda la informacion que se envia a mercadopago
-    *
-    *data_pago = datos que se guardan en la tabla pagos para la orden  
-    *
-    * 
-    *
-    * payer = Detalles del cliente que se envian a mercadopago 
+     *saldo = Saldo disponible para clientes alpina 
+ 
       *  
      *
      * funcions
      *
      * MP = Instancia de api mercadopago
      *
-     * generarPedido = Procesa y actualiza la orden, vacia el carrito de compras
+     * addPromocion  = Agrega un mensaje promocional si aplica 
+     *
+     * reloadCart = Recarga el carrito para actulizacion de precios 
+     *
+     * total = Devuelve el total generarl del carrito 
+     *
+     * precio_base = Devuelve el precio base total del carrito 
+     *
+     * Impuerto = Devuelve el monto de impuesto del carrito 
+     *
+     * getAlmacenCart = Devuelre el almacen para que el aplica la compra 
      * 
      * @return View
      */
     
+
+
+
 
 
     public function orderDetail()
@@ -2099,6 +2123,60 @@ class AlpCartController extends JoshController
       }
 
     }
+
+
+     /**
+     * Funcion orderProcesarTicket
+     * Descripción: Captura la respuesta de baloto y efecty  y procesa la orden y redifge a gracias 
+     * 
+     * Variables:
+     *
+     *input = datos recibidos para procesar el pago 
+     *
+     *cart  = contenido del carrito de compra 
+     *
+     *carrito = id de orden tempora 
+     *
+     *id_orden = id de la compra 
+     *
+     *envio = costo del envio 
+     *  
+     *valor_impuesto = monto del envio 
+     *
+     *orden = Detalle de compra  
+     *
+     *total impuesto = Monto del impuesto 
+     *
+     * net_amount = monto antes de impuesto de la compra 
+     * 
+     *detalles = Detalle de los productos de la compra 
+     *
+     * total_descuentos = monto total de descuentos aplicados 
+     * 
+     * descuentos = cupones aplicados 
+     * 
+     * preference_data = datos que se envian a mercadopago 
+     * 
+     * payment = respuesta de mercadopago 
+     * 
+     * fecha_entrega = fecha posible de la entrega de la orden 
+     * 
+     * compra = detalle de compra 
+     * 
+     * user_cliente = datos del cliente de la compra 
+     * 
+     * aviso_pago = mensaje personalizado del pago 
+     * 
+     *metodo = Metodo de pago usado 
+      *  
+     *
+     * funcions
+     *
+     * generarPedido = Procesa y actualiza la orden, vacia el carrito de compras
+     * 
+     * @return View
+     */
+
 
 
   public function orderProcesarTicket(Request $request)
