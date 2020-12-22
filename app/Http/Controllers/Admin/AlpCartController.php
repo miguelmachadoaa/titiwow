@@ -3291,6 +3291,29 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
     }
 
+
+       /**
+     * Funcion add
+     * Descripción: funcion para agregar productos al carrito por enlace 
+     * 
+     * 
+     * Variables:
+     * *descuento = condicion para calculo de descuento de los productos
+     * 
+      *cliente = informacion del cliente de la compra 
+      *
+      *producto = productos a agregar en la compra 
+      *
+      *cart = infromacion del carrito 
+      *
+      * 
+
+     * 
+     * @return true
+     */
+    
+
+
     public function add( AlpProductos $producto)
     {
        $cart= \Session::get('cart');
