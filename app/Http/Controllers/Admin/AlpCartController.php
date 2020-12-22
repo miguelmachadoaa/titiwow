@@ -2882,6 +2882,34 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
     }
 
 
+       /**
+     * Funcion saveOrden
+     * Descripción: registro de pre orden , es un registro de los datos de la orden en una tabla temporal por seguridad 
+     *
+     * 
+     **cr = id de orden temporal 
+      *cart = contenido del carrito de compra 
+      *total = total del carrito 
+      *data_orden = datos registrados en la table preordenes 
+      *orden = detalles de la orden 
+      *monto_total_base = monto total de la orden 
+      *data_update = datos registrado en la tabla preordenes 
+      *orden = datos de la orden 
+     * 
+     * Variables:
+     *
+    *  
+     *
+     * funcions
+     *
+     * generarPedido = Procesa y actualiza la orden, vacia el carrito de compras
+     * 
+     * @return View
+     */
+
+
+
+
 
  public function saveOrden($preference){
 
@@ -2952,6 +2980,66 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
          $orden->update($data_update);
 
     }
+
+
+      /**
+     * Funcion orderProcesar
+     * Descripción: procesa las ordenes que son por medios de pagos diferentes  a mercadopago.
+     * 
+     * Variables:
+     *
+     * cart = carrito de compra 
+     * 
+     * carrito = id temporal de la orden 
+     * 
+     * id_orden = id de la orden procesada 
+     * 
+     * orden = informacion de la orden 
+     * 
+     * total = monto total de la orden 
+      *
+      * aviso_pago = mensaje personalizado del pago 
+      *
+      * direccion = direccion de la orden 
+      *
+      *ciudad_forma= ciudades disponibles por forma de envio 
+      *
+      *
+      *date= fecha de hoy 
+      *
+      *dias= dias para la entrega 
+      *
+      *fecha_entrega= fecha posible de entrega 
+      *
+      *cliente= datos del cliente de la compra 
+      *
+      *data_envio= data registrada en la tabla envios 
+      *
+      *envio= costo del envio 
+      *
+      *data_envio_history= data registrada en el historico de la orden 
+      *
+      *carro= registro en la tabla carrito 
+      *
+      *detalles_carrito=  registros en la tabla detalles de carrito 
+      *
+      *saldo_c=  registro en la tabla saldo cliente 
+      *
+      *carrito= id de carrrito 
+      * 
+      *compra= informacion de la compra 
+      *
+      *user_cliente = detalles del clientes de la compra 
+     *
+     * funcions
+     *
+     * generarPedido = Procesa y actualiza la orden, vacia el carrito de compras
+     * 
+     * @return true
+     */
+
+
+
 
     public function orderProcesar(Request $request)
     {
