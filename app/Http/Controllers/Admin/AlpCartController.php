@@ -2423,6 +2423,32 @@ class AlpCartController extends JoshController
 }
 
 
+
+     /**
+     * Funcion getFechaEntrega
+     * Descripción: calculo de fecha de entrega tomando en cuanta forma de envio, ciudad y almacen.
+     * Variables:
+     *
+    *  ciudad_forma = listado de formas de envio por ciudad 
+    *  
+    *  forma_envio = detalle de la forma de envio  
+    *  
+    *  feriados =  listado de dias festivos 
+    *  dias = dias para la entrega 
+    *  
+    *  date = dia de hoy 
+    *  
+     *
+     * funcions
+     *
+     * generarPedido = Procesa y actualiza la orden, vacia el carrito de compras
+     * 
+     * @return View
+     */
+    
+
+
+
   public function getFechaEntrega($id_forma_envio, $id_city){
 
 
