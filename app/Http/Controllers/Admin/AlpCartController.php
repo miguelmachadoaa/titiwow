@@ -1542,6 +1542,75 @@ class AlpCartController extends JoshController
     }
 
 
+     /**
+     * Funcion orderDetail
+     * 
+     * Descripción: Captura de datos de notificacion de marcadopago con pagos realizados con tarjeta de Credito 
+     * 
+     * Variables:
+     *
+     * avisos= Mensajes preestablecidos de estados de compra en mercadopago 
+     *
+     * carrito = Varible de session que almacena el id de orden temporal 
+     *
+     * id_orden = Id de orden de compra
+     *
+     * orden = detalle de la orden de compra
+     *
+     * input = Datos que llegan desde mercadopago por metodo post 
+     *
+     * pago = Verificacion con los pagos regstrados en la plataforma 
+     *
+     * Orden = Orden relacionada a la notificacion de mercadopago
+     *
+     * pse = Respuesta de Mercadopago a la consulta del estado del pago 
+     * 
+     * envio = Consulta del envio de la orden 
+     *
+     * valor_impuesto = valor del impuesto de la compra, se usa para calculo del monto de impuesto 
+     *
+     * total =  monto total de la compra
+     *
+     * impuesto = Monto de impuesto de la comrpa
+     *
+     * net_amount = monto de compra antes de impuesto
+     *
+     * det_array = contiene informacion que se procesa en mercadopago 
+     *
+     * direccion = Consulta de la direccion de la orden 
+     *
+     * address = Datos de la direccion que se envian a mercadopago 
+    *  
+    *  compra =  Detalle de la compra
+    *  
+    *  detalles = Productos de la compra
+    *
+    *   formaenvio = Forma de envio relacionada a la compra
+    *
+    *   data_pago = Datos del pago recibido por mercadopafo 
+    *
+    * additional_info = Contiene los articulos de la compra e informacion del cliente que se envia a mercadopago 
+    *
+    * preference_data = Array de datos que contiene toda la informacion que se envia a mercadopago
+    *
+    *data_pago = datos que se guardan en la tabla pagos para la orden  
+    *
+    * 
+    *
+    * payer = Detalles del cliente que se envian a mercadopago 
+      *  
+     *
+     * funcions
+     *
+     * MP = Instancia de api mercadopago
+     *
+     * generarPedido = Procesa y actualiza la orden, vacia el carrito de compras
+     * 
+     * @return View
+     */
+    
+
+
     public function orderDetail()
     {
 
