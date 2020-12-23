@@ -36,7 +36,7 @@ class UltimamillaExport implements FromView
 
       $ayer=$date->subDay(1)->format('Y-m-d');
 
-      $date_desde = Carbon::parse($ayer.' '.'17:00:00')->subDay()->toDateTimeString();
+      $date_desde = Carbon::parse($ayer.' '.'17:00:00')->toDateTimeString();
 
       $date_hasta = Carbon::parse($hoy.' 17:00:00')->toDateTimeString(); 
 
