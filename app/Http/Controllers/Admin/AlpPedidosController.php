@@ -915,6 +915,13 @@ class AlpPedidosController extends JoshController
 
        $cart= \Session::get('cart');
 
+       if (isset($cart['id_almacen'])) {
+         # code...
+       }else{
+
+         $cart['id_almacen']='1';
+       }
+
          $productos = AlpProductos::search($buscar)->select('alp_productos.*', 'alp_categorias.nombre_categoria as nombre_categoria')
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
           ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
