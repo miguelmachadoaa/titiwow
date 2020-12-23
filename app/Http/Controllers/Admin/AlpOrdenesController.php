@@ -2935,7 +2935,7 @@ public function compramasupdate()
         )
           ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
           ->where('alp_ordenes_detalle.id_orden', $input['id'])
-          ->whereNull('alp_ordenes_detalle')->get();
+          ->whereNull('alp_ordenes_detalle.deleted_at')->get();
 
         $envio=AlpEnvios::where('id_orden', $input['id'])->first();
 
