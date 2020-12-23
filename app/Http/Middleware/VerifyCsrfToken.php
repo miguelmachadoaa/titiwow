@@ -46,12 +46,10 @@ class VerifyCsrfToken extends Middleware
        'cart/agregar', //
        'cart/agregarsingle', //
        'cart/agregardetail', //
-
        'cart/addtocartancheta', //
        'cart/deltocartancheta', //
        'cart/agregarunaancheta', //
        'cart/verificarancheta', //
-
        'formasenvio/storecity', //
        'formasenvio/delcity', //
        'configuracion/storecity', //
@@ -60,6 +58,7 @@ class VerifyCsrfToken extends Middleware
        'productos/addrelacionado', //
        'delamigo', //
        'compramas', //
-       'compramasinventario' //
+       'compramasinventario', //
+       'get360' //
     ];
 }

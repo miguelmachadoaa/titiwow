@@ -66,11 +66,11 @@ class CronLogisticaExport implements FromView
           ->where('alp_ordenes.id_forma_pago', '<>', '3')
           
           //->whereIn('alp_ordenes.estatus', [5,6,7])
-          //->whereDate('alp_ordenes.created_at', '>=', $this->desde)
-          //->whereDate('alp_ordenes.created_at', '<=', $this->hasta)
+          ->whereDate('alp_ordenes.created_at', '>=', '2020-12-20 17:00:00')
+          ->whereDate('alp_ordenes.created_at', '<=', '2020-12-21 17:00:00')
           ->get();
 
-
+          dd($ordenes);
 
 
           //dd($ordenes);

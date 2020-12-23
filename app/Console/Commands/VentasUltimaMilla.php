@@ -64,7 +64,7 @@ class VentasUltimaMilla extends Command
 
         $documentos = array();
 
-        $archivo_clientes='ventas_ultimamilla_'.time().'.xls';
+        $archivo_clientes='ventas_ultimamilla_'.$hoy.'_'.time().'.xls';
 
         Excel::store(new UltimamillaExport(), $archivo_clientes, 'excel');
             
@@ -81,12 +81,12 @@ class VentasUltimaMilla extends Command
 
             $correos = explode(";", $configuracion->correo_ultimamilla);
 
-            foreach ($correos as $key => $value) {
+            Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CronUltimaMilla($archivo, $hoy, $documentos));
 
+            foreach ($correos as $key => $value) {
 
                 Mail::to(trim($value))->send(new \App\Mail\CronUltimaMilla($archivo, $hoy, $documentos));
 
-               //  dd($value);
             }
 
 

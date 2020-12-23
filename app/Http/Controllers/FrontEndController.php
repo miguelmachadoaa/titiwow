@@ -2572,9 +2572,10 @@ public function getApiUrl($endpoint, $jsessionid)
 
       $dataraw=json_encode($d);
 
-    // dd($dataraw);
+     //dd($dataraw);
 
-      $urls='https://alpinavista360webapp03.azurewebsites.net/api/UsuarioAlpinaGo/Add';
+      //$urls='https://alpinavista360webapp03.azurewebsites.net/api/UsuarioAlpinaGo/Add';
+      $urls='https://alpina.local/get360';
 
       activity()->withProperties($dataraw)->log('360 api ');
 
@@ -2651,22 +2652,18 @@ public function getApiUrl($endpoint, $jsessionid)
 
       $datos = json_decode($content, true);
 
-       activity()->withProperties($datos)->log('FrontEndController/getCompramas2');
+       activity()->withProperties($datos)->log('FrontEndController/get360_datosrecibidos');
 
-
-    $r="false";
-
-
+          $r="false";
 
        if (count($datos)) {
 
             foreach ($datos as $dato ) {
 
           activity()
-          ->withProperties($dato)->log('FrontEndController/getCompramas 2.1');
+          ->withProperties($dato)->log('FrontEndController/get360_2.1');
 
-          activity()
-          ->withProperties($dato['stock'])->log('FrontEndController/getCompramas2');
+          activity() ->withProperties($dato['email'])->log('FrontEndController/getCompramas2');
 
               $user=User::where('email', '=', $dato['email'])->first();
 
@@ -2683,15 +2680,15 @@ public function getApiUrl($endpoint, $jsessionid)
                   );
 
                    $data = array(
-                    'genero_cliente' =>$dato['genero_cliente'],
-                    'doc_cliente' =>$dato['doc_cliente'],
-                    'telefono_cliente' =>$dato['telefono_cliente'],
+                //    'genero_cliente' =>$dato['genero_cliente'],
+                //    'doc_cliente' =>$dato['doc_cliente'],
+                //    'telefono_cliente' =>$dato['telefono_cliente'],
                     'marketig_email' =>$dato['marketig_email'],
                     'marketing_sms' =>$dato['marketing_sms'],
                     'eliminar_cliente' =>0,
                   );
 
-                   $user->update($data_user);
+                 //  $user->update($data_user);
 
                    $c->update($data);
 
