@@ -2589,8 +2589,7 @@ public function getApiUrl($endpoint, $jsessionid)
 
       $headers = array();
       $headers[] = 'Content-Type: application/json';
-      $headers[] = 'Key: Authorization';
-      $headers[] = 'Value: Basic zHnI1jLI3GH88tT0Pu6w7Q==';
+      $headers[] = 'Authorization: Basic zHnI1jLI3GH88tT0Pu6w7Q==';
       curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
       try {
