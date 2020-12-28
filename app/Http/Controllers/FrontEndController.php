@@ -2577,7 +2577,7 @@ public function getApiUrl($endpoint, $jsessionid)
       $urls='https://alpinavista360webapp03.azurewebsites.net/api/UsuarioAlpinaGo/Add';
       //$urls='https://alpina.local/get360';
 
-      activity()->withProperties($dataraw)->log('360 api ');
+      activity()->withProperties($dataraw)->log('360 api add');
 
       $ch = curl_init();
 
@@ -2610,7 +2610,7 @@ public function getApiUrl($endpoint, $jsessionid)
 
       $res=json_decode($result);
 
-      activity()->withProperties($result)->log('360 respuesta ');
+      activity()->withProperties($result)->log('360 respuesta add');
 
      // Log::info('api 360 res '.json_encode($res));
        
@@ -2659,7 +2659,7 @@ public function getApiUrl($endpoint, $jsessionid)
 
      // $urls='https://alpina.local/get360';
 
-      activity()->withProperties($dataraw)->log('360 api ');
+      activity()->withProperties($dataraw)->log('360 api update');
 
       $ch = curl_init();
 
@@ -2692,7 +2692,7 @@ public function getApiUrl($endpoint, $jsessionid)
 
       $res=json_decode($result);
 
-      activity()->withProperties($result)->log('360 respuesta ');
+      activity()->withProperties($result)->log('360 respuesta update');
 
       $notas='Registro de orden en api 360 res.';
 
