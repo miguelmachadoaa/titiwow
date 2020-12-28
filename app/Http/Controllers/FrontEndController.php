@@ -932,7 +932,7 @@ class FrontEndController extends JoshController
         $cliente->save();
 
 
-       $datos360= $this->datos360($user->id); 
+       $datos360= $this->datos360update($user->id); 
 
 
 
@@ -2574,8 +2574,8 @@ public function getApiUrl($endpoint, $jsessionid)
 
      //dd($dataraw);
 
-      //$urls='https://alpinavista360webapp03.azurewebsites.net/api/UsuarioAlpinaGo/Add';
-      $urls='https://alpina.local/get360';
+      $urls='https://alpinavista360webapp03.azurewebsites.net/api/UsuarioAlpinaGo/Add';
+      //$urls='https://alpina.local/get360';
 
       activity()->withProperties($dataraw)->log('360 api ');
 
@@ -2623,6 +2623,82 @@ public function getApiUrl($endpoint, $jsessionid)
     }
 
 
+
+
+    private function datos360update($id_user)
+    {
+
+      $configuracion=AlpConfiguracion::where('id', '=', 1)->first();
+
+      $user=User::where('id', $id_user)->first();
+
+      $c=AlpClientes::where('id_user_client', $user->id)->first();
+
+      $data = array(
+        'first_name' =>$user->first_name,
+        'last_name' =>$user->last_name,
+        'dob' =>$user->dob,
+        'genero_cliente' =>$c->genero_cliente,
+        'doc_cliente' =>$c->doc_cliente,
+        'telefono_cliente' =>$c->telefono_cliente,
+        'marketig_email' =>$c->marketig_email,
+        'marketing_sms' =>$c->marketing_sms,
+        'eliminar_cliente' =>0,
+        'email' =>$user->email,
+      );
+
+      $d = array();
+
+      $d[]=$data;
+
+      $dataraw=json_encode($d);
+
+     //dd($dataraw);
+
+      $urls='https://alpinavista360webapp03.azurewebsites.net/api/UsuarioAlpinaGo/Update';
+
+     // $urls='https://alpina.local/get360';
+
+      activity()->withProperties($dataraw)->log('360 api ');
+
+      $ch = curl_init();
+
+      curl_setopt($ch, CURLOPT_URL, $urls);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($ch, CURLOPT_POST, 1);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
+      curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+      $headers = array();
+      $headers[] = 'Content-Type: application/json';
+      $headers[] = 'Authorization: Basic zHnI1jLI3GH88tT0Pu6w7Q==';
+      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+      try {
+
+        $result = curl_exec($ch);
+        
+      } catch (Exception $e) {
+        
+      }
+
+      
+      if (curl_errno($ch)) {
+           Log::info('Error:' . curl_error($ch));
+      }
+      
+      curl_close($ch);
+
+      $res=json_decode($result);
+
+      activity()->withProperties($result)->log('360 respuesta ');
+
+      $notas='Registro de orden en api 360 res.';
+
+      return 1;
+      
+    }
 
 
 
