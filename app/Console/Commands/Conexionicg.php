@@ -236,7 +236,7 @@ class Conexionicg extends Command
 
     $ValidarCuposGo = new ValidarCuposGo($encrypted_use2);
 
-    dd($ValidarCuposGo);
+   // dd($ValidarCuposGo);
 
 
 
