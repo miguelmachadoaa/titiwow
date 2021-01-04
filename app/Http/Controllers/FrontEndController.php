@@ -458,6 +458,16 @@ class FrontEndController extends JoshController
     public function home()
     {
 
+
+       $cart= \Session::get('cart');
+
+       if (isset($cart['id_forma_pago']) || isset($cart['id_forma_envio']) || isset($cart['id_cliente']) || isset($cart['id_almacen']) || isset($cart['id_direccion']) || isset($cart['inventario']) ) {
+         
+          $cart= \Session::forget('cart');
+
+          \Session::put('cart', array());
+       }
+
       $id_almacen=$this->getAlmacen();
 
 
@@ -2560,7 +2570,7 @@ public function getApiUrl($endpoint, $jsessionid)
         'genero_cliente' =>$c->genero_cliente,
         'doc_cliente' =>$c->doc_cliente,
         'telefono_cliente' =>$c->telefono_cliente,
-        'marketig_email' =>$c->marketig_email,
+        'marketing_email' =>$c->marketing_email,
         'marketing_sms' =>$c->marketing_sms,
         'eliminar_cliente' =>0,
         'email' =>$user->email,
@@ -2641,7 +2651,7 @@ public function getApiUrl($endpoint, $jsessionid)
         'genero_cliente' =>$c->genero_cliente,
         'doc_cliente' =>$c->doc_cliente,
         'telefono_cliente' =>$c->telefono_cliente,
-        'marketig_email' =>$c->marketig_email,
+        'marketing_email' =>$c->marketing_email,
         'marketing_sms' =>$c->marketing_sms,
         'eliminar_cliente' =>0,
         'email' =>$user->email,

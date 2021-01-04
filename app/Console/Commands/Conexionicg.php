@@ -61,12 +61,43 @@ class Conexionicg extends Command
         
         $c=$this->conexion();
 
-        dd($c);
+        dd($c->codigoRta);
 
     }
 
 
-    private function conexion()
+
+    private function conexion(){
+
+       $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, 'http://201.234.184.25:8099/api/cupo/ValidarCuposGo?DocumentoEmpleado=79964463');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+        $headers = array();
+        $headers[] = 'Content-Type: application/json';
+        $headers[] = 'apikeyalp2go: 1';
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $result = curl_exec($ch);
+
+
+        //dd($result);
+        if (curl_errno($ch)) {
+            echo 'Error curl:' . curl_error($ch);
+        }
+        curl_close($ch);
+
+        $r=json_decode($result);
+
+        return $r;
+    }
+
+
+    private function conexions2()
     {
         
         $configuracion=AlpConfiguracion::where('id', '=', '1')->first();
@@ -74,7 +105,7 @@ class Conexionicg extends Command
         $pod = 0;
         $username = $configuracion->username_ibm;
         $password = $configuracion->password_ibm;
-        $endpoint = 'http://201.234.184.25:8099/wsALP2.asmx?WSDL';
+        $endpoint = 'http://201.234.184.25:8099/api/cupo/ValidarCuposGo';
         $jsessionid = null;
 
        // $baseXml = '%s';
