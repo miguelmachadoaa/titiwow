@@ -10206,12 +10206,6 @@ public function reiniciarancheta()
 
 
 
-
-
-
-
-     
-
       
       $urls=$configuracion->endpoint_icg;
 
@@ -10244,7 +10238,7 @@ activity()->withProperties($dataraw)->log('respuesta icg dataraw');
 
          $ch = curl_init();
 
-      curl_setopt($ch, CURLOPT_URL, $configuracion->compramas_url.'/registerOrderReserved/'.$configuracion->compramas_hash);
+      curl_setopt($ch, CURLOPT_URL, 'http://201.234.184.25:8099/api/cupo/cupoAplicar');
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
       curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
       curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
@@ -10253,7 +10247,7 @@ activity()->withProperties($dataraw)->log('respuesta icg dataraw');
 
       $headers = array();
       $headers[] = 'Content-Type: application/json';
-      $headers[] = 'Woobsing-Token: '.$configuracion->compramas_token;
+       $headers[] = 'apikeyalp2go: 1';
       curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
       $result = curl_exec($ch);
