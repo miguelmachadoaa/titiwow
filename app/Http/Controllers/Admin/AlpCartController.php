@@ -1723,6 +1723,9 @@ class AlpCartController extends JoshController
           
              $cupo_icg=$this->consultaIcg();
 
+        }else{
+
+            $cupo_icg=0;
         }
 
 
@@ -6433,9 +6436,12 @@ public function verificarDireccion( Request $request)
 
               $total_descuentos=$total_descuentos+$pagoi->monto_descuento;
 
+               $total_descuentos_icg=$total_descuentos_icg+$pagoi->monto_descuento;
+
             }
 
-
+            activity()->withProperties($total_descuentos_icg)
+                        ->log('total descuento icg  ');
 
           //se calcula lo que queda luego del descuento
 
@@ -6506,7 +6512,11 @@ public function verificarDireccion( Request $request)
 
 
 
+            if ($total_descuentos_icg>0) {
 
+              $this->registroIcg($orden->id);
+
+            }
 
 
 
@@ -9917,9 +9927,6 @@ public function reiniciarancheta()
 
 
 
-
-
-
             $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
 
             $almp=AlpAlmacenProducto::where('id_almacen', $id_almacen)->where('id_producto', $producto->id)->first();
@@ -10003,83 +10010,36 @@ public function reiniciarancheta()
 
       $configuracion=AlpConfiguracion::where('id', '=', '1')->first();
         
-        $pod = 0;
-        $username = $configuracion->username_ibm;
-        $password = $configuracion->password_ibm;
-        $endpoint = 'http://201.234.184.25:8099/wsALP2.asmx?WSDL';
-        $jsessionid = null;
+       $ch = curl_init();
 
-        $date = Carbon::now();
+        curl_setopt($ch, CURLOPT_URL, 'http://201.234.184.25:8099/api/cupo/ValidarCuposGo?DocumentoEmpleado='.$c->doc_cliente);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 
-        $hoy=$date->format('Ymd h:m:s');
+        $headers = array();
+        $headers[] = 'Content-Type: application/json';
+        $headers[] = 'apikeyalp2go: 1';
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-        $fechad=$date->format('Y-m-d');
-        $fechah=$date->format('h:m:s');
-        $fecha=$fechad.' '.$fechah;
+        $result = curl_exec($ch);
 
-        $d='#.Za('.$hoy.'!4$k;';
 
-        $p='Q@4;_'.$hoy.'?rK&%)';
-
-        while (strlen($d) < 32) {
-          $d='0'.$d;
+        //dd($result);
+        if (curl_errno($ch)) {
+            echo 'Error curl:' . curl_error($ch);
         }
+        curl_close($ch);
 
-        while (strlen($p) < 32) {
-          $p='0'.$p;
-        }
-
-
-        $newEncrypter = new \Illuminate\Encryption\Encrypter( $p, 'AES-256-CBC' );
-        $encrypted_user = $newEncrypter->encrypt( 'test1' );
-        //$encrypted_user =  Crypt::encrypt('test1');
-
-
-        $newEncrypter2 = new \Illuminate\Encryption\Encrypter( $d, 'AES-256-CBC' );
-        $encrypted_password = $newEncrypter->encrypt( 'test2' );
-
-
-        $xml='<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope/" soap:encodingStyle="http://www.w3.org/2003/05/soap-encoding">';
-          $xml=$xml.'<soap:Header>';
-            $xml=$xml.'<tem:LoginInfo xmlns:tem="http://www.w3.org/2003/05/logininfo/" ><tem:UserName>'.$encrypted_user.'</tem:UserName>';
-              $xml=$xml.'<tem:Password>'.$encrypted_password.'</tem:Password>';
-              $xml=$xml.'<tem:Fecha>'.$fecha.'</tem:Fecha>';
-            $xml=$xml.'</tem:LoginInfo>';
-          $xml=$xml.'</soap:Header>';
-        $xml=$xml.'<soap:Body>';
-          $xml=$xml.'<tem:ValidarCuposGo xmlns:tem="http://www.w3.org/2003/05/validarcuposgo/">';
-            $xml=$xml.'<tem:DocumentoEmpleado>'.$c->doc_cliente.'</tem:DocumentoEmpleado>';
-          $xml=$xml.'</tem:ValidarCuposGo>';
-        $xml=$xml.'</soap:Body>';
-        $xml=$xml.'</soap:Envelope>';
-
-
-         activity()->withProperties($xml)->log('coonsulta icg xml');
-
-        echo '-------';
-
-       // $client = new \SoapClient($wsdl, $options);
-        try {
-
-          $client = new SoapClient($endpoint);
-
-          $res = $client->ValidarCuposGO($xml);
-          
-        } catch (Exception $e) {
-          
-        }
-        
-
-        
-        //$result = $client->RegistrarConsumoGo($xml);
-        //
+        $res=json_decode($result);
 
         activity()->withProperties($res)->log('respuesta icg res');
 
 
-      if (isset($res->ValidarCuposGoResult)) {
+      if (isset($res->codigoRta)) {
         
-        if ($res->ValidarCuposGoResult->CodigoRta=='OK') {
+        if ($res->codigoRta=='OK') {
 
             $dataicg = array(
             'id_orden' => $carrito, 
@@ -10093,7 +10053,7 @@ public function reiniciarancheta()
 
 
 
-          return $res;
+          return $res->cupoCredito;
 
            
         }else{
@@ -10110,7 +10070,7 @@ public function reiniciarancheta()
 
 
 
-          return null;
+          return 0;
 
         }
 
@@ -10127,7 +10087,7 @@ public function reiniciarancheta()
 
         AlpConsultaIcg::create($dataicg);
 
-        return null;
+        return 0;
 
                        
 
@@ -10180,22 +10140,27 @@ public function reiniciarancheta()
 
       $aviso='';
 
-
       $cupo_icg=$this->consultaIcg();
 
-      $descuento=$total*(($cupo_icg/100));
-
-      $datadescuento = array(
-        'id_orden' => $carrito,
-        'codigo_orden' => $carrito,
-        'monto_descuento' => $descuento,
-        'json' => 0,
-        'aplicado' => 0,
-        'id_user' => $user->id
-      );
+      $descuento=$total*0.3;
 
 
-      AlpOrdenesDescuentoIcg::create($datadescuento);
+      if ($cupo_icg>=$descuento) {
+
+          $datadescuento = array(
+          'id_orden' => $carrito,
+          'codigo_orden' => $carrito,
+          'monto_descuento' => $descuento,
+          'json' => 0,
+          'aplicado' => 0,
+          'id_user' => $user->id
+        );
+
+
+        AlpOrdenesDescuentoIcg::create($datadescuento);
+      }
+
+      
 
 
        return redirect('order/detail');
@@ -10210,6 +10175,9 @@ public function reiniciarancheta()
 
     private function registroIcg($ordenId)
     {
+
+      activity()->withProperties(1)
+                        ->log('registro icg  ');
 
      //dd($id_orden);
       $configuracion=AlpConfiguracion::where('id', '=', 1)->first();
@@ -10226,11 +10194,20 @@ public function reiniciarancheta()
      $monto_descuentoicg=0;
 
      if (isset($descuentosIcg->id)) {
+
        $monto_descuentoicg=$descuentoIcg->monto_descuento;
+
      }
 
-      $c=AlpClientes::where('id_user_client', $s_user)->first();
+      $c=AlpClientes::where('id_user_client', $orden->id_cliente)->first();
 
+
+
+
+
+
+
+     
 
       
       $urls=$configuracion->endpoint_icg;
@@ -10248,64 +10225,46 @@ public function reiniciarancheta()
         $fecha=$fechad.' '.$fechah;
         $fecha_cont=$fechadt.'T'.$fechah;
 
-        $d='#.Za('.$hoy.'!4$k;';
 
-        $p='Q@4;_'.$hoy.'?rK&%)';
+         $data_consumo = array(
+        'NumeroPedido' => $orden->referencia, 
+        'Fecha' => $fecha_cont, 
+        'DocumentoEmpleado' => $c->doc_cliente, 
+        'FormaPago' => 'CONTADO', 
+        'ValorTransaccion' => $orden->monto_total, 
+        'ValorDescuento' => $monto_descuentoicg
+      );
 
-        while (strlen($d) < 32) {
-          $d='0'.$d;
-        }
+         $dataraw=json_encode($data_consumo);
 
-        while (strlen($p) < 32) {
-          $p='0'.$p;
-        }
+activity()->withProperties($dataraw)->log('respuesta icg dataraw');
 
-       //dd($p);
+         $ch = curl_init();
 
-        $newEncrypter = new \Illuminate\Encryption\Encrypter($d, 'AES-256-CBC');
-        $encrypted_user = $newEncrypter->encrypt('test1');
-        //$encrypted_user =  Crypt::encrypt('test1');
+      curl_setopt($ch, CURLOPT_URL, $configuracion->compramas_url.'/registerOrderReserved/'.$configuracion->compramas_hash);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
+      curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 
+      $headers = array();
+      $headers[] = 'Content-Type: application/json';
+      $headers[] = 'Woobsing-Token: '.$configuracion->compramas_token;
+      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-        $newEncrypter2 = new \Illuminate\Encryption\Encrypter($p, 'AES-256-CBC');
-        $encrypted_password = $newEncrypter->encrypt('test2');
+      $result = curl_exec($ch);
+      if (curl_errno($ch)) {
+          echo 'Error:' . curl_error($ch);
+      }
+      curl_close($ch);
 
-      //  dd($encrypted_password);
-
-      //Registrar Consumo
-
-        $xml='<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope/" soap:encodingStyle="http://www.w3.org/2003/05/soap-encoding">';
-          $xml=$xml.'<soap:Header>';
-            $xml=$xml.'<tem:LoginInfo xmlns:tem="http://www.w3.org/2003/05/logininfo/" ><tem:UserName>'.$encrypted_user.'</tem:UserName>';
-              $xml=$xml.'<tem:Password>'.$encrypted_password.'</tem:Password>';
-              $xml=$xml.'<tem:Fecha>'.$fecha.'</tem:Fecha>';
-            $xml=$xml.'</tem:LoginInfo>';
-          $xml=$xml.'</soap:Header>';
-        $xml=$xml.'<soap:Body>';
-          $xml=$xml.'<tem:RegistroConsumoGo xmlns:tem="http://www.w3.org/2003/05/registroconsumogo/">';
-            $xml=$xml.'<tem:NumeroPedido>ALP1024</tem:NumeroPedido>';
-           $xml=$xml.' <tem:Fecha>'.$fecha_cont.'</tem:Fecha>';
-            $xml=$xml.'<tem:DocumentoEmpleado>1020822917</tem:DocumentoEmpleado>';
-            $xml=$xml.'<tem:FormaPago>Contado</tem:FormaPago>';
-            $xml=$xml.'<tem:ValorTransaccion>100000</tem:ValorTransaccion>';
-            $xml=$xml.'<tem:ValorDescuento>100000</tem:ValorDescuento>';
-            //$xml=$xml.'<tem:ReferenciaRegistradaAnulado>100000</tem:ReferenciaRegistradaAnulado>';
-          $xml=$xml.'</tem:RegistroConsumo>';
-        $xml=$xml.'</soap:Body>';
-        $xml=$xml.'</soap:Envelope>';
-
-         $client = new SoapClient($endpoint);
-
-      //  $result = $client->ValidarCuposGO($xml);
-        $result = $client->RegistrarConsumoGo($xml);
+      $res=json_decode($result);
 
 
-       Log::info('api icg res '.json_encode($res));
+activity()->withProperties($res)->log('registro consumo  icg res');
+
        
-       Log::info('api icg result '.$result);
-
-     //  dd($result);
-
 
        $notas='Registro de orden en api icg res.';
 

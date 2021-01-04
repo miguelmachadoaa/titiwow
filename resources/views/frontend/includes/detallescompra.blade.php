@@ -221,7 +221,7 @@
 
                         <div class="col-sm-8 col-xs-12">
 
-                           <p>Cupo de Descuento ICG de  {{$total*(($cupo_icg/100))}}</p> 
+                           <p>Cupo de Descuento ICG de  {{$total*((0.3))}}</p> 
 
                         </div>
 
