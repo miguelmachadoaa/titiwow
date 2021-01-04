@@ -6420,7 +6420,7 @@ public function verificarDireccion( Request $request)
 
             $total_descuentos=0;
 
-            $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
+            $descuentos=AlpOrdenesDescuento::where('id_orden', $orden->id)->get();
 
             foreach ($descuentos as $pago) {
 
@@ -6428,7 +6428,7 @@ public function verificarDireccion( Request $request)
 
             }
 
-             $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $carrito)->get();
+             $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $orden->id)->get();
 
             $total_descuentos_icg=0;
 
@@ -6442,6 +6442,9 @@ public function verificarDireccion( Request $request)
 
             activity()->withProperties($total_descuentos_icg)
                         ->log('total descuento icg  ');
+
+                        activity()->withProperties($carrito)
+                        ->log('total descuento icg carrito  ');
 
           //se calcula lo que queda luego del descuento
 
@@ -10195,7 +10198,7 @@ public function reiniciarancheta()
 
      if (isset($descuentosIcg->id)) {
 
-       $monto_descuentoicg=$descuentoIcg->monto_descuento;
+       $monto_descuentoicg=$descuentosIcg->monto_descuento;
 
      }
 
