@@ -414,8 +414,13 @@ class AlpCartController extends JoshController
 
         }
 
+
+        $descuentos=AlpOrdenesDescuento::where('id_orden', $id)->get();
+        
+        $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $id)->get();
+
           
-        return view('frontend.order.gracias', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago', 'payment', 'estatus_aviso', 'metodo', 'envio', 'envio_base', 'envio_impuesto'));
+        return view('frontend.order.gracias', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago', 'payment', 'estatus_aviso', 'metodo', 'envio', 'envio_base', 'envio_impuesto', 'descuentos', 'descuentosIcg'));
 
     }
 
@@ -6173,7 +6178,15 @@ public function verificarDireccion( Request $request)
 
             if ($total_descuentos_icg>0) {
 
-              $this->registroIcg($orden->id);
+              $ricg=$this->registroIcg($orden->id);
+
+              if (isset($ricg->codigoRta)) {
+                # code...
+              }else{
+
+                $r='falseicg';
+              }
+
 
             }
 
@@ -6523,7 +6536,7 @@ public function verificarDireccion( Request $request)
                 # code...
               }else{
 
-                $r='false';
+                $r='falseicg';
               }
 
 

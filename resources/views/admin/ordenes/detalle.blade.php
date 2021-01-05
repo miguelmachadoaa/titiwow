@@ -544,6 +544,18 @@ Orden {{$orden->id}}
                      @endif
 
                     
+                     @if(count($descuentoicg)>0)
+
+                       @foreach($descuentoicg as $di)
+
+                       <tr>
+                         <td style="text-align: right;" colspan="5"><b> Descuento ICG: </b></td>
+                         <td >{{ number_format($di->monto_descuento, 2) }}</td>
+                     </tr>
+
+                       @endforeach
+
+                     @endif
 
                       
 
