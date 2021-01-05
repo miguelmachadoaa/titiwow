@@ -44,6 +44,7 @@ class AlpOrdenes extends Model
         'factura',
         'ip',
         'json',
+        'json_icg',
         'estado_compramas',
         'envio_compramas',
         'notas',

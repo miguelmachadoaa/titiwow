@@ -175,6 +175,33 @@ Carrito de Compras
                          </td>
                      </tr>
 
+                     @foreach($descuentos as $d)
+
+                        <tr>
+                         <td colspan="4" style="text-align: right;">
+                             <b>Cupon {{$d->codigo_cupon}}: </b>
+                         </td>
+                         <td>
+                             {{number_format($d->monto_descuento, 0,",",".")}}
+                         </td>
+                     </tr>
+
+                     @endforeach
+
+
+                     @foreach($descuentosIcg as $di)
+
+                        <tr>
+                         <td colspan="4" style="text-align: right;">
+                             <b>Descuento ICG: </b>
+                         </td>
+                         <td>
+                             {{number_format($di->monto_descuento, 0,",",".")}}
+                         </td>
+                     </tr>
+
+                     @endforeach
+
                      
 
                      

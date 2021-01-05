@@ -27,6 +27,10 @@ use App\Models\AlpInventario;
 use App\Models\AlpSaldo;
 use App\Models\AlpTemp;
 use App\Models\AlpAnchetaMensaje;
+use App\Models\AlpConsultaIcg;
+use App\Models\AlpOrdenesDescuentoIcg;
+
+
 use Illuminate\Support\Facades\Log;
 
 use App\User;
@@ -2553,6 +2557,8 @@ public function compramasupdate()
 
           $cupones=AlpOrdenesDescuento::where('id_orden', $orden->id)->get();
 
+        $descuentoicg=AlpOrdenesDescuentoIcg::where('id_orden','=', $orden->id)->get();
+
           $formaenvio=AlpFormasenvio::where('id', $orden->id_forma_envio)->first();
 
           $envio=AlpEnvios::where('id_orden', $orden->id)->first();
@@ -2581,7 +2587,7 @@ public function compramasupdate()
          // dd($history_envio);
 
 
-        return view('admin.ordenes.detalle', compact('detalles', 'orden', 'history', 'pago', 'pagos', 'cliente', 'direccion', 'cupones', 'formaenvio', 'envio', 'pago_aprobado', 'history_envio', 'user'  ));
+        return view('admin.ordenes.detalle', compact('detalles', 'orden', 'history', 'pago', 'pagos', 'cliente', 'direccion', 'cupones', 'formaenvio', 'envio', 'pago_aprobado', 'history_envio', 'user', 'descuentoicg'  ));
 
     }
 
@@ -5254,6 +5260,153 @@ public function sendcompramascancelar($id_orden){
 
 
 
+
+
+
+     private function registroIcgCancelar($ordenId)
+    {
+
+      activity()->withProperties(1)
+                        ->log('registro icg  ');
+
+     //dd($id_orden);
+      $configuracion=AlpConfiguracion::where('id', '=', 1)->first();
+
+     
+     $orden=AlpOrdenes::where('id', $ordenId)->first();
+
+     $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden', '=', $orden->id)->first();
+
+     $monto_descuentoicg=0;
+
+     if (isset($descuentosIcg->id)) {
+
+       $monto_descuentoicg=$descuentosIcg->monto_descuento;
+
+     }
+
+      $c=AlpClientes::where('id_user_client', $orden->id_cliente)->first();
+
+
+
+      
+      $urls=$configuracion->endpoint_icg;
+
+       Log::info('api icg urls '.$urls);
+
+
+       $date = Carbon::now();
+
+        $hoy=$date->format('YmdH:m:s');
+
+        $fechad=$date->format('Ymd');
+        $fechadt=$date->format('Y-m-d');
+        $fechah=$date->format('H:m:s');
+        $fecha=$fechad.' '.$fechah;
+        $fecha_cont=$fechadt.'T'.$fechah;
+
+
+         $data_consumo = array(
+        'NumeroPedido' => $orden->referencia, 
+        'Fecha' => $fecha_cont, 
+        'DocumentoEmpleado' => $c->doc_cliente, 
+        'FormaPago' => 'CONTADO', 
+        'ValorTransaccion' => $orden->monto_total, 
+        'ValorDescuento' => '-'.$monto_descuentoicg
+      );
+
+         $dataraw=json_encode($data_consumo);
+
+activity()->withProperties($dataraw)->log('respuesta icg dataraw');
+
+         $ch = curl_init();
+
+      curl_setopt($ch, CURLOPT_URL, 'http://201.234.184.25:8099/api/cupo/cupoAplicar');
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
+      curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+      $headers = array();
+      $headers[] = 'Content-Type: application/json';
+       $headers[] = 'apikeyalp2go: 1';
+      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+      $result = curl_exec($ch);
+      if (curl_errno($ch)) {
+          echo 'Error:' . curl_error($ch);
+      }
+      curl_close($ch);
+
+      $res=json_decode($result);
+
+
+activity()->withProperties($res)->log('registro consumo  icg res');
+
+       
+
+       $notas='Registro de orden en api icg res.';
+
+
+      if (isset($res->CodigoRta)) {
+        
+        if ($res->CodigoRta=='OK') {
+
+            $dataicg = array(
+            'id_orden' => $carrito, 
+            'doc_cliente' => $c->doc_cliente, 
+            'monto_descuento' => 0, 
+            'json' => json_encode($res), 
+            'id_user' => $s_user, 
+          );
+
+          AlpConsultaIcg::create($dataicg);
+
+
+
+          return $res;
+
+           
+        }else{
+
+          $dataicg = array(
+          'id_orden' => $carrito, 
+          'doc_cliente' => $c->doc_cliente, 
+          'monto_descuento' => 0, 
+          'json' => json_encode($res), 
+          'id_user' => $s_user, 
+        );
+
+        AlpConsultaIcg::create($dataicg);
+
+
+
+          return $res;
+
+        }
+
+
+      }else{
+
+        $dataicg = array(
+          'id_orden' => $carrito, 
+          'doc_cliente' => $c->doc_cliente, 
+          'monto_descuento' => 0, 
+          'json' => json_encode($res), 
+          'id_user' => $s_user, 
+        );
+
+        AlpConsultaIcg::create($dataicg);
+
+        return $res;
+
+                       
+
+      }
+
+      
+    }
 
 
 
