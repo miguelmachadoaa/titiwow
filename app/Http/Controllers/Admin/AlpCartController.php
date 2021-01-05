@@ -5895,7 +5895,7 @@ public function verificarDireccion( Request $request)
 
       }
 
-
+      $r='true';
 
 
       $clientIP = \Request::getClientIp(true);
@@ -6198,7 +6198,7 @@ public function verificarDireccion( Request $request)
 
           }else{
 
-            return 'false0';
+            $r='false0';
 
           }
 
@@ -6517,7 +6517,16 @@ public function verificarDireccion( Request $request)
 
             if ($total_descuentos_icg>0) {
 
-              $this->registroIcg($orden->id);
+              $ricg=$this->registroIcg($orden->id);
+
+              if (isset($ricg->codigoRta)) {
+                # code...
+              }else{
+
+                $r='false';
+              }
+
+
 
             }
 
@@ -6554,12 +6563,13 @@ public function verificarDireccion( Request $request)
 
         // dd($cart);
 
-          return 'true';
 
       }else{
 
-        return 'false';
+        $r='false';
       }
+
+      return $r;
 
         
     }
@@ -7446,6 +7456,62 @@ public function addcupon(Request $request)
       return $texto;
 
     }
+
+
+
+
+    public function delcuponicg(Request $request)
+    {
+
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cartcontroller/delcupon ');
+
+        }else{
+
+          activity()->withProperties($request->all())
+                        ->log('cartcontroller/delcupon');
+
+
+        }
+
+        
+
+      $configuracion=AlpConfiguracion::where('id', '1')->first();
+      
+      $carrito= \Session::get('cr');
+
+      $cart=$this->reloadCart();
+
+      $total=$this->total();
+
+      $total_base=$this->precio_base();
+
+      $impuesto=$this->impuesto();
+
+      $texto="<div class='alert alert-danger'>El descuento de icg ha sido eliminado</div>";
+
+      $o=AlpOrdenesDescuentoIcg::where('id', $request->id)->first();
+
+      if (isset($o->id)) {
+
+      $o->delete();
+        # code...
+      }
+
+
+      return $texto;
+
+    }
+
+
 
 
     public function envio(){
@@ -10282,7 +10348,7 @@ activity()->withProperties($res)->log('registro consumo  icg res');
 
 
 
-          return $res->CupoCredito;
+          return $res;
 
            
         }else{
@@ -10299,7 +10365,7 @@ activity()->withProperties($res)->log('registro consumo  icg res');
 
 
 
-          return 1;
+          return $res;
 
         }
 
@@ -10316,7 +10382,7 @@ activity()->withProperties($res)->log('registro consumo  icg res');
 
         AlpConsultaIcg::create($dataicg);
 
-        return 30;
+        return $res;
 
                        
 

@@ -492,6 +492,34 @@ $('.delCupon').on('click', function(){
 });
 
 
+$('.delCuponIcg').on('click', function(){
+
+    id=$(this).data('id');
+
+    _token=$('input[name="_token"]').val();
+
+    var base = $('#base').val();
+
+        $.ajax({
+            type: "POST",
+
+            data:{id, _token},
+
+            url: base+"/cart/delcuponicg",
+                
+            complete: function(datos){     
+
+                localStorage.setItem("aviso", datos.responseText);
+
+                location.reload();
+            
+            }
+
+        });
+
+});
+
+
 $('.sendCupon').click(function () {
     
     var $validator = $('#addCuponForm').data('bootstrapValidator').validate();
@@ -612,10 +640,6 @@ $('.sendCupon').click(function () {
 
                    if(datos.responseText=='true'){
 
-                  
-
-                       
-                        
 
                         //$('#procesarForm').submit();
 
@@ -647,9 +671,21 @@ $('.sendCupon').click(function () {
 
                     }else{
 
-                        $('.res_direccion').html('<divhidden class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+                        if (datos.responseText=='falseicg') {
+
+                            $('.res_direccion').html('<divhidden class="alert alert-danger" role="alert">Ocurrio un error al registrar descuento de ICG por favor intente nuevamente </div>');
 
                          $('#modalPse').modal('hidden');
+
+
+                        }else{
+
+                            $('.res_direccion').html('<divhidden class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+
+                         $('#modalPse').modal('hidden');
+                        }
+
+                        
 
                     }
                 

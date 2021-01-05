@@ -1386,6 +1386,7 @@ Route::post('cart/addcupon/',['as'=>'cart.addcupon', 'uses'=>'Admin\AlpCartContr
 Route::post('cart/addcuponform/',['as'=>'cart.addcuponform', 'uses'=>'Admin\AlpCartController@addcuponform']);
 
 Route::post('cart/delcupon/',['as'=>'cart.delcupon', 'uses'=>'Admin\AlpCartController@delcupon']);
+Route::post('cart/delcuponicg/',['as'=>'cart.delcuponicg', 'uses'=>'Admin\AlpCartController@delcuponicg']);
 
 
 

@@ -477,7 +477,7 @@ Editar Configuracion General
 
 
 
-                            <!--fieldset>
+                            <fieldset>
 
 
                                 <br />
@@ -580,8 +580,38 @@ Editar Configuracion General
                                     </div>
                                 </div>
 
+                                <div class="form-group {{ $errors->first('token_icg', 'has-error') }}">
+                                    <label for="token_icg" class="col-sm-2 control-label">
+                                        Token ICG 
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="token_icg" name="token_icg" class="form-control" placeholder="Endpoint Ibm"
+                                            value="{!! old('token_icg', $configuracion->token_icg) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('token_icg', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
 
-                            </fieldset-->
+
+
+                                <div class="form-group {{ $errors->first('porcentaje_icg', 'has-error') }}">
+                                    <label for="porcentaje_icg" class="col-sm-2 control-label">
+                                        Porcentaje de Descuento ICG 
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="porcentaje_icg" name="porcentaje_icg" class="form-control" placeholder="Endpoint Ibm"
+                                            value="{!! old('porcentaje_icg', $configuracion->porcentaje_icg) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('porcentaje_icg', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
+
+
+
+
+                            </fieldset>
 
 
 
