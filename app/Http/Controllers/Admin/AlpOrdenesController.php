@@ -28,6 +28,7 @@ use App\Models\AlpSaldo;
 use App\Models\AlpTemp;
 use App\Models\AlpAnchetaMensaje;
 use App\Models\AlpConsultaIcg;
+use App\Models\AlpClientes;
 use App\Models\AlpOrdenesDescuentoIcg;
 
 
@@ -709,7 +710,7 @@ public function compramasupdate()
 
      // dd('i');
 
-      $permiso_cancelar = array('1','2','3' );
+      $permiso_cancelar = array('1','2','3');
        
 
        $id_rol=0;
@@ -2669,6 +2670,31 @@ public function compramasupdate()
             $d->delete();
 
           }
+
+
+
+           $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $input['confirm_id'])->get();
+
+            $total_descuentos_icg=0;
+
+            foreach ($descuentosIcg as $pagoi) {
+
+               $total_descuentos_icg=$total_descuentos_icg+$pagoi->monto_descuento;
+
+              //$dI=AlpOrdenesDescuentoIcg::where('id', $pagoi->id)->first();
+
+             // $dI->delete();
+             
+
+            }
+
+            activity()->withProperties($total_descuentos_icg)->log('descuento icg al cancelar ordenes  ');
+              if ($total_descuentos_icg>0) {
+                
+                $resp_icg=$this->registroIcgCancelar($input['confirm_id']);
+
+                
+              }
 
 
           if ($orden->id_forma_pago=='3') {
@@ -5267,7 +5293,7 @@ public function sendcompramascancelar($id_orden){
     {
 
       activity()->withProperties(1)
-                        ->log('registro icg  ');
+                        ->log('cancelar registro icg  ');
 
      //dd($id_orden);
       $configuracion=AlpConfiguracion::where('id', '=', 1)->first();
@@ -5283,7 +5309,11 @@ public function sendcompramascancelar($id_orden){
 
        $monto_descuentoicg=$descuentosIcg->monto_descuento;
 
+       $descuentosIcg->delete();
+
      }
+
+
 
       $c=AlpClientes::where('id_user_client', $orden->id_cliente)->first();
 
@@ -5317,7 +5347,7 @@ public function sendcompramascancelar($id_orden){
 
          $dataraw=json_encode($data_consumo);
 
-activity()->withProperties($dataraw)->log('respuesta icg dataraw');
+activity()->withProperties($dataraw)->log('data enviada cancelar registro icg ');
 
          $ch = curl_init();
 
@@ -5342,7 +5372,7 @@ activity()->withProperties($dataraw)->log('respuesta icg dataraw');
       $res=json_decode($result);
 
 
-activity()->withProperties($res)->log('registro consumo  icg res');
+activity()->withProperties($res)->log('respuesta cancelar registro icg ');
 
        
 
@@ -5354,11 +5384,11 @@ activity()->withProperties($res)->log('registro consumo  icg res');
         if ($res->CodigoRta=='OK') {
 
             $dataicg = array(
-            'id_orden' => $carrito, 
+            'id_orden' => $orden->id, 
             'doc_cliente' => $c->doc_cliente, 
             'monto_descuento' => 0, 
             'json' => json_encode($res), 
-            'id_user' => $s_user, 
+            'id_user' => '1', 
           );
 
           AlpConsultaIcg::create($dataicg);
@@ -5371,11 +5401,11 @@ activity()->withProperties($res)->log('registro consumo  icg res');
         }else{
 
           $dataicg = array(
-          'id_orden' => $carrito, 
+          'id_orden' => $orden->id, 
           'doc_cliente' => $c->doc_cliente, 
           'monto_descuento' => 0, 
           'json' => json_encode($res), 
-          'id_user' => $s_user, 
+          'id_user' => '1', 
         );
 
         AlpConsultaIcg::create($dataicg);
@@ -5390,11 +5420,11 @@ activity()->withProperties($res)->log('registro consumo  icg res');
       }else{
 
         $dataicg = array(
-          'id_orden' => $carrito, 
+          'id_orden' => $orden->id, 
           'doc_cliente' => $c->doc_cliente, 
           'monto_descuento' => 0, 
           'json' => json_encode($res), 
-          'id_user' => $s_user, 
+          'id_user' => '1', 
         );
 
         AlpConsultaIcg::create($dataicg);

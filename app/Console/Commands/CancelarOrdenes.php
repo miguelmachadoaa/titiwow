@@ -6,6 +6,9 @@ use App\User;
 use App\Models\AlpOrdenes;
 use App\Models\AlpOrdenesHistory;
 use App\Models\AlpOrdenesDescuento;
+use App\Models\AlpOrdenesDescuentoIcg;
+use App\Models\AlpConsultaIcg;
+use App\Models\AlpClientes;
 use App\Models\AlpDetalles;
 use App\Models\AlpInventario;
 use App\Models\AlpConfiguracion;
@@ -62,9 +65,9 @@ class CancelarOrdenes extends Command
 
         $hoy=$date->format('Y-m-d');
 
-        $ordenes =  DB::table('alp_ordenes')->select('alp_ordenes.*') ->where('alp_ordenes.estatus','=', 8)->get();
+        //$ordenes =  DB::table('alp_ordenes')->select('alp_ordenes.*') ->where('alp_ordenes.estatus','=', 8)->get();
 
-        //$ordenes=AlpOrdenes::where('id', '5233')->get();
+        $ordenes=AlpOrdenes::where('id', '11039')->get();
 
         foreach ($ordenes  as $orden) {
 
@@ -74,7 +77,8 @@ class CancelarOrdenes extends Command
 
             $diff = $date->diffInHours($now); 
            
-            if ($diff>$configuracion->vence_ordenes) {
+           # if ($diff>$configuracion->vence_ordenes) {
+           if (1) {
             
                 # code...
 
@@ -401,11 +405,11 @@ class CancelarOrdenes extends Command
 
        $monto_descuentoicg=$descuentosIcg->monto_descuento;
 
+       $ReferenciaRegistroAnulado=$descuentosIcg->aplicado;
+
      }
 
       $c=AlpClientes::where('id_user_client', $orden->id_cliente)->first();
-
-
 
       
       $urls=$configuracion->endpoint_icg;
@@ -425,13 +429,16 @@ class CancelarOrdenes extends Command
 
 
          $data_consumo = array(
-        'NumeroPedido' => $orden->referencia, 
+        'NumeroPedido' => $orden->referencia.'-'.time(), 
         'Fecha' => $fecha_cont, 
         'DocumentoEmpleado' => $c->doc_cliente, 
         'FormaPago' => 'CONTADO', 
-        'ValorTransaccion' => $orden->monto_total, 
-        'ValorDescuento' => '-'.$monto_descuentoicg
+        'ValorTransaccion' => '-'.$orden->monto_total, 
+        'ValorDescuento' => '-'.$monto_descuentoicg,
+        'ReferenciaRegistroAnulado' => $ReferenciaRegistroAnulado
       );
+
+        // dd($data_consumo);
 
          $dataraw=json_encode($data_consumo);
 
@@ -467,16 +474,16 @@ activity()->withProperties($res)->log('registro consumo  icg res');
        $notas='Registro de orden en api icg res.';
 
 
-      if (isset($res->CodigoRta)) {
+      if (isset($res->codigoRta)) {
         
-        if ($res->CodigoRta=='OK') {
+        if ($res->codigoRta=='OK') {
 
             $dataicg = array(
-            'id_orden' => $carrito, 
+            'id_orden' => $orden->id, 
             'doc_cliente' => $c->doc_cliente, 
             'monto_descuento' => 0, 
             'json' => json_encode($res), 
-            'id_user' => $s_user, 
+            'id_user' => '1', 
           );
 
           AlpConsultaIcg::create($dataicg);
@@ -489,11 +496,11 @@ activity()->withProperties($res)->log('registro consumo  icg res');
         }else{
 
           $dataicg = array(
-          'id_orden' => $carrito, 
+          'id_orden' => $orden->id, 
           'doc_cliente' => $c->doc_cliente, 
           'monto_descuento' => 0, 
           'json' => json_encode($res), 
-          'id_user' => $s_user, 
+          'id_user' => '1', 
         );
 
         AlpConsultaIcg::create($dataicg);
@@ -508,12 +515,12 @@ activity()->withProperties($res)->log('registro consumo  icg res');
       }else{
 
         $dataicg = array(
-          'id_orden' => $carrito, 
+          'id_orden' => $orden->id, 
           'doc_cliente' => $c->doc_cliente, 
           'monto_descuento' => 0, 
           'json' => json_encode($res), 
-          'id_user' => $s_user, 
-        );
+          'id_user' => '1', 
+        );  
 
         AlpConsultaIcg::create($dataicg);
 

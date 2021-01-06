@@ -6456,8 +6456,7 @@ public function verificarDireccion( Request $request)
             activity()->withProperties($total_descuentos_icg)
                         ->log('total descuento icg  ');
 
-                        activity()->withProperties($carrito)
-                        ->log('total descuento icg carrito  ');
+                        #activity()->withProperties($carrito)>log('total descuento icg carrito  ');
 
           //se calcula lo que queda luego del descuento
 
@@ -6525,16 +6524,15 @@ public function verificarDireccion( Request $request)
 
 
 
-            dd($orden->json_icg);
+           // dd($orden->json_icg);
 
 
             if ($total_descuentos_icg>0) {
 
 
-              if (!is_null($orden->json_icg)) {
+              
                 
-                  $ricgc=$this->registroIcgCancelar($orden->id);
-              }
+              $ricgc=$this->registroIcgCancelar($orden->id);
 
               $ricg=$this->registroIcg($orden->id);
 
@@ -10232,7 +10230,11 @@ public function reiniciarancheta()
 
       $cupo_icg=$this->consultaIcg();
 
-      $descuento=$total*0.3;
+      $descuento=$total*($configuracion->porcentaje_icg/100);
+
+
+         // dd($descuento);
+
 
 
       if ($cupo_icg>=$descuento) {
@@ -10245,6 +10247,7 @@ public function reiniciarancheta()
           'aplicado' => 0,
           'id_user' => $user->id
         );
+
 
 
         AlpOrdenesDescuentoIcg::create($datadescuento);
@@ -10311,7 +10314,7 @@ public function reiniciarancheta()
 
 
          $data_consumo = array(
-        'NumeroPedido' => $orden->referencia, 
+        'NumeroPedido' => $orden->referencia.'-'.time().'1', 
         'Fecha' => $fecha_cont, 
         'DocumentoEmpleado' => $c->doc_cliente, 
         'FormaPago' => 'CONTADO', 
@@ -10345,6 +10348,8 @@ public function reiniciarancheta()
 
       $res=json_decode($result);
 
+      //dd($res);
+
 
       activity()->withProperties($res)->log('registro consumo  icg res');
 
@@ -10353,22 +10358,33 @@ public function reiniciarancheta()
        $notas='Registro de orden en api icg res.';
 
 
-      if (isset($res->CodigoRta)) {
+      if (isset($res->codigoRta)) {
         
-        if ($res->CodigoRta=='OK') {
+        if ($res->codigoRta=='OK') {
 
             $dataicg = array(
             'id_orden' => $carrito, 
             'doc_cliente' => $c->doc_cliente, 
             'monto_descuento' => 0, 
-            'json' => json_encode($res), 
-            'id_user' => $s_user, 
+            'json' => json_encode($result), 
+            'aplicado' => json_encode($result), 
+            'id_user' => 1, 
           );
 
           AlpConsultaIcg::create($dataicg);
 
+          $orden->update(['json_icg'=>json_encode($result)]);
 
-          $orden->update(['json_icg'=>json_encode($res)]);
+          $data_descuento_update = array(
+            'json' => json_encode($result), 
+            'aplicado' => $res->idRegistro, 
+          );
+
+         //dd($data_descuento_update);
+
+          $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden', '=', $orden->id)->first();
+
+          $descuentosIcg->update($data_descuento_update);
 
 
 
@@ -10381,11 +10397,28 @@ public function reiniciarancheta()
           'id_orden' => $carrito, 
           'doc_cliente' => $c->doc_cliente, 
           'monto_descuento' => 0, 
-          'json' => json_encode($res), 
-          'id_user' => $s_user, 
+          'json' => json_encode($result), 
+          'id_user' => 1, 
         );
 
         AlpConsultaIcg::create($dataicg);
+
+
+        $data_descuento_update = array(
+            'json' => json_encode($result), 
+            'aplicado' => $res->idRegistro, 
+          );
+
+         // dd($data_descuento_update);
+
+
+        $orden->update(['json_icg'=>json_encode($result)]);
+
+         $descuentosIcg->update($data_descuento_update);
+
+
+
+
 
           return $res;
 
@@ -10398,11 +10431,17 @@ public function reiniciarancheta()
           'id_orden' => $carrito, 
           'doc_cliente' => $c->doc_cliente, 
           'monto_descuento' => 0, 
-          'json' => json_encode($res), 
-          'id_user' => $s_user, 
+          'json' => json_encode($result), 
+          'id_user' => 1
         );
 
         AlpConsultaIcg::create($dataicg);
+
+        $orden->update(['json_icg'=>json_encode($result)]);
+
+        $descuentosIcg->update(['json'=>json_encode($result)]);
+
+
 
         return $res;
 
@@ -10429,8 +10468,11 @@ public function reiniciarancheta()
 
      if (isset($descuentosIcg->id)) {
 
-
        $monto_descuentoicg=$descuentosIcg->monto_descuento;
+
+
+
+       $ReferenciaRegistroAnulado=$descuentosIcg->aplicado;
 
      }
 
@@ -10452,13 +10494,16 @@ public function reiniciarancheta()
 
 
          $data_consumo = array(
-        'NumeroPedido' => $orden->referencia, 
+        'NumeroPedido' => $orden->referencia.'-'.time(), 
         'Fecha' => $fecha_cont, 
         'DocumentoEmpleado' => $c->doc_cliente, 
         'FormaPago' => 'CONTADO', 
-        'ValorTransaccion' => $orden->monto_total, 
-        'ValorDescuento' => '-'.$monto_descuentoicg
+        'ValorTransaccion' => '-'.$orden->monto_total, 
+        'ValorDescuento' => '-'.$monto_descuentoicg,
+        'ReferenciaRegistroAnulado' => $ReferenciaRegistroAnulado
       );
+
+
 
          $dataraw=json_encode($data_consumo);
 
@@ -10486,24 +10531,34 @@ activity()->withProperties($dataraw)->log(' cancelar icg dataraw');
 
       $res=json_decode($result);
 
+      //dd($res);
+
 activity()->withProperties($res)->log('registro consumo  cancelar icg res');
 
        $notas='Registro de orden en api icg res.';
 
 
-      if (isset($res->CodigoRta)) {
+      if (isset($res->codigoRta)) {
         
-        if ($res->CodigoRta=='OK') {
+        if ($res->codigoRta=='OK') {
 
             $dataicg = array(
-            'id_orden' => $carrito, 
+            'id_orden' => $orden->id, 
             'doc_cliente' => $c->doc_cliente, 
             'monto_descuento' => 0, 
             'json' => json_encode($res), 
-            'id_user' => $s_user, 
+            'id_user' => 1, 
           );
 
+          //  dd($dataicg)
+
           AlpConsultaIcg::create($dataicg);
+
+          $orden->update(['json_icg'=>json_encode($result)]);
+
+        // $descuentosIcg->update(['json'=>json_encode($result)]);
+
+
 
          // $descuentosIcg->delete();
 
@@ -10512,14 +10567,21 @@ activity()->withProperties($res)->log('registro consumo  cancelar icg res');
         }else{
 
           $dataicg = array(
-          'id_orden' => $carrito, 
+          'id_orden' => $orden->id, 
           'doc_cliente' => $c->doc_cliente, 
           'monto_descuento' => 0, 
           'json' => json_encode($res), 
-          'id_user' => $s_user, 
+          'id_user' => 1, 
         );
 
         AlpConsultaIcg::create($dataicg);
+
+
+        $orden->update(['json_icg'=>json_encode($result)]);
+
+         // $descuentosIcg->update(['json'=>json_encode($result)]);
+
+
 
           return $res;
 
@@ -10529,14 +10591,20 @@ activity()->withProperties($res)->log('registro consumo  cancelar icg res');
       }else{
 
         $dataicg = array(
-          'id_orden' => $carrito, 
+          'id_orden' => $orden->id, 
           'doc_cliente' => $c->doc_cliente, 
           'monto_descuento' => 0, 
           'json' => json_encode($res), 
-          'id_user' => $s_user, 
+          'id_user' => 1, 
         );
 
         AlpConsultaIcg::create($dataicg);
+
+        $orden->update(['json_icg'=>json_encode($result)]);
+
+        //  $descuentosIcg->update(['json'=>json_encode($result)]);
+
+
 
         return $res;
 
