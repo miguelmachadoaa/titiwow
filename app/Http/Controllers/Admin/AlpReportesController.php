@@ -1457,7 +1457,6 @@ class AlpReportesController extends Controller
 
      public function exportlistadoproductos(Request $request) 
     {
-
         if (Sentinel::check()) {
 
           $user = Sentinel::getUser();
@@ -1479,7 +1478,7 @@ class AlpReportesController extends Controller
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
-        return Excel::download(new ListadoProductosExport($request->estado), 'Listado_de_productos.xlsx');
+        return Excel::download(new ListadoProductosExport($request->estado,$request->tproducto), 'Listado_de_productos.xlsx');
     }
 
 

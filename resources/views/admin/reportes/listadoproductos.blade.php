@@ -25,7 +25,7 @@ Listado de productos
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1>Listado de Productios </h1>
+    <h1>Listado de Productos </h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}">
@@ -71,6 +71,20 @@ Listado de productos
                             </select>
                         </div>           
                     </div>
+
+                    <div class="form-group col-sm-12 ">
+                        <label for="select22" class="col-md-2 control-label text-right">
+                        Tipo de Producto                                               
+                        </label>
+                        <div class="col-md-10">   
+                            <select id="tproducto" name="tproducto" class="form-control select2">
+                                <option value="0" selected>Todos</option>
+                                <option value="1">Normal</option>
+                                <option value="2">Combo</option>                            
+                            </select>
+                        </div>           
+                    </div>
+
 
 
                     

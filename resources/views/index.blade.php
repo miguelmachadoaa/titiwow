@@ -152,7 +152,7 @@
 
             
         @endif
-        @if($almacen->id == 1)
+        @if($almacen->id == 90000)
         <div class="container cont_categorias">
             <div class="row">
                 <div class="col-md-12 col-sm-12 text-center hidden-xs">
