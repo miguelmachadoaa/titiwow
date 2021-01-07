@@ -419,8 +419,43 @@ class AlpCartController extends JoshController
         
         $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $id)->get();
 
+        $di=0;
+
+        foreach ($descuentosIcg as $dd) {
           
-        return view('frontend.order.gracias', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago', 'payment', 'estatus_aviso', 'metodo', 'envio', 'envio_base', 'envio_impuesto', 'descuentos', 'descuentosIcg'));
+          $di=$di+$dd->monto_descuento;
+
+        }
+
+       // dd($di);
+
+        if ($di>0) {
+
+          $cupo_icg=$this->consultaIcg($id);
+
+          $cupo_icg_total=$this->consultaIcgTotal($id);
+
+          $porcentaje_icg=($cupo_icg/$cupo_icg_total)*100;
+
+
+
+
+        }else{
+
+          $cupo_icg=null;
+
+         $cupo_icg_total=null;
+
+         $porcentaje_icg=0;
+        }
+
+
+        $cupo_icg=$this->consultaIcg($id);
+
+        $cupo_icg_total=$this->consultaIcgTotal($id);
+
+          
+        return view('frontend.order.gracias', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago', 'payment', 'estatus_aviso', 'metodo', 'envio', 'envio_base', 'envio_impuesto', 'descuentos', 'descuentosIcg', 'cupo_icg', 'cupo_icg_total', 'porcentaje_icg'));
 
     }
 
@@ -1733,6 +1768,21 @@ class AlpCartController extends JoshController
             $cupo_icg=0;
         }
 
+        $descuento_compra_icg=0;
+
+
+        $descuento_compra_icg=$total*($configuracion->porcentaje_icg/100);
+
+        
+
+
+        if ($descuento_compra_icg>$cupo_icg) {
+         
+          $descuento_compra_icg=$cupo_icg;
+        }
+
+      //  dd($descuento_compra_icg);
+
 
         $r=Roles::where('id', $role->role_id)->first();
 
@@ -2116,7 +2166,7 @@ class AlpCartController extends JoshController
 
           //dd($url);
 
-          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos', 'total_descuentos', 'costo_envio', 'id_forma_envio', 'envio_base', 'envio_impuesto', 'express', 'saldo', 'user','role', 'url', 'cupo_icg', 'total_descuentos_icg', 'descuentosIcg'));
+          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos', 'total_descuentos', 'costo_envio', 'id_forma_envio', 'envio_base', 'envio_impuesto', 'express', 'saldo', 'user','role', 'url', 'cupo_icg', 'total_descuentos_icg', 'descuentosIcg', 'descuento_compra_icg'));
 
          }
 
@@ -10082,6 +10132,124 @@ public function reiniciarancheta()
     private function consultaIcg()
     {
 
+      $configuracion=AlpConfiguracion::where('id', '=', 1)->first();
+
+      $s_user= \Session::get('user');
+
+      $carrito= \Session::get('cr');
+
+      $c=AlpClientes::where('id_user_client', $s_user)->first();
+
+      $data = array('DocumentoEmpleado' =>$c->doc_cliente);
+
+
+      $configuracion=AlpConfiguracion::where('id', '=', '1')->first();
+        
+       $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, 'http://201.234.184.25:8099/api/cupo/ValidarCuposGo?DocumentoEmpleado='.$c->doc_cliente);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+        $headers = array();
+        $headers[] = 'Content-Type: application/json';
+        $headers[] = 'apikeyalp2go: 1';
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $result = curl_exec($ch);
+
+
+        //dd($result);
+        if (curl_errno($ch)) {
+            echo 'Error curl:' . curl_error($ch);
+        }
+        curl_close($ch);
+
+        $res=json_decode($result);
+
+        activity()->withProperties($res)->log('respuesta icg res');
+
+
+      if (isset($res->codigoRta)) {
+        
+        if ($res->codigoRta=='OK') {
+
+          if (is_null($carrito)) {
+            $carrito=time();
+          }
+
+            $dataicg = array(
+            'id_orden' => $carrito, 
+            'doc_cliente' => $c->doc_cliente, 
+            'monto_descuento' => 0, 
+            'json' => json_encode($res), 
+            'id_user' => $s_user, 
+          );
+
+          AlpConsultaIcg::create($dataicg);
+
+
+
+          return $res->cupoDescuento-$res->acumuladoDescuentos;
+
+           
+        }else{
+
+          if (is_null($carrito)) {
+            $carrito=time();
+          }
+
+          $dataicg = array(
+          'id_orden' => $carrito, 
+          'doc_cliente' => $c->doc_cliente, 
+          'monto_descuento' => 0, 
+          'json' => json_encode($res), 
+          'id_user' => $s_user, 
+        );
+
+        AlpConsultaIcg::create($dataicg);
+
+
+
+          return 0;
+
+        }
+
+
+      }else{
+
+        if (is_null($carrito)) {
+            $carrito=time();
+          }
+
+        $dataicg = array(
+          'id_orden' => $carrito, 
+          'doc_cliente' => $c->doc_cliente, 
+          'monto_descuento' => 0, 
+          'json' => json_encode($res), 
+          'id_user' => $s_user, 
+        );
+
+        AlpConsultaIcg::create($dataicg);
+
+        return 0;
+
+                       
+
+      }
+
+      
+    }
+
+
+
+
+
+    private function consultaIcgTotal()
+    {
+
      //dd($id_orden);
       $configuracion=AlpConfiguracion::where('id', '=', 1)->first();
 
@@ -10129,6 +10297,10 @@ public function reiniciarancheta()
         
         if ($res->codigoRta=='OK') {
 
+          if (is_null($carrito)) {
+            $carrito=time();
+          }
+
             $dataicg = array(
             'id_orden' => $carrito, 
             'doc_cliente' => $c->doc_cliente, 
@@ -10141,10 +10313,14 @@ public function reiniciarancheta()
 
 
 
-          return $res->cupoCredito;
+          return $res->cupoDescuento;
 
            
         }else{
+
+          if (is_null($carrito)) {
+            $carrito=time();
+          }
 
           $dataicg = array(
           'id_orden' => $carrito, 
@@ -10165,6 +10341,10 @@ public function reiniciarancheta()
 
       }else{
 
+        if (is_null($carrito)) {
+            $carrito=time();
+          }
+
         $dataicg = array(
           'id_orden' => $carrito, 
           'doc_cliente' => $c->doc_cliente, 
@@ -10183,9 +10363,6 @@ public function reiniciarancheta()
 
       
     }
-
-
-
 
 
 
@@ -10232,10 +10409,11 @@ public function reiniciarancheta()
 
       $descuento=$total*($configuracion->porcentaje_icg/100);
 
-
+      if ($descuento>$cupo_icg) {
+        
+        $descuento=$cupo_icg;
+      }
          // dd($descuento);
-
-
 
       if ($cupo_icg>=$descuento) {
 

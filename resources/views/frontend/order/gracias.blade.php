@@ -202,6 +202,29 @@ Carrito de Compras
 
                      @endforeach
 
+
+                     @if(!is_null($cupo_icg))
+
+
+                      <tr>
+                         <td colspan="4" style="text-align: right;">
+                             <b>Porcentaje descuento icg disponible </b>
+                         </td>
+                         <td>
+                            @if($cupo_icg==0)
+                            {{number_format(0, 0,",",".")}}%
+
+                            @else
+
+                            {{number_format($porcentaje_icg, 0,",",".")}}%
+                            @endif
+                             
+                         </td>
+                     </tr>
+
+
+                     @endif
+
                      
 
                      
