@@ -21,13 +21,25 @@
                         <div class="col-sm-12 col-xs-12">
 
 
-                            <div class="col-sm-8 col-xs-12" >
-                                    <h4>Cupo de Descuento ICG de </h4>
+                            <div class="col-sm-12 col-xs-12" >
+                                    <h3>  Descuento Empleados</h3>
+
+                                     <h6 class=""  id="" style="text-align: justify;">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis voluptate ea dolore aut laboriosam error, officia, architecto labore minus corrupti laudantium. Ducimus consequuntur quis at neque, sit minima qui.</h6>
+                                </div>
+
+                                <div class="col-sm-8 col-xs-12" >
+                                    <h4>  Descuento aplicable para esta compra</h4>
+
+                                   
                                 </div>
                                 <div class="col-sm-4 col-xs-4">
 
-                                    <!--h4 style="color:#143473;">{{ number_format($total+$impuesto,0,",",".")}}</h4--> 
-                                    <h4 style="color:#143473;">{{ number_format($total*($configuracion->porcentaje_icg/100),0,",",".")}}</h4> 
+
+
+                                    <h4 style="color:#143473;">{{ number_format($descuento_compra_icg,0,",",".")}}</h4> 
+
+                                   
+                                    
 
                                 </div>
 

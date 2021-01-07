@@ -5309,6 +5309,9 @@ public function sendcompramascancelar($id_orden){
 
        $monto_descuentoicg=$descuentosIcg->monto_descuento;
 
+              $ReferenciaRegistroAnulado=$descuentosIcg->aplicado;
+
+
        $descuentosIcg->delete();
 
      }
@@ -5337,12 +5340,13 @@ public function sendcompramascancelar($id_orden){
 
 
          $data_consumo = array(
-        'NumeroPedido' => $orden->referencia, 
+        'NumeroPedido' => $orden->referencia.'-'.time(), 
         'Fecha' => $fecha_cont, 
         'DocumentoEmpleado' => $c->doc_cliente, 
         'FormaPago' => 'CONTADO', 
-        'ValorTransaccion' => $orden->monto_total, 
-        'ValorDescuento' => '-'.$monto_descuentoicg
+        'ValorTransaccion' => '-'.$orden->monto_total, 
+        'ValorDescuento' => '-'.$monto_descuentoicg,
+        'ReferenciaRegistroAnulado' => $ReferenciaRegistroAnulado
       );
 
          $dataraw=json_encode($data_consumo);

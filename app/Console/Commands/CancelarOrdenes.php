@@ -442,7 +442,7 @@ class CancelarOrdenes extends Command
 
          $dataraw=json_encode($data_consumo);
 
-activity()->withProperties($dataraw)->log('respuesta icg dataraw');
+activity()->withProperties($dataraw)->log('cancelar icg dataraw');
 
          $ch = curl_init();
 
@@ -467,11 +467,11 @@ activity()->withProperties($dataraw)->log('respuesta icg dataraw');
       $res=json_decode($result);
 
 
-activity()->withProperties($res)->log('registro consumo  icg res');
+activity()->withProperties($res)->log('cancelar consumo  icg res');
 
        
 
-       $notas='Registro de orden en api icg res.';
+       $notas='Cancelar de orden en api icg res.';
 
 
       if (isset($res->codigoRta)) {
