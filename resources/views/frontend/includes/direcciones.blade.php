@@ -1,7 +1,9 @@
 
  <div class="row"> 
 
-            <h3>    Dirección de Envío 
+    <div class="col-sm-12">
+
+        <h3 style="padding-left: 0.5em;">Dirección de Envío 
 
             @if($configuracion->editar_direccion=='0')
 
@@ -10,11 +12,14 @@
                  <button style="float: right;" class="btn btn-primary showAddAddress">Agregar Dirección</button>
 
                 @endif
-
-
                
 
             @endif</h3>
+        
+
+    </div>
+
+            
 
         </div>
 

@@ -1,4 +1,3 @@
-   <div class="row">
 
             @if(count($formasenvio))
 
@@ -86,4 +85,3 @@
 
             <!-- End formas de pago -->
 
-    </div>
