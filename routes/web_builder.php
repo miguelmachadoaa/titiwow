@@ -891,6 +891,50 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
 
 
+    Route::group(['prefix' => 'gruposproductos'], function () {
+
+        Route::get('{id}/delete', 'Admin\GruposProductosController@destroy')->name('gruposproductos.delete');
+
+        Route::get('{id}/confirm-delete', 'Admin\GruposProductosController@getModalDelete')->name('gruposproductos.confirm-delete');
+
+        Route::get('{id}/restore', 'Admin\GruposProductosController@getRestore')->name('gruposproductos.restore');
+
+        });
+
+    Route::post('gruposproductos/create', 'Admin\GruposProductosController@store');
+
+    Route::get('gruposproductos/{id}/upload', 'Admin\GruposProductosController@upload');
+
+    Route::post('gruposproductos/{id}/postupload', 'Admin\GruposProductosController@postupload');
+
+
+    Route::get('gruposproductos/{id}/uploadprecio', 'Admin\GruposProductosController@uploadprecio');
+
+    Route::post('gruposproductos/{id}/postuploadprecio', 'Admin\GruposProductosController@postuploadprecio');
+
+
+     Route::get('gruposproductos/{id}/uploadpreciorol', 'Admin\GruposProductosController@uploadpreciorol');
+
+    Route::post('gruposproductos/{id}/postuploadpreciorol', 'Admin\GruposProductosController@postuploadpreciorol');
+    
+
+    Route::get('gruposproductos/{id}/gestionar', 'Admin\GruposProductosController@gestionar');
+
+    Route::post('gruposproductos/{id}/postgestionar', 'Admin\GruposProductosController@postgestionar');
+
+    Route::get('gruposproductos/{id}/roles', 'Admin\GruposProductosController@roles');
+
+    Route::post('gruposproductos/{id}/postroles', 'Admin\GruposProductosController@postroles');
+
+    Route::resource('gruposproductos', 'Admin\GruposProductosController');
+
+
+
+
+
+
+
+
     Route::group(['prefix' => 'tomapedidos'], function () {
 
 
@@ -1571,9 +1615,9 @@ Route::get('emailAmigo', function(){
 });
 
 Route::get('notificacion', function(){
-        //return new \App\Mail\NotificacionOrden('25', 'La orden 25 Ha sido Enviada!');
+        return new \App\Mail\NotificacionOrden('25', 'La orden 25 Ha sido Enviada!');
 
-        Mail::to('obarrerafranco@gmail.com')->send(new \App\Mail\NotificacionOrden('25', 'La orden 25 Ha sido Enviada!'));
+       # Mail::to('obarrerafranco@gmail.com')->send(new \App\Mail\NotificacionOrden('25', 'La orden 25 Ha sido Enviada!'));
 });
 
 Route::get('compra', function(){

@@ -208,15 +208,15 @@ Carrito de Compras
 
                       <tr>
                          <td colspan="4" style="text-align: right;">
-                             <b>Porcentaje descuento icg disponible </b>
+                             <b>Porcentaje descuento  disponible </b>
                          </td>
                          <td>
                             @if($cupo_icg==0)
-                            {{number_format(0, 0,",",".")}}%
+                            {{number_format(2, 0,",",".")}}%
 
                             @else
 
-                            {{number_format($porcentaje_icg, 0,",",".")}}%
+                            {{number_format($porcentaje_icg, 2,",",".")}}%
                             @endif
                              
                          </td>
