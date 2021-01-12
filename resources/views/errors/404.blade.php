@@ -48,12 +48,16 @@ Página No Encontrada
             </div>
             <div class="col-md-9">
                 <div class="hgroup">
-                    <h1>Página No Encontrada</h1>
-                    <h2>Al parecer la página que busca no se encontró.</h2>
-                    <a href="{{ secure_url('/') }}">
-                        <button type="button" class="btn btn-primary button-alignment">Regresar a Inicio</button>
                     </a>
                 </div>
+                <div class="row">
+                <div class="col-md-12 col-sm-12 text-center hidden-xs">
+                <a href="{{ secure_url('/') }}"><img src="{{ secure_url('/').'/assets/images/404-alpina.jpg' }}" title="404 Página no encontrada" alt="404 Página no encontrada" class="img-responsive"></a>
+                </div>
+                <div class="col-md-12 col-sm-12 text-center visible-xs">
+                <a href="{{ secure_url('/') }}"><img src="{{ secure_url('/').'/assets/images/404-alpinam.jpg' }}" title="404 Página no encontrada" alt="404 Página no encontrada" class="img-responsive"></a>
+                </div>
+            </div>
             </div>
         </div>
     </div>

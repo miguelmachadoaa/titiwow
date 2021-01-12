@@ -178,22 +178,26 @@ Resultado de la Búsqueda @parent
             <div class="alert alert-danger">
                 <strong>Lo Sentimos!</strong> No Existen productos relacionados con su Búsqueda.
             </div>
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                    Intente búscar Nuevamente
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                        <h1 class="subtitulo" style="font-size: 24px; color: #143473; margin-bottom: 15px; font-weight: 500;  font-family: 'PlutoMedium';">Intente búscar Nuevamente</h1>
                 </div>
-            <div class="col-md-8 col-sm-6 col-xs-6">
-                <form method="GET" action="{{ secure_url('buscar') }}">
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <div class="input-group">
-                                <input type="text" name="buscar"  id="buscar" class="form-control" placeholder="Buscar ..." value="{{ old('buscar') }}" autocomplete="off">
-                            <span class="input-group-btn">
-                                <button class="btn btn-success" >Buscar!</button>
-                            </span>
-                            </div><!-- /input-group -->
-                        </div><!-- /.col-lg-6 -->
-                    </div>  
-                </form>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-sm-12 col-xs-12">
+                    <form method="GET" action="{{ secure_url('buscar') }}">
+                        <div class="row">
+                            <div class="col-sm-12  col-xs-12 col-lg-8">
+                                <div class="input-group"> 
+                                    <input type="text" name="buscar"  id="buscar" class="form-control" placeholder="Buscar ..." value="{{ old('buscar') }}" autocomplete="off">
+                                    <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-default busqueda" alt="Buscar" ><i class="fa fa-search" aria-hidden="true" id="busqueda"></i></button>
+                                    </span>
+                                </div><!-- /input-group -->
+                            </div><!-- /.col-lg-6 -->
+                        </div>  
+                    </form>
+                </div>
             </div>
         @endif
         </div>

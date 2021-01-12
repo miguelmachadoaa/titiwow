@@ -265,12 +265,12 @@ class AlpCartController extends JoshController
     *   $detalles = Detalle de la compra, articulos precios y cantidad 
     *
     * $envio = Contiene la informacion del envio 
-      $valor_impuesto =  cpontiene el monto de impuesto de la orden 
-      $fecha_entrega =  fecha de emtrega de la porden 
-      $user_cliente =  contiene la informacion del cliente de la compra 
-      $aviso_pago =  Contiene mensaje personalizado de el pago de la orden 
-      $metodo =  contiene la fomra de pago de la orden 
-      $estatus_aviso =  contiene mensaje personalizado de el estatus en general de la orden 
+    *  $valor_impuesto =  cpontiene el monto de impuesto de la orden 
+    *  $fecha_entrega =  fecha de emtrega de la porden 
+    *  $user_cliente =  contiene la informacion del cliente de la compra 
+    *  $aviso_pago =  Contiene mensaje personalizado de el pago de la orden 
+    *  $metodo =  contiene la fomra de pago de la orden 
+    * $estatus_aviso =  contiene mensaje personalizado de el estatus en general de la orden 
      * 
      * @return View
      */
