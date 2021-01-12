@@ -22,7 +22,7 @@
             }
         }
     </style>
-    <center style="width: 100%; background-color: #e9e9e9;">
+    <center style="width: 100%; background-color: #ffffff;">
     <table align="center" class="wrapper" width="710px" cellpadding="0" cellspacing="0">
         <tr>
             <td align="center">
