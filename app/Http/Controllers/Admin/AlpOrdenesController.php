@@ -2595,7 +2595,6 @@ public function compramasupdate()
     public function storeconfirm(Request $request)
     {
 
-
           if (Sentinel::check()) {
 
           $user = Sentinel::getUser();
@@ -2721,8 +2720,6 @@ public function compramasupdate()
                 //$this->sendcompramas($orden->id, 'rejected');
 
                 $result=$this->sendcompramascancelar($orden->id);
-
-
 
 
               }else{

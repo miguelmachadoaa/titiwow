@@ -71,8 +71,6 @@ class NominaExportAlmacen implements FromView
 
             $orden->cliente=$cliente;
 
-
-
             # code...
           }
 

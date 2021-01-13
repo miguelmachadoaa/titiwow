@@ -91,7 +91,6 @@ class LogisticaExport implements FromView
 
           $ordenes=$o->get();
 
-          dd($ordenes);
 
         return view('admin.exports.logistica', [
             'ventas' => $ordenes

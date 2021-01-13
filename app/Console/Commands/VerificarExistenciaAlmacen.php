@@ -49,6 +49,9 @@ class VerificarExistenciaAlmacen extends Command
      */
     public function handle()
     {
+
+
+      //dd(md5('3125195500'));
         //
         $configuracion=AlpConfiguracion::where('id', '1')->first();
 
@@ -76,6 +79,8 @@ class VerificarExistenciaAlmacen extends Command
         Log::useDailyFiles(storage_path().'/logs/compramas.log');
 
         Log::info($result);
+
+        dd($result);
 
 
        $datos = json_decode($result);
