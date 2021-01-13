@@ -281,7 +281,7 @@
     @endif
 
 
-         @if (Sentinel::getUser()->hasAnyAccess(['xml.*']))
+         @if (Sentinel::getUser()->hasAnyAccess(['xml.index']))
 
           <li {!! (Request::is('admin/xml*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.xml.index') !!}">

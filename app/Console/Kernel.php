@@ -86,20 +86,22 @@ class Kernel extends ConsoleKernel
         $schedule->command('cancelar:ordenes')->dailyAt('07:00');
 
         //reporte de ultima milla a las 5 pm
-       # $schedule->command('reporte:ultimamilla')->dailyAt('07:00');
+        $schedule->command('reporte:ultimamilla')->dailyAt('17:00');
 
         //llamadas ibm a las 5pm 
 
       #  $schedule->command('bienvenida:ibm')->dailyAt('07:00');
       #  $schedule->command('codigodescuento:ibm')->dailyAt('07:00');
-      #  $schedule->command('teextranamos2:ibm')->dailyAt('07:00');
-      #  $schedule->command('teextranamos:ibm')->dailyAt('07:00');
+        $schedule->command('teextranamos2:ibm')->dailyAt('10:00');
+        $schedule->command('teextranamos:ibm')->dailyAt('07:00');
 
 
          
         $schedule->command('verificar:pagos')->everyFiveMinutes();
 
         #$schedule->command('notificacion:carrito')->hourly();
+        
+        #->twiceDaily(10, 16);
 
         $schedule->command('verificar:almacen')->twiceDaily(10, 16);
 
