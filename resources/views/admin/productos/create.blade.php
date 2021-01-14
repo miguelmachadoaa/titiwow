@@ -1113,6 +1113,11 @@
        
         $(document).ready(function(){
 
+            $('.select2').select2({
+                placeholder: "Seleccionar",
+                theme:"bootstrap"
+            });
+
                $(document).on('change', '.selectprecio', function(e) {
 
                     precio_base=$('#precio_base').val();
