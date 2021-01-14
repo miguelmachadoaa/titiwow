@@ -86,8 +86,11 @@ Todos los productos
     @include('layouts.sidebar')
 </div>
 <div class="col-md-9">
+
     <div class="products">
+
         <div class="row">
+            
         @if(!$productos->isEmpty())
 
             @php $i=0; @endphp

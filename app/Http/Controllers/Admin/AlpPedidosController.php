@@ -355,13 +355,9 @@ class AlpPedidosController extends JoshController
           activity()
           ->log('almacenes/checkout');
 
-
         }
 
-
-
         $vd=$this->verificarDireccion();
-
 
         if ($vd=='true') {
           
@@ -372,9 +368,7 @@ class AlpPedidosController extends JoshController
         }
 
 
-
         $clientIP = \Request::getClientIp(true);
-
 
         $id_almacen=1;
 
@@ -383,7 +377,6 @@ class AlpPedidosController extends JoshController
         $total_venta=$this->totalcart($cart);
 
         $total=$total_venta;
-
 
         if (isset($cart['id_cliente'])) {
 
