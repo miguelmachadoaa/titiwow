@@ -305,6 +305,20 @@
     @endif
 
 
+    @if (Sentinel::getUser()->hasAnyAccess(['gruposproductos.*']))
+
+          <li {!! (Request::is('admin/gruposproductos*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.gruposproductos') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Grupos de Productos
+                </a>
+            </li>
+
+    @endif
+
+
+
+
 
 
             
