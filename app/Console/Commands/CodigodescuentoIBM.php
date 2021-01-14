@@ -84,9 +84,10 @@ class CodigodescuentoIBM extends Command
 
              //
 
-                    $codigo=strtoupper(substr(md5(time()), 0,12));
+                    $codigo=strtoupper(substr(md5(time().$u->id), 0,12));
 
                     $date_inicio = Carbon::now()->format('Y-m-d');
+
                     $date_fecha = Carbon::now()->format('m/d/Y');
 
                     $date_fin = Carbon::now()->addDay(30)->format('Y-m-d');
@@ -117,7 +118,7 @@ class CodigodescuentoIBM extends Command
 
                     AlpCuponesUser::create($datac);
 
-                   $this->addibm($u, $cupon, $date_fecha);
+                 //  $this->addibm($u, $cupon, $date_fecha);
 
 
             }

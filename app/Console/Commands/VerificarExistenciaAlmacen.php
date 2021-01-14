@@ -51,7 +51,7 @@ class VerificarExistenciaAlmacen extends Command
     {
 
 
-      //dd(md5('3125195500'));
+    //  dd(md5(time().time()));
         //
         $configuracion=AlpConfiguracion::where('id', '1')->first();
 
@@ -80,7 +80,7 @@ class VerificarExistenciaAlmacen extends Command
 
         Log::info($result);
 
-        dd($result);
+     //   dd($result);
 
 
        $datos = json_decode($result);

@@ -1000,7 +1000,7 @@ class AlpPedidosController extends JoshController
           ->where('alp_productos.id', $id)
           ->first();
 
-          
+          $producto=$this->addOfertaUn($producto);
 
        $cart= \Session::get('cart');
 
@@ -2283,6 +2283,215 @@ public function postdireccion(DireccionModalRequest $request)
 
 
 
+ private function addOfertaUn($producto){
+
+
+        $descuento='1'; 
+
+        $precio = array();
+
+        $cart= \Session::get('cart');
+
+        $ciudad= \Session::get('ciudad');
+
+        if (isset($cart['id_cliente'])) {
+
+
+
+            $user_id = $cart['id_cliente'];
+
+            $user=Sentinel::getUser();
+             
+            $role=RoleUser::where('user_id', $user_id)->first();
+
+            $rol=$role->role_id;
+
+            $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+              ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+              ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+              ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+              ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+              ->where('alp_direcciones.id_client', $user_id)
+              ->where('alp_direcciones.default_address', '=', '1')
+              ->first();
+
+            if (isset($d->id)) {
+
+            }else{
+
+                  $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+                ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+                ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+                ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+                ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+                ->where('alp_direcciones.id_client', $user_id)
+                ->first();
+            }
+
+            if (isset($d->id)) {
+              $ciudad=$d->city_id;
+            }
+
+
+
+            $cliente = AlpClientes::where('id_user_client', $user_id )->first();
+
+            if (isset($cliente) ) {
+
+                if ($cliente->id_empresa!=0) {
+                    
+                    $role->role_id='E'.$role->role_id.'';
+                }
+               
+            }
+
+            if ($role->role_id) {
+
+               
+               
+                    
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $role->role_id)->where('city_id', $ciudad)->first();
+
+                    if (isset($pregiogrupo->id)) {
+                       
+                        $precio[$producto->id]['precio']=$pregiogrupo->precio;
+                        $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$producto->id]['pum']=$pregiogrupo->pum;
+                        $precio[$producto->id]['mostrar']=$pregiogrupo->mostrar_descuento;
+
+                    }else{
+
+
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $role->role_id)->first();
+
+                      if (isset($pregiogrupo->id)) {
+                         
+                          $precio[$producto->id]['precio']=$pregiogrupo->precio;
+                          $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
+                          $precio[$producto->id]['pum']=$pregiogrupo->pum;
+                          $precio[$producto->id]['mostrar']=$pregiogrupo->mostrar_descuento;
+
+
+                      }
+
+                    
+
+                    }
+
+                
+                
+            }
+
+        }else{
+
+        
+
+          $role = array( );
+
+            $r='9';
+
+                
+
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $r)->where('city_id', $ciudad)->first();
+
+                    if (isset($pregiogrupo->id)) {
+                       
+                        $precio[$producto->id]['precio']=$pregiogrupo->precio;
+                        $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
+                        $precio[$producto->id]['pum']=$pregiogrupo->pum;
+                        $precio[$producto->id]['mostrar']=$pregiogrupo->mostrar_descuento;
+
+
+                    }else{
+
+                      $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $r)->first();
+
+                      if (isset($pregiogrupo->id)) {
+                       
+                          $precio[$producto->id]['precio']=$pregiogrupo->precio;
+                          $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
+                          $precio[$producto->id]['pum']=$pregiogrupo->pum;
+                          $precio[$producto->id]['mostrar']=$pregiogrupo->mostrar_descuento;
+
+
+                      }
+
+                      
+
+                    }
+
+                
+                
+        }
+
+
+
+      // dd($precio);
+
+        $prods = array( );
+
+       
+
+          if ($descuento=='1') {
+
+            if (isset($precio[$producto->id])) {
+              # code...
+             
+              switch ($precio[$producto->id]['operacion']) {
+
+                case 1:
+
+                  $producto->precio_oferta=$producto->precio_base*$descuento;
+                  $producto->pum=$precio[$producto->id]['pum'];
+                  $producto->mostrar=$precio[$producto->id]['mostrar'];
+
+                  break;
+
+                case 2:
+
+                  $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
+                  $producto->pum=$precio[$producto->id]['pum'];
+                  $producto->mostrar=$precio[$producto->id]['mostrar'];
+                  
+                  break;
+
+                case 3:
+
+                  $producto->precio_oferta=$precio[$producto->id]['precio'];
+                  $producto->pum=$precio[$producto->id]['pum'];
+                  $producto->mostrar=$precio[$producto->id]['mostrar'];
+                  
+                  break;
+                
+                default:
+                
+                 $producto->precio_oferta=$producto->precio_base*$descuento;
+                  # code...
+                  break;
+              }
+
+            }else{
+
+              $producto->precio_oferta=$producto->precio_base*$descuento;
+
+            }
+
+
+           }else{
+
+           $producto->precio_oferta=$producto->precio_base*$descuento;
+
+
+           }
+
+
+           
+          
+
+        return $producto;
+
+
+    }
 
 
 

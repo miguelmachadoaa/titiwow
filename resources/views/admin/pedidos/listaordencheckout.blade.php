@@ -13,8 +13,8 @@
             <div class="col-sm-2 col-xs-2" style="padding:0;"><img style="width: 100%;" src="{{secure_url('uploads/productos/60/'.$p->imagen_producto)}}" alt=""></div>   
             <div class="col-sm-10 col-xs-10 ">
                 <p><b>{{$p->nombre_producto}}</b></p>
-                <p class="">{{number_format($p->precio_base,0,',','.')}} x {{$p->cantidad}} </p>
-                <p>Total: {{number_format($p->cantidad*$p->precio_base,0,',','.')}}</p>
+                <p class="">{{number_format($p->precio_oferta,0,',','.')}} x {{$p->cantidad}} </p>
+                <p>Total: {{number_format($p->cantidad*$p->precio_oferta,0,',','.')}}</p>
                 
             </div>
         </div>
