@@ -56,13 +56,18 @@ class Teextranamos2IBM extends Command
 
         $d=$date->subDay(45)->format('Y-m-d');
       
-        $users=User::whereDate('users.created_at', '>', $d)->get();
+         $users=User::select('users.*')
+        ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+        ->whereDate('users.created_at', '>',$d)
+        ->where('alp_clientes.origen', '=', 0)
+        ->get();
 
         $i=0;
 
-      //  dd(count($users));
 
-      //  dd($d);
+    //   dd(count($users));
+
+     //   dd($users);
 
         foreach ($users as $u) {
 
@@ -80,7 +85,7 @@ class Teextranamos2IBM extends Command
 
                   // echo  $u->id.'-';
 
-                    $codigo=strtoupper(substr(md5(time()), 0,12));
+                    $codigo=strtoupper(substr(md5(time().$u->id), 0,12));
 
                     $date_inicio = Carbon::now()->format('Y-m-d');
                     $date_fecha = Carbon::now()->format('m/d/Y');

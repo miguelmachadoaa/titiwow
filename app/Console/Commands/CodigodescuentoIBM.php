@@ -65,10 +65,14 @@ class CodigodescuentoIBM extends Command
        // $d=$date->subDay(15)->format('Y-m-d');
        // $d=$date->subDay(100)->format('Y-m-d');
       
-        $users=User::whereDate('users.created_at', '>',$d)->get();
+        $users=User::select('users.*')
+        ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+        ->whereDate('users.created_at', '>',$d)
+        ->where('alp_clientes.origen', '=', 0)
+        ->get();
 
 
-        //dd(count($users));
+      //  dd(count($users));
 
         $i=0;
 
