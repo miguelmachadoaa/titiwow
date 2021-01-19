@@ -750,7 +750,10 @@ class AlpCartController extends JoshController
 
           $pse = MP::post("/v1/payments",$preference_data);
           
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
+
+          activity()->withProperties(1)
+                        ->log('Error llamada preference data  ');
           
         }
 
@@ -933,7 +936,10 @@ class AlpCartController extends JoshController
 
               Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega, 1));
                 
-              } catch (Exception $e) {
+              } catch (\Exception $e) {
+
+                activity()->withProperties(1)
+                        ->log('error envio de correo');
                 
               }
 
@@ -1057,6 +1063,9 @@ class AlpCartController extends JoshController
           } catch (MercadoPagoException $e) {
 
             $pse = $input;
+
+            activity()->withProperties(1)
+                        ->log('error mercadopago notificaicon');
             
           }
 
@@ -1130,21 +1139,43 @@ class AlpCartController extends JoshController
 
                   $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
 
-                  Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega,1));
+                  try {
 
-                  Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega,1));
+                     Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega,1));
+
+                  
+                     Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega,1));
+
+                    } catch (\Exception $e) {
+
+                      activity()->withProperties(1)
+                        ->log('error envio de correo');
+                    
+                  }
+
+                 
 
 
                 }
 
-                Mail::to($compra->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $envio->fecha_envio));
+                try {
 
-                Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $envio->fecha_envio));
+                   Mail::to($compra->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $envio->fecha_envio));
+
+                  Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $envio->fecha_envio));
 
 
-             Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraRealizada($compra, $detalles, $envio->fecha_envio));
+                   Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraRealizada($compra, $detalles, $envio->fecha_envio));
 
-                Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $envio->fecha_envio));
+                  Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $envio->fecha_envio));
+                  
+                } catch (\Exception $e) {
+                  activity()->withProperties(1)
+                        ->log('error envio de correo');
+                  
+                }
+
+               
           }
 
               if ( $pse['response']['status']=='in_process' || $pse['response']['status']=='pending' ) 
@@ -2465,9 +2496,17 @@ class AlpCartController extends JoshController
 
                   $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
 
-                  Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega, 1));
+                  try {
+                    Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega, 1));
 
                      Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega, 1));
+                  } catch (\Exception $e) {
+                    activity()->withProperties(1)
+                        ->log('error envio de correo');
+                    
+                  }
+
+                  
                 }
 
         }else{
@@ -3337,7 +3376,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
 
               
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
+              activity()->withProperties(1)
+                        ->log('error envio de correo');
               
             }
           
@@ -9031,10 +9072,18 @@ private function getAlmacen3(){
 
                         $history=AlpOrdenesHistory::create($data_history);
 
-
-          Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+            try {
+              Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
 
            Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+              
+            } catch (\Exception $e) {
+
+              activity()->withProperties(1)
+                        ->log('error envio de correo');
+              
+            }
+          
          
         }else{
 
@@ -9059,9 +9108,20 @@ private function getAlmacen3(){
 
             $history=AlpOrdenesHistory::create($data_history);
 
-          Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+            try {
+
+              Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
 
            Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+              
+            } catch (\Exception $e) {
+
+              activity()->withProperties(1)
+                        ->log('error envio de correo');
+              
+            }
+
+          
 
 
         }
@@ -9083,9 +9143,18 @@ private function getAlmacen3(){
 
           $texto='No hubo respuesta compramas CC';
 
+          try {
+            
           Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
 
            Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+          } catch (\Exception $e) {
+
+            activity()->withProperties(1)
+                        ->log('error envio de correo');
+            
+          }
+
 
                      
 

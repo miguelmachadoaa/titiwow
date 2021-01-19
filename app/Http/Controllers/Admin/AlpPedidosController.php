@@ -589,9 +589,7 @@ class AlpPedidosController extends JoshController
 
 
 
-          if ($orden->id_almacen==1) {
-              $compramas=$this->reservarOrden($orden->id);
-            }
+          
 
 
              \Session::forget('cart');
@@ -600,12 +598,27 @@ class AlpPedidosController extends JoshController
 
              try {
 
-              
+
              Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionTomapedidos($compra, ''));
                
              } catch (Exception $e) {
+
+              activity()->withProperties(1)
+                        ->log('error corrreo pedido  l607');
                
              }
+
+
+             if ($orden->id_almacen==1) {
+
+              try {
+                $compramas=$this->reservarOrden($orden->id);
+              } catch (Exception $e) {
+                activity()->withProperties(1)
+                        ->log('error reserva orden pedidos l615');
+              }
+              
+            }
 
 
             return view('admin.pedidos.procesar', compact('compra', 'detalles', 'direccion'));
@@ -4878,9 +4891,19 @@ public function marketingcliente()
                         $history=AlpOrdenesHistory::create($data_history);
 
 
-          Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+                        try {
+                          Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
 
-           Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+                          Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+                        } catch (Exception $e) {
+
+                          activity()->withProperties(1)
+                        ->log('error envio de correo pedidos l4888');
+                          
+                        }
+
+
+          
          
         }else{
 
@@ -4905,9 +4928,18 @@ public function marketingcliente()
 
             $history=AlpOrdenesHistory::create($data_history);
 
-          Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+            try {
+              Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
 
            Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+            } catch (Exception $e) {
+
+              activity()->withProperties(1)
+                        ->log('error envio de correo pedidos l4925');
+              
+            }
+
+          
 
 
         }
