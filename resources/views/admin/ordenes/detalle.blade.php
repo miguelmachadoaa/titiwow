@@ -470,7 +470,7 @@ Orden {{$orden->id}}
                         </div>
 
                     <br> 
-
+                    <div class="table-responsive">
                    <table class="table table-striped ">
                  <thead>
                      <tr>
@@ -598,7 +598,7 @@ Orden {{$orden->id}}
 
                  </tbody>
              </table>
-                    
+            </div>
             <p style="text-align: center;"> 
                     <a class="btn btn-default" href="{{ secure_url('admin/ordenes') }}">Regresar</a>
 

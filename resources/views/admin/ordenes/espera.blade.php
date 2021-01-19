@@ -62,6 +62,7 @@ Ordenes En Espera
                                     <th>Factura</th>
                                     <th>Tracking</th>
                                     <th>Creado</th>
+                                    <th>Estado</th>
                                     <th>Accion</th>
                                 </tr>
                             </thead>

@@ -807,7 +807,7 @@
 
                                             </div>
 
-                                            <div class="form-group col-sm-12 clearfix {{ $errors->first('pum', 'has-error') }}">
+                                            <!--div class="form-group col-sm-12 clearfix {{ $errors->first('pum', 'has-error') }}">
 
                                                 <label class="col-sm-3 col-xs-12 control-label" for="referencia_producto">@lang('productos/title.pum') </label>
 
@@ -821,7 +821,7 @@
 
                                               
 
-                                            </div>
+                                            </div-->
 
                                             <div class="form-group col-sm-12 clearfix {{ $errors->first('medida', 'has-error') }}">
 

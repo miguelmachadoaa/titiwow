@@ -722,7 +722,7 @@
 
 
                                             <div class="form-group clearfix col-sm-12 {{ $errors->
-                                                first('pum', 'has-error') }}">
+                                                first('inventario_inicial', 'has-error') }}">
                                                 
                                                 <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.inventary') </label>
                                                 
@@ -736,7 +736,7 @@
                                                 
                                             </div>
 
-                                            <div class="form-group clearfix col-sm-12 {{ $errors->
+                                            <!--div class="form-group clearfix col-sm-12 {{ $errors->
                                                 first('pum', 'has-error') }}">
                                                 
                                                 <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.pum') </label>
@@ -749,7 +749,7 @@
                                                 </div>
 
                                                 
-                                            </div>
+                                            </div-->
 
                                             <div class="form-group col-sm-12 clearfix {{ $errors->first('medida', 'has-error') }}">
 

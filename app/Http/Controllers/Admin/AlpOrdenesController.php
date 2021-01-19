@@ -1199,11 +1199,11 @@ public function compramasupdate()
 
               <button data-id='".$row->id."' class='btn btn-xs btn-success pago' > ".$row->estatus_pago_nombre." </button></div>";
 
-             $estatus="<span class='badge badge-default' >".$row->estatus_nombre."</span>";
+             /*$estatus="<span class='badge badge-default' >".$row->estatus_nombre."</span>";*/
 
 
-                 $actions = " 
-                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'>
+                 $actions = "
+                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."' target='_blank'>
                                                 ver detalles
                                             </a>";
 
@@ -1265,20 +1265,12 @@ public function compramasupdate()
               if (isset($mensaje->id)) {
 
                 $actions = $actions." 
-
-                <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'>
-                      ver detalles
-                  </a>
-
                   
                   <a target='_blank' class='btn btn-info  btn-xs' href='".secure_url('admin/ordenes/'.$row->id.'/pdf'). "'>
                       Ver Pdf
                   </a>";
                 
               }
-
-
-
 
 
 
@@ -1301,7 +1293,7 @@ public function compramasupdate()
                  
                  date("d/m/Y H:i:s", strtotime($row->created_at)), 
                  $pago, 
-                 $estatus, 
+                 //$estatus, 
                  $actions
               );
 
