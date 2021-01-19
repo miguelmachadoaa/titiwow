@@ -558,7 +558,6 @@ class AlpProductosController extends JoshController
             'id_marca' =>$request->id_marca, 
             'id_impuesto' =>$request->id_impuesto, 
             'precio_base' =>$request->precio_base,             
-            'pum' =>$request->pum,
             'medida' =>$request->medida,
             'mostrar_descuento' =>$request->mostrar_descuento,
             'enlace_youtube' =>$request->enlace_youtube,
