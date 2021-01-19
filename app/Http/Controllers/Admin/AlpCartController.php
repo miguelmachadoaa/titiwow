@@ -918,22 +918,26 @@ class AlpCartController extends JoshController
           $texto='Se ha creado la siguiente orden '.$compra->id.' y esta a espera de aprobacion  ';
 
 
-      //  Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
-
-      //  Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
-      //  
-      //  ifx_byteasvarchar(mode
         
 
           if (isset($compra->id_forma_envio)) {
 
             if ($compra->id_forma_envio!=1) {
 
-              $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
+
+              try {
+
+                $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
 
               Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega, 1));
 
               Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega, 1));
+                
+              } catch (Exception $e) {
+                
+              }
+
+              
                 
             }
             
@@ -1441,7 +1445,7 @@ class AlpCartController extends JoshController
               "value"=>(float)number_format($impuesto, 2, '.', ''),
               "type"=>"IVA"]],
           "token" => $request->token,
-          //"binary_mode" => true,
+          "binary_mode" => true,
           "description" => 'Pago de orden: '.$orden->id,
           "installments" => intval($request->installments),
           "external_reference"=> "".$orden->referencia."",
@@ -2438,14 +2442,7 @@ class AlpCartController extends JoshController
                 $texto='Se ha creado la siguiente orden '.$compra->id.' y esta a espera de aprobacion  ';
 
 
-                if ($compra->id_forma_envio!=1) {
-
-                  $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
-
-                  Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega, 1));
-
-                     Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega, 1));
-                }
+                
 
            
 
@@ -2462,6 +2459,16 @@ class AlpCartController extends JoshController
 
 
                 \Session::forget('pagando');
+
+
+                if ($compra->id_forma_envio!=1) {
+
+                  $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
+
+                  Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega, 1));
+
+                     Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega, 1));
+                }
 
         }else{
 
@@ -3316,7 +3323,11 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
           $texto='Se ha creado la siguiente orden '.$compra->id.' y esta a espera de aprobacion  ';
 
-          Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
+        
+
+            try {
+
+                Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
 
           Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
 
@@ -3325,15 +3336,17 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
           Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
 
-          //Mail::to($configuracion->correo_cedi)->send(new \App\Mail\NotificacionOrden($compra->id, $texto));
-          //
+              
+            } catch (Exception $e) {
+              
+            }
           
 
            $idc=$orden->id*1024;
 
           return secure_url('cart/'.$idc.'/gracias?pago=pendiente');
 
-          #return view('frontend.order.procesar', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago'));
+          
 
         }else{
 
@@ -6220,11 +6233,7 @@ public function verificarDireccion( Request $request)
 
 
 
-            if ($orden->id_almacen==1) {
-
-              $compramas=$this->reservarOrden($orden->id);
-
-            }
+           
 
             if ($total_descuentos_icg>0) {
 
@@ -6259,6 +6268,13 @@ public function verificarDireccion( Request $request)
 
             \Session::put('cr', $orden->id);
 
+
+             if ($orden->id_almacen==1) {
+
+              $compramas=$this->reservarOrden($orden->id);
+
+            }
+
           }else{
 
             $r='false0';
@@ -6289,10 +6305,6 @@ public function verificarDireccion( Request $request)
           $o=\Session::get('orden');
 
           $orden=AlpOrdenes::where('id', '=', $o)->first();
-
-
-
-
 
            $data_orden = array(
               'id_cliente' => $user_id, 
@@ -6573,11 +6585,7 @@ public function verificarDireccion( Request $request)
             }
 
 
-
-           // dd($orden->json_icg);
-
-
-            if ($total_descuentos_icg>0) {
+             if ($total_descuentos_icg>0) {
 
 
               
@@ -6598,32 +6606,6 @@ public function verificarDireccion( Request $request)
 
 
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

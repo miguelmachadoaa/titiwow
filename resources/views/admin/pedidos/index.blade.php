@@ -172,6 +172,11 @@ Pedidos
                         </div>
                      </div> 
 
+
+                     <div class="row">
+                       {{json_encode($cart)}}
+                     </div>
+
                     
                 </div>
             </div>

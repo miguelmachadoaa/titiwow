@@ -598,7 +598,15 @@ class AlpPedidosController extends JoshController
 
              $user_cliente=User::where('id', $user_id)->first();
 
+             try {
+
+              
              Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionTomapedidos($compra, ''));
+               
+             } catch (Exception $e) {
+               
+             }
+
 
             return view('admin.pedidos.procesar', compact('compra', 'detalles', 'direccion'));
 
@@ -1301,7 +1309,7 @@ class AlpPedidosController extends JoshController
         foreach ($cart as $c) {
 
           if (isset($c->id)) {
-            $total=$total+($c->cantidad*$c->precio_base);
+            $total=$total+($c->cantidad*$c->precio_oferta);
           }
 
           
@@ -2397,7 +2405,7 @@ public function postdireccion(DireccionModalRequest $request)
 
                     }else{
 
-                      $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $r)->first();
+                     /* $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $r)->first();
 
                       if (isset($pregiogrupo->id)) {
                        
@@ -2407,7 +2415,7 @@ public function postdireccion(DireccionModalRequest $request)
                           $precio[$producto->id]['mostrar']=$pregiogrupo->mostrar_descuento;
 
 
-                      }
+                      }*/
 
                       
 
@@ -2613,7 +2621,7 @@ public function postdireccion(DireccionModalRequest $request)
 
                     }else{
 
-                      $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $r)->first();
+                     /* $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $r)->first();
 
                       if (isset($pregiogrupo->id)) {
                        
@@ -2623,7 +2631,7 @@ public function postdireccion(DireccionModalRequest $request)
                           $precio[$row->id]['mostrar']=$pregiogrupo->mostrar_descuento;
 
 
-                      }
+                      }*/
 
                       
 
