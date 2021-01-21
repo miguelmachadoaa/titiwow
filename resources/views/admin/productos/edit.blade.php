@@ -140,7 +140,7 @@
 
                                                 <div class="col-sm-9 col-xs-12">
 
-                                                    <input id="nombre_producto" name="nombre_producto" type="text" placeholder="Nombre del producto" class="form-control  {{ $errors->first('nombre_producto', 'has-error') }}" value="{!! old('nombre_producto', $producto->nombre_producto) !!}">{!! $errors->first('nombre_producto', '<span class="help-block">:message</span>') !!}
+                                                    <input id="nombre_producto" name="nombre_producto" type="text" placeholder="Nombre del producto" class="form-control  {{ $errors->first('nombre_producto', 'has-error') }} titleSlug" value="{!! old('nombre_producto', $producto->nombre_producto) !!}">{!! $errors->first('nombre_producto', '<span class="help-block">:message</span>') !!}
                                                 </div>
                                                  
 
@@ -551,7 +551,7 @@
 
                                                 <div class="col-sm-9 col-xs-12">
 
-                                                    <input id="slug" name="slug" type="text" placeholder="Seo Url" class="form-control  {{ $errors->first('seo_url', 'has-error') }}" value="{!! old('Seo Url', $producto->slug) !!}"> {!! $errors->first('slug', '<span class="help-block">:message</span>') !!}
+                                                    <input id="slug" name="slug" type="text" placeholder="Seo Url" class="form-control  {{ $errors->first('seo_url', 'has-error') }} respSlug" value="{!! old('Seo Url', $producto->slug) !!}"> {!! $errors->first('slug', '<span class="help-block">:message</span>') !!}
 
                                                 </div>
 
@@ -1387,6 +1387,11 @@ $('.addProductoCupon').click(function(){
 
 
           $(document).ready(function(){
+
+            $( ".titleSlug" ).keyup(function() {
+                $s= $(this).val().toLowerCase().replace(/ /g,'-').replace(/[^\w-]+/g,'');
+                $('.respSlug').val($s);
+            });
 
                 $(document).on('change', '.selectprecio', function(e) {
 

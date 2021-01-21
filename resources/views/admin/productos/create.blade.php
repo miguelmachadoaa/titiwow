@@ -167,7 +167,7 @@
                             first('nombre_producto', 'has-error') }}">
                                                 <label class="col-md-3 control-label" for="nombre_producto">@lang('productos/title.name')</label>
                                                 <div class="col-md-9">
-                                                    <input id="nombre_producto" name="nombre_producto" type="text" placeholder="Nombre del Producto" class="form-control" value="{{ old('nombre_producto') }}">
+                                                    <input id="nombre_producto" name="nombre_producto" type="text" placeholder="Nombre del Producto" class="form-control titleSlug" value="{{ old('nombre_producto') }}">
 
                                                     {!! $errors->first('nombre_producto', '<span class="help-block">:message</span> ') !!}
 
@@ -498,7 +498,7 @@
                             first('slug', 'has-error') }}">
                                                 <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.slug')</label>
                                                 <div class="col-md-9">
-                                                    <input id="slug" name="slug" type="text" placeholder="Seo Url" class="form-control" value="{{ old('slug') }}">
+                                                    <input id="slug" name="slug" type="text" placeholder="Seo Url" class="form-control respSlug" value="{{ old('slug') }}">
                                                     {!! $errors->first('slug', '<span class="help-block">:message</span> ') !!}
                                                 </div>
 
@@ -1117,6 +1117,12 @@
                 placeholder: "Seleccionar",
                 theme:"bootstrap"
             });
+        
+        $( ".titleSlug" ).keyup(function() {
+            $s= $(this).val().toLowerCase().replace(/ /g,'-').replace(/[^\w-]+/g,'');
+            $('.respSlug').val($s);
+        });
+            
 
                $(document).on('change', '.selectprecio', function(e) {
 
