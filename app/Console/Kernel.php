@@ -20,6 +20,7 @@ class Kernel extends ConsoleKernel
         Commands\PedidosDelDia::class,
         Commands\NuevosUsuarios::class,
         Commands\VerificarPagos::class,
+        Commands\VerificarPagosHora::class,
         Commands\ProductoB::class,
         Commands\ProductoC::class,
         Commands\TomaPedidos::class,
@@ -98,6 +99,7 @@ class Kernel extends ConsoleKernel
 
          
         $schedule->command('verificar:pagos')->everyFiveMinutes();
+        $schedule->command('verificar:pagos')->hourly();
 
         #$schedule->command('notificacion:carrito')->hourly();
         
