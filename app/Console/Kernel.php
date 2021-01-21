@@ -99,7 +99,7 @@ class Kernel extends ConsoleKernel
 
          
         $schedule->command('verificar:pagos')->everyFiveMinutes();
-        $schedule->command('verificar:pagos')->hourly();
+        $schedule->command('verificar:pagoshora')->hourly();
 
         #$schedule->command('notificacion:carrito')->hourly();
         
