@@ -92,14 +92,14 @@ class Kernel extends ConsoleKernel
         //llamadas ibm a las 5pm 
 
       #  $schedule->command('bienvenida:ibm')->dailyAt('07:00');
-      #  $schedule->command('codigodescuento:ibm')->dailyAt('07:00');
+        $schedule->command('codigodescuento:ibm')->dailyAt('07:00');
         $schedule->command('teextranamos2:ibm')->dailyAt('10:00');
         $schedule->command('teextranamos:ibm')->dailyAt('07:00');
 
 
          
         $schedule->command('verificar:pagos')->everyFiveMinutes();
-        $schedule->command('verificar:pagoshora')->hourly();
+        $schedule->command('verificar:pagoshora')->hourly()->between('6:00', '23:00');
 
         #$schedule->command('notificacion:carrito')->hourly();
         
