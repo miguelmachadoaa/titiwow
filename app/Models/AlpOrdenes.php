@@ -48,6 +48,7 @@ class AlpOrdenes extends Model
         'estado_compramas',
         'envio_compramas',
         'notas',
+        'countvp',  
         'estatus',
         'estatus_pago',
         'id_user'
