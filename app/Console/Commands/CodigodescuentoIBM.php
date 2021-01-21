@@ -72,7 +72,7 @@ class CodigodescuentoIBM extends Command
         ->get();
 
 
-      //  dd(count($users));
+        //dd(count($users));
 
         $i=0;
 
@@ -86,11 +86,14 @@ class CodigodescuentoIBM extends Command
 
             }else{
 
-             //
+
+              echo $u->id.' - ';
 
                     $codigo=strtoupper(substr(md5(time().$u->id), 0,12));
 
                     $date_inicio = Carbon::now()->format('Y-m-d');
+
+                   /// $date_fecha = Carbon::now()->format('m/d/Y');
 
                     $date_fecha = Carbon::now()->format('m/d/Y');
 
@@ -122,7 +125,7 @@ class CodigodescuentoIBM extends Command
 
                     AlpCuponesUser::create($datac);
 
-                 //  $this->addibm($u, $cupon, $date_fecha);
+                   $this->addibm($u, $cupon, $date_fecha);
 
 
             }

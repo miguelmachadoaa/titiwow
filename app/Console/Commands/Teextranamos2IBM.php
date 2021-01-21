@@ -88,7 +88,11 @@ class Teextranamos2IBM extends Command
                     $codigo=strtoupper(substr(md5(time().$u->id), 0,12));
 
                     $date_inicio = Carbon::now()->format('Y-m-d');
+                    //$date_fecha = Carbon::now()->format('m/d/Y');
+
                     $date_fecha = Carbon::now()->format('m/d/Y');
+
+                    dd($date_fecha);
 
                     $date_fin = Carbon::now()->addDay(30)->format('Y-m-d');
 
