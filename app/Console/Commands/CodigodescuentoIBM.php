@@ -65,11 +65,14 @@ class CodigodescuentoIBM extends Command
        // $d=$date->subDay(15)->format('Y-m-d');
        // $d=$date->subDay(100)->format('Y-m-d');
       
-        $users=User::select('users.*')
+     /*   $users=User::select('users.*')
         ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
         ->whereDate('users.created_at', '>',$d)
         ->where('alp_clientes.origen', '=', 0)
-        ->get();
+        ->get();*/
+
+
+        $users=User::where('id', '=', '113')->get();
 
 
         //dd(count($users));
@@ -82,7 +85,8 @@ class CodigodescuentoIBM extends Command
 
             $orden=AlpOrdenes::where('id_cliente', $u->id)->orderBy('id', 'desc')->first();
 
-            if (isset($orden->id)) { 
+           // if (isset($orden->id)) { 
+            if (1==2) { 
 
             }else{
 
@@ -165,7 +169,7 @@ class CodigodescuentoIBM extends Command
 
             $xml='<Envelope><Body><AddRecipient><LIST_ID>8739683</LIST_ID><SYNC_FIELDS><SYNC_FIELD><NAME>EMAIL</NAME><VALUE>'.$user->email.'</VALUE></SYNC_FIELD></SYNC_FIELDS><UPDATE_IF_FOUND>true</UPDATE_IF_FOUND><COLUMN><NAME>Email</NAME><VALUE>'.$user->email.'</VALUE></COLUMN><COLUMN><NAME>Codigo_cupon_ecommerce</NAME><VALUE>'.$cupon->codigo_cupon.'</VALUE></COLUMN><COLUMN><NAME>Fecha_cupon_ecommerce</NAME><VALUE>'.$fecha.'</VALUE></COLUMN></AddRecipient></Body></Envelope>';
 
-            dd($xml);
+            //dd($xml);
 
 
            activity()->withProperties($xml)->log('codigo-descuento-ibm-xml');
