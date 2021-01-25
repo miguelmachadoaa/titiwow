@@ -543,6 +543,8 @@ Orden {{$orden->id}}
 
                      @endif
 
+                     @if(isset($descuentoicg))
+
                     
                      @if(count($descuentoicg)>0)
 
@@ -555,6 +557,8 @@ Orden {{$orden->id}}
 
                        @endforeach
 
+                     @endif
+                     
                      @endif
 
                       

@@ -4,20 +4,20 @@ Notificación de Creacion de envio en Compramas
 
  {{ $texto }}
 
-
 Id de Orden: {{$orden->id}}
 
 Fecha de Orden: {{$orden->created_at}}
 
-
 <br>
 
-
-
 	IdPedido: {{ $orden->id }}
+
 	Documento: {{ $orden->doc_cliente }}
+
 	Valor Pagado: {{ number_format($orden->monto_total,0,",",".") }}
+
 	Base Impuesto: {{ number_format($orden->base_impuesto,0,",",".")}}
+	
 	Valor Iva: {{ number_format($orden->monto_impuesto,0,",",".")}}
 
 
@@ -51,14 +51,16 @@ Fecha de Orden: {{$orden->created_at}}
 	@endforeach
 
 </table>
-<br />
 
-@component('mail::button', ['url' => secure_url('/admin/ordenes')])
-Ver Ordenes
-@endcomponent
+	<br />
 
-<h3 style="text-align: center;"><img src="{{secure_url('uploads/files/banner-750x100.jpg')}}" alt="banner"></h3>
+	@component('mail::button', ['url' => secure_url('/admin/ordenes')])
+	Ver Ordenes
+	@endcomponent
 
-Gracias,<br>
-{{ config('app.name') }}
+	<h3 style="text-align: center;"><img src="{{secure_url('uploads/files/banner-750x100.jpg')}}" alt="banner"></h3>
+
+	Gracias,<br>
+	{{ config('app.name') }}
+
 @endcomponent

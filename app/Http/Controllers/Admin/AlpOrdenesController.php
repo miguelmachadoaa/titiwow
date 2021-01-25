@@ -2550,7 +2550,8 @@ public function compramasupdate()
 
           $cupones=AlpOrdenesDescuento::where('id_orden', $orden->id)->get();
 
-        $descuentoicg=AlpOrdenesDescuentoIcg::where('id_orden','=', $orden->id)->get();
+     //   $descuentoicg=AlpOrdenesDescuentoIcg::where('id_orden','=', $orden->id)->get();
+        $descuentoicg=null;
 
           $formaenvio=AlpFormasenvio::where('id', $orden->id_forma_envio)->first();
 

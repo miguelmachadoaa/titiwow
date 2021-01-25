@@ -2748,11 +2748,20 @@ public function postdireccion(DireccionModalRequest $request)
 
         }
 
+
+
+
+
+        if (Sentinel::check()) {
+
+          Sentinel::logout();
+        }
+
+
+
         $configuracion=AlpConfiguracion::where('id', '=', '1')->first();
 
         $orden=AlpOrdenes::where('token', '=', $token)->first();
-
-       // dd($orden);
 
 
         \Session::put('orden', $orden->id);
@@ -2760,6 +2769,9 @@ public function postdireccion(DireccionModalRequest $request)
         \Session::put('iduser', $orden->id_cliente);
 
         $user=User::where('id', $orden->id_cliente)->first();
+
+        //Sentinel::login($user, false);
+
 
          $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
             ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')

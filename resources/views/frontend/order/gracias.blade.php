@@ -188,6 +188,8 @@ Carrito de Compras
 
                      @endforeach
 
+                     @if(isset($descuentosIcg))
+
 
                      @foreach($descuentosIcg as $di)
 
@@ -201,6 +203,11 @@ Carrito de Compras
                      </tr>
 
                      @endforeach
+
+                     @endif
+
+
+                     @if(isset($cupo_icg))
 
 
                      @if(!is_null($cupo_icg))
@@ -223,6 +230,7 @@ Carrito de Compras
                      </tr>
 
 
+                     @endif
                      @endif
 
                      
