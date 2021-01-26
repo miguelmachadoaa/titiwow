@@ -38,6 +38,7 @@ use App\Models\AlpEnvios;
 use App\Models\AlpEnviosHistory;
 
 
+
 use App\User;
 use App\State;
 use App\City;
@@ -5067,24 +5068,7 @@ public function marketingcliente()
 
         $cliente=AlpClientes::where('id_user_client', $user_id)->first();
 
-        if (isset($cliente)) {
-           
-          if ($cliente->id_embajador!=0) {
-             
-              $data_puntos = array(
-                  'id_orden' => $orden->id,
-                  'id_cliente' => $cliente->id_embajador,
-                  'tipo' => '1',//agregar
-                  'cantidad' =>$total ,
-                  'id_user' =>$user_id                   
-              );
-
-              AlpPuntos::create($data_puntos);
-
-            }
-
-         }
-
+      
 
          $envio=$this->enviopago($orden);
 

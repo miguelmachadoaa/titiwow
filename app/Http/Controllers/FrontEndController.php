@@ -2582,10 +2582,7 @@ public function getApiUrl($endpoint, $jsessionid)
 
       $dataraw=json_encode($d);
 
-     //dd($dataraw);
-
       $urls='https://alpinavista360webapp03.azurewebsites.net/api/UsuarioAlpinaGo/Add';
-      //$urls='https://alpina.local/get360';
 
       activity()->withProperties($dataraw)->log('360 api add');
 
@@ -2621,10 +2618,6 @@ public function getApiUrl($endpoint, $jsessionid)
       $res=json_decode($result);
 
       activity()->withProperties($result)->log('360 respuesta add');
-
-     // Log::info('api 360 res '.json_encode($res));
-       
-    //  Log::info('api 360 result '.$result);
 
       $notas='Registro de orden en api 360 res.';
 
@@ -2773,15 +2766,7 @@ public function getApiUrl($endpoint, $jsessionid)
                     'eliminar_cliente' =>0,
                   );
 
-                 //  $user->update($data_user);
-
                    $c->update($data);
-
-
-
-                //  activity()->withProperties($p)->log('FrontEndController/getCompramas 2.2');
-
-                
 
                 }
                 
@@ -2789,16 +2774,160 @@ public function getApiUrl($endpoint, $jsessionid)
 
        } //(end if hay resspuessta)
 
-
-
     return response(json_encode($r), 200) ->header('Content-Type', 'application/json');
    
   }
 
 
 
+  public function get360actualizar(Request $request)
+  {
 
 
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('FrontEndController/get360actuaizar ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('FrontEndController/get360actuaizar');
+
+        }
+
+      $content = $request->getContent();
+
+      $datos = json_decode($content, true);
+
+       activity()->withProperties($datos)->log('FrontEndController/get360actuaizar');
+
+    //  dd($datos);
+
+          $r="false";
+
+       if (count($datos)) {
+
+            foreach ($datos as $dato ) {
+
+              activity()->withProperties($dato)->log('FrontEndController/get 360 actualizar');
+
+              $user=User::where('email', '=', $dato['email'])->first();
+
+              if (isset($user->id)) {
+
+                $r="true";
+
+                 $c=AlpClientes::where('id_user_client', $user->id)->first();
+
+                  $data_user = array(
+                    'first_name' =>$dato['first_name'],
+                    'last_name' =>$dato['last_name'],
+                    'dob' =>$dato['dob'],
+                  );
+
+                   $data = array(
+                //    'genero_cliente' =>$dato['genero_cliente'],
+                //    'doc_cliente' =>$dato['doc_cliente'],
+                //    'telefono_cliente' =>$dato['telefono_cliente'],
+                    'marketig_email' =>$dato['marketig_email'],
+                    'marketing_sms' =>$dato['marketing_sms'],
+                    'eliminar_cliente' =>0,
+                  );
+
+                   $c->update($data);
+
+                }
+                
+            } //end foreach datos
+
+       } //(end if hay resspuessta)
+
+    return response(json_encode($r), 200) ->header('Content-Type', 'application/json');
+   
+  }
+
+
+ public function get360consultar(Request $request)
+  {
+
+
+
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->getContent())->log('FrontEndController/get360actuaizar ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->getContent())->log('FrontEndController/get360actuaizar');
+
+        }
+
+        
+        $content = $request->getContent();
+
+      $datos = json_decode($content, true);
+
+      return dd($datos[0]);
+
+
+        return json_decode($datos[0]['fechaInicial']);
+
+      activity()->withProperties($datos)->log('FrontEndController/get360actuaizar');
+
+       if (count($datos)) {
+
+
+
+            foreach ($datos as $dato ) {
+
+              activity()->withProperties($dato)->log('FrontEndController/get 360 actualizar');
+
+              $user=User::where('email', '=', $dato['email'])->first();
+
+              if (isset($user->id)) {
+
+                $r="true";
+
+                 $c=AlpClientes::where('id_user_client', $user->id)->first();
+
+                  $data_user = array(
+                    'first_name' =>$dato['first_name'],
+                    'last_name' =>$dato['last_name'],
+                    'dob' =>$dato['dob'],
+                  );
+
+                   $data = array(
+                //    'genero_cliente' =>$dato['genero_cliente'],
+                //    'doc_cliente' =>$dato['doc_cliente'],
+                //    'telefono_cliente' =>$dato['telefono_cliente'],
+                    'marketig_email' =>$dato['marketig_email'],
+                    'marketing_sms' =>$dato['marketing_sms'],
+                    'eliminar_cliente' =>0,
+                  );
+
+                   $c->update($data);
+
+                }
+                
+            } //end foreach datos
+
+       } //(end if hay resspuessta)
+
+   // return response(json_encode($r), 200) ->header('Content-Type', 'application/json');
+   
+  }
 
 
 

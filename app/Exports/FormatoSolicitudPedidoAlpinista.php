@@ -29,8 +29,6 @@ class FormatoSolicitudPedidoAlpinista implements FromView
     public function view(): View
     {
 
-
-
           $orden=AlpOrdenes::where('id',$this->id_orden)->first();
 
           if (isset($orden->id)) {

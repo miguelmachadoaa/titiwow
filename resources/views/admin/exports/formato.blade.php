@@ -1,6 +1,4 @@
 @if(isset($orden->id))
-
-        
            
 
                 <table class="" id="categoriastable">

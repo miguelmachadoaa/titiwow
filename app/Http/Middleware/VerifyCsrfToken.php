@@ -59,6 +59,7 @@ class VerifyCsrfToken extends Middleware
        'delamigo', //
        'compramas', //
        'compramasinventario', //
-       'get360' //
+       'get360', //
+       'get360consultar' //
     ];
 }
