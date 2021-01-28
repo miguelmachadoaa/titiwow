@@ -574,7 +574,7 @@ class FrontEndController extends JoshController
                     }else{
 
 
-                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $role->role_id)->first();
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $role->role_id)->where('city_id', '=','62')->first();
 
                       if (isset($pregiogrupo->id)) {
                          
@@ -612,7 +612,7 @@ class FrontEndController extends JoshController
 
                     }else{
 
-                      $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $r)->first();
+                      $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $r)->where('city_id', '=','62')->first();
 
                       if (isset($pregiogrupo->id)) {
                        
@@ -1159,9 +1159,9 @@ class FrontEndController extends JoshController
 
                       $roleusuario=RoleUser::where('user_id', $user->id)->first();
 
-                      Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $configuracion->mensaje_bienvenida, $roleusuario ));
+                    #  Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $configuracion->mensaje_bienvenida, $roleusuario ));
 
-                      Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $configuracion->mensaje_bienvenida, $roleusuario ));
+                     # Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $configuracion->mensaje_bienvenida, $roleusuario ));
 
                     }else{
 
@@ -1303,9 +1303,9 @@ class FrontEndController extends JoshController
                     
                      if (filter_var($user->email, FILTER_VALIDATE_EMAIL)) {
                       
-                       Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name,  $configuracion->mensaje_bienvenida, $roleusuario));
+                     #  Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name,  $configuracion->mensaje_bienvenida, $roleusuario));
 
-                      Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name,  $configuracion->mensaje_bienvenida, $roleusuario));
+                      #Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name,  $configuracion->mensaje_bienvenida, $roleusuario));
 
                      }
                     
@@ -1345,7 +1345,25 @@ class FrontEndController extends JoshController
             }
 
 
-            $datos360= $this->datos360($user->id); 
+            try {
+
+              $datos360= $this->datos360($user->id); 
+              
+            } catch (Exception $e) {
+              
+            }
+
+
+            try {
+              
+              $this->addibm($user);
+
+            } catch (Exception $e) {
+              
+            }
+
+
+            
 
 
 
@@ -2879,10 +2897,10 @@ public function getApiUrl($endpoint, $jsessionid)
 
       $datos = json_decode($content, true);
 
-      return dd($datos[0]);
+      return $datos[0]['fechaInicial'];
 
 
-        return json_decode($datos[0]['fechaInicial']);
+       // return json_decode($datos[0]['fechaInicial']);
 
       activity()->withProperties($datos)->log('FrontEndController/get360actuaizar');
 

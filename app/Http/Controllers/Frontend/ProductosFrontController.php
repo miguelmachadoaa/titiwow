@@ -50,8 +50,6 @@ class ProductosFrontController extends Controller
 
         if (Sentinel::check()) {
 
-
-
             $user_id = Sentinel::getUser()->id;
 
             $user=Sentinel::getUser();
@@ -116,7 +114,7 @@ class ProductosFrontController extends Controller
                     }else{
 
 
-                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $role->role_id)->first();
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $role->role_id)->where('city_id', '=','62')->first();
 
                       if (isset($pregiogrupo->id)) {
                          
@@ -158,7 +156,7 @@ class ProductosFrontController extends Controller
 
                     }else{
 
-                      $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $r)->first();
+                      $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $r)->where('city_id','=', '62')->first();
 
                       if (isset($pregiogrupo->id)) {
                        
@@ -166,7 +164,6 @@ class ProductosFrontController extends Controller
                           $precio[$row->id]['operacion']=$pregiogrupo->operacion;
                           $precio[$row->id]['pum']=$pregiogrupo->pum;
                           $precio[$row->id]['mostrar']=$pregiogrupo->mostrar_descuento;
-
 
                       }
 
