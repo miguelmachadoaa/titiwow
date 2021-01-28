@@ -611,7 +611,7 @@ class ProductosFrontController extends Controller
                     }else{
 
 
-                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $role->role_id)->first();
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $role->role_id)->where('city_id', '62')->first();
 
                       if (isset($pregiogrupo->id)) {
                          
@@ -643,7 +643,7 @@ class ProductosFrontController extends Controller
                     }else{
 
 
-                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $r)->first();
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $r)->where('city_id', '62')->first();
 
                       if (isset($pregiogrupo->id)) {
                          
