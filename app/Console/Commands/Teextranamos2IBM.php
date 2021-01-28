@@ -59,6 +59,7 @@ class Teextranamos2IBM extends Command
          $users=User::select('users.*')
         ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
         ->whereDate('users.created_at', '<',$d)
+        ->whereDate('users.created_at', '>','2020-11-01')
         ->where('alp_clientes.origen', '=', 0)
         ->get();
 
@@ -68,7 +69,7 @@ class Teextranamos2IBM extends Command
         $i=0;
 
 
-    //   dd(count($users));
+       dd(count($users));
 
      //   dd($users);
 
@@ -76,8 +77,8 @@ class Teextranamos2IBM extends Command
 
             $orden=AlpOrdenes::where('id_cliente', $u->id)->orderBy('id', 'desc')->first();
 
-           // if (isset($orden->id)) {
-            if (1) {
+            if (isset($orden->id)) {
+            //if (1) {
 
                 $date = Carbon::parse($orden->created_at); 
 
@@ -85,8 +86,8 @@ class Teextranamos2IBM extends Command
 
                 $diff = $date->diffInDays($now); 
 
-              //  if ($diff>30) {
-                if (1) {
+                if ($diff>30) {
+                //if (1) {
 
                   // echo  $u->id.'-';
 

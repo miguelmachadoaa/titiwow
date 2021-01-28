@@ -56,13 +56,14 @@ class BienvenidaIBM extends Command
       
         $users=User::select('users.*')
         ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
-        ->whereDate('users.created_at','<', $d)
+        ->whereDate('users.created_at','>', $d)
+       // ->whereDate('users.created_at', '>','2020-11-01')
         ->where('alp_clientes.origen', '=', 0)
         ->get();
 
        # $users=User::where('id', '=', '113')->get();
 
-      //  dd($users->count());
+       # dd($users->count());
 
         foreach ($users as $u) {
 
