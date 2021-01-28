@@ -11,6 +11,7 @@ use App\Models\AlpConfiguracion;
 use App\Models\AlpSaldo;
 use App\Models\AlpCupones;
 use App\Models\AlpCuponesUser;
+use App\Models\AlpClientes;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
 use Mail;
@@ -61,6 +62,7 @@ class Teextranamos2IBM extends Command
         ->whereDate('users.created_at', '<',$d)
         ->whereDate('users.created_at', '>','2020-11-01')
         ->where('alp_clientes.origen', '=', 0)
+        ->where('alp_clientes.notificacion_teextranamos2', '=', 0)
         ->get();
 
 
@@ -89,7 +91,7 @@ class Teextranamos2IBM extends Command
                 if ($diff>30) {
                 //if (1) {
 
-                  // echo  $u->id.'-';
+                   echo  $u->id.'-';
 
                     $codigo=strtoupper(substr(md5(time().$u->id), 0,12));
 
@@ -134,10 +136,16 @@ class Teextranamos2IBM extends Command
 
                   $usuario->update($data_update_usuario);
 
-                    
-                    
+                  $c=AlpClientes::where('id_user_client', $u->id)->first();
 
-                    $this->addibm($u, $cupon, $date_fecha);
+                    if (isset($c->id)) {
+                      $c->update(['notificacion_teextranamos2'=>'1']);
+                    }
+
+
+
+
+                  #  $this->addibm($u, $cupon, $date_fecha);
 
 
                 }

@@ -42,6 +42,10 @@ class AlpClientes extends Model
         'tomapedidos_marketing',
         'marketing_email',
         'marketing_sms',
+        'notificacion_bienvenida',
+        'notificacion_teextranamos',
+        'notificacion_teextranamos2',
+        'notificacion_descuento',
         'id_user'
     ];
 

@@ -11,6 +11,7 @@ use App\Models\AlpConfiguracion;
 use App\Models\AlpSaldo;
 use App\Models\AlpCupones;
 use App\Models\AlpCuponesUser;
+use App\Models\AlpClientes;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
 use Mail;
@@ -70,6 +71,7 @@ class CodigodescuentoIBM extends Command
         ->whereDate('users.created_at', '<',$d)
         ->whereDate('users.created_at', '>','2020-11-01')
         ->where('alp_clientes.origen', '=', 0)
+        ->where('alp_clientes.notificacion_descuento', '=', 0)
         ->get();
 
 
@@ -129,6 +131,13 @@ class CodigodescuentoIBM extends Command
                     );
 
                     AlpCuponesUser::create($datac);
+
+
+                    $c=AlpClientes::where('id_user_client', $u->id)->first();
+
+                    if (isset($c->id)) {
+                      $c->update(['notificacion_descuento'=>'1']);
+                    }
 
                    $this->addibm($u, $cupon, $date_fecha);
 
