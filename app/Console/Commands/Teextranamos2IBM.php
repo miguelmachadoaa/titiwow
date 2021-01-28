@@ -69,7 +69,7 @@ class Teextranamos2IBM extends Command
         $i=0;
 
 
-       dd(count($users));
+     //  dd(count($users));
 
      //   dd($users);
 

@@ -76,7 +76,7 @@ class CodigodescuentoIBM extends Command
        # $users=User::where('id', '=', '113')->get();
 
 
-        dd(count($users));
+      //  dd(count($users));
 
         $i=0;
 
