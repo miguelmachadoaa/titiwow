@@ -181,11 +181,11 @@ class NotificacionCarrito extends Command
            // dd($xml);
 
 
-            activity()->withProperties($xml)->log('Ibm Carrito Datos Enviados');
+            activity()->withProperties($xml)->log('Ibm_Carrito Datos Enviados');
 
         $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-        activity()->withProperties($result2)->log('Ibm Carrito Datos Respuesta');
+        activity()->withProperties($result2)->log('Ibm_Carrito Datos Respuesta');
 
 
         $xml = '<Envelope><Body><Logout/></Body></Envelope>';
