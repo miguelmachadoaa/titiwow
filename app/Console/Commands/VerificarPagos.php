@@ -339,9 +339,6 @@ class VerificarPagos extends Command
 
               $dataraw=json_encode($o);
 
-
-
-
                if ($compra->id_forma_envio!=1) {
 
                     try {
@@ -352,12 +349,12 @@ class VerificarPagos extends Command
 
                       Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega,1));
                       
-                    } catch (\Exception $e) {
+                      } catch (\Exception $e) {
 
                         activity()->withProperties(1)->log('Error de correo vp354');
                   
                     
-
+                      }
 
                     try {
 
@@ -475,10 +472,6 @@ class VerificarPagos extends Command
                       }
 
                }
-
-
-
-
 
             }
 
