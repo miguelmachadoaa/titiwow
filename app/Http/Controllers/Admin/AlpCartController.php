@@ -6696,17 +6696,9 @@ public function verificarDireccion( Request $request)
                 $r='falseicg';
               }
 
-
-
             }
 
-
-
-
          }
-
-        // dd($cart);
-
 
       }else{
 

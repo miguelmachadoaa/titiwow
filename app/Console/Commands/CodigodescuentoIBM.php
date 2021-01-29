@@ -182,11 +182,11 @@ class CodigodescuentoIBM extends Command
             //dd($xml);
 
 
-           activity()->withProperties($xml)->log('codigo-descuento-ibm-xml');
+           activity()->withProperties($xml)->log('ibm descuento datos enviados ');
 
         $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-        activity()->withProperties($result)->log('codigo-descuento-xml-result');
+        activity()->withProperties($result)->log('Ibm descuento respuesta');
 
        // print_r($result);
 
@@ -202,7 +202,7 @@ class CodigodescuentoIBM extends Command
 
               $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml, true));
 
-              activity()->withProperties($result)->log('codigo-descuento-xml_ibm_result2');
+             // activity()->withProperties($result)->log('codigo-descuento-xml_ibm_result2');
 
             // print_r($result);
 

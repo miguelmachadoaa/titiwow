@@ -113,9 +113,6 @@ class Pruebaenvios360 extends Command
 
         $r=json_decode($result);
 
-
-        dd($r);
-
         return $r;
     }
 

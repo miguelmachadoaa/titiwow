@@ -178,21 +178,21 @@ class NotificacionCarrito extends Command
 
             $xml='<Envelope><Body><InsertUpdateRelationalTable><TABLE_ID>10843849</TABLE_ID><ROWS>'.$rows.'</ROWS></InsertUpdateRelationalTable></Body></Envelope>';
 
-            dd($xml);
+           // dd($xml);
 
 
-            activity()->withProperties($xml)->log('carrito-xml');
+            activity()->withProperties($xml)->log('Ibm Carrito Datos Enviados');
 
         $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-        activity()->withProperties($result2)->log('carrito-result');
+        activity()->withProperties($result2)->log('Ibm Carrito Datos Respuesta');
 
 
         $xml = '<Envelope><Body><Logout/></Body></Envelope>';
 
               $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml, true));
 
-              activity()->withProperties($result)->log('xml_ibm-result2-carrito');
+            //  activity()->withProperties($result)->log('xml_ibm-result2-carrito');
 
              // print_r($result);
 

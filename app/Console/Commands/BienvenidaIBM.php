@@ -116,13 +116,13 @@ class BienvenidaIBM extends Command
             $xml='<Envelope><Body><AddRecipient><LIST_ID>8739683</LIST_ID><SYNC_FIELDS><SYNC_FIELD><NAME>EMAIL</NAME><VALUE>'.$user->email.'</VALUE></SYNC_FIELD></SYNC_FIELDS><UPDATE_IF_FOUND>true</UPDATE_IF_FOUND><COLUMN><NAME>Email</NAME><VALUE>'.$user->email.'</VALUE></COLUMN><COLUMN><NAME>Fuente_ecommerce</NAME><VALUE>Yes</VALUE></COLUMN><COLUMN><NAME>Nombres</NAME><VALUE>'.$user->first_name.'</VALUE></COLUMN><COLUMN><NAME>Apellidos</NAME><VALUE>'.$user->last_name.'</VALUE></COLUMN></AddRecipient></Body></Envelope>';
 
 
-        activity()->withProperties($xml)->log('bienvenida-ibm-xml');
+        activity()->withProperties($xml)->log('Ibm BIenvenida Datos Enviados');
 
         $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
 
 
-        activity()->withProperties($result2)->log('bienvenida-result2');
+        activity()->withProperties($result2)->log('Ibm BIenvenida Respuesta');
 
        // print_r($result);
 
@@ -138,7 +138,7 @@ class BienvenidaIBM extends Command
 
               $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml, true));
 
-              activity()->withProperties($result)->log('bienvenida-xml_ibm_add_result2-bienvenida');
+             /// activity()->withProperties($result)->log('bienvenida-xml_ibm_add_result2-bienvenida');
 
              // print_r($result);
 

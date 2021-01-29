@@ -355,10 +355,7 @@ class VerificarPagos extends Command
                     } catch (\Exception $e) {
 
                         activity()->withProperties(1)->log('Error de correo vp354');
-                    }
-
-
-
+                  
                     
 
 
@@ -436,24 +433,21 @@ class VerificarPagos extends Command
 
                if ($diff>30) {
 
-                $data_update = array(
-                  'estatus' =>4, 
-                  'estatus_pago' =>3,
-                   );
+                  $data_update = array(
+                    'estatus' =>4, 
+                    'estatus_pago' =>3,
+                     );
 
-                 $orden->update($data_update);
+                   $orden->update($data_update);
 
-                  $data_history = array(
-                    'id_orden' => $orden->id, 
-                    'id_status' => '4', 
-                    'notas' => 'Notificacion Mercadopago Cron',
-                    'id_user' => 1
-                  );
+                    $data_history = array(
+                      'id_orden' => $orden->id, 
+                      'id_status' => '4', 
+                      'notas' => 'Notificacion Mercadopago Cron',
+                      'id_user' => 1
+                    );
 
-                  $history=AlpOrdenesHistory::create($data_history);
-
-                   
-
+                    $history=AlpOrdenesHistory::create($data_history);
 
                    $descuentos=AlpOrdenesDescuento::where('id_orden', $orden->id)->get();
 
@@ -464,7 +458,6 @@ class VerificarPagos extends Command
                         $d->delete();
 
                       }
-
 
 
                       try {

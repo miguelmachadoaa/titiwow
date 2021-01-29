@@ -208,7 +208,7 @@ class FrontEndController extends JoshController
           $data_histroy = array(
             'id_envio' => $envio->id, 
             'estatus_envio' => $status->id, 
-            'nota' => 'Actualizado por compramas ', 
+            'nota' => 'Actualizado por compramas', 
             'id_user' => '1', 
             'json' => json_encode($input) 
           );
@@ -2897,53 +2897,110 @@ public function getApiUrl($endpoint, $jsessionid)
 
       $datos = json_decode($content, true);
 
-      return $datos[0]['fechaInicial'];
-
-
-       // return json_decode($datos[0]['fechaInicial']);
-
       activity()->withProperties($datos)->log('FrontEndController/get360actuaizar');
 
+        $modificados = array();
+
+
+       if (is_array($datos)) {
+
        if (count($datos)) {
-
-
+       //if (1) {
 
             foreach ($datos as $dato ) {
+            //if (1) {
+
+              $dato['fechaInicial']='2021-01-01';
+              $dato['fechaFinal']='2021-01-03';
 
               activity()->withProperties($dato)->log('FrontEndController/get 360 actualizar');
 
-              $user=User::where('email', '=', $dato['email'])->first();
+              $users=User::whereDate('updated_at', '>', $dato['fechaInicial'])->whereDate('updated_at', '<', $dato['fechaFinal'])->get();
 
-              if (isset($user->id)) {
+              //dd($users);
 
-                $r="true";
+             
 
-                 $c=AlpClientes::where('id_user_client', $user->id)->first();
 
-                  $data_user = array(
-                    'first_name' =>$dato['first_name'],
-                    'last_name' =>$dato['last_name'],
-                    'dob' =>$dato['dob'],
-                  );
+              foreach ($users as $u) {
 
-                   $data = array(
-                //    'genero_cliente' =>$dato['genero_cliente'],
-                //    'doc_cliente' =>$dato['doc_cliente'],
-                //    'telefono_cliente' =>$dato['telefono_cliente'],
-                    'marketig_email' =>$dato['marketig_email'],
-                    'marketing_sms' =>$dato['marketing_sms'],
+
+                 $c=AlpClientes::where('id_user_client', $u->id)->first();
+
+                 if (isset($c->id)) {
+                   # code...
+
+                 $dir = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+                  ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+                  ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+                  ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+                  ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+                  ->where('alp_direcciones.id_client', $u->id)
+                  ->where('alp_direcciones.default_address', '=', '1')
+                  ->first();
+
+
+                  if (isset($dir->id)) {
+                    # code...
+                  }else{
+
+                    $dir = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+                    ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+                    ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+                    ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+                    ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+                    ->where('alp_direcciones.id_client', $u->id)
+                    ->first();
+
+
+                  }
+
+
+
+
+                  if (isset($dir->id)) {
+                    
+                     
+
+                     $direccion=$dir->state_name.' , '.$dir->city_name.' '.$dir->nombre_estructura.' '.$dir->principal_address .' #'. $dir->secundaria_address .'-'.$dir->edificio_address.', '.$dir->detalle_address.', '.$dir->barrio_address.' Nota:'.$dir->notas;
+
+
+                  }else{
+
+                    $direccion='';
+                  }
+
+
+
+                  $data = array(
+                    'first_name' =>$u->first_name,
+                    'last_name' =>$u->last_name,
+                    'dob' =>$u->dob,
+                    'genero_cliente' =>$c->genero_cliente,
+                    'doc_cliente' =>$c->doc_cliente,
+                    'telefono_cliente' =>$c->telefono_cliente,
+                    'direccion_cliente' =>$direccion,
+                    'marketing_email' =>$c->marketing_email,
+                    'marketing_sms' =>$c->marketing_sms,
                     'eliminar_cliente' =>0,
+                    'email' =>$u->email,
+                    'fechaIngreso' =>$u->created_at->format('d-m-Y'),
+                    'fachaActualizacion' =>$u->updated_at->format('d-m-Y')
                   );
 
-                   $c->update($data);
 
-                }
+                  $modificados[] = $data;
+              }
+              }
+
+              
                 
             } //end foreach datos
 
        } //(end if hay resspuessta)
+       } //(end if hay resspuessta)
 
-   // return response(json_encode($r), 200) ->header('Content-Type', 'application/json');
+    return response(json_encode($modificados), 200) ->header('Content-Type', 'application/json');
    
   }
 
