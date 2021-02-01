@@ -287,7 +287,9 @@ class ClientesFrontController extends Controller
           ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
           ->where('alp_direcciones.id_client', $user_id)->first();
 
-
+          if (isset($direccion->editar_direccion)) {
+            $direccion->editar_direccion=0;
+          }
 
           $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
           ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
@@ -1518,7 +1520,7 @@ class ClientesFrontController extends Controller
 
           DB::table('alp_direcciones')->where('id_client', $user_id)->update(['default_address'=>0]);
           DB::table('alp_direcciones')->where('id', $direccion->id)->update(['default_address'=>1]);
-          
+          $direccion->editar_direccion = 0;
         }
 
         $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
@@ -1530,28 +1532,31 @@ class ClientesFrontController extends Controller
 
           $editar=1;
 
-         if ($direccion->editar_direccion==1) {
-            
-            if (isset($direccion->updated_at)) {
+         if (isset($direccion->editar_direccion)) {
 
-                $editar=0;
-
-                $dt = new Carbon($direccion->updated_at);
-
-                if ($dt->diffInHours()>24) {
-
-                } else{
+            if ($direccion->editar_direccion==1) {
+                
+                if (isset($direccion->updated_at)) {
 
                     $editar=0;
 
+                    $dt = new Carbon($direccion->updated_at);
+
+                    if ($dt->diffInHours()>24) {
+
+                    } else{
+
+                        $editar=0;
+
+                    }
+                    # code...
+                }else{
+
+                    $editar=1;
                 }
-                # code...
-            }else{
 
-                $editar=1;
             }
-
-        }
+         }
 
         if ($direccion->id) {
 
