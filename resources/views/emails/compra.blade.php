@@ -24,7 +24,7 @@ Datos de la compra
 	Valor Pagado: {{ number_format($compra->monto_total+$envio->costo,0,",",".") }}
 	Base Impuesto: {{ number_format($compra->base_impuesto+$envio->costo_base,0,",",".")}}
 	Valor Iva: {{ number_format($compra->monto_impuesto+$envio->costo_impuesto,0,",",".")}}
-	Fecha de Entrega: {{ $fecha_entrega }}
+	Fecha de Entrega: Si quieres saber el estatus de tu pedido comunicate a la linea (+571)4238600 y al correo contaccenter@alpina.com
 
 @else
 
@@ -34,7 +34,7 @@ Datos de la compra
 	Valor Pagado: {{ number_format($compra->monto_total,0,",",".") }}
 	Base Impuesto: {{ number_format($compra->base_impuesto,0,",",".")}}
 	Valor Iva: {{ number_format($compra->monto_impuesto,0,",",".")}}
-	Fecha de Entrega: {{ $fecha_entrega }}
+	Fecha de Entrega: Si quieres saber el estatus de tu pedido comunicate a la linea (+571)4238600 y al correo contaccenter@alpina.com
 
 @endif
 

@@ -68,7 +68,7 @@ Carrito de Compras
 
                 @if($compra->id_forma_envio==1)
 
-                    <h5>Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b> y será entregado {{ $fecha_entrega }}</h5>
+                    <h5>Ha seleccionado enviar el pedido con <b>{{ $compra->nombre_forma_envios }}</b>. Si quieres saber el estatus de tu pedido comunicate a la linea (+571)4238600 y al correo contaccenter@alpina.com</h5>
 
                 @else
 
