@@ -145,7 +145,7 @@ class Teextranamos2IBM extends Command
 
 
 
-                  #  $this->addibm($u, $cupon, $date_fecha);
+                  $this->addibm($u, $cupon, $date_fecha);
 
 
                 }

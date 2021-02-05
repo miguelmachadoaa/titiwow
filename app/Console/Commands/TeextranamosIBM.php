@@ -116,7 +116,7 @@ class TeextranamosIBM extends Command
                       $c->update(['notificacion_teextranamos'=>'1']);
                     }
 
-                 #$this->addibm($u, $cupon, $date_fecha);
+                 $this->addibm($u, $cupon, $date_fecha);
 
                     
                 }
