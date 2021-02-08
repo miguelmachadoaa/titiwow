@@ -59,13 +59,7 @@ PQR
 {{-- Page content --}}
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div style="padding:10px 30px; 20px 30px">
-                <h3 class="text-center">Formulario PQR</h3>
-            </div>
-        </div>
-    </div>
+<br />
     <div class="row">
         <div class="col-md-12">
             @if (session('aviso'))
@@ -75,7 +69,13 @@ PQR
              @endif
         </div>
     </div>
-
+    <div class="row">
+        <div class="col-md-12">
+            <div style="padding:10px 30px; 20px 30px">
+                <h3 class="text-center">Formulario PQR</h3>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <form class="contact_us_form row" action="{{ secure_url('/pqr')}}" method="post" id="contactForm" novalidate="novalidate">

@@ -480,7 +480,7 @@ class FrontEndController extends JoshController
        try {
 
         Mail::to($configuracion->correo_shopmanager)->send(new \App\Mail\PQR($input));
-        Mail::to($configuracion->correo_admin)->send(new \App\Mail\PQR($input));
+        Mail::to($configuracion->correo_masterfile)->send(new \App\Mail\PQR($input));
         Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\PQR($input));
 
 
