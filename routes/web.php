@@ -317,7 +317,7 @@ Route::get('olvido-clave/{userId}/{passwordResetCode}', 'FrontEndController@getF
 //});
 Route::get('logout', 'FrontEndController@getLogout')->name('logout');
 # contact form
-Route::post('contact', 'FrontEndController@postContact')->name('contact');
+#Route::post('contact', 'FrontEndController@postContact')->name('contact');
 
 #frontend views
 /*Route::get('/', ['as' => 'home', function () {

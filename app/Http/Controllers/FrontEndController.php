@@ -6,6 +6,7 @@ use Activation;
 use App\Http\Requests\FrontendRequest;
 use App\Http\Requests\PasswordResetRequest;
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\PqrRequest;
 use App\Mail\Contact;
 use App\Mail\ContactUser;
 use App\Mail\ForgotPassword;
@@ -441,6 +442,60 @@ class FrontEndController extends JoshController
 
       return view('frontend.xml', compact('prods', 'inventario'));
       
+    }
+
+    public function getPqr()
+    {
+        $t_documento = AlpTDocumento::where('estado_registro','=',1)->get();
+        return view('frontend.pqr', compact('t_documento'));
+
+    }
+
+    public function postPQR(PqrRequest $request)
+    {
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('FrontEndController/postPQR ');
+
+        }else{
+
+          activity()->withProperties($request->all())
+                        ->log('FrontEndController/postPQR');
+
+
+        }
+
+
+       $input=$request->all();
+
+      $configuracion=AlpConfiguracion::where('id', '1')->first();
+
+       try {
+
+        Mail::to($configuracion->correo_shopmanager)->send(new \App\Mail\PQR($input));
+        Mail::to($configuracion->correo_admin)->send(new \App\Mail\PQR($input));
+        Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\PQR($input));
+
+
+        return redirect('pqr')->with('aviso', 'Su correo se ha enviado satisfactoriamemte');
+        
+        
+      } catch (Swift_RfcComplianceException $e) {
+
+
+             return redirect('pqr')->with('aviso', 'Ha ocurrido un problema intente nuevamnete ');
+        
+      }
+
+        
+
     }
 
 
