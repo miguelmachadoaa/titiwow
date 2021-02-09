@@ -78,7 +78,7 @@ PQR
     </div>
     <div class="row">
         <div class="col-md-12">
-            <form class="contact_us_form row" action="{{ secure_url('/pqr')}}" method="post" id="contactForm" novalidate="novalidate">
+            <form class="contact_us_form row" action="{{ secure_url('/pqr')}}" method="post" id="contactForm" enctype="multipart/form-data" novalidate="novalidate">
                 <!-- CSRF Token -->
                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                 <div class="form-group col-lg-4">
@@ -93,7 +93,7 @@ PQR
                         <select id="tdocume_pqr" name="tdocume_pqr" class="form-control">
                             <option value="">Seleccione Tipo de Documento</option>     
                             @foreach($t_documento as $tdoc)
-                                <option value="{{ $tdoc->abrev_tipo_documento }}" {{ (old("tdocume_pqr") == $tdoc->id ? "selected":"") }}>{{ $tdoc->abrev_tipo_documento}} - {{ $tdoc->nombre_tipo_documento}}</option>
+                                <option value="{{ $tdoc->abrev_tipo_documento }}" {{ (old("tdocume_pqr") == $tdoc->abrev_tipo_documento ? "selected":"") }}>{{ $tdoc->abrev_tipo_documento}} - {{ $tdoc->nombre_tipo_documento}}</option>
                             @endforeach
                         </select>
                     {!! $errors->first('tdocume_pqr', '<span class="help-block">:message</span>') !!}
@@ -113,8 +113,8 @@ PQR
                 <div class="form-group col-lg-4">
                         <select id="pais_pqr" name="pais_pqr" class="form-control">
                             <option value="">Seleccione Pais</option>     
-                            <option value="Colombia">Colombia</option>  
-                            <option value="Otro">Otro</option>  
+                            <option value="Colombia" @if (old('pais_pqr') == "Colombia") {{ 'selected' }} @endif>Colombia</option>  
+                            <option value="Otro" @if (old('pais_pqr') == "Otro") {{ 'selected' }} @endif>Otro</option>  
                         </select>
                     {!! $errors->first('pais_pqr', '<span class="help-block">:message</span>') !!}
                 </div>
@@ -125,10 +125,10 @@ PQR
                 <div class="form-group col-lg-4">
                         <select id="tipo_pqr" name="tipo_pqr" class="form-control">
                             <option value="">Seleccione Tipo de Contacto</option>     
-                            <option value="Felicitaciones">Felicitaciones</option>  
-                            <option value="Sugerencia">Sugerencia</option> 
-                            <option value="Reclamo o Queja">Reclamo o Queja</option>  
-                            <option value="Otros">Otros</option>   
+                            <option value="Felicitaciones"  @if (old('tipo_pqr') == "Felicitaciones") {{ 'selected' }} @endif>Felicitaciones</option>  
+                            <option value="Sugerencia"  @if (old('tipo_pqr') == "Sugerencia") {{ 'selected' }} @endif>Sugerencia</option> 
+                            <option value="Reclamo o Queja"  @if (old('tipo_pqr') == "Reclamo o Queja") {{ 'selected' }} @endif>Reclamo o Queja</option>  
+                            <option value="Otros"  @if (old('tipo_pqr') == "Otros") {{ 'selected' }} @endif>Otros</option>   
                         </select>
                     {!! $errors->first('tipo_pqr', '<span class="help-block">:message</span>') !!}
                 </div>
@@ -137,6 +137,11 @@ PQR
                         {!! $errors->first('mensaje_pqr', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="form-group col-lg-12">
+                    <input type="file" accept=".xlsx" name="file_update"  id="file_update"> <!-- rename it -->
+                    {!! $errors->first('file', '<span class="help-block">:message</span> ') !!}
+                </div>
+                <div class="form-group col-lg-12">
+                    <p>Adjuntar Archivo (.png, .jpg, .docx, .pdf): Peso Máximo 5MB</p>
                     <input type="hidden" name="_recaptcha" id="_recaptcha">
                         {!! $errors->first('g-recaptcha-response', '<span class="help-block">:message</span>') !!}
                 </div>

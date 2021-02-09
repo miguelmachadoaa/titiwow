@@ -15,16 +15,18 @@ class PQR extends Mailable
 
     public $data;
      public $configuracion;
+     public $archivo;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($data,$archivo)
     {
         //
         $this->data=$data;
+        $this->archivo=$archivo;
         $this->configuracion = AlpConfiguracion::where('id', '1')->first();
     }
 

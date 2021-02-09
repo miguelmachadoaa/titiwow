@@ -476,12 +476,20 @@ class FrontEndController extends JoshController
        $input=$request->all();
 
       $configuracion=AlpConfiguracion::where('id', '1')->first();
+      $archivo = '';
+      if ($request->file_update != null) {
+        $file = $request->file('file_update');
+        $file1 = $file->getClientOriginalName();
+        $archivo = str_random(10) . '.' . $file1;
+        $destinationPath = public_path('/uploads/pqr/' . $archivo);    
+        $file->move($destinationPath,$file->getClientOriginalName());
+      }
 
        try {
 
-        Mail::to($configuracion->correo_shopmanager)->send(new \App\Mail\PQR($input));
-        Mail::to($configuracion->correo_masterfile)->send(new \App\Mail\PQR($input));
-        Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\PQR($input));
+        Mail::to($configuracion->correo_shopmanager)->send(new \App\Mail\PQR($input,$archivo));
+        Mail::to($configuracion->correo_masterfile)->send(new \App\Mail\PQR($input,$archivo));
+        Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\PQR($input,$archivo));
 
 
         return redirect('pqr')->with('aviso', 'Su correo se ha enviado satisfactoriamemte');

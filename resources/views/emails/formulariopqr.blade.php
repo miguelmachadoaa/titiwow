@@ -20,6 +20,8 @@
  <b>Términos:</b> {{ $data['habeas_cliente'] }} <br>
 
 
+ {{ $archivo }}
+
 {{ config('app.name') }}
 
 @endcomponent
