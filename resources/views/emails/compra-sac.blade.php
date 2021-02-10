@@ -55,7 +55,7 @@ Se ha registrado un pedido por el usuario {{ $compra->first_name.' '.$compra->la
 <b>Valor Pagado:</b> {{ $compra->monto_total+$envio->costo }}<br>
 <b>Base Impuesto: </b>{{ number_format(($compra->base_impuesto/(1+$compra->valor_impuesto)+$envio->costo_base),0,",",".")}}<br>
 <b>Valor Iva:</b> {{ $compra->monto_impuesto+$envio->costo_impuesto }}<br>
-<b>Fecha de Entrega:</b> {{ $fecha_entrega }}<br>
+
 
 @else
 
@@ -65,7 +65,6 @@ Se ha registrado un pedido por el usuario {{ $compra->first_name.' '.$compra->la
 <b>Valor Pagado:</b> {{ $compra->monto_total}}<br>
 <b>Base Impuesto:</b> {{ $compra->base_impuesto/(1+$compra->valor_impuesto) }} <br>
 <b>Valor Iva:</b> {{ $compra->monto_impuesto }}<br>
-<b>Fecha de Entrega:</b> {{ $fecha_entrega }}<br>
 
 @endif
 

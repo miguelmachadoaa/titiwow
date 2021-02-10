@@ -5,7 +5,7 @@
         <div class="col-sm-12">
             <div class="alert  @if(isset($estatus_aviso)) alert-{{ $estatus_aviso }} @else alert-success @endif alertita" >
 
-                Hemos procesado su orden satisfactoriamente, Su id para realizar el deposito en efectivo es <h4>{{ $payment['response']['id'] }}</h4>. Las indicaciones para finalizar su pago puede seguirlas en este enlace <a target='_blank' href='{{ $payment['response']['transaction_details']['external_resource_url'] }}' >Ticket</a>. Tiene 72 Horas para realizar el pago, o su orden sera cancelada. ¡Muchas gracias por su Compra!
+                Hemos procesado su orden satisfactoriamente, Su id para realizar el deposito en efectivo es <h4>{{ $payment['response']['id'] }}</h4>. Las indicaciones para finalizar su pago puede seguirlas en este enlace <a target='_blank' href='{{ $payment['response']['transaction_details']['external_resource_url'] }}' >Ticket</a>. Tiene 48 Horas para realizar el pago, o su orden sera cancelada. ¡Muchas gracias por su Compra!
                 
                
             </div>
