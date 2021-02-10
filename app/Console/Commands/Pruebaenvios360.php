@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\User;
 use App\Models\AlpConfiguracion;
 use App\Models\AlpCarrito;
+use App\Models\AlpClientes;
 use App\Models\AlpCarritoDetalle;
 use App\Exports\CronNuevosUsuarios;
 use Maatwebsite\Excel\Facades\Excel;
@@ -59,9 +60,12 @@ class Pruebaenvios360 extends Command
     {
         //
         
-        $c=$this->conexion();
+        $c=$this->masivo();
+        //$c=$this->conexion();
 
-        dd($c->codigoRta);
+       // dd($c);
+
+       // dd($c->codigoRta);
 
     }
 
@@ -89,10 +93,10 @@ class Pruebaenvios360 extends Command
 
      // dd($dataraw);
 
-        curl_setopt($ch, CURLOPT_URL, 'https://alpina.local/get360consultar');
+        curl_setopt($ch, CURLOPT_URL, 'https://crearemosdev.com/get360consultar');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data); 
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 
@@ -114,6 +118,56 @@ class Pruebaenvios360 extends Command
         $r=json_decode($result);
 
         return $r;
+    }
+
+
+    private function masivo(){
+
+
+
+      $users=User::take(20)->get();
+
+     // dd($users);
+
+      $d = array();
+
+
+      foreach ($users as $user) {
+
+
+        $c=AlpClientes::where('id_user_client', $user->id)->first();
+
+        if (isset($c->id)) {
+           $data = array(
+          'first_name' =>$user->first_name,
+          'last_name' =>$user->last_name,
+          'dob' =>$user->dob,
+          'genero_cliente' =>$c->genero_cliente,
+          'doc_cliente' =>$c->doc_cliente,
+          'telefono_cliente' =>$c->telefono_cliente,
+          'marketing_email' =>$c->marketing_email,
+          'marketing_sms' =>$c->marketing_sms,
+          'eliminar_cliente' =>0,
+          'email' =>$user->email,
+        );
+
+        
+
+        $d[]=$data;
+        }
+
+       
+
+
+        
+      }
+
+      
+
+      $dataraw=json_encode($d);
+
+      dd($dataraw);
+
     }
 
 

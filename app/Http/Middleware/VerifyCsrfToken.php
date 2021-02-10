@@ -60,6 +60,7 @@ class VerifyCsrfToken extends Middleware
        'compramas', //
        'compramasinventario', //
        'get360', //
-       'get360consultar' //
+       'get360consultar', //
+       'get360actualizar' //
     ];
 }

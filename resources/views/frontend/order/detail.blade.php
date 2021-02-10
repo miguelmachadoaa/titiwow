@@ -678,6 +678,12 @@ $('.sendCupon').click(function () {
                          $('#modalPse').modal('hidden');
 
 
+                        }else if(datos.responseText=='falseCancelado'){
+
+                            $('.res_direccion').html('<divhidden class="alert alert-danger" role="alert">Su pedido fue cancelado por favor, realice la compra nuevamente.</div>');
+                            window.location.href = base+'/cart/show';
+
+                         $('#modalPse').modal('hidden');
                         }else{
 
                             $('.res_direccion').html('<divhidden class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
@@ -791,7 +797,25 @@ $('.sendCupon').click(function () {
 
                                        // $('.overlay').hidden();
 
-                                        $('.res_direccion').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+                                         if (datos.responseText=='falseicg') {
+
+                                            $('.res_direccion').html('<divhidden class="alert alert-danger" role="alert">Ocurrio un error al registrar descuento de ICG por favor intente nuevamente </div>');
+
+                                         $('#modalPse').modal('hidden');
+
+
+                                        }else if(datos.responseText=='falseCancelado'){
+
+                                            $('.res_direccion').html('<divhidden class="alert alert-danger" role="alert">Su pedido fue cancelado por favor, realice la compra nuevamente.</div>');
+                                            window.location.href = base+'/cart/show';
+
+                                         $('#modalPse').modal('hidden');
+                                        }else{
+
+                                            $('.res_direccion').html('<divhidden class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+
+                                         $('#modalPse').modal('hidden');
+                                        }
 
                                     }
                                 
@@ -848,7 +872,25 @@ $('.sendCupon').click(function () {
 
                                 }else{
 
-                                    $('.res_direccion').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+                                     if (datos.responseText=='falseicg') {
+
+                                        $('.res_direccion').html('<divhidden class="alert alert-danger" role="alert">Ocurrio un error al registrar descuento de ICG por favor intente nuevamente </div>');
+
+                                     $('#modalPse').modal('hidden');
+
+
+                                    }else if(datos.responseText=='falseCancelado'){
+
+                                        $('.res_direccion').html('<divhidden class="alert alert-danger" role="alert">Su pedido fue cancelado por favor, realice la compra nuevamente.</div>');
+                                        window.location.href = base+'/cart/show';
+
+                                     $('#modalPse').modal('hidden');
+                                    }else{
+
+                                        $('.res_direccion').html('<divhidden class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+
+                                     $('#modalPse').modal('hidden');
+                                    }
 
                                 }
                         
@@ -913,7 +955,25 @@ $('.sendCupon').click(function () {
 
                            }else{
 
-                                $('.res_direccion').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+                                 if (datos.responseText=='falseicg') {
+
+                                    $('.res_direccion').html('<divhidden class="alert alert-danger" role="alert">Ocurrio un error al registrar descuento de ICG por favor intente nuevamente </div>');
+
+                                 $('#modalPse').modal('hidden');
+
+
+                                }else if(datos.responseText=='falseCancelado'){
+
+                                    $('.res_direccion').html('<divhidden class="alert alert-danger" role="alert">Su pedido fue cancelado por favor, realice la compra nuevamente.</div>');
+                                    window.location.href = base+'/cart/show';
+
+                                 $('#modalPse').modal('hidden');
+                                }else{
+
+                                    $('.res_direccion').html('<divhidden class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+
+                                 $('#modalPse').modal('hidden');
+                                }
 
                            }
                         
@@ -982,7 +1042,25 @@ $('.sendCupon').click(function () {
 
                            }else{
 
-                                $('.res_direccion').html('<div class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+                                 if (datos.responseText=='falseicg') {
+
+                                    $('.res_direccion').html('<divhidden class="alert alert-danger" role="alert">Ocurrio un error al registrar descuento de ICG por favor intente nuevamente </div>');
+
+                                 $('#modalPse').modal('hidden');
+
+
+                                }else if(datos.responseText=='falseCancelado'){
+
+                                    $('.res_direccion').html('<divhidden class="alert alert-danger" role="alert">Su pedido fue cancelado por favor, realice la compra nuevamente.</div>');
+                                    window.location.href = base+'/cart/show';
+
+                                 $('#modalPse').modal('hidden');
+                                }else{
+
+                                    $('.res_direccion').html('<divhidden class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+
+                                 $('#modalPse').modal('hidden');
+                                }
 
                            }
                         

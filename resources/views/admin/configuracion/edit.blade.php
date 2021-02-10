@@ -128,6 +128,22 @@ Editar Configuracion General
                                 </div>
                             </div>
 
+                            <div class="form-group {{ $errors->first('vence_ordenes_pago', 'has-error') }}">
+                                <label for="vence_ordenes_pago" class="col-sm-2 control-label">
+                                    Tiempo para vencer ordenes por pago <small>Tiempo minimo para cancelar la orden en compramas</small>
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="number" step="1" min="0"  id="vence_ordenes_pago" name="vence_ordenes_pago" class="form-control" placeholder="Maximo Productos"
+                                        value="{!! old('vence_ordenes_pago', $configuracion->vence_ordenes_pago) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('vence_ordenes_pago', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+
+
+
+
                              <div class="form-group  {{ $errors->first('explicacion_precios', 'has-error') }}">
                                 <label for="select21" class="col-sm-2 control-label">
                                     Explicacion de Precios
@@ -477,60 +493,6 @@ Editar Configuracion General
 
 
 
-                            <fieldset>
-
-
-                                <br />
-                                <h4>Api Icg</h4>
-                                <hr>
-
-                                <div class="form-group {{ $errors->first('username_icg', 'has-error') }}">
-                                    <label for="username_icg" class="col-sm-2 control-label">
-                                        Username Icg
-                                    </label>
-                                    <div class="col-sm-5">
-                                        <input type="text" id="username_icg" name="username_icg" class="form-control" placeholder="Username Icg"
-                                            value="{!! old('username_icg', $configuracion->username_icg) !!}">
-                                    </div>
-                                    <div class="col-sm-4">
-                                        {!! $errors->first('username_icg', '<span class="help-block">:message</span> ') !!}
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group {{ $errors->first('password_icg', 'has-error') }}">
-                                    <label for="password_icg" class="col-sm-2 control-label">
-                                        Password Icg
-                                    </label>
-                                    <div class="col-sm-5">
-                                        <input type="text" id="password_icg" name="password_icg" class="form-control" placeholder="Password Icg"
-                                            value="{!! old('password_icg', $configuracion->password_icg) !!}">
-                                    </div>
-                                    <div class="col-sm-4">
-                                        {!! $errors->first('password_icg', '<span class="help-block">:message</span> ') !!}
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group {{ $errors->first('endpoint_icg', 'has-error') }}">
-                                    <label for="endpoint_icg" class="col-sm-2 control-label">
-                                        Endpoint Icg 
-                                    </label>
-                                    <div class="col-sm-5">
-                                        <input type="text" id="endpoint_icg" name="endpoint_icg" class="form-control" placeholder="Endpoint Icg"
-                                            value="{!! old('endpoint_icg', $configuracion->endpoint_icg) !!}">
-                                    </div>
-                                    <div class="col-sm-4">
-                                        {!! $errors->first('endpoint_icg', '<span class="help-block">:message</span> ') !!}
-                                    </div>
-                                </div>
-
-
-                            </fieldset>
-
-
-
-
 
                              <fieldset>
 
@@ -544,7 +506,7 @@ Editar Configuracion General
                                         Username ICG
                                     </label>
                                     <div class="col-sm-5">
-                                        <input type="text" id="username_icg" name="username_icg" class="form-control" placeholder="Username Ibm"
+                                        <input type="text" id="username_icg" name="username_icg" class="form-control" placeholder="Username ICG"
                                             value="{!! old('username_icg', $configuracion->username_icg) !!}">
                                     </div>
                                     <div class="col-sm-4">
@@ -558,7 +520,7 @@ Editar Configuracion General
                                         Password ICG
                                     </label>
                                     <div class="col-sm-5">
-                                        <input type="text" id="password_icg" name="password_icg" class="form-control" placeholder="Password Ibm"
+                                        <input type="text" id="password_icg" name="password_icg" class="form-control" placeholder="Password ICG"
                                             value="{!! old('password_icg', $configuracion->password_icg) !!}">
                                     </div>
                                     <div class="col-sm-4">
@@ -572,7 +534,7 @@ Editar Configuracion General
                                         Endpoint ICG 
                                     </label>
                                     <div class="col-sm-5">
-                                        <input type="text" id="endpoint_icg" name="endpoint_icg" class="form-control" placeholder="Endpoint Ibm"
+                                        <input type="text" id="endpoint_icg" name="endpoint_icg" class="form-control" placeholder="Endpoint ICG"
                                             value="{!! old('endpoint_icg', $configuracion->endpoint_icg) !!}">
                                     </div>
                                     <div class="col-sm-4">
@@ -585,7 +547,7 @@ Editar Configuracion General
                                         Token ICG 
                                     </label>
                                     <div class="col-sm-5">
-                                        <input type="text" id="token_icg" name="token_icg" class="form-control" placeholder="Endpoint Ibm"
+                                        <input type="text" id="token_icg" name="token_icg" class="form-control" placeholder="Token ICG"
                                             value="{!! old('token_icg', $configuracion->token_icg) !!}">
                                     </div>
                                     <div class="col-sm-4">
@@ -600,7 +562,7 @@ Editar Configuracion General
                                         Porcentaje de Descuento ICG 
                                     </label>
                                     <div class="col-sm-5">
-                                        <input type="text" id="porcentaje_icg" name="porcentaje_icg" class="form-control" placeholder="Endpoint Ibm"
+                                        <input type="text" id="porcentaje_icg" name="porcentaje_icg" class="form-control" placeholder="Porcentaje de Descuento ICG "
                                             value="{!! old('porcentaje_icg', $configuracion->porcentaje_icg) !!}">
                                     </div>
                                     <div class="col-sm-4">
