@@ -2842,22 +2842,23 @@ public function getApiUrl($endpoint, $jsessionid)
 
                  $c=AlpClientes::where('id_user_client', $user->id)->first();
 
-                  $data_user = array(
+                 if (isset($c->id)) {
+                   $data_user = array(
                     'first_name' =>$dato['first_name'],
                     'last_name' =>$dato['last_name'],
                     'dob' =>$dato['dob'],
                   );
 
                    $data = array(
-                //    'genero_cliente' =>$dato['genero_cliente'],
-                //    'doc_cliente' =>$dato['doc_cliente'],
-                //    'telefono_cliente' =>$dato['telefono_cliente'],
-                    'marketig_email' =>$dato['marketig_email'],
+                    'marketing_email' =>$dato['marketing_email'],
                     'marketing_sms' =>$dato['marketing_sms'],
                     'eliminar_cliente' =>0,
                   );
 
                    $c->update($data);
+                 }
+
+                  
 
                 }
                 
@@ -2893,9 +2894,11 @@ public function getApiUrl($endpoint, $jsessionid)
         }
 
         
-        $content = $request->getContent();
-
-      $datos = json_decode($content, true);
+        $content = $request->all();
+        
+        $datos1 = json_encode($content, true);
+       // dd($content);
+      $datos = json_decode($datos1, true);
 
       activity()->withProperties($datos)->log('FrontEndController/get360actuaizar');
 
@@ -2907,17 +2910,17 @@ public function getApiUrl($endpoint, $jsessionid)
        if (count($datos)) {
        //if (1) {
 
-            foreach ($datos as $dato ) {
             //if (1) {
 
-              $dato['fechaInicial']='2021-01-01';
-              $dato['fechaFinal']='2021-01-03';
+             // dd($datos['fechaInicio']);
+              #dd($datos);
+             # $dato['fechaFinal'];
 
-              activity()->withProperties($dato)->log('FrontEndController/get 360 actualizar');
+              activity()->withProperties($datos)->log('FrontEndController/get 360 actualizar');
 
-              $users=User::whereDate('updated_at', '>', $dato['fechaInicial'])->whereDate('updated_at', '<', $dato['fechaFinal'])->get();
+              $users=User::whereDate('updated_at', '>=', $datos['fechaInicio'])->whereDate('updated_at', '<=', $datos['fechaFinal'])->get();
 
-              //dd($users);
+            //  dd($users);
 
              
 
@@ -2995,7 +2998,6 @@ public function getApiUrl($endpoint, $jsessionid)
 
               
                 
-            } //end foreach datos
 
        } //(end if hay resspuessta)
        } //(end if hay resspuessta)
@@ -3003,6 +3005,7 @@ public function getApiUrl($endpoint, $jsessionid)
     return response(json_encode($modificados), 200) ->header('Content-Type', 'application/json');
    
   }
+
 
 
 
