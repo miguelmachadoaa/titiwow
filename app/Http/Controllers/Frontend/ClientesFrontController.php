@@ -322,8 +322,6 @@ class ClientesFrontController extends Controller
 
                         $editar=0;
 
-
-
                     }
                     # code...
                 }else{
@@ -1408,8 +1406,6 @@ class ClientesFrontController extends Controller
                 }
 
             }
-
-
 
           }
 
