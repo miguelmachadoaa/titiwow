@@ -181,6 +181,7 @@ body {
 .text-primary{
     color:#143473 !important;
 }
+@media (min-width : 951px) {
 .icon-section {
     background: #D9C1EA;
     padding: 1rem 0 0.1rem;
@@ -188,6 +189,17 @@ body {
     line-height      : 7px;
     padding-top      : 10px;
 
+}
+}
+@media (max-width : 950px) {
+    .icon-section {
+        background: #FFFFFF;
+        padding: 1rem 0 0.1rem;
+        z-index: 2;
+        line-height      : 7px;
+        padding-top      : 10px;
+    
+    } 
 }
 .icon-position li a{
     font-family: 'AlpinaSans Light';
@@ -1193,6 +1205,7 @@ footer a:hover, footer a:active{
 .precio_base{
     color:#143473;
     font-size: 1.2em;
+    font-family: 'AlpinaSans Semibold';
 }
 #precio_prod del{
     color: #D9C1EA;
@@ -1716,14 +1729,19 @@ footer a:hover, footer a:active{
     }
 }
 
-
+@media (min-width : 951px) {
 .navbar {
     position: relative;
     min-height: 0px;
     margin-bottom: 6px;
     border: 0px solid transparent;
 }
-
+}
+@media (max-width : 950px) {
+    .navbar {
+        background-color: #D9C1EA;
+    }
+}
 
 .form-check{
 
