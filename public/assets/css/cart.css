@@ -16,7 +16,7 @@ Primary style
 .cd-add-to-cart {
   display: inline-block;
   padding: 1.2em 1.8em;
-  background: #2c97de;
+  background: #241F48 !important;
   border-radius: 50em;
   text-transform: uppercase;
   color: #ffffff;

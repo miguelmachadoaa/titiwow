@@ -3,7 +3,7 @@
     float: left;
     padding: 2px;
 }
-.divider{border-bottom:2px solid #418bca;}
+.divider{border-bottom:2px solid #241F48;}
 .product_wrapper {
     margin-top: 10px;
     width: 100%;
@@ -38,12 +38,12 @@ del {
 /* tab bottom border colors*/
 
 .tabbable-line > .nav-tabs > li.active {
-    border-bottom: 4px solid #418bca !important;
+    border-bottom: 4px solid #241F48 !important;
 }
 
 .tabbable-line > .nav-tabs > li.open,
 .tabbable-line > .nav-tabs > li:hover {
-    border-bottom: 4px solid #418bca !important;
+    border-bottom: 4px solid #241F48 !important;
     background-color: #fff !important;
     outline: none;
 }

@@ -69,7 +69,7 @@
     min-height: 16.43px;
     padding: 15px;
     border-bottom: 1px solid #e5e5e5;
-    background: #187cbc;
+    background: #241F48;
     color: #fff;
 }
 

@@ -22,11 +22,11 @@ ul li {
 }
 
 h3 {
-    color: #143473;
+    color: #241F48;
     margin-bottom: 15px;
 }
 h4 {
-    color: #418bca;
+    color: #241F48;
     margin-bottom: 10px;
 }
 .texto_pagho {
@@ -35,13 +35,13 @@ h4 {
     font-size:22px !important;;
 }
 .subtitulo{
-    border-bottom: 2px solid #143473;
+    border-bottom: 2px solid #241F48;
 }
 .alertita{
     margin-top: 30px;
 }
 h5 a {
-    color: #418bca !important;
+    color: #241F48 !important;
     padding-bottom: 2%;
     padding-top: 5px;
     padding-right: 2%;
@@ -74,7 +74,7 @@ h5 a {
     padding: 6px 12px;
     font-size: 14px;
     line-height: 1.42857143;
-    color: #418bca;
+    color: #241F48;
     background-color: #fff;
     background-image: none;
     border: 1px solid #ccc;

@@ -9,8 +9,8 @@
                                 </div>
                                 <div class="col-sm-4 col-xs-4">
 
-                                    <!--h4 style="color:#143473;">{{ number_format($total+$impuesto,0,",",".")}}</h4--> 
-                                    <h4 style="color:#143473;">{{ number_format($total-$impuesto+$envio_base,0,",",".")}}</h4> 
+                                    <!--h4 style="color:#1450C9;">{{ number_format($total+$impuesto,0,",",".")}}</h4--> 
+                                    <h4 style="color:#1450C9;">{{ number_format($total-$impuesto+$envio_base,0,",",".")}}</h4> 
 
                                 </div>
 
@@ -23,7 +23,7 @@
                                 </div>
                                 <div class="col-sm-4 col-xs-4">
 
-                                    <h4 style="color:#143473;">{{ number_format($impuesto+$envio_impuesto,0,",",".")}}</h4> 
+                                    <h4 style="color:#1450C9;">{{ number_format($impuesto+$envio_impuesto,0,",",".")}}</h4> 
 
                                 </div>
 
@@ -95,11 +95,11 @@
 
                                         @if($costo_envio==-1)
 
-                                            <h4 style="color:#143473;">{{ number_format($total-$total_pagos-$total_descuentos,0,",",".")}}</h4> 
+                                            <h4 style="color:#1450C9;">{{ number_format($total-$total_pagos-$total_descuentos,0,",",".")}}</h4> 
 
                                         @else
 
-                                            <h4 style="color:#143473;">{{ number_format($total-$total_pagos+$costo_envio-$total_descuentos,0,",",".")}}</h4> 
+                                            <h4 style="color:#1450C9;">{{ number_format($total-$total_pagos+$costo_envio-$total_descuentos,0,",",".")}}</h4> 
 
                                         @endif
 

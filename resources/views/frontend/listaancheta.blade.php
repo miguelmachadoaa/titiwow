@@ -17,7 +17,7 @@
 
         @endif
 
-        <h3 style="color: #143473;margin-bottom: 15px;">Total de la Ancheta : <span class="totalancheta">COP {{number_format($total, 0, ',', '.')}}</span></h3>
+        <h3 style="color: #1450C9;margin-bottom: 15px;">Total de la Ancheta : <span class="totalancheta">COP {{number_format($total, 0, ',', '.')}}</span></h3>
 
     </div>
 

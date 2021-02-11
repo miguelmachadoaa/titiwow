@@ -102,7 +102,7 @@ div.overlay > div {
 }
 
 .panel-title a {
-    color: #d5006e;
+    color: #6c6c6d;
 }
 
 
