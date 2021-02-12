@@ -34,7 +34,7 @@ a img {
 /* Typography */
 
 h1 {
-    color: #123275;
+    color: #241F48;
     font-size: 19px;
     font-weight: bold;
     margin-top: 0;
@@ -42,7 +42,7 @@ h1 {
 }
 
 h2 {
-    color: #123275;
+    color: #241F48;
     font-size: 16px;
     font-weight: bold;
     margin-top: 0;
@@ -50,7 +50,7 @@ h2 {
 }
 
 h3 {
-    color: #123275;
+    color: #241F48;
     font-size: 18px;
     font-weight: bold;
     margin-top: 0;
@@ -58,7 +58,7 @@ h3 {
 }
 
 p {
-    color: #123275;
+    color: #241F48;
     font-size: 16px;
     line-height: 1.5em;
     margin-top: 0;
@@ -118,7 +118,8 @@ img {
     background-repeat:no-repeat;
     background-position: center center;
     text-align: center;
-    height: 300px;
+    height: 30px;
+    font-weight: bold;
     margin: 0 auto;
 }
 
@@ -159,7 +160,7 @@ img {
 /* Footer */
 
 .footer {
-    background-color: #ffffff;
+    background-color: #D9C1EA;
     margin: 0 auto;
     padding: 0;
     text-align: center;
@@ -228,11 +229,11 @@ img {
 }
 
 .button-blue {
-    background-color: #d7006e;
-    border-top: 10px solid #d7006e;
-    border-right: 18px solid #d7006e;
-    border-bottom: 10px solid #d7006e;
-    border-left: 18px solid #d7006e;
+    background-color: #241F48;
+    border-top: 10px solid #241F48;
+    border-right: 18px solid #241F48;
+    border-bottom: 10px solid #241F48;
+    border-left: 18px solid #241F48;
     border-radius: 5px;
 }
 

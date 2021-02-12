@@ -473,7 +473,7 @@ class FrontEndController extends JoshController
         }
 
 
-       $input=$request->all();
+      $input=$request->all();
 
       $configuracion=AlpConfiguracion::where('id', '1')->first();
       $archivo = '';
