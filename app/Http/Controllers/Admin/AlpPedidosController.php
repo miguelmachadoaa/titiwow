@@ -2832,7 +2832,6 @@ public function postdireccion(DireccionModalRequest $request)
 
               $total_venta=$total_venta+($c->cantidad*$c->precio_unitario);
 
-              $total_venta=$total_venta+($c->cantidad*$c->precio_unitario);
 
             }
 
@@ -2842,7 +2841,7 @@ public function postdireccion(DireccionModalRequest $request)
 
 
 
-      //  dd($total);
+      // dd($impuesto);
 
 
 
@@ -2978,7 +2977,7 @@ public function postdireccion(DireccionModalRequest $request)
 
             foreach ($descuentos as $pago) {
 
-              $total_pagos=$total_pagos+$pago->monto_descuento;
+             # $total_pagos=$total_pagos+$pago->monto_descuento;
 
               $total_descuentos=$total_descuentos+$pago->monto_descuento;
 
@@ -3075,11 +3074,11 @@ public function postdireccion(DireccionModalRequest $request)
 
       $resto=$total-$total_descuentos;
 
-       if ($resto<$base) {
+     /*  if ($resto<$base) {
 
         $impuesto=($resto/(1+$valor_impuesto))*$valor_impuesto;
 
-      }
+      }*/
 
        return $impuesto;
       
