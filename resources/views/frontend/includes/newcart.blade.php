@@ -68,7 +68,7 @@
             </div>
 
             <footer>
-                <a style="background: #fff;" href="{{ secure_url('cart/show') }}" class="checkout btn"><em>Total - COP <span>@if(isset($cart)) {{ $total }}  @endif</span></em></a>
+                <a style="background: #0000;" href="{{ secure_url('cart/show') }}" class="checkout btn"><em>Total - COP <span>@if(isset($cart)) {{ $total }}  @endif</span></em></a>
             </footer>
         </div>
     </div> <!-- .cd-cart -->

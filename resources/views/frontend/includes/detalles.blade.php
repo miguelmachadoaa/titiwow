@@ -9,7 +9,7 @@
                                 </div>
                                 <div class="col-sm-4 col-xs-4">
 
-                                    <h4 style="color:#143473;">{{ number_format($total-$total_pagos-$impuesto,0,",",".")}}</h4> 
+                                    <h4 style="color:#1450C9;">{{ number_format($total-$total_pagos-$impuesto,0,",",".")}}</h4> 
 
                                 </div>
 
@@ -22,7 +22,7 @@
                                 </div>
                                 <div class="col-sm-4 col-xs-4">
 
-                                    <h4 style="color:#143473;">{{ number_format($impuesto,0,",",".")}}</h4> 
+                                    <h4 style="color:#1450C9;">{{ number_format($impuesto,0,",",".")}}</h4> 
 
                                 </div>
 
@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="col-sm-4 col-xs-4">
 
-                                    <h4 style="color:#143473;">Gratis</h4> 
+                                    <h4 style="color:#1450C9;">Gratis</h4> 
 
                                 </div>
                                 
@@ -87,7 +87,7 @@
                                                             </div>
                                                             <div class="col-sm-4 col-xs-4">
 
-                                                                <h4 style="color:#143473;">{{   number_format($pago->monto_pago,0,",",".") }}</h4> 
+                                                                <h4 style="color:#1450C9;">{{   number_format($pago->monto_pago,0,",",".") }}</h4> 
 
                                                              </div>
 
@@ -116,7 +116,7 @@
                                 </div>
                                 <div class="col-sm-4 col-xs-4">
 
-                                       <h4 style="color:#143473;">{{ number_format($total-$total_pagos,0,",",".")}}</h4> 
+                                       <h4 style="color:#1450C9;">{{ number_format($total-$total_pagos,0,",",".")}}</h4> 
 
                                 </div>
 

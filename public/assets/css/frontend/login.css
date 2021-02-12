@@ -1,12 +1,127 @@
+/* Inicio AlpinaFont */
+
+@font-face {
+    font-family: 'AlpinaSans Black';
+    src: url('../../fonts/AlpinaSans-Black.eot');
+    src: local('â˜º'), url('../../fonts/AlpinaSans-Black.woff') format('woff'), url('../../fonts/AlpinaSans-Black.ttf') format('truetype'), url('../../fonts/AlpinaSans-Black.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AlpinaSans BlackItalic';
+    src: url('../../fonts/AlpinaSans-BlackItalic.eot');
+    src: local('â˜º'), url('../../fonts/AlpinaSans-BlackItalic.woff') format('woff'), url('../../fonts/AlpinaSans-BlackItalic.ttf') format('truetype'), url('../../fonts/AlpinaSans-BlackItalic.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AlpinaSans Bold';
+    src: url('../../fonts/AlpinaSans-Bold.eot');
+    src: local('â˜º'), url('../../fonts/AlpinaSans-Bold.woff') format('woff'), url('../../fonts/AlpinaSans-Bold.ttf') format('truetype'), url('../../fonts/AlpinaSans-Bold.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AlpinaSans BoldItalic';
+    src: url('../../fonts/AlpinaSans-BoldItalic.eot');
+    src: local('â˜º'), url('../../fonts/AlpinaSans-BoldItalic.woff') format('woff'), url('../../fonts/AlpinaSans-BoldItalic.ttf') format('truetype'), url('../../fonts/AlpinaSans-BoldItalic.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AlpinaSans Italic';
+    src: url('../../fonts/AlpinaSans-Italic.eot');
+    src: local('â˜º'), url('../../fonts/AlpinaSans-Italic.woff') format('woff'), url('../../fonts/AlpinaSans-Italic.ttf') format('truetype'), url('../../fonts/AlpinaSans-Italic.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AlpinaSans Light';
+    src: url('../../fonts/AlpinaSans-Light.eot');
+    src: local('â˜º'), url('../../fonts/AlpinaSans-Light.woff') format('woff'), url('../../fonts/AlpinaSans-Light.ttf') format('truetype'), url('../../fonts/AlpinaSans-Light.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AlpinaSans LightItalic';
+    src: url('../../fonts/AlpinaSans-LightItalic.eot');
+    src: local('â˜º'), url('../../fonts/AlpinaSans-LightItalic.woff') format('woff'), url('../../fonts/AlpinaSans-LightItalic.ttf') format('truetype'), url('../../fonts/AlpinaSans-LightItalic.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AlpinaSans Regular';
+    src: url('../../fonts/AlpinaSans-Regular.eot');
+    src: local('â˜º'), url('../../fonts/AlpinaSans-Regular.woff') format('woff'), url('../../fonts/AlpinaSans-Regular.ttf') format('truetype'), url('../../fonts/AlpinaSans-Regular.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AlpinaSans Semibold';
+    src: url('../../fonts/AlpinaSans-Semibold.eot');
+    src: local('â˜º'), url('../../fonts/AlpinaSans-Semibold.woff') format('woff'), url('../../fonts/AlpinaSans-Semibold.ttf') format('truetype'), url('../../fonts/AlpinaSans-Semibold.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AlpinaSans SemiboldItalic';
+    src: url('../../fonts/AlpinaSans-SemiboldItalic.eot');
+    src: local('â˜º'), url('../../fonts/AlpinaSans-SemiboldItalic.woff') format('woff'), url('../../fonts/AlpinaSans-SemiboldItalic.ttf') format('truetype'), url('../../fonts/AlpinaSans-SemiboldItalic.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AlpinaSans Semilight';
+    src: url('../../fonts/AlpinaSans-Semilight.eot');
+    src: local('â˜º'), url('../../fonts/AlpinaSans-Semilight.woff') format('woff'), url('../../fonts/AlpinaSans-Semilight.ttf') format('truetype'), url('../../fonts/AlpinaSans-Semilight.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AlpinaSans SemilightItalic';
+    src: url('../../fonts/AlpinaSans-SemilightItalic.eot');
+    src: local('â˜º'), url('../../fonts/AlpinaSans-SemilightItalic.woff') format('woff'), url('../../fonts/AlpinaSans-SemilightItalic.ttf') format('truetype'), url('../../fonts/AlpinaSans-SemilightItalic.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AlpinaSans Thin';
+    src: url('../../fonts/AlpinaSans-Thin.eot');
+    src: local('â˜º'), url('../../fonts/AlpinaSans-Thin.woff') format('woff'), url('../../fonts/AlpinaSans-Thin.ttf') format('truetype'), url('../../fonts/AlpinaSans-Thin.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AlpinaSans ThinItalic';
+    src: url('../../fonts/AlpinaSans-ThinItalic.eot');
+    src: local('â˜º'), url('../../fonts/AlpinaSans-ThinItalic.woff') format('woff'), url('../../fonts/AlpinaSans-ThinItalic.ttf') format('truetype'), url('../../fonts/AlpinaSans-ThinItalic.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Fin AlpinaFont */
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:600,400);
 .text-primary{
-    color:#143473 !important;
+    color:#241F48 !important;
 }
 html{
     height:100%;
 }
 body {
-    font-family: 'PlutoRegular';
+    font-family: 'AlpinaSans Regular';
     background:url('../../images/bck_login.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -17,47 +132,7 @@ body {
     padding-bottom :5%;
 }
 .form-control{
-    border: 1px solid #143473 !important;
-}
-@font-face {
-    font-family: 'PlutoBold';
-    src: url('../../fonts/PlutoBold.otf');
-    font-weight: normal;
-    font-style: normal;
-  }
-
-  /** Fuentes Pluto**/
-
-@font-face {
-    font-family: 'PlutoBold';
-    src: url('../../fonts/PlutoBold.eot');
-    src: local('â˜º'), url('../../fonts/PlutoBold.woff') format('woff'), url('../../fonts/PlutoBold.ttf') format('truetype'), url('../../fonts/PlutoBold.svg') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'PlutoMedium';
-    src: url('../../fonts/PlutoMedium.eot');
-    src: local('â˜º'), url('../../fonts/PlutoMedium.woff') format('woff'), url('../../fonts/PlutoMedium.ttf') format('truetype'), url('../../fonts/PlutoMedium.svg') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'PlutoRegular';
-    src: url('../../fonts/PlutoRegular.eot');
-    src: local('â˜º'), url('../../fonts/PlutoRegular.woff') format('woff'), url('../../fonts/PlutoRegular.ttf') format('truetype'), url('../../fonts/PlutoRegular.svg') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'PlutoLight';
-    src: url('../../fonts/PlutoLight.eot');
-    src: local('â˜º'), url('../../fonts/PlutoLight.woff') format('woff'), url('../../fonts/PlutoLight.ttf') format('truetype'), url('../../fonts/PlutoLight.svg') format('svg');
-    font-weight: normal;
-    font-style: normal;
+    border: 1px solid #241F48 !important;
 }
 
 .box{
@@ -76,7 +151,7 @@ body {
 .box h3{
     margin-top:0;
     text-align: center;
-    font-family: 'PlutoBold';
+    font-family: 'AlpinaSans Semibold';
     font-size:20px !important;
 }
 input{
@@ -87,13 +162,13 @@ input[type="submit"]{
     border:none;
 }
 .btn-primary{
-    background-color: #143473 !important;
+    background-color: #241F48 !important;
 }
 .btn-danger{
     border-radius: 0 !important;
 }
 .bg-light{
-    background:#143473;
+    background:#241F48;
     width:100%;
     padding-top:8px;
     padding-bottom:8px;
@@ -182,4 +257,10 @@ span.help-block{
     .box{
         width:100% !important;
     }
+}
+
+.btn-danger {
+    color: #fff;
+    background-color: #E5102f;
+    border-color: #E5102f;
 }

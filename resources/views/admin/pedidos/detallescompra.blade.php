@@ -9,8 +9,8 @@
                                 </div>
                                 <div class="col-sm-4 col-xs-4">
 
-                                    <!--h4 style="color:#143473;">{{ number_format($total+$impuesto,0,",",".")}}</h4--> 
-                                    <h4 style="color:#143473;">{{ number_format($total-$impuesto+$envio_base,0,",",".")}}</h4> 
+                                    <!--h4 style="color:#6c6c6d;">{{ number_format($total+$impuesto,0,",",".")}}</h4--> 
+                                    <h4 style="color:#6c6c6d;">{{ number_format($total-$impuesto+$envio_base,0,",",".")}}</h4> 
 
                                 </div>
 
@@ -23,7 +23,7 @@
                                 </div>
                                 <div class="col-sm-4 col-xs-4">
 
-                                    <h4 style="color:#143473;">{{ number_format($impuesto+$envio_impuesto,0,",",".")}}</h4> 
+                                    <h4 style="color:#6c6c6d;">{{ number_format($impuesto+$envio_impuesto,0,",",".")}}</h4> 
 
                                 </div>
 
@@ -38,7 +38,7 @@
 
                                 <div class="col-sm-4 col-xs-4">
 
-                                    <h4 style="color: #22b14c;">
+                                    <h4 style="color: #3DC639;">
 
                                     @if($costo_envio==-1)
 
@@ -70,11 +70,11 @@
                                 <div class="col-sm-12" style="    border-top: 1px solid rgba(0,0,0,0.1);">
                 
                                     <div class="col-sm-8 col-xs-8" >
-                                        <h4 style="color: #d5006e;">Cupón {{ $pago->codigo_cupon }}</h4>
+                                        <h4 style="color: #D9C1EA;">Cupón {{ $pago->codigo_cupon }}</h4>
                                     </div>
                                     <div class="col-sm-4 col-xs-4">
 
-                                        <h4 style="color: #22b14c;">{{   number_format($pago->monto_descuento,0,",",".") }}    <button data-id="{{ $pago->id }}" style="color: red !important; margin:0; padding: 0em 1em;" class="btn btn-link delCuponTomapedidos" ><i class="fa fa-trash"></i></button></h4> 
+                                        <h4 style="color: #3DC639;">{{   number_format($pago->monto_descuento,0,",",".") }}    <button data-id="{{ $pago->id }}" style="color: red !important; margin:0; padding: 0em 1em;" class="btn btn-link delCuponTomapedidos" ><i class="fa fa-trash"></i></button></h4> 
 
                                     </div>
                                     
@@ -95,11 +95,11 @@
 
                                         @if($costo_envio==-1)
 
-                                            <h4 style="color:#143473;">{{ number_format($total-$total_pagos-$total_descuentos,0,",",".")}}</h4> 
+                                            <h4 style="color:#6c6c6d;">{{ number_format($total-$total_pagos-$total_descuentos,0,",",".")}}</h4> 
 
                                         @else
 
-                                            <h4 style="color:#143473;">{{ number_format($total-$total_pagos+$costo_envio-$total_descuentos,0,",",".")}}</h4> 
+                                            <h4 style="color:#6c6c6d;">{{ number_format($total-$total_pagos+$costo_envio-$total_descuentos,0,",",".")}}</h4> 
 
                                         @endif
 
@@ -119,7 +119,7 @@
 
                                  <div class="col-sm-12">
 
-                                    <h4 style="color: #d5006e;">{{$configuracion->mensaje_promocion}} </h4>
+                                    <h4 style="color: #D9C1EA;">{{$configuracion->mensaje_promocion}} </h4>
 
                                 </div>
                             
@@ -136,7 +136,7 @@
                                 </div>
                                 <div class="col-sm-4 col-xs-4">
 
-                                       <h4 style="color:#22b14c;">{{ number_format($total_base-$total+$total_descuentos,0,",",".")}}</h4> 
+                                       <h4 style="color:#3DC639;">{{ number_format($total_base-$total+$total_descuentos,0,",",".")}}</h4> 
 
                                 </div>
 
@@ -168,7 +168,7 @@
 
                 </div>
 
-                <div class="col-sm-4 col-xs-12" style="padding:8px;background-color:#3c763d;color:#ffffff;">
+                <div class="col-sm-4 col-xs-12" style="padding:8px;background-color:#3DC639;color:#ffffff;">
 
                     <h5 class="text-center">Agregar <i class="fa fa-chevron-right"></i></h5>
 

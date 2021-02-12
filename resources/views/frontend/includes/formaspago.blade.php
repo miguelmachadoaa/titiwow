@@ -36,7 +36,7 @@
                                         <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/pse.jpg">
                                     </p>
 
-                                    <div data-id="2" class="pse col-sm-6 col-xs-12  btnpg" style="padding:8px;background-color:#3c763d;color:#ffffff; cursor: pointer;">
+                                    <div data-id="2" class="pse col-sm-6 col-xs-12  btnpg" style="padding:8px;background-color:#3DC639;color:#ffffff; cursor: pointer;">
 
                                         <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
 
@@ -69,7 +69,7 @@
                                         <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/tdc.jpg">
                                         </p> 
 
-                                     <div data-type='creditcard' id="creditcard" data-id="2" class=" col-sm-6 col-xs-12 btnpg" style="padding:8px;background-color:#3c763d;color:#ffffff; cursor: pointer;">
+                                     <div data-type='creditcard' id="creditcard" data-id="2" class=" col-sm-6 col-xs-12 btnpg" style="padding:8px;background-color:#3DC639;color:#ffffff; cursor: pointer;">
 
                                         <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
 
@@ -147,7 +147,7 @@
                                         <img class="img-responsive" alt="PSE" style="width: 15em;     padding: 0.5em 0em 0em 0em;" src="../uploads/files/{{ $pm['id'] }}.jpg">
                                         </p> 
 
-                                     <div data-idpago="{{ $pm['id'] }}" data-type="ticket" data-id="2" class=" col-sm-6 col-xs-12 procesar btnpg" style="padding:8px;background-color:#3c763d;color:#ffffff; cursor: pointer;">
+                                     <div data-idpago="{{ $pm['id'] }}" data-type="ticket" data-id="2" class=" col-sm-6 col-xs-12 procesar btnpg" style="padding:8px;background-color:#3DC639;color:#ffffff; cursor: pointer;">
 
                                         <h5 class="text-center">Pagar <i class="fa  fa-chevron-right"></i></h5>
 
@@ -200,7 +200,7 @@
 
                                           @if($saldo[$user->id]>($total-$total_pagos+$costo_envio))
 
-                                         <div data-type='formaspago'  data-id="{{ $fp->id }}" class=" col-sm-6 col-xs-12 procesar" style="padding:8px;background-color:#3c763d;color:#ffffff; cursor: pointer;">
+                                         <div data-type='formaspago'  data-id="{{ $fp->id }}" class=" col-sm-6 col-xs-12 procesar" style="padding:8px;background-color:#3DC639;color:#ffffff; cursor: pointer;">
 
                                           <h5 class="text-center">Completar Pedido <i class="fa  fa-chevron-right"></i></h5>
 
@@ -223,7 +223,7 @@
 
                                        @else
 
-                                       <div data-type='formaspago'  data-id="{{ $fp->id }}" class=" col-sm-6 col-xs-12 procesar btnpg" style="padding:8px;background-color:#3c763d;color:#ffffff; cursor: pointer;">
+                                       <div data-type='formaspago'  data-id="{{ $fp->id }}" class=" col-sm-6 col-xs-12 procesar btnpg" style="padding:8px;background-color:#3DC639;color:#ffffff; cursor: pointer;">
 
                                         <h5 class="text-center">Completar Pedido <i class="fa  fa-chevron-right"></i></h5>
 

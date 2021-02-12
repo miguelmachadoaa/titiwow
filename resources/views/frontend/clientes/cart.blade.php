@@ -19,11 +19,11 @@ Carro de Productos
         <div class="container">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>Inicio
+                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
                     </a>
                 </li>
                 <li class="hidden-xs">
-                    <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>
+                    <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>
                     <a href="#">Carrito de Compra</a>
                 </li>
             </ol>
@@ -37,7 +37,7 @@ Carro de Productos
 <div class="container text-center ">
     <div class="row">
         <h2>Carrito de Compras</h2>
-        <a class="btn  btn-link" href="{{secure_url('cart/vaciar')}}">Vaciar</a>
+        <a class="btn  btn-link" href="{{secure_url('cart/vaciar')}}">Vaciar Carrito</a>
         @if(count($cart))
             
         
@@ -122,7 +122,7 @@ Carro de Productos
     <p style="text-align: center;">
         <a class="label label-seguir" href="{{secure_url('productos')}}">Seguir Comprando  <i class="fa fa-plus" aria-hidden="true"></i></a>
 
-         <a class="btn btn-cart" href="{{secure_url('order/detail')}}">Finalizar Tu Compra <i class="fa fa-plus" aria-hidden="true"></i></a>
+         <a class="btn btn-cart btn-checkout" href="{{secure_url('order/detail')}}">Finalizar Tu Compra <i class="fa fa-plus" aria-hidden="true"></i></a>
      </p> 
 
 

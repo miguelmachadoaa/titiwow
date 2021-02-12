@@ -63,7 +63,11 @@
                 <div class="row hidden-lg">
                     <div class="col-sm-3 col-xs-8" >
                         <div id="header_logo" class="pull-left hidden-lg">
-                                <a  href="{{ secure_url('/') }}" class="hidden-lg"><img src="{{ secure_asset('assets/images/logo_movil.png') }}" alt="Alpina Go!" class="logo_position"></a>
+                                <a  href="{{ secure_url('/') }}" class="hidden-lg">
+                                
+                                <img src="{{ secure_asset('assets/images/logo_movil.png') }}" alt="Alpina Go!" class="logo_position">
+                            
+                            </a>
                         </div>
                     </div>
 
@@ -206,14 +210,15 @@
                         </div>
                         <div class="col-md-4 col-xs-8">
                             <div id="header_logo" class="pull-center">
-                                <a  href="{{ secure_url('/') }}"><img src="{{ secure_asset('assets/images/logo_go.png') }}" alt="Alpina Go!" class="logo_position"></a>
+                                <a  href="{{ secure_url('/') }}">
+                                 <!-- @include(' layouts.svg')-->
+                                <img src="{{ secure_asset('assets/images/logo_go.png') }}" >
+                            
+                                </a>
                             </div>
                         </div>
                         <div class="col-md-4 col-xs-4 navbar-nav" class="pull_left">
                             <div class="row">
-                                <div class="col-md-8 text-center" style="padding-top:10px;">
-                                    <img src="{{ secure_asset('assets/images/apoyemos.png') }}" alt="Apoyemos lo Nuestro" class="logo_position">
-                                </div>
 
                                 <div id="cart_block_top" class="col-md-4 pull-right navbar-nav">
                                     

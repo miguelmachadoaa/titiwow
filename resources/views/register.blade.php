@@ -65,7 +65,7 @@
     <!--Content Section Start -->
     <div class="row">
         <div class="box animation flipInX">
-            <a href="{{ secure_url('/') }}"><img src="{{ secure_asset('assets/img/login.png') }}" alt="Alpina GO!"></a>
+            <a href="{{ secure_url('/') }}"><img src="{{ secure_asset('assets/images/logo_go.png') }}" alt="Alpina GO!"></a>
             <div class="clearfix"></div>
             <h3 class="text-primary">Registro Alpina Go!</h3>
             <!-- Notifications -->

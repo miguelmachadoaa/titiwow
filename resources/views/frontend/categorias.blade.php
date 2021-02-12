@@ -76,19 +76,19 @@
         <div class="container">
             <ol class="breadcrumb">
                 <li class="hidden-xs">
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>Inicio
+                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>Inicio
                     </a>
                 </li>
                 <li class="hidden-md hidden-lg">
-                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>
+                    <a href="{{ secure_url('/') }}"> <i class="livicon icon3 icon4" data-name="home" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>
                     </a>
                 </li>
                 <li >
-                    <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>
+                    <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>
                     <a href="#">Categoría</a>
                 </li>
                 <li >
-                    <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#188ac9" data-hc="#188ac9"></i>
+                    <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>
                     @foreach($cataname as $catana)
                     <a href="#">{{ $catana->nombre_categoria }}</a>
                     @endforeach @parent
@@ -139,7 +139,7 @@
 
          <div class="row">
 
-             <h2 style="font-size: 20px; color: #143473; margin-bottom: 15px; font-weight: 500;  font-family: 'PlutoMedium';" class="subtitulo">Productos más vendidos</h2>
+             <h2 style="font-size: 20px; color: #241F48; margin-bottom: 15px; font-weight: 500;  font-family: 'AlpinaSans Semibold';" class="subtitulo">Productos más vendidos</h2>
 
 
         @php $j=0; @endphp
@@ -203,7 +203,7 @@
 
         <div class="row">
 
-             <h1 style="font-size: 24px; color: #143473; margin-bottom: 15px; font-weight: 500;  font-family: 'PlutoMedium';" class="subtitulo"> {{$categoria->seo_titulo}}</h1>
+             <h1 style="font-size: 24px; color: #241F48; margin-bottom: 15px; font-weight: 500;  font-family: 'AlpinaSans Semibold';" class="subtitulo"> {{$categoria->seo_titulo}}</h1>
 
 
         @if(!$productos->isEmpty())

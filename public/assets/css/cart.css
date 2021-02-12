@@ -16,7 +16,7 @@ Primary style
 .cd-add-to-cart {
   display: inline-block;
   padding: 1.2em 1.8em;
-  background: #2c97de;
+  background: #241F48 !important;
   border-radius: 50em;
   text-transform: uppercase;
   color: #ffffff;
@@ -213,7 +213,7 @@ Main Components
   height: 400px;
   max-height: 90%;
   pointer-events: none;
-  font-family: 'PlutoBold';
+  font-family: 'AlpinaSans Semibold';
 }
 .cd-cart .wrapper {
   position: absolute;

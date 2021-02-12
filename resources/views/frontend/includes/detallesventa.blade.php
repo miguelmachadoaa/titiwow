@@ -23,7 +23,7 @@
 
                             <h4 class="panel-title">
 
-                                <a style="color: #22b14c;" role="button" data-toggle="collapse" data-parent="#accordion-detalles" href="#collapseDETALLE" aria-expanded="true" aria-controls="collapseDETALLE">
+                                <a style="color: #3DC639;" role="button" data-toggle="collapse" data-parent="#accordion-detalles" href="#collapseDETALLE" aria-expanded="true" aria-controls="collapseDETALLE">
                                 Mi Pedido <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
                                 </a>
 

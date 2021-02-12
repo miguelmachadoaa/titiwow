@@ -184,7 +184,7 @@ Orden {{$orden->id}}
                         </div>
 
                     <br> 
-
+                    <div class="table-responsive">
                    <table class="table table-striped ">
                  <tbody>
                      <tr>
@@ -412,6 +412,7 @@ Orden {{$orden->id}}
                  </tbody>
                  
              </table>
+</div>
 
              <!--a href="{{secure_url('admin/ordenes/sendmail/'.$orden->id )}}" class="btn btn-danger">Notificar</a-->
 

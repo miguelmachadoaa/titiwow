@@ -22,7 +22,7 @@
 
         <h1>Carrito de Compras</h1>
 
-        <a style="color: #d5006e !important; " class="btn  btn-link" href="{{secure_url('cart/vaciar')}}">Vaciar</a>
+        <a style="color: #d9534f !important; " class="btn  btn-link" href="{{secure_url('cart/vaciar')}}">Vaciar Carrito</a>
 
         @if(count($cart))
 
@@ -341,7 +341,7 @@
         <p style="text-align: center;">
             <a class="label label-seguir" href="{{secure_url('productos')}}">Seguir Comprando <i class="fa fa-plus" aria-hidden="true"></i></a>
 
-             <a class="btn btn-cart sendDetail" href="{{secure_url('order/detail')}}">Finalizar Tu Compra <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+             <a class="btn btn-cart sendDetail btn-checkout" href="{{secure_url('order/detail')}}">Finalizar Tu Compra <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
          </p> 
 
          <!--div class="row">

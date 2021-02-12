@@ -57,7 +57,7 @@
     <div class="row">
         <div class="box animation flipInX">
             <div class="box1 text-center">
-            <a href="{{ secure_url('/') }}"><img src="{{ secure_asset('assets/img/login.png') }}" alt="Alpina GO!"></a>
+            <a href="{{ secure_url('/') }}"><img src="{{ secure_asset('assets/images/logo_go.png') }}" alt="Alpina GO!"></a>
             <h3 class="text-primary">Mi Perfil</h3>
                 <!-- Notifications -->
                 <div id="notific">
