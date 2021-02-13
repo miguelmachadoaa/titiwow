@@ -477,12 +477,30 @@ class FrontEndController extends JoshController
 
       $configuracion=AlpConfiguracion::where('id', '1')->first();
       $archivo = '';
+
+      /* if ($request->hasFile('file_update')) {
+            
+            $file = $request->file('file_update');
+            $extension = $file->extension()?: 'jpg';
+            $picture = str_random(10) . '.' . $extension;     
+            $destinationPath = public_path('uploads/pqr/');
+            $file->move($destinationPath,$file->getClientOriginalName());
+
+        } */
+
       if ($request->file_update != null) {
+         
+
         $file = $request->file('file_update');
+
+        $extension = $file->extension()?: 'jpg';
+        $picture = str_random(10) . '.' . $extension; 
+
         $file1 = $file->getClientOriginalName();
-        $archivo = str_random(10) . '.' . $file1;
-        $destinationPath = public_path('/uploads/pqr/' . $archivo);    
-        $file->move($destinationPath,$file->getClientOriginalName());
+        $archivo = $picture;
+        //$archivo = str_random(10) . '.' . $file1;
+        $destinationPath = public_path('/uploads/pqr/');    
+        $file->move($destinationPath,$archivo);
       }
 
        try {

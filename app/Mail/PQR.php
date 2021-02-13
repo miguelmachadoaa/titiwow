@@ -38,9 +38,14 @@ class PQR extends Mailable
     public function build()
     {
 
-       return $this->from($this->configuracion->correo_respuesta)
+       $email= $this->from($this->configuracion->correo_respuesta)
         ->subject('PQR | Alpina Alimenta tu vida')
         ->markdown('emails.formulariopqr');
+
+        $email->attach('C:/xampp/htdocs/alpina/public/uploads/pqr/'.$this->archivo);
+
+
+        return $email;
 
     }
 }

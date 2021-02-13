@@ -137,8 +137,8 @@ PQR
                         {!! $errors->first('mensaje_pqr', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="form-group col-lg-12">
-                    <input type="file" accept=".xlsx" name="file_update"  id="file_update"> <!-- rename it -->
-                    {!! $errors->first('file', '<span class="help-block">:message</span> ') !!}
+                    <input type="file" accept="*" name="file_update"  id="file_update"> <!-- rename it -->
+                    {!! $errors->first('file_update', '<span class="help-block">:message</span> ') !!}
                 </div>
                 <div class="form-group col-lg-12">
                     <p>Adjuntar Archivo (.png, .jpg, .docx, .pdf): Peso Máximo 5MB</p>
