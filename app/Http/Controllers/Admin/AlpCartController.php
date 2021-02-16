@@ -4702,15 +4702,21 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           foreach($cart as $row) {
 
             if (isset($row->id)) {
+
               if($row->valor_impuesto>0){
 
                 $valor_impuesto=$row->valor_impuesto;
 
+                #$impuesto=$impuesto+($row->impuesto*$row->cantidad);
+
+                $base=$base+($row->precio_oferta*$row->cantidad);
+
+                $impuesto=$impuesto+(($row->precio_oferta*$row->cantidad)/(1+$valor_impuesto))*$valor_impuesto;
+
               }
 
-              $impuesto=$impuesto+($row->impuesto*$row->cantidad);
+              
 
-              $base=$base+($row->precio_oferta*$row->cantidad);
               }
 
             
@@ -4718,18 +4724,17 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           }
 
 
-      $resto=$total-$total_descuentos;
+        $resto=$total-$total_descuentos;
 
-       if ($resto<$base) {
+         if ($resto<$base) {
 
-        $impuesto=($resto/(1+$valor_impuesto))*$valor_impuesto;
+            $impuesto=($resto/(1+$valor_impuesto))*$valor_impuesto;
 
-      }
+          }
 
        return $impuesto;
       
     }
-
     private function cantidad()
     {
        $cart= \Session::get('cart');
@@ -6118,7 +6123,7 @@ public function verificarDireccion( Request $request)
 
                 $base_imponible_detalle=0;
 
-                $base_impuesto=$base_impuesto+$total_detalle;
+                #$base_impuesto=$base_impuesto+$total_detalle;
 
               }
 
@@ -6479,7 +6484,7 @@ public function verificarDireccion( Request $request)
 
                 $base_imponible_detalle=0;
 
-                $base_impuesto=$base_impuesto+$total_detalle;
+                #$base_impuesto=$base_impuesto+$total_detalle;
 
               }
 

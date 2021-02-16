@@ -447,7 +447,7 @@ class AlpPedidosController extends JoshController
 
                 $base_imponible_detalle=0;
 
-                $base_impuesto=$base_impuesto+$total_detalle;
+               # $base_impuesto=$base_impuesto+$total_detalle;
 
               }
 
@@ -3027,7 +3027,6 @@ public function postdireccion(DireccionModalRequest $request)
 
       $total=0;
 
-
        foreach ($detalles as $c) {
 
           if (isset($c->id)) {
@@ -3039,11 +3038,7 @@ public function postdireccion(DireccionModalRequest $request)
           # code...
         }
 
-
-
-
       $total_descuentos=0;
-
 
         $descuentos=AlpOrdenesDescuento::where('id_orden', $orden->id)->get();
 
@@ -3061,11 +3056,14 @@ public function postdireccion(DireccionModalRequest $request)
 
                 $valor_impuesto=$row->valor_impuesto;
 
+                $impuesto=$impuesto+($row->monto_impuesto*$row->cantidad);
+
+                $base=$base+($row->precio_unitario*$row->cantidad);
+
               }
 
-              $impuesto=$impuesto+($row->monto_impuesto*$row->cantidad);
+             
 
-              $base=$base+($row->precio_unitario*$row->cantidad);
               }
 
 
@@ -3074,11 +3072,11 @@ public function postdireccion(DireccionModalRequest $request)
 
       $resto=$total-$total_descuentos;
 
-     /*  if ($resto<$base) {
+        if ($resto<$base) {
 
-        $impuesto=($resto/(1+$valor_impuesto))*$valor_impuesto;
+          $impuesto=($resto/(1+$valor_impuesto))*$valor_impuesto;
 
-      }*/
+        }
 
        return $impuesto;
       
@@ -3697,11 +3695,6 @@ public function postdireccion(DireccionModalRequest $request)
           //dd($re_u);
           //
 
-
-
-
-
-
         $ad=AlpAlmacenDespacho::where('id_almacen', '=', $cart['id_almacen'])->where('id_city', '=', $direccion->city_id)->first();
 
         if (isset($ad->id)) {
@@ -3720,8 +3713,6 @@ public function postdireccion(DireccionModalRequest $request)
             }
 
         }
-
-
 
       }//if existe id_direccion
       
