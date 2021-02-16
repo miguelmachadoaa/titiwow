@@ -830,7 +830,7 @@ class VerificarPagosHora extends Command
 
        $dataupdate = array(
           'ordenId' => $orden->referencia, 
-          'status' => 'cancelled', 
+          'estado' => 'cancelled', 
           'messages' => 'orden cancelada por pagos'
         );
 
