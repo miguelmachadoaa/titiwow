@@ -124,7 +124,8 @@ html{
 }
 body {
     font-family: 'AlpinaSans Regular' !important;
-    background:url('../../images/bck_login.jpg') no-repeat center center fixed;
+    /*background:url('../../images/bck_login.jpg') no-repeat center center fixed;*/
+    background-color: #D9C1EA;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
