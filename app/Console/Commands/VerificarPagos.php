@@ -9,9 +9,9 @@ use App\Models\AlpFeriados;
 use App\Models\AlpFormaCiudad;
 use App\Models\AlpFormasenvio;
 use App\Models\AlpImpuestos;
-use App\Models\AlpProductos;
 
 use App\Models\AlpPagos;
+use App\Models\AlpProductos;
 use App\Models\AlpEnvios;
 use App\Models\AlpEnviosHistory;
 use App\Models\AlpOrdenes;
@@ -66,20 +66,16 @@ class VerificarPagos extends Command
     public function handle()
     {
 
-
-      echo "---";
-
       $date = Carbon::now();
 
 
       $d=$date->subDay(3)->format('Y-m-d');
       
-        $ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
-     //   $ordenes=AlpOrdenes::where('id', '15212')->get();
+        //$ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
+        $ordenes=AlpOrdenes::where('id', '11043')->where('countvp','<', '5')->get();
+        //
         
-
-       // echo count($ordenes);
-        
+      //  echo count($ordenes);
       $configuracion = AlpConfiguracion::where('id', '1')->first();
 
        if ($configuracion->mercadopago_sand=='1') {
@@ -103,18 +99,19 @@ class VerificarPagos extends Command
 
           $orden=AlpOrdenes::where('id', $ord->id)->first();
 
-           $orden->update(['countvp'=>$orden->countvp+1]);
+          $orden->update(['countvp'=>$orden->countvp+1]);
 
           $user_cliente=User::where('id', $ord->id_user)->first();
 
           $preference = MP::get("/v1/payments/search?external_reference=".$ord->referencia);
           
 
-          //if (isset($preference['response']['results'][0])) {
-          if (isset($preference)) {
+
+          if (isset($preference['response']['results'][0])) {
+         // if (isset($preference)) {
 
             $cantidad=count($preference['response']['results']);
-            $aproved=0;
+            $aproved=1;
             $cancel=0;
             $pending=0;
 
@@ -144,6 +141,7 @@ class VerificarPagos extends Command
 
                 $direccion=AlpDirecciones::where('id', $ord->id_address)->withTrashed()->first();
 
+                //dd($direccion);
 
                 $feriados=AlpFeriados::feriados();
 
@@ -264,23 +262,9 @@ class VerificarPagos extends Command
                   'alp_productos.nombre_producto as nombre_producto',
                   'alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug')
                   ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
-                  ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
-
-
-                  //if es almacen 1
-
-
-                  // $this->ibmConfirmarCompra($user_cliente, $orden);
-
-                  // $this->ibmConfirmarPago($user_cliente, $orden);
-
-                  // $this->ibmConfirmarEnvio($user_cliente, $orden, $envio);
-
-
-                   
-
-
-                  
+                  ->where('alp_ordenes_detalle.id_orden', $orden->id)
+                  ->whereNull('alp_ordenes_detalle.deleted_at')
+                  ->get();
 
 
 
@@ -289,6 +273,7 @@ class VerificarPagos extends Command
                  $detalles = AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto','alp_productos.referencia_producto as referencia_producto')
                   ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
                   ->where('alp_ordenes_detalle.id_orden', $orden->id)
+                  ->whereNull('alp_ordenes_detalle.deleted_at')
                   ->get();
 
                   $productos = array();
@@ -305,6 +290,302 @@ class VerificarPagos extends Command
                       );
 
                       $productos[]=$dt;
+                  }
+
+
+
+              $cliente =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista','alp_clientes.doc_cliente as doc_cliente')
+                ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+                ->join('role_users', 'users.id', '=', 'role_users.user_id')
+                ->join('roles', 'role_users.role_id', '=', 'roles.id')
+                ->where('users.id', '=', $orden->id_user)->first();
+
+
+               // dd($cliente);
+
+
+              $direccion = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+              ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+              ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+              ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+              ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+              ->where('alp_direcciones.id', $orden->id_address)->withTrashed()->first();
+
+
+              $dir = array(
+                'ordenId' => $orden->referencia, 
+                'ciudad' => $direccion->state_name, 
+                'telefonoCliente' => $cliente->telefono_cliente, 
+                'identificacionCliente' => $cliente->doc_cliente, 
+                'nombreCliente' => $cliente->first_name." ".$cliente->last_name, 
+                'direccionCliente' => $direccion->nombre_estructura." ".$direccion->principal_address." - ".$direccion->secundaria_address." ".$direccion->edificio_address." ".$direccion->detalle_address." ".$direccion->barrio_address, 
+                'observacionDomicilio' => "", 
+                'formaPago' => "Efectivo"
+              );
+
+              $o = array(
+                'tipoServicio' => 1, 
+                'retorno' => "false", 
+                'totalFactura' => $orden->monto_total, 
+                'subTotal' => $orden->base_impuesto, 
+                'iva' => $orden->monto_impuesto, 
+                'fechaPedido' => date("Ymd", strtotime($orden->created_at)), 
+                'horaMinPedido' => "00:00", 
+                'horaMaxPedido' => "00:00", 
+                'observaciones' => "", 
+                'paradas' => $dir, 
+                'products' => $productos, 
+              );
+
+
+              $dataraw=json_encode($o);
+
+               if ($compra->id_forma_envio!=1) {
+
+                    try {
+
+                      $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
+
+                      Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega,1));
+
+                      Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega,1));
+                      
+                      } catch (\Exception $e) {
+
+                        activity()->withProperties(1)->log('Error de correo vp354');
+                  
+                    
+                      }
+
+                    try {
+
+                       $this->ibmConfirmarCompra($user_cliente, $orden);
+
+                      $this->ibmConfirmarPago($user_cliente, $orden);
+
+                      $this->ibmConfirmarEnvio($user_cliente, $orden, $envio);
+                      
+                    } catch (\Exception $e) {
+
+                      activity()->withProperties(1)->log('Error de ibm vp372');
+                      
+                    }
+
+                                         
+                  }
+
+
+                  try {
+
+                      if ($orden->id_almacen==1) {
+
+                      # $this->sendcompramas($orden->id, 'approved');
+
+                       $this->registrarOrden($orden->id);
+
+                      } 
+                  
+                      
+                    } catch (\Exception $e) {
+                      activity()->withProperties(1)->log('Error de compramas vp391');
+                    }
+
+
+                  try {
+
+                     Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
+
+                     Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
+
+
+                      Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
+
+                     Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
+                    
+                  } catch (\Exception $e) {
+
+                    activity()->withProperties(1)->log('Error de correo vp408');
+                    
+                  }
+
+
+          
+             //
+             
+
+               
+            }elseif($pending){
+              
+
+            }elseif($cancel){
+
+
+                $date = Carbon::parse($orden->created_at); 
+
+                $now = Carbon::now();
+
+                $diff = $date->diffInMinutes($now); 
+
+                
+
+               if ($diff>$configuracion->vence_ordenes_pago) {
+
+                //dd($diff);
+
+                  $data_update = array(
+                    'estatus' =>4, 
+                    'estatus_pago' =>3,
+                     );
+
+                   $orden->update($data_update);
+
+                    $data_history = array(
+                      'id_orden' => $orden->id, 
+                      'id_status' => '4', 
+                      'notas' => 'Notificacion Mercadopago Cron',
+                      'id_user' => 1
+                    );
+
+                    $history=AlpOrdenesHistory::create($data_history);
+
+                   $descuentos=AlpOrdenesDescuento::where('id_orden', $orden->id)->get();
+
+                      foreach ($descuentos as $desc) {
+                        
+                        $d=AlpOrdenesDescuento::where('id', $desc->id)->first();
+
+                        $d->delete();
+
+                      }
+
+
+                      try {
+
+                         if ($orden->id_almacen=='1') {
+
+                           // $this->sendcompramas($orden->id, 'rejected');
+
+                            $this->cancelarCompramas($orden->id);
+
+
+                            # code...
+                          }
+                        
+                      } catch (\Exception $e) {
+
+                        activity()->withProperties(1)->log('Error de compramas vp477');
+                        
+                      }
+
+               }
+
+            }
+
+          } //si hay resultados 
+
+          if (isset($preference['response']['results'][0])) {
+            # code...
+
+              if ( $pending ) 
+              {
+
+              }else{
+
+                  $data_pago = array(
+                'id_orden' => $ord->id, 
+                'id_forma_pago' => $ord->id_forma_pago, 
+                'id_estatus_pago' => 4, 
+                'monto_pago' => $ord->monto_total, 
+                'json' => json_encode($preference['response']['results']), 
+                'id_user' => '0' 
+                  );
+
+                 AlpPagos::create($data_pago);
+              }
+
+          }
+
+        }//endforeach ordenes
+
+      }//endifhay ordenes 
+
+    }//endhadle
+
+
+    private function registrarOrden($id_orden)
+    {
+
+      $configuracion=AlpConfiguracion::first();
+      
+       $orden=AlpOrdenes::where('id', $id_orden)->first();
+
+        Log::useDailyFiles(storage_path().'/logs/compramas.log');
+        
+        Log::info('compramas orden '.json_encode($orden));
+
+                 $detalles = AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto','alp_productos.referencia_producto as referencia_producto')
+                  ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
+                  ->where('alp_ordenes_detalle.id_orden', $orden->id)
+                  ->get();
+
+                  $productos = array();
+
+                  foreach ($detalles as $d) {
+
+                    if ($d->precio_unitario>0) {
+
+                      $dt = array(
+                        'sku' => $d->referencia_producto, 
+                        'name' => $d->nombre_producto, 
+                        'url_img' => $d->imagen_producto, 
+                        'value' => $d->precio_unitario, 
+                        'value_prom' => $d->precio_unitario, 
+                        'quantity' => $d->cantidad
+                      );
+
+                      $productos[]=$dt;
+                     
+                    }else{
+
+                        if (substr($d->referencia_producto, 0,1)=='R') {
+                           $dt = array(
+                          'sku' => $d->referencia_producto, 
+                          'name' => $d->nombre_producto, 
+                          'url_img' => $d->imagen_producto, 
+                          'value' => $d->precio_unitario, 
+                          'value_prom' => $d->precio_unitario, 
+                          'quantity' => $d->cantidad
+                        );
+
+                        $productos[]=$dt;
+
+                      }
+
+
+                      $pc=AlpProductos::where('id', $d->id_combo)->first();
+
+                      if (isset($pc->id)) {
+
+                          if ($pc->tipo_producto=='3') {
+                            
+                               $dt = array(
+                              'sku' => $d->referencia_producto, 
+                              'name' => $d->nombre_producto, 
+                              'url_img' => $d->imagen_producto, 
+                              'value' => $d->precio_unitario, 
+                              'value_prom' => $d->precio_unitario, 
+                              'quantity' => $d->cantidad
+                            );
+
+                            $productos[]=$dt;
+
+                          # code...
+                        }
+
+                      }
+
+
+                      
                   }
 
               $cliente =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista','alp_clientes.doc_cliente as doc_cliente')
@@ -350,176 +631,394 @@ class VerificarPagos extends Command
 
               $dataraw=json_encode($o);
 
+              $urls=$configuracion->compramas_url.'/registerOrder/'.$configuracion->compramas_hash;
+
+              Log::info('Datos enviados a compramas para registro de orden aprobada  '.$urls);
+
+              Log::info($dataraw);
+
+              activity()->withProperties($dataraw)->log('Datos enviados a registro  de orden aprobada en compramas orden id '.$orden->id.' .vp634');
 
 
+      $ch = curl_init();
+
+      curl_setopt($ch, CURLOPT_URL, $configuracion->compramas_url.'/registerOrder/'.$configuracion->compramas_hash);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($ch, CURLOPT_POST, 1);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
+      curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+      $headers = array();
+      $headers[] = 'Content-Type: application/json';
+      $headers[] = 'Woobsing-Token: '.$configuracion->compramas_token;
+      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+      $result = curl_exec($ch);
+      if (curl_errno($ch)) {
+          echo 'Error:' . curl_error($ch);
+      }
+      curl_close($ch);
+
+      $res=json_decode($result);
+
+       Log::info('Respuesta de compramas al registro de la orden '.json_encode($res));
+       
+       Log::info('Respuesta de compramas al registro de la orden. '.$result);
+
+       activity()->withProperties($res)->log('Datos de respuesta  a registro  de orden aprobada en compramas orden id '.$orden->id.' .vp663');
 
 
-                  if ($orden->id_almacen==1) {
-
-                    try {
-                     # $this->sendcompramas($orden->id, 'approved');
-
-                      $this->registrarOrden($orden->id);
+       $notas='Registro de orden en compramas.';
 
 
-                    } catch (\Exception $e) {
+       if (isset($res->mensaje)) {
+         $notas=$notas.$res->mensaje.' ';
+       }
 
-                      activity()->withProperties($orden)->log('error compramas vp l355');
-                      
-                    }
+       if (isset($res->codigo)) {
+         $notas=$notas.$res->codigo.' ';
+       }
 
-                   }
+       
 
-                  if ($compra->id_forma_envio!=1) {
+       if (isset($res->message)) {
+         $notas=$notas.$res->message.' ';
+       }
 
-                    $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
-
-                    try {
-
-                      Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega,1));
-
-                      Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega,1));
-
-                    } catch (\Exception $e) {
-
-                      activity()->withProperties($compra)->log('error mail vp l373');
-                      
-                    }
-
-                    
-
-                      
-                  }
-
-                  try {
-                    Mail::to($user_cliente->email)->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
-
-                   Mail::to($configuracion->correo_sac)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
+       if (isset($res->causa->message)) {
+         $notas=$notas.$res->causa->message.' ';
+       }
 
 
-                    Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
-
-                   Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega));
-
-                    } catch (\Exception $e) {
-
-                      activity()->withProperties($compra)->log('error mail vp l394');
-                    
-                    }
-
-                  
+       $notas=$notas.'Codigo: VP.';
 
 
+      if (isset($res->codigo)) {
+        
+        if ($res->codigo=='200') {
 
+             $dtt = array(
+                'json' => $result,
+                'estado_compramas' => $res->codigo
+                
+              );
 
+            $orden->update($dtt);
 
+            $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
 
-          
-             //
-             
+            $data_history = array(
+                'id_orden' => $orden->id, 
+               'id_status' => '9', 
+                'notas' => $notas, 
+                'json' => json_encode($result), 
+               'id_user' => 1
+            );
 
-               
-            }elseif($pending){
+            $history=AlpOrdenesHistory::create($data_history);
+
+            try {
+              Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+
+           Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
               
+            } catch (\Exception $e) {
 
-            }elseif($cancel){
+              activity()->withProperties(1)
+                        ->log('error envio de correo');
+              
+            }
+          
+         
+        }else{
 
+            $dtt = array(
+              'json' => $result,
+              'estado_compramas' => $res->codigo,
+              'envio_compramas' => '3'
+              
+            );
 
-                $date = Carbon::parse($orden->created_at); 
+            $orden->update($dtt);
 
-                $now = Carbon::now();
+          $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
 
-                $diff = $date->diffInMinutes($now); 
+          $data_history = array(
+              'id_orden' => $orden->id, 
+             'id_status' => '9', 
+              'notas' => 'Error '.$notas, 
+              'json' => json_encode($result), 
+             'id_user' => 1
+          );
 
-               // dd($idpago);
+            $history=AlpOrdenesHistory::create($data_history);
 
-               if ($diff>$configuracion->vence_ordenes_pago) {
+            try {
 
-                $data_update = array(
-                  'estatus' =>4, 
-                  'estatus_pago' =>3,
-                   );
+              Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
 
-                 $orden->update($data_update);
+           Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+              
+            } catch (\Exception $e) {
 
-                  $data_history = array(
-                      'id_orden' => $orden->id, 
-                     'id_status' => '4', 
-                      'notas' => 'Notificacion Mercadopago Cron', 
-                     'id_user' => 1
-                  );
-
-                  $history=AlpOrdenesHistory::create($data_history);
-
-                   
-
-
-                   $descuentos=AlpOrdenesDescuento::where('id_orden', $orden->id)->get();
-
-                      foreach ($descuentos as $desc) {
-                        
-                        $d=AlpOrdenesDescuento::where('id', $desc->id)->first();
-
-                        $d->delete();
-
-                      }
-
-
-
-
-                 
-               }
-
-
-               if ($orden->id_almacen=='1') {
-
-                try {
-                   #$this->sendcompramas($orden->id, 'rejected');
-
-                    $this->cancelarCompramas($orden->id);
-
-                } catch (Exception $e) {
-
-                  activity()->withProperties($orden)->log('error compramas vp l468');
-                  
-                }
-
-                   
-                    # code...
-                  }
-
-
+              activity()->withProperties(1)
+                        ->log('error envio de correo');
+              
             }
 
-          } //si hay resultados 
+          
 
-          if (isset($preference['response']['results'][0])) {
-            # code...
 
-              if ( $pending ) 
-              {
+        }
 
-              }else{
 
-                  $data_pago = array(
-                'id_orden' => $ord->id, 
-                'id_forma_pago' => $ord->id_forma_pago, 
-                'id_estatus_pago' => 4, 
-                'monto_pago' => $ord->monto_total, 
-                'json' => json_encode($preference['response']['results']), 
-                'id_user' => '0' 
-                  );
+      }else{
 
-                 AlpPagos::create($data_pago);
-              }
+        $notas='No hubo respuesta compramas';
 
+        $data_history = array(
+            'id_orden' => $orden->id, 
+           'id_status' => '9', 
+            'notas' => $notas,
+            'json' => json_encode($result), 
+           'id_user' => 1
+        );
+
+        $history=AlpOrdenesHistory::create($data_history);
+
+          $texto='No hubo respuesta compramas VP';
+
+          try {
+            
+          Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+
+           Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+          } catch (\Exception $e) {
+
+            activity()->withProperties(1)->log('error envio de correo');
+            
           }
+                     
 
-        }//endforeach ordenes
+      }
 
-      }//endifhay ordenes 
+      
+    }
 
-    }//endhadle
+}
+
+
+
+
+    private function cancelarCompramas($id_orden){
+
+
+      $orden=AlpOrdenes::where('id', $id_orden)->first();
+
+       $dataupdate = array(
+          'ordenId' => $orden->referencia, 
+          'status' => 'cancelled', 
+          'messages' => 'orden cancelada por pagos'
+        );
+
+
+       $dataraw=json_encode($dataupdate);
+
+        Log::useDailyFiles(storage_path().'/logs/compramas.log');
+        
+        Log::info('datos enviados para cancelar orden en compramas '.json_encode($dataupdate));
+
+         $configuracion = AlpConfiguracion::where('id','1')->first();
+
+         $urls=$configuracion->compramas_url.'/cancelOrder/'.$configuracion->compramas_hash;
+
+           //   activity()->withProperties($urls)->log('compramas urls ');
+
+                   // Generated by curl-to-PHP: http://incarnate.github.io/curl-to-php/
+                $ch = curl_init();
+
+                curl_setopt($ch, CURLOPT_URL, $configuracion->compramas_url.'/cancelOrder/'.$configuracion->compramas_hash);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_POST, 1);
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
+                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+                $headers = array();
+                $headers[] = 'Content-Type: application/json';
+                $headers[] = 'Woobsing-Token: '.$configuracion->compramas_token;
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+                $result = curl_exec($ch);
+                if (curl_errno($ch)) {
+                    echo 'Error:' . curl_error($ch);
+                }
+                curl_close($ch);
+
+
+              
+
+                  $res=json_decode($result);
+
+
+                  $notas='Cancelar de orden en compramas.';
+
+                  if (isset($res->mensaje)) {
+                     $notas=$notas.$res->mensaje.' ';
+                   }
+
+                   if (isset($res->codigo)) {
+                     $notas=$notas.$res->codigo.' ';
+                   }
+
+
+                   if (isset($res->message)) {
+                     $notas=$notas.$res->message.' ';
+                   }
+
+                   if (isset($res->causa->message)) {
+                     $notas=$notas.$res->causa->message.' ';
+                   }
+
+                   $notas=$notas.'Codigo: VF.';
+
+
+                   Log::info('Respuesta de llamada para cancelar orden compramas '.$result);
+
+                  Log::info('Respuesta de llamada para cancelar orden compramas '.json_encode($res));
+
+
+                  if (isset($res->codigo)) {
+                  
+                  if ($res->codigo=='200') {
+
+                    if ($estatus=='approved') {
+                      
+
+                       $dtt = array(
+                        'json' => $result,
+                        'estado_compramas' => $res->codigo,
+                        'envio_compramas' => '2'
+                      );
+
+
+                    }
+
+
+                    if ($estatus=='rejected') {
+                      
+
+                       $dtt = array(
+                        'json' => $result,
+                        'estado_compramas' => $res->codigo,
+                        'envio_compramas' => '3'
+                        
+                      );
+
+                       
+                    }
+
+                      $orden->update($dtt);
+
+                      $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
+
+                         $data_history = array(
+                          'id_orden' => $orden->id, 
+                         'id_status' => '9', 
+                          'notas' => $notas, 
+                          'json' => json_encode($result), 
+                         'id_user' => 1
+                      );
+
+                        $history=AlpOrdenesHistory::create($data_history);
+
+                        try {
+
+                          Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+
+                          Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+
+                        } catch (\Exception $e) {
+
+                          activity()->withProperties(1)->log('Error de correo vp653');
+                          
+                        }
+
+                    
+                   
+                  }else{
+
+                     $dtt = array(
+                        'json' => $result,
+                        'estado_compramas' => $res->codigo
+                      );
+
+                      $orden->update($dtt);
+
+
+                         $data_history = array(
+                          'id_orden' => $orden->id, 
+                         'id_status' => '9', 
+                          'notas' => 'Error'.$notas, 
+                          'json' => json_encode($result), 
+                         'id_user' => 1
+                      );
+
+                        $history=AlpOrdenesHistory::create($data_history);
+
+
+                    $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
+
+                    try {
+
+                      Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+
+                     Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+
+                    } catch (\Exception $e) {
+                      activity()->withProperties(1)->log('Error de correo vp689');
+                    }
+
+
+                  }
+
+
+                }else{
+
+                    $data_history = array(
+                        'id_orden' => $orden->id, 
+                       'id_status' => '9', 
+                        'notas' => 'Respuesta '.$notas,
+                        'json' => json_encode($result), 
+                       'id_user' => 1
+                    );
+
+                    $history=AlpOrdenesHistory::create($data_history);
+
+
+                      $texto='No se obtuvo respuesta de compramas. VP610';
+
+                      try {
+                        Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+
+                        Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+                      } catch (\Exception $e) {
+
+                        activity()->withProperties(1)->log('Error de correo vp717');
+                        
+                      }
+
+                    
+
+                }
+
+
+    }
+
+
+
 
 
 
@@ -536,10 +1035,9 @@ class VerificarPagos extends Command
 
        $dataraw=json_encode($dataupdate);
 
-
         Log::useDailyFiles(storage_path().'/logs/compramas.log');
         
-        Log::info('compramas dataraw '.json_encode($dataupdate));
+        Log::info('datos enviados para cancelar orden en compramas '.json_encode($dataupdate));
 
          $configuracion = AlpConfiguracion::where('id','1')->first();
 
@@ -599,9 +1097,9 @@ class VerificarPagos extends Command
                    $notas=$notas.'Codigo: VF.';
 
 
-                   Log::info('compramas result '.$result);
+                   Log::info('Respuesta de llamada para cancelar orden compramas '.$result);
 
-                    Log::info('compramas res '.json_encode($res));
+                  Log::info('Respuesta de llamada para cancelar orden compramas '.json_encode($res));
 
 
                   if (isset($res->codigo)) {
@@ -648,19 +1146,19 @@ class VerificarPagos extends Command
 
                         $history=AlpOrdenesHistory::create($data_history);
 
-                    try {
-                      
-                      //Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+                        try {
 
-                     //Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
-                     //
-                    } catch (\Exception $e) {
+                          Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
 
-                      activity()->withProperties('1')->log('error mail vp l644');
-                      
-                    }
+                          Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
 
+                        } catch (\Exception $e) {
 
+                          activity()->withProperties(1)->log('Error de correo vp653');
+                          
+                        }
+
+                    
                    
                   }else{
 
@@ -686,15 +1184,14 @@ class VerificarPagos extends Command
                     $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
 
                     try {
+
                       Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
 
                      Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
-                    } catch (\Exception $e) {
-                      activity()->withProperties($orden)->log('error mail vp l678');
-                      
-                    }
 
-                    
+                    } catch (\Exception $e) {
+                      activity()->withProperties(1)->log('Error de correo vp689');
+                    }
 
 
                   }
@@ -720,7 +1217,9 @@ class VerificarPagos extends Command
 
                         Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
                       } catch (\Exception $e) {
-                        activity()->withProperties($orden)->log('error mail vp l708');
+
+                        activity()->withProperties(1)->log('Error de correo vp717');
+                        
                       }
 
                     
@@ -1211,517 +1710,6 @@ public function getApiUrl($endpoint, $jsessionid)
 
 
 
-
- private function cancelarCompramas($id_orden){
-
-
-      $orden=AlpOrdenes::where('id', $id_orden)->first();
-
-       $dataupdate = array(
-          'ordenId' => $orden->referencia, 
-          'estado' => 'cancelled', 
-          'messages' => 'orden cancelada por pagos'
-        );
-
-
-       $dataraw=json_encode($dataupdate);
-
-        Log::useDailyFiles(storage_path().'/logs/compramas.log');
-        
-        Log::info('datos enviados para cancelar orden en compramas '.json_encode($dataupdate));
-
-         $configuracion = AlpConfiguracion::where('id','1')->first();
-
-         $urls=$configuracion->compramas_url.'/cancelOrder/'.$configuracion->compramas_hash;
-
-           //   activity()->withProperties($urls)->log('compramas urls ');
-
-                   // Generated by curl-to-PHP: http://incarnate.github.io/curl-to-php/
-                $ch = curl_init();
-
-                curl_setopt($ch, CURLOPT_URL, $configuracion->compramas_url.'/cancelOrder/'.$configuracion->compramas_hash);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($ch, CURLOPT_POST, 1);
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
-                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-
-                $headers = array();
-                $headers[] = 'Content-Type: application/json';
-                $headers[] = 'Woobsing-Token: '.$configuracion->compramas_token;
-                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
-                $result = curl_exec($ch);
-                if (curl_errno($ch)) {
-                    echo 'Error:' . curl_error($ch);
-                }
-                curl_close($ch);
-
-
-              
-
-                  $res=json_decode($result);
-
-
-                  $notas='Cancelar de orden en compramas.';
-
-                  if (isset($res->mensaje)) {
-                     $notas=$notas.$res->mensaje.' ';
-                   }
-
-                   if (isset($res->codigo)) {
-                     $notas=$notas.$res->codigo.' ';
-                   }
-
-
-                   if (isset($res->message)) {
-                     $notas=$notas.$res->message.' ';
-                   }
-
-                   if (isset($res->causa->message)) {
-                     $notas=$notas.$res->causa->message.' ';
-                   }
-
-                   $notas=$notas.'Codigo: VF.';
-
-
-                   Log::info('Respuesta de llamada para cancelar orden compramas '.$result);
-
-                  Log::info('Respuesta de llamada para cancelar orden compramas '.json_encode($res));
-
-
-                  if (isset($res->codigo)) {
-                  
-                  if ($res->codigo=='200') {
-
-                    if ($estatus=='approved') {
-                      
-
-                       $dtt = array(
-                        'json' => $result,
-                        'estado_compramas' => $res->codigo,
-                        'envio_compramas' => '2'
-                      );
-
-
-                    }
-
-
-                    if ($estatus=='rejected') {
-                      
-
-                       $dtt = array(
-                        'json' => $result,
-                        'estado_compramas' => $res->codigo,
-                        'envio_compramas' => '3'
-                        
-                      );
-
-                       
-                    }
-
-                      $orden->update($dtt);
-
-                      $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
-
-                         $data_history = array(
-                          'id_orden' => $orden->id, 
-                         'id_status' => '9', 
-                          'notas' => $notas, 
-                          'json' => json_encode($result), 
-                         'id_user' => 1
-                      );
-
-                        $history=AlpOrdenesHistory::create($data_history);
-
-                        try {
-
-                          Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
-
-                          Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
-
-                        } catch (\Exception $e) {
-
-                          activity()->withProperties(1)->log('Error de correo vp653');
-                          
-                        }
-
-                    
-                   
-                  }else{
-
-                     $dtt = array(
-                        'json' => $result,
-                        'estado_compramas' => $res->codigo
-                      );
-
-                      $orden->update($dtt);
-
-
-                         $data_history = array(
-                          'id_orden' => $orden->id, 
-                         'id_status' => '9', 
-                          'notas' => 'Error'.$notas, 
-                          'json' => json_encode($result), 
-                         'id_user' => 1
-                      );
-
-                        $history=AlpOrdenesHistory::create($data_history);
-
-
-                    $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
-
-                    try {
-
-                      Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
-
-                     Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
-
-                    } catch (\Exception $e) {
-                      activity()->withProperties(1)->log('Error de correo vp689');
-                    }
-
-
-                  }
-
-
-                }else{
-
-                    $data_history = array(
-                        'id_orden' => $orden->id, 
-                       'id_status' => '9', 
-                        'notas' => 'Respuesta '.$notas,
-                        'json' => json_encode($result), 
-                       'id_user' => 1
-                    );
-
-                    $history=AlpOrdenesHistory::create($data_history);
-
-
-                      $texto='No se obtuvo respuesta de compramas. VP610';
-
-                      try {
-                        Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
-
-                        Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
-                      } catch (\Exception $e) {
-
-                        activity()->withProperties(1)->log('Error de correo vp717');
-                        
-                      }
-
-                    
-
-                }
-
-
-    }
-
-
-
-
-     private function registrarOrden($id_orden)
-    {
-
-      $configuracion=AlpConfiguracion::first();
-      
-       $orden=AlpOrdenes::where('id', $id_orden)->first();
-
-        Log::useDailyFiles(storage_path().'/logs/compramas.log');
-        
-        Log::info('compramas orden '.json_encode($orden));
-
-                 $detalles = AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto','alp_productos.referencia_producto as referencia_producto')
-                  ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
-                  ->where('alp_ordenes_detalle.id_orden', $orden->id)
-                  ->get();
-
-                  $productos = array();
-
-                  foreach ($detalles as $d) {
-
-                    if ($d->precio_unitario>0) {
-
-                      $dt = array(
-                        'sku' => $d->referencia_producto, 
-                        'name' => $d->nombre_producto, 
-                        'url_img' => $d->imagen_producto, 
-                        'value' => $d->precio_unitario, 
-                        'value_prom' => $d->precio_unitario, 
-                        'quantity' => $d->cantidad
-                      );
-
-                      $productos[]=$dt;
-                     
-                    }else{
-
-                        if (substr($d->referencia_producto, 0,1)=='R') {
-                           $dt = array(
-                          'sku' => $d->referencia_producto, 
-                          'name' => $d->nombre_producto, 
-                          'url_img' => $d->imagen_producto, 
-                          'value' => $d->precio_unitario, 
-                          'value_prom' => $d->precio_unitario, 
-                          'quantity' => $d->cantidad
-                        );
-
-                        $productos[]=$dt;
-
-                      }
-
-
-                      $pc=AlpProductos::where('id', $d->id_combo)->first();
-
-                      if (isset($pc->id)) {
-
-                          if ($pc->tipo_producto=='3') {
-                            
-                               $dt = array(
-                              'sku' => $d->referencia_producto, 
-                              'name' => $d->nombre_producto, 
-                              'url_img' => $d->imagen_producto, 
-                              'value' => $d->precio_unitario, 
-                              'value_prom' => $d->precio_unitario, 
-                              'quantity' => $d->cantidad
-                            );
-
-                            $productos[]=$dt;
-
-                          # code...
-                        }
-
-                      }
-
-                    }
-
-                  }
-
-              $cliente =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista','alp_clientes.doc_cliente as doc_cliente')
-                ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
-                ->join('role_users', 'users.id', '=', 'role_users.user_id')
-                ->join('roles', 'role_users.role_id', '=', 'roles.id')
-                ->where('users.id', '=', $orden->id_user)->first();
-
-
-              $direccion = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-              ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-              ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-              ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-              ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-              ->where('alp_direcciones.id', $orden->id_address)->withTrashed()->first();
-
-
-              $dir = array(
-                'ordenId' => $orden->referencia, 
-                'ciudad' => $direccion->state_name, 
-                'telefonoCliente' => $cliente->telefono_cliente, 
-                'identificacionCliente' => $cliente->doc_cliente, 
-                'nombreCliente' => $cliente->first_name." ".$cliente->last_name, 
-                'direccionCliente' => $direccion->nombre_estructura." ".$direccion->principal_address." - ".$direccion->secundaria_address." ".$direccion->edificio_address." ".$direccion->detalle_address." ".$direccion->barrio_address, 
-                'observacionDomicilio' => "", 
-                'formaPago' => "Efectivo"
-              );
-
-              $o = array(
-                'tipoServicio' => 1, 
-                'retorno' => "false", 
-                'totalFactura' => $orden->monto_total, 
-                'subTotal' => $orden->monto_total-$orden->monto_impuesto, 
-                'iva' => $orden->monto_impuesto, 
-                'fechaPedido' => date("Ymd", strtotime($orden->created_at)), 
-                'horaMinPedido' => "00:00", 
-                'horaMaxPedido' => "00:00", 
-                'observaciones' => "", 
-                'paradas' => $dir, 
-                'products' => $productos, 
-              );
-
-
-              $dataraw=json_encode($o);
-
-              echo $dataraw.' ----  ';
-
-              $urls=$configuracion->compramas_url.'/registerOrder/'.$configuracion->compramas_hash;
-
-              Log::info('Datos enviados a compramas para registro de orden aprobada  '.$urls);
-
-              Log::info($dataraw);
-
-              activity()->withProperties($dataraw)->log('Datos enviados a registro  de orden aprobada en compramas orden id '.$orden->id.' .vp634');
-
-
-      $ch = curl_init();
-
-      curl_setopt($ch, CURLOPT_URL, $configuracion->compramas_url.'/registerOrder/'.$configuracion->compramas_hash);
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-      curl_setopt($ch, CURLOPT_POST, 1);
-      curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
-      curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-
-      $headers = array();
-      $headers[] = 'Content-Type: application/json';
-      $headers[] = 'Woobsing-Token: '.$configuracion->compramas_token;
-      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
-      $result = curl_exec($ch);
-      if (curl_errno($ch)) {
-          echo 'Error:' . curl_error($ch);
-      }
-      curl_close($ch);
-
-      $res=json_decode($result);
-
-
-      echo $result;
-
-       Log::info('Respuesta de compramas al registro de la orden '.json_encode($res));
-       
-       Log::info('Respuesta de compramas al registro de la orden. '.$result);
-
-       activity()->withProperties($res)->log('Datos de respuesta  a registro  de orden aprobada en compramas orden id '.$orden->id.' .vp663');
-
-
-       $notas='Registro de orden en compramas.';
-
-
-       if (isset($res->mensaje)) {
-         $notas=$notas.$res->mensaje.' ';
-       }
-
-       if (isset($res->codigo)) {
-         $notas=$notas.$res->codigo.' ';
-       }
-
-       
-
-       if (isset($res->message)) {
-         $notas=$notas.$res->message.' ';
-       }
-
-       if (isset($res->causa->message)) {
-         $notas=$notas.$res->causa->message.' ';
-       }
-
-
-       $notas=$notas.'Codigo: VP.';
-
-
-      if (isset($res->codigo)) {
-        
-        if ($res->codigo=='200') {
-
-             $dtt = array(
-                'json' => $result,
-                'estado_compramas' => $res->codigo
-                
-              );
-
-            $orden->update($dtt);
-
-            $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
-
-            $data_history = array(
-                'id_orden' => $orden->id, 
-               'id_status' => '9', 
-                'notas' => $notas, 
-                'json' => json_encode($result), 
-               'id_user' => 1
-            );
-
-            $history=AlpOrdenesHistory::create($data_history);
-
-            try {
-              Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
-
-           Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
-              
-            } catch (\Exception $e) {
-
-              activity()->withProperties(1)
-                        ->log('error envio de correo');
-              
-            }
-          
-         
-        }else{
-
-            $dtt = array(
-              'json' => $result,
-              'estado_compramas' => $res->codigo,
-              'envio_compramas' => '3'
-              
-            );
-
-            $orden->update($dtt);
-
-          $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
-
-          $data_history = array(
-              'id_orden' => $orden->id, 
-             'id_status' => '9', 
-              'notas' => 'Error '.$notas, 
-              'json' => json_encode($result), 
-             'id_user' => 1
-          );
-
-            $history=AlpOrdenesHistory::create($data_history);
-
-            try {
-
-              Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
-
-           Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
-              
-            } catch (\Exception $e) {
-
-              activity()->withProperties(1)
-                        ->log('error envio de correo');
-              
-            }
-
-          
-
-
-        }
-
-
-      }else{
-
-        $notas='No hubo respuesta compramas';
-
-        $data_history = array(
-            'id_orden' => $orden->id, 
-           'id_status' => '9', 
-            'notas' => $notas,
-            'json' => json_encode($result), 
-           'id_user' => 1
-        );
-
-        $history=AlpOrdenesHistory::create($data_history);
-
-          $texto='No hubo respuesta compramas VP';
-
-          try {
-            
-          Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
-
-           Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
-          } catch (\Exception $e) {
-
-            activity()->withProperties(1)->log('error envio de correo');
-            
-          }
-                     
-
-      }
-
-
-
-      
-
-}
 
 
 
