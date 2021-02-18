@@ -337,7 +337,7 @@ class VerificarPagos extends Command
                 'tipoServicio' => 1, 
                 'retorno' => "false", 
                 'totalFactura' => $orden->monto_total, 
-                'subTotal' => $orden->base_impuesto, 
+                'subTotal' => $orden->monto_total-$orden->monto_impuesto, 
                 'iva' => $orden->monto_impuesto, 
                 'fechaPedido' => date("Ymd", strtotime($orden->created_at)), 
                 'horaMinPedido' => "00:00", 
