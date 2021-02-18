@@ -9,6 +9,7 @@ use App\Models\AlpFeriados;
 use App\Models\AlpFormaCiudad;
 use App\Models\AlpFormasenvio;
 use App\Models\AlpImpuestos;
+use App\Models\AlpProductos;
 
 use App\Models\AlpPagos;
 use App\Models\AlpEnvios;
@@ -434,7 +435,7 @@ class VerificarPagosHora extends Command
 
                // dd($idpago);
 
-               if ($diff>30) {
+               if ($diff>$configuracion->vence_ordenes_pago) {
 
                 $data_update = array(
                   'estatus' =>4, 

@@ -9,7 +9,6 @@ use App\Models\AlpFeriados;
 use App\Models\AlpFormaCiudad;
 use App\Models\AlpFormasenvio;
 use App\Models\AlpImpuestos;
-use App\Models\AlpProductos;
 
 use App\Models\AlpPagos;
 use App\Models\AlpEnvios;
@@ -32,7 +31,7 @@ use Exception;
 
 use Illuminate\Console\Command;
 
-class VerificarPagos extends Command
+class VerificarPagosOLD extends Command
 {
     /**
      * The name and signature of the console command.
@@ -74,11 +73,11 @@ class VerificarPagos extends Command
 
       $d=$date->subDay(3)->format('Y-m-d');
       
-        $ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
-     //   $ordenes=AlpOrdenes::where('id', '15212')->get();
+        //$ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
+        $ordenes=AlpOrdenes::where('id', '11043')->get();
         
 
-       // echo count($ordenes);
+        echo count($ordenes);
         
       $configuracion = AlpConfiguracion::where('id', '1')->first();
 
@@ -114,7 +113,7 @@ class VerificarPagos extends Command
           if (isset($preference)) {
 
             $cantidad=count($preference['response']['results']);
-            $aproved=0;
+            $aproved=1;
             $cancel=0;
             $pending=0;
 
@@ -1493,8 +1492,9 @@ public function getApiUrl($endpoint, $jsessionid)
 
                       }
 
-                    }
 
+                      
+                  }
                   }
 
               $cliente =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista','alp_clientes.doc_cliente as doc_cliente')
@@ -1527,7 +1527,7 @@ public function getApiUrl($endpoint, $jsessionid)
                 'tipoServicio' => 1, 
                 'retorno' => "false", 
                 'totalFactura' => $orden->monto_total, 
-                'subTotal' => $orden->monto_total-$orden->monto_impuesto, 
+                'subTotal' => $orden->base_impuesto, 
                 'iva' => $orden->monto_impuesto, 
                 'fechaPedido' => date("Ymd", strtotime($orden->created_at)), 
                 'horaMinPedido' => "00:00", 
@@ -1540,7 +1540,7 @@ public function getApiUrl($endpoint, $jsessionid)
 
               $dataraw=json_encode($o);
 
-              echo $dataraw.' ----  ';
+              dd($dataraw);
 
               $urls=$configuracion->compramas_url.'/registerOrder/'.$configuracion->compramas_hash;
 
@@ -1572,9 +1572,6 @@ public function getApiUrl($endpoint, $jsessionid)
       curl_close($ch);
 
       $res=json_decode($result);
-
-
-      echo $result;
 
        Log::info('Respuesta de compramas al registro de la orden '.json_encode($res));
        
@@ -1716,8 +1713,6 @@ public function getApiUrl($endpoint, $jsessionid)
                      
 
       }
-
-
 
       
 
