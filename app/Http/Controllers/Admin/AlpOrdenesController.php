@@ -311,7 +311,7 @@ public function compramasupdate()
 
 
                  $actions = " 
-                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'>
+                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'  target='_blank'>
                       ver detalles
                   </a>
 
@@ -568,7 +568,7 @@ public function compramasupdate()
 
 
                  $actions = " 
-                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'>
+                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'  target='_blank'>
                       ver detalles
                   </a>
 
@@ -775,7 +775,7 @@ public function compramasupdate()
 
 
                  $actions = " 
-                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'>
+                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'  target='_blank'>
                       ver detalles
                   </a>
 
@@ -986,7 +986,7 @@ public function compramasupdate()
 
 
                  $actions = " 
-                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'>
+                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'  target='_blank'>
                                                 ver detalles
                                             </a>  <div style='display: inline-block;' class='estatus_".$row->id."'>
                                            ";
@@ -1389,7 +1389,7 @@ public function compramasupdate()
              $estatus="<span class='badge badge-default' >".$row->estatus_nombre."</span>";
 
                  $actions = " 
-                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'>
+                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'  target='_blank'>
                                                 ver detalles
                                             </a> ";
 
@@ -1598,7 +1598,7 @@ public function compramasupdate()
 
 
                  $actions = " 
-                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'>
+                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'  target='_blank'>
                                                 ver detalles
                                             </a> ";
 
@@ -1804,7 +1804,7 @@ public function compramasupdate()
 
 
                  $actions = " 
-                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'>
+                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."' target='_blank'>
                                                 ver detalles
                                             </a> ";
 
@@ -2010,7 +2010,7 @@ public function compramasupdate()
 
 
                  $actions = " 
-                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'>
+                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'  target='_blank'>
                                                 ver detalles
                                             </a> ";
 
@@ -2235,7 +2235,7 @@ public function compramasupdate()
 
 
                  $actions = " 
-                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'>
+                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'  target='_blank'>
                                                 ver detalles
                                             </a>  <div style='display: inline-block;' class='estatus_".$row->id."'>
                                             <button data-id='".$row->id."'  data-codigo='".$row->cod_oracle_pedido."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-info confirmar' > ".$row->estatus_nombre." </button></div>";
@@ -3317,7 +3317,7 @@ public function compramasupdate()
              $estatus="<span class='badge badge-default' >".$row->estatus_nombre."</span>";
 
                  $actions = " 
-                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'>
+                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'  target='_blank'>
                                                 ver detalles
                                             </a> ";
 
@@ -3516,7 +3516,7 @@ public function compramasupdate()
 
 
                  $actions = " 
-                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detallealmacen', $row->id)."'>
+                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detallealmacen', $row->id)."' target='_blank'>
                                                 ver detalles
                                             </a>  <div style='display: inline-block;' class='estatus_".$row->id."'>
                                            ";
