@@ -343,32 +343,59 @@ Orden {{$orden->id}}
                          <td>{{ date("d/m/Y H:i:s", strtotime($orden->created_at)) }}</td>
                      </tr>
 
-                     @if($orden->estatus!=4 && $orden->estatus!=8)
-
-                         @if(isset($pago_aprobado->id))
-
-                             <tr>
-                                 <td>Fecha de pago Aprobado </td>
-                                 <td>{{ date("d/m/Y H:i:s", strtotime($pago_aprobado->created_at)) }}</td>
-                             </tr>
-
-                         @else
-
-                            <tr>
-                                 <td>Fecha de pago Aprobado </td>
-                                 <td> Aun No hay pago aprobado </td>
-                             </tr>
-
-                         @endif
-
-                     @else
+                     @if(is_null($p_a))
 
                         <tr>
                              <td>Fecha de pago Aprobado </td>
                              <td> Aun No hay pago aprobado </td>
+                        </tr>
+
+                      @else
+
+                      <tr>
+                         <td><b>Fecha de pago Aprobado</b> </td>
+                         <td><b>{{ date("d/m/Y H:i:s", strtotime($pago_aprobado->created_at)) }}</b></td>
+                     </tr>
+
+                             <tr>
+                                 <td><b>Monto de Pago </b> </td>
+                                 <td>
+                                    
+
+
+                                        @if(isset($p_a->transaction_amount))
+
+                                            <b>{{number_format($p_a->transaction_amount, 0, ',', '.')}}</b>
+
+
+                                        @endif
+
+
+                                 </td>
+                             </tr>
+
+                         @endif
+
+                       @if(is_null($p_a))
+
+                       @else
+
+                         <tr>
+                             <td><b>Forma de Pago </b> </td>
+                             <td>
+                                    
+                                @if(isset($p_a->payment_method_id))
+
+                                    <b>{{ucwords($p_a->payment_method_id.' '.$p_a->payment_type_id)}}</b>
+
+
+                                @endif
+
+                             </td>
                          </tr>
 
                      @endif
+
 
 
 
