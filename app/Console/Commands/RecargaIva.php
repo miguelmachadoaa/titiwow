@@ -107,7 +107,7 @@ class RecargaIva extends Command
 
             $base_impuesto=$resto;
 
-            $impuesto=($resto/(1+$valor_impuesto))*$valor_impuesto;
+            $monto_impuesto=($resto/(1+$valor_impuesto))*$valor_impuesto;
 
           }
 
