@@ -2517,6 +2517,28 @@ public function compramasupdate()
           ->where('alp_ordenes_pagos.id_orden', $id)
           ->get();
 
+
+             $p_a=null;
+
+          foreach ($pagos as $p) {
+
+            $jsonp=json_decode($p->json);
+
+            if (isset($jsonp->response)) {
+              
+              if ( $jsonp->response->status=='approved') {
+
+                if ($jsonp->response->status_detail=='accredited' ) {
+
+                  $p_a=$jsonp->response;
+                  
+                }
+              }
+            }
+            # code...
+          }
+
+
           //dd($pago);
 
     $history = AlpOrdenesHistory::select('alp_ordenes_history.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre' )
@@ -2581,7 +2603,7 @@ public function compramasupdate()
          // dd($history_envio);
 
 
-        return view('admin.ordenes.detalle', compact('detalles', 'orden', 'history', 'pago', 'pagos', 'cliente', 'direccion', 'cupones', 'formaenvio', 'envio', 'pago_aprobado', 'history_envio', 'user', 'descuentoicg'  ));
+        return view('admin.ordenes.detalle', compact('detalles', 'orden', 'history', 'pago', 'pagos', 'cliente', 'direccion', 'cupones', 'formaenvio', 'envio', 'pago_aprobado', 'history_envio', 'user', 'descuentoicg', 'p_a'  ));
 
     }
 

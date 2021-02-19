@@ -964,13 +964,6 @@ class AlpCartController extends JoshController
 
           $idc=$id_orden*1024;
 
-
-           
-
-
-
-
-
           return redirect('cart/'.$idc.'/gracias?pago=pendiente');
           
         #  return view('frontend.order.procesar_completo', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago', 'estatus_aviso'));
