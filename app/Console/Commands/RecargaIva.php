@@ -51,7 +51,7 @@ class RecargaIva extends Command
     public function handle()
     {
         
-       $ordenes=AlpOrdenes::where('id','>', '13380')->get();
+       $ordenes=AlpOrdenes::where('id','>', '1788')->get();
 
        foreach ($ordenes as $o) {
 
