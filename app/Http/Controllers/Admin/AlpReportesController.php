@@ -2102,5 +2102,77 @@ public function usocupones()
 
 
 
+public function erroriva() 
+    {
+
+        
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/erroriva ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/erroriva');
+
+
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+        $almacenes=AlpAlmacenes::where('estado_registro', '=', 1)->get();
+
+        $productos=AlpProductos::where('estado_registro', '=', 1)->get();
+
+
+
+        return view('admin.reportes.erroriva', compact('almacenes', 'productos'));
+
+    }
+
+     public function exporterroriva(Request $request) 
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exporterroriva  ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exporterroriva ');
+
+
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+        
+
+        return Excel::download(new ErrorivaExport($request->hasta, $request->id_almacen, $request->id_producto), 'erroriva_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
+    }
+
+
+
+
+
+
+
+
 
 }

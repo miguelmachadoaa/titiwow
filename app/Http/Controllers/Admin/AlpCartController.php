@@ -4713,11 +4713,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                 $impuesto=$impuesto+(($row->precio_oferta*$row->cantidad)/(1+$valor_impuesto))*$valor_impuesto;
 
-              }
+                }
 
-              
-
-              }
+            }
 
             
 
