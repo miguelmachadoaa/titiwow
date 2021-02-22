@@ -394,6 +394,23 @@ Orden {{$orden->id}}
                              </td>
                          </tr>
 
+
+                          <tr>
+                             <td><b>Id Pago </b> </td>
+                             <td>
+                                    
+                                @if(isset($p_a->id))
+
+                                    <b>{{ucwords($p_a->id)}}</b>
+
+
+                                @endif
+
+                             </td>
+                         </tr>
+
+                         
+
                      @endif
 
 
