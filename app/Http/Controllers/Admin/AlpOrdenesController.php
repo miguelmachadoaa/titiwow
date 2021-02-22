@@ -2500,6 +2500,16 @@ public function compramasupdate()
           ->where('alp_ordenes_detalle.id_orden', $id)
           ->get();
 
+    $subtotal =  DB::table('alp_ordenes_detalle')->select(DB::raw("SUM(alp_ordenes_detalle.precio_total) as subtotal"))
+    ->groupBy('alp_ordenes_detalle.id_orden')
+    ->where('alp_ordenes_detalle.id_orden', $id)
+    ->whereNull('alp_ordenes_detalle.deleted_at')->first();
+
+    $impuestos =  DB::table('alp_ordenes_detalle')->select(DB::raw("SUM(alp_ordenes_detalle.monto_impuesto) as subimpuesto"))
+    ->groupBy('alp_ordenes_detalle.id_orden')
+    ->where('alp_ordenes_detalle.id_orden', $id)
+    ->whereNull('alp_ordenes_detalle.deleted_at')->first();
+
     $pago = AlpPagos::select('alp_ordenes_pagos.*','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago')
           ->join('alp_formas_pagos', 'alp_ordenes_pagos.id_forma_pago', '=', 'alp_formas_pagos.id')
           ->where('alp_ordenes_pagos.id_orden', $id)
@@ -2602,8 +2612,7 @@ public function compramasupdate()
 
          // dd($history_envio);
 
-
-        return view('admin.ordenes.detalle', compact('detalles', 'orden', 'history', 'pago', 'pagos', 'cliente', 'direccion', 'cupones', 'formaenvio', 'envio', 'pago_aprobado', 'history_envio', 'user', 'descuentoicg', 'p_a'  ));
+        return view('admin.ordenes.detalle', compact('detalles', 'orden', 'history', 'pago', 'pagos', 'cliente', 'direccion', 'cupones', 'formaenvio', 'envio', 'pago_aprobado', 'history_envio', 'user', 'descuentoicg', 'p_a','subtotal','impuestos'  ));
 
     }
 

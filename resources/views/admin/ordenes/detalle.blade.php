@@ -508,6 +508,7 @@ Orden {{$orden->id}}
                          <th>IVA</th>
                          <th>Precio</th>
                          <th>Cantidad</th>
+                         <th>Monto IVA</th>
                          <th>SubTotal</th>
                      </tr>
                  </thead>
@@ -522,30 +523,38 @@ Orden {{$orden->id}}
                             @else
                             <td>Excento</td>
                             @endif
+                            
                             @if($row->id_impuesto == 1)
-                            <td>{{number_format(($row->precio_unitario/1.19),0)}}</td>
+                            <td>{{number_format(($row->precio_unitario/1.19),2)}}</td>
                             @else
-                            <td>{{number_format($row->precio_unitario,0)}}</td>
+                            <td>{{number_format($row->precio_unitario,2)}}</td>
                             @endif
                             <td> {{ $row->cantidad }} </td>
-                            <td>{{ number_format(($row->precio_total- $row->monto_impuesto), 0) }}</td>
+                            @if($row->id_impuesto == 1)
+                            <td>{{number_format($row->monto_impuesto,2)}}</td>
+                            @else
+                            <td>N/A</td>
+                            @endif
+                            <td>{{ number_format(($row->precio_total- $row->monto_impuesto), 2) }}</td>
                         </tr>
                      @endforeach
 
                      <tr>
-                         <td style="text-align: right;" colspan="6"><b> Subtotal: </b></td>
-                         <td >{{ number_format($orden->monto_total+$orden->monto_descuento-$orden->monto_impuesto, 0) }}</td>
+                         <td style="text-align: right;" colspan="7"><b> Subtotal: </b></td>
+                         <!--td >{{ number_format($orden->monto_total+$orden->monto_descuento-$orden->monto_impuesto, 0) }}</td-->
+                         <td >{{ number_format($subtotal->subtotal-$impuestos->subimpuesto, 0) }}</td>
+
                      </tr>
 
 
                      <tr>
-                         <td style="text-align: right;" colspan="6"><b> Impuesto: </b></td>
-                         <td >{{ number_format($orden->monto_impuesto, 0) }}</td>
+                         <td style="text-align: right;" colspan="7"><b> Impuesto: </b></td>
+                         <td >{{ number_format($impuestos->subimpuesto, 0) }}</td>
                      </tr>
 
 
                      <tr>
-                         <td style="text-align: right;" colspan="6"><b> Envio: </b></td>
+                         <td style="text-align: right;" colspan="7"><b> Envio: </b></td>
                          <td >
 
                           @if(isset($envio->costo))
@@ -573,7 +582,7 @@ Orden {{$orden->id}}
                        @foreach($cupones as $cupon)
 
                        <tr>
-                         <td style="text-align: right;" colspan="6"><b> Cupón {{ $cupon->codigo_cupon}}: </b></td>
+                         <td style="text-align: right;" colspan="7"><b> Cupón {{ $cupon->codigo_cupon}}: </b></td>
                          <td >{{ number_format($cupon->monto_descuento, 0) }}</td>
                      </tr>
 
@@ -589,7 +598,7 @@ Orden {{$orden->id}}
                        @foreach($descuentoicg as $di)
 
                        <tr>
-                         <td style="text-align: right;" colspan="6"><b> Descuento ICG: </b></td>
+                         <td style="text-align: right;" colspan="7"><b> Descuento ICG: </b></td>
                          <td >{{ number_format($di->monto_descuento, 0) }}</td>
                      </tr>
 
@@ -602,7 +611,7 @@ Orden {{$orden->id}}
                       
 
                      <tr>
-                         <td style="text-align: right;" colspan="6"><b> Total: </b></td>
+                         <td style="text-align: right;" colspan="7"><b> Total: </b></td>
 
                           @if(isset($envio->costo))
 
@@ -631,7 +640,7 @@ Orden {{$orden->id}}
                      @if(($orden->monto_total_base-$orden->monto_total)>0)
 
                       <tr>
-                         <td style="text-align: right;" colspan="6"><b> Descuentos Totales: </b></td>
+                         <td style="text-align: right;" colspan="7"><b> Descuentos Totales: </b></td>
                          <td >{{ number_format($orden->monto_total_base-$orden->monto_total, 0) }}</td>
                      </tr>
 
