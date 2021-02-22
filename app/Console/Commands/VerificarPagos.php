@@ -242,7 +242,7 @@ class VerificarPagos extends Command
                         'id_forma_pago' => $ord->id_forma_pago, 
                         'id_estatus_pago' => '2', 
                         'monto_pago' => $ord->monto_total, 
-                        'json' => json_encode([]), 
+                        'json' => json_encode($preference), 
                         'id_user' => '1'
                       );
 
