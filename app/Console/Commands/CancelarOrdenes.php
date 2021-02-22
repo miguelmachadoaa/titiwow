@@ -173,7 +173,7 @@ class CancelarOrdenes extends Command
 
                           if ($total_descuentos_icg>0) {
 
-                              $this->registroIcgCancelar($orden->id);
+                              #$this->registroIcgCancelar($orden->id);
 
                             }
 
