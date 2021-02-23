@@ -49,13 +49,15 @@ use App\State;
 use App\Models\AlpOrdenes;
 use App\Models\AlpProductos;
 use App\Models\AlpAlmacenes;
+use App\Models\AlpAlmacenProducto;
+use App\Models\AlpInventario;
 use App\Imports\UsersImport;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\DB;
 use Sentinel;
+use DB;
 
 use Carbon\Carbon;
 
@@ -2167,10 +2169,135 @@ public function erroriva()
         return Excel::download(new ErrorivaExport($request->hasta, $request->id_almacen, $request->id_producto), 'erroriva_desde_'.$request->desde.'_hasta_'.$request->hasta.'.xlsx');
     }
 
+    private function inventario()
+    {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+              ->performedOn($user)
+              ->causedBy($user)
+              ->log('AlpInventarioController/inventario ');
+
+        }else{
+
+          activity()
+          ->log('AlpInventarioController/inventario');
+
+        }
+
+
+      $entradas = AlpInventario::groupBy('id_producto')->groupBy('id_almacen')
+              ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
+              ->where('alp_inventarios.operacion', '1')
+              ->whereNull('deleted_at')
+              ->get();
+
+              $inv = array();
+              $inv2 = array();
+
+             foreach ($entradas as $row) {
+                
+                $inv[$row->id_producto]=$row->cantidad_total;
+
+                $inv2[$row->id_producto][$row->id_almacen]=$row->cantidad_total;
+
+              }
 
 
 
 
+            $salidas = AlpInventario::select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
+              ->groupBy('id_producto')
+              ->groupBy('id_almacen')
+              ->where('operacion', '2')
+              ->whereNull('deleted_at')
+              ->get();
+
+              foreach ($salidas as $row) {
+                
+                //$inv[$row->id_producto]= $inv[$row->id_producto]-$row->cantidad_total;
+
+                  if (  isset( $inv2[$row->id_producto][$row->id_almacen])) {
+                    $inv2[$row->id_producto][$row->id_almacen]= $inv2[$row->id_producto][$row->id_almacen]-$row->cantidad_total;
+                  }else{
+
+                    $inv2[$row->id_producto][$row->id_almacen]= 0;
+                  }
+
+              
+                //$inv2[$row->id_producto][$row->id_almacen]= $row->cantidad_total;
+
+            }
+
+           // dd($inv2);
+
+            return $inv2;
+      
+    }
+
+
+    public function gestionar($id)
+    {
+
+      if (!Sentinel::getUser()->hasAnyAccess(['reportes.inventariopordia'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('almacen/reporte ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('almacen/reporte');
+
+        }
+
+       
+       $productos = AlpProductos::get();
+
+       $almacen = AlpAlmacenes::where('id', $id)->first();
+
+       $cs=AlpAlmacenProducto::select(
+        'alp_almacen_producto.*', 
+        'alp_productos.nombre_producto as nombre_producto',
+        'alp_productos.referencia_producto_sap as referencia_producto_sap',
+        'alp_productos.referencia_producto as referencia_producto',
+        'alp_productos.imagen_producto as imagen_producto'
+      )
+       ->join('alp_productos', 'alp_almacen_producto.id_producto', '=', 'alp_productos.id')
+       ->where('alp_almacen_producto.id_almacen', $id)
+       ->whereNull('alp_almacen_producto.deleted_at')
+       ->where('id_almacen', $id)
+       ->groupBy('alp_productos.id')
+       ->get();
+
+       $inventario=$this->inventario();
+
+       //dd($inventario);
+
+       $check = array();
+
+       foreach ($cs as $c) {
+
+        $check[$c->id_producto]=1;
+         # code...
+       }
+
+
+        return view('admin.reportes.gestionar', compact('almacen', 'productos', 'check', 'inventario', 'cs'));
+    }
 
 
 

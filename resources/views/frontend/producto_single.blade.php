@@ -393,7 +393,7 @@
                                 @if($producto->id_impuesto == 1)
                                     IVA incluido
                                 @elseif($producto->id_impuesto == 2)
-                                    Exento de IVA
+                                    Excento de IVA
                                 @endif
                             </p>
 

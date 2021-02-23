@@ -890,6 +890,7 @@ Route::group(['prefix' => 'estatuspagos'], function () {
     Route::resource('almacenes', 'Admin\AlpAlmacenesController');
 
 
+    Route::get('reportes/almacenes/{id}/gestionar', 'Admin\AlpReportesController@gestionar');
 
 
 
