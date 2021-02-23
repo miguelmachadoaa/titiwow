@@ -1178,7 +1178,15 @@
                     </a>
                 </li>
             @endif
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.inventariopordia']))
 
+            <li {!! (Request::is('admin/reportes/almacenes/1/gestionar') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ secure_url('admin/reportes/almacenes/1/gestionar') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Inventario Actual Bogotá
+                </a>
+            </li>
+            @endif
 
             
             
