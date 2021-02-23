@@ -64,11 +64,6 @@ class NotificacionCarrito extends Command
          $d=$date->subDay(45)->format('Y-m-d');
 
 
-        
-
-
-
-
 
         $carritos =  DB::table('alp_carrito')->select('alp_carrito.*','users.first_name as first_name','users.last_name as last_name','users.email as email')
           ->join('users','alp_carrito.id_user' , '=', 'users.id')
@@ -76,11 +71,6 @@ class NotificacionCarrito extends Command
           ->whereDate('alp_carrito.created_at', '>', $d)
          ->where('alp_carrito.notificacion','=', 0)
           ->get();
-
-         // dd($carritos);
-
-
-         //dd($carritos);
 
 
         activity()->withProperties($carritos)->log('carritos a verificar');
@@ -96,33 +86,25 @@ class NotificacionCarrito extends Command
 
         $diff = $date->diffInHours($now); 
 
-        if ($diff>24) {
+        if ($diff<24){
 
-        activity()->withProperties($car)->log('car');
+          activity()->withProperties($car)->log('car');
 
-
-        $detalles =  DB::table('alp_carrito_detalle')->select('alp_carrito_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.precio_base as precio_base','alp_productos.cantidad as cantidad_producto')
+          $detalles =  DB::table('alp_carrito_detalle')->select('alp_carrito_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.precio_base as precio_base','alp_productos.cantidad as cantidad_producto')
           ->join('alp_productos','alp_carrito_detalle.id_producto' , '=', 'alp_productos.id')
           ->where('alp_carrito_detalle.id_carrito', $car->id)->get();
 
-
           $detalles=$this->addOferta($detalles);
 
-            $this->addibm($car, $detalles, $fecha_hoy);
+          $this->addibm($car, $detalles, $fecha_hoy);
 
+          $arrayName = array('notificacion' => 1 );
 
-            $arrayName = array('notificacion' => 1 );
+          $ord=AlpCarrito::where('id', $car->id)->first();
 
-            $ord=AlpCarrito::where('id', $car->id)->first();
-
-            $ord->update($arrayName);
-
-
-           // die;
+          $ord->update($arrayName);
 
         }
-
-
 
       }
 

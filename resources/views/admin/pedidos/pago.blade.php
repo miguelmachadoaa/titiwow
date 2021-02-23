@@ -146,6 +146,13 @@ div.overlay > div {
 {{-- Page content --}}
 @section('content')
 
+
+ <div class="row detallecarrito">
+    <div class="col-sm-12">
+        {{json_encode($cart)}}
+    </div>
+</div>
+
 <input type="hidden" name="tomapedidos" id="tomapedidos" value="1">
 
 <div style="display:none;" class="overlay"><div>Procesando...</div></div>
