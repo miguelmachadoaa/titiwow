@@ -6062,8 +6062,6 @@ public function verificarDireccion( Request $request)
         if (!\Session::has('orden')){
 
         if ($total>0) {
-            
-
          
           $data_orden = array(
               'referencia ' => time(), 
@@ -6225,6 +6223,9 @@ public function verificarDireccion( Request $request)
 
                   }
                }
+
+            
+
 
 
 
@@ -6457,6 +6458,7 @@ public function verificarDireccion( Request $request)
           foreach ($cart as $detalle) {
 
             if (isset($detalle->id)) {
+            if ($detalle->precio_base>0) {
              
 
             $monto_total_base=$monto_total_base+($detalle->cantidad*$detalle->precio_base);
@@ -6588,8 +6590,7 @@ public function verificarDireccion( Request $request)
                  }
 
                }
-
-
+               }
 
           }//endfreach detalle
 

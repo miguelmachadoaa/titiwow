@@ -2791,10 +2791,14 @@ public function postdireccion(DireccionModalRequest $request)
 
           $p->precio_oferta=$d->precio_unitario;
 
+          $p->precio_base=$d->precio_base;
+
           $cart[$d->slug]=$p;
 
 
         }
+
+       # dd($cart);  
 
         \Session::put('cart', $cart);
 

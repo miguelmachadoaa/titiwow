@@ -2534,16 +2534,39 @@ public function compramasupdate()
 
             $jsonp=json_decode($p->json);
 
+           // dd($jsonp);
+
             if (isset($jsonp->response)) {
-              
-              if ( $jsonp->response->status=='approved') {
 
-                if ($jsonp->response->status_detail=='accredited' ) {
+              if (isset($jsonp->response->results)) {
 
-                  $p_a=$jsonp->response;
+                foreach ($jsonp->response->results as $rs) {
                   
+                  if ( $rs->status=='approved') {
+
+                    if ($rs->status_detail=='accredited' ) {
+
+                      $p_a=$rs;
+                      
+                    }
+                  }
                 }
+                
+              }else{
+
+                if ( $jsonp->response->status=='approved') {
+
+                  if ($jsonp->response->status_detail=='accredited' ) {
+
+                    $p_a=$jsonp->response;
+                    
+                  }
+                }
+
+
               }
+              
+              
             }
             # code...
           }

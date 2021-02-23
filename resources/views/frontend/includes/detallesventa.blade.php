@@ -11,6 +11,7 @@
 
 
 
+
 @if(count($formaspago))
 
             <div class="col-sm-12 ">

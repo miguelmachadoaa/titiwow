@@ -72,7 +72,7 @@ class VerificarPagosHora extends Command
       $d=$date->subDay(3)->format('Y-m-d');
       
         $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
-        #$ordenes=AlpOrdenes::where('id', '11043')->where('countvp','>=', '5')->get();
+       # $ordenes=AlpOrdenes::where('id', '15532')->where('countvp','>=', '5')->get();
         //
         
         echo count($ordenes);
@@ -105,7 +105,7 @@ class VerificarPagosHora extends Command
 
           $preference = MP::get("/v1/payments/search?external_reference=".$ord->referencia);
           
-
+        //  dd($preference);
 
           if (isset($preference['response']['results'][0])) {
          // if (isset($preference)) {
@@ -242,7 +242,7 @@ class VerificarPagosHora extends Command
                         'id_forma_pago' => $ord->id_forma_pago, 
                         'id_estatus_pago' => '2', 
                         'monto_pago' => $ord->monto_total, 
-                        'json' => json_encode([]), 
+                        'json' => json_encode($preference), 
                         'id_user' => '1'
                       );
 

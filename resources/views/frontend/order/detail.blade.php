@@ -153,6 +153,10 @@ div.overlay > div {
 
 <div class="container contain_body container_cart_detail ">
 
+   
+
+
+
     <div class="col-sm-6">
         
         @if(count($cart))
@@ -401,7 +405,6 @@ div.overlay > div {
 
 
   
-
 
 
 
