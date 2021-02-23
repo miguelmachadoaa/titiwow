@@ -4627,7 +4627,13 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       foreach($cart as $row) {
 
         if (isset($row->id)) {
-           $total=$total+($row->cantidad*$row->precio_oferta);
+
+          if ($row->precio_base>0) {
+            $total=$total+($row->cantidad*$row->precio_oferta);
+          }
+
+           
+
         }
 
        
@@ -6455,9 +6461,12 @@ public function verificarDireccion( Request $request)
 
           $valor_impuesto=0;
 
+          #dd(json_encode($cart));
+
           foreach ($cart as $detalle) {
 
             if (isset($detalle->id)) {
+
             if ($detalle->precio_base>0) {
              
 
@@ -9837,7 +9846,7 @@ public function reiniciarancheta()
     private function consultaIcg()
     {
 
-      $configuracion=AlpConfiguracion::where('id', '=', 1)->first();
+     /* $configuracion=AlpConfiguracion::where('id', '=', 1)->first();
 
       $s_user= \Session::get('user');
 
@@ -9943,8 +9952,9 @@ public function reiniciarancheta()
 
                        
 
-      }
+      }*/
 
+      return 0;
       
     }
 
@@ -9956,7 +9966,7 @@ public function reiniciarancheta()
     {
 
      //dd($id_orden);
-      $configuracion=AlpConfiguracion::where('id', '=', 1)->first();
+    /*  $configuracion=AlpConfiguracion::where('id', '=', 1)->first();
 
       $s_user= \Session::get('user');
 
@@ -10064,7 +10074,9 @@ public function reiniciarancheta()
 
                        
 
-      }
+      }*/
+
+      return 0;
 
       
     }

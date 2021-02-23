@@ -154,6 +154,8 @@ class AlpPedidosController extends JoshController
 
           $productos=$this->addOferta($productos);
 
+          //dd($productos);
+
           $categorias=AlpCategorias::orderBy('nombre_categoria')->get();
 
           $marcas=AlpMarcas::orderBy('nombre_marca')->get();
@@ -2635,7 +2637,7 @@ public function postdireccion(DireccionModalRequest $request)
 
                     }else{
 
-                     /* $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $r)->first();
+                      $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $r)->where('city_id', '62')->first();
 
                       if (isset($pregiogrupo->id)) {
                        
@@ -2645,7 +2647,7 @@ public function postdireccion(DireccionModalRequest $request)
                           $precio[$row->id]['mostrar']=$pregiogrupo->mostrar_descuento;
 
 
-                      }*/
+                      }
 
                       
 
