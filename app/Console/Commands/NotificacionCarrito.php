@@ -53,6 +53,7 @@ class NotificacionCarrito extends Command
     {
         //
         $configuracion=AlpConfiguracion::where('id', '1')->first();
+        
 
          $date = Carbon::now();
 
@@ -61,17 +62,17 @@ class NotificacionCarrito extends Command
         $fecha_hoy=$date->format('m/d/Y');
 
          $d=$date->subDay(45)->format('Y-m-d');
+         
 
         $carritos =  DB::table('alp_carrito')->select('alp_carrito.*','users.first_name as first_name','users.last_name as last_name','users.email as email')
           ->join('users','alp_carrito.id_user' , '=', 'users.id')
           ->whereDate('alp_carrito.created_at', '>', $d)
-         ->where('alp_carrito.notificacion','=', 0)
+         ->where('alp_carrito.notificacion','=', 1)
           ->get();
-
 
         $userarray = array();
 
-       # dd(json_encode($carritos));
+        #dd(json_encode($carritos));
 
 
         activity()->withProperties($carritos)->log('ibm_carrito carritos a verificar');
@@ -90,6 +91,8 @@ class NotificacionCarrito extends Command
         //echo $diff.' d ';
 
         if ($diff<24){
+            
+        #echo $car->id.'-';
 
           if (in_array($car->id_user, $userarray)) {
            
@@ -97,7 +100,7 @@ class NotificacionCarrito extends Command
 
             $userarray[$car->id_user]=$car->id_user;
 
-            echo $car->id_user.' - ';
+            #echo $car->id_user.' - ';
 
             activity()->withProperties($car)->log('car');
 
@@ -109,7 +112,7 @@ class NotificacionCarrito extends Command
 
             $this->addibm($car, $detalles, $fecha_hoy);
 
-            $arrayName = array('notificacion' => 1 );
+            $arrayName = array('notificacion' => 0 );
 
            $ord=AlpCarrito::where('id', $car->id)->first();
 
@@ -122,7 +125,7 @@ class NotificacionCarrito extends Command
 
         }else{
 
-          $arrayName = array('notificacion' => 1 );
+          $arrayName = array('notificacion' => 0 );
 
           $ord=AlpCarrito::where('id', $car->id)->first();
 
