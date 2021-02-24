@@ -264,7 +264,7 @@
 
 <div class="container">
     <div class="form-group">
-        <div class="col-lg-offset-10 col-lg-10" style="margin-bottom:20px;">
+        <div class="col-lg-offset-10 col-lg-2" style="margin-bottom:20px;">
             @if(empty($cliente->cod_alpinista))
                 <a style="color: red !important;" href="{{ secure_url('#') }}" class="btn btn-link delete" type="button">
                  Eliminar Cuenta 
