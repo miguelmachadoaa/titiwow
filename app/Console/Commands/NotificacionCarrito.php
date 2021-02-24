@@ -64,9 +64,6 @@ class NotificacionCarrito extends Command
 
         $carritos =  DB::table('alp_carrito')->select('alp_carrito.*','users.first_name as first_name','users.last_name as last_name','users.email as email')
           ->join('users','alp_carrito.id_user' , '=', 'users.id')
-         //> ->limit('10')
-          #->groupBy('alp_carrito.id_user')
-         # ->orderBy('alp_carrito.id', '=', 'asc')
           ->whereDate('alp_carrito.created_at', '>', $d)
          ->where('alp_carrito.notificacion','=', 0)
           ->get();
@@ -77,7 +74,7 @@ class NotificacionCarrito extends Command
        # dd(json_encode($carritos));
 
 
-        activity()->withProperties($carritos)->log('carritos a verificar');
+        activity()->withProperties($carritos)->log('ibm_carrito carritos a verificar');
 
         $i=0;
 
