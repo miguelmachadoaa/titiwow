@@ -436,20 +436,6 @@ class ClientesFrontController extends Controller
 
 
 
-           
-
-
-
-
-
-
-
-
-
-
-
-
-
             return view('frontend.clientes.misamigos', compact('referidos', 'cliente', 'user', 'configuracion', 'amigos', 'cantidad', 'states', 'cart'));
     
 

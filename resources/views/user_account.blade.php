@@ -201,7 +201,7 @@
                           <div class="form-group {{ $errors->first('marketing_email', 'has-error') }} checkbox">
                              <label style="padding: 0;">
                                 
-                                  <input type="checkbox" name="marketing_email" id="marketing_email" value="1" @if($cliente->marketing_sms==1) checked @endif>  Me gustaria recibir promociones de productos y servicios por Email.
+                                  <input type="checkbox" name="marketing_email" id="marketing_email" value="1" @if($cliente->marketing_email==1) checked @endif>  Me gustaria recibir promociones de productos y servicios por Email.
                               </label>
                               {!! $errors->first('marketing_email', '<span class="help-block">:message</span>') !!}
                           </div>
