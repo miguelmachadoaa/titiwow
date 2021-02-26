@@ -2568,70 +2568,35 @@ class AlpCartController extends JoshController
       $cart=$this->addPromocion();
 
 
-
-
-
-
-
-
-
-      //echo $carrito;
-
-
-
       $cart=$this->reloadCart();
-
 
 
       $total=$this->total();
 
 
-
       $total_base=$this->precio_base();
-
 
 
       $impuesto=$this->impuesto();
 
-
-
       $id_almacen=$this->getAlmacenCart();
-
 
 
       $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
 
 
-      //dd($total);
-
-
-
       if ($total<0 ){
 
-
-
         return redirect('cart/show');
-
-
 
       }
 
 
 
-
-
       if (!isset($almacen->id) ){
 
-
-
-        //dd($almacen);
-
-
-
         return redirect('cart/show');
-
-
 
       }
 

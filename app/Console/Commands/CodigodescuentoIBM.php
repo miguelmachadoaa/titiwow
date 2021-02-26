@@ -117,6 +117,7 @@ class CodigodescuentoIBM extends Command
                         'monto_minimo' =>'30000', 
                         'maximo_productos' =>'6', 
                         'primeracompra' => '0', 
+                        'origen' => 'Descuento IBM', 
                         'id_user' =>'1'
                     );
                      

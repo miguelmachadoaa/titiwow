@@ -105,6 +105,7 @@ class AlpCuponesController extends JoshController
                  $row->valor_cupon, 
                  $row->tipo_reduccion, 
                  $row->limite_uso, 
+                 $row->origen, 
                  date("d/m/Y H:i:s", strtotime($row->created_at)),
                  $actions
               );
@@ -203,6 +204,7 @@ class AlpCuponesController extends JoshController
             'maximo_productos' => $request->maximo_productos, 
             'primeracompra' => $request->primeracompra, 
             'registrado' => $request->registrado, 
+            'origen' => 'Creado desde Admin', 
             'id_user' =>$user_id
         );
          

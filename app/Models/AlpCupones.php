@@ -30,6 +30,7 @@ class AlpCupones extends Model
         'maximo_productos',
         'primeracompra',
         'registrado',
+        'origen',
         'estado_registro',
         'id_user'
     ];

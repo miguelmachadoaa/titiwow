@@ -115,6 +115,7 @@ class Teextranamos2IBM extends Command
                         'monto_minimo' =>'30000', 
                         'maximo_productos' =>'6', 
                         'primeracompra' => '0', 
+                        'origen' => 'Te Extrañamos IBM', 
                         'id_user' =>'1'
                     );
                      

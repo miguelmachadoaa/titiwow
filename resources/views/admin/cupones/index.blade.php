@@ -57,6 +57,7 @@ Cupones
                                     <th>Valor</th>
                                     <th>Tipo</th>
                                     <th>Limite</th>
+                                    <th>Origen</th>
                                     <th>Creado</th>
                                     <th>Accion</th>
                                 </tr>
