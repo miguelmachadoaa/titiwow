@@ -566,7 +566,9 @@ Route::get('productos/{id}/eliminarproductoacheta', array('as' => 'productos.eli
 
    
 
-
+    Route::get('reportes/precio', 'Admin\AlpReportesController@precio')->name('reportes.precio');
+   
+    Route::post('reportes/exportprecio', 'Admin\AlpReportesController@exportprecio')->name('reportes.exportprecio');
 
 
 
