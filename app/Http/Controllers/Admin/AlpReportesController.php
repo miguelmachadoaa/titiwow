@@ -38,6 +38,7 @@ use App\Exports\CuponesDescuentoExport;
 use App\Exports\CuponesUsadosExport;
 use App\Exports\InventarioExport;
 use App\Exports\ClientesExport;
+use App\Exports\PrecioExport;
 use App\Exports\FormatoSolicitudPedidoAlpinista;
 
 
@@ -46,6 +47,7 @@ use App\Http\Requests\FinancieroRequest;
 
 use App\User;
 use App\State;
+use App\Models\AlpPrecioGrupo;
 use App\Models\AlpOrdenes;
 use App\Models\AlpProductos;
 use App\Models\AlpAlmacenes;
@@ -2298,6 +2300,119 @@ public function erroriva()
 
         return view('admin.reportes.gestionar', compact('almacen', 'productos', 'check', 'inventario', 'cs'));
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public function precio() 
+    {
+
+        
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/precio ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/precio');
+
+
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+        $productos_list=AlpProductos::all();
+        
+        $precio_grupo = array();
+
+        $states = State::where('country_id','47')->get();
+        
+        $roles = DB::table('roles')->select('id', 'name')->where('roles.tipo', 2)->get();
+
+          // Show the page
+        return view('admin.reportes.precio', compact('precio_grupo', 'states', 'roles', 'productos_list'));
+
+
+
+    }
+
+
+
+     public function exportprecio(Request $request) 
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exporterroriva  ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exporterroriva ');
+
+
+        }
+
+        $productos_list=AlpProductos::all();
+
+            $query=AlpPrecioGrupo::select('alp_precios_grupos.*','config_cities.city_name as city_name', 'roles.name as name', 'alp_productos.nombre_producto as nombre_producto', 'alp_productos.referencia_producto  as referencia_producto', 'alp_productos.precio_base  as precio_base' , 'alp_productos.presentacion_producto  as presentacion_producto' )
+            ->join('alp_productos', 'alp_precios_grupos.id_producto','=', 'alp_productos.id')
+            ->join('config_cities', 'alp_precios_grupos.city_id','=', 'config_cities.id')
+            ->join('roles', 'alp_precios_grupos.id_role','=', 'roles.id');
+
+            if ($request->cities!=0) {
+              $query->where('alp_precios_grupos.city_id', $request->cities);
+            }
+
+            if ($request->rol!=0) {
+              $query->where('alp_precios_grupos.id_role', $request->rol);
+            }
+
+            if ($request->producto!=0) {
+              $query->where('alp_precios_grupos.id_producto', $request->producto);
+            }
+
+            $precio_grupo=$query->get();
+        
+
+            $states = State::where('country_id','47')->get();
+            
+            $roles = DB::table('roles')->select('id', 'name')->where('roles.tipo', 2)->get();
+
+
+        return Excel::download(new PrecioExport($precio_grupo), 'precio'.time().'.xlsx');
+
+    }
+
+
+
+
+
 
 
 
