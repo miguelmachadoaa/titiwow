@@ -6,6 +6,7 @@
             <th><b>Monto Descuento </b></th>
             <th><b>Nombre</b></th>
             <th ><b>Apellido</b></th>
+            <th ><b>Origen Cupon </b></th>
 
         </tr>
 
@@ -17,6 +18,7 @@
                 <td>{!! $row->monto_descuento!!}</td>
                 <td>{!! $row->first_name!!}</td>
                 <td>{!! $row->last_name !!}</td>
+                <td>{!! $row->origen !!}</td>
             </tr>
         @endforeach
 </table>

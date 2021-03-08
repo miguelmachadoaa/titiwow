@@ -11,6 +11,7 @@
             <th ><b>Cantidad</b></th>
             <th ><b>Total Producto</b></th>
             <th ><b>Total Descuento</b></th>
+            <th ><b>Origen Cupon</b></th>
 
         </tr>
 
@@ -27,6 +28,7 @@
                 <td>{!! $row->cantidad !!}</td>
                 <td>{!! $row->precio_total !!}</td>
                 <td>{!! $row->monto_descuento !!}</td>
+                <td>{!! $row->origen !!}</td>
             </tr>
         @endforeach
 </table>
