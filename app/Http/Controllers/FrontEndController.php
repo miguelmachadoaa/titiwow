@@ -2918,8 +2918,7 @@ public function getApiUrl($endpoint, $jsessionid)
   }
 
 
-
-  public function get360actualizar(Request $request)
+public function get360actualizar(Request $request)
   {
 
 
@@ -2953,30 +2952,49 @@ public function getApiUrl($endpoint, $jsessionid)
 
             foreach ($datos as $dato ) {
 
+              #dd($dato);
+
               activity()->withProperties($dato)->log('FrontEndController/get 360 actualizar');
 
               $user=User::where('email', '=', $dato['email'])->first();
+
 
               if (isset($user->id)) {
 
                 $r="true";
 
-                 $c=AlpClientes::where('id_user_client', $user->id)->first();
+                 $c=AlpClientes::where('id_user_client', $user->id)->withTrashed()->first();
 
                  if (isset($c->id)) {
                    $data_user = array(
                     'first_name' =>$dato['first_name'],
                     'last_name' =>$dato['last_name'],
+                    'gender' =>$dato['genero_cliente'],
                     'dob' =>$dato['dob'],
                   );
 
                    $data = array(
                     'marketing_email' =>$dato['marketing_email'],
                     'marketing_sms' =>$dato['marketing_sms'],
+                    'genero_cliente' =>$dato['genero_cliente'],
+                    'telefono_cliente' =>$dato['telefono_cliente'],
+                    'doc_cliente' =>$dato['doc_cliente'],
                     'eliminar_cliente' =>0,
                   );
 
                    $c->update($data);
+                   $user->update($data_user);
+
+
+                   if ($dato['eliminar_cliente']=='1') {
+
+                    //dd($dato);
+                     $c->delete();
+                   }
+
+
+
+
                  }
 
                   
@@ -3094,19 +3112,25 @@ public function getApiUrl($endpoint, $jsessionid)
                     $direccion='';
                   }
 
+                  if (is_null($c->deleted_at)) {
+                    $eliminar=0;
+                  }else{
+                    $eliminar=1;
+                  }
+
 
 
                   $data = array(
                     'first_name' =>$u->first_name,
                     'last_name' =>$u->last_name,
                     'dob' =>$u->dob,
-                    'genero_cliente' =>$c->genero_cliente,
+                    'genero_cliente' =>$u->gender,
                     'doc_cliente' =>$c->doc_cliente,
                     'telefono_cliente' =>$c->telefono_cliente,
                     'direccion_cliente' =>$direccion,
                     'marketing_email' =>$c->marketing_email,
                     'marketing_sms' =>$c->marketing_sms,
-                    'eliminar_cliente' =>0,
+                    'eliminar_cliente' =>$eliminar,
                     'email' =>$u->email,
                     'fechaIngreso' =>$u->created_at->format('d-m-Y'),
                     'fachaActualizacion' =>$u->updated_at->format('d-m-Y')
@@ -3126,6 +3150,15 @@ public function getApiUrl($endpoint, $jsessionid)
     return response(json_encode($modificados), 200) ->header('Content-Type', 'application/json');
    
   }
+
+
+
+
+
+
+
+
+  
 
 
 

@@ -29,7 +29,7 @@
                 <td>{{ $producto->city_name }}</td>
                 <td>{{ $producto->name  }}</td>
 
-<td>
+            <td>
 
                @if($producto->operacion==1)
 

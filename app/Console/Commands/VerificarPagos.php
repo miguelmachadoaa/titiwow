@@ -71,8 +71,8 @@ class VerificarPagos extends Command
 
       $d=$date->subDay(3)->format('Y-m-d');
       
-        $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
-        #$ordenes=AlpOrdenes::where('id', '11043')->where('countvp','<', '5')->get();
+        #$ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
+        $ordenes=AlpOrdenes::where('id', '11043')->where('countvp','<', '5')->get();
         //
         
       //  echo count($ordenes);
@@ -112,7 +112,7 @@ class VerificarPagos extends Command
 
             $cantidad=count($preference['response']['results']);
             $aproved=0;
-            $cancel=0;
+            $cancel=1;
             $pending=0;
 
             foreach ($preference['response']['results'] as $r) {
@@ -359,11 +359,11 @@ class VerificarPagos extends Command
 
                     try {
 
-                       $this->ibmConfirmarCompra($user_cliente, $orden);
+                      # $this->ibmConfirmarCompra($user_cliente, $orden);
 
-                      $this->ibmConfirmarPago($user_cliente, $orden);
+                     # $this->ibmConfirmarPago($user_cliente, $orden);
 
-                      $this->ibmConfirmarEnvio($user_cliente, $orden, $envio);
+                     # $this->ibmConfirmarEnvio($user_cliente, $orden, $envio);
                       
                     } catch (\Exception $e) {
 
@@ -465,7 +465,7 @@ class VerificarPagos extends Command
 
                            // $this->sendcompramas($orden->id, 'rejected');
 
-                            #$this->cancelarCompramas($orden->id);
+                            $this->cancelarCompramas($orden->id);
 
 
                             # code...
@@ -631,6 +631,8 @@ class VerificarPagos extends Command
 
               $dataraw=json_encode($o);
 
+
+
               $urls=$configuracion->compramas_url.'/registerOrder/'.$configuracion->compramas_hash;
 
               Log::info('Datos enviados a compramas para registro de orden aprobada  '.$urls);
@@ -638,6 +640,9 @@ class VerificarPagos extends Command
               Log::info($dataraw);
 
               activity()->withProperties($dataraw)->log('Datos enviados a registro  de orden aprobada en compramas orden id '.$orden->id.' .vp634');
+
+
+              dd($dataraw);
 
 
       $ch = curl_init();
@@ -824,6 +829,8 @@ class VerificarPagos extends Command
 
 
        $dataraw=json_encode($dataupdate);
+
+       dd($dataraw);
 
         Log::useDailyFiles(storage_path().'/logs/compramas.log');
         

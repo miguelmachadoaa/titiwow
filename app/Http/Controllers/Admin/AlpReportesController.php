@@ -1381,10 +1381,10 @@ class AlpReportesController extends Controller
 
         }
 
-        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+       /* if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
-        }
+        }*/
 
         $date = Carbon::now();
 

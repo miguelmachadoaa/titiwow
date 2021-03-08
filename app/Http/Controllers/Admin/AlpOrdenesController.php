@@ -88,10 +88,6 @@ class AlpOrdenesController extends JoshController
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
-
-
-
-
         $estatus_ordenes = AlpEstatusOrdenes::all();
 
           $ordenes = AlpOrdenes::where('id', '1')->get();
