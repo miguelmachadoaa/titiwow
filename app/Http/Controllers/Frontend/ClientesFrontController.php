@@ -1733,6 +1733,12 @@ class ClientesFrontController extends Controller
     }
 
 
+    public function trackingorden()
+    {
+        return view('frontend.tracking');
+
+    }
+
 
 
 

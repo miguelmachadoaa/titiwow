@@ -1035,7 +1035,7 @@
                 </li>
             @endif
 
-            @if (Sentinel::getUser()->hasAnyAccess(['reportes.registrados']))
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.cuponesdescuento']))
 
                  <li {!! (Request::is('admin/reportes/registrados') ? 'class="active" id="active"' : '') !!}>
                     <a href="{{ secure_url('admin/reportes/registrados') }}">
