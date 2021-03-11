@@ -97,9 +97,15 @@ El total de la compra fue de {{ number_format($compra->monto_total, 0,",",".") }
 @endif
 
 
-@component('mail::button', ['url' => secure_url('/')])
-Sigue Comprando
-@endcomponent
+@if(is_null($compra->token))
+
+@else
+
+	@component('mail::button', ['url' => secure_url('/tracking'.$compra->token)])
+	Sigue Comprando
+	@endcomponent
+
+@endif
 
 
 Gracias,<br>
