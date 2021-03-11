@@ -1733,6 +1733,42 @@ class ClientesFrontController extends Controller
     }
 
 
+    public function trackingorden($token)
+    {
+
+        // Grab all the groups
+
+        if (Sentinel::check()) {
+
+            $user = Sentinel::getUser();
+  
+             activity($user->full_name)
+                          ->performedOn($user)
+                          ->causedBy($user)
+                          ->log('tracking/orden ');
+  
+          }else{
+  
+            activity()
+            ->log('tracking/orden');
+  
+  
+          }
+
+        $orden=AlpOrdenes::where('token', '=', $token)->first();
+
+        $envio=AlpEnvios::where('id_orden', '=', $orden->id)->first();
+
+        $history_envio = AlpEnviosHistory::select('alp_envios_history.*')
+        ->join('alp_envios_status', 'alp_envios_history.estatus_envio', '=', 'alp_envios_status.id')
+        ->where('alp_envios_history.id_envio', $envio->id)
+        ->orderBy('alp_envios_history.id', 'desc')
+        ->first();
+
+        return view('frontend.tracking',compact('history_envio'));
+
+    }
+
 
 
 

@@ -243,7 +243,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 Route::get('xml', 'FrontEndController@getXml')->name('xml');
 
 
-
+Route::get('tracking/{token}', 'Frontend\ClientesFrontController@trackingorden')->name('trackingorden');
 
 Route::get('pedidos/{token}/pago', 'Admin\AlpPedidosController@pedidopago')->name('pedidopago');
 
