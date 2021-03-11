@@ -46,16 +46,15 @@ class DescuentoVentasExport implements FromView
         'users.id as id_usuario', 
          'users.first_name as first_name', 
         'users.last_name as last_name'
-
       )
-          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
-          ->join('alp_clientes', 'alp_ordenes.id_cliente', '=', 'alp_clientes.id_user_client')
-          ->groupBy('alp_ordenes.id')
-          ->where('alp_ordenes.estatus_pago','=', '2')
-          ->where('alp_ordenes.id_forma_pago', '<>', '3')
-          ->whereDate('alp_ordenes.created_at', '>=', $this->desde)
-          ->whereDate('alp_ordenes.created_at', '<=', $this->hasta)
-          ->get();
+      ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+      ->join('alp_clientes', 'alp_ordenes.id_cliente', '=', 'alp_clientes.id_user_client')
+      ->groupBy('alp_ordenes.id')
+      ->where('alp_ordenes.estatus_pago','=', '2')
+      ->where('alp_ordenes.id_forma_pago', '<>', '3')
+      ->whereDate('alp_ordenes.created_at', '>=', $this->desde)
+      ->whereDate('alp_ordenes.created_at', '<=', $this->hasta)
+      ->get();
 
           foreach ($ordenes as $ord) {
            

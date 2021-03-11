@@ -6316,7 +6316,8 @@ public function verificarDireccion( Request $request)
               'monto_total_base' => $monto_total_base,
               'base_impuesto' => $base_imponible,
               'monto_impuesto' => $monto_impuesto,
-              'valor_impuesto' => $valor_impuesto
+              'valor_impuesto' => $valor_impuesto,
+              'token' =>substr(md5(time()), 0, 16)
 
                );
 
@@ -6722,7 +6723,8 @@ public function verificarDireccion( Request $request)
               'monto_total_base' => $monto_total_base,
               'base_impuesto' => $base_imponible,
               'monto_impuesto' => $monto_impuesto,
-              'valor_impuesto' => $valor_impuesto
+              'valor_impuesto' => $valor_impuesto,
+              'token' =>substr(md5(time()), 0, 16)
 
                );
 
