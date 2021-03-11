@@ -102,7 +102,7 @@ El total de la compra fue de {{ number_format($compra->monto_total, 0,",",".") }
 @else
 
 	@component('mail::button', ['url' => secure_url('/tracking'.$compra->token)])
-	Sigue Comprando
+	Rastrea tu Pedido
 	@endcomponent
 
 @endif
