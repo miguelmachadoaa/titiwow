@@ -101,7 +101,7 @@ Tracking de Ordenes
     <div class="row">
         <div class="col-md-12">
             <div style="padding:10px 30px; 20px 30px; background-color:#241F48;">
-                <h4 class="text-center" style="color:#ffffff !important;">Orden: ALP10000</h4>
+                <h4 class="text-center" style="color:#ffffff !important;">Orden: {{$orden->referencia}}</h4>
             </div>
         </div>
     </div>

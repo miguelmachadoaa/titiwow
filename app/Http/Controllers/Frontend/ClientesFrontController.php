@@ -1756,16 +1756,33 @@ class ClientesFrontController extends Controller
           }
 
         $orden=AlpOrdenes::where('token', '=', $token)->first();
+        
+        if(isset($orden->id)){
+        
+    
+            $envio=AlpEnvios::where('id_orden', '=', $orden->id)->first();
+            
+            if(isset($envio->id)){
+            
+                $history_envio = AlpEnviosHistory::select('alp_envios_history.*')
+                ->join('alp_envios_status', 'alp_envios_history.estatus_envio', '=', 'alp_envios_status.id')
+                ->where('alp_envios_history.id_envio', $envio->id)
+                ->orderBy('alp_envios_history.id', 'desc')
+                ->first();
+            
+                return view('frontend.tracking',compact('history_envio','orden'));
+            
+            }else{
+            
+                abort('404');
+            
+            }
+        }else{
+            
+            abort('404');
+        
+        }
 
-        $envio=AlpEnvios::where('id_orden', '=', $orden->id)->first();
-
-        $history_envio = AlpEnviosHistory::select('alp_envios_history.*')
-        ->join('alp_envios_status', 'alp_envios_history.estatus_envio', '=', 'alp_envios_status.id')
-        ->where('alp_envios_history.id_envio', $envio->id)
-        ->orderBy('alp_envios_history.id', 'desc')
-        ->first();
-
-        return view('frontend.tracking',compact('history_envio'));
 
     }
 
