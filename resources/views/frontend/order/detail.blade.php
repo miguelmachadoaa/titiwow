@@ -404,6 +404,43 @@ div.overlay > div {
         </div>
 
 
+
+<div class="modal fade" id="modalAprobado" role="dialog" aria-labelledby="modalLabeldanger" data-backdrop="static" data-keyboard="false">
+
+            <div class="modal-dialog modal-lg" role="document">
+
+                <div class="modal-content">
+
+                    <div class="modal-header bg-primary">
+
+                        <h4 class="modal-title" id="modalLabeldanger" style="color: #fff !important;">Orden Recibida</h4>
+
+                    </div>
+
+                    <div class="modal-body">
+
+                        
+
+                      <h3>Esta orden ha sido recibida, sera redirigido al area de clientes para que consulte el detalle. </h3>
+
+
+
+                    </div>
+
+                    <div class="modal-footer">
+
+                        
+
+                        <button type="button" class="btn  btn-primary sendOrdenRecibida" >Aceptar</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
   
 
 
@@ -436,7 +473,17 @@ div.overlay > div {
 
              $('#modalCancelado').modal('show');
 
-                           // window.location.href = base+'/cart/show';
+                 window.location.href = base+'/cart/show';
+
+
+        });
+
+
+        $('.sendOrdenRecibida').on('click', function(){
+
+             $('#modalAprobada').modal('show');
+
+                 window.location.href = base+'/clientes';
 
 
         });
@@ -729,6 +776,17 @@ $('.sendCupon').click(function () {
                         }else if(datos.responseText=='falseCancelado'){
 
                             $('.res_direccion').html('<div hidden class="alert alert-danger" role="alert">Su pedido fue cancelado por favor, realice la compra nuevamente.</div>');
+
+
+                             $('#modalCancelado').modal('show');
+
+                           // window.location.href = base+'/cart/show';
+
+                         $('#modalPse').modal('hidden');
+
+                        }else if(datos.responseText=='falseAprobado'){
+
+                            $('.res_direccion').html('<div hidden class="alert alert-danger" role="alert">Su pedido fue Aprobado por favor, dirijase al area de cliente..</div>');
 
 
                              $('#modalCancelado').modal('show');

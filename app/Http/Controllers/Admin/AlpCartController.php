@@ -6102,17 +6102,50 @@ public function verificarDireccion( Request $request)
 
           foreach ($cart as $detalle) {
 
+
+
             $monto_total_base=$monto_total_base+($detalle->cantidad*$detalle->precio_base);
 
-             $total_detalle=$detalle->precio_oferta*$detalle->cantidad;
+            $total_detalle=$detalle->precio_oferta*$detalle->cantidad;
 
               if ($detalle->valor_impuesto!=0) {
 
-                $base_imponible_detalle=$total_detalle/(1+$detalle->valor_impuesto);
 
-                $base_impuesto=$base_impuesto+$total_detalle;
+                if ($detalle->tipo_producto=='2') {
 
-                $valor_impuesto=$detalle->valor_impuesto;
+                      $lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.id_impuesto as id_impuesto')
+                      ->join('alp_productos', 'alp_combos_productos.id_producto','=', 'alp_productos.id' )
+                      ->where('id_combo', $detalle->id)->get();
+
+                      foreach ($lista as $l) {
+
+                        if ($l->id_impuesto==1) {
+
+                          $base_imponible_detalle=$total_detalle/(1+$detalle->valor_impuesto);
+
+                          $base_impuesto=$base_impuesto+$total_detalle;
+
+                          $valor_impuesto=$detalle->valor_impuesto;
+                          
+                        }
+                          
+                      }
+
+                }else{
+
+                  $base_imponible_detalle=$total_detalle/(1+$detalle->valor_impuesto);
+
+                  $base_impuesto=$base_impuesto+$total_detalle;
+
+                  $valor_impuesto=$detalle->valor_impuesto;
+
+
+                }
+
+
+
+
+                
               
               }else{
 
@@ -6152,7 +6185,7 @@ public function verificarDireccion( Request $request)
               activity()->withProperties($data_orden)
                         ->log('detalle de orden  ');
 
-              AlpDetalles::create($data_detalle);
+              $detalleguardado=AlpDetalles::create($data_detalle);
 
               AlpInventario::create($data_inventario);
 
@@ -6411,6 +6444,16 @@ public function verificarDireccion( Request $request)
 
           }
 
+
+          if ($orden->estatus!='8') {
+
+            \Session::forget('orden');
+            \Session::forget('cr');
+            
+            return 'falseAprobado';
+
+          }
+
           
 
            $data_orden = array(
@@ -6476,11 +6519,38 @@ public function verificarDireccion( Request $request)
 
               if ($detalle->valor_impuesto!=0) {
 
-                $base_imponible_detalle=$total_detalle/(1+$detalle->valor_impuesto);
+                if ($detalle->tipo_producto=='2') {
 
-                $base_impuesto=$base_impuesto+$total_detalle;
+                      $lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.id_impuesto as id_impuesto')
+                      ->join('alp_productos', 'alp_combos_productos.id_producto','=', 'alp_productos.id' )
+                      ->where('id_combo', $detalle->id)->get();
 
-                $valor_impuesto=$detalle->valor_impuesto;
+                     # dd(json_encode($lista));
+
+                      foreach ($lista as $l) {
+
+                        if ($l->id_impuesto==1) {
+
+                          $base_imponible_detalle=($l->precio*$l->cantidad)/(1+$detalle->valor_impuesto);
+
+                          $base_impuesto=$base_impuesto+($l->precio*$l->cantidad);
+
+                          $valor_impuesto=$detalle->valor_impuesto;
+                          
+                        }
+                          
+                      }
+
+                }else{
+
+                  $base_imponible_detalle=$total_detalle/(1+$detalle->valor_impuesto);
+
+                  $base_impuesto=$base_impuesto+$total_detalle;
+
+                  $valor_impuesto=$detalle->valor_impuesto;
+
+
+                }
               
               }else{
 
@@ -6489,6 +6559,8 @@ public function verificarDireccion( Request $request)
                 #$base_impuesto=$base_impuesto+$total_detalle;
 
               }
+
+              dd($base_impuesto);
 
               $imp=$detalle->valor_impuesto+1;
 

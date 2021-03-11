@@ -32,10 +32,6 @@ class DescuentoVentasExport implements FromView
     {
 
 
-
-     //dd(1);
-
-
       $ordenes=AlpOrdenes::select(
         'alp_ordenes.id',
         'alp_ordenes.monto_descuento as monto_descuento',

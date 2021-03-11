@@ -137,22 +137,14 @@ class AlpProductosController extends JoshController
               $estado=" <div id='td_destacado_".$alpProductos->id."'><button type='button' data-url='".secure_url('productos/desactivar')."' data-desactivar='1' data-id='".$alpProductos->id ."' class='btn btn-responsive button-alignment btn-danger btn_sizes desactivar' style='font-size: 12px !important;'>Inactivo</button></div>";
             }
 
-                 $actions = " 
-                  
-                  <!--a href='".secure_url('admin/productos/'.collect($alpProductos)->first().'/show' )."'>
+                 $actions = "   <!--a href='".secure_url('admin/productos/'.collect($alpProductos)->first().'/show' )."'>
                      <i class='livicon' data-name='info' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='view alpProductos'></i>
                  </a-->
                  <a href='".secure_url('admin/productos/'.collect($alpProductos)->first().'/edit')."'>
                      <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='edit alpProductos'></i>
-                 </a>
-
-
-                <a href='".secure_url('admin/productos/'.$alpProductos->id.'/confirm-delete' )."' data-toggle='modal' data-target='#delete_confirm'>
-                                            <i class='livicon' data-name='remove-alt' data-size='18'
-                                                data-loop='true' data-c='#f56954' data-hc='#f56954'
-                                                title='Eliminar'></i>
-                                             </a>
-                 ";
+                 </a> 
+                 <a href='".secure_url('admin/productos/'.$alpProductos->id.'/confirm-delete' )."' data-toggle='modal' data-target='#delete_confirm'>
+                  <i class='livicon' data-name='remove-alt' data-size='18' data-loop='true' data-c='#f56954' data-hc='#f56954'  title='Eliminar'></i>  </a> ";
 
 
                  if ($alpProductos->destacado == 1) {
@@ -644,21 +636,34 @@ class AlpProductosController extends JoshController
 
 
          
+         $precio_combo=0;
+        $ban_combo=0;
+
          foreach ($input as $key => $value) {
 
           if (substr($key, 0, 5)=='c_pro') {
+
+            $ban_combo=1;
 
             $data_combo = array(
               'id_combo' => $producto->id, 
               'id_producto' => $value, 
               'cantidad' => $input['c_can_'.$value], 
+              'precio' => $input['c_precio_'.$value], 
               'id_user' => $user_id
             );
+
+            $precio_combo=$precio_combo+$input['c_precio_'.$value];
 
             AlpCombosProductos::create($data_combo);
 
           }
 
+        }
+
+
+        if ($ban_combo==1) {
+          $producto->update(['precio_base'=>$precio_combo]);
         }
 
 
@@ -1327,23 +1332,34 @@ class AlpProductosController extends JoshController
         //dd($input);
 
 
-
+        $precio_combo=0;
+        $ban_combo=0;
 
          foreach ($input as $key => $value) {
 
           if (substr($key, 0, 5)=='c_pro') {
 
+            $ban_combo=1;
+
             $data_combo = array(
               'id_combo' => $producto->id, 
               'id_producto' => $value, 
               'cantidad' => $input['c_can_'.$value], 
+              'precio' => $input['c_precio_'.$value], 
               'id_user' => $user_id
             );
+
+            $precio_combo=$precio_combo+$input['c_precio_'.$value];
 
             AlpCombosProductos::create($data_combo);
 
           }
 
+        }
+
+
+        if ($ban_combo==1) {
+          $producto->update(['precio_base'=>$precio_combo]);
         }
 
 

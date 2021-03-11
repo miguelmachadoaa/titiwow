@@ -38,6 +38,7 @@ class AlpCombosProductos extends Model
         'id_combo',
         'id_producto',
         'cantidad',
+        'precio',
         'estado_registro',
         'id_user'
     ];

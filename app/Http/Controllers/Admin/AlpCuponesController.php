@@ -187,9 +187,6 @@ class AlpCuponesController extends JoshController
 
         $input = $request->all();
 
-
-        //var_dump($input);
-
         if($request->primeracompra==NULL){$request->primeracompra==0;}
 
         $data = array(

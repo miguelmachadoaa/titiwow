@@ -1109,7 +1109,7 @@
                 <li {!! (Request::is('admin/reportes/ventasdescuento') ? 'class="active" id="active"' : '') !!}>
                     <a href="{{ secure_url('admin/reportes/ventasdescuento') }}">
                         <i class="fa fa-angle-double-right"></i>
-                        Cupones de descuento
+                        Descuento en Ventas
 
                     </a>
                 </li>

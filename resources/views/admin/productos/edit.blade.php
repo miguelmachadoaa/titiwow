@@ -280,6 +280,7 @@
                                                     <tr>
                                                         <td>Producto</td>
                                                         <td>Cantidad</td>
+                                                        <td>Precio</td>
                                                         <td>Accion</td>
                                                     </tr>
                                                 </thead>
@@ -295,6 +296,10 @@
                                                         </td>
                                                         <td>
                                                             <input type="number" step="1" min="1" name="c_can_{{$pl->id_producto}}" id="c_can_{{$pl->id_producto}}" value="{{$pl->cantidad}}"> 
+                                                            
+                                                        </td>
+                                                        <td>
+                                                            <input type="number" step="1" min="1" name="c_precio_{{$pl->id_producto}}" id="c_can_{{$pl->id_producto}}" value="{{$pl->precio}}"> 
                                                             
                                                         </td>
                                                         <td>
@@ -822,6 +827,9 @@
                                               
 
                                             </div-->
+
+                                             <div class="col-sm-9 col-xs-12">
+                                                    <input id="pum" name="pum" type="hidden" placeholder="Pum" class="form-control" value="0    "  >
 
                                             <div class="form-group col-sm-12 clearfix {{ $errors->first('medida', 'has-error') }}">
 
@@ -1365,6 +1373,8 @@ $('.addProductoCupon').click(function(){
 
             include=include+'<td>'+name+'</td>';
             include=include+'<td> <input type="number" step="1" min="1" name="c_can_'+id_producto+'" id="c_can_'+id_producto+'" value="'+cantidad+'">  </td>';
+
+            include=include+'<td> <input type="number" step="1" min="1" name="c_precio_'+id_producto+'" id="c_precio_'+id_producto+'" value="0">  </td>';
 
             include=include+'<td> <button data-id="'+id_producto+'" class="btn btn-danger delProductoCombo"><i class="fa fa-trash "></i></button>';
 
