@@ -451,6 +451,13 @@ Orden {{$orden->id}}
                              </tr>
 
                          @endif
+
+                            <tr>
+                                 <td>Tracking: </td>
+                                 <td><a href="{{secure_url('/tracking/'.$orden->token)}}" class="button button-blue" target="_blank">URL Tracking</a></td>
+                             </tr>
+
+                         
                          
                     
                  </tbody>

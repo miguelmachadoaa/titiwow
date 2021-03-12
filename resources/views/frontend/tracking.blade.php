@@ -2,16 +2,16 @@
 
 {{-- Page title --}}
 @section('title')
-Tracking de Ordenes 
+Ratrea tu Pedido 
 @parent
 @stop
 
 
 @section('meta_tags')
-<meta property="og:title" content="Carrito de Compras | Alpina GO!">
+<meta property="og:title" content="Ratrea tu Pedido | Alpina GO!">
 <meta property="og:image" content="{{$configuracion->seo_image}}" />
 <meta property="og:url" content="" />
-<meta property="og:description" content="Carrito de Compras">
+<meta property="og:description" content="Ratrea tu Pedido">
 
 @if(isset($url))
 <link rel="canonical" href="" />
@@ -78,7 +78,7 @@ Tracking de Ordenes
 
                 <li class="hidden-xs">
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i>
-                    <a href="#}">Sigue tu Orden</a>
+                    <a href="#}">Rastrea tu Pedido</a>
                 </li>
             </ol>
            
@@ -94,7 +94,7 @@ Tracking de Ordenes
     <div class="row">
         <div class="col-md-12">
             <div style="padding:10px 30px; 20px 30px">
-                <h3 class="text-center">Sigue tu Orden</h3>
+                <h3 class="text-center">Ratrea tu Pedido</h3>
             </div>
         </div>
     </div>
