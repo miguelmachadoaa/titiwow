@@ -101,9 +101,32 @@ El total de la compra fue de {{ number_format($compra->monto_total, 0,",",".") }
 
 @else
 
-	@component('mail::button', ['url' => secure_url('/tracking'.$compra->token)])
-	Sigue Comprando
-	@endcomponent
+	
+
+
+
+
+		<table class="action" align="center" width="100%" cellpadding="0" cellspacing="0">
+<tr>
+    <td align="center">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td align="center">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td>
+                                <a href="{{secure_url('/tracking/'.$compra->token)}}" class="button button-blue" target="_blank">Sigue tu envio</a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+
+</table>
+
 
 @endif
 
