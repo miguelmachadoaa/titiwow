@@ -518,15 +518,7 @@ $hoy=$date->format('Y-m-d');
       $configuracion=AlpConfiguracion::where('id', '1')->first();
       $archivo = '';
 
-      /* if ($request->hasFile('file_update')) {
-            
-            $file = $request->file('file_update');
-            $extension = $file->extension()?: 'jpg';
-            $picture = str_random(10) . '.' . $extension;     
-            $destinationPath = public_path('uploads/pqr/');
-            $file->move($destinationPath,$file->getClientOriginalName());
-
-        } */
+    
 
       if ($request->file_update != null) {
          
@@ -538,7 +530,6 @@ $hoy=$date->format('Y-m-d');
 
         $file1 = $file->getClientOriginalName();
         $archivo = $picture;
-        //$archivo = str_random(10) . '.' . $file1;
         $destinationPath = public_path('/uploads/pqr/');    
         $file->move($destinationPath,$archivo);
       }

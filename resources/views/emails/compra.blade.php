@@ -101,6 +101,7 @@ El total de la compra fue de {{ number_format($compra->monto_total, 0,",",".") }
 
 @else
 
+<<<<<<< HEAD
 	
 
 
@@ -115,7 +116,7 @@ El total de la compra fue de {{ number_format($compra->monto_total, 0,",",".") }
                     <table border="0" cellpadding="0" cellspacing="0">
                         <tr>
                             <td>
-                                <a href="{{secure_url('/tracking/'.$compra->token)}}" class="button button-blue" target="_blank">Sigue tu envio</a>
+                                <a href="{{secure_url('/tracking/'.$compra->token)}}" class="button button-blue" target="_blank">Rastrea tu Pedido</a>
                             </td>
                         </tr>
                     </table>
@@ -126,7 +127,6 @@ El total de la compra fue de {{ number_format($compra->monto_total, 0,",",".") }
 </tr>
 
 </table>
-
 
 @endif
 

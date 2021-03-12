@@ -6561,11 +6561,11 @@ public function verificarDireccion( Request $request)
 
               }
 
-              dd($base_impuesto);
+             // dd($base_impuesto);
 
               $imp=$detalle->valor_impuesto+1;
 
-              $monto_impuesto=$monto_impuesto+$detalle->valor_impuesto*($total_detalle/$imp);
+              #$monto_impuesto=$monto_impuesto+$detalle->valor_impuesto*($total_detalle/$imp);
 
               $data_detalle = array(
                 'id_orden' => $orden->id, 
