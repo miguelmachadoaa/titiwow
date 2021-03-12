@@ -51,7 +51,11 @@ class RecargaIva extends Command
     public function handle()
     {
         
-       $ordenes=AlpOrdenes::where('id','>', '1788')->get();
+       $ordenes=AlpOrdenes::where('id','>', '1788')
+       ->whereIn('estatus', ['1','2','3','5','6','7',])
+       ->get();
+
+       #wwdd(count($ordenes));
 
        foreach ($ordenes as $o) {
 

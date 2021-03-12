@@ -3664,7 +3664,47 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         $producto->cantidad=1;
 
-        $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
+        
+
+
+
+        $base_imponible_detalle=0;
+
+        $base_impuesto=0;
+
+        if ($producto->tipo_producto=='2') {
+
+            $lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.id_impuesto as id_impuesto')
+                    ->join('alp_productos', 'alp_combos_productos.id_producto','=', 'alp_productos.id' )
+                    ->where('id_combo', $producto->id)->get();
+
+
+
+                    foreach ($lista as $l) {
+
+                      if ($l->id_impuesto==1) {
+
+
+
+                        $base_imponible_detalle=$l->precio/(1+$producto->valor_impuesto);
+
+                        $base_impuesto=$base_impuesto+($l->precio*$l->cantidad);
+
+                        $valor_impuesto=$producto->valor_impuesto;
+                        
+                      }
+                        
+                    }
+
+              }else{
+
+                $base_impuesto=$producto->precio_oferta+$producto->cantidad;
+
+              }
+
+            $producto->impuesto=$base_impuesto-($base_impuesto/(1+$producto->valor_impuesto));
+
+
 
 
 
@@ -4706,17 +4746,40 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                 $valor_impuesto=$row->valor_impuesto;
 
-                #$impuesto=$impuesto+($row->impuesto*$row->cantidad);
+
+                $base_impuesto=0;
+
+                if ($row->tipo_producto=='2') {
+
+              $lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.id_impuesto as id_impuesto')
+                      ->join('alp_productos', 'alp_combos_productos.id_producto','=', 'alp_productos.id' )
+                      ->where('id_combo', $row->id)->get();
+
+
+
+                      foreach ($lista as $l) {
+
+                        if ($l->id_impuesto==1) {
+
+                          $base_impuesto=$base_impuesto+($l->precio*$l->cantidad);
+                          
+                        }
+                          
+                      }
+
+                }else{
+
+                  $base_impuesto=$row->precio_oferta+$row->cantidad;
+
+                }
 
                 $base=$base+($row->precio_oferta*$row->cantidad);
 
-                $impuesto=$impuesto+(($row->precio_oferta*$row->cantidad)/(1+$valor_impuesto))*$valor_impuesto;
+                $impuesto=$impuesto+(($base_impuesto)/(1+$valor_impuesto))*$valor_impuesto;
 
                 }
 
             }
-
-            
 
           }
 
@@ -5050,7 +5113,43 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
 
-            $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
+            $base_imponible_detalle=0;
+
+            $base_impuesto=0;
+
+
+            if ($producto->tipo_producto=='2') {
+
+              $lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.id_impuesto as id_impuesto')
+                      ->join('alp_productos', 'alp_combos_productos.id_producto','=', 'alp_productos.id' )
+                      ->where('id_combo', $producto->id)->get();
+
+
+
+                      foreach ($lista as $l) {
+
+                        if ($l->id_impuesto==1) {
+
+
+
+                          $base_imponible_detalle=$l->precio/(1+$producto->valor_impuesto);
+
+                          $base_impuesto=$base_impuesto+($l->precio*$l->cantidad);
+
+                          $valor_impuesto=$producto->valor_impuesto;
+                          
+                        }
+                          
+                      }
+
+                }else{
+
+                  $base_impuesto=$producto->precio_oferta+$producto->cantidad;
+
+                }
+
+          #$producto->impuesto=$base_impuesto-($base_impuesto/(1+$producto->valor_impuesto));
+
 
             $almp=AlpAlmacenProducto::where('id_almacen', $id_almacen)->where('id_producto', $producto->id)->first();
 
