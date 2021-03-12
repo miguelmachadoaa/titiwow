@@ -1007,7 +1007,7 @@ $hoy=$date->format('Y-m-d');
 
         $archivo='0';
 
-      $input=$request->all
+      $input=$request->all();
 
       if ($request->file_update != null) {
 
