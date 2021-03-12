@@ -122,7 +122,7 @@ Tracking de Ordenes
     </div>
     <div class="row">
         <div class="col-md-12">
-            <div style="border:1px solid #f4f4f4; min-height:150px;">
+            <div style="min-height:150px;">
             <div class="row bs-wizard" style="border-bottom:0;">
                 
                 
