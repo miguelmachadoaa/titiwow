@@ -92,6 +92,8 @@ Route::get('admin/ordenes/datanomina', 'Admin\AlpOrdenesController@datanomina')-
 
 Route::get('admin/ordenes/dataaprobados', 'Admin\AlpOrdenesController@dataaprobados')->name('ordenes.dataaprobados');
 
+Route::get('admin/ordenes/dataentregados', 'Admin\AlpOrdenesController@dataentregados')->name('ordenes.dataentregados');
+
 
 Route::get('admin/ordenes/datafacturados', 'Admin\AlpOrdenesController@datafacturados')->name('ordenes.datafacturados');
 
@@ -1205,6 +1207,8 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
         Route::get('/aprobados/list', 'Admin\AlpOrdenesController@aprobados')->name('ordenes.aprobados');
 
+        Route::get('/entregados/list', 'Admin\AlpOrdenesController@entregados')->name('ordenes.entregados');
+
         Route::get('/espera/list', 'Admin\AlpOrdenesController@espera')->name('ordenes.espera');
 
         Route::get('/recibidos/list', 'Admin\AlpOrdenesController@recibidos')->name('ordenes.recibidos');
@@ -1675,3 +1679,11 @@ Route::get('ibm-pagos', function() {
     $exitCode = Artisan::call('verificar:pagos');
   
 });
+
+
+
+Route::get('pedidos-enviados', function() {
+    $exitCode = Artisan::call('pedidos:enviados');
+  
+});
+

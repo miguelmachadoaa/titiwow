@@ -111,32 +111,40 @@ Orden {{$orden->id}}
 
             <div class="row bs-wizard" style="border-bottom:0;">
                 
-                <div class="col-xs-3 bs-wizard-step @if($orden->estatus=='1') active @elseif($orden->estatus>1 && $orden->estatus!=8) complete  @else disabled @endif">
+                <div class="col-xs-2 bs-wizard-step @if($orden->estatus=='1') active @elseif($orden->estatus>1 && $orden->estatus!=8 || $orden->estatus=='3') complete  @else disabled @endif">
                   <div class="text-center bs-wizard-stepnum">Recibido</div>
                   <div class="progress"><div class="progress-bar"></div></div>
                   <a href="#" class="bs-wizard-dot"></a>
                   <div class="bs-wizard-success text-center">1</div>
                 </div>
                 
-                <div class="col-xs-3 bs-wizard-step @if($orden->estatus==5) active @elseif($orden->estatus>5 && $orden->estatus!=8) complete @else disabled @endif"><!-- complete -->
+                <div class="col-xs-2 bs-wizard-step @if($orden->estatus==5) active @elseif($orden->estatus>5 && $orden->estatus!=8 || $orden->estatus=='3') complete @else disabled @endif"><!-- complete -->
                   <div class="text-center bs-wizard-stepnum">Aprobado</div>
                   <div class="progress"><div class="progress-bar"></div></div>
                   <a href="#" class="bs-wizard-dot"></a>
                   <div class="bs-wizard-info text-center">2</div>
                 </div>
                 
-                <div class="col-xs-3 bs-wizard-step @if($orden->estatus=='6') active @elseif($orden->estatus>6 && $orden->estatus!=8) complete @else disabled @endif"><!-- complete -->
+                <div class="col-xs-2 bs-wizard-step @if($orden->estatus=='6') active @elseif($orden->estatus>6 && $orden->estatus!=8 || $orden->estatus=='3') complete @else disabled @endif"><!-- complete -->
                   <div class="text-center bs-wizard-stepnum">Facturado</div>
                   <div class="progress"><div class="progress-bar"></div></div>
                   <a href="#" class="bs-wizard-dot"></a>
                   <div class="bs-wizard-primary text-center">3</div>
                 </div>
                 
-                <div class="col-xs-3 bs-wizard-step @if($orden->estatus=='7') active @elseif($orden->estatus>7 && $orden->estatus!=8) complete @else disabled @endif"><!-- active -->
+                <div class="col-xs-2 bs-wizard-step @if($orden->estatus=='7') active @elseif($orden->estatus>7 && $orden->estatus!=8 || $orden->estatus=='3') complete @else disabled @endif"><!-- active -->
                   <div class="text-center bs-wizard-stepnum">Enviado</div>
                   <div class="progress"><div class="progress-bar"></div></div>
                   <a href="#" class="bs-wizard-dot"></a>
                   <div class="bs-wizard-danger text-center"> 4</div>
+                </div>
+
+
+                <div class="col-xs-2 bs-wizard-step @if($orden->estatus=='3') active @elseif($orden->estatus==3 && $orden->estatus==3) complete @else disabled @endif"><!-- active -->
+                  <div class="text-center bs-wizard-stepnum">Entregado</div>
+                  <div class="progress"><div class="progress-bar"></div></div>
+                  <a href="#" class="bs-wizard-dot"></a>
+                  <div class="bs-wizard-danger text-center"> 5</div>
                 </div>
 
                

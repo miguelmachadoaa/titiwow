@@ -2,14 +2,14 @@
 
 {{-- Web site Title --}}
 @section('title')
-Ordenes Aprobadas
+Ordenes Entregadas
 @parent
 @stop
 
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1>Ordenes Aprobadas</h1>
+    <h1>Ordenes Entregadas</h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ route('admin.dashboard') }}">
@@ -17,7 +17,7 @@ Ordenes Aprobadas
                Inicio
             </a>
         </li>
-        <li><a href="#"> Ordenes Aprobadas</a></li>
+        <li><a href="#"> Ordenes Entregadas</a></li>
         <li class="active">Index</li>
     </ol>
 </section>
@@ -252,7 +252,7 @@ Ordenes Aprobadas
     var table =$('#tbOrdenes').DataTable( {
         "processing": true,
         "ajax": {
-            "url": base+'/admin/ordenes/dataaprobados'
+            "url": base+'/admin/ordenes/dataentregados'
         }
     } );
 

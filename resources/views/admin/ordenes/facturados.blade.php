@@ -244,14 +244,9 @@ $("#enviarOrdenForm").bootstrapValidator({
         });
 
 
-        //document.getElementById("addDireccionForm").submit();
-
-
     }
 
 });
-
-
 
 
 
