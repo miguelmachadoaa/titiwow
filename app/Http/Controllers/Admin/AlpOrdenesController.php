@@ -1363,6 +1363,7 @@ public function compramasupdate()
           ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
           ->where('alp_ordenes.estatus', '5')
           ->groupBy('alp_ordenes.id')
+          ->orderBy('alp_ordenes_pagos.id', 'desc')
           ->limit(2000)
           ->get();
 
@@ -1570,6 +1571,7 @@ public function compramasupdate()
           ->where('alp_ordenes.estatus', '1')
           ->where('alp_ordenes.id_forma_pago', '<>', '3')
           ->groupBy('alp_ordenes.id')
+          ->orderBy('alp_ordenes_pagos.id', 'desc')
           ->limit(2000)
           ->get();
 
@@ -1776,6 +1778,7 @@ public function compramasupdate()
           ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
           ->where('alp_ordenes.estatus', '6')
           ->groupBy('alp_ordenes.id')
+          ->orderBy('alp_ordenes_pagos.id', 'desc')
           ->limit(2000)
           ->get();
 
@@ -1981,6 +1984,7 @@ public function compramasupdate()
           ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
           ->where('alp_ordenes.estatus', '7')
           ->groupBy('alp_ordenes.id')
+          ->orderBy('alp_ordenes_pagos.id', 'desc')
           ->limit(2000)
           ->get();
 
@@ -2206,6 +2210,7 @@ public function compramasupdate()
           
           ->Join('alp_empresas', 'alp_clientes.id_empresa', '=', 'alp_empresas.id')
           ->groupBy('alp_ordenes.id')
+          ->orderBy('alp_ordenes_pagos.id', 'desc')
           ->limit(2000)
           ->get();
 
@@ -3346,6 +3351,7 @@ public function compramasupdate()
           ->where('alp_ordenes.estatus', '1')
           ->where('alp_ordenes.id_forma_pago', '=', '3')
           ->groupBy('alp_ordenes.id')
+          ->orderBy('alp_ordenes_pagos.id', 'desc')
           ->limit(2000)
           ->get();
 
@@ -3544,6 +3550,7 @@ public function compramasupdate()
           ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
            ->groupBy('alp_ordenes.id')
            ->limit(2000)
+           ->orderBy('alp_ordenes_pagos.id', 'desc')
            ->where('alp_ordenes.id_almacen', $user->almacen)
           ->get();
 
