@@ -962,6 +962,17 @@
         <ul class="sub-menu">
 
 
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.inventario']))
+
+                 <li {!! (Request::is('admin/reportes/inventario') ? 'class="active" id="active"' : '') !!}>
+                    <a href="{{ secure_url('admin/reportes/inventario') }}">
+                        <i class="fa fa-angle-double-right"></i>
+                        Reporte Inventario
+                    </a>
+                </li>
+            @endif
+
+
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.precio']))
 
                  <li {!! (Request::is('admin/reportes/precio') ? 'class="active" id="active"' : '') !!}>
