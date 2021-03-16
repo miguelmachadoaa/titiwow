@@ -19,7 +19,11 @@
             <td>{!! $row->presentacion_producto !!}</td>
             <td>{!! $row->referencia_producto!!}</td>
             <td>{!! $row->referencia_producto_sap !!}</td>
+            @if(isset($inventario[$row->id]))
             <td>{!! $inventario[$row->id]!!}</td>
+            @else
+            <td>0</td>
+            @endif
         </tr>
         @endforeach
     </tbody>

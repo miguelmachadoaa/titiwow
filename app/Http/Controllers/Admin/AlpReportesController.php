@@ -1396,6 +1396,42 @@ class AlpReportesController extends Controller
 
     }
 
+
+
+     public function getinventario()
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/inventario ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/inventario');
+
+
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+      #  $productos=AlpProductos::all();
+
+        return view('admin.reportes.inventario');
+
+    }
+
+
+
+
     public function exportinventario(Request $request) 
     {
 
