@@ -1460,7 +1460,7 @@ class AlpReportesController extends Controller
 
         $hoy=$date->format('Y-m-d');
 
-        $archivo='invenatrio_'.$hoy.'.xlsx';
+        $archivo='inventario_'.$hoy.'.xlsx';
 
          return Excel::download(new InventarioExport(), $archivo);
 
