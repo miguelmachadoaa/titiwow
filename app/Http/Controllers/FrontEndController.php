@@ -1670,6 +1670,309 @@ $hoy=$date->format('Y-m-d');
 
     }
 
+    public function qlub()
+    {
+       $cart= \Session::get('cart');
+       if (isset($cart['id_forma_pago']) || isset($cart['id_forma_envio']) || isset($cart['id_cliente']) || isset($cart['id_almacen']) || isset($cart['id_direccion']) || isset($cart['inventario']) ) {
+
+          $cart= \Session::forget('cart');
+          \Session::put('cart', array());
+       }
+      $id_almacen=$this->getAlmacen();
+      $m=AlpMenuDetalle::menus(1);
+        $rol=9;
+        $descuento='1'; 
+        $clientIP = \Request::getClientIp(true);
+        $precio = array();
+        $configuracion=AlpConfiguracion::where('id', '1')->first();
+        $categorias = DB::table('alp_categorias')->select('alp_categorias.*')->where('destacado','=', 1)->where('alp_categorias.estado_registro','=',1)->whereNull('alp_categorias.deleted_at')->orderBy('order', 'asc')->limit(9)->get();
+        $productos = DB::table('alp_productos')->select('alp_productos.*')
+
+        ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
+
+        ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
+
+        ->where('alp_almacenes.id', '=', $id_almacen)
+
+        ->whereNull('alp_almacen_producto.deleted_at')
+
+        ->whereNull('alp_productos.deleted_at')
+
+        ->where('alp_productos.estado_registro','=',1)
+
+        ->where('alp_productos.mostrar','=',1)
+
+        ->groupBy('alp_productos.id')
+
+        ->orderBy('alp_productos.order', 'asc')
+
+        ->orderBy('alp_productos.updated_at', 'desc')
+
+        ->where('alp_productos.destacado','=', 1)
+
+        //->limit(12)
+
+        ->get();
+        //dd($productos);
+        $marcas = DB::table('alp_marcas')->select('alp_marcas.*')->where('destacado','=', 1)->where('alp_marcas.estado_registro','=',1)->whereNull('alp_marcas.deleted_at')->orderBy('order', 'asc')->limit(12)->get();
+        $ciudad= \Session::get('ciudad');
+       // dd($ciudad);
+        if (Sentinel::check()) {
+            $user_id = Sentinel::getUser()->id;
+            $user=Sentinel::getUser();
+            $role=RoleUser::where('user_id', $user_id)->first();
+            $rol=$role->role_id;
+            $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+
+              ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+
+              ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+
+              ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+
+              ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+
+              ->where('alp_direcciones.id_client', $user_id)
+
+              ->where('alp_direcciones.default_address', '=', '1')
+
+              ->first();
+
+            if (isset($d->id)) {
+
+            }else{
+
+                  $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+
+                ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+
+                ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+
+                ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+
+                ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+
+                ->where('alp_direcciones.id_client', $user_id)
+
+                ->first();
+
+            }
+
+            if (isset($d->id)) {
+
+              $ciudad=$d->city_id;
+
+            }
+
+            $cliente = AlpClientes::where('id_user_client', $user_id )->first();
+
+            if (isset($cliente) ) {
+
+                if ($cliente->id_empresa!=0) {
+                    $role->role_id='E'.$role->role_id.'';
+
+                }
+
+            }
+
+            if ($role->role_id) {
+
+                foreach ($productos as  $row) {
+
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $role->role_id)->where('city_id', $ciudad)->first();
+
+                    if (isset($pregiogrupo->id)) {
+
+                        $precio[$row->id]['precio']=$pregiogrupo->precio;
+
+                        $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+
+                        $precio[$row->id]['pum']=$pregiogrupo->pum;
+
+                    }else{
+
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $role->role_id)->where('city_id', '=','62')->first();
+
+                      if (isset($pregiogrupo->id)) {
+
+                          $precio[$row->id]['precio']=$pregiogrupo->precio;
+
+                          $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+
+                          $precio[$row->id]['pum']=$pregiogrupo->pum;
+
+                      }
+
+                    }
+
+                }
+
+            }
+
+        }else{
+          $role = array( );
+            $r='9';
+                foreach ($productos as  $row) {
+                  //dd($row);
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $r)->where('city_id', $ciudad)->first();
+
+                    if (isset($pregiogrupo->id)) {
+
+                        $precio[$row->id]['precio']=$pregiogrupo->precio;
+
+                        $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+
+                        $precio[$row->id]['pum']=$pregiogrupo->pum;
+
+                    }else{
+
+                      $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $r)->where('city_id', '=','62')->first();
+
+                      if (isset($pregiogrupo->id)) {
+
+                      
+                          $precio[$row->id]['precio']=$pregiogrupo->precio;
+
+                          $precio[$row->id]['operacion']=$pregiogrupo->operacion;
+
+                          $precio[$row->id]['pum']=$pregiogrupo->pum;
+
+                      }
+
+                    }
+                }
+        }
+
+      //  dd($precio);
+
+        $prods = array( );
+
+        foreach ($productos as $producto) {
+
+      if ($descuento=='1') {
+
+        if (isset($precio[$producto->id])) {
+
+          switch ($precio[$producto->id]['operacion']) {
+
+            case 1:
+
+              $producto->precio_oferta=$producto->precio_base*$descuento;
+
+              $producto->pum=$precio[$producto->id]['pum'];
+
+              break;
+
+            case 2:
+
+              $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
+
+              $producto->pum=$precio[$producto->id]['pum'];
+
+              break;
+
+            case 3:
+
+              $producto->precio_oferta=$precio[$producto->id]['precio'];
+
+              $producto->pum=$precio[$producto->id]['pum'];
+
+              break;
+
+            default:
+
+             $producto->precio_oferta=$producto->precio_base*$descuento;
+
+              break;
+
+          }
+
+        }else{
+
+          $producto->precio_oferta=$producto->precio_base*$descuento;
+
+        }
+
+       }else{
+
+       $producto->precio_oferta=$producto->precio_base*$descuento;
+
+       }
+
+       $prods[]=$producto; 
+
+      }
+
+       $cart= \Session::get('cart');
+
+        $total=0;
+
+        if($cart!=NULL){
+
+            foreach($cart as $row) {
+
+              if (isset($row->id)) {  
+
+                $total=$total+($row->cantidad*$row->precio_oferta);
+
+              }
+
+            }
+
+        }
+
+
+        $inventario=$this->inventario();
+
+        $combos=$this->combos();
+
+        $role=Roles::where('id', $rol)->first();
+
+       // dd($prods);
+
+       // 
+
+       $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
+
+       //dd($inventario);
+
+       $url=secure_url('/');
+
+        $sliders=AlpSliders::select('alp_slider.*')
+
+        ->join('alp_almacen_slider','alp_slider.id', '=', 'alp_almacen_slider.id_slider')
+
+        ->where('alp_almacen_slider.id_almacen', '=', $id_almacen)
+
+        ->whereNull('alp_slider.deleted_at')
+
+        ->whereNull('alp_almacen_slider.deleted_at')
+
+        ->orderBy("order")->get();
+
+       // $sliders=AlpSliders::get();
+
+        //dd($sliders);
+
+      // dd($inventario);
+
+      // 
+
+      $cart= \Session::get('cart');
+
+
+
+       if (isset($cart['id_forma_pago']) || isset($cart['id_forma_envio']) || isset($cart['id_cliente']) || isset($cart['id_almacen']) || isset($cart['id_direccion']) || isset($cart['inventario']) ) {
+
+          $cart= \Session::forget('cart');
+
+          $cart = array();
+
+       }
+
+        return view('qlub',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion','inventario', 'combos', 'role', 'almacen','url'));
+    }
+
 
 
     private $user_activation = false;
