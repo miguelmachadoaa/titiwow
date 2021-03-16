@@ -1,4 +1,4 @@
-@extends('layouts/default')
+@extends('layouts/qlubqueso')
 
 {{-- Page title --}}
 @section('title')
@@ -86,7 +86,7 @@
 {{-- slider --}}
 @section('top')
     <!--Carousel Start -->
-    <!--div id="owl-demo" class="owl-carousel owl-theme">
+    <div id="owl-demo" class="owl-carousel owl-theme">
         @foreach($sliders as $s)
             <div class="item">
                 <a href="{{ $s->link_slider }}" target="_self">
@@ -94,7 +94,7 @@
                 </a>
             </div>
         @endforeach
-    </div-->
+    </div>
     <!-- //Carousel End -->
 @stop
 

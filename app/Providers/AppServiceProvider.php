@@ -20,6 +20,10 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('menus', AlpMenuDetalle::menus(1));
             });
 
+            view()->composer('layouts.headerclub', function($view) {
+                $view->with('menus', AlpMenuDetalle::menus(1));
+            });
+
             view()->composer('layouts.sidebar', function($view) {
                 $view->with('categorias', AlpMenuDetalle::menus(2));
 
