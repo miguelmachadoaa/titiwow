@@ -25,6 +25,11 @@ Route::post('admin/ordenes/storeconfirm', 'Admin\AlpOrdenesController@storeconfi
 
 Route::get('reportes/exportinventario', 'Admin\AlpReportesController@exportinventario')->name('reportes.exportinventario');
 
+
+Route::get('reportes/exportinventario', 'Admin\AlpReportesController@exportinventario')->name('reportes.exportinventario');
+
+
+
 Route::get('reportes/export360', 'Admin\AlpReportesController@export360')->name('reportes.export360');
 
 Route::get('reportes/exportultimamilla', 'Admin\AlpReportesController@exportultimamilla')->name('reportes.exportultimamilla');
@@ -538,7 +543,7 @@ Route::get('productos/{id}/eliminarproductoacheta', array('as' => 'productos.eli
 
 
 
-
+    Route::get('reportes/inventario', 'Admin\AlpReportesController@getinventario')->name('reportes.inventario');
 
    Route::get('reportes/registrados', 'Admin\AlpReportesController@indexreg')->name('reportes.registrados');
    

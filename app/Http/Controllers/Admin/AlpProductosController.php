@@ -653,7 +653,7 @@ class AlpProductosController extends JoshController
               'id_user' => $user_id
             );
 
-            $precio_combo=$precio_combo+$input['c_precio_'.$value];
+            $precio_combo=$precio_combo+($input['c_precio_'.$value]*$input['c_can_'.$value]);
 
             AlpCombosProductos::create($data_combo);
 
@@ -663,8 +663,11 @@ class AlpProductosController extends JoshController
 
 
         if ($ban_combo==1) {
-          $producto->update(['precio_base'=>$precio_combo]);
+
+          $p=AlpProductos::where('id', $producto->id)->first();
+          $p->update(['precio_base'=>$precio_combo]);
         }
+
 
 
         $i=1;
@@ -1349,7 +1352,7 @@ class AlpProductosController extends JoshController
               'id_user' => $user_id
             );
 
-            $precio_combo=$precio_combo+$input['c_precio_'.$value];
+            $precio_combo=$precio_combo+($input['c_precio_'.$value]*$input['c_can_'.$value]);
 
             AlpCombosProductos::create($data_combo);
 

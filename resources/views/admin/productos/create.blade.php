@@ -303,6 +303,7 @@
                                                     <tr>
                                                         <td>Producto</td>
                                                         <td>Cantidad</td>
+                                                        <td>Precio</td>
                                                         <td>Accion</td>
                                                     </tr>
                                                 </thead>
@@ -750,6 +751,9 @@
 
                                                 
                                             </div-->
+
+
+                                             <input id="pum" name="pum" type="hidden" placeholder="Pum" class="form-control" value="0" >
 
                                             <div class="form-group col-sm-12 clearfix {{ $errors->first('medida', 'has-error') }}">
 
