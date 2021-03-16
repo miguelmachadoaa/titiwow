@@ -323,7 +323,9 @@ Route::get('logout', 'FrontEndController@getLogout')->name('logout');
 /*Route::get('/', ['as' => 'home', function () {
     return view('index');
 }]);*/
-Route::get('/', ['uses' => 'FrontEndController@home'])->name('home');;
+Route::get('/', ['uses' => 'FrontEndController@home'])->name('home');
+
+Route::get('/qlub', ['uses' => 'FrontEndController@qlub'])->name('qlub');
 
 Route::get('blog','BlogController@index')->name('blog');
 Route::get('blog/{slug}/tag', 'BlogController@getBlogTag');

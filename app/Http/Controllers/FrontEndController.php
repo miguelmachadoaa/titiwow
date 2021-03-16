@@ -1670,6 +1670,12 @@ $hoy=$date->format('Y-m-d');
 
     }
 
+    public function qlub()
+    {
+      return view('qlub');
+
+    }
+
 
 
     private $user_activation = false;
