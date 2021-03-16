@@ -6228,6 +6228,8 @@ public function verificarDireccion( Request $request)
 
           $monto_total_base=0;
 
+          
+
           $base_impuesto=0;
 
           $monto_impuesto=0;
@@ -6236,14 +6238,13 @@ public function verificarDireccion( Request $request)
 
           foreach ($cart as $detalle) {
 
-
+            $base_imponible_detalle=0;
 
             $monto_total_base=$monto_total_base+($detalle->cantidad*$detalle->precio_base);
 
             $total_detalle=$detalle->precio_oferta*$detalle->cantidad;
 
               if ($detalle->valor_impuesto!=0) {
-
 
                 if ($detalle->tipo_producto=='2') {
 
@@ -6257,8 +6258,7 @@ public function verificarDireccion( Request $request)
 
                         if ($l->id_impuesto==1) {
 
-                          $base_imponible_detalle=($l->precio*$l->cantidad)/(1+$detalle->valor_impuesto);
-
+                          $base_imponible_detalle=$base_imponible_detalle+($l->precio*$l->cantidad)/(1+$detalle->valor_impuesto);
                           $base_impuesto=$base_impuesto+($l->precio*$l->cantidad);
 
                           $valor_impuesto=$detalle->valor_impuesto;
@@ -6277,10 +6277,6 @@ public function verificarDireccion( Request $request)
 
 
                 }
-
-
-
-
                 
               
               }else{
@@ -6637,6 +6633,8 @@ public function verificarDireccion( Request $request)
 
           $base_impuesto=0;
 
+         
+
           $monto_impuesto=0;
 
           $valor_impuesto=0;
@@ -6644,6 +6642,8 @@ public function verificarDireccion( Request $request)
           #dd(json_encode($cart));
 
           foreach ($cart as $detalle) {
+
+             $base_imponible_detalle=0;
 
             if (isset($detalle->id)) {
 
@@ -6668,7 +6668,7 @@ public function verificarDireccion( Request $request)
 
                         if ($l->id_impuesto==1) {
 
-                          $base_imponible_detalle=($l->precio*$l->cantidad)/(1+$detalle->valor_impuesto);
+                          $base_imponible_detalle=$base_imponible_detalle+($l->precio*$l->cantidad)/(1+$detalle->valor_impuesto);
 
                           $base_impuesto=$base_impuesto+($l->precio*$l->cantidad);
 
@@ -6697,7 +6697,7 @@ public function verificarDireccion( Request $request)
 
               }
 
-             // dd($base_impuesto);
+             ## dd($base_imponible_detalle);
 
               $imp=$detalle->valor_impuesto+1;
 
@@ -6726,8 +6726,8 @@ public function verificarDireccion( Request $request)
               );
 
 
-              activity()->withProperties($data_orden)
-                        ->log('detalle de orden  ');
+              activity()->withProperties($data_detalle)
+                        ->log('detalle de orden  '.$detalle->nombre_producto);
 
               AlpDetalles::create($data_detalle);
 

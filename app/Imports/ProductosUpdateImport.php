@@ -48,32 +48,34 @@ foreach ($cities as $city) {
 
                 if ($row[1]!=0) {
                    
-                        $p=AlpProductos::select('alp_productos.id as id', 'alp_productos.precio_base as precio_base', 'alp_productos.referencia_producto as referencia_producto')->where('referencia_producto', trim($row[0]))->first();
+                        $p=AlpProductos::select('alp_productos.id as id', 'alp_productos.tipo_producto as tipo_producto', 'alp_productos.precio_base as precio_base', 'alp_productos.referencia_producto as referencia_producto')->where('referencia_producto', trim($row[0]))->first();
 
                         if (isset($p->id)) {
+                            if (isset($p->tipo_producto=='1')) {
 
-                            $precio=AlpPrecioGrupo::where('id_producto', $p->id)->where('id_role', $rol)->where('city_id', $city)->first();
+                                $precio=AlpPrecioGrupo::where('id_producto', $p->id)->where('id_role', $rol)->where('city_id', $city)->first();
 
-                            if (isset($precio->id)) {
+                                if (isset($precio->id)) {
 
-                                $precio->delete();   
+                                    $precio->delete();   
+
+                                }
+
+                                    $data_precio_new = array(
+                                        'operacion' => 3, 
+                                        'precio' => $row[1], 
+                                        'id_producto' => $p->id, 
+                                        'city_id' => $city, 
+                                        'mostrar_descuento' => $row[2], 
+                                        'id_role' => $rol, 
+                                        'id_user' => $user_id, 
+                                    );
+
+                                    AlpPrecioGrupo::create($data_precio_new);
+
+                                $productos[]=$p;
 
                             }
-
-                                $data_precio_new = array(
-                                    'operacion' => 3, 
-                                    'precio' => $row[1], 
-                                    'id_producto' => $p->id, 
-                                    'city_id' => $city, 
-                                    'mostrar_descuento' => $row[2], 
-                                    'id_role' => $rol, 
-                                    'id_user' => $user_id, 
-                                );
-
-                                AlpPrecioGrupo::create($data_precio_new);
-
-                            $productos[]=$p;
-
                         }
                 }
 

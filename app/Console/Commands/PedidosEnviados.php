@@ -57,27 +57,41 @@ class PedidosEnviados extends Command
         $hoy=$date->format('Y-m-d');
 
 
-        $ordenes=AlpOrdenes::where('alp_ordenes.estatus', '5')->limit(1)->get();
+        $ordenes=AlpOrdenes::where('alp_ordenes.estatus', '5')->get();
+
+        $ban=0;
 
         foreach ($ordenes as $orden) {
 
-            echo    $orden->id;
+            if ($ban<50) { 
+
 
             $envio=AlpEnvios::where('id_orden','=', $orden->id)->where('estatus', '=', '7')->first();
 
-            $data_update = array( 'estatus' =>3 );
+            if (isset($envio->id)) {
 
-            $orden->update($data_update);
+            echo    $orden->id.'-';
+                
 
-            $data_history = array(
-              'id_orden' => $orden->id, 
-              'id_status' => '3', 
-              'notas' => 'Orden Entregada Notificada por Compramas y actualizada por Cron',
-              'id_user' => 1
-            );
+                $ban=$ban+1;
 
-            $history=AlpOrdenesHistory::create($data_history);
+                $data_update = array('estatus' =>3);
+
+                $orden->update($data_update);
+
+                $data_history = array(
+                  'id_orden' => $orden->id, 
+                  'id_status' => '3', 
+                  'notas' => 'Orden Entregada Notificada por Compramas y actualizada por Cron',
+                  'id_user' => 1
+                );
+
+                $history=AlpOrdenesHistory::create($data_history);
+                
+            }
+
             
+            }
         }
 
 

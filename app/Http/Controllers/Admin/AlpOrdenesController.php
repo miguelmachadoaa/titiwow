@@ -2632,7 +2632,7 @@ public function compramasupdate()
           ->join('alp_envios_status', 'alp_envios_history.estatus_envio', '=', 'alp_envios_status.id')
           ->join('users', 'alp_envios_history.id_user', '=', 'users.id')
           ->where('alp_envios_history.id_envio', $envio->id)
-          ->orderBy('alp_envios_history.id', 'desc')
+          ->orderBy('alp_envios_history.id', 'asc')
           ->get();
             # code...
           }else{
@@ -2641,7 +2641,7 @@ public function compramasupdate()
           ->join('alp_envios_status', 'alp_envios_history.estatus_envio', '=', 'alp_envios_status.id')
           ->join('users', 'alp_envios_history.id_user', '=', 'users.id')
           ->where('alp_envios_history.id_envio', 99999)
-          ->orderBy('alp_envios_history.id', 'desc')
+          ->orderBy('alp_envios_history.id', 'asc')
           ->get();
 
           }
