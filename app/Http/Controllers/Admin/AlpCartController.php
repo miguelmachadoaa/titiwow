@@ -6251,13 +6251,15 @@ public function verificarDireccion( Request $request)
                       ->join('alp_productos', 'alp_combos_productos.id_producto','=', 'alp_productos.id' )
                       ->where('id_combo', $detalle->id)->get();
 
+                     # dd(json_encode($lista));
+
                       foreach ($lista as $l) {
 
                         if ($l->id_impuesto==1) {
 
-                          $base_imponible_detalle=$total_detalle/(1+$detalle->valor_impuesto);
+                          $base_imponible_detalle=($l->precio*$l->cantidad)/(1+$detalle->valor_impuesto);
 
-                          $base_impuesto=$base_impuesto+$total_detalle;
+                          $base_impuesto=$base_impuesto+($l->precio*$l->cantidad);
 
                           $valor_impuesto=$detalle->valor_impuesto;
                           

@@ -35,6 +35,7 @@ class InventarioExport implements FromView
        $entradas = AlpInventario::groupBy('id_producto')
               ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
               ->where('alp_inventarios.operacion', '1')
+              ->where('alp_inventarios.id_almacen', '1')
               ->get();
 
               $inv = array();
@@ -49,6 +50,7 @@ class InventarioExport implements FromView
             $salidas = AlpInventario::select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
               ->groupBy('id_producto')
               ->where('operacion', '2')
+              ->where('alp_inventarios.id_almacen', '1')
               ->get();
 
               foreach ($salidas as $row) {
