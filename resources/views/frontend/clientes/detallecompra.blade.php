@@ -103,8 +103,10 @@ Detalle de Compra
         </div>
         <hr>
 
+        <a target="_blank" class="btn btn-info" href="{{secure_url('tracking/'.$orden->token)}}">Rastrea Tu Envio </a>
 
-        <h3>Historico de Envio </h3>
+
+        <!--h3>Historico de Envio </h3>
 
         <div class="row">
 
@@ -113,7 +115,9 @@ Detalle de Compra
 
              <div class="col-md-12">
               <div class="update-nag">
-                <div class="update-split"><i class="glyphicon {{ $iconos[$row->estatus_envio]}}"></i></div>
+                <div class="update-split">
+                    <i class="glyphicon {{ $iconos[$row->estatus_envio]}}"></i>
+                </div>
                 <div class="update-text">{{ $row->estatus_envio_nombre }} <a href="#">{!! $row->created_at->diffForHumans() !!}</a> </div>
               </div>    
             </div>
@@ -122,7 +126,7 @@ Detalle de Compra
             @endforeach
         
         
-    </div>
+        </div-->
 
 
 
