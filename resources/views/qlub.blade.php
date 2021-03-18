@@ -90,7 +90,7 @@
         @foreach($sliders as $s)
             <div class="item">
                 <a href="{{ $s->link_slider }}" target="_self">
-                    <img src="{{ secure_asset('uploads/sliders/'.$s->imagen_slider ) }}" alt="Alpina Go!">
+                    <img src="{{ secure_asset('uploads/sliders/'.$s->imagen_slider ) }}" alt="El Qlub">
                 </a>
             </div>
         @endforeach
@@ -166,36 +166,40 @@
         @endif
     <!-- //Layout Section Start -->
     <!-- Seccion categoria Inicio -->
-    <div class="container cont_categorias">
+    <div class="container cont_categorias_qlub">
         <div class="row">
             <div class="col-md-12 col-sm-12 text-center">
-                <h3 class="catego almacen{{$almacen->id}}">Categorías </h3>
-                <div class="separador"></div>
+                <h3 class="titulo_qlub">Galería de Experiencias</h3>
             </div>
             <div class="col-md-12 col-sm-12 wow pulse" data-wow-duration="1.5s">
                 <div class="row">
-                    @if(!$categorias->isEmpty())
-                        @foreach($categorias as $categoria)
-                            <div class="col-md-4 col-sm-12 col-xs-12"  id="caja_categoria">
-                                <div class="{{ $categoria->css_categoria }}">
-                                    <div class="layercat">
-                                        <div class="text-align:center;" id="contenido_cat">
-                                            <h2>{{ $categoria->nombre_categoria }}</h2>
-                                            <a href="{{ route('categoria', [$categoria->slug]) }}" class="botones_cat boton_cat">VER TODOS</a>                                
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="col-md-4 col-sm-12 col-xs-12"  id="caja_categoria_qlub">
+                        <div class="">
+                            <div class="text-center" id="contenido_cat">
+                                <img src="{{ secure_url('/').'/assets/img/categorias/baby.jpg' }}" alt="" title="" class="imgRedonda">   
+                                <h2 class="titulo_qlub">Maridaje<h2>
+                                <a href="" class="botones_cat boton_cat">VER TODOS</a>                             
                             </div>
-                            @if ($loop->iteration % 3 == 0)
-                                </div>
-                                <div class="row">
-                            @endif
-                    @endforeach
-                    @else
-                    <div class="alert alert-danger">
-                        <strong>Lo Sentimos!</strong> No Existen Categorias para Mostrar.
+                        </div>
                     </div>
-                @endif
+                    <div class="col-md-4 col-sm-12 col-xs-12"  id="caja_categoria_qlub">
+                        <div class="">
+                            <div class="text-center" id="contenido_cat">
+                                <img src="{{ secure_url('/').'/assets/img/categorias/no-lacteos.jpg' }}" alt="" title="" class="imgRedonda">
+                                <h2 class="titulo_qlub">Productos<h2>   
+                                <a href="" class="botones_cat boton_cat">VER TODOS</a>                             
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12 col-xs-12"  id="caja_categoria_qlub">
+                        <div class="">
+                            <div class="text-center" id="contenido_cat">
+                                <img src="{{ secure_url('/').'/assets/img/categorias/jugos.jpg' }}" alt="" title="" class="imgRedonda"> 
+                                <h2 class="titulo_qlub">Experiencias<h2> 
+                                <a href="" class="botones_cat boton_cat">VER TODOS</a>                             
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -207,8 +211,7 @@
         <div class="container cont_categorias">
             <div class="row">
                 <div class="col-md-12 col-sm-12 text-center">
-                    <h3 class="catego">Productos Más Vendidos</h3>
-                    <div class="separador"></div>
+                    <h3 class="titulo_qlub">Productos del Qlub</h3>
                 </div>
                 <div class="col-md-12 col-sm-12 wow bounceInUp center" data-wow-duration="1.5s"> 
                     <div class="products">
@@ -817,37 +820,13 @@
             <div class="container cont_categorias">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 text-center">
-                        <h3 class="catego">Nuestras Marcas</h3>
-                        <div class="separador"></div>
-                    </div>
-                    <div class="col-md-12 col-sm-12 wow bounceInUp center" data-wow-duration="1.5s"> 
-                        <div class="row">
-                            @if(!$marcas->isEmpty())
-                                @foreach($marcas as $marca)
-                                    <div class="col-md-2 col-sm-6 col-xs-6" >
-                                        <div class="brands">
-                                            <a href="{{ route('marcas', [$marca->slug]) }}" >
-                                                    <img src="{{ secure_url('/').'/uploads/marcas/'.$marca->imagen_marca }}" class="img-responsive" title="{{ $marca->nombre_marca }}" alt="{{ $marca->nombre_marca }}">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    @if ($loop->iteration % 6 == 0)
-                                        </div>
-                                        <div class="row">
-                                    @endif
-                                @endforeach
-                            @else
-                            <div class="alert alert-danger">
-                                <strong>Lo Sentimos!</strong> No Existen Marcas para Mostrar.
-                            </div>
-                        @endif
-                        </div>
+                        <img src="{{ secure_url('/').'/assets/img/expertos_queseros.png' }}" alt="" title="">   
                     </div>
                 </div>
             </div>
         <!-- //Seccion marcas Fin -->
 
-        <h1 style="font-size: 24px; text-align: center;" class="catego">{{$configuracion->h1_home}}</h1>
+        <h1 style="font-size: 24px; text-align: center;" class="titulo_qlub">Conoce el qlub del Queso Alpina</h1>
 
 
 

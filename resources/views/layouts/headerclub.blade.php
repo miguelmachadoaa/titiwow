@@ -30,7 +30,8 @@
     <!--global css starts-->
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/lib.css') }}">
 
-    <link href="https://fonts.googleapis.com/css?family=Comfortaa|Oswald|Montserrat:300,400,600|Roboto" rel="stylesheet">    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,500;0,700;1,300;1,500&display=swap" rel="stylesheet"> 
     
     <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
     <!--end of global css-->
@@ -87,7 +88,7 @@
         @endif
 </head>
 
-<body>
+<body class="body_qlub">
     @if (App::environment('production')) 
         <!-- Google Tag Manager (noscript) -->
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PG9RTMH"
@@ -97,7 +98,7 @@
     <!-- Header Start -->
     <header> 
         <!-- Icon Section Start -->
-        <div class="icon-section">
+        <div class="icon-section_qlub">
             <div class="container">
                 <div class="row hidden-lg">
                     <div class="col-sm-3 col-xs-8" >
@@ -167,16 +168,16 @@
                    
                     <div class="pull-left hidden-md hidden-xs hidden-sm hidden-md">
 
-                        <ul class="list-inline icon-position" style="margin-bottom:0px !important">
-                            <li><a href="https://www.facebook.com/alpina" target="_blank"><i class="fa fa-facebook-f color-top" ></i></a></li>
+                        <ul class="list-inline icon-position_qlub" style="margin-bottom:0px !important">
+                            <li><a href="https://www.facebook.com/alpina" target="_blank"><i class="fa fa-facebook-f color-top_qlub" ></i></a></li>
 
-                            <li><a href="https://www.instagram.com/alpinacol/" target="_blank"><i class="fa fa-instagram color-top" ></i></a></li>
+                            <li><a href="https://www.instagram.com/alpinacol/" target="_blank"><i class="fa fa-instagram color-top_qlub" ></i></a></li>
 
-                            <li><a href="https://www.linkedin.com/company/alpina/?trk=vsrp_companies_res_name&trkInfo=VSRPsearchId%3A3286542181450727911739%2CVSRPtargetId%3A48174%2CVSRPcmpt%3Aprimary" target="_blank"><i class="fa fa-linkedin-square color-top" ></i></a></li>
+                            <li><a href="https://www.linkedin.com/company/alpina/?trk=vsrp_companies_res_name&trkInfo=VSRPsearchId%3A3286542181450727911739%2CVSRPtargetId%3A48174%2CVSRPcmpt%3Aprimary" target="_blank"><i class="fa fa-linkedin-square color-top_qlub" ></i></a></li>
 
-                            <li><a href="https://twitter.com/Alpina" target="_blank"><i class="fa fa-twitter color-top" ></i></a></li>
+                            <li><a href="https://twitter.com/Alpina" target="_blank"><i class="fa fa-twitter color-top_qlub" ></i></a></li>
 
-                            <li><a href="https://www.youtube.com/user/AlpinaSA" target="_blank"><i class="fa fa-youtube-play color-top" ></i></a></li>
+                            <li><a href="https://www.youtube.com/user/AlpinaSA" target="_blank"><i class="fa fa-youtube-play color-top_qlub" ></i></a></li>
 
                         <li class="menu-top">
                             <label ><a id="detalle_carro_front" href="https://www.alpina.com" target="_blank">Ir Alpina Digital </a></label>    
@@ -187,7 +188,7 @@
                 <div class="col-md-8 col-sm-8 hidden-md hidden-xs hidden-sm" id="datos">
                     <ul class="list-inline">
                         <li class="pull-right menu-top">
-                            <ul class="list-inline icon-position">
+                            <ul class="list-inline icon-position_qlub">
 
                                 <li >
                                     
@@ -227,7 +228,7 @@
         </div>
         <!-- //Icon Section End -->
         <!-- logo Section Start -->
-        <div class="logo-section hidden-xs hidden-sm hidden-md">
+        <div class="logo-section_qlub hidden-xs hidden-sm hidden-md">
             <div class="logo-section-height">
                 <div class="container">
                     <div class="row">
@@ -239,7 +240,7 @@
                                             <div class="input-group">
                                                 <input type="text" name="buscar"  id="buscar" class="form-control" placeholder="Buscar ..." value="{{ old('buscar') }}" autocomplete="off">
                                             <span class="input-group-btn">
-                                                <button class="btn btn-default busqueda " alt="Buscar" ><i class="fa fa-search" aria-hidden="true" id="busqueda"></i></button>
+                                                <button class="btn btn-default3 busqueda " alt="Buscar" ><i class="fa fa-search" aria-hidden="true" id="busqueda2"></i></button>
                                             </span>
                                             </div>
                                         </div>
@@ -256,15 +257,15 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-4 col-xs-4 navbar-nav" class="pull_left">
+                        <div class="col-md-4 col-xs-4 navbar-nav2" class="pull_left">
                             <div class="row">
 
-                                <div id="cart_block_top" class="col-md-4 pull-right navbar-nav">
+                                <div id="cart_block_top" class="col-md-4 pull-right navbar-nav2">
                                     
 
                                     <!--button type="button" name="submit_search" class="btn btn-default button-cart dropdown nav-item "-->
                                     
-                                        <a class="btn btn-default" role="button"  aria-expanded="false"  href="{{ secure_url('cart/show') }}" alt="Ir a Mi Carrito de Compras"><i class="fa fa-cart-arrow-down" aria-hidden="true" id="carrto"></i></a>
+                                        <a class="btn btn-default2" role="button"  aria-expanded="false"  href="{{ secure_url('cart/show') }}" alt="Ir a Mi Carrito de Compras"><i class="fa fa-cart-arrow-down" aria-hidden="true" id="carrto2"></i></a>
     
                                     <!--/button-->
 
