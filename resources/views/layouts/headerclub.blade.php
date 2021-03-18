@@ -131,7 +131,7 @@
 
                     <div class="col-sm-3  col-xs-4" style="text-align: right;" >
 
-                        <button style="float: none; display: inline-block;" type="button" class="navbar-toggle collapsed " data-toggle="collapse" data-target="#collapse">
+                        <button style="float: none; display: inline-block;" type="button" class="navbar-toggle navbar-toggle-qlud collapsed  " data-toggle="collapse" data-target="#collapse">
                             <span><a href="#"><i class="livicon" data-name="responsive-menu" data-size="25" data-loop="false" data-c="#ffffff" data-hc="#ccc"></i>
                             </a></span>
                         </button>
@@ -290,7 +290,7 @@
                                             <div class="input-group">
                                                 <input type="text" name="buscar"  id="buscar" class="form-control" placeholder="Buscar ..." value="{{ old('buscar') }}" autocomplete="off">
                                             <span class="input-group-btn">
-                                                <button type="submit" class="btn btn-default" alt="Buscar" ><i class="fa fa-search" aria-hidden="true" id="busqueda"></i></button>
+                                                <button type="submit" class="btn btn-default3" alt="Buscar" ><i class="fa fa-search" aria-hidden="true" id="busqueda"></i></button>
                                             </span>
                                             </div><!-- /input-group -->
                                         </div><!-- /.col-lg-6 -->
