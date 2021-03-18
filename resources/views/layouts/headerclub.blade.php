@@ -280,7 +280,7 @@
         </div>
         <!-- //logo Section End -->
         
-        <nav class="navbar navbar-default navbar-expand-lg container">
+        <nav class="navbar navbar-default navbar-expand-lg container  navbar-qlud">
 
             <li style="padding: 0.8em 0.2em;list-style:none;" class="hidden-lg hidden-md hidden-sm">
 
