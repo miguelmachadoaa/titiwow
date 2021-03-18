@@ -169,13 +169,21 @@
     <div class="container cont_categorias_qlub">
         <div class="row">
             <div class="col-md-12 col-sm-12 text-center">
+                <h3 class="titulo_qlub">Bienvenidos a:</h3>
+            </div>
+            <div class="col-md-12 col-sm-12 text-center" style="margin-bottom:30px;">
+                <img src="{{ secure_url('/').'/assets/images/el_qlub.png' }}" alt="" title="" class="img-responsive">   
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 text-center">
                 <h3 class="titulo_qlub">Galería de Experiencias</h3>
             </div>
             <div class="col-md-12 col-sm-12 wow pulse" data-wow-duration="1.5s">
                 <div class="row">
                     <div class="col-md-4 col-sm-12 col-xs-12"  id="caja_categoria_qlub">
                         <div class="">
-                            <div class="text-center" id="contenido_cat">
+                            <div class="text-center" id="contenido_qlub">
                                 <img src="{{ secure_url('/').'/assets/img/categorias/baby.jpg' }}" alt="" title="" class="imgRedonda">   
                                 <h2 class="titulo_qlub">Maridaje<h2>
                                 <a href="" class="botones_qlub boton_qlub">VER TODOS</a>                             
@@ -184,7 +192,7 @@
                     </div>
                     <div class="col-md-4 col-sm-12 col-xs-12"  id="caja_categoria_qlub">
                         <div class="">
-                            <div class="text-center" id="contenido_cat">
+                            <div class="text-center" id="contenido_qlub">
                                 <img src="{{ secure_url('/').'/assets/img/categorias/no-lacteos.jpg' }}" alt="" title="" class="imgRedonda">
                                 <h2 class="titulo_qlub">Productos<h2>   
                                 <a href="" class="botones_qlub boton_qlub">VER TODOS</a>                             
@@ -193,7 +201,7 @@
                     </div>
                     <div class="col-md-4 col-sm-12 col-xs-12"  id="caja_categoria_qlub">
                         <div class="">
-                            <div class="text-center" id="contenido_cat">
+                            <div class="text-center" id="contenido_qlub">
                                 <img src="{{ secure_url('/').'/assets/img/categorias/jugos.jpg' }}" alt="" title="" class="imgRedonda"> 
                                 <h2 class="titulo_qlub">Experiencias<h2> 
                                 <a href="" class="botones_qlub boton_qlub">VER TODOS</a>                             
@@ -820,7 +828,7 @@
             <div class="container cont_categorias">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 text-center">
-                        <img src="{{ secure_url('/').'/assets/img/expertos_queseros.png' }}" alt="" title="">   
+                        <img src="{{ secure_url('/').'/assets/images/expertos_queseros.png' }}" alt="" title="">   
                     </div>
                 </div>
             </div>

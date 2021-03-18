@@ -235,9 +235,9 @@ body {
     color:#241F48;
 }
 .icon-position_qlub li a{
-    font-family: 'AlpinaSans Light';
+    font-family: 'Cormorant', serif;
     font-weight: 600;
-    font-size      : 17px;
+    font-size      : 14px;
     text-transform : uppercase;
     color:#ad8a39;
 }
@@ -1303,10 +1303,12 @@ footer a:hover, footer a:active{
 .color-qlub{
     font-size:20px !important;
     color:#ad8a39 !important;
+    font-family: 'Cormorant', serif;
 }
 .color-foot{
     font-size:35px !important;
     color:#9fdcf7 !important;
+    font-family: 'Cormorant', serif;
 }
 .pull-right a{
     color:#ffffff;
@@ -1352,7 +1354,7 @@ footer a:hover, footer a:active{
         #caja_categoria_qlub{
             height:150px;
             width: 100%;
-            margin: 10px 0px 190px 0px;
+            margin: 10px 0px 250px 0px;
         }
         #contenido_cat{
             padding: 10px;
@@ -1875,9 +1877,15 @@ padding: 0.3em 0.3em 0em 1em;
 }
 
 /* Inicio el Qlub*/
+.body_qlub #bar{
+    background:#ad8a39 !important;
+}
+.body_qlub li label{
+    bottom: 0px !important;
+}
 .imgRedonda {
-    width:200px;
-    height:200px;
+    width:250px;
+    height:250px;
     border-radius:150px;
     border:5px solid #ad8a39;
 }
@@ -1908,12 +1916,14 @@ padding: 0.3em 0.3em 0em 1em;
 
 .titulo_qlub{
     color:#ad8a39;
+    font-family: 'Cormorant', serif;
+    font-weight: bold;
 }
 .footer_qlub {
     background: #ad8a39;
     padding: 1rem 0 1rem;
     z-index: 2;
-    font-family: 'AlpinaSans Regular';
+    font-family: 'Cormorant', serif;
 }
 .copyright_qlub {
     background: #ad8a39;
@@ -1927,11 +1937,11 @@ padding: 0.3em 0.3em 0em 1em;
     margin  : 0.5% 0;
     font-size: 14px;
     font-weight: 300;
-    font-family: 'AlpinaSans Regular';
+    font-family: 'Cormorant', serif;
 }
 .navbar-qlud .navbar-nav>li>a{
     color:#ad8a39;
-    font-family: 'AlpinaSans Semibold';
+    font-family: 'Cormorant', serif;
 }
 
 .navbar-qlud .navbar-nav > li > a:hover, .navbar-qlud .navbar-nav > .active > a {
@@ -1951,10 +1961,29 @@ padding: 0.3em 0.3em 0em 1em;
 .navbar-qlud {
     background-color: #000;
 }
+.navbar-toggle_qlub {
+    position: relative;
+    float: right;
+    padding: 9px 10px;
+    margin-top: 8px;
+    margin-right: 15px;
+    margin-bottom: 8px;
+    background-color: #AD8A37;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
 
-.navbar-toggle {
+.navbar-toggle_qlub {
     
     background-color: #AD8A37;
+}
+
+.body_qlub .dropdown-menu>li>a{
+    color:#ad8a39;
+    text-transform:uppercase;
+    padding: 5px 20px;
+    font-family: 'Cormorant', serif;
 }
 
 .productos_qlub{
@@ -1966,9 +1995,11 @@ padding: 0.3em 0.3em 0em 1em;
 }
 .productos_qlub a h3{
     color: #ad8a39 !important;
+    font-family: 'Cormorant', serif;
 }
 .productos_qlub .precio_base{
     color: #ad8a39 !important;
+    font-family: 'Cormorant', serif;
 }
 .productos_qlub .btn-vermas{
     background-color: #143473;
@@ -1977,5 +2008,8 @@ padding: 0.3em 0.3em 0em 1em;
 .productos_qlub .btn-cart{
     background-color: #ad8a39;
     border-color: #ad8a39;
+}
+#contenido_qlub{
+    padding: 10px 30px 30px 30px;
 }
 /* Fin el  Qlub*/
