@@ -42,6 +42,7 @@ class AlpSliders extends Model
         'imagen_slider',
         'order',
         'link_slider',
+        'grupo_slider',
         'estado_registro',
         'id_user'
     ];

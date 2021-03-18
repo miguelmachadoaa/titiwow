@@ -1618,6 +1618,8 @@ $hoy=$date->format('Y-m-d');
 
         ->where('alp_almacen_slider.id_almacen', '=', $id_almacen)
 
+        ->where('alp_slider.grupo_slider', '=', 1)
+
         ->whereNull('alp_slider.deleted_at')
 
         ->whereNull('alp_almacen_slider.deleted_at')
@@ -1943,6 +1945,8 @@ $hoy=$date->format('Y-m-d');
         ->join('alp_almacen_slider','alp_slider.id', '=', 'alp_almacen_slider.id_slider')
 
         ->where('alp_almacen_slider.id_almacen', '=', $id_almacen)
+
+        ->where('alp_slider.grupo_slider', '=', 2)
 
         ->whereNull('alp_slider.deleted_at')
 

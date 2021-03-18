@@ -1931,6 +1931,22 @@ padding: 0.3em 0.3em 0em 1em;
 .productos_qlub{
     margin: 20px 0px;
     min-height: 364px;
-    border: 1px solid #ad8a39;
+}
+.productos_qlub .homi{
+    border: 2px solid #ad8a39; 
+}
+.productos_qlub a h3{
+    color: #ad8a39 !important;
+}
+.productos_qlub .precio_base{
+    color: #ad8a39 !important;
+}
+.productos_qlub .btn-vermas{
+    background-color: #143473;
+    border-color: #143473;
+}
+.productos_qlub .btn-cart{
+    background-color: #ad8a39;
+    border-color: #ad8a39;
 }
 /* Fin el  Qlub*/
