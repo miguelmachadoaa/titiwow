@@ -1122,6 +1122,7 @@ footer a:hover, footer a:active{
         position: relative;
         vertical-align: middle; 
         text-align: center;
+        padding-bottom: 0.5em;
 }
 @media (max-width : 951px) {
 
@@ -1928,6 +1929,34 @@ padding: 0.3em 0.3em 0em 1em;
     font-weight: 300;
     font-family: 'AlpinaSans Regular';
 }
+.navbar-qlud .navbar-nav>li>a{
+    color:#ad8a39;
+    font-family: 'AlpinaSans Semibold';
+}
+
+.navbar-qlud .navbar-nav > li > a:hover, .navbar-qlud .navbar-nav > .active > a {
+    color: #ad8a39;
+    text-shadow: #ad8a39;
+    background: #fff;
+}
+
+.navbar-qlud .navbar-collapse .nav .dropdown .dropdown-menu {
+ 
+    background-color: #000;
+    
+}
+.navbar-qlud .navbar-collapse .nav .dropdown .dropdown-menu li a {
+    color: #ad8a39;
+}
+.navbar-qlud {
+    background-color: #000;
+}
+
+.navbar-toggle {
+    
+    background-color: #AD8A37;
+}
+
 .productos_qlub{
     margin: 20px 0px;
     min-height: 364px;
