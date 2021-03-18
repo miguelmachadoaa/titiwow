@@ -1880,7 +1880,7 @@ padding: 0.3em 0.3em 0em 1em;
     border-radius:150px;
     border:5px solid #ad8a39;
 }
-.botones_cat {
+.botones_qlub {
     border: none;
     color: #ffffff !important;
     padding: 6px 22px;
@@ -1893,13 +1893,13 @@ padding: 0.3em 0.3em 0em 1em;
     transition-duration: 0.4s;
     cursor: pointer;
 }
-.boton_cat {
+.boton_qlub {
     background-color: #ad8a39; 
     color: #ffffff !important; 
     border: 2px solid #ad8a39;
 }
 
-.boton_cat:hover {
+.boton_qlub:hover {
     background-color: #ffffff;
     color: #ad8a39 !important;
     border: 2px solid #ad8a39;
@@ -1927,5 +1927,10 @@ padding: 0.3em 0.3em 0em 1em;
     font-size: 14px;
     font-weight: 300;
     font-family: 'AlpinaSans Regular';
+}
+.productos_qlub{
+    margin: 20px 0px;
+    min-height: 364px;
+    border: 1px solid #ad8a39;
 }
 /* Fin el  Qlub*/

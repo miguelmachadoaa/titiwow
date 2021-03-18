@@ -178,7 +178,7 @@
                             <div class="text-center" id="contenido_cat">
                                 <img src="{{ secure_url('/').'/assets/img/categorias/baby.jpg' }}" alt="" title="" class="imgRedonda">   
                                 <h2 class="titulo_qlub">Maridaje<h2>
-                                <a href="" class="botones_cat boton_cat">VER TODOS</a>                             
+                                <a href="" class="botones_qlub boton_qlub">VER TODOS</a>                             
                             </div>
                         </div>
                     </div>
@@ -187,7 +187,7 @@
                             <div class="text-center" id="contenido_cat">
                                 <img src="{{ secure_url('/').'/assets/img/categorias/no-lacteos.jpg' }}" alt="" title="" class="imgRedonda">
                                 <h2 class="titulo_qlub">Productos<h2>   
-                                <a href="" class="botones_cat boton_cat">VER TODOS</a>                             
+                                <a href="" class="botones_qlub boton_qlub">VER TODOS</a>                             
                             </div>
                         </div>
                     </div>
@@ -196,7 +196,7 @@
                             <div class="text-center" id="contenido_cat">
                                 <img src="{{ secure_url('/').'/assets/img/categorias/jugos.jpg' }}" alt="" title="" class="imgRedonda"> 
                                 <h2 class="titulo_qlub">Experiencias<h2> 
-                                <a href="" class="botones_cat boton_cat">VER TODOS</a>                             
+                                <a href="" class="botones_qlub boton_qlub">VER TODOS</a>                             
                             </div>
                         </div>
                     </div>
@@ -235,7 +235,7 @@
 
 
                                          <div class="col-md-2 col-sm-6 col-xs-6 ">
-                                                        <div class="productos">
+                                                        <div class="productos_qlub">
                                                             <div class="text-align:center;">
                                                                 <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/250/'.$producto->imagen_producto }}" alt="{{ $producto->nombre_producto }}" title="{{ $producto->nombre_producto }}" class="img-responsive homi"></a>
 
@@ -532,7 +532,7 @@
                                         @php $i++; @endphp
 
                                          <div class="col-md-2 col-sm-6 col-xs-6 ">
-                                                        <div class="productos">
+                                                        <div class="productos_qlub">
                                                             <div class="text-align:center;">
                                                                 <a href="{{ route('producto', [$producto->slug]) }}" ><img src="{{ secure_url('/').'/uploads/productos/250/'.$producto->imagen_producto }}" alt="{{ $producto->nombre_producto }}" title="{{ $producto->nombre_producto }}" class="img-responsive homi"></a>
 
