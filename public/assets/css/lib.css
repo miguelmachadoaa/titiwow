@@ -1924,6 +1924,7 @@ padding: 0.3em 0.3em 0em 1em;
     padding: 1rem 0 1rem;
     z-index: 2;
     font-family: 'Cormorant', serif;
+    font-weight: bold;
 }
 .copyright_qlub {
     background: #ad8a39;
@@ -1935,7 +1936,7 @@ padding: 0.3em 0.3em 0em 1em;
     color   : #ffffff;
     padding : 0.5% 0;
     margin  : 0.5% 0;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 300;
     font-family: 'Cormorant', serif;
 }
@@ -1984,6 +1985,7 @@ padding: 0.3em 0.3em 0em 1em;
     text-transform:uppercase;
     padding: 5px 20px;
     font-family: 'Cormorant', serif;
+    font-weight: bold;
 }
 
 .productos_qlub{
@@ -1996,10 +1998,12 @@ padding: 0.3em 0.3em 0em 1em;
 .productos_qlub a h3{
     color: #ad8a39 !important;
     font-family: 'Cormorant', serif;
+    font-weight: bold;
 }
 .productos_qlub .precio_base{
     color: #ad8a39 !important;
     font-family: 'Cormorant', serif;
+    font-weight: bold;
 }
 .productos_qlub .btn-vermas{
     background-color: #143473;
