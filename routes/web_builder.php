@@ -121,6 +121,8 @@ Route::get('admin/ordenes/{id}/reenviaryaprobarcompramas/', 'Admin\AlpOrdenesCon
 
 Route::get('admin/productos/data', 'Admin\AlpProductosController@data')->name('productos.data');
 
+Route::get('admin/productos/datadestacados/list', 'Admin\AlpProductosController@datadestacados')->name('productos.datadestacados');
+
 Route::get('admin/productos/generarImagenes', 'Admin\AlpProductosController@generarImagenes')->name('productos.generarImagenes');
 
 Route::get('admin/categorias/data', 'Admin\AlpCategoriasController@data')->name('categorias.data');
@@ -222,6 +224,15 @@ Route::get('productos/productosmasivosexport', 'Admin\AlpProductosController@pro
 
 
 Route::get('productos/grid/', ['as'=> 'productos.grid', 'uses' => 'Admin\AlpProductosController@grid']);
+
+
+Route::get('productos/destacados/', ['as'=> 'productos.destacados', 'uses' => 'Admin\AlpProductosController@destacadoslist']);
+
+Route::post('productos/addproductodestacado/', ['as'=> 'productos.addproductodestacado', 'uses' => 'Admin\AlpProductosController@addproductodestacado']);
+
+
+Route::post('productos/eliminarproductodestacado/', ['as'=> 'productos.eliminarproductodestacado', 'uses' => 'Admin\AlpProductosController@eliminarproductodestacado']);
+
 
 Route::post('productos/postgrid/', ['as'=> 'productos.postgrid', 'uses' => 'Admin\AlpProductosController@postgrid']);
 

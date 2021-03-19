@@ -203,6 +203,20 @@
         </li>
         @endif
 
+
+        @if (Sentinel::getUser()->hasAnyAccess(['productos.destacados']))
+
+        <li {!! (Request::is('admin/productos/destacados') ? 'class="active"' : '') !!}>
+            <a href="{!! route('admin.productos.destacados') !!}">
+                <i class="fa fa-angle-double-right"></i>
+                Productos Destacados
+            </a>
+        </li>
+
+        @endif
+
+
+
         
 
 

@@ -1138,7 +1138,11 @@ $hoy=$date->format('Y-m-d');
 
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
 
+        ->join('alp_destacados_producto', 'alp_productos.id', '=', 'alp_destacados_producto.id_producto')
+
         ->where('alp_almacenes.id', '=', $id_almacen)
+
+        ->where('alp_destacados_producto.id_grupo_destacado', '=', '1')
 
         ->whereNull('alp_almacen_producto.deleted_at')
 
@@ -1688,11 +1692,18 @@ $hoy=$date->format('Y-m-d');
         $precio = array();
         $configuracion=AlpConfiguracion::where('id', '1')->first();
         $categorias = DB::table('alp_categorias')->select('alp_categorias.*')->where('destacado','=', 1)->where('alp_categorias.estado_registro','=',1)->whereNull('alp_categorias.deleted_at')->orderBy('order', 'asc')->limit(9)->get();
+        
+
         $productos = DB::table('alp_productos')->select('alp_productos.*')
 
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
 
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
+
+        ->join('alp_destacados_producto', 'alp_productos.id', '=', 'alp_destacados_producto.id_producto')
+
+
+        ->where('alp_destacados_producto.id_grupo_destacado', '=', '2')
 
         ->where('alp_almacenes.id', '=', $id_almacen)
 
@@ -1710,11 +1721,8 @@ $hoy=$date->format('Y-m-d');
 
         ->orderBy('alp_productos.updated_at', 'desc')
 
-        ->where('alp_productos.destacado','=', 1)
-
-        //->limit(12)
-
         ->get();
+        
         //dd($productos);
         $marcas = DB::table('alp_marcas')->select('alp_marcas.*')->where('destacado','=', 1)->where('alp_marcas.estado_registro','=',1)->whereNull('alp_marcas.deleted_at')->orderBy('order', 'asc')->limit(12)->get();
         $ciudad= \Session::get('ciudad');

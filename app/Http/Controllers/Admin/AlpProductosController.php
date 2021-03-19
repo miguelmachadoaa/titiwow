@@ -13,6 +13,7 @@ use App\Http\Requests\AnchetaCategoriasRequest;
 use App\Http\Requests\AnchetaProductosRequest;
 
 
+use App\Models\AlpDestacadoProducto;
 use App\Models\AlpProductos;
 use App\Models\AlpProductosRelacionados;
 use App\Models\AlpCategorias;
@@ -147,12 +148,12 @@ class AlpProductosController extends JoshController
                   <i class='livicon' data-name='remove-alt' data-size='18' data-loop='true' data-c='#f56954' data-hc='#f56954'  title='Eliminar'></i>  </a> ";
 
 
-                 if ($alpProductos->destacado == 1) {
+               /*  if ($alpProductos->destacado == 1) {
               $destacado=" <div style=' display: inline-block; padding: 0; margin: 0;' id='td_".$alpProductos->id."'><button title='Sugerencia' data-url='".secure_url('productos/destacado')."' data-destacado='0' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  destacado'>  <span class='glyphicon glyphicon-star' aria-hidden='true'></span>   </button></div>";
             }else{
 
                    $destacado="  <div style=' display: inline-block; padding: 0; margin: 0;' id='td_".$alpProductos->id."'><button title='Normal' data-url='".secure_url('productos/destacado')."' data-destacado='1' data-id='".$alpProductos->id ."'   class='btn btn-xs btn-link  destacado'>  <span class='glyphicon glyphicon-star-empty' aria-hidden='true'></span>   </button></div>";
-            }
+            }*/
 
                 if ($alpProductos->sugerencia == 1) {
               $sugerencia=" <div style=' display: inline-block; padding: 0; margin: 0;' id='td_sugerencia_".$alpProductos->id."'>
@@ -2633,10 +2634,229 @@ class AlpProductosController extends JoshController
 
 
 
+     public function destacadoslist()
+    {
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user) ->log('AlpProductosController/destacadolist ');
+
+        }else{
+
+          activity() ->log('AlpProductosController/destacadolist');
+
+
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+       # $input = $request->all();
+
+        $productos=AlpProductos::all();
+
+
+        $destacados = DB::table('alp_productos')->select('alp_productos.*')
+
+       # ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
+
+      #  ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
+
+        ->join('alp_destacados_producto', 'alp_productos.id', '=', 'alp_destacados_producto.id_producto')
+
+        #->whereNull('alp_almacen_producto.deleted_at')
+
+        ->whereNull('alp_productos.deleted_at')
+
+        ->where('alp_productos.estado_registro','=',1)
+
+        #->where('alp_productos.mostrar','=',1)
+
+       # ->groupBy('alp_productos.id')
+
+        ->orderBy('alp_productos.order', 'asc')
+
+        ->orderBy('alp_productos.updated_at', 'desc')
+
+        ->get();
+
+        return view('admin.productos.destacadoslist', compact('productos', 'destacados'));
+       
+
+    }
+
+
+     public function addproductodestacado(Request $request)
+    {
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpProductosController/addproductodestacado ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpProductosController/addproductodestacado');
+
+
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+        $input = $request->all();
+
+        $pd=AlpDestacadoProducto::where('id_producto', $request->id_producto)->where('id_grupo_destacado', $request->id_grupo)->first();
+
+
+        if (isset($pd->id)) {
+
+          return 'false';
+          
+        }else{
+
+          $data = array(
+            'id_grupo_destacado' => $request->id_grupo, 
+            'id_producto' => $request->id_producto, 
+            'id_user' => $user->id
+          );
+
+          AlpDestacadoProducto::create($data);
+
+          return 'true';
+        }
+
+        
+        
+    }
+
+
+
+      public function eliminarproductodestacado(Request $request)
+    {
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpProductosController/eliminarproductodestacado ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpProductosController/eliminarproductodestacado');
+
+
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+        $input = $request->all();
+
+        $pd=AlpDestacadoProducto::where('id', $request->id)->first();
+
+
+        if (isset($pd->id)) {
+
+          $pd->delete();
+
+          return 'true';
+          
+        }else{
+
+         
+
+          return 'false';
+        }
+
+        
+        
+    }
 
 
 
 
+     public function datadestacados()
+    {
+    
+          $productos = DB::table('alp_productos')->select('alp_productos.*', 'alp_destacados_producto.id_grupo_destacado as id_grupo_destacado')
+
+        ->join('alp_destacados_producto', 'alp_productos.id', '=', 'alp_destacados_producto.id_producto')
+       
+        ->whereNull('alp_productos.deleted_at')
+        ->whereNull('alp_destacados_producto.deleted_at')
+
+        ->where('alp_productos.estado_registro','=',1)
+
+        ->orderBy('alp_productos.order', 'asc')
+
+        ->orderBy('alp_productos.updated_at', 'desc')
+
+        //->limit(12)
+
+        ->get();
+       
+
+            $data = array();
+
+          foreach($productos as $alpProductos){
+
+            
+
+            $imagen="<img src='".secure_url('uploads/productos/60/'.$alpProductos->imagen_producto)."' height='60px'>";
+
+            if ($alpProductos->id_grupo_destacado==1) {
+              $grupo='Index';
+            }else{
+              $grupo='Qlub';
+
+            }
+
+
+             $actions = "   
+                 <button class='btn btn-danger eliminarproductodestacado' data-id='".$alpProductos->id."' >
+                  <i class='fa fa-trash'    title='Eliminar'></i>  </button> ";
+
+
+
+
+               $data[]= array(
+                 $alpProductos->id, 
+                  $imagen, 
+                 $alpProductos->nombre_producto, 
+                 $alpProductos->referencia_producto, 
+                 $alpProductos->referencia_producto_sap, 
+                 $grupo, 
+                 $actions
+              );
+
+          }
+
+          return json_encode( array('data' => $data ));
+
+    }
 
 
 
