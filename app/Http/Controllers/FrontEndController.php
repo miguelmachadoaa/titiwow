@@ -1685,7 +1685,6 @@ $hoy=$date->format('Y-m-d');
 
         ->join('alp_destacados_producto', 'alp_productos.id', '=', 'alp_destacados_producto.id_producto')
 
-
         ->where('alp_destacados_producto.id_grupo_destacado', '=', '2')
 
         ->where('alp_almacenes.id', '=', $id_almacen)

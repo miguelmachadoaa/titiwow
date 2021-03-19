@@ -84,7 +84,9 @@ Destacados
                                         @foreach($productos as $lp)
 
                                         <option      value="{{ $lp->id }}">
-                                                {{ $lp->nombre_producto.' '.$lp->referencia_producto}}</option>
+                                                {{ $lp->nombre_producto.' '.$lp->referencia_producto}}
+
+                                        </option>
                                         @endforeach
                                         
                                       

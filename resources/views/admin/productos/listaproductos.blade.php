@@ -20,13 +20,21 @@
                             <th>
                                 Nombre
                             </th>
-                            
+
                             <th>Referencia</th>
 
                             <th>Referencia Sap</th>
                             
                              <th>
                                 Grupo
+                            </th>
+
+                            <th>
+                                Almacen
+                            </th>
+
+                            <th>
+                                Estado del Producto
                             </th>
 
                             <th>
