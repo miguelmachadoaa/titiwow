@@ -179,7 +179,7 @@ class AlpProductosController extends JoshController
                  $alpProductos->nombre_categoria, 
                  number_format($alpProductos->precio_base,2), 
                  $estado, 
-                 $actions.$destacado.$sugerencia
+                 $actions.$sugerencia
               );
 
           }
