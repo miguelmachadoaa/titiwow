@@ -62,6 +62,15 @@ PQR
 <br />
     <div class="row">
         <div class="col-md-12">
+            <div style="padding:10px 30px; 20px 30px;color:#241F48;">
+                <h1 class="text-center">¿Necesitas Ayuda?</h1>
+                <div class="separador"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
             @if (session('aviso'))
             <div class="alert alert-success">
                 {{ session('aviso') }}
@@ -72,7 +81,8 @@ PQR
     <div class="row">
         <div class="col-md-12">
             <div style="padding:10px 30px; 20px 30px">
-                <h3 class="text-center">Formulario PQR</h3>
+                <h3 class="text-center">No dudes en Contactarnos</h3>
+                <p class="text-center">Recuerda que este canal es exclusivamente para preguntas, quejas, reclamos, peticiones o sugerencias sobre Alpinago.com</p>
             </div>
         </div>
     </div>
@@ -160,6 +170,32 @@ PQR
             <div class="resp"></div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div style="padding:10px 30px; 20px 30px">
+                <h3 class="text-center">También puedes Consultar</h3>
+                <p class="text-center">Horario de atención telefónica y chat Lunes a viernes de 7:00 a.m. a 6:00 p.m., sábados de 8:00 a.m. a 2:00 p.m.</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="text-center">
+                <h3 class="text-center">Chat</h3>
+                <a href="https://portalos.outsourcing.com.co:8203" class="botones_cat boton_cat" target="_blank">Ingresa nuestro Chat
+</a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="text-center">
+                <h3 class="text-center">Línea de Atención</h3>
+                <h3 class="text-center">(01) 8000529999</h3>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
 </div>
 @endsection
 
