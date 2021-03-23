@@ -30,7 +30,7 @@
                         <p>(01) 8000529999</p>
                         <p>alpina@alpina.com</p>
                         <p><a href="https://portalos.outsourcing.com.co:8203" target="_blank">También puedes contactarte a través de nuestro CHAT</a></p>
-                        </ul>
+                        <p></p><a href="{{ secure_url('pqr') }}">Formulario PQR</a></p>
                     
                 </div>
                 <!-- Contacto Section Start -->

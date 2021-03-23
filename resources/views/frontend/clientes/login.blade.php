@@ -134,6 +134,22 @@
     <script src="{{ secure_asset('assets/js/livicons-1.4.min.js') }}"></script>
     <script src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}" type="text/javascript"></script>
     <script src="{{ secure_asset('assets/js/pages/login.js') }}" type="text/javascript"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LflWnsaAAAAAERsguImH7gK43wG2vehWYLSw63W"></script>
+
+        <script>
+        grecaptcha.ready(function() {
+        grecaptcha.execute('6LflWnsaAAAAAERsguImH7gK43wG2vehWYLSw63W', {action: 'contactForm'})
+        .then(function(token) {
+
+        var recaptchaResponse = document.getElementById('_recaptcha');
+        recaptchaResponse.value = token;
+        });});
+
+
+
+
+
+        </script>
     <!-- end of global js -->
 </body>
 </html>
