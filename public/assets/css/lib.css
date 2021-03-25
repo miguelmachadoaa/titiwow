@@ -1929,6 +1929,7 @@ padding: 0.3em 0.3em 0em 1em;
 }
 .footer_qlub {
     background: #c9a05d;
+    background-image: url("../../assets/images/patronhead.jpg");
     padding: 1rem 0 1rem;
     z-index: 2;
     font-family: 'Josefin Sans', sans-serif;
@@ -1953,7 +1954,8 @@ padding: 0.3em 0.3em 0em 1em;
     margin-bottom: 10px;
 }
 .copyright_qlub {
-    background: #c9a05d;
+    /*background: #c9a05d;*/
+    background: #052846;
     padding: 1rem 0 1rem;
     z-index: 2;
     border-top:2px solid #ffffff;
@@ -2113,5 +2115,12 @@ padding: 0.3em 0.3em 0em 1em;
 }
 #contenido_qlub{
     padding: 10px 30px 30px 30px;
+}
+
+
+.imgqlub{
+	margin-bottom:30px; 
+	display: flex;justify-content: center;
+	align-items: center;
 }
 /* Fin el  Qlub*/

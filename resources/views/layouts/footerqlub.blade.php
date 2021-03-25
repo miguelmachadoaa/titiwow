@@ -1,5 +1,5 @@
  <!-- Footer Section Start -->
- <footer class="footer_qlub">
+ <footer class="footer_qlub" >
         <div class="container footer-text_qlub">
             <div class="row" style="margin:0px;padding:0px;">
                 <!-- Categorias Section Start -->
