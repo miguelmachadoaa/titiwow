@@ -167,7 +167,7 @@ Conoce el qlub del Queso Alpina |  @parent
     <!-- //Layout Section Start -->
     <!-- Seccion categoria Inicio -->
 
-     <div class="container cont_categorias_qlub" style='background-image: url("../../assets/images/patronhead.jpg");padding: 0;margin: 0;width: 100%;text-align: center;background-repeat: repeat-x;min-height:300px;'>
+     <div class="container cont_categorias_qlub fondo_qlub">
         <div class="row" style="padding: 0; margin:0;">
             <div class="col-md-12 col-sm-12 text-center" style="padding: 0;margin: 0;">
                 <h3 class="titulo_qlub">Bienvenidos a:</h3>
@@ -838,7 +838,7 @@ Conoce el qlub del Queso Alpina |  @parent
             </div>
         <!-- //Seccion marcas Fin -->
 
-        <h1 style="font-size: 24px; text-align: center;" class="titulo_qlub">Conoce el qlub del Queso Alpina</h1>
+        <h1 style="font-size: 24px; text-align: center;" class="titulo_qlub">Conoce el Qlub del Queso Alpina</h1>
 
 
 
