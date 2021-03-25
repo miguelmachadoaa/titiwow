@@ -3982,8 +3982,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
              if($inv[$producto->id]>=$producto->cantidad){
 
 
-
-
                 if ($producto->tipo_producto=='2') {
 
                     $lista=AlpCombosProductos::where('id_combo', $producto->id)->get();
@@ -4296,9 +4294,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         # code...
       }
 
-     
-
-
        if (Sentinel::check()) {
 
           $user = Sentinel::getUser();
@@ -4331,11 +4326,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        $carrito= \Session::get('cr');
 
-
        $cart[$producto->slug]->cantidad=$cantidad;
-
-
-
 
        if (Sentinel::check()) {
 
@@ -4351,17 +4342,11 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
           activity()->withProperties($cart)
                         ->log('cartcontroller/update');
-
-
         }
-
-       
-      // return $cart;
 
        \Session::put('cart', $cart);
 
        return redirect('cart/show');
-
       
     }
 
@@ -4397,7 +4382,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
         if (isset($inv[$request->id])) {
-          
+
+           if(isset($inv[$request->id])){
 
            if($inv[$request->id]>=$request->cantidad){
 
@@ -4483,6 +4469,13 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
               
             }
 
+            }else{
+
+              return 'false';
+
+              
+            }
+
       
         }else{
 
@@ -4521,17 +4514,15 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       unset( $cart[$request->slug]);
 
-       \Session::put('cart', $cart);
+      \Session::put('cart', $cart);
 
 
-       $view= View::make('frontend.order.botones', compact('producto', 'cart'));
+      $view= View::make('frontend.order.botones', compact('producto', 'cart'));
 
-        $data=$view->render();
+      $data=$view->render();
 
-        return $data;
+      return $data;
 
-       //return 'true';
-      
     }
 
 
@@ -4771,9 +4762,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
     {
        $cart= \Session::get('cart');
 
-      // dd($cart);
-
-        $carrito= \Session::get('cr');
+      $carrito= \Session::get('cr');
 
       $total=0;
 
@@ -4785,25 +4774,19 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         if (isset($row->id)) {
 
           if ($row->precio_base>0) {
-            $total=$total+($row->cantidad*$row->precio_oferta);
-          }
 
-           
+            $total=$total+($row->cantidad*$row->precio_oferta);
+
+          }
 
         }
 
-       
 
       }
 
        return $total-$total_descuentos;
       
     }
-
-
-
-  
-
 
 
 
@@ -4862,7 +4845,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                 $valor_impuesto=$row->valor_impuesto;
 
-
                 $base_impuesto=0;
 
                 if ($row->tipo_producto=='2') {
@@ -4911,6 +4893,10 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
        return $impuesto;
       
     }
+
+
+
+
     private function cantidad()
     {
        $cart= \Session::get('cart');
@@ -4920,10 +4906,10 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       foreach($cart as $row) {
 
         if (isset($row->id)) {
-          $cantidad=$cantidad+($row->cantidad);# code...
-        }
 
-        
+          $cantidad=$cantidad+($row->cantidad);# code...
+
+        }
 
       }
 
@@ -5094,7 +5080,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                       }else{
 
-                        $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $role->role_id)->first();
+                        $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $role->role_id)->where('city_id', '=','62')->first();
 
                         if (isset($pregiogrupo->id)) {
                          
@@ -5128,7 +5114,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                     if (isset($producto->id)) {
                       
-                       $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $r)->first();
+                       $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $r)->where('city_id', '=','62')->first();
 
                       if (isset($pregiogrupo->id)) {
                          
@@ -5670,6 +5656,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
 
 
+            if (isset($cart[$request->slug])) {
             if ($cart[$request->slug]->tipo_producto=='2') {
 
 
@@ -5751,6 +5738,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                 
 
+              }
               }
 
 
@@ -5881,7 +5869,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                 
               }else{
 
-
+            if (isset($cart[$request->slug])) {
             if ($cart[$request->slug]->tipo_producto=='2') {
 
 
@@ -5953,7 +5941,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                   # code...
                 }
 
-                
+                }
 
               }
 
@@ -6590,17 +6578,28 @@ public function verificarDireccion( Request $request)
             }
 
            
-            $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $carrito)->get();
-
             $total_descuentos_icg=0;
 
-            foreach ($descuentosIcg as $pagoi) {
 
-              $total_descuentos=$total_descuentos+$pagoi->monto_descuento;
+          if (isset($role->role_id)) {
 
-              $total_descuentos_icg=$total_descuentos_icg+$pagoi->monto_descuento;
+            if ($role->role_id=='16') {
+
+              $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $carrito)->get();
+
+                
+
+                foreach ($descuentosIcg as $pagoi) {
+
+                  $total_descuentos=$total_descuentos+$pagoi->monto_descuento;
+
+                  $total_descuentos_icg=$total_descuentos_icg+$pagoi->monto_descuento;
+
+                }
 
             }
+
+          }
 
 
 
@@ -6657,36 +6656,50 @@ public function verificarDireccion( Request $request)
             }
 
 
-            $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $carrito)->get();
+          if (isset($role->role_id)) {
+
+            if ($role->role_id=='16') {
 
 
-            foreach ($descuentosIcg as $pagoi) {
+              $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $carrito)->get();
 
-              $dicg=AlpOrdenesDescuentoIcg::where('id', '=', $pagoi->id)->first();
 
-               $data_dicg = array('id_orden' => $orden->id );
+              foreach ($descuentosIcg as $pagoi) {
 
-              $dicg->update($data_dicg);
+                $dicg=AlpOrdenesDescuentoIcg::where('id', '=', $pagoi->id)->first();
+
+                 $data_dicg = array('id_orden' => $orden->id );
+
+                $dicg->update($data_dicg);
+
+              }
+
+               if ($total_descuentos_icg>0) {
+
+                $ricg=$this->registroIcg($orden->id);
+
+                if (isset($ricg->codigoRta)) {
+                  # code...
+                }else{
+
+                  $r='falseicg';
+                }
+
+              }
 
             }
+
+          }
+
+
+
+            
 
 
 
            
 
-            if ($total_descuentos_icg>0) {
-
-              $ricg=$this->registroIcg($orden->id);
-
-              if (isset($ricg->codigoRta)) {
-                # code...
-              }else{
-
-                $r='falseicg';
-              }
-
-
-            }
+           
 
 
             if (\Session::has('mensajeancheta')) {
@@ -6759,6 +6772,7 @@ public function verificarDireccion( Request $request)
 
             \Session::forget('orden');
             \Session::forget('cr');
+            \Session::forget('cart');
             
             return 'falseAprobado';
 
@@ -6784,7 +6798,7 @@ public function verificarDireccion( Request $request)
           );
 
            activity()->withProperties($data_orden)
-                        ->log('intento de pago pse ');
+                        ->log('verificar direccion orden l9837');
 
           $orden->update($data_orden);
 
@@ -6999,7 +7013,15 @@ public function verificarDireccion( Request $request)
 
             }
 
-             $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $orden->id)->get();
+            $total_descuentos_icg=0;
+
+
+          if (isset($role->role_id)) {
+
+            if ($role->role_id=='16') {
+
+
+              $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $orden->id)->get();
 
             $total_descuentos_icg=0;
 
@@ -7013,6 +7035,15 @@ public function verificarDireccion( Request $request)
 
             activity()->withProperties($total_descuentos_icg)
                         ->log('total descuento icg  ');
+
+
+
+            }
+
+          }
+
+
+             
 
                         #activity()->withProperties($carrito)>log('total descuento icg carrito  ');
 
@@ -7068,6 +7099,12 @@ public function verificarDireccion( Request $request)
             }
 
 
+          if (isset($role->role_id)) {
+
+            if ($role->role_id=='16') {
+
+
+              
              $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $carrito)->get();
 
 
@@ -7101,6 +7138,16 @@ public function verificarDireccion( Request $request)
               }
 
             }
+
+            }
+
+          }
+
+
+
+
+
+
 
          }
 
@@ -8799,7 +8846,7 @@ public function addcupon(Request $request)
                     }else{
 
 
-                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $role->role_id)->first();
+                    $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $role->role_id)->where('city_id', '=', '62')->first();
 
                       if (isset($pregiogrupo->id)) {
                          
@@ -8837,7 +8884,7 @@ public function addcupon(Request $request)
 
                     }else{
 
-                      $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $r)->first();
+                      $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $r)->where('city_id', '=', '62')->first();
 
                       if (isset($pregiogrupo->id)) {
                        

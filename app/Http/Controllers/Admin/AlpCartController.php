@@ -366,6 +366,9 @@ class AlpCartController extends JoshController
 
         }
 
+
+         $role=RoleUser::select('role_id')->where('user_id', $user->id)->first();
+
       
       $id=$id/1024;
 
@@ -526,7 +529,6 @@ class AlpCartController extends JoshController
 
 
         if ($role->role_id=='16') {
-
 
           $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $id)->get();
 
@@ -2470,6 +2472,7 @@ class AlpCartController extends JoshController
 
 
               $total_descuentos_icg=0;
+              $descuentosIcg= array();
 
             if ($role->role_id=='16') {
 
@@ -5129,31 +5132,31 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         $configuracion=AlpConfiguracion::first();
 
         $producto=AlpProductos::select('alp_productos.*', 'alp_impuestos.valor_impuesto as valor_impuesto')
-                    ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
-                    ->where('alp_productos.slug', $request->slug)
-                    ->first();
+            ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
+            ->where('alp_productos.slug', $request->slug)
+            ->first();
 
-                            if (!\Session::has('cr')) {
+        if (!\Session::has('cr')) {
 
-          \Session::put('cr', '0');
+            \Session::put('cr', '0');
 
-          $ciudad= \Session::get('ciudad');
+            $ciudad= \Session::get('ciudad');
 
-          $data = array(
-                        'referencia' => time(), 
-                        'id_city' => $ciudad, 
-                        'id_user' => '0'
-                      );
+            $data = array(
+                'referencia' => time(), 
+                'id_city' => $ciudad, 
+                'id_user' => '0'
+              );
 
-          $carr=AlpCarrito::create($data);
+            $carr=AlpCarrito::create($data);
 
-          \Session::put('cr', $carr->id);
+            \Session::put('cr', $carr->id);
 
-               }
+        }
 
        $cart= \Session::get('cart');
 
-              $carrito= \Session::get('cr');
+        $carrito= \Session::get('cr');
 
        $descuento='1'; 
 
@@ -5161,7 +5164,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        $ban_disponible=0;
 
-              $precio = array();
+        $precio = array();
 
        $inv=$this->inventario();
 
@@ -5206,7 +5209,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
               }
 
-                            if ($ban_disponible==0) {
+              if ($ban_disponible==0) {
 
                 $cart[$producto->slug]=$producto;
 
@@ -5246,28 +5249,27 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
               $user = Sentinel::getUser();
 
                activity($user->full_name)
-                                           ->performedOn($user)
-                                                        ->causedBy($user)
-                                                        ->withProperties($cart)
-                                                        ->log('addtocartdetail ');
+                ->performedOn($user)
+                ->causedBy($user)
+                ->withProperties($cart)
+                ->log('addtocartdetail ');
 
             }else{
 
-              activity()->withProperties($cart)
-                                          ->log('addtocartdetail');
+              activity()->withProperties($cart)->log('addtocartdetail');
 
-                                                      }
+            }
 
                                                       
-       }
+        }
 
-       $total=$this->total();
+        $total=$this->total();
 
-              $almacen_id=$this->getAlmacen();
+        $almacen_id=$this->getAlmacen();
 
-             $almacen=AlpAlmacenes::where('id', $almacen_id)->first();
+        $almacen=AlpAlmacenes::where('id', $almacen_id)->first();
 
-             $mensaje_promocion= $this->addPromocion();
+        $mensaje_promocion= $this->addPromocion();
 
         $cart= \Session::get('cart');
 
@@ -5311,22 +5313,21 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                }
 
-       $cart= \Session::get('cart');
+        $cart= \Session::get('cart');
 
-              $carrito= \Session::get('cr');
+        $carrito= \Session::get('cr');
 
-       $descuento='1'; 
+        $descuento='1'; 
 
-       $error='0'; 
+        $error='0'; 
 
-       $ban_disponible=0;
-
+        $ban_disponible=0;
        
-       $precio = array();
+        $precio = array();
 
-       $inv=$this->inventario();
+        $inv=$this->inventario();
 
-              if (isset($producto->id)) {
+        if (isset($producto->id)) {
 
 
          $producto->precio_oferta=$request->price;
@@ -5442,136 +5443,79 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
           }
 
-              public function delete( AlpProductos $producto)
-
+    public function delete( AlpProductos $producto)
     {
 
        $cart= \Session::get('cart');
-
        
        $carrito= \Session::get('cr');
-
        
       unset( $cart[$producto->slug]);
 
-      
       $detalle=AlpCarritoDetalle::where('id_carrito', $carrito)->where('id_producto', $producto->id)->first();
 
-      
       if (isset($detalle->id)) { 
-
         
         $detalle->delete();
 
-        # code...
-
       }
-
-      
-     
-
      
 
        if (Sentinel::check()) {
-
         
           $user = Sentinel::getUser();
 
-          
            activity($user->full_name)
 
-                        ->performedOn($user)
+            ->performedOn($user)
 
-                        ->causedBy($user)
+            ->causedBy($user)
 
-                        ->withProperties($cart)
+            ->withProperties($cart)
 
-                        ->log('delete ');
+            ->log('delete ');
 
                         
         }else{
-
           
-          activity()->withProperties($cart)
-
-                        ->log('delete');
-
-                        
+          activity()->withProperties($cart)->log('delete');
 
         }
-
-       
-
        
        \Session::put('cart', $cart);
-
        
        return redirect('cart/show');
-
-       
-      
 
     }
 
     
     public function update( AlpProductos $producto, $cantidad)
-
     {
 
        $cart= \Session::get('cart');
 
-       
        $carrito= \Session::get('cr');
-
-       
 
        $cart[$producto->slug]->cantidad=$cantidad;
 
-       
-
-
-
        if (Sentinel::check()) {
-
         
           $user = Sentinel::getUser();
 
-          
            activity($user->full_name)
-
-                        ->performedOn($user)
-
-                        ->causedBy($user)
-
-                        ->withProperties($cart)
-
-                        ->log('cartcontroller/update ');
-
-                        
+              ->performedOn($user)
+              ->causedBy($user)
+              ->withProperties($cart)
+              ->log('cartcontroller/update ');
         }else{
 
-          
-          activity()->withProperties($cart)
-
-                        ->log('cartcontroller/update');
-
-                        
+          activity()->withProperties($cart)->log('cartcontroller/update');
 
         }
 
-        
-       
-
-      // return $cart;
-
-        
        \Session::put('cart', $cart);
-
        
        return redirect('cart/show');
-
-       
-      
 
     }
 
@@ -5584,75 +5528,75 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       $inv=$this->inventario();
 
-             if (Sentinel::check()) {
+      if (Sentinel::check()) {
 
           $user = Sentinel::getUser();
 
            activity($user->full_name)
-                                   ->performedOn($user)
-                                                ->causedBy($user)
-                                                ->withProperties($request->all())
-                                                ->log('cartcontroller/updatecantidad ');
+              ->performedOn($user)
+              ->causedBy($user)
+              ->withProperties($request->all())
+              ->log('cartcontroller/updatecantidad ');
 
         }else{
 
-          activity()->withProperties($request->all())
-                                  ->log('cartcontroller/updatecantidad');
+          activity()->withProperties($request->all())->log('cartcontroller/updatecantidad');
 
-                                          }
+        }
 
         $ban_disponible=0;
 
-                if (isset($inv[$request->id])) {
-
+        if (isset($inv[$request->id])) {
 
            if($inv[$request->id]>=$request->cantidad){
 
-            if ($cart[$request->slug]->tipo_producto=='2') {
+            if (isset($cart[$request->slug])) {
 
-                              $lista=AlpCombosProductos::where('id_combo', $cart[$request->slug]->id)->get();
+              if ($cart[$request->slug]->tipo_producto=='2') {
 
-                    foreach ($lista as $l) {
+                $lista=AlpCombosProductos::where('id_combo', $cart[$request->slug]->id)->get();
 
-                         if (isset($inv[$l->id_producto])) {
+                  foreach ($lista as $l) {
 
-                            if($inv[$l->id_producto]>=($l->cantidad*$request->cantidad)){
+                    if (isset($inv[$l->id_producto])) {
 
-                                                          }else{
+                      if($inv[$l->id_producto]>=($l->cantidad*$request->cantidad)){
+
+                        }else{
 
                               $ban_disponible=1;
 
                               $error="No hay existencia suficiente de este producto, en su ubicacion";
-                                                          }
-
-                        }else{
-
-                          $ban_disponible=1;
-
-                          $error="No hay existencia suficiente de este producto, en su ubicacion";
-
                         }
 
-                  }
+                      }else{
+
+                        $ban_disponible=1;
+
+                        $error="No hay existencia suficiente de este producto, en su ubicacion";
+
+                      }
+
+                }
 
             }
 
-                        if ($cart[$request->slug]->tipo_producto=='3') {
+            if ($cart[$request->slug]->tipo_producto=='3') {
 
                 if (isset($cart[$request->slug]->ancheta)) {
 
                       foreach ($cart[$request->slug]->ancheta as $l) {
 
-                                                if (isset($inv[$l->id])) {
+                        if (isset($inv[$l->id])) {
 
-                            if($inv[$l->id]>=($l->cantidad*$request->cantidad)){
+                          if($inv[$l->id]>=($l->cantidad*$request->cantidad)){
 
-                                                          }else{
+                            }else{
 
                               $ban_disponible=1;
 
                               $error="No hay existencia suficiente de este producto, en su ubicacion";
-                                                          }
+                          }
 
                         }else{
 
@@ -5663,97 +5607,72 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                         }
 
                          
-                                             }
+                    }
 
                   }
-                              }
 
-                                          if ($ban_disponible==0) {
-                            $cart[$request->slug]->cantidad=$request->cantidad;
-                          }
+              }
 
+              if ($ban_disponible==0) {
+
+                $cart[$request->slug]->cantidad=$request->cantidad;
+
+              }
 
             \Session::put('cart', $cart);
 
             return 'true';
 
+            }
+
             }else{
 
               return 'false';
-
               
-                          }
+            }
 
       
-              }else{
+        }else{
 
           return 'false';
 
         }
 
       
-          }
+      }
 
-              public function delproducto( Request $request)
-
-    {
+      public function delproducto( Request $request){
 
        $cart= \Session::get('cart');
-
        
        $producto=AlpProductos::where('slug', $request->slug)->first();
 
-       
-
        if (Sentinel::check()) {
-
         
           $user = Sentinel::getUser();
-
           
            activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->all())
+            ->log('cartcontroller/delproducto ');
 
-                        ->performedOn($user)
-
-                        ->causedBy($user)
-
-                        ->withProperties($request->all())
-
-                        ->log('cartcontroller/delproducto ');
-
-                        
         }else{
 
-          
           activity()->withProperties($request->all())
-
                         ->log('cartcontroller/delproducto');
-
-                        
 
         }
 
-        
+        unset($cart[$request->slug]);
 
-      unset( $cart[$request->slug]);
+        \Session::put('cart', $cart);
 
-      
-       \Session::put('cart', $cart);
+        $view= View::make('frontend.order.botones', compact('producto', 'cart'));
 
-       
-
-       $view= View::make('frontend.order.botones', compact('producto', 'cart'));
-
-       
         $data=$view->render();
-
         
         return $data;
-
-        
-       //return 'true';
-
-      
 
     }
 
@@ -5793,6 +5712,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
          if($inv[$request->id]>=$request->cantidad){
 
           
+            if (isset($cart[$request->slug])) {
             if ($cart[$request->slug]->tipo_producto=='2') {
 
                               $lista=AlpCombosProductos::where('id_combo', $cart[$request->slug]->id)->get();
@@ -5864,6 +5784,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
           }
 
+          }
+
         
 
       }else{
@@ -5905,31 +5827,25 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
           
     public function vaciar( )
-
     {
-
       
        if (Sentinel::check()) {
-
         
           $user = Sentinel::getUser();
-
           
            activity($user->full_name)
 
-                        ->performedOn($user)
+              ->performedOn($user)
 
-                        ->causedBy($user)
+              ->causedBy($user)
 
-                        ->log('cartcontroller/vaciar ');
+              ->log('cartcontroller/vaciar ');
 
                         
         }else{
 
           
           activity()->log('cartcontroller/vaciar');
-
-          
 
         }
 
@@ -5952,35 +5868,22 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
             
 
             $o=AlpOrdenesDescuento::where('id', $uo->id)->first();
-
             
             if (isset($o->id)) {
 
             $o->delete();
 
-              # code...
-
             }
-
-            
 
           }
 
-          
-
        }
 
-       
        $cart= \Session::forget('cart');
 
-       
        $carrito= \Session::forget('cr');
 
-      
-
        return redirect('cart/show');
-
-      
 
     }
 
@@ -6016,27 +5919,15 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
     }
 
-    
-
-
-  
-
-  
-
-
 
     private function precio_base()
-
     {
 
        $cart= \Session::get('cart');
-
        
       $total=0;
-
       
       foreach($cart as $row) {
-
         
         if (isset($row->id)) {
 
@@ -6044,22 +5935,15 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         }
 
-        
-        
-
-        
       }
-
       
        return $total;
-
-      
 
     }
 
      private function impuesto()
-     {
-             $cart= \Session::get('cart');
+    {
+       $cart= \Session::get('cart');
 
       $impuesto=0;
 
@@ -6067,13 +5951,15 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       $carrito= \Session::get('cr');
 
-            $base=0;
+
+      $base=0;
 
       $total=$this->total();
 
       $total_descuentos=0;
 
-              $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
+
+        $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
 
         foreach ($descuentos as $pago) {
 
@@ -6089,23 +5975,44 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                 $valor_impuesto=$row->valor_impuesto;
 
-                #$impuesto=$impuesto+($row->impuesto*$row->cantidad);
+                $base_impuesto=0;
+
+                if ($row->tipo_producto=='2') {
+
+              $lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.id_impuesto as id_impuesto')
+                      ->join('alp_productos', 'alp_combos_productos.id_producto','=', 'alp_productos.id' )
+                      ->where('id_combo', $row->id)->get();
+
+
+
+                      foreach ($lista as $l) {
+
+                        if ($l->id_impuesto==1) {
+
+                          $base_impuesto=$base_impuesto+($l->precio*$l->cantidad);
+                          
+                        }
+                          
+                      }
+
+                }else{
+
+                  $base_impuesto=$row->precio_oferta+$row->cantidad;
+
+                }
 
                 $base=$base+($row->precio_oferta*$row->cantidad);
 
-                $impuesto=$impuesto+(($row->precio_oferta*$row->cantidad)/(1+$valor_impuesto))*$valor_impuesto;
+                $impuesto=$impuesto+(($base_impuesto)/(1+$valor_impuesto))*$valor_impuesto;
 
-              }
+                }
 
-              
-
-              }
-
-            
+            }
 
           }
 
-                  $resto=$total-$total_descuentos;
+
+        $resto=$total-$total_descuentos;
 
          if ($resto<$base) {
 
@@ -6114,160 +6021,110 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           }
 
        return $impuesto;
-
-          }
+      
+    }
 
           
     private function cantidad()
-
     {
-
-       $cart= \Session::get('cart');
-
+      
+      $cart= \Session::get('cart');
        
       $cantidad=0;
-
       
       foreach($cart as $row) {
 
-        
         if (isset($row->id)) {
 
           $cantidad=$cantidad+($row->cantidad);
 
         }
-
-        
-        
-
         
       }
 
-      
        return $cantidad;
-
        
     }
 
     
     private function inventario()
-
     {
 
-       
-
        $id_almacen=$this->getAlmacen();
-
        
       $entradas = AlpInventario::groupBy('id_producto')
-
         ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
-
         ->where('alp_inventarios.operacion', '1')
-
         ->where('alp_inventarios.id_almacen', '=', $id_almacen)
-
         ->get();
 
         
         $inv = array();
-
         
         foreach ($entradas as $row) {
 
-          
-
           $inv[$row->id_producto]=$row->cantidad_total;
-
           
         }
 
         
 
       $salidas = AlpInventario::select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
-
         ->groupBy('id_producto')
-
         ->where('operacion', '2')
-
         ->where('alp_inventarios.id_almacen', '=', $id_almacen)
-
         ->get();
 
-        
         foreach ($salidas as $row) {
 
-          
           if (isset($inv[$row->id_producto])) {
-
-            # code...
 
           }else{
 
-            
             $inv[$row->id_producto]=0;
-
             
           }
 
-          
-
           $inv[$row->id_producto]= $inv[$row->id_producto]-$row->cantidad_total;
-
           
       }
 
-      
       return $inv;
-
-      
 
     }
 
     
     private function combos()
-
     {
-
       
       $c=AlpProductos::where('tipo_producto', '2')->get();
 
-      
       $combos = array();
 
-      
       foreach ($c as $co) {
 
-        
-
         $lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.slug as slug', 'alp_productos.nombre_producto as nombre_producto', 'alp_productos.imagen_producto as imagen_producto','alp_productos.presentacion_producto as presentacion_producto')
-
         ->join('alp_productos', 'alp_combos_productos.id_producto', '=', 'alp_productos.id')
-
         ->where('id_combo', $co->id)
-
         ->get();
-
         
         $combos[$co->id]=$lista;
 
-        
       }
-
       
       return $combos;
 
     }
 
     
- private function reloadCart()
+    private function reloadCart()
      {
 
-             $cart= \Session::get('cart');
+      $cart= \Session::get('cart');
 
       $s_user= \Session::get('user');
 
-     $id_almacen=$this->getAlmacenCart();
+      $id_almacen=$this->getAlmacenCart();
 
       $total=0;
 
@@ -6277,37 +6134,37 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       $precio = array();
 
-            $ciudad= \Session::get('ciudad');
+      $ciudad= \Session::get('ciudad');
 
         if (Sentinel::check()) {
 
             $user_id = Sentinel::getUser()->id;
 
-                          $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-                            ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-                            ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-                            ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-                            ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-                            ->where('alp_direcciones.id_client', $user_id)
-                            ->where('alp_direcciones.default_address', '=', '1')
-                            ->first();
+            $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+              ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+              ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+              ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+              ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+              ->where('alp_direcciones.id_client', $user_id)
+              ->where('alp_direcciones.default_address', '=', '1')
+              ->first();
 
             if (isset($d->id)) {
 
             }else{
 
-                  $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-                                  ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-                                ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-                                ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-                                ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-                                ->where('alp_direcciones.id_client', $user_id)
-                                ->first();
-                            }
+            $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+                ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+                ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+                ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+                ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+                ->where('alp_direcciones.id_client', $user_id)
+                ->first();
+          }
 
-                                        if (isset($d->id)) {
-                            $ciudad=$d->city_id;
-                          }
+              if (isset($d->id)) {
+                  $ciudad=$d->city_id;
+              }
 
                           
 
@@ -6327,24 +6184,22 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                   if ($cliente->id_empresa!=0) {
 
                       $role->role_id='E'.$cliente->id_empresa.'';
-                                        }
+                  
+                  }
 
-                               }
+              }
 
              if ($role->role_id) {
 
-
-                                    foreach ($cart as $producto ) {
+                foreach ($cart as $producto ) {
 
                   if (isset($producto->id)) {
 
-                                          $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $role->role_id)->where('city_id', $ciudad)->first();
-
-                      
+                      $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $role->role_id)->where('city_id', $ciudad)->first();
 
                       if (isset($pregiogrupo->id)) {
 
-                                                   $precio[$producto->id]['precio']=$pregiogrupo->precio;
+                          $precio[$producto->id]['precio']=$pregiogrupo->precio;
 
                           $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
                                                     $precio[$producto->id]['pum']=$pregiogrupo->pum;
@@ -6355,42 +6210,41 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                         if (isset($pregiogrupo->id)) {
 
-                                                       $precio[$producto->id]['precio']=$pregiogrupo->precio;
+                          $precio[$producto->id]['precio']=$pregiogrupo->precio;
 
-                              $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
-                                                            $precio[$producto->id]['pum']=$pregiogrupo->pum;
+                          $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
+                          
+                          $precio[$producto->id]['pum']=$pregiogrupo->pum;
 
-                          }
+                        }
 
-                                                }
+                  }
 
-
-                                      }
-
-                  
-
-                }
-
-                            }
+            }
 
           }
+
+        }
+
+      }
 
         }else{
 
           $role = array( );
 
             $r='9';
-                            foreach ($cart as  $producto) {
+                
+                foreach ($cart as  $producto) {
 
                     if (isset($producto->id)) {
 
-                                             $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $r)->where('city_id', '=','62')->first();
+                        $pregiogrupo=AlpPrecioGrupo::where('id_producto', $producto->id)->where('id_role', $r)->where('city_id', '=','62')->first();
 
                       if (isset($pregiogrupo->id)) {
 
-                                                   $precio[$producto->id]['precio']=$pregiogrupo->precio;
-                                                    $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
-                                                    $precio[$producto->id]['pum']=$pregiogrupo->pum;
+                          $precio[$producto->id]['precio']=$pregiogrupo->precio;
+                          $precio[$producto->id]['operacion']=$pregiogrupo->operacion;
+                          $precio[$producto->id]['pum']=$pregiogrupo->pum;
 
                       }
 
@@ -6400,7 +6254,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                 }
 
-                        } //end sentinel check
+        } //end sentinel check
 
                         
     if ($cambio==1) {
@@ -6409,7 +6263,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       if (isset($producto->promocion)) {
                 # code...
-              }else{
+      }else{
 
         if (isset($producto->nombre_producto)) {
                     # code...
@@ -6419,7 +6273,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
             if (isset($precio[$producto->id])) {
                             # code...
 
-                           switch ($precio[$producto->id]['operacion']) {
+                switch ($precio[$producto->id]['operacion']) {
 
                 case 1:
 
@@ -6431,20 +6285,20 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                   $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
 
-                                    break;
+                  break;
 
-                case 3:
+                  case 3:
 
                   $producto->precio_oferta=$precio[$producto->id]['precio'];
 
-                                    break;
+                  break;
 
-                                default:
+                  default:
 
-                                 $producto->precio_oferta=$producto->precio_base*$descuento;
+                  $producto->precio_oferta=$producto->precio_base*$descuento;
                                    # code...
-                                    break;
-                                }
+                  break;
+              }
 
             }else{
 
@@ -6452,59 +6306,88 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
             }
 
-                       }else{
+          }else{
 
            $producto->precio_oferta=$producto->precio_base*$descuento;
 
-                      }
+          }
 
-                       if (isset($producto->ancheta)) {
+          if (isset($producto->ancheta)) {
 
               $total=0;
-                            $total_oferta=0;
+              $total_oferta=0;
 
-                foreach ($producto->ancheta as $c) {
+              foreach ($producto->ancheta as $c) {
 
-                            $total=$total+($c->precio_base);
-                                    $total_oferta=$total_oferta+($c->precio_oferta);
-
-                                  }
-
-                $producto->precio_oferta=$total_oferta;
-                                $producto->precio_base=$total;
-
-               
-                            }
-
-                            
-
-            $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
-
-            $almp=AlpAlmacenProducto::where('id_almacen', $id_almacen)->where('id_producto', $producto->id)->first();
-
-            //dd($almp);
-
-            if (isset($almp->id)) {
-
-              $producto->disponible=1;
-
-            }else{
-
-              if (isset($producto->promocion)) {
-                                $producto->disponible=1;
-                              }else{
-
-                $producto->disponible=0;
+                $total=$total+($c->precio_base);
+                $total_oferta=$total_oferta+($c->precio_oferta);
 
               }
 
+              $producto->precio_oferta=$total_oferta;
+              $producto->precio_base=$total;
+
+               
+           }
+
+
+            $base_imponible_detalle=0;
+
+            $base_impuesto=0;
+
+            if ($producto->tipo_producto=='2') {
+
+              $lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.id_impuesto as id_impuesto')
+              ->join('alp_productos', 'alp_combos_productos.id_producto','=', 'alp_productos.id' )
+              ->where('id_combo', $producto->id)->get();
+
+                foreach ($lista as $l) {
+
+                    if ($l->id_impuesto==1) {
+
+                      $base_imponible_detalle=$l->precio/(1+$producto->valor_impuesto);
+
+                      $base_impuesto=$base_impuesto+($l->precio*$l->cantidad);
+
+                      $valor_impuesto=$producto->valor_impuesto;
+                      
+                    }
+                      
+                  }
+
+            }else{
+
+              $base_impuesto=$producto->precio_oferta+$producto->cantidad;
+
+            }
+                            
+
+            #$producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
+
+          $almp=AlpAlmacenProducto::where('id_almacen', $id_almacen)->where('id_producto', $producto->id)->first();
+
+          if (isset($almp->id)) {
+
+            $producto->disponible=1;
+
+          }else{
+
+            if (isset($producto->promocion)) {
+                              $producto->disponible=1;
+            
+            }else{
+
+              $producto->disponible=0;
+
             }
 
-                       $cart[$producto->slug]=$producto;
+          }
 
-                     }
-                }
-            }
+          $cart[$producto->slug]=$producto;
+
+         }
+      }
+    }
 
      // dd($cart);
 
@@ -6518,117 +6401,108 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
           }
 
-              public function botones(Request $request)
-
+    public function botones(Request $request)
     {
-
       
         $input = $request->all();
-
         
         $producto=AlpProductos::where('id', $request->id)->first();
-
         
-           if (Sentinel::check()) {
+        if (Sentinel::check()) {
 
-            
           $user = Sentinel::getUser();
 
-          
            activity($user->full_name)
-
-                        ->performedOn($user)
-
-                        ->causedBy($user)
-
-                        ->withProperties($request->all())
-
-                        ->log('cartcontroller/botones ');
-
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->all())
+            ->log('cartcontroller/botones ');
                         
         }else{
-
           
-          activity()->withProperties($request->all())
-
-                        ->log('cartcontroller/botones');
-
-                        
+          activity()->withProperties($request->all()) ->log('cartcontroller/botones');
 
         }
-
         
        $cart= \Session::get('cart');
 
-       
-       //print_r($cart);
 
-       
-        if (isset($producto->id)) {
-
+       if (\Session::has('cr')) {
           
-          //return redirect('order/detail');
+          $carrito= \Session::get('cr');
 
+          $cupones=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
+
+            foreach ($cupones as $cupon) {
+              
+              $c=AlpOrdenesDescuento::where('id', $cupon->id)->first();
+
+              if (isset($c->id)) {
+
+              $c->delete();
+                # code...
+              }
+
+            }
+
+        }
+
+
+
+        if (isset($producto->id)) {
           
           $view= View::make('frontend.order.botones', compact('producto', 'cart'));
 
-          
           $data=$view->render();
-
           
           $res = array('data' => $data);
 
-          
           return $data;
-
           
         } else{
-
           
           echo "No se encontro del producto";
 
         }   
 
-        
     }
-
     
 
   public function updatecartdetalle(Request $request)
-      {
+  {
 
-               if (Sentinel::check()) {
+    if (Sentinel::check()) {
 
           $user = Sentinel::getUser();
 
            activity($user->full_name)
-                                   ->performedOn($user)
-                                                ->causedBy($user)
-                                                ->withProperties($request->all())
-                                                ->log('cartcontroller/updatecartdetalle ');
+              ->performedOn($user)
+              ->causedBy($user)
+              ->withProperties($request->all())
+              ->log('cartcontroller/updatecartdetalle ');
 
         }else{
 
           activity()->withProperties($request->all())
-                                  ->log('cartcontroller/updatecartdetalle');
+          ->log('cartcontroller/updatecartdetalle');
 
-                                          }
+        }
 
-               $cart= \Session::get('cart');
+      $cart= \Session::get('cart');
 
-       $configuracion=AlpConfiguracion::where('id', '1')->first();
+      $configuracion=AlpConfiguracion::where('id', '1')->first();
 
-              $carrito= \Session::get('cr');
+      $carrito= \Session::get('cr');
 
-       $inv=$this->inventario();
+      $inv=$this->inventario();
 
-       $producto=AlpProductos::where('id', $request->id)->first();
+      $producto=AlpProductos::where('id', $request->id)->first();
 
-              $error='0';
+      $error='0';
 
-       $ban_disponible=0;
+      $ban_disponible=0;
 
-       if ( isset($producto->id)) {
+      if ( isset($producto->id)) {
 
         $producto->precio_oferta=$request->price;
 
@@ -6636,22 +6510,21 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
 
-           if (isset($inv[$request->id])) {
+          if (isset($inv[$request->id])) {
 
-             if ($request->cantidad>0) {
+            if ($request->cantidad>0) {
 
-                                if($inv[$request->id]>=$request->cantidad){
+              if($inv[$request->id]>=$request->cantidad){
 
-                      if ($configuracion->maximo_productos<$request->cantidad) {
+                if ($configuracion->maximo_productos<$request->cantidad) {
 
-                      $error="No puede añadir más de ".$configuracion->maximo_productos." Unidades al carrito";
+                  $error="No puede añadir más de ".$configuracion->maximo_productos." Unidades al carrito";
 
-                                          }else{
-
+                }else{
                                             
-            if ($cart[$request->slug]->tipo_producto=='2') {
+                  if ($cart[$request->slug]->tipo_producto=='2') {
 
-                              $lista=AlpCombosProductos::where('id_combo', $cart[$request->slug]->id)->get();
+                  $lista=AlpCombosProductos::where('id_combo', $cart[$request->slug]->id)->get();
 
                     foreach ($lista as $l) {
 
@@ -6659,117 +6532,113 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                             if($inv[$l->id_producto]>=($l->cantidad*$request->cantidad)){
 
-                                                          }else{
+                            }else{
 
                               $ban_disponible=1;
 
                               $error="No hay existencia suficiente de este producto, en su ubicacion";
-                                                          }
+                            }
 
-                        }else{
+                          }else{
 
-                          $ban_disponible=1;
+                            $ban_disponible=1;
 
-                          $error="No hay existencia suficiente de este producto, en su ubicacion";
+                            $error="No hay existencia suficiente de este producto, en su ubicacion";
 
-                        }
-
-                  }
-
-            }
-
-                        if ($cart[$request->slug]->tipo_producto=='3') {
-
-                if (isset($cart[$request->slug]->ancheta)) {
-
-                      foreach ($cart[$request->slug]->ancheta as $l) {
-
-                                                if (isset($inv[$l->id])) {
-
-                            if($inv[$l->id]>=($l->cantidad*$request->cantidad)){
-
-                                                          }else{
-
-                              $ban_disponible=1;
-
-                              $error="No hay existencia suficiente de este producto, en su ubicacion";
-                                                          }
-
-                        }else{
-
-                          $ban_disponible=1;
-
-                          $error="No hay existencia suficiente de este producto, en su ubicacion";
-
-                        }
-
-                         
-                                             }
-
-                  }
-                              }
-
-                              
-                      if ($ban_disponible==0) {
-
-                                                  if (isset($cart[$request->slug])) {
-
-                          $cart[$request->slug]->cantidad=$request->cantidad;
-
-                        }else{
-
-                          $cart[$request->slug]=$producto;
-
-                                                  }
-
-                      }
-
-                      
-
-                      
+                          }
 
                     }
 
+                  }   
 
-                }else{
+                if ($cart[$request->slug]->tipo_producto=='3') {
 
-                  $error="No hay existencia suficiente de este producto";
-                                  }
+                  if (isset($cart[$request->slug]->ancheta)) {
 
-             }else{
+                    foreach ($cart[$request->slug]->ancheta as $l) {
 
-              unset( $cart[$producto->slug]);
+                      if (isset($inv[$l->id])) {
 
-                           }//aqui termina 
+                        if($inv[$l->id]>=($l->cantidad*$request->cantidad)){
 
-         }else{
+                          }else{
 
-          unset( $cart[$producto->slug]);
+                              $ban_disponible=1;
 
-         }
+                              $error="No hay existencia suficiente de este producto, en su ubicacion";
+                          }
+
+                      }else{
+
+                          $ban_disponible=1;
+
+                          $error="No hay existencia suficiente de este producto, en su ubicacion";
+
+                      }
+
+                         
+                    }
+
+                  }
+
                 }
 
-                       //dd($producto->slug.' - '.$producto->id.' - '.$request->id);
+                              
+                if ($ban_disponible==0) {
 
-       $detalle=AlpCarritoDetalle::where('id_carrito', $carrito)->where('id_producto', $producto->id)->first();
+                  if (isset($cart[$request->slug])) {
+
+                    $cart[$request->slug]->cantidad=$request->cantidad;
+
+                  }else{
+
+                    $cart[$request->slug]=$producto;
+
+                  }
+
+                }
+
+          }
+
+
+        }else{
+
+          $error="No hay existencia suficiente de este producto";
+        }
+
+      }else{
+
+        unset( $cart[$producto->slug]);
+
+          }//aqui termina 
+
+      }else{
+
+        unset( $cart[$producto->slug]);
+
+       }
+      }
+
+      
+      $detalle=AlpCarritoDetalle::where('id_carrito', $carrito)->where('id_producto', $producto->id)->first();
 
        if (isset($detalle->id)) {
 
-        $data = array(
-                  'cantidad' => $request->cantidad, 
-                );
+          $data = array(
+            'cantidad' => $request->cantidad, 
+          );
 
-        $detalle->update($data);
+          $detalle->update($data);
 
-                }
+        }
 
-                      \Session::put('cart', $cart);
+      \Session::put('cart', $cart);
 
        $mensaje_promocion=$this->addPromocion();
 
        $cart= \Session::get('cart');
 
-             $impuesto=$this->impuesto();
+      $impuesto=$this->impuesto();
 
       $total=$this->total();
 
@@ -6777,18 +6646,40 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       $almacen_id=$this->getAlmacen();
 
-            $almacen=AlpAlmacenes::where('id', $almacen_id)->first();
+      $almacen=AlpAlmacenes::where('id', $almacen_id)->first();
 
-              $view= View::make('frontend.listcart', compact('producto', 'cart', 'total', 'impuesto', 'configuracion', 'error', 'almacen', 'mensaje_promocion'));
+      if (\Session::has('cr')) {
+          
+          $carrito= \Session::get('cr');
+
+          $cupones=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
+
+            foreach ($cupones as $cupon) {
+              
+              $c=AlpOrdenesDescuento::where('id', $cupon->id)->first();
+
+              if (isset($c->id)) {
+
+              $c->delete();
+                # code...
+              }
+
+            }
+
+        }
+
+
+
+      $view= View::make('frontend.listcart', compact('producto', 'cart', 'total', 'impuesto', 'configuracion', 'error', 'almacen', 'mensaje_promocion'));
 
         $data=$view->render();
 
         return $data;
 
-          }
+    }
 
     public function updatecartbotones(Request $request)
-        {
+    {
 
        if (Sentinel::check()) {
 
@@ -6834,27 +6725,26 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                 $error="No puede añadir más de ".$configuracion->maximo_productos." Unidades al carrito";
 
-                              }else{
+                }else{
 
-                                
-            if ($cart[$request->slug]->tipo_producto=='2') {
+                  if (isset($cart[$request->slug])) {
 
-                              $lista=AlpCombosProductos::where('id_combo', $cart[$request->slug]->id)->get();
+                  if ($cart[$request->slug]->tipo_producto=='2') {
 
-                                //dd($lista);
+                    $lista=AlpCombosProductos::where('id_combo', $cart[$request->slug]->id)->get();
 
                     foreach ($lista as $l) {
 
-                         if (isset($inv[$l->id_producto])) {
+                      if (isset($inv[$l->id_producto])) {
 
-                                                         if($inv[$l->id_producto]>=($l->cantidad*$request->cantidad)){
+                          if($inv[$l->id_producto]>=($l->cantidad*$request->cantidad)){
 
-                                                                                      }else{
+                            }else{
 
                               $ban_disponible=1;
 
                               $error="No hay existencia suficiente de este producto, en su ubicacion";
-                                                          }
+                            }
 
                         }else{
 
@@ -6864,63 +6754,62 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                         }
 
+                      }
+
                   }
 
-            }
+                  if ($cart[$request->slug]->tipo_producto=='3') {
 
-                        if ($cart[$request->slug]->tipo_producto=='3') {
-
-                if (isset($cart[$request->slug]->ancheta)) {
+                    if (isset($cart[$request->slug]->ancheta)) {
 
                       foreach ($cart[$request->slug]->ancheta as $l) {
 
-                                                if (isset($inv[$l->id])) {
+                        if (isset($inv[$l->id])) {
 
                             if($inv[$l->id]>=($l->cantidad*$request->cantidad)){
 
-                                                          }else{
+                              }else{
+
+                                $ban_disponible=1;
+
+                                $error="No hay existencia suficiente de este producto, en su ubicacion";
+                              }
+
+                            }else{
 
                               $ban_disponible=1;
 
                               $error="No hay existencia suficiente de este producto, en su ubicacion";
-                                                          }
 
-                        }else{
-
-                          $ban_disponible=1;
-
-                          $error="No hay existencia suficiente de este producto, en su ubicacion";
+                            }
+                         
+                          }
 
                         }
-
-                         
-                                             }
-
-                  }
-                              }
+                      }
 
                               
-                if ($ban_disponible==0) {
-                                       if (isset($cart[$request->slug]->cantidad)) {
+                      if ($ban_disponible==0) {
+                        
+                        if (isset($cart[$request->slug]->cantidad)) {
 
                           $cart[$request->slug]->cantidad=$request->cantidad;
 
                         }
-                                    }
-
-                
-
-                
-
-              }
-
-                        }else{
-
-            $error="No hay existencia suficiente de este producto";
+                      
                       }
 
-                               
-                 }
+                    }
+
+                  }
+
+            }else{
+
+            $error="No hay existencia suficiente de este producto";
+          }
+
+                   
+     }
 
                             
 
@@ -6944,13 +6833,33 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        \Session::put('cart', $cart);
 
+
+
+        if (\Session::has('cr')) {
+          
+          $carrito= \Session::get('cr');
+
+          $cupones=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
+
+            foreach ($cupones as $cupon) {
+              
+              $c=AlpOrdenesDescuento::where('id', $cupon->id)->first();
+
+              if (isset($c->id)) {
+
+              $c->delete();
+                # code...
+              }
+
+            }
+
+        }
+
       if (isset($request->datasingle)) {
 
         $datasingle=$request->datasingle;
 
-
-                 $view= View::make('frontend.order.botones', compact('producto', 'cart', 'datasingle'));
-
+        $view= View::make('frontend.order.botones', compact('producto', 'cart', 'datasingle'));
 
       }else{
 
@@ -6958,12 +6867,12 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       }
 
-        $data=$view->render();
+      $data=$view->render();
 
-        return $data;
+      return $data;
 
       
-          }
+    }
 
     public function updatecartbotonessingle(Request $request)
         {
@@ -7002,7 +6911,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        if ($request->cantidad>0) {
 
-
            if($inv[$request->id]>=$request->cantidad){
 
             if ($configuracion->maximo_productos<$request->cantidad) {
@@ -7010,24 +6918,26 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                 $error="No puede añadir más de ".$configuracion->maximo_productos." Unidades al carrito";
 
                 
-                              }else{
+            }else{
 
-                                            if ($cart[$request->slug]->tipo_producto=='2') {
+              if (isset($cart[$request->slug])) {
 
-                              $lista=AlpCombosProductos::where('id_combo', $cart[$request->slug]->id)->get();
+              if ($cart[$request->slug]->tipo_producto=='2') {
+
+                  $lista=AlpCombosProductos::where('id_combo', $cart[$request->slug]->id)->get();
 
                     foreach ($lista as $l) {
 
-                         if (isset($inv[$l->id_producto])) {
+                          if (isset($inv[$l->id_producto])) {
 
-                            if($inv[$l->id_producto]>=($l->cantidad*$request->cantidad)){
+                              if($inv[$l->id_producto]>=($l->cantidad*$request->cantidad)){
 
-                                                          }else{
+                          }else{
 
-                              $ban_disponible=1;
+                                $ban_disponible=1;
 
-                              $error="No hay existencia suficiente de este producto, en su ubicacion";
-                                                          }
+                                $error="No hay existencia suficiente de este producto, en su ubicacion";
+                          }
 
                         }else{
 
@@ -7041,22 +6951,22 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
             }
 
-                        if ($cart[$request->slug]->tipo_producto=='3') {
+              if ($cart[$request->slug]->tipo_producto=='3') {
 
                 if (isset($cart[$request->slug]->ancheta)) {
 
                       foreach ($cart[$request->slug]->ancheta as $l) {
 
-                                                if (isset($inv[$l->id])) {
+                          if (isset($inv[$l->id])) {
 
-                            if($inv[$l->id]>=($l->cantidad*$request->cantidad)){
+                              if($inv[$l->id]>=($l->cantidad*$request->cantidad)){
 
-                                                          }else{
+                          }else{
 
-                              $ban_disponible=1;
+                                $ban_disponible=1;
 
-                              $error="No hay existencia suficiente de este producto, en su ubicacion";
-                                                          }
+                                $error="No hay existencia suficiente de este producto, en su ubicacion";
+                          }
 
                         }else{
 
@@ -7067,20 +6977,19 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                         }
 
                          
-                                             }
+                    }
 
                   }
-                              }
+              }
 
-                if ($ban_disponible==0) {
+              if ($ban_disponible==0) {
 
-                  $cart[$request->slug]->cantidad=$request->cantidad;
-                                    # code...
-                                  }
-
-                
+                $cart[$request->slug]->cantidad=$request->cantidad;
+                                  # code...
+              }
 
               }
+            }
 
           }else{
 
@@ -7091,15 +7000,15 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         unset( $cart[$producto->slug]);
 
-               }
+      }
 
        $detalle=AlpCarritoDetalle::where('id_carrito', $carrito)->where('id_producto', $producto->id)->first();
 
        if (isset($detalle->id)) {
 
         $data = array(
-                  'cantidad' => $request->cantidad, 
-                );
+          'cantidad' => $request->cantidad, 
+        );
 
         $detalle->update($data);
 
@@ -7109,7 +7018,27 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        $single=1;
 
-               $view= View::make('frontend.order.botones', compact('producto', 'cart', 'single'));
+        if (\Session::has('cr')) {
+          
+          $carrito= \Session::get('cr');
+
+          $cupones=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
+
+            foreach ($cupones as $cupon) {
+              
+              $c=AlpOrdenesDescuento::where('id', $cupon->id)->first();
+
+              if (isset($c->id)) {
+
+              $c->delete();
+                # code...
+              }
+
+            }
+
+        }
+
+        $view= View::make('frontend.order.botones', compact('producto', 'cart', 'single'));
 
         $data=$view->render();
 
@@ -7491,386 +7420,267 @@ public function verificarDireccion( Request $request)
 
         
          activity($user->full_name)
-
                       ->performedOn($user)
-
                       ->causedBy($user)
-
                       ->withProperties($request->all())
-
                       ->log('cartcontroller/verificarDireccion ');
-
                       
       }else{
-
         
         activity()->withProperties($request->all())
-
                       ->log('cartcontroller/verificarDireccion');
 
-                      
       }
 
       
 
       if (Sentinel::check()) {
 
-        
         $user_id = Sentinel::getUser()->id;
-
         
         }else{
-
           
           $direccion=AlpDirecciones::where('id', $request->id_direccion)->first();
 
-          
           $user_id=$direccion->id_client;
-
           
         }
 
-        
-
-
 
       \Session::put('direccion', $request->id_direccion);
-
       
       $direccion=AlpDirecciones::where('id', $request->id_direccion)->first();
-
-      
-      //dd($direccion->city_id);
-
       
       if ($direccion->id_barrio!=0) {
-
         
           $ciudad=AlpFormaCiudad::where('id_forma', $request->id_forma_envio)->where('id_barrio', $direccion->id_barrio)->first();
 
-          
-        
-
       }else{
-
         
 
          $ciudad=AlpFormaCiudad::where('id_forma', $request->id_forma_envio)->where('id_ciudad', $direccion->city_id)->first();
 
-         
-
       }
-
-      
 
 
       $validado=0;
 
-      
       $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
-
       
       $re=AlpRolenvio::where('id_rol', $role->role_id)->get();
-
       
       $re_u=AlpRolenvio::where('id_rol', $role->role_id)->first();
-
       
       $id_almacen=$this->getAlmacen();
 
-      
-      //dd($re_u);
-
-      
       if (count($re)==1) {
-
-          
 
           if ($re_u->id_forma_envio=='4') {
 
-            
               $validado='1';
-
               
 
           }
-
           
       }
 
-      
-     // dd($validado);
-
-      
 
       $carrito= \Session::get('cr');
-
       
       $cart=$this->reloadCart();
-
       
       $total=$this->total();
-
       
       $impuesto=$this->impuesto();
 
-      
       $envio=$this->envio();
-
       
       $id_almacen=$this->getAlmacen();
 
-      
       $edata = array(
-
         'carrito' => $carrito,
-
         'cart' => $cart,
-
         'total' => $total,
-
         'impuesto' => $impuesto,
-
         'envio' => $envio
-
-        
       );
 
-      
-
-
      if (Sentinel::check()) {
-
       
           activity($user->full_name)
-
           ->performedOn($user)
-
           ->causedBy($user)
-
           ->withProperties($edata)
-
           ->log('cartcontroller/verificarDireccion Mostrar Datos ');
 
-          
       }else{
-
-        
 
 
       }
 
       
-
+      $r='true';
 
 
 
       $clientIP = \Request::getClientIp(true);
 
-      
       if (isset($ciudad->id)  ||  $validado=='1'){
-
         
         if (!\Session::has('orden')){
-
           
           if ($total>0) {
 
-         
-
           $data_orden = array(
-
               'referencia ' => time(), 
-
               'id_cliente' => $user_id, 
-
               'id_forma_envio' =>$request->id_forma_envio, 
-
               'id_address' =>$request->id_direccion, 
-
               'id_forma_pago' =>$request->id_forma_pago,  
-
               'estatus' =>'8', 
-
               'estatus_pago' =>'4', 
-
               'monto_total' =>$total,
-
               'monto_total_base' =>$total,
-
               'base_impuesto' =>'0',
-
               'valor_impuesto' =>'0',
-
               'monto_impuesto' =>'0',
-
               'ip' =>$clientIP,
-
               'id_almacen' =>$id_almacen,
-
               'id_user' =>$user_id
 
           );
 
+          activity()->withProperties($data_orden)
+                        ->log('varificar pagos crear orden ');
+
           
           $orden=AlpOrdenes::create($data_orden);
-
           
           $monto_total_base=0;
-
           
           $base_impuesto=0;
-
           
           $monto_impuesto=0;
-
           
           $valor_impuesto=0;
-
           
           foreach ($cart as $detalle) {
 
+            $base_imponible_detalle=0;
             
             $monto_total_base=$monto_total_base+($detalle->cantidad*$detalle->precio_base);
-
             
              $total_detalle=$detalle->precio_oferta*$detalle->cantidad;
-
              
               if ($detalle->valor_impuesto!=0) {
 
-                
-                $base_imponible_detalle=$total_detalle/(1+$detalle->valor_impuesto);
+                if ($detalle->tipo_producto=='2') {
 
-                
-                $base_impuesto=$base_impuesto+$total_detalle;
+                      $lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.id_impuesto as id_impuesto')
+                      ->join('alp_productos', 'alp_combos_productos.id_producto','=', 'alp_productos.id' )
+                      ->where('id_combo', $detalle->id)->get();
 
-                
-                $valor_impuesto=$detalle->valor_impuesto;
+                     # dd(json_encode($lista));
 
+                      foreach ($lista as $l) {
+
+                        if ($l->id_impuesto==1) {
+
+                          $base_imponible_detalle=$base_imponible_detalle+($l->precio*$l->cantidad)/(1+$detalle->valor_impuesto);
+                          $base_impuesto=$base_impuesto+($l->precio*$l->cantidad);
+
+                          $valor_impuesto=$detalle->valor_impuesto;
+                          
+                        }
+                          
+                      }
+
+                }else{
+
+                  $base_imponible_detalle=$total_detalle/(1+$detalle->valor_impuesto);
+
+                  $base_impuesto=$base_impuesto+$total_detalle;
+
+                  $valor_impuesto=$detalle->valor_impuesto;
+
+
+                }
+                
               
-
               }else{
 
-                
                 $base_imponible_detalle=0;
 
-                
-               # $base_impuesto=$base_impuesto+$total_detalle;
+                #$base_impuesto=$base_impuesto+$total_detalle;
 
-                
               }
 
-              
               $imp=$detalle->valor_impuesto+1;
 
-              
               $monto_impuesto=$monto_impuesto+$detalle->valor_impuesto*($total_detalle/$imp);
-
               
               $data_detalle = array(
-
                 'id_orden' => $orden->id, 
-
                 'id_producto' => $detalle->id, 
-
                 'cantidad' =>$detalle->cantidad, 
-
                 'precio_unitario' =>$detalle->precio_oferta, 
-
                 'precio_base' =>$detalle->precio_base, 
-
                 'precio_total' =>$detalle->cantidad*$detalle->precio_oferta,
-
                 'precio_total_base' =>$detalle->cantidad*$detalle->precio_base,
-
                 'valor_impuesto' =>$valor_impuesto,
-
                 'monto_impuesto' =>$base_imponible_detalle*$valor_impuesto,
-
                 'id_user' =>$user_id 
 
               );
 
               
               $data_inventario = array(
-
                 'id_producto' => $detalle->id, 
-
                 'id_almacen' => $id_almacen, 
-
                 'cantidad' =>$detalle->cantidad, 
-
                 'operacion' =>'2', 
-
                 'notas' =>'Orden '.$orden->id, 
-
                 'id_user' =>$user_id 
-
               );
-
               
-              AlpDetalles::create($data_detalle);
+               activity()->withProperties($data_orden)
+                        ->log('detalle de orden  ');
 
+              $detalleguardado=AlpDetalles::create($data_detalle);
               
               AlpInventario::create($data_inventario);
-
               
               if ($detalle->tipo_producto=='2') {
 
-                
                     $lista=AlpCombosProductos::where('id_combo', $detalle->id)->get();
-
                     
                     foreach ($lista as $l) {
 
-                      
                         $data_detalle_l = array(
-
                           'id_orden' => $orden->id, 
-
                           'id_producto' => $l->id_producto, 
-
                           'cantidad' =>$l->cantidad*$detalle->cantidad, 
-
                           'precio_unitario' =>0, 
-
                           'precio_base' =>0, 
-
                           'precio_total' =>0,
-
                           'precio_total_base' =>0,
-
                           'valor_impuesto' =>0,
-
                           'monto_impuesto' =>0,
-
                           'id_combo' =>$detalle->id,
-
                           'id_user' =>$user_id 
-
                         );
 
                         
                         $data_inventario_l = array(
-
                           'id_producto' => $l->id_producto, 
-
                           'id_almacen' => $id_almacen, 
-
                           'cantidad' =>$l->cantidad*$detalle->cantidad, 
-
                           'operacion' =>'2', 
-
                           'notas' =>'Orden '.$orden->id,
-
                           'id_user' =>$user_id 
-
                         );
-
                         
                         AlpDetalles::create($data_detalle_l);
-
                         
                         AlpInventario::create($data_inventario_l);
 
@@ -7879,39 +7689,24 @@ public function verificarDireccion( Request $request)
                   
               }
 
-              
 
               if ($detalle->tipo_producto=='3') {
-
                 
                   if (isset($detalle->ancheta)) {
-
                     
                       foreach ($detalle->ancheta as $l) {
-
                         
                           $data_detalle_l = array(
-
                             'id_orden' => $orden->id, 
-
                             'id_producto' => $l->id, 
-
                             'cantidad' =>$l->cantidad*$detalle->cantidad, 
-
                             'precio_unitario' =>0, 
-
                             'precio_base' =>0, 
-
                             'precio_total' =>0,
-
                             'precio_total_base' =>0,
-
                             'valor_impuesto' =>0,
-
                             'monto_impuesto' =>0,
-
                             'id_combo' =>$detalle->id,
-
                             'id_user' =>$user_id 
 
                           );
@@ -7963,6 +7758,39 @@ public function verificarDireccion( Request $request)
 
               
             }
+
+            $total_descuentos_icg=0;
+
+
+          if (isset($role->role_id)) {
+
+            if ($role->role_id=='16') {
+
+              $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $carrito)->get();
+
+                
+
+                foreach ($descuentosIcg as $pagoi) {
+
+                  $total_descuentos=$total_descuentos+$pagoi->monto_descuento;
+
+                  $total_descuentos_icg=$total_descuentos_icg+$pagoi->monto_descuento;
+
+                }
+
+            }
+
+          }
+
+
+          
+
+
+             
+
+
+
+
 
             
           //se calcula lo que queda luego del descuento
@@ -8091,16 +7919,15 @@ public function verificarDireccion( Request $request)
 
             \Session::put('cr', $orden->id);
 
-                        if ($orden->id_almacen==1) {
+          if ($orden->id_almacen==1) {
 
              try {
-                             # $compramas=$this->reservarOrden($orden->id);
-                             } catch (Exception $e) {
+            # $compramas=$this->reservarOrden($orden->id);
+              } catch (Exception $e) {
 
-                              }
+              }
 
-
-            }
+          }
 
                         }else{ //if la orden es menor a 0
 
@@ -8189,16 +8016,12 @@ public function verificarDireccion( Request $request)
 
            
            activity()->withProperties($data_orden)
-
                         ->log('verificar direccion orden l9837');
 
-                        
           $orden->update($data_orden);
-
           
           $detalles_orden=AlpDetalles::where('id_orden', $orden->id)->get();
 
-          
 
            foreach ($detalles_orden as $do) {
 
@@ -8240,12 +8063,11 @@ public function verificarDireccion( Request $request)
           
           foreach ($cart as $detalle) {
 
-            
+            $base_imponible_detalle=0;
+
             if (isset($detalle->id)){
 
             if ($detalle->precio_base>0) {
-
-             
 
              
             $monto_total_base=$monto_total_base+($detalle->cantidad*$detalle->precio_base);
@@ -8256,33 +8078,50 @@ public function verificarDireccion( Request $request)
              
               if ($detalle->valor_impuesto!=0) {
 
-                
-                $base_imponible_detalle=$total_detalle/(1+$detalle->valor_impuesto);
+                if ($detalle->tipo_producto=='2') {
 
-                
-                $base_impuesto=$base_impuesto+$total_detalle;
+                      $lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.id_impuesto as id_impuesto')
+                      ->join('alp_productos', 'alp_combos_productos.id_producto','=', 'alp_productos.id' )
+                      ->where('id_combo', $detalle->id)->get();
 
-                
-                $valor_impuesto=$detalle->valor_impuesto;
+                     # dd(json_encode($lista));
 
+                      foreach ($lista as $l) {
+
+                        if ($l->id_impuesto==1) {
+
+                          $base_imponible_detalle=$base_imponible_detalle+($l->precio*$l->cantidad)/(1+$detalle->valor_impuesto);
+
+                          $base_impuesto=$base_impuesto+($l->precio*$l->cantidad);
+
+                          $valor_impuesto=$detalle->valor_impuesto;
+                          
+                        }
+                          
+                      }
+
+                }else{
+
+                  $base_imponible_detalle=$total_detalle/(1+$detalle->valor_impuesto);
+
+                  $base_impuesto=$base_impuesto+$total_detalle;
+
+                  $valor_impuesto=$detalle->valor_impuesto;
+
+
+                }
               
-
               }else{
 
-                
                 $base_imponible_detalle=0;
 
-                
-               # $base_impuesto=$base_impuesto+$total_detalle;
+                #$base_impuesto=$base_impuesto+$total_detalle;
 
-                
               }
 
-              
-              $imp=$detalle->valor_impuesto+1;
+             ## dd($base_imponible_detalle);
 
-              
-              $monto_impuesto=$monto_impuesto+$detalle->valor_impuesto*($total_detalle/$imp);
+              $imp=$detalle->valor_impuesto+1;
 
               
               $data_detalle = array(
@@ -8481,7 +8320,7 @@ public function verificarDireccion( Request $request)
             $total_descuentos=0;
 
             
-            $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
+            $descuentos=AlpOrdenesDescuento::where('id_orden', $orden->id)->get();
 
             
             foreach ($descuentos as $pago) {
@@ -8493,7 +8332,35 @@ public function verificarDireccion( Request $request)
             }
 
             
-             
+              $total_descuentos_icg=0;
+
+
+          if (isset($role->role_id)) {
+
+            if ($role->role_id=='16') {
+
+
+              $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $orden->id)->get();
+
+            $total_descuentos_icg=0;
+
+            foreach ($descuentosIcg as $pagoi) {
+
+              $total_descuentos=$total_descuentos+$pagoi->monto_descuento;
+
+               $total_descuentos_icg=$total_descuentos_icg+$pagoi->monto_descuento;
+
+            }
+
+            activity()->withProperties($total_descuentos_icg)
+                        ->log('total descuento icg  ');
+
+                        
+
+            }
+
+          }
+
 
              
 
@@ -8581,6 +8448,49 @@ public function verificarDireccion( Request $request)
             
 
             
+            if (isset($role->role_id)) {
+
+            if ($role->role_id=='16') {
+
+
+              
+             $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $carrito)->get();
+
+
+            foreach ($descuentosIcg as $pagoi) {
+
+              $dicg=AlpOrdenesDescuentoIcg::where('id', '=', $pagoi->id)->first();
+
+               $data_dicg = array('id_orden' => $orden->id );
+
+              $dicg->update($data_dicg);
+
+            }
+
+
+             if ($total_descuentos_icg>0) {
+
+
+              
+                
+              $ricgc=$this->registroIcgCancelar($orden->id);
+
+              $ricg=$this->registroIcg($orden->id);
+
+              //dd($ricg->idRegistro);
+
+              if (isset($ricg->idRegistro)) {
+                 
+              }else{
+
+                $r='falseicg';
+              }
+
+            }
+
+            }
+
+          }
 
             
 
@@ -8648,16 +8558,11 @@ public function verificarDireccion( Request $request)
 
         
       $user = Sentinel::getUser();
-
       
        activity($user->full_name)
-
                     ->performedOn($user)
-
                     ->causedBy($user)
-
                     ->withProperties(['codigo'=>$codigo])
-
                     ->log('cartcontroller/asignaCupon ');
 
                     
@@ -8665,7 +8570,6 @@ public function verificarDireccion( Request $request)
 
         
       activity()->withProperties(['codigo'=>$codigo])
-
                     ->log('cartcontroller/asignaCupon');
 
                     
@@ -8675,80 +8579,48 @@ public function verificarDireccion( Request $request)
 
       $id_almacen=$this->getAlmacen();
 
-      
      $configuracion=AlpConfiguracion::where('id', '1')->first();
-
      
       $carrito= \Session::get('cr');
 
-      
-     //echo($carrito);
-
-      
-
       $cart=$this->reloadCart();
-
       
       $total=$this->total();
 
-      
       $total_base=$this->precio_base();
-
       
       $impuesto=$this->impuesto();
-
       
         $date = Carbon::now();
-
         
         $hoy=$date->format('Y-m-d');
-
         
         $user_id = Sentinel::getUser()->id;
-
         
         $usuario=User::where('id', $user_id)->first();
-
         
         $user_cliente=User::where('id', $user_id)->first();
-
         
         $cliente=AlpClientes::where('id_user_client', $user_id)->first();
 
-        
       $cupon=AlpCupones::where('codigo_cupon', $codigo)
-
           ->whereDate('fecha_inicio','<=',$hoy)
-
           ->whereDate('fecha_final','>=',$hoy)
-
           ->first();
 
-          
       $usados=AlpOrdenesDescuento::where('codigo_cupon', $codigo)->where('aplicado', '1')->get();
-
       
       $usados_persona=AlpOrdenesDescuento::where('codigo_cupon', $codigo)->where('id_user', $user_id)->where('aplicado', '1')->get();
 
-      
       $usados_orden=AlpOrdenesDescuento::where('id_orden', $carrito)->where('id_user', $user_id)->get();
-
-      
 
           $mensaje_user='';
 
-          
-
           $mensaje_producto = '';
 
-          
-
           $pago = '';
-
           
           $clase='info';
-
-          
 
            $b_empresa=0;
 
@@ -9607,11 +9479,9 @@ public function verificarDireccion( Request $request)
     
 public function addcupon(Request $request)
     {
-
       
 
        if (Sentinel::check()) {
-
         
           $user = Sentinel::getUser();
 
@@ -9641,48 +9511,34 @@ public function addcupon(Request $request)
         
       $configuracion=AlpConfiguracion::where('id', '1')->first();
 
-      
-
       $carrito= \Session::get('cr');
-
       
       $cart=$this->reloadCart();
-
       
       $total=$this->total();
 
-      
       $total_base=$this->precio_base();
-
       
       $impuesto=$this->impuesto();
-
       
       $aviso='';
-
       
 
       if ($total<$configuracion->minimo_compra) {
 
-        
             $aviso='El monto mínimo de compra es de $'.number_format($configuracion->minimo_compra,0,",",".");
 
             
             $cart=$this->reloadCart();
-
             
 
           $configuracion=AlpConfiguracion::where('id', '1')->first();
-
           
           $total=$this->total();
 
-          
           $inv=$this->inventario();
 
-          
           return view('frontend.cart', compact('cart', 'total', 'configuracion', 'inv', 'aviso'));
-
           
             return redirect('cart/show');
 
@@ -9692,55 +9548,37 @@ public function addcupon(Request $request)
       
       if (Sentinel::check()) {
 
-        
         $user_id = Sentinel::getUser()->id;
-
         
         $usuario=User::where('id', $user_id)->first();
-
         
         $user_cliente=User::where('id', $user_id)->first();
-
         
         $request->codigo_cupon=strip_tags($request->codigo_cupon);
 
-        
         $mensaje_cupon=$this->asignaCupon($request->codigo_cupon);
-
         
         if ($mensaje_cupon['mensaje_user']=='') {
-
           
 
         }else{
 
-          
           $aviso=$aviso.$mensaje_cupon['mensaje_user'];
 
-          
         }
 
         
         if ($mensaje_cupon['mensaje_producto']=='') {
 
-          
-
         }else{
 
-          
           $aviso=$aviso.$mensaje_cupon['mensaje_producto'];
-
           
         }
 
-        
         $texto="<div class='alert alert-".$mensaje_cupon['clase']."'>".$aviso."</div>";
 
-        
-
         return $texto;
-
-        
 
       }else{
 
@@ -9760,149 +9598,97 @@ public function addcupon(Request $request)
 
     
     public function addcuponform(Request $request)
-
     {
-
-      
 
        if (Sentinel::check()) {
 
-        
           $user = Sentinel::getUser();
-
           
            activity($user->full_name)
-
                         ->performedOn($user)
-
                         ->causedBy($user)
-
                         ->withProperties($request->all())
-
                         ->log('cartcontroller/addcuponform ');
-
                         
         }else{
 
-          
           activity()->withProperties($request->all())
-
                         ->log('cartcontroller/addcuponform');
-
-                        
 
         }
 
         
       $configuracion=AlpConfiguracion::where('id', '1')->first();
 
-      
-
       $carrito= \Session::get('cr');
 
-      
       $cart=$this->reloadCart();
 
-      
       $total=$this->total();
 
-      
       $total_base=$this->precio_base();
-
       
       $impuesto=$this->impuesto();
 
-      
       $aviso='';
 
-      
-
       if ($total<$configuracion->minimo_compra) {
-
         
             $aviso='El monto mínimo de compra es de $'.number_format($configuracion->minimo_compra,0,",",".");
 
-            
 
             $cart=$this->reloadCart();
 
-            
-
           $configuracion=AlpConfiguracion::where('id', '1')->first();
-
           
           $total=$this->total();
-
           
           $inv=$this->inventario();
-
           
           return view('frontend.cart', compact('cart', 'total', 'configuracion', 'inv', 'aviso'));
 
-          
-            return redirect('cart/show');
+          return redirect('cart/show');
 
             
       }
 
       
       if (Sentinel::check()) {
-
         
         $user_id = Sentinel::getUser()->id;
 
-        
         $usuario=User::where('id', $user_id)->first();
-
         
         $user_cliente=User::where('id', $user_id)->first();
-
         
         $request->codigo_cupon=strip_tags($request->codigo_cupon);
 
-        
         $mensaje_cupon=$this->asignaCupon($request->codigo_cupon);
 
-        
         if ($mensaje_cupon['mensaje_user']=='') {
-
-          
 
         }else{
 
-          
           $aviso=$aviso.$mensaje_cupon['mensaje_user'];
 
-          
         }
 
         
         if ($mensaje_cupon['mensaje_producto']=='') {
 
-          
-
         }else{
-
           
           $aviso=$aviso.$mensaje_cupon['mensaje_producto'];
-
           
         }
-
         
         return redirect('order/detail')->with('aviso', $aviso);
 
-        
       }else{
 
-        
         $url='order.detail';
 
-        
-          //return redirect('login');
-
         return view('frontend.order.login', compact('url'));
-
         
       }
 
@@ -9912,961 +9698,252 @@ public function addcupon(Request $request)
     
 
     public function delcupon(Request $request)
-
     {
 
-      
-
        if (Sentinel::check()) {
-
         
           $user = Sentinel::getUser();
-
           
            activity($user->full_name)
-
                         ->performedOn($user)
-
                         ->causedBy($user)
-
                         ->withProperties($request->all())
-
                         ->log('cartcontroller/delcupon ');
-
                         
         }else{
-
           
           activity()->withProperties($request->all())
-
                         ->log('cartcontroller/delcupon');
-
-                        
 
         }
 
-        
-        
-
-        
       $configuracion=AlpConfiguracion::where('id', '1')->first();
 
-      
-
       $carrito= \Session::get('cr');
-
       
       $cart=$this->reloadCart();
-
       
       $total=$this->total();
-
       
       $total_base=$this->precio_base();
-
       
       $impuesto=$this->impuesto();
-
       
       $texto="<div class='alert alert-danger'>El cupón ha sido eliminado</div>";
-
       
       $o=AlpOrdenesDescuento::where('id', $request->id)->first();
-
       
       if (isset($o->id)) {
-
         
       $o->delete();
 
-        # code...
-
       }
 
-      
 
       return $texto;
 
       
     }
 
+
+    public function delcuponicg(Request $request)
+    {
+
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cartcontroller/delcupon ');
+
+        }else{
+
+          activity()->withProperties($request->all())
+                        ->log('cartcontroller/delcupon');
+
+
+        }
+
+        
+
+      $configuracion=AlpConfiguracion::where('id', '1')->first();
+      
+      $carrito= \Session::get('cr');
+
+      $cart=$this->reloadCart();
+
+      $total=$this->total();
+
+      $total_base=$this->precio_base();
+
+      $impuesto=$this->impuesto();
+
+      $texto="<div class='alert alert-danger'>El descuento de icg ha sido eliminado</div>";
+
+      $o=AlpOrdenesDescuentoIcg::where('id', $request->id)->first();
+
+      if (isset($o->id)) {
+
+      $o->delete();
+        # code...
+      }
+
+      return $texto;
+
+    }
+
+
+
+
     
 
     public function envio(){
-
       
       $formasenvio= \Session::get('envio');
-
       
       $direccion= \Session::get('direccion');
 
-      
-     //dd($formasenvio.' '.$direccion);
-
-     //
 
         if (Sentinel::check()) {
-
           
           $user_id = Sentinel::getUser()->id;
-
           
         }else{
 
-          
           $user_id= \Session::get('iduser');
 
-          
         }
-
-     
-
-     
-
-
-      
-
-      
 
       $role=RoleUser::where('user_id', $user_id)->first();
 
-      
-
       $dir=AlpDirecciones::where('id', $direccion)->first();
 
-      
       if ($formasenvio==1) {
-
         
         if (isset($dir->id)) {
-
           
           $ciudad=AlpFormaCiudad::where('id_forma', $formasenvio)->where('id_ciudad', $dir->city_id)->first();
-
           
           if (isset($ciudad->id)) {
-
             
             $envio=$ciudad->costo;
 
-            
-
           }else{
-
             
             $envio=-1;
-
             
           }
 
-          
-          
-
         }else{
-
           
           $envio=-1;
 
         }
 
-        
       }else{
-
-        
 
         if (isset($dir->id)) {
 
-          
           $ciudad=AlpFormaCiudad::where('id_forma', $formasenvio)->where('id_ciudad', $dir->city_id)->where('id_rol', $role->role_id)->first();
-
           
           if (isset($ciudad->id)) {
-
             
             $envio=$ciudad->costo;
 
-            
-
           }else{
-
             
             $envio=-1;
 
-            
           }
 
-          
-          
-
         }else{
-
           
           $envio=-1;
 
         }
-
-        
-
 
       }
 
-      
       return $envio;
-
       
     } 
 
     
 
     public function setformaenvio(Request $request)
-
     {
-
       
       if (Sentinel::check()) {
 
-        
           $user = Sentinel::getUser();
 
-          
            activity($user->full_name)
-
                         ->performedOn($user)
-
                         ->causedBy($user)
-
                         ->withProperties($request->all())
-
                         ->log('cartcontroller/setformaenvio ');
 
-                        
         }else{
-
           
           activity()->withProperties($request->all())
-
                         ->log('cartcontroller/setformaenvio');
-
                         
         }
 
         
         $user_id = Sentinel::getUser()->id;
-
         
         $input = $request->all();
-
         
          \Session::put('envio', $input['id_forma_envio']);
-
          
          $envio=$this->envio();
-
          
         return $envio;
-
         
     }
 
     
-
-private function getAlmacen3(){
-
-  
-
-        if (isset(Sentinel::getUser()->id)) {
-
-          
-
-        if (isset(Sentinel::getUser()->id)) {
-
-          
-        }
-
-        
-            # code...
-
-            $user_id = Sentinel::getUser()->id;
-
-            
-            $usuario=User::where('id', $user_id)->first();
-
-            
-            $user_cliente=User::where('id', $user_id)->first();
-
-            
-            $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
-
-            
-            //dd($role);
-
-            
-
-            $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-
-              ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-
-              ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-
-              ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-
-              ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-
-              ->where('alp_direcciones.id_client', $user_id)
-
-              ->where('alp_direcciones.default_address', '=', '1')
-
-              ->first();
-
-              
-
-
-            if (isset($d->id)) {
-
-                  
-
-                  $almacen=AlpAlmacenes::where('id_city', $d->city_id)->first();
-
-                  
-                  if (isset($almacen->id)) {
-
-                    
-
-                    $id_almacen=$almacen->id;
-
-                    
-                  }else{
-
-                    
-                    $almacen=AlpAlmacenes::where('defecto', '1')->first();
-
-                    
-                    $id_almacen=$almacen->id;
-
-                    
-                  }
-
-                  
-            }else{
-
-              
-                  $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-
-                ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-
-                ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-
-                ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-
-                ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-
-                ->where('alp_direcciones.id_client', $user_id)
-
-                ->first();
-
-                
-
-                    if (isset($d->id)) {
-
-                                
-
-                        $almacen=AlpAlmacenes::where('id_city', $d->city_id)->first();
-
-                        
-                        if (isset($almacen->id)) {
-
-                            
-
-                            $id_almacen=$almacen->id;
-
-                            
-                        }else{
-
-                          
-                            $almacen=AlpAlmacenes::where('defecto', '1')->first();
-
-                            
-                            $id_almacen=$almacen->id;
-
-                            
-                        }
-
-                        
-
-                    }else{
-
-                      
-                      $almacen=AlpAlmacenes::where('defecto', '1')->first();
-
-                      
-                      $id_almacen=$almacen->id;
-
-                    }
-
-            }
-
-            
-
-        }else{
-
-          
-            $almacen=AlpAlmacenes::where('defecto', '1')->first();
-
-            
-            $id_almacen=$almacen->id;
-
-        
-
-        }
-
-        
-
-        if (isset(Sentinel::getUser()->id)) {
-
-          
-            $user_id = Sentinel::getUser()->id;
-
-            
-            $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
-
-            
-            $re=AlpRolenvio::where('id_rol', $role->role_id)->get();
-
-            
-            $re_u=AlpRolenvio::where('id_rol', $role->role_id)->first();
-
-            
-            //dd($re_u);
-
-            
-            if (count($re)==1) {
-
-                
-
-                if ($re_u->id_forma_envio=='4') {
-
-                  
-                    $id_almacen='2';
-
-                    
-
-                }
-
-                
-            }
-
-            
-        }
-
-        
-
-      return $id_almacen;
-
-      
-    }
-
-    
-
-
-
- private function getAlmacen4(){
-
-  
-
-
-
-        if (isset(Sentinel::getUser()->id)) {
-
-          
-            # code...
-
-            $user_id = Sentinel::getUser()->id;
-
-            
-            $usuario=User::where('id', $user_id)->first();
-
-            
-            $user_cliente=User::where('id', $user_id)->first();
-
-            
-            $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
-
-            
-             $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-
-              ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-
-              ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-
-              ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-
-              ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-
-              ->where('alp_direcciones.id_client', $user_id)
-
-              ->where('alp_direcciones.default_address', '=', '1')
-
-              ->first();
-
-              
-            if (isset($d->id)) {
-
-              
-            }else{
-
-              
-                  $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-
-                ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-
-                ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-
-                ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-
-                ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-
-                ->where('alp_direcciones.id_client', $user_id)
-
-                ->first();
-
-            }
-
-            
-            if (isset($d->id)) {
-
-              
-                $ad=AlpAlmacenDespacho::where('id_city', $d->city_id)->first();
-
-                
-                if (isset($ad->id)) {
-
-                # code...
-
-                }else{
-
-                  
-                  $c=City::where('id', $d->city_id)->first();
-
-                  
-                  if (  isset($c->id)) {
-
-                    
-                      $ad=AlpAlmacenDespacho::where('id_city', '0')->where('id_state', $c->state_id)->first();
-
-                      
-                      if (isset($ad->id)) {
-
-                    
-
-                      }else{
-
-                        
-                        $ad=AlpAlmacenDespacho::where('id_city', '0')->where('id_state', '0')->first();
-
-                        
-                      }
-
-                      
-                  }
-
-                
-
-                
-                  
-
-                  
-                }
-
-                
-                if (isset($ad->id)) {
-
-                  
-                  $almacen=AlpAlmacenes::where('id', $ad->id_almacen)->first();
-
-                  
-                  $id_almacen=$almacen->id;
-
-                  # code...
-
-                }else{
-
-                  
-                   $almacen=AlpAlmacenes::where('defecto', '1')->first();
-
-                   
-                    if (isset($almacen->id)) {
-
-                      $id_almacen=$almacen->id;
-
-                    }else{
-
-                      $id_almacen='1';
-
-                    }
-
-                    
-                }
-
-                
-            }else{
-
-              
-              $almacen=AlpAlmacenes::where('defecto', '1')->first();
-
-              
-              if (isset($almacen->id)) {
-
-                $id_almacen=$almacen->id;
-
-              }else{
-
-                $id_almacen='1';
-
-              }
-
-                 
-
-            }
-
-            
-        }else{
-
-          
-            $almacen=AlpAlmacenes::where('defecto', '1')->first();
-
-            
-            if (isset($almacen->id)) {
-
-                $id_almacen=$almacen->id;
-
-              }else{
-
-                $id_almacen='1';
-
-              }
-
-        
-
-        }
-
-        
-      return $id_almacen;
-
-      
-    }
-
-    
-
-
- private function getAlmacen_5(){
-
-  
-
-
-
-        if (isset(Sentinel::getUser()->id)) {
-
-          
-            # code...
-
-            $user_id = Sentinel::getUser()->id;
-
-            
-            $usuario=User::where('id', $user_id)->first();
-
-            
-            $user_cliente=User::where('id', $user_id)->first();
-
-            
-            $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
-
-            
-             $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-
-              ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-
-              ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-
-              ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-
-              ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-
-              ->where('alp_direcciones.id_client', $user_id)
-
-              ->where('alp_direcciones.default_address', '=', '1')
-
-              ->first();
-
-              
-            if (isset($d->id)) {
-
-              
-            }else{
-
-              
-                  $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-
-                ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-
-                ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-
-                ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-
-                ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-
-                ->where('alp_direcciones.id_client', $user_id)
-
-                ->first();
-
-            }
-
-            
-            if (isset($d->id)) {
-
-              
-
-              $tipo=0;
-
-              
-              if ($role->role_id=='14') {
-
-                
-
-                $tipo=1;
-
-              }
-
-              
-
-
-
-
-
-                $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
-
-                ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
-
-                ->where('alp_almacenes.tipo_almacen', '=', $tipo)
-
-                ->where('alp_almacen_despacho.id_city', $d->city_id)
-
-                ->first();
-
-                
-                if (isset($ad->id)) {
-
-                # code...
-
-                }else{
-
-                  
-                  $c=City::where('id', $d->city_id)->first();
-
-                  
-                  $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
-
-                ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
-
-                ->where('alp_almacenes.tipo_almacen', '=', $tipo)
-
-                ->where('alp_almacen_despacho.id_city', '0')
-
-                ->where('alp_almacen_despacho.id_state', $c->state_id)
-
-                ->first();
-
-                
-                  if (isset($ad->id)) {
-
-                    
-
-                  }else{
-
-                    
-                    $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
-
-                  ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
-
-                  ->where('alp_almacenes.tipo_almacen', '=', $tipo)
-
-                  ->where('alp_almacen_despacho.id_city', '0')
-
-                  ->where('alp_almacen_despacho.id_state', '0')->first();
-
-                  
-                  }
-
-                  
-                }
-
-                
-                if (isset($ad->id)) {
-
-                  
-                  $almacen=AlpAlmacenes::where('id', $ad->id_almacen)->first();
-
-                  
-                  $id_almacen=$almacen->id;
-
-                  # code...
-
-                }else{
-
-                  
-                   $almacen=AlpAlmacenes::where('defecto', '1')->first();
-
-                   
-                    if (isset($almacen->id)) {
-
-                      $id_almacen=$almacen->id;
-
-                    }else{
-
-                      $id_almacen='1';
-
-                    }
-
-                    
-                    
-
-                    
-
-                }
-
-                
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            }else{
-
-              
-              $almacen=AlpAlmacenes::where('defecto', '1')->first();
-
-              
-                if (isset($almacen->id)) {
-
-                  $id_almacen=$almacen->id;
-
-                }else{
-
-                  $id_almacen='1';
-
-                }
-
-                
-                
-
-                   
-
-            }
-
-            
-        }else{
-
-          
-            $almacen=AlpAlmacenes::where('defecto', '1')->first();
-
-            
-            if (isset($almacen->id)) {
-
-                $id_almacen=$almacen->id;
-
-              }else{
-
-                $id_almacen='1';
-
-              }
-
-              
-
-        
-
-        }
-
-        
-      return $id_almacen;
-
-      
-    }
-
-    
-
 
 
  private function getAlmacenCart(){
 
-  
-
   $tipo=0;
-
-  
 
         if (isset(Sentinel::getUser()->id)) {
 
-          
-            # code...
-
             $user_id = Sentinel::getUser()->id;
-
             
             $usuario=User::where('id', $user_id)->first();
 
-            
             $user_cliente=User::where('id', $user_id)->first();
 
-            
             $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
-
             
              $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-
               ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-
               ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-
               ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-
               ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-
               ->where('alp_direcciones.id_client', $user_id)
-
               ->where('alp_direcciones.default_address', '=', '1')
-
               ->first();
 
               
             if (isset($d->id)) {
-
               
             }else{
-
               
                   $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-
                 ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-
                 ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-
                 ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-
                 ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-
                 ->where('alp_direcciones.id_client', $user_id)
-
                 ->first();
 
             }
@@ -10874,119 +9951,71 @@ private function getAlmacen3(){
             
             if (isset($d->id)) {
 
-              
-
               $tipo=0;
-
               
               if ($role->role_id=='14') {
-
-                
 
                 $tipo=1;
 
               }
-
               
                 if ($d->id_barrio==0) {
 
                      $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
-
                     ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
-
                     ->where('alp_almacenes.tipo_almacen', '=', $tipo)
-
                     ->where('alp_almacen_despacho.id_city', $d->city_id)
-
                     ->where('alp_almacenes.estado_registro', '=', '1')
-
                     ->first();
-
-                    
 
                 }else{
 
                   
                      $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
-
                     ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
-
                     ->where('alp_almacenes.tipo_almacen', '=', $tipo)
-
                     ->where('alp_almacen_despacho.id_barrio', $d->id_barrio)
-
                     ->where('alp_almacenes.estado_registro', '=', '1')
-
                     ->first();
 
-                    
                     if (isset($ad->id)) {
-
                         # code...
 
                     }else{
 
-                      
-
                         $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
-
                         ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
-
                         ->where('alp_almacenes.tipo_almacen', '=', $tipo)
-
                         ->where('alp_almacen_despacho.id_city', $d->city_id)
-
                         ->where('alp_almacenes.estado_registro', '=', '1')
-
                         ->first();
 
                     }
 
-                    
-
                 }
-
                 
                 if (isset($ad->id)) {
 
-                # code...
-
                 }else{
-
                   
                   $c=City::where('id', $d->city_id)->first();
-
                   
                   $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
-
                 ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
-
                 ->where('alp_almacenes.tipo_almacen', '=', $tipo)
-
                 ->where('alp_almacen_despacho.id_city', '0')
-
                 ->where('alp_almacen_despacho.id_state', $c->state_id)
-
                 ->where('alp_almacenes.estado_registro', '=', '1')->first();
-
                 
                   if (isset($ad->id)) {
 
-                    
-
                   }else{
 
-                    
                     $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
-
                   ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
-
                   ->where('alp_almacenes.tipo_almacen', '=', $tipo)
-
                   ->where('alp_almacen_despacho.id_city', '0')
-
                   ->where('alp_almacenes.estado_registro', '=', '1')->where('alp_almacen_despacho.id_state', '0')->first();
-
                   
                   }
 
@@ -10995,23 +10024,16 @@ private function getAlmacen3(){
 
                 
                 if (isset($ad->id)) {
-
                   
                   $almacen=AlpAlmacenes::where('id', $ad->id_almacen)->where('alp_almacenes.estado_registro', '=', '1')->first();
 
-                  
                   $id_almacen=$almacen->id;
 
-                  # code...
-
                 }else{
-
                   
                    $almacen=AlpAlmacenes::where('defecto', '1')->where('alp_almacenes.estado_registro', '=', '1')->first();
-
                    
                     if (isset($almacen->id)) {
-
                       $id_almacen=$almacen->id;
 
                     }else{
@@ -11019,22 +10041,16 @@ private function getAlmacen3(){
                       $id_almacen='0';
 
                     }
-
                     
                     $id_almacen='0';
 
-                    
-
                 }
 
-                
 
             }else{
 
-              
               $almacen=AlpAlmacenes::where('defecto', '1')->where('alp_almacenes.estado_registro', '=', '1')->first();
 
-              
                 if (isset($almacen->id)) {
 
                   $id_almacen=$almacen->id;
@@ -11045,141 +10061,80 @@ private function getAlmacen3(){
 
                 }
 
-                
                 $id_almacen='0';
-
-                   
 
             }
 
-            
         }else{
-
-          
 
           $ciudad= \Session::get('ciudad');
 
-          
-
-
             if (isset($ciudad)) {
-
-              
-
 
 
               $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
-
                 ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
-
                 ->where('alp_almacenes.tipo_almacen', '=', $tipo)
-
                 ->where('alp_almacen_despacho.id_city', $ciudad)
-
                 ->where('alp_almacenes.estado_registro', '=', '1')->first();
-
                 
                 if (isset($ad->id)) {
 
-                # code...
-
                 }else{
 
-                  
                   $c=City::where('id', $ciudad)->first();
-
                   
                   if (isset($c->id)) {
-
                     
                       $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
-
                 ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
-
                 ->where('alp_almacenes.tipo_almacen', '=', $tipo)
-
                 ->where('alp_almacen_despacho.id_city', '0')
-
                 ->where('alp_almacen_despacho.id_state', $c->state_id)
-
                 ->where('alp_almacenes.estado_registro', '=', '1')->first();
 
-                
-
-                    # code...
-
                   }
-
-                  
-                
 
                   if (isset($ad->id)) {
 
-                    
-
                   }else{
-
                     
                     $ad=AlpAlmacenDespacho::select('alp_almacen_despacho.*')
-
                   ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
-
                   ->where('alp_almacenes.tipo_almacen', '=', $tipo)
-
                   ->where('alp_almacen_despacho.id_city', '0')
-
                   ->where('alp_almacenes.estado_registro', '=', '1')->where('alp_almacen_despacho.id_state', '0')->first();
 
-                  
                   }
 
-                  
                 }
-
                 
                 if (isset($ad->id)) {
 
-                  
                   $almacen=AlpAlmacenes::where('id', $ad->id_almacen)->where('alp_almacenes.estado_registro', '=', '1')->first();
 
-                  
                   $id_almacen=$almacen->id;
 
-                  # code...
-
                 }else{
-
                   
                    $almacen=AlpAlmacenes::where('defecto', '1')->where('alp_almacenes.estado_registro', '=', '1')->first();
-
                    
                     if (isset($almacen->id)) {
-
                       
                       $id_almacen=$almacen->id;
-
                       
                     }else{
 
-                      
                       $id_almacen='1';
 
-                      
                     }
 
-                    
                 }
-
-                
-              
 
             }else{
 
-              
-
                $almacen=AlpAlmacenes::where('defecto', '1')->where('alp_almacenes.estado_registro', '=', '1')->first();
 
-               
               if (isset($almacen->id)) {
 
                   $id_almacen=$almacen->id;
@@ -11189,17 +10144,11 @@ private function getAlmacen3(){
                   $id_almacen='1';
 
                 }
-
                 
             }
 
-        
-
         }
-
-        
       return $id_almacen;
-
       
     }
 
@@ -13968,6 +12917,680 @@ public function reiniciarancheta()
 
 
 
+
+
+
+
+    private function consultaIcg()
+    {
+
+     /* $configuracion=AlpConfiguracion::where('id', '=', 1)->first();
+
+      $s_user= \Session::get('user');
+
+      $carrito= \Session::get('cr');
+
+      $c=AlpClientes::where('id_user_client', $s_user)->first();
+
+      $data = array('DocumentoEmpleado' =>$c->doc_cliente);
+
+
+      $configuracion=AlpConfiguracion::where('id', '=', '1')->first();
+        
+       $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, 'http://201.234.184.25:8099/api/cupo/ValidarCuposGo?DocumentoEmpleado='.$c->doc_cliente);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+        $headers = array();
+        $headers[] = 'Content-Type: application/json';
+        $headers[] = 'apikeyalp2go: 1';
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $result = curl_exec($ch);
+
+
+        //dd($result);
+        if (curl_errno($ch)) {
+            echo 'Error curl:' . curl_error($ch);
+        }
+        curl_close($ch);
+
+        $res=json_decode($result);
+
+        activity()->withProperties($res)->log('respuesta icg res');
+
+
+      if (isset($res->codigoRta)) {
+        
+        if ($res->codigoRta=='OK') {
+
+          if (is_null($carrito)) {
+            $carrito=time();
+          }
+
+            $dataicg = array(
+            'id_orden' => $carrito, 
+            'doc_cliente' => $c->doc_cliente, 
+            'monto_descuento' => 0, 
+            'json' => json_encode($res), 
+            'id_user' => $s_user, 
+          );
+
+          AlpConsultaIcg::create($dataicg);
+
+
+
+          return $res->cupoDescuento-$res->acumuladoDescuentos;
+
+           
+        }else{
+
+          if (is_null($carrito)) {
+            $carrito=time();
+          }
+
+          $dataicg = array(
+          'id_orden' => $carrito, 
+          'doc_cliente' => $c->doc_cliente, 
+          'monto_descuento' => 0, 
+          'json' => json_encode($res), 
+          'id_user' => $s_user, 
+        );
+
+        AlpConsultaIcg::create($dataicg);
+
+
+
+          return 0;
+
+        }
+
+
+      }else{
+
+        if (is_null($carrito)) {
+            $carrito=time();
+          }
+
+        $dataicg = array(
+          'id_orden' => $carrito, 
+          'doc_cliente' => $c->doc_cliente, 
+          'monto_descuento' => 0, 
+          'json' => json_encode($res), 
+          'id_user' => $s_user, 
+        );
+
+        AlpConsultaIcg::create($dataicg);
+
+        return 0;
+
+                       
+
+      }*/
+
+      return 0;
+      
+    }
+
+
+
+
+
+    private function consultaIcgTotal()
+    {
+
+     //dd($id_orden);
+    /*  $configuracion=AlpConfiguracion::where('id', '=', 1)->first();
+
+      $s_user= \Session::get('user');
+
+      $carrito= \Session::get('cr');
+
+     // dd($s_user);
+
+      $c=AlpClientes::where('id_user_client', $s_user)->first();
+
+      $data = array('DocumentoEmpleado' =>$c->doc_cliente);
+
+
+      $configuracion=AlpConfiguracion::where('id', '=', '1')->first();
+        
+       $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, 'http://201.234.184.25:8099/api/cupo/ValidarCuposGo?DocumentoEmpleado='.$c->doc_cliente);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+        $headers = array();
+        $headers[] = 'Content-Type: application/json';
+        $headers[] = 'apikeyalp2go: 1';
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $result = curl_exec($ch);
+
+
+        //dd($result);
+        if (curl_errno($ch)) {
+            echo 'Error curl:' . curl_error($ch);
+        }
+        curl_close($ch);
+
+        $res=json_decode($result);
+
+        activity()->withProperties($res)->log('respuesta icg res');
+
+
+      if (isset($res->codigoRta)) {
+        
+        if ($res->codigoRta=='OK') {
+
+          if (is_null($carrito)) {
+            $carrito=time();
+          }
+
+            $dataicg = array(
+            'id_orden' => $carrito, 
+            'doc_cliente' => $c->doc_cliente, 
+            'monto_descuento' => 0, 
+            'json' => json_encode($res), 
+            'id_user' => $s_user, 
+          );
+
+          AlpConsultaIcg::create($dataicg);
+
+
+
+          return $res->cupoDescuento;
+
+           
+        }else{
+
+          if (is_null($carrito)) {
+            $carrito=time();
+          }
+
+          $dataicg = array(
+          'id_orden' => $carrito, 
+          'doc_cliente' => $c->doc_cliente, 
+          'monto_descuento' => 0, 
+          'json' => json_encode($res), 
+          'id_user' => $s_user, 
+        );
+
+        AlpConsultaIcg::create($dataicg);
+
+
+
+          return 0;
+
+        }
+
+
+      }else{
+
+        if (is_null($carrito)) {
+            $carrito=time();
+          }
+
+        $dataicg = array(
+          'id_orden' => $carrito, 
+          'doc_cliente' => $c->doc_cliente, 
+          'monto_descuento' => 0, 
+          'json' => json_encode($res), 
+          'id_user' => $s_user, 
+        );
+
+        AlpConsultaIcg::create($dataicg);
+
+        return 0;
+
+                       
+
+      }*/
+
+      return 0;
+
+      
+    }
+
+
+
+
+    public function addDescuentoIcg(Request $request)
+    {
+
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cartcontroller/addDescuentoIcg ');
+
+        }else{
+
+          activity()->withProperties($request->all())
+                        ->log('cartcontroller/addDescuentoIcg');
+
+
+        }
+
+      $user = Sentinel::getUser();
+
+      $configuracion=AlpConfiguracion::where('id', '1')->first();
+      
+      $carrito= \Session::get('cr');
+
+      $cart=$this->reloadCart();
+
+      $total=$this->total();
+
+      $total_base=$this->precio_base();
+
+      $impuesto=$this->impuesto();
+
+      $aviso='';
+
+      $cupo_icg=$this->consultaIcg();
+
+      $descuento=$total*($configuracion->porcentaje_icg/100);
+
+      if ($descuento>$cupo_icg) {
+        
+        $descuento=$cupo_icg;
+      }
+         // dd($descuento);
+
+      if ($cupo_icg>=$descuento) {
+
+          $datadescuento = array(
+          'id_orden' => $carrito,
+          'codigo_orden' => $carrito,
+          'monto_descuento' => $descuento,
+          'json' => 0,
+          'aplicado' => 0,
+          'id_user' => $user->id
+        );
+
+
+
+        AlpOrdenesDescuentoIcg::create($datadescuento);
+      }
+
+      
+
+
+       return redirect('order/detail');
+
+    }
+
+
+
+
+
+
+
+    private function registroIcg($ordenId)
+    {
+
+      activity()->withProperties(1)
+                        ->log('registro icg  ');
+
+     //dd($id_orden);
+      $configuracion=AlpConfiguracion::where('id', '=', 1)->first();
+
+      $s_user= \Session::get('user');
+
+      $carrito= \Session::get('cr');
+
+     
+     $orden=AlpOrdenes::where('id', $ordenId)->first();
+
+     $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden', '=', $orden->id)->first();
+
+     $monto_descuentoicg=0;
+
+     if (isset($descuentosIcg->id)) {
+
+       $monto_descuentoicg=$descuentosIcg->monto_descuento;
+
+     }
+
+      $c=AlpClientes::where('id_user_client', $orden->id_cliente)->first();
+
+
+
+      
+      $urls=$configuracion->endpoint_icg;
+
+       Log::info('api icg urls '.$urls);
+
+
+       $date = Carbon::now();
+
+        $hoy=$date->format('YmdH:m:s');
+
+        $fechad=$date->format('Ymd');
+        $fechadt=$date->format('Y-m-d');
+        $fechah=$date->format('H:m:s');
+        $fecha=$fechad.' '.$fechah;
+        $fecha_cont=$fechadt.'T'.$fechah;
+
+
+         $data_consumo = array(
+        'NumeroPedido' => $orden->referencia.'-'.time().'1', 
+        'Fecha' => $fecha_cont, 
+        'DocumentoEmpleado' => $c->doc_cliente, 
+        'FormaPago' => 'CONTADO', 
+        'ValorTransaccion' => $orden->monto_total, 
+        'ValorDescuento' => $monto_descuentoicg
+      );
+
+         $dataraw=json_encode($data_consumo);
+
+          activity()->withProperties($dataraw)->log('respuesta icg dataraw');
+
+         $ch = curl_init();
+
+      curl_setopt($ch, CURLOPT_URL, 'http://201.234.184.25:8099/api/cupo/cupoAplicar');
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
+      curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+      $headers = array();
+      $headers[] = 'Content-Type: application/json';
+       $headers[] = 'apikeyalp2go: 1';
+      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+      $result = curl_exec($ch);
+      if (curl_errno($ch)) {
+          echo 'Error:' . curl_error($ch);
+      }
+      curl_close($ch);
+
+      $res=json_decode($result);
+
+      //dd($res);
+
+
+      activity()->withProperties($res)->log('registro consumo  icg res');
+
+       
+
+       $notas='Registro de orden en api icg res.';
+
+
+      if (isset($res->codigoRta)) {
+        
+        if ($res->codigoRta=='OK') {
+
+            $dataicg = array(
+            'id_orden' => $carrito, 
+            'doc_cliente' => $c->doc_cliente, 
+            'monto_descuento' => 0, 
+            'json' => json_encode($result), 
+            'aplicado' => json_encode($result), 
+            'id_user' => 1, 
+          );
+
+          AlpConsultaIcg::create($dataicg);
+
+          $orden->update(['json_icg'=>json_encode($result)]);
+
+          $data_descuento_update = array(
+            'json' => json_encode($result), 
+            'aplicado' => $res->idRegistro, 
+          );
+
+         //dd($data_descuento_update);
+
+          $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden', '=', $orden->id)->first();
+
+          $descuentosIcg->update($data_descuento_update);
+
+
+
+          return $res;
+
+           
+        }else{
+
+          $dataicg = array(
+          'id_orden' => $carrito, 
+          'doc_cliente' => $c->doc_cliente, 
+          'monto_descuento' => 0, 
+          'json' => json_encode($result), 
+          'id_user' => 1, 
+        );
+
+        AlpConsultaIcg::create($dataicg);
+
+
+        $data_descuento_update = array(
+            'json' => json_encode($result), 
+            'aplicado' => $res->idRegistro, 
+          );
+
+         // dd($data_descuento_update);
+
+
+        $orden->update(['json_icg'=>json_encode($result)]);
+
+         $descuentosIcg->update($data_descuento_update);
+
+
+
+
+
+          return $res;
+
+        }
+
+
+      }else{
+
+        $dataicg = array(
+          'id_orden' => $carrito, 
+          'doc_cliente' => $c->doc_cliente, 
+          'monto_descuento' => 0, 
+          'json' => json_encode($result), 
+          'id_user' => 1
+        );
+
+        AlpConsultaIcg::create($dataicg);
+
+        $orden->update(['json_icg'=>json_encode($result)]);
+
+        $descuentosIcg->update(['json'=>json_encode($result)]);
+
+
+
+        return $res;
+
+                       
+
+      }
+
+      
+    }
+
+
+    private function registroIcgCancelar($ordenId)
+    {
+
+     //dd($id_orden);
+      $configuracion=AlpConfiguracion::where('id', '=', 1)->first();
+
+     
+     $orden=AlpOrdenes::where('id', $ordenId)->first();
+
+     $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden', '=', $orden->id)->first();
+
+     $monto_descuentoicg=0;
+
+     if (isset($descuentosIcg->id)) {
+
+       $monto_descuentoicg=$descuentosIcg->monto_descuento;
+
+
+
+       $ReferenciaRegistroAnulado=$descuentosIcg->aplicado;
+
+     }
+
+      $c=AlpClientes::where('id_user_client', $orden->id_cliente)->first();
+
+      $urls=$configuracion->endpoint_icg;
+
+       Log::info('api icg urls '.$urls);
+
+       $date = Carbon::now();
+
+        $hoy=$date->format('YmdH:m:s');
+
+        $fechad=$date->format('Ymd');
+        $fechadt=$date->format('Y-m-d');
+        $fechah=$date->format('H:m:s');
+        $fecha=$fechad.' '.$fechah;
+        $fecha_cont=$fechadt.'T'.$fechah;
+
+
+         $data_consumo = array(
+        'NumeroPedido' => $orden->referencia.'-'.time(), 
+        'Fecha' => $fecha_cont, 
+        'DocumentoEmpleado' => $c->doc_cliente, 
+        'FormaPago' => 'CONTADO', 
+        'ValorTransaccion' => '-'.$orden->monto_total, 
+        'ValorDescuento' => '-'.$monto_descuentoicg,
+        'ReferenciaRegistroAnulado' => $ReferenciaRegistroAnulado
+      );
+
+
+
+         $dataraw=json_encode($data_consumo);
+
+activity()->withProperties($dataraw)->log(' cancelar icg dataraw');
+
+         $ch = curl_init();
+
+      curl_setopt($ch, CURLOPT_URL, 'http://201.234.184.25:8099/api/cupo/cupoAplicar');
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
+      curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+      $headers = array();
+      $headers[] = 'Content-Type: application/json';
+       $headers[] = 'apikeyalp2go: 1';
+      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+      $result = curl_exec($ch);
+      if (curl_errno($ch)) {
+          echo 'Error:' . curl_error($ch);
+      }
+      curl_close($ch);
+
+      $res=json_decode($result);
+
+      //dd($res);
+
+activity()->withProperties($res)->log('registro consumo  cancelar icg res');
+
+       $notas='Registro de orden en api icg res.';
+
+
+      if (isset($res->codigoRta)) {
+        
+        if ($res->codigoRta=='OK') {
+
+            $dataicg = array(
+            'id_orden' => $orden->id, 
+            'doc_cliente' => $c->doc_cliente, 
+            'monto_descuento' => 0, 
+            'json' => json_encode($res), 
+            'id_user' => 1, 
+          );
+
+          //  dd($dataicg)
+
+          AlpConsultaIcg::create($dataicg);
+
+          $orden->update(['json_icg'=>json_encode($result)]);
+
+        // $descuentosIcg->update(['json'=>json_encode($result)]);
+
+
+
+         // $descuentosIcg->delete();
+
+          return $res;
+           
+        }else{
+
+          $dataicg = array(
+          'id_orden' => $orden->id, 
+          'doc_cliente' => $c->doc_cliente, 
+          'monto_descuento' => 0, 
+          'json' => json_encode($res), 
+          'id_user' => 1, 
+        );
+
+        AlpConsultaIcg::create($dataicg);
+
+
+        $orden->update(['json_icg'=>json_encode($result)]);
+
+         // $descuentosIcg->update(['json'=>json_encode($result)]);
+
+
+
+          return $res;
+
+        }
+
+
+      }else{
+
+        $dataicg = array(
+          'id_orden' => $orden->id, 
+          'doc_cliente' => $c->doc_cliente, 
+          'monto_descuento' => 0, 
+          'json' => json_encode($res), 
+          'id_user' => 1, 
+        );
+
+        AlpConsultaIcg::create($dataicg);
+
+        $orden->update(['json_icg'=>json_encode($result)]);
+
+        //  $descuentosIcg->update(['json'=>json_encode($result)]);
+
+
+
+        return $res;
+
+                       
+
+      }
+
+      
+    }
+
+
+
+    
 
 
 
