@@ -2025,10 +2025,10 @@ padding: 0.3em 0.3em 0em 1em;
     min-height: 364px;
 }
 .productos_qlub .homi{
-    border: 2px solid #c9a05d; 
+    border: 1px solid #c9a05d; 
 }
 .productos_qlub a h3{
-    color: #c9a05d !important;
+    color: #ffffff !important;
     font-family: 'Josefin Sans', sans-serif;
     font-weight: bold;
 }
@@ -2038,19 +2038,32 @@ padding: 0.3em 0.3em 0em 1em;
     font-weight: bold;
 }
 .productos_qlub .btn-vermas{
-    background-color: #143473;
-    border-color: #143473;
-}
-.productos_qlub .btn-cart{
+    font-family: 'Josefin Sans', sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
     background-color: #c9a05d;
     border-color: #c9a05d;
+    color: #072945 !important;
+    border-radius: 30px 0px 0px 30px;
+    letter-spacing: 3px;
+    padding: 6px 20px;
 }
-.products_qlub .product_info h6 {
-    font-size: 12px;
-    color:#6c6c6d ;
-    text-align: center;
-    margin: 20px 0px 15px 0px;
-    font-family: 'Josefin Sans', sans-serif !important;
+.productos_qlub .btn-cart{
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: #f8e4d3;
+    border-color: #f8e4d3;
+    color: #072945 !important;
+    border-radius: 0px 30px 30px 0px;
+    letter-spacing: 3px;
+    padding: 2px 10px;
+}
+.productos_qlub a h6{
+    color: #f8e4d3 !important;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: bold;
 }
 #contenido_qlub{
     padding: 10px 30px 30px 30px;
