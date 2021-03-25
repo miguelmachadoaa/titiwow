@@ -1648,6 +1648,10 @@ $('#productosForm').keypress(
 
     if ($(this).val()=='2') {
 
+          $('#id_impuesto').val('1');
+
+        $('#id_impuesto').attr('disable', 'disable');
+
          $('#panelComboProductos').removeClass('hidden');
 
         $('#panel_combo').attr('href', '#addProductos');
@@ -1655,6 +1659,10 @@ $('#productosForm').keypress(
        
 
     }else{
+
+        $('#id_impuesto').val('');
+
+        $('#id_impuesto').removeAttr('disable');
 
        
          $('#panelComboProductos').addClass('hidden');
@@ -1666,6 +1674,8 @@ $('#productosForm').keypress(
 
 
     if ($(this).val()=='3') {
+
+      
 
         $('#panelAnchetaProductos').removeClass('hidden');
 
