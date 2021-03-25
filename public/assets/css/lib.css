@@ -1915,9 +1915,10 @@ padding: 0.3em 0.3em 0em 1em;
 }
 
 .titulo_qlub{
-    color:#c9a05d;
-    font-family: 'Josefin Sans', sans-serif;
+    color:#f8e4d3;
+    font-family: 'Cormorant', serif;
     font-weight: bold;
+    font-style:italic;
 }
 .categorias_qlub{
     font-family: 'Cormorant', serif;
@@ -1928,8 +1929,11 @@ padding: 0.3em 0.3em 0em 1em;
     letter-spacing: 5px;
 }
 .footer_qlub {
-    background: #c9a05d;
-    background-image: url("../../assets/images/patronhead.jpg");
+    background: #072945;
+    background-image: url("../../assets/images/patron_footer.jpg");
+    min-height: 400px;
+    background-repeat: repeat-x;
+    background-position: bottom center;
     padding: 1rem 0 1rem;
     z-index: 2;
     font-family: 'Josefin Sans', sans-serif;

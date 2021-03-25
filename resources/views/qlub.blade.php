@@ -2,13 +2,13 @@
 
 {{-- Page title --}}
 @section('title')
-{{ $configuracion->seo_title}} @parent
+Conoce el qlub del Queso Alpina |  @parent
 @stop
 @section('meta_tags')
 
 
     <link rel="canonical" href="{{$configuracion->seo_url}}" />
-    <meta property="og:title" content="{{ $configuracion->seo_title}}  | Alpina GO!">
+    <meta property="og:title" content="Conoce el qlub del Queso Alpina  | Alpina GO!">
     <meta property="og:type" content="{{$configuracion->seo_type}}" />
     <meta property="og:image" content="{{$configuracion->seo_image}}" />
     <meta property="og:site_name" content="{{$configuracion->seo_site_name}}" />
@@ -167,7 +167,7 @@
     <!-- //Layout Section Start -->
     <!-- Seccion categoria Inicio -->
 
-     <div class="container cont_categorias_qlub" style='background-image: url("../../assets/images/patronhead.jpg");padding: 0;margin: 0;width: 100%;text-align: center;'>
+     <div class="container cont_categorias_qlub" style='background-image: url("../../assets/images/patronhead.jpg");padding: 0;margin: 0;width: 100%;text-align: center;background-repeat: repeat-x;min-height:300px;'>
         <div class="row">
             <div class="col-md-12 col-sm-12 text-center">
                 <h3 class="titulo_qlub">Bienvenidos a:</h3>
