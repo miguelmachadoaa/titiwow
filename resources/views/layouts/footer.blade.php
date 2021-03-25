@@ -26,10 +26,10 @@
                         <p>Cualquier inconveniente o duda, comunícate con nuestra línea de atención Alpina en Bogotá
                         
                         </p>
-                        <p style="text-align:left !important;">Km 3, vía Briceño Sopó, Edificio Administrativo Alpina Cundinamarca, Colombia</p>
-                        <p>(01) 8000529999</p>
+                        <p>316 2442018 | (01) 8000 529999</p>
                         <p>alpina@alpina.com</p>
                         <p><a href="{{ secure_url('pqr') }}">¿Necesitas ayuda? Contáctanos ></a></p>
+                        <p style="text-align:left !important;">Km 3, vía Briceño Sopó, Edificio Administrativo Alpina Cundinamarca, Colombia</p>
                     
                 </div>
                 <!-- Contacto Section Start -->
