@@ -146,6 +146,8 @@ Route::get('admin/estatusenvios/data', 'Admin\AlpEstatusEnviosController@data')-
 
 Route::get('admin/empresas/data', 'Admin\AlpEmpresasController@data')->name('empresas.data');
 
+Route::get('admin/ticket/data', 'Admin\AlpTicketController@data')->name('ticket.data');
+
 Route::get('admin/almacenes/data', 'Admin\AlpAlmacenesController@data')->name('almacenes.data');
 
 Route::get('admin/almacenes/{id}/datagestionar', 'Admin\AlpAlmacenesController@datagestionar')->name('almacenes.datagestionar');
@@ -865,30 +867,21 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
         Route::post('estatus', ['as'=> 'almacenes.estatus', 'uses' => 'Admin\AlpAlmacenesController@estatus']);
 
-
-
         Route::get('{id}/delete', 'Admin\AlpAlmacenesController@destroy')->name('almacenes.delete');
 
-        Route::get('{id}/confirm-delete', 'Admin\AlpAlmacenesController@getModalDelete')->name('almacenes.confirm-delete');
-
         Route::get('{id}/restore', 'Admin\AlpAlmacenesController@getRestore')->name('almacenes.restore');
-
 
         Route::post('{id}/adddespacho', 'Admin\AlpAlmacenesController@adddespacho')->name('cupones.adddespacho');
 
         Route::post('{id}/deldespacho', 'Admin\AlpAlmacenesController@deldespacho')->name('cupones.deldespacho');
 
-
         Route::post('{id}/addformenvio', 'Admin\AlpAlmacenesController@addformenvio')->name('cupones.addformenvio');
 
         Route::post('{id}/delformaenvio', 'Admin\AlpAlmacenesController@delformaenvio')->name('cupones.delformaenvio');
 
-
         Route::post('{id}/addformapago', 'Admin\AlpAlmacenesController@addformapago')->name('cupones.addformapago');
 
         Route::post('{id}/delformapago', 'Admin\AlpAlmacenesController@delformapago')->name('cupones.delformapago');
-
-
 
         });
 
@@ -909,8 +902,56 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
     Route::resource('almacenes', 'Admin\AlpAlmacenesController');
 
-
     Route::get('reportes/almacenes/{id}/gestionar', 'Admin\AlpReportesController@gestionar');
+
+
+
+
+
+    Route::group(['prefix' => 'ticket'], function () {
+
+
+        Route::post('estatus', ['as'=> 'almacenes.estatus', 'uses' => 'Admin\AlpTicketController@estatus']);
+
+        Route::get('{id}/delete', 'Admin\AlpTicketController@destroy')->name('almacenes.delete');
+
+        Route::get('{id}/restore', 'Admin\AlpTicketController@getRestore')->name('almacenes.restore');
+
+        Route::post('{id}/adddespacho', 'Admin\AlpTicketController@adddespacho')->name('cupones.adddespacho');
+
+        Route::post('{id}/deldespacho', 'Admin\AlpTicketController@deldespacho')->name('cupones.deldespacho');
+
+        Route::post('{id}/addformenvio', 'Admin\AlpTicketController@addformenvio')->name('cupones.addformenvio');
+
+        Route::post('{id}/delformaenvio', 'Admin\AlpTicketController@delformaenvio')->name('cupones.delformaenvio');
+
+        Route::post('{id}/addformapago', 'Admin\AlpTicketController@addformapago')->name('cupones.addformapago');
+
+        Route::post('{id}/delformapago', 'Admin\AlpTicketController@delformapago')->name('cupones.delformapago');
+
+        });
+
+    Route::post('ticket/create', 'Admin\AlpTicketController@store');
+
+    Route::get('ticket/{id}/upload', 'Admin\AlpTicketController@upload');
+
+    Route::post('ticket/{id}/postcomentario', 'Admin\AlpTicketController@postcomentario');
+    
+
+    Route::get('ticket/{id}/gestionar', 'Admin\AlpTicketController@gestionar');
+
+    Route::post('ticket/{id}/postgestionar', 'Admin\AlpTicketController@postgestionar');
+
+    Route::get('ticket/{id}/roles', 'Admin\AlpTicketController@roles');
+
+    Route::post('ticket/{id}/postroles', 'Admin\AlpTicketController@postroles');
+
+    Route::resource('ticket', 'Admin\AlpTicketController');
+
+    Route::get('reportes/ticket/{id}/gestionar', 'Admin\AlpReportesController@gestionar');
+
+
+
 
 
 

@@ -843,10 +843,7 @@
                                                 </div>
                                                 <br>    
 
-                                              
-
                                             </div>
-
 
                                             <div class="form-group col-sm-12 clearfix {{ $errors->first('unidad', 'has-error') }}">
 

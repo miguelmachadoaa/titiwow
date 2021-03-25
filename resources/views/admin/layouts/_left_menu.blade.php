@@ -26,7 +26,13 @@
     </li>
     @endif
 
-
+    <li {!! (Request::is('admin/ticket*') ? 'class="active"' : '') !!}>
+            <a href="{!! secure_url('admin/ticket') !!}">
+            <i class="livicon" data-name="ticket" data-size="18" data-c="#FFFFFF" data-hc="#FFFFFF"
+               data-loop="true"></i>
+             Mesa de Soporte
+            </a>
+    </li>
 
     @if (Sentinel::getUser()->hasAnyAccess(['ordenes.*']))
 
