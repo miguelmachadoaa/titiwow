@@ -309,6 +309,22 @@
 <!--script type="text/javascript" src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}"></script-->
 <script type="text/javascript" src="{{ secure_asset('assets/js/frontend/register_custom.js') }}"></script>
 <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6LflWnsaAAAAAERsguImH7gK43wG2vehWYLSw63W"></script>
+
+<script>
+  grecaptcha.ready(function() {
+  grecaptcha.execute('6LflWnsaAAAAAERsguImH7gK43wG2vehWYLSw63W', {action: 'contactForm'})
+  .then(function(token) {
+
+  var recaptchaResponse = document.getElementById('_recaptcha');
+  recaptchaResponse.value = token;
+  });});
+
+
+
+
+
+</script>
 <!--global js end-->
 <script >
 $(document).ready(function(){

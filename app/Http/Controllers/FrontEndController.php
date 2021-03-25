@@ -1031,13 +1031,11 @@ $hoy=$date->format('Y-m-d');
 
        try {
 
-            #Mail::to($configuracion->correo_shopmanager)->send(new \App\Mail\PQR($input,$archivo));
-
-            #Mail::to($configuracion->correo_masterfile)->send(new \App\Mail\PQR($input,$archivo));
-
             Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\PQR($input, $archivo));
             
-            Mail::to('miguelmachadoaa@gmail.com')->send(new \App\Mail\PQR($input, $archivo));
+            Mail::to('servicioalcliente.asesor3@alpina.com')->send(new \App\Mail\PQR($input, $archivo));
+            Mail::to('servicioalcliente.coordinador@alpina.com')->send(new \App\Mail\PQR($input, $archivo));
+            Mail::to('rumi.torres@alpina.com')->send(new \App\Mail\PQR($input, $archivo));
 
             return redirect('pqr')->with('aviso', 'Su correo se ha enviado satisfactoriamemte');
 

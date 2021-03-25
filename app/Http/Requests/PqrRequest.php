@@ -73,7 +73,7 @@ class PqrRequest extends FormRequest
                     'pais_pqr' => 'required',
                     'ciudad_pqr' => 'required|min:3|regex:/^[A-Za-z0-9\s]+$/',
                     'tipo_pqr' => 'required',
-                    'mensaje_pqr' => 'required|min:10|max:300|regex:/^[A-Za-z0-9\s]+$/',
+                    'mensaje_pqr' => 'required|min:10|max:500|regex:/^[A-Za-z0-9\s]+$/',
                     'habeas_cliente' => 'required',
                     'file_update' => 'mimes:jpg,png,jpeg,pdf|max:5120',
 

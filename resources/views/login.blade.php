@@ -122,6 +122,22 @@
 <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 <script type="text/javascript" src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
 <script type="text/javascript" src="{{ secure_asset('assets/js/frontend/login_custom.js') }}"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6LflWnsaAAAAAERsguImH7gK43wG2vehWYLSw63W"></script>
+
+<script>
+  grecaptcha.ready(function() {
+  grecaptcha.execute('6LflWnsaAAAAAERsguImH7gK43wG2vehWYLSw63W', {action: 'contactForm'})
+  .then(function(token) {
+
+  var recaptchaResponse = document.getElementById('_recaptcha');
+  recaptchaResponse.value = token;
+  });});
+
+
+
+
+
+</script>
 <!--global js end-->
 </body>
 </html>
