@@ -31,7 +31,9 @@
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/css/lib.css') }}">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,500;0,700;1,300;1,500&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,500;0,700;1,300;1,500&display=swap" rel="stylesheet"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;700&display=swap" rel="stylesheet">
     
     <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
     <!--end of global css-->
@@ -96,7 +98,7 @@
         <!-- End Google Tag Manager (noscript) -->
     @endif
     <!-- Header Start -->
-    <header> 
+    <header class="header_qlub"> 
         <!-- Icon Section Start -->
         <div class="icon-section_qlub">
             <div class="container">

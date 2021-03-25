@@ -140,12 +140,17 @@ body {
 }
 
 .body_qlub {
-    font-family:'Cormorant Regular' !important;
+    font-family: 'Josefin Sans', sans-serif;
     height         : 100%;
-    color          : #757b87;
+    color          : #072945;
     padding-bottom : 0 !important;
-    background-color: #000000;
+    background-color: #052846;
 
+}
+
+.header_qlub{
+    background-color: #052846;
+    background-image: url("../../assets/images/patronhead.jpg");
 }
 
 /*inicio botones*/
@@ -201,7 +206,7 @@ body {
 
 }
 .icon-section_qlub {
-    background: #000000;
+
     padding: 1rem 0 0.1rem;
     z-index: 2;
     line-height      : 7px;
@@ -219,7 +224,7 @@ body {
     
     } 
     .icon-section_qlub {
-        background: #000000;
+ 
         padding: 1rem 0 0.1rem;
         z-index: 2;
         line-height      : 7px;
@@ -233,13 +238,6 @@ body {
     font-size      : 17px;
     text-transform : uppercase;
     color:#241F48;
-}
-.icon-position_qlub li a{
-    font-family: 'Cormorant', serif;
-    font-weight: 600;
-    font-size      : 14px;
-    text-transform : uppercase;
-    color:#ad8a39;
 }
 .h1, .h2, .h4, .h5, .h6, h1, h2, h4, h5, h6 {
     font-family: 'AlpinaSans SemiBold';
@@ -1045,7 +1043,7 @@ footer a:hover, footer a:active{
     background: #ffffff;
 }
 .logo-section_qlub {
-    background: #000000;
+    background: none;
 }
 .logo-section-height{
     height: 115px;
@@ -1072,7 +1070,7 @@ footer a:hover, footer a:active{
     font-size: 1.8em;
 }
 #busqueda2{
-    color: #ffffff;
+    color: #072945;
     text-shadow: 1px 1px 1px #ccc;
     font-size: 1.8em;
 }
@@ -1082,11 +1080,11 @@ footer a:hover, footer a:active{
     font-size: 2em;
 }
 #carrto2{
-    color: #ad8a39;
+    color: #EFEDE0;
     font-size: 2em;
 }
 .btn-default2{background-color:none;}
-.btn-default3{background-color:#ad8a39;}
+.btn-default3{background-color:#EFEDE0;}
 /* Header fin*/
 /*bloque buscar inicio*/
 #search_block_top{
@@ -1906,6 +1904,7 @@ padding: 0.3em 0.3em 0em 1em;
     background-color: #ad8a39; 
     color: #ffffff !important; 
     border: 2px solid #ad8a39;
+    font-family: 'Josefin Sans', sans-serif !important;
 }
 
 .boton_qlub:hover {
@@ -1916,15 +1915,28 @@ padding: 0.3em 0.3em 0em 1em;
 
 .titulo_qlub{
     color:#ad8a39;
-    font-family: 'Cormorant', serif;
+    font-family: 'Josefin Sans', sans-serif;
     font-weight: bold;
 }
 .footer_qlub {
     background: #ad8a39;
     padding: 1rem 0 1rem;
     z-index: 2;
-    font-family: 'Cormorant', serif;
+    font-family: 'Josefin Sans', sans-serif;
     font-weight: bold;
+}
+.footer-text_qlub {
+    color   : #ffffff;
+    padding : 30px 0 10px 0;
+    font-family: 'Josefin Sans', sans-serif;
+}
+.footer_qlub h4 {
+    color : #ffffff;
+    font-family: 'Josefin Sans', sans-serif !important;
+    text-transform: uppercase;
+    border-bottom: 2px solid #ffffff;
+    padding-bottom: 10px; 
+    margin-bottom: 10px;
 }
 .copyright_qlub {
     background: #ad8a39;
@@ -1938,14 +1950,15 @@ padding: 0.3em 0.3em 0em 1em;
     margin  : 0.5% 0;
     font-size: 16px;
     font-weight: 300;
-    font-family: 'Cormorant', serif;
+    font-family: 'Josefin Sans', sans-serif;
 }
 .navbar-qlud .navbar-nav>li>a{
     color:#ad8a39;
-    font-family: 'Cormorant', serif;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 13px;
 }
 
-.navbar-qlud .navbar-nav > li > a:hover, .navbar-qlud .navbar-nav > .active > a {
+.navbar-qlud .navbar-nav > li > a:hover,.navbar-qlud .navbar-nav > li > a:focus, .navbar-qlud .navbar-nav > .active > a {
     color: #ad8a39;
     text-shadow: #ad8a39;
     background: #fff;
@@ -1960,7 +1973,7 @@ padding: 0.3em 0.3em 0em 1em;
     color: #ad8a39;
 }
 .navbar-qlud {
-    background-color: #000;
+    background-color: none;
 }
 .navbar-toggle_qlub {
     position: relative;
@@ -1979,12 +1992,18 @@ padding: 0.3em 0.3em 0em 1em;
     
     background-color: #AD8A37;
 }
-
+.icon-position_qlub li a{
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 600;
+    font-size      : 13px;
+    text-transform : uppercase;
+    color:#ad8a39;
+}
 .body_qlub .dropdown-menu>li>a{
     color:#ad8a39;
     text-transform:uppercase;
     padding: 5px 20px;
-    font-family: 'Cormorant', serif;
+    font-family: 'Josefin Sans', sans-serif;
     font-weight: bold;
 }
 
@@ -1997,12 +2016,12 @@ padding: 0.3em 0.3em 0em 1em;
 }
 .productos_qlub a h3{
     color: #ad8a39 !important;
-    font-family: 'Cormorant', serif;
+    font-family: 'Josefin Sans', sans-serif;
     font-weight: bold;
 }
 .productos_qlub .precio_base{
     color: #ad8a39 !important;
-    font-family: 'Cormorant', serif;
+    font-family: 'Josefin Sans', sans-serif;
     font-weight: bold;
 }
 .productos_qlub .btn-vermas{
@@ -2012,6 +2031,13 @@ padding: 0.3em 0.3em 0em 1em;
 .productos_qlub .btn-cart{
     background-color: #ad8a39;
     border-color: #ad8a39;
+}
+.products_qlub .product_info h6 {
+    font-size: 12px;
+    color:#6c6c6d ;
+    text-align: center;
+    margin: 20px 0px 15px 0px;
+    font-family: 'Josefin Sans', sans-serif !important;
 }
 #contenido_qlub{
     padding: 10px 30px 30px 30px;

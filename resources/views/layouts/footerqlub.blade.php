@@ -1,6 +1,6 @@
  <!-- Footer Section Start -->
  <footer class="footer_qlub">
-        <div class="container footer-text">
+        <div class="container footer-text_qlub">
             <div class="row" style="margin:0px;padding:0px;">
                 <!-- Categorias Section Start -->
                 <div class="col-sm-3 clearfix">

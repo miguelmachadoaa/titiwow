@@ -188,8 +188,8 @@ PQR
         </div>
         <div class="col-md-6">
             <div class="text-center">
-                <h3 class="text-center">Línea de Atención</h3>
-                <h3 class="text-center">(01) 8000529999</h3>
+                <h3 class="text-center">Líneas de Atención</h3>
+                <h2 class="text-center">316 2442018 | (01) 8000 529999</h2>
             </div>
         </div>
     </div>
