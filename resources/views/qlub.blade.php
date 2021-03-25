@@ -167,12 +167,12 @@
     <!-- //Layout Section Start -->
     <!-- Seccion categoria Inicio -->
 
-     <div class="container cont_categorias_qlub">
+     <div class="container cont_categorias_qlub" style='background-image: url("../../assets/images/patronhead.jpg");padding: 0;margin: 0;width: 100%;text-align: center;'>
         <div class="row">
             <div class="col-md-12 col-sm-12 text-center">
                 <h3 class="titulo_qlub">Bienvenidos a:</h3>
             </div>
-            <div class="col-xs-12 col-md-12 col-sm-12 text-center" style="margin-bottom:30px;">
+            <div class="col-xs-12 col-md-12 col-sm-12 text-center imgqlub" style="">
                 <img src="{{ secure_url('/').'/assets/images/el_qlub.png' }}" alt="Qlub" title="Qlub" class="img-responsive">   
             </div>
         </div>
