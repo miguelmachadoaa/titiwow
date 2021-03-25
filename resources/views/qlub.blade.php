@@ -168,11 +168,11 @@ Conoce el qlub del Queso Alpina |  @parent
     <!-- Seccion categoria Inicio -->
 
      <div class="container cont_categorias_qlub" style='background-image: url("../../assets/images/patronhead.jpg");padding: 0;margin: 0;width: 100%;text-align: center;background-repeat: repeat-x;min-height:300px;'>
-        <div class="row">
-            <div class="col-md-12 col-sm-12 text-center">
+        <div class="row" style="padding: 0; margin:0;">
+            <div class="col-md-12 col-sm-12 text-center" style="padding: 0;margin: 0;">
                 <h3 class="titulo_qlub">Bienvenidos a:</h3>
             </div>
-            <div class="col-xs-12 col-md-12 col-sm-12 text-center imgqlub" style="">
+            <div class="col-xs-12 col-md-12 col-sm-12 text-center imgqlub" style="padding: 0;margin: 0;">
                 <img src="{{ secure_url('/').'/assets/images/el_qlub.png' }}" alt="Qlub" title="Qlub" class="img-responsive">   
             </div>
         </div>
