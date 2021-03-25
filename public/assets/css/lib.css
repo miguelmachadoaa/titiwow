@@ -1935,20 +1935,20 @@ padding: 0.3em 0.3em 0em 1em;
     font-weight: bold;
 }
 .footer_qlub a:link,  .footer_qlub a:visited, .menu-item a{
-    color:#ffffff;
+    color:#f8e4d3;
     font-size: 14px;
     font-family: 'Josefin Sans', sans-serif;
 }
 .footer-text_qlub {
-    color   : #ffffff;
+    color   : #f8e4d3;
     padding : 30px 0 10px 0;
     font-family: 'Josefin Sans', sans-serif;
 }
 .footer_qlub h4 {
-    color : #ffffff;
+    color : #c9a05d;
     font-family: 'Josefin Sans', sans-serif !important;
     text-transform: uppercase;
-    border-bottom: 2px solid #ffffff;
+    border-bottom: 2px solid #c9a05d;
     padding-bottom: 10px; 
     margin-bottom: 10px;
 }
@@ -1959,52 +1959,98 @@ padding: 0.3em 0.3em 0em 1em;
     border-top:2px solid #ffffff;
 }
 .copyright_qlub p {
-    color   : #ffffff;
+    color   : #f8e4d3;
     padding : 0.5% 0;
     margin  : 0.5% 0;
     font-size: 16px;
     font-weight: 300;
     font-family: 'Josefin Sans', sans-serif;
 }
-.navbar-qlud .navbar-nav>li>a{
-    color:#f8e4d3;
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 13px;
-}
+@media (max-width: 990px) {
+    .navbar-qlud .navbar-nav>li>a{
+        color:#072945;
+        font-family: 'Josefin Sans', sans-serif;
+        font-size: 13px;
+        font-weight: bold;
+    }
 
-.navbar-qlud .navbar-nav > li > a:hover,.navbar-qlud .navbar-nav > li > a:focus, .navbar-qlud .navbar-nav > .active > a {
-    color: #072945;
-    text-shadow: #072945;
-    background: #EFEDE0;
-}
+    .navbar-qlud .navbar-nav > li > a:hover,.navbar-qlud .navbar-nav > li > a:focus, .navbar-qlud .navbar-nav > .active > a {
+        color: #072945;
+        text-shadow: #072945;
+        background: #EFEDE0;
+    }
 
-.navbar-qlud .navbar-collapse .nav .dropdown .dropdown-menu {
- 
-    background-color: #EFEDE0;
+    .navbar-qlud .navbar-collapse .nav .dropdown .dropdown-menu {
     
-}
-.navbar-qlud .navbar-collapse .nav .dropdown .dropdown-menu li a {
-    color: #072945;
-}
-.navbar-qlud {
-    background-color: none;
-}
-.navbar-toggle_qlub {
-    position: relative;
-    float: right;
-    padding: 9px 10px;
-    margin-top: 8px;
-    margin-right: 15px;
-    margin-bottom: 8px;
-    background-color: #AD8A37;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
-}
+        background-color: #EFEDE0;
+        
+    }
+    .navbar-qlud .navbar-collapse .nav .dropdown .dropdown-menu li a {
+        color: #072945;
+    }
+    .navbar-toggle_qlub {
+        position: relative;
+        float: right;
+        padding: 9px 10px;
+        margin-top: 8px;
+        margin-right: 15px;
+        margin-bottom: 8px;
+        background-color: #EFEDE0;
+        background-image: none;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
 
-.navbar-toggle_qlub {
+    .navbar-toggle_qlub {
+        
+        background-color: #EFEDE0;
+    }
+    .navbar-qlud {
+        background-color: #c9a05d;
+    }
+}
+@media (min-width: 991px) {
+
+    .navbar-qlud .navbar-nav>li>a{
+        color:#f8e4d3;
+        font-family: 'Josefin Sans', sans-serif;
+        font-size: 13px;
+    }
+
+    .navbar-qlud .navbar-nav > li > a:hover,.navbar-qlud .navbar-nav > li > a:focus, .navbar-qlud .navbar-nav > .active > a {
+        color: #072945;
+        text-shadow: #072945;
+        background: #EFEDE0;
+    }
+
+    .navbar-qlud .navbar-collapse .nav .dropdown .dropdown-menu {
     
-    background-color: #AD8A37;
+        background-color: #EFEDE0;
+        
+    }
+    .navbar-qlud .navbar-collapse .nav .dropdown .dropdown-menu li a {
+        color: #072945;
+    }
+    .navbar-toggle_qlub {
+        position: relative;
+        float: right;
+        padding: 9px 10px;
+        margin-top: 8px;
+        margin-right: 15px;
+        margin-bottom: 8px;
+        background-color: #EFEDE0;
+        background-image: none;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+
+    .navbar-toggle_qlub {
+        
+        background-color: #EFEDE0;
+    }
+    .navbar-qlud {
+        background-color: none;
+    }
 }
 .icon-position_qlub li a{
     font-family: 'Josefin Sans', sans-serif;

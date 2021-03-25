@@ -134,7 +134,7 @@
                     <div class="col-sm-3  col-xs-4" style="text-align: right;" >
 
                         <button style="float: none; display: inline-block;" type="button" class="navbar-toggle_qlub navbar-toggle-qlud collapsed  " data-toggle="collapse" data-target="#collapse">
-                            <span><a href="#"><i class="livicon" data-name="responsive-menu" data-size="25" data-loop="false" data-c="#ffffff" data-hc="#ccc"></i>
+                            <span><a href="#"><i class="livicon" data-name="responsive-menu" data-size="25" data-loop="false" data-c="#072945" data-hc="#ccc"></i>
                             </a></span>
                         </button>
 
