@@ -177,7 +177,7 @@
         </div>
         <div class="row">
             <div class="col-md-12 col-sm-12 text-center">
-                <h3 class="titulo_qlub">Galería de Experiencias</h3>
+                <img src="{{secure_url('assets/images/galerias_exp.png')}}" alt="banner" title="banner">
             </div>
             <div class="col-md-12 col-sm-12 wow pulse" data-wow-duration="1.5s">
                 <div class="row">
@@ -185,7 +185,7 @@
                         <div class="">
                             <div class="text-center" id="contenido_qlub">
                                 <img src="{{ secure_url('/').'/uploads/categorias/maridaje_qlub.jpg' }}" alt="" title="" class="imgRedonda">   
-                                <h2 class="titulo_qlub">Maridaje<h2>
+                                <h2 class="categorias_qlub">Maridaje<h2>
                                 <a href="" class="botones_qlub boton_qlub">VER TODOS</a>                             
                             </div>
                         </div>
@@ -193,8 +193,8 @@
                     <div class="col-md-4 col-sm-12 col-xs-12"  id="caja_categoria_qlub">
                         <div class="">
                             <div class="text-center" id="contenido_qlub">
-                                <img src="{{ secure_url('/').'/uploads/categorias/productos_qlub.jpg' }}" alt="" title="" class="imgRedonda">
-                                <h2 class="titulo_qlub">Productos<h2>   
+                                <img src="{{ secure_url('/').'/uploads/categorias/productos_qlub.png' }}" alt="" title="" class="imgRedonda">
+                                <h2 class="categorias_qlub">Productos<h2>   
                                 <a href="" class="botones_qlub boton_qlub">VER TODOS</a>                             
                             </div>
                         </div>
@@ -203,7 +203,7 @@
                         <div class="">
                             <div class="text-center" id="contenido_qlub">
                                 <img src="{{ secure_url('/').'/uploads/categorias/experiencias_qlub.jpg' }}" alt="" title="" class="imgRedonda"> 
-                                <h2 class="titulo_qlub">Experiencias<h2> 
+                                <h2 class="categorias_qlub">Experiencias<h2> 
                                 <a href="" class="botones_qlub boton_qlub">VER TODOS</a>                             
                             </div>
                         </div>
@@ -219,7 +219,7 @@
         <div class="container cont_categorias">
             <div class="row">
                 <div class="col-md-12 col-sm-12 text-center">
-                    <h3 class="titulo_qlub">Productos del Qlub</h3>
+                    <img src="{{secure_url('assets/images/productos_exp.png')}}" alt="banner" title="banner">
                 </div>
                 <div class="col-md-12 col-sm-12 wow bounceInUp center" data-wow-duration="1.5s"> 
                     <div class="products">

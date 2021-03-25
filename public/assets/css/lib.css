@@ -1300,7 +1300,7 @@ footer a:hover, footer a:active{
 }
 .color-qlub{
     font-size:20px !important;
-    color:#ad8a39 !important;
+    color:#c9a05d !important;
     font-family: 'Cormorant', serif;
 }
 .color-foot{
@@ -1876,7 +1876,7 @@ padding: 0.3em 0.3em 0em 1em;
 
 /* Inicio el Qlub*/
 .body_qlub #bar{
-    background:#ad8a39 !important;
+    background:#c9a05d !important;
 }
 .body_qlub li label{
     bottom: 0px !important;
@@ -1885,12 +1885,12 @@ padding: 0.3em 0.3em 0em 1em;
     width:250px;
     height:250px;
     border-radius:150px;
-    border:5px solid #ad8a39;
+    border:3px solid #c9a05d;
 }
 .botones_qlub {
     border: none;
-    color: #ffffff !important;
-    padding: 6px 22px;
+    color: #072945 !important;
+    padding: 10px 30px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -1899,31 +1899,45 @@ padding: 0.3em 0.3em 0em 1em;
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
     cursor: pointer;
+    font-weight: bold;
 }
 .boton_qlub {
-    background-color: #ad8a39; 
-    color: #ffffff !important; 
-    border: 2px solid #ad8a39;
+    background-color: #c9a05d; 
+    color: #072945 !important; 
     font-family: 'Josefin Sans', sans-serif !important;
+    border-radius: 30px 30px 30px 30px;
+    letter-spacing: 3px;
 }
 
 .boton_qlub:hover {
-    background-color: #ffffff;
-    color: #ad8a39 !important;
-    border: 2px solid #ad8a39;
+    background-color: #f8e4d3;
+    color: #c9a05d !important;
 }
 
 .titulo_qlub{
-    color:#ad8a39;
+    color:#c9a05d;
     font-family: 'Josefin Sans', sans-serif;
     font-weight: bold;
 }
+.categorias_qlub{
+    font-family: 'Cormorant', serif;
+    color:#f8e4d3;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-style: italic;
+    letter-spacing: 5px;
+}
 .footer_qlub {
-    background: #ad8a39;
+    background: #c9a05d;
     padding: 1rem 0 1rem;
     z-index: 2;
     font-family: 'Josefin Sans', sans-serif;
     font-weight: bold;
+}
+.footer_qlub a:link,  .footer_qlub a:visited, .menu-item a{
+    color:#ffffff;
+    font-size: 14px;
+    font-family: 'Josefin Sans', sans-serif;
 }
 .footer-text_qlub {
     color   : #ffffff;
@@ -1939,7 +1953,7 @@ padding: 0.3em 0.3em 0em 1em;
     margin-bottom: 10px;
 }
 .copyright_qlub {
-    background: #ad8a39;
+    background: #c9a05d;
     padding: 1rem 0 1rem;
     z-index: 2;
     border-top:2px solid #ffffff;
@@ -1953,24 +1967,24 @@ padding: 0.3em 0.3em 0em 1em;
     font-family: 'Josefin Sans', sans-serif;
 }
 .navbar-qlud .navbar-nav>li>a{
-    color:#ad8a39;
+    color:#f8e4d3;
     font-family: 'Josefin Sans', sans-serif;
     font-size: 13px;
 }
 
 .navbar-qlud .navbar-nav > li > a:hover,.navbar-qlud .navbar-nav > li > a:focus, .navbar-qlud .navbar-nav > .active > a {
-    color: #ad8a39;
-    text-shadow: #ad8a39;
-    background: #fff;
+    color: #072945;
+    text-shadow: #072945;
+    background: #EFEDE0;
 }
 
 .navbar-qlud .navbar-collapse .nav .dropdown .dropdown-menu {
  
-    background-color: #000;
+    background-color: #EFEDE0;
     
 }
 .navbar-qlud .navbar-collapse .nav .dropdown .dropdown-menu li a {
-    color: #ad8a39;
+    color: #072945;
 }
 .navbar-qlud {
     background-color: none;
@@ -1997,14 +2011,13 @@ padding: 0.3em 0.3em 0em 1em;
     font-weight: 600;
     font-size      : 13px;
     text-transform : uppercase;
-    color:#ad8a39;
+    color:#f8e4d3;
 }
 .body_qlub .dropdown-menu>li>a{
-    color:#ad8a39;
+    color:#c9a05d;
     text-transform:uppercase;
     padding: 5px 20px;
     font-family: 'Josefin Sans', sans-serif;
-    font-weight: bold;
 }
 
 .productos_qlub{
@@ -2012,15 +2025,15 @@ padding: 0.3em 0.3em 0em 1em;
     min-height: 364px;
 }
 .productos_qlub .homi{
-    border: 2px solid #ad8a39; 
+    border: 2px solid #c9a05d; 
 }
 .productos_qlub a h3{
-    color: #ad8a39 !important;
+    color: #c9a05d !important;
     font-family: 'Josefin Sans', sans-serif;
     font-weight: bold;
 }
 .productos_qlub .precio_base{
-    color: #ad8a39 !important;
+    color: #c9a05d !important;
     font-family: 'Josefin Sans', sans-serif;
     font-weight: bold;
 }
@@ -2029,8 +2042,8 @@ padding: 0.3em 0.3em 0em 1em;
     border-color: #143473;
 }
 .productos_qlub .btn-cart{
-    background-color: #ad8a39;
-    border-color: #ad8a39;
+    background-color: #c9a05d;
+    border-color: #c9a05d;
 }
 .products_qlub .product_info h6 {
     font-size: 12px;
