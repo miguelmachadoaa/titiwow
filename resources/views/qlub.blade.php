@@ -166,7 +166,8 @@
         @endif
     <!-- //Layout Section Start -->
     <!-- Seccion categoria Inicio -->
-    <div class="container cont_categorias_qlub">
+
+     <div class="container cont_categorias_qlub">
         <div class="row">
             <div class="col-md-12 col-sm-12 text-center">
                 <h3 class="titulo_qlub">Bienvenidos a:</h3>
@@ -175,6 +176,9 @@
                 <img src="{{ secure_url('/').'/assets/images/el_qlub.png' }}" alt="Qlub" title="Qlub" class="img-responsive">   
             </div>
         </div>
+    </div>
+    <div class="container cont_categorias_qlub">
+        
         <div class="row">
             <div class="col-md-12 col-sm-12 text-center">
                 <h3 class="titulo_qlub">Galería de Experiencias</h3>
