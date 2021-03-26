@@ -1320,7 +1320,7 @@ footer a:hover, footer a:active{
 /* Css categorias del home*/
 @media (min-width: 1200px){
     .cont_categorias_qlub{
-        margin: 5px auto 100px auto;
+        margin: 5px auto 120px auto;
     }
     #caja_categoria{
         height:200px;
@@ -1927,6 +1927,7 @@ padding: 0.3em 0.3em 0em 1em;
     text-transform: uppercase;
     font-style: italic;
     letter-spacing: 5px;
+    font-size: 25px !important;
 }
 .fondo_qlub{
     background-image: url("../../assets/images/patronhead.jpg");
@@ -1952,11 +1953,13 @@ padding: 0.3em 0.3em 0em 1em;
     color:#f8e4d3;
     font-size: 14px;
     font-family: 'Josefin Sans', sans-serif;
+    font-weight: 700;
 }
 .footer-text_qlub {
     color   : #f8e4d3;
     padding : 30px 0 10px 0;
     font-family: 'Josefin Sans', sans-serif;
+    font-weight: 400;
 }
 .footer_qlub h4 {
     color : #c9a05d;
@@ -1965,13 +1968,18 @@ padding: 0.3em 0.3em 0em 1em;
     border-bottom: 2px solid #c9a05d;
     padding-bottom: 10px; 
     margin-bottom: 10px;
+    font-weight: bold;
+}
+.footer-text_qlub ul {
+    padding-inline-start: 0px !important;
+
 }
 .copyright_qlub {
     /*background: #c9a05d;*/
     background: #052846;
     padding: 1rem 0 1rem;
     z-index: 2;
-    border-top:2px solid #ffffff;
+    border-top:2px solid #c9a05d;
 }
 .copyright_qlub p {
     color   : #f8e4d3;
@@ -2092,11 +2100,16 @@ padding: 0.3em 0.3em 0em 1em;
     color: #ffffff !important;
     font-family: 'Josefin Sans', sans-serif;
     font-weight: bold;
+    text-transform: uppercase;
 }
 .productos_qlub .precio_base{
     color: #c9a05d !important;
     font-family: 'Josefin Sans', sans-serif;
     font-weight: bold;
+}
+.productos_qlub #precio_prod del{
+    color: #f8e4d3;
+    font-size: 1.1em;
 }
 .productos_qlub .btn-vermas{
     font-family: 'Josefin Sans', sans-serif;
@@ -2107,7 +2120,7 @@ padding: 0.3em 0.3em 0em 1em;
     color: #072945 !important;
     border-radius: 30px 0px 0px 30px;
     letter-spacing: 3px;
-    padding: 6px 20px;
+    padding: 6px 10px 6px 20px;
 }
 .productos_qlub .btn-cart{
     font-family: 'Josefin Sans', sans-serif;
@@ -2135,5 +2148,13 @@ padding: 0.3em 0.3em 0em 1em;
 	margin-bottom:30px; 
 	display: flex;justify-content: center;
 	align-items: center;
+}
+.separador_qlub{
+    width:100%;
+    border-bottom: 1px solid #c9a05d;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 20px;
 }
 /* Fin el  Qlub*/

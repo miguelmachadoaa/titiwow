@@ -8,7 +8,7 @@ Conoce el qlub del Queso Alpina |  @parent
 
 
     <link rel="canonical" href="{{$configuracion->seo_url}}" />
-    <meta property="og:title" content="Conoce el qlub del Queso Alpina  | Alpina GO!">
+    <meta property="og:title" content="Conoce el QLUB de los Quesos Maduros de Alpina  | Alpina GO!">
     <meta property="og:type" content="{{$configuracion->seo_type}}" />
     <meta property="og:image" content="{{$configuracion->seo_image}}" />
     <meta property="og:site_name" content="{{$configuracion->seo_site_name}}" />
@@ -170,6 +170,7 @@ Conoce el qlub del Queso Alpina |  @parent
      <div class="container cont_categorias_qlub fondo_qlub">
         <div class="row" style="padding: 0; margin:0;">
             <div class="col-md-12 col-sm-12 text-center" style="padding: 0;margin: 0;">
+                <br />
                 <h3 class="titulo_qlub">Bienvenidos a:</h3>
             </div>
             <div class="col-xs-12 col-md-12 col-sm-12 text-center imgqlub" style="padding: 0;margin: 0;">
@@ -189,7 +190,7 @@ Conoce el qlub del Queso Alpina |  @parent
                         <div class="">
                             <div class="text-center" id="contenido_qlub">
                                 <img src="{{ secure_url('/').'/uploads/categorias/maridaje_qlub.jpg' }}" alt="" title="" class="imgRedonda">   
-                                <h2 class="categorias_qlub">Maridaje<h2>
+                                <h2 class="categorias_qlub">Kits de Maridaje<h2>
                                 <a href="" class="botones_qlub boton_qlub">VER TODOS</a>                             
                             </div>
                         </div>
@@ -213,7 +214,7 @@ Conoce el qlub del Queso Alpina |  @parent
                         </div>
                     </div>
                 </div>
-
+                <br />
             </div>
         </div>
     </div>
@@ -223,6 +224,8 @@ Conoce el qlub del Queso Alpina |  @parent
         <div class="container cont_categorias">
             <div class="row">
                 <div class="col-md-12 col-sm-12 text-center">
+                    <div class="separador_qlub"></div>
+                    <br />
                     <img src="{{secure_url('assets/images/productos_exp.png')}}" alt="banner" title="banner">
                 </div>
                 <div class="col-md-12 col-sm-12 wow bounceInUp center" data-wow-duration="1.5s"> 
@@ -836,11 +839,6 @@ Conoce el qlub del Queso Alpina |  @parent
                     </div>
                 </div>
             </div>
-        <!-- //Seccion marcas Fin -->
-
-        <h1 style="font-size: 24px; text-align: center;" class="titulo_qlub">Conoce el Qlub del Queso Alpina</h1>
-
-
 
     </div>
     <!-- //Container End -->
