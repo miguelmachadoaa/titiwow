@@ -1136,6 +1136,7 @@ $hoy=$date->format('Y-m-d');
         ->join('alp_destacados_producto', 'alp_productos.id', '=', 'alp_destacados_producto.id_producto')
         ->where('alp_almacenes.id', '=', $id_almacen)
         ->where('alp_destacados_producto.id_grupo_destacado', '=', '1')
+        ->whereNull('alp_destacados_producto.deleted_at')
         ->whereNull('alp_almacen_producto.deleted_at')
         ->whereNull('alp_productos.deleted_at')
         ->where('alp_productos.estado_registro','=',1)
@@ -1688,6 +1689,7 @@ $hoy=$date->format('Y-m-d');
         ->where('alp_almacenes.id', '=', $id_almacen)
 
         ->whereNull('alp_almacen_producto.deleted_at')
+        ->whereNull('alp_destacados_producto.deleted_at')
 
         ->whereNull('alp_productos.deleted_at')
 
