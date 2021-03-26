@@ -87,6 +87,7 @@ Conoce el qlub del Queso Alpina |  @parent
 @section('top')
     <!--Carousel Start -->
     <div id="owl-demo" class="owl-carousel owl-theme">
+    @if(isset($role->role_id))
         @foreach($sliders as $s)
             <div class="item">
                 <a href="{{ $s->link_slider }}" target="_self">
@@ -94,6 +95,7 @@ Conoce el qlub del Queso Alpina |  @parent
                 </a>
             </div>
         @endforeach
+    @endif
     </div>
     <!-- //Carousel End -->
 @stop
