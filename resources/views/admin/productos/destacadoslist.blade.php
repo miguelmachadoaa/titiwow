@@ -83,10 +83,14 @@ Destacados
 
                                         @foreach($productos as $lp)
 
+                                        @if(isset($inv[$lp->id]))
+
                                         <option      value="{{ $lp->id }}">
                                                 {{ $lp->nombre_producto.' '.$lp->referencia_producto}}
 
                                         </option>
+
+                                        @endif
                                         @endforeach
                                         
                                       

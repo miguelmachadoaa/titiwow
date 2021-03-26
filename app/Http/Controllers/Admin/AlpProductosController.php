@@ -1888,6 +1888,45 @@ class AlpProductosController extends JoshController
 
 
 
+    private function inventarioBogota()
+    {
+
+
+
+      $entradas = AlpInventario::groupBy('id_producto')
+              ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
+              ->where('alp_inventarios.operacion', '1')
+              ->where('alp_inventarios.id_almacen', '1')
+              ->get();
+
+              $inv = array();
+
+              foreach ($entradas as $row) {
+                
+                $inv[$row->id_producto]=$row->cantidad_total;
+
+              }
+
+            $salidas = AlpInventario::select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
+              ->groupBy('id_producto')
+              ->where('operacion', '2')
+              ->where('alp_inventarios.id_almacen', '1')
+              ->get();
+
+              foreach ($salidas as $row) {
+                
+                $inv[$row->id_producto]= $inv[$row->id_producto]-$row->cantidad_total;
+
+            }
+
+            return $inv;
+      
+    }
+
+
+
+
+
     public function precio()
     {
         // Grab all the blogs
@@ -2660,10 +2699,17 @@ class AlpProductosController extends JoshController
 
 
 
-        $productos=AlpProductos::where('alp_productos.estado_registro','=',1)
+        $productos=AlpProductos::select('alp_productos.id as id', 'alp_productos.nombre_producto as nombre_producto', 'alp_productos.referencia_producto as referencia_producto')->where('alp_productos.estado_registro','=',1)
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->groupBy('alp_productos.id') 
         ->where('alp_productos.mostrar','=',1)->get();
+
+       # dd(json_encode($productos));
+
+        $inv=$this->inventarioBogota();
+
+       # dd($inv);
+
 
 
         $destacados = DB::table('alp_productos')->select('alp_productos.*')
@@ -2674,7 +2720,7 @@ class AlpProductosController extends JoshController
         ->orderBy('alp_productos.updated_at', 'desc')
         ->get();
 
-        return view('admin.productos.destacadoslist', compact('productos', 'destacados'));
+        return view('admin.productos.destacadoslist', compact('productos', 'destacados', 'inv'));
        
 
     }
@@ -2722,6 +2768,8 @@ class AlpProductosController extends JoshController
             'id_producto' => $request->id_producto, 
             'id_user' => $user->id
           );
+
+          dd($data);
 
           AlpDestacadoProducto::create($data);
 
@@ -2788,21 +2836,13 @@ class AlpProductosController extends JoshController
      public function datadestacados()
     {
     
-          $productos = DB::table('alp_productos')->select('alp_productos.*', 'alp_destacados_producto.id_grupo_destacado as id_grupo_destacado')
-
+          $productos = DB::table('alp_productos')->select('alp_productos.*', 'alp_destacados_producto.id_grupo_destacado as id_grupo_destacado', 'alp_destacados_producto.id as id_producto_destacado')
         ->join('alp_destacados_producto', 'alp_productos.id', '=', 'alp_destacados_producto.id_producto')
-       
         ->whereNull('alp_productos.deleted_at')
         ->whereNull('alp_destacados_producto.deleted_at')
-
         ->where('alp_productos.estado_registro','=',1)
-
         ->orderBy('alp_productos.order', 'asc')
-
         ->orderBy('alp_productos.updated_at', 'desc')
-
-        //->limit(12)
-
         ->get();
        
 
@@ -2844,18 +2884,15 @@ class AlpProductosController extends JoshController
             $almacen=$almacen.' '.$pa->nombre_almacen.',';
           }
 
-          
-
 
              $actions = "   
-                 <button class='btn btn-danger eliminarproductodestacado' data-id='".$alpProductos->id."' >
+                 <button class='btn btn-danger eliminarproductodestacado' data-id='".$alpProductos->id_producto_destacado."' >
                   <i class='fa fa-trash'    title='Eliminar'></i>  </button> ";
 
 
 
-
                $data[]= array(
-                 $alpProductos->id, 
+                 $alpProductos->id_producto_destacado, 
                   $imagen, 
                  $alpProductos->nombre_producto, 
                  $alpProductos->referencia_producto, 

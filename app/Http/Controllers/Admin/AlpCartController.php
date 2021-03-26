@@ -40,6 +40,9 @@ use App\Models\AlpAlmacenFormaEnvio;
 use App\Models\AlpAlmacenProducto;
 use App\Models\AlpAnchetaMensaje;
 
+use App\Models\AlpOrdenesDescuentoIcg;
+use App\Models\AlpConsultaIcg;
+
 use App\Models\AlpSaldo;
 use App\Models\AlpRolenvio;
 
@@ -12924,13 +12927,17 @@ public function reiniciarancheta()
     private function consultaIcg()
     {
 
-     /* $configuracion=AlpConfiguracion::where('id', '=', 1)->first();
+      $configuracion=AlpConfiguracion::where('id', '=', 1)->first();
 
       $s_user= \Session::get('user');
 
+
+
       $carrito= \Session::get('cr');
 
-      $c=AlpClientes::where('id_user_client', $s_user)->first();
+      $c=AlpClientes::where('id_user_client','=', '6512')->first();
+
+      #dd($c);
 
       $data = array('DocumentoEmpleado' =>$c->doc_cliente);
 
@@ -13030,7 +13037,7 @@ public function reiniciarancheta()
 
                        
 
-      }*/
+      }
 
       return 0;
       
@@ -13044,7 +13051,7 @@ public function reiniciarancheta()
     {
 
      //dd($id_orden);
-    /*  $configuracion=AlpConfiguracion::where('id', '=', 1)->first();
+      $configuracion=AlpConfiguracion::where('id', '=', 1)->first();
 
       $s_user= \Session::get('user');
 
@@ -13152,7 +13159,7 @@ public function reiniciarancheta()
 
                        
 
-      }*/
+      }
 
       return 0;
 
@@ -13590,7 +13597,7 @@ activity()->withProperties($res)->log('registro consumo  cancelar icg res');
 
 
 
-    
+
 
 
 
