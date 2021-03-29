@@ -129,6 +129,8 @@ Route::get('admin/categorias/data', 'Admin\AlpCategoriasController@data')->name(
 
 Route::get('admin/marcas/data', 'Admin\AlpMarcasController@data')->name('marcas.data');
 
+Route::get('admin/departamentos/data', 'Admin\AlpDepartamentosController@data')->name('departamentos.data');
+
 Route::get('admin/inventario/data', 'Admin\AlpInventarioController@data')->name('inventario.data');
 
 Route::get('admin/envios/data', 'Admin\AlpEnviosController@data')->name('envios.data');
@@ -470,6 +472,25 @@ Route::get('productos/{id}/eliminarproductoacheta', array('as' => 'productos.eli
     Route::resource('marcas', 'Admin\AlpMarcasController');
 
     //fin direcioens marcas
+    //
+    //
+    
+    Route::group(['prefix' => 'departamentos'], function () {
+
+        Route::get('{id}/delete', 'Admin\AlpDepartamentosController@destroy')->name('departamentos.delete');
+
+        Route::get('{id}/confirm-delete', 'Admin\AlpDepartamentosController@getModalDelete')->name('marcas.confirm-delete');
+
+        Route::get('{id}/restore', 'Admin\AlpDepartamentosController@getRestore')->name('departamentos.restore');
+
+    });
+
+    Route::post('departamentos/create', 'Admin\AlpDepartamentosController@store');
+
+    Route::resource('departamentos', 'Admin\AlpDepartamentosController');
+
+
+
 
     //Inicio direcciones clientes
 
