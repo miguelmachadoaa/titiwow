@@ -34,8 +34,7 @@ class Kernel extends ConsoleKernel
         Commands\CodigodescuentoIBM::class,
         Commands\Teextranamos2IBM::class,
         Commands\TeextranamosIBM::class,
-
-
+        Commands\PedidosEnviados::class,
     ];
 
     /**
@@ -98,6 +97,8 @@ class Kernel extends ConsoleKernel
 
 
          
+        $schedule->command('pedidos:enviados')->everyFiveMinutes();
+        
         $schedule->command('verificar:pagos')->everyFiveMinutes();
         $schedule->command('verificar:pagoshora')->hourly()->between('6:00', '23:00');
 
