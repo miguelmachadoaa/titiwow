@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\JoshController;
 use App\Http\Requests\DepartamentoRequest;
 use App\Models\AlpDepartamento;
+use App\Models\AlpDepartamentoUsuario;
+use App\User;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
@@ -78,11 +80,20 @@ class AlpDepartamentosController extends JoshController
                  $actions = " <a href='".secure_url('admin/departamentos/'.$row->id.'/edit')."'>
                                                 <i class='livicon' data-name='edit' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='editar categoria'></i>
                                             </a>
- <a href='".secure_url('admin/departamentos/'.$row->id.'/confirm-delete')."' data-toggle='modal' data-target='#delete_confirm'>
+                                            
+
+                                            <a href='".secure_url('admin/departamentos/'.$row->id.'/confirm-delete')."' data-toggle='modal' data-target='#delete_confirm'>
                                             <i class='livicon' data-name='remove-alt' data-size='18'
                                                 data-loop='true' data-c='#f56954' data-hc='#f56954'
                                                 title='Eliminar'></i>
-                                             </a>";
+                                             </a>
+
+                                             
+                                             <a href='".secure_url('admin/departamentos/'.$row->id.'/gestionar')."'>
+                                                <i class='livicon' data-name='eye' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Gestionar Departamento'></i>
+                                            </a>
+
+                                             ";
 
              
 
@@ -106,6 +117,12 @@ class AlpDepartamentosController extends JoshController
           return json_encode( array('data' => $data ));
 
     }
+
+
+
+
+
+
 
     /**
      * Group create.
@@ -390,6 +407,186 @@ class AlpDepartamentosController extends JoshController
             return Redirect::route('admin.departamentos.index')->with('error', trans('Error al eliminar el registro'));
         }
     }
+
+
+
+
+     public function gestionar($id)
+    {
+
+      if (!Sentinel::getUser()->hasAnyAccess(['departamentos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])->log('departamentos/gestionar ');
+
+        }else{
+
+          activity()
+          ->withProperties(['id'=>$id])->log('departamentos/gestionar');
+
+        }
+
+       
+       $usuarios =  User::select('users.*')
+        ->join('role_users', 'users.id', '=', 'role_users.user_id')
+        ->whereIn('role_users.role_id', [1, 2, 3, 4, 5, 6, 7, 8,13, 15])->get();
+
+       $du=AlpDepartamentoUsuario::where('id_departamento', '=', $id)->get();
+
+       $departamento=AlpDepartamento::where('id', $id)->first();
+
+
+        return view('admin.departamentos.gestionar', compact('usuarios', 'du', 'departamento'));
+
+    }
+
+
+     public function departamentousuariodata($id)
+    {
+       
+        $departamentos = AlpDepartamentoUsuario::select('alp_departamento_usuario.*', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+        ->join('users', 'alp_departamento_usuario.id_usuario', '=', 'users.id')
+        ->where('alp_departamento_usuario.id_departamento', '=', $id)
+        ->get();
+       
+
+            $data = array();
+
+
+          foreach($departamentos as $row){
+
+
+           
+
+
+               $eliminar=' <button data-id="'.$row->id.'" type="button" class="btn btn-danger delusuario">
+                        Eliminar
+                    </button>';
+
+             
+
+
+                                          
+
+
+               $data[]= array(
+                 $row->id, 
+                 $row->first_name.' '.$row->last_name, 
+                 $row->email, 
+                 $eliminar
+              );
+
+
+
+          }
+
+
+          return json_encode( array('data' => $data ));
+
+    }
+
+
+    
+
+
+
+
+public function addusuario(Request $request)
+    {
+
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('departamentos/addusuario ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('departamentos/addusuario');
+
+
+        }
+
+
+        $user_id = Sentinel::getUser()->id;
+
+
+          $p=AlpDepartamentoUsuario::where('id_usuario', $request->id_usuario)->where('id_departamento', '=', $request->id_departamento)->first();
+
+
+          if (isset($p->id)) {
+            return 'false';
+          }else{
+
+
+           $data = array(
+              'id_usuario' => $request->id_usuario, 
+              'id_departamento' => $request->id_departamento, 
+              'id_user' => $user->id, 
+            );
+
+            AlpDepartamentoUsuario::create($data);
+
+
+            return 'true';
+
+          }
+
+    }
+
+ public function delusuario(Request $request){
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cupones/deldestacado ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())
+          ->log('cupones/deldestacado');
+
+
+        }
+
+         $user_id = Sentinel::getUser()->id;
+
+         $dp=AlpDepartamentoUsuario::where('id', $request->id)->first();
+
+         if (isset($dp->id)) {
+              $dp->delete();
+
+              return true;
+         }else{
+            return 'false';
+         }
+
+
+    }
+
 
     
 

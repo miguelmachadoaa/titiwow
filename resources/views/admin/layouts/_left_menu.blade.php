@@ -1313,6 +1313,60 @@
     </li>
 
     @endif
+
+
+
+
+
+    @if (Sentinel::getUser()->hasAnyAccess(['ticket.index']))
+
+     <li {!! (Request::is('admin/ticket') || Request::is('admin/ticket/create') || Request::is('admin/user_profile') || Request::is('admin/ticket/*') || Request::is('admin/deleted_users') ? 'class="active"' : '') !!}>
+        <a href="#">
+            <i class="livicon" data-name="users" data-size="18" data-c="#F89A14" data-hc="#F89A14"
+               data-loop="true"></i>
+            <span class="title">Mesa de Soporte</span>
+            <span class="fa arrow"></span>
+        </a>
+        <ul class="sub-menu">
+
+            @if (Sentinel::getUser()->hasAnyAccess(['ticket.index']))
+                <li {!! (Request::is('admin/clientes') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ secure_url('admin/clientes') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Mesa de Soporte
+                </a>
+            </li>
+            @endif
+
+
+            
+
+            @if (Sentinel::getUser()->hasAnyAccess(['departamentos.index']))
+                <li {!! (Request::is('admin/departamentos/') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ secure_url('admin/departamentos/') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Departamentos
+                </a>
+            </li>
+
+            @endif
+
+            @if (Sentinel::getUser()->hasAnyAccess(['urgencias.index']))
+                <li {!! (Request::is('admin/urgencias') ? 'class="active" id="active"' : '') !!}>
+                <a href="{{ secure_url('admin/urgencias') }}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Niveles de Urgencia
+                </a>
+            </li>
+
+            @endif
+
+            
+
+        </ul>
+    </li>
+
+    @endif
    
    
    

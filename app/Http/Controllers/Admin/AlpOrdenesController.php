@@ -1361,7 +1361,7 @@ public function compramasupdate()
           ->where('alp_ordenes.estatus', '5')
           ->groupBy('alp_ordenes.id')
           ->orderBy('alp_ordenes.id', 'desc')
-          ->limit(100)
+          ->limit(2000)
           ->get();
 
             $data = array();

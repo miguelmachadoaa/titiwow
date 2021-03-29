@@ -131,6 +131,10 @@ Route::get('admin/marcas/data', 'Admin\AlpMarcasController@data')->name('marcas.
 
 Route::get('admin/departamentos/data', 'Admin\AlpDepartamentosController@data')->name('departamentos.data');
 
+Route::get('admin/departamentousuario/data/{id}', 'Admin\AlpDepartamentosController@departamentousuariodata')->name('departamentos.departamentousuariodata');
+
+Route::get('admin/urgencias/data', 'Admin\AlpUrgenciaController@data')->name('urgencias.data');
+
 Route::get('admin/inventario/data', 'Admin\AlpInventarioController@data')->name('inventario.data');
 
 Route::get('admin/envios/data', 'Admin\AlpEnviosController@data')->name('envios.data');
@@ -483,14 +487,33 @@ Route::get('productos/{id}/eliminarproductoacheta', array('as' => 'productos.eli
 
         Route::get('{id}/restore', 'Admin\AlpDepartamentosController@getRestore')->name('departamentos.restore');
 
+        Route::get('{id}/gestionar', 'Admin\AlpDepartamentosController@gestionar')->name('departamentos.gestionar');
+
     });
 
     Route::post('departamentos/create', 'Admin\AlpDepartamentosController@store');
 
     Route::resource('departamentos', 'Admin\AlpDepartamentosController');
 
+    Route::post('departamentos/addusuario', 'Admin\AlpDepartamentosController@addusuario');
+
+    Route::post('departamentos/delusuario', 'Admin\AlpDepartamentosController@delusuario');
 
 
+ 
+    Route::group(['prefix' => 'urgencias'], function () {
+
+        Route::get('{id}/delete', 'Admin\AlpUrgenciaController@destroy')->name('urgencias.delete');
+
+        Route::get('{id}/confirm-delete', 'Admin\AlpUrgenciaController@getModalDelete')->name('urgencias.confirm-delete');
+
+        Route::get('{id}/restore', 'Admin\AlpUrgenciaController@getRestore')->name('urgencias.restore');
+
+    });
+
+    Route::post('urgencias/create', 'Admin\AlpUrgenciaController@store');
+
+    Route::resource('urgencias', 'Admin\AlpUrgenciaController');
 
     //Inicio direcciones clientes
 

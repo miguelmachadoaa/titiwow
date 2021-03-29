@@ -269,6 +269,26 @@ class AlpTicketController extends JoshController
 
         if ($ticket->id) {
 
+
+          $uds = AlpDepartamentoUsuario::select('alp_departamento_usuario.*', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+        ->join('users', 'alp_departamento_usuario.id_usuario', '=', 'users.id')
+        ->where('alp_departamento_usuario.id_departamento', '=', $request->departamento)
+        ->get();
+
+        foreach ($uds as $ud) {
+          
+          #  Mail::to($ud->email)->send(new \App\Mail\NotificacionTicket($ticket));
+          #  
+          Mail::to('miguelmachadoaa@gmail.com')->send(new \App\Mail\NotificacionTicket($ticket));
+
+        }
+
+
+          
+
+
+
+
             return redirect('admin/ticket')->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
 
         } else {

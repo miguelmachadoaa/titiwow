@@ -11,7 +11,7 @@ class AlpDepartamentoUsuario extends Model
 {
     use SoftDeletes;
 
-    public $table = 'alp_comentario';
+    public $table = 'alp_departamento_usuario';
     
 
     protected $dates = ['deleted_at'];

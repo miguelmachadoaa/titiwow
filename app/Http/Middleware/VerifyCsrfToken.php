@@ -56,6 +56,8 @@ class VerifyCsrfToken extends Middleware
        'configuracion/delcity', //
        'configuracion/verificarciudad', //
        'productos/addrelacionado', //
+       'departamentos/addusuario', //
+       'departamentos/delusuario', //
        'delamigo', //
        'compramas', //
        'compramasinventario', //
