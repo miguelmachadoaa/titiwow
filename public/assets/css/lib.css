@@ -1930,7 +1930,7 @@ padding: 0.3em 0.3em 0em 1em;
     font-size: 25px !important;
 }
 .fondo_qlub{
-    background-image: url("../../assets/images/patronhead.jpg");
+    background-image: url("assets/images/patronhead.jpg");
     padding: 0;
     margin: 0;
     width: 100%;
@@ -1940,7 +1940,7 @@ padding: 0.3em 0.3em 0em 1em;
 }
 .footer_qlub {
     background: #072945;
-    background-image: url("../../assets/images/patron_footer.jpg");
+    background-image: url("assets/images/patron_footer.jpg");
     min-height: 400px;
     background-repeat: repeat-x;
     background-position: bottom center;
