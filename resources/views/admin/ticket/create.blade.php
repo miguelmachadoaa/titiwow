@@ -7,7 +7,6 @@
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link href="{{ secure_asset('assets/vendors/bootstrap3-wysihtml5-bower/css/bootstrap3-wysihtml5.min.css') }}"  rel="stylesheet" media="screen"/>
     <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ secure_asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
     <link href="{{ secure_asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
@@ -194,8 +193,7 @@
 @section('footer_scripts')
 <!-- begining of page level js -->
 <!--edit blog-->
-
-    <script  src="{{ secure_asset('assets/vendors/ckeditor/js/ckeditor.js') }}"  type="text/javascript"></script>
+<script src="https://cdn.tiny.cloud/1/qc49iemrwi4gmrqtiuvymiviycjklawxnqmtcnvorw0hckoj/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script  src="{{ secure_asset('assets/vendors/ckeditor/js/jquery.js') }}"  type="text/javascript" ></script>
     <script  src="{{ secure_asset('assets/vendors/ckeditor/js/config.js') }}"  type="text/javascript"></script>
     <script src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
@@ -206,23 +204,11 @@
 
 <script src="{{ secure_asset('assets/js/pages/add_newblog.js') }}" type="text/javascript"></script>
 <script type="text/javascript" >
-
-        // CKEditor Standard
-        $('.textarea').ckeditor({
-
-                height: '150px',
-                toolbar: [{
-                    name: 'document',
-                        items: ['Source', '-', 'NewPage', 'Preview', '-', 'Templates']
-                }, // Defines toolbar group with name (used to create voice label) and items in 3 subgroups.
-                    ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'], // Defines toolbar group without name.
-                        {
-                        name: 'basicstyles',
-                        items: ['Bold', 'Italic']
-                }
-            ]
-
-        });
-    </script>
+ tinymce.init({
+        selector:'#texto_ticket',
+        width: '100%',
+        height: 300
+    });
+</script>
 
 @stop
