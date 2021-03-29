@@ -2699,17 +2699,15 @@ class AlpProductosController extends JoshController
 
 
 
-        $productos=AlpProductos::select('alp_productos.id as id', 'alp_productos.nombre_producto as nombre_producto', 'alp_productos.referencia_producto as referencia_producto')->where('alp_productos.estado_registro','=',1)
+        $productos=AlpProductos::select('alp_productos.id as id', 'alp_productos.nombre_producto as nombre_producto', 'alp_productos.referencia_producto as referencia_producto')
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->groupBy('alp_productos.id') 
-        ->where('alp_productos.mostrar','=',1)->get();
-
-       # dd(json_encode($productos));
+        ->where('alp_productos.estado_registro','=',1)
+        ->whereNull('alp_almacen_producto.deleted_at')
+        ->whereNull('alp_productos.deleted_at')
+        ->get();
 
         $inv=$this->inventarioBogota();
-
-       # dd($inv);
-
 
 
         $destacados = DB::table('alp_productos')->select('alp_productos.*')
