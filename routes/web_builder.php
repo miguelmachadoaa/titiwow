@@ -977,6 +977,8 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
     Route::post('ticket/create', 'Admin\AlpTicketController@store');
 
+    Route::post('ticket/storerespuesta', 'Admin\AlpTicketController@storerespuesta');
+
     Route::get('ticket/{id}/upload', 'Admin\AlpTicketController@upload');
 
     Route::post('ticket/{id}/postcomentario', 'Admin\AlpTicketController@postcomentario');

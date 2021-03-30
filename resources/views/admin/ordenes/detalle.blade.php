@@ -510,6 +510,194 @@ Orden {{$orden->id}}
 <br>
 <br>
 
+    @if(count($tickets)==0 )
+
+    @else
+
+     <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary ">
+                <div class="panel-heading">
+                    <h4 class="panel-title"> <i class="livicon" data-name="wrench" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                       Tickets Asigandos a la orden
+                    </h4>
+                </div>
+                <div class="panel-body">
+
+
+
+
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+
+  @foreach($tickets as $ticket)
+
+
+
+     <div class="panel panel-default">
+
+      <div class="panel-heading" role="tab" id="heading{{ $loop->iteration }}">
+        <h4 class="panel-title">
+          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $loop->iteration }}" aria-expanded="true" aria-controls="collapse{{ $loop->iteration }}">
+            Ticket id {{$ticket->id}} Fecha : {{ date("d/m/Y H:i:s", strtotime($ticket->created_at))}}
+            
+          </a>
+        </h4>
+      </div>
+      <div id="collapse{{ $loop->iteration }}" class="panel-collapse collapse " role="tabpanel" aria-labelledby="heading{{ $loop->iteration }}">
+        <div class="panel-body">
+          
+
+                        @if($ticket->estado_registro==1)
+                        <div class="alert alert-info">
+                            Actualmente el ticket se encuentra abierto
+                        </div> 
+                        @else
+                        <div class="alert alert-danger">
+                            Actualmente el ticket se encuentra Cerrado
+                        </div> 
+
+                        @endif
+
+                        <div class="col-sm-12">
+                            Ticket Abierto desde {{$ticket->created_at}}
+                        </div>
+
+                        <div class="col-sm-6">
+
+                            <h3>Ticket # {{$ticket->id}}</h3>
+
+                            <p>Usuario: {{$ticket->first_name.' '.$ticket->last_name}}</p>
+                            <p>Email: {{$ticket->email}}</p>
+                            <p>Origen: {{$ticket->origen}}</p>
+                            <p>Orden de Compra: {{$ticket->orden}}</p>
+
+                            
+                            
+                        </div>
+
+
+                         <div class="col-sm-6">
+
+                            <h3>Departamento: {{$ticket->nombre_departamento}}</h3>
+                            <h3>Urgencia: {{$ticket->nombre_urgencia}}</h3>
+                            <h3>Estado : 
+
+                        @if($ticket->estado_registro==1)
+                            Abierto
+                        @else
+                            Cerrado
+                        @endif
+
+
+                            </h3>
+                            
+                        </div>
+
+                        <div class="col-sm-12">
+                            
+                            <h3>Descripción </h3>
+
+                            {!!$ticket->texto_ticket!!}
+
+                        </div>
+
+                        @if(is_null($ticket->archivo || $ticket->archivo==''))
+
+                        <div class="col-sm-12">
+                            
+                            <h3>Sin archivos Adjuntos </h3>
+
+                            
+
+                        </div>
+
+
+                        @else
+
+                        <div class="col-sm-12">
+                            
+                            <h3>Adjunto <a class="btn btn-info" target="_blank" href="{{secure_url('uploads/ticket/'.$ticket->archivo)}}">Ver Archivo</a> </h3>
+
+                        </div>
+
+
+                        @endif 
+
+                        <div class="col-sm-12" style="margin-top: 1em;">
+
+                           <a class="btn btn-success" href="{{secure_url('admin/ticket/'.$ticket->id)}}">Ir al Ticket</a>
+
+                        </div>
+
+
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+  @endforeach
+
+
+
+
+  
+ 
+</div>
+
+
+
+
+
+
+
+
+                    
+           
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- row-->
+
+    @endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <div class="row">
         <div class="col-lg-12">
@@ -700,7 +888,6 @@ Orden {{$orden->id}}
 
     @if(isset($pago->id))
 
-
      <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-primary ">
@@ -710,12 +897,6 @@ Orden {{$orden->id}}
                     </h4>
                 </div>
                 <div class="panel-body">
-
-
-
-
-
-
 
 
 

@@ -7,7 +7,9 @@
 
 {{-- page level styles --}}
 @section('header_styles')
-    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+      <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+
+    <link href="{{ secure_asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
     <link href="{{ secure_asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
     <link href="{{ secure_asset('assets/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
@@ -41,15 +43,12 @@
             
 
              <form class="form-horizontal" enctype="multipart/form-data" role="form" method="post" action="{{ secure_url('admin/ticket/create') }}">
+
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+
                  <div class="row">
 
-
-                    {{json_encode($errors)}}
-
                     <div class="col-sm-12" style="margin-top:1em;">
-
-
 
                          <div class="form-group {{ $errors->
                             first('departamento', 'has-error') }}">
@@ -106,6 +105,39 @@
                             </div>
                         </div>
                     </div>
+
+
+
+                    <div class="col-sm-12" style="margin-top:1em;">
+                        
+                        <div class="form-group {{ $errors->
+                            first('orden', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Orden del Ticket <small>Opcional</small>
+                            </label>
+                            <div class="col-sm-5">
+                                
+                                 <select id="orden" name="orden" class="form-control select2">
+
+                                                        <option value="">Seleccione</option>
+                                                        
+                                                        @foreach($ordenes as $o)
+
+                                                        <option value="{{ $o->id }}">
+                                                                {{ $o->referencia.' - '.$o->first_name.' '.$o->last_name}}</option>
+                                                        @endforeach
+                                                        
+                                                      
+                                                    </select>
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('orden', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+                    </div>
+
+
+
                          
 
                     <div class="col-sm-12" style="margin-top:1em;">
@@ -175,10 +207,13 @@
                       
                     
 
-                        <div class="form-group" style="margin-top: 1em;">
-                            <button type="submit" class="btn btn-success">Crear</button>
+                        <div class="form-group col-sm-12" style="margin-top: 1em;">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-5">
                             <a href="{{ route('admin.cms.index') }}"
                                class="btn btn-danger">Cancelar</a>
+                            <button type="submit" class="btn btn-success">Crear</button></div>
+                            
                         </div>
                     </div>
                     <!-- /.col-sm-4 --> </div>
@@ -209,6 +244,11 @@
         width: '100%',
         height: 300
     });
+
+ $('.select2').select2({
+                placeholder: "Seleccionar",
+                theme:"bootstrap"
+            });
 </script>
 
 @stop

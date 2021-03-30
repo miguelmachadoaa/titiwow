@@ -105,20 +105,37 @@ Detalle Ticket
 
                         </div>
 
+                        @if(is_null($ticket->archivo || $ticket->archivo==''))
+
+                        <div class="col-sm-12">
+                            
+                            <h3>Sin archivos Adjuntos </h3>
+
+                            
+
+                        </div>
+
+
+                        @else
+
+                        <div class="col-sm-12">
+                            
+                            <h3>Adjunto <a class="btn btn-info" target="_blank" href="{{secure_url('uploads/ticket/'.$ticket->archivo)}}">Ver Archivo</a> </h3>
+
+                        </div>
+
+
+                        @endif 
+
                         <div class="col-sm-12" style="margin-top: 1em;">
 
                             @include('admin.ticket.respuestas')
 
-                           
                         </div>
-
-                        
-
-                      
                    
                 </div>
-            </div>
 
+            </div>
 
         </div>
     </div>
@@ -237,8 +254,110 @@ Detalle Ticket
     <!-- row-->
 </section>
 
+
+<!-- Modal Direccion -->
+ <div class="modal fade" id="responderModal" role="dialog" aria-labelledby="modalLabeldanger">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h4 class="modal-title" id="modalLabeldanger">Confirmar Orden</h4>
+                    </div>
+                     <form method="POST" enctype="multipart/form-data" action="{{secure_url('admin/ticket/storerespuesta')}}" id="respuestaForm" name="respuestaForm" class="form-horizontal">
+                    <div class="modal-body">
+                        
+                       
+
+                            <input type="hidden" name="id_ticket_respuesta" id="id_ticket_respuesta" value="">
+                            <input type="hidden" name="id_padre_respuesta" id="id_padre_respuesta" value="">
+
+                            {{ csrf_field() }}
+
+                            <div class="row">
+
+                               <div class="col-sm-12" style="margin-top:1em;">
+
+                        <div class="form-group {{ $errors->
+                            first('titulo_ticket_respuesta', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Titulo Ticket 
+                            </label>
+                            <div class="col-sm-5">
+                                <input type="text" id="titulo_ticket_respuesta" name="titulo_ticket_respuesta" class="form-control" placeholder="Titulo ticket"
+                                       value="{!! old('titulo_ticket_respuesta') !!}">
+                            </div>
+                            <div class="col-sm-7">
+                                {!! $errors->first('titulo_ticket_respuesta', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+                        
+
+                    <div class="col-sm-12" style="margin-top:1em;">
+                        
+
+                        <div class="form-group {{ $errors->
+                            first('texto_ticket_respuesta', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Contenido
+                            </label>
+                            <div class="col-sm-5">
+                                 <textarea class="textarea form-control" name="texto_ticket_respuesta" id="texto_ticket_respuesta" placeholder="Contenido Ticket" rows="5" cols="10"></textarea>
+                            </div>
+                            <div class="col-sm-7">
+                                {!! $errors->first('texto_ticket_respuesta', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-sm-12" style="margin-top:1em; ">
+                        
+
+                        <div class="form-group {{ $errors->
+                            first('archivo', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Archivo
+                            </label>
+                            <div class="col-sm-5">
+                                  <input type="file" id="archivo_respuesta" name="archivo_respuesta">
+                            </div>
+                            <div class="col-sm-7">
+                                {!! $errors->first('archivo', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+                    </div>
+
+
+                            </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type=" submit" class="btn  btn-primary " >Enviar</button>
+                    </div>
+                        </form>
+
+                </div>
+            </div>
+        </div>
+
+<!-- Modal Direccion -->
+
+
+
+
 @stop
 @section('footer_scripts')
+
+
+
 
 <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/dataTables.bootstrap.css') }}"/>
  <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/datatables/css/buttons.bootstrap.css') }}">
@@ -251,6 +370,22 @@ Detalle Ticket
 <script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
 
 <script>
+
+
+    $('.responder').on('click', function(){
+
+        $('#id_ticket_respuesta').val($(this).data('ticket'));
+        $('#id_padre_respuesta').val($(this).data('padre'));
+
+        $('#responderModal').modal('show');
+
+
+    });
+
+    $('.sendRespuesta').click(function(){
+
+        $('#respuestaForm').submit();
+    })
 
 
     $('#tableAlmacen').DataTable();

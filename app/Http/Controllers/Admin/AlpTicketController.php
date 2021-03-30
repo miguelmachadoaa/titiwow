@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\JoshController;
 use App\Models\AlpTDocumento;
 use App\Models\AlpEstructuraAddress;
+use App\Models\AlpOrdenes;
 use App\Models\AlpAlmacenes;
 use App\Models\AlpAlmacenProducto;
 use App\Models\AlpAlmacenRol;
@@ -151,8 +152,8 @@ class AlpTicketController extends JoshController
                  $row->id, 
                  $row->nombre_departamento, 
                  $row->nombre_urgencia,
-                 $row->origen, 
                  $row->titulo_ticket, 
+                 $row->origen, 
                  $row->created_at->format('d-m-Y h:i:s'), 
                  $estatus, 
                  $actions
@@ -195,10 +196,15 @@ class AlpTicketController extends JoshController
 
         $urgencia=AlpUrgencia::get();
 
+        $ordenes=AlpOrdenes::select('alp_ordenes.id as id', 'alp_ordenes.referencia as referencia','users.first_name as first_name', 'users.last_name as last_name')
+        ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+        ->orderby('alp_ordenes.id', 'desc')
+        ->get();
+
         #dd($departamentos);
 
         // Show the page
-        return view ('admin.ticket.create', compact('departamentos', 'urgencia', ));
+        return view ('admin.ticket.create', compact('departamentos', 'urgencia', 'ordenes'));
     }
 
     /**
@@ -245,7 +251,7 @@ class AlpTicketController extends JoshController
 
         $archivo = $picture;
 
-          $destinationPath = public_path('/uploads/ticket/');   
+          $destinationPath = public_path('/pruebas/uploads/ticket/');   
 
         $file->move($destinationPath,$archivo);
         
@@ -256,6 +262,7 @@ class AlpTicketController extends JoshController
             'urgencia' => $request->urgencia, 
             'titulo_ticket' => $request->titulo_ticket, 
             'texto_ticket' => $request->texto_ticket, 
+            'orden' => $request->orden, 
             'archivo' => $archivo, 
             'origen' => 'Administrador', 
             'id_user' =>$user_id
@@ -296,6 +303,92 @@ class AlpTicketController extends JoshController
         }  
 
     }
+
+
+
+     public function storerespuesta(Request $request)
+    {
+
+        if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+          activity($user->full_name)
+            ->performedOn($user)
+            ->causedBy($user)
+            ->withProperties($request->all())->log('almacenes/storerespuesta ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('almacenes/storerespuesta');
+
+        }
+        
+        $user_id = Sentinel::getUser()->id;
+
+        $input=$request->all();
+
+
+        $archivo='';
+
+
+      if ($request->archivo_respuesta != null) {
+
+        $file = $request->file('archivo_respuesta');
+
+        $extension = $file->extension()?: 'jpg';
+
+        $picture = str_random(10) . '.' . $extension; 
+
+        $file1 = $file->getClientOriginalName();
+
+        $archivo = $picture;
+
+          $destinationPath = public_path('/pruebas/uploads/ticket/');   
+
+        $file->move($destinationPath,$archivo);
+        
+      }
+
+       $data = array(
+            'id_ticket' => $request->id_ticket_respuesta, 
+            'titulo_ticket' => $request->titulo_ticket_respuesta, 
+            'texto_ticket' => $request->texto_ticket_respuesta, 
+            'archivo' => $archivo, 
+            'id_padre' => $request->id_padre_respuesta, 
+            'id_user' =>$user->id
+        );
+         
+        $comentario=AlpComentario::create($data);
+
+        $ticket=AlpTicket::where('id', $request->id_ticket_respuesta)->first();
+         
+
+        if ($comentario->id) {
+
+          $uds = AlpDepartamentoUsuario::select('alp_departamento_usuario.*', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+        ->join('users', 'alp_departamento_usuario.id_usuario', '=', 'users.id')
+        ->where('alp_departamento_usuario.id_departamento', '=', $ticket->departamento)
+        ->get();
+
+        foreach ($uds as $ud) {
+          
+          Mail::to('miguelmachadoaa@gmail.com')->send(new \App\Mail\NotificacionTicket($ticket));
+
+        }
+
+
+            return redirect('admin/ticket/'.$request->id_ticket_respuesta)->withInput()->with('success', trans('Se ha creado satisfactoriamente el Registro'));
+
+        } else {
+            return Redirect::route('admin/ticket/'.$request->id_ticket_respuesta)->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+        }  
+
+    }
+
+
+
 
 
     /**
@@ -384,7 +477,7 @@ class AlpTicketController extends JoshController
 
         $archivo = $picture;
 
-          $destinationPath = public_path('/uploads/ticket/');   
+          $destinationPath = public_path('/pruebas/uploads/ticket/');   
 
         $file->move($destinationPath,$archivo);
         
@@ -664,6 +757,35 @@ class AlpTicketController extends JoshController
          ->join('users', 'alp_comentario.id_user', '=', 'users.id')
         ->where('alp_comentario.id_ticket', $id)->get();
 
+        foreach ($comentarios as $c) {
+
+          $ac=AlpComentario::select('alp_comentario.*',  'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+           ->join('users', 'alp_comentario.id_user', '=', 'users.id')
+          ->where('alp_comentario.id_padre', $c->id)->get();
+
+          foreach ($ac as $cc) {
+            
+              $aac=AlpComentario::select('alp_comentario.*',  'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+             ->join('users', 'alp_comentario.id_user', '=', 'users.id')
+            ->where('alp_comentario.id_padre', $cc->id)->get();
+
+            foreach ($aac as $ccc) {
+            
+                $aaac=AlpComentario::select('alp_comentario.*',  'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+               ->join('users', 'alp_comentario.id_user', '=', 'users.id')
+              ->where('alp_comentario.id_padre', $ccc->id)->get();
+
+              $ccc->respuestas=$aaac;
+            }
+
+            $cc->respuestas=$aac;
+          }
+
+           $c->respuestas=$ac;
+
+          # code...
+        }
+
 
         return view('admin.ticket.show', compact('ticket', 'comentarios'));
     }
@@ -706,7 +828,7 @@ class AlpTicketController extends JoshController
 
         $archivo = $picture;
 
-          $destinationPath = public_path('/uploads/ticket/');   
+          $destinationPath = public_path('/pruebas/uploads/ticket/');   
 
         $file->move($destinationPath,$archivo);
         

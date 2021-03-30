@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\JoshController;
 use App\Http\Requests\OrdenesRequest;
+use App\Models\AlpTicket;
 use App\Models\AlpOrdenes;
 use App\Models\AlpOrdenesDescuento;
 use App\Models\AlpEstatusOrdenes;
@@ -2667,9 +2668,18 @@ public function compramasupdate()
 
           }
 
+
+          $tickets = AlpTicket::select('alp_ticket.*', 'alp_departamento.nombre_departamento as nombre_departamento', 'alp_urgencia.nombre_urgencia as nombre_urgencia', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+        ->join('alp_departamento', 'alp_ticket.departamento', '=', 'alp_departamento.id')
+        ->join('alp_urgencia', 'alp_ticket.urgencia', '=', 'alp_urgencia.id')
+        ->join('users', 'alp_ticket.id_user', '=', 'users.id')
+        ->where('alp_ticket.orden', '=', $orden->id)
+        ->get();
+
+
          // dd($history_envio);
 
-        return view('admin.ordenes.detalle', compact('detalles', 'orden', 'history', 'pago', 'pagos', 'cliente', 'direccion', 'cupones', 'formaenvio', 'envio', 'pago_aprobado', 'history_envio', 'user', 'descuentoicg', 'p_a','subtotal','impuestos'  ));
+        return view('admin.ordenes.detalle', compact('detalles', 'orden', 'history', 'pago', 'pagos', 'cliente', 'direccion', 'cupones', 'formaenvio', 'envio', 'pago_aprobado', 'history_envio', 'user', 'descuentoicg', 'p_a','subtotal','impuestos', 'tickets'  ));
 
     }
 

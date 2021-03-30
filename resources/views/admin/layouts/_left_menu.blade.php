@@ -1329,21 +1329,14 @@
         </a>
         <ul class="sub-menu">
 
-            @if (Sentinel::getUser()->hasAnyAccess(['ticket.index']))
-                <li {!! (Request::is('admin/ticket') ? 'class="active" id="active"' : '') !!}>
-                <a href="{{ secure_url('admin/ticket') }}">
-                    <i class="fa fa-angle-double-right"></i>
-                    Mesa de Soporte
-                </a>
-            </li>
-            @endif
+           
             
 
             @if (Sentinel::getUser()->hasAnyAccess(['departamentos.index']))
                 <li {!! (Request::is('admin/departamentos/') ? 'class="active" id="active"' : '') !!}>
                 <a href="{{ secure_url('admin/departamentos/') }}">
                     <i class="fa fa-angle-double-right"></i>
-                    Departamentos
+                    Areas
                 </a>
             </li>
 

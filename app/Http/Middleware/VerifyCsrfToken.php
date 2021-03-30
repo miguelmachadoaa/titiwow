@@ -58,6 +58,7 @@ class VerifyCsrfToken extends Middleware
        'productos/addrelacionado', //
        'departamentos/addusuario', //
        'departamentos/delusuario', //
+       'ticket/storerespuesta', //
        'delamigo', //
        'compramas', //
        'compramasinventario', //
