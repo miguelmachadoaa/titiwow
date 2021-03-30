@@ -50,35 +50,35 @@ class Kernel extends ConsoleKernel
 
         //  $schedule->command('usuarios:activar')->dailyAt('23:00');
        
-        $schedule->command('pedidos:day')->mondays()->at('17:00');
-        $schedule->command('toma:pedidos')->mondays()->at('17:00');
-        $schedule->command('productos:venta')->mondays()->at('17:00');
-        $schedule->command('productosc:venta')->mondays()->at('17:00');
+        #$schedule->command('pedidos:day')->mondays()->at('17:00');
+        #$schedule->command('toma:pedidos')->mondays()->at('17:00');
+        #$schedule->command('productos:venta')->mondays()->at('17:00');
+        #$schedule->command('productosc:venta')->mondays()->at('17:00');
 
-        $schedule->command('pedidos:day')->tuesdays()->at('17:00');
-        $schedule->command('toma:pedidos')->tuesdays()->at('17:00');
-        $schedule->command('productos:venta')->tuesdays()->at('17:00');
-        $schedule->command('productosc:venta')->tuesdays()->at('17:00');
+        #$schedule->command('pedidos:day')->tuesdays()->at('17:00');
+        #$schedule->command('toma:pedidos')->tuesdays()->at('17:00');
+        #$schedule->command('productos:venta')->tuesdays()->at('17:00');
+        #$schedule->command('productosc:venta')->tuesdays()->at('17:00');
 
-        $schedule->command('pedidos:day')->wednesdays()->at('17:00');
-        $schedule->command('toma:pedidos')->wednesdays()->at('17:00');
-        $schedule->command('productos:venta')->wednesdays()->at('17:00');
-        $schedule->command('productosc:venta')->wednesdays()->at('17:00');
+        #$schedule->command('pedidos:day')->wednesdays()->at('17:00');
+        #$schedule->command('toma:pedidos')->wednesdays()->at('17:00');
+        #$schedule->command('productos:venta')->wednesdays()->at('17:00');
+        #$schedule->command('productosc:venta')->wednesdays()->at('17:00');
 
-        $schedule->command('pedidos:day')->thursdays()->at('17:00');
-        $schedule->command('toma:pedidos')->thursdays()->at('17:00');
-        $schedule->command('productos:venta')->thursdays()->at('17:00');
-        $schedule->command('productosc:venta')->thursdays()->at('17:00');
+        #$schedule->command('pedidos:day')->thursdays()->at('17:00');
+        #$schedule->command('toma:pedidos')->thursdays()->at('17:00');
+        #$schedule->command('productos:venta')->thursdays()->at('17:00');
+        #$schedule->command('productosc:venta')->thursdays()->at('17:00');
 
-        $schedule->command('pedidos:day')->fridays()->at('17:00');
-        $schedule->command('toma:pedidos')->fridays()->at('17:00');
-        $schedule->command('productos:venta')->fridays()->at('17:00');
-        $schedule->command('productosc:venta')->fridays()->at('17:00');
+        #$schedule->command('pedidos:day')->fridays()->at('17:00');
+        #$schedule->command('toma:pedidos')->fridays()->at('17:00');
+        #$schedule->command('productos:venta')->fridays()->at('17:00');
+        #$schedule->command('productosc:venta')->fridays()->at('17:00');
 
-        $schedule->command('pedidos:day')->saturdays()->at('14:00');
-        $schedule->command('toma:pedidos')->saturdays()->at('14:00');
-        $schedule->command('productos:venta')->saturdays()->at('14:00');
-        $schedule->command('productosc:venta')->saturdays()->at('14:00');
+        #$schedule->command('pedidos:day')->saturdays()->at('14:00');
+        #$schedule->command('toma:pedidos')->saturdays()->at('14:00');
+        #$schedule->command('productos:venta')->saturdays()->at('14:00');
+        #$schedule->command('productosc:venta')->saturdays()->at('14:00');
 
 
         $schedule->command('verificar:saldo')->dailyAt('1:00');
@@ -91,8 +91,8 @@ class Kernel extends ConsoleKernel
         //llamadas ibm a las 5pm 
 
       #  $schedule->command('bienvenida:ibm')->dailyAt('07:00');
-        $schedule->command('codigodescuento:ibm')->dailyAt('07:00');
-        $schedule->command('teextranamos2:ibm')->dailyAt('10:00');
+        $schedule->command('codigodescuento:ibm')->dailyAt('11:00');
+        $schedule->command('teextranamos2:ibm')->dailyAt('09:00');
         $schedule->command('teextranamos:ibm')->dailyAt('07:00');
 
 
@@ -102,11 +102,11 @@ class Kernel extends ConsoleKernel
         $schedule->command('verificar:pagos')->everyFiveMinutes();
         $schedule->command('verificar:pagoshora')->hourly()->between('6:00', '23:00');
 
-        #$schedule->command('notificacion:carrito')->hourly();
+        $schedule->command('notificacion:carrito')->hourly()->between('7:00', '22:00');
         
         #->twiceDaily(10, 16);
 
-        $schedule->command('verificar:almacen')->twiceDaily(10, 16);
+        #$schedule->command('verificar:almacen')->twiceDaily(10, 16);
 
         $schedule->command('activitylog:clean')->dailyAt('00:05');
 
