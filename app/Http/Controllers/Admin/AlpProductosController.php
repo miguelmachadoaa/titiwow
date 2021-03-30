@@ -2767,8 +2767,6 @@ class AlpProductosController extends JoshController
             'id_user' => $user->id
           );
 
-          dd($data);
-
           AlpDestacadoProducto::create($data);
 
           return 'true';
