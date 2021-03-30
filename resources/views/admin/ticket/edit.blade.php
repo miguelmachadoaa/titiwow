@@ -187,13 +187,7 @@
                    
 
                     @endif
-
-
-
                    
-
-                      
-                    
 
                         <div class="form-group" style="margin-top: 1em;">
                             <button type="submit" class="btn btn-success">Crear</button>

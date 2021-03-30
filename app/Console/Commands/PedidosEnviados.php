@@ -68,27 +68,27 @@ class PedidosEnviados extends Command
 
             $envio=AlpEnvios::where('id_orden','=', $orden->id)->where('estatus', '=', '7')->first();
 
-            if (isset($envio->id)) {
+                if (isset($envio->id)) {
 
-            echo    $orden->id.'-';
-                
+                    echo $orden->id.'-';
+                    
 
-                $ban=$ban+1;
+                    $ban=$ban+1;
 
-                $data_update = array('estatus' =>3);
+                    $data_update = array('estatus'=>3);
 
-                $orden->update($data_update);
+                    $orden->update($data_update);
 
-                $data_history = array(
-                  'id_orden' => $orden->id, 
-                  'id_status' => '3', 
-                  'notas' => 'Orden Entregada Notificada por Compramas y actualizada por Cron',
-                  'id_user' => 1
-                );
+                    $data_history = array(
+                      'id_orden' => $orden->id, 
+                      'id_status' => '3', 
+                      'notas' => 'Orden Entregada Notificada por Compramas y actualizada por Cron',
+                      'id_user' => 1
+                    );
 
-                $history=AlpOrdenesHistory::create($data_history);
-                
-            }
+                    $history=AlpOrdenesHistory::create($data_history);
+                    
+                }
 
             
             }

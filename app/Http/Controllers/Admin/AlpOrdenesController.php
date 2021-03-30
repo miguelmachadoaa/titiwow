@@ -1380,7 +1380,7 @@ public function compramasupdate()
           ->where('alp_ordenes.estatus', '5')
           ->groupBy('alp_ordenes.id')
           ->orderBy('alp_ordenes.id', 'desc')
-          #->limit(1)
+          ->limit(1000)
           ->get();
 
           #dd(json_encode($ordenes));
