@@ -1812,7 +1812,7 @@ public function compramasupdate()
           ->where('alp_ordenes.estatus', '6')
           ->groupBy('alp_ordenes.id')
           ->orderBy('alp_ordenes.id', 'desc')
-          ->limit(100)
+          ->limit(1000)
           ->get();
 
           $almacenes=AlpAlmacenes::pluck('nombre_almacen', 'id');
@@ -5619,7 +5619,7 @@ activity()->withProperties($res)->log('respuesta cancelar registro icg ');
           ->where('alp_ordenes.estatus', '3')
           ->groupBy('alp_ordenes.id')
           ->orderBy('alp_ordenes.id', 'desc')
-          ->limit(100)
+          ->limit(1000)
           ->get();
 
             $data = array();
