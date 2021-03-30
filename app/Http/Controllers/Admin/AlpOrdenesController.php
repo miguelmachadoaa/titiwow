@@ -1350,7 +1350,26 @@ public function compramasupdate()
     {
 
     
-         $ordenes = AlpOrdenes::select('alp_ordenes.*', 'alp_clientes.telefono_cliente as telefono_cliente', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
+         $ordenes = AlpOrdenes::select(
+          'alp_ordenes.id as id', 
+          'alp_ordenes.referencia as referencia', 
+          'alp_ordenes.tracking as tracking', 
+          'alp_ordenes.monto_total as monto_total', 
+          'alp_ordenes.factura as factura', 
+          'alp_ordenes.estatus as estatus', 
+          'alp_ordenes.estatus_pago as estatus_pago', 
+          'alp_ordenes.id_forma_envio as id_forma_envio', 
+          'alp_ordenes.origen as origen', 
+          'alp_ordenes.id_forma_pago as id_forma_pago', 
+          'alp_ordenes.created_at as created_at', 
+          'alp_clientes.telefono_cliente as telefono_cliente', 
+          'users.first_name as first_name', 'users.last_name as last_name', 
+          'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 
+          'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 
+          'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 
+          'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 
+          'alp_ordenes_pagos.json as json'
+        )
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
           ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
           ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
@@ -1361,8 +1380,10 @@ public function compramasupdate()
           ->where('alp_ordenes.estatus', '5')
           ->groupBy('alp_ordenes.id')
           ->orderBy('alp_ordenes.id', 'desc')
-          ->limit(2000)
+          #->limit(1)
           ->get();
+
+          #dd(json_encode($ordenes));
 
             $data = array();
 
@@ -1378,7 +1399,7 @@ public function compramasupdate()
 
             $pago="<div style='display: inline-block;' class='pago_".$row->id."'>  
 
-                                            <button data-id='".$row->id."' class='btn btn-xs btn-success pago' > ".$row->estatus_pago_nombre." </button></div>";
+            <button data-id='".$row->id."' class='btn btn-xs btn-success pago' > ".$row->estatus_pago_nombre." </button></div>";
 
              $estatus="<span class='badge badge-default' >".$row->estatus_nombre."</span>";
 
