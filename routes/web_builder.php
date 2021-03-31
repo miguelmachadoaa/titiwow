@@ -1306,6 +1306,8 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
         Route::post('/enviar', 'Admin\AlpOrdenesController@enviar')->name('ordenes.enviar');
 
+        Route::post('/entregar', 'Admin\AlpOrdenesController@entregar')->name('ordenes.entregar');
+
         Route::get('/empresas/list', 'Admin\AlpOrdenesController@empresas')->name('ordenes.empresas');
 
         Route::get('/aprobados/list', 'Admin\AlpOrdenesController@aprobados')->name('ordenes.aprobados');
