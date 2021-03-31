@@ -97,7 +97,7 @@ class Kernel extends ConsoleKernel
 
 
          
-        $schedule->command('pedidos:enviados')->everyThirtyMinutes();
+        $schedule->command('pedidos:enviados')->hourly();
         
         $schedule->command('verificar:pagos')->everyFiveMinutes();
         $schedule->command('verificar:pagoshora')->hourly()->between('6:00', '23:00');
