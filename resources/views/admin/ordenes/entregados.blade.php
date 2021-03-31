@@ -29,7 +29,7 @@ Ordenes Entregadas
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Ordenes Aprobadas
+                       Ordenes Entregadas
                     </h4>
                     <div class="pull-right">
                   <!--  <a href="{{ route('admin.ordenes.create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear categoria</a>-->
@@ -216,18 +216,18 @@ Ordenes Entregadas
 
 
         $("#enviarOrdenForm").bootstrapValidator({
-    fields: {
-        tracking: {
-            validators: {
-                notEmpty: {
-                    message: 'Codigo Oracle  es Requerido'
+            fields: {
+                tracking: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Codigo Oracle  es Requerido'
+                        }
+                    },
+                    required: true,
+                    minlength: 3
                 }
-            },
-            required: true,
-            minlength: 3
-        }
-    }
-});
+            }
+        });
 
 
 
@@ -374,6 +374,14 @@ $("#facturarOrdenForm").bootstrapValidator({
     }
 
 });
+
+
+
+
+ 
+
+
+
 
 
 

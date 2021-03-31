@@ -377,6 +377,32 @@ $("#facturarOrdenForm").bootstrapValidator({
 
 
 
+ $('#tbOrdenes').on( 'click','.entregar', function () {
+
+        base=$('#base').val();
+
+        id=$(this).data('id');
+
+        estatus=$(this).data('estatus');
+
+        $.ajax({
+            type: "POST",
+            
+            data:{ base, id, estatus },
+
+            url: base+"/admin/ordenes/entregar",
+                
+            complete: function(datos){     
+
+                table.ajax.reload();
+
+            }
+        });
+
+});
+
+
+
 
 
 
