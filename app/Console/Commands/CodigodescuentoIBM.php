@@ -114,7 +114,7 @@ class CodigodescuentoIBM extends Command
                         'limite_uso_persona' => '1', 
                         'fecha_inicio' => $date_inicio, 
                         'fecha_final' => $date_fin, 
-                        'monto_minimo' =>'30000', 
+                        'monto_minimo' =>'40000', 
                         'maximo_productos' =>'6', 
                         'primeracompra' => '0', 
                         'origen' => 'Descuento IBM', 
