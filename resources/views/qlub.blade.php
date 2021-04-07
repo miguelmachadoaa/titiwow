@@ -175,7 +175,7 @@ Conoce el QLUB del Queso Alpina |  @parent
         <div class="row" style="padding: 0; margin:0;">
             <div class="col-sm-offset-3 col-sm-6 col-xs-12" style="padding-top: 1em; ">
                 <div class="video-responsive_qlub" style="width: 100%;">
-                    <iframe src="https://www.youtube.com/embed/OqhbmvuSvq0" frameborder="0" width="" height="310px"  allowfullscreen></iframe> 
+                    <iframe src="https://www.youtube.com/embed/OqhbmvuSvq0" frameborder="0" width="100%" height="310px"  allowfullscreen></iframe> 
                 </div>  
             </div>
         </div>
