@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-Conoce el qlub del Queso Alpina |  @parent
+Conoce el QLUB del Queso Alpina |  @parent
 @stop
 @section('meta_tags')
 
@@ -87,7 +87,7 @@ Conoce el qlub del Queso Alpina |  @parent
 @section('top')
     <!--Carousel Start -->
     <div id="owl-demo" class="owl-carousel owl-theme">
-    @if(isset($role->role_id))
+    @if(isset($sliders))
         @foreach($sliders as $s)
             <div class="item">
                 <a href="{{ $s->link_slider }}" target="_self">
@@ -168,6 +168,15 @@ Conoce el qlub del Queso Alpina |  @parent
         @endif
     <!-- //Layout Section Start -->
     <!-- Seccion categoria Inicio -->
+    <div class="container cont_categorias_qlub fondo_qlub">
+        <div class="row" style="padding: 0; margin:0;">
+            <div class=" col-sm-6 col-xs-12">
+                <div class="video-responsive_qlub">
+                    <iframe src="https://www.youtube.com/embed/OqhbmvuSvq0" frameborder="0" width="100%" height="310px"  allowfullscreen></iframe> 
+                </div>  
+            </div>
+        </div>
+    </div>
 
      <div class="container cont_categorias_qlub fondo_qlub">
         <div class="row" style="padding: 0; margin:0;">

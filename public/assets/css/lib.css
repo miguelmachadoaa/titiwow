@@ -150,7 +150,7 @@ body {
 
 .header_qlub{
     background-color: #052846;
-    background-image: url("../../assets/images/patronhead.jpg");
+    background-image: url(../../assets/images/patronhead.jpg);
 }
 
 /*inicio botones*/
@@ -1848,6 +1848,21 @@ padding: 0.3em 0.3em 0em 1em;
   top: 0;
   width: 630px;
   }
+  .video-responsive_qlub {
+    height: 330px !important;
+    overflow: hidden;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    position: relative;
+    width: 1100px;
+    }
+  .video-responsive_qlub iframe, .video-responsive_qlub object, .video-responsive_qlub embed {
+    height: 315px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 1100px;
+    }
 }
 
 @media (max-width: 990px) {
@@ -1859,6 +1874,20 @@ padding: 0.3em 0.3em 0em 1em;
     position: relative;
     }
   .video-responsive iframe, .video-responsive object, .video-responsive embed {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    }
+.video-responsive_qlub {
+    height: 0;
+    overflow: hidden;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    position: relative;
+    }
+    .video-responsive_qlub iframe, .video-responsive_qlub object, .video-responsive_qlub embed {
     height: 100%;
     left: 0;
     position: absolute;
@@ -1929,7 +1958,7 @@ padding: 0.3em 0.3em 0em 1em;
     font-size: 25px !important;
 }
 .fondo_qlub{
-    background-image: url("assets/images/patronhead.jpg");
+    background-image: url(../../assets/images/patronhead.jpg);
     padding: 0;
     margin: 0;
     width: 100%;
@@ -1939,7 +1968,7 @@ padding: 0.3em 0.3em 0em 1em;
 }
 .footer_qlub {
     background: #072945;
-    background-image: url("assets/images/patron_footer.jpg");
+    background-image: url(../../assets/images/patron_footer.jpg);
     min-height: 400px;
     background-repeat: repeat-x;
     background-position: bottom center;
