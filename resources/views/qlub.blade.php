@@ -170,7 +170,7 @@ Conoce el QLUB del Queso Alpina |  @parent
     <!-- Seccion categoria Inicio -->
     
 
-     <div class="container cont_categorias_qlub fondo_qlub">
+     <div class="container cont_categorias_qlub fondo_qlub" style="margin-top: 1em;">
 
         <div class="row" style="padding: 0; margin:0;">
             <div class="col-sm-offset-3 col-sm-6 col-xs-12" style="margin-top: 1em;">
@@ -180,7 +180,7 @@ Conoce el QLUB del Queso Alpina |  @parent
             </div>
         </div>
 
-        
+
         <div class="row" style="padding: 0; margin:0;">
             <div class="col-md-12 col-sm-12 text-center" style="padding: 0;margin: 0;">
                 <br />
