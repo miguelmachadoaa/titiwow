@@ -170,7 +170,7 @@ Conoce el QLUB del Queso Alpina |  @parent
     <!-- Seccion categoria Inicio -->
     <div class="container cont_categorias_qlub fondo_qlub">
         <div class="row" style="padding: 0; margin:0;">
-            <div class=" col-sm-6 col-xs-12">
+            <div class="col-sm-offset-3 col-sm-6 col-xs-12">
                 <div class="video-responsive_qlub">
                     <iframe src="https://www.youtube.com/embed/OqhbmvuSvq0" frameborder="0" width="100%" height="310px"  allowfullscreen></iframe> 
                 </div>  
