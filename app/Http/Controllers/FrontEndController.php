@@ -2251,10 +2251,7 @@ $hoy=$date->format('Y-m-d');
 
         $user = Sentinel::getUser();
 
-        //update values
-
         $user->update($request->except('password','pic','password_confirm','marketing_email','marketing_sms'));
-
 
 
         if ($password = $request->get('password')) {
@@ -2262,8 +2259,6 @@ $hoy=$date->format('Y-m-d');
             $user->password = Hash::make($password);
 
         }
-
-        // is new image uploaded?
 
         if ($file = $request->file('pic')) {
 
@@ -2278,40 +2273,24 @@ $hoy=$date->format('Y-m-d');
             $file->move($destinationPath, $safeName);
 
 
-
-            //delete old pic if exists
-
             if (File::exists(public_path() . $folderName . $user->pic)) {
 
                 File::delete(public_path() . $folderName . $user->pic);
 
             }
 
-            //save new file path into db
-
             $user->pic = $safeName;
-
-
 
         }
 
 
-
          $cliente=AlpClientes::where('id_user_client', '=', $user->id)->first();
-
-
 
         if (isset($request->marketing_sms)) {
 
-
-
           $cliente->marketing_sms=1;
 
-          
-
         }else{
-
-
 
           $cliente->marketing_sms=0;
 

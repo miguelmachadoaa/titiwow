@@ -6,10 +6,43 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Illuminate\Notifications\Notifiable;
+use Nicolaslopezj\Searchable\SearchableTrait;
+
 
 class AlpOrdenes extends Model
 {
     use SoftDeletes;
+    use Notifiable;
+    use SearchableTrait;
+
+    protected $searchable = [
+        'columns' => [
+            'alp_ordenes.id' => 10,
+            'alp_ordenes.referencia' => 5,
+            'alp_ordenes.origen' => 4,
+            'users.first_name' => 4,
+            'users.last_name' => 4,
+            'alp_clientes.telefono_cliente' => 4,
+            'alp_pagos_status.estatus_pago_nombre' => 4,
+            'alp_ordenes_estatus.estatus_nombre' => 4,
+            'alp_almacenes.nombre_almacen' => 4,
+
+           // 'alp_productos.descripcion_corta' => 3,
+        ],
+        'joins' => [
+            'users' => ['alp_ordenes.id_cliente', 'users.id'],
+            'alp_clientes' => ['alp_ordenes.id_cliente','alp_clientes.id_user_client'],
+            'alp_formas_pagos' => ['alp_ordenes.id_forma_pago','alp_formas_pagos.id'],
+            'alp_formas_envios' => ['alp_ordenes.id_forma_envio','alp_formas_envios.id'],
+            'alp_ordenes_estatus' => ['alp_ordenes.estatus','alp_ordenes_estatus.id'],
+            'alp_pagos_status' => ['alp_ordenes.estatus_pago','alp_pagos_status.id'],
+            'alp_almacenes' => ['alp_ordenes.id_almacen','alp_almacenes.id']
+
+        ]
+    ];
+
+
 
     public $table = 'alp_ordenes';
     
