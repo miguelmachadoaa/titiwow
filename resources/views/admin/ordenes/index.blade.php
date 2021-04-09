@@ -286,9 +286,8 @@ $(document).ready(function() {
 
     base=$('#base').val();
 
-
-
-        
+    /*
+    
     var table =$('#tbOrdenes').DataTable({
         "processing": true,
         "order": [[ 0, "desc" ]],
@@ -296,6 +295,24 @@ $(document).ready(function() {
             "url": base+'/admin/ordenes/data'
         }
     });
+
+    table.on( 'draw', function () {
+        $('.livicon').each(function(){
+            $(this).updateLivicon();
+        });
+    });
+
+     */
+
+        
+    var table =$('#tbOrdenes').DataTable({
+        "serverSide": true,
+        "order": [[ 0, "desc" ]],
+        "ajax": {
+            "url": base+'/admin/ordenes/data'
+        }
+    });
+    
 
     table.on( 'draw', function () {
         $('.livicon').each(function(){
