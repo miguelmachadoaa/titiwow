@@ -1518,9 +1518,9 @@ public function compramasupdate()
                $actions = " 
                   <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'  target='_blank'>
                       ver detalles </a> <div style='display: inline-block;' class='estatus_".$row->id."'>";
-
+                if($id_rol == 1){
                   $actions=$actions."<div style='display: inline-block;' class='tracking_".$row->id."'>   <button data-id='".$row->id."'   data-estatus='3' class='btn btn-xs btn-info entregar' > Entregar </button></div>";
-
+                }
                 
 
                   $mensaje=AlpAnchetaMensaje::where('id_orden', $row->id)->first();
