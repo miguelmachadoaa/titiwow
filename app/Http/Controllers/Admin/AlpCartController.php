@@ -369,8 +369,14 @@ class AlpCartController extends JoshController
 
         }
 
+        if (isset($user->id)) {
+          
+          $role=RoleUser::select('role_id')->where('user_id', $user->id)->first();
 
-         $role=RoleUser::select('role_id')->where('user_id', $user->id)->first();
+        }
+
+
+       
 
       
       $id=$id/1024;
@@ -530,8 +536,9 @@ class AlpCartController extends JoshController
 
          $porcentaje_icg=0;
 
+         if (isset($user->id)) {
 
-        if ($role->role_id=='16') {
+          if ($role->role_id=='16') {
 
           $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $id)->get();
 
@@ -556,6 +563,11 @@ class AlpCartController extends JoshController
           }
 
         }
+
+        }
+
+
+       
 
 
 
