@@ -269,6 +269,18 @@ class AlpAlmacenesController extends JoshController
             'formato' => $request->formato, 
             'descuento_productos' => $request->descuento_productos, 
             'mensaje_promocion' => $request->mensaje_promocion, 
+            'id_mercadopago' => $request->id_mercadopago,
+            'mercadopago_sand' => $request->mercadopago_sand,
+            'key_mercadopago' => $request->key_mercadopago,
+            'public_key_mercadopago' => $request->public_key_mercadopago,
+            'public_key_mercadopago_test' => $request->public_key_mercadopago_test,
+            'comision_mp' => $request->comision_mp,
+            'comision_mp_baloto' => $request->comision_mp_baloto,
+            'comision_mp_efecty' => $request->comision_mp_efecty,
+            'comision_mp_pse' => $request->comision_mp_pse,
+            'retencion_fuente_mp' => $request->retencion_fuente_mp,
+            'retencion_iva_mp' => $request->retencion_iva_mp,
+            'retencion_ica_mp' => $request->retencion_ica_mp,
             'id_user' =>$user_id
         );
          
@@ -429,6 +441,18 @@ class AlpAlmacenesController extends JoshController
                 'descuento_productos' => $request->descuento_productos, 
                 'mensaje_promocion' => $request->mensaje_promocion, 
                 'formato' => $request->formato, 
+                'id_mercadopago' => $request->id_mercadopago,
+                'mercadopago_sand' => $request->mercadopago_sand,
+                'key_mercadopago' => $request->key_mercadopago,
+                'public_key_mercadopago' => $request->public_key_mercadopago,
+                'public_key_mercadopago_test' => $request->public_key_mercadopago_test,
+                'comision_mp' => $request->comision_mp,
+                'comision_mp_baloto' => $request->comision_mp_baloto,
+                'comision_mp_efecty' => $request->comision_mp_efecty,
+                'comision_mp_pse' => $request->comision_mp_pse,
+                'retencion_fuente_mp' => $request->retencion_fuente_mp,
+                'retencion_iva_mp' => $request->retencion_iva_mp,
+                'retencion_ica_mp' => $request->retencion_ica_mp,
                 'tipo_almacen' => $request->tipo_almacen
                 );
 

@@ -684,6 +684,8 @@ class AlpCartController extends JoshController
       
       $orden=AlpOrdenes::where('id', $id_orden)->first();
 
+      $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
+
       $envio=$this->envio();
 
       $valor_impuesto=AlpImpuestos::where('id', '1')->first();
@@ -734,7 +736,7 @@ class AlpCartController extends JoshController
 
       $configuracion = AlpConfiguracion::where('id', '1')->first();
       
-      $comision_mp=$configuracion->comision_mp_pse/100;
+      $comision_mp=$almacen->comision_mp_pse/100;
       
       $data_update = array(
 
@@ -747,7 +749,7 @@ class AlpCartController extends JoshController
           $mp = new MP();
 
         
-        if ($configuracion->mercadopago_sand=='1') {
+        if ($almacen->mercadopago_sand=='1') {
 
           
 
@@ -757,7 +759,7 @@ class AlpCartController extends JoshController
         }
 
         
-        if ($configuracion->mercadopago_sand=='2') {
+        if ($almacen->mercadopago_sand=='2') {
 
           
 
@@ -767,7 +769,7 @@ class AlpCartController extends JoshController
         }
 
         
-        MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+        MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
 
         
         $net_amount=$total-$impuesto;
@@ -934,6 +936,7 @@ class AlpCartController extends JoshController
 
             \Session::put('pse', $pse['response']['id']);
 
+
             
             return $pse['response']['transaction_details']['external_resource_url'];
 
@@ -1001,39 +1004,46 @@ class AlpCartController extends JoshController
 
        if (\Session::has('pse')) {
 
-        $id_pago=\Session::get('pse');
+          $id_pago=\Session::get('pse');
+
+          $id_orden= \Session::get('orden');
+      
+      $orden=AlpOrdenes::where('id', $id_orden)->first();
+
+        $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
+
         
-        $configuracion = AlpConfiguracion::where('id', '1')->first();
+          $configuracion = AlpConfiguracion::where('id', '1')->first();
 
             $mp = new MP();
 
-            if ($configuracion->mercadopago_sand=='1') {
+            if ($almacen->mercadopago_sand=='1') {
 
               $mp::sandbox_mode(TRUE);
 
             }
 
             
-            if ($configuracion->mercadopago_sand=='2') {
+            if ($almacen->mercadopago_sand=='2') {
 
               $mp::sandbox_mode(FALSE);
 
             }
 
-            MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+            MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
 
             
             $input = MP::get("/v1/payments/".$id_pago);
 
           }
 
-      if (Sentinel::check()) {
+              if (Sentinel::check()) {
 
-        $user_id = Sentinel::getUser()->id;
+                $user_id = Sentinel::getUser()->id;
 
-      }else{
+              }else{
 
-        $user_id= \Session::get('iduser');
+                $user_id= \Session::get('iduser');
               }
 
                     if ($user_id) {
@@ -1638,6 +1648,8 @@ class AlpCartController extends JoshController
       
       $orden=AlpOrdenes::where('id', $id_orden)->first();
 
+      $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
+
       
       $input=$request->all();
 
@@ -1685,7 +1697,7 @@ class AlpCartController extends JoshController
         $configuracion = AlpConfiguracion::where('id', '1')->first();
 
         
-        MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+        MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
 
         
 
@@ -2581,7 +2593,7 @@ class AlpCartController extends JoshController
            $mp = new MP();
 
            
-           if ($configuracion->mercadopago_sand=='1') {
+           if ($almacen->mercadopago_sand=='1') {
 
           
 
@@ -2591,7 +2603,7 @@ class AlpCartController extends JoshController
         }
 
         
-        if ($configuracion->mercadopago_sand=='2') {
+        if ($almacen->mercadopago_sand=='2') {
 
           
 
@@ -2603,7 +2615,7 @@ class AlpCartController extends JoshController
         
 
 
-          MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+          MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
 
           
           $preference = MP::post("/checkout/preferences",$preference_data);
@@ -2987,7 +2999,9 @@ class AlpCartController extends JoshController
       
       $id_orden= \Session::get('orden');
 
-      
+
+
+
 
       $envio=$this->envio();
 
@@ -3020,53 +3034,33 @@ class AlpCartController extends JoshController
       
       $orden=AlpOrdenes::where('id', $id_orden)->first();
 
-      
-      $total=$orden->monto_total+$envio;
+      $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
 
+      $total=$orden->monto_total+$envio;
       
       $impuesto=$orden->monto_impuesto+$envio_impuesto;
-
       
       $net_amount=$total-$impuesto;
 
-      
-
       if (Sentinel::check()) {
-
         
         $user_id = Sentinel::getUser()->id;
-
         
         $user_cliente=User::where('id', $user_id)->first();
 
-        
-
       }else{
 
-        
         $user_id= \Session::get('iduser');
 
-        
          $user_cliente=User::where('id', $user_id)->first();
 
-         
       }
 
-      
-        
-
-        
       if ($user_id) {
 
-      
-
          $configuracion = AlpConfiguracion::where('id', '1')->first();
-
          
-          MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
-
-          
-     
+          MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
 
            $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
 
@@ -3234,17 +3228,11 @@ class AlpCartController extends JoshController
 
               
               $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
-
                   ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
-
                   ->join('alp_clientes','alp_ordenes.id_cliente' , '=', 'alp_clientes.id_user_client')
-
                   ->join('alp_formas_envios','alp_ordenes.id_forma_envio' , '=', 'alp_formas_envios.id')
-
                   ->join('alp_formas_pagos','alp_ordenes.id_forma_pago' , '=', 'alp_formas_pagos.id')
-
                   ->where('alp_ordenes.id', $id_orden)->first();
-
                   
 
               $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
@@ -3644,33 +3632,26 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
           
     }
-
     
         $cart= \Session::get('cart');
-
         
         $carrito= \Session::get('cr');
 
-        
         $configuracion = AlpConfiguracion::where('id','1')->first();
-
         
         $id_orden= \Session::get('orden');
 
-        
         $orden=AlpOrdenes::where('id', $id_orden)->first();
 
-        
-        $total=$this->total();
+        $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
 
-        
+        $total=$this->total();
 
         if (isset($orden->id)) {
 
           # code...
 
         }else{
-
           
           return 0;
 
@@ -3678,70 +3659,35 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         
 
-
-        
-
-        
-
       if (Sentinel::check()) {
 
-        
         $user_id = Sentinel::getUser()->id;
 
-        
-       
-
-       
-
       }else{
-
         
         $user_id= \Session::get('iduser');
 
-        
-       
-
-       
       }
 
-      
-
-
-
         $direccion=AlpDirecciones::where('id', $orden->id_address)->first();
-
         
         $date = Carbon::now();
-
         
         $dias=$this->getFechaEntrega($orden->id_forma_envio, $direccion->city_id );
-
-        
-
         
         $fecha_entrega=$date->addDays($dias)->format('d-m-Y');
-
         
         $date = Carbon::now();
 
-        
         $fecha_envio=$date->addDays($dias)->format('Y-m-d');
 
-        
-
         $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
-
         
         $cliente=AlpClientes::where('id_user_client', $user_id)->first();
 
-        
         if (isset($cliente)) {
 
-           
-
           if ($cliente->id_embajador!=0) {
-
-             
 
               $data_puntos = array(
 
@@ -3756,38 +3702,25 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                   'id_user' =>$user_id                   
 
               );
-
               
               AlpPuntos::create($data_puntos);
 
-              
             }
 
             
          }
 
-         
-
          $envio=$this->envio();
-
-         
 
       $valor_impuesto=AlpImpuestos::where('id', '1')->first();
 
-      
       if ($envio>0) {
 
-       
-
         $envio_base=$envio/(1+$valor_impuesto->valor_impuesto);
-
         
         $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
 
-        
-
       }else{
-
         
         $envio_base=0;
 
@@ -3840,13 +3773,13 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         AlpEnviosHistory::create($data_envio_history);
 
         
-        $comision_mp=$configuracion->comision_mp/100;
+        $comision_mp=$almacen->comision_mp/100;
 
-        $retencion_fuente_mp=$configuracion->retencion_fuente_mp/100;
+        $retencion_fuente_mp=$almacen->retencion_fuente_mp/100;
 
-        $retencion_iva_mp=$configuracion->retencion_iva_mp/100;
+        $retencion_iva_mp=$almacen->retencion_iva_mp/100;
 
-        $retencion_ica_mp=$configuracion->retencion_ica_mp/100;
+        $retencion_ica_mp=$almacen->retencion_ica_mp/100;
 
         
        // dd($orden);
@@ -3877,7 +3810,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         }elseif($tipo=='pse'){
 
           
-          $comision_mp=$configuracion->comision_mp_pse/100;
+          $comision_mp=$almacen->comision_mp_pse/100;
 
           
           $data_update = array(
@@ -3901,7 +3834,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
           
 
-          $comision_mp=$configuracion->comision_mp_baloto/100;
+          $comision_mp=$almacen->comision_mp_baloto/100;
 
           
           $data_update = array(
@@ -4248,7 +4181,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       
       $orden=AlpOrdenes::where('id', $id_orden)->first();
 
-      
+      $almacen=AlpAlmacenes::where('id', $orden->id)->first();
 
       $aviso_pago='0';
 
