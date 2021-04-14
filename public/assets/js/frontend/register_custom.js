@@ -155,10 +155,19 @@ $("#reg_form").bootstrapValidator({
             required: true,
             minlength: 3
         },
-        habeas_cliente: {
+        terminos_cliente: {
             validators: {
                 notEmpty: {
                     message: 'Debe Aceptar Términos y Condiciones'
+                }
+            },
+            required: true,
+            minlength: 3
+        },
+        habeas_cliente: {
+            validators: {
+                notEmpty: {
+                    message: 'Debe la Aceptar Política de Tratamiento de Datos'
                 }
             },
             required: true,
