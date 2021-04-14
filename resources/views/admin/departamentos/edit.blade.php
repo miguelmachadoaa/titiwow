@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Editar departamento
+Editar areas
 @parent
 @stop
 
@@ -22,7 +22,7 @@ Editar departamento
 @section('content')
 <section class="content-header">
     <h1>
-        Editar departamento
+        Editar areas
     </h1>
     <ol class="breadcrumb">
         <li>
@@ -31,7 +31,7 @@ Editar departamento
                 Inicio
             </a>
         </li>
-        <li>departamentos</li>
+        <li>areas</li>
         <li class="active">Editar</li>
     </ol>
 </section>
@@ -43,7 +43,7 @@ Editar departamento
             <div class="panel panel-primary ">
                 <div class="panel-heading">
                     <h4 class="panel-title"> <i class="livicon" data-name="wrench" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Editar departamento
+                       Editar areas
                     </h4>
                 </div>
                 <div class="panel-body">

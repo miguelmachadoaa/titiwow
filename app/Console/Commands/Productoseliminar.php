@@ -51,21 +51,16 @@ class ProductosEliminar extends Command
 
         $hoy=$date->format('Y-m-d');
 
-
         $productos=array(1,2,3,4,5);
+
         foreach ($productos as $producto) {
 
             $borrado=AlpProductos::where('id','=', $producto)->delete();
 
             echo $producto.'-';
 
-
-
         }
 
-
-        
-
-        
     }
+    
 }

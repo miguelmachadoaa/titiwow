@@ -78,24 +78,33 @@ class VerificarPagos extends Command
       //  echo count($ordenes);
       $configuracion = AlpConfiguracion::where('id', '1')->first();
 
-       if ($configuracion->mercadopago_sand=='1') {
-          
-          MP::sandbox_mode(TRUE);
-
-        }
-
-        if ($configuracion->mercadopago_sand=='2') {
-          
-          MP::sandbox_mode(FALSE);
-
-        }
-
-        MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+      
 
         if (count($ordenes)) {
        
 
         foreach ($ordenes as $ord) {
+
+
+          $almacen=AlpAlmacenes::where('id', $ord->id_almacen)->first();
+
+          
+
+           if ($almacen->mercadopago_sand=='1') {
+          
+              MP::sandbox_mode(TRUE);
+
+            }
+
+            if ($almacen->mercadopago_sand=='2') {
+              
+              MP::sandbox_mode(FALSE);
+
+            }
+
+            MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
+
+
 
           $orden=AlpOrdenes::where('id', $ord->id)->first();
 

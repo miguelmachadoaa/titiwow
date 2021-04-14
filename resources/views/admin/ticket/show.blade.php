@@ -82,15 +82,20 @@ Detalle Ticket
 
                          <div class="col-sm-6">
 
-                            <h3>Departamento: {{$ticket->nombre_departamento}}</h3>
+                            <h3>Departamento: 
+
+                                <button class="btn btn-primary ticketdepartamento" data-estatus='1' data-id="{{$ticket->id}}">{{$ticket->nombre_departamento}}</button>
+
+
+                               </h3>
                             <h3>Urgencia: {{$ticket->nombre_urgencia}}</h3>
                             <h3>Estado : 
 
-                        @if($ticket->estado_registro==1)
-                            Abierto
-                        @else
-                            Cerrado
-                        @endif
+                            @if($ticket->estado_registro==1)
+                               <button class="btn btn-primary ticketstatus" data-estatus='1' data-id="{{$ticket->id}}">Abierto</button> 
+                            @else
+                                <button class="btn btn-danger ticketstatus" data-estatus='0' data-id="{{$ticket->id}}">Cerrado</button>
+                            @endif
 
 
                             </h3>
@@ -111,10 +116,7 @@ Detalle Ticket
                             
                             <h3>Sin archivos Adjuntos </h3>
 
-                            
-
                         </div>
-
 
                         @else
 
@@ -352,6 +354,146 @@ Detalle Ticket
 
 
 
+<!-- Modal Direccion -->
+ <div class="modal fade" id="estatusModal" role="dialog" aria-labelledby="modalLabeldanger">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h4 class="modal-title" id="modalLabeldanger">Confirmar Orden</h4>
+                    </div>
+                     <form method="POST" enctype="multipart/form-data" action="{{secure_url('admin/ticket/storerespuesta')}}" id="respuestaForm" name="respuestaForm" class="form-horizontal">
+                    <div class="modal-body">
+                        
+                       
+
+                            <input type="hidden" name="id_ticket_modal" id="id_ticket_modal" value="">
+                            
+                            {{ csrf_field() }}
+
+                            <div class="row">
+
+                               <div class="col-sm-12" style="margin-top:1em;">
+
+                                <div class="form-group  {{ $errors->first('estatus_modal', 'has-error') }}">
+                                    <label for="select21" class="col-sm-2 control-label">
+                                        Estado de Ticket
+                                    </label>
+                                    <div class="col-sm-5">   
+                                     <select id="estatus_modal" name="estatus_modal" class="form-control ">
+                                        <option value="">Seleccione</option>
+                                            
+                                           
+                                            <option value="{{ 1 }}"
+                                                    >Abierto</option>
+
+                                            <option value="{{ 0 }}"
+                                                     >Cerrado</option>
+                                           
+                                    </select>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('estatus_modal', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                      
+                                    </div>
+                               
+                                </div>
+
+
+
+
+
+
+                                </div>
+
+
+                            </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn  btn-primary sendestatus" >Enviar</button>
+                    </div>
+                        </form>
+
+                </div>
+            </div>
+        </div>
+
+<!-- Modal Direccion -->
+
+
+<!-- Modal Direccion -->
+ <div class="modal fade" id="departamentoModal" role="dialog" aria-labelledby="modalLabeldanger">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h4 class="modal-title" id="modalLabeldanger">Reasignar Ticket</h4>
+                    </div>
+                     <form method="POST" enctype="multipart/form-data" action="{{secure_url('admin/ticket/storerespuesta')}}" id="respuestaForm" name="respuestaForm" class="form-horizontal">
+                    <div class="modal-body">
+                        
+                       
+
+                            <input type="hidden" name="id_ticket_departamento" id="id_ticket_departamento" value="">
+                            
+                            {{ csrf_field() }}
+
+                            <div class="row">
+
+                               <div class="col-sm-12" style="margin-top:1em;">
+
+                                <div class="form-group  {{ $errors->first('departamento_modal', 'has-error') }}">
+                                    <label for="select21" class="col-sm-2 control-label">
+                                        Reasignar a departamento
+                                    </label>
+                                    <div class="col-sm-5">   
+                                     <select id="departamento_modal" name="departamento_modal" class="form-control ">
+                                        <option value="">Seleccione</option>
+                                                
+                                            @foreach($departamentos as $d)
+
+                                            <option value="{{ $d->id }}"
+                                                    >{{$d->nombre_departamento}}</option>
+
+                                            @endforeach
+
+                                           
+                                    </select>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('departamento', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                      
+                                    </div>
+                               
+                                </div>
+
+
+
+
+
+
+                                </div>
+
+
+                            </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn  btn-primary senddepartamento" >Enviar</button>
+                    </div>
+                        </form>
+
+                </div>
+            </div>
+        </div>
+
+<!-- Modal Direccion -->
+
+
+
 
 @stop
 @section('footer_scripts')
@@ -370,6 +512,82 @@ Detalle Ticket
 <script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
 
 <script>
+
+    $('.ticketdepartamento').on('click', function(){
+
+        $('#id_ticket_departamento').val($(this).data('id'));
+
+        $('#departamentoModal').modal('show');
+
+
+    });
+
+
+    $('.senddepartamento').on('click', function(){
+
+        base = $('#base').val();
+
+        id = $('#id_ticket_departamento').val();
+
+        departamento = $('#departamento_modal').val();
+
+        _token = $('#_token').val();
+
+
+         $.ajax({
+            type: "POST",
+            data:{ id, departamento, _token},
+            url: base+"/admin/ticket/departamento",
+                
+            complete: function(datos){     
+
+                //location.reload();
+            }
+        });
+
+    });
+
+
+
+
+
+    $('.ticketstatus').on('click', function(){
+
+        $('#id_ticket_modal').val($(this).data('id'));
+
+        $('#estatusModal').modal('show');
+
+
+    });
+
+
+    $('.sendestatus').on('click', function(){
+
+        base = $('#base').val();
+
+        id = $('#id_ticket_modal').val();
+
+        estatus = $('#estatus_modal').val();
+
+        _token = $('#_token').val();
+
+
+         $.ajax({
+            type: "POST",
+            data:{ id, estatus, _token},
+            url: base+"/admin/ticket/estatus",
+                
+            complete: function(datos){     
+
+                location.reload();
+            }
+        });
+
+    });
+
+
+
+
 
 
     $('.responder').on('click', function(){

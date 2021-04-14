@@ -60,6 +60,8 @@ class VerifyCsrfToken extends Middleware
        'departamentos/addusuario', //
        'departamentos/delusuario', //
        'ticket/storerespuesta', //
+       'ticket/departamento', //
+       'ticket/urgencia', //
        'delamigo', //
        'compramas', //
        'compramasinventario', //
