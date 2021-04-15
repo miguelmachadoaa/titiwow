@@ -1798,3 +1798,7 @@ Route::get('pedidos-enviados', function() {
   
 });
 
+Route::get('borrar-productos', function() {
+    $exitCode = Artisan::call('productos:eliminar');
+  
+});

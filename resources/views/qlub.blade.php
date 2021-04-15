@@ -204,7 +204,7 @@ Conoce el QLUB del Queso Alpina |  @parent
                             <div class="text-center" id="contenido_qlub">
                                 <img src="{{ secure_url('/').'/uploads/categorias/maridaje_qlub.jpg' }}" alt="" title="" class="imgRedonda">   
                                 <h2 class="categorias_qlub">Kits de Maridaje<h2>
-                                <a href="" class="botones_qlub boton_qlub">VER TODOS</a>                             
+                                <a href="{{ route('categoria', 'maridajes-de-el-qlub') }}" class="botones_qlub boton_qlub" alt="Kits de Maridaje de el QLUB">VER TODOS</a>                             
                             </div>
                         </div>
                     </div>
@@ -213,7 +213,7 @@ Conoce el QLUB del Queso Alpina |  @parent
                             <div class="text-center" id="contenido_qlub">
                                 <img src="{{ secure_url('/').'/uploads/categorias/productos_qlub.png' }}" alt="" title="" class="imgRedonda">
                                 <h2 class="categorias_qlub">Productos<h2>   
-                                <a href="" class="botones_qlub boton_qlub">VER TODOS</a>                             
+                                <a href="{{ route('categoria', 'productos-de-el-qlub') }}" class="botones_qlub boton_qlub" alt="Productos de el QLUB">VER TODOS</a>                             
                             </div>
                         </div>
                     </div>
@@ -222,7 +222,7 @@ Conoce el QLUB del Queso Alpina |  @parent
                             <div class="text-center" id="contenido_qlub">
                                 <img src="{{ secure_url('/').'/uploads/categorias/experiencias_qlub.jpg' }}" alt="" title="" class="imgRedonda"> 
                                 <h2 class="categorias_qlub">Experiencias<h2> 
-                                <a href="" class="botones_qlub boton_qlub">VER TODOS</a>                             
+                                <a href="{{ route('categoria', 'experiencias-de-el-qlub') }}" class="botones_qlub boton_qlub" alt="Experiencias de el QLUB">VER TODOS</a>                             
                             </div>
                         </div>
                     </div>
