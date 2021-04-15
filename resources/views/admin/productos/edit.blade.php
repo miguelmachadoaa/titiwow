@@ -1375,8 +1375,11 @@ $('.addProductoCupon').click(function(){
           $(document).ready(function(){
 
             $( ".titleSlug" ).keyup(function() {
+
                 $s= $(this).val().toLowerCase().replace(/ /g,'-').replace(/[^\w-]+/g,'');
+                
                 $('.respSlug').val($s);
+
             });
 
                 $(document).on('change', '.selectprecio', function(e) {
