@@ -63,8 +63,6 @@ class ProductosEliminar extends Command
 
             echo $producto.'-';
 
-
-
         }
 
  
@@ -72,4 +70,5 @@ class ProductosEliminar extends Command
 
         
     }
+    
 }

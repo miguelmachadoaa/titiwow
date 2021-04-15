@@ -130,7 +130,7 @@ class AlpTicketController extends JoshController
           }else{
 
                         $estatus="<div class='estaticket_tus_".$row->id."'>
-            <button data-url='".secure_url('admin/ticket/estatus')."' type='buttton' data-id='".$row->id."' data-estatus='1' class='btn btn-xs btn-success estatus'>Cerrado</button>
+            <button data-url='".secure_url('admin/ticket/estatus')."' type='buttton' data-id='".$row->id."' data-estatus='1' class='btn btn-xs btn-danger estatus'>Cerrado</button>
              </div>";
 
            }
@@ -251,7 +251,7 @@ class AlpTicketController extends JoshController
 
         $archivo = $picture;
 
-          $destinationPath = public_path('/pruebas/uploads/ticket/');   
+          $destinationPath = public_path('/uploads/ticket/');   
 
         $file->move($destinationPath,$archivo);
         
@@ -284,7 +284,7 @@ class AlpTicketController extends JoshController
 
         foreach ($uds as $ud) {
           
-          #  Mail::to($ud->email)->send(new \App\Mail\NotificacionTicket($ticket));
+          Mail::to($ud->email)->send(new \App\Mail\NotificacionTicket($ticket));
           #  
           Mail::to('miguelmachadoaa@gmail.com')->send(new \App\Mail\NotificacionTicket($ticket));
 
@@ -477,7 +477,7 @@ class AlpTicketController extends JoshController
 
         $archivo = $picture;
 
-          $destinationPath = public_path('/pruebas/uploads/ticket/');   
+          $destinationPath = public_path('/uploads/ticket/');   
 
         $file->move($destinationPath,$archivo);
         
@@ -787,7 +787,12 @@ class AlpTicketController extends JoshController
         }
 
 
-        return view('admin.ticket.show', compact('ticket', 'comentarios'));
+        $departamentos=AlpDepartamento::get();
+
+        $urgencia=AlpUrgencia::get();
+
+
+        return view('admin.ticket.show', compact('ticket', 'comentarios', 'departamentos', 'urgencia'));
     }
 
 
@@ -859,9 +864,176 @@ class AlpTicketController extends JoshController
 
 
 
+public function estatus(Request $request)
+    {
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('almacenes/estatus ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('almacenes/estatus');
+
+        }
+
+
+        $ticket = AlpTicket::where('id', $request->id)->first();
+
+        $data = array(
+          'estado_registro' => $request->estatus
+        );       
+
+        $ticket->update($data);
+
+        if ($ticket->id) {
+
+
+          $uds = AlpDepartamentoUsuario::select('alp_departamento_usuario.*', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+        ->join('users', 'alp_departamento_usuario.id_usuario', '=', 'users.id')
+        ->where('alp_departamento_usuario.id_departamento', '=', $ticket->departamento)
+        ->get();
+
+        foreach ($uds as $ud) {
+          
+          Mail::to($ud->email)->send(new \App\Mail\NotificacionTicket($ticket));
+          
+          #Mail::to('miguelmachadoaa@gmail.com')->send(new \App\Mail\NotificacionTicket($ticket));
+
+        }
+
+
+
+
+            return 'true';
+
+        } else {
+
+            return 'false';
+        }  
+
+    }
+
+
+
+public function departamento(Request $request)
+    {
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('almacenes/estatus ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('almacenes/estatus');
+
+        }
+
+
+        $ticket = AlpTicket::where('id', $request->id)->first();
+
+        $data = array(
+          'departamento' => $request->departamento
+        );       
+
+        $ticket->update($data);
+
+        if ($ticket->id) {
+
+
+          $uds = AlpDepartamentoUsuario::select('alp_departamento_usuario.*', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+        ->join('users', 'alp_departamento_usuario.id_usuario', '=', 'users.id')
+        ->where('alp_departamento_usuario.id_departamento', '=', $ticket->departamento)
+        ->get();
+
+        foreach ($uds as $ud) {
+          
+          Mail::to($ud->email)->send(new \App\Mail\NotificacionTicket($ticket));
+          
+          #Mail::to('miguelmachadoaa@gmail.com')->send(new \App\Mail\NotificacionTicket($ticket));
+
+        }
+
+
+
+
+            return 'true';
+
+        } else {
+
+            return 'false';
+        }  
+
+    }
       
 
+public function urgencia(Request $request)
+    {
 
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('almacenes/estatus ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('almacenes/estatus');
+
+        }
+
+
+        $ticket = AlpTicket::where('id', $request->id)->first();
+
+        $data = array(
+          'urgencia' => $request->urgencia
+        );       
+
+        $ticket->update($data);
+
+        if ($ticket->id) {
+
+
+          $uds = AlpDepartamentoUsuario::select('alp_departamento_usuario.*', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+        ->join('users', 'alp_departamento_usuario.id_usuario', '=', 'users.id')
+        ->where('alp_departamento_usuario.id_departamento', '=', $ticket->departamento)
+        ->get();
+
+        foreach ($uds as $ud) {
+          
+          Mail::to($ud->email)->send(new \App\Mail\NotificacionTicket($ticket));
+          
+          #Mail::to('miguelmachadoaa@gmail.com')->send(new \App\Mail\NotificacionTicket($ticket));
+
+        }
+
+
+
+
+            return 'true';
+
+        } else {
+
+            return 'false';
+        }  
+
+    }
 
 
 

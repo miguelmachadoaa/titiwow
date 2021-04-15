@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-departamento
+Areas
 @parent
 @stop
 
@@ -14,7 +14,7 @@ departamento
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1>departamento</h1>
+    <h1>Areas</h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ secure_url('admin') }}">
@@ -22,7 +22,7 @@ departamento
                Inicio
             </a>
         </li>
-        <li><a href="#"> departamento </a></li>
+        <li><a href="#"> Areas </a></li>
         <li class="active">Index</li>
     </ol>
 </section>
@@ -34,10 +34,10 @@ departamento
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       departamento
+                       Areas
                     </h4>
                     <div class="pull-right">
-                    <a href="{{ secure_url('admin/departamentos/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear departamento</a>
+                    <a href="{{ secure_url('admin/departamentos/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Area</a>
                     </div>
                 </div>
                 <br />

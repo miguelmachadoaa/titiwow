@@ -32,6 +32,8 @@ use App\Models\AlpConsultaIcg;
 use App\Models\AlpClientes;
 use App\Models\AlpOrdenesDescuentoIcg;
 
+use App\Models\AlpViewOrdenes;
+
 
 use Illuminate\Support\Facades\Log;
 
@@ -702,7 +704,197 @@ public function compramasupdate()
 
 
 
+
     public function data(Request $request)
+    {
+
+     $input=$request->all();
+
+      $permiso_cancelar = array('1','2','3');
+
+       $id_rol=0;
+
+        if (Sentinel::check()) {
+
+            $user_id = Sentinel::getUser()->id;
+
+            $role=RoleUser::where('user_id', $user_id)->first();
+
+            $id_rol=$role->role_id;
+        }
+
+        $todas=AlpOrdenes::get();
+
+
+        if (is_null($input['search']['value'])) {
+
+          $o=AlpViewOrdenes::offset($input['start'])
+          ->limit( $input['length']);
+         
+         }else{
+
+          $o = AlpViewOrdenes::search($input['search']['value'])->offset($input['start'])
+          ->limit( $input['length']);
+
+         }
+      
+
+       
+
+
+         if (isset($input['order'])){
+
+
+          switch ($input['order']['0']['column']) {
+              case 0:
+                  $o->orderBy('view_ordenes.id', $input['order']['0']['dir']);
+                  break;
+              case 1:
+                  $o->orderBy('view_ordenes.referencia', $input['order']['0']['dir']);
+                  break;
+              case 2:
+                  $o->orderBy('view_ordenes.nombre_cliente', $input['order']['0']['dir']);
+                  break;
+              case 3:
+                  $o->orderBy('view_ordenes.telefono_cliente', $input['order']['0']['dir']);
+                  break;
+              case 4:
+                  $o->orderBy('view_ordenes.nombre_forma_envios', $input['order']['0']['dir']);
+                  break;
+              case 5:
+                  $o->orderBy('view_ordenes.nombre_forma_pago', $input['order']['0']['dir']);
+                  break;
+              case 6:
+                  $o->orderBy('view_ordenes.monto_total', $input['order']['0']['dir']);
+                  break;
+              case 7:
+                  $o->orderBy('view_ordenes.cod_oracle_pedido', $input['order']['0']['dir']);
+                  break;
+              case 8:
+                  $o->orderBy('view_ordenes.codigo_cupon', $input['order']['0']['dir']);
+                  break;
+              case 9:
+                  $o->orderBy('view_ordenes.factura', $input['order']['0']['dir']);
+                  break;
+              case 10:
+                  $o->orderBy('view_ordenes.tracking', $input['order']['0']['dir']);
+                  break;
+              case 11:
+                  $o->orderBy('view_ordenes.nombre_almacen', $input['order']['0']['dir']);
+                  break;
+              case 12:
+                  #$o->orderBy('view_ordenes.id_address', $input['order']['0']['dir']);
+                  break;
+              case 13:
+                  $o->orderBy('view_ordenes.origen', $input['order']['0']['dir']);
+                  break;
+              case 14:
+                  $o->orderBy('view_ordenes.created_at', $input['order']['0']['dir']);
+                  break;
+              case 15:
+                  $o->orderBy('view_ordenes.estatus_pago', $input['order']['0']['dir']);
+                  break;
+              case 16:
+                  $o->orderBy('view_ordenes.estatus', $input['order']['0']['dir']);
+                  break;
+          }
+
+
+
+         }else{
+
+          $o->orderBy('view_ordenes.id', 'desc');
+         }
+
+         
+          $ordenes=$o->get();
+
+          #$ordenes=AlpViewOrdenes::get();
+
+          $total=count($todas);
+
+          $filtradas=count($ordenes);
+
+         
+
+            $data = array();
+
+          foreach($ordenes as $row){
+
+
+            $actions = " 
+                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'  target='_blank'>
+                      ver detalles
+                  </a>
+
+                   <div style='display: inline-block;' class='estatus_".$row->id."'>";
+
+                if (in_array($id_rol, $permiso_cancelar)) {
+                  
+                  if ($row->estatus!=4) {
+                    
+                    $cancelado = " <button data-id='".$row->id."'  data-codigo='".$row->cod_oracle_pedido."'  data-estatus='".$row->estatus."' class='btn btn-xs btn-danger confirmar' > Cancelar </button></div>";
+
+                  }else{
+
+                    $cancelado = " ";
+                    
+                  }
+
+              }else{
+
+                  $cancelado = " ";
+
+              }
+
+                if ($row->origen=='1') {
+
+                    $origen='Tomapedidos';
+                    # code...
+                  }else{
+
+                    $origen='Web';
+
+                  }
+
+
+
+
+               $data[]= array(
+                 $row->id, 
+                 $row->referencia, 
+                 $row->nombre_cliente, 
+                 $row->telefono_cliente, 
+                 $row->nombre_forma_envios,
+                 $row->nombre_forma_pago,
+                 number_format($row->monto_total,2), 
+                 $row->cod_oracle_pedido, 
+                 $row->codigo_cupon, 
+                 $row->factura, 
+                 $row->tracking, 
+                 $row->nombre_almacen, 
+                 '', 
+                 $origen, 
+                 date("d/m/Y H:i:s", strtotime($row->created_at)),
+                 $row->estatus_pago, 
+                 $row->estatus, 
+                 $actions.$cancelado
+              );
+
+          }
+
+
+          return json_encode( array('data' => $data, 'recordsTotal'=>$total, 'recordsFiltered'=>$total ));
+
+    }
+
+
+
+
+
+
+
+    public function data_original(Request $request)
     {
 
      $input=$request->all();

@@ -31,6 +31,18 @@ class AlpAlmacenes extends Model
         'descuento_productos',
         'mensaje_promocion',
         'formato',
+        'id_mercadopago',
+        'mercadopago_sand',
+        'key_mercadopago',
+        'public_key_mercadopago',
+        'public_key_mercadopago_test',
+        'comision_mp',
+        'comision_mp_baloto',
+        'comision_mp_efecty',
+        'comision_mp_pse',
+        'retencion_fuente_mp',
+        'retencion_iva_mp',
+        'retencion_ica_mp',
         'id_user'
     ];
 

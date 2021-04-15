@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Usuarios del Departamento
+Usuarios del Area
 @parent
 @stop
 
@@ -23,7 +23,7 @@ Usuarios del Departamento
 @section('content')
 <section class="content-header">
     <h1>
-        Usuarios del Departamento
+        Usuarios del Area
     </h1>
     <ol class="breadcrumb">
         <li>
@@ -32,7 +32,7 @@ Usuarios del Departamento
                 Inicio
             </a>
         </li>
-        <li>Usuarios del Departamento</li>
+        <li>Usuarios del Area</li>
         <li class="active">Gestionar</li>
     </ol>
 </section>
@@ -44,7 +44,7 @@ Usuarios del Departamento
             <div class="panel panel-primary ">
                 <div class="panel-heading">
                     <h4 class="panel-title"> <i class="livicon" data-name="wrench" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Gestionar Usuarios del Departamento
+                       Gestionar Usuarios del Area
                     </h4>
                 </div>
                 <div class="panel-body">

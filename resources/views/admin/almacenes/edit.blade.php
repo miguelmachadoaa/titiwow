@@ -294,7 +294,192 @@ Editar Almacen
 
 
                                 
+                        <fieldset>
+                            <h3>Datos para pagos </h3>
 
+
+                            <hr />
+                            <div class="form-group {{ $errors->first('id_mercadopago', 'has-error') }}">
+                                <label for="id_mercadopago" class="col-sm-2 control-label">
+                                    ID Mercadopago
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="id_mercadopago" name="id_mercadopago" class="form-control" placeholder="ID Mercadopago"
+                                        value="{!! old('id_mercadopago', $almacen->id_mercadopago) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('id_mercadopago', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+                            <div class="form-group {{ $errors->first('key_mercadopago', 'has-error') }}">
+                                <label for="key_mercadopago" class="col-sm-2 control-label">
+                                    Key Mercadopago
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="key_mercadopago" name="key_mercadopago" class="form-control" placeholder="Key Mercadopago"
+                                        value="{!! old('key_mercadopago', $almacen->key_mercadopago) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('key_mercadopago', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+
+                            <div class="form-group {{ $errors->first('public_key_mercadopago', 'has-error') }}">
+                                <label for="public_key_mercadopago" class="col-sm-2 control-label">
+                                    Public Key Mercadopago Produccion
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="public_key_mercadopago" name="public_key_mercadopago" class="form-control" placeholder="Key Mercadopago"
+                                        value="{!! old('public_key_mercadopago', $almacen->public_key_mercadopago) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('public_key_mercadopago', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+
+                            <div class="form-group {{ $errors->first('public_key_mercadopago_test', 'has-error') }}">
+                                <label for="public_key_mercadopago_test" class="col-sm-2 control-label">
+                                    Public Key Mercadopago Test
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="public_key_mercadopago_test" name="public_key_mercadopago_test" class="form-control" placeholder="Key Mercadopago"
+                                        value="{!! old('public_key_mercadopago_test', $almacen->public_key_mercadopago_test) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('public_key_mercadopago_test', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+
+                             <div class="form-group {{ $errors->first('comision_mp_baloto', 'has-error') }}">
+                                <label for="comision_mp_baloto" class="col-sm-2 control-label">
+                                    % Comision Mercado Pago Baloto
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="comision_mp_baloto" name="comision_mp_baloto" class="form-control" placeholder="% Comision Mercado Pago Baloto"
+                                        value="{!! old('comision_mp_baloto', $almacen->comision_mp_baloto) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('comision_mp_baloto', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+
+                             <div class="form-group {{ $errors->first('comision_mp_efecty', 'has-error') }}">
+                                <label for="comision_mp_efecty" class="col-sm-2 control-label">
+                                    % Comision Mercado Pago Efecty
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="comision_mp_efecty" name="comision_mp_efecty" class="form-control" placeholder="% Comision Mercado Pago Efecty"
+                                        value="{!! old('comision_mp_efecty', $almacen->comision_mp_efecty) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('comision_mp_efecty', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+
+                             <div class="form-group {{ $errors->first('comision_mp_pse', 'has-error') }}">
+                                <label for="comision_mp_pse" class="col-sm-2 control-label">
+                                    % Comision Mercado Pago PSE
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="comision_mp_pse" name="comision_mp_pse" class="form-control" placeholder="% Comision Mercado Pago PSE"
+                                        value="{!! old('comision_mp_pse', $almacen->comision_mp_pse) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('comision_mp_pse', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+
+                             <div class="form-group {{ $errors->first('comision_mp', 'has-error') }}">
+                                <label for="comision_mp" class="col-sm-2 control-label">
+                                    % Comision Mercado Pago Credit Card
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="comision_mp" name="comision_mp" class="form-control" placeholder="% Comision Mercado Pago Credit Card"
+                                        value="{!! old('comision_mp', $almacen->comision_mp) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('comision_mp', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+
+                             <div class="form-group {{ $errors->first('retencion_fuente_mp', 'has-error') }}">
+                                <label for="retencion_fuente_mp" class="col-sm-2 control-label">
+                                    % Retencion de Fuente Mercado Pago
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="retencion_fuente_mp" name="retencion_fuente_mp" class="form-control" placeholder="% Retencion de Fuente Mercado Pago"
+                                        value="{!! old('retencion_fuente_mp', $almacen->retencion_fuente_mp) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('retencion_fuente_mp', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+
+                             <div class="form-group {{ $errors->first('retencion_iva_mp', 'has-error') }}">
+                                <label for="retencion_iva_mp" class="col-sm-2 control-label">
+                                    % Retencion de IVA Mercado Pago
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="retencion_iva_mp" name="retencion_iva_mp" class="form-control" placeholder="% Retencion de IVA Mercado Pago"
+                                        value="{!! old('retencion_iva_mp', $almacen->retencion_iva_mp) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('retencion_iva_mp', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+
+                             <div class="form-group {{ $errors->first('retencion_ica_mp', 'has-error') }}">
+                                <label for="retencion_ica_mp" class="col-sm-2 control-label">
+                                    % Retencion de ICA Mercado Pago
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="retencion_ica_mp" name="retencion_ica_mp" class="form-control" placeholder="% Retencion de ICA Mercado Pago"
+                                        value="{!! old('retencion_ica_mp', $almacen->retencion_ica_mp) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('retencion_ica_mp', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+                           <!-- <div class="form-group {{ $errors->first('key_mercadopago', 'has-error') }}">
+                                <label for="title" class="col-sm-2 control-label">
+                                    Key Mercadopago
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="text" id="key_mercadopago" name="key_mercadopago" class="form-control" placeholder="Key Mercadopago"
+                                        value="{!! old('key_mercadopago', $almacen->key_mercadopago) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('key_mercadopago', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>-->
+
+                            <div class="form-group  {{ $errors->first('mercadopago_sand', 'has-error') }}">
+                                <label for="select21" class="col-sm-2 control-label">
+                                    Modo Mercadopago
+                                </label>
+                                <div class="col-sm-5">   
+                                 <select id="mercadopago_sand" name="mercadopago_sand" class="form-control ">
+                                    <option value="">Seleccione</option>
+                                        
+                                       
+                                        <option value="{{ 1 }}"
+                                                @if($almacen->mercadopago_sand == 1) selected="selected" @endif >Modo Sandbox</option>
+
+                                        <option value="{{ 2 }}"
+                                                @if($almacen->mercadopago_sand == 2) selected="selected" @endif >Modo Real</option>
+                                       
+                                </select>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('mercadopago_sand', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                                  
+                                </div>
+                               
+                            </div>
+
+
+
+                        </fieldset>
 
 
                         <fieldset>

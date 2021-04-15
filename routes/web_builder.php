@@ -955,11 +955,17 @@ Route::group(['prefix' => 'estatuspagos'], function () {
     Route::group(['prefix' => 'ticket'], function () {
 
 
-        Route::post('estatus', ['as'=> 'almacenes.estatus', 'uses' => 'Admin\AlpTicketController@estatus']);
+        Route::post('estatus', ['as'=> 'ticket.estatus', 'uses' => 'Admin\AlpTicketController@estatus']);
 
-        Route::get('{id}/delete', 'Admin\AlpTicketController@destroy')->name('almacenes.delete');
+        Route::post('departamento', ['as'=> 'ticket.departamento', 'uses' => 'Admin\AlpTicketController@departamento']);
 
-        Route::get('{id}/restore', 'Admin\AlpTicketController@getRestore')->name('almacenes.restore');
+        Route::post('urgencia', ['as'=> 'ticket.urgencia', 'uses' => 'Admin\AlpTicketController@urgencia']);
+
+
+
+        Route::get('{id}/delete', 'Admin\AlpTicketController@destroy')->name('ticket.delete');
+
+        Route::get('{id}/restore', 'Admin\AlpTicketController@getRestore')->name('ticket.restore');
 
         Route::post('{id}/adddespacho', 'Admin\AlpTicketController@adddespacho')->name('cupones.adddespacho');
 
