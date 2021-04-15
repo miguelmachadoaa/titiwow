@@ -210,7 +210,7 @@
                         <div class="form-group col-sm-12" style="margin-top: 1em;">
                             <div class="col-sm-2"></div>
                             <div class="col-sm-5">
-                            <a href="{{ route('admin.cms.index') }}"
+                            <a href="{{ route('admin.ticket.index') }}"
                                class="btn btn-danger">Cancelar</a>
                             <button type="submit" class="btn btn-success">Crear</button></div>
                             
