@@ -89,6 +89,10 @@ Detalle Ticket
 
                                </h3>
                             <h3>Urgencia: {{$ticket->nombre_urgencia}}</h3>
+
+                            <h3>Caso: {{$ticket->nombre_caso}}</h3>
+
+
                             <h3>Estado : 
 
                             @if($ticket->estado_registro==1)
@@ -245,6 +249,48 @@ Detalle Ticket
 
 
         </div>
+
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-primary ">
+
+                    <div class="panel-heading">
+                        <h4 class="panel-title"> <i class="livicon" data-name="wrench" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                           Historico del Ticket
+                        </h4> 
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="row">
+
+                        @foreach($historico as $h)
+
+                            <div class="col-sm-12 alert alert-info">
+
+                                <p>{{$h->notas}}</p>
+
+                                <p>Actualizado por: {{$h->first_name.' '.$h->last_name}}</p>
+                                <p>Fecha:  {{$h->created_at}}</p>
+                                
+
+                            </div>
+
+
+                        @endforeach
+
+                        </div>
+                       
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+
     </div>
     
 
@@ -262,7 +308,7 @@ Detalle Ticket
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-primary">
-                        <h4 class="modal-title" id="modalLabeldanger">Confirmar Orden</h4>
+                        <h4 class="modal-title" id="modalLabeldanger">Actualiar ticket</h4>
                     </div>
                      <form method="POST" enctype="multipart/form-data" action="{{secure_url('admin/ticket/storerespuesta')}}" id="respuestaForm" name="respuestaForm" class="form-horizontal">
                     <div class="modal-body">
@@ -541,7 +587,7 @@ Detalle Ticket
                 
             complete: function(datos){     
 
-                //location.reload();
+                location.reload();
             }
         });
 

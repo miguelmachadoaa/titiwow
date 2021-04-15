@@ -22,6 +22,8 @@ use App\Models\AlpPrecioGrupo;
 use App\Models\AlpInventario;
 
 use App\Models\AlpTicket;
+use App\Models\AlpTicketHistory;
+use App\Models\AlpCasos;
 use App\Models\AlpComentario;
 use App\Models\AlpDepartamento;
 use App\Models\AlpUrgencia;
@@ -191,10 +193,11 @@ class AlpTicketController extends JoshController
 
         }
 
-
         $departamentos=AlpDepartamento::get();
 
         $urgencia=AlpUrgencia::get();
+
+        $casos=AlpCasos::get();
 
         $ordenes=AlpOrdenes::select('alp_ordenes.id as id', 'alp_ordenes.referencia as referencia','users.first_name as first_name', 'users.last_name as last_name')
         ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
@@ -204,7 +207,7 @@ class AlpTicketController extends JoshController
         #dd($departamentos);
 
         // Show the page
-        return view ('admin.ticket.create', compact('departamentos', 'urgencia', 'ordenes'));
+        return view ('admin.ticket.create', compact('departamentos', 'urgencia', 'ordenes', 'casos'));
     }
 
     /**
@@ -235,9 +238,7 @@ class AlpTicketController extends JoshController
 
         $input=$request->all();
 
-
         $archivo='';
-
 
       if ($request->archivo != null) {
 
@@ -260,6 +261,7 @@ class AlpTicketController extends JoshController
         $data = array(
             'departamento' => $request->departamento, 
             'urgencia' => $request->urgencia, 
+            'caso' => $request->caso,
             'titulo_ticket' => $request->titulo_ticket, 
             'texto_ticket' => $request->texto_ticket, 
             'orden' => $request->orden, 
@@ -270,12 +272,19 @@ class AlpTicketController extends JoshController
          
         $ticket=AlpTicket::create($data);
 
+       # dd($ticket);
 
+        $arrayhistory = array(
+          'id_ticket' => $ticket->id,
+           'id_status' => '1',
+           'notas' => 'Ticket creado',
+           'json' => json_encode($ticket),
+           'id_user' => $user_id,
+        );
 
-       
+        AlpTicketHistory::create($arrayhistory);
 
         if ($ticket->id) {
-
 
           $uds = AlpDepartamentoUsuario::select('alp_departamento_usuario.*', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
         ->join('users', 'alp_departamento_usuario.id_usuario', '=', 'users.id')
@@ -746,9 +755,10 @@ class AlpTicketController extends JoshController
         }
 
 
-         $ticket = AlpTicket::select('alp_ticket.*', 'alp_departamento.nombre_departamento as nombre_departamento', 'alp_urgencia.nombre_urgencia as nombre_urgencia', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email', 'users.pic as pic')
+         $ticket = AlpTicket::select('alp_ticket.*', 'alp_departamento.nombre_departamento as nombre_departamento', 'alp_casos.nombre_caso as nombre_caso', 'alp_urgencia.nombre_urgencia as nombre_urgencia', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email', 'users.pic as pic')
         ->join('alp_departamento', 'alp_ticket.departamento', '=', 'alp_departamento.id')
         ->join('alp_urgencia', 'alp_ticket.urgencia', '=', 'alp_urgencia.id')
+        ->join('alp_casos', 'alp_ticket.caso', '=', 'alp_casos.id')
         ->join('users', 'alp_ticket.id_user', '=', 'users.id')
         ->where('alp_ticket.id', '=', $id)
         ->first();
@@ -792,7 +802,13 @@ class AlpTicketController extends JoshController
         $urgencia=AlpUrgencia::get();
 
 
-        return view('admin.ticket.show', compact('ticket', 'comentarios', 'departamentos', 'urgencia'));
+        $historico=AlpTicketHistory::select('alp_ticket_history.*', 'users.first_name as first_name', 'users.last_name as last_name')
+        ->join('users', 'alp_ticket_history.id_user', '=', 'users.id')
+        ->where('id_ticket', $id)->get();
+
+
+
+        return view('admin.ticket.show', compact('ticket', 'comentarios', 'departamentos', 'urgencia', 'historico'));
     }
 
 
@@ -892,6 +908,27 @@ public function estatus(Request $request)
 
         $ticket->update($data);
 
+        if ($request->estatus==1) {
+          
+          $estatus='Abierto';
+        }else{
+
+          $estatus='Cerrado';
+        }
+
+
+        $arrayhistory = array(
+          'id_ticket' => $ticket->id,
+           'id_status' => '0',
+           'notas' => 'Ticket actualizado a '. $estatus,
+           'json' => json_encode($ticket),
+           'id_user' => $user->id,
+        );
+
+        AlpTicketHistory::create($arrayhistory);
+
+
+
         if ($ticket->id) {
 
 
@@ -944,11 +981,27 @@ public function departamento(Request $request)
 
         $ticket = AlpTicket::where('id', $request->id)->first();
 
+        $dep=AlpDepartamento::where('id', $request->departamento)->first();
+
         $data = array(
           'departamento' => $request->departamento
         );       
 
         $ticket->update($data);
+
+
+        $arrayhistory = array(
+          'id_ticket' => $ticket->id,
+           'id_status' => '0',
+           'notas' => 'Ticket ha sido reasignado  al departamento  '. $dep->nombre_departamento,
+           'json' => json_encode($ticket),
+           'id_user' => $user->id,
+        );
+
+        AlpTicketHistory::create($arrayhistory);
+
+
+
 
         if ($ticket->id) {
 

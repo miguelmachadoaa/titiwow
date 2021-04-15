@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class AlpTicket extends Model
+class AlpTicketHistory extends Model
 {
     use SoftDeletes;
 
-    public $table = 'alp_ticket';
+    public $table = 'alp_ticket_history';
     
 
     protected $dates = ['deleted_at'];
@@ -19,15 +19,10 @@ class AlpTicket extends Model
 
     public $fillable = [
         'id',
-        'orden',
-        'departamento',
-        'urgencia',
-        'caso',
-        'titulo_ticket',
-        'texto_ticket',
-        'archivo',
-        'origen',
-        'estado_registro',
+        'id_ticket',
+        'id_status',
+        'notas',
+        'json',
         'id_user'
     ];
 
@@ -37,7 +32,7 @@ class AlpTicket extends Model
      * @var array
      */
     protected $casts = [
-        'titulo_ticket' => 'string'
+        'id_ticket' => 'string'
     ];
 
     /**
@@ -46,6 +41,6 @@ class AlpTicket extends Model
      * @var array
      */
     public static $rules = [
-        'id_almacen' => 'required'
+        'id_ticket' => 'required'
     ];
 }
