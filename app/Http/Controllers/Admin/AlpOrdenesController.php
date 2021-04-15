@@ -811,7 +811,7 @@ public function compramasupdate()
          
           #$ordenes=$o->get();
 
-          $ordenes=AlpViewOrdenes::get();
+          $ordenes=AlpViewOrdenes::limit(5000)->get();
 
           $total=count($todas);
 
