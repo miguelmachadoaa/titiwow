@@ -107,6 +107,37 @@
                     </div>
 
 
+                    <div class="col-sm-12" style="margin-top:1em;">
+                        
+                        <div class="form-group {{ $errors->
+                            first('caso', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Casos
+                            </label>
+                            <div class="col-sm-5">
+                                
+                                 <select id="caso" name="caso" class="form-control select2">
+
+                                                        <option value="">Seleccione</option>
+                                                        
+                                                        @foreach($casos as $c)
+
+                                                        <option value="{{ $c->id }}">
+                                                                {{ $c->nombre_caso}}</option>
+                                                        @endforeach
+                                                        
+                                                      
+                                                    </select>
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('caso', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
 
                     <div class="col-sm-12" style="margin-top:1em;">
                         

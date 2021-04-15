@@ -726,21 +726,23 @@ public function compramasupdate()
         $todas=AlpOrdenes::get();
 
 
-        if (is_null($input['search']['value'])) {
+        if (isset($input['search']['value'])) {
+            if (is_null($input['search']['value'])) {
 
-          $o=AlpViewOrdenes::offset($input['start'])
-          ->limit( $input['length']);
-         
-         }else{
+            $o=AlpViewOrdenes::offset($input['start'])
+            ->limit( $input['length']);
+           
+           }else{
 
-          $o = AlpViewOrdenes::search($input['search']['value'])->offset($input['start'])
-          ->limit( $input['length']);
+            $o = AlpViewOrdenes::search($input['search']['value'])->offset($input['start'])
+            ->limit( $input['length']);
 
+           }
          }
       
 
        
-
+         /*
 
          if (isset($input['order'])){
 
@@ -804,12 +806,12 @@ public function compramasupdate()
          }else{
 
           $o->orderBy('view_ordenes.id', 'desc');
-         }
+         }*/
 
          
-          $ordenes=$o->get();
+          #$ordenes=$o->get();
 
-          #$ordenes=AlpViewOrdenes::get();
+          $ordenes=AlpViewOrdenes::get();
 
           $total=count($todas);
 
@@ -821,13 +823,7 @@ public function compramasupdate()
 
           foreach($ordenes as $row){
 
-
-            $actions = " 
-                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'  target='_blank'>
-                      ver detalles
-                  </a>
-
-                   <div style='display: inline-block;' class='estatus_".$row->id."'>";
+            $actions = " <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'  target='_blank'> ver detalles </a> <div style='display: inline-block;' class='estatus_".$row->id."'>";
 
                 if (in_array($id_rol, $permiso_cancelar)) {
                   
@@ -847,17 +843,15 @@ public function compramasupdate()
 
               }
 
-                if ($row->origen=='1') {
+              if ($row->origen=='1') {
 
-                    $origen='Tomapedidos';
-                    # code...
-                  }else{
+                $origen='Tomapedidos';
+                # code...
+              }else{
 
-                    $origen='Web';
+                $origen='Web';
 
-                  }
-
-
+              }
 
 
                $data[]= array(
