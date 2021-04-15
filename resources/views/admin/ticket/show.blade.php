@@ -63,17 +63,17 @@ Detalle Ticket
                         @endif
 
                         <div class="col-sm-12">
-                            Ticket Abierto desde {{$ticket->created_at}}
+                            <b>Ticket Abierto desde</b> {{$ticket->created_at}}
                         </div>
 
                         <div class="col-sm-6">
 
-                            <h3>Ticket # {{$ticket->id}}</h3>
+                            <h3><b>Ticket #</b> {{$ticket->id}}</h3>
 
-                            <p>Usuario: {{$ticket->first_name.' '.$ticket->last_name}}</p>
-                            <p>Email: {{$ticket->email}}</p>
-                            <p>Origen: {{$ticket->origen}}</p>
-                            <p>Orden de Compra: {{$ticket->orden}}</p>
+                            <p><b>Usuario:</b> {{$ticket->first_name.' '.$ticket->last_name}}</p>
+                            <p><b>Email:</b> {{$ticket->email}}</p>
+                            <p><b>Origen:</b> {{$ticket->origen}}</p>
+                            <p><b>Orden de Compra:</b> {{$ticket->orden}}</p>
 
                             
                             
@@ -82,23 +82,29 @@ Detalle Ticket
 
                          <div class="col-sm-6">
 
-                            <h3>Departamento: 
+                            <h3><b>Departamento: </b> {{$ticket->nombre_departamento}}
 
-                                <button class="btn btn-primary ticketdepartamento" data-estatus='1' data-id="{{$ticket->id}}">{{$ticket->nombre_departamento}}</button>
+                                <button class="btn btn-primary ticketdepartamento" data-estatus='1' data-id="{{$ticket->id}}">Reasignar</button>
 
 
                                </h3>
-                            <h3>Urgencia: {{$ticket->nombre_urgencia}}</h3>
+                            <h3><b>Urgencia:</b> {{$ticket->nombre_urgencia}}</h3>
 
-                            <h3>Caso: {{$ticket->nombre_caso}}</h3>
+                            <h3><b>Caso:</b> {{$ticket->nombre_caso}}</h3>
 
 
-                            <h3>Estado : 
+                            <h3><b>Estado :</b> 
+
+                                @if($ticket->estado_registro==1)
+                                Abierto
+                            @else
+                                Cerrado
+                            @endif
 
                             @if($ticket->estado_registro==1)
-                               <button class="btn btn-primary ticketstatus" data-estatus='1' data-id="{{$ticket->id}}">Abierto</button> 
+                               <button class="btn btn-primary ticketstatus" data-estatus='1' data-id="{{$ticket->id}}">Cambiar</button> 
                             @else
-                                <button class="btn btn-danger ticketstatus" data-estatus='0' data-id="{{$ticket->id}}">Cerrado</button>
+                                <button class="btn btn-danger ticketstatus" data-estatus='0' data-id="{{$ticket->id}}">Cambiar</button>
                             @endif
 
 
@@ -405,7 +411,7 @@ Detalle Ticket
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-primary">
-                        <h4 class="modal-title" id="modalLabeldanger">Confirmar Orden</h4>
+                        <h4 class="modal-title" id="modalLabeldanger">Actualizar Ticket</h4>
                     </div>
                      <form method="POST" enctype="multipart/form-data" action="{{secure_url('admin/ticket/storerespuesta')}}" id="respuestaForm" name="respuestaForm" class="form-horizontal">
                     <div class="modal-body">
@@ -458,7 +464,7 @@ Detalle Ticket
                     </div>
                     <div class="modal-footer">
                         <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn  btn-primary sendestatus" >Enviar</button>
+                        <button type="button" class="btn  btn-primary sendestatus" >Cambiar</button>
                     </div>
                         </form>
 
@@ -528,7 +534,7 @@ Detalle Ticket
                     </div>
                     <div class="modal-footer">
                         <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn  btn-primary senddepartamento" >Enviar</button>
+                        <button type="button" class="btn  btn-primary senddepartamento" >Reasignar</button>
                     </div>
                         </form>
 

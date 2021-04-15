@@ -519,7 +519,7 @@ Orden {{$orden->id}}
             <div class="panel panel-primary ">
                 <div class="panel-heading">
                     <h4 class="panel-title"> <i class="livicon" data-name="wrench" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Tickets Asigandos a la orden
+                       Tickets Asignados a la orden
                     </h4>
                 </div>
                 <div class="panel-body">
@@ -566,12 +566,12 @@ Orden {{$orden->id}}
 
                         <div class="col-sm-6">
 
-                            <h3>Ticket # {{$ticket->id}}</h3>
+                            <h3><b>Ticket #</b> {{$ticket->id}}</h3>
 
-                            <p>Usuario: {{$ticket->first_name.' '.$ticket->last_name}}</p>
-                            <p>Email: {{$ticket->email}}</p>
-                            <p>Origen: {{$ticket->origen}}</p>
-                            <p>Orden de Compra: {{$ticket->orden}}</p>
+                            <p><b>Usuario:</b> {{$ticket->first_name.' '.$ticket->last_name}}</p>
+                            <p><b>Email:</b> {{$ticket->email}}</p>
+                            <p><b>Origen:</b> {{$ticket->origen}}</p>
+                            <p><b>Orden de Compra:</b> {{$ticket->orden}}</p>
 
                             
                             
@@ -580,9 +580,9 @@ Orden {{$orden->id}}
 
                          <div class="col-sm-6">
 
-                            <h3>Departamento: {{$ticket->nombre_departamento}}</h3>
-                            <h3>Urgencia: {{$ticket->nombre_urgencia}}</h3>
-                            <h3>Estado : 
+                            <h3><b>Departamento:</b> {{$ticket->nombre_departamento}}</h3>
+                            <h3><b>Urgencia:</b> {{$ticket->nombre_urgencia}}</h3>
+                            <h3><b>Estado : </b>
 
                         @if($ticket->estado_registro==1)
                             Abierto
@@ -609,10 +609,7 @@ Orden {{$orden->id}}
                             
                             <h3>Sin archivos Adjuntos </h3>
 
-                            
-
                         </div>
-
 
                         @else
 
@@ -622,7 +619,6 @@ Orden {{$orden->id}}
 
                         </div>
 
-
                         @endif 
 
                         <div class="col-sm-12" style="margin-top: 1em;">
@@ -631,32 +627,13 @@ Orden {{$orden->id}}
 
                         </div>
 
-
-
         </div>
       </div>
     </div>
 
-
-
-
   @endforeach
-
-
-
-
-  
  
 </div>
-
-
-
-
-
-
-
-
-                    
            
                    
                 </div>
