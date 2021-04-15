@@ -5,10 +5,11 @@ namespace App\Console\Commands;
 use App\Models\AlpConfiguracion;
 use App\Models\AlpProductos;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\AlpOrdenes;
 
 use Carbon\Carbon;
 
-
+use DB;
 
 
 use Illuminate\Console\Command;
@@ -51,16 +52,23 @@ class ProductosEliminar extends Command
 
         $hoy=$date->format('Y-m-d');
 
-        $productos=array(1,2,3,4,5);
+
+  //      $productos=array(1,2,3,4,5);
+
+        $productos = AlpProductos::select('id')->get();
 
         foreach ($productos as $producto) {
 
-            $borrado=AlpProductos::where('id','=', $producto)->delete();
+            $borrado=AlpProductos::where('id','=', $producto->id)->whereNull('alp_productos.deleted_at')->delete();
 
             echo $producto.'-';
 
         }
 
+ 
+        
+
+        
     }
     
 }
