@@ -60,7 +60,7 @@ Editar Categoria
                                 Nombre Categoria
                             </label>
                             <div class="col-sm-5">
-                                <input type="text" id="nombre_categoria" name="nombre_categoria" class="form-control" placeholder="Nombre de Categoria"
+                                <input type="text" id="nombre_categoria" name="nombre_categoria" class="form-control titleSlug" placeholder="Nombre de Categoria"
                                        value="{!! old('nombre_categoria', $categoria->nombre_categoria) !!}">
                             </div>
                             <div class="col-sm-4">
@@ -140,7 +140,7 @@ Editar Categoria
                                 Slug Categoria
                             </label>
                             <div class="col-sm-5">
-                                <input type="text" id="slug" name="slug" class="form-control" placeholder="Slug Categoria"
+                                <input type="text" id="slug" name="slug" class="form-control respSlug" placeholder="Slug Categoria"
                                        value="{!! old('slug', $categoria->slug) !!}">
                             </div>
                             <div class="col-sm-4">
@@ -329,5 +329,25 @@ Editar Categoria
 <script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
 
 <script src="{{ secure_asset('assets/js/pages/add_newblog.js') }}" type="text/javascript"></script>
+
+<script>
+
+    $(document).ready(function(){
+
+        $( ".titleSlug" ).keyup(function() {
+
+                $s= $(this).val().toLowerCase().replace(/ /g,'-').replace(/[^\w-]+/g,'');
+                
+                $('.respSlug').val($s);
+
+            });
+    });
+
+</script>
+
+
+
+
+
 
 @stop
