@@ -3,7 +3,7 @@
 Se ha creado un nuevo ticket 
 
 <p>Asunto : {{$ticket->titulo_ticket }}</p>
-<p>Contenido : {{$ticket->texto_ticket }}</p>
+<p>Contenido : {!!$ticket->texto_ticket !!}</p>
 <p>Fecha de Creación : {{$ticket->created_at }}</p>
 <br>
   

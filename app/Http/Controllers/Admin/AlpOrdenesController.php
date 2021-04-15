@@ -817,13 +817,30 @@ public function compramasupdate()
 
           $filtradas=count($ordenes);
 
+
+          $estatus_pago=AlpEstatusPagos::pluck('estatus_pago_nombre', 'id');
+          $estatus_ordenes=AlpEstatusOrdenes::pluck('estatus_nombre', 'id');
+
          
 
             $data = array();
 
           foreach($ordenes as $row){
 
+
             $actions = " <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'  target='_blank'> ver detalles </a> <div style='display: inline-block;' class='estatus_".$row->id."'>";
+
+
+            $pago="<div style='display: inline-block;' class='pago_".$row->id."'>  
+            <button data-id='".$row->id."' class='btn btn-xs btn-success pago' > ".$estatus_pago[$row->estatus_pago]." </button></div>";
+
+             $estatus="<span class='badge badge-default' >".$estatus_ordenes[$row->estatus]."</span>";
+
+
+
+
+
+
 
                 if (in_array($id_rol, $permiso_cancelar)) {
                   
@@ -867,11 +884,11 @@ public function compramasupdate()
                  $row->factura, 
                  $row->tracking, 
                  $row->nombre_almacen, 
-                 '', 
+                 $row->city_name, 
                  $origen, 
                  date("d/m/Y H:i:s", strtotime($row->created_at)),
-                 $row->estatus_pago, 
-                 $row->estatus, 
+                 $pago,
+                 $estatus,
                  $actions.$cancelado
               );
 
@@ -1134,8 +1151,6 @@ public function compramasupdate()
 
                 if (isset($ciudades[$direcciones[$row->id_address]])) {
 
-                  //dd($ciudades[$direcciones[$row->id_address]]);
-                  
                   $nombre_ciudad=$ciudades[$direcciones[$row->id_address]];
 
                 }

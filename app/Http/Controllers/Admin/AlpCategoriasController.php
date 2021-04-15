@@ -788,6 +788,8 @@ if (Sentinel::check()) {
 
        $categoria = AlpCategorias::find($id);
 
+       $categoria->update($data);
+
 
         $i=1;
 
@@ -816,9 +818,7 @@ if (Sentinel::check()) {
 
         $categoria->update($data);
 
-
-    
-        $categoria->update($data);
+        
 
         if ($categoria->id) {
 
