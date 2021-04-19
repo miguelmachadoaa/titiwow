@@ -837,11 +837,6 @@ public function compramasupdate()
              $estatus="<span class='badge badge-default' >".$estatus_ordenes[$row->estatus]."</span>";
 
 
-
-
-
-
-
                 if (in_array($id_rol, $permiso_cancelar)) {
                   
                   if ($row->estatus!=4) {
