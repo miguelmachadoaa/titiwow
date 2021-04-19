@@ -7998,17 +7998,13 @@ public function verificarDireccion( Request $request)
 
           
           $monto_total_base=0;
-
           
           $base_impuesto=0;
-
           
           $monto_impuesto=0;
-
           
           $valor_impuesto=0;
 
-          
           foreach ($cart as $detalle) {
 
             $base_imponible_detalle=0;
@@ -8017,13 +8013,10 @@ public function verificarDireccion( Request $request)
 
             if ($detalle->precio_base>0) {
 
-             
             $monto_total_base=$monto_total_base+($detalle->cantidad*$detalle->precio_base);
-
             
              $total_detalle=$detalle->precio_oferta*$detalle->cantidad;
 
-             
               if ($detalle->valor_impuesto!=0) {
 
                 if ($detalle->tipo_producto=='2') {
@@ -8136,29 +8129,17 @@ public function verificarDireccion( Request $request)
 
                       
                         $data_detalle_l = array(
-
                           'id_orden' => $orden->id, 
-
                           'id_producto' => $l->id_producto, 
-
                           'cantidad' =>$l->cantidad*$detalle->cantidad, 
-
                           'precio_unitario' =>0, 
-
                           'precio_base' =>0, 
-
                           'precio_total' =>0,
-
                           'precio_total_base' =>0,
-
                           'valor_impuesto' =>0,
-
                           'monto_impuesto' =>0,
-
                           'id_combo' =>$detalle->id,
-
                           'id_user' =>$user_id 
-
                         );
 
                         
@@ -8347,7 +8328,7 @@ public function verificarDireccion( Request $request)
 
               'valor_impuesto' => $valor_impuesto,
 
-              'token' =>substr(md5(time()), 0, 16)
+             # 'token' =>substr(md5(time()), 0, 16)
 
                );
 

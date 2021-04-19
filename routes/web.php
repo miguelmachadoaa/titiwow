@@ -276,9 +276,6 @@ Route::get('get360consultar', 'FrontEndController@get360consultar')->name('get36
 
 Route::post('compramasinventario', 'FrontEndController@getCompramasInventario')->name('compramasinventario');
 
-Route::get('ibm', 'FrontEndController@ibm')->name('ibm');
-
-
 
 Route::get('login', 'FrontEndController@getLogin')->name('login');
 Route::get('desactivado', 'FrontEndController@desactivado')->name('desactivado');
