@@ -143,6 +143,8 @@ Route::get('admin/sliders/data', 'Admin\AlpSlidersController@data')->name('slide
 
 Route::get('admin/cupones/data', 'Admin\AlpCuponesController@data')->name('cupones.data');
 
+Route::get('admin/abonos/data', 'Admin\AlpAbonosController@data')->name('abonos.data');
+
 Route::get('admin/estatus/data', 'Admin\AlpEstatusOrdenesController@data')->name('estatus.data');
 
 Route::get('admin/estatuspagos/data', 'Admin\AlpEstatusPagosController@data')->name('estatuspagos.data');
@@ -379,7 +381,6 @@ Route::get('productos/{id}/eliminarproductoacheta', array('as' => 'productos.eli
 
         Route::post('{id}/delcliente', 'Admin\AlpCuponesController@delcliente')->name('cupones.delcliente');
 
-
          Route::post('{id}/addrol', 'Admin\AlpCuponesController@addrol')->name('cupones.addrol');
 
         Route::post('{id}/delrol', 'Admin\AlpCuponesController@delrol')->name('cupones.delrol');
@@ -387,12 +388,13 @@ Route::get('productos/{id}/eliminarproductoacheta', array('as' => 'productos.eli
         Route::get('cargar', 'Admin\AlpCuponesController@cargarcupones')->name('cupones.cargar');
         Route::post('import', 'Admin\AlpCuponesController@import');
 
-
-
         Route::get('cargargestion', 'Admin\AlpCuponesController@cargargestion')->name('cupones.cargargestion');
+
         Route::post('postcargargestion', 'Admin\AlpCuponesController@postcargargestion');
 
     });
+
+
     Route::post('cupones/create', 'Admin\AlpCuponesController@store');
 
     Route::resource('cupones', 'Admin\AlpCuponesController');
@@ -1236,7 +1238,24 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
         });
     Route::post('sedes/create', 'Admin\AlpSedesController@store');
+
     Route::resource('sedes', 'Admin\AlpSedesController');
+
+
+    Route::group(['prefix' => 'abonos'], function () {
+
+        Route::get('{id}/delete', 'Admin\AlpAbonosController@destroy')->name('abonos.delete');
+
+        Route::get('{id}/confirm-delete', 'Admin\AlpAbonosController@getModalDelete')->name('abonos.confirm-delete');
+
+        Route::get('{id}/restore', 'Admin\AlpAbonosController@getRestore')->name('abonos.restore');
+
+        });
+    Route::post('abonos/create', 'Admin\AlpAbonosController@store');
+
+    Route::resource('abonos', 'Admin\AlpAbonosController');
+
+
 
     /*Inicio CMS*/
 

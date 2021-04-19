@@ -24,8 +24,9 @@ class AbonoRequest extends FormRequest {
 	public function rules()
 	{
 		return [
-            'nombre_sede' => 'required|min:3',
-            'descripcion_sede' => 'required|min:5'
+           'codigo_abono' => 'required',
+           'valor_abono' => 'required',
+           'fecha_final' => 'required',
 		];
 	}
 

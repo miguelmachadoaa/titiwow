@@ -206,7 +206,16 @@ class AlpClientesController extends JoshController
                  <a href='".secure_url("admin/clientes/".$cliente->id."/direcciones" )."'>
 
                      <i class='livicon' data-name='location' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='view alpProductos'></i>
-                 </a> ";
+                 </a>
+
+
+                 <a href='".secure_url("admin/clientes/".$cliente->id."/abono" )." ' class='btn btn-info btn-xs'>
+
+                     Aplicar Abono
+                 </a>
+
+
+                  ";
 
 
                 # code...
@@ -242,6 +251,14 @@ class AlpClientesController extends JoshController
                   <button type='button' data-id='".$cliente->id."' class='btn btn-xs btn-danger rechazarUsuario' >Desactivar</button>
 
                 </div>
+
+
+                <a href='".secure_url("admin/clientes/".$cliente->id."/abono" )." ' class='btn btn-info btn-xs'>
+
+                     Aplicar Abono
+                 </a>
+
+
 
 
 
@@ -2247,6 +2264,35 @@ private function getSaldo()
         return redirect('admin/clientes/saldo')->with('success', 'Clientes Cargados Exitosamente');
 
     }
+
+
+
+    public function edit($id)
+    {
+       
+            if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties(['id'=>$id])
+                        ->log('clientes/edit ');
+
+        }else{
+
+          activity()->withProperties(['id'=>$id])->log('clientes/edit');
+
+        }
+
+
+       
+
+        return view('admin.clientes.abono', compact(''));
+    }
+
+
 
 
 

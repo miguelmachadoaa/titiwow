@@ -723,7 +723,7 @@ public function compramasupdate()
             $id_rol=$role->role_id;
         }
 
-        $todas=AlpOrdenes::get();
+        $todas=AlpViewOrdenes::get();
 
 
         if (isset($input['search']['value'])) {
@@ -811,7 +811,7 @@ public function compramasupdate()
          
           #$ordenes=$o->get();
 
-          $ordenes=AlpViewOrdenes::limit(5000)->get();
+          $ordenes=AlpViewOrdenes::limit(2000)->get();
 
           $total=count($todas);
 
