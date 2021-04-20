@@ -173,7 +173,7 @@ class CancelarOrdenes extends Command
 
                           if ($total_descuentos_icg>0) {
 
-                              #$this->registroIcgCancelar($orden->id);
+                              $this->registroIcgCancelar($orden->id);
 
                             }
 
@@ -299,13 +299,7 @@ class CancelarOrdenes extends Command
                     }
 
 
-                    
-
                       $orden->update($dtt);
-
-
-
-                      
 
                       $texto=''.$res->mensaje.' Codigo Respuesta '.$res->codigo;
 
@@ -446,7 +440,7 @@ activity()->withProperties($dataraw)->log('cancelar icg dataraw');
 
          $ch = curl_init();
 
-      curl_setopt($ch, CURLOPT_URL, 'http://201.234.184.25:8099/api/cupo/cupoAplicar');
+      curl_setopt($ch, CURLOPT_URL, 'https://qacupo.alpina.com:8099/api/cupo/cupoAplicar');
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
       curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
       curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 

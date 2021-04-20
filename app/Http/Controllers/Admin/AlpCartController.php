@@ -7434,7 +7434,7 @@ public function verificarDireccion( Request $request)
 
 
       $carrito= \Session::get('cr');
-      
+
       $cart=$this->reloadCart();
       
       $total=$this->total();
@@ -7716,7 +7716,6 @@ public function verificarDireccion( Request $request)
 
               $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $carrito)->get();
 
-                
 
                 foreach ($descuentosIcg as $pagoi) {
 
@@ -7724,20 +7723,15 @@ public function verificarDireccion( Request $request)
 
                   $total_descuentos_icg=$total_descuentos_icg+$pagoi->monto_descuento;
 
+                  $data_update_icg = array('id_orden' => $orden->id);
+
+                  $pagoi->update($data_update_icg);
+
                 }
 
             }
 
           }
-
-
-          
-
-
-             
-
-
-
 
 
             
@@ -7812,18 +7806,19 @@ public function verificarDireccion( Request $request)
             
             foreach ($cupones as $cupon) {
 
-              
-
               $c=AlpOrdenesDescuento::where('id', $cupon->id)->first();
 
-              
               $data_cupon = array('id_orden' => $orden->id );
-
               
               $c->update($data_cupon);
 
               
             }
+
+
+            
+
+
 
             
             
@@ -7866,6 +7861,28 @@ public function verificarDireccion( Request $request)
 
 
             \Session::put('cr', $orden->id);
+
+
+
+
+            if ($total_descuentos_icg>0) {
+
+
+              $ricg=$this->registroIcg($orden->id);
+
+              if (isset($ricg->idRegistro)) {
+                 
+              }else{
+
+                $r='falseicg';
+              }
+
+            }
+
+
+
+
+
 
           if ($orden->id_almacen==1) {
 
@@ -12872,7 +12889,7 @@ public function reiniciarancheta()
         
        $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, 'http://201.234.184.25:8099/api/cupo/ValidarCuposGo?DocumentoEmpleado='.$c->doc_cliente);
+        curl_setopt($ch, CURLOPT_URL, 'https://qacupo.alpina.com:8099//api/cupo/ValidarCuposGo?DocumentoEmpleado='.$c->doc_cliente);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
@@ -12994,7 +13011,7 @@ public function reiniciarancheta()
         
        $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, 'http://201.234.184.25:8099/api/cupo/ValidarCuposGo?DocumentoEmpleado='.$c->doc_cliente);
+        curl_setopt($ch, CURLOPT_URL, 'https://qacupo.alpina.com:8099//api/cupo/ValidarCuposGo?DocumentoEmpleado='.$c->doc_cliente);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
@@ -13234,7 +13251,7 @@ public function reiniciarancheta()
 
          $ch = curl_init();
 
-      curl_setopt($ch, CURLOPT_URL, 'http://201.234.184.25:8099/api/cupo/cupoAplicar');
+      curl_setopt($ch, CURLOPT_URL, 'https://qacupo.alpina.com:8099//api/cupo/cupoAplicar');
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
       curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
       curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
@@ -13315,16 +13332,10 @@ public function reiniciarancheta()
             'aplicado' => $res->idRegistro, 
           );
 
-         // dd($data_descuento_update);
-
 
         $orden->update(['json_icg'=>json_encode($result)]);
 
          $descuentosIcg->update($data_descuento_update);
-
-
-
-
 
           return $res;
 
@@ -13345,9 +13356,11 @@ public function reiniciarancheta()
 
         $orden->update(['json_icg'=>json_encode($result)]);
 
-        $descuentosIcg->update(['json'=>json_encode($result)]);
+        if (isset($descuentosIcg->id)) {
 
+          $descuentosIcg->update(['json'=>json_encode($result)]);
 
+        }
 
         return $res;
 
@@ -13417,7 +13430,7 @@ activity()->withProperties($dataraw)->log(' cancelar icg dataraw');
 
          $ch = curl_init();
 
-      curl_setopt($ch, CURLOPT_URL, 'http://201.234.184.25:8099/api/cupo/cupoAplicar');
+      curl_setopt($ch, CURLOPT_URL, 'https://qacupo.alpina.com:8099/api/cupo/cupoAplicar');
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
       curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
       curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 

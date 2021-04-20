@@ -811,7 +811,7 @@ public function compramasupdate()
          
           #$ordenes=$o->get();
 
-          $ordenes=AlpViewOrdenes::limit(2000)->get();
+          $ordenes=AlpViewOrdenes::limit(2000)->orderBy('id', 'desc')->get();
 
           $total=count($todas);
 
@@ -3142,6 +3142,197 @@ public function compramasupdate()
     }
 
 
+    public function storeconfirm(Request $request)
+    {
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpOrdenesController/storeconfirm ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpOrdenesController/storeconfirm');
+
+        }
+
+        $user_id = Sentinel::getUser()->id;
+
+        $input = $request->all();
+
+        $orden=AlpOrdenes::where('id', $input['confirm_id'])->first();
+
+
+        //var_dump($input);
+
+        $data_history = array(
+            'id_orden' => $input['confirm_id'], 
+            'id_status' => $input['id_status'], 
+            'notas' => $input['notas'], 
+            'id_user' => $user_id 
+        );
+
+        $data_update_orden = array(
+            'estatus' =>$input['id_status']
+        );
+
+        if ($input['id_status']=='4') {
+
+          $punto=AlpPuntos::where('id_orden',$input['confirm_id'])->first();
+
+          if (isset($punto->id)) {
+
+             $data_estatus_puntos = array('estado_registro' => $input['id_status'] );
+
+            $punto->update($data_estatus_puntos);
+
+            $punto->delete();
+          
+          }
+
+        $detalles=AlpDetalles::where('id_orden', $input['confirm_id'])->get();
+
+          foreach ($detalles as $detalle) {
+
+              $data_inventario = array(
+                'id_producto' => $detalle->id_producto, 
+                'cantidad' =>$detalle->cantidad, 
+                'operacion' =>'1', 
+                'id_user' =>$user_id 
+              );
+
+              AlpInventario::create($data_inventario);
+            
+          }
+
+          $descuentos=AlpOrdenesDescuento::where('id_orden',$input['confirm_id'])->get();
+
+          foreach ($descuentos as $desc) {
+            
+            $d=AlpOrdenesDescuento::where('id', $desc->id)->first();
+
+            $d->delete();
+
+          }
+
+
+
+           $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $input['confirm_id'])->get();
+
+            $total_descuentos_icg=0;
+
+            foreach ($descuentosIcg as $pagoi) {
+
+               $total_descuentos_icg=$total_descuentos_icg+$pagoi->monto_descuento;
+
+              //$dI=AlpOrdenesDescuentoIcg::where('id', $pagoi->id)->first();
+
+             // $dI->delete();
+             
+
+            }
+
+            activity()->withProperties($total_descuentos_icg)->log('descuento icg al cancelar ordenes  ');
+              if ($total_descuentos_icg>0) {
+                
+                $resp_icg=$this->registroIcgCancelar($input['confirm_id']);
+                
+              }
+
+
+          if ($orden->id_forma_pago=='3') {
+
+              $ss=AlpSaldo::where('id_cliente', $orden->id_cliente)->first();
+              
+              $data_saldo = array(
+                'id_cliente' => $orden->id_cliente, 
+                'saldo' => $orden->monto_total, 
+                'operacion' => '1', 
+                'fecha_vencimiento' => $ss->fecha_vencimiento, 
+                'id_user' => $orden->id_cliente
+              );
+
+              AlpSaldo::create($data_saldo);
+
+          }
+
+
+          $cmercadopago=$this->cancelarMercadopago($orden->id);
+
+             if ($orden->id_almacen==1) {
+
+                //$this->sendcompramas($orden->id, 'rejected');
+
+                $result=$this->sendcompramascancelar($orden->id);
+
+
+              }else{
+
+                $result='';
+              }//enif si es almacen 1
+
+
+               $configuracion = AlpConfiguracion::where('id','1')->first();
+
+           $data_history_json = array(
+                'id_orden' => $input['confirm_id'], 
+                'id_status' => $input['id_status'], 
+                'notas' => $input['notas'], 
+                'json' => $result, 
+                'id_user' => $user_id 
+            );
+
+            $history=AlpOrdenesHistory::create($data_history_json);
+
+             $orden=AlpOrdenes::find($input['confirm_id']);
+
+
+
+        }else{
+
+           $history=AlpOrdenesHistory::create($data_history);
+        }//endif
+       
+
+        $orden=AlpOrdenes::find($input['confirm_id']);
+
+        $orden->update($data_update_orden);
+
+        $orden = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
+          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
+          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
+          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+          ->where('alp_ordenes.id', $input['confirm_id'])
+          ->first();
+
+        if ($orden->id) {
+
+          $view= View::make('admin.ordenes.storeconfirm', compact('orden'));
+
+          $data=$view->render();
+
+          $res = array('data' => $data);
+
+          return $data;
+
+        } else {
+
+            return 0;
+        }     
+
+
+    }
+
+    
+
+
     /**
      * Group update.
      *
@@ -3426,200 +3617,7 @@ public function compramasupdate()
 
     }
 
-    public function storeconfirm(Request $request)
-    {
-
-          if (Sentinel::check()) {
-
-          $user = Sentinel::getUser();
-
-           activity($user->full_name)
-                        ->performedOn($user)
-                        ->causedBy($user)
-                        ->withProperties($request->all())->log('AlpOrdenesController/storeconfirm ');
-
-        }else{
-
-          activity()
-          ->withProperties($request->all())->log('AlpOrdenesController/storeconfirm');
-
-        }
-
-        $user_id = Sentinel::getUser()->id;
-
-        $input = $request->all();
-
-        $orden=AlpOrdenes::where('id', $input['confirm_id'])->first();
-
-
-        //var_dump($input);
-
-        $data_history = array(
-            'id_orden' => $input['confirm_id'], 
-            'id_status' => $input['id_status'], 
-            'notas' => $input['notas'], 
-            'id_user' => $user_id 
-        );
-
-        $data_update_orden = array(
-            'estatus' =>$input['id_status']
-        );
-
-        if ($input['id_status']=='4') {
-
-          $punto=AlpPuntos::where('id_orden',$input['confirm_id'])->first();
-
-          if (isset($punto->id)) {
-
-             $data_estatus_puntos = array('estado_registro' => $input['id_status'] );
-
-            $punto->update($data_estatus_puntos);
-
-            $punto->delete();
-          
-          }
-
-        $detalles=AlpDetalles::where('id_orden', $input['confirm_id'])->get();
-
-          foreach ($detalles as $detalle) {
-
-              $data_inventario = array(
-                'id_producto' => $detalle->id_producto, 
-                'cantidad' =>$detalle->cantidad, 
-                'operacion' =>'1', 
-                'id_user' =>$user_id 
-              );
-
-              AlpInventario::create($data_inventario);
-            
-          }
-
-          $descuentos=AlpOrdenesDescuento::where('id_orden',$input['confirm_id'])->get();
-
-          foreach ($descuentos as $desc) {
-            
-            $d=AlpOrdenesDescuento::where('id', $desc->id)->first();
-
-            $d->delete();
-
-          }
-
-
-
-           $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $input['confirm_id'])->get();
-
-            $total_descuentos_icg=0;
-
-            foreach ($descuentosIcg as $pagoi) {
-
-               $total_descuentos_icg=$total_descuentos_icg+$pagoi->monto_descuento;
-
-              //$dI=AlpOrdenesDescuentoIcg::where('id', $pagoi->id)->first();
-
-             // $dI->delete();
-             
-
-            }
-
-            activity()->withProperties($total_descuentos_icg)->log('descuento icg al cancelar ordenes  ');
-              if ($total_descuentos_icg>0) {
-                
-                $resp_icg=$this->registroIcgCancelar($input['confirm_id']);
-
-                
-              }
-
-
-          if ($orden->id_forma_pago=='3') {
-
-              $ss=AlpSaldo::where('id_cliente', $orden->id_cliente)->first();
-              
-              $data_saldo = array(
-                'id_cliente' => $orden->id_cliente, 
-                'saldo' => $orden->monto_total, 
-                'operacion' => '1', 
-                'fecha_vencimiento' => $ss->fecha_vencimiento, 
-                'id_user' => $orden->id_cliente
-              );
-
-              AlpSaldo::create($data_saldo);
-
-          }
-
-
-          $cmercadopago=$this->cancelarMercadopago($orden->id);
-
-             if ($orden->id_almacen==1) {
-
-                //$this->sendcompramas($orden->id, 'rejected');
-
-                $result=$this->sendcompramascancelar($orden->id);
-
-
-              }else{
-
-                $result='';
-              }//enif si es almacen 1
-
-
-               $configuracion = AlpConfiguracion::where('id','1')->first();
-
-           $data_history_json = array(
-                'id_orden' => $input['confirm_id'], 
-                'id_status' => $input['id_status'], 
-                'notas' => $input['notas'], 
-                'json' => $result, 
-                'id_user' => $user_id 
-            );
-
-            $history=AlpOrdenesHistory::create($data_history_json);
-
-             $orden=AlpOrdenes::find($input['confirm_id']);
-
-
-
-        }else{
-
-           $history=AlpOrdenesHistory::create($data_history);
-        }//endif
-
-
-         
-       
-
-        $orden=AlpOrdenes::find($input['confirm_id']);
-
-        $orden->update($data_update_orden);
-
-        $orden = AlpOrdenes::select('alp_ordenes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre')
-          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
-          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
-          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
-          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
-          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
-          ->where('alp_ordenes.id', $input['confirm_id'])
-          ->first();
-
-        if ($orden->id) {
-
-
-
-          $view= View::make('admin.ordenes.storeconfirm', compact('orden'));
-
-          $data=$view->render();
-
-          $res = array('data' => $data);
-
-          return $data;
-
-        } else {
-
-            return 0;
-        }     
-
-
-    }
-
+  
 
        public function recibir(Request $request)
     {
@@ -6226,10 +6224,7 @@ public function sendcompramascancelar($id_orden){
 
 
 
-
-
-
-     private function registroIcgCancelar($ordenId)
+private function registroIcgCancelar($ordenId)
     {
 
       activity()->withProperties(1)
@@ -6247,12 +6242,11 @@ public function sendcompramascancelar($id_orden){
 
      if (isset($descuentosIcg->id)) {
 
-       $monto_descuentoicg=$descuentosIcg->monto_descuento;
+      $monto_descuentoicg=$descuentosIcg->monto_descuento;
 
-              $ReferenciaRegistroAnulado=$descuentosIcg->aplicado;
+      $ReferenciaRegistroAnulado=$descuentosIcg->aplicado;
 
-
-       $descuentosIcg->delete();
+      $descuentosIcg->delete();
 
      }
 
@@ -6260,13 +6254,10 @@ public function sendcompramascancelar($id_orden){
 
       $c=AlpClientes::where('id_user_client', $orden->id_cliente)->first();
 
-
-
       
       $urls=$configuracion->endpoint_icg;
 
        Log::info('api icg urls '.$urls);
-
 
        $date = Carbon::now();
 
@@ -6289,39 +6280,36 @@ public function sendcompramascancelar($id_orden){
         'ReferenciaRegistroAnulado' => $ReferenciaRegistroAnulado
       );
 
-         $dataraw=json_encode($data_consumo);
+        $dataraw=json_encode($data_consumo);
 
-activity()->withProperties($dataraw)->log('data enviada cancelar registro icg ');
+        activity()->withProperties($dataraw)->log('data enviada cancelar registro icg ');
 
-         $ch = curl_init();
+        $ch = curl_init();
 
-      curl_setopt($ch, CURLOPT_URL, 'http://201.234.184.25:8099/api/cupo/cupoAplicar');
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-      curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
-      curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
-      curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_URL, 'https://qacupo.alpina.com:8099/api/cupo/cupoAplicar');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataraw); 
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 
-      $headers = array();
-      $headers[] = 'Content-Type: application/json';
-       $headers[] = 'apikeyalp2go: 1';
-      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $headers = array();
+        $headers[] = 'Content-Type: application/json';
+         $headers[] = 'apikeyalp2go: 1';
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-      $result = curl_exec($ch);
-      if (curl_errno($ch)) {
-          echo 'Error:' . curl_error($ch);
-      }
-      curl_close($ch);
+        $result = curl_exec($ch);
+        if (curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
+        }
+        curl_close($ch);
 
-      $res=json_decode($result);
+        $res=json_decode($result);
 
 
-activity()->withProperties($res)->log('respuesta cancelar registro icg ');
-
-       
+        activity()->withProperties($res)->log('respuesta cancelar registro icg ');
 
        $notas='Registro de orden en api icg res.';
-
 
       if (isset($res->CodigoRta)) {
         
@@ -6337,10 +6325,7 @@ activity()->withProperties($res)->log('respuesta cancelar registro icg ');
 
           AlpConsultaIcg::create($dataicg);
 
-
-
           return $res;
-
            
         }else{
 
@@ -6353,8 +6338,6 @@ activity()->withProperties($res)->log('respuesta cancelar registro icg ');
         );
 
         AlpConsultaIcg::create($dataicg);
-
-
 
           return $res;
 
@@ -6381,8 +6364,6 @@ activity()->withProperties($res)->log('respuesta cancelar registro icg ');
 
       
     }
-
-
 
 
 
