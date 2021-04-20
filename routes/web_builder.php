@@ -119,6 +119,9 @@ Route::get('admin/ordenes/{id}/reenviaryaprobarcompramas/', 'Admin\AlpOrdenesCon
 
 
 
+
+
+
 Route::get('admin/productos/data', 'Admin\AlpProductosController@data')->name('productos.data');
 
 Route::get('admin/productos/datadestacados/list', 'Admin\AlpProductosController@datadestacados')->name('productos.datadestacados');
@@ -1349,6 +1352,8 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
         Route::get('/enviados/list', 'Admin\AlpOrdenesController@enviados')->name('ordenes.enviados');
 
+
+
         Route::get('/cancelados/list', 'Admin\AlpOrdenesController@cancelados')->name('ordenes.cancelados');
 
         Route::get('/consolidado/list', 'Admin\AlpOrdenesController@consolidado')->name('ordenes.consolidado');
@@ -1361,6 +1366,12 @@ Route::group(['prefix' => 'estatuspagos'], function () {
         Route::get('/compramas/list', 'Admin\AlpOrdenesController@compramas')->name('ordenes.compramas');
 
         Route::get('/sendmail/{id}', 'Admin\AlpOrdenesController@sendmail')->name('ordenes.sendmail');
+
+
+
+        Route::get('/filtrar/list', 'Admin\AlpOrdenesController@filtrar')->name('ordenes.filtrar');
+
+        Route::post('/filtrar/list', 'Admin\AlpOrdenesController@postfiltrar')->name('ordenes.filtrar');
 
     });
 

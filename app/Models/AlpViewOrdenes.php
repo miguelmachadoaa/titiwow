@@ -17,6 +17,8 @@ class AlpViewOrdenes extends Model
         'columns' => [
             'view_ordenes.id' => 10,
             'view_ordenes.referencia' => 5,
+            'view_ordenes.nombre_cliente' => 5,
+            'view_ordenes.codigo_cupon' => 5,
             'view_ordenes.origen' => 4,
         ]
     ];

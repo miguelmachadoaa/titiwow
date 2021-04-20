@@ -102,6 +102,88 @@ class AlpOrdenesController extends JoshController
 
 
 
+    public function filtrar()
+    {
+        // Grab all the groups
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpOrdenesController/filtrar ');
+
+        }else{
+
+          activity()
+          ->log('AlpOrdenesController/filtrar');
+
+        }
+
+         if (!Sentinel::getUser()->hasAnyAccess(['ordenes.index'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+        $estatus_ordenes = AlpEstatusOrdenes::all();
+
+        $ordenes=AlpViewOrdenes::limit(100)->orderBy('id', 'desc')->get();
+
+        $estatus_pago=AlpEstatusPagos::pluck('estatus_pago_nombre', 'id');
+          $estatus_ordenes=AlpEstatusOrdenes::pluck('estatus_nombre', 'id');
+
+
+
+        // Show the page
+        return view('admin.ordenes.filtrar', compact('ordenes', 'estatus_ordenes', 'estatus_pago', 'estatus_ordenes'));
+
+    }
+
+
+    public function postfiltrar(Request $request)
+    {
+        // Grab all the groups
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpOrdenesController/postfiltrar ');
+
+        }else{
+
+          activity()
+          ->log('AlpOrdenesController/postfiltrar');
+
+        }
+
+         if (!Sentinel::getUser()->hasAnyAccess(['ordenes.index'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+        $buscar=$request->buscar;
+
+        $estatus_pago=AlpEstatusPagos::pluck('estatus_pago_nombre', 'id');
+
+        $estatus_ordenes=AlpEstatusOrdenes::pluck('estatus_nombre', 'id');
+
+        $ordenes=AlpViewOrdenes::search($buscar)->limit(100)->orderBy('id', 'desc')->get();
+
+        // Show the page
+        return view('admin.ordenes.filtrar', compact('ordenes', 'estatus_ordenes', 'estatus_pago', 'buscar'));
+
+    }
+
+
+
+
 
        public function sendmail($id)
     {
@@ -811,8 +893,8 @@ public function compramasupdate()
          
           #$ordenes=$o->get();
 
-          $ordenes=AlpViewOrdenes::limit(2000)->orderBy('id', 'desc')->get();
-
+         
+ $ordenes=AlpViewOrdenes::limit(2000)->orderBy('id', 'desc')->get();
           $total=count($todas);
 
           $filtradas=count($ordenes);
