@@ -45,6 +45,16 @@
         </a>
         <ul class="sub-menu">
 
+            @if (Sentinel::getUser()->hasAnyAccess(['ordenes.filtrar']))
+                <li {!! (Request::is('admin/filtrar*') ? 'class="active"' : '') !!}>
+                <a href="{!! route('admin.ordenes.filtrar') !!}">
+                    <i class="fa fa-angle-double-right"></i>
+                    Buscar Orden
+                </a>
+            </li>
+            @endif
+
+
             @if (Sentinel::getUser()->hasAnyAccess(['ordenes.espera']))
                 <li {!! (Request::is('admin/ordenes*') ? 'class="active"' : '') !!}>
                 <a href="{!! route('admin.ordenes.espera') !!}">
