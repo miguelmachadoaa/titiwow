@@ -190,13 +190,13 @@
 
 
 
-                        <b>Marca:</b> <a href="{{ secure_url('marcas/'.$producto->marca_slug) }}" >{{ $producto->nombre_marca}}</a> <br />
+                        <b>Marca:</b> <a href="{{ secure_url('marcas/'.$producto->marca_slug) }}" class="marca_single" >{{ $producto->nombre_marca}}</a> <br />
                         <b>Categorías:</b> 
                         @foreach ($categos as $cats)
                             @if($loop->last)
-                            <a href="{{ secure_url('categoria/'.$cats->categ_slug) }}" >{{ $cats->nombre_categoria }}</a>.
+                            <a href="{{ secure_url('categoria/'.$cats->categ_slug) }}" class="categoria_single">{{ $cats->nombre_categoria }}</a>.
                             @else
-                            <a href="{{ secure_url('categoria/'.$cats->categ_slug) }}" >{{ $cats->nombre_categoria }}</a>,
+                            <a href="{{ secure_url('categoria/'.$cats->categ_slug) }}" class="categoria_single">{{ $cats->nombre_categoria }}</a>,
                             @endif
                         @endforeach
                        <br />
