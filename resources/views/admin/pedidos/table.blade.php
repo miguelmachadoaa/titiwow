@@ -87,7 +87,11 @@
                     
                     <td>{{number_format($p->precio_base,0,',','.')}}</td>
                     <td>{{number_format($p->precio_oferta,0,',','.')}}</td>
-                    <td>{{$cart['inventario'][$p->id]}}</td>
+                    @if(isset($cart['inventario'][$p->id]))
+                        <td>{{ $cart['inventario'][$p->id] }}</td>
+                    @else
+                        <td>{{ 0 }}</td>
+                    @endif
                     <td><button class="btn btn-primary addproducto" 
                         data-id="{{$p->id}}"
                         >Agregar</button>
