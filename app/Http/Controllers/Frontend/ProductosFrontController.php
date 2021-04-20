@@ -1122,13 +1122,10 @@ class ProductosFrontController extends Controller
         $productos = AlpProductos::
         search($request->get('buscar'))->select('alp_productos.*', 'alp_marcas.order as order')
         ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
-
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
         ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
        ->where('alp_almacen_producto.id_almacen', '=', $id_almacen)
        ->whereNull('alp_almacen_producto.deleted_at')
-
-
        ->whereNull('alp_productos.deleted_at')
         ->where('alp_productos.estado_registro','=', 1)
         ->where('alp_productos.mostrar','=',1)
@@ -1157,15 +1154,16 @@ class ProductosFrontController extends Controller
 
         $inventario=$this->inventario();
 
+
+      //  dd($inventario);
+
         $combos=$this->combos();
 
         $role=Roles::where('id', $rol)->first();
 
          $states=State::where('config_states.country_id', '47')->get();
 
-        
-
-          $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
+        $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
           $url=secure_url('buscar?buscar='.$termino);
 

@@ -939,15 +939,45 @@ class AlpPedidosController extends JoshController
          $cart['id_almacen']='1';
        }
 
-         $productos = AlpProductos::search($buscar)->select('alp_productos.*', 'alp_categorias.nombre_categoria as nombre_categoria')
+        /* $productos = AlpProductos::search($buscar)->select('alp_productos.*', 'alp_categorias.nombre_categoria as nombre_categoria')
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
           ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
           ->where('alp_almacen_producto.id_almacen', '=', $cart['id_almacen'])
           ->whereNull('alp_almacen_producto.deleted_at')
           ->orderBy('alp_productos.nombre_producto')
           ->groupBy('alp_productos.id')
-          ->get();
+          ->get();*/
 
+         /* $productos = AlpProductos::search($buscar)->select('alp_productos.*', 'alp_categorias.nombre_categoria as nombre_categoria')
+          ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
+          ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
+          ->where('alp_almacen_producto.id_almacen', '=', $cart['id_almacen'])
+          ->whereNull('alp_almacen_producto.deleted_at')
+          ->whereNull('alp_productos.deleted_at')
+          ->where('alp_productos.estado_registro','=', 1)
+          ->where('alp_productos.mostrar','=',1)
+          ->orderBy('alp_productos.nombre_producto')
+          ->groupBy('alp_productos.id')
+          ->get();*/
+
+
+          $productos = AlpProductos::
+        search($buscar)->select('alp_productos.*', 'alp_marcas.order as order')
+        ->join('alp_marcas','alp_productos.id_marca' , '=', 'alp_marcas.id')
+        ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
+        ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
+       ->where('alp_almacen_producto.id_almacen', '=', $cart['id_almacen'])
+       ->whereNull('alp_almacen_producto.deleted_at')
+       ->whereNull('alp_productos.deleted_at')
+        ->where('alp_productos.estado_registro','=', 1)
+        ->where('alp_productos.mostrar','=',1)
+       # ->groupBy('alp_productos.id')
+        ->orderBy('alp_marcas.order', 'asc')
+        ->orderBy('alp_productos.updated_at', 'desc')
+        ->get();
+
+
+        #dd
 
           $productos=$this->addOferta($productos);
 

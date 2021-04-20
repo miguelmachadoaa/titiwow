@@ -131,290 +131,58 @@ use Carbon\Carbon;
 
 
 class FrontEndController extends JoshController
-
 {
 
 
 
 
-
-  public function ibm()
-
-  {
-
-
-
-    $configuracion=AlpConfiguracion::where('id', '=', '1')->first();
-
-        
-
-        $pod = 0;
-
-        $username = $configuracion->username_ibm;
-
-        $password = $configuracion->password_ibm;
-
-        $endpoint = $configuracion->endpoint_ibm;
-
-
-
-        
-
-    $jsessionid = null;
-
-
-
-    $baseXml = '%s';
-
-    $loginXml = '';
-
-    $getListsXml = '%s%s';
-
-    $logoutXml = '';
-
-
-
-    try {
-
-
-
-    $xml='<Envelope><Body><Login><USERNAME>api_alpina@alpina.com</USERNAME><PASSWORD>Alpina2020!</PASSWORD></Login></Body> </Envelope> ';
-
-
-
-    $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
-
-
-
-   // print_r($result);
-
-
-
-    $jsessionid = $result['SESSIONID'];
-
-
-
-  //  echo $jsessionid.'<br>';
-
-
-
-        $xml='
-
-        <Envelope>
-
-           <Body>
-
-              <AddRecipient>
-
-                 <LIST_ID>8739683</LIST_ID>
-
-                 <CREATED_FROM>1</CREATED_FROM>
-
-                 <COLUMN>
-
-                    <NAME>Customer Id</NAME>
-
-                    <VALUE>1</VALUE>
-
-                 </COLUMN>
-
-                 <COLUMN>
-
-                    <NAME>EMAIL</NAME>
-
-                    <VALUE>mmachado@crearemos.com</VALUE>
-
-                 </COLUMN>
-
-                 <COLUMN>
-
-                    <NAME>Miguel</NAME>
-
-                    <VALUE>Machado</VALUE>
-
-                 </COLUMN>
-
-              </AddRecipient>
-
-           </Body>
-
-        </Envelope>
-
-        ';
-
-
-
-    $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
-
-
-
-   // print_r($result);
-
-
-
-   // echo "3<br>";
-
-
-
-//LOGOUT
-
-
-
-    $xml = '<Envelope>
-
-      <Body>
-
-      <Logout/>
-
-      </Body>
-
-      </Envelope>';
-
-
-
-          $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml, true));
-
-
-
-         // print_r($result);
-
-
-
-          $jsessionid = null;
-
-
-
-      } catch (Exception $e) {
-
-
-
-          die("\nException caught: {$e->getMessage()}\n\n");
-
-
-
-      }
-
-
-
-    }
-
-
-
-
-
-
-
   public function getCompramas(Request $request)
-
   {
-
-
-
 
 
         if (Sentinel::check()) {
 
 
-
           $user = Sentinel::getUser();
 
-
-
           activity($user->full_name)
-
             ->performedOn($user)
-
             ->causedBy($user)
-
             ->withProperties($request->getContent())->log('FrontEndController/getCompramas ');
-
-
 
         }else{
 
-
-
           activity()
-
           ->withProperties($request->getContent())->log('FrontEndController/getCompramas');
-
-
-
         }
-
-
-
-        
 
       $content = $request->getContent();
 
-
-
       $input = json_decode($content, true);
-
-
-
-
 
     $r="false";
 
-
-
     if (isset($input['ordenId'])) {
-
-      # code...
-
-
 
     $orden=AlpOrdenes::where('referencia', $input['ordenId'])->first();
 
-
-
-
-
-
-
     if (isset($orden->id)) {
-
-
 
       $user=User::where('id', $orden->id_cliente)->first();
 
-
-
       if (isset($user->id)) {
-
-
-
-       // $ibm=$this->addibm($user);
-
-
-
-        # code...
 
       }
 
-
-
       $envio=AlpEnvios::where('id_orden', $orden->id)->first();
-
-
 
       if (isset($envio->id)) {
 
-
-
         $status=AlpEnviosEstatus::where('codigo', $input['estado'])->first();
-
-
 
         $user=User::where('id', $orden->id_user)->first();
 
-
-
         if (isset($status->id)) {
-
-
 
           $data_histroy = array(
 
@@ -430,35 +198,19 @@ class FrontEndController extends JoshController
 
           );
 
-
-
           AlpEnviosHistory::create($data_histroy);
-
-
 
           $data_envio = array('estatus' => $status->id);
 
-
-
           $envio->update($data_envio);
-
-
 
           $r="true";
 
-
-
            Mail::to($user->email)->send(new \App\Mail\NotificacionEnvio($user, $orden, $envio, $status, $input ));
-
-
 
         }
 
-
-
       }
-
-     
 
     }
 
