@@ -823,6 +823,10 @@ $('.sendCupon').click(function () {
         $('body').on('click', '.procesar', function (){
 
             //$('.overlay').fadeIn();
+            //
+            
+
+            bono_use= $("#bono_use").val();
 
 
             id_direccion= $("#id_direccion").val(); 
@@ -941,9 +945,89 @@ $('.sendCupon').click(function () {
 
                     }
 
+                }else if (id_forma_pago==4) {
+
+                    type=$(this).data('type');
+
+                    idpago=$(this).data('idpago');
+
+                    bono_use=$('#bono_use').val();
+
+                    var banpago = $('#banpago').val();
+
+                    console.log($('#banpago').val());
+
+                        if (banpago==0) {
+
+                            $('#banpago').val('1');
+
+                            $.ajax({
+                                type: "POST",
+                                data:{id_forma_envio, id_direccion, id_forma_pago},
+
+                                url: base+"/cart/verificarDireccion",
+                                    
+                                complete: function(datos){     
+
+                                    $('#banpago').val('0');
+
+                                   if(datos.responseText=='true'){
+
+                                        $('#procesarForm').submit();
+
+                                        $.ajax({
+                                            type: "POST",
+                                            data:{id_direccion, id_forma_envio, id_forma_pago, type, idpago, bono_use},
+
+                                            url: base+"/order/procesarbono",
+                                                
+                                            complete: function(datos){     
+
+                                                $(location).attr("href", datos.responseText);
+                                            
+                                            }
+
+                                        });
+
+                                    }else{
+
+                                       // $('.overlay').hidden();
+
+                                         if (datos.responseText=='falseicg') {
+
+                                            $('.res_direccion').html('<div hidden class="alert alert-danger" role="alert">Ocurrio un error al registrar descuento de ICG por favor intente nuevamente </div>');
+
+                                         $('#modalPse').modal('hidden');
+
+
+                                        }else if(datos.responseText=='falseCancelado'){
+
+                                            $('.res_direccion').html('<div hidden class="alert alert-danger" role="alert">Su pedido fue cancelado por favor, realice la compra nuevamente.</div>');
+                                             $('#modalCancelado').modal('show');
+
+                           // window.location.href = base+'/cart/show';
+
+                                         $('#modalPse').modal('hidden');
+                                        }else{
+
+                                            $('.res_direccion').html('<div hidden class="alert alert-danger" role="alert">Esta ciudad no esta Disponible para envios.</div>');
+
+                                         $('#modalPse').modal('hidden');
+                                        }
+
+                                    }
+                                
+                                }
+                            });
+
+                        }
+
+                    
+
                 }else{
 
                     var banpago = $('#banpago').val();
+
                     console.log($('#banpago').val());
 
                         if (banpago==0) {
