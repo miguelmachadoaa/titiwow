@@ -148,7 +148,7 @@ Area clientes
             <div class="col-sm-12">
                 
                 <div class="alert alert-danger">
-                    Antes de Continuar con el proceso de compra, por favor has <a href="{{secure_url('my-account')}}">click aqui</a> para actualizar tus datos y crea una dirección de envio <a href="{{secure_url('misdirecciones')}}"> Aqui</a>.
+                    Antes de Continuar con el proceso de compra, por favor has <a href="{{secure_url('mi-cuenta')}}">click aqui</a> para actualizar tus datos y crea una dirección de envio <a href="{{secure_url('misdirecciones')}}"> Aqui</a>.
                 </div>  
 
             </div>
@@ -163,7 +163,7 @@ Area clientes
         <div class="col-sm-12 " style="margin-top: 1em;">
             <div class="row">
             <div class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center">
-                <a href="{{ secure_url('my-account') }}" class=" btn-medium cajita">
+                <a href="{{ secure_url('mi-cuenta') }}" class=" btn-medium cajita">
                     <div class="row">
                     <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-user"></i></div>
                     <div class="col-sm-12">Mi Cuenta</div>

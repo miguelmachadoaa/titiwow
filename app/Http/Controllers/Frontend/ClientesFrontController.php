@@ -854,7 +854,7 @@ class ClientesFrontController extends Controller
     }
 
 
-    public function detallecompra($id)
+    public function detallecompra($token)
     {
 
         if (Sentinel::check()) {

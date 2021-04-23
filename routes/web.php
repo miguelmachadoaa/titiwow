@@ -309,8 +309,8 @@ Route::post('olvido-clave/{userId}/{passwordResetCode}', 'FrontEndController@pos
 Route::get('olvido-clave/{userId}/{passwordResetCode}', 'FrontEndController@getForgotPasswordConfirm')->name('olvido-clave-confirm');
 # My account display and update details
 //Route::group(['middleware' => 'user'], function () {
-    Route::put('my-account', 'FrontEndController@update');
-    Route::get('my-account', 'FrontEndController@myAccount')->name('my-account');
+    Route::put('mi-cuenta', 'FrontEndController@update');
+    Route::get('mi-cuenta', 'FrontEndController@myAccount')->name('mi-cuenta');
 //});
 Route::get('logout', 'FrontEndController@getLogout')->name('logout');
 # contact form
