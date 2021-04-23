@@ -24,7 +24,7 @@ class AbonoRequest extends FormRequest {
 	public function rules()
 	{
 		return [
-           'codigo_abono' => 'required',
+           'codigo_abono' => 'unique:alp_abonos,codigo_abono',
            'valor_abono' => 'required',
            'fecha_final' => 'required',
 		];

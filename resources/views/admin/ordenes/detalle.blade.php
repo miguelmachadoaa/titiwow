@@ -479,7 +479,7 @@ Orden {{$orden->id}}
              @if($user->id==1)
 
 
-             <a href="{{secure_url('admin/ordenes/'.$orden->id.'/reenviarcompramas' )}}" class="btn btn-danger">Aprobar Orden Compramas</a>
+             <!--a href="{{secure_url('admin/ordenes/'.$orden->id.'/reenviarcompramas' )}}" class="btn btn-danger">Aprobar Orden Compramas</a-->
 
              <br>
 

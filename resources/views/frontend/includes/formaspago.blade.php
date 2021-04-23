@@ -168,6 +168,49 @@
 
                     @elseif($fp->id==4)
 
+                    @if(isset($bono_disponible->total))
+
+                    @if($bono_disponible->total>0)
+
+                    <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="heading{{ $fp->id }}">
+                                  <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $fp->id }}" aria-expanded="true" aria-controls="collapse{{ $fp->id }}">
+                                      {{ ucfirst ($fp->nombre_forma_pago) }} <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                    </a>
+                                  </h4>
+                                </div>
+                                <div id="collapse{{ $fp->id }}" class="panel-collapse collapse " role="tabpanel" aria-labelledby="heading{{ $fp->id }}">
+                                  <div class="panel-body">
+
+
+                                       <div class=" col-sm-6 col-xs-12">
+                                        <p>Balance: COP {{$bono_disponible->total}}  </p>
+                                        <p>Use: <input id="bono_use" name="bono_use" type="number" min="0" max="{{$bono_disponible->total}}" value="{{$total}}" step="1" ></p>
+
+                                        </div> 
+
+                                     <div data-idpago="{{ $fp->id }}" data-type="bono" data-id="4" class=" col-sm-6 col-xs-12 procesar btnpg" style="padding:8px;background-color:#3DC639;color:#ffffff; cursor: pointer;">
+
+
+
+                                        <h5 class="text-center">Aplicar  <i class="fa  fa-chevron-right"></i></h5>
+
+                                    </div>
+
+                                  </div>
+                                </div>
+                            </div>
+
+
+
+                            @endif
+                            @endif
+
+
+
+
+
 
                     @else
                             <div class="panel panel-default">

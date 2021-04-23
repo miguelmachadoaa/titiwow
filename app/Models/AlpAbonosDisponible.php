@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class AlpAbonosUser extends Model
+class AlpAbonosDisponible extends Model
 {
     use SoftDeletes;
 

@@ -50,6 +50,9 @@ use App\Models\AlpPromociones;
 use App\Models\AlpPromocionesRegalo;
 use App\Models\AlpPromocionesCategorias;
 
+use App\Models\AlpAbonosDisponible;
+
+
 use App\Http\Requests\AddressRequest;
 
 use App\Country;
@@ -2423,7 +2426,6 @@ class AlpCartController extends JoshController
 
           $afe=AlpAlmacenFormaPago::where('id_almacen', $id_almacen)->first();
 
-          
 
           if (isset($afe->id)) {
 
@@ -2437,6 +2439,8 @@ class AlpCartController extends JoshController
               ->whereNull('alp_almacen_formas_pago.deleted_at')
 
               ->groupBy('alp_formas_pagos.id')->get();
+
+
 
             # code...
 
@@ -2879,11 +2883,25 @@ class AlpCartController extends JoshController
           
           $url=secure_url('order/detail');
 
-          
-          //dd($url);
+
+          $bono_disponible = AlpAbonosDisponible::groupBy('alp_abono_disponible.id_cliente')
+              ->select("alp_abono_disponible.*", DB::raw(  "SUM(alp_abono_disponible.valor_abono) as total"))
+              ->where('alp_abono_disponible.id_cliente', $user->id)
+              ->first();
+
+
+          $pagos=AlpPagos::select('alp_ordenes_pagos.*', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago')->where('id_orden', $carrito)->join('alp_formas_pagos', 'alp_ordenes_pagos.id_forma_pago','=', 'alp_formas_pagos.id')->whereIn('id_estatus_pago', ['1', '2'])->get();
+
+          $total_pagos=0;
+
+          foreach ($pagos as $pago) {
+
+            $total_pagos=$total_pagos+$pago->monto_pago;
+
+          }
 
           
-          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos', 'total_descuentos', 'costo_envio', 'id_forma_envio', 'envio_base', 'envio_impuesto', 'express', 'saldo', 'user','role', 'url', 'cupo_icg', 'total_descuentos_icg', 'descuentosIcg', 'descuento_compra_icg'));
+          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos', 'total_descuentos', 'costo_envio', 'id_forma_envio', 'envio_base', 'envio_impuesto', 'express', 'saldo', 'user','role', 'url', 'cupo_icg', 'total_descuentos_icg', 'descuentosIcg', 'descuento_compra_icg','bono_disponible', 'pagos', 'total_pagos'));
 
           
          }
@@ -3094,20 +3112,13 @@ class AlpCartController extends JoshController
 
             foreach ($detalles as $d ) {
 
-              
 
               $det_array[]= array(
-
                         "id"          => $d->id_producto,
-
                         "title"       => $d->nombre_producto,
-
                         "description" => $d->descripcion_corta,
-
                         "quantity"    => (int)number_format($d->cantidad, 0, '.', ''),
-
                         "unit_price"  => intval($d->precio_unitario),
-
                         );
 
               }
@@ -3277,13 +3288,6 @@ class AlpCartController extends JoshController
 
                 }
 
-                
-
-                
-
-                
-           
-
            
                 $estatus_aviso='success';
 
@@ -3322,6 +3326,352 @@ class AlpCartController extends JoshController
       }else{
 
         
+          return redirect('login');
+
+      }
+
+      
+
+}
+
+
+
+/**
+     * Funcion orderProcesarTicket
+     * Descripción: Captura la respuesta de baloto y efecty  y procesa la orden y redifge a gracias 
+     * 
+     * Variables:
+     *
+     *input = datos recibidos para procesar el pago 
+     *
+     *cart  = contenido del carrito de compra 
+     *
+     *carrito = id de orden tempora 
+     *
+     *id_orden = id de la compra 
+     *
+     *envio = costo del envio 
+     *  
+     *valor_impuesto = monto del envio 
+     *
+     *orden = Detalle de compra  
+     *
+     *total impuesto = Monto del impuesto 
+     *
+     * net_amount = monto antes de impuesto de la compra 
+     * 
+     *detalles = Detalle de los productos de la compra 
+     *
+     * total_descuentos = monto total de descuentos aplicados 
+     * 
+     * descuentos = cupones aplicados 
+     * 
+     * preference_data = datos que se envian a mercadopago 
+     * 
+     * payment = respuesta de mercadopago 
+     * 
+     * fecha_entrega = fecha posible de la entrega de la orden 
+     * 
+     * compra = detalle de compra 
+     * 
+     * user_cliente = datos del cliente de la compra 
+     * 
+     * aviso_pago = mensaje personalizado del pago 
+     * 
+     *metodo = Metodo de pago usado 
+      *  
+     *
+     * funcions
+     *
+     * generarPedido = Procesa y actualiza la orden, vacia el carrito de compras
+     * 
+     * @return View
+     */
+
+  public function orderProcesarBono(Request $request)
+
+    {
+
+      
+     
+
+      $input=$request->all();
+
+      
+      if (Sentinel::check()) {
+
+        
+         $user = Sentinel::getUser();
+
+         
+       activity($user->full_name)
+
+                    ->performedOn($user)
+
+                    ->causedBy($user)
+
+                    ->withProperties($input)
+
+                    ->log('orderProcesarBono pago con bono');
+
+                    
+      }
+
+      
+        
+
+        
+      $cart= \Session::get('cart');
+
+      
+      $carrito= \Session::get('cr');
+
+      
+      $id_orden= \Session::get('orden');
+
+
+
+
+
+      $envio=$this->envio();
+
+      
+      $valor_impuesto=AlpImpuestos::where('id', '1')->first();
+
+      
+      if ($envio>0) {
+
+       
+
+         $envio_base=$envio/(1+$valor_impuesto->valor_impuesto);
+
+         
+        $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
+
+        
+
+      }else{
+
+        
+        $envio_base=0;
+
+        
+        $envio_impuesto=0;
+
+        
+      }
+
+      
+      $orden=AlpOrdenes::where('id', $id_orden)->first();
+
+      $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
+
+      $total=$orden->monto_total+$envio;
+      
+      $impuesto=$orden->monto_impuesto+$envio_impuesto;
+      
+      $net_amount=$total-$impuesto;
+
+      if (Sentinel::check()) {
+        
+        $user_id = Sentinel::getUser()->id;
+        
+        $user_cliente=User::where('id', $user_id)->first();
+
+      }else{
+
+        $user_id= \Session::get('iduser');
+
+         $user_cliente=User::where('id', $user_id)->first();
+
+      }
+
+      if ($user_id) {
+
+         $configuracion = AlpConfiguracion::where('id', '1')->first();
+         
+          MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
+
+           $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
+          ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
+          ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
+          
+
+          $total_descuentos=0;
+
+            $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
+
+            foreach ($descuentos as $pago) {
+
+              $total_descuentos=$total_descuentos+$pago->monto_descuento;
+              
+            }
+
+
+            $disponible = AlpAbonosDisponible::groupBy('alp_abono_disponible.id_cliente')
+              ->select("alp_abono_disponible.*", DB::raw(  "SUM(alp_abono_disponible.valor_abono) as total"))
+              ->where('alp_abono_disponible.id_cliente', $user_id)
+              ->first();
+
+
+
+
+            
+              $det_array = array();
+
+             
+
+            if (($orden->monto_total+$envio)>0) {
+
+              if ($disponible->total>=$request->bono_use) {
+
+
+                $ppa=AlpAbonosDisponible::where('id_cliente', $user_id)->first();
+
+              
+                $data_abono = array(
+                  'id_abono'=>$ppa->id_abono,
+                  'id_cliente'=>$user_id,
+                  'operacion'=>1,
+                  'codigo_abono'=>'',
+                  'valor_abono'=>-$request->bono_use,
+                  'fecha_final'=>now(),
+                  'origen'=>'Compra',
+                  'token'=>md5(time()),
+                  'json'=>json_encode($orden),
+                  'id_user'=>$user_id
+                );
+
+               $pa=AlpAbonosDisponible::create($data_abono);
+
+
+               if ($total-$request->bono_use>0) {
+                
+
+                  $data_pago = array(
+                  'id_orden' => $orden->id, 
+                  'id_forma_pago' => '4', 
+                  'id_estatus_pago' => '1', 
+                  'monto_pago' => $request->bono_use, 
+                  'json' => json_encode($pa), 
+                  'id_user' => $user_id, 
+                );
+
+                 
+                 AlpPagos::create($data_pago);
+
+
+                 return secure_url('order/detail');
+
+               }
+
+
+              }else{
+
+                return secure_url('order/detail');
+
+              }
+
+              
+            }else{
+
+
+              $pa = array();
+              
+            }
+
+
+
+            if (isset($pa->id)) {
+
+
+              $data=$this->generarPedido('8', '4', $pa, 'bono');
+
+              
+              if (isset($data['id_orden'])) {
+
+              }else{
+
+                  if ($data==0) {
+
+                    return redirect('order/detail')->withInput()->with('error', trans('Error al procesar su orden, por favor intente nuevamente.'));
+
+                  }
+
+                  
+              }
+
+
+
+              $id_orden=$data['id_orden'];
+              
+              $fecha_entrega=$data['fecha_entrega'];
+              
+              $compra =  DB::table('alp_ordenes')->select('alp_ordenes.*','users.first_name as first_name','users.last_name as last_name' ,'users.email as email','alp_formas_envios.nombre_forma_envios as nombre_forma_envios','alp_formas_envios.descripcion_forma_envios as descripcion_forma_envios','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago','alp_formas_pagos.descripcion_forma_pago as descripcion_forma_pago','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.doc_cliente as doc_cliente')
+                  ->join('users','alp_ordenes.id_cliente' , '=', 'users.id')
+                  ->join('alp_clientes','alp_ordenes.id_cliente' , '=', 'alp_clientes.id_user_client')
+                  ->join('alp_formas_envios','alp_ordenes.id_forma_envio' , '=', 'alp_formas_envios.id')
+                  ->join('alp_formas_pagos','alp_ordenes.id_forma_pago' , '=', 'alp_formas_pagos.id')
+                  ->where('alp_ordenes.id', $id_orden)->first();
+                  
+
+              $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
+                ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
+                ->where('alp_ordenes_detalle.id_orden', $id_orden)->get();
+
+                
+               $states=State::where('config_states.country_id', '47')->get();
+               
+               $configuracion = AlpConfiguracion::where('id','1')->first();
+               
+                $user_cliente=User::where('id', $user_id)->first();
+                
+                $texto='Se ha creado la siguiente orden '.$compra->id.' y esta a espera de aprobacion  ';
+                
+
+                if ($compra->id_forma_envio!=1) {
+                  
+                    $formaenvio=AlpFormasenvio::where('id', $compra->id_forma_envio)->first();
+
+                    try {
+
+                       Mail::to($formaenvio->email)->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega, 1));
+
+                      Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\CompraSac($compra, $detalles, $fecha_entrega, 1));
+
+                    } catch (\Exception $e) {
+
+                      activity()->withProperties(1)->log('error envio de correo l3970');
+
+                    }
+
+                }
+
+           
+                $estatus_aviso='success';
+
+                $aviso_pago="Hemos procesado su orden satisfactoriamente, Ha cancelado su compra con Bono disponible en su cuenta. ¡Muchas gracias por su Compra!";
+                
+                $metodo='Bono';
+
+                $idc=$compra->id*1024;
+
+                return secure_url('cart/'.$idc.'/gracias?pago=pendiente');
+
+                \Session::forget('pagando');
+
+                
+        }else{
+
+          \Session::forget('pagando');
+          
+          return redirect('order/detail');
+          
+        }
+
+        
+      }else{
+
           return redirect('login');
 
       }
@@ -3614,22 +3964,16 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
     
     if(isset($json_pago['response']['id'])){
-
       
       $id_pago=$json_pago['response']['id'];
 
       
     }else{
-
       
        if (\Session::has('pse')) {
-
         
               $id_pago=\Session::get('pse');
-
-              
           }
-
           
     }
     
@@ -3787,9 +4131,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         
         if ($tipo=='credit_card') {
 
-          
-         
-
           $data_update = array(
 
           'estatus' =>$estatus_orden, 
@@ -3844,6 +4185,30 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           'estatus_pago' =>$estatus_pago,
 
           'comision_mp' =>(($orden->monto_total*$comision_mp)+($orden->monto_total*$comision_mp*0.19)),
+
+          'retencion_fuente_mp' =>0,
+
+          'retencion_iva_mp' =>0,
+
+          'retencion_ica_mp' =>0
+
+           );
+
+          
+        }elseif($tipo=='bono'){
+
+          
+
+          $comision_mp=$almacen->comision_mp_baloto/100;
+
+          
+          $data_update = array(
+
+          'estatus' =>$estatus_orden, 
+
+          'estatus_pago' =>$estatus_pago,
+
+          'comision_mp' =>0,
 
           'retencion_fuente_mp' =>0,
 
@@ -3958,8 +4323,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
          
          return array('id_orden' => $orden->id, 'fecha_entrega' => $fecha_entrega   );
 
-         
-  
 
     }
 

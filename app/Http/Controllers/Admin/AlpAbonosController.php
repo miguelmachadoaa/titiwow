@@ -3,6 +3,15 @@
 use App\Http\Controllers\JoshController;
 use App\Http\Requests\AbonoRequest;
 use App\Models\AlpAbonos;
+use App\Models\AlpOrdenes;
+use App\Models\AlpClientes;
+use App\Models\AlpAbonosTipo;
+
+use App\Models\AlpAbonosDisponible;
+
+use App\Models\AlpAbonosUser;
+
+
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Redirect;
@@ -82,10 +91,19 @@ class AlpAbonosController extends JoshController
         }
 
 
+        $ordenes=AlpOrdenes::select('alp_ordenes.id as id', 'alp_ordenes.referencia as referencia','users.first_name as first_name', 'users.last_name as last_name')
+        ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+        ->orderby('alp_ordenes.id', 'desc')
+        ->get();
 
+        $clientes = AlpClientes::select('alp_clientes.*', 'users.first_name as first_name', 'users.last_name as last_name')
+          ->join('users', 'alp_clientes.id_user_client', '=', 'users.id')
+          ->where('alp_clientes.estado_registro', '1')
+          ->get();
 
+          $tipobono=AlpAbonosTipo::get();
 
-        return view ('admin.abonos.create');
+        return view ('admin.abonos.create', compact('ordenes', 'clientes', 'tipobono'));
     }
 
     /**
@@ -130,11 +148,49 @@ class AlpAbonosController extends JoshController
             'codigo_abono' => $request->codigo_abono, 
             'valor_abono' => $request->valor_abono, 
             'fecha_final' => $request->fecha_final,
-            'origen' => 'Administrador',  
+            'origen' => $request->origen,
+            'motivo' => $request->motivo,
+            'id_orden' => $request->id_orden,
+            'token' => md5(time()),
+            'notas' => $request->notas,
             'id_user' =>$user_id
         );
          
         $abono=AlpAbonos::create($data);
+
+
+        if (is_null($request->id_cliente)) {
+            # code...
+        }else{
+
+
+            $data_abono = array(
+            'id_abono'=>$abono->id,
+            'id_cliente'=>$request->id_cliente,
+            'operacion'=>1,
+            'codigo_abono'=>$abono->codigo_abono,
+            'valor_abono'=>$abono->valor_abono,
+            'fecha_final'=>$abono->fecha_final,
+            'origen'=>$abono->origen,
+            'token'=>$abono->token,
+            'json'=>json_encode($abono),
+            'id_user'=>$user_id
+          );
+
+          AlpAbonosDisponible::create($data_abono);
+
+          $data_user = array(
+            'id_abono' => $abono->id, 
+            'id_cliente'=>$request->id_cliente,
+            'id_user'=>$user_id
+          );
+
+          AlpAbonosUser::create($data_user);
+
+          $abono->update(['estado_registro'=>0]);
+
+
+        }
 
         if ($abono->id) {
 

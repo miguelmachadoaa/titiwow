@@ -85,9 +85,66 @@ Editar Abonos
                         </div>
 
 
+
+                        <div class="form-group {{ $errors->
+                            first('tipo_abono', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Tipo de Bono
+                            </label>
+                            <div class="col-sm-5">
+                                
+                                 <select id="tipo_abono" name="tipo_abono" class="form-control select2">
+
+                                    <option value="">Seleccione</option>
+                                    
+                                    @foreach($tipoabno as $ta)
+
+                                    <option value="{{ $ta->id }}">
+                                       @if($abono->tipo_abono==$ta->id) {{'Selected'}} @endif     {{ $ta->nombre_tipo}}</option>
+                                    @endforeach
+                                    
+                                  
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('tipo_abono', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
                        
 
+                        <div class="form-group {{ $errors->
+                            first('motivo', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Motivo
+                            </label>
+                            <div class="col-sm-5">
+                                
 
+                                <textarea class="form-control resize_vertical" id="motivo" name="motivo" placeholder="Descripción Almacen" rows="5">{!! old('motivo') !!}</textarea>
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('motivo', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+                        <div class="form-group {{ $errors->
+                            first('notas', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Notas
+                            </label>
+                            <div class="col-sm-5">
+                                
+
+                                <textarea class="form-control resize_vertical" id="notas" name="notas" placeholder="Descripción Almacen" rows="5">{!! old('notas') !!}</textarea>
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('notas', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
+                        
 
                             <!-- ubicacion de la sede   -->
 

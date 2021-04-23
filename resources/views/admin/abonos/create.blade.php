@@ -6,6 +6,16 @@
     @parent
 @stop
 
+
+@section('header_styles')
+    
+
+    <link href="{{ secure_asset('assets/vendors/select2/css/select2.min.css') }}" rel="stylesheet" />
+
+    <link href="{{ secure_asset('assets/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" />
+    
+@stop
+
 {{-- Content --}}
 @section('content')
 <section class="content-header">
@@ -87,6 +97,34 @@
                         </div>
 
 
+                        <div class="form-group {{ $errors->
+                            first('tipo', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Tipo de Bono
+                            </label>
+                            <div class="col-sm-5">
+                                
+                                 <select id="tipo" name="tipo" class="form-control select2">
+
+                                    <option value="">Seleccione</option>
+                                    
+                                    @foreach($tipobono as $ta)
+
+                                    <option value="{{ $ta->id }}">
+                                            {{ $ta->nombre_tipo}}</option>
+                                    @endforeach
+                                    
+                                  
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('tipo', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
+
+
 
 
                         <div class="form-group {{ $errors->
@@ -102,6 +140,95 @@
                                 {!! $errors->first('fecha_final', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
+
+
+                        <div class="form-group {{ $errors->
+                            first('motivo', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Motivo
+                            </label>
+                            <div class="col-sm-5">
+                                
+
+                                <textarea class="form-control resize_vertical" id="motivo" name="motivo" placeholder="Motivo del Bono" rows="5">{!! old('motivo') !!}</textarea>
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('motivo', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
+                        <div class="form-group {{ $errors->
+                            first('id_cliente', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Asignar Bono a Cliente <small>Opcional</small>
+                            </label>
+                            <div class="col-sm-5">
+                                
+                                 <select id="id_cliente" name="id_cliente" class="form-control select2">
+
+                                    <option value="">Seleccione</option>
+                                    
+                                    @foreach($clientes as $c)
+
+                                    <option value="{{ $c->id }}">
+                                            {{ $c->first_name.' '.$c->last_name}}</option>
+                                    @endforeach
+                                    
+                                  
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('id_cliente', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+                        <div class="form-group {{ $errors->
+                            first('id_orden', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Seleccionar Orden Motivo del bono <small>Opcional</small>
+                            </label>
+                            <div class="col-sm-5">
+                                
+                                 <select id="id_orden" name="id_orden" class="form-control select2">
+
+                                    <option value="">Seleccione</option>
+                                    
+                                    @foreach($ordenes as $o)
+
+                                    <option value="{{ $o->id }}">
+                                            {{ $o->referencia}}</option>
+                                    @endforeach
+                                    
+                                  
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('id_orden', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>x
+
+
+
+
+                        <div class="form-group {{ $errors->
+                            first('notas', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Notas
+                            </label>
+                            <div class="col-sm-5">
+                                
+
+                                <textarea class="form-control resize_vertical" id="notas" name="notas" placeholder="Notas del Bono" rows="5">{!! old('notas') !!}</textarea>
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('notas', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
+
+
 
                             <!-- ubicacion de la sede   -->
 
@@ -129,11 +256,20 @@
 
 @section('footer_scripts')
 
+<script src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
+
+
 <script type="text/javascript">
     
 
    
+    $(document).ready(function(){
 
+            $('.select2').select2({
+                placeholder: "Seleccionar",
+                theme:"bootstrap"
+            });
+    });
 
     $('#codigo_abono_generar').click(function(){
 
