@@ -862,31 +862,28 @@ class ClientesFrontController extends Controller
             $user_id = Sentinel::getUser()->id;
 
 
-
-            $orden = AlpOrdenes::find($id);
-
-              //dd($orden);
+            $orden = AlpOrdenes::where('token', $token )->first();
 
             $detalles = AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto','alp_productos.referencia_producto as referencia_producto')
                   ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
-                  ->where('alp_ordenes_detalle.id_orden', $id)
+                  ->where('alp_ordenes_detalle.id_orden', $orden->id)
                   ->get();
 
             $pago = AlpPagos::select('alp_ordenes_pagos.*','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago')
                   ->join('alp_formas_pagos', 'alp_ordenes_pagos.id_forma_pago', '=', 'alp_formas_pagos.id')
-                  ->where('alp_ordenes_pagos.id_orden', $id)
+                  ->where('alp_ordenes_pagos.id_orden', $orden->id)
                   ->first();
 
 
             $pago_aprobado = AlpPagos::select('alp_ordenes_pagos.*','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago')
                   ->join('alp_formas_pagos', 'alp_ordenes_pagos.id_forma_pago', '=', 'alp_formas_pagos.id')
-                  ->where('alp_ordenes_pagos.id_orden', $id)
+                  ->where('alp_ordenes_pagos.id_orden', $orden->id)
                   ->orderBy('alp_ordenes_pagos.id', 'desc')
                   ->first();
 
                 $pagos = AlpPagos::select('alp_ordenes_pagos.*','alp_formas_pagos.nombre_forma_pago as nombre_forma_pago')
                   ->join('alp_formas_pagos', 'alp_ordenes_pagos.id_forma_pago', '=', 'alp_formas_pagos.id')
-                  ->where('alp_ordenes_pagos.id_orden', $id)
+                  ->where('alp_ordenes_pagos.id_orden', $orden->id)
                   ->get();
 
                   //dd($pago);
@@ -894,7 +891,7 @@ class ClientesFrontController extends Controller
             $history = AlpOrdenesHistory::select('alp_ordenes_history.*', 'users.first_name as first_name', 'users.last_name as last_name', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre' )
                   ->join('alp_ordenes_estatus', 'alp_ordenes_history.id_status', '=', 'alp_ordenes_estatus.id')
                   ->join('users', 'alp_ordenes_history.id_user', '=', 'users.id')
-                  ->where('alp_ordenes_history.id_orden', $id)
+                  ->where('alp_ordenes_history.id_orden', $orden->id)
                   ->get();
 
 
