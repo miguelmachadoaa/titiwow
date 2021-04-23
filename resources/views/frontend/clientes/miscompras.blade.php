@@ -146,7 +146,7 @@ Mis Compras
                                  </button>
                             
                                 @if($row->token!=null)
-                                 <a class="btn btn-success btn-xs " data-url="{{ secure_url('detallecompra/'.$row->token) }}" data-id="{{ $row->id }}" href="{{ secure_url('detallecompra/'.$row->token) }}"> Detalle
+                                 <a class="btn btn-success btn-xs " data-url="{{ secure_url('detallecompra/'.$row->token) }}" data-id="{{ $row->id }}" href="{{ secure_url('detallecompra/'.$row->token) }}" target="_blank"> Detalle
                                  </a>
                                  @endif
 
