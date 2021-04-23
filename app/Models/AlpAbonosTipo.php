@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class AlpAbonosUser extends Model
+class AlpAbonosTipo extends Model
 {
     use SoftDeletes;
 
-    public $table = 'alp_abono_user';        
+    public $table = 'alp_tipo_bono';        
     
 
     protected $dates = ['deleted_at'];
@@ -19,8 +19,8 @@ class AlpAbonosUser extends Model
 
     public $fillable = [
         'id',
-        'id_abono',
-        'id_cliente',
+        'nombre_bono',
+        'descripcion_bono',
         'estado_registro',
         'id_user'
     ];
@@ -31,7 +31,7 @@ class AlpAbonosUser extends Model
      * @var array
      */
     protected $casts = [
-        'codigo_abono' => 'string'
+        'nombre_bono' => 'string'
     ];
 
     /**

@@ -18,6 +18,9 @@ use App\Models\AlpEmpresas;
 use App\Models\AlpConfiguracion;
 use App\Models\AlpSaldo;
 use App\Models\AlpAlmacenes;
+use App\Models\AlpAbonosDisponible;
+use App\Models\AlpAbonos;
+use App\Models\AlpAbonosUser;
 use App\User;
 use App\Roles;
 use App\RoleUser;
@@ -2267,10 +2270,13 @@ private function getSaldo()
 
 
 
-    public function edit($id)
+   
+
+
+    public function abono($id)
     {
        
-            if (Sentinel::check()) {
+        if (Sentinel::check()) {
 
           $user = Sentinel::getUser();
 
@@ -2287,14 +2293,96 @@ private function getSaldo()
         }
 
 
-       
+        $cliente = DB::table('alp_clientes')
+        //->leftJoin('users', 'alp_clientes.id_embajador', '=', 'users.id')
+        ->where('alp_clientes.id_user_client', '=', $id)->first();
 
-        return view('admin.clientes.abono', compact(''));
+        $disponible = AlpAbonosDisponible::groupBy('alp_abono_disponible.id_cliente')
+              ->select("alp_abono_disponible.*", DB::raw(  "SUM(alp_abono_disponible.valor_abono) as total"))
+              ->where('alp_abono_disponible.id_cliente', $id)
+              ->first();
+
+        $history=AlpAbonosDisponible::select('alp_abono_disponible.*', 'users.first_name as first_name', 'users.last_name as last_name')->join('users', 'alp_abono_disponible.id_cliente', '=', 'users.id')->where('id_cliente', $id)->get();
+        
+
+
+
+        $user = User::findOrFail($id);
+
+        return view('admin.clientes.abono', compact('cliente','user', 'disponible', 'history','id'));
     }
 
 
 
+    public function postabono(Request $request)
+    {
+       
+        if (Sentinel::check()) {
 
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('clientes/postabono ');
+
+        }else{
+
+          activity()->log('clientes/postabono');
+
+        }
+
+
+        $a=AlpAbonos::where('codigo_abono', '=', $request->codigo_abono)->where('estado_registro', '1')->first();
+
+        if (isset($a->id)) {
+
+
+          $data_abono = array(
+            'id_abono'=>$a->id,
+            'id_cliente'=>$request->id_cliente,
+            'operacion'=>1,
+            'codigo_abono'=>$a->codigo_abono,
+            'valor_abono'=>$a->valor_abono,
+            'fecha_final'=>$a->fecha_final,
+            'origen'=>'Administrador',
+            'token'=>$a->token,
+            'json'=>json_encode($a),
+            'id_user'=>$user->id
+          );
+
+          AlpAbonosDisponible::create($data_abono);
+
+          $data_user = array(
+            'id_abono' => $a->id, 
+            'id_cliente'=>$request->id_cliente,
+            'id_user'=>$user->id
+          );
+
+          AlpAbonosUser::create($data_user);
+
+          $a->update(['estado_registro'=>0]);
+
+
+          # code...
+        }
+
+
+        $cliente = DB::table('alp_clientes')
+        //->leftJoin('users', 'alp_clientes.id_embajador', '=', 'users.id')
+        ->where('alp_clientes.id_user_client', '=', $request->id_cliente)->first();
+
+        $disponible = AlpAbonosDisponible::groupBy('alp_abono_disponible.id_cliente')
+              ->select("alp_abono_disponible.*", DB::raw(  "SUM(alp_abono_disponible.valor_abono) as total"))
+              ->where('alp_abono_disponible.id_cliente', $request->id_cliente)
+              ->first();
+
+        $history=AlpAbonosDisponible::select('alp_abono_disponible.*', 'users.first_name as first_name', 'users.last_name as last_name')->join('users', 'alp_abono_disponible.id_cliente', '=', 'users.id')->where('id_cliente', $request->id_cliente)->get();
+        
+        $user = User::findOrFail($request->id_cliente);
+
+        return view('admin.clientes.abono', compact('cliente','user', 'disponible', 'history'));
+    }
 
 
 

@@ -35,6 +35,17 @@
         </ol>
     </section>
     <section class="content">
+
+       <div class="row">
+            <div class="col-sm-12">
+
+                @if(isset($disponible->total))
+                <h3>Saldo de Abono Disponible: {{$disponible->total}}</h3>
+                @else
+                <h3>Saldo de Abono Disponible: {{'0'}}</h3>
+                @endif
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-primary">
@@ -49,7 +60,7 @@
                     </div>
                     <div class="panel-body">
                         <!--main content-->
-                        {!! Form::model($user, ['url' => secure_url('admin/clientes/'. $user->id.'abono'), 'method' => 'post', 'class' => 'form-horizontal','id'=>'commentForm', 'enctype'=>'multipart/form-data','files'=> true]) !!}
+                        {!! Form::model($user, ['url' => secure_url('admin/clientes/'. $user->id.'/abono'), 'method' => 'post', 'class' => 'form-horizontal','id'=>'commentForm', 'enctype'=>'multipart/form-data','files'=> true]) !!}
                             {{ csrf_field() }}
 
                             <input type="hidden" name="id_cliente" id="id_cliente" value="{{ $user->id }}">
@@ -61,12 +72,26 @@
                                 </label>
                                 <div class="col-sm-5">
                                     <input type="text" id="codigo_abono" name="codigo_abono" class="form-control" placeholder="Codigo Abono"
-                                           value="{!! old('codigo_abono', $abono->codigo_abono) !!}">
+                                           value="{!! old('codigo_abono') !!}">
                                 </div>
                                 <div class="col-sm-4">
                                     {!! $errors->first('codigo_abono', '<span class="help-block">:message</span> ') !!}
                                 </div>
                             </div>
+
+
+                            <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-4">
+                                
+                                <a class="btn btn-danger" href="{{ secure_url('admin/clientes') }}">
+                                    Cancelar
+                                </a>
+
+                                <button type="submit" class="btn btn-success">
+                                    Crear
+                                </button>
+                            </div>
+                        </div>
 
                             
                         </form>
@@ -78,6 +103,54 @@
         </div>
         <!--row end-->
     </section>
+
+
+    <section class="content">
+
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="livicon" data-name="user-add" data-size="18" data-c="#fff" data-hc="#fff" data-loop="true"></i>
+                            Historial de Cambios
+                        </h3>
+                        <span class="pull-right">
+                             <i class="glyphicon glyphicon-chevron-up clickable"></i>
+                        </span>
+                    </div>
+                    <div class="panel-body">
+
+
+                        <div class="row">
+                                
+                                @foreach($history as $h)
+
+                                <div class="col-sm-12 alert alert-info">
+
+                                <p>Id de Trama: {{$h->id}}</p>
+                                <p>Monto : {{$h->valor_abono}}</p>
+                                <p>Origen : {{$h->origen}}</p>
+                                <p>Actualizado por: {{$h->id_cliente}}</p>
+                                <p>Fecha:  {{$h->created_at}}</p>
+                                
+
+                            </div>
+
+
+                                @endforeach
+                        </div>
+                    
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--row end-->
+    </section>
+
+
 @stop
 
 {{-- page level scripts --}}

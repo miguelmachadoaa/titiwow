@@ -1258,6 +1258,9 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
     Route::resource('abonos', 'Admin\AlpAbonosController');
 
+    Route::get('clientes/{id}/abono', 'Admin\AlpClientesController@abono')->name('clientes.abono');
+
+    Route::post('clientes/{id}/abono', 'Admin\AlpClientesController@postabono')->name('clientes.postabono');
 
 
     /*Inicio CMS*/
@@ -1493,6 +1496,11 @@ Route::post(    'order/procesar',     [
 Route::post(    'order/procesarticket',     [ 
         'as'=>'order.procesarticket', 
         'uses'=>'Admin\AlpCartController@orderProcesarTicket'
+    ]);
+
+Route::post(    'order/procesarbono',     [ 
+        'as'=>'order.procesarbono', 
+        'uses'=>'Admin\AlpCartController@orderProcesarBono'
     ]);
 
 Route::post(    'order/creditcard',     [ 

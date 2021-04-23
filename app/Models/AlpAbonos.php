@@ -24,6 +24,10 @@ class AlpAbonos extends Model
         'fecha_final',
         'origen',
         'token',
+        'id_orden',
+        'motivo',
+        'notas',
+        'tipo_abono',
         'estado_registro',
         'id_user'
     ];

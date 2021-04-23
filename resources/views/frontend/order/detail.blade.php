@@ -824,9 +824,11 @@ $('.sendCupon').click(function () {
 
             //$('.overlay').fadeIn();
             //
-            
+            console.log('click ');
 
             bono_use= $("#bono_use").val();
+
+            console.log('bono_use '+bono_use);
 
 
             id_direccion= $("#id_direccion").val(); 
@@ -857,6 +859,8 @@ $('.sendCupon').click(function () {
                 id_forma_pago=$(this).data('id');
 
                 base=$('#base').val();
+
+                console.log('forma_pago '+id_forma_pago);
 
                 if (id_forma_pago==2) {
 
@@ -957,7 +961,11 @@ $('.sendCupon').click(function () {
 
                     console.log($('#banpago').val());
 
+                    console.log(bono_use);
+
                         if (banpago==0) {
+
+                            console.log('paso ban pago');
 
                             $('#banpago').val('1');
 
@@ -983,7 +991,7 @@ $('.sendCupon').click(function () {
                                                 
                                             complete: function(datos){     
 
-                                                $(location).attr("href", datos.responseText);
+                                               $(location).attr("href", datos.responseText);
                                             
                                             }
 
