@@ -285,7 +285,7 @@ class VerificarPagos extends Command
 
                  $orden=AlpOrdenes::where('id', $orden->id)->first();
 
-                 $detalles = AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto','alp_productos.referencia_producto as referencia_producto')
+                 $detalles = AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto','alp_productos.referencia_producto as referencia_producto','alp_productos.tipo_producto as tipo_producto')
                   ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
                   ->where('alp_ordenes_detalle.id_orden', $orden->id)
                   ->whereNull('alp_ordenes_detalle.deleted_at')
@@ -422,6 +422,28 @@ class VerificarPagos extends Command
                     activity()->withProperties(1)->log('Error de correo vp408');
                     
                   }
+
+
+
+
+                  foreach ($detalles as $d ) {
+
+                    if ($d->tipo_producto=='4') {
+
+                      $prod=AlpProductos::Where('id_producto', '=', $d->id_producto)->first();
+
+                        Mail::to($user_cliente->email)->send(new \App\Mail\NotificacionDigital($prod));
+                      
+                        Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionDigital($prod));
+
+                    }
+                    # code...
+                  }
+
+
+
+
+
 
 
           
