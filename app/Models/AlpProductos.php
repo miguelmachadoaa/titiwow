@@ -47,6 +47,7 @@ class AlpProductos extends Model
         'referencia_producto_sap',
         'descripcion_corta',
         'descripcion_larga',
+        'contenido_digital',
         'imagen_producto',
         'imagen_tiny',
         'seo_titulo',

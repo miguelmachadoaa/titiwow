@@ -1134,12 +1134,16 @@ class ProductosFrontController extends Controller
         ->orderBy('alp_productos.updated_at', 'desc')
         ->paginate(36); 	
         //$productos->appends(['buscar' => $request->get('buscar')]);
+        //
+      //  dd($productos);
 
         
 
         $cart= \Session::get('cart');
 
     $prods=$this->addOferta($productos);
+
+   # dd($prods);
 
         $total=0;
 

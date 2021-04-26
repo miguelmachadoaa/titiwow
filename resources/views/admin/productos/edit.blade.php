@@ -196,7 +196,7 @@
 
                                                          <option value="3" @if($producto->tipo_producto==3) {{ 'Selected' }} @endif >Ancheta</option>
 
-
+                                                         <option value="4" @if($producto->tipo_producto==4) {{ 'Selected' }} @endif >Digital</option>
 
                                                     </select>
                                                         {!! $errors->first('tipo_producto', '<span class="help-block">:message</span>') !!}
@@ -335,6 +335,113 @@
 
 
 
+                            <div class="panel panel-success  @if($producto->tipo_producto==2) @else {{ 'hidden' }}  @endif " id="panelDigital">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a href="#addProductos" data-parent="#accordion-demo" data-toggle="collapse">Incluir Productos</a>
+                                    </h4>
+                                </div>
+                                <div id="addProductos" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                        
+                                        
+                                        <div class="form-group col-sm-12 {{ $errors->first('id_impuesto', 'has-error') }}">
+                                            <label for="select21" class="col-md-3 control-label">
+                                               Productos
+                                            </label>
+                                            <div class="col-md-7">   
+                                             <select style="width: 100%; height: 2.5em;"  style="width: 50%" id="id_producto" name="id_producto" class="form-control select2 js-example-responsive">
+                                                <option value="">Seleccione</option>
+                                                    
+                                                    @foreach($productos as $pro)
+                                                        
+                                                        <option value="{{ $pro->id }}">{{ $pro->nombre_producto.' - '.$pro->referencia_producto}}
+                                                        </option>
+
+                                                    @endforeach
+                                            </select>
+
+                                              {!! $errors->first('id_producto', '<span class="help-block">:message</span> ') !!}
+                                            </div>
+
+
+                                            <div class="col-md-2">   
+
+                                                <button type="button" class="btn btn-primary addProductoCupon" > Agregar</button>
+                                             
+
+                                              
+                                            </div>
+                                               
+                                        </div>
+
+
+                                        <div class="col-sm-12 listaProducos"> 
+
+                                                
+                                            <table class="table table-responsive" id="tableListProductos">
+                                                <thead>
+                                                    <tr>
+                                                        <td>Producto</td>
+                                                        <td>Cantidad</td>
+                                                        <td>Precio</td>
+                                                        <td>Accion</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    @if(count($productos_list))
+
+                                                    @foreach($productos_list as $pl)
+
+                                                    <tr id="tr{{$pl->id_producto}}">
+                                                        <td>
+                                                            {{$pl->nombre_producto.' - '.$pl->referencia_producto}}
+                                                        </td>
+                                                        <td>
+                                                            <input type="number" step="1" min="1" name="c_can_{{$pl->id_producto}}" id="c_can_{{$pl->id_producto}}" value="{{$pl->cantidad}}"> 
+                                                            
+                                                        </td>
+                                                        <td>
+                                                            <input type="number" step="1" min="1" name="c_precio_{{$pl->id_producto}}" id="c_can_{{$pl->id_producto}}" value="{{$pl->precio}}"> 
+                                                            
+                                                        </td>
+                                                        <td>
+                                                            <button data-id="{{$pl->id_producto}}" class="btn btn-danger delProductoCombo"><i class="fa fa-trash"></i></button>
+
+                                                            <input type="hidden" id="c_pro_{{$pl->id_producto}}" name="c_pro_{{$pl->id_producto}}" value="{{$pl->id_producto}}">
+                                                        </td>
+                                                    </tr>
+
+
+                                                    @endforeach
+
+                                                    @endif
+                                                    
+                                                </tbody>
+                                            </table>    
+
+
+                                        </div>
+                                           
+
+
+                                            <div class="acc-wizard-step"></div>
+
+                                             <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
+                                        
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!-- /.panel.panel-default -->
+
+
+
+
+
+
 
 
 
@@ -364,7 +471,46 @@
 
 
 
+                            <div class="panel panel-success @if(old('tipo_producto')!=null) @if(old('tipo_producto')==1) {{ 'hidden' }}  @endif @else {{'hidden'}} @endif" id="panelDigital">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a href="#addDigital" data-parent="#accordion-demo" data-toggle="collapse">Contenido De producto Digital</a>
+                                    </h4>
+                                </div>
+                                <div id="addDigital" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                        
+                                        
+                                        <div class="form-group col-sm-12 {{ $errors->first('contenido_digital', 'has-error') }}">
+                                            <label for="select21" class="col-md-3 control-label">
+                                               Contenido de producto digial
+                                            </label>
+                                            <div class="col-md-7">   
 
+                                                <textarea class="form-control resize_vertical" id="contenido_digital" name="contenido_digital" placeholder="Contenido Digital " rows="5">{{ old('descripcion_corta', $producto->contenido_digital) }}</textarea>
+
+
+                                             
+
+                                              {!! $errors->first('contenido_digital', '<span class="help-block">:message</span> ') !!}
+                                            </div>
+
+
+                                               
+                                        </div>
+
+
+
+                                            <div class="acc-wizard-step"></div>
+
+                                             <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
+                                        
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!-- /.panel.panel-default -->
 
 
 
@@ -1311,6 +1457,23 @@
          $('#panel_combo').attr('href', '#addwizard');
 
     }
+
+
+    if ($(this).val()=='4') {
+
+        $('#panelDigital').removeClass('hidden');
+
+        $('#panel_combo').attr('href', '#addAncheta');
+
+    }else{
+
+        $('#panelDigital').addClass('hidden');
+
+         $('#panel_combo').attr('href', '#addwizard');
+
+    }
+
+
 
 
 

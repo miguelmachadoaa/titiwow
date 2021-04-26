@@ -8,7 +8,7 @@
                                 <p>{{$producto->updated_at}}</p-->
 
                             
-                             @if($producto->tipo_producto=='1' || $producto->tipo_producto=='3')
+                             @if($producto->tipo_producto=='1' || $producto->tipo_producto=='3' || $producto->tipo_producto=='4')
 
                                 @if(isset($inventario[$producto->id]))
 
@@ -170,7 +170,7 @@
                             
                             <div class="product_botones boton_{{ $producto->id }}">
 
-                        @if($producto->tipo_producto=='1')  
+                        @if($producto->tipo_producto=='1' || $producto->tipo_producto=='4')  
                         
                             @if(isset($inventario[$producto->id]))
                               

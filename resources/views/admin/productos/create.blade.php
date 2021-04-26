@@ -222,6 +222,8 @@
                                                          <option value="2"  >Combo</option>
 
                                                          <option value="3"  >Ancheta</option>
+
+                                                         <option value="4"  >Digital</option>
                                                        
 
                                                     </select>
@@ -353,6 +355,50 @@
                                 </div>
 
                             </div>
+
+
+                            <div class="panel panel-success @if(old('tipo_producto')!=null) @if(old('tipo_producto')==1) {{ 'hidden' }}  @endif @else {{'hidden'}} @endif" id="panelDigital">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a href="#addDigital" data-parent="#accordion-demo" data-toggle="collapse">Contenido De producto Digital</a>
+                                    </h4>
+                                </div>
+                                <div id="addDigital" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                        
+                                        
+                                        <div class="form-group col-sm-12 {{ $errors->first('contenido_digital', 'has-error') }}">
+                                            <label for="select21" class="col-md-3 control-label">
+                                               Contenido de producto digial
+                                            </label>
+                                            <div class="col-md-7">   
+
+                                                <textarea class="form-control resize_vertical" id="contenido_digital" name="contenido_digital" placeholder="Contenido Digital " rows="5">{{ old('contenido_digital') }}</textarea>
+
+
+                                             
+
+                                              {!! $errors->first('contenido_digital', '<span class="help-block">:message</span> ') !!}
+                                            </div>
+
+
+                                               
+                                        </div>
+
+
+
+                                            <div class="acc-wizard-step"></div>
+
+                                             <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
+                                        
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!-- /.panel.panel-default -->
+
+
 
 
 
@@ -1684,6 +1730,23 @@ $('#productosForm').keypress(
     }else{
 
         $('#panelAnchetaProductos').addClass('hidden');
+
+         $('#panel_combo').attr('href', '#addwizard');
+
+    }
+
+
+    if ($(this).val()=='4') {
+
+      
+
+        $('#panelDigital').removeClass('hidden');
+
+        $('#panel_combo').attr('href', '#addAncheta');
+
+    }else{
+
+        $('#panelDigital').addClass('hidden');
 
          $('#panel_combo').attr('href', '#addwizard');
 
