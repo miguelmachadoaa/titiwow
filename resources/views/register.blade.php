@@ -72,7 +72,7 @@
             <div id="notific">
             @include('notifications')
             </div>
-            <form action="{{ secure_url('registro') }}" method="POST" id="reg_form" name="reg_form">
+            <form action="{{ secure_url('registro') }}" method="POST" id="reg_form" name="reg_form" autocomplete="off">
                 <!-- CSRF Token -->
                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 

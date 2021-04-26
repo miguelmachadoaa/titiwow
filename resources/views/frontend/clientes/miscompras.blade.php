@@ -72,7 +72,7 @@ Mis Compras
 
                     <tr>
                         <td>
-                            {{ $row->id }}
+                            {{ $row->referencia }}
                         </td>
                         <td>
                             {{ $row->first_name.' '.$row->last_name }}
@@ -140,15 +140,15 @@ Mis Compras
                                 @endif 
 
                             @endif 
-
+                            
                                   <button class="btn btn-info btn-xs seeDetalle" data-url="{{ secure_url('clientes/'.$row->id.'/detalle') }}" data-id="{{ $row->id }}" href="{{ secure_url('clientes/'.$row->id.'/detalle') }}">
                                     <i class="livicon "  data-name="eye" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Ver Detalle"></i>
                                  </button>
-
-
-                                 <a class="btn btn-success btn-xs " data-url="{{ secure_url('detallecompra/'.$row->id) }}" data-id="{{ $row->id }}" href="{{ secure_url('detallecompra/'.$row->id) }}"> Detalle
+                            
+                                @if($row->token!=null)
+                                 <a class="btn btn-success btn-xs " data-url="{{ secure_url('detallecompra/'.$row->token) }}" data-id="{{ $row->id }}" href="{{ secure_url('detallecompra/'.$row->token) }}" target="_blank"> Detalle
                                  </a>
-
+                                 @endif
 
                                 <!--@if($row->estatus!='4')
 

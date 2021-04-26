@@ -77,7 +77,7 @@ class UserRequest extends FormRequest
                 return [
                     'first_name' => 'required|min:3',
                     'last_name' => 'required|min:3',
-                    'email' => 'required|unique:users,email,' . $this->user->id,
+                    'email' => 'required|email|unique:users,email,' . $this->user->id,
                     'password_confirm' => 'sometimes|same:password',
                     'doc_cliente' => 'unique:alp_clientes,doc_cliente',
                     'id_type_doc' => 'required',

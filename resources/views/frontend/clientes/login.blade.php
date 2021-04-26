@@ -39,7 +39,7 @@
                     <a class="hiddenanchor" id="toforgot"></a>
                     <div id="wrapper">
                         <div id="login" class="animate form">
-                            <form action="{{ secure_url('signin') }}" autocomplete="on" method="post" role="form" id="login_form">
+                            <form action="{{ secure_url('signin') }}" autocomplete="off" method="post" role="form" id="login_form">
                                 <h3 class="black_bg">
                                     <img src="{{ secure_asset('assets/img/login.png') }}" alt="Alpina">
                                     <br>Backend</h3>

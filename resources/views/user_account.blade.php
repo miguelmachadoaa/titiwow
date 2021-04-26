@@ -9,7 +9,7 @@
 {{-- page level styles --}}
 @section('header_styles')
 
- <link rel="canonical" href="{{secure_url('my-account')}}" />
+ <link rel="canonical" href="{{secure_url('mi-cuenta')}}" />
 
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ secure_asset('assets/vendors/iCheck/css/minimal/blue.css') }}">
@@ -60,7 +60,7 @@
                         </div>
 
                         @if(isset($user->id))
-                        {!! Form::model($user, ['url' => secure_url('my-account'), 'method' => 'put', 'class' => 'form-horizontal','enctype'=>"multipart/form-data"]) !!}
+                        {!! Form::model($user, ['url' => secure_url('mi-cuenta'), 'method' => 'put', 'class' => 'form-horizontal','enctype'=>"multipart/form-data"]) !!}
 
                         {{ csrf_field() }}
                            
