@@ -198,6 +198,18 @@ Area clientes
                     </div>
                 </a>
             </div> 
+
+            <div class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center">   
+                <a href="{{ secure_url('bono') }}" class=" btn-medium cajita">
+                    <div class="row">
+                    <div class="col-sm-12" style="height: 2em;" ><i class="fa fa-gift"></i></div>
+                    <div class="col-sm-12">Tarjeta de Regalo </div>
+                    </div>
+                </a>
+            </div>
+
+
+
                 @if (Sentinel::getUser()->hasAnyAccess(['clientes.misamigos']))
                 <div class="col-xs-6 col-sm-3 col-lg-2 col-md-3 text-center"> 
                 <a  href="{{ secure_url('misamigos') }}" class=" btn-medium cajita">

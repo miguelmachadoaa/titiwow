@@ -99,17 +99,71 @@ Editar Abonos
                                     
                                     @foreach($tipobono as $ta)
 
-                                    <option value="{{ $ta->id }}">
-                                       @if($abono->tipo_abono==$ta->id) {{'Selected'}} @endif     {{ $ta->nombre_tipo}}</option>
+                                    <option @if($abono->tipo_abono==$ta->id) {{'Selected'}} @endif value="{{ $ta->id }}">
+                                            {{ $ta->nombre_tipo}}</option>
                                     @endforeach
                                     
                                   
                                 </select>
                             </div>
                             <div class="col-sm-4">
-                                {!! $errors->first('tipo_abono', '<span class="help-block">:message</span> ') !!}
+                                {!! $errors->first('tipo', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
+
+                        <div class="form-group {{ $errors->
+                            first('id_orden', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Seleccionar Orden Motivo del bono <small>Opcional</small>
+                            </label>
+                            <div class="col-sm-5">
+                                
+                                 <select id="id_orden" name="id_orden" class="form-control select2">
+
+                                    <option value="">Seleccione</option>
+                                    
+                                    @foreach($ordenes as $o)
+
+                                    <option @if($abono->id_orden==$o->id) {{'Selected'}} @endif value="{{ $o->id }}">
+                                            {{ $o->referencia}}</option>
+                                    @endforeach
+                                    
+                                  
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('id_orden', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group {{ $errors->
+                            first('id_cliente', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Asignar Bono a Cliente <small>Opcional</small>
+                            </label>
+                            <div class="col-sm-5">
+                                
+                                 <select id="id_cliente" name="id_cliente"  @if($abono->estado_registro==0) {{'Disable'}}@endif class="form-control select2">
+
+                                    <option value="">Seleccione</option>
+                                    
+                                    @foreach($clientes as $c)
+
+                                    <option @if($abono->id_cliente==$c->id) {{'Selected'}} @endif value="{{ $c->id }}">  {{ $c->first_name.' '.$c->last_name.' - '.$c->email}}</option>
+                                    @endforeach
+                                    
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('id_cliente', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
+
+
 
                        
 
@@ -121,7 +175,7 @@ Editar Abonos
                             <div class="col-sm-5">
                                 
 
-                                <textarea class="form-control resize_vertical" id="motivo" name="motivo" placeholder="Descripción Almacen" rows="5">{!! old('motivo') !!}</textarea>
+                                <textarea class="form-control resize_vertical" id="motivo" name="motivo" placeholder="Descripción Almacen" rows="5">{!! old('motivo', $abono->motivo) !!}</textarea>
                             </div>
                             <div class="col-sm-4">
                                 {!! $errors->first('motivo', '<span class="help-block">:message</span> ') !!}
@@ -136,7 +190,7 @@ Editar Abonos
                             <div class="col-sm-5">
                                 
 
-                                <textarea class="form-control resize_vertical" id="notas" name="notas" placeholder="Descripción Almacen" rows="5">{!! old('notas') !!}</textarea>
+                                <textarea class="form-control resize_vertical" id="notas" name="notas" placeholder="Descripción Almacen" rows="5">{!! old('notas', $abono->notas) !!}</textarea>
                             </div>
                             <div class="col-sm-4">
                                 {!! $errors->first('notas', '<span class="help-block">:message</span> ') !!}
@@ -152,7 +206,7 @@ Editar Abonos
                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                 
-                                <a class="btn btn-danger" href="{{ route('admin.sedes.index') }}">
+                                <a class="btn btn-danger" href="{{ route('admin.abonos.index') }}">
                                     Cancelar
                                 </a>
 

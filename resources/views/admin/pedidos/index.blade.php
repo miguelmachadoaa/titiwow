@@ -316,6 +316,15 @@ Pedidos
     });
 
 
+  document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('input[type=number]').forEach( node => node.addEventListener('keypress', e => {
+        if(e.keyCode == 13) {
+          e.preventDefault();
+        }
+      }))
+    });
+
+
 
   
 

@@ -934,19 +934,13 @@ Pedidos
 
                         <form method="POST" action="{{secure_url('ordenes/confirmar')}}" id="confirmarOrdenForm" name="confirmarOrdenForm" class="form-horizontal">
 
-
-
                             <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
 
                             <input type="hidden" name="confirm_id" id="confirm_id" value="">
 
-
-
                             {{ csrf_field() }}
 
                             <div class="row">
-
-
 
                                 <div class="form-group col-sm-12">
 
@@ -960,59 +954,38 @@ Pedidos
 
                                        <div class="input-group">
 
-                                     
-
                                           <input type="text" name="buscar_cliente" id="buscar_cliente" class="form-control" placeholder="Buscar...">
-
-
 
                                            <span class="input-group-btn">
 
-
-
                                             <button class="btn btn-primary btn_buscar_cliente" type="button">Buscar</button>
-
-
 
                                           </span>
 
                                         </div><!-- /input-group -->
-
-
-
-
 
                                     </div>
 
                                 </div>
 
 
-
                                 <div class="col-sm-12 lista_clientes" style="overflow-y: scroll;height: 50%;">
-
-
 
                                     @include('admin.pedidos.listaclientes')
 
-
-
                                 </div>
-
-
 
                             </div>
 
                         </form>
 
 
-
                     </div>
 
                     <div class="modal-footer">
 
-                        <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button"  class="btn  btn-danger" data-dismiss="modal">Cerrar</button>
 
-                        <button type="button" class="btn  btn-primary sendConfirmar" >Agregar</button>
 
                     </div>
 

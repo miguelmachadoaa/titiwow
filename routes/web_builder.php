@@ -1254,6 +1254,8 @@ Route::group(['prefix' => 'estatuspagos'], function () {
         Route::get('{id}/restore', 'Admin\AlpAbonosController@getRestore')->name('abonos.restore');
 
         });
+
+    
     Route::post('abonos/create', 'Admin\AlpAbonosController@store');
 
     Route::resource('abonos', 'Admin\AlpAbonosController');

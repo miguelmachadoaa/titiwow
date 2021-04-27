@@ -96,7 +96,7 @@ class AlpAbonosController extends JoshController
         ->orderby('alp_ordenes.id', 'desc')
         ->get();
 
-        $clientes = AlpClientes::select('alp_clientes.*', 'users.first_name as first_name', 'users.last_name as last_name')
+        $clientes = AlpClientes::select('alp_clientes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
           ->join('users', 'alp_clientes.id_user_client', '=', 'users.id')
           ->where('alp_clientes.estado_registro', '1')
           ->get();
@@ -151,6 +151,7 @@ class AlpAbonosController extends JoshController
             'origen' => $request->origen,
             'motivo' => $request->motivo,
             'id_orden' => $request->id_orden,
+            'tipo_abono' => $request->tipo_abono,
             'token' => md5(time()),
             'notas' => $request->notas,
             'id_user' =>$user_id
@@ -231,10 +232,20 @@ class AlpAbonosController extends JoshController
 
         }
 
+        $ordenes=AlpOrdenes::select('alp_ordenes.id as id', 'alp_ordenes.referencia as referencia','users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+        ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+        ->orderby('alp_ordenes.id', 'desc')
+        ->get();
+
+        $clientes = AlpClientes::select('alp_clientes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+          ->join('users', 'alp_clientes.id_user_client', '=', 'users.id')
+          ->where('alp_clientes.estado_registro', '1')
+          ->get();
+
+          $tipobono=AlpAbonosTipo::get();
 
 
-
-        return view('admin.abonos.edit', compact('abono'));
+        return view('admin.abonos.edit', compact('abono', 'ordenes', 'clientes', 'tipobono'));
     }
 
     /**
@@ -243,7 +254,7 @@ class AlpAbonosController extends JoshController
      * @param  int $id
      * @return Redirect
      */
-    public function update(AbonoRequest $request, $id)
+    public function update(Request $request, $id)
     {
 
 
@@ -264,22 +275,78 @@ class AlpAbonosController extends JoshController
 
         }
 
+        $b=AlpAbonos::where('codigo_abono', '=', $request->codigo_abono)->first();
 
-       
+        if (isset($b->id)) {
 
 
+            if ($b->id==$id) {
+                # code...
+            }else{
 
-        $data = array(
+                return Redirect::route('admin/abonos')->withInput()->with('error', trans('El codigo que intenta usar ya esta siendo usado'));
+
+            }
+
+            
+        }
+
+
+       $data = array(
             'codigo_abono' => $request->codigo_abono, 
             'valor_abono' => $request->valor_abono, 
             'fecha_final' => $request->fecha_final,
-            'origen' => 'Administrador',
+            'origen' => $request->origen,
+            'motivo' => $request->motivo,
+            'id_orden' => $request->id_orden,
+            'tipo_abono' => $request->tipo_abono,
+            'token' => md5(time()),
+            'notas' => $request->notas,
             'id_user' =>$user->id
         );
+
+      # dd($data);
+
          
-       $abono = AlpAbonos::find($id);
+        $abono = AlpAbonos::find($id);
     
         $abono->update($data);
+
+        if (is_null($request->id_cliente)) {
+            # code...
+        }else{
+
+            if ($abono->estado_registro=='1') {
+                
+                 $data_abono = array(
+                'id_abono'=>$abono->id,
+                'id_cliente'=>$request->id_cliente,
+                'operacion'=>1,
+                'codigo_abono'=>$abono->codigo_abono,
+                'valor_abono'=>$abono->valor_abono,
+                'fecha_final'=>$abono->fecha_final,
+                'origen'=>$abono->origen,
+                'token'=>$abono->token,
+                'json'=>json_encode($abono),
+                'id_user'=>$user->id
+              );
+
+              AlpAbonosDisponible::create($data_abono);
+
+              $data_user = array(
+                'id_abono' => $abono->id, 
+                'id_cliente'=>$request->id_cliente,
+                'id_user'=>$user->id
+              );
+
+              AlpAbonosUser::create($data_user);
+
+              $abono->update(['estado_registro'=>0]);
+
+            }
+
+        }
+
 
         if ($abono->id) {
 

@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="col-sm-2" style="padding: 0.5em;">
-                    <button type="button" data-id="{{$c->id}}" class="btn btn-primary asignaCliente">Seleccionar</button>
+                    <button type="button" data-id="{{$c->id}}" class="btn btn-success asignaCliente">Seleccionar</button>
                 </div>
             </div>
 

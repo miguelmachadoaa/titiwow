@@ -98,13 +98,13 @@
 
 
                         <div class="form-group {{ $errors->
-                            first('tipo', 'has-error') }}">
+                            first('tipo_abono', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
                                 Tipo de Bono
                             </label>
                             <div class="col-sm-5">
                                 
-                                 <select id="tipo" name="tipo" class="form-control select2">
+                                 <select id="tipo_abono" name="tipo_abono" class="form-control select2">
 
                                     <option value="">Seleccione</option>
                                     
@@ -118,7 +118,7 @@
                                 </select>
                             </div>
                             <div class="col-sm-4">
-                                {!! $errors->first('tipo', '<span class="help-block">:message</span> ') !!}
+                                {!! $errors->first('tipo_abono', '<span class="help-block">:message</span> ') !!}
                             </div>
                         </div>
 
@@ -172,7 +172,7 @@
                                     @foreach($clientes as $c)
 
                                     <option value="{{ $c->id }}">
-                                            {{ $c->first_name.' '.$c->last_name}}</option>
+                                            {{ $c->first_name.' '.$c->last_name.' - '.$c->email}}</option>
                                     @endforeach
                                     
                                   
@@ -206,7 +206,7 @@
                             <div class="col-sm-4">
                                 {!! $errors->first('id_orden', '<span class="help-block">:message</span> ') !!}
                             </div>
-                        </div>x
+                        </div>
 
 
 
@@ -274,7 +274,7 @@
     $('#codigo_abono_generar').click(function(){
 
         caracteres = "0123456789ABCDEF";
-        longitud = 8;
+        longitud = 12;
 
         code='';
 
