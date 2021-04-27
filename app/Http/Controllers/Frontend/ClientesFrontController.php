@@ -27,6 +27,10 @@ use App\Models\AlpEstructuraAddress;
 use App\Models\AlpClientesHistory;
 use App\Http\Requests\DireccionRequest;
 
+use App\Models\AlpAbonosDisponible;
+use App\Models\AlpAbonos;
+use App\Models\AlpAbonosUser;
+
 use App\User;
 use App\Roles;
 use App\Country;
@@ -1782,6 +1786,153 @@ class ClientesFrontController extends Controller
 
 
     }
+
+
+    public function bono()
+    {
+
+        $dt = Carbon::now(); 
+
+        if (Sentinel::check()) {
+
+            $user_id = Sentinel::getUser()->id;
+
+            $role=RoleUser::where('user_id', $user_id)->first();
+
+            $cliente = AlpClientes::where('id_user_client', $user_id )->first();
+
+                if (!is_null($cliente)) {
+
+                    if ($cliente->id_empresa!=0) {
+                        
+                        $empresa=AlpEmpresas::find($cliente->id_empresa);
+
+                        $cliente['nombre_empresa']=$empresa->nombre_empresa;
+                        $cliente['imagen_empresa']=$empresa->imagen;
+
+                    }
+
+                    if ($cliente->id_embajador!=0) {
+                        
+                        $user_embajador = User::where('id', $cliente->id_embajador )->first();
+
+                        if (isset($user_embajador->first_name)) {
+
+                        $cliente['nombre_embajador']=$user_embajador->first_name.' '.$user_embajador->last_name;
+
+                            
+                        }else{
+
+                            $cliente['nombre_embajador']=$cliente->id_embajador;
+
+                        }
+                        
+                    }
+
+                }
+                
+
+            $user = User::where('id', $user_id )->first();
+
+            $states=State::where('config_states.country_id', '47')->get();
+
+            $cart= \Session::get('cart');
+
+            $puntos = array();
+
+            $disponible = AlpAbonosDisponible::groupBy('alp_abono_disponible.id_cliente')
+              ->select("alp_abono_disponible.*", DB::raw(  "SUM(alp_abono_disponible.valor_abono) as total"))
+              ->where('alp_abono_disponible.id_cliente', $user_id)
+              ->first();
+
+             $history=AlpAbonosDisponible::select('alp_abono_disponible.*', 'users.first_name as first_name', 'users.last_name as last_name')->join('users', 'alp_abono_disponible.id_cliente', '=', 'users.id')->where('id_cliente', $user_id)->get();
+
+            return \View::make('frontend.clientes.bono', compact( 'cliente', 'user', 'states', 'cart', 'puntos', 'role', 'disponible', 'history'));
+    
+            }else{
+
+                $url='clientes';
+
+                  //return redirect('login');
+                return view('frontend.order.login', compact('url'));
+
+        }
+
+       
+    }
+
+
+
+    public function postbono(Request $request)
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('ClientesFrontController/postbono ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('ClientesFrontController/postbono');
+
+        }
+
+        $user = Sentinel::getUser();
+
+        $input = $request->all();
+
+        $a=AlpAbonos::where('codigo_abono', $request->codigo)->where('estado_registro', '1')->first();
+
+
+
+        if(isset($a->id)){
+
+               $data_abono = array(
+                'id_abono'=>$a->id,
+                'id_cliente'=>$user->id,
+                'operacion'=>1,
+                'codigo_abono'=>$a->codigo_abono,
+                'valor_abono'=>$a->valor_abono,
+                'fecha_final'=>$a->fecha_final,
+                'origen'=>'Redimido por cliente',
+                'token'=>$a->token,
+                'json'=>json_encode($a),
+                'id_user'=>$user->id
+              );
+
+              AlpAbonosDisponible::create($data_abono);
+
+              $data_user = array(
+                'id_abono' => $a->id, 
+                'id_cliente'=>$user->id,
+                'id_user'=>$user->id
+              );
+
+              AlpAbonosUser::create($data_user);
+
+              $a->update(['estado_registro'=>0]);
+
+
+            return 1;
+
+        }else{
+
+            return 0;
+
+        }
+
+    }
+
+
+
+
+
+
 
 
 

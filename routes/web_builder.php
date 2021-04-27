@@ -1716,9 +1716,15 @@ Route::get('misamigos', 'Frontend\ClientesFrontController@misamigos')->name('fro
 
 Route::get('convenios', 'Frontend\ClientesFrontController@convenios')->name('frontend.clientes.convenios');
 
-
-
 Route::post('postconvenios', 'Frontend\ClientesFrontController@postconvenios')->name('frontend.clientes.postconvenios');
+
+
+
+Route::get('bono', 'Frontend\ClientesFrontController@bono')->name('frontend.clientes.bono');
+
+Route::post('postbono', 'Frontend\ClientesFrontController@postbono')->name('frontend.clientes.postbono');
+
+
 
 Route::post('postconveniosregistro', 'Frontend\ClientesFrontController@postconveniosregistro')->name('frontend.clientes.postconveniosregistro');
 
