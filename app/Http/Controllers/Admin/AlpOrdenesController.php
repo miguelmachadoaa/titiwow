@@ -129,7 +129,7 @@ class AlpOrdenesController extends JoshController
 
         $estatus_ordenes = AlpEstatusOrdenes::all();
 
-        $ordenes=AlpViewOrdenes::limit(100)->orderBy('id', 'desc')->get();
+        $ordenes=AlpViewOrdenes::limit(0)->orderBy('id', 'desc')->get();
 
         $estatus_pago=AlpEstatusPagos::pluck('estatus_pago_nombre', 'id');
           $estatus_ordenes=AlpEstatusOrdenes::pluck('estatus_nombre', 'id');
@@ -176,8 +176,34 @@ class AlpOrdenesController extends JoshController
 
         $ordenes=AlpViewOrdenes::search($buscar)->limit(100)->orderBy('id', 'desc')->get();
 
+
+
+        $ordenes = AlpOrdenes::search($buscar)->select(
+          'alp_ordenes.*', 
+          'alp_clientes.telefono_cliente as telefono_cliente',
+          'users.first_name as first_name', 
+          'users.last_name as last_name', 
+          'users.email as email',
+          'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 
+          'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 
+          'alp_ordenes_pagos.json as json'
+        )
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+           ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
+          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
+          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+          ->groupBy('alp_ordenes.id')
+          ->limit(2000)
+          ->get();
+
+          $almacenes=AlpAlmacenes::pluck('nombre_almacen', 'id');
+          $direcciones=AlpDirecciones::pluck('city_id', 'id');
+          $ciudades=City::pluck('city_name', 'id');
+
+
         // Show the page
-        return view('admin.ordenes.filtrar', compact('ordenes', 'estatus_ordenes', 'estatus_pago', 'buscar'));
+        return view('admin.ordenes.filtrar', compact('ordenes', 'estatus_ordenes', 'estatus_pago', 'buscar', 'almacenes', 'direcciones', 'ciudades'));
 
     }
 

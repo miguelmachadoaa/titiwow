@@ -44,21 +44,34 @@ Buscar Ordenes
                     <div class="row">
                         <div class="col-sm-12">
 
+
+                          
                             <form class="form-horizontal bf" enctype="multipart/form-data" role="form" method="post" action="{{ secure_url('admin/ordenes/filtrar/list') }}">
 
                                 {{ csrf_field() }}
 
-                            <div class="col-lg-6" style="padding: 0;margin-bottom: 2em;">
-                            <div class="input-group">
-                              <input type="text" id="buscar" name="buscar" 
-                              @if(isset($buscar)) value="{{$buscar}}" @endif class="form-control" placeholder="Buscar">
-                              <span class="input-group-btn">
-                                <button type="submit" class="btn btn-default" type="button">Go!</button>
-                              </span>
-                            </div><!-- /input-group -->
-                          </div><!-- /.col-lg-6 -->
+                               <div class="form-group {{ $errors->
+                                first('buscar', 'has-error') }}">
+                                    <label for="title" class="col-sm-2 control-label">
+                                        Buscar
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="buscar" name="buscar" class="form-control" placeholder="Buscar" @if(isset($buscar)) value="{{$buscar}}" @endif>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('buscar', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
 
-                      </form>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-4">
+                                       
+                                        <button type="submit" class="btn btn-success">
+                                            Buscar
+                                        </button>
+                                    </div>
+                                </div>
+                          </form>
                             
                         </div>
                     </div>
@@ -78,14 +91,9 @@ Buscar Ordenes
                                     <th>Id</th>
                                     <th>Referencia</th>
                                     <th>Cliente</th>
-                                    <th>Teléfono</th>
-                                    <th>Forma de Envio</th>
-                                    <th>Forma de Pago</th>
+                                    <th>Email</th>
                                     <th>Total</th>
-                                    <th>Codigo Oracle</th>
                                     <th>Cupón</th>
-                                    <th>Factura</th>
-                                    <th>Tracking</th>
                                     <th>Almacen</th>
                                     <th>Ciudad</th>
                                     <th>Origen</th>
@@ -102,17 +110,30 @@ Buscar Ordenes
                                 <tr>
                                     <td>{{$o->id}}</td>
                                     <td>{{$o->referencia}}</td>
-                                    <td>{{$o->nombre_cliente}}</td>
-                                    <td>{{$o->telefono_cliente}}</td>
-                                    <td>{{$o->nombre_forma_envios}}</td>
-                                    <td>{{$o->nombre_forma_pago}}</td>
+                                    <td>{{$o->first_name.' '.$o->last_name}}</td>
+                                    <td>{{$o->email}}</td>
                                     <td>{{$o->monto_total}}</td>
-                                    <td>{{$o->cod_oracle_pedido}}</td>
                                     <td>{{$o->codigo_cupon}}</td>
-                                    <td>{{$o->factura}}</td>
-                                    <td>{{$o->tracking}}</td>
-                                    <td>{{$o->nombre_almacen}}</td>
-                                    <td>{{$o->city_name}}</td>
+                                    <td>
+
+                                        @if(isset($almacenes[$o->id_almacen]))
+                                        {{$almacenes[$o->id_almacen]}}
+                                        @endif 
+                                    </td>
+
+                                    <td>
+                                        @if(isset($direcciones[$o->id_address]))
+
+                                            @if(isset($ciudades[$direcciones[$o->id_address]]))
+
+                                            {{$ciudades[$direcciones[$o->id_address]]}}
+
+                                            @endif
+
+
+                                        @endif
+                                        {{$o->city_name}}
+                                    </td>
                                     
                                     <td>@if ($o->origen=='1') 
                                     {{'Tomapedidos'}}             
@@ -382,7 +403,8 @@ $(document).ready(function() {
         });
     });*/
 
-     
+
+    $('#tbOrdenes').DataTable();
 
         
    /* var table =$('#tbOrdenes').DataTable({

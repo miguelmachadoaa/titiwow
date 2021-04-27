@@ -23,6 +23,7 @@ class AlpOrdenes extends Model
             'alp_ordenes.origen' => 4,
             'users.first_name' => 4,
             'users.last_name' => 4,
+            'users.email' => 4,
             'alp_clientes.telefono_cliente' => 4,
             'alp_pagos_status.estatus_pago_nombre' => 4,
             'alp_ordenes_estatus.estatus_nombre' => 4,
