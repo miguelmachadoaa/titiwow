@@ -4,7 +4,8 @@
             <th>ID</th>
             <th>Nombre de Producto</th>
             <th>Presentación de Producto</th>
-            <th>Referencia</th>
+            <th>SKU</th>
+            <th>EAN</th>
             <th>Ciudad</th>
             <th>Rol</th>
             <th>Tipo Descuento</th>
@@ -20,6 +21,7 @@
             <td>{{$producto->nombre_producto}}</td>
             <td>{{$producto->presentacion_producto}}</td>
             <td>{{$producto->referencia_producto}}</td>
+            <td>{{$producto->referencia_producto_sap}}</td>
 
                 <td>{{ $producto->city_name }}</td>
                 <td>{{ $producto->name  }}</td>
