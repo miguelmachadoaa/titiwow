@@ -359,6 +359,8 @@ class ClientesFrontController extends Controller
 
         }
 
+        $states=State::where('config_states.country_id', '47')->get();
+
         if (isset($direccion->id)) {
 
             $cities=City::where('state_id', $direccion->state_id)->get();
@@ -368,14 +370,14 @@ class ClientesFrontController extends Controller
             $cities=City::get();
         }
 
+        $cities=City::get();
+
 
             
 
             $t_documento = AlpTDocumento::where('estado_registro','=',1)->get();
 
             $estructura = AlpEstructuraAddress::where('estado_registro','=',1)->get();
-
-
 
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
 
