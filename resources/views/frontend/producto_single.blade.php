@@ -126,7 +126,7 @@
                         <div class="product_wrapper">
                             <img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" data-zoom-image="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive" alt="{{ $producto->nombre_producto}}" title="{{ $producto->nombre_producto}}"/>
 
-                             @if($producto->tipo_producto=='1')
+                             @if($producto->tipo_producto=='1' || $producto->tipo_producto=='4')
 
                                 @if(isset($inventario[$producto->id]))
 
@@ -451,7 +451,7 @@
 
 
 
-                                                         @if($producto->tipo_producto=='1')
+                                                         @if($producto->tipo_producto=='1' || $producto->tipo_producto=='4')
 
                                                           <a data-slug="{{ $producto->slug }}" data-price="{{ intval($producto->precio_oferta) }}" data-id="{{ $producto->id }}" data-name="{{ $producto->nombre_producto }}" data-imagen="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="btn btn-md btn-cart addtocart" data-single="1" href="{{secure_url('cart/addtocart', [$producto->slug])}}" alt="Agregar al Carrito">Agregar al Carrito<i class="fa fa-cart-arrow-down" aria-hidden="true" style="margin-left:10px"></i></a>
 

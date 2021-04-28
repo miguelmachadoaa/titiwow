@@ -2,10 +2,15 @@
 
 use App\Http\Controllers\JoshController;
 use App\Http\Requests\AbonoRequest;
+use App\Http\Requests\AbonoUpdateRequest;
 use App\Models\AlpAbonos;
 use App\Models\AlpOrdenes;
 use App\Models\AlpClientes;
 use App\Models\AlpAbonosTipo;
+
+use App\Models\AlpAlmacenes;
+
+use App\Models\AlpConfiguracion;
 
 use App\Models\AlpAbonosDisponible;
 
@@ -101,9 +106,14 @@ class AlpAbonosController extends JoshController
           ->where('alp_clientes.estado_registro', '1')
           ->get();
 
+
+          $almacenes = AlpAlmacenes::all();
+
           $tipobono=AlpAbonosTipo::get();
 
-        return view ('admin.abonos.create', compact('ordenes', 'clientes', 'tipobono'));
+          $configuracion=AlpConfiguracion::where('id', 1)->first();
+
+        return view ('admin.abonos.create', compact('ordenes', 'clientes', 'tipobono', 'configuracion', 'almacenes'));
     }
 
     /**
@@ -244,8 +254,10 @@ class AlpAbonosController extends JoshController
 
           $tipobono=AlpAbonosTipo::get();
 
+          $almacenes = AlpAlmacenes::all();
 
-        return view('admin.abonos.edit', compact('abono', 'ordenes', 'clientes', 'tipobono'));
+
+        return view('admin.abonos.edit', compact('abono', 'ordenes', 'clientes', 'tipobono', 'almacenes'));
     }
 
     /**
@@ -254,7 +266,7 @@ class AlpAbonosController extends JoshController
      * @param  int $id
      * @return Redirect
      */
-    public function update(Request $request, $id)
+    public function update(AbonoUpdateRequest $request, $id)
     {
 
 

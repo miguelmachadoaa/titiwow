@@ -526,6 +526,7 @@ class AlpProductosController extends JoshController
             'cantidad' =>$request->cantidad,
             'unidad' =>$request->unidad,
             'mostrar' =>$request->mostrar,
+            'update_api' =>$request->update_api,
             'id_user' =>$user_id
         );
          
@@ -1178,6 +1179,7 @@ class AlpProductosController extends JoshController
                 'cantidad' =>$request->cantidad,
                 'unidad' =>$request->unidad,
                 'mostrar' =>$request->mostrar,
+                'update_api' =>$request->update_api,
                 'precio_base' =>$request->precio_base
                 );
 
@@ -1205,6 +1207,7 @@ class AlpProductosController extends JoshController
                 'cantidad' =>$request->cantidad,
                 'unidad' =>$request->unidad,
                 'mostrar' =>$request->mostrar,
+                'update_api' =>$request->update_api,
                 'id_marca' =>$request->id_marca
                 );
 

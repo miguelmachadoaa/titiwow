@@ -78,6 +78,7 @@ class AlpConfiguracion extends Model
         'endpoint_icg',
         'porcentaje_icg',
         'token_icg',
+        'dias_abono',
         'id_user'
     ];
 

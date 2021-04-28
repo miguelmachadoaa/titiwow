@@ -1135,9 +1135,6 @@ class ProductosFrontController extends Controller
         ->paginate(36); 	
         //$productos->appends(['buscar' => $request->get('buscar')]);
         //
-      //  dd($productos);
-
-        
 
         $cart= \Session::get('cart');
 

@@ -139,6 +139,35 @@ Editar Abonos
 
 
                         <div class="form-group {{ $errors->
+                            first('id_almacen', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Seleccione el almacen
+                            </label>
+                            <div class="col-sm-5">
+                                
+                                 <select id="id_almacen" name="id_almacen" class="form-control select2">
+
+                                    <option value="">Seleccione</option>
+                                    
+                                    @foreach($almacenes as $a)
+
+                                    <option @if($abono->id_almacen==$a->id) {{'Selected'}} @endif value="{{ $a->id }}">
+                                            {{ $a->nombre_almacen}}</option>
+                                    @endforeach
+                                    
+                                  
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('id_almacen', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="form-group {{ $errors->
                             first('id_cliente', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
                                 Asignar Bono a Cliente <small>Opcional</small>

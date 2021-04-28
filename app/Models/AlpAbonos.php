@@ -28,6 +28,7 @@ class AlpAbonos extends Model
         'motivo',
         'notas',
         'tipo_abono',
+        'id_almacen',
         'estado_registro',
         'id_user'
     ];

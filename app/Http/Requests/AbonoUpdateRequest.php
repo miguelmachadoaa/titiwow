@@ -24,7 +24,7 @@ class AbonoRequest extends FormRequest {
 	public function rules()
 	{
 		return [
-           'codigo_abono' => 'min:20|unique:alp_abonos,codigo_abono',
+           'codigo_abono' => 'min:20',
            'valor_abono' => 'required',
            'fecha_final' => 'required',
            'id_almacen' => 'required'

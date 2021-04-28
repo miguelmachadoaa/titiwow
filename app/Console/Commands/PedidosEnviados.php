@@ -63,15 +63,13 @@ class PedidosEnviados extends Command
 
         foreach ($ordenes as $orden) {
 
-            if ($ban<50) { 
+            if ($ban<50) {
 
-
-            $envio=AlpEnvios::where('id_orden','=', $orden->id)->where('estatus', '=', '7')->first();
+                $envio=AlpEnvios::where('id_orden','=', $orden->id)->where('estatus', '=', '7')->first();
 
                 if (isset($envio->id)) {
 
                     echo $orden->id.'-';
-                    
 
                     $ban=$ban+1;
 
@@ -93,10 +91,6 @@ class PedidosEnviados extends Command
             
             }
         }
-
-
-        
-
         
     }
 }

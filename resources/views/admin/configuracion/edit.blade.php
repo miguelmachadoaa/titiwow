@@ -128,6 +128,8 @@ Editar Configuracion General
                                 </div>
                             </div>
 
+
+
                             <div class="form-group {{ $errors->first('vence_ordenes_pago', 'has-error') }}">
                                 <label for="vence_ordenes_pago" class="col-sm-2 control-label">
                                     Tiempo para vencer ordenes por pago <small>Tiempo minimo para cancelar la orden en compramas</small>
@@ -138,6 +140,19 @@ Editar Configuracion General
                                 </div>
                                 <div class="col-sm-4">
                                     {!! $errors->first('vence_ordenes_pago', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                            </div>
+
+                            <div class="form-group {{ $errors->first('dias_abono', 'has-error') }}">
+                                <label for="dias_abono" class="col-sm-2 control-label">
+                                    Dias adicionales por defectoa al crear Codigos de Bono
+                                </label>
+                                <div class="col-sm-5">
+                                    <input type="number" step="0.01" min="0"  id="dias_abono" name="dias_abono" class="form-control" placeholder="Maximo Productos"
+                                        value="{!! old('dias_abono', $configuracion->dias_abono) !!}">
+                                </div>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('dias_abono', '<span class="help-block">:message</span> ') !!}
                                 </div>
                             </div>
 
@@ -170,7 +185,7 @@ Editar Configuracion General
 
 
                             <hr />
-                            <div class="form-group {{ $errors->first('id_mercadopago', 'has-error') }}">
+                            <!--div class="form-group {{ $errors->first('id_mercadopago', 'has-error') }}">
                                 <label for="id_mercadopago" class="col-sm-2 control-label">
                                     ID Mercadopago
                                 </label>
@@ -324,7 +339,7 @@ Editar Configuracion General
                                 </div>
                             </div>-->
 
-                            <div class="form-group  {{ $errors->first('mercadopago_sand', 'has-error') }}">
+                            <!--div class="form-group  {{ $errors->first('mercadopago_sand', 'has-error') }}">
                                 <label for="select21" class="col-sm-2 control-label">
                                     Modo Mercadopago
                                 </label>
@@ -346,7 +361,7 @@ Editar Configuracion General
                                   
                                 </div>
                                
-                            </div>
+                            </div-->
 
                             <div class="form-group  {{ $errors->first('registro_publico', 'has-error') }}">
                                 <label for="select21" class="col-sm-2 control-label">

@@ -148,13 +148,11 @@
 
                      <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('titulo', 'has-error') }}">
 
-
                         <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Nombre para esta dirección" value="{!! old('titulo') !!}" >
 
                         {!! $errors->first('titulo', '<span class="help-block">:message</span>') !!}
                     
                     </div>
-                            
 
                     <div style="  margin-bottom: 1em;" class=" col-sm-10 col-sm-offset-1 {{ $errors->first('cod_alpinista', 'has-error') }}">
 
@@ -362,12 +360,6 @@
 
                                     @else
 
-                                   
-                                    
-
-
-
-
                                         @if($configuracion->edificio_address==0)
 
                                             <button
@@ -387,7 +379,6 @@
 
                                         @endif
                                             
-
                                         @if($dir->default_address)
 
                                         @else
@@ -482,10 +473,12 @@
 
                                     <select id="edit_state_id" name="edit_state_id" class="form-control">
                                         <option value="">Seleccione Departamento</option>     
+                                        
                                         @foreach($states as $state)
                                         <option value="{{ $state->id }}">
                                                 {{ $state->state_name}}</option>
                                         @endforeach
+                                        
                                     </select>
 
                                     {!! $errors->first('edit_state_id', '<span class="help-block">:message</span>') !!}

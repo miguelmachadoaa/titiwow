@@ -96,16 +96,13 @@ Area clientes
 
                 @if(isset($disponible))
 
-                    <h4>Actualmente su bono disponible es de {{$disponible->total}}.</h4>
+                    <h4>Actualmente su bono disponible es de {{number_format($disponible->total,0,',','.')}}.</h4>
 
                 @else
 
                     <h4>Actualmente su bono disponible es de 0.</h4>
 
-
                 @endif
-
-               
 
             @endif
 
@@ -119,13 +116,12 @@ Area clientes
                 
                 {{ csrf_field() }}
 
-              <div class="form-group">
-
+              <div class="form-group " style="text-align: center;">
 
 
                 <label for="exampleInputName2">Ingrese Tarjera de Regalo </label>
 
-                <input type="text" class="form-control" id="codigo" name="codigo" placeholder="Ingrese la Tarjeta de regalo" required="true">
+                <input type="text" class="form-control " id="codigo" name="codigo" placeholder="Ingrese la Tarjeta de regalo" required="true" style="width: 15em; margin-bottom: 2em;">
               
               </div>
 

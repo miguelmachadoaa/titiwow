@@ -68,6 +68,7 @@ class AlpProductos extends Model
         'cantidad',
         'unidad',
         'mostrar',
+        'update_api',
         'estado_registro',
         'id_user'
     ];

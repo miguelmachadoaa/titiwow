@@ -860,39 +860,7 @@
                                             </div>
 
 
-
-
-                                           
-                        
-                                           
-                                            <div class="acc-wizard-step">
-                                                
-                                            </div>
-
-                                            <a class="btn btn-default" href="#prod_categoria" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.previous')</a>
-
-                                            <a class="btn btn-default" href="#price_page" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
-                                            
-                                            
-                                        
-                                    </div>
-                                    <!--/.panel-body --> </div>
-                                <!-- /#adjusthtml --> </div>
-
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a href="#price_page" data-parent="#accordion-demo" data-toggle="collapse">@lang('productos/title.prices')</a>
-                                </h4>
-                            </div>
-
-                            <div id="price_page" class="panel-collapse collapse" style="height: 36.400001525878906px;">
-                                <div class="panel-body">
-
-                            
-                                                            
-                                <div class="form-group col-sm-12  {{ $errors->first('mostrar_descuento', 'has-error') }}">
+                                            <div class="form-group col-sm-12  {{ $errors->first('mostrar_descuento', 'has-error') }}">
                                             <label for="select21" class="col-sm-3 control-label">
                                                 Mostrar Descuento 
                                             </label>
@@ -940,6 +908,69 @@
                                             </div>
                                            
                                         </div>
+
+
+                                        <div class="form-group col-sm-12  {{ $errors->first('update_api', 'has-error') }}">
+                                            <label for="select21" class="col-sm-3 control-label">
+                                                Actualizar por api
+                                            </label>
+                                            <div class="col-sm-9">   
+                                             <select id="update_api" name="update_api" class="form-control ">
+                                                <option value="">Seleccione</option>
+                                                   
+                                                    <option value="{{ 1 }}"
+                                                             >Actualizar</option>
+
+                                                    <option value="{{ 0}}"
+                                                           >No Actualizar</option>
+                                                   
+                                            </select>
+
+                                            {!! $errors->first('update_api', '<span class="help-block">:message</span> ') !!}
+                                            
+                                              
+                                            </div>
+                                           
+                                        </div>
+
+                                        
+
+
+
+
+                                           
+                        
+                                           
+                                            <div class="acc-wizard-step">
+                                                
+                                            </div>
+
+                                            <a class="btn btn-default" href="#prod_categoria" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.previous')</a>
+
+                                            <a class="btn btn-default" href="#price_page" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
+                                            
+                                            
+                                        
+                                    </div>
+                                    <!--/.panel-body --> </div>
+                                <!-- /#adjusthtml --> </div>
+
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a href="#price_page" data-parent="#accordion-demo" data-toggle="collapse">@lang('productos/title.prices')</a>
+                                </h4>
+                            </div>
+
+                            <div id="price_page" class="panel-collapse collapse" style="height: 36.400001525878906px;">
+                                <div class="panel-body">
+
+                            
+                                                            
+                              
+
+
 
 
 

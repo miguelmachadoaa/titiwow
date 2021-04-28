@@ -326,7 +326,7 @@
                                     Public Key Mercadopago Produccion
                                 </label>
                                 <div class="col-sm-5">
-                                    <input type="text" id="public_key_mercadopago" name="public_key_mercadopago" class="form-control" placeholder="Key Mercadopago"
+                                    <input type="text" id="public_key_mercadopago" name="public_key_mercadopago" class="form-control" placeholder="Public Key Mercadopago Produccion"
                                         value="{!! old('public_key_mercadopago') !!}">
                                 </div>
                                 <div class="col-sm-4">
@@ -339,7 +339,7 @@
                                     Public Key Mercadopago Test
                                 </label>
                                 <div class="col-sm-5">
-                                    <input type="text" id="public_key_mercadopago_test" name="public_key_mercadopago_test" class="form-control" placeholder="Key Mercadopago"
+                                    <input type="text" id="public_key_mercadopago_test" name="public_key_mercadopago_test" class="form-control" placeholder="Public Key Mercadopago Test"
                                         value="{!! old('public_key_mercadopago_test') !!}">
                                 </div>
                                 <div class="col-sm-4">

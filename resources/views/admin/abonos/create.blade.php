@@ -61,6 +61,8 @@
 
                         {{ csrf_field() }}
 
+                        <input type="hidden" id="dias" name="dias" value="{{$configuracion->dias_abono}}">
+
                            
                         <div class="form-group {{ $errors->
                             first('codigo_abono', 'has-error') }}">
@@ -133,8 +135,7 @@
                                 Fecha Limite
                             </label>
                             <div class="col-sm-5">
-                                <input type="date" id="fecha_final" name="fecha_final" class="form-control" placeholder="Nombre de Sedes"
-                                       value="{!! old('fecha_final') !!}">
+                                <input type="date" id="fecha_final" name="fecha_final" class="form-control" placeholder="Fecha Final"  value="">
                             </div>
                             <div class="col-sm-4">
                                 {!! $errors->first('fecha_final', '<span class="help-block">:message</span> ') !!}
@@ -210,6 +211,33 @@
 
 
 
+                        <div class="form-group {{ $errors->
+                            first('id_almacen', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                                Seleccione Almacen 
+                            </label>
+                            <div class="col-sm-5">
+                                
+                                 <select id="id_almacen" name="id_almacen" class="form-control select2">
+
+                                    <option value="">Seleccione</option>
+                                    
+                                    @foreach($almacenes as $a)
+
+                                    <option value="{{ $a->id }}">
+                                            {{ $a->nombre_almacen}}</option>
+                                    @endforeach
+                                    
+                                  
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('id_almacen', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
+
 
                         <div class="form-group {{ $errors->
                             first('notas', 'has-error') }}">
@@ -269,12 +297,29 @@
                 placeholder: "Seleccionar",
                 theme:"bootstrap"
             });
+
+            var someDate = new Date();
+
+            var duration = $('#dias').val(); //In Days
+
+            someDate.setTime(someDate.getTime() +  (duration * 24 * 60 * 60 * 1000));
+
+            day=someDate.getDate();
+
+            month=someDate.getMonth();
+
+            year=someDate.getFullYear();
+
+            $('#fecha_final').val(someDate.toISOString().substr(0, 10));
+
+            console.log($('#fecha_final').val());
+
     });
 
     $('#codigo_abono_generar').click(function(){
 
         caracteres = "0123456789ABCDEF";
-        longitud = 12;
+        longitud = 20;
 
         code='';
 
@@ -289,6 +334,13 @@
 
 
     });
+
+
+    
+
+ 
+    
+
 
 
 

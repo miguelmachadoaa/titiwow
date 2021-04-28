@@ -124,7 +124,7 @@ class AlpConfiguracionController extends JoshController
             'nombre_tienda' => $request->nombre_tienda,
             'base_url' => $request->base_url,
             'limite_amigos' => $request->limite_amigos,
-            'id_mercadopago' => $request->id_mercadopago,
+           /* 'id_mercadopago' => $request->id_mercadopago,
             'key_mercadopago' => $request->key_mercadopago, 
             'public_key_mercadopago' => $request->public_key_mercadopago, 
             'public_key_mercadopago_test' => $request->public_key_mercadopago_test, 
@@ -135,7 +135,7 @@ class AlpConfiguracionController extends JoshController
             'retencion_fuente_mp' => $request->retencion_fuente_mp, 
             'retencion_iva_mp' => $request->retencion_iva_mp, 
             'retencion_ica_mp' => $request->retencion_ica_mp, 
-            'mercadopago_sand' => $request->mercadopago_sand, 
+            'mercadopago_sand' => $request->mercadopago_sand, */
             'explicacion_precios' => $request->explicacion_precios, 
             'registro_publico' => $request->registro_publico, 
             'user_activacion' => $request->user_activacion, 
@@ -176,6 +176,7 @@ class AlpConfiguracionController extends JoshController
             'endpoint_icg' => $request->endpoint_icg,
             'porcentaje_icg' => $request->porcentaje_icg,
             'token_icg' => $request->token_icg,
+            'dias_abono' => $request->dias_abono,
             'h1_terminos' => $request->h1_terminos
         );
 

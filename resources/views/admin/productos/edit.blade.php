@@ -471,7 +471,7 @@
 
 
 
-                            <div class="panel panel-success @if(old('tipo_producto')!=null) @if(old('tipo_producto')==1) {{ 'hidden' }}  @endif @else {{'hidden'}} @endif" id="panelDigital">
+                            <div class="panel panel-success  @if($producto->tipo_producto==4) @else {{ 'hidden' }}  @endif  " id="panelDigital"> 
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a href="#addDigital" data-parent="#accordion-demo" data-toggle="collapse">Contenido De producto Digital</a>
@@ -1047,6 +1047,86 @@
 
 
 
+                                            <div class="form-group col-sm-12  {{ $errors->first('mostrar_descuento', 'has-error') }}">
+                                            <label for="select21" class="col-sm-3 control-label">
+                                                Mostrar Descuento 
+                                            </label>
+                                            <div class="col-sm-9">   
+                                             <select id="mostrar_descuento" name="mostrar_descuento" class="form-control ">
+                                                <option value="">Seleccione</option>
+                                                   
+                                                    <option value="{{ 1 }}"
+                                                            @if($producto->mostrar_descuento == 1) selected="selected" @endif >Mostrar</option>
+
+                                                    <option value="{{ 0}}"
+                                                            @if($producto->mostrar_descuento == 0) selected="selected" @endif >No Mostrar</option>
+                                                   
+                                            </select>
+
+                                            {!! $errors->first('mostrar_descuento', '<span class="help-block">:message</span> ') !!}
+                                            
+                                              
+                                            </div>
+                                           
+                                        </div>
+
+
+
+                                        <div class="form-group col-sm-12  {{ $errors->first('mostrar', 'has-error') }}">
+                                            <label for="select21" class="col-sm-3 control-label">
+                                                Mostrar en Listados 
+                                            </label>
+                                            <div class="col-sm-9">   
+                                             <select id="mostrar" name="mostrar" class="form-control ">
+                                                <option value="">Seleccione</option>
+                                                   
+                                                    <option value="{{ 1 }}"
+                                                    @if($producto->mostrar == 1) selected="selected" @endif         >Mostrar</option>
+
+                                                    <option value="{{ 0}}"
+                                                        @if($producto->mostrar == 0) selected="selected" @endif   >No Mostrar</option>
+                                                   
+                                            </select>
+
+                                            {!! $errors->first('mostrar', '<span class="help-block">:message</span> ') !!}
+                                            
+                                              
+                                            </div>
+                                           
+                                        </div>
+
+
+                                        <div class="form-group col-sm-12  {{ $errors->first('update_api', 'has-error') }}">
+                                            <label for="select21" class="col-sm-3 control-label">
+                                                Actualizar por api
+                                            </label>
+                                            <div class="col-sm-9">   
+                                             <select id="update_api" name="update_api" class="form-control ">
+                                                <option value="">Seleccione</option>
+                                                   
+                                                    <option value="{{ 1 }}"
+                                                        @if($producto->actualizar_api == 1) selected="selected" @endif     >Actualizar</option>
+
+                                                    <option value="{{ 0}}"
+                                                       @if($producto->actualizar_api == 0) selected="selected" @endif    >No Actualizar</option>
+                                                   
+                                            </select>
+
+                                            {!! $errors->first('update_api', '<span class="help-block">:message</span> ') !!}
+                                            
+                                              
+                                            </div>
+                                           
+                                        </div>
+
+
+
+
+
+
+
+
+
                                            
                                             <div class="acc-wizard-step">
                                                 
@@ -1073,28 +1153,9 @@
                                 <div id="price_page" class="panel-collapse collapse" style="height: 36.400001525878906px;">
                                     <div class="panel-body">
 
-                                         <div class="form-group col-sm-12  {{ $errors->first('mostrar_descuento', 'has-error') }}">
-                                            <label for="select21" class="col-sm-3 control-label">
-                                                Mostrar Descuento 
-                                            </label>
-                                            <div class="col-sm-9">   
-                                             <select id="mostrar_descuento" name="mostrar_descuento" class="form-control ">
-                                                <option value="">Seleccione</option>
-                                                   
-                                                    <option value="{{ 1 }}"
-                                                            @if($producto->mostrar_descuento == 1) selected="selected" @endif >Mostrar</option>
+                                        
 
-                                                    <option value="{{ 0}}"
-                                                            @if($producto->mostrar_descuento == 0) selected="selected" @endif >No Mostrar</option>
-                                                   
-                                            </select>
 
-                                            {!! $errors->first('mostrar_descuento', '<span class="help-block">:message</span> ') !!}
-                                            
-                                              
-                                            </div>
-                                           
-                                        </div>
 
 
                                        
