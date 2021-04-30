@@ -2616,13 +2616,20 @@ class AlpCartController extends JoshController
           
         }
 
-        
-
-
           MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
 
+
+          try {
+
+            $preference = MP::post("/checkout/preferences",$preference_data);
+            
+          } catch (MercadoPagoException $e) {
+
+            $preference = array();
+            
+          }
           
-          $preference = MP::post("/checkout/preferences",$preference_data);
+          
 
           
          // dd($preference);

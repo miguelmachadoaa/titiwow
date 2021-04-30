@@ -95,7 +95,18 @@ class VerificarExistenciaAlmacen extends Command
 
        if (count($datos)) {
 
-        AlpAlmacenProducto::where('id_almacen', '1')->delete();
+       // AlpAlmacenProducto::where('id_almacen', '1')->delete();
+       // 
+       
+       $ps=AlpProductos::where('update_api', '=', '1')->get();
+
+        foreach ($ps as $pss) {
+          
+          AlpAlmacenProducto::where('id_almacen', '1')->where('id_producto', '=', $pss->id)->delete();
+
+        }
+
+        
 
             foreach ($datos as $dato ) {
 

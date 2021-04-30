@@ -1471,9 +1471,28 @@
     <script src="{{ secure_asset('assets/vendors/jstree/js/jstree.min.js') }}" type="text/javascript"></script>
     <script src="{{ secure_asset('assets/vendors/treeview/js/bootstrap-treeview.min.js') }}" type="text/javascript"></script>
     <script src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}" type="text/javascript"></script>
+    <script src="https://cdn.tiny.cloud/1/qc49iemrwi4gmrqtiuvymiviycjklawxnqmtcnvorw0hckoj/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+    
    <!-- <script src="{{ secure_asset('assets/js/pages/treeview_jstree.js') }}" type="text/javascript"></script>-->
 
     <script type="text/javascript">
+
+
+        tinymce.init({
+        selector:'#contenido_digital',
+        width: '100%',
+        height: 300
+    });
+
+
+        tinymce.init({
+        selector:'#descripcion_larga',
+        width: '100%',
+        height: 300
+    });
+
+
 
     $(document).on('click', '.delProductoCombo', function(){
 
