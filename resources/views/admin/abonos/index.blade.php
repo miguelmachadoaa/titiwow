@@ -54,6 +54,8 @@ Abonos
                                     <th>Codigo</th>
                                     <th>Valor</th>
                                     <th>Fecha Limite</th>
+                                    <th>Nombre Almacen</th>
+                                    <th>Estado</th>
                                     <th>Creado</th>
                                     <th>Accion</th>
                                 </tr>
@@ -66,6 +68,18 @@ Abonos
                                     <td>{!! $row->codigo_abono!!}</td>
                                     <td>{!! $row->valor_abono !!}</td>
                                     <td>{!! $row->fecha_final !!}</td>
+                                    <td>{{$row->nombre_almacen}}</td>
+                                    <td>
+                                        @if($row->estado_registro==0)
+
+                                        Aplicado
+
+                                        @else
+
+                                        Sin Aplicar
+
+                                        @endif 
+                                    </td>
                                     <td>{!! $row->created_at->diffForHumans() !!}</td>
                                     <td>
 

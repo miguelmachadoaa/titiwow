@@ -53,16 +53,9 @@ class AlpAbonosController extends JoshController
 
         }
 
-
-      
-
-
-
-      
-
-        $abonos = AlpAbonos::all();
-       
-
+        $abonos = AlpAbonos::select('alp_abonos.*', 'alp_almacenes.nombre_almacen as nombre_almacen')
+        ->join('alp_almacenes','alp_abonos.id_almacen', '=', 'alp_almacenes.id')
+        ->get();
 
         // Show the page
         return view('admin.abonos.index', compact('abonos'));
