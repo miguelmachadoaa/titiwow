@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Abonos
+Bonos
 @parent
 @stop
 
@@ -16,7 +16,7 @@ Abonos
 {{-- Content --}}
 @section('content')
 <section class="content-header">
-    <h1>Abonos</h1>
+    <h1>Bonos</h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{ secure_url('admin') }}">
@@ -24,7 +24,7 @@ Abonos
                Inicio
             </a>
         </li>
-        <li><a href="#"> Abonos </a></li>
+        <li><a href="#"> Bonos </a></li>
         <li class="active">Listado</li>
     </ol>
 </section>
@@ -36,7 +36,7 @@ Abonos
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="users" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Abonos
+                       Bonos
                     </h4>
                     <div class="pull-right">
                     <a href="{{ secure_url('admin/abonos/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Abono</a>

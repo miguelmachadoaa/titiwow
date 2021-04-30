@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Editar Abonos
+Editar Bono
 @parent
 @stop
 
@@ -10,7 +10,7 @@ Editar Abonos
 @section('content')
 <section class="content-header">
     <h1>
-        Editar Abonos
+        Editar Bono
     </h1>
     <ol class="breadcrumb">
         <li>
@@ -31,7 +31,7 @@ Editar Abonos
             <div class="panel panel-primary ">
                 <div class="panel-heading">
                     <h4 class="panel-title"> <i class="livicon" data-name="wrench" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Editar Abonos
+                       Editar Bono
                     </h4>
                 </div>
                 <div class="panel-body">
@@ -43,10 +43,10 @@ Editar Abonos
                         <div class="form-group {{ $errors->
                             first('codigo_abono', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Codigo Abono
+                                Codigo Bono
                             </label>
                             <div class="col-sm-5">
-                                <input type="text" id="codigo_abono" name="codigo_abono" class="form-control" placeholder="Codigo Abono"
+                                <input type="text" id="codigo_abono" name="codigo_abono" class="form-control" placeholder="Codigo Bono"
                                        value="{!! old('codigo_abono', $abono->codigo_abono) !!}">
                             </div>
                             <div class="col-sm-4">
@@ -58,10 +58,10 @@ Editar Abonos
                         <div class="form-group {{ $errors->
                             first('valor_abono', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
-                                Valor Abono
+                                Valor Bono
                             </label>
                             <div class="col-sm-5">
-                                <input type="number" step="1" min="0" id="valor_abono" name="valor_abono" class="form-control" placeholder="Nombre de Sedes"
+                                <input type="number" step="1" min="0" id="valor_abono" name="valor_abono" class="form-control" placeholder="Valor del Bono"
                                        value="{!! old('valor_abono', $abono->valor_abono) !!}">
                             </div>
                             <div class="col-sm-4">
