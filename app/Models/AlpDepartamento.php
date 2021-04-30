@@ -21,6 +21,7 @@ class AlpDepartamento extends Model
         'id',
         'nombre_departamento',
         'descripcion_departamento',
+        'correos',
         'estado_registro',
         'id_user'
     ];

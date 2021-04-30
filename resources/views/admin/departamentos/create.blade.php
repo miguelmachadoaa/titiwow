@@ -91,6 +91,24 @@
                             </div>
                         </div>
 
+
+                        <div class="form-group {{ $errors->
+                            first('correos', 'has-error') }}">
+                            <label for="title" class="col-sm-2 control-label">
+                               Correos de Notificación <small>Separar con ;</small>
+                            </label>
+                            <div class="col-sm-5">
+                                
+                               <input style="margin: 4px 0;" id="correos" name="correos" type="text" placeholder="Correos de Envio" value="{!! old('correos') !!}" class="form-control">
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('correos', '<span class="help-block">:message</span> ') !!}
+                            </div>
+                        </div>
+
+
+
+
                      
 
 

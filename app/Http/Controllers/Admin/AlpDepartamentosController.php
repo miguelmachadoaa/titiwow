@@ -205,6 +205,7 @@ class AlpDepartamentosController extends JoshController
         $data = array(
             'nombre_departamento' => $request->nombre_departamento, 
             'descripcion_departamento' => $request->descripcion_departamento, 
+            'correos' => $request->correos,
             'id_user' =>$user_id
         );
          
@@ -303,10 +304,11 @@ class AlpDepartamentosController extends JoshController
 
 
 
-    $data = array(
-            'nombre_departamento' => $request->nombre_departamento, 
-            'descripcion_departamento' => $request->descripcion_departamento,
-        );
+        $data = array(
+                'nombre_departamento' => $request->nombre_departamento, 
+                'descripcion_departamento' => $request->descripcion_departamento,
+                'correos' => $request->correos
+            );
 
          
        $departamento = AlpDepartamento::find($id);

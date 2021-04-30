@@ -167,6 +167,9 @@ class AlpCartController extends JoshController
 
     {
 
+
+      \Session::forget('aviso');
+
       $cart= \Session::get('cart');
 
        if (isset($cart['id_forma_pago']) || isset($cart['id_forma_envio']) || isset($cart['id_cliente']) || isset($cart['id_almacen']) || isset($cart['id_direccion']) || isset($cart['inventario']) ) {
@@ -2984,21 +2987,14 @@ class AlpCartController extends JoshController
      */
 
   public function orderProcesarTicket(Request $request)
-
     {
 
-      
-     
-
       $input=$request->all();
-
       
       if (Sentinel::check()) {
-
         
          $user = Sentinel::getUser();
 
-         
        activity($user->full_name)
 
                     ->performedOn($user)
@@ -3012,24 +3008,15 @@ class AlpCartController extends JoshController
                     
       }
 
-      
-        
-
         
       $cart= \Session::get('cart');
 
-      
       $carrito= \Session::get('cr');
-
       
       $id_orden= \Session::get('orden');
 
 
-
-
-
       $envio=$this->envio();
-
       
       $valor_impuesto=AlpImpuestos::where('id', '1')->first();
 
@@ -3253,7 +3240,10 @@ class AlpCartController extends JoshController
                   ->where('alp_ordenes.id', $id_orden)->first();
                   
 
-              $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
+              $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug',
+                'alp_productos.presentacion_producto as presentacion_producto',
+                'alp_productos.tipo_producto as tipo_producto'
+              )
 
                 ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
 
@@ -3294,6 +3284,27 @@ class AlpCartController extends JoshController
                  
 
                 }
+
+
+
+
+
+                foreach ($detalles as $d ) {
+
+                    if ($d->tipo_producto=='4') {
+
+                      $prod=AlpProductos::Where('id', '=', $d->id_producto)->first();
+
+                        Mail::to('miguelmachadoaa@gmail.com')->send(new \App\Mail\NotificacionDigital($prod));
+
+                        activity()->withProperties($prod)
+                                            ->log('Correo de digital ');
+                      
+                       # Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionDigital($prod));
+
+                    }
+                    # code...
+                  }
 
            
                 $estatus_aviso='success';

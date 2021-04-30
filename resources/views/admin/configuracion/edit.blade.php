@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Editar Configuracion General
+Editar Configuración General
 @parent
 @stop
 
@@ -10,7 +10,7 @@ Editar Configuracion General
 @section('content')
 <section class="content-header">
     <h1>
-        Editar Configuracion General
+        Editar Configuración General
     </h1>
     <ol class="breadcrumb">
         <li>
@@ -19,7 +19,7 @@ Editar Configuracion General
                 Inicio
             </a>
         </li>
-        <li>Configuracion</li>
+        <li>Configuración</li>
         <li class="active">Editar</li>
     </ol>
 </section>
@@ -31,7 +31,7 @@ Editar Configuracion General
             <div class="panel panel-primary ">
                 <div class="panel-heading">
                     <h4 class="panel-title"> <i class="livicon" data-name="wrench" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Editar Configuracion
+                       Editar Configuración
                     </h4>
                 </div>
                 <div class="panel-body">

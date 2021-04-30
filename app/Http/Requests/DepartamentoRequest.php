@@ -26,6 +26,7 @@ class DepartamentoRequest extends FormRequest {
 		return [
             'nombre_departamento' => 'required|min:3',
 			'descripcion_departamento' => 'required|min:5',
+			'correos' => 'required',
 		];
 	}
 
