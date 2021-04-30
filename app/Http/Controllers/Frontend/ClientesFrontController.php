@@ -1888,6 +1888,8 @@ class ClientesFrontController extends Controller
 
         $input = $request->all();
 
+        $request->codigo=strip_tags($request->codigo);
+
         $a=AlpAbonos::where('codigo_abono', $request->codigo)->where('estado_registro', '1')->first();
 
 
