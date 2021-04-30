@@ -11,7 +11,7 @@
         <th>Ciudad</th>
         <th>Rol</th>
         <th>Tipo Descuento</th>
-        <th>Precio</th>
+        <th>Precio Base</th><th>Precio</th>
         <th>Id Usuario</th>
         <th>Estatus</th>
      </tr>
@@ -46,6 +46,10 @@
                     Absoluto
                @endif
 
+        </td>
+
+        <td>
+            {{ $producto->precio_base}}
         </td>
               
 
