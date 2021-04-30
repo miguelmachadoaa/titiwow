@@ -920,7 +920,7 @@ public function compramasupdate()
           #$ordenes=$o->get();
 
          
- $ordenes=AlpViewOrdenes::limit(2000)->orderBy('id', 'desc')->get();
+        $ordenes=AlpViewOrdenes::limit(2000)->orderBy('id', 'desc')->get();
           $total=count($todas);
 
           $filtradas=count($ordenes);

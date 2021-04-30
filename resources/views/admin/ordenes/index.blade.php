@@ -301,8 +301,6 @@ $(document).ready(function() {
         });
     });*/
 
-     
-
         
    /* var table =$('#tbOrdenes').DataTable({
         "serverSide": true,
