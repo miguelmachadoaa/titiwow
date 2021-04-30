@@ -116,14 +116,8 @@ Area clientes
                 
                 {{ csrf_field() }}
 
-              <div class="form-group " style="text-align: center;">
-
-
-                <label for="exampleInputName2">Ingrese Tarjera de Regalo </label>
 
                 <input type="text" class="form-control " id="codigo" name="codigo" placeholder="Ingrese la Tarjeta de regalo" required="true" style="width: 15em; margin-bottom: 2em;">
-              
-              </div>
 
               <br />
               <button type="button" class="btn btn-primary btn_bono">Click para redimir</button>
