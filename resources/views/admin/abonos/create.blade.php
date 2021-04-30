@@ -112,8 +112,7 @@
                                     
                                     @foreach($tipobono as $ta)
 
-                                    <option value="{{ $ta->id }}">
-                                            {{ $ta->nombre_tipo}}</option>
+                                    <option value="{{ $ta->id }}">  {{ $ta->nombre_tipo}}</option>
                                     @endforeach
                                     
                                   

@@ -587,6 +587,36 @@ $('.delCupon').on('click', function(){
 });
 
 
+$('.delBono').on('click', function(){
+
+    id=$(this).data('id');
+
+    _token=$('input[name="_token"]').val();
+
+    var base = $('#base').val();
+
+        $.ajax({
+            type: "POST",
+
+            data:{id, _token},
+
+            url: base+"/cart/delbono",
+                
+            complete: function(datos){     
+
+                localStorage.setItem("aviso", datos.responseText);
+
+                location.reload();
+            
+            }
+
+        });
+
+});
+
+
+
+
 $('.delCuponIcg').on('click', function(){
 
     id=$(this).data('id');

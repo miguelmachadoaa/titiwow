@@ -3396,11 +3396,8 @@ class AlpCartController extends JoshController
      */
 
   public function orderProcesarBono(Request $request)
-
     {
 
-      
-     
 
       $input=$request->all();
 
@@ -3430,41 +3427,25 @@ class AlpCartController extends JoshController
         
       $cart= \Session::get('cart');
 
-      
       $carrito= \Session::get('cr');
-
       
       $id_orden= \Session::get('orden');
 
-
-
-
-
       $envio=$this->envio();
 
-      
       $valor_impuesto=AlpImpuestos::where('id', '1')->first();
 
-      
       if ($envio>0) {
-
-       
 
          $envio_base=$envio/(1+$valor_impuesto->valor_impuesto);
 
-         
         $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
-
-        
 
       }else{
 
-        
         $envio_base=0;
 
-        
         $envio_impuesto=0;
-
         
       }
 
@@ -3519,61 +3500,74 @@ class AlpCartController extends JoshController
               ->select("alp_abono_disponible.*", DB::raw(  "SUM(alp_abono_disponible.valor_abono) as total"))
               ->where('alp_abono_disponible.id_cliente', $user_id)
               ->first();
-
-
-
-
             
               $det_array = array();
 
-             
 
             if (($orden->monto_total+$envio)>0) {
 
               if ($disponible->total>=$request->bono_use) {
 
+                $rr=($orden->monto_total+$envio)-$request->bono_use;
 
-                $ppa=AlpAbonosDisponible::where('id_cliente', $user_id)->first();
+                activity($user->full_name) ->performedOn($user) ->causedBy($user) ->withProperties($rr)  ->log('diferencia al procesar bono ');
 
-              
-                $data_abono = array(
-                  'id_abono'=>$ppa->id_abono,
-                  'id_cliente'=>$user_id,
-                  'operacion'=>1,
-                  'codigo_abono'=>'',
-                  'valor_abono'=>-$request->bono_use,
-                  'fecha_final'=>now(),
-                  'origen'=>'Compra',
-                  'token'=>md5(time()),
-                  'json'=>json_encode($orden),
-                  'id_user'=>$user_id
-                );
-
-               $pa=AlpAbonosDisponible::create($data_abono);
+                  if ($almacen->minimo_compra<=$rr || $rr==0) {
 
 
-               if ($total-$request->bono_use>0) {
+                    $ppa=AlpAbonosDisponible::where('id_cliente', $user_id)->first();
+
                 
+                  $data_abono = array(
+                    'id_abono'=>$ppa->id_abono,
+                    'id_cliente'=>$user_id,
+                    'operacion'=>1,
+                    'codigo_abono'=>'',
+                    'valor_abono'=>-$request->bono_use,
+                    'fecha_final'=>now(),
+                    'origen'=>'Compra',
+                    'token'=>md5(time()),
+                    'json'=>json_encode($orden),
+                    'id_user'=>$user_id
+                  );
 
-                  $data_pago = array(
-                  'id_orden' => $orden->id, 
-                  'id_forma_pago' => '4', 
-                  'id_estatus_pago' => '1', 
-                  'monto_pago' => $request->bono_use, 
-                  'json' => json_encode($pa), 
-                  'id_user' => $user_id, 
-                );
-
-                 
-                 AlpPagos::create($data_pago);
+                 $pa=AlpAbonosDisponible::create($data_abono);
 
 
-                 return secure_url('order/detail');
+                 if ($total-$request->bono_use>0) {
+                  
+
+                    $data_pago = array(
+                    'id_orden' => $orden->id, 
+                    'id_forma_pago' => '4', 
+                    'id_estatus_pago' => '1', 
+                    'monto_pago' => $request->bono_use, 
+                    'json' => json_encode($pa), 
+                    'id_user' => $user_id, 
+                  );
+
+                   
+                   AlpPagos::create($data_pago);
+
+                   \Session::put('aviso', 'Pago aplicado satisfactoriamente, puede asignar un nuevo pago para completar la compra');
+
+
+                   return secure_url('order/detail');
+                  
+                }
+
+               }else{
+
+                \Session::put('aviso', 'El monto restante al aplicar este pago es muy bajo, para procesaar con otro medio de pago, complete la compra con el bono o agregue una cantidad menor.');
+
+                return secure_url('order/detail');
 
                }
 
 
               }else{
+
+                \Session::put('aviso', 'No posee el saldo suficiente para asignar este pago.');
 
                 return secure_url('order/detail');
 
@@ -10060,6 +10054,85 @@ public function addcupon(Request $request)
 
       
     }
+
+
+    public function delbono(Request $request)
+    {
+
+       if (Sentinel::check()) {
+        
+          $user = Sentinel::getUser();
+          
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('cartcontroller/delbono ');
+                        
+        }else{
+          
+          activity()->withProperties($request->all())
+                        ->log('cartcontroller/delbono');
+
+        }
+
+      $configuracion=AlpConfiguracion::where('id', '1')->first();
+
+      $carrito= \Session::get('cr');
+      
+      $cart=$this->reloadCart();
+      
+      $total=$this->total();
+      
+      $total_base=$this->precio_base();
+      
+      $impuesto=$this->impuesto();
+      
+      $texto="<div class='alert alert-danger'>El bono  ha sido eliminado</div>";
+      
+      $pagobono=AlpPagos::where('id', $request->id)->first();
+
+      if (isset($pagobono->id)) {
+
+        $pbe=AlpAbonosDisponible::where('id_cliente', $user->id)->where('valor_abono', '=', -$pagobono->monto_pago)->first();
+
+        if (isset($pbe->id)) {
+
+
+          $texto="<div class='alert alert-danger'>El bono  ha sido eliminado</div>";
+          
+
+                $data_abono = array(
+                    'id_abono'=>$pbe->id_abono,
+                    'id_cliente'=>$user->id,
+                    'operacion'=>1,
+                    'codigo_abono'=>'',
+                    'valor_abono'=>$pagobono->monto_pago,
+                    'fecha_final'=>now(),
+                    'origen'=>'Eliminar bono asignado  en compra',
+                    'token'=>md5(time()),
+                    'json'=>json_encode($carrito),
+                    'id_user'=>$user->id
+                  );
+
+                 $pa=AlpAbonosDisponible::create($data_abono);
+
+                 $pagobono->delete();
+
+        }else{
+
+          $texto="<div class='alert alert-danger'>Error al eliminar el pago </div>";
+        }
+
+
+        # code...
+      }
+
+      return $texto;
+      
+    }
+
+
 
 
     public function delcuponicg(Request $request)

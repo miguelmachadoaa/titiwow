@@ -192,7 +192,7 @@
                                     </div>
                                     <div class="col-sm-4 col-xs-4">
 
-                                        <h4 style="color: #3DC639;">{{   number_format($p->monto_pago,0,",",".") }}    <button data-id="{{ $p->id }}" style="color: red !important; margin:0; padding: 0em 1em;" class="btn btn-link delCupon" ><i class="fa fa-trash"></i></button></h4> 
+                                        <h4 style="color: #3DC639;">{{   number_format($p->monto_pago,0,",",".") }}    <button data-id="{{ $p->id }}" style="color: red !important; margin:0; padding: 0em 1em;" class="btn btn-link delBono" ><i class="fa fa-trash"></i></button></h4> 
 
                                     </div>
                                     

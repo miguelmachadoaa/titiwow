@@ -99,8 +99,7 @@ Editar Abonos
                                     
                                     @foreach($tipobono as $ta)
 
-                                    <option @if($abono->tipo_abono==$ta->id) {{'Selected'}} @endif value="{{ $ta->id }}">
-                                            {{ $ta->nombre_tipo}}</option>
+                                    <option @if($abono->tipo_abono==$ta->id) {{'Selected'}} @endif value="{{ $ta->id }}">  {{ $ta->nombre_tipo}}</option>
                                     @endforeach
                                     
                                   
