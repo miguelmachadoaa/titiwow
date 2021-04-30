@@ -1105,10 +1105,10 @@
                                                 <option value="">Seleccione</option>
                                                    
                                                     <option value="{{ 1 }}"
-                                                        @if($producto->actualizar_api == 1) selected="selected" @endif     >Actualizar</option>
+                                                        @if($producto->update_api == 1) selected="selected" @endif     >Actualizar</option>
 
                                                     <option value="{{ 0}}"
-                                                       @if($producto->actualizar_api == 0) selected="selected" @endif    >No Actualizar</option>
+                                                       @if($producto->update_api == 0) selected="selected" @endif    >No Actualizar</option>
                                                    
                                             </select>
 
