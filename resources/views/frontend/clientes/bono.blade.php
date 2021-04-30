@@ -112,15 +112,27 @@ Area clientes
 
         <div class="col-sm-12 text-center">
             
-            <form class="form-inline" method="post" action="{{secure_url('postbono')}}">
+            <form class="form" method="post" action="{{secure_url('postbono')}}">
                 
                 {{ csrf_field() }}
 
 
-                <input type="text" class="form-control " id="codigo" name="codigo" placeholder="Ingrese la Tarjeta de regalo" required="true" style="width: 15em; margin-bottom: 2em;">
+                <div class="form-group col-xs-12 col-sm-4 col-sm-offset-4">
+                    
+                    <input type="text" class="form-control col-xs-12" id="codigo" name="codigo" placeholder="Ingrese la Tarjeta de regalo" required="true" style=" margin-bottom: 2em;">
 
-              <br />
-              <button type="button" class="btn btn-primary btn_bono">Click para redimir</button>
+                </div>
+
+
+                <div class="form-group col-xs-12 col-sm-4 col-sm-offset-4">
+                    <br />
+                    <button type="button" class="btn btn-primary btn_bono">Click para redimir</button>
+                </div>
+
+
+                
+
+              
             </form>
 
 
