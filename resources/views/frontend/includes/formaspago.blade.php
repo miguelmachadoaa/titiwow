@@ -1,15 +1,9 @@
+
+
+
 @if(count($formaspago))
 
-            <div class="col-sm-12 ">
-
-                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-
-                 
-                    <h3 >  Formas de pago</h3>
-
-                        <input type="hidden" name="id_forma_pago" id="id_forma_pago" value="">
-
-                    @foreach($formaspago as $fpp)
+            @foreach($formaspago as $fpp)
 
                     @if($fpp->id==4)
 
@@ -17,20 +11,29 @@
 
                     @if($bono_disponible->total>0)
 
-                    <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="heading{{ $fpp->id }}">
-                                  <h4 class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $fpp->id }}" aria-expanded="true" aria-controls="collapse{{ $fpp->id }}">
-                                      {{ ucfirst ($fpp->nombre_forma_pago) }} <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-                                    </a>
-                                  </h4>
-                                </div>
-                                <div id="collapse{{ $fpp->id }}" class="panel-collapse collapse " role="tabpanel" aria-labelledby="heading{{ $fpp->id }}">
-                                  <div class="panel-body">
+                    <div class="col-sm-12">
+                      
+
+                                  <h3 class="" style="margin-top: 1em;">
+                                     <p>Saldo Disponible: COP {{number_format($bono_disponible->total,0,',','.') }}</p>  
+                                    
+                                  </h3>
+                                <div >
+
+                                       
+                                        <p style="margin-bottom: 1em;">
+
+                                            <label class="btn btn-primary active col-sm-6">
+                                              <input type="radio" name="options" id="pago_total" checked> Pago Total 
+                                            </label>
+                                            <label class="btn btn-primary col-sm-6">
+                                              <input type="radio" name="options" id="pago_parcial"> Pago Parcial
+                                            </label>
+                                          </p>
+
+                                          <div class=" col-sm-6 col-xs-12" style="margin-top: 1em;">
 
 
-                                       <div class=" col-sm-6 col-xs-12">
-                                        <p>Disponible: COP {{number_format($bono_disponible->total,0,',','.') }}  </p>
                                         <p>Usar : <input id="bono_use" name="bono_use" type="number" min="0" max="{{$bono_disponible->total}}" 
                                           @if($total>$bono_disponible->total)
                                           value="{{$bono_disponible->total}}" 
@@ -38,20 +41,21 @@
                                           value="{{$total}}"
                                           @endif
                                           step="1"  ></p>
+                                         
+                                            
 
                                         </div> 
 
-                                     <div data-idpago="{{ $fpp->id }}" data-type="bono" data-id="4" class=" col-sm-6 col-xs-12 procesar btnpg" style="padding:8px;background-color:#3DC639;color:#ffffff; cursor: pointer;">
+                                       <div data-idpago="{{ $fpp->id }}" data-type="bono" data-id="4" class=" col-sm-6 col-xs-12 procesar btnpg" style="padding: 0px; background-color: #221D44; color: #ffffff; cursor: pointer; margin-top: 1em; width: 50%;;">
 
+                                          <h5 class="text-center">Aplicar  <i class="fa  fa-chevron-right"></i></h5>
 
+                                      </div>
 
-                                        <h5 class="text-center">Aplicar  <i class="fa  fa-chevron-right"></i></h5>
-
-                                    </div>
-
-                                  </div>
                                 </div>
-                            </div>
+
+
+                    </div>
 
 
 
@@ -66,6 +70,20 @@
                     @endif
 
                     @endforeach
+
+
+
+
+            <div class="col-sm-12 ">
+
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+                 
+                    <h3 >  Formas de pago</h3>
+
+                        <input type="hidden" name="id_forma_pago" id="id_forma_pago" value="">
+
+                    
 
                     <!-- Se construyen las opciones de envios -->
 
