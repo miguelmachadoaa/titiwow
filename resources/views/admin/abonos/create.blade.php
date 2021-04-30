@@ -112,7 +112,7 @@
                                     
                                     @foreach($tipobono as $ta)
 
-                                    <option value="{{ $ta->id }}">  {{ $ta->nombre_tipo}}</option>
+                                    <option  @if($ta->id == old('tipo_abono')) selected="selected" @endif    value="{{ $ta->id }}">  {{ $ta->nombre_tipo}}</option>
                                     @endforeach
                                     
                                   
@@ -171,7 +171,7 @@
                                     
                                     @foreach($clientes as $c)
 
-                                    <option value="{{ $c->id }}">
+                                    <option @if($c->id == old('id_cliente')) selected="selected" @endif     value="{{ $c->id }}">
                                             {{ $c->first_name.' '.$c->last_name.' - '.$c->email}}</option>
                                     @endforeach
                                     
@@ -196,7 +196,7 @@
                                     
                                     @foreach($ordenes as $o)
 
-                                    <option value="{{ $o->id }}">
+                                    <option  @if($o->id == old('id_orden')) selected="selected" @endif  value=" {{ $o->id }}">
                                             {{ $o->referencia}}</option>
                                     @endforeach
                                     
@@ -223,7 +223,7 @@
                                     
                                     @foreach($almacenes as $a)
 
-                                    <option value="{{ $a->id }}">
+                                    <option @if($a->id == old('id_almacen')) selected="selected" @endif value="{{ $a->id }}">
                                             {{ $a->nombre_almacen}}</option>
                                     @endforeach
                                     
