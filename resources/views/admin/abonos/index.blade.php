@@ -54,6 +54,7 @@ Abonos
                                     <th>Codigo</th>
                                     <th>Valor</th>
                                     <th>Fecha Limite</th>
+                                    <th>Origen</th>
                                     <th>Nombre Almacen</th>
                                     <th>Estado</th>
                                     <th>Creado</th>
@@ -68,6 +69,7 @@ Abonos
                                     <td>{!! $row->codigo_abono!!}</td>
                                     <td>{!! $row->valor_abono !!}</td>
                                     <td>{!! $row->fecha_final !!}</td>
+                                    <td>{{$row->origen}}</td>
                                     <td>{{$row->nombre_almacen}}</td>
                                     <td>
                                         @if($row->estado_registro==0)
