@@ -87,11 +87,10 @@ class AlpDepartamentosController extends JoshController
                                                 data-loop='true' data-c='#f56954' data-hc='#f56954'
                                                 title='Eliminar'></i>
                                              </a>
-
                                              
-                                             <a href='".secure_url('admin/departamentos/'.$row->id.'/gestionar')."'>
+                                             <!--a href='".secure_url('admin/departamentos/'.$row->id.'/gestionar')."'>
                                                 <i class='livicon' data-name='eye' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Gestionar Departamento'></i>
-                                            </a>
+                                            </a-->
 
                                              ";
 

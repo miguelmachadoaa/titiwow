@@ -89,7 +89,7 @@ Editar areas
                             </label>
                             <div class="col-sm-5">
                                 
-                               <input style="margin: 4px 0;" id="correos" name="correos" type="text" placeholder="Correos de Envio" value="{!! old('correos'), $departamento->correos) !!}" class="form-control">
+                               <input style="margin: 4px 0;" id="correos" name="correos" type="text" placeholder="Correos de Envio" value="{!! old('correos'), $departamento->correos !!}" class="form-control">
                             </div>
                             <div class="col-sm-4">
                                 {!! $errors->first('correos', '<span class="help-block">:message</span> ') !!}
