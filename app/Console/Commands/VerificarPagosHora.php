@@ -145,8 +145,6 @@ class VerificarPagosHora extends Command
 
                 $direccion=AlpDirecciones::where('id', $ord->id_address)->withTrashed()->first();
 
-                //dd($direccion);
-
                 $feriados=AlpFeriados::feriados();
 
                 $ciudad_forma=AlpFormaCiudad::where('id_forma', $ord->id_forma_envio)->where('id_ciudad', $direccion->city_id)->first();
@@ -305,9 +303,6 @@ class VerificarPagosHora extends Command
                 ->where('users.id', '=', $orden->id_user)->first();
 
 
-               // dd($cliente);
-
-
               $direccion = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
               ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
               ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
@@ -433,13 +428,6 @@ class VerificarPagosHora extends Command
                     # code...
                   }
 
-
-
-
-
-
-          
-             //
              
 
                
@@ -533,6 +521,71 @@ class VerificarPagosHora extends Command
 
 
             }
+
+          }else{
+
+
+
+                $date = Carbon::parse($orden->created_at); 
+
+                $now = Carbon::now();
+
+                $diff = $date->diffInMinutes($now); 
+
+               // dd($idpago);
+
+               if ($diff>$configuracion->vence_ordenes_pago) {
+
+                $data_update = array(
+                  'estatus' =>4, 
+                  'estatus_pago' =>3,
+                   );
+
+                 $orden->update($data_update);
+
+                  $data_history = array(
+                    'id_orden' => $orden->id, 
+                    'id_status' => '4', 
+                    'notas' => 'Notificacion Mercadopago Cron',
+                    'id_user' => 1
+                  );
+
+                  $history=AlpOrdenesHistory::create($data_history);
+
+                   
+
+
+                   $descuentos=AlpOrdenesDescuento::where('id_orden', $orden->id)->get();
+
+                      foreach ($descuentos as $desc) {
+                        
+                        $d=AlpOrdenesDescuento::where('id', $desc->id)->first();
+
+                        $d->delete();
+
+                      }
+
+
+
+                      try {
+
+                         if ($orden->id_almacen=='1') {
+
+                            #$this->cancelarCompramas($orden->id);
+                            # code...
+                          }
+                        
+                      } catch (\Exception $e) {
+
+                        activity()->withProperties(1)->log('Error de compramas vp477');
+                        
+                      }
+
+               }
+
+
+
+
 
           } //si hay resultados 
 
@@ -635,9 +688,9 @@ class VerificarPagosHora extends Command
                         }
 
                       }
-
-
                       
+                  }
+
                   }
 
               $cliente =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista','alp_clientes.doc_cliente as doc_cliente')
