@@ -620,12 +620,6 @@ public function compramasupdate()
 
     $input=$request->all();
 
-   // dd($input['order'][0]['column']);
-   
-   //$temp=AlpTemp::orderBy('id', 'desc')->first();
-
-   //dd($temp->id);
-
     $c_orden = AlpOrdenes::select(
           'alp_ordenes.id as id',
           'alp_ordenes.estatus as estatus', 
@@ -649,8 +643,6 @@ public function compramasupdate()
 
 
          $ordenes=$c_orden
-         //->skip($input['start'])
-         //->take($input['length'])
          ->where('alp_ordenes.id', '>', $temp->id)
           ->get();
 
@@ -813,7 +805,7 @@ public function compramasupdate()
 
 
 
-    public function data(Request $request)
+    public function data_mayo(Request $request)
     {
 
      $input=$request->all();
@@ -920,7 +912,7 @@ public function compramasupdate()
           #$ordenes=$o->get();
 
          
-        $ordenes=AlpViewOrdenes::limit(2000)->orderBy('id', 'desc')->get();
+          $ordenes=AlpViewOrdenes::limit(2000)->orderBy('id', 'desc')->get();
           $total=count($todas);
 
           $filtradas=count($ordenes);
@@ -1311,7 +1303,7 @@ public function compramasupdate()
 
 
 
-      public function data_old()
+      public function data()
     {
 
      // dd('i');

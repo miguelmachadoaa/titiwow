@@ -287,7 +287,7 @@ $(document).ready(function() {
     base=$('#base').val();
 
     
-  /*  var table =$('#tbOrdenes').DataTable({
+    var table =$('#tbOrdenes').DataTable({
         "processing": true,
         "order": [[ 0, "desc" ]],
         "ajax": {
@@ -299,7 +299,7 @@ $(document).ready(function() {
         $('.livicon').each(function(){
             $(this).updateLivicon();
         });
-    });*/
+    });
 
         
    /* var table =$('#tbOrdenes').DataTable({
