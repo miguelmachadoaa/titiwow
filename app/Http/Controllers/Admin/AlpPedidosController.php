@@ -615,7 +615,7 @@ class AlpPedidosController extends JoshController
              if ($orden->id_almacen==1) {
 
               try {
-                $compramas=$this->reservarOrden($orden->id);
+               # $compramas=$this->reservarOrden($orden->id);
               } catch (Exception $e) {
                 activity()->withProperties(1)
                         ->log('error reserva orden pedidos l615');
@@ -4769,12 +4769,11 @@ public function marketingcliente()
     private function reservarOrden($id_orden)
     {
 
-      $configuracion=AlpConfiguracion::first();
+    $configuracion=AlpConfiguracion::first();
       
-       $orden=AlpOrdenes::where('id', $id_orden)->first();
+    $orden=AlpOrdenes::where('id', $id_orden)->first();
 
-        activity()
-          ->withProperties($orden)->log('compramas orden ');
+    activity()->withProperties($orden)->log('compramas orden ');
         
                  $detalles = AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto','alp_productos.referencia_producto as referencia_producto')
                   ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
@@ -5010,17 +5009,6 @@ public function marketingcliente()
 
       
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
     public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){

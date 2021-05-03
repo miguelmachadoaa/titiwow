@@ -700,7 +700,7 @@ class VerificarPagos extends Command
               activity()->withProperties($dataraw)->log('Datos enviados a registro  de orden aprobada en compramas orden id '.$orden->id.' .vp634');
 
 
-              dd($dataraw);
+             ## dd($dataraw);
 
 
       $ch = curl_init();
