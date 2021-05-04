@@ -3711,7 +3711,7 @@ public function compramasupdate()
         ->get();
 
 
-         // dd($history_envio);
+       //   dd(json_decode($orden->send_json_masc, true));
 
         return view('admin.ordenes.detalle', compact('detalles', 'orden', 'history', 'pago', 'pagos', 'cliente', 'direccion', 'cupones', 'formaenvio', 'envio', 'pago_aprobado', 'history_envio', 'user', 'descuentoicg', 'p_a','subtotal','impuestos', 'tickets'  ));
 

@@ -211,10 +211,17 @@ class AlpPedidosController extends JoshController
 
         $cart= \Session::get('cart');
 
-        //dd($cart);
+        
+         if (isset($cart['id_almacen'])) {
 
+            $id_almacen=$cart['id_almacen'];
 
-        $id_almacen=$cart['id_almacen'];
+          }else{
+
+            $id_almacen='1';
+          }
+
+      
 
         $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
@@ -3698,6 +3705,8 @@ public function postdireccion(DireccionModalRequest $request)
 
       }
 
+       $validado=0;
+
 
       if (isset($cart['id_direccion'])) {
         
@@ -3718,7 +3727,7 @@ public function postdireccion(DireccionModalRequest $request)
 
 
 
-         $validado=0;
+        
 
           $role=RoleUser::select('role_id')->where('user_id', $cart['id_cliente'])->first();
 

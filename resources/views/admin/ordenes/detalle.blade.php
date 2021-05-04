@@ -125,21 +125,6 @@ Orden {{$orden->id}}
                   <div class="bs-wizard-info text-center">2</div>
                 </div>
                 
-                <!--div class="col-xs-4 bs-wizard-step @if($orden->estatus=='6') active @elseif($orden->estatus>6 && $orden->estatus!=8 || $orden->estatus=='3') complete @else disabled @endif"><!-- complete -->
-                  <!--div class="text-center bs-wizard-stepnum">Facturado</div>
-                  <div class="progress"><div class="progress-bar"></div></div>
-                  <a href="#" class="bs-wizard-dot"></a>
-                  <div class="bs-wizard-primary text-center">3</div>
-                </div>
-                
-                <div class="col-xs-4 bs-wizard-step @if($orden->estatus=='7') active @elseif($orden->estatus>7 && $orden->estatus!=8 || $orden->estatus=='3') complete @else disabled @endif"><!-- active -->
-                  <!--div class="text-center bs-wizard-stepnum">Enviado</div>
-                  <div class="progress"><div class="progress-bar"></div></div>
-                  <a href="#" class="bs-wizard-dot"></a>
-                  <div class="bs-wizard-danger text-center"> 4</div>
-                </div-->
-
-
                 <div class="col-xs-4 bs-wizard-step @if($orden->estatus=='3') active @elseif($orden->estatus==3 && $orden->estatus==3) complete @else disabled @endif"><!-- active -->
                   <div class="text-center bs-wizard-stepnum">Entregado</div>
                   <div class="progress"><div class="progress-bar"></div></div>
@@ -465,12 +450,82 @@ Orden {{$orden->id}}
                                  <td><a href="{{secure_url('/tracking/'.$orden->token)}}" class="button button-blue" target="_blank">URL Tracking</a></td>
                              </tr>
 
+                             @if(is_null($orden->send_json_masc))
+
+                             @else
+
+
+                             <tr>
+                                 <td>Datos masc</td>
+                                 <td><button class="btn btn-primary datosmasc">Ver Datos Masc </button></td>
+                             </tr>
+
+
+                             @endif
+
                          
                          
                     
                  </tbody>
                  
              </table>
+
+             @if(is_null($orden->send_json_masc))
+
+             @else
+
+             <div class="col-sm-12 divdatosmasc hidden">
+
+                    
+                    @foreach(json_decode($orden->send_json_masc, true) as $key => $value)
+
+                        @if(is_array($value))
+
+                        <p>{{$key.' :'}}</p>
+
+                            @foreach($value as $key2 => $value2)
+
+                                @if(is_array($value2))
+
+                                <p style="margin-left: 2em;">{{$key2}}</p>
+
+                                    @foreach($value2 as $key3 => $value3)
+
+                                    <p style="margin-left: 4em;">
+                                        {{$key3.' : '.$value3}}
+                                    </p>
+
+                                    @endforeach
+
+
+                                @else
+
+                                  <p style="margin-left: 2em;">
+                                    {{$key2.' : '.$value2}}
+                                </p>
+
+                                @endif
+
+                              
+
+                            @endforeach
+
+                        @else
+
+                         <p>
+                            {{$key.' : '.$value}}
+                        </p>
+
+                        @endif
+                       
+
+                       
+                    @endforeach
+
+                 
+             </div>
+
+             @endif
 </div>
 
              <!--a href="{{secure_url('admin/ordenes/sendmail/'.$orden->id )}}" class="btn btn-danger">Notificar</a-->
@@ -1348,5 +1403,23 @@ Orden {{$orden->id}}
 <script type="text/javascript" src="{{ secure_asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
 
 <script src="{{ secure_asset('assets/js/pages/add_newblog.js') }}" type="text/javascript"></script>
+
+<script>
+    
+    $(document).ready(function(){
+
+        $('.datosmasc').click(function(){
+
+            if($('.divdatosmasc').hasClass('hidden')){
+
+                $('.divdatosmasc').removeClass('hidden');
+            }else{
+                $('.divdatosmasc').addClass('hidden');
+            }
+
+        });
+            
+    });
+</script>
 
 @stop

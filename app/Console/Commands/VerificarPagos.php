@@ -78,7 +78,7 @@ class VerificarPagos extends Command
       $d=$date->subDay(3)->format('Y-m-d');
       
         #$ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
-        $ordenes=AlpOrdenes::where('id', '11043')->where('countvp','<', '5')->get();
+        $ordenes=AlpOrdenes::where('id', '18881')->where('countvp','<', '5')->get();
         //
         
         echo count($ordenes);
@@ -126,8 +126,8 @@ class VerificarPagos extends Command
          // if (isset($preference)) {
 
             $cantidad=count($preference['response']['results']);
-            $aproved=0;
-            $cancel=1;
+            $aproved=1;
+            $cancel=0;
             $pending=0;
 
             foreach ($preference['response']['results'] as $r) {
@@ -689,7 +689,7 @@ class VerificarPagos extends Command
 
               $dataraw=json_encode($o);
 
-
+              $orden->update(['send_json_masc'=>$dataraw]);
 
               $urls=$configuracion->compramas_url.'/registerOrder/'.$configuracion->compramas_hash;
 
@@ -867,7 +867,7 @@ class VerificarPagos extends Command
       }
 
       
-    }
+    
 
 }
 
@@ -1922,13 +1922,6 @@ activity()->withProperties($res)->log('cancelar consumo  icg res');
 
       
     }
-
-
-
-
-
-
-
 
 
 

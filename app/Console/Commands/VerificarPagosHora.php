@@ -736,6 +736,8 @@ class VerificarPagosHora extends Command
 
               $dataraw=json_encode($o);
 
+              $orden->update(['send_json_masc'=>$dataraw]);
+
               $urls=$configuracion->compramas_url.'/registerOrder/'.$configuracion->compramas_hash;
 
               Log::info('Datos enviados a compramas para registro de orden aprobada  '.$urls);
@@ -911,7 +913,6 @@ class VerificarPagosHora extends Command
       }
 
       
-    }
 
 }
 
