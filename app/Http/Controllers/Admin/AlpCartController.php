@@ -2459,6 +2459,9 @@ class AlpCartController extends JoshController
               
           }
 
+
+
+
          
 
          
@@ -2596,41 +2599,73 @@ class AlpCartController extends JoshController
             
             //echo json_encode($cart);
 
-            
-           $mp = new MP();
 
+            $afe_mp=AlpAlmacenFormaPago::where('id_almacen', $id_almacen)->where('id_forma_pago', '2')->first();
+
+
+          if (isset($afe_mp->id)) {
+
+            if (!is_null($almacen->id_mercadopago) &&  !is_null($almacen->key_mercadopago)) {
+
+
+
+              $mp = new MP();
            
            if ($almacen->mercadopago_sand=='1') {
 
-          
-
-          $mp::sandbox_mode(TRUE);
-
-          
-        }
-
+              $mp::sandbox_mode(TRUE);
+            
+            }
         
-        if ($almacen->mercadopago_sand=='2') {
+            if ($almacen->mercadopago_sand=='2') {
 
-          
+              $mp::sandbox_mode(FALSE);
+              
+            }
 
-          $mp::sandbox_mode(FALSE);
+            MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
 
-          
+            try {
+
+              $preference = MP::post("/checkout/preferences",$preference_data);
+
+              $payment_methods = MP::get("/v1/payment_methods");
+
+                 $this->saveOrden($preference);
+              
+            } catch (MercadoPagoException $e) {
+
+              $preference = array();
+
+              $payment_methods = array();
+              
+            }
+
+
+
+              
+            }else{
+
+               $preference = array();
+
+              $payment_methods = array();
+
+
+            }
+
+            
+
+            
+        }else{
+
+          $preference = array();
+          $payment_methods = array();
+
         }
 
-          MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
 
-
-          try {
-
-            $preference = MP::post("/checkout/preferences",$preference_data);
             
-          } catch (MercadoPagoException $e) {
-
-            $preference = array();
-            
-          }
+           
           
           
 
@@ -2638,7 +2673,7 @@ class AlpCartController extends JoshController
          // dd($preference);
 
           
-          $this->saveOrden($preference);
+       
 
           
           $net_amount=$total-$impuesto;
@@ -2647,15 +2682,8 @@ class AlpCartController extends JoshController
          $pse = array();
 
          
-          $payment_methods = MP::get("/v1/payment_methods");
-
           
-          //dd($payment_methods);
 
-          
-         // $payment_methods = array('response'=>array());
-
-          
 
           $carro=AlpCarrito::where('id', $carrito)->first();
 
@@ -2681,37 +2709,24 @@ class AlpCartController extends JoshController
 
           
           $states=State::where('config_states.country_id', '47')->get();
-
           
           $tdocumento=AlpTDocumento::get();
-
           
           $estructura = AlpEstructuraAddress::where('estado_registro','=',1)->get();
 
-          
           $labelpagos = array(
-
             'pse' => 'Tarjeta débito', 
-
             'visa' => 'Tarjeta crédito', 
-
             'efecty' => 'Pago en efectivo a través de Efecty', 
-
             'efecty' => 'Pago en efectivo a través de Efecty', 
-
             'davivienda' => 'Pago en efectivo a través de Davivienda', 
-
             'baloto' => 'Pago en efectivo a través de Baloto'
-
           );
-
           
         $costo_envio=$this->envio();
 
-        
         $id_forma_envio= \Session::get('envio');
 
-        
         $fev = AlpFormasenvio::select('alp_formas_envios.*')
 
           ->join('alp_almacen_formas_envio', 'alp_formas_envios.id', '=', 'alp_almacen_formas_envio.id_forma_envio')
@@ -2785,91 +2800,58 @@ class AlpCartController extends JoshController
 
         $valor_impuesto=AlpImpuestos::where('id', '1')->first();
 
-        
         if ($costo_envio>0) {
 
-         
-
            $envio_base=$costo_envio/(1+$valor_impuesto->valor_impuesto);
-
            
           $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
-
           
         }else{
 
-          
          $envio_base=0;
 
-         
           $envio_impuesto=0;
-
           
         }
 
-        
-
         /*limitar forma de envio segun la hora o dias feriados */
 
-        
         $express=0;
-
-        
 
         $ciudad_forma=AlpFormaCiudad::where('id_rol', $role->role_id)->where('id_forma', '2')->where('id_ciudad', '62')->first();
 
-        
         $date = Carbon::now();
-
         
         if (isset($ciudad_forma->id)) {
-
           
             $date = Carbon::now();
-
             
             $hora=$date->format('Hi');
 
-            
             $hora_base=str_replace(':', '', $ciudad_forma->hora);
-
             
             if (intval($hora)>intval($hora_base)) {
 
-              
               $express=1;
-
               
             }
-
             
           }else{
-
-            
 
           }
 
           
         $feriados=AlpFeriados::feriados();
 
-        
-
          if ($date->isSunday()) {
-
           
              $express=1;
 
-          
-
           }else{
 
-            
             if (isset($feriados[$date->format('Y-m-d')])) {
 
-              
                 $express=1;
-
-             
 
             }
 
@@ -2879,10 +2861,7 @@ class AlpCartController extends JoshController
           
           $saldo=$this->getSaldo();
 
-          
           if (isset($saldo[$user->id])) {
-
-            # code...
 
           }else{
 
@@ -2890,9 +2869,7 @@ class AlpCartController extends JoshController
 
           }
 
-          
           $url=secure_url('order/detail');
-
 
           $bono_disponible = AlpAbonosDisponible::groupBy('alp_abono_disponible.id_cliente')
               ->select("alp_abono_disponible.*", DB::raw(  "SUM(alp_abono_disponible.valor_abono) as total"))
@@ -2911,7 +2888,7 @@ class AlpCartController extends JoshController
           }
 
           
-          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos', 'total_descuentos', 'costo_envio', 'id_forma_envio', 'envio_base', 'envio_impuesto', 'express', 'saldo', 'user','role', 'url', 'cupo_icg', 'total_descuentos_icg', 'descuentosIcg', 'descuento_compra_icg','bono_disponible', 'pagos', 'total_pagos'));
+          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos', 'total_descuentos', 'costo_envio', 'id_forma_envio', 'envio_base', 'envio_impuesto', 'express', 'saldo', 'user','role', 'url', 'cupo_icg', 'total_descuentos_icg', 'descuentosIcg', 'descuento_compra_icg','bono_disponible', 'pagos', 'total_pagos', 'almacen'));
 
           
          }

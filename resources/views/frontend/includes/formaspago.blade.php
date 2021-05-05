@@ -1,6 +1,4 @@
 
-
-
 @if(count($formaspago))
 
             @foreach($formaspago as $fpp)
@@ -91,6 +89,8 @@
         
                         @if($fp->id==2)
 
+                        @if(isset($payment_methods['response']))
+
                         @foreach($payment_methods['response'] as $pm)
 
                             @if($pm['id']=='pse')
@@ -124,9 +124,13 @@
 
                         @endforeach
 
+                        @endif
+
                             
 
                             <br>
+
+                             @if(isset($payment_methods['response']))
 
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingTDC">
@@ -156,7 +160,7 @@
 
                             <br>
 
-                         @if($configuracion->mercadopago_sand=='1')
+                         @if($almacen->mercadopago_sand=='1')
 
 
                                 <form action="../order/creditcard" method="POST" class="form_creditcard">
@@ -164,7 +168,7 @@
                                   <script
                                    src="{{secure_url('assets/js/web-tokenize-checkout.js')}}"
 
-                                    data-public-key="{{ $configuracion->public_key_mercadopago_test }}"
+                                    data-public-key="{{ $almacen->public_key_mercadopago_test }}"
                                     data-button-label="Pagar"
                                     data-transaction-amount="{{ (float)number_format($total-$total_pagos+$envio_base+$envio_impuesto, 2, '.', '')}}"
                                   
@@ -177,7 +181,7 @@
 
                                 @endif
 
-                                @if($configuracion->mercadopago_sand=='2')
+                                @if($almacen->mercadopago_sand=='2')
 
 
                                 <form action="../order/creditcard" method="POST" class="form_creditcard">
@@ -186,7 +190,7 @@
                                     
                                     src="{{secure_url('assets/js/web-tokenize-checkout.js')}}"
 
-                                    data-public-key="{{ $configuracion->public_key_mercadopago }}"
+                                    data-public-key="{{ $almacen->public_key_mercadopago }}"
                                     data-button-label="Pagar"
                                     data-transaction-amount="{{ (float)number_format($total-$total_pagos+$envio_base+$envio_impuesto, 2, '.', '')}}"
                                   
@@ -197,6 +201,12 @@
                                 </form>
 
                                 @endif
+
+
+                                @endif
+
+
+                           @if(isset($payment_methods['response'])) 
 
 
                         @foreach($payment_methods['response'] as $pm)
@@ -237,6 +247,9 @@
                             @endif
                          
                         @endforeach
+
+
+                        @endif
 
                         <br>
 
@@ -330,12 +343,15 @@
 
             <br>
 
-        @else
+  @else
 
-            <div class=" col-sm-12 col-xs-12">
+      <div class=" col-sm-12 col-xs-12">
 
-                <h3>No hay Formas de pago para este grupo de usuarios</h3>
+          <h3>No hay Formas de pago para este grupo de usuarios</h3>
 
-            </div> 
+      </div> 
 
-        @endif 
+  @endif 
+
+
+ 

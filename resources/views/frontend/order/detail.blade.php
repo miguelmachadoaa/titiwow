@@ -293,6 +293,8 @@ div.overlay > div {
 
                                  
                                    <option value="">Selecciona Entidad Financiera *</option>
+                                   @if(isset($payment_methods['response'] ))
+                                    
                                     @foreach($payment_methods['response'] as $pm)
 
                                         @if($pm['id']=='pse')
@@ -306,6 +308,8 @@ div.overlay > div {
                                         @endif
 
                                     @endforeach
+
+                                    @endif
                                 </select>
 
                             </div>
