@@ -148,7 +148,7 @@ Editar Configuración General
                                     Dias adicionales por defectoa al crear Codigos de Bono
                                 </label>
                                 <div class="col-sm-5">
-                                    <input type="number" step="0.01" min="0"  id="dias_abono" name="dias_abono" class="form-control" placeholder="Maximo Productos"
+                                    <input type="number" step="0.01" min="0"  id="dias_abono" name="dias_abono" class="form-control" placeholder="Dias adicionales por defectoa al crear Codigos de Bono"
                                         value="{!! old('dias_abono', $configuracion->dias_abono) !!}">
                                 </div>
                                 <div class="col-sm-4">
