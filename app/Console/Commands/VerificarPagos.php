@@ -82,35 +82,14 @@ class VerificarPagos extends Command
         //
         
         echo count($ordenes);
-      $configuracion = AlpConfiguracion::where('id', '1')->first();
 
-      
+        $configuracion = AlpConfiguracion::where('id', '1')->first();
 
         if (count($ordenes)) {
        
-
         foreach ($ordenes as $ord) {
 
-
           $almacen=AlpAlmacenes::where('id', $ord->id_almacen)->first();
-
-          
-
-           if ($almacen->mercadopago_sand=='1') {
-          
-              MP::sandbox_mode(TRUE);
-
-            }
-
-            if ($almacen->mercadopago_sand=='2') {
-              
-              MP::sandbox_mode(FALSE);
-
-            }
-
-            MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
-
-
 
           $orden=AlpOrdenes::where('id', $ord->id)->first();
 
@@ -118,9 +97,53 @@ class VerificarPagos extends Command
 
           $user_cliente=User::where('id', $ord->id_user)->first();
 
-          $preference = MP::get("/v1/payments/search?external_reference=".$ord->referencia);
-          
 
+          if (isset($almacen->id)) {
+
+            if (!is_null($almacen->id_mercadopago) &&  !is_null($almacen->key_mercadopago)) {
+
+              $mp = new MP();
+           
+           if ($almacen->mercadopago_sand=='1') {
+
+              $mp::sandbox_mode(TRUE);
+            
+            }
+        
+            if ($almacen->mercadopago_sand=='2') {
+
+              $mp::sandbox_mode(FALSE);
+              
+            }
+
+            MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
+
+            try {
+
+              $preference = MP::get("/v1/payments/search?external_reference=".$ord->referencia);
+
+            } catch (MercadoPagoException $e) {
+
+              $preference = array();
+              
+            }
+
+            }else{
+
+               $preference = array();
+
+            }
+            
+        }else{
+
+          $preference = array();
+        }
+
+
+           
+
+            
+          
 
           if (isset($preference['response']['results'][0])) {
          // if (isset($preference)) {

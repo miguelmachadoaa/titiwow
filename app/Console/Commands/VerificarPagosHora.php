@@ -77,30 +77,16 @@ class VerificarPagosHora extends Command
       
         $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
        # $ordenes=AlpOrdenes::where('id', '15532')->where('countvp','>=', '5')->get();
-        //
         
         echo count($ordenes);
         
-      $configuracion = AlpConfiguracion::where('id', '1')->first();
-
-       if ($configuracion->mercadopago_sand=='1') {
-          
-          MP::sandbox_mode(TRUE);
-
-        }
-
-        if ($configuracion->mercadopago_sand=='2') {
-          
-          MP::sandbox_mode(FALSE);
-
-        }
-
-        MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
-
+     
         if (count($ordenes)) {
        
 
         foreach ($ordenes as $ord) {
+
+          $almacen=AlpAlmacenes::where('id', $ord->id_almacen)->first();
 
           $orden=AlpOrdenes::where('id', $ord->id)->first();
 
@@ -108,7 +94,47 @@ class VerificarPagosHora extends Command
 
           $user_cliente=User::where('id', $ord->id_user)->first();
 
-          $preference = MP::get("/v1/payments/search?external_reference=".$ord->referencia);
+
+          if (isset($almacen->id)) {
+
+            if (!is_null($almacen->id_mercadopago) &&  !is_null($almacen->key_mercadopago)) {
+
+              $mp = new MP();
+           
+           if ($almacen->mercadopago_sand=='1') {
+
+              $mp::sandbox_mode(TRUE);
+            
+            }
+        
+            if ($almacen->mercadopago_sand=='2') {
+
+              $mp::sandbox_mode(FALSE);
+              
+            }
+
+            MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
+
+            try {
+
+              $preference = MP::get("/v1/payments/search?external_reference=".$ord->referencia);
+
+            } catch (MercadoPagoException $e) {
+
+              $preference = array();
+              
+            }
+
+            }else{
+
+               $preference = array();
+
+            }
+            
+        }else{
+
+          $preference = array();
+        }
           
         //  dd($preference);
 
