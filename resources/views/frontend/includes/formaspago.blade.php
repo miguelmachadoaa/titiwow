@@ -3,6 +3,8 @@
 
             @foreach($formaspago as $fpp)
 
+                    @if(!count($pagos))
+
                     @if($fpp->id==4)
 
                     @if(isset($bono_disponible->total))
@@ -38,7 +40,7 @@
                                           @else
                                           value="{{$total}}"
                                           @endif
-                                          step="1"  ></p>
+                                          step="1" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"  ></p>
                                          
                                           <input id="monto_total_compra_bono_icg" name="monto_total_compra_bono_icg" type="hidden" 
                                           @if($total>$bono_disponible->total)
@@ -72,6 +74,7 @@
 
 
                     @endif
+                    @endif  
 
                     @endforeach
 
