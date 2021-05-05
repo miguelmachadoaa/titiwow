@@ -22,10 +22,10 @@
                                         <p style="margin-bottom: 1em;">
 
                                             <label class="btn btn-primary active col-sm-6">
-                                              <input type="radio" name="options" id="pago_total" checked> Pago Total 
+                                              <input type="radio" name="options" id="pago_total" value="pago_total" checked> Pago Total 
                                             </label>
                                             <label class="btn btn-primary col-sm-6">
-                                              <input type="radio" name="options" id="pago_parcial"> Pago Parcial
+                                              <input  type="radio" name="options" id="pago_parcial" value="pago_parcial"> Pago Parcial
                                             </label>
                                           </p>
 
@@ -40,7 +40,13 @@
                                           @endif
                                           step="1"  ></p>
                                          
-                                            
+                                          <input id="monto_total_compra_bono_icg" name="monto_total_compra_bono_icg" type="hidden" 
+                                          @if($total>$bono_disponible->total)
+                                          value="{{$bono_disponible->total}}" 
+                                          @else
+                                          value="{{$total}}"
+                                          @endif
+                                          step="1" >    
 
                                         </div> 
 

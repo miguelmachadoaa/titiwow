@@ -467,6 +467,32 @@ div.overlay > div {
 
     <script>
 
+
+        $(document).ready(function(){
+
+            $("input[name=options]").click(function () {    
+
+                rid=$(this).attr('id');
+
+                if (rid=='pago_total') {
+
+                    $('#bono_use').val($('#monto_total_compra_bono_icg').val());
+
+                }else{
+
+                    $('#bono_use').val('0');
+
+                }
+
+                //alert("La edad seleccionada es: " + rid);
+            });
+
+
+        });
+
+
+
+
         $('.addDescuentoIcg').on('click', function(){
 
             $(location).attr("href", '{{secure_url('cart/adddescuentoicg')}}');
@@ -1732,5 +1758,16 @@ $('#addDireccionForm').keypress(
 
 
 @section('footer_scripts')
+
+<script>
+
+    
+    
+    
+
+
+</script>
+
+   
     
 @stop
