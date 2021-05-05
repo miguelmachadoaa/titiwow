@@ -477,10 +477,12 @@ div.overlay > div {
                 if (rid=='pago_total') {
 
                     $('#bono_use').val($('#monto_total_compra_bono_icg').val());
+                    $('.btnbonoh').html('Procesar <i class="fa  fa-chevron-right"></i>');
 
                 }else{
 
                     $('#bono_use').val('0');
+                    $('.btnbonoh').html('Aplicar <i class="fa  fa-chevron-right"></i>');
 
                 }
 

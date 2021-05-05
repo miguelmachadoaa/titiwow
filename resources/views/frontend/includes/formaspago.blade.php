@@ -54,7 +54,7 @@
 
                                        <div data-idpago="{{ $fpp->id }}" data-type="bono" data-id="4" class=" col-sm-6 col-xs-12 procesar btnpg" style="padding: 0px; background-color: #221D44; color: #ffffff; cursor: pointer; margin-top: 1em; width: 50%;;">
 
-                                          <h5 class="text-center">Aplicar  <i class="fa  fa-chevron-right"></i></h5>
+                                          <h5 class="text-center btnbonoh">Procesar  <i class="fa  fa-chevron-right"></i></h5>
 
                                       </div>
 
