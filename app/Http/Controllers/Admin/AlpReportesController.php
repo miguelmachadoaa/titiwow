@@ -2452,5 +2452,77 @@ public function precio()
 
 
 
+public function bono() 
+    {
+
+        
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/precio ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/precio');
+
+
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+         $clientes = AlpClientes::select('alp_clientes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+          ->join('users', 'alp_clientes.id_user_client', '=', 'users.id')
+          ->get();
+
+          // Show the page
+        return view('admin.reportes.bono', compact('clientes'));
+
+
+    }
+
+
+
+     public function exportbono(Request $request) 
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/exporterroriva  ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/exporterroriva ');
+
+
+        }
+
+
+
+       
+
+
+        return Excel::download(new BonoExport($cliente), 'bono'.time().'.xlsx');
+
+    }
+
+
+
+
+
+
 
 }

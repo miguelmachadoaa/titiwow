@@ -12,21 +12,19 @@
                     @if($bono_disponible->total>0)
 
                     <div class="col-sm-12">
-                      
 
                                   <h3 class="" style="margin-top: 1em;">
                                      <p>Saldo Disponible: COP {{number_format($bono_disponible->total,0,',','.') }}</p>  
                                     
                                   </h3>
                                 <div >
-
                                        
                                         <p style="margin-bottom: 1em;">
 
-                                            <label class="btn btn-primary active col-sm-6" style="background-color: #eee; color: #221d44 !important;">
+                                            <label class="btn btn-primary active col-sm-6" style="border-color: #eee; background-color: #eee; color: #221d44 !important;">
                                               <input type="radio" name="options" id="pago_total" value="pago_total" checked> Pago Total 
                                             </label>
-                                            <label class="btn btn-primary col-sm-6" style="border-color: #eee; color: #221d44 !important;">
+                                            <label class="btn btn-primary col-sm-6" style="background-color: #eee;  border-color: #eee; color: #221d44 !important;">
                                               <input  type="radio" name="options" id="pago_parcial" value="pago_parcial"> Pago Parcial
                                             </label>
                                           </p>
