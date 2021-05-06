@@ -1015,6 +1015,17 @@
             @endif
 
 
+            @if (Sentinel::getUser()->hasAnyAccess(['reportes.bono']))
+
+                 <li {!! (Request::is('admin/reportes/bono') ? 'class="active" id="active"' : '') !!}>
+                    <a href="{{ secure_url('admin/reportes/bono') }}">
+                        <i class="fa fa-angle-double-right"></i>
+                        Reporte uso de bono
+                    </a>
+                </li>
+            @endif
+
+
             @if (Sentinel::getUser()->hasAnyAccess(['reportes.precio']))
 
                  <li {!! (Request::is('admin/reportes/precio') ? 'class="active" id="active"' : '') !!}>

@@ -39,6 +39,7 @@ use App\Exports\CuponesUsadosExport;
 use App\Exports\InventarioExport;
 use App\Exports\ClientesExport;
 use App\Exports\PrecioExport;
+use App\Exports\BonoExport;
 use App\Exports\FormatoSolicitudPedidoAlpinista;
 
 
@@ -53,6 +54,8 @@ use App\Models\AlpProductos;
 use App\Models\AlpAlmacenes;
 use App\Models\AlpAlmacenProducto;
 use App\Models\AlpInventario;
+use App\Models\AlpClientes;
+use App\Models\AlpAbonosDisponible;
 use App\Imports\UsersImport;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -2478,12 +2481,12 @@ public function bono()
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
-         $clientes = AlpClientes::select('alp_clientes.*', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+         $cliente = AlpClientes::select('users.id', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
           ->join('users', 'alp_clientes.id_user_client', '=', 'users.id')
           ->get();
 
           // Show the page
-        return view('admin.reportes.bono', compact('clientes'));
+        return view('admin.reportes.bono', compact('cliente'));
 
 
     }
@@ -2510,12 +2513,25 @@ public function bono()
 
         }
 
+         $cliente = AlpClientes::select('users.id', 'users.first_name as first_name', 'users.last_name as last_name', 'users.email as email')
+          ->join('users', 'alp_clientes.id_user_client', '=', 'users.id')
+          ->where('users.id', '=', $request->clientes)
+          ->first();
 
 
-       
+        $disponible = AlpAbonosDisponible::groupBy('alp_abono_disponible.id_cliente')
+              ->select("alp_abono_disponible.*", DB::raw(  "SUM(alp_abono_disponible.valor_abono) as total"))
+              ->where('alp_abono_disponible.id_cliente', $request->clientes)
+              ->first();
+
+             $history=AlpAbonosDisponible::select('alp_abono_disponible.*', 'users.first_name as first_name', 'users.last_name as last_name')->join('users', 'alp_abono_disponible.id_cliente', '=', 'users.id')->where('id_cliente', $request->clientes)->get();
 
 
-        return Excel::download(new BonoExport($cliente), 'bono'.time().'.xlsx');
+             $data = array('cliente' => $cliente, 'disponible'=>$disponible, 'history'=>$history );
+
+
+
+        return Excel::download(new BonoExport($cliente, $disponible, $history), 'bono'.time().'.xlsx');
 
     }
 

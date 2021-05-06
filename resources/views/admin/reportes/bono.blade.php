@@ -67,9 +67,9 @@ Reporte de Uso de Bono
                             <select id="clientes" name="clientes" class="form-control select2">
                                 <option value="">Seleccione</option>
 
-                                 @foreach($clientes as $cliente)
+                                 @foreach($cliente as $c)
                                  
-                                    <option  value="{{ $cliente->id }}">{{ $cliente->first_name.' '.$cliente->last_name }}</option>
+                                    <option  value="{{ $c->id }}">{{ $c->first_name.' '.$c->last_name.' '.$c->id }}</option>
 
                                  @endforeach
                                 
@@ -124,16 +124,7 @@ Reporte de Uso de Bono
    <script type="text/javascript">
        
 
-    var desde = flatpickr("#desde");
-    
-    var hasta = flatpickr("#hasta");
-
-    desde.set("onChange", function (d) {
-        hasta.set("minDate", d.fp_incr(1)); //increment by one day
-    });
-    hasta.set("onChange", function (d) {
-        desde.set("maxDate", d);
-    });
+   
 
 
      $(document).ready(function(){
