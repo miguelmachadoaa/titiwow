@@ -3559,7 +3559,7 @@ class AlpCartController extends JoshController
 
                }else{
 
-                \Session::put('aviso', 'El monto restante al aplicar este pago es muy bajo, para procesaar con otro medio de pago, complete la compra con el bono o agregue una cantidad menor.');
+                \Session::put('aviso', 'No se puede aplicar el pago, debido a que el restante de la compra seria menor a '.number_format($almacen->minimo_compra,0,',','.').' y no podria ser procesado correctamento');
 
                 return secure_url('order/detail');
 
