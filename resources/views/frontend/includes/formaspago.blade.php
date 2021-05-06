@@ -23,10 +23,10 @@
                                        
                                         <p style="margin-bottom: 1em;">
 
-                                            <label class="btn btn-primary active col-sm-6">
+                                            <label class="btn btn-primary active col-sm-6" style="background-color: #eee; color: #221d44 !important;">
                                               <input type="radio" name="options" id="pago_total" value="pago_total" checked> Pago Total 
                                             </label>
-                                            <label class="btn btn-primary col-sm-6">
+                                            <label class="btn btn-primary col-sm-6" style="border-color: #eee; color: #221d44 !important;">
                                               <input  type="radio" name="options" id="pago_parcial" value="pago_parcial"> Pago Parcial
                                             </label>
                                           </p>

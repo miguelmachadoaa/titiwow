@@ -39,7 +39,7 @@ Bonos
                        Bonos
                     </h4>
                     <div class="pull-right">
-                    <a href="{{ secure_url('admin/abonos/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Abono</a>
+                    <a href="{{ secure_url('admin/abonos/create') }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Bono</a>
                     </div>
                 </div>
                 <br />
