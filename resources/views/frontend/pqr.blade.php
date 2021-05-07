@@ -182,7 +182,7 @@ PQR
         <div class="col-md-6">
             <div class="text-center">
                 <h3 class="text-center">Chat</h3>
-                <a href="https://portalos.outsourcing.com.co:8203" class="botones_cat boton_cat" target="_blank">Ingresa nuestro Chat
+                <a href="https://frontos.outsourcing.com.co:8203" class="botones_cat boton_cat" target="_blank">Ingresa nuestro Chat
 </a>
             </div>
         </div>
