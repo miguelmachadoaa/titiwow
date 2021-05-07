@@ -642,17 +642,21 @@ Route::get('productos/{id}/eliminarproductoacheta', array('as' => 'productos.eli
 
 
    Route::get('reportes/ventas', 'Admin\AlpReportesController@ventas')->name('reportes.ventas');
-   //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
+
    Route::post('reportes/exportventas', 'Admin\AlpReportesController@exportventas')->name('reportes.exportventas');
+
+    Route::get('reportes/bono', 'Admin\AlpReportesController@bono')->name('reportes.bono');
+
+   Route::post('reportes/exportbono', 'Admin\AlpReportesController@exportbono')->name('reportes.exportventas');
 
 
     Route::get('reportes/productos', 'Admin\AlpReportesController@productos')->name('reportes.productos');
-   //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
+
    Route::post('reportes/exportproductos', 'Admin\AlpReportesController@exportproductos')->name('reportes.exportproductos');
 
 
     Route::get('reportes/compramas', 'Admin\AlpReportesController@compramas')->name('reportes.compramas');
-   //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
+
    Route::post('reportes/exportcompramas', 'Admin\AlpReportesController@exportcompramas')->name('reportes.exportcompramas');
 
 
@@ -662,7 +666,7 @@ Route::get('productos/{id}/eliminarproductoacheta', array('as' => 'productos.eli
    Route::get('reportes/productosb', 'Admin\AlpReportesController@productosb')->name('reportes.productosb');
 
    Route::get('reportes/productosc', 'Admin\AlpReportesController@productosc')->name('reportes.productosc');
-   //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
+
   
    Route::post('reportes/exportproductosb', 'Admin\AlpReportesController@exportproductosb')->name('reportes.exportproductosb');
 
@@ -670,14 +674,14 @@ Route::get('productos/{id}/eliminarproductoacheta', array('as' => 'productos.eli
 
 
     Route::get('reportes/carrito', 'Admin\AlpReportesController@carrito')->name('reportes.carrito');
-   //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
+
    Route::post('reportes/exportcarrito', 'Admin\AlpReportesController@exportcarrito')->name('reportes.exportcarrito');
 
    Route::get('reportes/inventariopordia', 'Admin\AlpReportesController@inventariopordia')->name('reportes.inventariopordia');
 
 
 
-   //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
+
    Route::post('reportes/exportinventariopordia', 'Admin\AlpReportesController@exportinventariopordia')->name('reportes.exportinventariopordia');
 
 
@@ -686,7 +690,7 @@ Route::get('reportes/usocupones', 'Admin\AlpReportesController@usocupones')->nam
 
 
 
-   //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
+
    Route::post('reportes/exportusocupones', 'Admin\AlpReportesController@exportusocupones')->name('reportes.exportusocupones');
 
 
@@ -694,7 +698,7 @@ Route::get('reportes/usocupones', 'Admin\AlpReportesController@usocupones')->nam
 
 
    Route::get('reportes/financiero', 'Admin\AlpReportesController@financiero')->name('reportes.financiero');
-   //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
+
    Route::post('reportes/exportfinanciero', 'Admin\AlpReportesController@exportfinanciero')->name('reportes.exportfinanciero');
 
 
@@ -707,28 +711,28 @@ Route::get('reportes/usocupones', 'Admin\AlpReportesController@usocupones')->nam
     
 
     Route::get('reportes/masterfile', 'Admin\AlpReportesController@masterfile')->name('reportes.masterfile');
-   //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
+
    Route::post('reportes/exportmasterfile', 'Admin\AlpReportesController@exportmasterfile')->name('reportes.exportmasterfile');
 
 
    Route::get('reportes/masterfileembajadores', 'Admin\AlpReportesController@masterfileembajadores')->name('reportes.masterfileembajadores');
-   //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
+
    Route::post('reportes/exportmasterfileembajadores', 'Admin\AlpReportesController@exportmasterfileembajadores')->name('reportes.exportmasterfileembajadores');
 
 
    Route::get('reportes/masterfileamigos', 'Admin\AlpReportesController@masterfileamigos')->name('reportes.masterfileamigos');
-   //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
+
    Route::post('reportes/exportmasterfileamigos', 'Admin\AlpReportesController@exportmasterfileamigos')->name('reportes.exportmasterfileamigos');
 
 
 
     Route::get('reportes/logistica', 'Admin\AlpReportesController@logistica')->name('reportes.logistica');
-   //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
+
    Route::post('reportes/exportlogistica', 'Admin\AlpReportesController@exportlogistica')->name('reportes.exportlogistica');
 
 
     Route::get('reportes/consolidado', 'Admin\AlpReportesController@consolidado')->name('reportes.consolidado');
-   //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
+
    Route::post('reportes/exportconsolidado', 'Admin\AlpReportesController@exportconsolidado')->name('reportes.exportconsolidado');
 
    Route::get('reportes/cuponesdescuento', 'Admin\AlpReportesController@cuponesdescuento')->name('reportes.cuponesdescuento');
@@ -737,7 +741,7 @@ Route::post('reportes/exportcuponesdescuento', 'Admin\AlpReportesController@expo
 
 
    Route::get('reportes/productostotales', 'Admin\AlpReportesController@productostotales')->name('reportes.productostotales');
-   //Route::post('reportes/ventasexport', 'Admin\AlpReportesController@ventasexport');
+
    Route::post('reportes/exportproductostotales', 'Admin\AlpReportesController@exportproductostotales')->name('reportes.exportproductostotales');
 
 

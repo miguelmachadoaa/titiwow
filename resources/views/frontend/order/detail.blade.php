@@ -467,6 +467,34 @@ div.overlay > div {
 
     <script>
 
+
+        $(document).ready(function(){
+
+            $("input[name=options]").click(function () {    
+
+                rid=$(this).attr('id');
+
+                if (rid=='pago_total') {
+
+                    $('#bono_use').val($('#monto_total_compra_bono_icg').val());
+                    $('.btnbonoh').html('Procesar <i class="fa  fa-chevron-right"></i>');
+
+                }else{
+
+                    $('#bono_use').val('0');
+                    $('.btnbonoh').html('Aplicar <i class="fa  fa-chevron-right"></i>');
+
+                }
+
+                //alert("La edad seleccionada es: " + rid);
+            });
+
+
+        });
+
+
+
+
         $('.addDescuentoIcg').on('click', function(){
 
             $(location).attr("href", '{{secure_url('cart/adddescuentoicg')}}');
@@ -649,43 +677,57 @@ $('.delCuponIcg').on('click', function(){
 });
 
 
+var bancupon=true;
+
+
 $('.sendCupon').click(function () {
     
     var $validator = $('#addCuponForm').data('bootstrapValidator').validate();
 
     if ($validator.isValid()) {
 
-        codigo_cupon=$("#codigo_cupon").val();
+        if (bancupon) {
 
-        var base = $('#base').val();
+            bancupon=false;
 
-        $.ajax({
-            type: "POST",
-            data:{codigo_cupon},
+            codigo_cupon=$("#codigo_cupon").val();
 
-            url: base+"/cart/addcupon",
+            var base = $('#base').val();
+
+            $.ajax({
+                type: "POST",
+                data:{codigo_cupon},
+
+                url: base+"/cart/addcupon",
+                    
+                complete: function(datos){     
+
+                    bancupon=true;
+
+                    //$(".container_cart_detail").html(datos.responseText);
+
+                    localStorage.setItem("aviso", datos.responseText);
+
+                    location.reload();
+
+                    $('#modalCupones').modal('hide');
+
+                   $("#nickname_address").val('');
+                    $("#city_id").val('');
+                    $("#calle_address").val('');
+                    $("#calle2_address").val('');
+                    $("#codigo_postal_address").val('');
+                   $("#telefono_address").val('');
+                    $("#notas").val('');
                 
-            complete: function(datos){     
+                }
+            });
 
-                //$(".container_cart_detail").html(datos.responseText);
-
-                localStorage.setItem("aviso", datos.responseText);
-
-                location.reload();
-
-                $('#modalCupones').modal('hide');
-
-               $("#nickname_address").val('');
-                $("#city_id").val('');
-                $("#calle_address").val('');
-                $("#calle2_address").val('');
-                $("#codigo_postal_address").val('');
-               $("#telefono_address").val('');
-                $("#notas").val('');
-            
-            }
-        });
+        }
+        
         //document.getElementById("addDireccionForm").submit();
+    }else{
+        bancupon=true;
     }
 
 });
@@ -748,7 +790,7 @@ $('.sendCupon').click(function () {
 
         var banpago = $('#banpago').val();
         
-        console.log($('#banpago').val());
+        
 
         if (banpago==0) {
 
@@ -857,13 +899,7 @@ $('.sendCupon').click(function () {
         $('body').on('click', '.procesar', function (){
 
             //$('.overlay').fadeIn();
-            //
-            console.log('click ');
-
             bono_use= $("#bono_use").val();
-
-            console.log('bono_use '+bono_use);
-
 
             id_direccion= $("#id_direccion").val(); 
             
@@ -871,18 +907,11 @@ $('.sendCupon').click(function () {
 
             id_forma_envio=$("#id_forma_envio").val(); 
 
-            
             id_forma_pago=$(this).data('id');
-
 
             if (id_forma_envio==undefined || id_direccion==undefined || id_forma_pago==undefined) {
 
-               // alert('Todos los capos son obligatorios');
-
                 $('.res_direccion').html('<div class="alert alert-danger" role="alert">Todos los campos son obligatorios</div>');
-
-               // $('.overlay').fadeOut();
-
 
             }else{
 
@@ -893,8 +922,7 @@ $('.sendCupon').click(function () {
                 id_forma_pago=$(this).data('id');
 
                 base=$('#base').val();
-
-                console.log('forma_pago '+id_forma_pago);
+                
 
                 if (id_forma_pago==2) {
 
@@ -904,7 +932,6 @@ $('.sendCupon').click(function () {
                     if(type=="ticket"){
 
                         var banpago = $('#banpago').val();
-                        console.log($('#banpago').val());
 
                         if (banpago==0) {
 
@@ -993,13 +1020,13 @@ $('.sendCupon').click(function () {
 
                     var banpago = $('#banpago').val();
 
-                    console.log($('#banpago').val());
+                    
 
-                    console.log(bono_use);
+                    
 
                         if (banpago==0) {
 
-                            console.log('paso ban pago');
+                            
 
                             $('#banpago').val('1');
 
@@ -1070,7 +1097,7 @@ $('.sendCupon').click(function () {
 
                     var banpago = $('#banpago').val();
 
-                    console.log($('#banpago').val());
+                    
 
                         if (banpago==0) {
 
@@ -1258,7 +1285,7 @@ $('.sendCupon').click(function () {
 
                 var banpago = $('#banpago').val();
 
-                console.log($('#banpago').val());
+                
 
                 if (banpago==0) {
 
@@ -1732,5 +1759,16 @@ $('#addDireccionForm').keypress(
 
 
 @section('footer_scripts')
+
+<script>
+
+    
+    
+    
+
+
+</script>
+
+   
     
 @stop
