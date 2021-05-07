@@ -11,6 +11,19 @@
 
                     @if($bono_disponible->total>0)
 
+                    <div class="row">
+
+                      <div class="col-sm-12">@if (session('aviso_bono'))
+                        <div class="alert alert-danger">
+                            {{ session('aviso_bono') }}
+                        </div>
+                    @endif</div>
+
+                      
+
+
+
+
                     <div class="col-sm-12">
 
                                   <h3 class="" style="margin-top: 1em;">
@@ -22,17 +35,17 @@
                                         <p style="margin-bottom: 1em;">
 
                                             <label class="btn btn-primary active col-sm-6" style="border-color: #eee; background-color: #eee; color: #221d44 !important;">
-                                              <input type="radio" name="options" id="pago_total" value="pago_total" checked> Pago Total 
+                                              <input type="radio" name="options" id="pago_total" value="pago_total" > Pago Total 
                                             </label>
                                             <label class="btn btn-primary col-sm-6" style="background-color: #eee;  border-color: #eee; color: #221d44 !important;">
                                               <input  type="radio" name="options" id="pago_parcial" value="pago_parcial"> Pago Parcial
                                             </label>
                                           </p>
 
-                                          <div class=" col-sm-6 col-xs-12" style="margin-top: 1em;">
+                                          <div class=" col-sm-6 col-xs-12 contenidobono hidden" style="margin-top: 1em;">
 
 
-                                        <p>Usar : <input id="bono_use" name="bono_use" type="number" min="0" max="{{$bono_disponible->total}}" 
+                                        <p>Usar : <input class=" " id="bono_use" name="bono_use" type="number" min="0" max="{{$bono_disponible->total}}" 
                                           @if($total>$bono_disponible->total)
                                           value="{{$bono_disponible->total}}" 
                                           @else
@@ -50,9 +63,9 @@
 
                                         </div> 
 
-                                       <div data-idpago="{{ $fpp->id }}" data-type="bono" data-id="4" class=" col-sm-6 col-xs-12 procesar btnpg" style="padding: 0px; background-color: #221D44; color: #ffffff; cursor: pointer; margin-top: 1em; width: 50%;;">
+                                       <div data-idpago="{{ $fpp->id }}" data-type="bono" data-id="4" class=" col-sm-6 col-xs-12 procesar btnpg contenidobono hidden" style="padding: 0px; background-color: #221D44; color: #ffffff; cursor: pointer; margin-top: 1em; ">
 
-                                          <h5 class="text-center btnbonoh">Procesar  <i class="fa  fa-chevron-right"></i></h5>
+                                          <h5 class="text-center btnbonoh">Aplicar Saldo  <i class="fa  fa-chevron-right"></i></h5>
 
                                       </div>
 
@@ -61,7 +74,7 @@
 
                     </div>
 
-
+                    </div>
 
                             @endif
                             @endif

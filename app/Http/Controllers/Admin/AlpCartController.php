@@ -3540,7 +3540,7 @@ class AlpCartController extends JoshController
                    
                    AlpPagos::create($data_pago);
 
-                   \Session::put('aviso', 'Pago aplicado satisfactoriamente, puede asignar un nuevo pago para completar la compra');
+                   \Session::put('aviso_bono', 'Pago aplicado satisfactoriamente, puede asignar un nuevo pago para completar la compra');
 
 
                    return secure_url('order/detail');
@@ -3549,7 +3549,7 @@ class AlpCartController extends JoshController
 
                 }else{
 
-                \Session::put('aviso', 'El monto que intenta aplicar es mayor al monto de la compra por favor verifique e intente nuevamente.');
+                \Session::put('aviso_bono', 'El monto que intenta aplicar es mayor al monto de la compra por favor verifique e intente nuevamente.');
 
                 return secure_url('order/detail');
 
@@ -3559,7 +3559,7 @@ class AlpCartController extends JoshController
 
                }else{
 
-                \Session::put('aviso', 'No se puede aplicar el pago, debido a que el restante de la compra seria menor a '.number_format($almacen->minimo_compra,0,',','.').' y no podria ser procesado correctamento');
+                \Session::put('aviso_bono', 'No se puede aplicar el pago, debido a que el restante de la compra seria menor a '.number_format($almacen->minimo_compra,0,',','.').' y no podria ser procesado correctamento');
 
                 return secure_url('order/detail');
 
@@ -3568,7 +3568,7 @@ class AlpCartController extends JoshController
 
               }else{
 
-                \Session::put('aviso', 'No posee el saldo suficiente para asignar este pago.');
+                \Session::put('aviso_bono', 'No posee el saldo suficiente para asignar este pago.');
 
                 return secure_url('order/detail');
 
