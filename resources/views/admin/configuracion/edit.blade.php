@@ -71,10 +71,10 @@ Editar Configuración General
                             <hr />
                             <div class="form-group {{ $errors->first('limite_amigos', 'has-error') }}">
                                 <label for="limite_amigos" class="col-sm-2 control-label">
-                                    Limite de Amigos Alpina
+                                    Límite de Amigos Alpina
                                 </label>
                                 <div class="col-sm-5">
-                                    <input type="text" id="limite_amigos" name="limite_amigos" class="form-control" placeholder="Limite de Amigos Alpina"
+                                    <input type="text" id="limite_amigos" name="limite_amigos" class="form-control" placeholder="Límite de Amigos Alpina"
                                         value="{!! old('limite_amigos', $configuracion->limite_amigos) !!}">
                                 </div>
                                 <div class="col-sm-4">
@@ -103,10 +103,10 @@ Editar Configuración General
 
                             <div class="form-group {{ $errors->first('maximo_productos', 'has-error') }}">
                                 <label for="maximo_productos" class="col-sm-2 control-label">
-                                    Maximo Productos
+                                    Máximo Productos
                                 </label>
                                 <div class="col-sm-5">
-                                    <input type="number" step="0.01" min="0"  id="maximo_productos" name="maximo_productos" class="form-control" placeholder="Maximo Productos"
+                                    <input type="number" step="0.01" min="0"  id="maximo_productos" name="maximo_productos" class="form-control" placeholder="Máximo Productos"
                                         value="{!! old('maximo_productos', $configuracion->maximo_productos) !!}">
                                 </div>
                                 <div class="col-sm-4">
@@ -120,7 +120,7 @@ Editar Configuración General
                                     Tiempo para vencer ordenes
                                 </label>
                                 <div class="col-sm-5">
-                                    <input type="number" step="0.01" min="0"  id="vence_ordenes" name="vence_ordenes" class="form-control" placeholder="Maximo Productos"
+                                    <input type="number" step="0.01" min="0"  id="vence_ordenes" name="vence_ordenes" class="form-control" placeholder="Tiempo para vencer ordenes"
                                         value="{!! old('vence_ordenes', $configuracion->vence_ordenes) !!}">
                                 </div>
                                 <div class="col-sm-4">
@@ -132,10 +132,10 @@ Editar Configuración General
 
                             <div class="form-group {{ $errors->first('vence_ordenes_pago', 'has-error') }}">
                                 <label for="vence_ordenes_pago" class="col-sm-2 control-label">
-                                    Tiempo para vencer ordenes por pago <small>Tiempo minimo para cancelar la orden en compramas</small>
+                                    Tiempo para vencer ordenes por pago <small>Tiempo mínimo para cancelar la orden en compramas</small>
                                 </label>
                                 <div class="col-sm-5">
-                                    <input type="number" step="1" min="0"  id="vence_ordenes_pago" name="vence_ordenes_pago" class="form-control" placeholder="Maximo Productos"
+                                    <input type="number" step="1" min="0"  id="vence_ordenes_pago" name="vence_ordenes_pago" class="form-control" placeholder="Tiempo para vencer ordenes por pago"
                                         value="{!! old('vence_ordenes_pago', $configuracion->vence_ordenes_pago) !!}">
                                 </div>
                                 <div class="col-sm-4">
@@ -145,7 +145,7 @@ Editar Configuración General
 
                             <div class="form-group {{ $errors->first('dias_abono', 'has-error') }}">
                                 <label for="dias_abono" class="col-sm-2 control-label">
-                                    Dias adicionales por defectoa al crear Codigos de Bono
+                                    Días adicionales por defecto al crear Códigos de Bono
                                 </label>
                                 <div class="col-sm-5">
                                     <input type="number" step="0.01" min="0"  id="dias_abono" name="dias_abono" class="form-control" placeholder="Dias adicionales por defectoa al crear Codigos de Bono"
@@ -161,7 +161,7 @@ Editar Configuración General
 
                              <div class="form-group  {{ $errors->first('explicacion_precios', 'has-error') }}">
                                 <label for="select21" class="col-sm-2 control-label">
-                                    Explicacion de Precios
+                                    Explicación de Precios
                                 </label>
                                 <div class="col-sm-5">   
                                  <select id="explicacion_precios" name="explicacion_precios" class="form-control ">
@@ -390,7 +390,7 @@ Editar Configuración General
 
                              <div class="form-group  {{ $errors->first('editar_direccion', 'has-error') }}">
                                 <label for="select21" class="col-sm-2 control-label">
-                                    Editar Direccion
+                                    Editar Dirección
                                 </label>
                                 <div class="col-sm-5">   
                                  <select id="editar_direccion" name="editar_direccion" class="form-control ">
@@ -415,7 +415,7 @@ Editar Configuración General
 
                              <div class="form-group  {{ $errors->first('user_activacion', 'has-error') }}">
                                 <label for="select21" class="col-sm-2 control-label">
-                                    Activacion de Usuario
+                                    Activación de Usuario
                                 </label>
                                 <div class="col-sm-5">   
                                  <select id="user_activacion" name="user_activacion" class="form-control ">
@@ -708,7 +708,7 @@ Editar Configuración General
 
                                 <div class="form-group {{ $errors->first('h1_categorias', 'has-error') }}">
                                     <label for="h1_categorias" class="col-sm-2 control-label">
-                                        H1 Categorias
+                                        H1 Categorías
                                     </label>
                                     <div class="col-sm-5">
                                         <input type="text" id="h1_categorias" name="h1_categorias" class="form-control" placeholder="H1 Categorias"
@@ -721,7 +721,7 @@ Editar Configuración General
 
                                 <div class="form-group {{ $errors->first('h1_terminos', 'has-error') }}">
                                     <label for="h1_terminos" class="col-sm-2 control-label">
-                                        H1 Terminos
+                                        H1 Términos
                                     </label>
                                     <div class="col-sm-5">
                                         <input type="text" id="h1_terminos" name="h1_terminos" class="form-control" placeholder="H1 Terminos"
