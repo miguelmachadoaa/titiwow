@@ -3,9 +3,22 @@ use Closure;
 class XFrameHeaders {
     public function handle($request, Closure $next)
     {
-        $response = $next($request);
-        $response->header('X-Frame-Options', 'deny');
-        //add more headers here
-        return $response;
+        $handle = $next($request);
+
+        if(method_exists($handle, 'header'))
+        {
+            // Standard HTTP request.
+    
+            $handle->header('X-Frame-Options', 'SAMEORIGIN');
+    
+            return $handle;
+        }
+    
+        // Download Request?
+    
+        $handle->headers->set('Some-Other-Header' , 'value');
+    
+        return $handle;
+        
     }
 }
