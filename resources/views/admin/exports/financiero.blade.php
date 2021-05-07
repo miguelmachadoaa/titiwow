@@ -7,6 +7,8 @@
             <th><b>Id_ClienteMasterfile</b></th>
             <th><b>Cedula</b></th>
             <th><b>Nombre</b></th>
+            <th><b>Email</b></th>
+            <th><b>Telefono</b></th>
             <th><b>Id_Mercadopago</b></th>
             <th><b>Orden_pedido_sac</b></th>
             <th><b>Medio Pago</b></th>
@@ -51,6 +53,8 @@
             <td>{!! $row->cod_oracle_cliente!!}</td>
             <td>{!! $row->doc_cliente !!}</td>
             <td>{!! $row->first_name.' '.$row->last_name !!}</td>
+            <td>{!! $row->email !!}</td>
+            <td>{!! $row->telefono_cliente !!}</td>
             <td> 
 
                 @if(isset($row->json))

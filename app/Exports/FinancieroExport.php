@@ -52,6 +52,7 @@ class FinancieroExport implements FromView
           'alp_clientes.cod_oracle_cliente as cod_oracle_cliente', 
           'alp_clientes.id_embajador as id_embajador', 
           'alp_clientes.doc_cliente as doc_cliente', 
+          'alp_clientes.telefono_cliente as telefono_cliente',
           'alp_clientes.id_empresa as id_empresa', 
           'users.first_name as first_name', 
           'users.last_name as last_name', 
