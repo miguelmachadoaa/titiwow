@@ -55,12 +55,12 @@ class AlpXmlController extends JoshController
            activity($user->full_name)
                         ->performedOn($user)
                         ->causedBy($user)
-                        ->log('almacenes/index ');
+                        ->log('xml/index ');
 
         }else{
 
           activity()
-          ->log('almacenes/index');
+          ->log('xml/index');
 
 
         }
@@ -242,12 +242,12 @@ class AlpXmlController extends JoshController
           activity($user->full_name)
             ->performedOn($user)
             ->causedBy($user)
-            ->withProperties($request->all())->log('almacenes/store ');
+            ->withProperties($request->all())->log('xml/store ');
 
         }else{
 
           activity()
-          ->withProperties($request->all())->log('almacenes/store');
+          ->withProperties($request->all())->log('xml/store');
 
         }
         

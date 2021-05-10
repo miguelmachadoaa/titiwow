@@ -42,7 +42,7 @@ class AlpDepartamentosController extends JoshController
 
         }
 
-        if (!Sentinel::getUser()->hasAnyAccess(['marcas.*'])) {
+        if (!Sentinel::getUser()->hasAnyAccess(['departamentos.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
@@ -149,7 +149,7 @@ class AlpDepartamentosController extends JoshController
 
         }
 
-        if (!Sentinel::getUser()->hasAnyAccess(['marcas.*'])) {
+        if (!Sentinel::getUser()->hasAnyAccess(['departamentos.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
@@ -183,7 +183,7 @@ class AlpDepartamentosController extends JoshController
 
         }
 
-        if (!Sentinel::getUser()->hasAnyAccess(['marcas.*'])) {
+        if (!Sentinel::getUser()->hasAnyAccess(['departamentos.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
@@ -252,7 +252,7 @@ class AlpDepartamentosController extends JoshController
 
         }
 
-        if (!Sentinel::getUser()->hasAnyAccess(['marcas.*'])) {
+        if (!Sentinel::getUser()->hasAnyAccess(['departamentos.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
@@ -292,7 +292,7 @@ class AlpDepartamentosController extends JoshController
 
         }
 
-        if (!Sentinel::getUser()->hasAnyAccess(['marcas.*'])) {
+        if (!Sentinel::getUser()->hasAnyAccess(['departamentos.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
@@ -386,7 +386,7 @@ class AlpDepartamentosController extends JoshController
 
         }
 
-        if (!Sentinel::getUser()->hasAnyAccess(['marcas.*'])) {
+        if (!Sentinel::getUser()->hasAnyAccess(['departamentos.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
@@ -562,13 +562,13 @@ public function addusuario(Request $request)
                         ->performedOn($user)
                         ->causedBy($user)
                         ->withProperties($request->all())
-                        ->log('cupones/deldestacado ');
+                        ->log('departamentos/deldestacado ');
 
         }else{
 
           activity()
           ->withProperties($request->all())
-          ->log('cupones/deldestacado');
+          ->log('departamentos/deldestacado');
 
 
         }

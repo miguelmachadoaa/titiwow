@@ -3491,14 +3491,15 @@ class AlpCartController extends JoshController
             
               $det_array = array();
 
+              \Session::put('aviso_bono', '');
+
 
             if (($orden->monto_total+$envio)>0) {
 
               if ($disponible->total>=$request->bono_use) {
 
-                if ($request->bono_use>($orden->monto_total+$envio)) {
+                if ($request->bono_use<=($orden->monto_total+$envio)) {
                   
-
                    $rr=($orden->monto_total+$envio)-$request->bono_use;
 
                 activity($user->full_name) ->performedOn($user) ->causedBy($user) ->withProperties($rr)  ->log('diferencia al procesar bono ');

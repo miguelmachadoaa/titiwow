@@ -107,12 +107,12 @@ class AlpPedidosController extends JoshController
            activity($user->full_name)
                         ->performedOn($user)
                         ->causedBy($user)
-                        ->log('almacenes/index ');
+                        ->log('pedidos/index ');
 
         }else{
 
           activity()
-          ->log('almacenes/index');
+          ->log('pedidos/index');
 
 
         }
@@ -193,12 +193,12 @@ class AlpPedidosController extends JoshController
            activity($user->full_name)
                         ->performedOn($user)
                         ->causedBy($user)
-                        ->log('almacenes/checkout ');
+                        ->log('pedidos/checkout ');
 
         }else{
 
           activity()
-          ->log('almacenes/checkout');
+          ->log('pedidos/checkout');
 
 
         }
@@ -358,12 +358,12 @@ class AlpPedidosController extends JoshController
            activity($user->full_name)
                         ->performedOn($user)
                         ->causedBy($user)
-                        ->log('almacenes/checkout ');
+                        ->log('pedidos/checkout ');
 
         }else{
 
           activity()
-          ->log('almacenes/checkout');
+          ->log('pedidos/checkout');
 
         }
 
@@ -812,12 +812,12 @@ class AlpPedidosController extends JoshController
            activity($user->full_name)
                         ->performedOn($user)
                         ->causedBy($user)
-                        ->withProperties($request->all())->log('almacenes/estatus ');
+                        ->withProperties($request->all())->log('pedidos/estatus ');
 
         }else{
 
           activity()
-          ->withProperties($request->all())->log('almacenes/estatus');
+          ->withProperties($request->all())->log('pedidos/estatus');
 
         }
 
@@ -2778,12 +2778,12 @@ public function postdireccion(DireccionModalRequest $request)
            activity($user->full_name)
                         ->performedOn($user)
                         ->causedBy($user)
-                        ->log('almacenes/checkout ');
+                        ->log('pedidos/checkout ');
 
         }else{
 
           activity()
-          ->log('almacenes/checkout');
+          ->log('pedidos/checkout');
 
 
         }

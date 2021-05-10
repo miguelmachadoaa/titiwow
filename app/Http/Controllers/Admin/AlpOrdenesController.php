@@ -122,7 +122,7 @@ class AlpOrdenesController extends JoshController
 
         }
 
-         if (!Sentinel::getUser()->hasAnyAccess(['ordenes.index'])) {
+         if (!Sentinel::getUser()->hasAnyAccess(['ordenes.filtrar'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }

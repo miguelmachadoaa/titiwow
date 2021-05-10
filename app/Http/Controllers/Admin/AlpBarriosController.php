@@ -55,12 +55,12 @@ class AlpBarriosController extends JoshController
            activity($user->full_name)
                         ->performedOn($user)
                         ->causedBy($user)
-                        ->log('empresas/index ');
+                        ->log('barrios/index ');
 
         }else{
 
           activity()
-          ->log('empresas/index');
+          ->log('barrios/index');
 
 
         }
@@ -137,12 +137,12 @@ class AlpBarriosController extends JoshController
            activity($user->full_name)
                         ->performedOn($user)
                         ->causedBy($user)
-                        ->log('empresas/create ');
+                        ->log('barrios/create ');
 
         }else{
 
           activity()
-          ->log('empresas/create');
+          ->log('barrios/create');
 
 
         }
@@ -169,12 +169,12 @@ class AlpBarriosController extends JoshController
            activity($user->full_name)
                         ->performedOn($user)
                         ->causedBy($user)
-                        ->withProperties($request->all())->log('empresas/store ');
+                        ->withProperties($request->all())->log('barrios/store ');
 
         }else{
 
           activity()
-          ->withProperties($request->all())->log('empresas/store');
+          ->withProperties($request->all())->log('barrios/store');
 
 
         }
@@ -266,12 +266,12 @@ class AlpBarriosController extends JoshController
            activity($user->full_name)
                         ->performedOn($user)
                         ->causedBy($user)
-                        ->withProperties($request->all())->log('empresas/update ');
+                        ->withProperties($request->all())->log('barrios/update ');
 
         }else{
 
           activity()
-          ->withProperties($request->all())->log('empresas/update');
+          ->withProperties($request->all())->log('barrios/update');
 
 
         }
@@ -342,12 +342,12 @@ class AlpBarriosController extends JoshController
            activity($user->full_name)
                         ->performedOn($user)
                         ->causedBy($user)
-                        ->withProperties(['id'=>$id])->log('empresas/destroy ');
+                        ->withProperties(['id'=>$id])->log('barrios/destroy ');
 
         }else{
 
           activity()
-          ->withProperties(['id'=>$id])->log('empresas/destroy');
+          ->withProperties(['id'=>$id])->log('barrios/destroy');
 
 
         }

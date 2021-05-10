@@ -935,13 +935,13 @@ if (Sentinel::check()) {
                         ->performedOn($user)
                         ->causedBy($user)
                         ->withProperties($request->all())
-                        ->log('cupones/adddestacado ');
+                        ->log('categorias/adddestacado ');
 
         }else{
 
           activity()
           ->withProperties($request->all())
-          ->log('cupones/adddestacado');
+          ->log('categorias/adddestacado');
 
 
         }
@@ -1003,13 +1003,13 @@ if (Sentinel::check()) {
                         ->performedOn($user)
                         ->causedBy($user)
                         ->withProperties($request->all())
-                        ->log('cupones/deldestacado ');
+                        ->log('categorias/deldestacado ');
 
         }else{
 
           activity()
           ->withProperties($request->all())
-          ->log('cupones/deldestacado');
+          ->log('categorias/deldestacado');
 
 
         }

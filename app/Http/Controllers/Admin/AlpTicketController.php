@@ -85,18 +85,18 @@ class AlpTicketController extends JoshController
            activity($user->full_name)
                         ->performedOn($user)
                         ->causedBy($user)
-                        ->log('almacenes/index ');
+                        ->log('AlpTicketController/index ');
 
         }else{
 
           activity()
-          ->log('almacenes/index');
+          ->log('AlpTicketController/index');
 
 
         }
 
 
-        if (!Sentinel::getUser()->hasAnyAccess(['almacenes.*'])) {
+        if (!Sentinel::getUser()->hasAnyAccess(['tickets.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
         }
@@ -170,7 +170,7 @@ class AlpTicketController extends JoshController
     public function create()
     {
 
-      if (!Sentinel::getUser()->hasAnyAccess(['almacenes.*'])) {
+      if (!Sentinel::getUser()->hasAnyAccess(['tickets.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
         }
@@ -184,12 +184,12 @@ class AlpTicketController extends JoshController
            activity($user->full_name)
               ->performedOn($user)
               ->causedBy($user)
-              ->log('almacenes/create ');
+              ->log('ticket/create ');
 
         }else{
 
           activity()
-          ->log('almacenes/create');
+          ->log('ticket/create');
 
         }
 
@@ -225,12 +225,12 @@ class AlpTicketController extends JoshController
           activity($user->full_name)
             ->performedOn($user)
             ->causedBy($user)
-            ->withProperties($request->all())->log('almacenes/store ');
+            ->withProperties($request->all())->log('ticket/store ');
 
         }else{
 
           activity()
-          ->withProperties($request->all())->log('almacenes/store');
+          ->withProperties($request->all())->log('ticket/store');
 
         }
         
@@ -324,12 +324,12 @@ class AlpTicketController extends JoshController
           activity($user->full_name)
             ->performedOn($user)
             ->causedBy($user)
-            ->withProperties($request->all())->log('almacenes/storerespuesta ');
+            ->withProperties($request->all())->log('ticket/storerespuesta ');
 
         }else{
 
           activity()
-          ->withProperties($request->all())->log('almacenes/storerespuesta');
+          ->withProperties($request->all())->log('ticket/storerespuesta');
 
         }
         
@@ -416,7 +416,7 @@ class AlpTicketController extends JoshController
     public function edit($id)
     {
 
-      if (!Sentinel::getUser()->hasAnyAccess(['almacenes.*'])) {
+      if (!Sentinel::getUser()->hasAnyAccess(['tickets.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
         }
@@ -466,12 +466,12 @@ class AlpTicketController extends JoshController
            activity($user->full_name)
                         ->performedOn($user)
                         ->causedBy($user)
-                        ->withProperties($request->all())->log('almacenes/update ');
+                        ->withProperties($request->all())->log('ticket/update ');
 
         }else{
 
           activity()
-          ->withProperties($request->all())->log('almacenes/update');
+          ->withProperties($request->all())->log('ticket/update');
 
 
         }
@@ -667,7 +667,7 @@ class AlpTicketController extends JoshController
      public function upload($id)
     {
 
-       if (!Sentinel::getUser()->hasAnyAccess(['almacenes.*'])) {
+       if (!Sentinel::getUser()->hasAnyAccess(['tickets.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
         }
@@ -756,7 +756,7 @@ class AlpTicketController extends JoshController
         }
 
 
-         if (!Sentinel::getUser()->hasAnyAccess(['almacenes.*'])) {
+         if (!Sentinel::getUser()->hasAnyAccess(['tickets.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
         }
@@ -829,12 +829,12 @@ class AlpTicketController extends JoshController
            activity($user->full_name)
                         ->performedOn($user)
                         ->causedBy($user)
-                        ->withProperties($request->all())->log('almacenes/update ');
+                        ->withProperties($request->all())->log('ticket/update ');
 
         }else{
 
           activity()
-          ->withProperties($request->all())->log('almacenes/update');
+          ->withProperties($request->all())->log('ticket/update');
 
 
         }
@@ -897,12 +897,12 @@ public function estatus(Request $request)
            activity($user->full_name)
                         ->performedOn($user)
                         ->causedBy($user)
-                        ->withProperties($request->all())->log('almacenes/estatus ');
+                        ->withProperties($request->all())->log('ticket/estatus ');
 
         }else{
 
           activity()
-          ->withProperties($request->all())->log('almacenes/estatus');
+          ->withProperties($request->all())->log('ticket/estatus');
 
         }
 
@@ -979,12 +979,12 @@ public function departamento(Request $request)
            activity($user->full_name)
                         ->performedOn($user)
                         ->causedBy($user)
-                        ->withProperties($request->all())->log('almacenes/estatus ');
+                        ->withProperties($request->all())->log('ticket/estatus ');
 
         }else{
 
           activity()
-          ->withProperties($request->all())->log('almacenes/estatus');
+          ->withProperties($request->all())->log('ticket/estatus');
 
         }
 
@@ -1052,12 +1052,12 @@ public function urgencia(Request $request)
            activity($user->full_name)
                         ->performedOn($user)
                         ->causedBy($user)
-                        ->withProperties($request->all())->log('almacenes/estatus ');
+                        ->withProperties($request->all())->log('ticket/estatus ');
 
         }else{
 
           activity()
-          ->withProperties($request->all())->log('almacenes/estatus');
+          ->withProperties($request->all())->log('ticket/estatus');
 
         }
 

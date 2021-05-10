@@ -40,7 +40,7 @@ class AlpUrgenciaController extends JoshController
 
         }
 
-        if (!Sentinel::getUser()->hasAnyAccess(['marcas.*'])) {
+        if (!Sentinel::getUser()->hasAnyAccess(['urgencias.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
@@ -133,7 +133,7 @@ class AlpUrgenciaController extends JoshController
 
         }
 
-        if (!Sentinel::getUser()->hasAnyAccess(['marcas.*'])) {
+        if (!Sentinel::getUser()->hasAnyAccess(['urgencias.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
@@ -167,7 +167,7 @@ class AlpUrgenciaController extends JoshController
 
         }
 
-        if (!Sentinel::getUser()->hasAnyAccess(['marcas.*'])) {
+        if (!Sentinel::getUser()->hasAnyAccess(['urgencias.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
@@ -235,7 +235,7 @@ class AlpUrgenciaController extends JoshController
 
         }
 
-        if (!Sentinel::getUser()->hasAnyAccess(['marcas.*'])) {
+        if (!Sentinel::getUser()->hasAnyAccess(['urgencias.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
@@ -275,7 +275,7 @@ class AlpUrgenciaController extends JoshController
 
         }
 
-        if (!Sentinel::getUser()->hasAnyAccess(['marcas.*'])) {
+        if (!Sentinel::getUser()->hasAnyAccess(['urgencias.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
@@ -368,7 +368,7 @@ class AlpUrgenciaController extends JoshController
 
         }
 
-        if (!Sentinel::getUser()->hasAnyAccess(['marcas.*'])) {
+        if (!Sentinel::getUser()->hasAnyAccess(['urgencias.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }

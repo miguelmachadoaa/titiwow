@@ -53,6 +53,13 @@ class AlpAbonosController extends JoshController
 
         }
 
+        if (!Sentinel::getUser()->hasAnyAccess(['abonos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
+        }
+
+
+
         $abonos = AlpAbonos::select('alp_abonos.*', 'alp_almacenes.nombre_almacen as nombre_almacen')
         ->join('alp_almacenes','alp_abonos.id_almacen', '=', 'alp_almacenes.id')
         ->get();
