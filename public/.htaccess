@@ -25,3 +25,7 @@
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 </IfModule>
 #
+<IfModule mod_headers.c>
+  # Prevent click jacking
+  Header set X-Frame-Options Deny
+</IfModule>

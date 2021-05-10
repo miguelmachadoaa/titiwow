@@ -160,7 +160,7 @@
                 <!--individual product description-->
                 <div class="col-sm-8 col-md-8">
                     <h1 class="text-primary" id="titulo_single">{{ $producto->nombre_producto}} </h1>
-                    <p class="descripcion">{{ $producto->descripcion_corta}}</p>
+                    <p class="descripcion">{!! $producto->descripcion_corta !!}</p>
                     
                     <p class="">
 
@@ -542,7 +542,7 @@
 
 
                             <div class="tab-pane active" id="tab_default_1">
-                                <p>{{ $producto->descripcion_larga}}</p>
+                                <p>{!! $producto->descripcion_larga !!}</p>
                             </div>
                             
                             <!-- Tab-content End -->
