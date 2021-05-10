@@ -281,7 +281,88 @@
 
 
 
+                    @elseif($fp->id==5)
+
+                    @if(isset($cupo_credito_icg))
+
+                    @if($cupo_credito_icg>0)
+
+                    @if($cupo_credito_icg>$total)
+
+                   
+                      <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="heading{{ $fp->id }}">
+                                  <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $fp->id }}" aria-expanded="true" aria-controls="collapse{{ $fp->id }}">
+                                      {{ $fp->nombre_forma_pago }} <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                    </a>
+                                  </h4>
+                                </div>
+                                <div id="collapse{{ $fp->id }}" class="panel-collapse collapse " role="tabpanel" aria-labelledby="heading{{ $fp->id }}">
+                                  <div class="panel-body">
+
+
+                                       <p class=" col-sm-6 col-xs-12">
+                                        {{ $fp->nombre_forma_pago }}
+
+                                        <br>
+
+                                        <b>Disponible:</b>  {{$cupo_credito_icg}}
+
+                                        </p> 
+
+                                       @if($fp->id==5)
+
+                                          @if($cupo_credito_icg>($total-$total_pagos+$costo_envio))
+
+                                         <div data-type='formaspago'  data-id="{{ $fp->id }}" class=" col-sm-6 col-xs-12 procesar" style="padding:8px;background-color:#3DC639;color:#ffffff; cursor: pointer;">
+
+                                          <h5 class="text-center">Completar Pedido <i class="fa  fa-chevron-right"></i></h5>
+
+                                        </div>
+
+                                        @else
+
+
+                                          <div data-type='formaspago'  data-id="{{ $fp->id }}" class=" col-sm-6 col-xs-12 " style="padding:8px;background-color:#f3f3f3;color:#ffffff; cursor: pointer;">
+
+                                            <h5 class="text-center">Saldo Insuficiente <i class="fa  fa-chevron-right"></i></h5>
+
+                                          </div>
+
+
+
+                                        @endif
+
+
+
+                                       @else
+
+                                       <div data-type='formaspago'  data-id="{{ $fp->id }}" class=" col-sm-6 col-xs-12 procesar btnpg" style="padding:8px;background-color:#3DC639;color:#ffffff; cursor: pointer;">
+
+                                        <h5 class="text-center">Completar Pedido <i class="fa  fa-chevron-right"></i></h5>
+
+                                    </div>
+
+
+                                       @endif
+
+                                     
+
+                                  </div>
+                                </div>
+                            </div>
+
+                            <br>
+
+                    @endif
+
+                    @endif
+
+                    @endif
+
                     @else
+
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="heading{{ $fp->id }}">
                                   <h4 class="panel-title">
