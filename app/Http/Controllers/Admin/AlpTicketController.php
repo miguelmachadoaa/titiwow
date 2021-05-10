@@ -96,7 +96,7 @@ class AlpTicketController extends JoshController
         }
 
 
-        if (!Sentinel::getUser()->hasAnyAccess(['tickets.*'])) {
+        if (!Sentinel::getUser()->hasAnyAccess(['ticket.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
         }
@@ -170,7 +170,7 @@ class AlpTicketController extends JoshController
     public function create()
     {
 
-      if (!Sentinel::getUser()->hasAnyAccess(['tickets.*'])) {
+      if (!Sentinel::getUser()->hasAnyAccess(['ticket.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
         }
@@ -416,7 +416,7 @@ class AlpTicketController extends JoshController
     public function edit($id)
     {
 
-      if (!Sentinel::getUser()->hasAnyAccess(['tickets.*'])) {
+      if (!Sentinel::getUser()->hasAnyAccess(['ticket.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
         }
@@ -667,7 +667,7 @@ class AlpTicketController extends JoshController
      public function upload($id)
     {
 
-       if (!Sentinel::getUser()->hasAnyAccess(['tickets.*'])) {
+       if (!Sentinel::getUser()->hasAnyAccess(['ticket.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
         }
@@ -756,7 +756,7 @@ class AlpTicketController extends JoshController
         }
 
 
-         if (!Sentinel::getUser()->hasAnyAccess(['tickets.*'])) {
+         if (!Sentinel::getUser()->hasAnyAccess(['ticket.*'])) {
 
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intento acceder');
         }
@@ -910,7 +910,8 @@ public function estatus(Request $request)
         $ticket = AlpTicket::where('id', $request->id)->first();
 
         $data = array(
-          'estado_registro' => $request->estatus
+          'estado_registro' => $request->estatus,
+          'notas'=> $request->notas
         );       
 
         $ticket->update($data);
@@ -927,7 +928,7 @@ public function estatus(Request $request)
         $arrayhistory = array(
           'id_ticket' => $ticket->id,
            'id_status' => '0',
-           'notas' => 'Ticket actualizado a '. $estatus,
+           'notas' => 'Ticket actualizado a '. $estatus.' '.$request->notas,
            'json' => json_encode($ticket),
            'id_user' => $user->id,
         );

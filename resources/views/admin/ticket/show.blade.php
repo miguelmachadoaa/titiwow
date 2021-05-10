@@ -415,8 +415,6 @@ Detalle Ticket
                     </div>
                      <form method="POST" enctype="multipart/form-data" action="{{secure_url('admin/ticket/storerespuesta')}}" id="respuestaForm" name="respuestaForm" class="form-horizontal">
                     <div class="modal-body">
-                        
-                       
 
                             <input type="hidden" name="id_ticket_modal" id="id_ticket_modal" value="">
                             
@@ -451,11 +449,30 @@ Detalle Ticket
                                 </div>
 
 
+                                </div>
 
 
+                                <div class="col-sm-12" style="margin-top:1em;">
+
+                                <div class="form-group  {{ $errors->first('notas_modal', 'has-error') }}">
+                                    <label for="select21" class="col-sm-2 control-label">
+                                        Observación
+                                    </label>
+                                    <div class="col-sm-5">   
+                                    <textarea class="form-control" name="notas_modal" id="notas_modal" cols="30" rows="10"></textarea>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('notas_modal', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                      
+                                    </div>
+                               
+                                </div>
 
 
                                 </div>
+
+
+
 
 
                             </div>
@@ -619,6 +636,8 @@ Detalle Ticket
 
         id = $('#id_ticket_modal').val();
 
+        notas = $('#notas_modal').val();
+
         estatus = $('#estatus_modal').val();
 
         _token = $('#_token').val();
@@ -626,7 +645,7 @@ Detalle Ticket
 
          $.ajax({
             type: "POST",
-            data:{ id, estatus, _token},
+            data:{ id, estatus, _token, notas},
             url: base+"/admin/ticket/estatus",
                 
             complete: function(datos){     

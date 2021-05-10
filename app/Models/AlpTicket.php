@@ -27,6 +27,7 @@ class AlpTicket extends Model
         'texto_ticket',
         'archivo',
         'origen',
+        'notas',
         'estado_registro',
         'id_user'
     ];
