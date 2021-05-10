@@ -10,6 +10,8 @@ class XFrameHeaders {
             // Standard HTTP request.
     
             $handle->header('X-Frame-Options', 'SAMEORIGIN');
+            $handle->header('Referrer-Policy', 'no-referrer-when-downgrade');
+            $handle->header('X-XSS-Protection', '1; mode=block');
     
             return $handle;
         }
