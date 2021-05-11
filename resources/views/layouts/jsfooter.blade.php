@@ -17,7 +17,25 @@
     <script type="text/javascript">
 
     /*funciones para crear ubicacion del comprador*/
+    jQuery(document).ready(function () {
 
+        $('#BienvenidaModal').modal('show');
+
+            vepopup = localStorage.getItem("vepopup");
+
+            if (vepopup==null) {
+
+            $('#EdadModal').modal('show');
+
+            }
+
+        });
+
+        $('.afirmativo').click(function(){
+
+        localStorage.setItem("vepopup", 1);
+
+        });
     
 
 

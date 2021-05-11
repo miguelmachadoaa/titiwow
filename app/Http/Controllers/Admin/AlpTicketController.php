@@ -137,23 +137,16 @@ class AlpTicketController extends JoshController
 
            }
 
-        $actions = " 
-              
-                        <a href='".secure_url('admin/ticket/'.$row->id.'')."'>
-                              <i class='livicon' data-name='eye-open' data-size='18' data-loop='true' data-c='#428BCA' data-hc='#428BCA' title='Datos del almacen'></i>
-                      </a>  
 
-                      <a href='".secure_url('admin/ticket/'.$row->id.'/confirm-delete')."' data-toggle='modal' data-target='#delete_confirm'> <i class='livicon' data-name='remove-alt' data-size='18'
-                        data-loop='true' data-c='#f56954' data-hc='#f56954' title='Eliminar'></i>
-
-                      </a>";
-
-                     
+        $actions = "<a class='btn btn-primary btn-xs' href='".secure_url('admin/ticket/'.$row->id)."' target='_blank'>
+                      ver detalles
+                  </a> ";
 
                $data[]= array(
                  $row->id, 
                  $row->nombre_departamento, 
                  $row->nombre_urgencia,
+                 $row->orden, 
                  $row->titulo_ticket, 
                  $row->origen, 
                  $row->created_at->format('d-m-Y h:i:s'), 

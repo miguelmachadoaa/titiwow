@@ -73,7 +73,7 @@ Detalle Ticket
                             <p><b>Usuario:</b> {{$ticket->first_name.' '.$ticket->last_name}}</p>
                             <p><b>Email:</b> {{$ticket->email}}</p>
                             <p><b>Origen:</b> {{$ticket->origen}}</p>
-                            <p><b>Orden de Compra:</b> {{$ticket->orden}}</p>
+                            <p><b>Orden de Compra:</b>  <a class='btn btn-primary btn-xs' href='{{secure_url("admin/ordenes/".$ticket->orden."/detalle")}}' target='_blank'>Ver {{ $ticket->orden }} </a></p>
 
                             
                             

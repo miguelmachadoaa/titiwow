@@ -155,9 +155,59 @@ Editar Configuración General
                                     {!! $errors->first('dias_abono', '<span class="help-block">:message</span> ') !!}
                                 </div>
                             </div>
+                            <hr />
+                            <div class="form-group  {{ $errors->first('popup', 'has-error') }}">
+                                <label for="select21" class="col-sm-2 control-label">
+                                    Popup
+                                </label>
+                                <div class="col-sm-5">   
+                                 <select id="popup" name="popup" class="form-control ">
+                                    <option value="">Seleccione</option>
+                                        
+                                       
+                                        <option value="{{ 0 }}"
+                                                @if($configuracion->popup == 0) selected="selected" @endif >Desactivado</option>
 
+                                        <option value="{{ 1 }}"
+                                                @if($configuracion->popup == 1) selected="selected" @endif >Activado</option>
+                                       
+                                </select>
+                                <div class="col-sm-4">
+                                    {!! $errors->first('popup', '<span class="help-block">:message</span> ') !!}
+                                </div>
+                                  
+                                </div>
+                               
+                            </div>
+                            <div class="form-group {{ $errors->first('popup_titulo', 'has-error') }}">
+                                    <label for="popup_titulo" class="col-sm-2 control-label">
+                                        Titulo para el Popup
+                                    </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="popup_titulo" name="popup_titulo" class="form-control" placeholder="Titulo para el Popup"
+                                            value="{!! old('popup_titulo', $configuracion->popup_titulo) !!}">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('popup_titulo', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                            </div>
 
+                            
+                            <div class="form-group {{ $errors->first('popup_mensaje', 'has-error') }}">
+                                    <label for="popup_mensaje" class="col-sm-2 control-label">
+                                        Mensaje de popup
+                                    </label>
+                                    <div class="col-sm-5">
+                                        
+                                        <textarea id="popup_mensaje" name="popup_mensaje"  cols="30" rows="10" class="form-control" placeholder="Mensaje de Popoup">{!! old('popup_mensaje', $configuracion->popup_mensaje) !!}</textarea>
+                                       
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {!! $errors->first('popup_mensaje', '<span class="help-block">:message</span> ') !!}
+                                    </div>
+                                </div>
 
+                                <hr />
 
                              <div class="form-group  {{ $errors->first('explicacion_precios', 'has-error') }}">
                                 <label for="select21" class="col-sm-2 control-label">
@@ -1136,6 +1186,7 @@ Editar Configuración General
 
 
 @section('footer_scripts')
+<script src="https://cdn.tiny.cloud/1/qc49iemrwi4gmrqtiuvymiviycjklawxnqmtcnvorw0hckoj/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 
 <script >
@@ -1166,7 +1217,13 @@ Editar Configuración General
 
  $(document).ready(function(){
         //Inicio select región
-                        
+
+        tinymce.init({
+            selector:'#popup_mensaje',
+            width: '100%',
+            height: 300
+        });
+
             $(document).on('click', '.delCiudad', function(){
                 id=$(this).data('id');
         var base = $('#base').val();

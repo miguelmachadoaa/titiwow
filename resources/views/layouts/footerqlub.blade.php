@@ -1,3 +1,24 @@
+@if ($configuracion->popup==1)
+
+<div class="modal fade" id="EdadModal" role="dialog" aria-labelledby="modalLabeldanger" style="margin-top: 10%">
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header bg-sucess">
+                <h4 class="modal-title" id="modalLabeldanger">{{$configuracion->popup_titulo}}</h4>
+        </div>
+        
+        <div class="modal-body cartcontenido">
+        
+               <h4>{!! $configuracion->popup_mensaje !!}</h4> 
+        </div>
+        <div class="modal-footer">
+            <button type="button"  class="btn  btn-primary afirmativo" data-dismiss="modal">Ok</button>
+        </div>
+    </div>
+</div>
+</div>
+
+@endif
  <!-- Footer Section Start -->
  <footer class="footer_qlub" >
         <div class="container footer-text_qlub">
