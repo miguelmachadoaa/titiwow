@@ -45,7 +45,7 @@ use App\Exports\FormatoSolicitudPedidoAlpinista;
 
 use App\Http\Requests\FinancieroRequest;
 
-
+use App\Imports\BarriosImport;
 use App\User;
 use App\State;
 use App\Models\AlpPrecioGrupo;
@@ -2534,6 +2534,75 @@ public function bono()
         return Excel::download(new BonoExport($cliente, $disponible, $history), 'bono'.time().'.xlsx');
 
     }
+
+
+
+    public function barrios() 
+    {
+
+          if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->log('AlpReportesController/barrios ');
+
+        }else{
+
+          activity()
+          ->log('AlpReportesController/barrios');
+
+
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+
+        return view('admin.reportes.barrio');
+
+    }
+
+     public function exportbarrios(Request $request) 
+    {
+
+         if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())->log('AlpReportesController/barrios ');
+
+        }else{
+
+          activity()
+          ->withProperties($request->all())->log('AlpReportesController/barrios');
+
+
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['reportes.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+        $input=$request->all();
+
+        $archivo = $request->file('file_update');
+
+        Excel::import(new BarriosImport, $archivo);
+
+        return redirect('admin.reportes.barrios')->with('success', trans('Se ha importado satisfactoriamente'));
+    }
+
+
 
 
 

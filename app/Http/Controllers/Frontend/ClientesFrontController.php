@@ -387,7 +387,7 @@ class ClientesFrontController extends Controller
 
             $cart= \Session::get('cart');
 
-            $listabarrios=Barrio::get();
+            $listabarrios=Barrio::orderBy('barrio_name')->get();
 
 
 
