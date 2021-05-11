@@ -177,7 +177,10 @@ class AlpConfiguracionController extends JoshController
             'porcentaje_icg' => $request->porcentaje_icg,
             'token_icg' => $request->token_icg,
             'dias_abono' => $request->dias_abono,
-            'h1_terminos' => $request->h1_terminos
+            'h1_terminos' => $request->h1_terminos,
+            'popup' => $request->popup,
+            'popup_titulo' => $request->popup_titulo,
+            'popup_mensaje' => $request->popup_mensaje
         );
 
 
