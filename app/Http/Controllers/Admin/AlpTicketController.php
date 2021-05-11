@@ -126,13 +126,13 @@ class AlpTicketController extends JoshController
           if ($row->estado_registro=='1') {
 
              $estatus=" <div class='ticket_".$row->id."'>
-             <button data-url='".secure_url('admin/ticket/estatus')."' type='buttton' data-id='".$row->id."' data-estatus='0' class='btn btn-xs btn-success estatus'>Abierto</button>
+             <span class='btn-success badge'>Abierto</span>
             </div>";
 
           }else{
 
-                        $estatus="<div class='estaticket_tus_".$row->id."'>
-            <button data-url='".secure_url('admin/ticket/estatus')."' type='buttton' data-id='".$row->id."' data-estatus='1' class='btn btn-xs btn-danger estatus'>Cerrado</button>
+            $estatus="<div class='estaticket_tus_".$row->id."'>
+            <span class='btn-danger badge'>Cerrado</span>
              </div>";
 
            }
