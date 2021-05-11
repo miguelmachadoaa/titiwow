@@ -4524,8 +4524,7 @@ public function compramasupdate()
 
 
 
-                 $actions = " 
-                  <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detallealmacen', $row->id)."' target='_blank'>
+                 $actions = "   <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detallealmacen', $row->id)."' target='_blank'>
                                                 ver detalles
                                             </a>  <div style='display: inline-block;' class='estatus_".$row->id."'>
                                            ";

@@ -140,6 +140,8 @@ Route::get('admin/urgencias/data', 'Admin\AlpUrgenciaController@data')->name('ur
 
 Route::get('admin/inventario/data', 'Admin\AlpInventarioController@data')->name('inventario.data');
 
+Route::get('admin/inventario/dataalmacen', 'Admin\AlpInventarioController@dataalmacen')->name('inventario.dataalmacen');
+
 Route::get('admin/envios/data', 'Admin\AlpEnviosController@data')->name('envios.data');
 
 Route::get('admin/sliders/data', 'Admin\AlpSlidersController@data')->name('sliders.data');
@@ -433,8 +435,14 @@ Route::get('productos/{id}/eliminarproductoacheta', array('as' => 'productos.eli
 
 
     });
+
+    Route::get('inventario/almacen', 'Admin\AlpInventarioController@almacen');
+
+
     Route::post('inventario/create', 'Admin\AlpInventarioController@store');
+
     Route::resource('inventario', 'Admin\AlpInventarioController');
+
 
 
     Route::group(['prefix' => 'formasenvio'], function () {
@@ -653,6 +661,16 @@ Route::get('productos/{id}/eliminarproductoacheta', array('as' => 'productos.eli
     Route::get('reportes/productos', 'Admin\AlpReportesController@productos')->name('reportes.productos');
 
    Route::post('reportes/exportproductos', 'Admin\AlpReportesController@exportproductos')->name('reportes.exportproductos');
+
+
+
+
+   Route::get('reportes/barrios', 'Admin\AlpReportesController@barrios')->name('reportes.barrios');
+
+   Route::post('reportes/exportbarrios', 'Admin\AlpReportesController@exportbarrios')->name('reportes.exportbarrios');
+
+
+
 
 
     Route::get('reportes/compramas', 'Admin\AlpReportesController@compramas')->name('reportes.compramas');
