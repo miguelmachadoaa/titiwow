@@ -55,6 +55,7 @@ Ticket
                                     <th>Id</th>
                                     <th>Departamento</th>
                                     <th>Urgencia</th>
+                                    <th>Orden</th>
                                     <th>Asunto</th>
                                     <th>Origen</th>
                                     <th>Fecha</th>

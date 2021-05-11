@@ -1351,7 +1351,7 @@
 
 
 
-    @if (Sentinel::getUser()->hasAnyAccess(['ticket.index']))
+    @if (Sentinel::getUser()->hasAnyAccess(['urgencias.index']))
 
      <li {!! (Request::is('admin/ticket') || Request::is('admin/ticket/create') || Request::is('admin/user_profile') || Request::is('admin/ticket/*') || Request::is('admin/deleted_users') ? 'class="active"' : '') !!}>
         <a href="#">
