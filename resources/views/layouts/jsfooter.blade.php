@@ -43,7 +43,7 @@
 
         $('.btnpg').fadeOut('fast');
 
-        console.log($('#banpago').val());
+       // console.log($('#banpago').val());
        //  $('#banpago').val('1');
 
         setTimeout(function(){
@@ -224,7 +224,7 @@
 
                  ubicacion=JSON.parse(localStorage.getItem('ubicacion'));
 
-                 console.log(ubicacion);
+                 //console.log(ubicacion);
                    
                 $.ajax({
                     url: base+'/configuracion/statesModal/47',
@@ -236,7 +236,7 @@
 
                        ubicacion=JSON.parse(localStorage.getItem('ubicacion'));
 
-                       console.log(ubicacion);
+                       //console.log(ubicacion);
 
                         $('select[name="state_id_ubicacion"]').empty();
 
