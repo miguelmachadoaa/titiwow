@@ -1306,6 +1306,9 @@ public function compramasupdate()
       public function data()
     {
 
+
+
+
      // dd('i');
 
       $permiso_cancelar = array('1','2','3');
@@ -1322,6 +1325,12 @@ public function compramasupdate()
             $id_rol=$role->role_id;
         }
       
+
+       
+
+          $user = Sentinel::getUser();
+
+      if ($user->almacen=='0') {
 
         $ordenes = AlpOrdenes::select(
           'alp_ordenes.id as id',
@@ -1347,6 +1356,40 @@ public function compramasupdate()
          ->limit(2000)
          ->orderBy('alp_ordenes.id', 'desc')
           ->get();
+
+      }else{
+
+        $ordenes = AlpOrdenes::select(
+          'alp_ordenes.id as id',
+          'alp_ordenes.origen as origen', 
+          'alp_ordenes.estatus as estatus', 
+          'alp_ordenes.estatus_pago as estatus_pago', 
+          'alp_ordenes.ordencompra as ordencompra', 
+          'alp_ordenes.monto_total as monto_total', 
+          'alp_ordenes.factura as factura', 
+          'alp_ordenes.referencia as referencia', 
+          'alp_ordenes.tracking as tracking', 
+          'alp_ordenes.id_forma_envio as id_forma_envio', 
+          'alp_ordenes.id_forma_pago as id_forma_pago', 
+          'alp_ordenes.id_almacen as id_almacen', 
+          'alp_ordenes.id_address as id_address', 
+          'alp_ordenes.created_at as created_at', 
+          'alp_clientes.telefono_cliente as telefono_cliente',
+          'users.first_name as first_name', 
+          'users.last_name as last_name')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+          ->groupBy('alp_ordenes.id')
+          ->where('alp_ordenes.id_almacen', '=', $user->almacen)
+         ->limit(2000)
+         ->orderBy('alp_ordenes.id', 'desc')
+          ->get();
+
+        
+      }
+
+
+
          
 
           $formaspago=AlpFormaspago::pluck('nombre_forma_pago', 'id');
@@ -1768,7 +1811,11 @@ public function compramasupdate()
       public function dataespera()
     {
 
-       $ordenes = AlpOrdenes::select('alp_ordenes.*', 'alp_clientes.telefono_cliente as telefono_cliente','users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
+      $user = Sentinel::getUser();
+
+      if ($user->almacen=='0') {
+
+        $ordenes = AlpOrdenes::select('alp_ordenes.*', 'alp_clientes.telefono_cliente as telefono_cliente','users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
           ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
           ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
@@ -1780,6 +1827,29 @@ public function compramasupdate()
           ->groupBy('alp_ordenes.id')
           ->limit(2000)
           ->get();
+              
+
+      }else{
+
+        $ordenes = AlpOrdenes::select('alp_ordenes.*', 'alp_clientes.telefono_cliente as telefono_cliente','users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
+          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
+           ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
+          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
+          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+          ->where('alp_ordenes.estatus', '8')
+          ->where('alp_ordenes.id_almacen', '=', $user->almacen)
+          ->groupBy('alp_ordenes.id')
+          ->limit(2000)
+          ->get();
+
+      }
+
+
+
+       
 
           $almacenes=AlpAlmacenes::pluck('nombre_almacen', 'id');
           $direcciones=AlpDirecciones::pluck('city_id', 'id');
@@ -1954,22 +2024,9 @@ public function compramasupdate()
   public function dataaprobados()
     {
 
-     // dd('i');
+      $user = Sentinel::getUser();
 
-      $permiso_cancelar = array('1','2','3');
-       
-
-       $id_rol=0;
-
-        if (Sentinel::check()) {
-
-            $user_id = Sentinel::getUser()->id;
-
-            $role=RoleUser::where('user_id', $user_id)->first();
-
-            $id_rol=$role->role_id;
-        }
-      
+      if ($user->almacen=='0') {
 
         $ordenes = AlpOrdenes::select(
           'alp_ordenes.id as id',
@@ -1996,7 +2053,63 @@ public function compramasupdate()
          ->limit(2000)
          ->orderBy('alp_ordenes.id', 'desc')
           ->get();
-         
+
+              
+
+      }else{
+
+        $ordenes = AlpOrdenes::select(
+          'alp_ordenes.id as id',
+          'alp_ordenes.origen as origen', 
+          'alp_ordenes.estatus as estatus', 
+          'alp_ordenes.estatus_pago as estatus_pago', 
+          'alp_ordenes.ordencompra as ordencompra', 
+          'alp_ordenes.monto_total as monto_total', 
+          'alp_ordenes.factura as factura', 
+          'alp_ordenes.referencia as referencia', 
+          'alp_ordenes.tracking as tracking', 
+          'alp_ordenes.id_forma_envio as id_forma_envio', 
+          'alp_ordenes.id_forma_pago as id_forma_pago', 
+          'alp_ordenes.id_almacen as id_almacen', 
+          'alp_ordenes.id_address as id_address', 
+          'alp_ordenes.created_at as created_at', 
+          'alp_clientes.telefono_cliente as telefono_cliente',
+          'users.first_name as first_name', 
+          'users.last_name as last_name')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+          ->groupBy('alp_ordenes.id')
+          ->where('alp_ordenes.estatus', '5')
+          ->where('alp_ordenes.id_almacen', '=', $user->almacen)
+         ->limit(2000)
+         ->orderBy('alp_ordenes.id', 'desc')
+          ->get();
+
+
+       
+
+      }
+
+
+
+     // dd('i');
+
+      $permiso_cancelar = array('1','2','3');
+       
+
+       $id_rol=0;
+
+        if (Sentinel::check()) {
+
+            $user_id = Sentinel::getUser()->id;
+
+            $role=RoleUser::where('user_id', $user_id)->first();
+
+            $id_rol=$role->role_id;
+        }
+      
+
+       
 
           $formaspago=AlpFormaspago::pluck('nombre_forma_pago', 'id');
           $formasenvio=AlpFormasenvio::pluck('nombre_forma_envios', 'id');
@@ -2434,10 +2547,11 @@ public function compramasupdate()
  public function datarecibidos()
     {
        
+      $user = Sentinel::getUser();
 
-        
+      if ($user->almacen=='0') {
 
-      $ordenes = AlpOrdenes::select('alp_ordenes.*', 'alp_clientes.telefono_cliente as telefono_cliente','users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
+        $ordenes = AlpOrdenes::select('alp_ordenes.*', 'alp_clientes.telefono_cliente as telefono_cliente','users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
           ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
           ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
@@ -2451,6 +2565,30 @@ public function compramasupdate()
           ->orderBy('alp_ordenes.id', 'desc')
           ->limit(2000)
           ->get();
+
+
+      }else{
+        
+
+        $ordenes = AlpOrdenes::select('alp_ordenes.*', 'alp_clientes.telefono_cliente as telefono_cliente','users.first_name as first_name', 'users.last_name as last_name', 'alp_formas_envios.nombre_forma_envios as nombre_forma_envios', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago', 'alp_ordenes_estatus.estatus_nombre as estatus_nombre', 'alp_pagos_status.estatus_pago_nombre as estatus_pago_nombre', 'alp_ordenes_pagos.json as json')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+          ->join('alp_formas_envios', 'alp_ordenes.id_forma_envio', '=', 'alp_formas_envios.id')
+          ->join('alp_formas_pagos', 'alp_ordenes.id_forma_pago', '=', 'alp_formas_pagos.id')
+          ->leftJoin('alp_ordenes_pagos', 'alp_ordenes.id', '=', 'alp_ordenes_pagos.id_orden')
+          ->join('alp_ordenes_estatus', 'alp_ordenes.estatus', '=', 'alp_ordenes_estatus.id')
+          ->join('alp_pagos_status', 'alp_ordenes.estatus_pago', '=', 'alp_pagos_status.id')
+          ->where('alp_ordenes.estatus', '1')
+          ->where('alp_ordenes.id_forma_pago', '<>', '3')
+          ->groupBy('alp_ordenes.id')
+          ->orderBy('alp_ordenes.id', 'desc')
+          ->limit(2000)
+          ->where('alp_ordenes.id_almacen', '=', $user->almacen)
+          ->get();
+      }
+        
+
+     
 
           $almacenes=AlpAlmacenes::pluck('nombre_almacen', 'id');
           $direcciones=AlpDirecciones::pluck('city_id', 'id');
@@ -2587,14 +2725,7 @@ public function compramasupdate()
 
 
           return json_encode( array('data' => $data ));
-
-    }
-
-
-
-
-
-
+      }
 
 
 
@@ -6505,22 +6636,10 @@ private function registroIcgCancelar($ordenId)
   public function dataentregados()
     {
 
-     // dd('i');
+      $user = Sentinel::getUser();
 
-      $permiso_cancelar = array('1','2','3');
-       
+      if ($user->almacen=='0') {
 
-       $id_rol=0;
-
-        if (Sentinel::check()) {
-
-            $user_id = Sentinel::getUser()->id;
-
-            $role=RoleUser::where('user_id', $user_id)->first();
-
-            $id_rol=$role->role_id;
-        }
-      
 
         $ordenes = AlpOrdenes::select(
           'alp_ordenes.id as id',
@@ -6547,6 +6666,61 @@ private function registroIcgCancelar($ordenId)
          ->limit(2000)
          ->orderBy('alp_ordenes.id', 'desc')
           ->get();
+              
+
+      }else{
+
+        $ordenes = AlpOrdenes::select(
+          'alp_ordenes.id as id',
+          'alp_ordenes.origen as origen', 
+          'alp_ordenes.estatus as estatus', 
+          'alp_ordenes.estatus_pago as estatus_pago', 
+          'alp_ordenes.ordencompra as ordencompra', 
+          'alp_ordenes.monto_total as monto_total', 
+          'alp_ordenes.factura as factura', 
+          'alp_ordenes.referencia as referencia', 
+          'alp_ordenes.tracking as tracking', 
+          'alp_ordenes.id_forma_envio as id_forma_envio', 
+          'alp_ordenes.id_forma_pago as id_forma_pago', 
+          'alp_ordenes.id_almacen as id_almacen', 
+          'alp_ordenes.id_address as id_address', 
+          'alp_ordenes.created_at as created_at', 
+          'alp_clientes.telefono_cliente as telefono_cliente',
+          'users.first_name as first_name', 
+          'users.last_name as last_name')
+          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+          ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+          ->groupBy('alp_ordenes.id')
+          ->where('alp_ordenes.estatus', '3')
+          ->where('alp_ordenes.id_almacen', '=', $user->almacen)
+         ->limit(2000)
+         ->orderBy('alp_ordenes.id', 'desc')
+          ->get();
+
+       
+
+      }
+
+
+
+     // dd('i');
+
+      $permiso_cancelar = array('1','2','3');
+       
+
+       $id_rol=0;
+
+        if (Sentinel::check()) {
+
+            $user_id = Sentinel::getUser()->id;
+
+            $role=RoleUser::where('user_id', $user_id)->first();
+
+            $id_rol=$role->role_id;
+        }
+      
+
+       
          
 
           $formaspago=AlpFormaspago::pluck('nombre_forma_pago', 'id');

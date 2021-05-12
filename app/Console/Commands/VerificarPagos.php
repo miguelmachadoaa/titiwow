@@ -78,10 +78,11 @@ class VerificarPagos extends Command
       $d=$date->subDay(3)->format('Y-m-d');
       
         #$ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
-        $ordenes=AlpOrdenes::where('id', '18881')->where('countvp','<', '5')->get();
+       // $ordenes=AlpOrdenes::where('id', '19796')->where('countvp','<', '5')->get();
+        $ordenes=AlpOrdenes::where('id', '19797')->get();
         //
         
-        echo count($ordenes);
+        echo json_encode($ordenes);
 
         $configuracion = AlpConfiguracion::where('id', '1')->first();
 
@@ -120,28 +121,28 @@ class VerificarPagos extends Command
 
             try {
 
-              $preference = MP::get("/v1/payments/search?external_reference=".$ord->referencia);
+              $preference = MP::get("/v1/payments/search?external_reference=".$ord->referencia_mp);
 
             } catch (MercadoPagoException $e) {
 
-              $preference = array();
+              $preference = array('1');
               
             }
 
             }else{
 
-               $preference = array();
+               $preference = array('2');
 
             }
             
         }else{
 
-          $preference = array();
+          $preference = array('3');
         }
 
 
            
-
+        echo json_encode($preference);
             
           
 

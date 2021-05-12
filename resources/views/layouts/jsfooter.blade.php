@@ -89,13 +89,13 @@
 
             }else{
 
-                data='{"status":"true","city_name":"Bogot\u00e1","state_name":"Cundinamarca","id_ciudad":"62"}';
+             //   data='{"status":"true","city_name":"Bogot\u00e1","state_name":"Cundinamarca","id_ciudad":"62"}';
 
-                localStorage.setItem('ubicacion', data);
+              //  localStorage.setItem('ubicacion', data);
 
-                 $('.ubicacion_header a').html('BOGOTÁ CUNDINAMARCA');
+              //   $('.ubicacion_header a').html('BOGOTÁ CUNDINAMARCA');
 
-              //  $('#ubicacionModal').modal('show', {backdrop: 'static', keyboard: false});
+                $('#ubicacionModal').modal('show', {backdrop: 'static', keyboard: false});
             }
 
         });
@@ -223,6 +223,8 @@
                  var base = $('#base').val();
 
                  ubicacion=JSON.parse(localStorage.getItem('ubicacion'));
+
+                 console.log(ubicacion);
                    
                 $.ajax({
                     url: base+'/configuracion/statesModal/47',
@@ -234,20 +236,34 @@
 
                        ubicacion=JSON.parse(localStorage.getItem('ubicacion'));
 
+                       console.log(ubicacion);
+
                         $('select[name="state_id_ubicacion"]').empty();
+
+
 
                         $.each(data, function(key, value) {
 
-                            if (key==ubicacion.id_state) {
+                            if (ubicacion==null) {
 
-                                   $('select[name="state_id_ubicacion"]').append('<option selected value="'+ key +'">'+ value +'</option>');
-
+                                $('select[name="state_id_ubicacion"]').append('<option value="'+ key +'">'+ value +'</option>');
 
                             }else{
 
-                            $('select[name="state_id_ubicacion"]').append('<option value="'+ key +'">'+ value +'</option>');
+                                if (key==ubicacion.id_state) {
+
+                                   $('select[name="state_id_ubicacion"]').append('<option selected value="'+ key +'">'+ value +'</option>');
+
+                         }else{
+
+                                $('select[name="state_id_ubicacion"]').append('<option value="'+ key +'">'+ value +'</option>');
 
                             }
+
+
+                            }
+
+                           
 
                         });
 

@@ -856,7 +856,7 @@ class AlpCartController extends JoshController
 
            "description": "Pago de orden Nro. '.$orden->id.'",
 
-           "external_reference": "'.$orden->referencia.'",
+           "external_reference": "'.$orden->referencia_mp.'",
 
            "callback_url": "'.secure_url('/order/pse').'",
 
@@ -1877,7 +1877,7 @@ class AlpCartController extends JoshController
 
           "installments" => intval($request->installments),
 
-          "external_reference"=> "".$orden->referencia."",
+          "external_reference"=> "".$orden->referencia_mp."",
 
           "payment_method_id" => $request->payment_method_id,
 
@@ -3069,7 +3069,7 @@ class AlpCartController extends JoshController
 
                 "transaction_amount" => doubleval($orden->monto_total+$envio),
 
-                "external_reference" =>"".$orden->referencia."",
+                "external_reference" =>"".$orden->referencia_mp."",
 
                 "description" => 'Pago de orden: '.$orden->id,
 
@@ -7999,10 +7999,8 @@ public function verificarDireccion( Request $request)
 
       
      if (Sentinel::check()) {
-
       
         $user = Sentinel::getUser();
-
         
          activity($user->full_name)
                       ->performedOn($user)
@@ -8064,6 +8062,10 @@ public function verificarDireccion( Request $request)
       $re_u=AlpRolenvio::where('id_rol', $role->role_id)->first();
       
       $id_almacen=$this->getAlmacen();
+
+      $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
+
+
 
       if (count($re)==1) {
 
@@ -8333,28 +8335,22 @@ public function verificarDireccion( Request $request)
 
           
             $total_descuentos=0;
-
             
             $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
 
-            
             foreach ($descuentos as $pago) {
-
               
               $total_descuentos=$total_descuentos+$pago->monto_descuento;
-
               
             }
 
             $total_descuentos_icg=0;
-
 
           if (isset($role->role_id)) {
 
             if ($role->role_id=='16') {
 
               $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $carrito)->get();
-
 
                 foreach ($descuentosIcg as $pagoi) {
 
@@ -8372,33 +8368,24 @@ public function verificarDireccion( Request $request)
 
           }
 
-
-            
-          //se calcula lo que queda luego del descuento
-
-            
             $resto=$total-$total_descuentos;
 
-            
             if ($resto<$base_impuesto) {
 
-              
               $base_impuesto=$resto;
-
-              
 
             }
 
             
           $monto_impuesto=($base_impuesto/(1+$valor_impuesto))*$valor_impuesto;
 
-          
           $base_imponible=($base_impuesto/(1+$valor_impuesto));
 
-          
            $data_update = array(
 
-              'referencia' => 'ALP'.$orden->id.'A'.$id_almacen,
+              'referencia' => 'ALP'.$orden->id,
+
+              'referencia_mp' => 'ALP'.$orden->id.'_'.str_slug($almacen->nombre_almacen),
 
               'monto_total' =>$resto,
 

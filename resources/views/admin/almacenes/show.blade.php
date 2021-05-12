@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Detalle Almacen
+Detalle Almacen {{$almacen->nombre_almacen}}
 @parent
 @stop
 
@@ -21,7 +21,7 @@ Detalle Almacen
 @section('content')
 <section class="content-header">
     <h1>
-        Detalle Almacen
+        Detalle Almacen {{$almacen->nombre_almacen}}
     </h1>
     <ol class="breadcrumb">
         <li>
@@ -31,7 +31,7 @@ Detalle Almacen
             </a>
         </li>
         <li>Almacens</li>
-        <li class="active">Gestionar</li>
+        <li class="active">Gestionar almacen {{$almacen->nombre_almacen}}</li>
     </ol>
 </section>
 

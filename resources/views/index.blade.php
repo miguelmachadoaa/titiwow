@@ -893,12 +893,19 @@
 @section('footer_scripts')
     <!-- page level js starts-->
     <script type="text/javascript" src="{{ secure_asset('assets/js/frontend/jquery.circliful.js') }}"></script>
+    
       <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
+
     <script type="text/javascript" src="{{ secure_asset('assets/vendors/wow/js/wow.min.js') }}" ></script>
+
     <script type="text/javascript" src="{{ secure_asset('assets/vendors/owl_carousel/js/owl.carousel.min.js') }}"></script>
+
+   
     <script type="text/javascript" src="{{ secure_asset('assets/js/frontend/carousel.js') }}"></script>
+
     <script type="text/javascript" src="{{ secure_asset('assets/js/frontend/index.js') }}"></script>
+    
     <script type="text/javascript" src="{{ secure_asset('assets/js/cart.js') }}"></script>
 
       <script>
