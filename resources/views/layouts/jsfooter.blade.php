@@ -17,6 +17,9 @@
     <script type="text/javascript">
 
     /*funciones para crear ubicacion del comprador*/
+
+    ban_modal=0;
+
     jQuery(document).ready(function () {
 
         $('#BienvenidaModal').modal('show');
@@ -25,7 +28,15 @@
 
             if (vepopup==null) {
 
-            $('#EdadModal').modal('show');
+                let modal_popup=$('#modal_popup').val();
+
+                if (modal_popup==1) {
+
+                    ban_modal=1;
+
+                }
+
+                $('#EdadModal').modal('show');
 
             }
 
@@ -33,7 +44,11 @@
 
         $('.afirmativo').click(function(){
 
-        localStorage.setItem("vepopup", 1);
+            ban_modal=0;
+
+            localStorage.setItem("vepopup", 1);
+
+            location.reload();
 
         });
     
@@ -94,8 +109,14 @@
               //  localStorage.setItem('ubicacion', data);
 
               //   $('.ubicacion_header a').html('BOGOTÁ CUNDINAMARCA');
+              
+              if (ban_modal==0) {
 
                 $('#ubicacionModal').modal('show', {backdrop: 'static', keyboard: false});
+
+              }
+
+               
             }
 
         });
@@ -270,7 +291,9 @@
                     }
                 });
 
-                        $.ajax({
+                if (ubicacion==null) {}else{
+
+                    $.ajax({
                             url: base+'/configuracion/cities/'+ubicacion.id_state,
                             type: "GET",
                             dataType: "json",
@@ -295,6 +318,7 @@
 
                             }
                         });
+                }
 
 
          });
