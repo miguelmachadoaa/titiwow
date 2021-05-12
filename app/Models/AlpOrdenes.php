@@ -48,6 +48,7 @@ class AlpOrdenes extends Model
     public $fillable = [
         'id',
         'referencia',
+        'referencia_mp',
         'id_cliente',
         'id_address',
         'id_forma_envio',

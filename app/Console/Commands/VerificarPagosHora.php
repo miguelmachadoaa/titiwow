@@ -79,8 +79,7 @@ class VerificarPagosHora extends Command
         $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
        # $ordenes=AlpOrdenes::where('id', '15532')->where('countvp','>=', '5')->get();
         
-        echo count($ordenes);
-        
+       echo json_encode($ordenes);         
      
         if (count($ordenes)) {
        
@@ -118,26 +117,26 @@ class VerificarPagosHora extends Command
 
             try {
 
-              $preference = MP::get("/v1/payments/search?external_reference=".$ord->referencia);
+              $preference = MP::get("/v1/payments/search?external_reference=".$ord->referencia_mp);
 
             } catch (MercadoPagoException $e) {
 
-              $preference = array();
+              $preference = array('no hay respuesta de mercadopago');
               
             }
 
             }else{
 
-               $preference = array();
+               $preference = array('no hay datos de pago en almacen ');
 
             }
             
         }else{
 
-          $preference = array();
+          $preference = array('no hay almacen');
         }
           
-        //  dd($preference);
+       echo json_encode($preference);
 
           if (isset($preference['response']['results'][0])) {
          // if (isset($preference)) {
