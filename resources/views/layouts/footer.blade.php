@@ -1,24 +1,26 @@
 @if ($configuracion->popup==1)
 
-<div class="modal fade" id="EdadModal" role="dialog" aria-labelledby="modalLabeldanger" style="margin-top: 10%">
-<div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-        <div class="modal-header bg-sucess">
-                <h4 class="modal-title" id="modalLabeldanger">{{$configuracion->popup_titulo}}</h4>
-        </div>
-        
-        <div class="modal-body cartcontenido">
-        
-               <h4>{!! $configuracion->popup_mensaje !!}</h4> 
-        </div>
-        <div class="modal-footer">
-            <button type="button"  class="btn  btn-primary afirmativo" data-dismiss="modal">Ok</button>
+    <div class="modal fade" id="EdadModal" role="dialog" aria-labelledby="modalLabeldanger" style="margin-top: 10%">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-sucess">
+                    <h4 class="modal-title" id="modalLabeldanger">{{$configuracion->popup_titulo}}</h4>
+            </div>
+            
+            <div class="modal-body cartcontenido">
+            
+                   <h4>{!! $configuracion->popup_mensaje !!}</h4> 
+            </div>
+            <div class="modal-footer">
+                <button type="button"  class="btn  btn-primary afirmativo" data-dismiss="modal">Ok</button>
+            </div>
         </div>
     </div>
-</div>
-</div>
+    </div>
 
 @endif
+
+<input type="hidden" id="modal_popup" name="modal_popup" value="{{$configuracion->popup}}">
  <!-- Footer Section Start -->
  <footer>
         <div class="container footer-text">
@@ -89,10 +91,6 @@
     <!--a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Return to top" data-toggle="tooltip" data-placement="left">
         <i class="livicon" data-name="chevron-up" data-size="18" data-loop="true" data-c="#fff" data-hc="white"></i>
     </a-->
-    
-
-
-
 
         <!-- Modal Direccion -->
     <div class="modal fade" id="ubicacionModal" role="dialog" aria-labelledby="modalLabeldanger" data-backdrop="static" data-keyboard="false">

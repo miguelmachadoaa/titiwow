@@ -19,6 +19,8 @@
 </div>
 
 @endif
+
+<input type="hidden" id="modal_popup" name="modal_popup" value="{{$configuracion->popup}}">
  <!-- Footer Section Start -->
  <footer class="footer_qlub" >
         <div class="container footer-text_qlub">
