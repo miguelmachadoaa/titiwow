@@ -95,8 +95,18 @@ class AlpAlmacenesController extends JoshController
 
     public function data()
     {
-       
+
+      $user = Sentinel::getUser();
+
+      if ($user->almacen=='0') {
         $almacenes = AlpAlmacenes::all();
+      }else{
+    $almacenes = AlpAlmacenes::where('id', $user->almacen)->get();
+
+      }
+
+       
+        
          
         $data = array();
 

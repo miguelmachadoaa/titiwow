@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-Editar Almacen
+Editar Almacen {{$almacen->nombre_almacen}}
 @parent
 @stop
 
@@ -24,7 +24,7 @@ Editar Almacen
 @section('content')
 <section class="content-header">
     <h1>
-        Gestionar Almacen
+        Gestionar Almacen {{$almacen->nombre_almacen}}
     </h1>
     <ol class="breadcrumb">
         <li>
@@ -45,7 +45,7 @@ Editar Almacen
             <div class="panel panel-primary ">
                 <div class="panel-heading">
                     <h4 class="panel-title"> <i class="livicon" data-name="wrench" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                       Gestionar Almacen
+                       Gestionar Almacen {{$almacen->nombre_almacen}}
                     </h4>
                 </div>
                 <div class="panel-body">
