@@ -154,6 +154,8 @@
 
                         @if($inventario[$producto->id]>0)
 
+                            @if($producto->precio_oferta>0)
+
                             @php $j++; @endphp
 
                             @include('frontend.producto')
@@ -163,6 +165,8 @@
                                     </div>
                                     <div class="row">
                                 @endif
+
+                            @endif
 
                         @endif
 
@@ -174,6 +178,8 @@
 
                         @if($combos[$producto->id])
 
+                        @if($producto->precio_oferta>0)
+
                             @php $j++; @endphp
 
                             @include('frontend.producto')
@@ -183,6 +189,7 @@
                                     </div>
                                     <div class="row">
                                 @endif
+                        @endif
 
                         @endif
 
@@ -220,6 +227,8 @@
 
                         @if($inventario[$producto->id]>0)
 
+                        @if($producto->precio_oferta>0)
+
                             @php $i++; @endphp
 
                             @include('frontend.producto')
@@ -229,6 +238,7 @@
                                     </div>
                                     <div class="row">
                                 @endif
+                        @endif
 
                         @endif
 
@@ -240,6 +250,8 @@
 
                         @if($combos[$producto->id])
 
+                        @if($producto->precio_oferta>0)
+
                             @php $i++; @endphp
 
                             @include('frontend.producto')
@@ -249,7 +261,8 @@
                                     </div>
                                     <div class="row">
                                 @endif
-
+                        @endif
+                        
                         @endif
 
                     @endif
