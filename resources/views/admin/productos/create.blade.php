@@ -1538,7 +1538,7 @@ $('.addProductoCupon').click(function(){
             include=include+'<td>'+name+'</td>';
             include=include+'<td> <input type="number" step="1" min="1" name="c_can_'+id_producto+'" id="c_can_'+id_producto+'" value="'+cantidad+'">  </td>';
 
-            include=include+'<td> <input type="number" step="1" min="1" name="c_precio_'+id_producto+'" id="c_precio_'+id_producto+'" value="0">  </td>';
+          //  include=include+'<td> <input type="number" step="1" min="1" name="c_precio_'+id_producto+'" id="c_precio_'+id_producto+'" value="0">  </td>';
 
             include=include+'<td> <button data-id="'+id_producto+'" class="btn btn-danger delProductoCombo"><i class="fa fa-trash "></i></button>';
 
