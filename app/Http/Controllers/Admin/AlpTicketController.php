@@ -245,7 +245,7 @@ class AlpTicketController extends JoshController
 
         $archivo = $picture;
 
-          $destinationPath = public_path('/uploads/ticket/');   
+        $destinationPath = public_path('/uploads/ticket/');   
 
         $file->move($destinationPath,$archivo);
         
@@ -346,7 +346,7 @@ class AlpTicketController extends JoshController
 
         $archivo = $picture;
 
-          $destinationPath = public_path('/pruebas/uploads/ticket/');   
+          $destinationPath = public_path('/uploads/ticket/');   
 
         $file->move($destinationPath,$archivo);
         
@@ -849,7 +849,7 @@ class AlpTicketController extends JoshController
 
         $archivo = $picture;
 
-          $destinationPath = public_path('/pruebas/uploads/ticket/');   
+          $destinationPath = public_path('/uploads/ticket/');   
 
         $file->move($destinationPath,$archivo);
         
