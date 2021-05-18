@@ -97,7 +97,7 @@
     </div>
 
 
-    <div id="owl-demo" class="owl-carousel owl-theme visible-xs">
+    <div id="owl-demo-mobile" class="owl-carousel owl-theme visible-xs">
         @foreach($sliders as $s)
             @if($s->imagen_mobile_slider!=0)
             <div class="item">
