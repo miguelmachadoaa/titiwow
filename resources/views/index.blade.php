@@ -86,13 +86,26 @@
 {{-- slider --}}
 @section('top')
     <!--Carousel Start -->
-    <div id="owl-demo" class="owl-carousel owl-theme">
+    <div id="owl-demo" class="owl-carousel owl-theme hidden-xs">
         @foreach($sliders as $s)
             <div class="item">
                 <a href="{{ $s->link_slider }}" target="_self">
                     <img src="{{ secure_asset('uploads/sliders/'.$s->imagen_slider ) }}" alt="Alpina Go!">
                 </a>
             </div>
+        @endforeach
+    </div>
+
+
+    <div id="owl-demo" class="owl-carousel owl-theme visible-xs">
+        @foreach($sliders as $s)
+            @if($s->imagen_mobile_slider!=0)
+            <div class="item">
+                <a href="{{ $s->link_slider }}" target="_self">
+                    <img src="{{ secure_asset('uploads/sliders/'.$s->imagen_mobile_slider ) }}" alt="Alpina Go!">
+                </a>
+            </div>
+            @endif
         @endforeach
     </div>
     <!-- //Carousel End -->
