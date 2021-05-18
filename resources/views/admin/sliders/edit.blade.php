@@ -137,6 +137,59 @@ Editar Slider
 
                         </div>
 
+
+                        <div class="form-group col-sm-12  clearfix">
+
+                            <label for="title" class="col-sm-3 col-xs-12 control-label">Imagen Mobile </label>
+
+
+                            <div class="col-sm-9 col-xs-12">
+
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+
+                                <div class="fileinput-new thumbnail" style="max-width: 200px; max-height: 200px;">
+
+                                    @if($slider->imagen_mobile_slider!='0')
+
+                                        <img src="{{URL::to('uploads/sliders/'.$slider->imagen_mobile_slider)}}" class="img-responsive" alt="Image">
+
+                                    @else
+                                        
+                                        <img src="{{ secure_asset('assets/images/authors/no_avatar.jpg') }}" alt="..."
+                                             class="img-responsive"/>
+
+                                    @endif
+
+                                </div>
+
+                                <div class="fileinput-preview fileinput-exists thumbnail"
+                                     style="max-width: 200px; max-height: 150px;">
+                                         
+                                </div>
+
+                                <div>
+                                    <span class="btn btn-primary btn-file">
+
+                                        <span class="fileinput-new">Seleccione Imagen </span>
+
+                                        <span class="fileinput-exists">Cambiar</span>
+
+                                        <input type="file" name="image_mobile" id="image_mobile" accept="image/*"/>
+
+                                    </span>
+                                   
+                                    <span class="btn btn-primary fileinput-exists"
+                                          data-dismiss="fileinput">Eliminar</span>
+
+                                </div>
+
+                            </div>
+                            </div>
+
+                        </div>
+
+
+
                         <div class="form-group {{ $errors->first('link_slider', 'has-error') }}">
                             <label for="title" class="col-sm-2 control-label">
                                Enlace para el Slider

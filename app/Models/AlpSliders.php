@@ -40,6 +40,7 @@ class AlpSliders extends Model
         'nombre_slider',
         'descripcion_slider',
         'imagen_slider',
+        'imagen_slider_mobile',
         'order',
         'link_slider',
         'grupo_slider',

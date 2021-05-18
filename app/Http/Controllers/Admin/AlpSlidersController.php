@@ -151,6 +151,7 @@ class AlpSlidersController extends JoshController
        // dd($input);
 
         $imagen='default.png';
+        $imagen_slider='default.png';
 
          $picture = "";
 
@@ -178,12 +179,27 @@ class AlpSlidersController extends JoshController
             $imagen = $picture;
 
         }
+
+
+        if ($request->hasFile('image_mobile')) {
+
+            $file = $request->file('image_mobile');
+            $extension = 'jpg';
+            $picture = str_random(10) . '.' . $extension;    
+            $destinationPath = public_path('/uploads/sliders/' . $picture);
+            Image::make($file)->resize(414, 320)->save($destinationPath);            
+            $image_mobile = $picture;
+
+        }
+
+
                
 
         $data = array(
             'nombre_slider' => $request->nombre_slider, 
             'descripcion_slider' => $request->descripcion_slider,
             'imagen_slider' =>$imagen, 
+            'imagen_slider_mobile' =>$image_mobile,
             'order' => $request->order,
             'link_slider' => $request->link_slider,
             'id_user' =>$user_id
@@ -344,6 +360,26 @@ class AlpSlidersController extends JoshController
                 'order' => $request->order,
                 'link_slider' => $request->link_slider
                 );
+
+        }
+
+
+        if ($request->hasFile('image_mobile')) {
+
+            $file = $request->file('image_mobile');
+            $extension = 'jpg';
+            $picture = str_random(10) . '.' . $extension;    
+            $destinationPath = public_path('/uploads/sliders/' . $picture);
+            Image::make($file)->resize(414, 320)->save($destinationPath);         
+            $image_mobile = $picture;
+
+
+            $data = array(
+                'imagen_slider_mobile' =>$image_mobile
+                );
+
+             $slider->update($data);
+
 
         }
 
