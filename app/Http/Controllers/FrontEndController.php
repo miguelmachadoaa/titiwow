@@ -579,7 +579,7 @@ $hoy=$date->format('Y-m-d');
 
 
             }
-            
+
           }
 
                     
@@ -635,86 +635,49 @@ $hoy=$date->format('Y-m-d');
 
 
               $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
-
               
 
               break;
-
 
 
             case 3:
 
 
-
               $producto->precio_oferta=$precio[$producto->id]['precio'];
 
-              
 
               break;
-
             
 
             default:
-
             
 
              $producto->precio_oferta=$producto->precio_base*$descuento;
-
-              # code...
 
               break;
 
           }
 
-
-
         }else{
-
-
 
           $producto->precio_oferta=$producto->precio_base*$descuento;
 
-
-
         }
-
-
-
-
 
        }else{
 
-
-
        $producto->precio_oferta=$producto->precio_base*$descuento;
-
-
-
-
 
        }
 
-
-
-
-
        $prods[]=$producto;
-
-
-
-
 
       }
 
 
-
       $inventario=$this->inventario();
 
-
-
       return view('frontend.xml', compact('prods', 'inventario'));
-
-      
 
     }
 
