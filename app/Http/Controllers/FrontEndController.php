@@ -2160,46 +2160,24 @@ $hoy=$date->format('Y-m-d');
      */
 
     public function postRegister(UserRequest $request)
-
     {
-
 
 
          $configuracion=AlpConfiguracion::where('id', '1')->first();
 
-
-
          $input=$request->all();
-
-
-
-         //dd($input);
-
-
 
          if($configuracion->user_activacion==0){
 
-
-
             $activate=true;
-
-
 
             $masterfi=1;
 
-
-
          }else{
-
-
 
             $activate=false;
 
-
-
             $masterfi=0;
-
-
 
          }
 
@@ -2877,7 +2855,7 @@ $hoy=$date->format('Y-m-d');
                 ->log('Nueva Cuenta Creada');
 
 
-
+              Mail::to($user->email)->send(new \App\Mail\NotificacionCorreo($user));
           
 
 
@@ -2885,10 +2863,6 @@ $hoy=$date->format('Y-m-d');
            // return Redirect::route("clientes")->with('success', trans('auth/message.signup.success'));
 
             return redirect("/?registro=".time())->with('success', trans('Bienvenido a Alpina GO!. Ya puedes comprar todos nuestro productos y promociones. Alpina Alimenta tu vida. '));
-
-
-
-
 
 
 
