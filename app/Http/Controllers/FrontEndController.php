@@ -694,6 +694,26 @@ $hoy=$date->format('Y-m-d');
     }
 
 
+    public function reenviarcorreo($token)
+    {
+
+       $user = Sentinel::getUser();
+
+        if (isset($user->id)) {
+
+          Mail::to($user->email)->send(new \App\Mail\NotificacionCorreo($user));
+
+          Mail::to('miguelmachadoaa@gmail.com')->send(new \App\Mail\NotificacionCorreo($user));
+
+          return view('frontend.reenviarcorreo', compact('user'));
+          # code...
+        }else{
+
+          abort('404');
+
+        }
+
+    }
 
 
 

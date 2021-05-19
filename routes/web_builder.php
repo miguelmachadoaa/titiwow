@@ -11,6 +11,9 @@ Route::get('sitemap.xml', 'SiteMapController@index')->name('sitemap');
 //inicio direcciones productos 
 Route::get('confirmarcorreo/{token}', 'FrontEndController@confirmarcorreo')->name('confirmarcorreo');
 
+Route::get('reenviarcorreo/{token}', 'FrontEndController@reenviarcorreo')->name('reenviarcorreo');
+
+
 Route::get('pqr', 'FrontEndController@getPqr')->name('pqr');
 
 
