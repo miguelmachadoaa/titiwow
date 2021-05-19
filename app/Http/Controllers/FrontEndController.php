@@ -525,9 +525,7 @@ $hoy=$date->format('Y-m-d');
 
 
     public function getXml()
-
     {
-
 
 
       $productos=AlpProductos::select('alp_productos.*', 'alp_marcas.nombre_marca as nombre_marca')
@@ -553,15 +551,10 @@ $hoy=$date->format('Y-m-d');
       ->get();
 
 
-
       $cs1=AlpXml::first();
 
 
-
-
-
           $precio = array();
-
 
          foreach ($productos as  $row) {
 
@@ -581,11 +574,6 @@ $hoy=$date->format('Y-m-d');
             }
 
           }
-
-                    
-
-            
-
 
 
         }
@@ -2271,6 +2259,8 @@ $hoy=$date->format('Y-m-d');
 
                       'password' => $request->password, 
 
+                      'token'=>md5(time())
+
                     );
 
 
@@ -2485,6 +2475,8 @@ $hoy=$date->format('Y-m-d');
                     'email' => $request->email, 
 
                     'password' => $request->password, 
+
+                    'token'=>md5(time())
 
                   );
 
