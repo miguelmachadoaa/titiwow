@@ -9,7 +9,11 @@ Route::get('sitemap.xml', 'SiteMapController@index')->name('sitemap');
 
 
 //inicio direcciones productos 
+Route::get('confirmarcorreo/{token}', 'FrontEndController@confirmarcorreo')->name('confirmarcorreo');
+
 Route::get('pqr', 'FrontEndController@getPqr')->name('pqr');
+
+
 Route::post('pqr', 'FrontEndController@postPQR')->name('pqr');
 
 Route::post('signupembajador', 'Admin\AuthController@postSignupEmbajador')->name('admin.signupembajador');

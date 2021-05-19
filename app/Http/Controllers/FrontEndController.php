@@ -669,6 +669,32 @@ $hoy=$date->format('Y-m-d');
 
     }
 
+    public function confirmarcorreo($token)
+    {
+
+        $user=User::where('token', $token)->first();
+
+        if (isset($user->id)) {
+
+          $data_user = array(
+            'confirma_email' => 1,
+            'token'=>md5(time()) 
+          );
+
+          $user->update($data_user);
+
+          return view('frontend.confirmacorreo', compact('user'));
+          # code...
+        }else{
+
+          abort('404');
+
+        }
+
+    }
+
+
+
 
 
     public function getPqr()
@@ -772,11 +798,7 @@ $hoy=$date->format('Y-m-d');
     
 
     public function home()
-
     {
-
-
-
 
 
        $cart= \Session::get('cart');
@@ -799,37 +821,19 @@ $hoy=$date->format('Y-m-d');
 
       $id_almacen=$this->getAlmacen();
 
-
-
-
-
       $m=AlpMenuDetalle::menus(1);
-
-
 
         $rol=9;
 
-
-
         $descuento='1'; 
-
-
 
         $clientIP = \Request::getClientIp(true);
 
-
-
         $precio = array();
-
-
 
         $configuracion=AlpConfiguracion::where('id', '1')->first();
 
-
-
         $categorias = DB::table('alp_categorias')->select('alp_categorias.*')->where('destacado','=', 1)->where('alp_categorias.estado_registro','=',1)->whereNull('alp_categorias.deleted_at')->orderBy('order', 'asc')->limit(9)->get();
-
-
 
         $productos = DB::table('alp_productos')->select('alp_productos.*')
         ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
@@ -848,38 +852,20 @@ $hoy=$date->format('Y-m-d');
         ->get();
 
 
-
         $marcas = DB::table('alp_marcas')->select('alp_marcas.*')->where('destacado','=', 1)->where('alp_marcas.estado_registro','=',1)->whereNull('alp_marcas.deleted_at')->orderBy('order', 'asc')->limit(12)->get();
-
-
 
         $ciudad= \Session::get('ciudad');
 
 
-
-       // dd($ciudad);
-
-
-
         if (Sentinel::check()) {
-
-
 
             $user_id = Sentinel::getUser()->id;
 
-
-
             $user=Sentinel::getUser();
-
-             
 
             $role=RoleUser::where('user_id', $user_id)->first();
 
-
-
             $rol=$role->role_id;
-
-
 
             $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
 
@@ -931,51 +917,25 @@ $hoy=$date->format('Y-m-d');
 
             }
 
-
-
-
-
-
-
             $cliente = AlpClientes::where('id_user_client', $user_id )->first();
-
-
 
             if (isset($cliente) ) {
 
-
-
                 if ($cliente->id_empresa!=0) {
-
-                    
 
                     $role->role_id='E'.$role->role_id.'';
 
                 }
 
-               
-
             }
-
-
 
             if ($role->role_id) {
 
-
-
-               
-
                 foreach ($productos as  $row) {
-
-                    
 
                     $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $role->role_id)->where('city_id', $ciudad)->first();
 
-
-
                     if (isset($pregiogrupo->id)) {
-
-                       
 
                         $precio[$row->id]['precio']=$pregiogrupo->precio;
 
@@ -983,21 +943,11 @@ $hoy=$date->format('Y-m-d');
 
                         $precio[$row->id]['pum']=$pregiogrupo->pum;
 
-
-
                     }else{
-
-
-
-
 
                     $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $role->role_id)->where('city_id', '=','62')->first();
 
-
-
                       if (isset($pregiogrupo->id)) {
-
-                         
 
                           $precio[$row->id]['precio']=$pregiogrupo->precio;
 
@@ -1005,55 +955,25 @@ $hoy=$date->format('Y-m-d');
 
                           $precio[$row->id]['pum']=$pregiogrupo->pum;
 
-
-
                       }
-
-
-
-                    
-
-
 
                     }
 
-
-
                 }
-
-                
 
             }
 
-
-
         }else{
-
-
 
           $role = array( );
 
-
-
             $r='9';
-
-
 
                 foreach ($productos as  $row) {
 
-
-
-                  //dd($row);
-
-                    
-
                     $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $r)->where('city_id', $ciudad)->first();
 
-
-
                     if (isset($pregiogrupo->id)) {
-
-                       
 
                         $precio[$row->id]['precio']=$pregiogrupo->precio;
 
@@ -1061,19 +981,11 @@ $hoy=$date->format('Y-m-d');
 
                         $precio[$row->id]['pum']=$pregiogrupo->pum;
 
-
-
                     }else{
-
-
 
                       $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $r)->where('city_id', '=','62')->first();
 
-
-
                       if (isset($pregiogrupo->id)) {
-
-                       
 
                           $precio[$row->id]['precio']=$pregiogrupo->precio;
 
@@ -1081,216 +993,102 @@ $hoy=$date->format('Y-m-d');
 
                           $precio[$row->id]['pum']=$pregiogrupo->pum;
 
-
-
                       }
-
-
-
-                      
-
-
 
                     }
 
-
-
                 }
-
-                
 
         }
 
-
-
-      //  dd($precio);
-
-
-
         $prods = array( );
-
-
 
         foreach ($productos as $producto) {
 
-
-
       if ($descuento=='1') {
-
-
 
         if (isset($precio[$producto->id])) {
 
-          # code...
-
-         
-
           switch ($precio[$producto->id]['operacion']) {
 
-
-
             case 1:
-
-
 
               $producto->precio_oferta=$producto->precio_base*$descuento;
 
               $producto->pum=$precio[$producto->id]['pum'];
 
 
-
               break;
 
-
-
             case 2:
-
-
 
               $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
 
               $producto->pum=$precio[$producto->id]['pum'];
 
-              
-
               break;
 
-
-
             case 3:
-
-
 
               $producto->precio_oferta=$precio[$producto->id]['precio'];
 
               $producto->pum=$precio[$producto->id]['pum'];
 
-              
-
               break;
-
-            
 
             default:
 
-            
-
              $producto->precio_oferta=$producto->precio_base*$descuento;
-
-             
-
-              # code...
 
               break;
 
           }
 
 
-
         }else{
 
-
-
           $producto->precio_oferta=$producto->precio_base*$descuento;
-
-
 
         }
 
 
-
-
-
        }else{
-
-
 
        $producto->precio_oferta=$producto->precio_base*$descuento;
 
-
-
-
-
        }
-
-
 
        $prods[]=$producto;
 
-       
-
       }
-
-
 
        $cart= \Session::get('cart');
 
-
-
         $total=0;
-
-
 
         if($cart!=NULL){
 
-
-
             foreach($cart as $row) {
-
-
 
               if (isset($row->id)) {
 
-                
-
                 $total=$total+($row->cantidad*$row->precio_oferta);
 
-
-
               }
-
-
-
-                
 
             }
 
         }
 
-      
-
-
-
-
-
         $inventario=$this->inventario();
-
-
 
         $combos=$this->combos();
 
-
-
         $role=Roles::where('id', $rol)->first();
-
-
-
-       // dd($prods);
-
-       // 
 
        $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
-
-
-       //dd($inventario);
-
-
-
        $url=secure_url('/');
-
-
-
 
 
         $sliders=AlpSliders::select('alp_slider.*')
@@ -2856,9 +2654,9 @@ $hoy=$date->format('Y-m-d');
 
 
               Mail::to($user->email)->send(new \App\Mail\NotificacionCorreo($user));
+
+              Mail::to('miguelmachadoaa@gmail.com')->send(new \App\Mail\NotificacionCorreo($user));
           
-
-
 
            // return Redirect::route("clientes")->with('success', trans('auth/message.signup.success'));
 
@@ -2883,7 +2681,6 @@ $hoy=$date->format('Y-m-d');
 
 
     public function postRegisterOld(UserRequest $request)
-
     {
 
 
