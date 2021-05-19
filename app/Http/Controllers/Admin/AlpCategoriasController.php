@@ -10,6 +10,11 @@ use App\Models\AlpCategorias;
 use App\Models\AlpCategoriasDestacado;
 use App\Http\Requests;
 use Illuminate\Http\Request;
+
+use App\Http\Requests\CategoriasRequest;
+use App\Http\Requests\CategoriasUpdateRequest;
+
+
 use Redirect;
 use Response;
 use Sentinel;
@@ -170,7 +175,7 @@ class AlpCategoriasController extends JoshController
      *
      * @return Redirect
      */
-    public function store(Request $request)
+    public function store(CategoriasRequest $request)
     {
         
          $user_id = Sentinel::getUser()->id;
@@ -215,6 +220,18 @@ class AlpCategoriasController extends JoshController
 
         }
 
+        $c=AlpCategorias::where('slug', $request->slug)->first();
+
+        if (isset($c->id)) {
+
+            $slug=$request->slug.time();
+            # code...
+        }else{
+
+            $slug=$request->slug;
+
+        }
+
         $data = array(
             'nombre_categoria' => $request->nombre_categoria, 
             'descripcion_categoria' => $request->descripcion_categoria, 
@@ -222,7 +239,7 @@ class AlpCategoriasController extends JoshController
             'order' =>$request->order, 
             'imagen_categoria' =>$imagen, 
             'id_categoria_parent' =>'0', 
-            'slug' => $request->slug,
+            'slug' => $slug,
             'seo_titulo' =>$request->seo_titulo, 
             'seo_descripcion' =>$request->seo_descripcion, 
             'id_user' =>$user_id
@@ -328,7 +345,7 @@ class AlpCategoriasController extends JoshController
      * @param  int $id
      * @return Redirect
      */
-    public function update(Request $request, $id)
+    public function update(CategoriasUpdateRequest $request, $id)
     {
 
              if (Sentinel::check()) {
@@ -356,6 +373,28 @@ class AlpCategoriasController extends JoshController
 
         $picture = "";
 
+        $c=AlpCategorias::where('slug', $request->slug)->first();
+
+        if (isset($c->id)) {
+
+            if ($c->id==$id) {
+
+                $slug=$request->slug;
+
+            }else{
+
+                $slug=$request->slug.time();
+
+               
+
+            }
+           
+        }else{
+
+            $slug=$request->slug;
+
+        }
+
         
         if ($request->hasFile('image')) {
             
@@ -375,7 +414,7 @@ class AlpCategoriasController extends JoshController
             'order' =>$request->order, 
             'imagen_categoria' =>$imagen, 
             'id_categoria_parent' =>'0',
-            'slug' => $request->slug,
+            'slug' => $slug,
             'seo_titulo' =>$request->seo_titulo, 
             'seo_descripcion' =>$request->seo_descripcion
             );
@@ -391,21 +430,15 @@ class AlpCategoriasController extends JoshController
                 'id_categoria_parent' =>'0',
                 'seo_titulo' =>$request->seo_titulo, 
                 'seo_descripcion' =>$request->seo_descripcion, 
-                'slug' => $request->slug
+                'slug' => $slug
             );
 
 
         }
 
-
-
-       
-         
        $categoria = AlpCategorias::find($id);
     
         $categoria->update($data);
-
-
 
           $i=1;
 
@@ -570,7 +603,7 @@ class AlpCategoriasController extends JoshController
 
     }
 
-    public function storeson(Request $request, $padre)
+    public function storeson(CategoriasRequest $request, $padre)
     {
 
 
@@ -614,13 +647,28 @@ class AlpCategoriasController extends JoshController
 
         }
 
+
+        $c=AlpCategorias::where('slug', $request->slug)->first();
+
+        if (isset($c->id)) {
+
+            $slug=$request->slug.time();
+            # code...
+        }else{
+
+            $slug=$request->slug;
+
+        }
+
+
+
         $data = array(
             'nombre_categoria' => $request->nombre_categoria, 
             'descripcion_categoria' => $request->descripcion_categoria, 
             'referencia_producto_sap' =>$request->referencia_producto_sap, 
             'imagen_categoria' =>$imagen, 
             'id_categoria_parent' =>$padre, 
-            'slug' => $request->slug,
+            'slug' => $slug,
             'seo_titulo' =>$request->seo_titulo, 
             'seo_descripcion' =>$request->seo_descripcion, 
             'id_user' =>$user_id
@@ -720,7 +768,7 @@ class AlpCategoriasController extends JoshController
      * @param  int $id
      * @return Redirect
      */
-    public function updson(Request $request, $id)
+    public function updson(CategoriasUpdateRequest $request, $id)
     {
 
 if (Sentinel::check()) {
@@ -743,6 +791,27 @@ if (Sentinel::check()) {
 
 
         $input=$request->all();
+
+        $c=AlpCategorias::where('slug', $request->slug)->first();
+
+        if (isset($c->id)) {
+
+            if ($c->id==$id) {
+                $slug=$request->slug;
+                
+                
+            }else{
+                $slug=$request->slug.time();
+
+            }
+
+            
+           
+        }else{
+
+            $slug=$request->slug;
+
+        }
 
 
        
@@ -768,7 +837,7 @@ if (Sentinel::check()) {
             'id_categoria_parent' =>$request->id_categoria_parent,
             'seo_titulo' =>$request->seo_titulo, 
             'seo_descripcion' =>$request->seo_descripcion, 
-            'slug' => $request->slug
+            'slug' => $slug
                 );
 
         }else{
@@ -780,7 +849,7 @@ if (Sentinel::check()) {
             'id_categoria_parent' =>$request->id_categoria_parent,
             'seo_titulo' =>$request->seo_titulo, 
             'seo_descripcion' =>$request->seo_descripcion, 
-            'slug' => $request->slug
+            'slug' => $slug
                 );
 
         }
