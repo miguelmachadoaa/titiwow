@@ -554,8 +554,6 @@ $hoy=$date->format('Y-m-d');
 
 
 
-
-
       $cs1=AlpXml::first();
 
 
@@ -565,18 +563,13 @@ $hoy=$date->format('Y-m-d');
           $precio = array();
 
 
-
          foreach ($productos as  $row) {
 
-                    
+          if (isset($cs1->id_rol)) {
 
             $pregiogrupo=AlpPrecioGrupo::where('id_producto', $row->id)->where('id_role', $cs1->id_rol)->first();
 
-
-
             if (isset($pregiogrupo->id)) {
-
-               
 
                 $precio[$row->id]['precio']=$pregiogrupo->precio;
 
@@ -585,8 +578,13 @@ $hoy=$date->format('Y-m-d');
                 $precio[$row->id]['pum']=$pregiogrupo->pum;
 
 
-
             }
+            
+          }
+
+                    
+
+            
 
 
 
@@ -1955,23 +1953,11 @@ $hoy=$date->format('Y-m-d');
 
         $user = Sentinel::getUser();
 
-
-
         $cliente=AlpClientes::where('id_user_client', '=', $user->id)->first();
-
-
-
-       // dd($cliente);
-
-
 
         $countries = $this->countries;
 
-
-
         $cart= \Session::get('cart');
-
-
 
         return view('user_account', compact('user', 'countries', 'cart', 'cliente'));
 
@@ -2348,6 +2334,8 @@ $hoy=$date->format('Y-m-d');
 
                     'cod_oracle_cliente'=> $codalpin->cod_oracle_cliente,
 
+                    'marketing_email'=> '1',
+                    'marketing_sms'=> '1',
                     'id_empresa' =>'0',               
 
                     'id_embajador' =>'0',               
@@ -2355,7 +2343,6 @@ $hoy=$date->format('Y-m-d');
                     'id_user' =>0,               
 
                     );
-
 
 
                     $cliente=AlpClientes::create($data);
@@ -2623,6 +2610,8 @@ $hoy=$date->format('Y-m-d');
                     'habeas_cliente' => $request->habeas_cliente,
 
                     'cod_oracle_cliente' =>$request->telefono_cliente,
+                    'marketing_email'=> '1',
+                    'marketing_sms'=> '1',
 
                     'estado_masterfile' =>'1',
 
@@ -5922,7 +5911,7 @@ public function getApiUrl($endpoint, $jsessionid)
 
               activity()->withProperties($datos)->log('FrontEndController/get 360 actualizar');
 
-              $users=User::whereDate('updated_at', '>=', $datos['fechaInicio'])->whereDate('updated_at', '<=', $datos['fechaFinal'])->get();
+              $users=User::where('updated_at', '>=', $datos['fechaInicio'])->where('updated_at', '<=', $datos['fechaFinal'])->get();
 
             //  dd($datos['fechaInicio'].'--'.$datos['fechaFinal']);
 
@@ -6001,8 +5990,8 @@ public function getApiUrl($endpoint, $jsessionid)
                       'marketing_sms' =>$c->marketing_sms,
                       'eliminar_cliente' =>$eliminar,
                       'email' =>$u->email,
-                      'fecha_creacion' =>$u->created_at->format('d-m-Y h:i:s'),
-                      'fecha_actualizacion' =>$u->updated_at->format('d-m-Y h:i:s')
+                      'fecha_creacion' =>$u->created_at->format('d-m-Y H:i:s'),
+                      'fecha_actualizacion' =>$u->updated_at->format('d-m-Y H:i:s')
                     );
 
 

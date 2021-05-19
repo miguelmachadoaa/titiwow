@@ -152,13 +152,13 @@
                                 <div class="col-lg-6">
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="gender" value="male" @if($user->gender === "male") checked="checked" @endif />
+                                            <input type="radio" name="gender" value="male" @if(strtolower($user->gender) === "male") checked="checked" @endif />
                                             Masculino
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="gender" value="female" @if($user->gender === "female") checked="checked" @endif />
+                                            <input type="radio" name="gender" value="female" @if(strtolower($user->gender) === "female") checked="checked" @endif />
                                             Femenino
                                         </label>
                                     </div>

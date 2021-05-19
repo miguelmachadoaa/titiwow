@@ -25,8 +25,6 @@ class AlmacenImport implements ToCollection
 
         $inventario= \Session::get('inventario');
 
-       // dd($inventario);
-
         AlpAlmacenProducto::where('id_almacen', $almacen)->delete();
 
         $i=0;
@@ -38,72 +36,68 @@ class AlmacenImport implements ToCollection
                 # code...
             }else{
 
-                //dd(trim($row[1]));
+                if ($row[1]>0) {
 
-                $p=AlpProductos::where('referencia_producto', trim($row[0]))->first();
+                        $p=AlpProductos::where('referencia_producto', trim($row[0]))->first();
 
-                ///dd($p);
+                        if (isset($p->id)) {
 
-                if (isset($p->id)) {
+                        $data = array(
+                            'id_almacen' => $almacen, 
+                            'id_producto' => $p->id, 
+                            'id_user' => $user_id 
+                        );
 
-                    $data = array(
-                        'id_almacen' => $almacen, 
-                        'id_producto' => $p->id, 
-                        'id_user' => $user_id 
-                    );
+                        AlpAlmacenProducto::create($data);
 
-                    AlpAlmacenProducto::create($data);
+                        if (isset($inventario[$p->id][$almacen])) {
+
+                            $data_inventario = array(
+                                'id_almacen' => $almacen, 
+                                'id_producto' => $p->id, 
+                                'cantidad' => abs($inventario[$p->id][$almacen]), 
+                                'operacion' => 2, 
+                                'notas' => 'Actualización de inventario por upload almacen', 
+                                'id_user' => $user_id 
+                            );
+
+                            //dd($data_inventario);   
+
+                            AlpInventario::create($data_inventario);
+
+                            $data_inventario_nuevo = array(
+                                'id_almacen' => $almacen, 
+                                'id_producto' => $p->id, 
+                                'cantidad' => $row[1], 
+                                'operacion' => 1, 
+                                'notas' => 'Actualización de inventario por upload almacen', 
+                                'id_user' => $user_id 
+                            );
+
+                            AlpInventario::create($data_inventario_nuevo);
+
+
+                        }else{
+
+                            $data_inventario_nuevo = array(
+                                'id_almacen' => $almacen, 
+                                'id_producto' => $p->id, 
+                                'cantidad' => $row[1], 
+                                'operacion' => 1, 
+                                'notas' => 'Actualización de inventario por upload almacen', 
+                                'id_user' => $user_id 
+                            );
+
+                            AlpInventario::create($data_inventario_nuevo);
+
+
+                        }
+
+
+                    }
+
+                
                     # code...
-
-
-                if (isset($inventario[$p->id][$almacen])) {
-                    
-
-                    $data_inventario = array(
-                        'id_almacen' => $almacen, 
-                        'id_producto' => $p->id, 
-                        'cantidad' => abs($inventario[$p->id][$almacen]), 
-                        'operacion' => 2, 
-                        'notas' => 'Actualización de inventario por upload almacen', 
-                        'id_user' => $user_id 
-                    );
-
-                    //dd($data_inventario);   
-
-                    AlpInventario::create($data_inventario);
-
-
-                    $data_inventario_nuevo = array(
-                        'id_almacen' => $almacen, 
-                        'id_producto' => $p->id, 
-                        'cantidad' => $row[1], 
-                        'operacion' => 1, 
-                        'notas' => 'Actualización de inventario por upload almacen', 
-                        'id_user' => $user_id 
-                    );
-
-                    AlpInventario::create($data_inventario_nuevo);
-
-
-
-
-                }else{
-
-                    $data_inventario_nuevo = array(
-                        'id_almacen' => $almacen, 
-                        'id_producto' => $p->id, 
-                        'cantidad' => $row[1], 
-                        'operacion' => 1, 
-                        'notas' => 'Actualización de inventario por upload almacen', 
-                        'id_user' => $user_id 
-                    );
-
-                    AlpInventario::create($data_inventario_nuevo);
-
-
-                }
-
-
                 }
 
 
