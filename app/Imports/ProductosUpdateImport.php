@@ -50,8 +50,12 @@ foreach ($cities as $city) {
                    
                         $p=AlpProductos::select('alp_productos.id as id', 'alp_productos.tipo_producto as tipo_producto', 'alp_productos.precio_base as precio_base', 'alp_productos.referencia_producto as referencia_producto')->where('referencia_producto', trim($row[0]))->first();
 
+                        if (!is_null($p)) {
+                      
+
                         if (isset($p->id)) {
-                            if (isset($p->tipo_producto=='1')) {
+
+                            if ($p->tipo_producto=='1') {
 
                                 $precio=AlpPrecioGrupo::where('id_producto', $p->id)->where('id_role', $rol)->where('city_id', $city)->first();
 
@@ -76,6 +80,7 @@ foreach ($cities as $city) {
                                 $productos[]=$p;
 
                             }
+                        }
                         }
                 }
 

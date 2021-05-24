@@ -2419,7 +2419,7 @@ public function precio()
 
         $productos_list=AlpProductos::all();
 
-            $query=AlpPrecioGrupo::select('alp_precios_grupos.*','config_cities.city_name as city_name', 'roles.name as name', 'alp_productos.nombre_producto as nombre_producto', 'alp_productos.referencia_producto  as referencia_producto', 'alp_productos.precio_base  as precio_base' , 'alp_productos.presentacion_producto  as presentacion_producto', 'alp_productos.referenica_producto_sap  as referenica_producto_sap' )
+            $query=AlpPrecioGrupo::select('alp_precios_grupos.*','config_cities.city_name as city_name', 'roles.name as name', 'alp_productos.nombre_producto as nombre_producto', 'alp_productos.referencia_producto  as referencia_producto', 'alp_productos.precio_base  as precio_base' , 'alp_productos.presentacion_producto  as presentacion_producto', 'alp_productos.referencia_producto_sap  as referencia_producto_sap' )
             ->join('alp_productos', 'alp_precios_grupos.id_producto','=', 'alp_productos.id')
             ->join('config_cities', 'alp_precios_grupos.city_id','=', 'config_cities.id')
             ->join('roles', 'alp_precios_grupos.id_role','=', 'roles.id');

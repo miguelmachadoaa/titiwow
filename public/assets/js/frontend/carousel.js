@@ -19,6 +19,15 @@ $(document).ready(function() {
         startDragging : pauseOnDragging
     });
 
+    $("#owl-demo-mobile").owlCarousel({
+        slideSpeed : 500,
+        paginationSpeed : 500,
+        singleItem : true,
+        afterInit : progressBar,
+        afterMove : moved,
+        startDragging : pauseOnDragging
+    });
+
     //Init progressBar where elem is $("#owl-demo")
     function progressBar(elem){
         $elem = elem;

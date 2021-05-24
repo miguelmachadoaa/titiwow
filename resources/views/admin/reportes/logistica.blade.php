@@ -93,7 +93,6 @@ Reporte Logistica
                         </label>
                         <div class="col-md-10">   
                             <select id="id_almacen" name="id_almacen" class="form-control select2">
-                                <option value="">Seleccione</option>
 
                                 <option value="0">Todos</option>
 

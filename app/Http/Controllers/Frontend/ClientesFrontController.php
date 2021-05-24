@@ -61,6 +61,7 @@ class ClientesFrontController extends Controller
 
             $user_id = Sentinel::getUser()->id;
 
+
             $role=RoleUser::where('user_id', $user_id)->first();
 
 

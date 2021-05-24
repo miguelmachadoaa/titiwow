@@ -189,6 +189,10 @@ class UsersController extends JoshController
             // Register the user
             $user = Sentinel::register($request->except('_token', 'password_confirm', 'group', 'activate', 'pic_file'), $activate);
 
+            $data_user = array('token'=>md5(time()) );
+
+            $user->update($data_user);
+
             //add user to 'User' group
             $role = Sentinel::findRoleById($request->get('group'));
             if ($role) {

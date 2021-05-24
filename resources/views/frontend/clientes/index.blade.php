@@ -83,6 +83,15 @@ Area clientes
 <div class="container contain_body">
     <div class="row">
 
+        @if($user->confirma_email==0)
+
+        <div class="alert alert-danger">
+            Hola, recuerda confirmar tu correo, sigue el siguiente enlace para reenviarte el correo de confirmacion nuevamente. 
+            <a class="btn btn-link" href="{{secure_url('/reenviarcorreo/'.$user->token)}}">Reenviar Correo</a>
+        </div>
+
+        @endif
+
         
         
         <div class="alert alert-default text-center">
