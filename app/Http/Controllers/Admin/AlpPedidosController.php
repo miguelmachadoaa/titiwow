@@ -382,6 +382,8 @@ class AlpPedidosController extends JoshController
 
         $id_almacen=1;
 
+        $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
+
         $cart= \Session::get('cart');
 
         $total_venta=$this->totalcart($cart);
@@ -557,6 +559,7 @@ class AlpPedidosController extends JoshController
 
           $data_update = array(
               'referencia' => 'SC'.$orden->id,
+              'referencia_mp' => 'SC'.$orden->id.'_'.str_slug($almacen->nombre_almacen),
               'monto_total' =>$resto,
               'monto_descuento' =>$total_descuentos,
               'monto_total_base' => $monto_total_base,
