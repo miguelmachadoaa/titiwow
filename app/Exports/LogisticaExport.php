@@ -89,7 +89,11 @@ class LogisticaExport implements FromView
           }
 
 
-          $ordenes=$o->get();
+        //  $ordenes=$o->get();
+        //  
+
+          $ordenes = array();
+          #$ordenes=$o->get();
 
 
         return view('admin.exports.logistica', [

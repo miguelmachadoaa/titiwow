@@ -41,11 +41,10 @@ class UltimamillaExport implements FromView
       $date_hasta = Carbon::parse($hoy.' 17:00:00')->toDateTimeString(); 
 
 
-      $ordenes=AlpOrdenes::where('estatus', '=', '1')
-      ->where('id_almacen', '=', '1')
+      $ordenes=AlpOrdenes::where('id_almacen', '=', '1')
       ->where('alp_ordenes.created_at', '>=', $date_desde)
       ->where('alp_ordenes.created_at', '<=', $date_hasta)
-      ->where('alp_ordenes.estatus', '=', '1')
+      ->whereIn('alp_ordenes.estatus', [5,1,3])
       ->orderBy('id', 'desc')
       ->get();
 

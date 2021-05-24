@@ -24,7 +24,7 @@
 
         $('#BienvenidaModal').modal('show');
 
-            vepopup = localStorage.getItem("vepopup");
+            vepopup = localStorage.getItem("vepopup1");
 
             if (vepopup==null) {
 
@@ -46,7 +46,7 @@
 
             ban_modal=0;
 
-            localStorage.setItem("vepopup", 1);
+            localStorage.setItem("vepopup1", 1);
 
             location.reload();
 

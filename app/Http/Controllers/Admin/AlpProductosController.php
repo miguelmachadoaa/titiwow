@@ -616,7 +616,14 @@ class AlpProductosController extends JoshController
 
             $par=explode('_', $key);
 
-            $data_precio = array(
+            $pg=AlpPrecioGrupo::where('id_producto','=', $producto->id)->where('id_role','=',$par[1])->where('city_id','=',$par[2])->first();
+
+            if (isset($pg->id)) {
+
+              # code...
+            }else{
+
+              $data_precio = array(
               'id_producto' => $producto->id, 
               'id_role' => $par[1], 
               'city_id' => $par[2], 
@@ -625,9 +632,13 @@ class AlpProductosController extends JoshController
               'pum' => $pum[$par[1]][$par[2]],
               'mostrar_descuento' => $mostrar[$par[1]][$par[2]],
               'id_user' => $user_id
-            );
+              );
 
-            AlpPrecioGrupo::create($data_precio);
+              AlpPrecioGrupo::create($data_precio);
+
+            }
+
+           
 
             }
 
@@ -1302,7 +1313,13 @@ class AlpProductosController extends JoshController
 
             $par=explode('_', $key);
 
-            $data_precio = array(
+            $pg=AlpPrecioGrupo::where('id_producto','=', $producto->id)->where('id_role','=',$par[1])->where('city_id','=',$par[2])->first();
+
+            if (isset($pg->id)) {
+              # code...
+            }else{
+
+              $data_precio = array(
               'id_producto' => $producto->id, 
               'id_role' => $par[1], 
               'city_id' => $par[2], 
@@ -1316,6 +1333,10 @@ class AlpProductosController extends JoshController
            // dd($data_precio);
 
             AlpPrecioGrupo::create($data_precio);
+
+            }
+
+            
 
             }
             
