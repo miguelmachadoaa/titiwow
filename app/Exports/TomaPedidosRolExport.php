@@ -50,7 +50,7 @@ class TomaPedidosRolExport implements FromView
           ->join('alp_categorias', 'alp_productos.id_categoria_default', '=', 'alp_categorias.id')
           ->join('alp_marcas', 'alp_productos.id_marca', '=', 'alp_marcas.id')
           ->whereNull('alp_ordenes.factura')
-          ->whereIn('alp_ordenes.estatus', [1])
+          ->whereIn('alp_ordenes.estatus', [1,3])
           ->where('alp_ordenes.estatus_pago','=', '2')
           ->where('alp_ordenes.id_forma_pago', '<>', '3')
           ->where('role_users.role_id','=', $this->rol)

@@ -93,7 +93,7 @@ class ProductosExportB implements FromView
 
          // ->groupBy('alp_ordenes_detalle.id_producto')
           ->whereNull('alp_ordenes.factura')
-          ->whereIn('alp_ordenes.estatus', [1])
+          ->whereIn('alp_ordenes.estatus', [1,3])
           ->where('alp_ordenes.estatus_pago','=', '2')
           ->where('alp_ordenes.id_forma_pago', '<>', '3')
           //->whereDate('alp_ordenes_detalle.created_at', '>=', $this->desde)
