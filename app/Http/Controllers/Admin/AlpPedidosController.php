@@ -3483,7 +3483,7 @@ public function postdireccion(DireccionModalRequest $request)
           "binary_mode" => true,
           "description" => 'Pago de orden: '.$orden->id,
           "installments" => intval($request->installments),
-          "external_reference"=> $orden->referencia,
+          "external_reference"=> $orden->referencia_mp,
           "payment_method_id" => $request->payment_method_id,
           "additional_info" => $additional_info,
           
