@@ -57,7 +57,7 @@ class DetalleVentaExport implements FromView
           ->groupBy('alp_ordenes.id')
           //->whereDate('alp_ordenes.created_at', '>=', $this->desde)
          // ->whereDate('alp_ordenes.created_at', '<=', $this->hasta)
-          ->where('alp_ordenes.estatus', '=', '5')
+          ->whereIn('alp_ordenes.estatus',  ['3','5'])
           ->get();
 
 

@@ -67,7 +67,7 @@ class PrimeracompraExportAlmacen implements FromView
           //->groupBy('alp_ordenes.id')
           ->get();
 
-          dd($ordenes);
+         # dd($ordenes);
 
 
         return view('admin.exports.nomina', [
