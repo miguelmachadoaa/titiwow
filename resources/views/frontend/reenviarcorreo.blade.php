@@ -65,7 +65,7 @@ Gracias por confirmar Su Correo
         <div class="col-md-12">
 
            <div style="padding:10px 30px; 20px 30px;color:#241F48;">
-                <h1 class="text-center">El correo de confirmación a sido reenviado, siga las instrucciones para confirmar su correo..</h1>
+                <h1 class="text-center">El correo de confirmación ha sido reenviado, siga las instrucciones para confirmar su correo.</h1>
                 <div class="separador"></div>
             </div>
 

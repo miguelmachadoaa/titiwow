@@ -2,7 +2,7 @@
 
 Gracias por registrarte en alpinaGo
 
-Por favor Confirma tu correo siguendo el siguiente enlace o dirigiendote a la Dirección Web que le esta mas abajo
+Por favor Confirma tu correo siguiendo el siguiente enlace o dirigiéndote a la Dirección Web que le está más abajo
 
   
 
@@ -10,7 +10,7 @@ Por favor Confirma tu correo siguendo el siguiente enlace o dirigiendote a la Di
 Confirmar Correo 
 @endcomponent
 
-Si su navegador no lo redigire por favor dirijase a esta url 
+Si su navegador no lo redirige por favor diríjase a esta url
 
 <p>
 	{{secure_url('/confirmarcorreo/'.$user->token)}}
