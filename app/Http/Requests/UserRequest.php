@@ -59,7 +59,7 @@ class UserRequest extends FormRequest
                     'first_name' => 'required|min:3',
                     'last_name' => 'required|min:3',
                     'email' => 'required|email|unique:users,email',
-                    'password' => 'required|between:3,32',
+                    'password' => 'required|between:8,32',
                     'password_confirm' => 'required|same:password',
                     'doc_cliente' => 'unique:alp_clientes,doc_cliente',
                     'id_type_doc' => 'required',
