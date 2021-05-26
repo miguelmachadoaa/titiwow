@@ -86,7 +86,7 @@ Area clientes
         @if($user->confirma_email==0)
 
         <div class="alert alert-danger">
-            Hola, recuerda confirmar tu correo, sigue el siguiente enlace para reenviarte el correo de confirmacion nuevamente. 
+            Hola, recuerda confirmar tu correo, sigue el siguiente enlace para reenviar el correo de confirmación. 
             <a class="btn btn-link" href="{{secure_url('/reenviarcorreo/'.$user->token)}}">Reenviar Correo</a>
         </div>
 
@@ -96,7 +96,6 @@ Area clientes
         
         <div class="alert alert-default text-center">
         @if(isset($cliente))
-
 
 
             @if($role->role_id==12)
