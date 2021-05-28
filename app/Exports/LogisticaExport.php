@@ -3,6 +3,14 @@
 namespace App\Exports;
 
 use App\User;
+use App\State;
+use App\City;
+use App\Roles;
+use App\RoleUser;
+
+
+use App\Models\AlpDirecciones;
+use App\Models\AlpClientes;
 use App\Models\AlpOrdenes;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\Exportable;
@@ -29,44 +37,13 @@ class LogisticaExport implements FromView
     public function view(): View
     {
         $o=AlpOrdenes::query()->select(
-          'alp_ordenes.id as id',
-          'alp_ordenes.origen as origen',
-          'alp_ordenes.ordencompra as ordencompra',
-          'alp_ordenes.referencia as referencia', 
-          'alp_ordenes.monto_total as monto_total',
-          'alp_ordenes.base_impuesto as base_impuesto',
-          'alp_ordenes.valor_impuesto as valor_impuesto',
-          'alp_ordenes.monto_impuesto as monto_impuesto',
-        'config_cities.city_name as city_name',
-        'config_states.state_name as state_name',
-        'alp_direcciones.principal_address as principal_address',
-        'alp_direcciones.secundaria_address as secundaria_address',
-        'alp_direcciones.edificio_address as edificio_address',
-        'alp_direcciones.detalle_address as detalle_address',
-        'alp_direcciones.barrio_address as barrio_address',
-        'alp_direcciones_estructura.nombre_estructura as nombre_estructura',
-        'alp_direcciones_estructura.abrevia_estructura as abrevia_estructura',
+          'alp_ordenes.*',
           DB::raw('count(alp_ordenes_detalle.cantidad) as total_articulos'),
-          'alp_clientes.doc_cliente as doc_cliente',
-          'alp_clientes.telefono_cliente as telefono_cliente',
-          'users.id as id_usuario', 
-          'users.first_name as first_name', 
-          'users.last_name as last_name', 
-          'users.email as email', 
-          'alp_ordenes.created_at as created_at',
-           DB::raw('DATE_FORMAT(alp_ordenes.created_at, "%d/%m/%Y")  as fecha'),
-          'roles.name as name_rol' )
-          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
-          ->join('alp_direcciones', 'alp_ordenes.id_address', '=', 'alp_direcciones.id')
-          ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-          ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-          ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-          ->join('role_users', 'alp_ordenes.id_cliente', '=', 'role_users.user_id')
-          ->join('roles', 'role_users.role_id', '=', 'roles.id')
-          ->join('alp_clientes', 'alp_ordenes.id_cliente', '=', 'alp_clientes.id_user_client')
+           DB::raw('DATE_FORMAT(alp_ordenes.created_at, "%d/%m/%Y")  as fecha')
+           )
           ->join('alp_ordenes_detalle', 'alp_ordenes.id', '=', 'alp_ordenes_detalle.id_orden')
           ->groupBy('alp_ordenes.id')
-          ->where('alp_ordenes.ordencompra', '!=', NULL)
+         # ->where('alp_ordenes.ordencompra', '!=', NULL)
           ->whereIn('alp_ordenes.estatus', [5,3])
           ->where('alp_ordenes.id_forma_pago', '<>', '3')
           ->whereDate('alp_ordenes.created_at', '>=', $this->desde)
@@ -92,12 +69,43 @@ class LogisticaExport implements FromView
         //  $ordenes=$o->get();
         //  
 
-          $ordenes = array();
-          #$ordenes=$o->get();
+          #$ordenes = array();
+          $ordenes=$o->get();
 
+          foreach ($ordenes as $o) {
+
+            $direccion=AlpDirecciones::where('id', $o->id_address)->first();
+
+            $o->direccion=$direccion;
+
+            #dd($o);
+              // code...
+          }
+
+
+          $state=State::pluck('state_name', 'id');
+          $city=City::pluck('city_name', 'id');
+          $roleuser=RoleUser::pluck('role_id', 'user_id');
+          $role=Roles::pluck('name', 'id');
+          $telefono=AlpClientes::pluck('telefono_cliente', 'id_user_client');
+          $documento=AlpClientes::pluck('doc_cliente', 'id_user_client');
+          $nombre=User::pluck('first_name', 'id');
+          $apellido=User::pluck('last_name', 'id');
+
+          #dd($ordenes);
 
         return view('admin.exports.logistica', [
-            'ventas' => $ordenes
+            'ventas' => $ordenes,
+            'state' => $state,
+            'city' => $city,
+            'roleuser' => $roleuser,
+            'role' => $role,
+            'telefono' => $telefono,
+            'documento' => $documento,
+            'nombre' => $nombre,
+            'apellido' => $apellido,
+
+
         ]);
     }
 }
