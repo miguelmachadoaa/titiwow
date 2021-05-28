@@ -2806,6 +2806,13 @@ public function postdireccion(DireccionModalRequest $request)
 
         $orden=AlpOrdenes::where('token', '=', $token)->first();
 
+        if (isset($orden->id)) {
+          
+        }else{
+
+          abort('404');
+        }
+
 
         \Session::put('orden', $orden->id);
         \Session::put('cr', $orden->id);
