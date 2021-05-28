@@ -245,7 +245,7 @@
 
                  ubicacion=JSON.parse(localStorage.getItem('ubicacion'));
 
-                 //console.log(ubicacion);
+                 console.log(ubicacion);
                    
                 $.ajax({
                     url: base+'/configuracion/statesModal/47',
@@ -254,13 +254,14 @@
                     success:function(data) {
 
                        // localStorage.setItem('states', data.responseText());
+                       
+                       console.log(data.responseText());
 
                        ubicacion=JSON.parse(localStorage.getItem('ubicacion'));
 
-                       //console.log(ubicacion);
+                       console.log(ubicacion);
 
                         $('select[name="state_id_ubicacion"]').empty();
-
 
 
                         $.each(data, function(key, value) {
@@ -275,11 +276,11 @@
 
                                    $('select[name="state_id_ubicacion"]').append('<option selected value="'+ key +'">'+ value +'</option>');
 
-                         }else{
+                                }else{
 
-                                $('select[name="state_id_ubicacion"]').append('<option value="'+ key +'">'+ value +'</option>');
+                                        $('select[name="state_id_ubicacion"]').append('<option value="'+ key +'">'+ value +'</option>');
 
-                            }
+                                }
 
 
                             }
