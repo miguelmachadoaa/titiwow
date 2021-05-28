@@ -70,6 +70,10 @@ $("#reg_form").bootstrapValidator({
                 different: {
                     field: 'first_name,last_name',
                     message: 'La Contraseña debe ser Distinta al Nombre/Apellido'
+                },
+                regexp: {
+                    regexp: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?.&]{8,32}$/,
+                    message: 'La contraseña debe Tener como mínimo 8 caracteres, minusculas, mayúsculas, números y caracteres especiales.'
                 }
             }
         },
