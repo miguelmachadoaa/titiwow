@@ -32,6 +32,8 @@ class FinancieroExport implements FromView
     public function view(): View
     {
 
+        $ordenes=AlpOrdenes::get();
+
         $c=AlpOrdenes::query()->select(
            DB::raw('DATE_FORMAT(alp_ordenes.created_at, "%d/%m/%Y")  as fecha'),
           'alp_ordenes.created_at as created_at',
@@ -74,7 +76,7 @@ class FinancieroExport implements FromView
 
 
 
-if ($this->origen==-1) {
+        if ($this->origen==-1) {
             # code...
           }else{
 
@@ -92,7 +94,7 @@ if ($this->origen==-1) {
 
 
 
-          $ordenes=$c->get();
+        //  $ordenes=$c->get();
 
 
           $d = array();

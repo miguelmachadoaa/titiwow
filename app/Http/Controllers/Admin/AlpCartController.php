@@ -405,12 +405,21 @@ class AlpCartController extends JoshController
 
             $pago=AlpPagos::where('id_orden', $id)->first();
 
-          if ($compra->id_forma_pago=='3' || $compra->id_forma_pago=='1') {
-            $payment=null;
+            if (isset($pago->id)) {
+              
+              if ($compra->id_forma_pago=='3' || $compra->id_forma_pago=='1') {
+                $payment=null;
 
-          }else{
-            $payment=json_decode($pago->json);
-          }
+              }else{
+                $payment=json_decode($pago->json);
+              }
+
+
+            }else{
+              $payment=null;
+            }
+
+         
 
           $envio=AlpEnvios::where('id_orden', $id)->first();
 
@@ -8552,6 +8561,16 @@ public function verificarDireccion( Request $request)
             $o=\Session::get('orden');
 
           $orden=AlpOrdenes::where('id', '=', $o)->first();
+
+          if (isset($orden->id)) {
+            // code...
+          }else{
+
+            \Session::forget('orden');
+
+            return 'falseCancelado';
+
+          }
 
           if ($orden->estatus=='4') {
 
