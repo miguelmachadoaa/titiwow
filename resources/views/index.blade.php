@@ -99,10 +99,10 @@
 
     <div id="owl-demo-mobile" class="owl-carousel owl-theme visible-xs">
         @foreach($sliders as $s)
-            @if($s->imagen_mobile_slider!=0)
+            @if($s->imagen_slider_mobile!='0')
             <div class="item">
                 <a href="{{ $s->link_slider }}" target="_self">
-                    <img src="{{ secure_asset('uploads/sliders/'.$s->imagen_mobile_slider ) }}" alt="Alpina Go!">
+                    <img src="{{ secure_asset('uploads/sliders/'.$s->imagen_slider_mobile ) }}" alt="Alpina Go!">
                 </a>
             </div>
             @endif

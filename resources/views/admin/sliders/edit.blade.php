@@ -89,7 +89,7 @@ Editar Slider
 
                         <div class="form-group col-sm-12  clearfix">
 
-                            <label for="title" class="col-sm-3 col-xs-12 control-label">Imagen </label>
+                            <label for="title" class="col-sm-3 col-xs-12 control-label">Imagen Desktop (1920px, 500px) </label>
 
 
                             <div class="col-sm-9 col-xs-12">
@@ -140,7 +140,7 @@ Editar Slider
 
                         <div class="form-group col-sm-12  clearfix">
 
-                            <label for="title" class="col-sm-3 col-xs-12 control-label">Imagen Mobile </label>
+                            <label for="title" class="col-sm-3 col-xs-12 control-label">Imagen Mobile (375px, 290px)</label>
 
 
                             <div class="col-sm-9 col-xs-12">
@@ -149,9 +149,9 @@ Editar Slider
 
                                 <div class="fileinput-new thumbnail" style="max-width: 200px; max-height: 200px;">
 
-                                    @if($slider->imagen_mobile_slider!='0')
+                                    @if($slider->imagen_slider_mobile!='0')
 
-                                        <img src="{{URL::to('uploads/sliders/'.$slider->imagen_mobile_slider)}}" class="img-responsive" alt="Image">
+                                        <img src="{{URL::to('uploads/sliders/'.$slider->imagen_slider_mobile)}}" class="img-responsive" alt="Image">
 
                                     @else
                                         
