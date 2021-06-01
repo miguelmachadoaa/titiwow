@@ -24,17 +24,48 @@
         @foreach ($ventas as $row)
         <tr>
             <td>{!! $row->id !!}</td>
+
             <td>{!! $row->ordencompra !!}</td>
+            
+            @if(isset($row->direccion->city_id))
             <td>{!! $city[$row->direccion->city_id]!!}</td>
             <td>{{ $row->direccion->abrevia_estructura.' '.$row->direccion->principal_address.' '.$row->direccion->secundaria_address.' '.$row->direccion->edificio_address.' '.$row->direccion->detalle_address     }}</td>
+
+            @else
+            <td>No Se Encuentra Dirección</td>
+            <td>No Se Encuentra Dirección</td>
+            @endif
+            
             <td>3</td>
             <td>{!! $row->monto_total !!}</td>
             <td>@if($row->valor_impuesto!=0) {!! $row->base_impuesto/(1+$row->valor_impuesto) !!}  @else   {{ 0 }} @endif</td>
             <td>{!! $row->valor_impuesto*100 !!}%</td>
             <td>{!! $row->monto_impuesto !!}</td>
+            @if(isset($nombre[$row->id_cliente]) && isset($apellido[$row->id_cliente]))
             <td>{!! $nombre[$row->id_cliente].' '.$apellido[$row->id_cliente] !!}</td>
+            @else
+            <td>No se Encuentra Cliente</td>
+            @endif
+
+            @if($documento[$row->id_cliente])
             <td>{!! $documento[$row->id_cliente] !!}</td>
+            @else
+            <td>No se Encuentra Cliente</td>
+            @endif
+
+
+            @if($telefono[$row->id_cliente])
             <td>{!! $telefono[$row->id_cliente] !!}</td>
+            @else
+            <td>No se Encuentra Cliente</td>
+            @endif
+
+
+
+
+
+            
+            
             <td></td>
             <td>{!! $row->barrio_address !!}</td>
             <td>{!! $row->fecha !!}</td>
