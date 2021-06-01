@@ -86,7 +86,7 @@ Conoce el QLUB del Queso Alpina |  @parent
 {{-- slider --}}
 @section('top')
     <!--Carousel Start -->
-    <div id="owl-demo" class="owl-carousel owl-theme">
+    <div id="owl-demo" class="owl-carousel owl-theme hidden-xs">
     @if(isset($sliders))
         @foreach($sliders as $s)
             <div class="item">
@@ -96,6 +96,18 @@ Conoce el QLUB del Queso Alpina |  @parent
             </div>
         @endforeach
     @endif
+    </div>
+    
+    <div id="owl-demo-mobile" class="owl-carousel owl-theme visible-xs">
+        @foreach($sliders as $s)
+            @if($s->imagen_slider_mobile!='0')
+            <div class="item">
+                <a href="{{ $s->link_slider }}" target="_self">
+                    <img src="{{ secure_asset('uploads/sliders/'.$s->imagen_slider_mobile ) }}" alt="El Qlub!">
+                </a>
+            </div>
+            @endif
+        @endforeach
     </div>
     <!-- //Carousel End -->
 @stop
