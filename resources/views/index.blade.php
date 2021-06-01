@@ -182,7 +182,7 @@
     <div class="container cont_categorias">
         <div class="row">
             <div class="col-md-12 col-sm-12 text-center">
-                <h3 class="catego almacen{{$almacen->id}}">Categorías </h3>
+                <h3 class="catego almacen{{$almacen->id}}">Categorías {{$almacen->id}}</h3>
                 <div class="separador"></div>
             </div>
             <div class="col-md-12 col-sm-12 wow pulse" data-wow-duration="1.5s">

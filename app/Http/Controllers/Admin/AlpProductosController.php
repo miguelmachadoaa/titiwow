@@ -2863,6 +2863,54 @@ class AlpProductosController extends JoshController
     }
 
 
+    public function getproductosalmacen($id)
+    {
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($id)->log('AlpProductosController/getproductosalmacen ');
+
+        }else{
+
+          activity()
+          ->withProperties($id)->log('AlpProductosController/getproductosalmacen');
+
+
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+       // $input = $request->all();
+
+       $productos=AlpAlmacenProducto::select( 'alp_productos.*' )
+       ->join('alp_productos', 'alp_almacen_producto.id_producto', '=', 'alp_productos.id')
+       ->where('alp_almacen_producto.id_almacen', $id)
+       ->whereNull('alp_almacen_producto.deleted_at')
+       ->groupBy('alp_productos.id')
+       ->get();
+
+       $p = array();
+
+       foreach ($productos as $prod) {
+
+            $p[$prod->id]=$prod->nombre_producto.' '.$prod->referencia_producto; 
+           // code...
+       }
+
+       return json_encode($p);
+
+    }
+
+
 
 
      public function datadestacados()

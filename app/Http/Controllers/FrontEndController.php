@@ -841,6 +841,8 @@ $hoy=$date->format('Y-m-d');
 
       $id_almacen=$this->getAlmacen();
 
+      #dd($id_almacen);
+
       $m=AlpMenuDetalle::menus(1);
 
         $rol=9;
@@ -856,13 +858,13 @@ $hoy=$date->format('Y-m-d');
         $categorias = DB::table('alp_categorias')->select('alp_categorias.*')->where('destacado','=', 1)->where('alp_categorias.estado_registro','=',1)->whereNull('alp_categorias.deleted_at')->orderBy('order', 'asc')->limit(9)->get();
 
         $productos = DB::table('alp_productos')->select('alp_productos.*')
-        ->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
-        ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
+        #->join('alp_almacen_producto', 'alp_productos.id', '=', 'alp_almacen_producto.id_producto')
+       # ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
         ->join('alp_destacados_producto', 'alp_productos.id', '=', 'alp_destacados_producto.id_producto')
-        ->where('alp_almacenes.id', '=', $id_almacen)
+        ->where('alp_destacados_producto.id_almacen', '=', $id_almacen)
         ->where('alp_destacados_producto.id_grupo_destacado', '=', '1')
         ->whereNull('alp_destacados_producto.deleted_at')
-        ->whereNull('alp_almacen_producto.deleted_at')
+        #->whereNull('alp_almacen_producto.deleted_at')
         ->whereNull('alp_productos.deleted_at')
         ->where('alp_productos.estado_registro','=',1)
         ->where('alp_productos.mostrar','=',1)
@@ -1158,11 +1160,6 @@ $hoy=$date->format('Y-m-d');
           $cart = array();
 
        }
-
-
-
-       
-
 
 
         return view('index',compact('categorias','productos','marcas','descuento','precio', 'cart', 'total','prods','sliders','configuracion','inventario', 'combos', 'role', 'almacen','url'));
