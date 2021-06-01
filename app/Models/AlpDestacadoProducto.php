@@ -21,6 +21,7 @@ class AlpDestacadoProducto extends Model
         'id',
         'id_grupo_destacado',
         'id_producto',
+        'id_almacen',
         'estado_registro',
         'id_user'
     ];

@@ -25,16 +25,16 @@
         <tr>
             <td>{!! $row->id !!}</td>
             <td>{!! $row->ordencompra !!}</td>
-            <td>{!! $row->city_name!!}</td>
-            <td>{{ $row->abrevia_estructura.' '.$row->principal_address.' '.$row->secundaria_address.' '.$row->edificio_address.' '.$row->detalle_address     }}</td>
+            <td>{!! $city[$row->direccion->city_id]!!}</td>
+            <td>{{ $row->direccion->abrevia_estructura.' '.$row->direccion->principal_address.' '.$row->direccion->secundaria_address.' '.$row->direccion->edificio_address.' '.$row->direccion->detalle_address     }}</td>
             <td>3</td>
             <td>{!! $row->monto_total !!}</td>
             <td>@if($row->valor_impuesto!=0) {!! $row->base_impuesto/(1+$row->valor_impuesto) !!}  @else   {{ 0 }} @endif</td>
             <td>{!! $row->valor_impuesto*100 !!}%</td>
             <td>{!! $row->monto_impuesto !!}</td>
-            <td>{!! $row->first_name.' '.$row->last_name !!}</td>
-            <td>{!! $row->doc_cliente !!}</td>
-            <td>{!! $row->telefono_cliente !!}</td>
+            <td>{!! $nombre[$row->id_cliente].' '.$apellido[$row->id_cliente] !!}</td>
+            <td>{!! $documento[$row->id_cliente] !!}</td>
+            <td>{!! $telefono[$row->id_cliente] !!}</td>
             <td></td>
             <td>{!! $row->barrio_address !!}</td>
             <td>{!! $row->fecha !!}</td>

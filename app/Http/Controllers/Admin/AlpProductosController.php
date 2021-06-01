@@ -14,6 +14,7 @@ use App\Http\Requests\AnchetaProductosRequest;
 
 
 use App\Models\AlpDestacadoProducto;
+use App\Models\AlpAlmacenes;
 use App\Models\AlpAlmacenProducto;
 use App\Models\AlpProductos;
 use App\Models\AlpProductosRelacionados;
@@ -2742,7 +2743,6 @@ class AlpProductosController extends JoshController
 
         $inv=$this->inventarioBogota();
 
-
         $destacados = DB::table('alp_productos')->select('alp_productos.*')
         ->join('alp_destacados_producto', 'alp_productos.id', '=', 'alp_destacados_producto.id_producto')
         ->whereNull('alp_productos.deleted_at')
@@ -2751,7 +2751,9 @@ class AlpProductosController extends JoshController
         ->orderBy('alp_productos.updated_at', 'desc')
         ->get();
 
-        return view('admin.productos.destacadoslist', compact('productos', 'destacados', 'inv'));
+        $almacenes=AlpAlmacenes::where('estado_registro', '1')->get();
+
+        return view('admin.productos.destacadoslist', compact('productos', 'destacados', 'inv', 'almacenes'));
        
 
     }
@@ -2785,7 +2787,7 @@ class AlpProductosController extends JoshController
 
         $input = $request->all();
 
-        $pd=AlpDestacadoProducto::where('id_producto', $request->id_producto)->where('id_grupo_destacado', $request->id_grupo)->first();
+        $pd=AlpDestacadoProducto::where('id_producto', $request->id_producto)->where('id_grupo_destacado', $request->id_grupo)->where('id_almacen', $request->id_almacen)->first();
 
 
         if (isset($pd->id)) {
@@ -2797,6 +2799,7 @@ class AlpProductosController extends JoshController
           $data = array(
             'id_grupo_destacado' => $request->id_grupo, 
             'id_producto' => $request->id_producto, 
+            'id_almacen' => $request->id_almacen,
             'id_user' => $user->id
           );
 
@@ -2860,13 +2863,62 @@ class AlpProductosController extends JoshController
     }
 
 
+    public function getproductosalmacen($id)
+    {
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($id)->log('AlpProductosController/getproductosalmacen ');
+
+        }else{
+
+          activity()
+          ->withProperties($id)->log('AlpProductosController/getproductosalmacen');
+
+
+        }
+
+        if (!Sentinel::getUser()->hasAnyAccess(['productos.*'])) {
+
+           return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
+        }
+
+
+       // $input = $request->all();
+
+       $productos=AlpAlmacenProducto::select( 'alp_productos.*' )
+       ->join('alp_productos', 'alp_almacen_producto.id_producto', '=', 'alp_productos.id')
+       ->where('alp_almacen_producto.id_almacen', $id)
+       ->whereNull('alp_almacen_producto.deleted_at')
+       ->groupBy('alp_productos.id')
+       ->get();
+
+       $p = array();
+
+       foreach ($productos as $prod) {
+
+            $p[$prod->id]=$prod->nombre_producto.' '.$prod->referencia_producto; 
+           // code...
+       }
+
+       return json_encode($p);
+
+    }
+
+
 
 
      public function datadestacados()
     {
     
-          $productos = DB::table('alp_productos')->select('alp_productos.*', 'alp_destacados_producto.id_grupo_destacado as id_grupo_destacado', 'alp_destacados_producto.id as id_producto_destacado')
+          $productos = DB::table('alp_productos')->select('alp_productos.*', 'alp_destacados_producto.id_grupo_destacado as id_grupo_destacado', 'alp_destacados_producto.id as id_producto_destacado', 'alp_almacenes.nombre_almacen as nombre_almacen')
         ->join('alp_destacados_producto', 'alp_productos.id', '=', 'alp_destacados_producto.id_producto')
+        ->join('alp_almacenes', 'alp_almacenes.id', '=', 'alp_destacados_producto.id_almacen')
         ->whereNull('alp_productos.deleted_at')
         ->whereNull('alp_destacados_producto.deleted_at')
         ->where('alp_productos.estado_registro','=',1)
@@ -2899,20 +2951,7 @@ class AlpProductosController extends JoshController
               $estado=" <div id='td_destacado_".$alpProductos->id."'><button type='button' data-url='".secure_url('productos/desactivar')."' data-desactivar='1' data-id='".$alpProductos->id ."' class='btn btn-responsive button-alignment btn-danger btn_sizes desactivar' style='font-size: 12px !important;'>Inactivo</button></div>";
             }
 
-
-
-
-            $ps=AlpAlmacenProducto::select('alp_almacenes.*')
-          ->join('alp_almacenes', 'alp_almacen_producto.id_almacen', '=', 'alp_almacenes.id')
-          ->where('alp_almacen_producto.id_producto', $alpProductos->id)->get();
-
-          $almacen='';
-
-          foreach ($ps as $pa) {
-            
-            $almacen=$almacen.' '.$pa->nombre_almacen.',';
-          }
-
+          
 
              $actions = "   
                  <button class='btn btn-danger eliminarproductodestacado' data-id='".$alpProductos->id_producto_destacado."' >
@@ -2927,7 +2966,7 @@ class AlpProductosController extends JoshController
                  $alpProductos->referencia_producto, 
                  $alpProductos->referencia_producto_sap, 
                  $grupo, 
-                 $almacen, 
+                 $alpProductos->nombre_almacen, 
                  $estado, 
                  $actions
               );

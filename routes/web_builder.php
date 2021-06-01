@@ -255,6 +255,8 @@ Route::post('productos/addproductodestacado/', ['as'=> 'productos.addproductodes
 
 Route::post('productos/eliminarproductodestacado/', ['as'=> 'productos.eliminarproductodestacado', 'uses' => 'Admin\AlpProductosController@eliminarproductodestacado']);
 
+Route::get('productos/getproductosalmacen/{id}', ['as'=> 'productos.getproductosalmacen', 'uses' => 'Admin\AlpProductosController@getproductosalmacen']);
+
 
 Route::post('productos/postgrid/', ['as'=> 'productos.postgrid', 'uses' => 'Admin\AlpProductosController@postgrid']);
 

@@ -184,11 +184,11 @@
 
                             @include('frontend.producto')
 
-
                                 @if ($j % 4 == 0)
                                     </div>
                                     <div class="row">
                                 @endif
+                                
                         @endif
 
                         @endif
@@ -220,7 +220,7 @@
 
             @foreach($prods as $producto)
 
-                @if($producto->tipo_producto=='1')
+                @if($producto->tipo_producto=='1' || $producto->tipo_producto=='3' || $producto->tipo_producto=='4')
 
 
                     @if(isset($inventario[$producto->id]))

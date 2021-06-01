@@ -71,6 +71,32 @@ Destacados
                                 
                             </div> 
 
+                            <div class="form-group {{ $errors->
+                                first('state_id', 'has-error') }}">
+                                <label for="title" class="col-sm-2 control-label">
+                                    Seleccione Almacen 
+                                </label>
+                                <div class="col-sm-5">
+                                    
+                                    <select id="id_almacen" name="id_almacen" class="form-control select2">
+
+                                        @foreach($almacenes as $almacen)
+
+                                        <option      value="{{ $almacen->id }}">
+                                                {{ $almacen->nombre_almacen }}
+
+                                        </option>
+
+                                        @endforeach
+                                        
+                                      
+                                    </select>
+                                </div>
+                                
+                            </div>
+
+
+
 
                             <div class="form-group {{ $errors->
                                 first('state_id', 'has-error') }}">
@@ -176,6 +202,8 @@ $(".select2").select2();
 
         id_producto = $('#id_producto').val();
 
+        id_almacen = $('#id_almacen').val();
+
         id_grupo = $('#id_grupo').val();
 
         _token = $('#_token').val();
@@ -183,7 +211,7 @@ $(".select2").select2();
 
          $.ajax({
             type: "POST",
-            data:{ id_grupo, id_producto, _token},
+            data:{ id_grupo, id_producto, id_almacen, _token},
             url: base+"/admin/productos/addproductodestacado",
                 
             complete: function(datos){     
@@ -221,6 +249,61 @@ $(".select2").select2();
             });
 
         });
+
+
+        $('.listaproductos').on('click', '.getproductosalmacen', function(){
+
+            base = $('#base').val();
+
+            id_almacen = $(this).data('id_almacen');
+
+            _token = $('#_token').val();
+
+             $.ajax({
+                type: "POST",
+                data:{ id_almacen, _token},
+                url: base+"/admin/productos/getproductosalmacen",
+                    
+                complete: function(datos){   
+
+                table.ajax.reload();  
+
+                   // $(".listaproductos").html(datos.responseText);
+
+                }
+            });
+
+        });
+
+
+
+        $('select[name="id_almacen"]').on('change', function() {
+            
+                var id_almacen = $(this).val();
+
+                var base = $('#base').val();
+
+                    if(id_almacen) {
+                        $.ajax({
+                            url: base+'/admin/productos/getproductosalmacen/'+id_almacen,
+                            type: "GET",
+                            dataType: "json",
+                            success:function(data) {
+
+                                
+                                $('select[name="id_producto"]').empty();
+                                $.each(data, function(key, value) {
+                                    $('select[name="id_producto"]').append('<option value="'+ key +'">'+ value +'</option>');
+                                });
+
+                            }
+                        });
+                    }else{
+                        $('select[name="city_id_ubicacion"]').empty();
+                    }
+                });
+
+
 
 
 
