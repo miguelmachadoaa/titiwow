@@ -71,6 +71,32 @@ Destacados
                                 
                             </div> 
 
+                            <div class="form-group {{ $errors->
+                                first('state_id', 'has-error') }}">
+                                <label for="title" class="col-sm-2 control-label">
+                                    Seleccione Almacen 
+                                </label>
+                                <div class="col-sm-5">
+                                    
+                                    <select id="id_almacen" name="id_almacen" class="form-control select2">
+
+                                        @foreach($almacenes as $almacen)
+
+                                        <option      value="{{ $almacen->id }}">
+                                                {{ $almacen->nombre_almacen }}
+
+                                        </option>
+
+                                        @endforeach
+                                        
+                                      
+                                    </select>
+                                </div>
+                                
+                            </div>
+
+
+
 
                             <div class="form-group {{ $errors->
                                 first('state_id', 'has-error') }}">
@@ -176,6 +202,8 @@ $(".select2").select2();
 
         id_producto = $('#id_producto').val();
 
+        id_almacen = $('#id_almacen').val();
+
         id_grupo = $('#id_grupo').val();
 
         _token = $('#_token').val();
@@ -183,7 +211,7 @@ $(".select2").select2();
 
          $.ajax({
             type: "POST",
-            data:{ id_grupo, id_producto, _token},
+            data:{ id_grupo, id_producto, id_almacen, _token},
             url: base+"/admin/productos/addproductodestacado",
                 
             complete: function(datos){     

@@ -2264,16 +2264,12 @@ class AlpCartController extends JoshController
                     
 
         $user_id = Sentinel::getUser()->id;
-
         
         $usuario=User::where('id', $user_id)->first();
-
         
         $user_cliente=User::where('id', $user_id)->first();
 
-        
         $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
-
         
         $cupo_icg=0;
 
@@ -2287,9 +2283,7 @@ class AlpCartController extends JoshController
 
              $cupo_credito_icg=$this->consultaCreaditoIcg();
 
-             
-
-             $descuento_compra_icg=$total*($configuracion->porcentaje_icg/100);
+             $descuento_compra_icg=($total-$impuesto)*($configuracion->porcentaje_icg/100);
 
              if ($descuento_compra_icg>$cupo_icg) {
          
@@ -2298,6 +2292,8 @@ class AlpCartController extends JoshController
             } 
 
         }
+
+        #dd($descuento_compra_icg);
 
         $r=Roles::where('id', $role->role_id)->first();
 
@@ -2512,9 +2508,9 @@ class AlpCartController extends JoshController
             }
 
 
-              $total_descuentos_icg=0;
+             $total_descuentos_icg=0;
 
-              $descuentosIcg= array();
+            $descuentosIcg= array();
 
             if ($role->role_id=='16') {
 
@@ -2657,9 +2653,6 @@ class AlpCartController extends JoshController
 
 
             }
-
-            
-
             
         }else{
 
@@ -2668,26 +2661,10 @@ class AlpCartController extends JoshController
 
         }
 
-
-            
-           
-          
-          
-
-          
-         // dd($preference);
-
-          
-       
-
           
           $net_amount=$total-$impuesto;
-
           
          $pse = array();
-
-         
-          
 
 
           $carro=AlpCarrito::where('id', $carrito)->first();
@@ -6561,6 +6538,18 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         }
 
+          if ($role->role_id=='16') {
+
+            $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $carrito)->get();
+
+              foreach ($descuentosIcg as $pagoi) {
+
+                $total_descuentos=$total_descuentos+$pagoi->monto_descuento;
+
+
+              }
+           }
+
           foreach($cart as $row) {
 
             if (isset($row->id)) {
@@ -6573,11 +6562,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                 if ($row->tipo_producto=='2') {
 
-              $lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.id_impuesto as id_impuesto')
-                      ->join('alp_productos', 'alp_combos_productos.id_producto','=', 'alp_productos.id' )
-                      ->where('id_combo', $row->id)->get();
-
-
+                      $lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.id_impuesto as id_impuesto')
+                        ->join('alp_productos', 'alp_combos_productos.id_producto','=', 'alp_productos.id' )
+                        ->where('id_combo', $row->id)->get();
 
                       foreach ($lista as $l) {
 
