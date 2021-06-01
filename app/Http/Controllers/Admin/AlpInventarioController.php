@@ -642,19 +642,19 @@ class AlpInventarioController extends JoshController
               ->where('operacion', '2')
               ->get();
 
-              foreach ($salidas as $row) {
-                
+                foreach ($salidas as $row) {
              
-                //$inv2[$row->id_producto][$row->id_almacen]= $row->cantidad_total;
-                //
-                if (  isset( $inv2[$row->id_producto][$row->id_almacen])) {
-                    $inv2[$row->id_producto][$row->id_almacen]= $inv2[$row->id_producto][$row->id_almacen]-$row->cantidad_total;
-                  }else{
+                    if (  isset( $inv2[$row->id_producto][$row->id_almacen])) {
 
-                    $inv2[$row->id_producto][$row->id_almacen]= 0;
-                  }
+                        $inv2[$row->id_producto][$row->id_almacen]= $inv2[$row->id_producto][$row->id_almacen]-$row->cantidad_total;
 
-            }
+                      }else{
+
+                        $inv2[$row->id_producto][$row->id_almacen]= 0;
+
+                      }
+
+                }
 
             return $inv2;
       

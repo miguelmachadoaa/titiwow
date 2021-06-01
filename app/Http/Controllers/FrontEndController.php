@@ -3622,50 +3622,30 @@ $hoy=$date->format('Y-m-d');
 
 
 
-      $entradas = AlpInventario::groupBy('id_producto')
+        $entradas = AlpInventario::groupBy('id_producto')
 
-              ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
-
-              ->where('alp_inventarios.operacion', '1')
-
-              ->where('alp_inventarios.id_almacen', '=', $id_almacen)
-
-              //->whereNull('alp_inventarios.deleted_at')
-
-              ->get();
-
-
-
-
+          ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
+          ->where('alp_inventarios.operacion', '1')
+          ->where('alp_inventarios.id_almacen', '=', $id_almacen)
+          ->groupBy('alp_inventarios.id_almacen')
+              #->whereNull('alp_inventarios.deleted_at')
+          ->get();
 
               $inv = array();
 
-
-
               foreach ($entradas as $row) {
 
-                
-
                 $inv[$row->id_producto]=$row->cantidad_total;
-
-
 
               }
 
 
-
-
-
             $salidas = AlpInventario::select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
-
               ->groupBy('id_producto')
-
               ->where('operacion', '2')
-
               ->where('alp_inventarios.id_almacen', '=', $id_almacen)
-
-              //->whereNull('alp_inventarios.deleted_at')
-
+              ->groupBy('alp_inventarios.id_almacen')
+              #->whereNull('alp_inventarios.deleted_at')
               ->get();
 
 
