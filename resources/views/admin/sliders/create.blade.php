@@ -140,7 +140,7 @@
 
                        <div class="form-group clearfix">
 
-                            <label for="title" class="col-md-2 control-label">Imagen Mobile (375px, 290px) </label>
+                            <label for="title" class="col-md-2 control-label">Imagen Mobile (520px, 402px) </label>
 
 
                             <div class="col-md-5">

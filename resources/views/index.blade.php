@@ -102,7 +102,7 @@
             @if($s->imagen_slider_mobile!='0')
             <div class="item">
                 <a href="{{ $s->link_slider }}" target="_self">
-                    <img src="{{ secure_asset('uploads/sliders/'.$s->imagen_slider_mobile ) }}" alt="Alpina Go!">
+                    <img src="{{ secure_asset('uploads/sliders/'.$s->imagen_slider_mobile ) }}" class="img-responsive"  alt="Alpina Go!">
                 </a>
             </div>
             @endif

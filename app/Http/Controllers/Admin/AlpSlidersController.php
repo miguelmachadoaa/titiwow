@@ -187,7 +187,7 @@ class AlpSlidersController extends JoshController
             $extension = 'jpg';
             $picture = str_random(10) . '.' . $extension;    
             $destinationPath = public_path('/uploads/sliders/' . $picture);
-            Image::make($file)->resize(375, 290)->save($destinationPath);            
+            Image::make($file)->resize(520, 402)->save($destinationPath);            
             $image_mobile = $picture;
 
         }
@@ -370,7 +370,7 @@ class AlpSlidersController extends JoshController
             $extension = 'jpg';
             $picture = str_random(10) . '.' . $extension;    
             $destinationPath = public_path('/uploads/sliders/' . $picture);
-            Image::make($file)->resize(375, 290)->save($destinationPath);         
+            Image::make($file)->resize(520, 402)->save($destinationPath);         
             $image_mobile = $picture;
 
 

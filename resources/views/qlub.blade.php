@@ -103,7 +103,7 @@ Conoce el QLUB del Queso Alpina |  @parent
             @if($s->imagen_slider_mobile!='0')
             <div class="item">
                 <a href="{{ $s->link_slider }}" target="_self">
-                    <img src="{{ secure_asset('uploads/sliders/'.$s->imagen_slider_mobile ) }}" alt="El Qlub!">
+                    <img src="{{ secure_asset('uploads/sliders/'.$s->imagen_slider_mobile ) }}" class="img-responsive" alt="El Qlub!">
                 </a>
             </div>
             @endif

@@ -140,7 +140,7 @@ Editar Slider
 
                         <div class="form-group col-sm-12  clearfix">
 
-                            <label for="title" class="col-sm-3 col-xs-12 control-label">Imagen Mobile (375px, 290px)</label>
+                            <label for="title" class="col-sm-3 col-xs-12 control-label">Imagen Mobile (520px, 402px)</label>
 
 
                             <div class="col-sm-9 col-xs-12">
