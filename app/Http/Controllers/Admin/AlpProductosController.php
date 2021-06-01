@@ -1948,8 +1948,13 @@ class AlpProductosController extends JoshController
               ->get();
 
               foreach ($salidas as $row) {
+
+                if (isset($inv[$row->id_producto])) {
+                    
+                    $inv[$row->id_producto]= $inv[$row->id_producto]-$row->cantidad_total;
+                }
                 
-                $inv[$row->id_producto]= $inv[$row->id_producto]-$row->cantidad_total;
+                
 
             }
 

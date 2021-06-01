@@ -551,7 +551,7 @@ class AlpCartController extends JoshController
 
          $porcentaje_icg=0;
 
-         if (isset($user->id)) {
+         if (isset($role->role_id)) {
 
           if ($role->role_id=='16') {
 
@@ -2276,6 +2276,7 @@ class AlpCartController extends JoshController
         $cupo_credito_icg=0;
 
         $descuento_compra_icg=0;
+        if (isset($role->role_id)) {
 
         if ($role->role_id=='16') {
           
@@ -2292,6 +2293,7 @@ class AlpCartController extends JoshController
             } 
 
         }
+      }
 
         #dd($descuento_compra_icg);
 
@@ -2512,6 +2514,8 @@ class AlpCartController extends JoshController
 
             $descuentosIcg= array();
 
+            if (isset($role->role_id)) {
+
             if ($role->role_id=='16') {
 
               $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $carrito)->get();
@@ -2524,6 +2528,7 @@ class AlpCartController extends JoshController
 
                 }
              }
+           }
 
 
             
@@ -6538,6 +6543,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         }
 
+        if (isset($role->role_id)) {
+
           if ($role->role_id=='16') {
 
             $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $carrito)->get();
@@ -6549,6 +6556,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
               }
            }
+         }
 
           foreach($cart as $row) {
 
