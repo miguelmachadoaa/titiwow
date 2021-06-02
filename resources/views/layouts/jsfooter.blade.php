@@ -225,10 +225,14 @@
                             dataType: "json",
                             success:function(data) {
 
-                                
+                              //  alert(data);
+
                                 $('select[name="city_id_ubicacion"]').empty();
+
                                 $.each(data, function(key, value) {
+
                                     $('select[name="city_id_ubicacion"]').append('<option value="'+ key +'">'+ value +'</option>');
+
                                 });
 
                             }
@@ -255,7 +259,7 @@
 
                        // localStorage.setItem('states', data.responseText());
                        
-                       console.log(data.responseText());
+                       //console.log(data.responseText());
 
                        ubicacion=JSON.parse(localStorage.getItem('ubicacion'));
 
