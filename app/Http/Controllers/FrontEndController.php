@@ -3614,23 +3614,21 @@ $hoy=$date->format('Y-m-d');
 
 
     private function inventario()
-
     {
 
        
 
        $id_almacen=$this->getAlmacen();
 
-
-
         $entradas = AlpInventario::groupBy('id_producto')
-
           ->select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
           ->where('alp_inventarios.operacion', '1')
           ->where('alp_inventarios.id_almacen', '=', $id_almacen)
           ->groupBy('alp_inventarios.id_almacen')
               #->whereNull('alp_inventarios.deleted_at')
           ->get();
+
+
 
               $inv = array();
 
@@ -3639,7 +3637,6 @@ $hoy=$date->format('Y-m-d');
                 $inv[$row->id_producto]=$row->cantidad_total;
 
               }
-
 
             $salidas = AlpInventario::select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
               ->groupBy('id_producto')
@@ -3650,42 +3647,25 @@ $hoy=$date->format('Y-m-d');
               ->get();
 
 
-
               foreach ($salidas as $row) {
 
 
 
                 if (isset($inv[$row->id_producto])) {
 
-
-
                   $inv[$row->id_producto]=$inv[$row->id_producto]-$row->cantidad_total;
-
-                  
 
                 }else{
 
-
-
                   $inv[$row->id_producto]=0;
-
-                  
 
                 }
 
-                
-
-                $inv[$row->id_producto]=$inv[$row->id_producto]-$row->cantidad_total;
-
-
+                #$inv[$row->id_producto]=$inv[$row->id_producto]-$row->cantidad_total;
 
             }
 
-
-
             return $inv;
-
-      
 
     }
 
