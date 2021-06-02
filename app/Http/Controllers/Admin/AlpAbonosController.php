@@ -148,7 +148,8 @@ class AlpAbonosController extends JoshController
 
          $user_id = Sentinel::getUser()->id;
 
-        //$input = $request->all();
+        $input = $request->all();
+
 
         //var_dump($input);
 
@@ -161,14 +162,16 @@ class AlpAbonosController extends JoshController
             'origen' => $request->origen,
             'motivo' => $request->motivo,
             'id_orden' => $request->id_orden,
+            'id_almacen' => $request->id_almacen,
             'tipo_abono' => $request->tipo_abono,
             'token' => md5(time()),
             'notas' => $request->notas,
             'id_user' =>$user_id
         );
+
+
          
         $abono=AlpAbonos::create($data);
-
 
         if (is_null($request->id_cliente)) {
             # code...
@@ -182,6 +185,7 @@ class AlpAbonosController extends JoshController
             'codigo_abono'=>$abono->codigo_abono,
             'valor_abono'=>$abono->valor_abono,
             'fecha_final'=>$abono->fecha_final,
+            'id_almacen' => $request->id_almacen,
             'origen'=>$abono->origen,
             'token'=>$abono->token,
             'json'=>json_encode($abono),
@@ -311,6 +315,7 @@ class AlpAbonosController extends JoshController
             'origen' => $request->origen,
             'motivo' => $request->motivo,
             'id_orden' => $request->id_orden,
+            'id_almacen' => $request->id_almacen,
             'tipo_abono' => $request->tipo_abono,
             'token' => md5(time()),
             'notas' => $request->notas,
@@ -337,6 +342,7 @@ class AlpAbonosController extends JoshController
                 'codigo_abono'=>$abono->codigo_abono,
                 'valor_abono'=>$abono->valor_abono,
                 'fecha_final'=>$abono->fecha_final,
+                'id_almacen' => $request->id_almacen,
                 'origen'=>$abono->origen,
                 'token'=>$abono->token,
                 'json'=>json_encode($abono),

@@ -154,7 +154,7 @@ div.overlay > div {
 <div class="container contain_body container_cart_detail ">
 
    
-
+<div data-cart="{{json_encode($cart)}}"></div>
 
 
     <div class="col-sm-6">

@@ -2276,24 +2276,25 @@ class AlpCartController extends JoshController
         $cupo_credito_icg=0;
 
         $descuento_compra_icg=0;
+
         if (isset($role->role_id)) {
 
-        if ($role->role_id=='16') {
-          
-             $cupo_icg=$this->consultaIcg();
+          if ($role->role_id=='16') {
+            
+               $cupo_icg=$this->consultaIcg();
 
-             $cupo_credito_icg=$this->consultaCreaditoIcg();
+               $cupo_credito_icg=$this->consultaCreaditoIcg();
 
-             $descuento_compra_icg=($total-$impuesto)*($configuracion->porcentaje_icg/100);
+               $descuento_compra_icg=($total-$impuesto)*($configuracion->porcentaje_icg/100);
 
-             if ($descuento_compra_icg>$cupo_icg) {
-         
-                $descuento_compra_icg=$cupo_icg;
-                
-            } 
+               if ($descuento_compra_icg>$cupo_icg) {
+           
+                  $descuento_compra_icg=$cupo_icg;
+                  
+              } 
 
+          }
         }
-      }
 
         #dd($descuento_compra_icg);
 
@@ -6519,7 +6520,12 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
      private function impuesto()
     {
-       $cart= \Session::get('cart');
+      
+      $cart= \Session::get('cart');
+
+        $user_id = Sentinel::getUser()->id;
+        
+        $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
 
       $impuesto=0;
 
@@ -6527,12 +6533,17 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       $carrito= \Session::get('cr');
 
-
       $base=0;
 
       $total=$this->total();
 
       $total_descuentos=0;
+
+      $total_descuentos_icg=0;
+
+      $ban_icg=0;
+
+      $porcentaje_descuento_icg=0;
 
 
         $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
@@ -6547,15 +6558,31 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
           if ($role->role_id=='16') {
 
+
             $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $carrito)->get();
+
 
               foreach ($descuentosIcg as $pagoi) {
 
+                $ban_icg=1;
+
                 $total_descuentos=$total_descuentos+$pagoi->monto_descuento;
+
+                $total_descuentos_icg=$total_descuentos_icg+$pagoi->monto_descuento;
 
 
               }
+
+              if ($ban_icg==1) {
+
+                $configuracion=AlpConfiguracion::where('id', 1)->first();
+
+                $porcentaje_descuento_icg=$configuracion->porcentaje_icg/100;
+
+              }
+
            }
+
          }
 
           foreach($cart as $row) {
@@ -6603,11 +6630,20 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         $resto=$total-$total_descuentos;
 
-         if ($resto<$base) {
+        if ($resto<$base) {
 
-            $impuesto=($resto/(1+$valor_impuesto))*$valor_impuesto;
+          $impuesto=($resto/(1+$valor_impuesto))*$valor_impuesto;
 
-          }
+        }
+
+
+        if ($ban_icg==1) {
+
+         $impuesto=$impuesto*(1-$porcentaje_descuento_icg);
+
+        # dd($impuesto);
+
+        }
 
        return $impuesto;
       
@@ -13962,7 +13998,7 @@ public function reiniciarancheta()
 
       $cupo_icg=$this->consultaIcg();
 
-      $descuento=$total*($configuracion->porcentaje_icg/100);
+      $descuento=($total-$impuesto)*($configuracion->porcentaje_icg/100);
 
       if ($descuento>$cupo_icg) {
         
@@ -13980,8 +14016,6 @@ public function reiniciarancheta()
           'aplicado' => 0,
           'id_user' => $user->id
         );
-
-
 
         AlpOrdenesDescuentoIcg::create($datadescuento);
       }

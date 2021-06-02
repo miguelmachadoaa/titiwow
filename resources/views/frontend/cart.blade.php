@@ -57,6 +57,8 @@ Carrito de Compras
 @section('content')
 <div class="container contain_body text-center" id="cartshow">
 
+    <div data-cart="{{json_encode($cart)}}"></div>
+
     <div class="row" id="table_detalle">
 
         @include('frontend.listcart')
