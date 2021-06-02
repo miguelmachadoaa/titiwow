@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="col-sm-4 col-xs-4">
 
-                                    <h4 style="color:#6c6c6d;">{{ number_format($descuento_compra_icg,0,",",".")}}</h4> 
+                                    <h4 style="color:#6c6c6d;">{{ number_format($descuento_compra_icg, 0, ",", ".")}}</h4> 
                                 </div>
 
                            <!--p>Cupo de Descuento ICG de  {{number_format(($total-$impuesto)*($configuracion->porcentaje_icg/100),2)}} COP</p--> 
@@ -122,7 +122,7 @@
                                 <div class="col-sm-4 col-xs-4">
 
                                     <!--h4 style="color:#6c6c6d;">{{ number_format($total+$impuesto,0,",",".")}}</h4--> 
-                                    <h4 style="color:#6c6c6d;">{{ number_format($total-$impuesto+$envio_base,0,",",".")}}</h4> 
+                                    <h4 style="color:#6c6c6d;">{{ number_format($total-$impuesto,0,",",".")}}</h4> 
 
                                 </div>
 

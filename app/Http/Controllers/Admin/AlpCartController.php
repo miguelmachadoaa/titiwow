@@ -2300,25 +2300,18 @@ class AlpCartController extends JoshController
 
         $r=Roles::where('id', $role->role_id)->first();
 
-        
           if ($total<$almacen->minimo_compra ){
 
-            
             $aviso='El monto mínimo de compra es de $'.number_format($almacen->minimo_compra ,0,",",".");
 
-            
             $cart=$this->reloadCart();
 
-            
             $configuracion=AlpConfiguracion::where('id', '1')->first();
 
-            
             $total=$this->total();
-
             
             $inv=$this->inventario();
 
-            
             return view('frontend.cart', compact('cart', 'total', 'configuracion', 'inv', 'aviso'));
 
             
@@ -2326,8 +2319,6 @@ class AlpCartController extends JoshController
 
             
           }
-
-          
 
 
         $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
@@ -2362,8 +2353,6 @@ class AlpCartController extends JoshController
 
           
           if (isset($d->id)) {
-
-            
 
               \Session::put('direccion', $d->id);
 
@@ -2493,9 +2482,7 @@ class AlpCartController extends JoshController
           $total_descuentos=0;
 
           
-         // dd($carrito);
 
-          
             $descuentos=AlpOrdenesDescuento::where('id_orden','=', $carrito)->get();
 
             
@@ -6523,9 +6510,15 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       
       $cart= \Session::get('cart');
 
+      if (Sentinel::check()) {
+
         $user_id = Sentinel::getUser()->id;
         
         $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
+
+      }
+
+        
 
       $impuesto=0;
 
@@ -8105,7 +8098,7 @@ public function verificarDireccion( Request $request)
 
       $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
-
+      $configuracion=AlpConfiguracion::where('id', '1')->first();
 
       if (count($re)==1) {
 
@@ -8386,6 +8379,10 @@ public function verificarDireccion( Request $request)
 
             $total_descuentos_icg=0;
 
+            $porcentaje_descuento_icg=0;
+
+            $ban_icg=0;
+
           if (isset($role->role_id)) {
 
             if ($role->role_id=='16') {
@@ -8393,6 +8390,8 @@ public function verificarDireccion( Request $request)
               $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $carrito)->get();
 
                 foreach ($descuentosIcg as $pagoi) {
+
+                  $ban_icg=1;
 
                   $total_descuentos=$total_descuentos+$pagoi->monto_descuento;
 
@@ -8420,6 +8419,18 @@ public function verificarDireccion( Request $request)
           $monto_impuesto=($base_impuesto/(1+$valor_impuesto))*$valor_impuesto;
 
           $base_imponible=($base_impuesto/(1+$valor_impuesto));
+
+          if ($ban_icg==1) {
+
+            $porcentaje_descuento_icg=$configuracion->porcentaje_descuento_icg;
+
+           $monto_impuesto=$monto_impuesto*(1-$porcentaje_descuento_icg);
+
+           $base_imponible=$base_imponible*(1-$porcentaje_descuento_icg);
+
+          }
+
+
 
            $data_update = array(
 
@@ -8956,6 +8967,8 @@ public function verificarDireccion( Request $request)
             
               $total_descuentos_icg=0;
 
+              $ban_icg=0;
+
 
           if (isset($role->role_id)) {
 
@@ -8967,6 +8980,8 @@ public function verificarDireccion( Request $request)
             $total_descuentos_icg=0;
 
             foreach ($descuentosIcg as $pagoi) {
+
+              $ban_icg=1;
 
               $total_descuentos=$total_descuentos+$pagoi->monto_descuento;
 
@@ -9006,6 +9021,20 @@ public function verificarDireccion( Request $request)
           $monto_impuesto=($base_impuesto/(1+$valor_impuesto))*$valor_impuesto;
 
           $base_imponible=($base_impuesto/(1+$valor_impuesto));
+
+
+          if ($ban_icg==1) {
+
+            $porcentaje_descuento_icg=$configuracion->porcentaje_descuento_icg;
+
+           $monto_impuesto=$monto_impuesto*(1-$porcentaje_descuento_icg);
+
+           $base_imponible=$base_imponible*(1-$porcentaje_descuento_icg);
+
+          }
+
+
+
 
            $data_update = array(
 

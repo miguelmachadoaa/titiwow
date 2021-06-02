@@ -73,8 +73,10 @@
     
         $(document).ready(function(){
 
-            $("#state_id_ubicacion").select2();
+           $("#state_id_ubicacion").select2();
+
             $("#city_id_ubicacion").select2();
+
             $(".js-example-responsive").select2({
                 width: 'resolve'
             });
@@ -213,34 +215,49 @@
 
 
          $('select[name="state_id_ubicacion"]').on('change', function() {
-            
-                var stateID = $(this).val();
+        
+            var stateID = $(this).val();
 
-                var base = $('#base').val();
+            var base = $('#base').val();
 
-                    if(stateID) {
-                        $.ajax({
-                            url: base+'/configuracion/citiesModal/'+stateID,
-                            type: "GET",
-                            dataType: "json",
-                            success:function(data) {
+                if(stateID) {
+                    $.ajax({
+                        url: base+'/configuracion/citiesModal/'+stateID,
+                        type: "GET",
+                        dataType: "json",
+                        success:function(data) {
 
-                              //  alert(data);
+                          //  alert(data);
 
-                                $('select[name="city_id_ubicacion"]').empty();
+                            $('select[name="city_id_ubicacion"]').empty();
 
-                                $.each(data, function(key, value) {
+                            $("#city_id_ubicacion").select2();
 
-                                    $('select[name="city_id_ubicacion"]').append('<option value="'+ key +'">'+ value +'</option>');
+                            $(".js-example-responsive").select2({
+                                width: 'resolve'
+                            });
 
-                                });
+                            $.each(data, function(key, value) {
 
-                            }
-                        });
-                    }else{
-                        $('select[name="city_id_ubicacion"]').empty();
-                    }
-                });
+                                $('select[name="city_id_ubicacion"]').append('<option value="'+ key +'">'+ value +'</option>');
+
+                            });
+
+
+                            $("#city_id_ubicacion").select2();
+
+                            $(".js-example-responsive").select2({
+                                width: 'resolve'
+                            });
+                            
+                           
+
+                        }
+                    });
+                }else{
+                    $('select[name="city_id_ubicacion"]').empty();
+                }
+            });
 
 
          $(document).ready(function(){
@@ -259,13 +276,19 @@
 
                        // localStorage.setItem('states', data.responseText());
                        
-                       //console.log(data.responseText());
+                       //console.log(data);
 
                        ubicacion=JSON.parse(localStorage.getItem('ubicacion'));
 
                        console.log(ubicacion);
 
                         $('select[name="state_id_ubicacion"]').empty();
+
+                        $("#state_id_ubicacion").select2();
+
+                        $(".js-example-responsive").select2({
+                            width: 'resolve'
+                        });
 
 
                         $.each(data, function(key, value) {
@@ -293,6 +316,8 @@
 
                         });
 
+
+                        
                     }
                 });
 
@@ -305,7 +330,16 @@
                             success:function(data) {
 
                                 ubicacion=JSON.parse(localStorage.getItem('ubicacion'));
+
                                 $('select[name="city_id_ubicacion"]').empty();
+
+                                $("#city_id_ubicacion").select2();
+
+                                $(".js-example-responsive").select2({
+                                    width: 'resolve'
+                                });
+
+
                                 $.each(data, function(key, value) {
 
                                     if (key==ubicacion.id_ciudad) {
@@ -320,6 +354,12 @@
 
                                     }
                                 });
+
+
+                                
+
+
+
 
                             }
                         });

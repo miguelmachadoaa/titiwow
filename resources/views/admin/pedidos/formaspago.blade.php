@@ -49,6 +49,10 @@
                     <!-- Se construyen las opciones de envios -->
 
                     @foreach($formaspago as $fp)
+
+                    
+
+                    @if(isset($payment_methods['response']))
         
                         @if($fp->id==2)
 
@@ -84,6 +88,8 @@
                             @endif
 
                         @endforeach
+
+                        @endif
 
                             
 
@@ -159,6 +165,8 @@
 
                                 @endif
 
+                        @if(isset($payment_methods['response']))
+
 
                         @foreach($payment_methods['response'] as $pm)
 
@@ -198,6 +206,8 @@
                             @endif
                          
                         @endforeach
+
+                        @endif
 
                         <br>
 

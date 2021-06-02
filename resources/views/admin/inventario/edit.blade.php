@@ -233,7 +233,7 @@ Agregar Inventario
                                     @endif
 
 
-                                    <td>{{$movimiento->created_at->diffForHumans()}}</td>
+                                    <td>{{$movimiento->created_at}}</td>
                                 </tr>
 
                                 @endforeach

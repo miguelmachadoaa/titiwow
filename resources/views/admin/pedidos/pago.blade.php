@@ -299,6 +299,8 @@ div.overlay > div {
 
                                  
                                    <option value="">Selecciona Entidad Financiera *</option>
+
+                                   @if(isset($payment_methods['response']))
                                     @foreach($payment_methods['response'] as $pm)
 
                                         @if($pm['id']=='pse')
@@ -312,6 +314,7 @@ div.overlay > div {
                                         @endif
 
                                     @endforeach
+                                @endif
                                 </select>
 
                             </div>
@@ -386,7 +389,10 @@ div.overlay > div {
 @endsection
 
 {{-- page level scripts --}}
+
 @section('footer_scripts')
+
+
     <script src="{{ secure_asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
 
     <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
@@ -423,6 +429,12 @@ div.overlay > div {
          
 
         $(document).ready(function(){
+
+            data='{"status":"true","city_name":"Bogot\u00e1","state_name":"Cundinamarca","id_ciudad":"62"}';
+
+            localStorage.setItem('ubicacion', data);
+
+            $('.ubicacion_header a').html('BOGOTÁ CUNDINAMARCA');
 
 
         fe=$("#id_forma_envio").val();
