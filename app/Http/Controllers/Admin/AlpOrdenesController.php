@@ -3804,8 +3804,8 @@ public function compramasupdate()
 
           $cupones=AlpOrdenesDescuento::where('id_orden', $orden->id)->get();
 
-     //   $descuentoicg=AlpOrdenesDescuentoIcg::where('id_orden','=', $orden->id)->get();
-        $descuentoicg=null;
+        $descuentoicg=AlpOrdenesDescuentoIcg::where('id_orden','=', $orden->id)->get();
+        //$descuentoicg=null;
 
           $formaenvio=AlpFormasenvio::where('id', $orden->id_forma_envio)->first();
 
@@ -3839,6 +3839,10 @@ public function compramasupdate()
         ->join('users', 'alp_ticket.id_user', '=', 'users.id')
         ->where('alp_ticket.orden', '=', $orden->id)
         ->get();
+
+
+               
+
 
 
        //   dd(json_decode($orden->send_json_masc, true));

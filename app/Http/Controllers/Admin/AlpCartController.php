@@ -5557,8 +5557,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                       if ($l->id_impuesto==1) {
 
 
-
-                        $base_imponible_detalle=$l->precio/(1+$producto->valor_impuesto);
+                        $base_imponible_detalle=$l->precio*(1-$producto->valor_impuesto);
 
                         $base_impuesto=$base_impuesto+($l->precio*$l->cantidad);
 
@@ -5574,7 +5573,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
               }
 
-            $producto->impuesto=$base_impuesto-($base_impuesto/(1+$producto->valor_impuesto));
+            #$producto->impuesto=$base_impuesto-($base_impuesto/(1+$producto->valor_impuesto));
+
+            $producto->impuesto=($base_impuesto)*$producto->valor_impuesto;
 
         
         if (isset($inv[$producto->id])) {
@@ -6505,12 +6506,21 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
     }
 
-     private function impuesto()
+    private function impuesto()
     {
       
       $cart= \Session::get('cart');
 
-      if (Sentinel::check()) {
+      $impuesto=0;
+
+
+      foreach($cart as $c){
+
+        $impuesto=$impuesto+$c->impuesto;
+
+      }
+
+     /* if (Sentinel::check()) {
 
         $user_id = Sentinel::getUser()->id;
         
@@ -6612,7 +6622,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                 $base=$base+($row->precio_oferta*$row->cantidad);
 
-                $impuesto=$impuesto+(($base_impuesto)/(1+$valor_impuesto))*$valor_impuesto;
+                #$impuesto=$impuesto+(($base_impuesto)/(1+$valor_impuesto))*$valor_impuesto;
+
+                $impuesto=$impuesto+($base_impuesto*$valor_impuesto);
 
                 }
 
@@ -6625,7 +6637,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         if ($resto<$base) {
 
-          $impuesto=($resto/(1+$valor_impuesto))*$valor_impuesto;
+          #$impuesto=($resto/(1+$valor_impuesto))*$valor_impuesto;
+
+          $impuesto=$resto+($base_impuesto*$valor_impuesto);
 
         }
 
@@ -6636,7 +6650,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         # dd($impuesto);
 
-        }
+        }*/
 
        return $impuesto;
       
@@ -8098,6 +8112,8 @@ public function verificarDireccion( Request $request)
 
       $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
 
+      $impuesto=$this->impuesto();
+
       $configuracion=AlpConfiguracion::where('id', '1')->first();
 
       if (count($re)==1) {
@@ -8209,6 +8225,7 @@ public function verificarDireccion( Request $request)
                         if ($l->id_impuesto==1) {
 
                           $base_imponible_detalle=$base_imponible_detalle+($l->precio*$l->cantidad)/(1+$detalle->valor_impuesto);
+
                           $base_impuesto=$base_impuesto+($l->precio*$l->cantidad);
 
                           $valor_impuesto=$detalle->valor_impuesto;
@@ -8250,7 +8267,8 @@ public function verificarDireccion( Request $request)
                 'precio_total' =>$detalle->cantidad*$detalle->precio_oferta,
                 'precio_total_base' =>$detalle->cantidad*$detalle->precio_base,
                 'valor_impuesto' =>$valor_impuesto,
-                'monto_impuesto' =>$base_imponible_detalle*$valor_impuesto,
+                #'monto_impuesto' =>$base_imponible_detalle*$valor_impuesto,
+                'monto_impuesto' =>$detalle->impuesto,
                 'id_user' =>$user_id 
 
               );
@@ -8364,7 +8382,7 @@ public function verificarDireccion( Request $request)
                
 
 
-          }//endfreach
+          }//endfreach cart impuesto
 
           
             $total_descuentos=0;
@@ -8446,7 +8464,9 @@ public function verificarDireccion( Request $request)
 
               'base_impuesto' => $base_imponible,
 
-              'monto_impuesto' => $monto_impuesto,
+              #'monto_impuesto' => $monto_impuesto,
+
+              'monto_impuesto' => $impuesto,
 
               'valor_impuesto' => $valor_impuesto,
 
@@ -8787,7 +8807,9 @@ public function verificarDireccion( Request $request)
 
                 'valor_impuesto' =>$valor_impuesto,
 
-                'monto_impuesto' =>$base_imponible_detalle*$valor_impuesto,
+              #  'monto_impuesto' =>$base_imponible_detalle*$valor_impuesto,
+
+                'monto_impuesto' =>$detalle->impuesto,
 
                 'id_user' =>$user_id 
 
@@ -9046,7 +9068,9 @@ public function verificarDireccion( Request $request)
 
               'base_impuesto' => $base_imponible,
 
-              'monto_impuesto' => $monto_impuesto,
+              #'monto_impuesto' => $monto_impuesto,
+
+              'monto_impuesto' => $impuesto,
 
               'valor_impuesto' => $valor_impuesto,
 
@@ -14047,6 +14071,25 @@ public function reiniciarancheta()
         );
 
         AlpOrdenesDescuentoIcg::create($datadescuento);
+
+
+
+        foreach($cart as $c){
+
+          $precio_base=0;
+
+          if ($c->id_impuesto==1) {
+            
+            $precio_base=$c->precio_oferta*(1-$c->valor_impuesto);
+
+            $precio_base=$precio_base*(1-($configuracion->porcentaje_icg/100));
+
+            $c->impuesto=$precio_base*$c->valor_impuesto;
+
+          }
+
+        }
+
       }
 
       
