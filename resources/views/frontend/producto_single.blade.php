@@ -553,6 +553,21 @@
                 </div>
             </div>
         </div>
+
+        <script type="text/javascript">
+
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+        'event': 'vistaProducto',
+        'pageTitle': '{{ $producto->nombre_producto}}',
+        'nombreProducto': '{{ $producto->nombre_producto}}',
+        'precioProducto': '{{ $producto->precio_oferta}}',
+        'nombreMarca': '{{ $producto->nombre_marca}}',
+        'skuProducto': '{{ $producto->referencia_producto_sap}}',
+        'referenciaProducto': '{{ $producto->referencia_producto}}',
+        });
+
+    </script>
         <!-- Productos Relacionados -->
         <div class="products">
         <div class="row">
@@ -566,7 +581,7 @@
                     <div class="separador"></div>
                 </div>
 
-            @foreach($prods as $producto)
+            @foreach($prods as $prod)
 
                 @if(isset($inventario[$producto->id]))
 
@@ -644,5 +659,14 @@
         });
 
     </script>
+
+   
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P4Q89NF"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+
 
 @stop

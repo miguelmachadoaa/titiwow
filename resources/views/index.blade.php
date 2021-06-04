@@ -941,7 +941,8 @@
 
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
-         'pageTitle': 'Home'
+        'event': 'visitaPagina',
+        'pageTitle': '{{ $configuracion->seo_title}}'
         });
 
     </script>

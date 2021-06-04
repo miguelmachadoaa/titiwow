@@ -178,4 +178,21 @@
 
 
     </script>
+
+    <script type="text/javascript">
+
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+        'event': 'visitaPagina',
+        'pageTitle': '{{$cms->titulo_pagina}}'
+        });
+
+    </script>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P4Q89NF"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
 @stop

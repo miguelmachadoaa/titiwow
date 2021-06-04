@@ -207,9 +207,20 @@ Todos los productos
         jQuery(document).ready(function () {
             new WOW().init();
         });
+    </script>
 
+    <script type="text/javascript">
 
-
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+        'event': 'visitaPagina',
+        'pageTitle': 'Todos los productos'
+        });
 
     </script>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P4Q89NF"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 @stop
