@@ -923,6 +923,10 @@
 
       <script>
         jQuery(document).ready(function () {
+
+           // Won't work
+
+
             new WOW().init();
 
             $('#BienvenidaModal').modal('show');
@@ -932,6 +936,22 @@
 
 
     </script>
+
+    <script type="text/javascript">
+
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+         'pageTitle': 'Home'
+        });
+
+    </script>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P4Q89NF"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+
 
     <!--page level js ends-->
 @stop

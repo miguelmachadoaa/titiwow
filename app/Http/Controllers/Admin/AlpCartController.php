@@ -2504,19 +2504,19 @@ class AlpCartController extends JoshController
 
             if (isset($role->role_id)) {
 
-            if ($role->role_id=='16') {
+              if ($role->role_id=='16') {
 
-              $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $carrito)->get();
+                $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $carrito)->get();
 
-                foreach ($descuentosIcg as $pagoi) {
+                  foreach ($descuentosIcg as $pagoi) {
 
-                  $total_pagos=$total_pagos+$pagoi->monto_descuento;
+                    $total_pagos=$total_pagos+$pagoi->monto_descuento;
 
-                  $total_descuentos_icg=$total_descuentos_icg+$pagoi->monto_descuento;
+                    $total_descuentos_icg=$total_descuentos_icg+$pagoi->monto_descuento;
 
-                }
+                  }
+               }
              }
-           }
 
 
             
@@ -3024,6 +3024,8 @@ class AlpCartController extends JoshController
 
               
             }
+
+
 
             
             $det_array = array();
@@ -4530,7 +4532,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
           'id_estatus_pago' => $estatus_pago, 
 
-          'monto_pago' => $total, 
+          'monto_pago' => $orden->monto_total, 
 
           'json' => json_encode($json_pago), 
 
@@ -9327,11 +9329,9 @@ public function verificarDireccion( Request $request)
 
       if (isset($cupon->id)) {
 
-        
 
             $c_user=AlpCuponesUser::where('id_cupon', $cupon->id)->first();
 
-            
             $c_rol=AlpCuponesRol::where('id_cupon', $cupon->id)->first();
 
             
@@ -9449,39 +9449,28 @@ public function verificarDireccion( Request $request)
              }
 
               
-
-              
             }
-
-            
-
 
 
             if($cupon->limite_uso<=count($usados)){
 
-              
-               $b_user_valido=1;
+              $b_user_valido=1;
 
-               
-                $mensaje_user=$mensaje_user.'Ya se usaron los cupones disponibles. ';
+              $mensaje_user=$mensaje_user.'Ya se usaron los cupones disponibles. ';
 
-               $clase='info';
-
-               
+              $clase='info';
 
             }
 
             
 
              if($cupon->limite_uso_persona<=count($usados_persona)){
-
               
-               $b_user_valido=1;
+              $b_user_valido=1;
 
-               
-                $mensaje_user=$mensaje_user.'Ya el usuario aplico el máximo de cupones disponibles.  ';
+              $mensaje_user=$mensaje_user.'Ya el usuario aplico el máximo de cupones disponibles.  ';
 
-               $clase='info';
+              $clase='info';
 
                
 
