@@ -1353,7 +1353,7 @@ public function compramasupdate()
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
           ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
           ->groupBy('alp_ordenes.id')
-         ->limit(10)
+         ->limit(2000)
          ->orderBy('alp_ordenes.id', 'desc')
           ->get();
 
@@ -1381,7 +1381,7 @@ public function compramasupdate()
           ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
           ->groupBy('alp_ordenes.id')
           ->where('alp_ordenes.id_almacen', '=', $user->almacen)
-         ->limit(10)
+         ->limit(2000)
          ->orderBy('alp_ordenes.id', 'desc')
           ->get();
 
