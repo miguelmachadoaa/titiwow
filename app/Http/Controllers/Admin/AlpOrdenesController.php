@@ -3494,17 +3494,18 @@ public function compramasupdate()
 
           $cmercadopago=$this->cancelarMercadopago($orden->id);
 
-             if ($orden->id_almacen==1) {
+             /*if ($orden->id_almacen==1) {
 
                 //$this->sendcompramas($orden->id, 'rejected');
 
-                $result=$this->sendcompramascancelar($orden->id);
+                //$result=$this->sendcompramascancelar($orden->id);
 
 
-              }else{
+              }else{*/
 
                 $result='';
-              }//enif si es almacen 1
+             
+            // }//enif si es almacen 1
 
 
                $configuracion = AlpConfiguracion::where('id','1')->first();

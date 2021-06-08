@@ -393,6 +393,7 @@ class AlpInventarioController extends JoshController
         ->where('alp_inventarios.id_producto', $producto->id)
         ->orderBy('alp_inventarios.id', 'desc')
         ->withTrashed()
+        ->limit(100)
         ->get();
 
         $almacenes=AlpAlmacenes::where('estado_registro','=', 1)->get();
@@ -416,6 +417,7 @@ class AlpInventarioController extends JoshController
         ->where('alp_almacenes.id', '=', $user->almacen)
         ->orderBy('alp_inventarios.id', 'desc')
         ->withTrashed()
+        ->limit(100)
         ->get();
 
         $almacenes=AlpAlmacenes::where('id','=', $user->almacen)->get();

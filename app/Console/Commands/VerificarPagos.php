@@ -520,7 +520,7 @@ class VerificarPagos extends Command
                       }
 
 
-                      try {
+                     /* try {
 
                          if ($orden->id_almacen=='1') {
 
@@ -536,7 +536,7 @@ class VerificarPagos extends Command
 
                         activity()->withProperties(1)->log('Error de compramas vp477');
                         
-                      }
+                      }*/
 
 
                       $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $orden->id)->get();
