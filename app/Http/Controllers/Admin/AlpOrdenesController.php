@@ -30,7 +30,7 @@ use App\Models\AlpTemp;
 use App\Models\AlpAnchetaMensaje;
 use App\Models\AlpConsultaIcg;
 use App\Models\AlpClientes;
-use App\Models\AlpOrdenesDescuentoIcg;
+#use App\Models\AlpOrdenesDescuentoIcg;
 
 use App\Models\AlpViewOrdenes;
 
@@ -1353,7 +1353,7 @@ public function compramasupdate()
           ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
           ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
           ->groupBy('alp_ordenes.id')
-         ->limit(2000)
+         ->limit(10)
          ->orderBy('alp_ordenes.id', 'desc')
           ->get();
 
@@ -1381,7 +1381,7 @@ public function compramasupdate()
           ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
           ->groupBy('alp_ordenes.id')
           ->where('alp_ordenes.id_almacen', '=', $user->almacen)
-         ->limit(2000)
+         ->limit(10)
          ->orderBy('alp_ordenes.id', 'desc')
           ->get();
 
@@ -3452,7 +3452,7 @@ public function compramasupdate()
 
 
 
-           $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $input['confirm_id'])->get();
+          /* $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $input['confirm_id'])->get();
 
             $total_descuentos_icg=0;
 
@@ -3460,9 +3460,9 @@ public function compramasupdate()
 
                $total_descuentos_icg=$total_descuentos_icg+$pagoi->monto_descuento;
 
-              //$dI=AlpOrdenesDescuentoIcg::where('id', $pagoi->id)->first();
+              $dI=AlpOrdenesDescuentoIcg::where('id', $pagoi->id)->first();
 
-             // $dI->delete();
+             $dI->delete();
              
 
             }
@@ -3472,7 +3472,7 @@ public function compramasupdate()
                 
                 $resp_icg=$this->registroIcgCancelar($input['confirm_id']);
                 
-              }
+              }*/
 
 
           if ($orden->id_forma_pago=='3') {
@@ -3804,8 +3804,8 @@ public function compramasupdate()
 
           $cupones=AlpOrdenesDescuento::where('id_orden', $orden->id)->get();
 
-        $descuentoicg=AlpOrdenesDescuentoIcg::where('id_orden','=', $orden->id)->get();
-        //$descuentoicg=null;
+        #$descuentoicg=AlpOrdenesDescuentoIcg::where('id_orden','=', $orden->id)->get();
+        $descuentoicg=null;
 
           $formaenvio=AlpFormasenvio::where('id', $orden->id_forma_envio)->first();
 
@@ -6453,7 +6453,7 @@ public function sendcompramascancelar($id_orden){
 
 
 
-private function registroIcgCancelar($ordenId)
+/*private function registroIcgCancelar($ordenId)
     {
 
       activity()->withProperties(1)
@@ -6592,7 +6592,7 @@ private function registroIcgCancelar($ordenId)
       }
 
       
-    }
+    }*/
 
 
 
