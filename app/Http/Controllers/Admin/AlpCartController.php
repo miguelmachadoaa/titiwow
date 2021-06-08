@@ -8260,8 +8260,8 @@ public function verificarDireccion( Request $request)
                 'precio_total' =>$detalle->cantidad*$detalle->precio_oferta,
                 'precio_total_base' =>$detalle->cantidad*$detalle->precio_base,
                 'valor_impuesto' =>$valor_impuesto,
-                #'monto_impuesto' =>$base_imponible_detalle*$valor_impuesto,
-                'monto_impuesto' =>$detalle->impuesto,
+                'monto_impuesto' =>$base_imponible_detalle*$valor_impuesto,
+                #'monto_impuesto' =>$detalle->impuesto,
                 'id_user' =>$user_id 
 
               );
@@ -8457,9 +8457,9 @@ public function verificarDireccion( Request $request)
 
               'base_impuesto' => $base_imponible,
 
-              #'monto_impuesto' => $monto_impuesto,
+              'monto_impuesto' => $monto_impuesto,
 
-              'monto_impuesto' => $impuesto,
+             # 'monto_impuesto' => $impuesto,
 
               'valor_impuesto' => $valor_impuesto,
 
@@ -8800,9 +8800,9 @@ public function verificarDireccion( Request $request)
 
                 'valor_impuesto' =>$valor_impuesto,
 
-              #  'monto_impuesto' =>$base_imponible_detalle*$valor_impuesto,
+                'monto_impuesto' =>$base_imponible_detalle*$valor_impuesto,
 
-                'monto_impuesto' =>$detalle->impuesto,
+                #'monto_impuesto' =>$detalle->impuesto,
 
                 'id_user' =>$user_id 
 
@@ -9061,9 +9061,9 @@ public function verificarDireccion( Request $request)
 
               'base_impuesto' => $base_imponible,
 
-              #'monto_impuesto' => $monto_impuesto,
+              'monto_impuesto' => $monto_impuesto,
 
-              'monto_impuesto' => $impuesto,
+              #'monto_impuesto' => $impuesto,
 
               'valor_impuesto' => $valor_impuesto,
 
