@@ -5575,9 +5575,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
               }
 
-            #$producto->impuesto=$base_impuesto-($base_impuesto/(1+$producto->valor_impuesto));
+            $producto->impuesto=$base_impuesto-($base_impuesto/(1+$producto->valor_impuesto));
 
-            $producto->impuesto=($base_impuesto)*$producto->valor_impuesto;
+           # $producto->impuesto=($base_impuesto)*$producto->valor_impuesto;
 
         
         if (isset($inv[$producto->id])) {
@@ -5897,10 +5897,11 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         if (isset($producto->id)) {
 
 
-         $producto->precio_oferta=$request->price;
+        $producto->precio_oferta=$request->price;
 
         $producto->cantidad=1;
-                $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
+        
+        $producto->impuesto=$producto->precio_oferta*$producto->valor_impuesto;
 
         if (isset($inv[$producto->id])) {
 
