@@ -6511,18 +6511,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
     private function impuesto()
     {
       
-      $cart= \Session::get('cart');
+     
 
-      $impuesto=0;
-
-
-      foreach($cart as $c){
-
-        $impuesto=$impuesto+$c->impuesto;
-
-      }
-
-     /* if (Sentinel::check()) {
+      if (Sentinel::check()) {
 
         $user_id = Sentinel::getUser()->id;
         
@@ -6652,7 +6643,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         # dd($impuesto);
 
-        }*/
+        }
 
        return $impuesto;
       
@@ -14063,7 +14054,7 @@ public function reiniciarancheta()
 
 
 
-        foreach($cart as $c){
+        /*foreach($cart as $c){
 
           $precio_base=0;
 
@@ -14077,7 +14068,7 @@ public function reiniciarancheta()
 
           }
 
-        }
+        }*/
 
       }
 
