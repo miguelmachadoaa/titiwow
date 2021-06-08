@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\User;
 use App\Models\AlpOrdenes;
+use App\Models\AlpPagos;
 use App\Models\AlpOrdenesHistory;
 use App\Models\AlpOrdenesDescuento;
 use App\Models\AlpOrdenesDescuentoIcg;
@@ -138,7 +139,7 @@ class CancelarOrdenes extends Command
 
                       MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
-                       $preference = MP::get("/v1/payments/search?external_reference=".$orden->referencia);
+                       $preference = MP::get("/v1/payments/search?external_reference=".$orden->referencia_mp);
 
                       // dd($preference);
 
@@ -146,22 +147,15 @@ class CancelarOrdenes extends Command
 
                             $idpago=$r['id'];
 
+                           //Aqui se cancela mercadopago 
                            
                              $preference_data_cancelar = '{"status": "cancelled"}';
 
-                             //dd($preference_data_cancelar);
-
                             $pre = MP::put("/v1/payments/".$idpago."", $preference_data_cancelar);
-
-                            //dd($pre);
-                               
 
                           }
 
-
-
-                   
-                          $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $orden->id)->get();
+                          /*$descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $orden->id)->get();
 
                           $total_descuentos_icg=0;
 
@@ -169,13 +163,13 @@ class CancelarOrdenes extends Command
 
                             $total_descuentos_icg=$total_descuentos_icg+$pagoi->monto_descuento;
 
-                          }
+                          }*/
 
-                          if ($total_descuentos_icg>0) {
+                 /*   if ($total_descuentos_icg>0) {
 
-                              $this->registroIcgCancelar($orden->id);
+                        $this->registroIcgCancelar($orden->id);
 
-                            }
+                    }*/
 
 
 
@@ -201,7 +195,7 @@ class CancelarOrdenes extends Command
        $dataraw=json_encode($dataupdate);
 
 
-        Log::useDailyFiles(storage_path().'/logs/compramas.log');
+        #Log::useDailyFiles(storage_path().'/logs/compramas.log');
         
         Log::info('compramas dataraw '.json_encode($dataupdate));
 
@@ -526,6 +520,73 @@ activity()->withProperties($res)->log('cancelar consumo  icg res');
 
       
     }
+
+
+
+
+
+
+
+    public function cancelarMercadopago($id_orden){
+
+      $user_id = Sentinel::getUser()->id;
+
+      $orden=AlpOrdenes::where('id', $id_orden)->first();
+
+      $configuracion = AlpConfiguracion::where('id', '1')->first();
+
+       if ($configuracion->mercadopago_sand=='1') {
+          
+          MP::sandbox_mode(TRUE);
+
+        }
+
+        if ($configuracion->mercadopago_sand=='2') {
+          
+          MP::sandbox_mode(FALSE);
+
+        }
+
+        MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+
+         $preference = MP::get("/v1/payments/search?external_reference=".$orden->referencia_mp);
+
+          foreach ($preference['response']['results'] as $r) {
+
+              $idpago=$r['id'];
+
+               $preference_data_cancelar = '{"status": "cancelled"}';
+
+              $pre = MP::put("/v1/payments/".$idpago."", $preference_data_cancelar);
+
+              $data_cancelar = array(
+                'id_orden' => $orden->id, 
+                'id_forma_pago' => $orden->id_forma_pago, 
+                'id_estatus_pago' => 4, 
+                'monto_pago' => $orden->monto_total, 
+                'json' => json_encode($pre), 
+                'id_user' => $user_id
+              );
+
+              AlpPagos::create($data_cancelar);
+
+               $data_history_json = array(
+                'id_orden' => $orden->id, 
+                'id_status' =>'4', 
+                'notas' => 'Cancelacion de pago en Mercadopago', 
+                'json' => json_encode($pre), 
+                'id_user' => $user_id 
+            );
+
+            $history=AlpOrdenesHistory::create($data_history_json);
+
+            }
+
+    }
+
+
+
+
 
 
 

@@ -5977,10 +5977,7 @@ public function sendcompramascancelar($id_orden){
 
       $user_id = Sentinel::getUser()->id;
 
-
       $orden=AlpOrdenes::where('id', $id_orden)->first();
-
-     // dd($orden);
 
       $configuracion = AlpConfiguracion::where('id', '1')->first();
 
@@ -5998,24 +5995,16 @@ public function sendcompramascancelar($id_orden){
 
         MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
-         $preference = MP::get("/v1/payments/search?external_reference=".$orden->referencia);
-
-        // dd($preference);
+         $preference = MP::get("/v1/payments/search?external_reference=".$orden->referencia_mp);
 
           foreach ($preference['response']['results'] as $r) {
 
               $idpago=$r['id'];
 
-             
                $preference_data_cancelar = '{"status": "cancelled"}';
-
-               //dd($preference_data_cancelar);
 
               $pre = MP::put("/v1/payments/".$idpago."", $preference_data_cancelar);
 
-              //dd($pre);
-              //
-              
               $data_cancelar = array(
                 'id_orden' => $orden->id, 
                 'id_forma_pago' => $orden->id_forma_pago, 
@@ -6027,7 +6016,6 @@ public function sendcompramascancelar($id_orden){
 
               AlpPagos::create($data_cancelar);
 
-
                $data_history_json = array(
                 'id_orden' => $orden->id, 
                 'id_status' =>'4', 
@@ -6038,11 +6026,7 @@ public function sendcompramascancelar($id_orden){
 
             $history=AlpOrdenesHistory::create($data_history_json);
 
-
-                 
-
             }
-
 
     }
 

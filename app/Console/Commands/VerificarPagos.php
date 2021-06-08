@@ -78,11 +78,13 @@ class VerificarPagos extends Command
       $d=$date->subDay(3)->format('Y-m-d');
       
         #$ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
-        $ordenes=AlpOrdenes::where('id', '19796')->where('countvp','<', '5')->get();
+        #$ordenes=AlpOrdenes::where('id', '19796')->where('countvp','<', '5')->get();
+        $ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->get();
+
        // $ordenes=AlpOrdenes::where('id', '19797')->get();
         //
         
-        echo json_encode($ordenes);
+       # echo json_encode($ordenes);
 
         $configuracion = AlpConfiguracion::where('id', '1')->first();
 
@@ -142,7 +144,7 @@ class VerificarPagos extends Command
 
 
            
-        echo json_encode($preference);
+     #   echo json_encode($preference);
             
           
 
@@ -551,9 +553,13 @@ class VerificarPagos extends Command
 
                       if ($total_descuentos_icg>0) {
 
-                          $this->registroIcgCancelar($orden->id);
+                        $this->registroIcgCancelar($orden->id);
 
-                        }
+                      }
+
+
+
+                      $this->cancelarMercadopago($orden->id);
 
 
 
@@ -601,7 +607,7 @@ class VerificarPagos extends Command
       
        $orden=AlpOrdenes::where('id', $id_orden)->first();
 
-        Log::useDailyFiles(storage_path().'/logs/compramas.log');
+       # Log::useDailyFiles(storage_path().'/logs/compramas.log');
         
         Log::info('compramas orden '.json_encode($orden));
 
@@ -1946,6 +1952,84 @@ activity()->withProperties($res)->log('cancelar consumo  icg res');
 
       
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     public function cancelarMercadopago($id_orden){
+
+      $user_id = Sentinel::getUser()->id;
+
+      $orden=AlpOrdenes::where('id', $id_orden)->first();
+
+      $configuracion = AlpConfiguracion::where('id', '1')->first();
+
+       if ($configuracion->mercadopago_sand=='1') {
+          
+          MP::sandbox_mode(TRUE);
+
+        }
+
+        if ($configuracion->mercadopago_sand=='2') {
+          
+          MP::sandbox_mode(FALSE);
+
+        }
+
+        MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+
+         $preference = MP::get("/v1/payments/search?external_reference=".$orden->referencia_mp);
+
+          foreach ($preference['response']['results'] as $r) {
+
+              $idpago=$r['id'];
+
+               $preference_data_cancelar = '{"status": "cancelled"}';
+
+              $pre = MP::put("/v1/payments/".$idpago."", $preference_data_cancelar);
+
+              $data_cancelar = array(
+                'id_orden' => $orden->id, 
+                'id_forma_pago' => $orden->id_forma_pago, 
+                'id_estatus_pago' => 4, 
+                'monto_pago' => $orden->monto_total, 
+                'json' => json_encode($pre), 
+                'id_user' => $user_id
+              );
+
+              AlpPagos::create($data_cancelar);
+
+               $data_history_json = array(
+                'id_orden' => $orden->id, 
+                'id_status' =>'4', 
+                'notas' => 'Cancelacion de pago en Mercadopago', 
+                'json' => json_encode($pre), 
+                'id_user' => $user_id 
+            );
+
+            $history=AlpOrdenesHistory::create($data_history_json);
+
+            }
+
+    }
+
+
+
+
 
 
 
