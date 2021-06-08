@@ -6521,7 +6521,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
       }
 
-        
+        $cart= \Session::get('cart');
 
       $impuesto=0;
 
@@ -6630,9 +6630,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         if ($resto<$base) {
 
-          #$impuesto=($resto/(1+$valor_impuesto))*$valor_impuesto;
+          $impuesto=($resto/(1+$valor_impuesto))*$valor_impuesto;
 
-          $impuesto=$resto+($base_impuesto*$valor_impuesto);
+          #$impuesto=$resto+($base_impuesto*$valor_impuesto);
 
         }
 
