@@ -4,6 +4,8 @@
             <th ><b>ID</b></th>
             <th ><b>NOMBRE DEL PRODUCTO</b></th>
             <th ><b>PRESENTACION</b></th>
+            <th ><b>DESCRIPCION LARGA</b></th>
+            <th ><b>DESCRIPCION CORTA</b></th>
             <th ><b>SKU</b></th>
             <th ><b>EAN</b></th>
             <th ><b>TIPO</b></th>
@@ -17,6 +19,8 @@
             <td>{!! $row->id !!}</td>
             <td>{!! $row->nombre_producto !!}</td>
             <td>{!! $row->presentacion_producto !!}</td>
+            <td>{!! $row->descripcion_larga !!}</td>
+            <td>{!! $row->descripcion_corta !!}</td>
             <td>{!! $row->referencia_producto!!}</td>
             <td>{!! $row->referencia_producto_sap!!}</td>
             @if($row->tipo_producto == 1)
@@ -38,6 +42,8 @@
                 <th><b>Id</b></th>
                 <th><b>Nombre del Producto</b></th>
                 <th><b>Presentación</b></th>
+                <th><b>Descripción Larga</b></th>
+                <th><b>Descripción Corta</b></th>
                 <th><b>Sku</b></th>
                 <th><b>Ean</b></th>
                 <th><b>Cantidad</b></th>
@@ -48,6 +54,11 @@
                     <td>{!! $row2->id_producto !!}</td>
                     <td>{!! $row2->nombre_producto1 !!}</td>
                     <td>{!! $row2->presentacion_producto1 !!}</td>
+                    <td>{!! $row2->descripcion_larga1 !!}</td>
+
+                    <td>{!! $row2->descripcion_corta1 !!}</td>
+
+
                     <td>{!! $row2->referencia_producto1 !!}</td>
                     <td>{!! $row2->referencia_producto_sap1 !!}</td>
                     <td>{!! $row2->cantidad !!}</td>

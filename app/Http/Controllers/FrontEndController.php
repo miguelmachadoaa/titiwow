@@ -231,76 +231,38 @@ class FrontEndController extends JoshController
 
 
   public function getCompramasInventario(Request $request)
-
   {
-
-
-
-
 
         if (Sentinel::check()) {
 
-
-
           $user = Sentinel::getUser();
 
-
-
           activity($user->full_name)
-
             ->performedOn($user)
-
             ->causedBy($user)
-
             ->withProperties($request->getContent())->log('FrontEndController/getCompramasInventario ');
-
-
 
         }else{
 
-
-
           activity()
-
           ->withProperties($request->getContent())->log('FrontEndController/getCompramasInventario');
-
-
-
         }
-
-
 
       $content = $request->getContent();
 
-
-
       $datos = json_decode($content, true);
-
-
 
        activity()->withProperties($datos)->log('FrontEndController/getCompramasInventario Data Recibida ');
 
-
-
-
-
     $r="false";
-
-
 
     $resp = array();
 
-
-
        $inventario=$this->inventario();
-
-
 
        $almacen=1;
 
        $date = Carbon::now();
-
-
 
 $hoy=$date->format('Y-m-d');
 
@@ -312,119 +274,48 @@ $hoy=$date->format('Y-m-d');
 
         $ids_almacen = array();
 
-
-
        if (count($datos)) {
-
-
 
             foreach ($datos as $dato ) {
 
-
-
             # activity()->withProperties($dato)->log('FrontEndController/getCompramasInventario  2');
-
-
 
            # activity()->withProperties($dato['stock'])->log('FrontEndController/getCompramasInventario 2.1');
 
-            #  
-
-            
-
             $p=AlpProductos::where('referencia_producto', $dato['sku'])->first();
-
-
-
-
 
               if ($dato['stock']>0) {
 
-
-
-               # $p=AlpProductos::where('referencia_producto', $dato['sku'])->first();
-
-
-
-
-
                   if (isset($p->id)) {
-
-
 
                         $r='true';
 
-
-
                         $resp[$dato['sku']]='true';
 
-
-
                         $data = array(
-
                           'id_almacen' => $almacen, 
-
                            'id_producto' => $p->id, 
-
                            'created_at' => $date,
-
                           'id_user' => 1 
-
                         );
-
-
 
                         $data_almacen[]=$data;
 
-
-
-                       # AlpAlmacenProducto::create($data);
-
-
-
-                       # AlpInventario::where('id_producto', $p->id)->where('id_almacen', $almacen)->delete();
-
-                       #
-
-                       
-
                         $ids_almacen[]=$p->id;
-
-
 
                         $ids_inventario[]=$p->id;
 
-
-
                         $data_inventario_nuevo = array(
-
                             'id_almacen' => $almacen, 
-
                             'id_producto' => $p->id, 
-
                             'cantidad' => $dato['stock'], 
-
                             'operacion' => 1, 
-
                             'notas' => 'Actualización de inventario por api compramas', 
-
                             'created_at' => $date, 
-
                             'id_user' => 1 
-
                         );
 
-
-
-
-
                         $data_inventario[]=$data_inventario_nuevo;
-
-
-
-                       # AlpInventario::create($data_inventario_nuevo);
-
-                     
 
                   }else{
 
@@ -432,85 +323,39 @@ $hoy=$date->format('Y-m-d');
 
                   }
 
-
-
                 }else{
-
-
-
-                 # $p=AlpProductos::where('referencia_producto', $dato['sku'])->first();
-
-
 
                   if (isset($p->id)) {
 
-
-
                     $resp[$dato['sku']]='true';
-
-                    
 
                      $ap=AlpAlmacenProducto::where('id_almacen', $almacen)->where('id_producto', $p->id)->first();
 
-
-
                      if (isset($ap->id)) {
-
-
-
-                       // $ap=AlpAlmacenProducto::where('id_almacen', $almacen)->where('id_producto', $p->id)->delete();
-
-
-
-                       // AlpInventario::where('id_producto', $p->id)->where('id_almacen', $almacen)->delete();
-
-
-
-                        
 
                         $ids_inventario[]=$p->id;
 
                         $ids_almacen[]=$p->id;
 
-                       
-
                      }
 
                   }
 
-                  
-
                 }
-
-                
 
             } //end foreach datos
 
-
-
             AlpInventario::whereIn('id_producto', $ids_inventario)->where('id_almacen', $almacen)->delete();
-
-
 
             AlpAlmacenProducto::whereIn('id_producto', $ids_almacen)->where('id_almacen', $almacen)->delete();
 
-
-
             AlpAlmacenProducto::insert($data_almacen);
-
-            
 
             AlpInventario::insert($data_inventario);
 
-
-
        } //(end if hay resspuessta)
 
-
-
        activity()->withProperties($resp)->log('FrontEndController/getCompramasInventario Data Respuesta ');
-
-
 
     return response(json_encode($resp), 200) ->header('Content-Type', 'application/json');
 

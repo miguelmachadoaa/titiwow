@@ -60,6 +60,10 @@ class ListadoProductosExport implements FromView
                 $combo =  AlpCombosProductos::select(
                     'alp_combos_productos.*', 
                     'alp_productos.nombre_producto as nombre_producto1',
+                    'alp_productos.descripcion_larga as descripcion_larga1',
+
+                    'alp_productos.descripcion_corta as descripcion_corta1',
+
                     'alp_productos.presentacion_producto as presentacion_producto1',
                     'alp_productos.referencia_producto as referencia_producto1',
                     'alp_productos.referencia_producto_sap as referencia_producto_sap1'
@@ -67,6 +71,7 @@ class ListadoProductosExport implements FromView
                 ->join('alp_productos', 'alp_combos_productos.id_producto','=', 'alp_productos.id')
                 ->where('alp_combos_productos.id_combo','=',$row->id)
                 ->get();
+
                 $row->productos = $combo;
             }
         }
