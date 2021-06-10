@@ -134,6 +134,9 @@ Editar Slider
 
                             </div>
                             </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('image', '<span class="help-block">:message</span> ') !!}
+                            </div>
 
                         </div>
 
@@ -184,6 +187,9 @@ Editar Slider
                                 </div>
 
                             </div>
+                            </div>
+                            <div class="col-sm-4">
+                                {!! $errors->first('image_mobile', '<span class="help-block">:message</span> ') !!}
                             </div>
 
                         </div>
