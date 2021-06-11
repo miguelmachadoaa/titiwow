@@ -2015,87 +2015,88 @@ public function compramasupdate()
 
 
 
-
-
-
-
-
-
-  public function dataaprobados()
+    public function dataaprobados()
     {
 
       $user = Sentinel::getUser();
 
-      if ($user->almacen=='0') {
+      if (isset($user->id)) {
 
-        $ordenes = AlpOrdenes::select(
-          'alp_ordenes.id as id',
-          'alp_ordenes.origen as origen', 
-          'alp_ordenes.estatus as estatus', 
-          'alp_ordenes.estatus_pago as estatus_pago', 
-          'alp_ordenes.ordencompra as ordencompra', 
-          'alp_ordenes.monto_total as monto_total', 
-          'alp_ordenes.factura as factura', 
-          'alp_ordenes.referencia as referencia', 
-          'alp_ordenes.tracking as tracking', 
-          'alp_ordenes.id_forma_envio as id_forma_envio', 
-          'alp_ordenes.id_forma_pago as id_forma_pago', 
-          'alp_ordenes.id_almacen as id_almacen', 
-          'alp_ordenes.id_address as id_address', 
-          'alp_ordenes.created_at as created_at', 
-          'alp_clientes.telefono_cliente as telefono_cliente',
-          'users.first_name as first_name', 
-          'users.last_name as last_name')
-          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
-          ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
-          ->groupBy('alp_ordenes.id')
-          ->where('alp_ordenes.estatus', '5')
-         ->limit(2000)
-         ->orderBy('alp_ordenes.id', 'desc')
-          ->get();
 
-              
+        if ($user->almacen=='0') {
 
+          $ordenes = AlpOrdenes::select(
+            'alp_ordenes.id as id',
+            'alp_ordenes.origen as origen', 
+            'alp_ordenes.estatus as estatus', 
+            'alp_ordenes.estatus_pago as estatus_pago', 
+            'alp_ordenes.ordencompra as ordencompra', 
+            'alp_ordenes.monto_total as monto_total', 
+            'alp_ordenes.factura as factura', 
+            'alp_ordenes.referencia as referencia', 
+            'alp_ordenes.tracking as tracking', 
+            'alp_ordenes.id_forma_envio as id_forma_envio', 
+            'alp_ordenes.id_forma_pago as id_forma_pago', 
+            'alp_ordenes.id_almacen as id_almacen', 
+            'alp_ordenes.id_address as id_address', 
+            'alp_ordenes.created_at as created_at', 
+            'alp_clientes.telefono_cliente as telefono_cliente',
+            'users.first_name as first_name', 
+            'users.last_name as last_name')
+            ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+            ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+            ->groupBy('alp_ordenes.id')
+            ->where('alp_ordenes.estatus', '5')
+           ->limit(2000)
+           ->orderBy('alp_ordenes.id', 'desc')
+            ->get();
+
+                
+
+        }else{
+
+          $ordenes = AlpOrdenes::select(
+            'alp_ordenes.id as id',
+            'alp_ordenes.origen as origen', 
+            'alp_ordenes.estatus as estatus', 
+            'alp_ordenes.estatus_pago as estatus_pago', 
+            'alp_ordenes.ordencompra as ordencompra', 
+            'alp_ordenes.monto_total as monto_total', 
+            'alp_ordenes.factura as factura', 
+            'alp_ordenes.referencia as referencia', 
+            'alp_ordenes.tracking as tracking', 
+            'alp_ordenes.id_forma_envio as id_forma_envio', 
+            'alp_ordenes.id_forma_pago as id_forma_pago', 
+            'alp_ordenes.id_almacen as id_almacen', 
+            'alp_ordenes.id_address as id_address', 
+            'alp_ordenes.created_at as created_at', 
+            'alp_clientes.telefono_cliente as telefono_cliente',
+            'users.first_name as first_name', 
+            'users.last_name as last_name')
+            ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
+            ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
+            ->groupBy('alp_ordenes.id')
+            ->where('alp_ordenes.estatus', '5')
+            ->where('alp_ordenes.id_almacen', '=', $user->almacen)
+           ->limit(2000)
+           ->orderBy('alp_ordenes.id', 'desc')
+            ->get();
+         
+
+        }
+
+
+
+        
       }else{
 
-        $ordenes = AlpOrdenes::select(
-          'alp_ordenes.id as id',
-          'alp_ordenes.origen as origen', 
-          'alp_ordenes.estatus as estatus', 
-          'alp_ordenes.estatus_pago as estatus_pago', 
-          'alp_ordenes.ordencompra as ordencompra', 
-          'alp_ordenes.monto_total as monto_total', 
-          'alp_ordenes.factura as factura', 
-          'alp_ordenes.referencia as referencia', 
-          'alp_ordenes.tracking as tracking', 
-          'alp_ordenes.id_forma_envio as id_forma_envio', 
-          'alp_ordenes.id_forma_pago as id_forma_pago', 
-          'alp_ordenes.id_almacen as id_almacen', 
-          'alp_ordenes.id_address as id_address', 
-          'alp_ordenes.created_at as created_at', 
-          'alp_clientes.telefono_cliente as telefono_cliente',
-          'users.first_name as first_name', 
-          'users.last_name as last_name')
-          ->join('users', 'alp_ordenes.id_cliente', '=', 'users.id')
-          ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
-          ->groupBy('alp_ordenes.id')
-          ->where('alp_ordenes.estatus', '5')
-          ->where('alp_ordenes.id_almacen', '=', $user->almacen)
-         ->limit(2000)
-         ->orderBy('alp_ordenes.id', 'desc')
-          ->get();
-
-
-       
+        $ordenes=AlpOrdenes::where('id', '=', '-1')->get();
 
       }
 
-
-
-     // dd('i');
+      
 
       $permiso_cancelar = array('1','2','3');
-       
 
        $id_rol=0;
 
@@ -2107,9 +2108,6 @@ public function compramasupdate()
 
             $id_rol=$role->role_id;
         }
-      
-
-       
 
           $formaspago=AlpFormaspago::pluck('nombre_forma_pago', 'id');
           $formasenvio=AlpFormasenvio::pluck('nombre_forma_envios', 'id');
@@ -2117,10 +2115,6 @@ public function compramasupdate()
           $estatus_ordenes=AlpEstatusOrdenes::pluck('estatus_nombre', 'id');
           $almacenes=AlpAlmacenes::pluck('nombre_almacen', 'id');
           $direcciones=AlpDirecciones::pluck('city_id', 'id');
-
-         // dd($ordenes);
-
-          //dd($formasenvio);
 
             $data = array();
 
@@ -2225,10 +2219,6 @@ public function compramasupdate()
               }
 
 
-
-
-
-
                $actions = " 
                   <a class='btn btn-primary btn-xs' href='".route('admin.ordenes.detalle', $row->id)."'  target='_blank'>
                       ver detalles </a> <div style='display: inline-block;' class='estatus_".$row->id."'>";
@@ -2248,11 +2238,6 @@ public function compramasupdate()
                     
                   }
 
-
-
-
-
-              //dd($nombre_almacen);
 
                $data[]= array(
                  $row->id, 
