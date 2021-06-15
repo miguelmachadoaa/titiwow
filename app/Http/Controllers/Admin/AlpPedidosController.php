@@ -2972,6 +2972,7 @@ public function postdireccion(DireccionModalRequest $request)
             }
           }
 
+
           $t_documento = AlpTDocumento::where('estado_registro','=',1)->get();
 
             $estructura = AlpEstructuraAddress::where('estado_registro','=',1)->get();
@@ -3039,30 +3040,30 @@ public function postdireccion(DireccionModalRequest $request)
            // dd($total_descuentos);
 
 
-            # $mp = new MP();
+             $mp = new MP();
 
            if ($configuracion->mercadopago_sand=='1') {
           
-            #  $mp::sandbox_mode(TRUE);
+              $mp::sandbox_mode(TRUE);
 
             }
 
             if ($configuracion->mercadopago_sand=='2') {
               
-             # $mp::sandbox_mode(FALSE);
+              $mp::sandbox_mode(FALSE);
 
             }
 
-         # MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+          MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
 
 
 
-           # $payment_methods = MP::get("/v1/payment_methods");
+            $payment_methods = MP::get("/v1/payment_methods");
 
 
-            $preference = array();
+         //   $preference = array();
 
-              $payment_methods = array();
+           //   $payment_methods = array();
 
             
         // Show the page
