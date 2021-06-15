@@ -8198,6 +8198,9 @@ public function verificarDireccion( Request $request)
           
           foreach ($cart as $detalle) {
 
+            if (isset($detalle->id)) {
+              // verificar si es un producto...
+
             $base_imponible_detalle=0;
             
             $monto_total_base=$monto_total_base+($detalle->cantidad*$detalle->precio_base);
@@ -8374,7 +8377,7 @@ public function verificarDireccion( Request $request)
                }
 
                
-
+            } //end if detalle->id
 
           }//endfreach cart impuesto
 
@@ -8394,6 +8397,7 @@ public function verificarDireccion( Request $request)
             $porcentaje_descuento_icg=0;
 
             $ban_icg=0;
+
 
           if (isset($role->role_id)) {
 

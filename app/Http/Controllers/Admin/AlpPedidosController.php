@@ -2806,6 +2806,9 @@ public function postdireccion(DireccionModalRequest $request)
 
         $orden=AlpOrdenes::where('token', '=', $token)->first();
 
+        $almacen=AlpAlmacenes::where('id','=', $orden->id_almacen)->first();
+
+
         if (isset($orden->id)) {
           
         }else{
@@ -3054,9 +3057,7 @@ public function postdireccion(DireccionModalRequest $request)
 
             }
 
-          MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
-
-
+          MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
 
             $payment_methods = MP::get("/v1/payment_methods");
 

@@ -1,4 +1,14 @@
 
+@if(!isset($total_descuentos_icg))
+
+@php
+
+$total_descuentos_icg=0;
+
+@endphp
+
+@endif
+
 @if(count($formaspago))
 
             @foreach($formaspago as $fpp)
