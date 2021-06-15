@@ -1465,60 +1465,28 @@ $hoy=$date->format('Y-m-d');
 
                   }
 
-
-
-
-
-
-
-
-
                   if ($request->back=='0') {
-
-
-
-
-
-
-
-
-
-
 
                       return Redirect::route("clientes")->with('success', trans('auth/message.login.success'));
 
-                     
-
                   }else{
-
-
 
                       return Redirect::route($request->back)->with('success', trans('auth/message.signin.success'));
 
-
-
                   }
 
-                  
 
                }else{
-
-
 
                   return redirect("admin")->with('success', trans('auth/message.login.success'));
 
                }     
 
-                
-
             } else {
 
                 return redirect('login')->with('error', 'El Email o Contraseña son Incorrectos.');
 
-                //return Redirect::back()->withInput()->withErrors($validator);
-
             }
-
 
 
         } catch (UserNotFoundException $e) {
