@@ -144,6 +144,23 @@ class AlpSlidersController extends JoshController
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
+        if (Sentinel::check()) {
+
+            $user = Sentinel::getUser();
+  
+             activity($user->full_name)
+                          ->performedOn($user)
+                          ->causedBy($user)
+                          ->withProperties($request->all())
+                          ->log('AlpSlidersController/store');
+  
+          }else{
+  
+            activity()->withProperties($request->all())->log('AlpSlidersController/store');
+  
+  
+          }
+
         $user_id = Sentinel::getUser()->id;
 
         $input = $request->all();
@@ -154,30 +171,14 @@ class AlpSlidersController extends JoshController
         $imagen_slider='default.png';
 
          $picture = "";
-
         
         if ($request->hasFile('image')) {
-            
-            $file = $request->file('image');    
-
-            #echo $file.'<br>';
-            
+            $file = $request->file('image');   
             $extension = $file->extension()?: 'png';
-            
-
             $picture = str_random(10) . '.' . $extension;
-
-            #echo $picture.'<br>';
-
             $destinationPath = public_path() . '/uploads/sliders/';
-
-            #echo $destinationPath.'<br>';
-
-            
             $file->move($destinationPath, $picture);
-            
             $imagen = $picture;
-
         }
 
 
@@ -308,6 +309,23 @@ class AlpSlidersController extends JoshController
            return redirect('admin')->with('aviso', 'No tiene acceso a la pagina que intenta acceder');
         }
 
+        if (Sentinel::check()) {
+
+        $user = Sentinel::getUser();
+
+            activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('AlpSlidersController/update');
+
+        }else{
+
+        activity()->withProperties($request->all())->log('AlpSlidersController/update');
+
+
+        }
+
         $slider = AlpSliders::find($id);
 
 
@@ -317,45 +335,28 @@ class AlpSlidersController extends JoshController
 
         $imagen='0';
 
-         $picture = "";
+        $picture = "";
 
         
         if ($request->hasFile('image')) {
             
             $file = $request->file('image');
-
-            #echo $file.'<br>';
-            
             $extension = $file->extension()?: 'png';
-            
-
             $picture = str_random(10) . '.' . $extension;
-
-            #echo $picture.'<br>';
-
             $destinationPath = public_path() . '/uploads/sliders/';
-
-            #echo $destinationPath.'<br>';
-
-            
             $file->move($destinationPath, $picture);
-            
             $imagen = $picture;
 
-             $data = array(
+            $data = array(
                 'nombre_slider' => $request->nombre_slider, 
                 'descripcion_slider' => $request->descripcion_slider,
                 'imagen_slider' =>$imagen,
                 'order' => $request->order,
                 'link_slider' => $request->link_slider
                 );
-
-
-
         }else{
-
-                  $data = array(
-              'nombre_slider' => $request->nombre_slider, 
+            $data = array(
+                'nombre_slider' => $request->nombre_slider, 
                 'descripcion_slider' => $request->descripcion_slider,
                 'order' => $request->order,
                 'link_slider' => $request->link_slider
@@ -363,6 +364,9 @@ class AlpSlidersController extends JoshController
 
         }
 
+        // dd($data);
+    
+        $slider->update($data);
 
         if ($request->hasFile('image_mobile')) {
 
@@ -383,9 +387,7 @@ class AlpSlidersController extends JoshController
 
         }
 
-       // dd($data);
-         
-        $slider->update($data);
+
 
         AlpAlmacenSlider::where('id_slider', '=', $id)->delete();
 
@@ -410,7 +412,7 @@ class AlpSlidersController extends JoshController
             return redirect('admin/sliders');
 
         } else {
-            return Redirect::route('admin/sliders')->withInput()->with('error', trans('Ha ocrrrido un error al crear el registro'));
+            return Redirect::route('admin/sliders')->withInput()->with('error', trans('Ha ocurrido un error al editar el registro'));
         }
       
     }
