@@ -88,7 +88,7 @@ class VerificarPagos extends Command
        // $ordenes=AlpOrdenes::where('id', '19797')->get();
         //
         
-       Log::info('ordenes a verficar  '.json_encode($ordenes_id));
+     //  Log::info('ordenes a verficar  '.json_encode($ordenes_id));
 
         $configuracion = AlpConfiguracion::where('id', '1')->first();
 
@@ -147,7 +147,7 @@ class VerificarPagos extends Command
         }
 
 
-          Log::info('Respuesta mercadopago  '.json_encode($preference));
+      //    Log::info('Respuesta mercadopago  '.json_encode($preference));
  
             
           
@@ -627,7 +627,7 @@ class VerificarPagos extends Command
       
        $orden=AlpOrdenes::where('id', $id_orden)->first();
 
-        Log::info('compramas orden '.json_encode($orden));
+        //Log::info('compramas orden '.json_encode($orden));
 
         $detalles = AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto','alp_productos.referencia_producto as referencia_producto')
           ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
