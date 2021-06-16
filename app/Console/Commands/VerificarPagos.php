@@ -10,8 +10,10 @@ use App\Models\AlpFormaCiudad;
 use App\Models\AlpFormasenvio;
 use App\Models\AlpImpuestos;
 
-use App\Models\AlpPagos;
+
 use App\Models\AlpProductos;
+use App\Models\AlpAlmacenes;
+use App\Models\AlpPagos;
 use App\Models\AlpEnvios;
 use App\Models\AlpEnviosHistory;
 use App\Models\AlpOrdenes;
@@ -21,7 +23,7 @@ use App\Models\AlpOrdenesDescuento;
 
 use App\Models\AlpOrdenesDescuentoIcg;
 use App\Models\AlpConsultaIcg;
-use App\Models\AlpAlmacenes;
+
 
 
 
@@ -144,11 +146,11 @@ class VerificarPagos extends Command
 
 
            
-     #   echo json_encode($preference);
+ 
             
           
 
-          if (isset($preference['response']['results'][0])) {
+          if (isset($preference['response']['results'])) {
          // if (isset($preference)) {
 
             $cantidad=count($preference['response']['results']);
@@ -380,6 +382,22 @@ class VerificarPagos extends Command
 
 
               $dataraw=json_encode($o);
+
+              if ($orden->id_almacen==1) {
+
+                try {
+                 # $this->sendcompramas($orden->id, 'approved');
+
+                  $this->registrarOrden($orden->id);
+
+
+                } catch (\Exception $e) {
+
+                  activity()->withProperties($orden)->log('error compramas vp l355');
+                  
+                }
+
+               }
 
                if ($compra->id_forma_envio!=1) {
 
@@ -918,7 +936,7 @@ class VerificarPagos extends Command
 
        $dataraw=json_encode($dataupdate);
 
-       dd($dataraw);
+      # dd($dataraw);
 
         Log::useDailyFiles(storage_path().'/logs/compramas.log');
         
@@ -1243,9 +1261,9 @@ class VerificarPagos extends Command
 
                         try {
 
-                          Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+                         // Mail::to($configuracion->correo_sac)->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
 
-                          Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
+                        //  Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionOrdenEnvio($orden, $texto));
 
                         } catch (\Exception $e) {
 

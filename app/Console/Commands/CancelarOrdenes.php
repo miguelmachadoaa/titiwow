@@ -65,10 +65,9 @@ class CancelarOrdenes extends Command
         $date = Carbon::now();
 
         $hoy=$date->format('Y-m-d');
+        $ordenes =  DB::table('alp_ordenes')->select('alp_ordenes.*') ->where('alp_ordenes.estatus','=', 8)->get();
 
-        //$ordenes =  DB::table('alp_ordenes')->select('alp_ordenes.*') ->where('alp_ordenes.estatus','=', 8)->get();
-
-        $ordenes=AlpOrdenes::where('id', '11039')->get();
+       # $ordenes=AlpOrdenes::where('id', '11039')->get();
 
         foreach ($ordenes  as $orden) {
 
@@ -78,8 +77,8 @@ class CancelarOrdenes extends Command
 
             $diff = $date->diffInHours($now); 
            
-           # if ($diff>$configuracion->vence_ordenes) {
-           if (1) {
+            if ($diff>$configuracion->vence_ordenes) {
+           #if (1) {
             
                 # code...
 
@@ -117,7 +116,7 @@ class CancelarOrdenes extends Command
 
                  if ($orden->id_almacen=='1') {
 
-                    $this->sendcompramas($orden->id, 'rejected');
+                   # $this->sendcompramas($orden->id, 'rejected');
                     # code...
                   }
 

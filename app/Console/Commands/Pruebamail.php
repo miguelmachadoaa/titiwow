@@ -86,12 +86,6 @@ class Pruebamail extends Command
                 Mail::to('miguelmachadoaa@gmail.com')->send(new \App\Mail\CompraRealizada($compra, $detalles, $fecha_entrega));
 
 
-
-        
-       
-
-
-
     }
 
 

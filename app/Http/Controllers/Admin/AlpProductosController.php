@@ -572,8 +572,6 @@ class AlpProductosController extends JoshController
 
           if (substr($key, 0, 6)=='select') {
 
-            //echo $key.':'.$value.'<br>';
-
             $par=explode('_', $key);
 
             $select[$par[1]][$par[2]]=$value;            
@@ -584,8 +582,6 @@ class AlpProductosController extends JoshController
 
           if (substr($key, 0, 6)=='rolpum') {
 
-            #echo $key.':'.$value.'<br>';
-
             $par=explode('_', $key);
 
             $pum[$par[1]][$par[2]]=$value;            
@@ -594,8 +590,6 @@ class AlpProductosController extends JoshController
 
 
           if (substr($key, 0, 12)=='roldescuento') {
-
-            #echo $key.':'.$value.'<br>';
 
             $par=explode('_', $key);
 
@@ -639,27 +633,21 @@ class AlpProductosController extends JoshController
 
             }
 
-           
-
             }
 
-
-           // print_r($data_precio).'<br>';
-            
           }
 
         }
 
 
          
-         $precio_combo=0;
+        $precio_combo=0;
+
         $ban_combo=0;
 
          foreach ($input as $key => $value) {
 
           if (substr($key, 0, 5)=='c_pro') {
-
-           // $ban_combo=1;
 
             $data_combo = array(
               'id_combo' => $producto->id, 
@@ -681,6 +669,7 @@ class AlpProductosController extends JoshController
         if ($ban_combo==1) {
 
           $p=AlpProductos::where('id', $producto->id)->first();
+          
           $p->update(['precio_base'=>$precio_combo]);
         }
 
@@ -712,10 +701,6 @@ class AlpProductosController extends JoshController
         $data = array('robots' => $robots);
 
         $producto->update($data);
-
-
-
-
 
         if ($producto->id) {
 

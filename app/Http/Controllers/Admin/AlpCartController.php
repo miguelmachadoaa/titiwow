@@ -5507,34 +5507,34 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           $crrid=time();
 
           $data = array(
-                        'referencia' => time(), 
-                        'id_city' => $ciudad, 
-                        'id_user' => '0'
-                      );
+              'referencia' => time(), 
+              'id_city' => $ciudad, 
+              'id_user' => '0'
+            );
 
-          $carr=AlpCarrito::create($data);
+        $carr=AlpCarrito::create($data);
 
-          \Session::put('cr', $carr->id);
+        \Session::put('cr', $carr->id);
 
-               }
+        }
 
-       $cart= \Session::get('cart');
+      $cart= \Session::get('cart');
 
-              $carrito= \Session::get('cr');
+      $carrito= \Session::get('cr');
 
-       $descuento='1'; 
+      $descuento='1'; 
 
-       $error='0'; 
+      $error='0'; 
 
-       $precio = array();
+      $precio = array();
 
-       $inv=$this->inventario();
+      $inv=$this->inventario();
 
-       $almacen=$this->getAlmacen();
+      $almacen=$this->getAlmacen();
 
        //dd($almacen);
 
-       $ban_disponible=0;
+      $ban_disponible=0;
 
               if (isset($producto->id)) {
 
@@ -8277,8 +8277,7 @@ public function verificarDireccion( Request $request)
                 'id_user' =>$user_id 
               );
               
-               activity()->withProperties($data_orden)
-                        ->log('detalle de orden  ');
+               activity()->withProperties($data_orden)->log('detalle de orden');
 
               $detalleguardado=AlpDetalles::create($data_detalle);
               
@@ -8445,119 +8444,65 @@ public function verificarDireccion( Request $request)
 
 
            $data_update = array(
-
               'referencia' => 'ALP'.$orden->id,
-
               'referencia_mp' => 'ALP'.$orden->id.'_'.str_slug($almacen->nombre_almacen),
-
               'monto_total' =>$resto,
-
               'monto_descuento' =>$total_descuentos,
-
               'monto_total_base' => $monto_total_base,
-
               'base_impuesto' => $base_imponible,
-
               'monto_impuesto' => $monto_impuesto,
-
              # 'monto_impuesto' => $impuesto,
-
               'valor_impuesto' => $valor_impuesto,
-
               'token' =>substr(md5(time()), 0, 16)
-
                );
 
-           
              $orden->update($data_update);
 
-             
 
               $data_history = array(
-
                 'id_orden' => $orden->id, 
-
                'id_status' => '8', 
-
                 'notas' => 'Orden Creada', 
-
                'id_user' => 1
-
               );
 
-              
             $history=AlpOrdenesHistory::create($data_history);
 
-            
             \Session::put('orden', $orden->id);
-
             
             $cupones=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
 
-            
             foreach ($cupones as $cupon) {
-
               $c=AlpOrdenesDescuento::where('id', $cupon->id)->first();
-
               $data_cupon = array('id_orden' => $orden->id );
-              
               $c->update($data_cupon);
-
-              
             }
-
-
-            
-
-
-
-            
-            
-
-            
-
 
 
 
             if (\Session::has('mensajeancheta')) {
-
               
               $mensaje=\Session::get('mensajeancheta');
 
-              
                 $data_ancheta_mensaje = array(
-
                   'id_orden' => $orden->id,
-
                   'id_ancheta' => $orden->id,
-
                   'mensaje_de' => $mensaje['ancheta_de'],
-
                   'mensaje_para' => $mensaje['ancheta_para'],
-
                   'mensaje_mensaje' => $mensaje['ancheta_mensaje'],
-
               );
-
                 
               AlpAnchetaMensaje::create($data_ancheta_mensaje);
-
               
             }
 
             
-
-
-
 
 
             \Session::put('cr', $orden->id);
 
 
-
-
             if ($total_descuentos_icg>0) {
-
 
               $ricg=$this->registroIcg($orden->id);
 
@@ -8566,13 +8511,10 @@ public function verificarDireccion( Request $request)
               }else{
 
                 $r='falseicg';
+
               }
 
             }
-
-
-
-
 
 
           if ($orden->id_almacen==1) {
@@ -8585,7 +8527,7 @@ public function verificarDireccion( Request $request)
 
           }
 
-                        }else{ //if la orden es menor a 0
+        }else{ //if la orden es menor a 0
 
                           
             return 'false0';
