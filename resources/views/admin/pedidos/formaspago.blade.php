@@ -124,7 +124,7 @@
                                   <script
                                    src="{{secure_url('assets/js/web-tokenize-checkout.js')}}"
 
-                                    data-public-key="{{ $configuracion->public_key_mercadopago_test }}"
+                                    data-public-key="{{ $almacen->public_key_mercadopago_test }}"
                                     data-button-label="Pagar"
                                     data-transaction-amount="{{ (float)number_format($total-$total_pagos+$envio_base+$envio_impuesto, 2, '.', '')}}"
                                   
@@ -146,7 +146,7 @@
                                     
                                     src="{{secure_url('assets/js/web-tokenize-checkout.js')}}"
 
-                                    data-public-key="{{ $configuracion->public_key_mercadopago }}"
+                                    data-public-key="{{ $almacen->public_key_mercadopago }}"
                                     data-button-label="Pagar"
                                     data-transaction-amount="{{ (float)number_format($total-$total_pagos+$envio_base+$envio_impuesto, 2, '.', '')}}"
                                   
