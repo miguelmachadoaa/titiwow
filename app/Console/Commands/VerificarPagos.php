@@ -86,7 +86,7 @@ class VerificarPagos extends Command
        // $ordenes=AlpOrdenes::where('id', '19797')->get();
         //
         
-       # echo json_encode($ordenes);
+       Log::info('ordenes a verficar  '.json_encode($ordenes));
 
         $configuracion = AlpConfiguracion::where('id', '1')->first();
 
@@ -145,7 +145,7 @@ class VerificarPagos extends Command
         }
 
 
-           
+          Log::info('Respuesta mercadopago  '.json_encode($preference));
  
             
           
