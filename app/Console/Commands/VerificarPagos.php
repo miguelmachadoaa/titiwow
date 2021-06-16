@@ -77,11 +77,11 @@ class VerificarPagos extends Command
       $date = Carbon::now();
 
 
-      $d=$date->subDay(3)->format('Y-m-d');
+      $d=$date->subDay(8)->format('Y-m-d');
       
-        #$ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
+        $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
         #$ordenes=AlpOrdenes::where('id', '19796')->where('countvp','<', '5')->get();
-        $ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->get();
+       # $ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->get();
 
        // $ordenes=AlpOrdenes::where('id', '19797')->get();
         //
