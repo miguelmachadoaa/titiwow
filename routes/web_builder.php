@@ -1880,3 +1880,8 @@ Route::get('borrar-productos', function() {
     $exitCode = Artisan::call('productos:eliminar');
   
 });
+
+Route::get('cron-pruebas', function() {
+    $exitCode = Artisan::call('cron:pruebas');
+  
+});

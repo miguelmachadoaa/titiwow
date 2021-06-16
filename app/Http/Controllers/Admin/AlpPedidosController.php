@@ -2806,6 +2806,9 @@ public function postdireccion(DireccionModalRequest $request)
 
         $orden=AlpOrdenes::where('token', '=', $token)->first();
 
+        $almacen=AlpAlmacenes::where('id','=', $orden->id_almacen)->first();
+
+
         if (isset($orden->id)) {
           
         }else{
@@ -2972,6 +2975,7 @@ public function postdireccion(DireccionModalRequest $request)
             }
           }
 
+
           $t_documento = AlpTDocumento::where('estado_registro','=',1)->get();
 
             $estructura = AlpEstructuraAddress::where('estado_registro','=',1)->get();
@@ -3039,34 +3043,32 @@ public function postdireccion(DireccionModalRequest $request)
            // dd($total_descuentos);
 
 
-            # $mp = new MP();
+             $mp = new MP();
 
            if ($configuracion->mercadopago_sand=='1') {
           
-            #  $mp::sandbox_mode(TRUE);
+              $mp::sandbox_mode(TRUE);
 
             }
 
             if ($configuracion->mercadopago_sand=='2') {
               
-             # $mp::sandbox_mode(FALSE);
+              $mp::sandbox_mode(FALSE);
 
             }
 
-         # MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+          MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
+
+            $payment_methods = MP::get("/v1/payment_methods");
 
 
+         //   $preference = array();
 
-           # $payment_methods = MP::get("/v1/payment_methods");
-
-
-            $preference = array();
-
-              $payment_methods = array();
+           //   $payment_methods = array();
 
             
         // Show the page
-        return view('admin.pedidos.pago', compact('almacenes', 'cart', 'total', 'clientes', 'formaspago', 'formasenvio', 't_documento', 'estructura', 'countries', 'listabarrios', 'states', 'cities', 'url', 'impuesto', 'envio_base', 'envio_impuesto', 'costo_envio', 'total_pagos', 'total_base', 'total_descuentos', 'descuentos', 'orden', 'payment_methods', 'orden', 'detalles', 'user'));
+        return view('admin.pedidos.pago', compact('almacenes', 'cart', 'total', 'clientes', 'formaspago', 'formasenvio', 't_documento', 'estructura', 'countries', 'listabarrios', 'states', 'cities', 'url', 'impuesto', 'envio_base', 'envio_impuesto', 'costo_envio', 'total_pagos', 'total_base', 'total_descuentos', 'descuentos', 'orden', 'payment_methods', 'orden', 'detalles', 'user', 'almacen'));
 
 
     }
@@ -3391,7 +3393,9 @@ public function postdireccion(DireccionModalRequest $request)
 
         $configuracion = AlpConfiguracion::where('id', '1')->first();
 
-        MP::setCredenciales($configuracion->id_mercadopago, $configuracion->key_mercadopago);
+        $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
+
+        MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
 
 
         $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')

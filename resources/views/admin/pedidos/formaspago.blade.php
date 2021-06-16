@@ -1,13 +1,12 @@
  <div class="col-sm-12">
 
+      <div class="form-group {{ $errors->first('tomapedidos_terminos', 'has-error') }} checkbox">
+          <label style="padding: 0;">
 
-          <div class="form-group {{ $errors->first('tomapedidos_terminos', 'has-error') }} checkbox">
-              <label style="padding: 0;">
-
-                  <input type="checkbox" name="tomapedidos_terminos" id="tomapedidos_terminos" value="1" require>  Acepto los <a href="{{ secure_url('paginas/terminos-condiciones')}}" class="menu-item" target="_blank" alt="Términos y Condiciones de Acceso a Alpina Go" title="Términos y Condiciones de Acceso a Alpina Go">Términos y Condiciones de Tomapedidos de Alpina Go.</a> 
-              </label>
-              {!! $errors->first('tomapedidos_terminos', '<span class="help-block">:message</span>') !!}
-          </div>
+              <input type="checkbox" name="tomapedidos_terminos" id="tomapedidos_terminos" value="1" require>  Acepto los <a href="{{ secure_url('paginas/terminos-condiciones')}}" class="menu-item" target="_blank" alt="Términos y Condiciones de Acceso a Alpina Go" title="Términos y Condiciones de Acceso a Alpina Go">Términos y Condiciones de Tomapedidos de Alpina Go.</a> 
+          </label>
+          {!! $errors->first('tomapedidos_terminos', '<span class="help-block">:message</span>') !!}
+      </div>
 
           <p style="color: red;" class="error_tomapedidos_terminos"></p>
           
@@ -33,7 +32,7 @@
 
 
 
-@if(count($formaspago))
+    @if(count($formaspago))
 
             <div class="col-sm-12 ">
 
@@ -44,13 +43,7 @@
 
                         <input type="hidden" name="id_forma_pago" id="id_forma_pago" value="">
 
-                    
-
-                    <!-- Se construyen las opciones de envios -->
-
                     @foreach($formaspago as $fp)
-
-                    
 
                     @if(isset($payment_methods['response']))
         
@@ -131,7 +124,7 @@
                                   <script
                                    src="{{secure_url('assets/js/web-tokenize-checkout.js')}}"
 
-                                    data-public-key="{{ $configuracion->public_key_mercadopago_test }}"
+                                    data-public-key="{{ $almacen->public_key_mercadopago_test }}"
                                     data-button-label="Pagar"
                                     data-transaction-amount="{{ (float)number_format($total-$total_pagos+$envio_base+$envio_impuesto, 2, '.', '')}}"
                                   
@@ -153,7 +146,7 @@
                                     
                                     src="{{secure_url('assets/js/web-tokenize-checkout.js')}}"
 
-                                    data-public-key="{{ $configuracion->public_key_mercadopago }}"
+                                    data-public-key="{{ $almacen->public_key_mercadopago }}"
                                     data-button-label="Pagar"
                                     data-transaction-amount="{{ (float)number_format($total-$total_pagos+$envio_base+$envio_impuesto, 2, '.', '')}}"
                                   

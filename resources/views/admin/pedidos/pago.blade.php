@@ -185,11 +185,24 @@ div.overlay > div {
 
         @include('admin.pedidos.formasenvio')
 
-        @if(($total-$total_pagos+$costo_envio)>0)
+
+            <p>Paso</p>
 
             @include('admin.pedidos.formaspago')
 
-        @endif
+
+
+            <div >
+                <p>{{$total}}</p>
+                <p>{{$total_pagos}}</p>
+
+                <p>{{$costo_envio}}</p>
+
+                <p>{{($total-$total_pagos+$costo_envio)}}</p>
+
+            </div>
+
+        
 
     </div>
 

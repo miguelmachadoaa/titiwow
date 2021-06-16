@@ -173,7 +173,7 @@
                         <ul class="list-inline icon-position_qlub" style="margin-bottom:0px !important">
                             <li><a href="https://www.facebook.com/alpina" target="_blank"><i class="fa fa-facebook-f color-top_qlub" ></i></a></li>
 
-                            <li><a href="https://www.instagram.com/alpinacol/" target="_blank"><i class="fa fa-instagram color-top_qlub" ></i></a></li>
+                            <li><a href="https://www.instagram.com/alpina/" target="_blank"><i class="fa fa-instagram color-top_qlub" ></i></a></li>
 
                             <li><a href="https://www.linkedin.com/company/alpina/?trk=vsrp_companies_res_name&trkInfo=VSRPsearchId%3A3286542181450727911739%2CVSRPtargetId%3A48174%2CVSRPcmpt%3Aprimary" target="_blank"><i class="fa fa-linkedin-square color-top_qlub" ></i></a></li>
 
