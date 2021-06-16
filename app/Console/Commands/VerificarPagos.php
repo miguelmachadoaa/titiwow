@@ -78,15 +78,17 @@ class VerificarPagos extends Command
 
 
       $d=$date->subDay(3)->format('Y-m-d');
+
+        $ordenes_id=AlpOrdenes::select('alp_ordenes.id')->where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
+
       
-        $ordenes=AlpOrdenes::where('estatus_pago', '4')->whereDate('created_at','>=', $d)->get();
-        #$ordenes=AlpOrdenes::where('id', '19796')->where('countvp','<', '5')->get();
-       # $ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->get();
+        
+        $ordenes=AlpOrdenes::where('estatus_pago', '4')->where('countvp','<', '5')->whereDate('created_at','>=', $d)->get();
 
        // $ordenes=AlpOrdenes::where('id', '19797')->get();
         //
         
-       Log::info('ordenes a verficar  '.json_encode($ordenes));
+       Log::info('ordenes a verficar  '.json_encode($ordenes_id));
 
         $configuracion = AlpConfiguracion::where('id', '1')->first();
 
