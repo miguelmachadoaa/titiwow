@@ -627,14 +627,12 @@ class VerificarPagos extends Command
       
        $orden=AlpOrdenes::where('id', $id_orden)->first();
 
-       # Log::useDailyFiles(storage_path().'/logs/compramas.log');
-        
         Log::info('compramas orden '.json_encode($orden));
 
-                 $detalles = AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto','alp_productos.referencia_producto as referencia_producto')
-                  ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
-                  ->where('alp_ordenes_detalle.id_orden', $orden->id)
-                  ->get();
+        $detalles = AlpDetalles::select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.imagen_producto as imagen_producto','alp_productos.referencia_producto as referencia_producto')
+          ->join('alp_productos', 'alp_ordenes_detalle.id_producto', '=', 'alp_productos.id')
+        ->where('alp_ordenes_detalle.id_orden', $orden->id)
+        ->get();
 
                   $productos = array();
 
@@ -692,9 +690,8 @@ class VerificarPagos extends Command
 
                       }
 
-
-                      }
-                  }
+                    }
+                }
 
               $cliente =  User::select('users.*','roles.name as name_role','alp_clientes.estado_masterfile as estado_masterfile','alp_clientes.estado_registro as estado_registro','alp_clientes.telefono_cliente as telefono_cliente','alp_clientes.cod_oracle_cliente as cod_oracle_cliente','alp_clientes.cod_alpinista as cod_alpinista','alp_clientes.doc_cliente as doc_cliente')
                 ->join('alp_clientes', 'users.id', '=', 'alp_clientes.id_user_client')
@@ -737,17 +734,17 @@ class VerificarPagos extends Command
               );
 
 
-              $dataraw=json_encode($o);
+        $dataraw=json_encode($o);
 
-              $orden->update(['send_json_masc'=>$dataraw]);
+        $orden->update(['send_json_masc'=>$dataraw]);
 
-              $urls=$configuracion->compramas_url.'/registerOrder/'.$configuracion->compramas_hash;
+        $urls=$configuracion->compramas_url.'/registerOrder/'.$configuracion->compramas_hash;
 
-              Log::info('Datos enviados a compramas para registro de orden aprobada  '.$urls);
+        Log::info('Datos enviados a compramas para registro de orden aprobada  '.$urls);
 
-              Log::info($dataraw);
+        Log::info($dataraw);
 
-              activity()->withProperties($dataraw)->log('Datos enviados a registro  de orden aprobada en compramas orden id '.$orden->id.' .vp634');
+        activity()->withProperties($dataraw)->log('Datos enviados a registro  de orden aprobada en compramas orden id '.$orden->id.' .vp634');
 
 
              ## dd($dataraw);

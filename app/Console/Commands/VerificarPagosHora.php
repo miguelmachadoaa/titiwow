@@ -551,7 +551,7 @@ class VerificarPagosHora extends Command
           }else{
 
 
-
+                $configuracion=AlpConfiguracion::where('id', 1)->first();
                 $date = Carbon::parse($orden->created_at); 
 
                 $now = Carbon::now();
