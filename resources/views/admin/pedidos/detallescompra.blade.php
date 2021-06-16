@@ -103,10 +103,6 @@
 
                                         @endif
 
-                                            <p> {{'total: '.$total}}</p>
-                                            <p> {{'total_pagos: '.$total_pagos}}</p>
-                                            <p> {{'costo_envio: '.$costo_envio}}</p>
-                                            <p> {{'total_descuentos: '.$total_descuentos}}</p>
 
                                 </div>
 
