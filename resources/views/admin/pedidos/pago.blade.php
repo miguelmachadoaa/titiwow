@@ -147,11 +147,7 @@ div.overlay > div {
 @section('content')
 
 
- <div class="row detallecarrito">
-    <div class="col-sm-12">
-        {{json_encode($cart)}}
-    </div>
-</div>
+
 
 <input type="hidden" name="tomapedidos" id="tomapedidos" value="1">
 
@@ -189,20 +185,6 @@ div.overlay > div {
             <p>Paso</p>
 
             @include('admin.pedidos.formaspago')
-
-
-
-            <div >
-                <p>{{$total}}</p>
-                <p>{{$total_pagos}}</p>
-
-                <p>{{$costo_envio}}</p>
-
-                <p>{{($total-$total_pagos+$costo_envio)}}</p>
-
-            </div>
-
-        
 
     </div>
 
