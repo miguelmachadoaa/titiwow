@@ -2827,7 +2827,7 @@ class AlpCartController extends JoshController
 
           $pagos=AlpPagos::select('alp_ordenes_pagos.*', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago')->where('id_orden', $carrito)->join('alp_formas_pagos', 'alp_ordenes_pagos.id_forma_pago','=', 'alp_formas_pagos.id')->whereIn('id_estatus_pago', ['1', '2'])->get();
 
-          $total_pagos=0;
+         # $total_pagos=0;
 
           foreach ($pagos as $pago) {
 
