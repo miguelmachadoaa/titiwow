@@ -2007,7 +2007,6 @@ activity()->withProperties($res)->log('cancelar consumo  icg res');
 
      public function cancelarMercadopago($id_orden){
 
-      $user_id = Sentinel::getUser()->id;
 
       $orden=AlpOrdenes::where('id', $id_orden)->first();
 
@@ -2043,7 +2042,7 @@ activity()->withProperties($res)->log('cancelar consumo  icg res');
                 'id_estatus_pago' => 4, 
                 'monto_pago' => $orden->monto_total, 
                 'json' => json_encode($pre), 
-                'id_user' => $user_id
+                'id_user' => '1'
               );
 
               AlpPagos::create($data_cancelar);
@@ -2053,7 +2052,7 @@ activity()->withProperties($res)->log('cancelar consumo  icg res');
                 'id_status' =>'4', 
                 'notas' => 'Cancelacion de pago en Mercadopago', 
                 'json' => json_encode($pre), 
-                'id_user' => $user_id 
+                'id_user' => '1' 
             );
 
             $history=AlpOrdenesHistory::create($data_history_json);
