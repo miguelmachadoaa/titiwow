@@ -73,6 +73,9 @@ class VerificarPagosHora extends Command
 
       $date = Carbon::now();
 
+      $configuracion=AlpConfiguracion::where('id', '1')->first();
+                
+
 
       $d=$date->subDay(3)->format('Y-m-d');
       
@@ -551,7 +554,7 @@ class VerificarPagosHora extends Command
           }else{
 
 
-                $configuracion=AlpConfiguracion::where('id', 1)->first();
+
                 $date = Carbon::parse($orden->created_at); 
 
                 $now = Carbon::now();
