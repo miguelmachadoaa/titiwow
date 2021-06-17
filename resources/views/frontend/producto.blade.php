@@ -232,7 +232,7 @@
 
                         <!-- Proceso para productos de tipo combo -->
 
-                            @if(isset($combos[$producto->id]))
+                            @if(isset($combos[$producto->id]) && isset($inventario[$producto->id]))
                               
                                 @if($inventario[$producto->id]>0)
 
