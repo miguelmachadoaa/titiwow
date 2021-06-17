@@ -634,7 +634,7 @@ public function compramasupdate()
 
           $user = Sentinel::getUser();
 
-          if (isset($user->id_almacen)) {
+          if (isset($user->almacen)) {
 
 
              if ($user->almacen=='0') {
@@ -1129,8 +1129,7 @@ public function compramasupdate()
 
       $user = Sentinel::getUser();
 
-      if (isset($user->id_almacen)) {
-
+      if (isset($user->almacen)) {
 
         if ($user->almacen=='0') {
 
@@ -1861,7 +1860,7 @@ public function compramasupdate()
        
       $user = Sentinel::getUser();
 
-      if (isset($user->id_almacen)) {
+      if (isset($user->almacen)) {
         
         if ($user->almacen=='0') {
 
@@ -5950,7 +5949,7 @@ public function sendcompramascancelar($id_orden){
 
       $user = Sentinel::getUser();
 
-      if (isset($user->id_almacen)) {
+      if (isset($user->almacen)) {
 
 
       if ($user->almacen=='0') {
