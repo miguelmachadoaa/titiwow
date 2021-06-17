@@ -436,21 +436,7 @@ class VerificarPagos extends Command
                   }
 
 
-                  try {
-
-                      if ($orden->id_almacen==1) {
-
-                      # $this->sendcompramas($orden->id, 'approved');
-
-                       $this->registrarOrden($orden->id);
-
-                      } 
-                  
-                      
-                    } catch (\Exception $e) {
-                      activity()->withProperties(1)->log('Error de compramas vp391');
-                    }
-
+                 
 
                   try {
 
