@@ -1993,7 +1993,7 @@ activity()->withProperties($res)->log('cancelar consumo  icg res');
 
       $configuracion = AlpConfiguracion::where('id', '1')->first();
 
-      $almacen=AlpAlmacenes::where('id', $prden->id_almacen)->first();
+      $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
 
        if ($configuracion->mercadopago_sand=='1') {
           
