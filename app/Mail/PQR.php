@@ -42,12 +42,9 @@ class PQR extends Mailable
         ->subject('PQR | Alpina Alimenta tu vida')
         ->markdown('emails.formulariopqr');
 
-        if ($this->archivo!=0) {
-             $email->attach('/home2/alpago/public_html/uploads/pqr/'.$this->archivo);
+        if ($this->archivo!='0') {
+             $email->attach('/home2/alpago/public_html/uploads/pqr/'.$this->archivo, [ 'as' => $this->archivo ]);
         }
-
-       
-
 
         return $email;
 
