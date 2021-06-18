@@ -64,16 +64,16 @@ class PqrRequest extends FormRequest
             }
             case 'POST': {
                 return [
-                    'nombre_pqr' => 'required|min:3|regex:/^[A-Za-z0-9\s]+$/',
-                    'apellido_pqr' => 'required|min:3|regex:/^[A-Za-z0-9\s]+$/',
+                    'nombre_pqr' => 'required|min:3',
+                    'apellido_pqr' => 'required|min:3',
                     'tdocume_pqr' => 'required',
-                    'identificacion_pqr' => 'required|min:5|regex:/^[A-Za-z0-9\s]+$/',
+                    'identificacion_pqr' => 'required|min:5',
                     'email_pqr' => 'required|email',
                     'celular_pqr' => 'required|numeric|min:6',
                     'pais_pqr' => 'required',
-                    'ciudad_pqr' => 'required|min:3|regex:/^[A-Za-z0-9\s]+$/',
+                    'ciudad_pqr' => 'required|min:3',
                     'tipo_pqr' => 'required',
-                    'mensaje_pqr' => 'required|min:10|max:500|regex:/^[A-Za-z0-9\s]+$/',
+                    'mensaje_pqr' => 'required|min:10|max:500',
                     'habeas_cliente' => 'required',
                     'file_update' => 'mimes:jpg,png,jpeg,pdf|max:5120',
 

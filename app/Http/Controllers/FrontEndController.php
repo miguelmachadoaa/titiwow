@@ -641,11 +641,11 @@ $hoy=$date->format('Y-m-d');
             Mail::to('servicioalcliente.coordinador@alpina.com')->send(new \App\Mail\PQR($input, $archivo));
             Mail::to('rumi.torres@alpina.com')->send(new \App\Mail\PQR($input, $archivo));
 
-            return redirect('pqr')->with('aviso', 'Su correo se ha enviado satisfactoriamemte');
+            return redirect('pqr')->with('aviso', 'Su correo se ha enviado satisfactoriamente');
 
           } catch (Swift_RfcComplianceException $e) {
             
-            return redirect('pqr')->with('aviso', 'Ha ocurrido un problema intente nuevamnete ');
+            return redirect('pqr')->with('aviso', 'Ha ocurrido un problema intente nuevamente ');
 
           }
     }
