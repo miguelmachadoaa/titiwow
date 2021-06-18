@@ -40,6 +40,20 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('configuracion',$config);
             });
             
+            view()->composer('layouts.footer', function($view) {
+                $view->with('footermenu', AlpMenuDetalle::menus(5));
+
+                $categ=AlpMenuDetalle::menus(5);
+
+            });
+
+            view()->composer('layouts.footerqlub', function($view) {
+                $view->with('footerqlubmenu', AlpMenuDetalle::menus(6));
+
+                $categ=AlpMenuDetalle::menus(6);
+
+            });
+            
     }
 
     /**

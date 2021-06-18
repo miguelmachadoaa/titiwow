@@ -30,15 +30,12 @@
                     <h4>Categorías </h4>
                     <p>
                         <ul id="menu-categorias" class="menu_footer">
-                            <li class="menu-item"><a href="{{ secure_url('categoria/leche') }}">Leche</a></li>
-                            <li class="menu-item"><a href="{{ secure_url('categoria/lacteos') }}">Derivados Lácteos</a></li>
-                            <li class="menu-item"><a href="{{ secure_url('categoria/quesos') }}">Quesos</a></li>
-                            <li class="menu-item"><a href="{{ secure_url('categoria/postres-dulces') }}">Postres y Dulces</a></li>
-                            <li class="menu-item"><a href="{{ secure_url('categoria/esparcibles-ingredientes') }}">Esparcibles e Ingredientes</a></li>
-                            <li class="menu-item"><a href="{{ secure_url('categoria/bebidas-frutas') }}">Bebidas de Fruta</a></li>
-                            <li class="menu-item"><a href="{{ secure_url('categoria/finesse') }}">Linea Finesse</a></li>
-                            <li class="menu-item"><a href="{{ secure_url('categoria/alpina-baby') }}">Alpina Baby</a></li>
-                            <li class="menu-item"><a href="{{ secure_url('categoria/no-lacteos') }}">No Lácteos</a></li>
+                        @foreach ($footerqlubmenu as $key => $item)
+                            @if ($item['parent'] != 0)
+                                @break
+                            @endif
+                            @include('layouts.menu-sidebar', ['item' => $item])
+                        @endforeach
                         </ul>
                     </p>
                 </div>
