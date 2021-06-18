@@ -601,6 +601,18 @@ $hoy=$date->format('Y-m-d');
 
       $input=$request->all();
 
+      $input['nombre_pqr']=strip_tags($input['nombre_pqr']);
+      $input['apellido_pqr']=strip_tags($input['apellido_pqr']);
+      $input['tdocume_pqr']=strip_tags($input['tdocume_pqr']);
+      $input['identificacion_pqr']=strip_tags($input['identificacion_pqr']);
+      $input['celular_pqr']=strip_tags($input['celular_pqr']);
+      $input['email_pqr']=strip_tags($input['email_pqr']);
+      $input['pais_pqr']=strip_tags($input['pais_pqr']);
+      $input['ciudad_pqr']=strip_tags($input['ciudad_pqr']);
+      $input['tipo_pqr']=strip_tags($input['tipo_pqr']);
+      $input['mensaje_pqr']=strip_tags($input['mensaje_pqr']);
+      
+
       if ($request->file_update != null) {
 
         $file = $request->file('file_update');
