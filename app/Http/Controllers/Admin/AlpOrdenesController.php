@@ -4260,7 +4260,7 @@ public function detallealmacen($id)
 
        $dataraw=json_encode($dataupdate);
 
-         Log::useDailyFiles(storage_path().'/logs/compramas.log');
+       //  Log::useDailyFiles(storage_path().'/logs/compramas.log');
         
         //Log::info('compramas dataraw '.json_encode($dataupdate));
 
@@ -4451,7 +4451,7 @@ public function detallealmacen($id)
 
        $dataraw=json_encode($dataupdate);
 
-         Log::useDailyFiles(storage_path().'/logs/compramas.log');
+         //Log::useDailyFiles(storage_path().'/logs/compramas.log');
         
         //Log::info('compramas dataraw '.json_encode($dataupdate));
 
@@ -4664,7 +4664,7 @@ public function detallealmacen($id)
 
        $orden->update($dataupdateorden);
 
-        Log::useDailyFiles(storage_path().'/logs/compramas.log');
+        //Log::useDailyFiles(storage_path().'/logs/compramas.log');
         
         Log::info('compramas orden '.json_encode($orden));
 
@@ -4931,7 +4931,7 @@ public function detallealmacen($id)
 
        $dataraw=json_encode($dataupdate);
 
-         Log::useDailyFiles(storage_path().'/logs/compramas.log');
+       //  Log::useDailyFiles(storage_path().'/logs/compramas.log');
         
         //Log::info('compramas dataraw '.json_encode($dataupdate));
 
@@ -5101,7 +5101,7 @@ public function sendcompramascancelar($id_orden){
 
        $dataraw=json_encode($dataupdate);
 
-        Log::useDailyFiles(storage_path().'/logs/compramas.log');
+       // Log::useDailyFiles(storage_path().'/logs/compramas.log');
         
         Log::info('datos enviados para cancelar orden en compramas '.json_encode($dataupdate));
 
@@ -5509,7 +5509,7 @@ public function sendcompramascancelar($id_orden){
       
        $orden=AlpOrdenes::where('id', $id_orden)->first();
 
-        Log::useDailyFiles(storage_path().'/logs/compramas.log');
+      //  Log::useDailyFiles(storage_path().'/logs/compramas.log');
         
         Log::info('compramas orden '.json_encode($orden));
 
