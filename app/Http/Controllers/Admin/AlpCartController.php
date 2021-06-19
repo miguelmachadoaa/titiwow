@@ -8211,7 +8211,7 @@ public function verificarDireccion( Request $request)
 
                 if ($detalle->tipo_producto=='2') {
 
-                      $lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.id_impuesto as id_impuesto')
+                      /*$lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.id_impuesto as id_impuesto')
                       ->join('alp_productos', 'alp_combos_productos.id_producto','=', 'alp_productos.id' )
                       ->where('id_combo', $detalle->id)->get();
 
@@ -8229,7 +8229,13 @@ public function verificarDireccion( Request $request)
                           
                         }
                           
-                      }
+                      }*/
+
+                      $base_imponible_detalle=$total_detalle/(1+$detalle->valor_impuesto);
+
+                  $base_impuesto=$base_impuesto+$total_detalle;
+
+                  $valor_impuesto=$detalle->valor_impuesto;
 
                 }else{
 
@@ -8685,7 +8691,7 @@ public function verificarDireccion( Request $request)
 
                 if ($detalle->tipo_producto=='2') {
 
-                      $lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.id_impuesto as id_impuesto')
+                     /* $lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.id_impuesto as id_impuesto')
                       ->join('alp_productos', 'alp_combos_productos.id_producto','=', 'alp_productos.id' )
                       ->where('id_combo', $detalle->id)->get();
 
@@ -8703,7 +8709,14 @@ public function verificarDireccion( Request $request)
                           
                         }
                           
-                      }
+                      }*/
+
+                      $base_imponible_detalle=$total_detalle/(1+$detalle->valor_impuesto);
+
+                  $base_impuesto=$base_impuesto+$total_detalle;
+
+                  $valor_impuesto=$detalle->valor_impuesto;
+
 
                 }else{
 
