@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\AlpCupones;
 use App\Models\AlpCuponesAlmacen;
+use App\Models\AlpCuponesCategorias;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 
@@ -38,13 +39,13 @@ class CuponesImport implements ToCollection
                     'valor_cupon'    => $row[2], 
                     'limite_uso'    => $row[3], 
                     'limite_uso_persona'    => $row[4], 
-                    'fecha_inicio'    => '2021-02-04', 
+                    'fecha_inicio'    => '2021-06-18', 
                     //'fecha_inicio'    => $row[5], 
-                    'fecha_final' => '2021-05-04', 
+                    'fecha_final' => '2021-12-31', 
                     //'fecha_final' => $row[6], 
                     'monto_minimo' => $row[7], 
                     'maximo_productos' => $row[8], 
-                    'origen' => 'Importado ', 
+                    'origen' => 'Importado Origen Vegetal', 
                     'id_user' => 1, 
                 ]);
     
@@ -53,6 +54,18 @@ class CuponesImport implements ToCollection
                     'id_almacen'     => 1,
                     'id_user'     => 1,
                     ]);
+
+                    $condici2 = AlpCuponesAlmacen::create([
+                    'id_cupon'     => $id->id,
+                    'id_almacen'     => 30,
+                    'id_user'     => 1,
+                    ]);
+
+                    $condici3 = AlpCuponesCategorias::create([
+                        'id_cupon'     => $id->id,
+                        'id_categoria'     => 61,
+                        'id_user'     => 1,
+                        ]);
 
 
                 }
