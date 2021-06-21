@@ -4740,6 +4740,8 @@ public function detallealmacen($id)
 
       $dataraw=json_encode($o);
 
+      dd($dataraw);
+
       $urls=$configuracion->compramas_url.'/registerOrderReserved/'.$configuracion->compramas_hash;
 
       

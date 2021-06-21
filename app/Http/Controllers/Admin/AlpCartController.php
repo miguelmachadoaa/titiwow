@@ -8206,7 +8206,6 @@ public function verificarDireccion( Request $request)
           foreach ($cart as $detalle) {
 
             if (isset($detalle->id)) {
-              // verificar si es un producto...
 
             $base_imponible_detalle=0;
             
@@ -8238,7 +8237,7 @@ public function verificarDireccion( Request $request)
                           
                       }*/
 
-                      $base_imponible_detalle=$total_detalle/(1+$detalle->valor_impuesto);
+                  $base_imponible_detalle=$total_detalle/(1+$detalle->valor_impuesto);
 
                   $base_impuesto=$base_impuesto+$total_detalle;
 
@@ -8362,27 +8361,18 @@ public function verificarDireccion( Request $request)
 
                           
                           $data_inventario_l = array(
-
                             'id_producto' => $l->id, 
-
                             'id_almacen' => $id_almacen, 
-
                             'cantidad' =>$l->cantidad*$detalle->cantidad, 
-
                             'operacion' =>'2', 
-
                             'notas' =>'Orden '.$orden->id,
-
                             'id_user' =>$user_id 
-
                           );
 
                           AlpDetalles::create($data_detalle_l);
-
                           AlpInventario::create($data_inventario_l);
 
                     }
-
                     
                   }
 
@@ -8393,7 +8383,6 @@ public function verificarDireccion( Request $request)
 
           }//endfreach cart impuesto
 
-          
             $total_descuentos=0;
             
             $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
@@ -8409,7 +8398,6 @@ public function verificarDireccion( Request $request)
             $porcentaje_descuento_icg=0;
 
             $ban_icg=0;
-
 
           if (isset($role->role_id)) {
 
@@ -8442,7 +8430,6 @@ public function verificarDireccion( Request $request)
               $base_impuesto=$resto;
 
             }
-
             
           $monto_impuesto=($base_impuesto/(1+$valor_impuesto))*$valor_impuesto;
 
@@ -8457,8 +8444,6 @@ public function verificarDireccion( Request $request)
            $base_imponible=$base_imponible*(1-$porcentaje_descuento_icg);
 
           }
-
-
 
            $data_update = array(
               'referencia' => 'ALP'.$orden->id,
@@ -8475,8 +8460,7 @@ public function verificarDireccion( Request $request)
 
              $orden->update($data_update);
 
-
-              $data_history = array(
+             $data_history = array(
                 'id_orden' => $orden->id, 
                'id_status' => '8', 
                 'notas' => 'Orden Creada', 
@@ -8495,8 +8479,6 @@ public function verificarDireccion( Request $request)
               $c->update($data_cupon);
             }
 
-
-
             if (\Session::has('mensajeancheta')) {
               
               $mensaje=\Session::get('mensajeancheta');
@@ -8513,11 +8495,7 @@ public function verificarDireccion( Request $request)
               
             }
 
-            
-
-
             \Session::put('cr', $orden->id);
-
 
             if ($total_descuentos_icg>0) {
 
@@ -8533,7 +8511,6 @@ public function verificarDireccion( Request $request)
 
             }
 
-
           if ($orden->id_almacen==1) {
 
              try {
@@ -8546,9 +8523,7 @@ public function verificarDireccion( Request $request)
 
         }else{ //if la orden es menor a 0
 
-                          
             return 'false0';
-
             
           }
 
@@ -8556,12 +8531,6 @@ public function verificarDireccion( Request $request)
 
 
                   }else{
-
-                    
-
-
-
-
 
 
 
@@ -8720,9 +8689,9 @@ public function verificarDireccion( Request $request)
 
                       $base_imponible_detalle=$total_detalle/(1+$detalle->valor_impuesto);
 
-                  $base_impuesto=$base_impuesto+$total_detalle;
+                      $base_impuesto=$base_impuesto+$total_detalle;
 
-                  $valor_impuesto=$detalle->valor_impuesto;
+                      $valor_impuesto=$detalle->valor_impuesto;
 
 
                 }else{
@@ -8992,11 +8961,8 @@ public function verificarDireccion( Request $request)
             
             if ($resto<$base_impuesto) {
 
-              
               $base_impuesto=$resto;
-
               
-
             }
 
             
@@ -9037,60 +9003,37 @@ public function verificarDireccion( Request $request)
              # 'token' =>substr(md5(time()), 0, 16)
 
                );
-
            
              $orden->update($data_update);
 
-             
-
               $data_history = array(
-
                 'id_orden' => $orden->id, 
-
                'id_status' => '8', 
-
                 'notas' => 'Orden Recargada', 
-
                'id_user' => 1
-
               );
 
-              
             $history=AlpOrdenesHistory::create($data_history);
 
-            
             \Session::put('orden', $orden->id);
-
             
             $cupones=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
-
             
             foreach ($cupones as $cupon) {
 
-              
-
               $c=AlpOrdenesDescuento::where('id', $cupon->id)->first();
-
               
               $data_cupon = array('id_orden' => $orden->id );
 
-              
               $c->update($data_cupon);
-
               
             }
-
-            
-
             
             if (isset($role->role_id)) {
 
             if ($role->role_id=='16') {
 
-
-              
              $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $carrito)->get();
-
 
             foreach ($descuentosIcg as $pagoi) {
 
