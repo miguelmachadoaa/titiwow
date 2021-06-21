@@ -5548,11 +5548,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         if ($producto->tipo_producto=='2') {
 
-            $lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.id_impuesto as id_impuesto')
+                  /*$lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.id_impuesto as id_impuesto')
                     ->join('alp_productos', 'alp_combos_productos.id_producto','=', 'alp_productos.id' )
                     ->where('id_combo', $producto->id)->get();
-
-
 
                     foreach ($lista as $l) {
 
@@ -5567,11 +5565,13 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                         
                       }
                         
-                    }
+                    }*/
+
+                    $base_impuesto=$producto->precio_oferta*$producto->cantidad;
 
               }else{
 
-                $base_impuesto=$producto->precio_oferta+$producto->cantidad;
+                $base_impuesto=$producto->precio_oferta*$producto->cantidad;
 
               }
 
@@ -6594,7 +6594,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                 if ($row->tipo_producto=='2') {
 
-                      $lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.id_impuesto as id_impuesto')
+                    /*  $lista=AlpCombosProductos::select('alp_combos_productos.*', 'alp_productos.id_impuesto as id_impuesto')
                         ->join('alp_productos', 'alp_combos_productos.id_producto','=', 'alp_productos.id' )
                         ->where('id_combo', $row->id)->get();
 
@@ -6606,19 +6606,26 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
                           
                         }
                           
-                      }
+                      }*/
+
+
+                      $base_impuesto=$row->precio_oferta*$row->cantidad;
 
                 }else{
 
-                  $base_impuesto=$row->precio_oferta+$row->cantidad;
+                  $base_impuesto=$row->precio_oferta*$row->cantidad;
+
+                  
 
                 }
 
                 $base=$base+($row->precio_oferta*$row->cantidad);
 
-                #$impuesto=$impuesto+(($base_impuesto)/(1+$valor_impuesto))*$valor_impuesto;
+                $impuesto=$impuesto+(($base_impuesto)/(1+$valor_impuesto))*$valor_impuesto;
 
-                $impuesto=$impuesto+($base_impuesto*$valor_impuesto);
+                #$impuesto=$impuesto+($base_impuesto*$valor_impuesto);
+
+               # dd($base_impuesto);
 
                 }
 
@@ -6983,7 +6990,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
             }else{
 
-              $base_impuesto=$producto->precio_oferta+$producto->cantidad;
+              $base_impuesto=$producto->precio_oferta*$producto->cantidad;
 
             }
                             
