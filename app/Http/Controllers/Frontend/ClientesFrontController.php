@@ -1544,7 +1544,7 @@ class ClientesFrontController extends Controller
             }
          }
 
-        if ($direccion->id) {
+        if (isset($direccion->id)) {
 
 
          if ($direccion->editar_direccion==1) {
