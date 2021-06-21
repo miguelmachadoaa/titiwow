@@ -2320,7 +2320,6 @@ public function postdireccion(DireccionModalRequest $request)
       }
       }
 
-     // dd($cart);
 
        return $cart;
 
@@ -2791,15 +2790,10 @@ public function postdireccion(DireccionModalRequest $request)
 
         }
 
-
-
-
-
         if (Sentinel::check()) {
 
           Sentinel::logout();
         }
-
 
 
         $configuracion=AlpConfiguracion::where('id', '=', '1')->first();
@@ -2808,14 +2802,12 @@ public function postdireccion(DireccionModalRequest $request)
 
         $almacen=AlpAlmacenes::where('id','=', $orden->id_almacen)->first();
 
-
         if (isset($orden->id)) {
           
         }else{
 
           abort('404');
         }
-
 
         \Session::put('orden', $orden->id);
         \Session::put('cr', $orden->id);
@@ -2826,12 +2818,19 @@ public function postdireccion(DireccionModalRequest $request)
         //Sentinel::login($user, false);
 
 
-         $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
+         $detalles =  DB::table('alp_ordenes_detalle')->select(
+           'alp_ordenes_detalle.*',
+           'alp_productos.nombre_producto as nombre_producto',
+           'alp_productos.referencia_producto as referencia_producto' ,
+           'alp_productos.referencia_producto_sap as referencia_producto_sap' ,
+           'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug',
+           'alp_productos.presentacion_producto as presentacion_producto',
+           'alp_impuestos.valor_impuesto as valor_impuesto')
             ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
+            ->join('alp_impuestos', 'alp_productos.id_impuesto', '=', 'alp_impuestos.id')
             ->whereNull('alp_ordenes_detalle.deleted_at')
             ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
 
-            //dd($detalles);
 
             $cart = array();
 
@@ -2845,12 +2844,13 @@ public function postdireccion(DireccionModalRequest $request)
 
           $p->precio_base=$d->precio_base;
 
+          $p->valor_impuesto=$d->valor_impuesto;
+
           $cart[$d->slug]=$p;
 
 
         }
 
-       # dd($cart);  
 
         \Session::put('cart', $cart);
 
@@ -2893,18 +2893,6 @@ public function postdireccion(DireccionModalRequest $request)
 
           # code...
         }
-
-
-
-
-      // dd($impuesto);
-
-
-
-
-
-
-
 
 
           $afe=AlpAlmacenFormaEnvio::where('id_almacen', $id_almacen)->first();
@@ -3731,8 +3719,6 @@ public function postdireccion(DireccionModalRequest $request)
 
       if (isset($cart['id_direccion'])) {
         
-
-
         $direccion=AlpDirecciones::where('id', $cart['id_direccion'])->first();
 
         if ($direccion->id_barrio!=0) {
@@ -3745,10 +3731,6 @@ public function postdireccion(DireccionModalRequest $request)
 
         }
 
-
-
-
-        
 
           $role=RoleUser::select('role_id')->where('user_id', $cart['id_cliente'])->first();
 
