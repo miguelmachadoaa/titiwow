@@ -531,7 +531,7 @@ Orden {{$orden->id}}
              <!--a href="{{secure_url('admin/ordenes/sendmail/'.$orden->id )}}" class="btn btn-danger">Notificar</a-->
 
 
-             @if($user->id==1 || $user->id==14148)
+             @if($user->id==1 )
 
 
              <!--a href="{{secure_url('admin/ordenes/'.$orden->id.'/reenviarcompramas' )}}" class="btn btn-danger">Aprobar Orden Compramas</a-->
