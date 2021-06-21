@@ -2621,7 +2621,9 @@ class AlpCartController extends JoshController
 
             try {
 
-              $preference = MP::post("/checkout/preferences",$preference_data);
+             // $preference = MP::post("/checkout/preferences",$preference_data);
+
+              $preference = array();
 
               $payment_methods = MP::get("/v1/payment_methods");
 
@@ -4644,7 +4646,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
             'monto_total_base' =>$total,
 
-            'preferencia_id' => $preference['response']['id'],
+            #'preferencia_id' => $preference['response']['id'],
+            'preferencia_id' => '0',
+
 
             'json' => json_encode($preference),
 
