@@ -16,6 +16,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
+        $this->config = AlpConfiguracion::where('alp_configuracion_general.id', '1')->first();
+
             view()->composer('layouts.header', function($view) {
                 $view->with('menus', AlpMenuDetalle::menus(1));
             });
@@ -36,8 +38,8 @@ class AppServiceProvider extends ServiceProvider
             });
 
             view()->composer('*', function($view) {
-                $config = AlpConfiguracion::where('alp_configuracion_general.id', '1')->first();
-                $view->with('configuracion',$config);
+                
+                $view->with('configuracion',$this->config);
             });
             
             view()->composer('layouts.footer', function($view) {

@@ -177,6 +177,7 @@
 
                             @if(isset($pagos))
 
+
                                 @foreach($pagos as $p)
 
                                 <div class="col-sm-12" style="    border-top: 1px solid rgba(0,0,0,0.1);">

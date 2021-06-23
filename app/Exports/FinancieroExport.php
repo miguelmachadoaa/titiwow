@@ -32,7 +32,7 @@ class FinancieroExport implements FromView
     public function view(): View
     {
 
-        $ordenes=AlpOrdenes::get();
+      //  $ordenes=AlpOrdenes::get();
 
         $c=AlpOrdenes::query()->select(
            DB::raw('DATE_FORMAT(alp_ordenes.created_at, "%d/%m/%Y")  as fecha'),
@@ -92,18 +92,12 @@ class FinancieroExport implements FromView
 
           }
 
-
-
-        //  $ordenes=$c->get();
-
-
+          $ordenes=$c->get();
           $d = array();
 
           $formaspago=AlpFormaspago::pluck('nombre_forma_pago', 'id');
 
           foreach ($ordenes as $ord) {
-
-         
 
               if ($ord->id_embajador!=0) {
                
@@ -125,7 +119,7 @@ class FinancieroExport implements FromView
 
           }
 
-          //dd($ordenes);
+        //  dd($ordenes);
 
         return view('admin.exports.financiero', [
             'ventas' => $ordenes, 'embajadores'=>$d, 'empresas'=>$empresas
