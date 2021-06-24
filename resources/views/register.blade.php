@@ -117,7 +117,7 @@
                     {!! $errors->first('password', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="form-group {{ $errors->first('password_confirm', 'has-error') }}">
-                    <input type="password" class="form-control" id="Password2" name="password_confirm"
+                    <input type="password" class="form-control" id="Password2" name="password_confirm" id="password_confirm"
                            placeholder="Confirmar Contraseña">
                     {!! $errors->first('password_confirm', '<span class="help-block">:message</span>') !!}
                 </div>
@@ -329,9 +329,6 @@
   });});
 
 
-
-
-
 </script>
 <!--global js end-->
 <script >
@@ -347,8 +344,8 @@ $(document).ready(function(){
             $('#Password2').val('');
           });
 
-
         $('#cod_alpinista').hide();
+
         $('#chkalpinista' ).on( 'click', function() {
             if( $(this).is(':checked') ){
                 $('#cod_alpinista').show();
@@ -360,13 +357,36 @@ $(document).ready(function(){
 
         $('#cod_alpinista').change(function(){
                 $('#btnsubmit').removeAttr('disabled');             
-        })
+        });
+
+
 
         $(document).on('click','#btnsubmit', function(e){
 
             codigo=0;
 
             e.preventDefault();
+
+            first_name=$('#first_name').val();
+            last_name=$('#last_name').val();
+            id_type_doc=$('#id_type_doc').val();
+            doc_cliente=btoa($('#doc_cliente').val());
+            email=$('#Email').val();
+            telefono_cliente=$('#telefono_cliente').val();
+            password=btoa($('#Password1').val());
+            password_confirm=btoa($('#Password2').val());
+            state_id=$('#state_id').val();
+            city_id=$('#city_id').val();
+            id_estructura_address=$('#id_estructura_address').val();
+            principal_address=$('#principal_address').val();
+            secundaria_address=$('#secundaria_address').val();
+            detalle_address=$('#detalle_address').val();
+            barrio_address=$('#barrio_address').val();
+            id_barrio=$('#id_barrio').val();
+            edificio_address=$('#edificio_address').val();
+            habeas_cliente=$('#habeas_cliente').val();
+            
+            ban_enviar=0;
 
             base=$('#base').val();
 
@@ -397,7 +417,13 @@ $(document).ready(function(){
                                 if ($validator.isValid()) {
 
 
-                                    $("#reg_form")[0].submit();
+                                    //$("#reg_form")[0].submit();
+
+
+                                    ban_enviar=1;
+
+
+
 
                                 }
 
@@ -414,7 +440,9 @@ $(document).ready(function(){
 
                             if ($validator.isValid()) {
 
-                               $("#reg_form")[0].submit();
+                               //$("#reg_form")[0].submit();
+
+                               ban_enviar=1;
                                    
                             }
 
@@ -441,7 +469,9 @@ $(document).ready(function(){
 
                         if ($validator.isValid()) {
 
-                            $("#reg_form")[0].submit();
+                            //$("#reg_form")[0].submit();
+
+                            ban_enviar=1;
 
                         }
 
@@ -458,10 +488,60 @@ $(document).ready(function(){
 
                     if ($validator.isValid()) {
 
-                       $("#reg_form")[0].submit();
+                       //$("#reg_form")[0].submit();
+
+                       ban_enviar=1;
                            
                     }
                 }
+
+            }
+
+
+            if(ban_enviar==1){
+
+                $.ajax({
+                    url: base+'/registro',
+                    data:{
+                        first_name:first_name,
+                        last_name:last_name,
+                        id_type_doc:id_type_doc,
+                        email:email,
+                        telefono_cliente:telefono_cliente,
+                        password:password,
+                        password_confirm:password_confirm,
+                        state_id:state_id,
+                        city_id:city_id,
+                        id_estructura_address:id_estructura_address,
+                        principal_address:principal_address,
+                        secundaria_address:secundaria_address,
+                        detalle_address:detalle_address,
+                        barrio_address:barrio_address,
+                        id_barrio:id_barrio,
+                        habeas_cliente:habeas_cliente,
+                        edificio_address:edificio_address,
+                        _token:_token   
+                    },  
+                    type: "POST",
+                    
+                    success:function(data) {
+
+                        if(data=='false'){
+
+                            $('#notific').html('<div class="alert alert-danger">Error al crear el usuario intente nuevamente.</div>');
+                            
+                        }else if(data=='false1'){
+
+                            $('#notific').html('<div class="alert alert-danger">Codigo de Registro no Existe.</div>');
+
+                        }else{
+
+                           // $(location).attr('href',data);
+
+                        }
+                            
+                    }
+                });
 
             }
 
