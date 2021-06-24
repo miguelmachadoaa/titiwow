@@ -962,7 +962,7 @@ class AlpCartController extends JoshController
     
 
 
-       public function orderPse(Request $request)
+    public function orderPse(Request $request)
     {
 
       $input=$request->all();
@@ -992,7 +992,7 @@ class AlpCartController extends JoshController
 
           $id_orden= \Session::get('orden');
       
-      $orden=AlpOrdenes::where('id', $id_orden)->first();
+        $orden=AlpOrdenes::where('id', $id_orden)->first();
 
         $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
 
@@ -1021,33 +1021,33 @@ class AlpCartController extends JoshController
 
           }
 
-              if (Sentinel::check()) {
+          if (Sentinel::check()) {
 
-                $user_id = Sentinel::getUser()->id;
+            $user_id = Sentinel::getUser()->id;
 
-              }else{
+          }else{
 
-                $user_id= \Session::get('iduser');
-              }
+            $user_id= \Session::get('iduser');
+          }
 
-                    if ($user_id) {
+          if ($user_id) {
 
         // 1.- eststus orden, 2.- estatus pago, 3 json pedido 
 
-        $data=$this->generarPedido('8', '4', $input, 'pse');
+          $data=$this->generarPedido('8', '4', $input, 'pse');
 
 
-        if (isset($data['id_orden'])) {
-          # code...
-        }else{
+          if (isset($data['id_orden'])) {
+            # code...
+          }else{
 
-            if ($data==0) {
-          
-              return redirect('order/detail')->withInput()->with('error', trans('Error al procesar su orden, por favor intente nuevamente.'));
+              if ($data==0) {
+            
+                return redirect('order/detail')->withInput()->with('error', trans('Error al procesar su orden, por favor intente nuevamente.'));
 
-            }
+              }
 
-        }
+          }
 
 
 
@@ -2598,7 +2598,9 @@ class AlpCartController extends JoshController
 
             try {
 
-              $preference = MP::post("/checkout/preferences",$preference_data);
+             // $preference = MP::post("/checkout/preferences",$preference_data);
+
+              $preference = array();
 
               $payment_methods = MP::get("/v1/payment_methods");
 
@@ -4621,7 +4623,9 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
             'monto_total_base' =>$total,
 
-            'preferencia_id' => $preference['response']['id'],
+            #'preferencia_id' => $preference['response']['id'],
+            'preferencia_id' => '0',
+
 
             'json' => json_encode($preference),
 
@@ -7891,26 +7895,16 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         
           $user = Sentinel::getUser();
 
-          
            activity($user->full_name)
-
                         ->performedOn($user)
-
                         ->causedBy($user)
-
                         ->withProperties(['id'=>$id])
-
                         ->log('cartcontroller/setdir ');
 
                         
         }else{
-
           
-          activity()->withProperties(['id'=>$id])
-
-                        ->log('cartcontroller/setdir');
-
-                        
+          activity()->withProperties(['id'=>$id])->log('cartcontroller/setdir');
 
         }
 
@@ -7929,27 +7923,17 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       
         foreach ($direcciones as $dir) {
 
-          
-
           $dir_upd = AlpDirecciones::find($dir->id);
 
-          
           $dir_upd->update($data);
-
           
         }
-
         
       $data = array('default_address' => '1' );
 
-      
-
           $direccion= AlpDirecciones::find($id);
-
-          
           $direccion->update($data);
 
-          
         if ($direccion->id) {
 
           
