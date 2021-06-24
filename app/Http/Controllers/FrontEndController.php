@@ -1390,8 +1390,131 @@ $hoy=$date->format('Y-m-d');
      */
 
     public function postLogin(Request $request)
-
     {
+
+      $email=base64_decode($request->email);
+      $password=base64_decode($request->password);
+
+      $password=strip_tags($password);
+      $email=strip_tags($email);
+
+
+
+        try {
+
+            // Try to log the user in
+
+            if ($user=  Sentinel::authenticate(['email'=>$email, 'password'=>$password], $request->get('remember-me', 0))) {
+
+                //Activity log for login
+
+                activity($user->full_name)
+                    ->performedOn($user)
+                    ->causedBy($user)
+                    ->log('LoggedIn');
+
+                    $role = DB::table('role_users')
+               ->select('role_users.role_id')
+               ->where('user_id','=', $user->id)
+               ->first();
+
+               if ($role->role_id=='15') {
+
+                 return redirect("admin")->with('success', trans('auth/message.login.success'));
+
+               }
+
+               if ( $role->role_id>'8' || $role->role_id=='13'  || $role->role_id!='15') {
+
+                 $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+                  ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+                  ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+                  ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+                  ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+                  ->where('alp_direcciones.id_client', $user->id)
+                  ->where('alp_direcciones.default_address', '=', '1')
+                  ->first();
+
+
+                  if (isset($d->id)) {
+
+                  }else{
+
+                     return redirect('misdirecciones')->with('error', 'Debes crear una dirección para completar el proceso de compra..');
+
+                  }
+
+                  if ($request->back=='0') {
+
+                      return secure_url('clientes');
+
+                      #return Redirect::route("clientes")->with('success', trans('auth/message.login.success'));
+
+                  }else{
+
+                      return $request->back;
+
+                      #return Redirect::route($request->back)->with('success', trans('auth/message.signin.success'));
+
+                  }
+
+
+               }else{
+
+                  return secure_url('admin');
+
+                  #return redirect("admin")->with('success', trans('auth/message.login.success'));
+
+               }     
+
+            } else {
+
+                return 'false';
+
+                #return redirect('login')->with('error', 'El Email o Contraseña son Incorrectos.');
+
+            }
+
+
+        } catch (UserNotFoundException $e) {
+
+            $this->messageBag->add('email', trans('auth/message.account_not_found'));
+
+        } catch (NotActivatedException $e) {
+
+            $this->messageBag->add('email', trans('auth/message.account_not_activated'));
+
+        } catch (UserSuspendedException $e) {
+
+            $this->messageBag->add('email', trans('auth/message.account_suspended'));
+
+        } catch (UserBannedException $e) {
+
+            $this->messageBag->add('email', trans('auth/message.account_banned'));
+
+        } catch (ThrottlingException $e) {
+
+            $delay = $e->getDelay();
+
+            $this->messageBag->add('email', trans('auth/message.account_suspended', compact('delay')));
+
+        }
+
+        return 'false';
+
+        // Ooops.. something went wrong
+
+       # return Redirect::back()->withInput()->withErrors($this->messageBag);
+
+    }
+
+
+    public function postLogin2(Request $request)
+    {
+
+    
+
+
 
 
 
@@ -1528,6 +1651,10 @@ $hoy=$date->format('Y-m-d');
         return Redirect::back()->withInput()->withErrors($this->messageBag);
 
     }
+
+
+
+
 
 
 

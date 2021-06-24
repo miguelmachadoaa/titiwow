@@ -6741,7 +6741,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       return $combos;
 
     }
-
     
     private function reloadCart()
      {
