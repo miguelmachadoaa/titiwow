@@ -315,7 +315,7 @@
 <script type="text/javascript" src="{{ secure_asset('assets/js/bootstrap.min.js') }}"></script>
 <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 <!--script type="text/javascript" src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}"></script-->
-<script type="text/javascript" src="{{ secure_asset('assets/js/frontend/register_custom.js') }}"></script>
+<script type="text/javaszcript" src="{{ secure_asset('assets/js/frontend/register_custom.js') }}"></script>
 <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
 <script src="https://www.google.com/recaptcha/api.js?render=6LflWnsaAAAAAERsguImH7gK43wG2vehWYLSw63W"></script>
 
@@ -334,7 +334,40 @@
 <script >
 $(document).ready(function(){
 
+    $("input#Password1").focus(function(){
+        $(this).val('');
+        $(this).get(0).type = 'password';
+    });
 
+    $("input#Password1").click(function(){
+        $(this).val('');
+        $(this).get(0).type = 'password';
+    });
+
+    $("input#Password1").keypress(function(){
+        //$(this).val('');
+        $(this).get(0).type = 'password';
+    });
+
+
+    $("input#Password2").focus(function(){
+        $(this).val('');
+        $(this).get(0).type = 'password';
+    });
+
+    $("input#Password2").click(function(){
+        $(this).val('');
+        $(this).get(0).type = 'password';
+    });
+
+    $("input#Password2").keypress(function(){
+        //$(this).val('');
+        $(this).get(0).type = 'password';
+    });
+
+
+
+    
         $('#Password1').on('focus', function() {
             $('#Password1').val('');
           });

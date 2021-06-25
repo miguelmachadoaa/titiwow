@@ -1997,7 +1997,7 @@ $hoy=$date->format('Y-m-d');
 
                         return 'false1';
 
-                        return redirect('registro')->with('error', trans('auth/message.failure.error'))->withInput();
+                       # return redirect('registro')->with('error', trans('auth/message.failure.error'))->withInput();
 
                     }
 
@@ -2288,7 +2288,7 @@ $hoy=$date->format('Y-m-d');
 
            // return Redirect::route("clientes")->with('success', trans('auth/message.signup.success'));
 
-              return secure_url('/registro');
+              return secure_url('/clientes');
 
               #return redirect("/?registro=".time())->with('success', trans('Bienvenido a Alpina GO!. Ya puedes comprar todos nuestro productos y promociones. Alpina Alimenta tu vida. '));
 
