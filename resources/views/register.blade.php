@@ -117,7 +117,7 @@
                     {!! $errors->first('password', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="form-group {{ $errors->first('password_confirm', 'has-error') }}">
-                    <input type="password" class="form-control" id="Password2" name="password_confirm" id="password_confirm"
+                    <input type="password" class="form-control" id="Password2" name="password_confirm"
                            placeholder="Confirmar Contraseña">
                     {!! $errors->first('password_confirm', '<span class="help-block">:message</span>') !!}
                 </div>
@@ -315,7 +315,7 @@
 <script type="text/javascript" src="{{ secure_asset('assets/js/bootstrap.min.js') }}"></script>
 <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 <!--script type="text/javascript" src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}"></script-->
-<script type="text/javaszcript" src="{{ secure_asset('assets/js/frontend/register_custom.js') }}"></script>
+<script type="text/javascript" src="{{ secure_asset('assets/js/frontend/register_custom.js') }}"></script>
 <script language="javascript" type="text/javascript" src="{{ secure_asset('assets/vendors/select2/js/select2.js') }}"></script>
 <script src="https://www.google.com/recaptcha/api.js?render=6LflWnsaAAAAAERsguImH7gK43wG2vehWYLSw63W"></script>
 
@@ -327,6 +327,9 @@
   var recaptchaResponse = document.getElementById('_recaptcha');
   recaptchaResponse.value = token;
   });});
+
+
+
 
 
 </script>
@@ -344,8 +347,8 @@ $(document).ready(function(){
             $('#Password2').val('');
           });
 
-        $('#cod_alpinista').hide();
 
+        $('#cod_alpinista').hide();
         $('#chkalpinista' ).on( 'click', function() {
             if( $(this).is(':checked') ){
                 $('#cod_alpinista').show();
@@ -357,9 +360,7 @@ $(document).ready(function(){
 
         $('#cod_alpinista').change(function(){
                 $('#btnsubmit').removeAttr('disabled');             
-        });
-
-
+        })
 
         $(document).on('click','#btnsubmit', function(e){
 
@@ -387,6 +388,8 @@ $(document).ready(function(){
             habeas_cliente=$('#habeas_cliente').val();
             
             ban_enviar=0;
+
+            
 
             base=$('#base').val();
 
@@ -419,11 +422,7 @@ $(document).ready(function(){
 
                                     //$("#reg_form")[0].submit();
 
-
                                     ban_enviar=1;
-
-
-
 
                                 }
 
@@ -469,9 +468,9 @@ $(document).ready(function(){
 
                         if ($validator.isValid()) {
 
-                            //$("#reg_form")[0].submit();
+                             //$("#reg_form")[0].submit();
 
-                            ban_enviar=1;
+                             ban_enviar=1;
 
                         }
 
@@ -497,7 +496,6 @@ $(document).ready(function(){
 
             }
 
-
             if(ban_enviar==1){
 
                 $.ajax({
@@ -506,6 +504,7 @@ $(document).ready(function(){
                         first_name:first_name,
                         last_name:last_name,
                         id_type_doc:id_type_doc,
+                        doc_cliente:doc_cliente,
                         email:email,
                         telefono_cliente:telefono_cliente,
                         password:password,
@@ -536,14 +535,14 @@ $(document).ready(function(){
 
                         }else{
 
-                           // $(location).attr('href',data);
+                         $(location).attr('href',data);
 
                         }
                             
                     }
                 });
 
-            }
+                }
 
             //alert(codigo);
 
