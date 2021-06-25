@@ -6697,8 +6697,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           
         }
 
-        
-
       $salidas = AlpInventario::select("alp_inventarios.*", DB::raw(  "SUM(alp_inventarios.cantidad) as cantidad_total"))
         ->groupBy('id_producto')
         ->where('operacion', '2')
@@ -6722,7 +6720,6 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
       return $inv;
 
     }
-
     
     private function combos()
     {
