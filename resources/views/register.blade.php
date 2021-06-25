@@ -338,6 +338,46 @@
 $(document).ready(function(){
 
 
+    $("input#Password1").focus(function(){
+        $(this).val('');
+        $(this).get(0).type = 'password';
+    });
+
+    $("input#Password1").click(function(){
+        $(this).val('');
+        $(this).get(0).type = 'password';
+    });
+
+    $("input#Password1").keypress(function(){
+        //$(this).val('');
+        $(this).get(0).type = 'password';
+    });
+
+
+    $("input#Password2").focus(function(){
+        $(this).val('');
+        $(this).get(0).type = 'password';
+    });
+
+    $("input#Password2").click(function(){
+        $(this).val('');
+        $(this).get(0).type = 'password';
+    });
+
+    $("input#Password2").keypress(function(){
+        //$(this).val('');
+        $(this).get(0).type = 'password';
+    });
+
+    $("input#btnsubmit").keypress(function(){
+        //$(this).val('');
+        $("input#Password1").get(0).type = 'password';
+        $("input#Password2").get(0).type = 'password';
+
+    });
+
+
+
         $('#Password1').on('focus', function() {
             $('#Password1').val('');
           });
