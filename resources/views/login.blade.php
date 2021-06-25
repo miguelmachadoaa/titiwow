@@ -137,6 +137,25 @@
   recaptchaResponse.value = token;
   });});
 
+
+  $("input#password").focus(function(){
+        $(this).val('');
+        $(this).get(0).type = 'password';
+    });
+
+    $("input#password").click(function(){
+        $(this).val('');
+        $(this).get(0).type = 'password';
+    });
+
+    $("input#password").keypress(function(){
+        //$(this).val('');
+        $(this).get(0).type = 'password';
+    });
+
+
+
+
 $(document).ready(function(){
 
     $('#btnsubmit').on('click', function(){
