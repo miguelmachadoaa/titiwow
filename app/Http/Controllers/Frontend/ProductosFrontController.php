@@ -711,10 +711,6 @@ class ProductosFrontController extends Controller
     
     $prods=$this->addOferta($relacionados);
 
-
-
-
-
         $states=State::where('config_states.country_id', '47')->get();
 
         $cart= \Session::get('cart');

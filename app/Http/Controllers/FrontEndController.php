@@ -1386,8 +1386,132 @@ $hoy=$date->format('Y-m-d');
      */
 
     public function postLogin(Request $request)
-
     {
+
+      $email=base64_decode($request->email);
+
+      $password=base64_decode($request->password);
+
+      $password=strip_tags($password);
+
+      $email=strip_tags($email);
+
+
+        try {
+
+            // Try to log the user in
+
+            if ($user=  Sentinel::authenticate(['email'=>$email, 'password'=>$password], $request->get('remember-me', 0))) {
+
+                //Activity log for login
+
+                activity($user->full_name)
+                    ->performedOn($user)
+                    ->causedBy($user)
+                    ->log('LoggedIn');
+
+                    $role = DB::table('role_users')
+               ->select('role_users.role_id')
+               ->where('user_id','=', $user->id)
+               ->first();
+
+               if ($role->role_id=='15') {
+
+                 return redirect("admin")->with('success', trans('auth/message.login.success'));
+
+               }
+
+               if ( $role->role_id>'8' || $role->role_id=='13'  || $role->role_id!='15') {
+
+                 $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
+                  ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
+                  ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
+                  ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
+                  ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
+                  ->where('alp_direcciones.id_client', $user->id)
+                  ->where('alp_direcciones.default_address', '=', '1')
+                  ->first();
+
+
+                  if (isset($d->id)) {
+
+                  }else{
+
+                     return redirect('misdirecciones')->with('error', 'Debes crear una dirección para completar el proceso de compra..');
+
+                  }
+
+                  if ($request->back=='0') {
+
+                      return secure_url('clientes');
+
+                      #return Redirect::route("clientes")->with('success', trans('auth/message.login.success'));
+
+                  }else{
+
+                      return $request->back;
+
+                      #return Redirect::route($request->back)->with('success', trans('auth/message.signin.success'));
+
+                  }
+
+
+               }else{
+
+                  return secure_url('admin');
+
+                  #return redirect("admin")->with('success', trans('auth/message.login.success'));
+
+               }     
+
+            } else {
+
+                return 'false';
+
+                #return redirect('login')->with('error', 'El Email o Contraseña son Incorrectos.');
+
+            }
+
+
+        } catch (UserNotFoundException $e) {
+
+            $this->messageBag->add('email', trans('auth/message.account_not_found'));
+
+        } catch (NotActivatedException $e) {
+
+            $this->messageBag->add('email', trans('auth/message.account_not_activated'));
+
+        } catch (UserSuspendedException $e) {
+
+            $this->messageBag->add('email', trans('auth/message.account_suspended'));
+
+        } catch (UserBannedException $e) {
+
+            $this->messageBag->add('email', trans('auth/message.account_banned'));
+
+        } catch (ThrottlingException $e) {
+
+            $delay = $e->getDelay();
+
+            $this->messageBag->add('email', trans('auth/message.account_suspended', compact('delay')));
+
+        }
+
+        return 'false';
+
+        // Ooops.. something went wrong
+
+       # return Redirect::back()->withInput()->withErrors($this->messageBag);
+
+    }
+
+
+    public function postLogin2(Request $request)
+    {
+
+    
+
+
 
 
 
@@ -1400,23 +1524,14 @@ $hoy=$date->format('Y-m-d');
                 //Activity log for login
 
                 activity($user->full_name)
-
                     ->performedOn($user)
-
                     ->causedBy($user)
-
                     ->log('LoggedIn');
 
 
-
-
-
                 $role = DB::table('role_users')
-
                ->select('role_users.role_id')
-
                ->where('user_id','=', $user->id)
-
                ->first();
 
 
@@ -1428,44 +1543,22 @@ $hoy=$date->format('Y-m-d');
                }
 
 
-
                if ( $role->role_id>'8' || $role->role_id=='13'  || $role->role_id!='15') {
 
-
-
-
-
                  $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-
                   ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-
                   ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-
                   ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-
                   ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-
                   ->where('alp_direcciones.id_client', $user->id)
-
                   ->where('alp_direcciones.default_address', '=', '1')
-
                   ->first();
-
-
-
-
 
                   if (isset($d->id)) {
 
-                    
-
                   }else{
 
-
-
                      return redirect('misdirecciones')->with('error', 'Debes crear una dirección para completar el proceso de compra..');
-
-
 
                   }
 
@@ -1524,6 +1617,10 @@ $hoy=$date->format('Y-m-d');
         return Redirect::back()->withInput()->withErrors($this->messageBag);
 
     }
+
+
+
+
 
 
 
@@ -1705,78 +1802,40 @@ $hoy=$date->format('Y-m-d');
      */
 
     public function getRegister()
-
     {
-
 
 
         $configuracion=AlpConfiguracion::where('id', '1')->first();
 
-
-
         if ( $configuracion->registro_publico==0) {
-
-                
 
                 return view('desactivado');
 
-            # code...
-
         }
-
-
 
         $ad=AlpAlmacenDespacho::where('id_state', 0)->first();
 
-
-
         if (isset($ad->id)) {
-
-
 
           $states=State::where('config_states.country_id', '47')->get();
 
-
-
         }else{
 
-
-
            $states = DB::table("config_states")
-
-                    ->select('config_states.*')
-
-                    ->join('alp_almacen_despacho', 'config_states.id', '=', 'alp_almacen_despacho.id_state')
-
-                    ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
-
-                    ->where("config_states.country_id",'=', '47')
-
-                    ->where("alp_almacenes.estado_registro",'=', '1')
-
-                    ->groupBy('config_states.id')
-
-                    ->get();
-
+            ->select('config_states.*')
+            ->join('alp_almacen_despacho', 'config_states.id', '=', 'alp_almacen_despacho.id_state')
+            ->join('alp_almacenes', 'alp_almacen_despacho.id_almacen', '=', 'alp_almacenes.id')
+            ->where("config_states.country_id",'=', '47')
+            ->where("alp_almacenes.estado_registro",'=', '1')
+            ->groupBy('config_states.id')
+            ->get();
 
 
         }
 
-
-
-       // dd($states);
-
-
-
-
-
         $t_documento = AlpTDocumento::where('estado_registro','=',1)->get();
 
-
-
         $estructura = AlpEstructuraAddress::where('estado_registro','=',1)->get();
-
-        // Show the page
 
         return view('register', compact('states','t_documento','estructura'));
 
@@ -1784,103 +1843,212 @@ $hoy=$date->format('Y-m-d');
 
 
 
-    /**
-
-     * Account sign up form processing.
-
-     *
-
-     * @return Redirect
-
-     */
 
     public function postRegister(UserRequest $request)
     {
 
-
          $configuracion=AlpConfiguracion::where('id', '1')->first();
-
          $input=$request->all();
 
          if($configuracion->user_activacion==0){
 
             $activate=true;
-
             $masterfi=1;
 
          }else{
 
             $activate=false;
-
             $masterfi=0;
 
          }
 
+         // $request->email=base64_decode($request->email);
+          $request->password=base64_decode($request->password);
 
-
-                  $request->first_name=strip_tags($request->first_name);
-
-                  $request->last_name=strip_tags($request->last_name);
-
-                  $request->email=strip_tags($request->email);
-
-                  $request->password=strip_tags($request->password);
-
-                  $request->doc_cliente=strip_tags($request->doc_cliente);
-
-                  $request->cod_alpinista=strip_tags($request->cod_alpinista);
-
-                  $request->principal_address=strip_tags($request->principal_address);
-
-                  $request->secundaria_address=strip_tags($request->secundaria_address);
-
-                  $request->edificio_address=strip_tags($request->edificio_address);
-
-                  $request->detalle_address=strip_tags($request->detalle_address);
-
-                  $request->barrio_address=strip_tags($request->barrio_address);
-
-
-
-
-
+          $request->first_name=strip_tags($request->first_name);
+          $request->last_name=strip_tags($request->last_name);
+          $request->email=strip_tags($request->email);
+          $request->password=strip_tags($request->password);
+          $request->doc_cliente=strip_tags($request->doc_cliente);
+          $request->cod_alpinista=strip_tags($request->cod_alpinista);
+          $request->principal_address=strip_tags($request->principal_address);
+          $request->secundaria_address=strip_tags($request->secundaria_address);
+          $request->edificio_address=strip_tags($request->edificio_address);
+          $request->detalle_address=strip_tags($request->detalle_address);
+          $request->barrio_address=strip_tags($request->barrio_address);
 
 
         try {
 
-
-
             if($request->chkalpinista == 1) {
-
-
 
                 $codalpin = AlpCodAlpinistas::where('documento_alpi', $request->doc_cliente)->where('codigo_alpi', $request->cod_alpinista)->where('estatus_alpinista',1)->first();
 
-
-
                 if ($codalpin) {
 
-
-
                     $data_user = array(
-
                       'first_name' => $request->first_name, 
-
                       'last_name' => $request->last_name, 
-
                       'email' => $request->email, 
-
                       'password' => $request->password, 
-
                       'token'=>md5(time())
-
                     );
 
+                      $user = Sentinel::register($data_user, $activate);
+
+                      $data = array(
+                      'id_user_client' => $user->id, 
+                      'id_type_doc' => $request->id_type_doc, 
+                      'doc_cliente' =>$request->doc_cliente, 
+                      'telefono_cliente' => $request->telefono_cliente,
+                      'habeas_cliente' => $request->habeas_cliente,
+                      'estado_masterfile' =>$masterfi,
+                      'cod_alpinista'=> $request->cod_alpinista,
+                      'cod_oracle_cliente'=> $codalpin->cod_oracle_cliente,
+                      'marketing_email'=> '1',
+                      'marketing_sms'=> '1',
+                      'id_empresa' =>'0',               
+                      'id_embajador' =>'0',               
+                      'id_user' =>0,               
+                      );
+
+                      $cliente=AlpClientes::create($data);
+
+                      $sialpin = array(
+                        'id_usuario_creado' => $user->id, 
+                        'estatus_alpinista' => 2    
+                     );
+
+                      AlpCodAlpinistas::where('id',$codalpin->id)->update($sialpin);
+
+                      $masterfile = array(
+                        'estado_masterfile' => 1 ,
+                        'nota' => 'Alpinista Registrado automaticamente'
+                      );
+
+                      AlpClientes::where('id',$user->id)->update($masterfile);
+
+                      if ($request->id_barrio=='0') {
+
+                        # code...
+
+                        }else{
+
+                          $b=Barrio::where('id', $request->id_barrio)->first();
+
+                            if (isset($b->id)) {
+
+                              $request->barrio_address=$b->barrio_name;
+
+                            }
+
+                        }
 
 
-                    $user = Sentinel::register($data_user, $activate);
+                      $direccion = array(
+                          'id_client' => $user->id, 
+                          'city_id' => $request->city_id, 
+                          'id_estructura_address' => $request->id_estructura_address, 
+                          'principal_address' => $request->principal_address,
+                          'secundaria_address' => $request->secundaria_address,
+                          'edificio_address' => $request->edificio_address,
+                          'detalle_address' => $request->detalle_address,
+                          'barrio_address'=> $request->barrio_address,             
+                          'id_barrio'=> $request->id_barrio,             
+                          'id_user' => 0,               
+                      );
+
+                      AlpDirecciones::create($direccion);
+
+                       $data_c = array(
+                            'cod_oracle_cliente' =>$request->telefono_cliente,
+                            'estado_masterfile' =>'1'
+                        );
+
+                      $cliente->update($data_c);
+
+                      //add user to 'Embajador' group
+
+                      $role = Sentinel::findRoleById(10);
+
+                      $role->users()->attach($user);
+
+                     $activation = Activation::exists($user);
+
+                      if ($activation) {
+
+                          Activation::complete($user, $activation->code);
+
+                      }
+
+                      $mensaje='Estamos procesando tu solicitud de registro, te notificaremos una vez haya finalizado el proceso, este proceso puede tomar hasta 24 horas.';
+
+                        $roleusuario=RoleUser::where('user_id', $user->id)->first();
+
+                      #  Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $configuracion->mensaje_bienvenida, $roleusuario ));
+
+                      # Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $configuracion->mensaje_bienvenida, $roleusuario ));
+
+                    }else{
+
+                        return 'false1';
+
+                       # return redirect('registro')->with('error', trans('auth/message.failure.error'))->withInput();
+
+                    }
+
+            }else{
+
+              $data_user = array(
+                    'first_name' => $request->first_name, 
+                    'last_name' => $request->last_name, 
+                    'email' => $request->email, 
+                    'password' => $request->password, 
+                    'token'=>md5(time())
+                  );
 
 
+                  $user = Sentinel::register($data_user, $activate);
+
+                  if ($request->convenio!='') {
+
+                    $empresa=AlpEmpresas::where('convenio', $request->convenio)->first();
+
+                    if (isset($empresa->id)) {
+
+                      # code...
+
+                    }else{
+
+                      return 'false1';
+
+                     # return redirect('registro')->with('error', trans('El Código de Convenio no existe'))->withInput();
+
+                    }
+
+                  }
+
+                  if (isset($empresa->id)) {
+
+                  }else{
+
+                    $dominio=explode('@', $request->email);
+
+                    if(isset($dominio[1])){
+
+                    $empresa=AlpEmpresas::where('dominio',$dominio[1])->first();
+
+                    }
+
+                  }
+
+                  $id_empresa=0;
+
+                  if (isset($empresa->id)) {
+
+                      $id_empresa=$empresa->id;
+
+                  }
 
                     $data = array(
 
@@ -1894,15 +2062,13 @@ $hoy=$date->format('Y-m-d');
 
                     'habeas_cliente' => $request->habeas_cliente,
 
-                    'estado_masterfile' =>$masterfi,
-
-                    'cod_alpinista'=> $request->cod_alpinista,
-
-                    'cod_oracle_cliente'=> $codalpin->cod_oracle_cliente,
-
+                    'cod_oracle_cliente' =>$request->telefono_cliente,
                     'marketing_email'=> '1',
                     'marketing_sms'=> '1',
-                    'id_empresa' =>'0',               
+
+                    'estado_masterfile' =>'1',
+
+                    'id_empresa' =>$id_empresa,               
 
                     'id_embajador' =>'0',               
 
@@ -1910,44 +2076,52 @@ $hoy=$date->format('Y-m-d');
 
                     );
 
+                  $cliente=AlpClientes::create($data);
 
-                    $cliente=AlpClientes::create($data);
+                   if ($id_empresa==0) {
 
+                    $role = Sentinel::findRoleById(9);
 
+                        $user_history = array(
 
+                        'id_cliente' => $user->id,
 
+                        'estatus_cliente' => "Activado",
 
-                    $sialpin = array(
+                        'notas' => "Ha sido registrado satisfactoriamente",
 
-                        'id_usuario_creado' => $user->id, 
+                        'id_user'=>$user->id
 
-                        'estatus_alpinista' => 2    
-
-                    );
-
-
-
-                    AlpCodAlpinistas::where('id',$codalpin->id)->update($sialpin);
-
+                         );
 
 
-                    $masterfile = array(
+                        AlpClientesHistory::create($user_history);
 
-                        'estado_masterfile' => 1 ,
+                    }else{
 
-                        'nota' => 'Alpinista Registrado automaticamente'
+                      $role = Sentinel::findRoleById(12);
 
-                    );
+                       $user_history = array(
 
+                        'id_cliente' => $user->id,
 
+                        'estatus_cliente' => "Activado",
 
-                    AlpClientes::where('id',$user->id)->update($masterfile);
+                        'notas' => "Ha sido registrado satisfactoriamente bajo la empresa ".$empresa->nombre_empresa,
 
+                        'id_user'=>$user->id
 
+                         );
 
+                        AlpClientesHistory::create($user_history);
 
+                    }
 
-                    if ($request->id_barrio=='0') {
+                    $role->users()->attach($user);
+
+                    $roleusuario=RoleUser::where('user_id', $user->id)->first();
+
+                     if ($request->id_barrio=='0') {
 
               # code...
 
@@ -1994,12 +2168,7 @@ $hoy=$date->format('Y-m-d');
                       );
 
 
-
                       AlpDirecciones::create($direccion);
-
-
-
-
 
                        $data_c = array(
 
@@ -2009,107 +2178,326 @@ $hoy=$date->format('Y-m-d');
 
                         );
 
-
-
                     $cliente->update($data_c);
 
+                     $mensaje='Estamos procesando tu solicitud de registro, te notificaremos una vez haya finalizado el proceso, este proceso puede tomar hasta 24 horas.';
+
+
+                     if (filter_var($user->email, FILTER_VALIDATE_EMAIL)) {
+
+                     #  Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name,  $configuracion->mensaje_bienvenida, $roleusuario));
+
+                      #Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name,  $configuracion->mensaje_bienvenida, $roleusuario));
+
+                     }
+
+            }
+
+
+            //if you set $activate=false above then user will receive an activation mail
+
+            if (!$activate) {
+
+                // Data to be used on the email view
+
+                $data=[
+
+                    'user_name' => $user->first_name .' '. $user->last_name,
+
+                    'activationUrl' => URL::route('activate', [$user->id, Activation::create($user)->code]),
+
+                ];
+
+                // Send the activation code through email
+
+
+
+                if ($id_empresa==0) {
+
+                    return secure_url('login');
+
+                   # return redirect('login')->with('success', trans('auth/message.signup.success'));
+
+                }else{
+
+                    $user_history = array(
+
+                        'id_client' => $user->id,
+
+                        'estatus_cliente' => "Activado",
+
+                        'notas' => "Ha sido registrado satisfactoriamente bajo la empresa ".$empresa->nombre_empresa,
+
+                        'id_user'=>$user->id
+
+                         );
+
+                    AlpClientesHistory::create($user_history);
+
+                     $configuracion->mensaje_bienvenida="Ha sido registrado satisfactoriamente bajo la empresa ".$empresa->nombre_empresa.", debe esperar que su Usuario sea activado en un proceso interno, te notificaremos vía email su activación.";
+
+                     return secure_url('login');
+
+                     #return redirect('login?registro='.$user->id)->with('success', trans($mensaje));
+
+                }
+
+            }
+
+
+            try {
+
+             // $datos360= $this->datos360($user->id); 
+
+            } catch (Exception $e) {
+
+              
+
+            }
+
+
+              try {
+
+               // $this->addibm($user);
+
+              } catch (Exception $e) {
+
+              }
+
+            // login user automatically
+
+            Sentinel::login($user, false);
+
+            //Activity log for new account
+
+            activity($user->full_name)
+
+                ->performedOn($user)
+
+                ->causedBy($user)
+
+                ->log('Nueva Cuenta Creada');
+
+              Mail::to($user->email)->send(new \App\Mail\NotificacionCorreo($user));
+
+              Mail::to('miguelmachadoaa@gmail.com')->send(new \App\Mail\NotificacionCorreo($user));
+
+           // return Redirect::route("clientes")->with('success', trans('auth/message.signup.success'));
+
+              return secure_url('/clientes');
+
+              #return redirect("/?registro=".time())->with('success', trans('Bienvenido a Alpina GO!. Ya puedes comprar todos nuestro productos y promociones. Alpina Alimenta tu vida. '));
+
+
+        } catch (UserExistsException $e) {
+
+            $this->messageBag->add('email', trans('auth/message.account_already_exists'));
+
+        }
+
+        // Ooops.. something went wrong
+
+        return 'false';
+
+        #return Redirect::back()->withInput()->withErrors($this->messageBag);
+
+    }
 
 
 
 
 
+
+    /**
+
+     * Account sign up form processing.
+
+     *
+
+     * @return Redirect
+
+     */
+
+    public function postRegister22(UserRequest $request)
+    {
+
+
+         $configuracion=AlpConfiguracion::where('id', '1')->first();
+
+         $input=$request->all();
+
+         if($configuracion->user_activacion==0){
+
+            $activate=true;
+
+            $masterfi=1;
+
+         }else{
+
+            $activate=false;
+
+            $masterfi=0;
+
+         }
+
+
+
+                  $request->first_name=strip_tags($request->first_name);
+
+                  $request->last_name=strip_tags($request->last_name);
+
+                  $request->email=strip_tags($request->email);
+
+                  $request->password=strip_tags($request->password);
+
+                  $request->doc_cliente=strip_tags($request->doc_cliente);
+
+                  $request->cod_alpinista=strip_tags($request->cod_alpinista);
+
+                  $request->principal_address=strip_tags($request->principal_address);
+
+                  $request->secundaria_address=strip_tags($request->secundaria_address);
+
+                  $request->edificio_address=strip_tags($request->edificio_address);
+
+                  $request->detalle_address=strip_tags($request->detalle_address);
+
+                  $request->barrio_address=strip_tags($request->barrio_address);
+
+
+        try {
+
+            if($request->chkalpinista == 1) {
+
+                $codalpin = AlpCodAlpinistas::where('documento_alpi', $request->doc_cliente)->where('codigo_alpi', $request->cod_alpinista)->where('estatus_alpinista',1)->first();
+
+                if ($codalpin) {
+
+                    $data_user = array(
+                      'first_name' => $request->first_name, 
+                      'last_name' => $request->last_name, 
+                      'email' => $request->email, 
+                      'password' => $request->password, 
+                      'token'=>md5(time())
+                    );
+
+                    $user = Sentinel::register($data_user, $activate);
+
+                    $data = array(
+                    'id_user_client' => $user->id, 
+                    'id_type_doc' => $request->id_type_doc, 
+                    'doc_cliente' =>$request->doc_cliente, 
+                    'telefono_cliente' => $request->telefono_cliente,
+                    'habeas_cliente' => $request->habeas_cliente,
+                    'estado_masterfile' =>$masterfi,
+                    'cod_alpinista'=> $request->cod_alpinista,
+                    'cod_oracle_cliente'=> $codalpin->cod_oracle_cliente,
+                    'marketing_email'=> '1',
+                    'marketing_sms'=> '1',
+                    'id_empresa' =>'0',               
+                    'id_embajador' =>'0',               
+                    'id_user' =>0,               
+                    );
+
+                    $cliente=AlpClientes::create($data);
+
+                    $sialpin = array(
+                        'id_usuario_creado' => $user->id, 
+                        'estatus_alpinista' => 2    
+                    );
+
+                    AlpCodAlpinistas::where('id',$codalpin->id)->update($sialpin);
+
+                    $masterfile = array(
+                        'estado_masterfile' => 1 ,
+                        'nota' => 'Alpinista Registrado automaticamente'
+                    );
+
+                    AlpClientes::where('id',$user->id)->update($masterfile);
+
+                    if ($request->id_barrio=='0') {
+
+              # code...
+
+                      }else{
+
+                        $b=Barrio::where('id', $request->id_barrio)->first();
+
+                        if (isset($b->id)) {
+
+                          $request->barrio_address=$b->barrio_name;
+
+                        }
+
+                      }
+
+
+                      $direccion = array(
+                          'id_client' => $user->id, 
+                          'city_id' => $request->city_id, 
+                          'id_estructura_address' => $request->id_estructura_address, 
+                          'principal_address' => $request->principal_address,
+                          'secundaria_address' => $request->secundaria_address,
+                          'edificio_address' => $request->edificio_address,
+                          'detalle_address' => $request->detalle_address,
+                          'barrio_address'=> $request->barrio_address,             
+                          'id_barrio'=> $request->id_barrio,             
+                          'id_user' => 0,               
+                      );
+
+                      AlpDirecciones::create($direccion);
+
+                       $data_c = array(
+                            'cod_oracle_cliente' =>$request->telefono_cliente,
+                            'estado_masterfile' =>'1'
+                        );
+
+                    $cliente->update($data_c);
 
                     //add user to 'Embajador' group
 
                     $role = Sentinel::findRoleById(10);
 
-
-
                     $role->users()->attach($user);
-
-                    
 
                     $activation = Activation::exists($user);
 
-
-
                     if ($activation) {
-
-
 
                         Activation::complete($user, $activation->code);
 
-
-
                     }
 
-
-
-                      $mensaje='Estamos procesando tu solicitud de registro, te notificaremos una vez haya finalizado el proceso, este proceso puede tomar hasta 24 horas.';
-
-
-
-
+                    $mensaje='Estamos procesando tu solicitud de registro, te notificaremos una vez haya finalizado el proceso, este proceso puede tomar hasta 24 horas.';
 
                       $roleusuario=RoleUser::where('user_id', $user->id)->first();
 
-
-
                     #  Mail::to($user->email)->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $configuracion->mensaje_bienvenida, $roleusuario ));
-
-
 
                      # Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\WelcomeUser($user->first_name, $user->last_name, $configuracion->mensaje_bienvenida, $roleusuario ));
 
-
-
                     }else{
-
-
 
                         return redirect('registro')->with('error', trans('auth/message.failure.error'))->withInput();
 
-
-
                     }
-
-
 
             }else{
 
-
-
               $data_user = array(
-
                     'first_name' => $request->first_name, 
-
                     'last_name' => $request->last_name, 
-
                     'email' => $request->email, 
-
                     'password' => $request->password, 
-
                     'token'=>md5(time())
-
                   );
-
-
-
-
-
 
 
                   $user = Sentinel::register($data_user, $activate);
 
-
-
                   if ($request->convenio!='') {
 
-                    
-
                     $empresa=AlpEmpresas::where('convenio', $request->convenio)->first();
-
-
 
                     if (isset($empresa->id)) {
 
@@ -2117,53 +2505,29 @@ $hoy=$date->format('Y-m-d');
 
                     }else{
 
-
-
                       return redirect('registro')->with('error', trans('El Código de Convenio no existe'))->withInput();
-
-
 
                     }
 
-
-
                   }
-
-
 
                   if (isset($empresa->id)) {
 
-                    
-
                   }else{
-
-
 
                     $dominio=explode('@', $request->email);
 
-
-
                     $empresa=AlpEmpresas::where('dominio',$dominio[1])->first();
-
-
 
                   }
 
                   $id_empresa=0;
 
-
-
                   if (isset($empresa->id)) {
-
-
 
                       $id_empresa=$empresa->id;
 
-                     
-
                   }
-
-
 
                     $data = array(
 
@@ -2191,21 +2555,11 @@ $hoy=$date->format('Y-m-d');
 
                     );
 
-
-
-
-
                   $cliente=AlpClientes::create($data);
-
-
 
                    if ($id_empresa==0) {
 
-
-
                     $role = Sentinel::findRoleById(9);
-
-
 
                         $user_history = array(
 
@@ -2220,18 +2574,11 @@ $hoy=$date->format('Y-m-d');
                          );
 
 
-
                         AlpClientesHistory::create($user_history);
-
-
 
                     }else{
 
-
-
                       $role = Sentinel::findRoleById(12);
-
-
 
                        $user_history = array(
 
@@ -2245,27 +2592,13 @@ $hoy=$date->format('Y-m-d');
 
                          );
 
-
-
                         AlpClientesHistory::create($user_history);
-
-
 
                     }
 
-
-
                     $role->users()->attach($user);
 
-
-
                     $roleusuario=RoleUser::where('user_id', $user->id)->first();
-
-
-
-
-
-
 
                      if ($request->id_barrio=='0') {
 
@@ -2464,17 +2797,6 @@ $hoy=$date->format('Y-m-d');
             }
 
 
-
-
-
-            
-
-
-
-
-
-
-
             // login user automatically
 
             Sentinel::login($user, false);
@@ -2489,16 +2811,13 @@ $hoy=$date->format('Y-m-d');
 
                 ->log('Nueva Cuenta Creada');
 
-
               Mail::to($user->email)->send(new \App\Mail\NotificacionCorreo($user));
 
               Mail::to('miguelmachadoaa@gmail.com')->send(new \App\Mail\NotificacionCorreo($user));
-          
 
            // return Redirect::route("clientes")->with('success', trans('auth/message.signup.success'));
 
             return redirect("/?registro=".time())->with('success', trans('Bienvenido a Alpina GO!. Ya puedes comprar todos nuestro productos y promociones. Alpina Alimenta tu vida. '));
-
 
 
         } catch (UserExistsException $e) {
@@ -2506,8 +2825,6 @@ $hoy=$date->format('Y-m-d');
             $this->messageBag->add('email', trans('auth/message.account_already_exists'));
 
         }
-
-
 
         // Ooops.. something went wrong
 
@@ -4930,19 +5247,11 @@ public function getApiUrl($endpoint, $jsessionid)
 
       curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-
-
       try {
-
-
 
         $result = curl_exec($ch);
 
-        
-
       } catch (Exception $e) {
-
-        
 
       }
 
@@ -4952,7 +5261,7 @@ public function getApiUrl($endpoint, $jsessionid)
 
       if (curl_errno($ch)) {
 
-           Log::info('Error:' . curl_error($ch));
+          // Log::info('Error:' . curl_error($ch));
 
       }
 
