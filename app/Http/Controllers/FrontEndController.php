@@ -3940,41 +3940,21 @@ public function getApiUrl($endpoint, $jsessionid)
 
  private function getAlmacen(){
 
-
-
-
-
-
-
     $tipo=0;
-
-
-
-
 
       //  if (isset(Sentinel::getUser()->id)) {
 
         if (1==0) {
 
-
-
             # code...
 
             $user_id = Sentinel::getUser()->id;
 
-
-
             $usuario=User::where('id', $user_id)->first();
-
-
 
             $user_cliente=User::where('id', $user_id)->first();
 
-
-
             $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
-
-
 
              $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
 
@@ -3993,13 +3973,9 @@ public function getApiUrl($endpoint, $jsessionid)
               ->first();
 
 
-
             if (isset($d->id)) {
 
-
-
             }else{
-
 
 
                   $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
@@ -4018,40 +3994,18 @@ public function getApiUrl($endpoint, $jsessionid)
 
             }
 
-
-
             if (isset($d->id)) {
-
-
-
 
 
                \Session::put('ciudad', $d->city_id);
 
-
-
               $tipo=0;
 
-
-
             if ($role->role_id=='14') {
-
-              
 
               $tipo=1;
 
             }
-
-
-
-
-
-
-
-
-
-
-
 
 
                if ($d->id_barrio==0) {
