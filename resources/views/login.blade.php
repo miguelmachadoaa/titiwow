@@ -92,7 +92,7 @@
                         </div>
                     </div>
                     <div class="clearfix"></div>
-
+                    <br />
                     ¿Aún sin Cuenta? <a href="{{ secure_url('registro') }}"><strong> Registrarse</strong>
                 </form>
                 <!--div class="text-center">
