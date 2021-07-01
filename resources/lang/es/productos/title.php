@@ -44,7 +44,5 @@ return array(
 	'pum' => 'Pum',
 	'medida' => 'Medida',
 	'tipo' => 'Tipo de Producto',
-
-
-
+	'images' => 'Imagenes Adicionales',
 );

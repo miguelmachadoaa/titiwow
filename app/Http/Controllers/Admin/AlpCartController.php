@@ -350,9 +350,6 @@ class AlpCartController extends JoshController
 
         }
 
-
-       
-
       
       $id=$id/1024;
 
@@ -522,31 +519,31 @@ class AlpCartController extends JoshController
 
          if (isset($role->role_id)) {
 
-          if ($role->role_id=='16') {
+            if ($role->role_id=='16') {
 
-          $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $id)->get();
+            $descuentosIcg=AlpOrdenesDescuentoIcg::where('id_orden','=', $id)->get();
 
-          $di=0;
+            $di=0;
 
-          foreach ($descuentosIcg as $dd) {
-            
-            $di=$di+$dd->monto_descuento;
+            foreach ($descuentosIcg as $dd) {
+              
+              $di=$di+$dd->monto_descuento;
+
+            }
+
+        // dd($di);
+
+            if ($di>0) {
+
+              $cupo_icg=$this->consultaIcg($id);
+
+              $cupo_icg_total=$this->consultaIcgTotal($id);
+
+              $porcentaje_icg=($cupo_icg/$cupo_icg_total)*100;
+
+            }
 
           }
-
-       // dd($di);
-
-          if ($di>0) {
-
-            $cupo_icg=$this->consultaIcg($id);
-
-            $cupo_icg_total=$this->consultaIcgTotal($id);
-
-            $porcentaje_icg=($cupo_icg/$cupo_icg_total)*100;
-
-          }
-
-        }
 
         }
 

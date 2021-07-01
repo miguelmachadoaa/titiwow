@@ -13,7 +13,6 @@ Route::get('confirmarcorreo/{token}', 'FrontEndController@confirmarcorreo')->nam
 
 Route::get('reenviarcorreo/{token}', 'FrontEndController@reenviarcorreo')->name('reenviarcorreo');
 
-
 Route::get('pqr', 'FrontEndController@getPqr')->name('pqr');
 
 
