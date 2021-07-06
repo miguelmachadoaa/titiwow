@@ -129,13 +129,13 @@
 <script src="https://www.google.com/recaptcha/api.js?render=6LflWnsaAAAAAERsguImH7gK43wG2vehWYLSw63W"></script>
 
 <script>
-  grecaptcha.ready(function() {
-  grecaptcha.execute('6LflWnsaAAAAAERsguImH7gK43wG2vehWYLSw63W', {action: 'contactForm'})
+ /* grecaptcha.ready(function() {
+  grecaptcha.execute('6LflWnsaAAAAAERsguImH7gK43wG2vehWYLSw63W', {action: 'omb_loginForm'})
   .then(function(token) {
 
   var recaptchaResponse = document.getElementById('_recaptcha');
   recaptchaResponse.value = token;
-  });});
+  });});*/
 
 
   $("input#password").focus(function(){
@@ -154,6 +154,26 @@
     });
 
 
+
+    $("#password").keypress(function(e) {
+       if(e.which == 13) {
+
+          e.preventDefault();
+
+          $( "#btnsubmit" ).trigger( "click" );
+       }
+    });
+
+    $("#email").keypress(function(e) {
+       if(e.which == 13) {
+
+           e.preventDefault();
+
+          $( "#btnsubmit" ).trigger( "click" );
+       }
+    });
+
+    
 
 
 $(document).ready(function(){

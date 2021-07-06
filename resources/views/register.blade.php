@@ -377,6 +377,21 @@ $(document).ready(function(){
     });
 
 
+    
+
+    $("input").keypress(function(e) {
+       if(e.which == 13) {
+
+           e.preventDefault();
+
+          $( "#btnsubmit" ).trigger( "click" );
+       }
+    });
+
+
+
+
+
 
         $('#Password1').on('focus', function() {
             $('#Password1').val('');

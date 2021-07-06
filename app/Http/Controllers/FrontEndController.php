@@ -1388,6 +1388,7 @@ $hoy=$date->format('Y-m-d');
     public function postLogin(Request $request)
     {
 
+
       $email=base64_decode($request->email);
 
       $password=base64_decode($request->password);
@@ -1437,8 +1438,8 @@ $hoy=$date->format('Y-m-d');
 
                   }else{
 
-                     return redirect('misdirecciones')->with('error', 'Debes crear una dirección para completar el proceso de compra..');
-
+                    # return redirect('misdirecciones')->with('error', 'Debes crear una dirección para completar el proceso de compra..');
+                    return secure_url('misdirecciones');
                   }
 
                   if ($request->back=='0') {
