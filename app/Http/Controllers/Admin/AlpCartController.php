@@ -1025,10 +1025,11 @@ class AlpCartController extends JoshController
       
         $orden=AlpOrdenes::where('id', $id_orden)->first();
 
-        $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
+        if(isset($orden->id)){
 
-        
-          $configuracion = AlpConfiguracion::where('id', '1')->first();
+          $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
+
+        $configuracion = AlpConfiguracion::where('id', '1')->first();
 
             $mp = new MP();
 
@@ -1051,6 +1052,16 @@ class AlpCartController extends JoshController
             $input = MP::get("/v1/payments/".$id_pago);
 
           }
+
+
+
+
+        }else{
+
+          $input=null;
+        }
+
+        
 
           if (Sentinel::check()) {
 
