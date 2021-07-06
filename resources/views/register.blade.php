@@ -338,6 +338,61 @@
 $(document).ready(function(){
 
 
+    $("input#Password1").focus(function(){
+        $(this).val('');
+        $(this).get(0).type = 'password';
+    });
+
+    $("input#Password1").click(function(){
+        $(this).val('');
+        $(this).get(0).type = 'password';
+    });
+
+    $("input#Password1").keypress(function(){
+        //$(this).val('');
+        $(this).get(0).type = 'password';
+    });
+
+
+    $("input#Password2").focus(function(){
+        $(this).val('');
+        $(this).get(0).type = 'password';
+    });
+
+    $("input#Password2").click(function(){
+        $(this).val('');
+        $(this).get(0).type = 'password';
+    });
+
+    $("input#Password2").keypress(function(){
+        //$(this).val('');
+        $(this).get(0).type = 'password';
+    });
+
+    $("input#btnsubmit").keypress(function(){
+        //$(this).val('');
+        $("input#Password1").get(0).type = 'password';
+        $("input#Password2").get(0).type = 'password';
+
+    });
+
+
+    
+
+    $("input").keypress(function(e) {
+       if(e.which == 13) {
+
+           e.preventDefault();
+
+          $( "#btnsubmit" ).trigger( "click" );
+       }
+    });
+
+
+
+
+
+
         $('#Password1').on('focus', function() {
             $('#Password1').val('');
           });
@@ -368,6 +423,29 @@ $(document).ready(function(){
 
             e.preventDefault();
 
+            first_name=$('#first_name').val();
+            last_name=$('#last_name').val();
+            id_type_doc=$('#id_type_doc').val();
+            doc_cliente=btoa($('#doc_cliente').val());
+            email=$('#Email').val();
+            telefono_cliente=$('#telefono_cliente').val();
+            password=btoa($('#Password1').val());
+            password_confirm=btoa($('#Password2').val());
+            state_id=$('#state_id').val();
+            city_id=$('#city_id').val();
+            id_estructura_address=$('#id_estructura_address').val();
+            principal_address=$('#principal_address').val();
+            secundaria_address=$('#secundaria_address').val();
+            detalle_address=$('#detalle_address').val();
+            barrio_address=$('#barrio_address').val();
+            id_barrio=$('#id_barrio').val();
+            edificio_address=$('#edificio_address').val();
+            habeas_cliente=$('#habeas_cliente').val();
+            
+            ban_enviar=0;
+
+            
+
             base=$('#base').val();
 
             _token=$('input[name="_token"]').val();
@@ -397,7 +475,9 @@ $(document).ready(function(){
                                 if ($validator.isValid()) {
 
 
-                                    $("#reg_form")[0].submit();
+                                    //$("#reg_form")[0].submit();
+
+                                    ban_enviar=1;
 
                                 }
 
@@ -414,7 +494,9 @@ $(document).ready(function(){
 
                             if ($validator.isValid()) {
 
-                               $("#reg_form")[0].submit();
+                               //$("#reg_form")[0].submit();
+
+                               ban_enviar=1;
                                    
                             }
 
@@ -441,7 +523,9 @@ $(document).ready(function(){
 
                         if ($validator.isValid()) {
 
-                            $("#reg_form")[0].submit();
+                             //$("#reg_form")[0].submit();
+
+                             ban_enviar=1;
 
                         }
 
@@ -458,12 +542,62 @@ $(document).ready(function(){
 
                     if ($validator.isValid()) {
 
-                       $("#reg_form")[0].submit();
+                       //$("#reg_form")[0].submit();
+
+                       ban_enviar=1;
                            
                     }
                 }
 
             }
+
+            if(ban_enviar==1){
+
+                $.ajax({
+                    url: base+'/registro',
+                    data:{
+                        first_name:first_name,
+                        last_name:last_name,
+                        id_type_doc:id_type_doc,
+                        doc_cliente:doc_cliente,
+                        email:email,
+                        telefono_cliente:telefono_cliente,
+                        password:password,
+                        password_confirm:password_confirm,
+                        state_id:state_id,
+                        city_id:city_id,
+                        id_estructura_address:id_estructura_address,
+                        principal_address:principal_address,
+                        secundaria_address:secundaria_address,
+                        detalle_address:detalle_address,
+                        barrio_address:barrio_address,
+                        id_barrio:id_barrio,
+                        habeas_cliente:habeas_cliente,
+                        edificio_address:edificio_address,
+                        _token:_token   
+                    },  
+                    type: "POST",
+                    
+                    success:function(data) {
+
+                        if(data=='false'){
+
+                            $('#notific').html('<div class="alert alert-danger">Error al crear el usuario intente nuevamente.</div>');
+                            
+                        }else if(data=='false1'){
+
+                            $('#notific').html('<div class="alert alert-danger">Codigo de Registro no Existe.</div>');
+
+                        }else{
+
+                         $(location).attr('href',data);
+
+                        }
+                            
+                    }
+                });
+
+                }
 
             //alert(codigo);
 

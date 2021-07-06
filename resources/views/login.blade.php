@@ -68,13 +68,13 @@
                     <input type="hidden" name="back" id="back" value="0">
                     <div class="form-group {{ $errors->first('email', 'has-error') }}">
                         <label class="sr-only">Email</label>
-                        <input type="email" class="form-control" name="email" placeholder="Email"
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email"
                                value="{!! old('email') !!}">
                     </div>
                     <span class="help-block">{{ $errors->first('email', ':message') }}</span>
                     <div class="form-group {{ $errors->first('password', 'has-error') }}">
                         <label class="sr-only">Contraseña</label>
-                        <input type="password" class="form-control" name="password" placeholder="Contraseña">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña">
                     </div>
                     <span class="help-block">{{ $errors->first('password', ':message') }}</span>
                     <!--div class="checkbox">
@@ -85,14 +85,14 @@
                     </div-->
                     <div class="form-group">
                         <div class="col-md-6">
-                            <input type="submit" class="btn btn-block btn-primary" value="Iniciar Sesión">
+                            <input type="button" id="btnsubmit" class="btn btn-block btn-primary" value="Iniciar Sesión">
                         </div>
                         <div class="col-md-6">
                             <a class="btn btn-block btn-danger" href="{{ secure_url('/') }}">Regresar a Inicio</a>
                         </div>
                     </div>
                     <div class="clearfix"></div>
-
+                    <br />
                     ¿Aún sin Cuenta? <a href="{{ secure_url('registro') }}"><strong> Registrarse</strong>
                 </form>
                 <!--div class="text-center">
@@ -115,6 +115,10 @@
         </div>
     </div>
     <!-- //Content Section End -->
+
+    
+
+    <input type="hidden" id="base" name="base" value="{{secure_url('/')}}">
 </div>
 <!--global js starts-->
 <script type="text/javascript" src="{{ secure_asset('assets/js/frontend/jquery.min.js') }}"></script>
@@ -125,15 +129,92 @@
 <script src="https://www.google.com/recaptcha/api.js?render=6LflWnsaAAAAAERsguImH7gK43wG2vehWYLSw63W"></script>
 
 <script>
-  grecaptcha.ready(function() {
-  grecaptcha.execute('6LflWnsaAAAAAERsguImH7gK43wG2vehWYLSw63W', {action: 'contactForm'})
+ /* grecaptcha.ready(function() {
+  grecaptcha.execute('6LflWnsaAAAAAERsguImH7gK43wG2vehWYLSw63W', {action: 'omb_loginForm'})
   .then(function(token) {
 
   var recaptchaResponse = document.getElementById('_recaptcha');
   recaptchaResponse.value = token;
-  });});
+  });});*/
 
 
+  $("input#password").focus(function(){
+        $(this).val('');
+        $(this).get(0).type = 'password';
+    });
+
+    $("input#password").click(function(){
+        $(this).val('');
+        $(this).get(0).type = 'password';
+    });
+
+    $("input#password").keypress(function(){
+        //$(this).val('');
+        $(this).get(0).type = 'password';
+    });
+
+
+
+    $("#password").keypress(function(e) {
+       if(e.which == 13) {
+
+          e.preventDefault();
+
+          $( "#btnsubmit" ).trigger( "click" );
+       }
+    });
+
+    $("#email").keypress(function(e) {
+       if(e.which == 13) {
+
+           e.preventDefault();
+
+          $( "#btnsubmit" ).trigger( "click" );
+       }
+    });
+
+    
+
+
+$(document).ready(function(){
+
+    $('#btnsubmit').on('click', function(){
+
+        base=$('#base').val();
+        _token=$("[name='_token']").attr("value");
+
+        email=btoa($('#email').val());
+        password=btoa($('#password').val());
+        
+        $.ajax({
+            url: base+'/login',
+            data:{
+                password:password,
+                email:email,
+                _token:_token
+            },  
+            type: "POST",
+                success:function(data) {
+
+               if(data=='false'){
+
+
+                $('#notific').html('<div class="alert alert-danger">Usuario o Clave invalida por favor intente nuevamente.</div>');
+                
+               }else{
+                $(location).attr('href',data);
+               }
+                    
+            }
+        });
+
+
+
+    });
+
+
+
+});
 
 
 
