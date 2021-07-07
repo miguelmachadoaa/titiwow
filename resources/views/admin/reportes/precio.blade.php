@@ -51,7 +51,7 @@ Precios Productos
 
                 <div style="margin-bottom: 1em; margin-top: 1em;" class="row">
                     
-                        <form class="" method="post" action="{{secure_url('admin/reportes=/exportprecio')}}">
+                        <form class="" method="post" action="{{secure_url('admin/reportes/exportprecio')}}">
 
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
