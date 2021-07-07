@@ -9,6 +9,8 @@
 
 {{-- page level styles --}}
 @section('header_styles')
+
+
     
     <link href="{{ secure_asset('assets/vendors/acc-wizard/acc-wizard.min.css') }}" rel="stylesheet" />
 
@@ -39,7 +41,7 @@
     
     <link href="{{ secure_asset('assets/vendors/treeview/css/bootstrap-treeview.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ secure_asset('assets/css/pages/treeview_jstree.css') }}" rel="stylesheet" type="text/css"/>
-
+    <link href="{{ secure_asset('assets/css/uploadfile.min.css') }}" rel="stylesheet" type="text/css"/>
     <!-- fin stilos para arbol de categorias -->
 
     <!--end of page level css-->
@@ -1462,7 +1464,8 @@
     <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
 
-   
+    <script src="{{ secure_asset('assets/js/jquery.uploadfile.min.js') }}" type="text/javascript"></script>
+
 
 
      <!-- Arbol de categorias -->

@@ -6,6 +6,7 @@
 @stop
 
 @section('header_styles')
+<link href="{{ secure_asset('assets/css/uploadfile.min.css') }}" rel="stylesheet" type="text/css"/>
     
     
     <link href="{{ secure_asset('assets/vendors/acc-wizard/acc-wizard.min.css') }}" rel="stylesheet" />
@@ -32,7 +33,6 @@
     
     <link href="{{ secure_asset('assets/vendors/treeview/css/bootstrap-treeview.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ secure_asset('assets/css/pages/treeview_jstree.css') }}" rel="stylesheet" type="text/css"/>
-
     <!-- fin stilos para arbol de categorias -->
 
     <!--end of page level css-->
@@ -536,6 +536,69 @@
                                 <!-- /#addwizard --> </div>
 
                             <!-- /.panel.panel-default -->
+
+
+                            <div class="panel panel-info">
+
+                                <div class="panel-heading">
+
+                                    <h4 class="panel-title">
+
+                                        <a href="#imagenes_panel" data-parent="#accordion-demo" data-toggle="collapse">@lang('productos/title.imagenes')</a>
+
+                                    </h4>
+
+                                </div>
+
+                                <div id="imagenes_panel" class="panel-collapse collapse awd-h" style="height: 36.400001525878906px;">
+
+                                    <div class="panel-body">
+
+                                        <input type="hidden" id="id_imagen" name="id_imagen" value='{{ $producto->id}}'>
+
+                                        <div class="col-sm-12" style="padding-top: 1em; padding-bottom: 1em;">
+
+                                                <div class="pdf">
+
+                                                    <div class="row">
+                                                        
+                                                        @include('admin.productos.imagenes')
+
+
+                                                    </div> 
+
+                                                </div>
+
+                                            <div class="loader_pdf">  </div>
+
+                                            <br>    
+                                            <br>    
+                                            <br>    
+
+                                            <div id="pdfuploader"> Cargar Imagenes</div>
+
+                                            <br>
+                                            <br>
+                                            <br>
+
+                                        </div>
+                                        
+                                        <br>    
+                                            <br>    
+                                            <br>    
+
+                                        <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.previous')</a>
+
+
+                                        <a class="btn btn-default" href="#adjusthtml" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
+                                        
+                                    </div>
+                                    <!--/.panel-body --> </div>
+                                <!-- /#addwizard --> </div>
+                                <!-- /.panel.panel-default -->
+
+
+
 
                             <div class="panel panel-warning">
 
@@ -1358,6 +1421,7 @@
     <script src="{{ secure_asset('assets/vendors/iCheck/js/icheck.js') }}" type="text/javascript"></script>
     <script src="https://cdn.tiny.cloud/1/qc49iemrwi4gmrqtiuvymiviycjklawxnqmtcnvorw0hckoj/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
+    <script src="{{ secure_asset('assets/js/jquery.uploadfile.min.js') }}" type="text/javascript"></script>
     
    <!-- <script src="{{ secure_asset('assets/js/pages/treeview_jstree.js') }}" type="text/javascript"></script>-->
 
@@ -1952,6 +2016,68 @@ $('#productosForm').keypress(
                 });
             //fin select ciudad
         });
+
+
+
+        $(document).ready(function()
+        {
+            
+        id=$('#id_imagen').val();
+        base=$('#base').val();
+        //alert('cargo');
+
+        $("#pdfuploader").uploadFile({
+        url:base+"/productos/imagenes/"+id,
+        fileName:"myfile",
+        showStatusAfterSuccess:false,
+        showAbort:false,
+        showDone:false,
+            showProgress:false,
+            dragDrop:false,
+
+        
+        
+            onSubmit:function(files)
+                {
+                    
+                $(".loader_pdf").html("<img title='cargando'  src='/assets/img/loading.gif'>");
+                
+                },
+
+            onSuccess:function(files,data,xhr)
+            {
+            $(".pdf .row").html(data);
+            $(".loader_pdf").html("");
+                
+            },
+            onError: function(files,status,errMsg)
+                {
+                $(".loader_pdf").html("");
+                }
+        
+        });
+
+
+
+
+        $(document).on('click', '.delImagen', function(){
+
+                    var id=$(this).data('id');
+
+                    $.post(base+'/productos/delimagenes', {id}, function(data) {
+
+                        $(".pdf .row").html(data);
+                            
+
+                    });
+                
+                });
+
+        });
+
+
+
+
 
     </script>
 

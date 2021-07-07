@@ -51,7 +51,6 @@ use Intervention\Image\Facades\Image;
 use DOMDocument;
 use View;
 use DB;
-
 use Redirect;
 
 
@@ -61,7 +60,6 @@ use Intervention\Image\ImageManager;
 
 class AlpProductosController extends JoshController
 {
-
 
     private $tags;
 
@@ -2965,6 +2963,108 @@ class AlpProductosController extends JoshController
 
           return json_encode( array('data' => $data ));
 
+    }
+
+
+
+    public function imagenes(Request $request, $id){
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('AlpProductosController/imagenes');
+
+        }else{
+
+          activity()->withProperties($request->all())->log('AlpProductosController/imagenes');
+
+
+        }
+
+
+
+     
+     $imagen='default.png';
+
+        $user_id = Sentinel::getUser()->id;
+
+
+         $picture = "";
+
+        
+        if ($request->hasFile('myfile')) {
+
+            $file = $request->file('myfile');
+            $extension = $file->extension()?: 'png';
+            $picture = str_random(10) . '.' . $extension;    
+            $destinationPath = public_path('/uploads/productos/' . $picture);
+            Image::make($file)->resize(600, 600)->save($destinationPath);            
+            $imagen = $picture;
+
+        }
+
+        $data = array(
+          'id_producto' => $id, 
+          'imagen_producto' => $imagen, 
+          'order' => 0, 
+          'id_user' => $user_id, 
+        );
+
+        AlpProductosImagenes::create($data);
+
+        $imagenes=AlpProductosImagenes::where('id_producto', $id)->get();
+
+        //dd($imagenes);
+
+        $view= View::make('frontend.productos.imagenes', compact('imagenes'));
+
+      $data=$view->render();
+
+        return $data;
+    }
+
+
+     public function delimagenes(Request $request){
+
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('AlpProductosController/delimagenes');
+
+        }else{
+
+          activity()->withProperties($request->all())->log('AlpProductosController/delimagenes');
+
+
+        }
+
+
+
+        $imagen=AlpProductosImagenes::where('id', $request->id)->first();
+
+        $id_producto=$imagen->id_producto;
+
+        $imagen->delete();
+
+        $imagenes=AlpProductosImagenes::where('id_producto', $id_producto)->get();
+
+
+        $view= View::make('frontend.productos.imagenes', compact('imagenes'));
+
+      $data=$view->render();
+
+        return $data;
     }
 
 
