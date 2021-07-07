@@ -507,7 +507,7 @@
 
                                         <span class="fileinput-exists">Cambiar</span>
 
-                                        <input type="file" name="image" id="pic" accept="image/*"/>
+                                        <input type="file" name="imagen_producto" id="pic" accept="image/*"/>
 
                                     </span>
                                    

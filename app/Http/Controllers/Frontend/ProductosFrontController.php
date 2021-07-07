@@ -13,6 +13,8 @@ use App\Models\AlpPrecioGrupo;
 use App\Models\AlpInventario;
 use App\Models\AlpCms;
 use App\Models\AlpCombosProductos;
+use App\Models\AlpProductosImagenes;
+
 
 use App\Models\AlpAlmacenes;
 use App\Models\AlpAlmacenDespacho;
@@ -778,6 +780,7 @@ class ProductosFrontController extends Controller
        $cartancheta= \Session::get('cartancheta');
 
 
+        $imagenes=AlpProductosImagenes::where('id_producto', '=', $producto->id)->get();
 
 
 
@@ -809,14 +812,13 @@ class ProductosFrontController extends Controller
           
         }
 
-
-        return \View::make('frontend.ancheta', compact('producto', 'descuento', 'precio','categos', 'states', 'cart', 'total','catprincipal', 'relacionados', 'prods', 'inventario', 'combos', 'role', 'almacen', 'url', 'anchetas_categorias', 'cartancheta'));
+        return \View::make('frontend.ancheta', compact('imagenes','producto', 'descuento', 'precio','categos', 'states', 'cart', 'total','catprincipal', 'relacionados', 'prods', 'inventario', 'combos', 'role', 'almacen', 'url', 'anchetas_categorias', 'cartancheta'));
       
 
 
       }else{
 
-        return \View::make('frontend.producto_single', compact('producto', 'descuento', 'precio','categos', 'states', 'cart', 'total','catprincipal', 'relacionados', 'prods', 'inventario', 'combos', 'role', 'almacen', 'url'));
+        return \View::make('frontend.producto_single', compact('imagenes','producto', 'descuento', 'precio','categos', 'states', 'cart', 'total','catprincipal', 'relacionados', 'prods', 'inventario', 'combos', 'role', 'almacen', 'url'));
 
 
       }

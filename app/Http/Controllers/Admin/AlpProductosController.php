@@ -1134,16 +1134,14 @@ class AlpProductosController extends JoshController
 
         $input = $request->all();
 
-        //dd($producto);
-
         $imagen='0';
 
          $picture = "";
 
         
-        if ($request->hasFile('image')) {
+        if ($request->hasFile('imagen_producto')) {
             
-          $file = $request->file('image');
+          $file = $request->file('imagen_producto');
           $extension = $file->extension()?: 'jpg';
           $picture = str_random(10) . '.' . $extension;    
           $destinationPath = public_path('uploads/productos/' . $picture);
