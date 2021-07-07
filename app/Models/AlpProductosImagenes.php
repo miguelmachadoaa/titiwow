@@ -11,7 +11,7 @@ class AlpProductosImagenes extends Model
 {
     use SoftDeletes;
 
-    public $table = 'xp_productos_imagenes';
+    public $table = 'alp_productos_imagenes';
     
 
     protected $dates = ['deleted_at'];
@@ -22,6 +22,8 @@ class AlpProductosImagenes extends Model
         'id_producto',
         'imagen_producto',
         'order',
+        'title',
+        'alt',
         'estado_registro',
         'id_user'
     ];

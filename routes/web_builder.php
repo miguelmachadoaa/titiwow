@@ -268,6 +268,7 @@ Route::post('productos/postgrid/', ['as'=> 'productos.postgrid', 'uses' => 'Admi
 
     Route::post('productos/delimagenes', ['as'=> 'productos.imagenes.del', 'uses' => 'Admin\AlpProductosController@delimagenes']);
 
+    Route::post('productos/updateimagenes', ['as'=> 'productos.imagenes.del', 'uses' => 'Admin\AlpProductosController@updateimagenes']);
 
 
     Route::get('productos/{id}/confirmar', array('as' => 'productos.confirmar', 'uses' => 'Admin\AlpProductosController@confirmar'));

@@ -28,10 +28,14 @@ use App\Models\AlpCombosProductos;
 use App\Models\AlpUnidades;
 use App\Models\AlpAnchetasCategorias;
 use App\Models\AlpAnchetasProductos;
+use App\Models\AlpProductosImagenes;
+
+
+
+
 
 use App\Exports\ProductosMasivosExport;
 use App\Imports\ProductosMasivosImport;
-
 
 use App\Imports\ProductosUpdateImport;
 use App\Imports\ProductosPrecioBase;
@@ -1084,9 +1088,11 @@ class AlpProductosController extends JoshController
 
         $unidades = AlpUnidades::all();
 
+        $imagenes=AlpProductosImagenes::where('id_producto', $producto->id)->get();
 
 
-        return view('admin.productos.edit', compact('producto', 'categorias', 'marcas', 'check', 'tree', 'roles',  'precio_grupo',  'precio_grupo_corporativo', 'states', 'impuestos', 'empresas', 'productos', 'productos_list', 'robots', 'unidades'));
+
+        return view('admin.productos.edit', compact('producto', 'categorias', 'marcas', 'check', 'tree', 'roles',  'precio_grupo',  'precio_grupo_corporativo', 'states', 'impuestos', 'empresas', 'productos', 'productos_list', 'robots', 'unidades', 'imagenes'));
 
     }
 
@@ -2986,7 +2992,7 @@ class AlpProductosController extends JoshController
 
         }
 
-
+        $p=AlpProductos::where('id', $id)->first();
 
      
      $imagen='default.png';
@@ -3012,6 +3018,8 @@ class AlpProductosController extends JoshController
           'id_producto' => $id, 
           'imagen_producto' => $imagen, 
           'order' => 0, 
+          'title' => $p->nombre_producto, 
+          'alt' => $p->nombre_producto,  
           'id_user' => $user_id, 
         );
 
@@ -3021,7 +3029,7 @@ class AlpProductosController extends JoshController
 
         //dd($imagenes);
 
-        $view= View::make('frontend.productos.imagenes', compact('imagenes'));
+        $view= View::make('admin.productos.imagenes', compact('imagenes'));
 
       $data=$view->render();
 
@@ -3049,8 +3057,6 @@ class AlpProductosController extends JoshController
 
         }
 
-
-
         $imagen=AlpProductosImagenes::where('id', $request->id)->first();
 
         $id_producto=$imagen->id_producto;
@@ -3060,12 +3066,56 @@ class AlpProductosController extends JoshController
         $imagenes=AlpProductosImagenes::where('id_producto', $id_producto)->get();
 
 
-        $view= View::make('frontend.productos.imagenes', compact('imagenes'));
+        $view= View::make('admin.productos.imagenes', compact('imagenes'));
 
       $data=$view->render();
 
         return $data;
     }
+
+
+    public function updateimagenes(Request $request){
+
+
+      if (Sentinel::check()) {
+
+         $user = Sentinel::getUser();
+
+          activity($user->full_name)
+                       ->performedOn($user)
+                       ->causedBy($user)
+                       ->withProperties($request->all())
+                       ->log('AlpProductosController/delimagenes');
+
+       }else{
+
+         activity()->withProperties($request->all())->log('AlpProductosController/delimagenes');
+
+
+       }
+
+       $imagen=AlpProductosImagenes::where('id', $request->id)->first();
+
+       $data = array(
+         'title' => $request->title, 
+         'alt' => $request->alt
+        );
+
+        $imagen->update($data);
+
+       $id_producto=$imagen->id_producto;
+
+       $imagenes=AlpProductosImagenes::where('id_producto', $id_producto)->get();
+
+       $view= View::make('admin.productos.imagenes', compact('imagenes'));
+
+     $data=$view->render();
+
+       return $data;
+   }
+
+
+
 
 
 

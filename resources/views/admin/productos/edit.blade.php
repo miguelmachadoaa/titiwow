@@ -88,7 +88,7 @@
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
          <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
 
-                <div class="row acc-wizard">
+                <div class="row ">
                     <div class="col-sm-3 col-xs-12 pd-2">
                         <p class="mar-2">
                             @lang('productos/title.pasos')
@@ -206,7 +206,7 @@
 
 
 
-                                            <div class="acc-wizard-step"></div>
+                                            
 
                                             @if($producto->tipo_producto==1)
 
@@ -318,7 +318,7 @@
                                            
 
 
-                                            <div class="acc-wizard-step"></div>
+                                            
 
                                              <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
                                         
@@ -344,7 +344,7 @@
                                         
                                             <a class="btn btn-primary" href="{{secure_url('admin/productos/'.$producto->id.'/ancheta')}}">Configurar Ancheta</a>
 
-                                            <div class="acc-wizard-step"></div>
+                                            
 
                                              <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
                                         
@@ -389,7 +389,7 @@
 
 
 
-                                            <div class="acc-wizard-step"></div>
+                                            
 
                                              <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
                                         
@@ -521,7 +521,7 @@
 
                         </div>
 
-                                            <div class="acc-wizard-step"></div>
+                                            
 
 
                                         <a class="btn btn-default" href="#divbasicos" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.previous')</a>
@@ -571,26 +571,18 @@
 
                                             <div class="loader_pdf">  </div>
 
-                                            <br>    
-                                            <br>    
-                                            <br>    
+                                            <div class="row" style="padding:0;">
+                                                <div class="col-sm-12" style="padding:0;">
 
-                                            <div id="pdfuploader"> Cargar Imagenes</div>
-
-                                            <br>
-                                            <br>
-                                            <br>
+                                                    <div id="pdfuploader">+ Cargar Imagenes</div>
+                                                
+                                                </div>
+                                            </div>
 
                                         </div>
                                         
-                                        <br>    
-                                            <br>    
-                                            <br>    
-
-                                        <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.previous')</a>
-
-
-                                        <a class="btn btn-default" href="#adjusthtml" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
+                                        <button class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.previous')</button>
+                                        <button class="btn btn-default" href="#adjusthtml" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</button>
                                         
                                     </div>
                                     <!--/.panel-body --> </div>
@@ -746,7 +738,7 @@
 
 
 
-                                            <div class="acc-wizard-step"></div>
+                                            
 
                                             
                                             <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.previous')</a>
@@ -2027,7 +2019,7 @@ $('#productosForm').keypress(
         //alert('cargo');
 
         $("#pdfuploader").uploadFile({
-        url:base+"/productos/imagenes/"+id,
+        url:base+"/admin/productos/imagenes/"+id,
         fileName:"myfile",
         showStatusAfterSuccess:false,
         showAbort:false,
@@ -2064,7 +2056,7 @@ $('#productosForm').keypress(
 
                     var id=$(this).data('id');
 
-                    $.post(base+'/productos/delimagenes', {id}, function(data) {
+                    $.post(base+'/admin/productos/delimagenes', {id}, function(data) {
 
                         $(".pdf .row").html(data);
                             
@@ -2073,10 +2065,26 @@ $('#productosForm').keypress(
                 
                 });
 
+
+                $(document).on('click', '.updateImagen', function(){
+
+                    var id=$(this).data('id');
+
+                    alt=$('#alt_imagen_'+id).val();
+
+                    title=$('#title_imagen_'+id).val();
+
+                    $.post(base+'/admin/productos/updateimagenes', {id, alt, title}, function(data) {
+
+                        $(".pdf .row").html(data);
+
+                    });
+
+                });
+
+
+
         });
-
-
-
 
 
     </script>
