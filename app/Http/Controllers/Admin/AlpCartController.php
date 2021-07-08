@@ -2333,33 +2333,21 @@ class AlpCartController extends JoshController
 
 
         $direcciones = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-
           ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-
           ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-
           ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-
           ->where('alp_direcciones.id_client', $user_id)->get();
 
           
 
           $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-
           ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-
           ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-
           ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-
           ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-
           ->where('alp_direcciones.id_client', $user_id)
-
           ->where('alp_direcciones.default_address', '=', '1')
-
           ->first();
 
           
@@ -2865,7 +2853,7 @@ class AlpCartController extends JoshController
         
           //return redirect('login');
 
-        return view('frontend.order.login', compact('url'));
+        return view('login', compact('url'));
 
         
       }
@@ -2962,26 +2950,17 @@ class AlpCartController extends JoshController
       
       if ($envio>0) {
 
-       
-
          $envio_base=$envio/(1+$valor_impuesto->valor_impuesto);
 
-         
         $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
 
-        
-
       }else{
-
         
         $envio_base=0;
-
         
         $envio_impuesto=0;
 
-        
       }
-
       
       $orden=AlpOrdenes::where('id', $id_orden)->first();
 
@@ -3023,6 +3002,16 @@ class AlpCartController extends JoshController
 
           $total_descuentos=0;
 
+          $pagos=AlpPagos::where('id_orden', $orden->id)->where('id_forma_pago', '4')->get();
+          
+          $total_pagos_abono=0;
+          
+          foreach ($pagos as $pago) {
+            
+            $total_pagos_abono=$total_pagos_abono+$pago->monto_pago;
+
+          }
+
           
 
             $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
@@ -3061,7 +3050,7 @@ class AlpCartController extends JoshController
               
                $preference_data = [
 
-                "transaction_amount" => doubleval($orden->monto_total+$envio),
+                "transaction_amount" => doubleval($orden->monto_total+$envio-$total_pagos_abono),
 
                 "external_reference" =>"".$orden->referencia_mp."",
 
@@ -3081,7 +3070,7 @@ class AlpCartController extends JoshController
 
                     "items" => $det_array ],
 
-                "net_amount"=>(float)number_format($net_amount, 2, '.', ''),
+                "net_amount"=>(float)number_format($net_amount-$total_pagos_abono, 2, '.', ''),
 
                 "taxes"=>[[
 
@@ -3108,18 +3097,13 @@ class AlpCartController extends JoshController
 
             
 
-            if (($orden->monto_total+$envio)>0) {
-
-              
+            if (($orden->monto_total+$envio-$total_pagos_abono)>0) {
 
                $payment = MP::post("/v1/payments",$preference_data);
-
                
             }else{
 
-              
               $payment = array();
-
               
             }
 
