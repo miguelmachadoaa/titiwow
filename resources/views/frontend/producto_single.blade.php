@@ -581,7 +581,7 @@
                     <div class="separador"></div>
                 </div>
 
-            @foreach($prods as $prod)
+            @foreach($prods as $producto)
 
                 @if(isset($inventario[$producto->id]))
 
