@@ -10,6 +10,7 @@
 {{-- page level styles --}}
 @section('header_styles')
 
+<link href="{{ secure_asset('assets/css/uploadfile.min.css') }}" rel="stylesheet" type="text/css"/>
 
     
     <link href="{{ secure_asset('assets/vendors/acc-wizard/acc-wizard.min.css') }}" rel="stylesheet" />
@@ -41,7 +42,6 @@
     
     <link href="{{ secure_asset('assets/vendors/treeview/css/bootstrap-treeview.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ secure_asset('assets/css/pages/treeview_jstree.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ secure_asset('assets/css/uploadfile.min.css') }}" rel="stylesheet" type="text/css"/>
     <!-- fin stilos para arbol de categorias -->
 
     <!--end of page level css-->
@@ -112,7 +112,7 @@
 
             <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
 
-                <div class="row acc-wizard">
+                <div class="row acc-wizard2">
 
                     <div class="col-md-3 pd-2">
 
@@ -475,7 +475,7 @@
 
                                         <span class="fileinput-exists">Cambiar</span>
 
-                                        <input type="file" name="image" id="pic" accept="image/*"/>
+                                        <input type="file" name="imagen_producto" id="pic" accept="image/*"/>
 
                                     </span>
                                    
@@ -510,6 +510,65 @@
                                     <!--/.panel-body --> </div>
                                 <!-- /#addwizard --> </div>
                             <!-- /.panel.panel-default -->
+
+
+
+                              <div class="panel panel-info">
+
+                                <div class="panel-heading">
+
+                                    <h4 class="panel-title">
+
+                                        <a href="#imagenes_panel" data-parent="#accordion-demo" data-toggle="collapse">@lang('productos/title.imagenes')</a>
+
+                                    </h4>
+
+                                </div>
+
+                                <div id="imagenes_panel" class="panel-collapse collapse awd-h" style="height: 36.400001525878906px;">
+
+                                    <div class="panel-body">
+
+                                        <input type="hidden" id="id_imagen" name="id_imagen" value='{{ time()}}'>
+
+                                        <div class="col-sm-12" style="padding-top: 1em; padding-bottom: 1em;">
+
+                                                <div class="pdf">
+
+                                                    <div class="row">
+                                                        
+                                                        @include('admin.productos.imagenes')
+
+
+                                                    </div> 
+
+                                                </div>
+
+                                            <div class="loader_pdf">  </div>
+
+                                            <div class="row" style="padding:0;">
+                                                <div class="col-sm-12" style="padding:0;">
+
+                                                    <div id="pdfuploader">+ Cargar Imagenes</div>
+                                                
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        
+                                        <button class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.previous')</button>
+                                        <button class="btn btn-default" href="#adjusthtml" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</button>
+                                        
+                                    </div>
+                                    <!--/.panel-body --> </div>
+                                <!-- /#addwizard --> </div>
+                                <!-- /.panel.panel-default -->
+
+
+
+
+
+
 
 
 
@@ -1475,6 +1534,7 @@
 
     <script src="https://cdn.tiny.cloud/1/qc49iemrwi4gmrqtiuvymiviycjklawxnqmtcnvorw0hckoj/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
+    <script src="{{ secure_asset('assets/js/jquery.uploadfile.min.js') }}" type="text/javascript"></script>
 
    <!-- <script src="{{ secure_asset('assets/js/pages/treeview_jstree.js') }}" type="text/javascript"></script>-->
 
@@ -2090,6 +2150,85 @@ $('#productosForm').keypress(
 
 
 });
+
+
+$(document).ready(function()
+        {
+            
+        id=$('#id_imagen').val();
+        base=$('#base').val();
+        //alert('cargo');
+
+        $("#pdfuploader").uploadFile({
+        url:base+"/admin/productos/imagenes/"+id,
+        fileName:"myfile",
+        showStatusAfterSuccess:false,
+        showAbort:false,
+        showDone:false,
+            showProgress:false,
+            dragDrop:false,
+
+        
+        
+            onSubmit:function(files)
+                {
+                    
+                $(".loader_pdf").html("<img title='cargando'  src='/assets/img/loading.gif'>");
+                
+                },
+
+            onSuccess:function(files,data,xhr)
+            {
+            $(".pdf .row").html(data);
+            $(".loader_pdf").html("");
+                
+            },
+            onError: function(files,status,errMsg)
+                {
+                $(".loader_pdf").html("");
+                }
+        
+        });
+
+
+
+
+        $(document).on('click', '.delImagen', function(){
+
+                    var id=$(this).data('id');
+
+                    $.post(base+'/admin/productos/delimagenes', {id}, function(data) {
+
+                        $(".pdf .row").html(data);
+                            
+
+                    });
+                
+                });
+
+
+                $(document).on('click', '.updateImagen', function(){
+
+                    var id=$(this).data('id');
+
+                    alt=$('#alt_imagen_'+id).val();
+
+                    title=$('#title_imagen_'+id).val();
+
+                    $.post(base+'/admin/productos/updateimagenes', {id, alt, title}, function(data) {
+
+                        $(".pdf .row").html(data);
+
+                    });
+
+                });
+
+
+
+        });
+
+
+
 
 
      </script>
