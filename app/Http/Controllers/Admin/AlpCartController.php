@@ -4220,11 +4220,13 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         $orden=AlpOrdenes::where('id', $id_orden)->first();
 
-        $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
+        
 
         $total=$this->total();
 
         if (isset($orden->id)) {
+
+          $almacen=AlpAlmacenes::where('id', $orden->id_almacen)->first();
 
           # code...
 
