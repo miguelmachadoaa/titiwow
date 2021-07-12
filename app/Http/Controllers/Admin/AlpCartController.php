@@ -2354,11 +2354,9 @@ class AlpCartController extends JoshController
           if (isset($d->id)) {
 
               \Session::put('direccion', $d->id);
-
               
           }else{
 
-            
               $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
             ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
             ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
@@ -2367,26 +2365,18 @@ class AlpCartController extends JoshController
             ->where('alp_direcciones.id_client', $user_id)
             ->first();
 
-            
               if (isset($d->id)) {
-
-            
 
                   \Session::put('direccion', $d->id);
 
                   
               }else{
-
                 
                 return redirect('misdirecciones')->withInput()->with('error', trans('Debes crear una dirección para continuar con el proceso.'));
 
-                
-
               }
 
-              
           }
-
 
           $afe=AlpAlmacenFormaEnvio::where('id_almacen', $id_almacen)->first();
           
@@ -2406,35 +2396,21 @@ class AlpCartController extends JoshController
 
           }else{
 
-            
              $formasenvio = AlpFormasenvio::select('alp_formas_envios.*')
-
             ->join('alp_rol_envio', 'alp_formas_envios.id', '=', 'alp_rol_envio.id_forma_envio')
-
             ->where('alp_rol_envio.id_rol', $role->role_id)->get();
 
-            
           }
-
-          
 
           $afe=AlpAlmacenFormaPago::where('id_almacen', $id_almacen)->first();
 
-
           if (isset($afe->id)) {
 
-            
             $formaspago = AlpFormaspago::select('alp_formas_pagos.*')
-
               ->join('alp_almacen_formas_pago', 'alp_formas_pagos.id', '=', 'alp_almacen_formas_pago.id_forma_pago')
-
               ->where('alp_almacen_formas_pago.id_almacen', $id_almacen)
-
               ->whereNull('alp_almacen_formas_pago.deleted_at')
-
               ->groupBy('alp_formas_pagos.id')->get();
-
-
 
             # code...
 
@@ -2913,7 +2889,7 @@ class AlpCartController extends JoshController
      * @return View
      */
 
-  public function orderProcesarTicket(Request $request)
+    public function orderProcesarTicket(Request $request)
     {
 
       $input=$request->all();
@@ -2950,17 +2926,26 @@ class AlpCartController extends JoshController
       
       if ($envio>0) {
 
+       
+
          $envio_base=$envio/(1+$valor_impuesto->valor_impuesto);
 
+         
         $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
 
+        
+
       }else{
+
         
         $envio_base=0;
+
         
         $envio_impuesto=0;
 
+        
       }
+
       
       $orden=AlpOrdenes::where('id', $id_orden)->first();
 
@@ -3002,16 +2987,6 @@ class AlpCartController extends JoshController
 
           $total_descuentos=0;
 
-          $pagos=AlpPagos::where('id_orden', $orden->id)->where('id_forma_pago', '4')->get();
-          
-          $total_pagos_abono=0;
-          
-          foreach ($pagos as $pago) {
-            
-            $total_pagos_abono=$total_pagos_abono+$pago->monto_pago;
-
-          }
-
           
 
             $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
@@ -3050,7 +3025,7 @@ class AlpCartController extends JoshController
               
                $preference_data = [
 
-                "transaction_amount" => doubleval($orden->monto_total+$envio-$total_pagos_abono),
+                "transaction_amount" => doubleval($orden->monto_total+$envio),
 
                 "external_reference" =>"".$orden->referencia_mp."",
 
@@ -3070,7 +3045,7 @@ class AlpCartController extends JoshController
 
                     "items" => $det_array ],
 
-                "net_amount"=>(float)number_format($net_amount-$total_pagos_abono, 2, '.', ''),
+                "net_amount"=>(float)number_format($net_amount, 2, '.', ''),
 
                 "taxes"=>[[
 
@@ -3097,13 +3072,18 @@ class AlpCartController extends JoshController
 
             
 
-            if (($orden->monto_total+$envio-$total_pagos_abono)>0) {
+            if (($orden->monto_total+$envio)>0) {
+
+              
 
                $payment = MP::post("/v1/payments",$preference_data);
+
                
             }else{
 
+              
               $payment = array();
+
               
             }
 
@@ -3276,6 +3256,7 @@ class AlpCartController extends JoshController
       
 
 }
+
 
 
 
@@ -4320,10 +4301,8 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
         
         $envio_base=0;
 
-        
         $envio_impuesto=0;
 
-        
       }
 
       
