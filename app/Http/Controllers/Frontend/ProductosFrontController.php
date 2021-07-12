@@ -1196,6 +1196,9 @@ class ProductosFrontController extends Controller
     /*Fin CMS */
 
 
+    
+
+
     private function inventario()
     {
        
@@ -1238,6 +1241,8 @@ class ProductosFrontController extends Controller
             return $inv;
       
     }
+
+
 
 
     private function combos()

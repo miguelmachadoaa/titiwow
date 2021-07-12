@@ -55,7 +55,9 @@ $total_descuentos_icg=0;
                                           <div class=" col-sm-6 col-xs-12 contenidobono hidden" style="margin-top: 1em;">
 
 
-                                        <p>Usar : <input class=" " id="bono_use" name="bono_use" type="number" min="0" max="{{$bono_disponible->total}}" 
+                                        <p> <span class="mensaje_abono_usar"> Usar :</span> 
+                                        
+                                        <input class=" " id="bono_use" name="bono_use" type="number" min="0" max="{{$bono_disponible->total}}" 
                                           @if($total>$bono_disponible->total)
                                           value="{{$bono_disponible->total}}" 
                                           @else

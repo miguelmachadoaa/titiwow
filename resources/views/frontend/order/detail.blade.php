@@ -478,12 +478,17 @@ div.overlay > div {
                 if (rid=='pago_total') {
 
                     $('#bono_use').val($('#monto_total_compra_bono_icg').val());
+                    $('.mensaje_abono_usar').html('Usar: <b>'+$('#monto_total_compra_bono_icg').val()+'</b>');
+                    $('#bono_use').attr('type', 'hidden');
                   //  $('.btnbonoh').html('Procesar <i class="fa  fa-chevron-right"></i>');
                     $('.contenidobono').removeClass('hidden');
 
                 }else{
 
+                    $('.mensaje_abono_usar').html('Usar: ');
+
                     $('#bono_use').val('0');
+                    $('#bono_use').attr('type', 'text');
                   //  $('.btnbonoh').html('Aplicar <i class="fa  fa-chevron-right"></i>');
                     $('.contenidobono').removeClass('hidden');
 
@@ -520,15 +525,10 @@ div.overlay > div {
 
                  window.location.href = base+'/clientes';
 
-
         });
 
 
-
-
-
          $('.showAddAddress').on('click', function(){
-
 
                 if($('#addAddressForm').hasClass('open')){
 
