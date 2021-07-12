@@ -1999,32 +1999,39 @@ activity()->withProperties($res)->log('cancelar consumo  icg res');
 
           foreach ($preference['response']['results'] as $r) {
 
-              $idpago=$r['id'];
+              if ($r['status']=='in_process' || $r['status']=='pending') {
+                  
+                $idpago=$r['id'];
 
-               $preference_data_cancelar = '{"status": "cancelled"}';
+                $preference_data_cancelar = '{"status": "cancelled"}';
 
-              $pre = MP::put("/v1/payments/".$idpago."", $preference_data_cancelar);
+                $pre = MP::put("/v1/payments/".$idpago."", $preference_data_cancelar);
 
-              $data_cancelar = array(
-                'id_orden' => $orden->id, 
-                'id_forma_pago' => $orden->id_forma_pago, 
-                'id_estatus_pago' => 4, 
-                'monto_pago' => $orden->monto_total, 
-                'json' => json_encode($pre), 
-                'id_user' => '1'
+                $data_cancelar = array(
+                  'id_orden' => $orden->id, 
+                  'id_forma_pago' => $orden->id_forma_pago, 
+                  'id_estatus_pago' => 4, 
+                  'monto_pago' => $orden->monto_total, 
+                  'json' => json_encode($pre), 
+                  'id_user' => '1'
+                );
+
+                AlpPagos::create($data_cancelar);
+
+                $data_history_json = array(
+                  'id_orden' => $orden->id, 
+                  'id_status' =>'4', 
+                  'notas' => 'Cancelacion de pago en Mercadopago', 
+                  'json' => json_encode($pre), 
+                  'id_user' => '1' 
               );
 
-              AlpPagos::create($data_cancelar);
+              $history=AlpOrdenesHistory::create($data_history_json);
 
-               $data_history_json = array(
-                'id_orden' => $orden->id, 
-                'id_status' =>'4', 
-                'notas' => 'Cancelacion de pago en Mercadopago', 
-                'json' => json_encode($pre), 
-                'id_user' => '1' 
-            );
 
-            $history=AlpOrdenesHistory::create($data_history_json);
+            }
+
+           
 
             }
 
