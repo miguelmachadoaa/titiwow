@@ -419,67 +419,37 @@ $hoy=$date->format('Y-m-d');
 
         }
 
-
-
         $descuento=1;
-
-
 
         $prods = array( );
 
-
-
         foreach ($productos as $producto) {
 
+          if ($descuento=='1') {
 
+           if (isset($precio[$producto->id])) {
 
-      if ($descuento=='1') {
+            switch ($precio[$producto->id]['operacion']) {
 
-
-
-        if (isset($precio[$producto->id])) {
-
-          # code...
-
-         
-
-          switch ($precio[$producto->id]['operacion']) {
-
-
-
-            case 1:
-
-
+             case 1:
 
               $producto->precio_oferta=$producto->precio_base*$descuento;
 
-
-
               break;
-
-
 
             case 2:
 
-
-
               $producto->precio_oferta=$producto->precio_base*(1-($precio[$producto->id]['precio']/100));
-              
 
               break;
-
 
             case 3:
 
-
               $producto->precio_oferta=$precio[$producto->id]['precio'];
 
-
               break;
-            
 
             default:
-            
 
              $producto->precio_oferta=$producto->precio_base*$descuento;
 
@@ -516,6 +486,12 @@ $hoy=$date->format('Y-m-d');
         $user=User::where('token', $token)->first();
 
         if (isset($user->id)) {
+
+
+          activity($user->full_name)
+          ->performedOn($user)
+          ->causedBy($user)
+          ->withProperties($user)->log('FrontEndController/confirmarcorreo');
 
           $data_user = array(
             'confirma_email' => 1,
