@@ -4140,6 +4140,18 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
         $orden=AlpOrdenes::where('id', $id_orden)->first();
 
+        $pagostarjeta=AlpPagos::where('id_orden', $id_orden)->where('id_forma_pago', '=', '4')->get();
+
+            $total_tarjetas=0;
+
+            foreach($pagostarjeta as $pt){
+
+              $total_tarjetas=$total_tarjetas+$pt->monto_pago;
+            }
+
+
+
+
         
 
         $total=$this->total();
@@ -4430,7 +4442,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
           'id_estatus_pago' => $estatus_pago, 
 
-          'monto_pago' => $orden->monto_total, 
+          'monto_pago' => $orden->monto_total-$total_tarjetas, 
 
           'json' => json_encode($json_pago), 
 

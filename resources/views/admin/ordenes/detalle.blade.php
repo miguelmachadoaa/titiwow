@@ -897,6 +897,22 @@ Orden {{$orden->id}}
 
                      @endif
 
+                     
+
+                     @foreach($pagos as $p)
+
+
+                     @if($p->id_forma_pago=='4')
+
+                        <tr>
+                            <td style="text-align: right;" colspan="7"><b> {{$p->nombre_forma_pago}}: </b></td>
+                            <td >{{ number_format($p->monto_pago, 0) }}</td>
+                        </tr>
+
+                        @endif
+
+                     @endforeach
+
 
                  </tbody>
              </table>
