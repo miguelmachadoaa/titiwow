@@ -520,7 +520,7 @@ $hoy=$date->format('Y-m-d');
 
           Mail::to($user->email)->send(new \App\Mail\NotificacionCorreo($user));
 
-          Mail::to('miguelmachadoaa@gmail.com')->send(new \App\Mail\NotificacionCorreo($user));
+          Mail::to('crearemosweb@gmail.com')->send(new \App\Mail\NotificacionCorreo($user));
 
           return view('frontend.reenviarcorreo', compact('user'));
           # code...
