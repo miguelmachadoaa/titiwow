@@ -4406,46 +4406,28 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           
         }
 
-        
-        //dd($data_update);
-
-        
 
         $cupones=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
-
         
         foreach ($cupones as $cupon) {
-
           
-
           $c=AlpOrdenesDescuento::where('id', $cupon->id)->first();
 
-          
           $data_cupon = array('id_orden' => $orden->id, 'aplicado'=>'1' );
-
           
           $c->update($data_cupon);
-
           
         }
 
-        
 
          $orden->update($data_update);
 
-         
          $data_pago = array(
-
           'id_orden' => $orden->id, 
-
           'id_forma_pago' => $orden->id_forma_pago, 
-
           'id_estatus_pago' => $estatus_pago, 
-
           'monto_pago' => $orden->monto_total-$total_tarjetas, 
-
           'json' => json_encode($json_pago), 
-
           'id_user' => $user_id, 
 
         );
@@ -8389,7 +8371,9 @@ public function verificarDireccion( Request $request)
 
             \Session::put('cr', $orden->id);
 
-            if ($total_descuentos_icg>0) {
+            AlpCarrito::where('id', $carrito)->delete();
+
+            if ($total_descuentos_icg>0){
 
               $ricg=$this->registroIcg($orden->id);
 
