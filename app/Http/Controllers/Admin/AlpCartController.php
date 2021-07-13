@@ -8412,12 +8412,6 @@ public function verificarDireccion( Request $request)
 
 
 
-
-
-
-
-
-
             $o=\Session::get('orden');
 
           $orden=AlpOrdenes::where('id', '=', $o)->first();
