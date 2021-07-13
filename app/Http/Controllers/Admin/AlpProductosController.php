@@ -28,10 +28,14 @@ use App\Models\AlpCombosProductos;
 use App\Models\AlpUnidades;
 use App\Models\AlpAnchetasCategorias;
 use App\Models\AlpAnchetasProductos;
+use App\Models\AlpProductosImagenes;
+
+
+
+
 
 use App\Exports\ProductosMasivosExport;
 use App\Imports\ProductosMasivosImport;
-
 
 use App\Imports\ProductosUpdateImport;
 use App\Imports\ProductosPrecioBase;
@@ -51,7 +55,6 @@ use Intervention\Image\Facades\Image;
 use DOMDocument;
 use View;
 use DB;
-
 use Redirect;
 
 
@@ -61,7 +64,6 @@ use Intervention\Image\ImageManager;
 
 class AlpProductosController extends JoshController
 {
-
 
     private $tags;
 
@@ -489,9 +491,9 @@ class AlpProductosController extends JoshController
          $picture = "";
 
         
-        if ($request->hasFile('image')) {
+        if ($request->hasFile('imagen_producto')) {
             
-            $file = $request->file('image');
+            $file = $request->file('imagen_producto');
             $extension = $file->extension()?: 'jpg';
             $picture = str_random(10) . '.' . $extension;    
             $destinationPath = public_path('uploads/productos/' . $picture);
@@ -701,6 +703,9 @@ class AlpProductosController extends JoshController
         $data = array('robots' => $robots);
 
         $producto->update($data);
+
+
+        AlpProductosImagenes::where('id_producto', $request->id_imagen)->update(['id_producto'=>$producto->id]);
 
         if ($producto->id) {
 
@@ -1086,9 +1091,11 @@ class AlpProductosController extends JoshController
 
         $unidades = AlpUnidades::all();
 
+        $imagenes=AlpProductosImagenes::where('id_producto', $producto->id)->get();
 
 
-        return view('admin.productos.edit', compact('producto', 'categorias', 'marcas', 'check', 'tree', 'roles',  'precio_grupo',  'precio_grupo_corporativo', 'states', 'impuestos', 'empresas', 'productos', 'productos_list', 'robots', 'unidades'));
+
+        return view('admin.productos.edit', compact('producto', 'categorias', 'marcas', 'check', 'tree', 'roles',  'precio_grupo',  'precio_grupo_corporativo', 'states', 'impuestos', 'empresas', 'productos', 'productos_list', 'robots', 'unidades', 'imagenes'));
 
     }
 
@@ -1130,16 +1137,14 @@ class AlpProductosController extends JoshController
 
         $input = $request->all();
 
-        //dd($producto);
-
         $imagen='0';
 
          $picture = "";
 
         
-        if ($request->hasFile('image')) {
+        if ($request->hasFile('imagen_producto')) {
             
-          $file = $request->file('image');
+          $file = $request->file('imagen_producto');
           $extension = $file->extension()?: 'jpg';
           $picture = str_random(10) . '.' . $extension;    
           $destinationPath = public_path('uploads/productos/' . $picture);
@@ -2966,6 +2971,162 @@ class AlpProductosController extends JoshController
           return json_encode( array('data' => $data ));
 
     }
+
+
+
+    public function imagenes(Request $request, $id){
+
+      if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('AlpProductosController/imagenes');
+
+        }else{
+
+          activity()->withProperties($request->all())->log('AlpProductosController/imagenes');
+
+
+        }
+
+        $p=AlpProductos::where('id', $id)->first();
+
+        if(isset($p->id)){
+
+          $nombre_imagen=$p->nombre_producto;
+
+        }else{
+
+          $nombre_imagen='default';
+
+        }
+
+     
+     $imagen='default.png';
+
+        $user_id = Sentinel::getUser()->id;
+
+
+         $picture = "";
+
+        
+        if ($request->hasFile('myfile')) {
+
+            $file = $request->file('myfile');
+            $extension = $file->extension()?: 'png';
+            $picture = str_random(10) . '.' . $extension;    
+            $destinationPath = public_path('/uploads/productos/' . $picture);
+            Image::make($file)->resize(600, 600)->save($destinationPath);            
+            $imagen = $picture;
+
+        }
+
+        $data = array(
+          'id_producto' => $id, 
+          'imagen_producto' => $imagen, 
+          'order' => 0, 
+          'title' => $nombre_imagen, 
+          'alt' => $nombre_imagen,  
+          'id_user' => $user_id, 
+        );
+
+        AlpProductosImagenes::create($data);
+
+        $imagenes=AlpProductosImagenes::where('id_producto', $id)->get();
+
+        //dd($imagenes);
+
+        $view= View::make('admin.productos.imagenes', compact('imagenes'));
+
+      $data=$view->render();
+
+        return $data;
+    }
+
+
+     public function delimagenes(Request $request){
+
+
+       if (Sentinel::check()) {
+
+          $user = Sentinel::getUser();
+
+           activity($user->full_name)
+                        ->performedOn($user)
+                        ->causedBy($user)
+                        ->withProperties($request->all())
+                        ->log('AlpProductosController/delimagenes');
+
+        }else{
+
+          activity()->withProperties($request->all())->log('AlpProductosController/delimagenes');
+
+
+        }
+
+        $imagen=AlpProductosImagenes::where('id', $request->id)->first();
+
+        $id_producto=$imagen->id_producto;
+
+        $imagen->delete();
+
+        $imagenes=AlpProductosImagenes::where('id_producto', $id_producto)->get();
+
+
+        $view= View::make('admin.productos.imagenes', compact('imagenes'));
+
+      $data=$view->render();
+
+        return $data;
+    }
+
+
+    public function updateimagenes(Request $request){
+
+
+      if (Sentinel::check()) {
+
+         $user = Sentinel::getUser();
+
+          activity($user->full_name)
+                       ->performedOn($user)
+                       ->causedBy($user)
+                       ->withProperties($request->all())
+                       ->log('AlpProductosController/delimagenes');
+
+       }else{
+
+         activity()->withProperties($request->all())->log('AlpProductosController/delimagenes');
+
+
+       }
+
+       $imagen=AlpProductosImagenes::where('id', $request->id)->first();
+
+       $data = array(
+         'title' => $request->title, 
+         'alt' => $request->alt
+        );
+
+        $imagen->update($data);
+
+       $id_producto=$imagen->id_producto;
+
+       $imagenes=AlpProductosImagenes::where('id_producto', $id_producto)->get();
+
+       $view= View::make('admin.productos.imagenes', compact('imagenes'));
+
+     $data=$view->render();
+
+       return $data;
+   }
+
+
+
 
 
 

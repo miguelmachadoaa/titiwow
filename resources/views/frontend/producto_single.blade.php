@@ -124,7 +124,110 @@
                 <div class="col-sm-4 col-md-4">
                     <div class="row">
                         <div class="product_wrapper">
-                            <img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" data-zoom-image="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive" alt="{{ $producto->nombre_producto}}" title="{{ $producto->nombre_producto}}"/>
+
+
+                            <!--img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" data-zoom-image="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" class="img-responsive" alt="{{ $producto->nombre_producto}}" title="{{ $producto->nombre_producto}}"/-->
+
+
+                            
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                      <!-- Indicators -->
+                    
+                      <!-- Wrapper for slides -->
+                      <div class="carousel-inner" role="listbox">
+
+                        @php $active='';  @endphp
+
+                        <div class="item active">
+                          <img src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}" alt="{{$producto->seo_titulo}}" title="{{$producto->seo_titulo}}" >
+
+                      </div>
+
+                        @foreach($imagenes as $ima)
+
+
+                         <div class="item ">
+                          <img src="{{ secure_url('/').'/uploads/productos/'.$ima->imagen_producto }}"  alt="{{$ima->alt}}" title="{{$ima->title}}" >
+                          
+                        </div>
+
+                        @php $active='';  @endphp
+                        @endforeach
+
+                       
+                    </div>
+                       
+
+                      <!-- Controls -->
+                      <a style="background-image: transparent;    background-image: transparent;    background-image: transparent;    background-image: none;    filter: none;    background-repeat: repeat-x;" class="left carousel-control flechas" href="#carousel-example-generic" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Anterior</span>
+                      </a>
+                      <a style="background-image: transparent;    background-image: transparent;    background-image: transparent;    background-image: none;    filter: none;    background-repeat: repeat-x;" class="right carousel-control flechas" href="#carousel-example-generic" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Siguiente</span>
+                      </a>
+                    </div>
+
+                    
+                        @if(count($imagenes))
+                       <div class="row" style="margin-bottom: 1em">
+
+                        @php $active='';  @endphp
+
+                        <div style="margin-bottom: 1em;"  data-target="#carousel-example-generic" data-slide-to="0" class="active col-xs-3 col-sm-2">
+                            <img class="img img-responsive" style="border: 1px solid rgba(0,0,0,0.1) " src="{{ secure_url('/').'/uploads/productos/'.$producto->imagen_producto }}"   alt="{{$producto->seo_titulo}}" title="{{$producto->seo_titulo}}" >
+                        </div>
+
+                            @foreach($imagenes as $ima)
+
+
+                                <div  style="margin-bottom: 1em;" data-target="#carousel-example-generic" data-slide-to="{{$loop->iteration}}" class="{{$active}} col-xs-3 col-sm-2">
+                                    <img class="img img-responsive" style="border: 1px solid rgba(0,0,0,0.1) " src="{{ secure_url('/').'/uploads/productos/'.$ima->imagen_producto }}"   alt="{{$ima->alt}}" title="{{$ima->title}}" >
+                                </div>
+
+                            @php $active='';  @endphp
+                            @endforeach
+
+
+
+                        
+                      </div>
+                        @endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                              @if($producto->tipo_producto=='1' || $producto->tipo_producto=='4')
 

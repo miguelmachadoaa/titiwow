@@ -9,6 +9,9 @@
 
 {{-- page level styles --}}
 @section('header_styles')
+
+<link href="{{ secure_asset('assets/css/uploadfile.min.css') }}" rel="stylesheet" type="text/css"/>
+
     
     <link href="{{ secure_asset('assets/vendors/acc-wizard/acc-wizard.min.css') }}" rel="stylesheet" />
 
@@ -39,16 +42,9 @@
     
     <link href="{{ secure_asset('assets/vendors/treeview/css/bootstrap-treeview.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ secure_asset('assets/css/pages/treeview_jstree.css') }}" rel="stylesheet" type="text/css"/>
-
     <!-- fin stilos para arbol de categorias -->
 
     <!--end of page level css-->
-
-
-
-
-
-
 
     <style>
         .dropzone .dz-preview .dz-image img {
@@ -116,7 +112,7 @@
 
             <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
 
-                <div class="row acc-wizard">
+                <div class="row acc-wizard2">
 
                     <div class="col-md-3 pd-2">
 
@@ -130,6 +126,9 @@
                             </li>
                             <li class="acc-wizard-todo">
                                 <a href="#addwizard">@lang('productos/title.description')</a>
+                            </li>
+                            <li class="acc-wizard-todo">
+                                <a href="#addimages">@lang('productos/title.images')</a>
                             </li>
                             <li class="acc-wizard-todo">
                                 <a href="#adjusthtml">@lang('productos/title.seo_ajuste')</a>
@@ -476,7 +475,7 @@
 
                                         <span class="fileinput-exists">Cambiar</span>
 
-                                        <input type="file" name="image" id="pic" accept="image/*"/>
+                                        <input type="file" name="imagen_producto" id="pic" accept="image/*"/>
 
                                     </span>
                                    
@@ -511,6 +510,191 @@
                                     <!--/.panel-body --> </div>
                                 <!-- /#addwizard --> </div>
                             <!-- /.panel.panel-default -->
+
+
+
+                              <div class="panel panel-info">
+
+                                <div class="panel-heading">
+
+                                    <h4 class="panel-title">
+
+                                        <a href="#imagenes_panel" data-parent="#accordion-demo" data-toggle="collapse">@lang('productos/title.imagenes')</a>
+
+                                    </h4>
+
+                                </div>
+
+                                <div id="imagenes_panel" class="panel-collapse collapse awd-h" style="height: 36.400001525878906px;">
+
+                                    <div class="panel-body">
+
+                                        <input type="hidden" id="id_imagen" name="id_imagen" value='{{ time()}}'>
+
+                                        <div class="col-sm-12" style="padding-top: 1em; padding-bottom: 1em;">
+
+                                                <div class="pdf">
+
+                                                    <div class="row">
+                                                        
+                                                        @include('admin.productos.imagenes')
+
+
+                                                    </div> 
+
+                                                </div>
+
+                                            <div class="loader_pdf">  </div>
+
+                                            <div class="row" style="padding:0;">
+                                                <div class="col-sm-12" style="padding:0;">
+
+                                                    <div id="pdfuploader">+ Cargar Imagenes</div>
+                                                
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        
+                                        <button class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.previous')</button>
+                                        <button class="btn btn-default" href="#adjusthtml" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</button>
+                                        
+                                    </div>
+                                    <!--/.panel-body --> </div>
+                                <!-- /#addwizard --> </div>
+                                <!-- /.panel.panel-default -->
+
+
+
+
+
+
+
+
+
+                            <div class="panel panel-warning">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a href="#adjusthtml" data-parent="#accordion-demo" data-toggle="collapse">@lang('productos/title.seo_ajuste')</a>
+                                    </h4>
+                                </div>
+                                <div id="adjusthtml" class="panel-collapse collapse" style="height: 36.400001525878906px;">
+                                    <div class="panel-body">
+                                          
+                                            <div class="form-group clearfix {{ $errors->
+                            first('seo_titulo', 'has-error') }}">
+                                                <label class="col-md-3 control-label" for="nombre_producto">@lang('productos/title.seo_title')</label>
+                                                <div class="col-md-9">
+                                                    <input id="seo_titulo" name="seo_titulo" type="text" placeholder="Seo Titulo" class="form-control" value="{{ old('seo_titulo') }}">
+
+                                                    {!! $errors->first('seo_titulo', '<span class="help-block">:message</span> ') !!}
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group clearfix {{ $errors->
+                            first('seo_descripcion', 'has-error') }}">
+                                                <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.seo_des')</label>
+                                                <div class="col-md-9">
+                                                    <input id="seo_descripcion" name="seo_descripcion" type="text" placeholder="Seo Descripcion" class="form-control" maxlength="160" value="{{ old('seo_descripcion') }}">
+
+                                                     {!! $errors->first('seo_descripcion', '<span class="help-block">:message</span> ') !!}
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group clearfix {{ $errors->
+                            first('slug', 'has-error') }}">
+                                                <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.slug')</label>
+                                                <div class="col-md-9">
+                                                    <input id="slug" name="slug" type="text" placeholder="Seo Url" class="form-control respSlug" value="{{ old('slug') }}">
+                                                    {!! $errors->first('slug', '<span class="help-block">:message</span> ') !!}
+                                                </div>
+
+                                                    
+                                            </div>
+
+                                            <div class="col-sm-12">
+
+                                            <fieldset>
+                            
+                                                <h3>Opciones robots.</h3>
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_all" name="robots_all" value="all" >
+                                                   All
+                                                  </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                      <label>
+                                                        <input type="checkbox" id="robots_index" name="robots_index" value="index"   checked  >
+                                                       Index
+                                                      </label>
+                                                    </div>
+
+                                                    <div class="checkbox">
+                                                      <label>
+                                                        <input type="checkbox" id="robots_follow" name="robots_follow" value="follow"   checked  >
+                                                       Follow
+                                                      </label>
+                                                    </div>
+
+
+
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_noindex" name="robots_noindex" value="noindex">
+                                                   noindex
+                                                  </label>
+                                                </div>
+
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_nofollow" name="robots_nofollow" value="nofollow">
+                                                   nofollow
+                                                  </label>
+                                                </div>
+
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_none" name="robots_none" value="none">
+                                                   none
+                                                  </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_noarchive" name="robots_noarchive" value="noarchive">
+                                                   noarchive
+                                                  </label>
+                                                </div>
+
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_nosnippet" name="robots_nosnippet" value="nosnippet">
+                                                   nosnippet
+                                                  </label>
+                                                </div>
+
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_notranslate" name="robots_notranslate" value="notranslate">
+                                                   notranslate
+                                                  </label>
+                                                </div>
+
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_noimageindex" name="robots_noimageindex" value="noimageindex">
+                                                   noimageindex
+                                                  </label>
+                                                </div>
 
                             <div class="panel panel-warning">
                                 <div class="panel-heading">
@@ -649,6 +833,167 @@
 
 
 
+
+
+                                            <div class="acc-wizard-step"></div>
+
+                                            <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.previous')</a>
+
+
+                                            <a class="btn btn-default" href="#prod_categoria" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
+                                        
+                                    </div>
+                                    <!--/.panel-body --> </div>
+                                <!-- /#adjusthtml --> </div>
+                            <!-- /.panel.panel-default -->
+                            <div class="panel panel-warning">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a href="#adjusthtml" data-parent="#accordion-demo" data-toggle="collapse">@lang('productos/title.seo_ajuste')</a>
+                                    </h4>
+                                </div>
+                                <div id="adjusthtml" class="panel-collapse collapse" style="height: 36.400001525878906px;">
+                                    <div class="panel-body">
+                                          
+                                            <div class="form-group clearfix {{ $errors->
+                            first('seo_titulo', 'has-error') }}">
+                                                <label class="col-md-3 control-label" for="nombre_producto">@lang('productos/title.seo_title')</label>
+                                                <div class="col-md-9">
+                                                    <input id="seo_titulo" name="seo_titulo" type="text" placeholder="Seo Titulo" class="form-control" value="{{ old('seo_titulo') }}">
+
+                                                    {!! $errors->first('seo_titulo', '<span class="help-block">:message</span> ') !!}
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group clearfix {{ $errors->
+                            first('seo_descripcion', 'has-error') }}">
+                                                <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.seo_des')</label>
+                                                <div class="col-md-9">
+                                                    <input id="seo_descripcion" name="seo_descripcion" type="text" placeholder="Seo Descripcion" class="form-control" maxlength="160" value="{{ old('seo_descripcion') }}">
+
+                                                     {!! $errors->first('seo_descripcion', '<span class="help-block">:message</span> ') !!}
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group clearfix {{ $errors->
+                            first('slug', 'has-error') }}">
+                                                <label class="col-md-3 control-label" for="referencia_producto">@lang('productos/title.slug')</label>
+                                                <div class="col-md-9">
+                                                    <input id="slug" name="slug" type="text" placeholder="Seo Url" class="form-control respSlug" value="{{ old('slug') }}">
+                                                    {!! $errors->first('slug', '<span class="help-block">:message</span> ') !!}
+                                                </div>
+
+                                                    
+                                            </div>
+
+                                            <div class="col-sm-12">
+
+                                            <fieldset>
+                            
+                                                <h3>Opciones robots.</h3>
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_all" name="robots_all" value="all" >
+                                                   All
+                                                  </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                      <label>
+                                                        <input type="checkbox" id="robots_index" name="robots_index" value="index"   checked  >
+                                                       Index
+                                                      </label>
+                                                    </div>
+
+                                                    <div class="checkbox">
+                                                      <label>
+                                                        <input type="checkbox" id="robots_follow" name="robots_follow" value="follow"   checked  >
+                                                       Follow
+                                                      </label>
+                                                    </div>
+
+
+
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_noindex" name="robots_noindex" value="noindex">
+                                                   noindex
+                                                  </label>
+                                                </div>
+
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_nofollow" name="robots_nofollow" value="nofollow">
+                                                   nofollow
+                                                  </label>
+                                                </div>
+
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_none" name="robots_none" value="none">
+                                                   none
+                                                  </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_noarchive" name="robots_noarchive" value="noarchive">
+                                                   noarchive
+                                                  </label>
+                                                </div>
+
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_nosnippet" name="robots_nosnippet" value="nosnippet">
+                                                   nosnippet
+                                                  </label>
+                                                </div>
+
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_notranslate" name="robots_notranslate" value="notranslate">
+                                                   notranslate
+                                                  </label>
+                                                </div>
+
+
+                                                <div class="checkbox">
+                                                  <label>
+                                                    <input type="checkbox" id="robots_noimageindex" name="robots_noimageindex" value="noimageindex">
+                                                   noimageindex
+                                                  </label>
+                                                </div>
+
+
+
+                                                </fieldset>
+
+
+                                            </div>
+
+                                            <div class="acc-wizard-step"></div>
+
+                                            <a class="btn btn-default" href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.previous')</a>
+
+
+                                            <a class="btn btn-default" href="#prod_categoria" data-parent="#accordion-demo" data-toggle="collapse">@lang('button.next')</a>
+                                        
+                                    </div>
+                                    <!--/.panel-body --> </div>
+                                <!-- /#adjusthtml --> </div>
+                            <!-- /.panel.panel-default -->
+
+
+                                                </fieldset>
+
+
+                                            </div>
 
 
                                             <div class="acc-wizard-step"></div>
@@ -1178,7 +1523,8 @@
     <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
 
-   
+    <script src="{{ secure_asset('assets/js/jquery.uploadfile.min.js') }}" type="text/javascript"></script>
+
 
 
      <!-- Arbol de categorias -->
@@ -1188,6 +1534,7 @@
 
     <script src="https://cdn.tiny.cloud/1/qc49iemrwi4gmrqtiuvymiviycjklawxnqmtcnvorw0hckoj/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
+    <script src="{{ secure_asset('assets/js/jquery.uploadfile.min.js') }}" type="text/javascript"></script>
 
    <!-- <script src="{{ secure_asset('assets/js/pages/treeview_jstree.js') }}" type="text/javascript"></script>-->
 
@@ -1803,6 +2150,85 @@ $('#productosForm').keypress(
 
 
 });
+
+
+$(document).ready(function()
+        {
+            
+        id=$('#id_imagen').val();
+        base=$('#base').val();
+        //alert('cargo');
+
+        $("#pdfuploader").uploadFile({
+        url:base+"/admin/productos/imagenes/"+id,
+        fileName:"myfile",
+        showStatusAfterSuccess:false,
+        showAbort:false,
+        showDone:false,
+            showProgress:false,
+            dragDrop:false,
+
+        
+        
+            onSubmit:function(files)
+                {
+                    
+                $(".loader_pdf").html("<img title='cargando'  src='/assets/img/loading.gif'>");
+                
+                },
+
+            onSuccess:function(files,data,xhr)
+            {
+            $(".pdf .row").html(data);
+            $(".loader_pdf").html("");
+                
+            },
+            onError: function(files,status,errMsg)
+                {
+                $(".loader_pdf").html("");
+                }
+        
+        });
+
+
+
+
+        $(document).on('click', '.delImagen', function(){
+
+                    var id=$(this).data('id');
+
+                    $.post(base+'/admin/productos/delimagenes', {id}, function(data) {
+
+                        $(".pdf .row").html(data);
+                            
+
+                    });
+                
+                });
+
+
+                $(document).on('click', '.updateImagen', function(){
+
+                    var id=$(this).data('id');
+
+                    alt=$('#alt_imagen_'+id).val();
+
+                    title=$('#title_imagen_'+id).val();
+
+                    $.post(base+'/admin/productos/updateimagenes', {id, alt, title}, function(data) {
+
+                        $(".pdf .row").html(data);
+
+                    });
+
+                });
+
+
+
+        });
+
+
+
 
 
      </script>
