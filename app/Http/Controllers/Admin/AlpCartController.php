@@ -403,79 +403,59 @@ class AlpCartController extends JoshController
             ->whereNull('alp_ordenes_detalle.deleted_at')
             ->get();
 
-            $pago=AlpPagos::where('id_orden', $id)->first();
+            $pago=AlpPagos::where('id_orden', $id)->where('id_forma_pago', '<>', '4')->first();
 
             if (isset($pago->id)) {
               
+
               if ($compra->id_forma_pago=='3' || $compra->id_forma_pago=='1') {
+
                 $payment=null;
 
               }else{
+
                 $payment=json_decode($pago->json);
               }
 
-
             }else{
-              $payment=null;
-            }
 
-         
+              $payment=null;
+
+            }
 
           $envio=AlpEnvios::where('id_orden', $id)->first();
 
-          
           $valor_impuesto=AlpImpuestos::where('id', '1')->first();
-
           
           if ($envio->costo>0) {
 
-           
-
              $envio_base=$envio->costo/(1+$valor_impuesto->valor_impuesto);
 
-             
-          $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
-
-          
+            $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
 
           }else{
 
-            
             $envio_base=0;
-
             
             $envio_impuesto=0;
 
-            
           }
 
       
-
-      
           $fecha_entrega=$envio->fecha_envio;
-
           
           $states=State::where('config_states.country_id', '47')->get();
 
-          
           $configuracion = AlpConfiguracion::where('id','1')->first();
-
           
           $user_cliente=User::where('id', $compra->id_cliente)->first();
 
-          
           $aviso_pago='';
 
-          
           $metodo='';
-
-          
-
- 
 
           $estatus_aviso='success';
 
-          
           if ($compra->id_forma_pago=='3') {
 
             
@@ -2915,31 +2895,22 @@ class AlpCartController extends JoshController
       
       $id_orden= \Session::get('orden');
 
-
       $envio=$this->envio();
       
       $valor_impuesto=AlpImpuestos::where('id', '1')->first();
-
       
       if ($envio>0) {
 
-       
 
          $envio_base=$envio/(1+$valor_impuesto->valor_impuesto);
-
          
         $envio_impuesto=$envio_base*$valor_impuesto->valor_impuesto;
 
-        
-
       }else{
-
         
         $envio_base=0;
 
-        
         $envio_impuesto=0;
-
         
       }
 
@@ -2980,34 +2951,33 @@ class AlpCartController extends JoshController
 
           ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
 
-          
-
           $total_descuentos=0;
-
-          
 
             $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
 
-            
             foreach ($descuentos as $pago) {
 
-              
               //$total_pagos=$total_pagos+$pago->monto_descuento;
 
               $total_descuentos=$total_descuentos+$pago->monto_descuento;
-
               
             }
 
 
+            $pagostarjeta=AlpPagos::where('id_orden', $carrito)->where('id_forma_pago', '=', '4')->get();
 
-            
+            $total_tarjetas=0;
+
+            foreach($pagostarjeta as $pt){
+
+              $total_tarjetas=$total_tarjetas+$pt->monto_pago;
+            }
+
+
             $det_array = array();
 
-            
 
             foreach ($detalles as $d ) {
-
 
               $det_array[]= array(
                         "id"          => $d->id_producto,
@@ -3021,86 +2991,51 @@ class AlpCartController extends JoshController
 
               
                $preference_data = [
-
-                "transaction_amount" => doubleval($orden->monto_total+$envio),
-
+                "transaction_amount" => doubleval($orden->monto_total+$envio-$total_tarjetas),
                 "external_reference" =>"".$orden->referencia_mp."",
-
                 "description" => 'Pago de orden: '.$orden->id,
-
                 "payment_method_id" => $request->idpago,
-
                   "additional_info"=> [
-
                     "items" => $det_array ],
-
                 "payer" => [
-
                   "email"=>$user_cliente->email],
-
                   "additional_info"=> [
-
                     "items" => $det_array ],
-
-                "net_amount"=>(float)number_format($net_amount, 2, '.', ''),
-
+                "net_amount"=>(float)number_format($net_amount-$total_tarjetas, 2, '.', ''),
                 "taxes"=>[[
-
                   "value"=>(float)number_format($impuesto, 2, '.', ''),
-
                   "type"=>"IVA"]]
-
               ];
 
-              
 
              // dd($preference_data);
 
-              
-          
-
             //Log::info($preference_data);
-
               
             //$payment = MP::post("/v1/payments",$preference_data);
-
               
             //activity()->withProperties($preference_data)->log('intento de pago pse ');
-
             
 
             if (($orden->monto_total+$envio)>0) {
 
-              
-
                $payment = MP::post("/v1/payments",$preference_data);
-
                
             }else{
-
               
               $payment = array();
-
               
             }
 
-            
 
             //Log::info($payment);
 
-            
-
             if (isset($payment['response']['id'])) {
-
-           
-
-          
 
               // 1.- eststus orden, 2.- estatus pago, 3 json pedido 
 
               $data=$this->generarPedido('8', '4', $payment, 'baloto');
 
-              
               if (isset($data['id_orden'])) {
 
           # code...

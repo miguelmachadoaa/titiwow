@@ -40,9 +40,7 @@ Carrito de Compras
         @if($aviso_pago!='0')
         <div class="col-sm-12">
             <div class="alert alert-success alertita" >
-
-
-               <span class="texto_pagho">{!!$aviso_pago !!}</span> 
+               <span class="texto_pagho">{!! $aviso_pago !!}</span> 
             </div>
         </div>
         @endif
