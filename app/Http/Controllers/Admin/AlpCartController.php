@@ -2441,6 +2441,8 @@ class AlpCartController extends JoshController
 
           $pagos=AlpPagos::where('id_orden', $carrito)->get();
 
+         
+
           
           $total_pagos=0;
 
@@ -2456,17 +2458,12 @@ class AlpCartController extends JoshController
           
           $total_descuentos=0;
 
-          
-
             $descuentos=AlpOrdenesDescuento::where('id_orden','=', $carrito)->get();
-
             
             foreach ($descuentos as $pago) {
 
-              
               $total_pagos=$total_pagos+$pago->monto_descuento;
 
-              
               $total_descuentos=$total_descuentos+$pago->monto_descuento;
 
               
@@ -2806,11 +2803,11 @@ class AlpCartController extends JoshController
 
          # $total_pagos=0;
 
-          foreach ($pagos as $pago) {
+         /* foreach ($pagos as $pago) {
 
             $total_pagos=$total_pagos+$pago->monto_pago;
 
-          }
+          }*/
 
           //dd($cupo_credito_icg);
           

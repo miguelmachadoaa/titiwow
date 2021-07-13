@@ -351,26 +351,41 @@
 </div>
 @endif
 
+<div class="col-xs-12">
 
-                                    <div class="clearfix">  </div>
-                             
 
-                                     <div class="resaviso"></div>
-                                     @if (isset($aviso))
+    <p>Total : {{$total}}</p>
+    <p>total_pagos: {{$total_pagos}}</p>
+    <p>costo_envio : {{$costo_envio}}</p>
+    <p>total_descuentos_icg : {{$total_descuentos_icg}}</p>
 
-                                            @if($aviso=='')
+    <p>pagos : {{json_encode($pagos)}}</p>
 
-                                            @else
-         
-                                            <div class="alert alert-danger">
+    <p>desceuntos : {{json_encode($descuentos)}}</p>
 
-                                                {{ $aviso }}
 
-                                            </div>
+</div>
 
-                                            @endif
 
-                                        @endif
+    <div class="clearfix">  </div>
+
+
+        <div class="resaviso"></div>
+        @if (isset($aviso))
+
+            @if($aviso=='')
+
+            @else
+
+            <div class="alert alert-danger">
+
+                {{ $aviso }}
+
+            </div>
+
+            @endif
+
+        @endif
 
 
 
