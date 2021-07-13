@@ -41,7 +41,7 @@ class ProductosRequest extends FormRequest {
 			'precio_base' => 'required',
 			'cantidad' => 'required|numeric',
 			'unidad' => 'required',
-			'image' => 'image',
+			'imagen_producto' => 'image',
 		];
 	}
 

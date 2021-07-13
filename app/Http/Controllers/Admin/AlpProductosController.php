@@ -491,9 +491,9 @@ class AlpProductosController extends JoshController
          $picture = "";
 
         
-        if ($request->hasFile('image')) {
+        if ($request->hasFile('imagen_producto')) {
             
-            $file = $request->file('image');
+            $file = $request->file('imagen_producto');
             $extension = $file->extension()?: 'jpg';
             $picture = str_random(10) . '.' . $extension;    
             $destinationPath = public_path('uploads/productos/' . $picture);
@@ -703,6 +703,9 @@ class AlpProductosController extends JoshController
         $data = array('robots' => $robots);
 
         $producto->update($data);
+
+
+        AlpProductosImagenes::where('id_producto', $request->id_imagen)->update(['id_producto'=>$producto->id]);
 
         if ($producto->id) {
 
@@ -2992,6 +2995,16 @@ class AlpProductosController extends JoshController
 
         $p=AlpProductos::where('id', $id)->first();
 
+        if(isset($p->id)){
+
+          $nombre_imagen=$p->nombre_producto;
+
+        }else{
+
+          $nombre_imagen='default';
+
+        }
+
      
      $imagen='default.png';
 
@@ -3016,8 +3029,8 @@ class AlpProductosController extends JoshController
           'id_producto' => $id, 
           'imagen_producto' => $imagen, 
           'order' => 0, 
-          'title' => $p->nombre_producto, 
-          'alt' => $p->nombre_producto,  
+          'title' => $nombre_imagen, 
+          'alt' => $nombre_imagen,  
           'id_user' => $user_id, 
         );
 
