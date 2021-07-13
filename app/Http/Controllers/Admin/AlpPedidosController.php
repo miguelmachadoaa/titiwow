@@ -3727,21 +3727,17 @@ public function postdireccion(DireccionModalRequest $request)
 
             if(isset($ciudad->id)){
 
-
             }else{
 
               $ciudad=AlpFormaCiudad::where('id_forma', $cart['id_forma_envio'])->where('id_ciudad', $direccion->city_id)->where('id_barrio', '=', 0)->first();
 
-
             }
-
 
         }else{
 
            $ciudad=AlpFormaCiudad::where('id_forma', $cart['id_forma_envio'])->where('id_ciudad', $direccion->city_id)->first();
 
         }
-
 
           $role=RoleUser::select('role_id')->where('user_id', $cart['id_cliente'])->first();
 
@@ -3750,9 +3746,6 @@ public function postdireccion(DireccionModalRequest $request)
           $re_u=AlpRolenvio::where('id_rol', $role->role_id)->first();
 
           $id_almacen=$cart['id_almacen'];
-
-          //dd($re_u);
-          //
 
         $ad=AlpAlmacenDespacho::where('id_almacen', '=', $cart['id_almacen'])->where('id_city', '=', $direccion->city_id)->first();
 

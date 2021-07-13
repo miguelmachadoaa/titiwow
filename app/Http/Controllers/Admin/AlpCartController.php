@@ -723,9 +723,21 @@ class AlpCartController extends JoshController
 
       }
 
+
+      $pagostarjeta=AlpPagos::where('id_orden', $carrito)->where('id_forma_pago', '=', '4')->get();
+
+            $total_tarjetas=0;
+
+            foreach($pagostarjeta as $pt){
+
+              $total_tarjetas=$total_tarjetas+$pt->monto_pago;
+            }
+
+
+
       
 
-      $total=$orden->monto_total+$envio;
+      $total=$orden->monto_total+$envio-$total_tarjetas;
 
       $impuesto=$orden->monto_impuesto+$envio_impuesto;
 
@@ -743,66 +755,42 @@ class AlpCartController extends JoshController
 
           $mp = new MP();
 
-        
         if ($almacen->mercadopago_sand=='1') {
-
-          
 
           $mp::sandbox_mode(TRUE);
 
-          
         }
 
         
         if ($almacen->mercadopago_sand=='2') {
 
-          
-
           $mp::sandbox_mode(FALSE);
 
-          
         }
 
         
         MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
-
         
         $net_amount=$total-$impuesto;
 
-        
-
-                       $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
-
+          $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.descripcion_corta as descripcion_corta','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
           ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
-
           ->where('alp_ordenes_detalle.id_orden', $orden->id)->get();
-
           
       $det_array = array();
-
       
       $total_descuentos=0;
 
-      
-
-
       $descuentos=AlpOrdenesDescuento::where('id_orden', $carrito)->get();
-
       
             foreach ($descuentos as $pago) {
 
-              
               $total_descuentos=$total_descuentos+$pago->monto_descuento;
-
               
             }
 
-            
-
 
       foreach ($detalles as $d ) {
-
-        
 
         $det_array[]= array(
 
