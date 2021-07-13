@@ -13,7 +13,6 @@ Route::get('confirmarcorreo/{token}', 'FrontEndController@confirmarcorreo')->nam
 
 Route::get('reenviarcorreo/{token}', 'FrontEndController@reenviarcorreo')->name('reenviarcorreo');
 
-
 Route::get('pqr', 'FrontEndController@getPqr')->name('pqr');
 
 
@@ -263,6 +262,14 @@ Route::post('productos/postgrid/', ['as'=> 'productos.postgrid', 'uses' => 'Admi
 
 
     Route::resource('productos', 'Admin\AlpProductosController');
+
+
+    Route::post('productos/imagenes/{id}', ['as'=> 'productos.imagenes', 'uses' => 'Admin\AlpProductosController@imagenes']);
+
+    Route::post('productos/delimagenes', ['as'=> 'productos.imagenes.del', 'uses' => 'Admin\AlpProductosController@delimagenes']);
+
+    Route::post('productos/updateimagenes', ['as'=> 'productos.imagenes.del', 'uses' => 'Admin\AlpProductosController@updateimagenes']);
+
 
     Route::get('productos/{id}/confirmar', array('as' => 'productos.confirmar', 'uses' => 'Admin\AlpProductosController@confirmar'));
 

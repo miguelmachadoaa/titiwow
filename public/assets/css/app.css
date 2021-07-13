@@ -1952,3 +1952,14 @@ padding: 0.3em 0.3em 0em 1em;
 
 }
 
+.imagenadicional{
+    border: 1px solid rgba(0,0,0,0.1);
+    padding: 0.5em;
+    margin-bottom: 1em;
+    display: flex;
+    align-items: center;
+}
+
+.imagenadicional__formulario, .imagenadicional__formulario--label{
+    padding: 0;
+}
