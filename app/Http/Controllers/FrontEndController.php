@@ -494,8 +494,8 @@ $hoy=$date->format('Y-m-d');
           ->withProperties($user)->log('FrontEndController/confirmarcorreo');
 
           $data_user = array(
-            'confirma_email' => 1,
-            'token'=>md5(time()) 
+            'confirma_email' => 1
+            //'token'=>md5(time()) 
           );
 
           $user->update($data_user);

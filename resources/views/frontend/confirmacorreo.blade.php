@@ -46,7 +46,7 @@ Gracias por confirmar Su Correo
                 </li>
                 <li>
                     <i class="livicon icon3" data-name="angle-double-right" data-size="18" data-loop="true" data-c="#241F48" data-hc="#241F48"></i>
-                    <a href="#">Gracias por confirmar Su Correo</a>
+                    <a href="#">Su cuenta ya se encuentra confirmada, Gracias por confirmar Su Correo</a>
                 </li>
             </ol>
             
