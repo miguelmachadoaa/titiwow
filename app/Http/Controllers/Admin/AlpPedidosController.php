@@ -220,7 +220,6 @@ class AlpPedidosController extends JoshController
 
             $id_almacen='1';
           }
-
       
 
         $almacen=AlpAlmacenes::where('id', $id_almacen)->first();
@@ -3723,7 +3722,19 @@ public function postdireccion(DireccionModalRequest $request)
 
         if ($direccion->id_barrio!=0) {
 
-            $ciudad=AlpFormaCiudad::where('id_forma', $cart['id_forma_envio'])->where('id_barrio', $direccion->id_barrio)->first();
+           
+          $ciudad=AlpFormaCiudad::where('id_forma', $cart['id_forma_envio'])->where('id_barrio', $direccion->id_barrio)->first();
+
+            if(isset($ciudad->id)){
+
+
+            }else{
+
+              $ciudad=AlpFormaCiudad::where('id_forma', $cart['id_forma_envio'])->where('id_ciudad', $direccion->city_id)->where('id_barrio', '=', 0)->first();
+
+
+            }
+
 
         }else{
 
