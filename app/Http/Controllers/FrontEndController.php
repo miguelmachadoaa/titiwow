@@ -4247,19 +4247,12 @@ public function getApiUrl($endpoint, $jsessionid)
             $role=RoleUser::select('role_id')->where('user_id', $user_id)->first();
 
              $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-
               ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-
               ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-
               ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-
               ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-
               ->where('alp_direcciones.id_client', $user_id)
-
               ->where('alp_direcciones.default_address', '=', '1')
-
               ->first();
 
 
@@ -4269,17 +4262,11 @@ public function getApiUrl($endpoint, $jsessionid)
 
 
                   $d = AlpDirecciones::select('alp_direcciones.*', 'config_cities.city_name as city_name', 'config_states.state_name as state_name','config_states.id as state_id','config_countries.country_name as country_name', 'alp_direcciones_estructura.nombre_estructura as nombre_estructura', 'alp_direcciones_estructura.id as estructura_id')
-
                 ->join('config_cities', 'alp_direcciones.city_id', '=', 'config_cities.id')
-
                 ->join('config_states', 'config_cities.state_id', '=', 'config_states.id')
-
                 ->join('config_countries', 'config_states.country_id', '=', 'config_countries.id')
-
                 ->join('alp_direcciones_estructura', 'alp_direcciones.id_estructura_address', '=', 'alp_direcciones_estructura.id')
-
                 ->where('alp_direcciones.id_client', $user_id)
-
                 ->first();
 
             }

@@ -351,7 +351,7 @@
 </div>
 @endif
 
-<div class="col-xs-12">
+<!--div class="col-xs-12">
 
 
     <p>Total : {{$total}}</p>
@@ -364,7 +364,7 @@
     <p>desceuntos : {{json_encode($descuentos)}}</p>
 
 
-</div>
+</div-->
 
 
     <div class="clearfix">  </div>
