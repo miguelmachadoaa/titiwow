@@ -70,15 +70,13 @@ class NotificacionCarrito extends Command
 
         $userarray = array();
 
-        #dd(json_encode($carritos));
-
-
         activity()->withProperties($carritos)->log('ibm_carrito carritos a verificar');
 
         $i=0;
 
-
       foreach ($carritos  as $car) {
+
+        echo  $car->id.' / ';
 
         $date = Carbon::parse($car->created_at); 
 
@@ -167,42 +165,26 @@ class NotificacionCarrito extends Command
 
       //  echo $jsessionid.'<br>';
 
-
             $rows='';
-
 
             foreach ($cart as $d) {
 
-               // dd($d);
-
               $rows=$rows.'<ROW> <COLUMN name="Correo"> <![CDATA['.$user->email.']]> </COLUMN><COLUMN name="Referencia_producto"> <![CDATA['.$d->referencia_producto.']]> </COLUMN><COLUMN name="Nombre_producto"><![CDATA['.$d->nombre_producto.']]> </COLUMN><COLUMN name="Precio_Unitario"> <![CDATA['.number_format($d->precio_oferta,0,',','').']]> </COLUMN><COLUMN name="Cantidad"> <![CDATA['.$d->cantidad.']]> </COLUMN><COLUMN name="Imagen_producto"><![CDATA['.secure_url('uploads/productos/'.$d->imagen_producto).']]> </COLUMN><COLUMN name="Url_producto"><![CDATA['.secure_url('/productos/'.$d->slug).']]></COLUMN><COLUMN name="Valor_por_gramo_producto"><![CDATA['.number_format($d->precio_oferta/$d->cantidad_producto,2,'.','').']]> </COLUMN><COLUMN name="Fecha_carrito"> <![CDATA['.$fecha.']]> </COLUMN></ROW>'; 
-
-             // dd($rows);
-
-
 
             }
 
-
             $xml='<Envelope><Body><InsertUpdateRelationalTable><TABLE_ID>10843849</TABLE_ID><ROWS>'.$rows.'</ROWS></InsertUpdateRelationalTable></Body></Envelope>';
-
-           // dd($xml);
 
 
             activity()->withProperties($xml)->log('Ibm_Carrito Datos Enviados');
 
-        $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
+          $result2 = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml));
 
-        activity()->withProperties($result2)->log('Ibm_Carrito Datos Respuesta');
+          activity()->withProperties($result2)->log('Ibm_Carrito Datos Respuesta');
 
-
-        $xml = '<Envelope><Body><Logout/></Body></Envelope>';
+          $xml = '<Envelope><Body><Logout/></Body></Envelope>';
 
               $result = $this->xmlToArray($this->makeRequest($endpoint, $jsessionid, $xml, true));
-
-            //  activity()->withProperties($result)->log('xml_ibm-result2-carrito');
-
-             // print_r($result);
 
               return $result2['SUCCESS'];
 
