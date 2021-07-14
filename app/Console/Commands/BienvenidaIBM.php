@@ -60,7 +60,7 @@ class BienvenidaIBM extends Command
         ->whereDate('users.created_at','>', $d)
        // ->whereDate('users.created_at', '>','2020-11-01')
         ->where('alp_clientes.origen', '=', 0)
-        ->where('alp_clientes.bienvenida', '=', 0)
+        ->where('alp_clientes.notificacion_bienvenida', '=', 0)
         ->get();
 
        # $users=User::where('id', '=', '113')->get();
@@ -69,14 +69,14 @@ class BienvenidaIBM extends Command
 
         foreach ($users as $u) {
 
+                #echo $u->id.' / ';
+
 
                   $c=AlpClientes::where('id_user_client', $u->id)->first();
 
                     if (isset($c->id)) {
                       $c->update(['notificacion_bienvenida'=>'1']);
                     }
-
-
 
             $this->addibm($u);
             
