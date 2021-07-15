@@ -10,7 +10,6 @@ use App\Models\AlpFormaCiudad;
 use App\Models\AlpFormasenvio;
 use App\Models\AlpImpuestos;
 
-
 use App\Models\AlpProductos;
 use App\Models\AlpAlmacenes;
 use App\Models\AlpPagos;
@@ -23,10 +22,6 @@ use App\Models\AlpOrdenesDescuento;
 
 use App\Models\AlpOrdenesDescuentoIcg;
 use App\Models\AlpConsultaIcg;
-
-
-
-
 use App\Exports\CronNuevosUsuarios;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Log;
@@ -104,7 +99,7 @@ class VerificarPagos extends Command
 
           $user_cliente=User::where('id', $ord->id_user)->first();
 
-
+          
           if (isset($almacen->id)) {
 
             if (!is_null($almacen->id_mercadopago) &&  !is_null($almacen->key_mercadopago)) {
@@ -125,15 +120,15 @@ class VerificarPagos extends Command
 
             MP::setCredenciales($almacen->id_mercadopago, $almacen->key_mercadopago);
 
-            try {
+              try {
 
-              $preference = MP::get("/v1/payments/search?external_reference=".$ord->referencia_mp);
+                $preference = MP::get("/v1/payments/search?external_reference=".$ord->referencia_mp);
 
-            } catch (MercadoPagoException $e) {
+              } catch (MercadoPagoException $e) {
 
-              $preference = array('1');
-              
-            }
+                $preference = array('1');
+                
+              }
 
             }else{
 
@@ -156,7 +151,9 @@ class VerificarPagos extends Command
          // if (isset($preference)) {
 
             $cantidad=count($preference['response']['results']);
+
             $aproved=0;
+
             $cancel=0;
             $pending=0;
 

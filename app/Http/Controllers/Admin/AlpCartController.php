@@ -458,28 +458,28 @@ class AlpCartController extends JoshController
 
           if ($compra->id_forma_pago=='3') {
 
-            
             $estatus_aviso='pending';
-
             
             $aviso_pago="Hemos recibido su orden y estaremos revisando su pago, en cuanto sea aprobado Le llegará un email con la descripción de su pago. ¡Muchas gracias por su Compra!";
-
             
             $metodo='Descuento Nomina';
-
             
 
           }elseif($compra->id_forma_pago=='1'){
-
             
             $estatus_aviso='pending';
-
             
             $aviso_pago="Hemos recibido su orden  en cuanto sea aprobado Le llegará un email con la descripción de su pedido. ¡Muchas gracias por su Compra!";
-
             
             $metodo='Contraentrega';
-
+            
+          }elseif($compra->id_forma_pago=='4'){
+            
+            $estatus_aviso='aproved';
+            
+            $aviso_pago="Hemos recibido su orden  en cuanto sea aprobado Le llegará un email con la descripción de su pedido. ¡Muchas gracias por su Compra!";
+            
+            $metodo='Tarjeta de Regalo';
             
           }else{
 
@@ -4673,50 +4673,37 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
     
     public function orderProcesar(Request $request)
-
     {
 
        $cart= \Session::get('cart');
 
-       
        if (count($cart)>0) {
-
         
       $carrito= \Session::get('cr');
-
       
       $total=$this->total();
-
       
       $id_orden= \Session::get('orden');
-
       
       $orden=AlpOrdenes::where('id', $id_orden)->first();
 
       $almacen=AlpAlmacenes::where('id', $orden->id)->first();
 
       $aviso_pago='0';
-
       
       $configuracion = AlpConfiguracion::where('id','1')->first();
 
-      
 
       if (Sentinel::check()) {
 
-        
         $user_id = Sentinel::getUser()->id;
 
-        
         $direccion=AlpDirecciones::where('id', $orden->id_address)->first();
 
-        
        // dd($direccion);
 
-        
         $ciudad_forma=AlpFormaCiudad::where('id_forma', $orden->id_forma_envio)->where('id_ciudad', $direccion->city_id)->first();
 
-        
         if (isset($ciudad_forma->dias)) {
 
           $diasd=$ciudad_forma->dias;

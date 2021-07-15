@@ -112,7 +112,9 @@ class NotificacionCarrito extends Command
 
             $ord=AlpCarrito::where('id', $car->id)->first();
 
-            $ord->update($arrayName);
+            if(isset($ord->id)){
+              $ord->update($arrayName);
+            }
 
 
           }
