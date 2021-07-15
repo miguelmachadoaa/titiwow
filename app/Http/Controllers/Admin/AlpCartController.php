@@ -4911,17 +4911,11 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
            
            foreach ($detalles_carrito as $dc) {
 
-             
-
             $ids[]=$dc->id;
-
             
            }
 
-           
            AlpCarritoDetalle::destroy($ids);
-
-           
 
          }
 
@@ -5475,12 +5469,13 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
                             if($inv[$l->id_producto]>=($l->cantidad*$producto->cantidad)){
 
-                                                          }else{
+                             }else{
 
                               $ban_disponible=1;
 
                               $error="No hay existencia suficiente de este producto, en su ubicacion";
-                                                          }
+
+                            }
 
                         }else{
 
@@ -5494,22 +5489,19 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
               }
 
-                            if ($ban_disponible==0) {
+              if ($ban_disponible==0) {
 
-                    $cart[$producto->slug]=$producto;
+                $cart[$producto->slug]=$producto;
 
-                     $data_detalle = array(
-                                          'id_carrito' => $carrito, 
-                                        'id_producto' => $producto->id, 
-                                        'cantidad' => $producto->cantidad
-                                      );
+                $data_detalle = array(
+                    'id_carrito' => $carrito, 
+                  'id_producto' => $producto->id, 
+                  'cantidad' => $producto->cantidad
+                );
 
                  AlpCarritoDetalle::create($data_detalle);
-
                  
               }
-
-            
 
           }else{
 
@@ -5518,7 +5510,7 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
           }
 
                     # code...
-                  }else{
+        }else{
 
             $error="No hay existencia suficiente de este producto, en su ubicacion";
 
@@ -5530,38 +5522,37 @@ public function generarPedido($estatus_orden, $estatus_pago, $json_pago, $tipo){
 
        }
 
-              \Session::put('cart', $cart);
+        \Session::put('cart', $cart);
 
-              if (isset($request->datasingle)) {
+        if (isset($request->datasingle)) {
 
-          $datasingle=$request->datasingle;
+        $datasingle=$request->datasingle;
 
-                 $view= View::make('frontend.order.botones', compact('producto', 'cart', 'datasingle', 'error'));
+        $view= View::make('frontend.order.botones', compact('producto', 'cart', 'datasingle', 'error'));
 
-              }else{
+      }else{
 
         $view= View::make('frontend.order.botones', compact('producto', 'cart', 'error'));
 
-               }
+      }
 
         if (Sentinel::check()) {
 
           $user = Sentinel::getUser();
 
-           activity($user->full_name)
-                                   ->performedOn($user)
-                                                ->causedBy($user)
-                                                ->withProperties($cart)
-                                                ->log('addtocart ');
+           activity($user->full_name)->performedOn($user)
+           ->causedBy($user)
+            ->withProperties($cart)
+            ->log('addtocart ');
 
         }else{
 
           activity()->withProperties($cart)
-                                  ->log('addtocart');
+          ->log('addtocart');
 
-                                          }
+         }
 
-                  $data=$view->render();
+          $data=$view->render();
 
           $res = array('data' => $data);
 

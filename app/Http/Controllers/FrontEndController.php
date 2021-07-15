@@ -1841,6 +1841,7 @@ $hoy=$date->format('Y-m-d');
 
          // $request->email=base64_decode($request->email);
           $request->password=base64_decode($request->password);
+          $request->doc_cliente=base64_decode($request->doc_cliente);
 
           $request->first_name=strip_tags($request->first_name);
           $request->last_name=strip_tags($request->last_name);
@@ -4696,10 +4697,6 @@ public function getApiUrl($endpoint, $jsessionid)
                   $id_almacen='1';
 
                 }
-
-
-
-
 
 
 
