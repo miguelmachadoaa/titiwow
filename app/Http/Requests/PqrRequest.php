@@ -44,7 +44,8 @@ class PqrRequest extends FormRequest
                     'mensaje_pqr.required' => 'El Mensaje es requerido',
                     'mensaje_pqr.min' => 'El Mensaje debe tener como mínimo 20 caracteres',
                     'mensaje_pqr.regex' => 'El Mensaje es requerido,  contiene caracteres invalidos',
-                    'habeas_cliente.required' => 'La Autorizacion de tratamiento de datos y aceptación de términos es requerido',
+                    'habeas_cliente.required' => 'Debe Aceptar la Política de Tratamiento de Datos',
+                    'terminos_cliente.required' => 'Debe Aceptar los Términos y Condiciones',
                     'g-recaptcha-response' => new Captcha()
                 ];
     }
@@ -75,6 +76,7 @@ class PqrRequest extends FormRequest
                     'tipo_pqr' => 'required',
                     'mensaje_pqr' => 'required|min:10|max:500',
                     'habeas_cliente' => 'required',
+                    'terminos_cliente' => 'required',
                     'file_update' => 'mimes:jpg,png,jpeg,pdf|max:5120',
 
                     'g-recaptcha-response' => new Captcha()

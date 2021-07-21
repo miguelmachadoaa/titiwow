@@ -267,7 +267,7 @@
             </form>
             <input type="hidden" name="base" id="base" value="{{ secure_url('/') }}">
         </div>
-        <div>
+        <!--div>
             <div class="form-group">
                 <div class="row text-center" style="background:rgba(0,0,0,0.4);color:#ffffff;padding:20px;margin-top:20px;">
                     <div class="col-md-12">
@@ -282,7 +282,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div-->
     </div>
     <!-- //Content Section End -->
 
