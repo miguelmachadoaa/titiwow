@@ -68,6 +68,8 @@ class NotificacionCarrito extends Command
         ->where('alp_carrito.notificacion','=', 1)
         ->get();
 
+        dd($carritos);
+
         $userarray = array();
 
         activity()->withProperties($carritos)->log('ibm_carrito carritos a verificar');
@@ -116,21 +118,9 @@ class NotificacionCarrito extends Command
               $ord->update($arrayName);
             }
 
-
           }
 
-          
-
-        }else{
-
-          $arrayName = array('notificacion' => 0 );
-
-          $ord=AlpCarrito::where('id', $car->id)->first();
-
-          $ord->update($arrayName);
-
-
-        }
+        } //endif si carrito tienen mas de 24 horas 
 
       }
 
