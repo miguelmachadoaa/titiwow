@@ -61,6 +61,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
         }
+
+        #aivochat-launcher {
+        top: auto;
+        bottom: 20px !important;
+        }
+
+        #aivochat-launcher{
+            right: auto;
+            left: 20px !important;
+        }
+
+
+
+
     </style>
     <!--page level css-->
     @yield('header_styles')

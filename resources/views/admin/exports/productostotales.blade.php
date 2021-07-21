@@ -18,6 +18,9 @@
             <th><b>Fecha</b></th>
             <th><b>Almacen</b></th>
             <th><b>Origen</b></th>
+            <th><b>Precio Base</b></th>
+            <th><b>Precio de Venta </b></th>
+            <th><b>Descuento</b></th>
         </tr>
     </thead>
     <tbody>
@@ -62,6 +65,11 @@
 
 
                 </td>
+            
+                <td>{!! $row->precio_base !!}</td>
+                <td>{!! $row->precio_unitario !!}</td>
+                <td>{!! $row->precio_base - $row->precio_unitario !!}</td>
+            
 
                 
           

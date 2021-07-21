@@ -39,6 +39,7 @@ class ProductostotalesExport implements FromView
           'alp_productos.nombre_producto as nombre_producto',
           'alp_productos.referencia_producto as referencia_producto',
           'alp_productos.referencia_producto_sap as referencia_producto_sap',
+          'alp_productos.precio_base as precio_base',
           'alp_categorias.nombre_categoria as nombre_categoria',
           'alp_almacenes.nombre_almacen as nombre_almacen',
           'alp_ordenes.origen as origen',
