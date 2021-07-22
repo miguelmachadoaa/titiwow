@@ -380,10 +380,6 @@ class AlpCartController extends JoshController
           $role=RoleUser::select('role_id')->where('user_id', $user->id)->first();
 
         }
-
-
-       
-
       
       $id=$id/1024;
 
@@ -395,7 +391,6 @@ class AlpCartController extends JoshController
       ->where('alp_ordenes.id', $id)->first();
 
       if (isset($compra->id)) {
-
 
         $detalles =  DB::table('alp_ordenes_detalle')->select('alp_ordenes_detalle.*','alp_productos.nombre_producto as nombre_producto','alp_productos.referencia_producto as referencia_producto' ,'alp_productos.referencia_producto_sap as referencia_producto_sap' ,'alp_productos.imagen_producto as imagen_producto','alp_productos.slug as slug','alp_productos.presentacion_producto as presentacion_producto')
             ->join('alp_productos','alp_ordenes_detalle.id_producto' , '=', 'alp_productos.id')
