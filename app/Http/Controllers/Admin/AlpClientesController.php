@@ -2304,7 +2304,10 @@ private function getSaldo()
 
         $history=AlpAbonosDisponible::select('alp_abono_disponible.*', 'users.first_name as first_name', 'users.last_name as last_name')->join('users', 'alp_abono_disponible.id_cliente', '=', 'users.id')->where('id_cliente', $id)->get();
         
+        foreach($history as $h){
 
+          $h->json=json_decode($h->json);
+       }
 
 
         $user = User::findOrFail($id);

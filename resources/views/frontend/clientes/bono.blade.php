@@ -88,8 +88,6 @@ Area clientes
     
     <hr>
 
-
-        
         <div class="alert alert-default text-center">
 
             @if(isset($cliente))
@@ -139,6 +137,44 @@ Area clientes
             <div class="res">
                 
             </div>
+
+
+        </div>
+
+        <div class="col-xs-12">
+
+            <h3>Historico de Movimientos</h3>
+
+            <table class="table table-responsive" style="text-align: left">
+
+                <thead>
+                    <tr> <th>Movimiento</th>
+                        <th>Valor </th>
+                        <th>Fecha </th>
+                        <th>Detalle</th></tr>
+                   
+                </thead>
+                <tbody style="text-align: justify">
+                    @foreach($history as $h)
+                    <tr>
+                        <td>{{$h->origen}}</td>
+                        <td>{{$h->valor_abono}}</td>
+                        <td>{{$h->fecha_final}}</td>
+                        <td>
+                           @if(isset($h->json->referencia))
+                            Referencia Compra {{($h->json->referencia)}}
+                           @endif
+
+                           @if(isset($h->json->codigo_abono))
+                            Codigo Abono {{($h->json->codigo_abono)}}
+                           @endif
+                        
+                        </td>
+                    </tr>
+
+                    @endforeach
+                </tbody>
+            </table>
 
 
         </div>
