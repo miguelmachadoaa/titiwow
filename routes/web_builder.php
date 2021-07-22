@@ -1479,16 +1479,9 @@ Route::group(['prefix' => 'estatuspagos'], function () {
 
     Route::post('menus/create', 'Admin\AlpMenuController@store');
 
-
-
 });
 
-
-
-
 //Route::get('mercadopago', ['as'=>'frontend.mercadopago', 'uses'=>'Admin\AlpMercadoPagoController@mercadopago']);
-
-
 
 //carrito  del video 
 
@@ -1498,10 +1491,7 @@ Route::get('cart/add/{id}/{b?}/{c?}/{d?}/{e?}/{f?}/{g?}/{h?}/{i?}/{j?}', ['as'=>
 
 Route::get('cart/mercadopago', ['as'=>'cart.mercadopago', 'uses'=>'Admin\AlpCartController@mercadopago']);
 
-
 Route::get('cart/{id}/gracias', ['as'=>'cart.gracias', 'uses'=>'Admin\AlpCartController@gracias']);
-
-
 
 Route::get(    'order/detail',     [
         //'middleware'=>'auth', 

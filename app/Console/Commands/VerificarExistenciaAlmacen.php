@@ -106,8 +106,6 @@ class VerificarExistenciaAlmacen extends Command
 
         }
 
-        
-
             foreach ($datos as $dato ) {
 
               if ($dato->stock>0) {
