@@ -558,12 +558,34 @@ class AlpCartController extends JoshController
 
 
        
+        $dl_productos = array();
 
+          foreach($detalles as $c){
+
+            if(isset($c->id)){
+
+              $dl_p=array();
+
+              $dl_p['nombre_producto']=$c->nombre_producto;
+              $dl_p['presentacion_producto']=$c->presentacion_producto;
+              $dl_p['referencia_producto']=$c->referencia_producto;
+              $dl_p['referencia_producto_sap']=$c->referencia_producto_sap;
+              $dl_p['slug']=$c->slug;
+              $dl_p['precio_base']=$c->precio_base;
+              $dl_p['precio_oferta']=$c->precio_unitario;
+              $dl_p['cantidad']=$c->cantidad;
+
+              $dl_productos[]=$dl_p;
+            }
+            
+
+
+          }
 
 
           
 
-        return view('frontend.order.gracias', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago', 'payment', 'estatus_aviso', 'metodo', 'envio', 'envio_base', 'envio_impuesto', 'descuentos', 'descuentosIcg', 'cupo_icg', 'cupo_icg_total', 'porcentaje_icg'));
+        return view('frontend.order.gracias', compact('compra', 'detalles', 'fecha_entrega', 'states', 'aviso_pago', 'payment', 'estatus_aviso', 'metodo', 'envio', 'envio_base', 'envio_impuesto', 'descuentos', 'descuentosIcg', 'cupo_icg', 'cupo_icg_total', 'porcentaje_icg', 'dl_productos'));
 
 
         }else{
@@ -2763,18 +2785,37 @@ class AlpCartController extends JoshController
 
           $pagos=AlpPagos::select('alp_ordenes_pagos.*', 'alp_formas_pagos.nombre_forma_pago as nombre_forma_pago')->where('id_orden', $carrito)->join('alp_formas_pagos', 'alp_ordenes_pagos.id_forma_pago','=', 'alp_formas_pagos.id')->whereIn('id_estatus_pago', ['1', '2'])->get();
 
-         # $total_pagos=0;
 
-         /* foreach ($pagos as $pago) {
+          $dl_productos = array();
 
-            $total_pagos=$total_pagos+$pago->monto_pago;
+          foreach($cart as $c){
 
-          }*/
+            if(isset($c->id)){
 
-          //dd($cupo_credito_icg);
+              $dl_p=array();
+
+              $dl_p['nombre_producto']=$c->nombre_producto;
+              $dl_p['presentacion_producto']=$c->presentacion_producto;
+              $dl_p['referencia_producto']=$c->referencia_producto;
+              $dl_p['referencia_producto_sap']=$c->referencia_producto_sap;
+              $dl_p['slug']=$c->slug;
+              $dl_p['precio_base']=$c->precio_base;
+              $dl_p['precio_oferta']=$c->precio_oferta;
+              $dl_p['cantidad']=$c->cantidad;
+
+              $dl_productos[]=$dl_p;
+            }
+            
 
 
-          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos', 'total_descuentos', 'costo_envio', 'id_forma_envio', 'envio_base', 'envio_impuesto', 'express', 'saldo', 'user','role', 'url', 'cupo_icg', 'total_descuentos_icg', 'descuentosIcg', 'descuento_compra_icg','bono_disponible', 'pagos', 'total_pagos', 'almacen', 'cupo_credito_icg'));
+          }
+
+
+
+          
+
+
+          return view('frontend.order.detail', compact('cart', 'total', 'direcciones', 'formasenvio', 'formaspago', 'countries', 'configuracion', 'states', 'preference', 'inv', 'pagos', 'total_pagos', 'impuesto', 'payment_methods', 'pse', 'tdocumento', 'estructura', 'labelpagos', 'total_base', 'descuentos', 'total_descuentos', 'costo_envio', 'id_forma_envio', 'envio_base', 'envio_impuesto', 'express', 'saldo', 'user','role', 'url', 'cupo_icg', 'total_descuentos_icg', 'descuentosIcg', 'descuento_compra_icg','bono_disponible', 'pagos', 'total_pagos', 'almacen', 'cupo_credito_icg', 'dl_productos'));
 
           
          }

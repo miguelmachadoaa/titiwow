@@ -898,9 +898,6 @@
 
 @include('frontend.includes.newcart')
 
-
-
-    
 @stop
 {{-- footer scripts --}}
 @section('footer_scripts')

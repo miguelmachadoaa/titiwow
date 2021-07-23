@@ -453,8 +453,6 @@ class VerificarPagos extends Command
                  }
 
 
-
-
                  foreach ($detalles as $d ) {
 
                    if ($d->tipo_producto=='4') {
