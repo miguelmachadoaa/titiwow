@@ -924,8 +924,6 @@ class AlpAlmacenesController extends JoshController
 
         Excel::import(new AlmacenImport, $archivo);
         
-
-       
        
         return Redirect::route('admin.almacenes.index')->with('success', trans('Se ha creado satisfactoriamente'));
     }
