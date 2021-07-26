@@ -918,7 +918,7 @@ class AlpAlmacenesController extends JoshController
 
         \Session::put('almacen', $id);
         
-        \Session::put('inventario', $this->inventario());
+        \Session::put('inventario', []);
 
         \Session::put('cities', $request->cities);
 
