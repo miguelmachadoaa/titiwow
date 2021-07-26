@@ -399,6 +399,15 @@
             name=$(this).data('name');
 
 
+            dataLayer.push({
+            'nombre': name,
+            'imagen': pimagen,
+            'precio': price,
+            'slug': slug,
+            'event': 'addtocart'
+            });
+
+
             $('.boton_'+id+'').html('<img style="max-width:32px; max-height:32px;" src="'+imagen+'">');
 
             $.post(base+'/cart/agregar', {price, slug, datasingle}, function(data) {

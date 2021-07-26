@@ -1850,7 +1850,15 @@ class ClientesFrontController extends Controller
 
              $history=AlpAbonosDisponible::select('alp_abono_disponible.*', 'users.first_name as first_name', 'users.last_name as last_name')->join('users', 'alp_abono_disponible.id_cliente', '=', 'users.id')->where('id_cliente', $user_id)->get();
 
-            return \View::make('frontend.clientes.bono', compact( 'cliente', 'user', 'states', 'cart', 'puntos', 'role', 'disponible', 'history'));
+             foreach($history as $h){
+
+                $h->json=json_decode($h->json);
+             }
+
+
+          #   dd($history);
+            
+             return \View::make('frontend.clientes.bono', compact( 'cliente', 'user', 'states', 'cart', 'puntos', 'role', 'disponible', 'history'));
     
             }else{
 

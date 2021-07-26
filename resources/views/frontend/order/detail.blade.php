@@ -447,7 +447,7 @@ div.overlay > div {
 
   
 
-
+{{json_encode($dl_productos)}}
 
 
 
@@ -462,7 +462,19 @@ div.overlay > div {
     <script src="{{ secure_asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
 
 
+    <script>
 
+        window.dataLayer = window.dataLayer || [];
+
+        window.dataLayer.push({
+        'event': 'checkout',
+        'total': '{{ $total }}',
+        'productos':{!!json_encode($dl_productos)!!}
+        });
+    
+
+
+</script>
 
 
     <script>
@@ -1763,15 +1775,12 @@ $('#addDireccionForm').keypress(
 
 @section('footer_scripts')
 
-<script>
-
-    
-    
-    
 
 
-</script>
+<!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5HPJTZ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
    
-    
 @stop

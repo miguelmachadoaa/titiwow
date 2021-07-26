@@ -295,6 +295,24 @@ Carrito de Compras
 </div>
 @endsection
 
+
+
+<script>
+
+    window.dataLayer = window.dataLayer || [];
+
+    window.dataLayer.push({
+    'event': 'gracias',
+    'total': '{{ $compra->monto_total }}',
+    'forma_envios': '{{ $compra->nombre_forma_envios }}',
+    'forma_pago': '{{ $compra->nombre_forma_pago }}',
+    'productos':{!!json_encode($dl_productos)!!}
+    });
+
+
+
+</script>
+
 {{-- page level scripts --}}
 @section('footer_scripts')
     <script src="{{ secure_asset('assets/vendors/wow/js/wow.min.js') }}" type="text/javascript"></script>
