@@ -135,6 +135,7 @@ Ticket
                 
             var table =$('#table').DataTable( {
                 "processing": true,
+                "order": [[ 0, "desc" ]],
                 "ajax": {
                     "url": base+'/admin/ticket/data'
                 }
