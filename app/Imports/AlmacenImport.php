@@ -50,7 +50,7 @@ class AlmacenImport implements ToCollection
 
                         AlpAlmacenProducto::create($data);
 
-                           AlpInventario::where('id_producto', '=', $p->id)->where('id_almacen', '=', $almacen)->delete();
+                        AlpInventario::where('id_producto', '=', $p->id)->where('id_almacen', '=', $almacen)->delete();
 
                             $data_inventario_nuevo = array(
                                 'id_almacen' => $almacen, 
@@ -62,9 +62,6 @@ class AlmacenImport implements ToCollection
                             );
 
                             AlpInventario::create($data_inventario_nuevo);
-
-
-
 
                     }
 

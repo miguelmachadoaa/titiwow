@@ -132,7 +132,6 @@
         @endif
 
 
-       
 
         @if(count($destacados))
 
@@ -145,14 +144,15 @@
         @php $j=0; @endphp
 
 
+
             @foreach($destacados as $producto)
 
                 @if($producto->tipo_producto=='1' || $producto->tipo_producto=='3' || $producto->tipo_producto=='4')
 
 
-                    @if(isset($inventario[$producto->id]))
+                    @if(isset($inventario[$producto->id]) || $configuracion->mostrar_agotados=='1')
 
-                        @if($inventario[$producto->id]>0)
+                        @if($inventario[$producto->id]>0 || $configuracion->mostrar_agotados=='1')
 
                             @if($producto->precio_oferta>0)
 
@@ -213,6 +213,7 @@
              <h1 style="font-size: 24px; color: #241F48; margin-bottom: 15px; font-weight: 500;  font-family: 'AlpinaSans Semibold';" class="subtitulo"> {{$categoria->seo_titulo}}</h1>
 
 
+
         @if(!$productos->isEmpty())
 
         @php $i=0; @endphp
@@ -223,11 +224,7 @@
                 @if($producto->tipo_producto=='1' || $producto->tipo_producto=='3' || $producto->tipo_producto=='4')
 
 
-                    @if(isset($inventario[$producto->id]))
-
-                        @if($inventario[$producto->id]>0)
-
-                        @if($producto->precio_oferta>0)
+                    @if($configuracion->mostrar_agotados=='1')
 
                             @php $i++; @endphp
 
@@ -238,17 +235,35 @@
                                     </div>
                                     <div class="row">
                                 @endif
-                        @endif
 
+                    @else
+
+                        @if(isset($inventario[$producto->id]))
+
+
+                            @if($inventario[$producto->id]>0)
+
+                                @php $i++; @endphp
+
+                                @include('frontend.producto')
+
+
+                                    @if ($i % 4 == 0)
+                                        </div>
+                                        <div class="row">
+                                    @endif
+
+                            @endif
+                        
                         @endif
 
                     @endif
 
                 @else
 
-                   @if(isset($combos[$producto->id]))
+                   @if(isset($combos[$producto->id]) || $configuracion->mostrar_agotados=='1')
 
-                        @if($combos[$producto->id])
+                        @if($combos[$producto->id] || $configuracion->mostrar_agotados=='1')
 
                         @if($producto->precio_oferta>0)
 

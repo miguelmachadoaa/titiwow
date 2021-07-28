@@ -30,12 +30,15 @@
                     <h4>Categorías </h4>
                     <p>
                         <ul id="menu-categorias" class="menu_footer">
+
+                        @if(isset($footermenu))
                         @foreach ($footermenu as $key => $item)
                             @if ($item['parent'] != 0)
                                 @break
                             @endif
                             @include('layouts.menu-sidebar', ['item' => $item])
                         @endforeach
+                        @endif
                         </ul>
                     </p>
                 </div>

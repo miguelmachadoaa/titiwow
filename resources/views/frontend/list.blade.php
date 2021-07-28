@@ -82,6 +82,9 @@ Productos @parent
                     </div>
                 </div>
             </div>
+
+
+          
             <div class="col-md-9">
                 @if(count($leche)>0)
                     
@@ -92,9 +95,8 @@ Productos @parent
                 @if($producto->tipo_producto=='1' || $producto->tipo_producto=='3' || $producto->tipo_producto=='4')
 
 
-                    @if(isset($inventario[$producto->id]))
+                    @if(isset($inventario[$producto->id]) || $configuracion->mostrar_agotados=='1')
 
-                        @if($inventario[$producto->id]>0)
 
                             @php $i++; @endphp
 
@@ -106,7 +108,6 @@ Productos @parent
                                     <div class="row">
                                 @endif
 
-                        @endif
 
                     @endif
 
