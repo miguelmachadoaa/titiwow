@@ -772,7 +772,7 @@ Orden {{$orden->id}}
                             @if($row->id_impuesto == 1)
                             <td>IVA</td>
                             @else
-                            <td>Excento</td>
+                            <td>Exento</td>
                             @endif
                             
                             @if($row->id_impuesto == 1)

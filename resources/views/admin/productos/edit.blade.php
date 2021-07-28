@@ -649,6 +649,11 @@
                                                 
 
                                             </div>
+                                            <div class="col-sm-12">
+                                                    <div class="alert alert-danger">
+                                                        <strong>Importante:</strong> El Campo Slug/ SEO URL debe estar formateado de la manera correcta (Ejemplo: nombre-del-producto), no se permiten Acentos, Caracteres Especiales (únicamente se permite el guion), Espacios en Blanco o Mayúsculas, el omitir esta instrucción pondrá el riesgo el buen funcionamiento de la aplicación.
+                                                    </div>
+                                            </div>
 
                                             <div class="col-sm-12">
                                                 

@@ -117,6 +117,8 @@ class AlpTicketController extends JoshController
         ->join('alp_departamento', 'alp_ticket.departamento', '=', 'alp_departamento.id')
         ->join('alp_urgencia', 'alp_ticket.urgencia', '=', 'alp_urgencia.id')
         ->join('users', 'alp_ticket.id_user', '=', 'users.id')
+        ->orderBy('alp_ticket.id', 'desc')
+        ->limit(1000)
         ->get();
          
         $data = array();
